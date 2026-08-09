@@ -20,6 +20,8 @@ from .semantic import (
     stable_semantic_object_id,
     validate_commercial_semantic_object,
 )
+from .vendor_bridge import commercial_semantic_object_for_vendor_rfq
+from .workflow_bridge import commercial_semantic_object_from_product_workflow
 
 __all__ = [
     "ACT_CONTRACTS",
@@ -28,8 +30,10 @@ __all__ = [
     "COMMERCIAL_SEMANTIC_OBJECT_SCHEMA",
     "CommunicativeAct",
     "assert_valid_commercial_semantic_object",
+    "commercial_semantic_object_for_vendor_rfq",
     "commercial_semantic_object_from_lead",
     "commercial_semantic_object_from_nichefoundry",
+    "commercial_semantic_object_from_product_workflow",
     "commercial_semantic_object_from_prospect_target",
     "expression_contract",
     "market_signal",
