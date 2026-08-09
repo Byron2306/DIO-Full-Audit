@@ -12,6 +12,19 @@ JOURNAL_SCHEMA = "dio.presence_turn_journal.v1"
 MAX_JOURNAL_TURNS = 40
 
 
+def incoming_provider_message_id(envelope: dict[str, Any]) -> str | None:
+    metadata = envelope.get("metadata") or {}
+    candidates = (
+        envelope.get("source_message_id"),
+        metadata.get("source_message_id"),
+        metadata.get("telegram_message_id"),
+        metadata.get("provider_message_id"),
+        metadata.get("update_id"),
+    )
+    value = next((str(item).strip() for item in candidates if str(item or "").strip()), "")
+    return value or None
+
+
 def _journal_path(presence_root: Path, conversation_id: str) -> Path:
     safe = "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in str(conversation_id))[:140]
     return presence_root / "conversation_turns" / f"{safe}.json"
