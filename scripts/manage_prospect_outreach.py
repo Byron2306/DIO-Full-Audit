@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import csv
-import html
 import io
 import json
 import re
@@ -11,8 +10,9 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-from scripts.dio_mail_branding import MAIN_SITE, branded_email, product_profile
 from scripts.build_operator_dashboard import utc_now, write_json
+from scripts.commercial_language import prospect_consent_context, render_consent_request
+from scripts.dio_mail_branding import MAIN_SITE, branded_email, product_profile
 from scripts.manage_mail_intent import create_intent_from_payload, emit_event
 from scripts.sync_outlook_mail import GraphClient, create_outlook_draft, load_config
 
@@ -33,59 +33,74 @@ PRODUCT_PROOF = {
     "HOMS_ASSESS": {
         "label": "HOMS Assessment Desk",
         "eyebrow": "CONTROLLED ASSESSMENT PILOT",
-        "headline": "One subject. One grade. One reviewable proof.",
-        "accent": "#176B5B",
-        "soft": "#EAF5F1",
+        "headline": "One subject. One grade. One proof you can inspect.",
         "items": ["CAPS-aware brief", "Paper + memo/rubric", "Educator approval"],
+        "product_key": "homs",
+        "proof_summary": "the assessment proof shows the brief, generated paper, memo or rubric, and the educator approval point",
     },
     "HOMS_LEARN": {
         "label": "HOMS Learning Studio",
         "eyebrow": "CONTROLLED LEARNING-MATERIAL PILOT",
-        "headline": "One curriculum spine, prepared for human review.",
-        "accent": "#176B5B",
-        "soft": "#EAF5F1",
+        "headline": "One curriculum spine, carried through the whole pack.",
         "items": ["Term-aware content", "Worksheet or lesson", "Educator approval"],
+        "product_key": "homs_learning",
+        "proof_summary": "the learning proof connects the curriculum topic to the guide, activity, assessment and educator review point",
     },
     "SOPHIA_LEARN": {
         "label": "HOMS Learning Studio",
         "eyebrow": "CONTROLLED LEARNING-MATERIAL PILOT",
-        "headline": "One curriculum spine, prepared for human review.",
-        "accent": "#176B5B",
-        "soft": "#EAF5F1",
+        "headline": "One curriculum spine, carried through the whole pack.",
         "items": ["Term-aware guide", "Practice and assessment", "Educator approval"],
+        "product_key": "homs_learning",
+        "proof_summary": "the learning proof connects the curriculum topic to the guide, practice, assessment and educator review point",
     },
     "SOPHIA_REVIEW": {
         "label": "Sophia Academic Review",
         "eyebrow": "ACADEMIC REVIEW PROOF",
-        "headline": "Claims, references and reviewer notes made inspectable.",
-        "accent": "#8B3D63",
-        "soft": "#F8ECF2",
-        "items": ["Reference checks", "Claim mapping", "Human reviewer authority"],
+        "headline": "See exactly what the review flags and why.",
+        "items": ["Reference checks", "Claim mapping", "Reviewer commentary"],
+        "product_key": "sophia",
+        "proof_summary": "the review proof separates reference problems, claim-to-source fit and reviewer commentary without rewriting the author's work",
     },
     "EVIDEX": {
         "label": "Evidex Evidence Packs",
         "eyebrow": "EVIDENCE-PACK PROOF",
-        "headline": "Messy evidence, mapped into a defensible pack.",
-        "accent": "#245B78",
-        "soft": "#EAF2F7",
+        "headline": "From scattered evidence to a pack you can defend.",
         "items": ["Evidence table", "Mapped claims", "Review trail"],
+        "product_key": "evidex",
+        "proof_summary": "the evidence proof shows source files becoming an evidence table, mapped claims, visible gaps and a final review trail",
     },
     "EVIDEX_PACK": {
         "label": "Evidex Evidence Packs",
         "eyebrow": "EVIDENCE-PACK PROOF",
-        "headline": "Messy evidence, mapped into a defensible pack.",
-        "accent": "#245B78",
-        "soft": "#EAF2F7",
+        "headline": "From scattered evidence to a pack you can defend.",
         "items": ["Evidence table", "Mapped claims", "Review trail"],
         "product_key": "evidex",
+        "proof_summary": "the evidence proof shows source files becoming an evidence table, mapped claims, visible gaps and a final review trail",
     },
     "VAMP": {
         "label": "VAMP Evidence Snapshot",
         "eyebrow": "PERFORMANCE-EVIDENCE PROOF",
-        "headline": "Existing work evidence, mapped before review day.",
-        "accent": "#6A4B2E",
-        "soft": "#F4EFE9",
-        "items": ["Criteria mapping", "Gap visibility", "Human acceptance"],
+        "headline": "Know what evidence you have before review day.",
+        "items": ["Objective mapping", "Gap visibility", "Human acceptance"],
+        "product_key": "vamp",
+        "proof_summary": "the performance proof maps existing evidence to objectives, shows gaps and leaves acceptance and ratings with the authorised reviewer",
+    },
+    "VAMP_ACADEMIC": {
+        "label": "VAMP Evidence Snapshot",
+        "eyebrow": "PERFORMANCE-EVIDENCE PROOF",
+        "headline": "Know what evidence you have before review day.",
+        "items": ["Objective mapping", "Gap visibility", "Human acceptance"],
+        "product_key": "vamp",
+        "proof_summary": "the performance proof maps existing evidence to objectives, shows gaps and leaves acceptance and ratings with the authorised reviewer",
+    },
+    "DOCUMENT_STUDIO": {
+        "label": "DIO Document Studio",
+        "eyebrow": "CONTROLLED DOCUMENT PILOT",
+        "headline": "See every important edit, term and translation decision.",
+        "items": ["Clean copy", "Visible change trail", "Human language review"],
+        "product_key": "document_studio",
+        "proof_summary": "the document proof shows the clean copy, visible edits, terminology controls and the human language-review boundary",
     },
 }
 
@@ -120,10 +135,10 @@ def proof_profile(target: dict[str, str]) -> dict[str, Any]:
     return {
         "label": product,
         "eyebrow": "CONTROLLED PROFESSIONAL PILOT",
-        "headline": "A bounded proof, prepared for human review.",
-        "accent": "#245B78",
-        "soft": "#EAF2F7",
-        "items": ["Bounded input", "Reviewable output", "Human authority"],
+        "headline": "See the real work before deciding on a pilot.",
+        "items": ["Source input", "Concrete output", "Professional review"],
+        "product_key": "dio",
+        "proof_summary": "the proof shows the original input, the produced work and the point where professional review remains required",
     }
 
 
@@ -132,43 +147,31 @@ def _reply_link(subject: str, body: str) -> str:
 
 
 def message_for(target: dict[str, str]) -> tuple[str, str, str]:
-    organisation = target["organisation"]
     profile = proof_profile(target)
     product = profile["label"]
-    product_key = profile.get("product_key") or {
-        "HOMS_ASSESS": "homs",
-        "HOMS_LEARN": "homs_learning",
-        "SOPHIA_LEARN": "sophia",
-        "SOPHIA_REVIEW": "sophia",
-        "EVIDEX": "evidex",
-        "EVIDEX_PACK": "evidex",
-        "VAMP": "vamp",
-        "VAMP_ACADEMIC": "vamp",
-        "DOCUMENT_STUDIO": "document_studio",
-    }.get(target.get("product_line_id") or "", "dio")
+    product_key = profile["product_key"]
     product_url = product_profile(product_key)["url"]
-    subject = f"May I send {organisation} a {product} proof example?"
-    offer = target.get("primary_offer") or "a bounded, controlled pilot"
-    body = f"""Hello {organisation} team,
+    context = prospect_consent_context(
+        target,
+        product_name=product,
+        proof_summary=str(target.get("proof_summary") or profile["proof_summary"]),
+    )
+    rendered = render_consent_request(context)
+    organisation = context.organisation or "your organisation"
 
-I am Byron Bunt from DIO Workflows. I build governed workflow products for evidence packs, assessment work, academic review, performance evidence and document production.
+    identity = "I am Byron Bunt from DIO Workflows. I am testing this as a small professional service, not asking you to buy software or book a sales call."
+    plain_paragraphs = [rendered["intro"], identity, *rendered["body"]]
+    body = "\n\n".join(
+        [
+            rendered["greeting"],
+            *plain_paragraphs,
+            f"DIO Workflows: {MAIN_SITE}\n{product}: {product_url}",
+            "If you are happy to receive the example, reply YES. If not, reply NO and I will record that preference.",
+            "This is a once-off consent request. This address will not be added to a mailing list and no further marketing message will be sent without consent.",
+            "Regards,\nByron Bunt\nDIO Workflows\ndio_workflows@outlook.com",
+        ]
+    ) + "\n"
 
-I am writing once to the public organisational route listed for partnership or programme enquiries to ask for permission to send a short {product} proof example.
-
-The example shows {offer.lower()} with a bounded input, a reviewable output and an explicit human approval point. It is designed to be understood quickly by a programme, academic, compliance or operations decision-maker.
-
-DIO Workflows: {MAIN_SITE}
-{product}: {product_url}
-
-If this is relevant, reply YES and I will send the proof example. If it is not relevant, reply NO and I will record that preference. You may also indicate a preferred contact method.
-
-This is a once-off consent request. This address will not be added to a mailing list and no further marketing message will be sent without consent.
-
-Regards,
-Byron Bunt
-DIO Workflows
-dio_workflows@outlook.com
-"""
     yes_url = _reply_link(
         f"YES - {product} proof example",
         f"YES, {organisation} consents to receive one {product} proof example by email.\n\nPreferred contact method: Email",
@@ -181,13 +184,9 @@ dio_workflows@outlook.com
         product=product_key,
         eyebrow=profile["eyebrow"],
         headline=profile["headline"],
-        greeting=f"Hello {organisation} team,",
-        intro="DIO Workflows prepares professional workflow outputs that are bounded, reviewable and commercially usable.",
-        body=[
-            "I am Byron Bunt from DIO Workflows. I am writing once to your public partnership or programme route to ask permission to send a short proof example.",
-            f"The example shows {offer.lower()}, with a bounded input, a reviewable output and an explicit human approval point.",
-            "If it is useful, reply YES and I will send the proof. If not, reply NO and I will record that preference.",
-        ],
+        greeting=rendered["greeting"],
+        intro=rendered["intro"],
+        body=[identity, *rendered["body"]],
         bullets=profile["items"],
         cta_label="YES, send the proof",
         cta_url=yes_url,
@@ -198,7 +197,7 @@ dio_workflows@outlook.com
             "or send further marketing without consent. Reply NO at any time to record that communications must cease."
         ),
     )
-    return subject, body, body_html
+    return rendered["subject"], body, body_html
 
 
 def write_preview(target_id: str, body_html: str) -> Path:
@@ -258,13 +257,20 @@ def prepare_outlook_draft(target_id: str, actor: str, route_confirmed: bool) -> 
         "mail_intent_id": intent["mail_intent_id"],
         "provider_draft_id": draft.get("provider_draft_id"),
         "email_preview": str(preview_path),
-        "creative_state": "proof_card_ready",
+        "creative_state": "commercial_context_v1",
         "consent_mode": "once_off_request",
         "state": "outlook_draft_ready",
         "created_at": utc_now(),
     }
     write_json(state_path, state)
-    emit_event(EVENT_LOG, "prospect.outlook_draft_ready", "action", "prospect", target_id, {"mail_intent_id": intent["mail_intent_id"], "organisation": target["organisation"]})
+    emit_event(
+        EVENT_LOG,
+        "prospect.outlook_draft_ready",
+        "action",
+        "prospect",
+        target_id,
+        {"mail_intent_id": intent["mail_intent_id"], "organisation": target["organisation"], "copy_engine": "dio.commercial.message_context.v1"},
+    )
     return state
 
 
@@ -302,7 +308,7 @@ def upgrade_outlook_draft(target_id: str, actor: str) -> dict[str, Any]:
     state.update(
         {
             "email_preview": str(preview_path),
-            "creative_state": "proof_card_ready",
+            "creative_state": "commercial_context_v1",
             "consent_mode": "once_off_request",
             "draft_upgraded_at": utc_now(),
             "draft_upgraded_by": actor,
@@ -315,6 +321,6 @@ def upgrade_outlook_draft(target_id: str, actor: str) -> dict[str, Any]:
         "info",
         "prospect",
         target_id,
-        {"mail_intent_id": mail_intent_id, "creative_state": "proof_card_ready", "consent_mode": "once_off_request"},
+        {"mail_intent_id": mail_intent_id, "creative_state": "commercial_context_v1", "consent_mode": "once_off_request"},
     )
     return state
