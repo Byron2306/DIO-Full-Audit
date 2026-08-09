@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio.conversation_context.v1.schema.json",
+  "title": "DIO Conversation Context v1",
+  "description": "Cross-channel message context that may shape expression but cannot establish commercial truth, consent, scope, budget, identity, payment state or execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "context_id",
+    "conversation_id",
+    "channel",
+    "created_at",
+    "updated_at",
+    "source_refs",
+    "thread",
+    "observations",
+    "interpretation",
+    "authority",
+    "turns"
+  ],
+  "properties": {
+    "schema": {"const": "dio.conversation_context.v1"},
+    "context_id": {"type": "string", "pattern": "^CTX-[A-F0-9]{20}$"},
+    "conversation_id": {"type": "string", "minLength": 1},
+    "channel": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 1},
+    "updated_at": {"type": "string", "minLength": 1},
+    "source_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "thread": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "turn_count", "external_turn_count", "inbound_received", "outbound_sent", "outbound_prepared", "last_inbound_at", "last_outbound_sent_at"],
+      "properties": {
+        "state": {"enum": ["no_external_turns", "awaiting_dio_response", "waiting_on_external"]},
+        "turn_count": {"type": "integer", "minimum": 0},
+        "external_turn_count": {"type": "integer", "minimum": 0},
+        "inbound_received": {"type": "integer", "minimum": 0},
+        "outbound_sent": {"type": "integer", "minimum": 0},
+        "outbound_prepared": {"type": "integer", "minimum": 0},
+        "last_inbound_at": {"type": ["string", "null"]},
+        "last_outbound_sent_at": {"type": ["string", "null"]}
+      }
+    },
+    "observations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questions", "open_questions", "requested_actions", "last_requested_action", "latest_inbound_excerpt"],
+      "properties": {
+        "questions": {"$ref": "#/$defs/observations"},
+        "open_questions": {"$ref": "#/$defs/observations"},
+        "requested_actions": {"$ref": "#/$defs/observations"},
+        "last_requested_action": {"oneOf": [{"$ref": "#/$defs/observation"}, {"type": "null"}]},
+        "latest_inbound_excerpt": {"oneOf": [{"$ref": "#/$defs/observation"}, {"type": "null"}]}
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tone", "style_hints"],
+      "properties": {
+        "tone": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["labels", "state", "method", "source_refs"],
+          "properties": {
+            "labels": {"type": "array", "items": {"type": "string", "minLength": 1}},
+            "state": {"const": "derived"},
+            "method": {"const": "bounded_lexical_tone_v1"},
+            "source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "style_hints": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "may_shape_expression",
+        "may_select_response_order",
+        "may_surface_message_questions",
+        "may_establish_commercial_fact",
+        "may_grant_consent",
+        "may_set_scope",
+        "may_set_budget",
+        "may_set_payment_state",
+        "may_confirm_identity",
+        "may_grant_execution_authority"
+      ],
+      "properties": {
+        "may_shape_expression": {"const": true},
+        "may_select_response_order": {"const": true},
+        "may_surface_message_questions": {"const": true},
+        "may_establish_commercial_fact": {"const": false},
+        "may_grant_consent": {"const": false},
+        "may_set_scope": {"const": false},
+        "may_set_budget": {"const": false},
+        "may_set_payment_state": {"const": false},
+        "may_confirm_identity": {"const": false},
+        "may_grant_execution_authority": {"const": false}
+      }
+    },
+    "turns": {
+      "type": "array",
+      "maxItems": 40,
+      "items": {"$ref": "#/$defs/turn"}
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "required": ["text", "source_ref", "observed_at", "state"],
+      "properties": {
+        "text": {"type": "string", "minLength": 1, "maxLength": 360},
+        "source_ref": {"type": "string", "minLength": 1},
+        "observed_at": {"type": "string", "minLength": 1},
+        "state": {"const": "observed_message_text"},
+        "resolution_state": {"type": "string"}
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/observation"}
+    },
+    "turn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_ref", "direction", "delivery_state", "observed_at", "text", "actor_role"],
+      "properties": {
+        "source_ref": {"type": "string", "minLength": 1},
+        "direction": {"enum": ["inbound", "outbound"]},
+        "delivery_state": {"enum": ["received", "sent", "prepared"]},
+        "observed_at": {"type": "string", "minLength": 1},
+        "text": {"type": "string", "minLength": 1, "maxLength": 4000},
+        "actor_role": {"type": "string", "minLength": 1, "maxLength": 80}
+      }
+    }
+  }
+}
