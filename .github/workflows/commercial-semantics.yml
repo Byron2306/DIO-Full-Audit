@@ -85,4 +85,5 @@ jobs:
             tests.test_conversation_context_reconciliation \
             tests.test_conversation_context_schema \
             tests.test_semantic_judgement \
-            tests.test_semantic_judgement_outlook_gate
+            tests.test_semantic_judgement_outlook_gate \
+            tests.test_semantic_judgement_idempotence
