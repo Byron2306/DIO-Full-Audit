@@ -93,6 +93,7 @@ if (!pack) fail(`NicheFoundry studio '${studioId}' is not installed.`);
 
 const source = readJson(inputPath);
 const sanitization = sanitizeOpportunity(source);
+writeJson(inputPath, sanitization.sanitized);
 const scored = scoreOpportunity(pack, sanitization.sanitized, { source: 'dio_registry_hivenance_bridge' });
 scored.signal_evidence = sanitization.sanitized.signal_evidence || {};
 const audienceFit = scoreAudienceEpisodeFit(pack, {
