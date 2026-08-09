@@ -1,0 +1,329 @@
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+from typing import Any, Iterable
+
+
+RELATIONSHIP_STAGES = {
+    "cold_consent",
+    "inbound_acknowledgement",
+    "inbound_reply",
+    "qualified_lead",
+    "pilot_invitation",
+    "follow_up",
+    "payment",
+    "delivery",
+    "public_awareness",
+    "public_consideration",
+}
+
+PROOF_GRADES = {"technical", "controlled_transaction", "external_market"}
+
+INTERNAL_JARGON = {
+    "bounded",
+    "governed",
+    "reviewable",
+    "human authority",
+    "workflow product",
+    "proof-led",
+}
+
+
+@dataclass(frozen=True)
+class CommercialMessageContext:
+    product_id: str
+    product_name: str
+    offer: str
+    relationship_stage: str
+    channel: str
+    audience_name: str = ""
+    buyer_role: str = ""
+    user_role: str = ""
+    organisation: str = ""
+    organisation_type: str = ""
+    problem: str = ""
+    trigger: str = ""
+    stakes: str = ""
+    current_workaround: str = ""
+    desired_outcome: str = ""
+    proof_summary: str = ""
+    proof_grade: str = "technical"
+    cta: str = ""
+    source_refs: tuple[str, ...] = field(default_factory=tuple)
+    prohibited_claims: tuple[str, ...] = field(default_factory=tuple)
+    personalisation_allowed: bool = False
+
+    def __post_init__(self) -> None:
+        if self.relationship_stage not in RELATIONSHIP_STAGES:
+            raise ValueError(f"Unsupported relationship stage: {self.relationship_stage}")
+        if self.proof_grade not in PROOF_GRADES:
+            raise ValueError(f"Unsupported proof grade: {self.proof_grade}")
+
+
+def _clean(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "")).strip()
+
+
+def _sentence(value: str) -> str:
+    value = _clean(value)
+    if not value:
+        return ""
+    return value if value[-1] in ".?!" else value + "."
+
+
+def _first_clause(value: str, limit: int = 145) -> str:
+    value = _clean(value)
+    if len(value) <= limit:
+        return value
+    shortened = value[:limit].rsplit(" ", 1)[0]
+    return shortened.rstrip(" ,;:") + "…"
+
+
+def proof_language(context: CommercialMessageContext) -> str:
+    summary = _sentence(context.proof_summary)
+    if not summary:
+        return ""
+    if context.proof_grade == "external_market":
+        return summary
+    if context.proof_grade == "controlled_transaction":
+        return f"In a controlled transaction proof, {summary[0].lower() + summary[1:]}"
+    return f"In the current technical proof, {summary[0].lower() + summary[1:]}"
+
+
+def public_message_context(product: dict[str, Any], audience: dict[str, Any], channel: str) -> CommercialMessageContext:
+    return CommercialMessageContext(
+        product_id=_clean(product.get("id")),
+        product_name=_clean(product.get("name") or product.get("short_name")),
+        offer=_clean(product.get("offer")),
+        relationship_stage="public_awareness",
+        channel=channel,
+        audience_name=_clean(audience.get("name")),
+        buyer_role=_clean(audience.get("buyer_role") or audience.get("name")),
+        user_role=_clean(audience.get("user_role")),
+        organisation_type=_clean(audience.get("organisation_type")),
+        problem=_clean(audience.get("pain")),
+        trigger=_clean(audience.get("trigger")),
+        stakes=_clean(audience.get("stakes")),
+        current_workaround=_clean(audience.get("current_workaround")),
+        desired_outcome=_clean(audience.get("outcome")),
+        proof_summary=_clean(product.get("proof")),
+        proof_grade=_clean(product.get("proof_grade") or "technical"),
+        cta=_clean(product.get("cta")),
+        prohibited_claims=tuple(product.get("prohibited_claims") or ()),
+    )
+
+
+def prospect_consent_context(
+    target: dict[str, Any],
+    *,
+    product_name: str,
+    proof_summary: str,
+    cta: str = "Reply YES and I will send the proof example.",
+) -> CommercialMessageContext:
+    buyer_unit = _clean(target.get("buyer_unit"))
+    audience = _clean(target.get("segment") or buyer_unit or "professional team")
+    problem = _clean(
+        target.get("workflow_pain")
+        or target.get("pain")
+        or target.get("problem")
+        or target.get("primary_problem")
+    )
+    desired = _clean(target.get("desired_outcome") or target.get("outcome") or target.get("primary_offer"))
+    return CommercialMessageContext(
+        product_id=_clean(target.get("product_line_id")),
+        product_name=product_name,
+        offer=_clean(target.get("primary_offer") or "controlled pilot"),
+        relationship_stage="cold_consent",
+        channel="email",
+        audience_name=audience,
+        buyer_role=buyer_unit,
+        organisation=_clean(target.get("organisation")),
+        organisation_type=_clean(target.get("segment")),
+        problem=problem,
+        trigger=_clean(target.get("seasonal_trigger")),
+        stakes=_clean(target.get("seasonal_urgency")),
+        desired_outcome=desired,
+        proof_summary=proof_summary,
+        proof_grade="technical",
+        cta=cta,
+        source_refs=tuple(filter(None, [_clean(target.get("contact_source")), _clean(target.get("target_id"))])),
+        personalisation_allowed=True,
+    )
+
+
+def render_consent_request(context: CommercialMessageContext) -> dict[str, Any]:
+    if context.relationship_stage != "cold_consent":
+        raise ValueError("Consent renderer requires cold_consent stage.")
+
+    organisation = context.organisation or "your team"
+    product = context.product_name
+    buyer = context.buyer_role or context.audience_name
+    subject = f"Permission to send a {product} proof for {organisation}"
+
+    opening_parts: list[str] = []
+    if buyer:
+        opening_parts.append(f"I am contacting the public route for {buyer} because the fit is specific")
+    else:
+        opening_parts.append("I am contacting this public organisational route because the fit is specific")
+    if context.problem:
+        opening_parts.append(_first_clause(context.problem).rstrip("."))
+    else:
+        opening_parts.append(f"{product} addresses a recurring professional workload")
+    opening = ": ".join(opening_parts[:2]) + "."
+
+    proof = proof_language(context)
+    if not proof:
+        proof = f"The example shows one concrete {product} output and the point where a professional reviews it before release."
+
+    paragraphs = [
+        opening,
+        f"Rather than ask for a meeting, may I send one short {product} proof example?",
+        proof,
+        "If it looks relevant after that, we can discuss one small pilot. If not, a NO reply is enough and I will record the preference.",
+    ]
+    return {
+        "subject": subject,
+        "greeting": f"Hello {organisation} team,",
+        "intro": paragraphs[0],
+        "body": paragraphs[1:],
+        "cta": context.cta or "Reply YES and I will send the proof example.",
+        "stage": context.relationship_stage,
+    }
+
+
+def render_public_channel_copy(context: CommercialMessageContext, channel_id: str, *, short_name: str = "") -> dict[str, Any]:
+    name = short_name or context.product_name
+    problem = _sentence(context.problem) or f"A recurring professional task is consuming time that should go to judgement and decisions."
+    outcome = _clean(context.desired_outcome) or f"A prepared {context.offer or 'first pass'} ready for professional review"
+    proof = proof_language(context)
+    cta = context.cta or "See the proof"
+
+    if channel_id == "LINKEDIN_ORGANIC":
+        return {
+            "headline": _first_clause(outcome, 70),
+            "body": _first_clause(f"{problem} {proof or (name + ' prepares a concrete first pass for review.')} {cta}", 150),
+            "cta": cta,
+            "angle": "specific problem to proof",
+        }
+    if channel_id == "FACEBOOK_PAGE":
+        return {
+            "headline": _first_clause(outcome, 40),
+            "body": _first_clause(f"{problem} See what {name} produces before deciding whether a pilot is worth it. {cta}", 125),
+            "cta": cta,
+            "angle": "problem to visible proof",
+        }
+    if channel_id == "META_ADS":
+        return {
+            "headline": _first_clause(outcome, 40),
+            "body": _first_clause(f"{problem} See the actual {name} proof, its limits, and the next small step.", 125),
+            "description": _first_clause(cta, 30),
+            "cta": "Learn More",
+            "angle": "specific pain to proof",
+        }
+    if channel_id == "INSTAGRAM_ORGANIC":
+        return {
+            "headline": _first_clause(outcome, 60),
+            "body": _first_clause(f"{problem} Watch the input become the output, then inspect the proof. {cta}", 125),
+            "cta": cta,
+            "angle": "visible transformation",
+        }
+    if channel_id in {"TIKTOK_ORGANIC", "TIKTOK_ADS"}:
+        return {
+            "headline": _first_clause(outcome, 58),
+            "body": _first_clause(f"Start with the real workload. End with the actual {name} proof.", 80),
+            "cta": _first_clause(cta, 40),
+            "angle": "fast proof",
+        }
+    if channel_id == "REDDIT_ORGANIC":
+        audience = context.audience_name.lower() or "professional teams"
+        return {
+            "headline": _first_clause(f"How are {audience} dealing with this: {context.problem}", 150),
+            "body": f"We are testing a small {name} workflow around that exact problem. The useful question is not whether AI can generate something, but whether the resulting work is easier for a professional to verify. {proof} I would value criticism of the workflow before any broader rollout.",
+            "cta": "Open the proof example",
+            "angle": "community validation",
+        }
+    if channel_id == "REDDIT_ADS":
+        return {
+            "headline": _first_clause(f"{context.problem} See the proof before considering a pilot.", 150),
+            "body": _first_clause(proof or context.proof_summary, 180),
+            "cta": "View Proof",
+            "angle": "transparent proof",
+        }
+    if channel_id == "GOOGLE_ADS":
+        headlines = [
+            name,
+            outcome,
+            f"See the {name} Proof",
+            "Start With One Small Pilot",
+            "Proof Before a Sales Call",
+            context.problem,
+            context.audience_name,
+            "See Inputs, Output and Limits",
+            "Professional Review Stays In",
+            cta,
+        ]
+        descriptions = [
+            f"{problem} See a concrete {name} proof and its limits before deciding on a pilot.",
+            f"Built around {context.audience_name.lower() or 'a specific professional workflow'}. Start with one small case.",
+            proof or f"Inspect what {name} produces, what it does not decide, and where professional review remains.",
+            f"{outcome}. {cta}",
+        ]
+        return {
+            "headlines": [_first_clause(item, 30) for item in headlines if _clean(item)],
+            "descriptions": [_first_clause(item, 90) for item in descriptions if _clean(item)],
+            "cta": "Learn More",
+            "angle": "search intent to proof",
+        }
+    if channel_id == "YOUTUBE_ORGANIC":
+        return {
+            "headline": _first_clause(f"{name}: see the real workflow from input to proof", 100),
+            "body": f"A short walkthrough for {context.audience_name.lower() or 'professional teams'}: {problem} {proof} {cta}",
+            "cta": cta,
+            "angle": "proof explainer",
+        }
+    raise ValueError(f"Unsupported channel: {channel_id}")
+
+
+def render_nichefoundry_campaign(context: CommercialMessageContext) -> dict[str, Any]:
+    problem = _sentence(context.problem) or "A recurring professional workflow begins with scattered, difficult-to-review input."
+    outcome = _sentence(context.desired_outcome) or f"The result is a concrete {context.offer or 'work pack'} prepared for professional review."
+    proof = proof_language(context)
+    return {
+        "core_angle": f"Start with one specific workload: {problem} Show the exact input, the work performed, the resulting artifact, and the decision that still belongs to the professional.",
+        "lead_message": f"{problem} {outcome}",
+        "pain_post": f"{problem} The cost is not only time. It is the repeated search, reconciliation and rework before the real professional judgement can even begin.",
+        "proof_post": proof or f"Show the actual {context.product_name} output, the source material behind it, and the limits of what the system decides.",
+        "offer_post": f"Start with one small {context.offer or 'pilot'} so the result can be inspected before anything larger is committed.",
+        "objection_post": "The service prepares and organises the work. It does not replace the professional decision, invent evidence, or turn a draft into an authorised final output by itself.",
+        "cta": context.cta or "Send one bounded example of the workflow you want to test.",
+        "video_hook": f"The expensive part of this job often happens before the real judgement starts: {_first_clause(context.problem or 'the inputs are scattered and need to be rebuilt into something usable', 110)}",
+    }
+
+
+def copy_quality_issues(context: CommercialMessageContext, payload: dict[str, Any]) -> list[str]:
+    text = " ".join(_clean(value) for value in _iter_strings(payload)).lower()
+    issues: list[str] = []
+    if context.problem and _clean(context.problem).lower()[:28] not in text:
+        issues.append("missing_problem_anchor")
+    if not context.cta:
+        issues.append("missing_context_cta")
+    elif _clean(context.cta).lower()[:18] not in text and not any(token in text for token in ("learn more", "view proof", "open the proof")):
+        issues.append("cta_not_visible")
+    jargon_hits = sum(text.count(term) for term in INTERNAL_JARGON)
+    if jargon_hits > 4:
+        issues.append("internal_jargon_overload")
+    if context.proof_grade != "external_market" and any(term in text for term in ("proven to increase", "customers achieve", "guaranteed", "market-proven")):
+        issues.append("unsupported_market_claim")
+    return issues
+
+
+def _iter_strings(value: Any) -> Iterable[str]:
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from _iter_strings(item)
+    elif isinstance(value, (list, tuple)):
+        for item in value:
+            yield from _iter_strings(item)
