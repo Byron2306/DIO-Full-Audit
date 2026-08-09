@@ -7,7 +7,7 @@ from commerce.vendor_bridge import commercial_semantic_object_for_vendor_rfq
 from scripts.dio_mail_branding import MAIN_SITE, branded_email
 
 
-def mail_copy(campaign: dict[str, Any], partner: dict[str, Any], placement: str) -> tuple[str, str, str]:
+def mail_bundle(campaign: dict[str, Any], partner: dict[str, Any], placement: str) -> dict[str, Any]:
     cso = commercial_semantic_object_for_vendor_rfq(campaign, partner)
     campaign_id = str(campaign.get("campaign_id") or campaign.get("id") or "")
     campaign_ref = f"campaign:{campaign_id}"
@@ -20,14 +20,17 @@ def mail_copy(campaign: dict[str, Any], partner: dict[str, Any], placement: str)
                 "audience": {
                     "value": campaign.get("audience") or "audience defined in attached brief",
                     "source_refs": [campaign_ref],
+                    "authority": "campaign_record",
                 },
                 "objective": {
                     "value": campaign.get("objective") or "a measurable bounded pilot",
                     "source_refs": [campaign_ref],
+                    "authority": "campaign_record",
                 },
                 "placement": {
                     "value": placement or "the most suitable measurable placement for this audience",
                     "source_refs": [campaign_ref, vendor_ref],
+                    "authority": "rfq_request_context",
                 },
             }
         },
@@ -45,4 +48,16 @@ def mail_copy(campaign: dict[str, Any], partner: dict[str, Any], placement: str)
         bullets=["Measured pilots", "Human spend approval", "Attribution before scale"],
         caution="This is a request for quotation only. It is not a booking, insertion order or spend authorisation.",
     )
-    return str(expression["subject"]), body, body_html
+    return {
+        "cso": cso,
+        "expression": expression,
+        "subject": str(expression["subject"]),
+        "body": body,
+        "body_html": body_html,
+        "communicative_act": CommunicativeAct.REQUEST_FOR_QUOTATION.value,
+    }
+
+
+def mail_copy(campaign: dict[str, Any], partner: dict[str, Any], placement: str) -> tuple[str, str, str]:
+    bundle = mail_bundle(campaign, partner, placement)
+    return bundle["subject"], bundle["body"], bundle["body_html"]
