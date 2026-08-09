@@ -1,0 +1,55 @@
+name: Commercial Semantic Stack
+
+on:
+  pull_request:
+    paths:
+      - "commerce/**"
+      - "schemas/dio.commercial_*.json"
+      - "scripts/manage_prospect_outreach.py"
+      - "scripts/prospect_outreach_copy.py"
+      - "scripts/manage_product_workflow.py"
+      - "scripts/product_notification_copy.py"
+      - "market_command/agency.py"
+      - "market_command/agency_copy.py"
+      - "tests/test_commercial_semantic_object.py"
+      - "tests/test_nichefoundry_semantic_bridge.py"
+      - "tests/test_commercial_expression*.py"
+      - ".github/workflows/commercial-semantics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  commercial-semantics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile commercial modules
+        run: |
+          python -m py_compile \
+            commerce/semantic.py \
+            commerce/nichefoundry_bridge.py \
+            commerce/expression.py \
+            commerce/expression_guarded.py \
+            commerce/prospect_bridge.py \
+            commerce/vendor_bridge.py \
+            commerce/workflow_bridge.py \
+            scripts/prospect_outreach_copy.py \
+            scripts/product_notification_copy.py \
+            market_command/agency_copy.py
+      - name: Run C1-C3 semantic regression suite
+        run: |
+          python -m unittest \
+            tests.test_commercial_semantic_object \
+            tests.test_nichefoundry_semantic_bridge \
+            tests.test_commercial_expression \
+            tests.test_commercial_expression_adapters \
+            tests.test_commercial_expression_schema \
+            tests.test_commercial_expression_relationships
