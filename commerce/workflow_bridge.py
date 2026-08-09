@@ -35,11 +35,11 @@ def commercial_semantic_object_from_product_workflow(workflow: dict[str, Any]) -
     if product_key == "homs":
         act = "intake_request"
         ready = processing.get("state") == "request_ready"
-        authority_state = "workflow_intake_notification_ready" if ready and recipient else "workflow_notification_held"
+        authority_state = "workflow_intake_notification_ready" if ready and recipient else "research_only"
     else:
         act = "delivery"
         ready = output_review.get("state") == "approved"
-        authority_state = "reviewed_delivery_ready" if ready and recipient else "workflow_notification_held"
+        authority_state = "reviewed_delivery_ready" if ready and recipient else "research_only"
 
     now = timestamp()
     result = {
