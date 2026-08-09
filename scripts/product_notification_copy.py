@@ -13,8 +13,8 @@ PRODUCT_LINKS = {
 }
 
 
-def notification_copy(workflow: dict[str, Any]) -> tuple[str, str, str, str]:
-    """Return purpose, subject, plain body and branded HTML for a workflow notification."""
+def notification_bundle(workflow: dict[str, Any]) -> dict[str, Any]:
+    """Return product notification copy plus the C3 semantic objects that produced it."""
     cso = commercial_semantic_object_from_product_workflow(workflow)
     product = str(workflow["product"])
     job_id = str(workflow["job_id"])
@@ -28,10 +28,11 @@ def notification_copy(workflow: dict[str, Any]) -> tuple[str, str, str, str]:
             act,
             context={
                 "verified_context": {
-                    "job_reference": {"value": job_id, "source_refs": [job_ref]},
+                    "job_reference": {"value": job_id, "source_refs": [job_ref], "authority": "workflow_record"},
                     "requested_material": {
                         "value": "Please send the electronic submission batch, rubric or memo, task instructions, and the gradebook or mark list when mark collation is required.",
                         "source_refs": ["product_contract:homs_assessment_intake_v1"],
+                        "authority": "product_contract",
                     },
                 }
             },
@@ -45,7 +46,11 @@ def notification_copy(workflow: dict[str, Any]) -> tuple[str, str, str, str]:
         expression = render_expression(
             cso,
             act,
-            context={"verified_context": {"job_reference": {"value": job_id, "source_refs": [job_ref]}}},
+            context={
+                "verified_context": {
+                    "job_reference": {"value": job_id, "source_refs": [job_ref], "authority": "workflow_record"}
+                }
+            },
         )
         eyebrow = "REVIEWED DELIVERY READY"
         headline = "Your Evidex evidence pack is ready for inspection."
@@ -63,4 +68,18 @@ def notification_copy(workflow: dict[str, Any]) -> tuple[str, str, str, str]:
         cta_url=PRODUCT_LINKS[product],
         caution=expression.get("caution"),
     )
-    return purpose, str(expression["subject"]), body, body_html
+    return {
+        "cso": cso,
+        "expression": expression,
+        "purpose": purpose,
+        "communicative_act": act.value,
+        "subject": str(expression["subject"]),
+        "body": body,
+        "body_html": body_html,
+    }
+
+
+def notification_copy(workflow: dict[str, Any]) -> tuple[str, str, str, str]:
+    """Compatibility wrapper returning purpose, subject, plain body and branded HTML."""
+    bundle = notification_bundle(workflow)
+    return bundle["purpose"], bundle["subject"], bundle["body"], bundle["body_html"]
