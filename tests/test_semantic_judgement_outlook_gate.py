@@ -22,6 +22,12 @@ if "msal" not in sys.modules:
             PublicClientApplication=object,
         )
 
+if "requests" not in sys.modules:
+    try:
+        import requests as _requests  # noqa: F401
+    except ModuleNotFoundError:
+        sys.modules["requests"] = types.SimpleNamespace(Response=object, request=lambda *args, **kwargs: None)
+
 from commerce.expression_guarded import CommunicativeAct, render_expression  # noqa: E402
 from commerce.semantic import commercial_semantic_object_from_lead  # noqa: E402
 from commerce.semantic_judgement import (  # noqa: E402
