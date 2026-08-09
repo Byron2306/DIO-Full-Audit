@@ -1,6 +1,6 @@
 """Canonical DIO commerce orchestration primitives."""
 
-from .expression import (
+from .expression_guarded import (
     ACT_CONTRACTS,
     CommunicativeAct,
     expression_contract,
