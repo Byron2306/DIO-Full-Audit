@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from commerce.expression_guarded import CommunicativeAct, render_expression  # noqa: E402
 from commerce.semantic import commercial_semantic_object_from_lead  # noqa: E402
+from commerce.semantic_judgement import judge_mail_intent  # noqa: E402
 from conversation_core.context import assert_valid_conversation_context  # noqa: E402
 from scripts.manage_mail_intent import create_intent_from_payload, intent_path, read_json, write_json  # noqa: E402
 
@@ -32,7 +33,7 @@ def _safe_id(value: str) -> str:
     return text
 
 
-def _load_context(context_root: Path, conversation_id: str) -> dict[str, Any]:
+def _load_context(context_root: Path, conversation_id: str) -> tuple[dict[str, Any], Path]:
     index_path = context_root / "INDEX.json"
     if not index_path.exists():
         raise FileNotFoundError("Conversation context index is missing. Run reconcile_conversation_context.py first.")
@@ -48,7 +49,7 @@ def _load_context(context_root: Path, conversation_id: str) -> dict[str, Any]:
     assert_valid_conversation_context(context)
     if context.get("conversation_id") != conversation_id:
         raise ValueError("Conversation context index points to a mismatched conversation")
-    return context
+    return context, context_path
 
 
 def _reply_intent_id(lead_id: str, context_id: str, source_ref: str) -> str:
@@ -88,7 +89,7 @@ def prepare_conversation_reply(
     if not conversation_id or not recipient:
         raise ValueError("Conversation reply requires a bound Outlook conversation and lead email")
 
-    context = _load_context(context_root, conversation_id)
+    context, context_path = _load_context(context_root, conversation_id)
     if context["channel"] != "outlook_email":
         raise ValueError("This reply preparer accepts Outlook conversation context only")
     if context["thread"]["state"] != "awaiting_dio_response":
@@ -101,11 +102,7 @@ def prepare_conversation_reply(
 
     cso = commercial_semantic_object_from_lead(lead)
     act = _act_for_lead(lead)
-    expression = render_expression(
-        cso,
-        act,
-        context={"conversation_context": context},
-    )
+    expression = render_expression(cso, act, context={"conversation_context": context})
 
     original_subject = str((lead.get("request") or {}).get("subject") or "").strip()
     subject = f"Re: {original_subject}" if original_subject and not original_subject.lower().startswith("re:") else (original_subject or str(expression.get("subject") or "DIO reply"))
@@ -135,14 +132,32 @@ def prepare_conversation_reply(
     intent["semantic_binding"] = {
         "semantic_object_id": cso["object_id"],
         "conversation_context_id": context["context_id"],
+        "communicative_act": act.value,
         "conversation_context_authority": "expression_only",
         "source_ref": source_ref,
     }
     write_json(existing_path, intent)
 
+    judgement, judgement_path = judge_mail_intent(
+        root,
+        cso,
+        expression,
+        intent,
+        source_paths=[lead_path, context_path],
+    )
+    intent["semantic_judgement"] = {
+        "judgement_id": judgement["judgement_id"],
+        "path": str(judgement_path.relative_to(root)),
+        "verdict": judgement["verdict"],
+        "execution_binding_sha256": judgement["bindings"]["execution_binding_sha256"],
+        "commercial_semantic_object_sha256": judgement["bindings"]["commercial_semantic_object_sha256"],
+        "expression_sha256": judgement["bindings"]["expression_sha256"],
+    }
+    write_json(existing_path, intent)
+
     reply_root.mkdir(parents=True, exist_ok=True)
     receipt = {
-        "schema": "dio.conversation_reply_candidate.v1",
+        "schema": "dio.conversation_reply_candidate.v2",
         "lead_id": lead_id,
         "conversation_id": conversation_id,
         "mail_intent_id": intent_id,
@@ -152,9 +167,19 @@ def prepare_conversation_reply(
         "thread_state": context["thread"]["state"],
         "source_ref": source_ref,
         "expression": expression,
+        "semantic_judgement": {
+            "judgement_id": judgement["judgement_id"],
+            "verdict": judgement["verdict"],
+            "path": str(judgement_path.relative_to(root)),
+            "metatron": judgement["triune"]["metatron"]["status"],
+            "loki": judgement["triune"]["loki"]["status"],
+            "beast": judgement["triune"]["beast"]["status"],
+            "obligations": judgement["obligations"],
+        },
         "authority": {
             "mail_send_authorized": False,
             "operator_approval_required": True,
+            "semantic_judgement_grants_execution_authority": False,
             "conversation_context_may_establish_fact": False,
             "conversation_context_may_grant_execution_authority": False,
         },
@@ -164,7 +189,7 @@ def prepare_conversation_reply(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Prepare a governed context-aware Outlook reply as a review-required mail intent.")
+    parser = argparse.ArgumentParser(description="Prepare a Triune-judged context-aware Outlook reply as a review-required mail intent.")
     parser.add_argument("lead_id")
     parser.add_argument("--root", type=Path, default=ROOT)
     args = parser.parse_args()
