@@ -24,13 +24,8 @@ def product_key_for_target(target: dict[str, Any]) -> str:
     return PRODUCT_KEY_BY_LINE.get(str(target.get("product_line_id") or ""), "dio")
 
 
-def message_for(target: dict[str, Any]) -> tuple[str, str, str]:
-    """Compose cold prospect outreach through the C3 communicative-act contract.
-
-    Product branding remains a presentation concern. All rhetorical choices and the
-    cold-contact assumption boundary come from the Commercial Semantic Object and the
-    `cold_permission_request` act contract.
-    """
+def message_bundle_for(target: dict[str, Any]) -> dict[str, Any]:
+    """Return presentation plus the immutable C3 semantic objects used to produce it."""
     cso = commercial_semantic_object_from_prospect_target(target)
     expression = render_expression(cso, CommunicativeAct.COLD_PERMISSION_REQUEST)
 
@@ -75,4 +70,16 @@ def message_for(target: dict[str, Any]) -> tuple[str, str, str]:
         secondary_url=no_url,
         caution=expression.get("caution"),
     )
-    return str(expression["subject"]), body, body_html
+    return {
+        "cso": cso,
+        "expression": expression,
+        "subject": str(expression["subject"]),
+        "body": body,
+        "body_html": body_html,
+    }
+
+
+def message_for(target: dict[str, Any]) -> tuple[str, str, str]:
+    """Compatibility entry point routed through the C3 communicative-act engine."""
+    bundle = message_bundle_for(target)
+    return bundle["subject"], bundle["body"], bundle["body_html"]
