@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from scripts.manage_mail_intent import create_intent, emit_event, write_json  # noqa: E402
-from scripts.dio_mail_branding import branded_email  # noqa: E402
+from scripts.product_notification_copy import notification_copy  # noqa: E402
 from scripts.run_evidex_jobs import run_evidex  # noqa: E402
 from scripts.run_homs_jobs import write_job as write_homs_job  # noqa: E402
 
@@ -256,54 +256,31 @@ def prepare_notification(state_root: Path, job_id: str, event_log: Path, mail_ro
     if product == "homs":
         if workflow["processing"]["state"] != "request_ready":
             raise ValueError("The HOMS intake request must be ready before notifying the client.")
-        purpose = "intake"
-        subject = f"HOMS source upload request - assessment workflow opened ({job_id})"
-        body, body_html = branded_email(
-            product="homs",
-            eyebrow="ASSESSMENT WORKFLOW OPENED",
-            headline="Your HOMS assessment job is ready for source files.",
-            greeting="Hello,",
-            intro="We have opened a governed HOMS workflow for your assessment or marking request.",
-            body=[
-                "Please send the electronic submission batch, rubric or memo, task instructions, and gradebook or mark list where mark collation is required.",
-                "HOMS prepares assessment support for educator review. Final classroom use remains with the authorised teacher, lecturer or moderator.",
-                "The public HOMS page is included below if you need to share the service overview with a colleague.",
-            ],
-            reference=job_id,
-            cta_label="View HOMS Assessment Desk",
-            cta_url="https://byron2306.github.io/DIO-Workflows/sites/homs/",
-        )
         attachments: list[str] = []
+        communicative_act = "intake_request"
     else:
         if workflow["output_review"]["state"] != "approved":
             raise ValueError("Human output approval is required before Evidex delivery preparation.")
-        purpose = "delivery"
-        subject = f"Your reviewed Evidex evidence pack is ready ({job_id})"
-        body, body_html = branded_email(
-            product="evidex",
-            eyebrow="REVIEWED DELIVERY READY",
-            headline="Your Evidex evidence pack is ready for use.",
-            greeting="Hello,",
-            intro="Your reviewed Evidex delivery pack is attached.",
-            body=[
-                "The pack is prepared to help you inspect evidence, provenance, mapped claims and quality notes without digging through scattered source material.",
-                "Please retain the original source archive for audit, revision requests or future updates. If anything needs adjustment, reply to this message with the job reference.",
-                "The Evidex service page is included below for your records or for forwarding to a colleague who needs the same workflow.",
-            ],
-            reference=job_id,
-            cta_label="View Evidex Evidence Packs",
-            cta_url="https://byron2306.github.io/DIO-Workflows/sites/evidex/",
-        )
         attachments = [str(_evidex_archive(workflow))]
+        communicative_act = "delivery"
+
+    purpose, subject, body, body_html = notification_copy(workflow)
     spec_path = path.parent / "MAIL_SPEC.json"
     write_json(spec_path, {
-        "purpose": purpose, "job_id": job_id, "recipient": recipient, "subject": subject,
-        "body": body, "body_html": body_html, "attachments": attachments, "risk": "moderate",
+        "purpose": purpose,
+        "communicative_act": communicative_act,
+        "job_id": job_id,
+        "recipient": recipient,
+        "subject": subject,
+        "body": body,
+        "body_html": body_html,
+        "attachments": attachments,
+        "risk": "moderate",
     })
     intent = create_intent(spec_path, mail_root, event_log)
-    workflow["notification"].update({"state": "draft_ready", "mail_intent_id": intent["mail_intent_id"]})
+    workflow["notification"].update({"state": "draft_ready", "mail_intent_id": intent["mail_intent_id"], "communicative_act": communicative_act})
     save_workflow(path, workflow)
-    emit_event(event_log, f"{product}.notification_prepared", "action", "product_job", job_id, {"mail_intent_id": intent["mail_intent_id"]}, job_id)
+    emit_event(event_log, f"{product}.notification_prepared", "action", "product_job", job_id, {"mail_intent_id": intent["mail_intent_id"], "communicative_act": communicative_act}, job_id)
     return workflow
 
 
