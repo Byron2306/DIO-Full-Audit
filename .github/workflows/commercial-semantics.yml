@@ -4,16 +4,25 @@ on:
   pull_request:
     paths:
       - "commerce/**"
+      - "conversation_core/**"
+      - "presence_core/persona.py"
+      - "presence_core/router.py"
+      - "presence_core/llm.py"
+      - "config/presence_public_profile.json"
       - "schemas/dio.commercial_*.json"
+      - "schemas/dio.conversation_context.v1.schema.json"
       - "scripts/manage_prospect_outreach.py"
       - "scripts/prospect_outreach_copy.py"
       - "scripts/manage_product_workflow.py"
       - "scripts/product_notification_copy.py"
+      - "scripts/reconcile_conversation_context.py"
+      - "scripts/run_commercial_orchestrator.py"
       - "market_command/agency.py"
       - "market_command/agency_copy.py"
       - "tests/test_commercial_semantic_object.py"
       - "tests/test_nichefoundry_semantic_bridge.py"
       - "tests/test_commercial_expression*.py"
+      - "tests/test_conversation_context*.py"
       - ".github/workflows/commercial-semantics.yml"
   workflow_dispatch:
 
@@ -31,7 +40,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Compile commercial modules
+      - name: Compile C1-C4 semantic modules
         run: |
           python -m py_compile \
             commerce/semantic.py \
@@ -41,10 +50,18 @@ jobs:
             commerce/prospect_bridge.py \
             commerce/vendor_bridge.py \
             commerce/workflow_bridge.py \
+            conversation_core/context.py \
+            conversation_core/outlook.py \
+            conversation_core/presence.py \
+            presence_core/persona.py \
+            presence_core/router.py \
+            presence_core/llm.py \
+            scripts/reconcile_conversation_context.py \
+            scripts/run_commercial_orchestrator.py \
             scripts/prospect_outreach_copy.py \
             scripts/product_notification_copy.py \
             market_command/agency_copy.py
-      - name: Run C1-C3 semantic regression suite
+      - name: Run C1-C4 semantic regression suite
         run: |
           python -m unittest \
             tests.test_commercial_semantic_object \
@@ -52,4 +69,6 @@ jobs:
             tests.test_commercial_expression \
             tests.test_commercial_expression_adapters \
             tests.test_commercial_expression_schema \
-            tests.test_commercial_expression_relationships
+            tests.test_commercial_expression_relationships \
+            tests.test_conversation_context \
+            tests.test_conversation_context_reconciliation
