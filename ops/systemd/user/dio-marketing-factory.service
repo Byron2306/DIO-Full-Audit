@@ -5,8 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/build_multichannel_campaign_factory.py
+WorkingDirectory=%h/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=%h/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python %h/Downloads/KnowEdge_AutoRelease_Suite/scripts/build_multichannel_campaign_factory_v2.py
 Environment=PYTHONUNBUFFERED=1
 
 [Install]
