@@ -389,6 +389,22 @@ def judge_expression(
     }
 
 
+def _receipt_identity(payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema": payload.get("schema"),
+        "judgement_id": payload.get("judgement_id"),
+        "verdict": payload.get("verdict"),
+        "semantic_object_id": payload.get("semantic_object_id"),
+        "communicative_act": payload.get("communicative_act"),
+        "execution": payload.get("execution"),
+        "bindings": payload.get("bindings"),
+        "triune": payload.get("triune"),
+        "obligations": payload.get("obligations"),
+        "execution_authority_granted": payload.get("execution_authority_granted"),
+        "constitution": payload.get("constitution"),
+    }
+
+
 def persist_judgement(root: Path, judgement: dict[str, Any]) -> Path:
     if judgement.get("schema") != SCHEMA or not str(judgement.get("judgement_id") or "").startswith("JUDGE-"):
         raise ValueError("Invalid semantic judgement receipt")
@@ -396,9 +412,10 @@ def persist_judgement(root: Path, judgement: dict[str, Any]) -> Path:
     target.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(judgement, indent=2, ensure_ascii=True, sort_keys=True) + "\n"
     if target.exists():
-        if target.read_text(encoding="utf-8") != payload:
-            raise ValueError("Judgement id collision with different receipt content")
-        return target
+        existing = json.loads(target.read_text(encoding="utf-8"))
+        if _receipt_identity(existing) == _receipt_identity(judgement):
+            return target
+        raise ValueError("Judgement id collision with different receipt identity")
     target.write_text(payload, encoding="utf-8")
     return target
 
