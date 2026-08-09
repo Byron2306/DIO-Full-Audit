@@ -29,63 +29,13 @@ ALLOWED_ROUTE_STATES = {
 }
 
 PRODUCT_PROOF = {
-    "HOMS_ASSESS": {
-        "label": "HOMS Assessment Desk",
-        "eyebrow": "CONTROLLED ASSESSMENT PILOT",
-        "headline": "One subject. One grade. One reviewable proof.",
-        "accent": "#176B5B",
-        "soft": "#EAF5F1",
-        "items": ["CAPS-aware brief", "Paper + memo/rubric", "Educator approval"],
-    },
-    "HOMS_LEARN": {
-        "label": "HOMS Learning Studio",
-        "eyebrow": "CONTROLLED LEARNING-MATERIAL PILOT",
-        "headline": "One curriculum spine, prepared for human review.",
-        "accent": "#176B5B",
-        "soft": "#EAF5F1",
-        "items": ["Term-aware content", "Worksheet or lesson", "Educator approval"],
-    },
-    "SOPHIA_LEARN": {
-        "label": "HOMS Learning Studio",
-        "eyebrow": "CONTROLLED LEARNING-MATERIAL PILOT",
-        "headline": "One curriculum spine, prepared for human review.",
-        "accent": "#176B5B",
-        "soft": "#EAF5F1",
-        "items": ["Term-aware guide", "Practice and assessment", "Educator approval"],
-    },
-    "SOPHIA_REVIEW": {
-        "label": "Sophia Academic Review",
-        "eyebrow": "ACADEMIC REVIEW PROOF",
-        "headline": "Claims, references and reviewer notes made inspectable.",
-        "accent": "#8B3D63",
-        "soft": "#F8ECF2",
-        "items": ["Reference checks", "Claim mapping", "Human reviewer authority"],
-    },
-    "EVIDEX": {
-        "label": "Evidex Evidence Packs",
-        "eyebrow": "EVIDENCE-PACK PROOF",
-        "headline": "Messy evidence, mapped into a defensible pack.",
-        "accent": "#245B78",
-        "soft": "#EAF2F7",
-        "items": ["Evidence table", "Mapped claims", "Review trail"],
-    },
-    "EVIDEX_PACK": {
-        "label": "Evidex Evidence Packs",
-        "eyebrow": "EVIDENCE-PACK PROOF",
-        "headline": "Messy evidence, mapped into a defensible pack.",
-        "accent": "#245B78",
-        "soft": "#EAF2F7",
-        "items": ["Evidence table", "Mapped claims", "Review trail"],
-        "product_key": "evidex",
-    },
-    "VAMP": {
-        "label": "VAMP Evidence Snapshot",
-        "eyebrow": "PERFORMANCE-EVIDENCE PROOF",
-        "headline": "Existing work evidence, mapped before review day.",
-        "accent": "#6A4B2E",
-        "soft": "#F4EFE9",
-        "items": ["Criteria mapping", "Gap visibility", "Human acceptance"],
-    },
+    "HOMS_ASSESS": {"label": "HOMS Assessment Desk", "eyebrow": "CONTROLLED ASSESSMENT PILOT", "headline": "One subject. One grade. One reviewable proof.", "accent": "#176B5B", "soft": "#EAF5F1", "items": ["CAPS-aware brief", "Paper + memo/rubric", "Educator approval"]},
+    "HOMS_LEARN": {"label": "HOMS Learning Studio", "eyebrow": "CONTROLLED LEARNING-MATERIAL PILOT", "headline": "One curriculum spine, prepared for human review.", "accent": "#176B5B", "soft": "#EAF5F1", "items": ["Term-aware content", "Worksheet or lesson", "Educator approval"]},
+    "SOPHIA_LEARN": {"label": "HOMS Learning Studio", "eyebrow": "CONTROLLED LEARNING-MATERIAL PILOT", "headline": "One curriculum spine, prepared for human review.", "accent": "#176B5B", "soft": "#EAF5F1", "items": ["Term-aware guide", "Practice and assessment", "Educator approval"]},
+    "SOPHIA_REVIEW": {"label": "Sophia Academic Review", "eyebrow": "ACADEMIC REVIEW PROOF", "headline": "Claims, references and reviewer notes made inspectable.", "accent": "#8B3D63", "soft": "#F8ECF2", "items": ["Reference checks", "Claim mapping", "Human reviewer authority"]},
+    "EVIDEX": {"label": "Evidex Evidence Packs", "eyebrow": "EVIDENCE-PACK PROOF", "headline": "Messy evidence, mapped into a defensible pack.", "accent": "#245B78", "soft": "#EAF2F7", "items": ["Evidence table", "Mapped claims", "Review trail"]},
+    "EVIDEX_PACK": {"label": "Evidex Evidence Packs", "eyebrow": "EVIDENCE-PACK PROOF", "headline": "Messy evidence, mapped into a defensible pack.", "accent": "#245B78", "soft": "#EAF2F7", "items": ["Evidence table", "Mapped claims", "Review trail"], "product_key": "evidex"},
+    "VAMP": {"label": "VAMP Evidence Snapshot", "eyebrow": "PERFORMANCE-EVIDENCE PROOF", "headline": "Existing work evidence, mapped before review day.", "accent": "#6A4B2E", "soft": "#F4EFE9", "items": ["Criteria mapping", "Gap visibility", "Human acceptance"]},
 }
 
 
@@ -111,20 +61,12 @@ def public_recipients(target: dict[str, str]) -> list[str]:
 
 
 def proof_profile(target: dict[str, str]) -> dict[str, Any]:
-    """Legacy presentation profile retained for dashboard compatibility."""
     product_line_id = target.get("product_line_id") or ""
     profile = PRODUCT_PROOF.get(product_line_id)
     if profile:
         return profile
     product = target.get("product_name") or product_line_id or "DIO controlled pilot"
-    return {
-        "label": product,
-        "eyebrow": "CONTROLLED PROFESSIONAL PILOT",
-        "headline": "A bounded proof, prepared for human review.",
-        "accent": "#245B78",
-        "soft": "#EAF2F7",
-        "items": ["Bounded input", "Reviewable output", "Human authority"],
-    }
+    return {"label": product, "eyebrow": "CONTROLLED PROFESSIONAL PILOT", "headline": "A bounded proof, prepared for human review.", "accent": "#245B78", "soft": "#EAF2F7", "items": ["Bounded input", "Reviewable output", "Human authority"]}
 
 
 def message_for(target: dict[str, str]) -> tuple[str, str, str]:
@@ -139,16 +81,19 @@ def write_preview(target_id: str, body_html: str) -> Path:
     return preview_path
 
 
-def _judge_prospect_intent(target_id: str, bundle: dict[str, Any], intent: dict[str, Any]) -> dict[str, Any]:
-    intent["communicative_act"] = "cold_permission_request"
-    intent["semantic_binding"] = {
+def _prospect_binding(target_id: str, bundle: dict[str, Any]) -> dict[str, Any]:
+    return {
         "semantic_object_id": bundle["cso"]["object_id"],
         "communicative_act": "cold_permission_request",
         "prospect_target_id": target_id,
         "source_ref": f"prospect_target:{target_id}",
     }
+
+
+def _judge_prospect_intent(target_id: str, bundle: dict[str, Any], intent: dict[str, Any]) -> dict[str, Any]:
+    if intent.get("communicative_act") != "cold_permission_request" or intent.get("semantic_binding") != _prospect_binding(target_id, bundle):
+        raise ValueError("Prospect mail intent is not atomically bound to its C3 semantic source.")
     intent_path = INTENT_ROOT / f"{intent['mail_intent_id']}.json"
-    write_json(intent_path, intent)
     judgement, judgement_path = judge_mail_intent(
         ROOT,
         bundle["cso"],
@@ -190,6 +135,8 @@ def prepare_outlook_draft(target_id: str, actor: str, route_confirmed: bool) -> 
     intent = create_intent_from_payload(
         {
             "purpose": "prospect_partnership_enquiry",
+            "communicative_act": "cold_permission_request",
+            "semantic_binding": _prospect_binding(target_id, bundle),
             "campaign_id": target_id,
             "recipient": recipients[0],
             "subject": bundle["subject"],
@@ -229,19 +176,7 @@ def prepare_outlook_draft(target_id: str, actor: str, route_confirmed: bool) -> 
         "created_at": utc_now(),
     }
     write_json(state_path, state)
-    emit_event(
-        EVENT_LOG,
-        "prospect.outlook_draft_ready",
-        "action",
-        "prospect",
-        target_id,
-        {
-            "mail_intent_id": intent["mail_intent_id"],
-            "organisation": target["organisation"],
-            "communicative_act": "cold_permission_request",
-            "semantic_judgement_id": judgement["judgement_id"],
-        },
-    )
+    emit_event(EVENT_LOG, "prospect.outlook_draft_ready", "action", "prospect", target_id, {"mail_intent_id": intent["mail_intent_id"], "organisation": target["organisation"], "communicative_act": "cold_permission_request", "semantic_judgement_id": judgement["judgement_id"]})
     return state
 
 
@@ -263,6 +198,8 @@ def upgrade_outlook_draft(target_id: str, actor: str) -> dict[str, Any]:
         raise ValueError("The Outlook provider draft is missing.")
 
     bundle = message_bundle_for(target)
+    intent["communicative_act"] = "cold_permission_request"
+    intent["semantic_binding"] = _prospect_binding(target_id, bundle)
     intent["subject"] = bundle["subject"]
     intent["body"] = bundle["body"]
     intent["body_html"] = bundle["body_html"]
@@ -280,31 +217,7 @@ def upgrade_outlook_draft(target_id: str, actor: str) -> dict[str, Any]:
         json={"subject": bundle["subject"], "body": {"contentType": "HTML", "content": bundle["body_html"]}},
     )
     preview_path = write_preview(target_id, bundle["body_html"])
-    state.update(
-        {
-            "email_preview": str(preview_path),
-            "creative_state": "communicative_act_rendered_proof_card_ready",
-            "communicative_act": "cold_permission_request",
-            "consent_mode": "once_off_request",
-            "semantic_judgement_id": judgement["judgement_id"],
-            "semantic_judgement_verdict": judgement["verdict"],
-            "draft_upgraded_at": utc_now(),
-            "draft_upgraded_by": actor,
-        }
-    )
+    state.update({"email_preview": str(preview_path), "creative_state": "communicative_act_rendered_proof_card_ready", "communicative_act": "cold_permission_request", "consent_mode": "once_off_request", "semantic_judgement_id": judgement["judgement_id"], "semantic_judgement_verdict": judgement["verdict"], "draft_upgraded_at": utc_now(), "draft_upgraded_by": actor})
     write_json(state_path, state)
-    emit_event(
-        EVENT_LOG,
-        "prospect.outlook_draft_upgraded",
-        "info",
-        "prospect",
-        target_id,
-        {
-            "mail_intent_id": mail_intent_id,
-            "creative_state": "communicative_act_rendered_proof_card_ready",
-            "communicative_act": "cold_permission_request",
-            "consent_mode": "once_off_request",
-            "semantic_judgement_id": judgement["judgement_id"],
-        },
-    )
+    emit_event(EVENT_LOG, "prospect.outlook_draft_upgraded", "info", "prospect", target_id, {"mail_intent_id": mail_intent_id, "creative_state": "communicative_act_rendered_proof_card_ready", "communicative_act": "cold_permission_request", "consent_mode": "once_off_request", "semantic_judgement_id": judgement["judgement_id"]})
     return state
