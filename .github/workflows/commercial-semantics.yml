@@ -12,6 +12,7 @@ on:
       - "schemas/dio.commercial_*.json"
       - "schemas/dio.conversation_context.v1.schema.json"
       - "schemas/dio.semantic_judgement.v1.schema.json"
+      - "scripts/manage_mail_intent.py"
       - "scripts/manage_prospect_outreach.py"
       - "scripts/prospect_outreach_copy.py"
       - "scripts/manage_product_workflow.py"
@@ -27,7 +28,7 @@ on:
       - "tests/test_nichefoundry_semantic_bridge.py"
       - "tests/test_commercial_expression*.py"
       - "tests/test_conversation_context*.py"
-      - "tests/test_semantic_judgement*.py"
+      - "tests/test_semantic_*.py"
       - ".github/workflows/commercial-semantics.yml"
   workflow_dispatch:
 
@@ -37,7 +38,7 @@ permissions:
 jobs:
   commercial-semantics:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 7
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -45,7 +46,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Compile C1-C5 semantic modules
+      - name: Compile C1-C5 semantic modules and outbound producers
         run: |
           python -m py_compile \
             commerce/semantic.py \
@@ -63,13 +64,17 @@ jobs:
             presence_core/persona.py \
             presence_core/router.py \
             presence_core/llm.py \
+            scripts/manage_mail_intent.py \
+            scripts/manage_prospect_outreach.py \
+            scripts/prospect_outreach_copy.py \
+            scripts/manage_product_workflow.py \
+            scripts/product_notification_copy.py \
             scripts/prepare_conversation_reply.py \
             scripts/reconcile_conversation_context.py \
             scripts/run_commercial_orchestrator.py \
             scripts/serve_presence_bridge.py \
             scripts/sync_outlook_mail.py \
-            scripts/prospect_outreach_copy.py \
-            scripts/product_notification_copy.py \
+            market_command/agency.py \
             market_command/agency_copy.py \
             cross_folder_variants/EdgeK-BEAST/A_CODE/app/kernel/storage/evidence_scoring.py
       - name: Run C1-C5 semantic regression suite
@@ -86,4 +91,5 @@ jobs:
             tests.test_conversation_context_schema \
             tests.test_semantic_judgement \
             tests.test_semantic_judgement_outlook_gate \
-            tests.test_semantic_judgement_idempotence
+            tests.test_semantic_judgement_idempotence \
+            tests.test_semantic_mail_binding_gate
