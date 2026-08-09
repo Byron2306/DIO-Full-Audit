@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/commercial_message_context.schema.json",
+  "title": "DIO Commercial Message Context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "product_id",
+    "product_name",
+    "offer",
+    "relationship_stage",
+    "channel",
+    "proof_grade",
+    "cta"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial.message_context.v1"},
+    "product_id": {"type": "string", "minLength": 1},
+    "product_name": {"type": "string", "minLength": 1},
+    "offer": {"type": "string", "minLength": 1},
+    "relationship_stage": {
+      "enum": [
+        "cold_consent",
+        "inbound_acknowledgement",
+        "inbound_reply",
+        "qualified_lead",
+        "pilot_invitation",
+        "follow_up",
+        "payment",
+        "delivery",
+        "public_awareness",
+        "public_consideration"
+      ]
+    },
+    "channel": {"type": "string", "minLength": 1},
+    "audience_name": {"type": "string"},
+    "buyer_role": {"type": "string"},
+    "user_role": {"type": "string"},
+    "organisation": {"type": "string"},
+    "organisation_type": {"type": "string"},
+    "problem": {"type": "string"},
+    "trigger": {"type": "string"},
+    "stakes": {"type": "string"},
+    "current_workaround": {"type": "string"},
+    "desired_outcome": {"type": "string"},
+    "proof_summary": {"type": "string"},
+    "proof_grade": {"enum": ["technical", "controlled_transaction", "external_market"]},
+    "cta": {"type": "string", "minLength": 1},
+    "source_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "prohibited_claims": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "personalisation_allowed": {"type": "boolean"}
+  }
+}
