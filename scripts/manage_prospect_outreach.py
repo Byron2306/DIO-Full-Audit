@@ -2,18 +2,16 @@
 from __future__ import annotations
 
 import csv
-import html
 import io
 import json
 import re
-import urllib.parse
 import zipfile
 from pathlib import Path
 from typing import Any
 
-from scripts.dio_mail_branding import MAIN_SITE, branded_email, product_profile
 from scripts.build_operator_dashboard import utc_now, write_json
 from scripts.manage_mail_intent import create_intent_from_payload, emit_event
+from scripts.prospect_outreach_copy import message_for as c3_message_for
 from scripts.sync_outlook_mail import GraphClient, create_outlook_draft, load_config
 
 
@@ -112,6 +110,11 @@ def public_recipients(target: dict[str, str]) -> list[str]:
 
 
 def proof_profile(target: dict[str, str]) -> dict[str, Any]:
+    """Legacy presentation profile retained for dashboard compatibility.
+
+    C3 no longer uses this object to choose rhetoric. Copy is rendered from a CSO and
+    an explicit communicative-act contract in `scripts.prospect_outreach_copy`.
+    """
     product_line_id = target.get("product_line_id") or ""
     profile = PRODUCT_PROOF.get(product_line_id)
     if profile:
@@ -127,78 +130,9 @@ def proof_profile(target: dict[str, str]) -> dict[str, Any]:
     }
 
 
-def _reply_link(subject: str, body: str) -> str:
-    return "mailto:dio_workflows@outlook.com?" + urllib.parse.urlencode({"subject": subject, "body": body})
-
-
 def message_for(target: dict[str, str]) -> tuple[str, str, str]:
-    organisation = target["organisation"]
-    profile = proof_profile(target)
-    product = profile["label"]
-    product_key = profile.get("product_key") or {
-        "HOMS_ASSESS": "homs",
-        "HOMS_LEARN": "homs_learning",
-        "SOPHIA_LEARN": "sophia",
-        "SOPHIA_REVIEW": "sophia",
-        "EVIDEX": "evidex",
-        "EVIDEX_PACK": "evidex",
-        "VAMP": "vamp",
-        "VAMP_ACADEMIC": "vamp",
-        "DOCUMENT_STUDIO": "document_studio",
-    }.get(target.get("product_line_id") or "", "dio")
-    product_url = product_profile(product_key)["url"]
-    subject = f"May I send {organisation} a {product} proof example?"
-    offer = target.get("primary_offer") or "a bounded, controlled pilot"
-    body = f"""Hello {organisation} team,
-
-I am Byron Bunt from DIO Workflows. I build governed workflow products for evidence packs, assessment work, academic review, performance evidence and document production.
-
-I am writing once to the public organisational route listed for partnership or programme enquiries to ask for permission to send a short {product} proof example.
-
-The example shows {offer.lower()} with a bounded input, a reviewable output and an explicit human approval point. It is designed to be understood quickly by a programme, academic, compliance or operations decision-maker.
-
-DIO Workflows: {MAIN_SITE}
-{product}: {product_url}
-
-If this is relevant, reply YES and I will send the proof example. If it is not relevant, reply NO and I will record that preference. You may also indicate a preferred contact method.
-
-This is a once-off consent request. This address will not be added to a mailing list and no further marketing message will be sent without consent.
-
-Regards,
-Byron Bunt
-DIO Workflows
-dio_workflows@outlook.com
-"""
-    yes_url = _reply_link(
-        f"YES - {product} proof example",
-        f"YES, {organisation} consents to receive one {product} proof example by email.\n\nPreferred contact method: Email",
-    )
-    no_url = _reply_link(
-        f"NO - {product} outreach",
-        f"NO, {organisation} does not consent to receive marketing about {product}. Please record this preference.",
-    )
-    _, body_html = branded_email(
-        product=product_key,
-        eyebrow=profile["eyebrow"],
-        headline=profile["headline"],
-        greeting=f"Hello {organisation} team,",
-        intro="DIO Workflows prepares professional workflow outputs that are bounded, reviewable and commercially usable.",
-        body=[
-            "I am Byron Bunt from DIO Workflows. I am writing once to your public partnership or programme route to ask permission to send a short proof example.",
-            f"The example shows {offer.lower()}, with a bounded input, a reviewable output and an explicit human approval point.",
-            "If it is useful, reply YES and I will send the proof. If not, reply NO and I will record that preference.",
-        ],
-        bullets=profile["items"],
-        cta_label="YES, send the proof",
-        cta_url=yes_url,
-        secondary_label="NO, thank you",
-        secondary_url=no_url,
-        caution=(
-            "This is a once-off request for consent. DIO Workflows will not add this address to a mailing list "
-            "or send further marketing without consent. Reply NO at any time to record that communications must cease."
-        ),
-    )
-    return subject, body, body_html
+    """Compatibility entry point routed through the C3 communicative-act engine."""
+    return c3_message_for(target)
 
 
 def write_preview(target_id: str, body_html: str) -> Path:
@@ -258,13 +192,14 @@ def prepare_outlook_draft(target_id: str, actor: str, route_confirmed: bool) -> 
         "mail_intent_id": intent["mail_intent_id"],
         "provider_draft_id": draft.get("provider_draft_id"),
         "email_preview": str(preview_path),
-        "creative_state": "proof_card_ready",
+        "creative_state": "communicative_act_rendered_proof_card_ready",
+        "communicative_act": "cold_permission_request",
         "consent_mode": "once_off_request",
         "state": "outlook_draft_ready",
         "created_at": utc_now(),
     }
     write_json(state_path, state)
-    emit_event(EVENT_LOG, "prospect.outlook_draft_ready", "action", "prospect", target_id, {"mail_intent_id": intent["mail_intent_id"], "organisation": target["organisation"]})
+    emit_event(EVENT_LOG, "prospect.outlook_draft_ready", "action", "prospect", target_id, {"mail_intent_id": intent["mail_intent_id"], "organisation": target["organisation"], "communicative_act": "cold_permission_request"})
     return state
 
 
@@ -302,7 +237,8 @@ def upgrade_outlook_draft(target_id: str, actor: str) -> dict[str, Any]:
     state.update(
         {
             "email_preview": str(preview_path),
-            "creative_state": "proof_card_ready",
+            "creative_state": "communicative_act_rendered_proof_card_ready",
+            "communicative_act": "cold_permission_request",
             "consent_mode": "once_off_request",
             "draft_upgraded_at": utc_now(),
             "draft_upgraded_by": actor,
@@ -315,6 +251,6 @@ def upgrade_outlook_draft(target_id: str, actor: str) -> dict[str, Any]:
         "info",
         "prospect",
         target_id,
-        {"mail_intent_id": mail_intent_id, "creative_state": "proof_card_ready", "consent_mode": "once_off_request"},
+        {"mail_intent_id": mail_intent_id, "creative_state": "communicative_act_rendered_proof_card_ready", "communicative_act": "cold_permission_request", "consent_mode": "once_off_request"},
     )
     return state
