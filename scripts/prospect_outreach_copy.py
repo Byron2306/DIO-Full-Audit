@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from commerce.expression import CommunicativeAct, render_expression
+from commerce.expression_guarded import CommunicativeAct, render_expression
 from commerce.prospect_bridge import commercial_semantic_object_from_prospect_target
 from scripts.dio_mail_branding import MAIN_SITE, branded_email, product_profile, reply_link
 
