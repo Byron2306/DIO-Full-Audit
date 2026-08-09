@@ -22,6 +22,7 @@ from scripts.manage_mail_intent import create_intent_from_payload, intent_path, 
 DEFAULT_LEAD_ROOT = ROOT / "state" / "leads"
 DEFAULT_CONTEXT_ROOT = ROOT / "state" / "conversation_context"
 DEFAULT_INTENT_ROOT = ROOT / "state" / "mail_intents"
+DEFAULT_INGRESS_ROOT = ROOT / "state" / "mail_ingress"
 DEFAULT_EVENT_LOG = ROOT / "telemetry" / "dio_events.jsonl"
 DEFAULT_REPLY_ROOT = ROOT / "state" / "conversation_replies"
 
@@ -50,6 +51,24 @@ def _load_context(context_root: Path, conversation_id: str) -> tuple[dict[str, A
     if context.get("conversation_id") != conversation_id:
         raise ValueError("Conversation context index points to a mismatched conversation")
     return context, context_path
+
+
+def _load_source_ingress(root: Path, source_ref: str, conversation_id: str) -> tuple[dict[str, Any], Path]:
+    if not source_ref.startswith("mail_ingress:"):
+        raise ValueError("Conversation reply requires a Microsoft Graph mail-ingress source reference.")
+    ingress_id = _safe_id(source_ref.removeprefix("mail_ingress:"))
+    ingress_path = root / "state" / "mail_ingress" / f"{ingress_id}.json"
+    if not ingress_path.is_file():
+        raise FileNotFoundError(f"Latest Outlook ingress record is missing: {ingress_id}")
+    ingress = read_json(ingress_path)
+    if ingress.get("schema") != "dio.mail_ingress.v1":
+        raise ValueError("Conversation source is not a DIO Outlook mail-ingress record.")
+    if str(ingress.get("conversation_id") or "") != conversation_id:
+        raise ValueError("Latest Outlook ingress record belongs to a different conversation.")
+    provider_message_id = str(ingress.get("provider_message_id") or "").strip()
+    if not provider_message_id:
+        raise ValueError("Latest Outlook ingress record has no Microsoft Graph provider message id.")
+    return ingress, ingress_path
 
 
 def _reply_intent_id(lead_id: str, context_id: str, source_ref: str) -> str:
@@ -99,14 +118,15 @@ def prepare_conversation_reply(
     source_ref = str(latest.get("source_ref") or "").strip()
     if not source_ref:
         raise ValueError("Conversation has no authoritative latest inbound message")
+    ingress, ingress_path = _load_source_ingress(root, source_ref, conversation_id)
+    provider_message_id = str(ingress["provider_message_id"])
 
     cso = commercial_semantic_object_from_lead(lead)
     act = _act_for_lead(lead)
     expression = render_expression(cso, act, context={"conversation_context": context})
 
-    original_subject = str((lead.get("request") or {}).get("subject") or "").strip()
-    subject = f"Re: {original_subject}" if original_subject and not original_subject.lower().startswith("re:") else (original_subject or str(expression.get("subject") or "DIO reply"))
-    source_message_id = source_ref.removeprefix("mail_ingress:") if source_ref.startswith("mail_ingress:") else source_ref
+    original_subject = str(ingress.get("subject") or (lead.get("request") or {}).get("subject") or "").strip()
+    subject = original_subject if original_subject.lower().startswith("re:") else (f"Re: {original_subject}" if original_subject else str(expression.get("subject") or "DIO reply"))
     intent_id = _reply_intent_id(lead_id, context["context_id"], source_ref)
     existing_path = intent_path(intent_root, intent_id)
     if existing_path.exists():
@@ -118,7 +138,7 @@ def prepare_conversation_reply(
             "purpose": "conversation_reply",
             "lead_id": lead_id,
             "conversation_id": conversation_id,
-            "source_message_id": source_message_id,
+            "source_message_id": provider_message_id,
             "recipient": recipient,
             "subject": subject,
             "body": expression["body"],
@@ -135,6 +155,7 @@ def prepare_conversation_reply(
         "communicative_act": act.value,
         "conversation_context_authority": "expression_only",
         "source_ref": source_ref,
+        "provider_message_id": provider_message_id,
     }
     write_json(existing_path, intent)
 
@@ -143,7 +164,7 @@ def prepare_conversation_reply(
         cso,
         expression,
         intent,
-        source_paths=[lead_path, context_path],
+        source_paths=[lead_path, context_path, ingress_path],
     )
     intent["semantic_judgement"] = {
         "judgement_id": judgement["judgement_id"],
@@ -166,6 +187,7 @@ def prepare_conversation_reply(
         "conversation_context_id": context["context_id"],
         "thread_state": context["thread"]["state"],
         "source_ref": source_ref,
+        "provider_message_id": provider_message_id,
         "expression": expression,
         "semantic_judgement": {
             "judgement_id": judgement["judgement_id"],
