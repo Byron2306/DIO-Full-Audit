@@ -92,4 +92,5 @@ jobs:
             tests.test_semantic_judgement \
             tests.test_semantic_judgement_outlook_gate \
             tests.test_semantic_judgement_idempotence \
-            tests.test_semantic_mail_binding_gate
+            tests.test_semantic_mail_binding_gate \
+            tests.test_semantic_judgement_agency
