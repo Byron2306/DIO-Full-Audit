@@ -18,7 +18,10 @@ def _journal_path(presence_root: Path, conversation_id: str) -> Path:
 
 
 def _turn_ref(conversation_id: str, direction: str, source_message_id: str | None, text: str, observed_at: str) -> str:
-    seed = f"{conversation_id}\n{direction}\n{source_message_id or ''}\n{observed_at}\n{text}"
+    if source_message_id:
+        seed = f"{conversation_id}\n{direction}\nprovider:{source_message_id}"
+    else:
+        seed = f"{conversation_id}\n{direction}\n{observed_at}\n{text}"
     return "presence_turn:" + hashlib.sha256(seed.encode("utf-8")).hexdigest()[:20].upper()
 
 
