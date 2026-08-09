@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from commerce.orchestrator import CommercialOrchestrator  # noqa: E402
+from scripts.reconcile_conversation_context import reconcile_conversation_contexts  # noqa: E402
 
 
 def main() -> int:
@@ -23,7 +24,9 @@ def main() -> int:
     args = parser.parse_args()
     orchestrator = CommercialOrchestrator(args.root)
     while True:
+        context_receipt = reconcile_conversation_contexts(args.root)
         receipt = orchestrator.run(stage_jobs=not args.no_stage_jobs)
+        receipt["conversation_context"] = context_receipt
         print(json.dumps(receipt, indent=2), flush=True)
         if not args.watch:
             return 0
