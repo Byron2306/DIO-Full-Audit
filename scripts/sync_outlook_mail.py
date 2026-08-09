@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from adapters.microsoft_graph.client import GraphClient, load_config  # noqa: E402
+from commerce.semantic_judgement import assert_mail_semantic_judgement_current  # noqa: E402
 from scripts.manage_mail_intent import DEFAULT_EVENT_LOG, DEFAULT_INTENT_DIR, emit_event, intent_path, read_json, write_json  # noqa: E402
 
 
@@ -212,11 +213,20 @@ def pull_messages(
     }
 
 
+def _dio_root_from_intent_dir(intent_dir: Path) -> Path:
+    return intent_dir.resolve().parents[1]
+
+
 def create_outlook_draft(graph: GraphClient, intent_dir: Path, event_log: Path, mail_intent_id: str) -> dict[str, Any]:
     path = intent_path(intent_dir, mail_intent_id)
     intent = read_json(path)
     if intent["direction"] != "outbound" or intent["send_state"] not in {"draft", "approved", "failed"}:
         raise ValueError(f"Mail intent cannot become a draft from state {intent['send_state']}.")
+    judgement = assert_mail_semantic_judgement_current(
+        _dio_root_from_intent_dir(intent_dir),
+        intent,
+        require_execution_ready=False,
+    )
     attachments = []
     for value in intent.get("attachments") or []:
         attachment = Path(value).expanduser().resolve()
@@ -277,18 +287,20 @@ def create_outlook_draft(graph: GraphClient, intent_dir: Path, event_log: Path, 
             "provider": "microsoft_graph",
             "approval_state": intent["approval"]["state"],
             "attachment_count": len(attachment_receipts),
+            "semantic_judgement_id": judgement.get("judgement_id") if judgement else None,
         },
         intent.get("job_id"),
     )
     return {
-        "schema": "dio.outlook_draft_receipt.v1",
+        "schema": "dio.outlook_draft_receipt.v2" if judgement else "dio.outlook_draft_receipt.v1",
         "created_at": timestamp(),
         "mail_intent_id": mail_intent_id,
         "provider_draft_id": draft.get("id"),
         "conversation_id": draft.get("conversationId"),
         "attachments": attachment_receipts,
+        "semantic_judgement_id": judgement.get("judgement_id") if judgement else None,
         "sent": False,
-        "next_gate": "operator approval; Mail.Send is not granted in the initial Graph scope",
+        "next_gate": "operator approval; semantic judgement does not grant Mail.Send authority",
     }
 
 
@@ -315,6 +327,11 @@ def send_outlook_draft(
         raise ValueError("SEND_AUTHORITY_REFUSED: approval lease is invalid.")
     if datetime.now(timezone.utc) >= expires_at:
         raise ValueError("SEND_AUTHORITY_REFUSED: approval lease expired.")
+    judgement = assert_mail_semantic_judgement_current(
+        _dio_root_from_intent_dir(intent_dir),
+        intent,
+        require_execution_ready=True,
+    )
     draft_id = intent.get("provider_draft_id")
     if not draft_id:
         raise ValueError("SEND_AUTHORITY_REFUSED: exact Outlook draft is missing.")
@@ -338,7 +355,7 @@ def send_outlook_draft(
     intent["approval"].update({"state": "consumed", "token_sha256": None, "expires_at": None})
     write_json(path, intent)
     receipt = {
-        "schema": "dio.mail_send_receipt.v1",
+        "schema": "dio.mail_send_receipt.v2" if judgement else "dio.mail_send_receipt.v1",
         "receipt_id": f"MAIL-RECEIPT-{hashlib.sha256(f'{mail_intent_id}:{sent_at}'.encode()).hexdigest()[:16].upper()}",
         "mail_intent_id": mail_intent_id,
         "provider": "microsoft_graph",
@@ -347,9 +364,23 @@ def send_outlook_draft(
         "recipient": intent.get("recipient"),
         "sent_at": sent_at,
         "approval_consumed": True,
+        "semantic_judgement_id": judgement.get("judgement_id") if judgement else None,
+        "semantic_judgement_verdict": judgement.get("verdict") if judgement else None,
     }
     write_json(receipt_dir / f"{receipt['receipt_id']}.json", receipt, exclusive=True)
-    emit_event(event_log, "mail.sent", "info", "mail_intent", mail_intent_id, {"provider": "microsoft_graph", "receipt_id": receipt["receipt_id"]}, intent.get("job_id"))
+    emit_event(
+        event_log,
+        "mail.sent",
+        "info",
+        "mail_intent",
+        mail_intent_id,
+        {
+            "provider": "microsoft_graph",
+            "receipt_id": receipt["receipt_id"],
+            "semantic_judgement_id": judgement.get("judgement_id") if judgement else None,
+        },
+        intent.get("job_id"),
+    )
     if intent.get("lead_id"):
         bind_lead_conversation(intent_dir.parent / "leads", intent["lead_id"], intent.get("conversation_id"), mail_intent_id)
         lead_path = intent_dir.parent / "leads" / f"{intent['lead_id']}.json"
