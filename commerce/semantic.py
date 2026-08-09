@@ -7,6 +7,7 @@ from typing import Any, Iterable
 
 SCHEMA = "dio.commercial_semantic_object.v1"
 EPISTEMIC_STATES = frozenset({"verified", "inferred", "unknown"})
+MARKET_SIGNAL_STATES = frozenset({"observed", "derived", "unknown"})
 
 
 def timestamp() -> str:
@@ -50,6 +51,38 @@ def semantic_value(
         item["confidence"] = float(confidence)
     if method:
         item["method"] = str(method)
+    return item
+
+
+def market_signal(
+    value: float | None = None,
+    *,
+    state: str,
+    source_refs: Iterable[Any] | None = None,
+    provenance: str | None = None,
+    method: str | None = None,
+    measurement: str | None = None,
+    observed_at: str | None = None,
+) -> dict[str, Any]:
+    """Build a market signal without laundering a score into an observation.
+
+    `observed` is reserved for measured values carrying measurement identity,
+    observation time and source references. `derived` covers heuristics, model scores,
+    operator/provider priors and other transformations. `unknown` carries no number.
+    """
+    item: dict[str, Any] = {
+        "value": None if state == "unknown" else (float(value) if value is not None else None),
+        "state": state,
+        "source_refs": _source_refs(source_refs),
+    }
+    if provenance:
+        item["provenance"] = str(provenance)
+    if method:
+        item["method"] = str(method)
+    if measurement:
+        item["measurement"] = str(measurement)
+    if observed_at:
+        item["observed_at"] = str(observed_at)
     return item
 
 
@@ -113,6 +146,39 @@ def _validate_semantic_value(path: str, item: Any, errors: list[str]) -> None:
         errors.append(f"{path}.confidence must be between 0 and 1")
 
 
+def _validate_market_signal(path: str, item: Any, errors: list[str]) -> None:
+    if not isinstance(item, dict):
+        errors.append(f"{path} must be an object")
+        return
+    state = item.get("state")
+    if state not in MARKET_SIGNAL_STATES:
+        errors.append(f"{path}.state must be one of {sorted(MARKET_SIGNAL_STATES)}")
+        return
+    refs = item.get("source_refs")
+    if not isinstance(refs, list) or any(not isinstance(ref, str) or not ref.strip() for ref in refs):
+        errors.append(f"{path}.source_refs must be a list of non-empty strings")
+        refs = []
+    value = item.get("value")
+    if state == "unknown":
+        if value is not None:
+            errors.append(f"{path}.value must be null when state=unknown")
+        return
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        errors.append(f"{path}.value must be numeric when state={state}")
+    if not refs:
+        errors.append(f"{path}.source_refs must preserve evidence/basis when state={state}")
+    if state == "derived":
+        if not str(item.get("provenance") or "").strip():
+            errors.append(f"{path}.provenance is required when state=derived")
+        if not str(item.get("method") or "").strip():
+            errors.append(f"{path}.method is required when state=derived")
+    if state == "observed":
+        if not str(item.get("measurement") or "").strip():
+            errors.append(f"{path}.measurement is required when state=observed")
+        if not str(item.get("observed_at") or "").strip():
+            errors.append(f"{path}.observed_at is required when state=observed")
+
+
 def _validate_claim(path: str, item: Any, expected_status: str, errors: list[str]) -> None:
     if not isinstance(item, dict):
         errors.append(f"{path} must be an object")
@@ -129,6 +195,49 @@ def _validate_claim(path: str, item: Any, expected_status: str, errors: list[str
         errors.append(f"{path}.confidence must be between 0 and 1")
 
 
+def _validate_market_context(context: Any, errors: list[str]) -> None:
+    if not isinstance(context, dict):
+        errors.append("market_context must be an object")
+        return
+    if not str(context.get("source_system") or "").strip():
+        errors.append("market_context.source_system is required")
+    for section, fields in {
+        "opportunity": ("title", "topic", "angle", "content_role", "series_hint"),
+        "audience": ("public_segment", "primary_persona", "viewer_job", "content_pillar", "desired_reward", "likely_next_action"),
+    }.items():
+        body = context.get(section)
+        if not isinstance(body, dict):
+            errors.append(f"market_context.{section} must be an object")
+            continue
+        for field in fields:
+            if field not in body:
+                errors.append(f"market_context.{section}.{field} is required")
+            else:
+                _validate_semantic_value(f"market_context.{section}.{field}", body[field], errors)
+    signals = context.get("signals")
+    if not isinstance(signals, dict):
+        errors.append("market_context.signals must be an object")
+    else:
+        for name, item in signals.items():
+            _validate_market_signal(f"market_context.signals.{name}", item, errors)
+    scoring = context.get("scoring")
+    if not isinstance(scoring, dict):
+        errors.append("market_context.scoring must be an object")
+    else:
+        for field in ("opportunity_score", "score_confidence", "benefit_index", "risk_index"):
+            if field not in scoring:
+                errors.append(f"market_context.scoring.{field} is required")
+            else:
+                _validate_market_signal(f"market_context.scoring.{field}", scoring[field], errors)
+        if "decision" not in scoring:
+            errors.append("market_context.scoring.decision is required")
+        else:
+            _validate_semantic_value("market_context.scoring.decision", scoring["decision"], errors)
+    refs = context.get("source_refs")
+    if not isinstance(refs, list) or not refs or any(not isinstance(ref, str) or not ref.strip() for ref in refs):
+        errors.append("market_context.source_refs must preserve at least one source reference")
+
+
 def validate_commercial_semantic_object(payload: Any) -> list[str]:
     """Return semantic-contract violations without mutating the payload."""
     errors: list[str] = []
@@ -140,8 +249,12 @@ def validate_commercial_semantic_object(payload: Any) -> list[str]:
         errors.append("object_id must use the CSO- prefix")
 
     lineage = payload.get("lineage")
-    if not isinstance(lineage, dict) or not any(lineage.get(key) for key in ("lead_id", "conversation_id", "transaction_id", "prospect_id")):
-        errors.append("lineage must preserve at least one lead/conversation/transaction/prospect identifier")
+    lineage_keys = (
+        "lead_id", "conversation_id", "transaction_id", "prospect_id",
+        "campaign_id", "hypothesis_id", "opportunity_id",
+    )
+    if not isinstance(lineage, dict) or not any(lineage.get(key) for key in lineage_keys):
+        errors.append("lineage must preserve at least one lead/conversation/transaction/prospect/campaign/hypothesis/opportunity identifier")
 
     semantic_paths = {
         "subject": ("organisation", "buyer_role", "organisation_type", "relationship_state", "consent_state"),
@@ -208,6 +321,10 @@ def validate_commercial_semantic_object(payload: Any) -> list[str]:
         overlap = sorted(permitted & prohibited)
         if overlap:
             errors.append(f"claims cannot be both permitted and prohibited: {', '.join(overlap)}")
+
+    market_context = payload.get("market_context")
+    if market_context is not None:
+        _validate_market_context(market_context, errors)
 
     provenance = payload.get("provenance")
     if not isinstance(provenance, dict) or not str(provenance.get("adapter") or "").strip():
