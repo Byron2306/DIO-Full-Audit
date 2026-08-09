@@ -3,12 +3,18 @@ from __future__ import annotations
 import json
 import sys
 import tempfile
+import types
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+
+try:
+    import httpx as _httpx  # noqa: F401
+except ModuleNotFoundError:
+    sys.modules["httpx"] = types.SimpleNamespace()
 
 from presence_core.persona import apply_persona_response, load_public_profile  # noqa: E402
 from presence_core.router import route_message  # noqa: E402
