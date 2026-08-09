@@ -30,15 +30,6 @@ SENSITIVE_CONTEXT_SOURCES: dict[str, tuple[str, ...]] = {
     "proof_summary": ("proof:", "artifact:", "review:"),
 }
 
-PROHIBITED_DEPENDENCY_PATHS: dict[str, tuple[str, ...]] = {
-    "customer_budget": ("commercial.budget", "subject.budget"),
-    "customer_urgency": ("need.why_now", "need.trigger"),
-    "customer_workflow_pain": ("need.workflow_pain",),
-    "agreed_scope": ("commercial.scope",),
-    "processing_authority": ("subject.consent_state",),
-    "unverified_scope_authority": ("commercial.scope",),
-}
-
 
 def timestamp() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
@@ -62,16 +53,16 @@ def _safe_relative(root: Path, path: Path) -> tuple[Path, str]:
 
 
 def source_state_bindings(root: Path, paths: Iterable[Path]) -> list[dict[str, Any]]:
-    bindings = []
+    bindings: list[dict[str, Any]] = []
+    seen: set[str] = set()
     for candidate in paths:
         resolved, relative = _safe_relative(root, candidate)
+        if relative in seen:
+            continue
+        seen.add(relative)
         if not resolved.is_file():
             raise FileNotFoundError(f"Semantic judgement source state is missing: {resolved}")
-        bindings.append({
-            "path": relative,
-            "sha256": file_digest(resolved),
-            "size": resolved.stat().st_size,
-        })
+        bindings.append({"path": relative, "sha256": file_digest(resolved), "size": resolved.stat().st_size})
     return bindings
 
 
@@ -109,11 +100,7 @@ def _execution_kind(expression: dict[str, Any], requested: str) -> str:
     return requested
 
 
-def _metatron_judgement(
-    cso: dict[str, Any],
-    expression: dict[str, Any],
-    execution: dict[str, Any],
-) -> dict[str, Any]:
+def _metatron_judgement(cso: dict[str, Any], expression: dict[str, Any], execution: dict[str, Any]) -> dict[str, Any]:
     violations: list[dict[str, str]] = []
     obligations: list[dict[str, str]] = []
 
@@ -149,14 +136,18 @@ def _metatron_judgement(
         violation("PLAN_OBJECT_MISMATCH", "Expression plan is bound to a different Commercial Semantic Object.")
 
     execution_kind = str(execution.get("kind") or "")
-    if not execution_kind:
-        violation("EXECUTION_KIND_MISSING", "Semantic judgement requires an explicit execution kind.")
     expected_channel = str((contract.channel if contract else "") or "")
     execution_channel = str(execution.get("channel") or "")
+    if not execution_kind:
+        violation("EXECUTION_KIND_MISSING", "Semantic judgement requires an explicit execution kind.")
     if execution_kind in {"mail_send", "invoice_send", "delivery_send", "outlook_draft"} and expected_channel not in {"email", "document_or_email"}:
         violation("CHANNEL_AUTHORITY_MISMATCH", f"{act_value} is not contracted for Outlook/email execution.")
-    if execution_channel and expected_channel and execution_channel not in {expected_channel, "email" if expected_channel == "document_or_email" else expected_channel}:
-        violation("EXECUTION_CHANNEL_MISMATCH", f"Execution channel {execution_channel} does not match act channel {expected_channel}.")
+    if execution_channel and expected_channel:
+        allowed_channels = {expected_channel}
+        if expected_channel == "document_or_email":
+            allowed_channels.add("email")
+        if execution_channel not in allowed_channels:
+            violation("EXECUTION_CHANNEL_MISMATCH", f"Execution channel {execution_channel} does not match act channel {expected_channel}.")
 
     authority_state = str((cso.get("authority") or {}).get("authority_state") or "")
     if execution_kind in DIRECT_EXTERNAL_KINDS and authority_state in {"research_only", "market_strategy_public_content_only"}:
@@ -169,7 +160,7 @@ def _metatron_judgement(
         else:
             obligation(
                 "HUMAN_APPROVAL_REQUIRED",
-                "A semantic ALLOW does not create send/publish authority; the existing human execution lease remains required.",
+                "Semantic ALLOW does not create send/publish authority; the existing human execution lease remains required.",
                 "mail_intent.approval.state=approved" if execution_kind in {"mail_send", "invoice_send", "delivery_send"} else "explicit_operator_execution_approval",
             )
 
@@ -185,16 +176,17 @@ def _metatron_judgement(
             continue
         refs = [str(ref) for ref in item.get("source_refs") or []]
         authority = str(item.get("authority") or "")
-        if authority == "caller_verified_context" and refs and not any(any(ref.startswith(prefix) for prefix in prefixes) for ref in refs):
+        if authority == "caller_verified_context" and refs and not any(
+            any(ref.startswith(prefix) for prefix in prefixes) for ref in refs
+        ):
             violation(
                 "SENSITIVE_CONTEXT_AUTHORITY_THIN",
                 f"verified_context.{name} has generic caller authority and no recognised authoritative source class.",
             )
 
-    status = "BLOCK" if violations else "ALLOW"
     return {
         "schema": "dio.metatron_semantic_judgement.v1",
-        "status": status,
+        "status": "BLOCK" if violations else "ALLOW",
         "jurisdiction": {
             "communicative_act": act_value,
             "execution_kind": execution_kind,
@@ -238,18 +230,18 @@ def _loki_judgement(cso: dict[str, Any], expression: dict[str, Any]) -> dict[str
         (str(row.get("path") or ""), str(row.get("status") or ""), tuple(str(ref) for ref in row.get("source_refs") or []))
         for row in [*(plan.get("facts") or []), *(plan.get("hypotheses") or [])]
     }
-    claim_sources = list(expression.get("claim_sources") or [])
-    for row in claim_sources:
+    dependencies = list(expression.get("semantic_dependencies") or expression.get("claim_sources") or [])
+    for row in dependencies:
         key = (str(row.get("path") or ""), str(row.get("status") or ""), tuple(str(ref) for ref in row.get("source_refs") or []))
         if key not in plan_sources:
-            veto("CLAIM_MANIFEST_TAMPERED", "Expression claim source is absent from the governed expression plan.", claim_source=row)
+            veto("DEPENDENCY_MANIFEST_TAMPERED", "Expression dependency is absent from the governed expression plan.", dependency=row)
 
     act_value = str(expression.get("communicative_act") or "")
     try:
         contract = ACT_CONTRACTS[CommunicativeAct(act_value)]
     except ValueError:
         contract = None
-    inferred_paths = [str(row.get("path") or "") for row in claim_sources if row.get("status") == "inferred"]
+    inferred_paths = [str(row.get("path") or "") for row in dependencies if row.get("status") == "inferred"]
     if inferred_paths:
         if contract is not None and not (contract.allow_inferred_need or contract.allow_inferred_strategy):
             veto("INFERENCE_NOT_ALLOWED_FOR_ACT", f"{act_value} does not permit inferred dependencies.", paths=inferred_paths)
@@ -257,22 +249,34 @@ def _loki_judgement(cso: dict[str, Any], expression: dict[str, Any]) -> dict[str
             challenge("INFERENCE_REQUIRES_REVIEW", "Inferred dependencies are present and must not be expressed as settled customer facts.", paths=inferred_paths)
 
     prohibited = set(str(value) for value in (cso.get("proof") or {}).get("prohibited_claims") or [])
-    dependency_paths = {str(row.get("path") or "") for row in claim_sources}
-    for claim in sorted(prohibited):
-        forbidden_paths = PROHIBITED_DEPENDENCY_PATHS.get(claim, ())
-        collisions = sorted(path for path in forbidden_paths if path in dependency_paths)
-        if collisions:
-            veto(
-                "PROHIBITED_CLAIM_DEPENDENCY",
-                f"Expression depends on semantic fields prohibited by claim policy: {claim}.",
-                prohibited_claim=claim,
-                paths=collisions,
-            )
+    asserted_claims = expression.get("asserted_claims")
+    if asserted_claims is None:
+        challenge(
+            "PRECISE_ASSERTED_CLAIM_MANIFEST_ABSENT",
+            "C3 dependency manifest is available, but the expression does not yet carry a precise sentence-level asserted-claim manifest.",
+        )
+    elif not isinstance(asserted_claims, list):
+        veto("ASSERTED_CLAIM_MANIFEST_INVALID", "asserted_claims must be a list when present.")
+    else:
+        for claim in asserted_claims:
+            if not isinstance(claim, dict):
+                veto("ASSERTED_CLAIM_INVALID", "Every asserted claim must be an object.")
+                continue
+            claim_id = str(claim.get("claim_id") or "")
+            path = str(claim.get("path") or "")
+            status = str(claim.get("status") or "")
+            refs = tuple(str(ref) for ref in claim.get("source_refs") or [])
+            if claim_id in prohibited:
+                veto("PROHIBITED_CLAIM_ASSERTED", f"Expression explicitly asserts prohibited claim {claim_id}.", claim=claim)
+            if (path, status, refs) not in plan_sources:
+                veto("ASSERTED_CLAIM_UNBOUND", "Asserted claim is not bound to the governed plan with the same epistemic status and sources.", claim=claim)
+            if not str(claim.get("statement") or "").strip():
+                veto("ASSERTED_CLAIM_TEXT_MISSING", "Asserted claim has no statement text.", claim=claim)
 
     conversation = plan.get("conversation_context")
     if isinstance(conversation, dict):
         authority = conversation.get("authority") or {}
-        forbidden_true = (
+        for field in (
             "may_establish_commercial_fact",
             "may_grant_consent",
             "may_set_scope",
@@ -280,20 +284,18 @@ def _loki_judgement(cso: dict[str, Any], expression: dict[str, Any]) -> dict[str
             "may_set_payment_state",
             "may_confirm_identity",
             "may_grant_execution_authority",
-        )
-        for field in forbidden_true:
+        ):
             if authority.get(field) is not False:
                 veto("CONVERSATION_AUTHORITY_LAUNDERING", f"Conversation Context attempted to acquire {field}.")
 
     if not str(expression.get("body") or "").strip():
         veto("EMPTY_EXPRESSION", "There is no expression body to judge.")
-    if not claim_sources:
+    if not dependencies:
         veto("UNBOUND_EXPRESSION", "Expression contains prose but no declared semantic dependency manifest.")
 
-    status = "VETO" if vetoes else "CHALLENGE" if challenges else "CLEAR"
     return {
         "schema": "dio.loki_semantic_judgement.v1",
-        "status": status,
+        "status": "VETO" if vetoes else "CHALLENGE" if challenges else "CLEAR",
         "vetoes": vetoes,
         "challenges": challenges,
         "alternative_hypotheses": [
@@ -352,14 +354,14 @@ def judge_expression(
     expression_sha = canonical_digest(expression)
     execution_sha = str(execution.get("binding_sha256") or canonical_digest(execution))
     source_states = list(source_states or [])
-    judgement_seed = {
+    seed = {
         "cso_sha256": cso_sha,
         "expression_sha256": expression_sha,
         "execution_binding_sha256": execution_sha,
         "source_states": source_states,
         "verdict": verdict,
     }
-    judgement_id = "JUDGE-" + hashlib.sha256(json.dumps(judgement_seed, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()[:20].upper()
+    judgement_id = "JUDGE-" + hashlib.sha256(json.dumps(seed, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()[:20].upper()
     return {
         "schema": SCHEMA,
         "judgement_id": judgement_id,
@@ -374,11 +376,7 @@ def judge_expression(
             "execution_binding_sha256": execution_sha,
             "source_states": source_states,
         },
-        "triune": {
-            "metatron": metatron,
-            "loki": loki,
-            "beast": beast,
-        },
+        "triune": {"metatron": metatron, "loki": loki, "beast": beast},
         "obligations": obligations,
         "execution_authority_granted": False,
         "constitution": {
@@ -433,8 +431,7 @@ def judge_mail_intent(
         repeat_count=repeat_count,
         active_negative_capabilities=active_negative_capabilities,
     )
-    path = persist_judgement(root, judgement)
-    return judgement, path
+    return judgement, persist_judgement(root, judgement)
 
 
 def _judgement_path(root: Path, reference: str) -> Path:
@@ -452,10 +449,11 @@ def assert_mail_semantic_judgement_current(
     *,
     require_execution_ready: bool,
 ) -> dict[str, Any] | None:
-    """Verify exact proof-carrying judgement before Outlook draft/send.
+    """Verify an exact proof-carrying judgement before Outlook draft/send.
 
-    Legacy mail intents with no semantic binding remain readable under the pre-C5 path.
-    Once an intent declares a semantic binding, however, judgement becomes mandatory.
+    Legacy intents with no semantic binding remain on the pre-C5 path. Once an intent
+    declares a semantic binding, however, judgement becomes mandatory and source-state
+    changes invalidate it.
     """
     if not intent.get("semantic_binding"):
         return None
@@ -473,9 +471,8 @@ def assert_mail_semantic_judgement_current(
     if judgement.get("verdict") == "BLOCK":
         raise ValueError("SEMANTIC_JUDGEMENT_REFUSED: Triune verdict is BLOCK.")
 
-    current_execution_sha = mail_execution_digest(intent)
     expected_execution_sha = str((judgement.get("bindings") or {}).get("execution_binding_sha256") or "")
-    if current_execution_sha != expected_execution_sha:
+    if mail_execution_digest(intent) != expected_execution_sha:
         raise ValueError("SEMANTIC_JUDGEMENT_STALE: mail subject/body/recipient/attachments or semantic binding changed after judgement.")
 
     for row in (judgement.get("bindings") or {}).get("source_states") or []:
