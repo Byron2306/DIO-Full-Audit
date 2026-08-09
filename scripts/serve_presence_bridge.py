@@ -57,6 +57,18 @@ def send_telegram_reply_from_core(envelope: dict, result: dict) -> tuple[bool, s
 def _presence_root() -> Path:
     return ROOT/CFG.get('state_root','state/presence')
 
+def _incoming_provider_message_id(envelope: dict) -> str | None:
+    metadata=envelope.get('metadata') or {}
+    candidates=(
+        envelope.get('source_message_id'),
+        metadata.get('source_message_id'),
+        metadata.get('telegram_message_id'),
+        metadata.get('provider_message_id'),
+        metadata.get('update_id'),
+    )
+    value=next((str(item).strip() for item in candidates if str(item or '').strip()),'')
+    return value or None
+
 def _persist_live_context(envelope: dict, result: dict, sent: bool, provider_message_id: str | None) -> None:
     conversation_id=str(result.get('conversation_id') or '')
     if not conversation_id:
@@ -69,7 +81,7 @@ def _persist_live_context(envelope: dict, result: dict, sent: bool, provider_mes
         delivery_state='received',
         text=str(envelope.get('text') or ''),
         actor_role='operator' if result.get('role')=='operator' else 'public_user',
-        source_message_id=str(envelope.get('source_message_id') or '') or None,
+        source_message_id=_incoming_provider_message_id(envelope),
         observed_at=str(envelope.get('received_at') or ((envelope.get('metadata') or {}).get('received_at')) or '') or None,
     )
     reply_text=str(((result.get('reply') or {}).get('text')) or '')
