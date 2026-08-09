@@ -75,4 +75,5 @@ jobs:
             tests.test_commercial_expression_schema \
             tests.test_commercial_expression_relationships \
             tests.test_conversation_context \
-            tests.test_conversation_context_reconciliation
+            tests.test_conversation_context_reconciliation \
+            tests.test_conversation_context_schema
