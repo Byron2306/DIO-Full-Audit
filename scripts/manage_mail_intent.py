@@ -108,6 +108,8 @@ def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_l
         "mail_intent_id": intent_id,
         "direction": "outbound",
         "purpose": source.get("purpose", "other"),
+        "communicative_act": source.get("communicative_act"),
+        "semantic_binding": source.get("semantic_binding"),
         "lead_id": source.get("lead_id"),
         "order_id": source.get("order_id"),
         "job_id": source.get("job_id"),
@@ -127,7 +129,20 @@ def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_l
         "updated_at": timestamp(created),
     }
     write_json(intent_path(intent_dir, intent_id), intent, exclusive=True)
-    emit_event(event_log, "mail.draft_ready", "action", "mail_intent", intent_id, {"purpose": intent["purpose"], "risk": intent["risk"]}, intent.get("job_id"))
+    emit_event(
+        event_log,
+        "mail.draft_ready",
+        "action",
+        "mail_intent",
+        intent_id,
+        {
+            "purpose": intent["purpose"],
+            "risk": intent["risk"],
+            "communicative_act": intent.get("communicative_act"),
+            "semantic_binding": bool(intent.get("semantic_binding")),
+        },
+        intent.get("job_id"),
+    )
     return intent
 
 
