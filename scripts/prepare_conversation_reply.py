@@ -132,10 +132,20 @@ def prepare_conversation_reply(
     if existing_path.exists():
         return read_json(existing_path)
 
+    semantic_binding = {
+        "semantic_object_id": cso["object_id"],
+        "conversation_context_id": context["context_id"],
+        "communicative_act": act.value,
+        "conversation_context_authority": "expression_only",
+        "source_ref": source_ref,
+        "provider_message_id": provider_message_id,
+    }
     intent = create_intent_from_payload(
         {
             "mail_intent_id": intent_id,
             "purpose": "conversation_reply",
+            "communicative_act": act.value,
+            "semantic_binding": semantic_binding,
             "lead_id": lead_id,
             "conversation_id": conversation_id,
             "source_message_id": provider_message_id,
@@ -148,16 +158,6 @@ def prepare_conversation_reply(
         intent_root,
         event_log,
     )
-    intent["communicative_act"] = act.value
-    intent["semantic_binding"] = {
-        "semantic_object_id": cso["object_id"],
-        "conversation_context_id": context["context_id"],
-        "communicative_act": act.value,
-        "conversation_context_authority": "expression_only",
-        "source_ref": source_ref,
-        "provider_message_id": provider_message_id,
-    }
-    write_json(existing_path, intent)
 
     judgement, judgement_path = judge_mail_intent(
         root,
