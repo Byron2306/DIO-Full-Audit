@@ -18,6 +18,7 @@ except ModuleNotFoundError:
 
 from presence_core.persona import apply_persona_response, load_public_profile  # noqa: E402
 from presence_core.router import route_message  # noqa: E402
+from scripts.prepare_conversation_reply import prepare_conversation_reply  # noqa: E402
 from scripts.reconcile_conversation_context import reconcile_conversation_contexts  # noqa: E402
 
 
@@ -76,6 +77,44 @@ class ConversationReconciliationTests(unittest.TestCase):
             self.assertEqual("telegram", context["channel"])
             self.assertEqual("awaiting_dio_response", context["thread"]["state"])
             self.assertIn("prepare an Evidex evidence pack", context["observations"]["last_requested_action"]["text"])
+
+    def test_reply_preparer_consumes_exact_thread_context_but_stops_at_review_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            lead_id = "LEAD-C4-REPLY"
+            self.write(root / f"state/leads/{lead_id}.json", {
+                "schema": "dio.lead.v1",
+                "lead_id": lead_id,
+                "product": "Evidex Evidence Packs",
+                "offer": "bounded evidence pack",
+                "contact": {"name": "Alex", "email": "alex@example.org", "organisation": "Example Org"},
+                "request": {"subject": "Evidence pack question"},
+                "consents": {"processing_authority_confirmed": False},
+                "attribution": {"source": "outlook_direct", "medium": "email"},
+                "state": "pending",
+                "qualification": {"state": "pending"},
+                "conversation_id": "THREAD-REPLY-1"
+            })
+            self.write(root / "state/mail_ingress/IN-REPLY.json", {
+                "schema": "dio.mail_ingress.v1",
+                "mail_ingress_id": "IN-REPLY",
+                "conversation_id": "THREAD-REPLY-1",
+                "received_at": "2026-08-09T12:00:00+00:00",
+                "body_preview": "Could you please explain what you need from us next?",
+            })
+            reconcile_conversation_contexts(root)
+            intent = prepare_conversation_reply(lead_id, root=root)
+            self.assertEqual("conversation_reply", intent["purpose"])
+            self.assertEqual("draft", intent["send_state"])
+            self.assertEqual("pending", intent["approval"]["state"])
+            self.assertEqual("inbound_reply", intent["communicative_act"])
+            self.assertEqual("expression_only", intent["semantic_binding"]["conversation_context_authority"])
+            self.assertIn("latest message", intent["body"])
+            self.assertIn("explain what you need from us next", intent["body"])
+            receipt_path = root / "state/conversation_replies" / f"{intent['mail_intent_id']}.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            self.assertFalse(receipt["authority"]["mail_send_authorized"])
+            self.assertTrue(receipt["authority"]["operator_approval_required"])
 
     def test_vesper_is_public_name_and_lilith_remains_legacy_alias(self) -> None:
         profile = load_public_profile(ROOT)
