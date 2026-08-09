@@ -71,20 +71,13 @@ def build_opportunity(job: dict[str, Any]) -> dict[str, Any]:
         ],
         "series_hint": "Evidence-first AI workflows for busy professionals",
         "content_role": "commercial_intent",
-        "signals": {
-            "audience_demand": 0.72,
-            "content_gap": 0.64,
-            "series_potential": 0.85,
-            "visual_potential": 0.58,
-            "monetization_alignment": 0.9,
-            "evidence_availability": 0.78,
-            "production_burden": 0.32,
-            "policy_risk": 0.25,
-            "freshness_risk": 0.1,
-        },
+        "signals": {},
+        "signal_evidence": {},
         "operator_notes": (
             f"Generated from AutoRelease job {job['job_id']} at {utc_now()}. "
-            f"Route reason: {job['route']['reason']}"
+            f"Route reason: {job['route']['reason']} "
+            "No market score is asserted by this bridge. Missing NicheFoundry signals must remain unknown "
+            "or be calculated by the scorer as explicitly labelled derived heuristics."
         ),
     }
 
@@ -251,4 +244,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
