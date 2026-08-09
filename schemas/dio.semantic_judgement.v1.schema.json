@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio.semantic_judgement.v1.schema.json",
+  "title": "DIO Semantic Judgement v1",
+  "description": "Proof-carrying Metatron/Loki/BEAST judgement over one semantic object, one expression and one bounded execution. A judgement never grants execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "judgement_id",
+    "created_at",
+    "verdict",
+    "semantic_object_id",
+    "communicative_act",
+    "execution",
+    "bindings",
+    "triune",
+    "obligations",
+    "execution_authority_granted",
+    "constitution"
+  ],
+  "properties": {
+    "schema": {"const": "dio.semantic_judgement.v1"},
+    "judgement_id": {"type": "string", "pattern": "^JUDGE-[A-F0-9]{20}$"},
+    "created_at": {"type": "string", "minLength": 1},
+    "verdict": {"enum": ["ALLOW", "ALLOW_WITH_OBLIGATIONS", "BLOCK"]},
+    "semantic_object_id": {"type": "string", "pattern": "^CSO-"},
+    "communicative_act": {"type": "string", "minLength": 1},
+    "execution": {
+      "type": "object",
+      "required": ["kind", "channel"],
+      "properties": {
+        "kind": {"enum": ["outlook_draft", "mail_send", "invoice_send", "delivery_send", "public_publish", "paid_media_publish"]},
+        "channel": {"type": "string", "minLength": 1},
+        "mail_intent_id": {"type": ["string", "null"]},
+        "conversation_id": {"type": ["string", "null"]},
+        "source_message_id": {"type": ["string", "null"]},
+        "recipient": {"type": ["string", "null"]},
+        "binding_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commercial_semantic_object_sha256", "expression_sha256", "execution_binding_sha256", "source_states"],
+      "properties": {
+        "commercial_semantic_object_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "expression_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "execution_binding_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "source_states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256", "size"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+              "size": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "triune": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metatron", "loki", "beast"],
+      "properties": {
+        "metatron": {
+          "type": "object",
+          "required": ["schema", "status", "jurisdiction", "violations", "obligations", "principle"],
+          "properties": {"status": {"enum": ["ALLOW", "BLOCK"]}}
+        },
+        "loki": {
+          "type": "object",
+          "required": ["schema", "status", "vetoes", "challenges", "alternative_hypotheses", "principle"],
+          "properties": {"status": {"enum": ["CLEAR", "CHALLENGE", "VETO"]}}
+        },
+        "beast": {
+          "type": "object",
+          "required": ["schema", "status", "scorer", "dependency_summary", "active_negative_capabilities", "blockers", "cautions", "principles"],
+          "properties": {"status": {"enum": ["PASS", "CAUTION", "BLOCK"]}}
+        }
+      }
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "message", "satisfied_by"],
+        "properties": {
+          "code": {"type": "string", "minLength": 1},
+          "message": {"type": "string", "minLength": 1},
+          "satisfied_by": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "execution_authority_granted": {"const": false},
+    "constitution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deterministic_meaning", "probabilistic_expression_permitted", "governed_execution", "human_approval_not_replaced", "source_change_invalidates_judgement"],
+      "properties": {
+        "deterministic_meaning": {"const": true},
+        "probabilistic_expression_permitted": {"const": true},
+        "governed_execution": {"const": true},
+        "human_approval_not_replaced": {"const": true},
+        "source_change_invalidates_judgement": {"const": true}
+      }
+    }
+  }
+}
