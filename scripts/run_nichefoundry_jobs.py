@@ -3,14 +3,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from scripts.commercial_language import CommercialMessageContext, render_nichefoundry_campaign
+
 
 ROOT = Path(__file__).resolve().parents[1]
-NICHEFOUNDRY_ROOT = Path("/home/byron/Downloads/NicheFoundry_Phase11")
+PRODUCT_LAYERS = ROOT / "config" / "product_layers.json"
+MARKETING_CONFIG = ROOT / "config" / "dio_marketing_integration.json"
 
 
 def utc_now() -> str:
@@ -36,52 +40,123 @@ def clean_text(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
 
 
-def infer_offer(subject: str, extract: str) -> str:
+def resolve_nichefoundry_root() -> Path:
+    override = os.environ.get("DIO_NICHEFOUNDRY_ROOT")
+    if override:
+        return Path(override).expanduser().resolve()
+    if MARKETING_CONFIG.exists():
+        configured = json.loads(MARKETING_CONFIG.read_text(encoding="utf-8")).get("nichefoundry_root")
+        if configured:
+            return Path(configured).expanduser().resolve()
+    return (Path.home() / "Downloads" / "NicheFoundry_Phase11").resolve()
+
+
+def layers() -> dict[str, dict[str, Any]]:
+    if not PRODUCT_LAYERS.exists():
+        return {}
+    payload = json.loads(PRODUCT_LAYERS.read_text(encoding="utf-8"))
+    return {item["id"]: item for item in payload.get("layers") or []}
+
+
+def infer_layer_id(subject: str, extract: str) -> str:
     text = f"{subject} {extract}".lower()
-    if "homs" in text or "marking" in text or "lecturer" in text:
-        return "HOMS Marking Relief Pack"
-    if "evidex" in text or "evidence pack" in text or "grant" in text:
-        return "Evidex Evidence Pack"
-    if "vamp" in text or "performance" in text:
-        return "VAMP Performance Evidence Desk"
-    if "sophia" in text or "academic" in text or "research" in text:
-        return "Sophia Academic Review Desk"
-    return "KnowEdge Evidence Automation Suite"
+    if "homs" in text or "marking" in text or "lecturer" in text or "assessment" in text:
+        return "homs"
+    if "evidex" in text or "evidence pack" in text or "grant" in text or "donor" in text:
+        return "evidex"
+    if "vamp" in text or "performance" in text or "task agreement" in text:
+        return "vamp"
+    if "sophia" in text or "academic review" in text or "citation" in text:
+        return "sophia"
+    if "translation" in text or "technical edit" in text or "document studio" in text:
+        return "document_studio"
+    return "dio"
 
 
-def build_opportunity(job: dict[str, Any]) -> dict[str, Any]:
+def layer_for_job(job: dict[str, Any]) -> dict[str, Any]:
     item = first_input(job)
     evidence = first_evidence(job)
     subject = clean_text(str(item.get("subject") or "Product campaign"))
     extract = clean_text(str(evidence.get("text_extract") or ""))
-    offer = infer_offer(subject, extract)
-
+    layer_id = infer_layer_id(subject, extract)
+    known = layers().get(layer_id)
+    if known:
+        return known
     return {
-        "title": f"{offer}: workflow pain-to-pack campaign",
-        "topic": f"{offer} productized service campaign",
-        "angle": (
-            "Show a concrete before/after workflow: messy evidence, email, or document batch "
-            "becomes a review-ready pack with human approval preserved."
-        ),
-        "viewer_job": "help me understand whether this workflow can save me time without losing control",
+        "id": "dio",
+        "name": "DIO Workflows",
+        "primary_buyer": "evidence-heavy professional teams",
+        "pain": "A recurring workflow begins with scattered inputs and repeated manual reconstruction.",
+        "promise": "A concrete first pass prepared for professional review.",
+        "proof_asset": "DIO controlled workflow evidence",
+        "offer": "Controlled Pilot",
+        "cta": "Send one non-sensitive workflow example to test the route.",
+        "risk_boundary": "Human approval remains required for consequential decisions and release.",
+    }
+
+
+def message_context(job: dict[str, Any]) -> CommercialMessageContext:
+    layer = layer_for_job(job)
+    item = first_input(job)
+    evidence = first_evidence(job)
+    subject = clean_text(str(item.get("subject") or ""))
+    extract = clean_text(str(evidence.get("text_extract") or ""))
+    problem = clean_text(str(layer.get("pain") or ""))
+    if not problem and extract:
+        problem = extract[:220]
+    return CommercialMessageContext(
+        product_id=str(layer.get("id") or "dio"),
+        product_name=str(layer.get("name") or "DIO Workflows"),
+        offer=str(layer.get("offer") or "Controlled Pilot"),
+        relationship_stage="public_awareness",
+        channel="nichefoundry",
+        audience_name=str(layer.get("primary_buyer") or "evidence-heavy professional teams"),
+        buyer_role=str(layer.get("primary_buyer") or ""),
+        problem=problem,
+        desired_outcome=str(layer.get("promise") or ""),
+        proof_summary=str(layer.get("proof_asset") or ""),
+        proof_grade="technical",
+        cta=str(layer.get("cta") or "Send one non-sensitive workflow example to test the route."),
+        source_refs=tuple(filter(None, [str(job.get("job_id") or ""), subject])),
+    )
+
+
+def build_opportunity(job: dict[str, Any]) -> dict[str, Any]:
+    context = message_context(job)
+    campaign = render_nichefoundry_campaign(context)
+    return {
+        "title": f"{context.product_name}: specific pain-to-proof campaign",
+        "topic": f"{context.product_name} controlled service campaign",
+        "angle": campaign["core_angle"],
+        "viewer_job": f"help me decide whether {context.product_name} addresses this exact workload before I spend time on a pilot",
         "source_hints": [
             "Local AutoRelease routed job",
-            "KnowEdge portfolio productization report",
-            "Existing product README and demo outputs",
+            "Canonical DIO product layer",
+            "Existing product proof artifact",
         ],
-        "series_hint": "Evidence-first AI workflows for busy professionals",
+        "series_hint": "Proof-bearing professional workflow services",
         "content_role": "commercial_intent",
-        "signals": {
-            "audience_demand": 0.72,
-            "content_gap": 0.64,
-            "series_potential": 0.85,
-            "visual_potential": 0.58,
-            "monetization_alignment": 0.9,
-            "evidence_availability": 0.78,
-            "production_burden": 0.32,
-            "policy_risk": 0.25,
-            "freshness_risk": 0.1,
+        "commercial_context": {
+            "schema": "dio.commercial.message_context.v1",
+            "product_id": context.product_id,
+            "audience": context.audience_name,
+            "problem": context.problem,
+            "desired_outcome": context.desired_outcome,
+            "proof_grade": context.proof_grade,
+            "cta": context.cta,
         },
+        "signals": {
+            "audience_demand": 0.0,
+            "content_gap": 0.0,
+            "series_potential": 0.0,
+            "visual_potential": 0.0,
+            "monetization_alignment": 0.0,
+            "evidence_availability": 1.0 if context.proof_summary else 0.0,
+            "production_burden": 0.0,
+            "policy_risk": 0.25,
+            "freshness_risk": 0.0,
+        },
+        "signal_note": "Unknown market scores remain zero until measured. The generator does not invent demand or monetization confidence.",
         "operator_notes": (
             f"Generated from AutoRelease job {job['job_id']} at {utc_now()}. "
             f"Route reason: {job['route']['reason']}"
@@ -90,36 +165,36 @@ def build_opportunity(job: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_campaign_markdown(job: dict[str, Any], opportunity: dict[str, Any]) -> str:
+    context = message_context(job)
+    copy = render_nichefoundry_campaign(context)
     item = first_input(job)
     evidence = first_evidence(job)
     subject = clean_text(str(item.get("subject") or "Product campaign"))
     extract = clean_text(str(evidence.get("text_extract") or ""))
-    offer = infer_offer(subject, extract)
 
     return f"""
-# Campaign Pack: {offer}
+# Campaign Pack: {context.product_name}
 
 Job: `{job["job_id"]}`
 Created: {utc_now()}
 Route confidence: {job["route"]["confidence"]}
+Commercial context: `dio.commercial.message_context.v1`
 
-## Offer
+## Buyer And Job
 
-{offer}
+- Buyer: {context.audience_name}
+- Recurring problem: {context.problem}
+- Desired result: {context.desired_outcome}
+- Offer: {context.offer}
+- Proof grade: {context.proof_grade}
 
 ## Core Angle
 
-Messy operational input becomes a review-ready output pack. The client keeps judgment and approval.
-
-## Target Buyer
-
-- Busy lecturers, teachers, academic administrators, NGO operators, consultants, or evidence-heavy professionals.
-- They already have email threads, attachments, documents, rubrics, reports, and deadlines.
-- They do not want another abstract AI tool. They want a done-for-you workflow result.
+{copy["core_angle"]}
 
 ## Lead Message
 
-Send the messy batch. Get back a structured review pack.
+{copy["lead_message"]}
 
 ## Source Brief
 
@@ -135,55 +210,57 @@ Send the messy batch. Get back a structured review pack.
 
 ### 1. Pain Post
 
-You do not need another dashboard. You need the pile of emails, documents, rubrics, or evidence turned into something you can review and send.
+{copy["pain_post"]}
 
 ### 2. Proof Post
 
-The workflow creates a job packet, preserves source evidence, routes it to the right product module, generates a review pack, and keeps the human approval gate intact.
+{copy["proof_post"]}
 
 ### 3. Offer Post
 
-For a limited pilot, send one real but non-sensitive batch. We will return a review-ready pack and show exactly what the workflow can and cannot automate.
+{copy["offer_post"]}
 
 ### 4. Objection Post
 
-The system does not send emails, finalize marks, invent citations, or make HR decisions. It prepares the work so a human can decide faster.
+{copy["objection_post"]}
 
 ### 5. CTA
 
-Reply with the workflow you hate repeating: marking, evidence packs, performance reviews, inbox triage, or academic review.
+{copy["cta"]}
 
 ## Short Video Script
 
-Hook: "This is what happens when an inbox stops being a graveyard and starts becoming a production line."
+Hook: "{copy['video_hook']}"
 
-Scene 1: Show the messy input: email, ZIP, rubric, evidence folder, or brief.
+Scene 1: Show the exact source workload, not a generic AI graphic.
 
-Scene 2: Show route classification and job creation.
+Scene 2: Show the work being organised or transformed.
 
-Scene 3: Show the review pack: evidence manifest, checklist, draft, output folder.
+Scene 3: Show the real proof artifact and one visible limitation.
 
-Scene 4: Human approval stays in charge.
+Scene 4: Show the professional review or approval point.
 
-CTA: "Send one messy workflow. We will turn it into a review-ready pack."
+CTA: "{copy['cta']}"
 
 ## Approval Checklist
 
-- [ ] No fake metrics.
-- [ ] No fabricated testimonials.
-- [ ] No claim that the system replaces professional judgment.
+- [ ] The first line names a real buyer problem rather than DIO architecture.
+- [ ] The proof shown matches the stated proof grade.
+- [ ] No fake metrics, testimonials or demand scores.
+- [ ] No claim that the system replaces professional judgement.
 - [ ] No automatic sending or final decisions implied.
-- [ ] CTA is concrete and low-friction.
+- [ ] One concrete, low-friction CTA.
 """
 
 
 def build_content_queue(job: dict[str, Any], opportunity: dict[str, Any]) -> dict[str, Any]:
+    foundry = resolve_nichefoundry_root()
     return {
-        "schema": "knowedge.nichefoundry_campaign_request.v1",
+        "schema": "knowedge.nichefoundry_campaign_request.v2",
         "created_at": utc_now(),
         "job_id": job["job_id"],
-        "nichefoundry_root": str(NICHEFOUNDRY_ROOT),
-        "recommended_studio": "practical_open_source",
+        "nichefoundry_root": str(foundry),
+        "recommended_studio": "dio_proof_led_services",
         "opportunity": opportunity,
         "requested_outputs": [
             "landing_page_outline",
@@ -199,6 +276,7 @@ def build_content_queue(job: dict[str, Any], opportunity: dict[str, Any]) -> dic
             "unverified revenue claims",
             "guaranteed outcomes",
             "private client data",
+            "invented demand scores",
         ],
     }
 
@@ -218,7 +296,8 @@ def write_job(job: dict[str, Any], out_root: Path) -> Path:
                 "job_id": job["job_id"],
                 "created_at": utc_now(),
                 "status": "prepared_request_only",
-                "reason": "Phase 1 prepares a NicheFoundry-compatible campaign request without rendering media or requiring API keys.",
+                "reason": "Campaign request prepared from canonical DIO product and commercial-message context; publication still requires operator approval.",
+                "copy_engine": "dio.commercial.message_context.v1",
                 "files": [
                     str(job_dir / "foundry_opportunity.json"),
                     str(job_dir / "foundry_campaign_request.json"),
@@ -251,4 +330,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
