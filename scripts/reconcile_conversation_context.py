@@ -27,10 +27,6 @@ def _json_files(path: Path) -> list[Path]:
     return sorted(path.glob("*.json")) if path.exists() else []
 
 
-def _safe(value: str) -> str:
-    return "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in value)[:180] or "unknown"
-
-
 def _write_index(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
@@ -102,10 +98,12 @@ def reconcile_conversation_contexts(root: Path = ROOT) -> dict[str, Any]:
         if not conversation_id:
             continue
         turns = load_presence_turns(presence_root, conversation_id)
-        known_refs = {str(turn.get("source_ref") or "") for turn in turns}
-        for turn in _presence_intake_turns(root, conversation_id):
-            if turn["source_ref"] not in known_refs:
-                turns.append(turn)
+        has_live_inbound = any(
+            turn.get("direction") == "inbound" and turn.get("delivery_state") == "received"
+            for turn in turns
+        )
+        if not has_live_inbound:
+            turns.extend(_presence_intake_turns(root, conversation_id))
         if not turns:
             continue
         context = build_conversation_context(
