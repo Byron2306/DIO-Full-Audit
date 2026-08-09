@@ -336,7 +336,8 @@ def create_outlook_draft(graph: GraphClient, intent_dir: Path, event_log: Path, 
         intent["conversation_id"] = draft_conversation or None
     intent["updated_at"] = timestamp()
     write_json(path, intent)
-    bind_lead_conversation(intent_dir.parent / "leads", intent.get("lead_id"), intent.get("conversation_id"), mail_intent_id)
+    if intent.get("purpose") != "conversation_reply":
+        bind_lead_conversation(intent_dir.parent / "leads", intent.get("lead_id"), intent.get("conversation_id"), mail_intent_id)
     emit_event(
         event_log,
         "mail.outlook_draft_created",
@@ -444,14 +445,15 @@ def send_outlook_draft(
         },
         intent.get("job_id"),
     )
-    if intent.get("lead_id"):
+    if intent.get("lead_id") and intent.get("purpose") != "conversation_reply":
         bind_lead_conversation(intent_dir.parent / "leads", intent["lead_id"], intent.get("conversation_id"), mail_intent_id)
-        lead_path = intent_dir.parent / "leads" / f"{intent['lead_id']}.json"
-        if lead_path.exists():
-            lead = read_json(lead_path)
-            lead.setdefault("acknowledgement", {})["state"] = "sent"
-            lead["updated_at"] = sent_at
-            write_json(lead_path, lead)
+        if intent.get("purpose") == "lead_acknowledgement":
+            lead_path = intent_dir.parent / "leads" / f"{intent['lead_id']}.json"
+            if lead_path.exists():
+                lead = read_json(lead_path)
+                lead.setdefault("acknowledgement", {})["state"] = "sent"
+                lead["updated_at"] = sent_at
+                write_json(lead_path, lead)
     return receipt
 
 
