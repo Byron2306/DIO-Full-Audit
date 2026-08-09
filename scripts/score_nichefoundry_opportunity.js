@@ -43,7 +43,7 @@ function sanitizeOpportunity(source) {
   const accepted = [];
   const dropped = [];
   const retained = {};
-  for (const [name, value] of Object.entries(rawSignals)) {
+  for (const [name] of Object.entries(rawSignals)) {
     const evidenceRow = evidence[name];
     if (validSignalEvidence(evidenceRow)) {
       retained[name] = Number(evidenceRow.value);
@@ -94,6 +94,7 @@ if (!pack) fail(`NicheFoundry studio '${studioId}' is not installed.`);
 const source = readJson(inputPath);
 const sanitization = sanitizeOpportunity(source);
 const scored = scoreOpportunity(pack, sanitization.sanitized, { source: 'dio_registry_hivenance_bridge' });
+scored.signal_evidence = sanitization.sanitized.signal_evidence || {};
 const audienceFit = scoreAudienceEpisodeFit(pack, {
   working_title: scored.title,
   topic: scored.topic,
