@@ -13,8 +13,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from commerce.semantic_judgement import judge_mail_intent  # noqa: E402
 from scripts.manage_mail_intent import create_intent, emit_event, write_json  # noqa: E402
-from scripts.product_notification_copy import notification_copy  # noqa: E402
+from scripts.product_notification_copy import notification_bundle  # noqa: E402
 from scripts.run_evidex_jobs import run_evidex  # noqa: E402
 from scripts.run_homs_jobs import write_job as write_homs_job  # noqa: E402
 
@@ -245,6 +246,19 @@ def _evidex_archive(workflow: dict[str, Any]) -> Path:
     return archive
 
 
+def _notification_source_paths(path: Path, workflow: dict[str, Any], attachments: list[str]) -> list[Path]:
+    sources = [path, Path(workflow["source_job_path"])]
+    receipt_path = str((workflow.get("processing") or {}).get("receipt_path") or "").strip()
+    if receipt_path:
+        sources.append(Path(receipt_path))
+    if workflow["product"] == "evidex":
+        approval_path = path.parent / "OUTPUT_APPROVAL.json"
+        if approval_path.is_file():
+            sources.append(approval_path)
+    sources.extend(Path(value) for value in attachments)
+    return sources
+
+
 def prepare_notification(state_root: Path, job_id: str, event_log: Path, mail_root: Path = DEFAULT_MAIL_ROOT) -> dict[str, Any]:
     path, workflow = load_workflow(state_root, job_id)
     recipient = workflow["customer"].get("recipient")
@@ -257,30 +271,70 @@ def prepare_notification(state_root: Path, job_id: str, event_log: Path, mail_ro
         if workflow["processing"]["state"] != "request_ready":
             raise ValueError("The HOMS intake request must be ready before notifying the client.")
         attachments: list[str] = []
-        communicative_act = "intake_request"
     else:
         if workflow["output_review"]["state"] != "approved":
             raise ValueError("Human output approval is required before Evidex delivery preparation.")
         attachments = [str(_evidex_archive(workflow))]
-        communicative_act = "delivery"
 
-    purpose, subject, body, body_html = notification_copy(workflow)
+    bundle = notification_bundle(workflow)
+    semantic_binding = {
+        "semantic_object_id": bundle["cso"]["object_id"],
+        "communicative_act": bundle["communicative_act"],
+        "product_job_id": job_id,
+        "source_ref": f"product_job:{job_id}",
+    }
     spec_path = path.parent / "MAIL_SPEC.json"
     write_json(spec_path, {
-        "purpose": purpose,
-        "communicative_act": communicative_act,
+        "purpose": bundle["purpose"],
+        "communicative_act": bundle["communicative_act"],
+        "semantic_binding": semantic_binding,
         "job_id": job_id,
         "recipient": recipient,
-        "subject": subject,
-        "body": body,
-        "body_html": body_html,
+        "subject": bundle["subject"],
+        "body": bundle["body"],
+        "body_html": bundle["body_html"],
         "attachments": attachments,
         "risk": "moderate",
     })
     intent = create_intent(spec_path, mail_root, event_log)
-    workflow["notification"].update({"state": "draft_ready", "mail_intent_id": intent["mail_intent_id"], "communicative_act": communicative_act})
+
+    workflow["notification"].update({
+        "state": "draft_ready",
+        "mail_intent_id": intent["mail_intent_id"],
+        "communicative_act": bundle["communicative_act"],
+    })
     save_workflow(path, workflow)
-    emit_event(event_log, f"{product}.notification_prepared", "action", "product_job", job_id, {"mail_intent_id": intent["mail_intent_id"], "communicative_act": communicative_act}, job_id)
+
+    judgement, judgement_path = judge_mail_intent(
+        ROOT,
+        bundle["cso"],
+        bundle["expression"],
+        intent,
+        source_paths=_notification_source_paths(path, workflow, attachments),
+    )
+    intent["semantic_judgement"] = {
+        "judgement_id": judgement["judgement_id"],
+        "path": str(judgement_path.relative_to(ROOT)),
+        "verdict": judgement["verdict"],
+        "execution_binding_sha256": judgement["bindings"]["execution_binding_sha256"],
+    }
+    write_json(mail_root / f"{intent['mail_intent_id']}.json", intent)
+    if judgement["verdict"] == "BLOCK":
+        raise ValueError(f"{product.upper()} notification blocked by Triune semantic judgement {judgement['judgement_id']}.")
+
+    emit_event(
+        event_log,
+        f"{product}.notification_prepared",
+        "action",
+        "product_job",
+        job_id,
+        {
+            "mail_intent_id": intent["mail_intent_id"],
+            "communicative_act": bundle["communicative_act"],
+            "semantic_judgement_id": judgement["judgement_id"],
+        },
+        job_id,
+    )
     return workflow
 
 
