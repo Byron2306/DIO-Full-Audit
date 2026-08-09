@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import os
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -50,10 +51,12 @@ def load_evidence_scorer() -> tuple[Any, str]:
     path = _scorer_path()
     if not path.is_file():
         raise RuntimeError(f"BEAST EvidenceScorer unavailable at {path}")
-    spec = importlib.util.spec_from_file_location("dio_beast_evidence_scoring", path)
+    module_name = "dio_beast_evidence_scoring"
+    spec = importlib.util.spec_from_file_location(module_name, path)
     if spec is None or spec.loader is None:
         raise RuntimeError("Could not load BEAST EvidenceScorer module")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
     spec.loader.exec_module(module)
     return module.EvidenceScorer, str(path)
 
