@@ -16,6 +16,7 @@ from .outlook import build_outlook_conversation_context
 from .presence import (
     append_presence_turn,
     build_presence_conversation_context,
+    incoming_provider_message_id,
     load_presence_turns,
 )
 
@@ -27,6 +28,7 @@ __all__ = [
     "build_outlook_conversation_context",
     "build_presence_conversation_context",
     "expression_context_view",
+    "incoming_provider_message_id",
     "load_presence_turns",
     "validate_conversation_context",
     "write_conversation_context",
