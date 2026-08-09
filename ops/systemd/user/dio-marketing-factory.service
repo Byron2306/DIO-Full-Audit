@@ -1,0 +1,13 @@
+[Unit]
+Description=DIO daily multichannel creative factory
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/build_multichannel_campaign_factory.py
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

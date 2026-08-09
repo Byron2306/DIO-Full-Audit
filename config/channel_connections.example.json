@@ -1,0 +1,93 @@
+{
+  "schema": "dio.market_channel_connections.example.v2",
+  "important": "Do not place secrets in this file. Configure credentials as environment variables or provider-specific secure credential files.",
+  "channels": {
+    "META_ADS": {
+      "env": [
+        "META_ACCESS_TOKEN",
+        "META_AD_ACCOUNT_ID",
+        "META_GRAPH_VERSION"
+      ],
+      "optional_env": [
+        "META_ACCOUNT_CURRENCY",
+        "META_GRAPH_BASE"
+      ],
+      "authority": "read_only_insights"
+    },
+    "FACEBOOK_PAGE": {
+      "env": [
+        "FACEBOOK_PAGE_ACCESS_TOKEN",
+        "FACEBOOK_PAGE_ID",
+        "META_GRAPH_VERSION"
+      ],
+      "authority": "read_only_page_insights",
+      "publication": "Meta Business Suite after DIO approval"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "env": [
+        "META_ACCESS_TOKEN",
+        "INSTAGRAM_BUSINESS_ACCOUNT_ID",
+        "META_GRAPH_VERSION"
+      ],
+      "authority": "read_only_media_insights",
+      "publication": "Meta Business Suite after DIO approval"
+    },
+    "REDDIT_ADS": {
+      "env": [
+        "REDDIT_ADS_ACCESS_TOKEN",
+        "REDDIT_AD_ACCOUNT_ID",
+        "REDDIT_USER_AGENT"
+      ],
+      "optional_env": [
+        "REDDIT_ADS_API_BASE"
+      ],
+      "authority": "adsread_only"
+    },
+    "TIKTOK_ADS": {
+      "env": [
+        "TIKTOK_ACCESS_TOKEN",
+        "TIKTOK_ADVERTISER_ID"
+      ],
+      "optional_env": [
+        "TIKTOK_ACCOUNT_CURRENCY",
+        "TIKTOK_API_BASE"
+      ],
+      "authority": "reporting_only"
+    },
+    "GOOGLE_ADS": {
+      "env": [
+        "GOOGLE_ADS_CUSTOMER_ID",
+        "GOOGLE_ADS_CREDENTIALS_FILE"
+      ],
+      "optional_env": [
+        "GOOGLE_ADS_ACCOUNT_CURRENCY"
+      ],
+      "python_package": "google-ads",
+      "authority": "reporting_only",
+      "note": "The google-ads credential file must contain the developer token and OAuth credentials required by the official client."
+    },
+    "LINKEDIN_ORGANIC": {
+      "env": [
+        "LINKEDIN_ACCESS_TOKEN",
+        "LINKEDIN_ORGANIZATION_URN",
+        "LINKEDIN_VERSION"
+      ],
+      "authority": "read_only_organization_analytics",
+      "publication": "human publish only"
+    },
+    "YOUTUBE_ORGANIC": {
+      "credential_source": "/home/byron/Downloads/NicheFoundry_Phase11/.env",
+      "env": [
+        "YOUTUBE_API_KEY",
+        "YOUTUBE_CHANNEL_ID"
+      ],
+      "optional_env": [
+        "YOUTUBE_CLIENT_ID",
+        "YOUTUBE_CLIENT_SECRET",
+        "YOUTUBE_REFRESH_TOKEN"
+      ],
+      "authority": "public_video_statistics",
+      "publication": "NicheFoundry operator-approved OAuth transport"
+    }
+  }
+}

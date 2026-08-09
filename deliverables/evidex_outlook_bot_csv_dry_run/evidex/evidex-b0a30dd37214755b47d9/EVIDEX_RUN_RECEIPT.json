@@ -1,0 +1,22 @@
+{
+  "job_id": "evidex-b0a30dd37214755b47d9",
+  "created_at": "2026-08-07T16:31:04+00:00",
+  "command": [
+    "/home/byron/Evidex/.venv/bin/python",
+    "-m",
+    "evidence_pack_engine.cli",
+    "generate",
+    "--intake",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/intake.json",
+    "--uploads",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/uploads",
+    "--out",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/output"
+  ],
+  "returncode": 0,
+  "stdout": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/output/Client_organization_to_confirm_EVIDEX_Pilot_Pack_Request_-_Thandi_Community_Trust_To_be_confirmed_to_To_be_confirmed_intake.zip",
+  "stderr": "",
+  "intake_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/intake.json",
+  "uploads_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/uploads",
+  "output_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/output"
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "knowedge.phase3.storyboard.v1",
+  "episode_id": "sophia-cmp-d3f941cea4bd",
+  "campaign_id": "CMP-D3F941CEA4BD",
+  "hypothesis_id": "W4-HYP-0014",
+  "studio_id": "dio_proof_led_services",
+  "product_layer": "sophia",
+  "created_at": "2026-08-08T22:11:08+00:00",
+  "target_runtime_seconds": 60,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 7,
+      "narration": "Academic AI should show an author what to strengthen, not write the work for them.",
+      "screen_text": "Sophia Academic Review Desk",
+      "visual": "Open on the real finished proof, not an abstract AI graphic."
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 10,
+      "narration": "Students need high-level feedback on argument, sources, referencing, and structure without crossing integrity lines.",
+      "screen_text": "The actual workload",
+      "visual": "Show the source mess or assessment-production burden with realistic work objects."
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "proof",
+      "duration_seconds": 14,
+      "narration": "Grounded Gemini reviewer commentary, technical citation audit and claim-to-source ledger with human approval and academic-integrity boundaries.",
+      "screen_text": "Inspect the proof",
+      "visual": "Move through legible excerpts from the existing proof asset."
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "workflow",
+      "duration_seconds": 12,
+      "narration": "A literature discovery map, technical citation audit, claim-to-source ledger, anchored reviewer commentary, and human approval receipt.",
+      "screen_text": "Input -> review -> delivery",
+      "visual": "Show the controlled workflow and its receipts."
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 9,
+      "narration": "No ghostwriting, no fabricated citations, no authorship replacement.",
+      "screen_text": "Human authority remains",
+      "visual": "Show the explicit operator or educator approval gate."
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "narration": "Request one bounded manuscript-section review.",
+      "screen_text": "Section Review Pilot",
+      "visual": "End on one bounded action and the proof landing page."
+    }
+  ],
+  "approval_required": true
+}

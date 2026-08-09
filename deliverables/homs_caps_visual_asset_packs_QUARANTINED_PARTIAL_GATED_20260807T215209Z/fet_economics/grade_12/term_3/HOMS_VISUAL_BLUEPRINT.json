@@ -1,0 +1,99 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Economics",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Economics",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_economics_gr_10-12_web_bd13.pdf",
+    "sha256": "c683d798ec4eaf3ed42f937d8c51130daaa3537ea68c40233c5333e83e984268"
+  },
+  "canonical_profile_id": "fet.economics",
+  "assessment_family": "case_study_structured_questions",
+  "render_shell": "structured_case_paper",
+  "caps_theme_candidates": [
+    "ECONOMICS GRADES 10-12",
+    "12 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "3.2.1 Summary of Grade 10 annual teaching plan",
+    "Topic Economics: basic Basic economic Circular flow & Quantitative Business cycles",
+    "Assessment Informal assessment Formal assessment: Assignment Formal assessment: Test 1",
+    "Topic Dynamics of markets Production possibility curve Public sector Macroeconomics",
+    "Assessment Informal assessment Formal assessment: Project Mid-year exam",
+    "is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+  ],
+  "assessment_content_focus": [
+    "Topic Dynamics of markets Production possibility curve Public sector Macroeconomics",
+    "Topic Economics: basic Basic economic Circular flow & Quantitative Business cycles",
+    "ECONOMICS GRADES 10-12",
+    "Topic Dynamics of markets Production possibility curve Public sector Macroeconomics",
+    "ECONOMICS GRADES 10-12"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: basic, business, circular, curve, cycles, dynamics."
+  ],
+  "required_visuals": [
+    {
+      "id": "case_decision_table",
+      "title": "Case facts and decision table",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "case_table",
+      "must_show": [
+        "scenario facts",
+        "stakeholder",
+        "problem",
+        "evidence",
+        "recommendation"
+      ],
+      "assessment_use": "Learners justify decisions from case evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "Topic Economics: basic Basic economic Circular flow & Quantitative Business cycles",
+      "Topic Dynamics of markets Production possibility curve Public sector Macroeconomics"
+    ],
+    "admin_lines": [
+      "12 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "Assessment Informal assessment Formal assessment: Assignment Formal assessment: Test 1",
+      "Assessment Informal assessment Formal assessment: Project Mid-year exam",
+      "Guidelines and Subject Assessment Guidelines with the",
+      "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+      "(c) National Protocol for Assessment Grades R-12.",
+      "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+    ],
+    "content_terms": [
+      "cycle",
+      "demand",
+      "economy",
+      "growth",
+      "inflation",
+      "market",
+      "sector",
+      "supply"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

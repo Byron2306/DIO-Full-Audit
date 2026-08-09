@@ -1,0 +1,32 @@
+{
+  "schema": "nichefoundry.dio_campaign_production_request.v1",
+  "family_id": "VAMP_ACADEMIC--hr_performance_admin",
+  "title": "VAMP for HR and performance administrators",
+  "product": "VAMP_ACADEMIC",
+  "audience": "HR and performance administrators",
+  "proof_asset": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+  "source_image": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/vamp/campaign_v2/gamma/vamp_mapping_proof.png",
+  "scene_images": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/vamp-academic/hr-performance-admin/assets/01_hook.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/vamp-academic/hr-performance-admin/assets/02_proof.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/vamp-academic/hr-performance-admin/assets/03_action.jpg"
+  ],
+  "music": {
+    "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "attribution": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/MUSIC_ATTRIBUTION.md",
+    "voice_required": false
+  },
+  "outputs": {
+    "vertical_reel": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/vamp-academic/hr-performance-admin/assets/reel_1080x1920.mp4",
+    "long_form_explainer": {
+      "state": "brief_ready",
+      "target_seconds": 45,
+      "requires_operator_script_review": true
+    }
+  },
+  "release": {
+    "state": "held",
+    "operator_approval_required": true
+  },
+  "request_hash": "sha256:238ea5479968db25eb4ec0ce04dd02962c6fa89e1b7789955b493e519f8fa60a"
+}

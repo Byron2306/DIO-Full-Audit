@@ -1,0 +1,29 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:1c73c70b6665dc2ce13a8b34041fac24579fd908a5021f1e8fc825ddce9b4620",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 12,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "guard:numeral_preservation",
+    "impact_fingerprint_hash": "sha256:f64e38f0dfbc6ae2a8ac85a4b5f20ad950885988e8e7ad0b4244c391010ff83f",
+    "metadata": {
+      "authority": "deterministic_validator",
+      "domain": "*",
+      "guard": "numeral_preservation",
+      "rule": "Every operational numeral present in a source unit must remain present in its target unit.",
+      "target_language": "Sesotho"
+    },
+    "policy_version": "dio_lingua_deterministic_learning_v1",
+    "repo_fingerprint": "sha256:f64e38f0dfbc6ae2a8ac85a4b5f20ad950885988e8e7ad0b4244c391010ff83f",
+    "task_class": "dio_lingua_deterministic_guard",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

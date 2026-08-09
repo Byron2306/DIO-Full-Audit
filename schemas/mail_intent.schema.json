@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Governed Mail Intent",
+  "type": "object",
+  "required": [
+    "schema", "mail_intent_id", "direction", "purpose", "recipient", "subject",
+    "risk", "approval", "send_state", "created_at"
+  ],
+  "properties": {
+    "schema": {"const": "dio.mail_intent.v1"},
+    "mail_intent_id": {"type": "string", "pattern": "^MAIL-[A-Z0-9-]+$"},
+    "direction": {"enum": ["inbound", "outbound"]},
+    "purpose": {
+      "enum": [
+        "lead_acknowledgement", "lead_reply", "intake", "missing_input", "quote", "invoice", "payment_reminder",
+        "review_ready", "delivery", "closeout", "marketing", "support", "other"
+      ]
+    },
+    "lead_id": {"type": ["string", "null"]},
+    "order_id": {"type": ["string", "null"]},
+    "job_id": {"type": ["string", "null"]},
+    "campaign_id": {"type": ["string", "null"]},
+    "conversation_id": {"type": ["string", "null"]},
+    "source_message_id": {"type": ["string", "null"]},
+    "recipient": {"type": "string", "minLength": 3},
+    "subject": {"type": "string", "minLength": 1},
+    "body": {"type": ["string", "null"]},
+    "body_html": {"type": ["string", "null"]},
+    "body_path": {"type": ["string", "null"]},
+    "attachments": {"type": "array", "items": {"type": "string"}},
+    "risk": {"enum": ["routine", "moderate", "sensitive", "restricted"]},
+    "approval": {
+      "type": "object",
+      "required": ["required", "state"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "state": {"enum": ["pending", "approved", "rejected", "consumed", "expired"]},
+        "approved_at": {"type": ["string", "null"], "format": "date-time"},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"},
+        "token_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": true
+    },
+    "send_state": {"enum": ["draft", "approved", "sending", "sent", "failed", "rejected"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Hivenance Marketing Hypothesis",
+  "type": "object",
+  "required": [
+    "schema",
+    "hypothesis_id",
+    "campaign_id",
+    "registered_at",
+    "source",
+    "product",
+    "audience",
+    "hypothesis",
+    "experiment",
+    "gates",
+    "settlement"
+  ],
+  "properties": {
+    "schema": {"const": "dio.hivenance.marketing_hypothesis.v1"},
+    "hypothesis_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "registered_at": {"type": "string", "format": "date-time"},
+    "source": {
+      "type": "object",
+      "required": ["registry_wave", "registry_hypothesis_id", "archive_sha256"],
+      "properties": {
+        "registry_wave": {"type": "string"},
+        "registry_hypothesis_id": {"type": "string"},
+        "archive_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": true
+    },
+    "product": {
+      "type": "object",
+      "required": ["product_line_id", "product_layer", "offer_id"],
+      "properties": {
+        "product_line_id": {"type": "string"},
+        "product_layer": {"type": "string"},
+        "offer_id": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "audience": {"type": "object"},
+    "hypothesis": {"type": "string", "minLength": 1},
+    "experiment": {
+      "type": "object",
+      "required": ["channel", "proof_asset", "cta", "success_event", "kill_condition", "window_days", "budget_cap_minor"],
+      "properties": {
+        "channel": {"type": "string"},
+        "proof_asset": {"type": "string"},
+        "cta": {"type": "string"},
+        "success_event": {"type": "string"},
+        "kill_condition": {"type": "string"},
+        "window_days": {"type": "integer", "minimum": 1},
+        "budget_cap_minor": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "gates": {
+      "type": "object",
+      "required": ["content_generation", "publication", "personalised_outreach", "electronic_sales_outreach"],
+      "properties": {
+        "content_generation": {"enum": ["allowed", "blocked"]},
+        "publication": {"enum": ["operator_approval_required", "allowed", "blocked"]},
+        "personalised_outreach": {"enum": ["allowed", "blocked"]},
+        "electronic_sales_outreach": {"enum": ["allowed", "blocked"]}
+      },
+      "additionalProperties": true
+    },
+    "settlement": {
+      "type": "object",
+      "required": ["state", "decision"],
+      "properties": {
+        "state": {"enum": ["unstarted", "active", "settled"]},
+        "decision": {"enum": ["pending", "promote", "continue", "revise", "kill"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

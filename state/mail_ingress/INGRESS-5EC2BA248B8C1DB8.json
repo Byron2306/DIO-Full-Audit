@@ -1,0 +1,29 @@
+{
+  "schema": "dio.mail_ingress.v1",
+  "mail_ingress_id": "INGRESS-5EC2BA248B8C1DB8",
+  "provider": "microsoft_graph",
+  "provider_message_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAACbpQAA",
+  "internet_message_id": "<CAHejChn8Rd+FFEBycXze7XSx3tp9kstHJCYPgrJC7dn_oHFQmQ@mail.gmail.com>",
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAEjyi8r0o7BPpxiFREZRoQk=",
+  "received_at": "2026-08-08T17:51:41Z",
+  "captured_at": "2026-08-08T17:51:46+00:00",
+  "sender": {
+    "name": "Byron Bunt",
+    "address": "buntbyron1@gmail.com"
+  },
+  "subject": "",
+  "body": {
+    "contentType": "html",
+    "content": "<html><head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body><div dir=\"auto\"><img src=\"cid:ii_19fe28023aab84c69351\" style=\"max-width:100%; height:auto\"><br><br></div></body></html>"
+  },
+  "body_preview": "",
+  "has_attachments": false,
+  "is_read": false,
+  "routing_state": "needs_operator_triage",
+  "triage": {
+    "state": "needs_operator_triage",
+    "reason": "No authoritative lead, conversation binding, or confident product route was found.",
+    "assessed_at": "2026-08-09T18:48:15+00:00",
+    "authority": "dio_triune_internal"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "knowedge.caps_assessment_demo_receipt.v1",
+  "created_at": "2026-08-07T20:29:06+00:00",
+  "status": "generated",
+  "job_id": "fet_senior_mathematics_grade11_20260807T202906Z",
+  "proof_group": "fet_senior",
+  "selected_grade": 11,
+  "caps": {
+    "title": "Mathematics",
+    "phase": "fet_grade_10_12",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_wiskunde_gr_10-12_web.pdf",
+    "sha256": "b4758d7d908a2aa435c8e399221bcce492af20da41b7bb9991d2a50afeba933b",
+    "recommended_blueprint": "calculation_problem_solving",
+    "source_document_title": "Wiskunde (Mathematics)",
+    "signals": {
+      "signals_source_based": false,
+      "signals_essay_or_extended_response": false,
+      "signals_case_study": false,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": false,
+      "signals_calculation_problem": false,
+      "signals_formal_test_or_exam": false
+    }
+  },
+  "canonical_profile": {
+    "profile_id": "fet.mathematics",
+    "subject": "Mathematics",
+    "subject_family": "mathematics",
+    "assessment_family": "calculation_problem_solving",
+    "allowed": [
+      "calculations",
+      "problem_solving",
+      "diagrams",
+      "patterns",
+      "short_reasoning"
+    ],
+    "default_off": [
+      "essay",
+      "long_source_based_response",
+      "generic_case_study"
+    ],
+    "required_distribution": {
+      "calculation_and_procedure": 55,
+      "problem_solving": 30,
+      "reasoning_or_representation": 15
+    }
+  },
+  "duration_seconds": 23.261,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/fet_senior_mathematics_grade11_20260807T202906Z",
+    "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/fet_senior_mathematics_grade11_20260807T202906Z/assessment_pack.json",
+    "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/fet_senior_mathematics_grade11_20260807T202906Z/ASSESSMENT_PACK.md",
+    "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/fet_senior_mathematics_grade11_20260807T202906Z/ASSESSMENT_PACK.docx",
+    "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/fet_senior_mathematics_grade11_20260807T202906Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+  }
+}

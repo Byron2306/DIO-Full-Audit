@@ -1,0 +1,37 @@
+{
+  "schema": "dio.market_observation.v1",
+  "observation_id": "OBS-A2FD8F099F2A",
+  "observed_at": "2026-08-08",
+  "recorded_at": "2026-08-08T22:11:08+00:00",
+  "source": {
+    "kind": "prospect_registry_wave",
+    "wave": "wave4",
+    "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/DIO_Prospect_Intelligence_Wave4.zip",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+    "registry_hypothesis_id": "W4-HYP-0014",
+    "target_id": "W4-TGT-0138",
+    "source_reference": "https://heltasa.org.za/"
+  },
+  "product_line_id": "SOPHIA_REVIEW",
+  "market": {
+    "organisation": "HELTASA",
+    "segment": "Higher education ecosystem",
+    "province_or_reach": "Southern Africa",
+    "buyer_unit": "Postgraduate Office; Research Support; Library; Academic Development/Writing Centre; Supervisor Development"
+  },
+  "signals": {
+    "attack_score": 90.8,
+    "route_state": "PARTNERSHIP_ROUTE_AVAILABLE",
+    "route_mode": "operator_reviewed_partnership_request",
+    "proof_readiness_score": 4.0,
+    "timing_score": 3.5,
+    "seasonal_urgency": "MEDIUM",
+    "seasonal_trigger": "Postgraduate support is year-round; use institutional research/postgraduate calendars rather than assuming one national deadline."
+  },
+  "controls": {
+    "outreach_state": "Research only",
+    "consent_status": "Not recorded",
+    "do_not_contact": "No",
+    "high_score_is_permission": false
+  }
+}

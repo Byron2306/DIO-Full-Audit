@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO External Campaign Link",
+  "type": "object",
+  "required": ["campaign_id", "channel_id", "external_campaign_id"],
+  "properties": {
+    "schema": {"const": "dio.external_campaign_link.v2"},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "channel_id": {"type": "string", "minLength": 1},
+    "external_account_id": {"type": ["string", "null"]},
+    "external_campaign_id": {"type": "string", "minLength": 1},
+    "external_adgroup_id": {"type": ["string", "null"]},
+    "external_ad_id": {"type": ["string", "null"]},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": true
+}

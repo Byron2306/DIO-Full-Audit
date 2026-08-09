@@ -1,0 +1,2041 @@
+{
+  "schema": "dio.marketing.creative_family_registry.v1",
+  "generated_at": "2026-08-09T14:02:30+00:00",
+  "factory_policy": {
+    "default_language": "English",
+    "currency": "ZAR",
+    "automatic_research": true,
+    "automatic_copy_generation": true,
+    "automatic_asset_generation": true,
+    "automatic_reel_render": true,
+    "automatic_publication": false,
+    "automatic_spend": false,
+    "promotion_requires_operator": true
+  },
+  "summary": {
+    "products": 6,
+    "audiences": 24,
+    "channel_packages": 240,
+    "poster_assets": 120,
+    "reels_ready": 24,
+    "validation_failures": 0
+  },
+  "families": [
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "EVIDEX_PACK--ngo_programme_leads",
+      "generated_at": "2026-08-09T14:01:59+00:00",
+      "product": {
+        "id": "EVIDEX_PACK",
+        "name": "Evidex Evidence Pack",
+        "offer": "evidence_pack"
+      },
+      "audience": {
+        "id": "ngo_programme_leads",
+        "name": "NGO and NPO programme leads",
+        "pain": "Reporting evidence is scattered across folders, email and staff memory.",
+        "outcome": "A donor-ready evidence trail that a human can verify."
+      },
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "assets": {
+        "square_1080": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/evidex-pack/ngo-programme-leads/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "EVIDEX_PACK--monitoring_evaluation",
+      "generated_at": "2026-08-09T14:02:00+00:00",
+      "product": {
+        "id": "EVIDEX_PACK",
+        "name": "Evidex Evidence Pack",
+        "offer": "evidence_pack"
+      },
+      "audience": {
+        "id": "monitoring_evaluation",
+        "name": "Monitoring, evaluation and grant managers",
+        "pain": "Claims, indicators and source files are difficult to reconcile before reporting deadlines.",
+        "outcome": "Mapped indicators, claims and provenance in one reviewable pack."
+      },
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "assets": {
+        "square_1080": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/monitoring-evaluation/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/evidex-pack/monitoring-evaluation/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "EVIDEX_PACK--compliance_audit",
+      "generated_at": "2026-08-09T14:02:01+00:00",
+      "product": {
+        "id": "EVIDEX_PACK",
+        "name": "Evidex Evidence Pack",
+        "offer": "evidence_pack"
+      },
+      "audience": {
+        "id": "compliance_audit",
+        "name": "Compliance and audit teams",
+        "pain": "Review preparation consumes hours of manual searching and cross-checking.",
+        "outcome": "A bounded evidence index with gaps made visible before review."
+      },
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "assets": {
+        "square_1080": "state/marketing_factory/evidex-pack/compliance-audit/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/evidex-pack/compliance-audit/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/evidex-pack/compliance-audit/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/evidex-pack/compliance-audit/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/evidex-pack/compliance-audit/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/evidex-pack/compliance-audit/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/compliance-audit/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/evidex-pack/compliance-audit/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "EVIDEX_PACK--professional_consultants",
+      "generated_at": "2026-08-09T14:02:03+00:00",
+      "product": {
+        "id": "EVIDEX_PACK",
+        "name": "Evidex Evidence Pack",
+        "offer": "evidence_pack"
+      },
+      "audience": {
+        "id": "professional_consultants",
+        "name": "Independent reporting consultants",
+        "pain": "Every client arrives with a different evidence mess and little usable structure.",
+        "outcome": "A repeatable first-pass evidence workflow that preserves consultant authority."
+      },
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "assets": {
+        "square_1080": "state/marketing_factory/evidex-pack/professional-consultants/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/evidex-pack/professional-consultants/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/evidex-pack/professional-consultants/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/evidex-pack/professional-consultants/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/evidex-pack/professional-consultants/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/evidex-pack/professional-consultants/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/evidex-pack/professional-consultants/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/evidex-pack/professional-consultants/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_ASSESS--teachers_lecturers",
+      "generated_at": "2026-08-09T14:02:04+00:00",
+      "product": {
+        "id": "HOMS_ASSESS",
+        "name": "HOMS Assessment Desk",
+        "offer": "assessment_desk"
+      },
+      "audience": {
+        "id": "teachers_lecturers",
+        "name": "Teachers and lecturers",
+        "pain": "Marking, feedback and paper preparation consume evenings and weekends.",
+        "outcome": "Structured drafts and learner feedback ready for educator review."
+      },
+      "landing_page": "sites/homs/index.html",
+      "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-assess/teachers-lecturers/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-assess/teachers-lecturers/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-assess/teachers-lecturers/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-assess/teachers-lecturers/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-assess/teachers-lecturers/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-assess/teachers-lecturers/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-assess/teachers-lecturers/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_ASSESS--heads_assessment",
+      "generated_at": "2026-08-09T14:02:06+00:00",
+      "product": {
+        "id": "HOMS_ASSESS",
+        "name": "HOMS Assessment Desk",
+        "offer": "assessment_desk"
+      },
+      "audience": {
+        "id": "heads_assessment",
+        "name": "HODs and assessment coordinators",
+        "pain": "Assessment quality varies across subjects, markers and campuses.",
+        "outcome": "A reviewable workflow with common evidence and approval checkpoints."
+      },
+      "landing_page": "sites/homs/index.html",
+      "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-assess/heads-assessment/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-assess/heads-assessment/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-assess/heads-assessment/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-assess/heads-assessment/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-assess/heads-assessment/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-assess/heads-assessment/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/heads-assessment/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-assess/heads-assessment/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_ASSESS--schools_universities",
+      "generated_at": "2026-08-09T14:02:07+00:00",
+      "product": {
+        "id": "HOMS_ASSESS",
+        "name": "HOMS Assessment Desk",
+        "offer": "assessment_desk"
+      },
+      "audience": {
+        "id": "schools_universities",
+        "name": "Independent schools and universities",
+        "pain": "Large assessment batches create bottlenecks without adding review capacity.",
+        "outcome": "Bounded batch preparation with educator changes recorded before release."
+      },
+      "landing_page": "sites/homs/index.html",
+      "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-assess/schools-universities/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-assess/schools-universities/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-assess/schools-universities/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-assess/schools-universities/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-assess/schools-universities/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-assess/schools-universities/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/schools-universities/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-assess/schools-universities/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_ASSESS--tutors_publishers",
+      "generated_at": "2026-08-09T14:02:09+00:00",
+      "product": {
+        "id": "HOMS_ASSESS",
+        "name": "HOMS Assessment Desk",
+        "offer": "assessment_desk"
+      },
+      "audience": {
+        "id": "tutors_publishers",
+        "name": "Tutors and education publishers",
+        "pain": "Creating credible activities, memos and feedback repeatedly is slow.",
+        "outcome": "Curriculum-aware assessment drafts that can be professionally refined."
+      },
+      "landing_page": "sites/homs/index.html",
+      "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-assess/tutors-publishers/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-assess/tutors-publishers/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-assess/tutors-publishers/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-assess/tutors-publishers/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-assess/tutors-publishers/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-assess/tutors-publishers/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-assess/tutors-publishers/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_LEARNING--extra_class_tutors",
+      "generated_at": "2026-08-09T14:02:10+00:00",
+      "product": {
+        "id": "HOMS_LEARNING",
+        "name": "HOMS Learning Studio",
+        "offer": "learning_materials"
+      },
+      "audience": {
+        "id": "extra_class_tutors",
+        "name": "Tutors and extra-class providers",
+        "pain": "Every lesson needs fresh explanations, activities and take-home material.",
+        "outcome": "A reusable topic pack with a worksheet and companion explainer."
+      },
+      "landing_page": "sites/homs_learning/index.html",
+      "proof_asset": "sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-learning/extra-class-tutors/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-learning/extra-class-tutors/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-learning/extra-class-tutors/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-learning/extra-class-tutors/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-learning/extra-class-tutors/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-learning/extra-class-tutors/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-learning/extra-class-tutors/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_LEARNING--teachers_schools",
+      "generated_at": "2026-08-09T14:02:11+00:00",
+      "product": {
+        "id": "HOMS_LEARNING",
+        "name": "HOMS Learning Studio",
+        "offer": "learning_materials"
+      },
+      "audience": {
+        "id": "teachers_schools",
+        "name": "Teachers and schools",
+        "pain": "Learners need differentiated practice that still follows the curriculum.",
+        "outcome": "Grade, term and topic-aware resources ready for teacher adaptation."
+      },
+      "landing_page": "sites/homs_learning/index.html",
+      "proof_asset": "sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-learning/teachers-schools/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-learning/teachers-schools/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-learning/teachers-schools/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-learning/teachers-schools/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-learning/teachers-schools/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-learning/teachers-schools/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/teachers-schools/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-learning/teachers-schools/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_LEARNING--education_publishers",
+      "generated_at": "2026-08-09T14:02:13+00:00",
+      "product": {
+        "id": "HOMS_LEARNING",
+        "name": "HOMS Learning Studio",
+        "offer": "learning_materials"
+      },
+      "audience": {
+        "id": "education_publishers",
+        "name": "Education publishers and content teams",
+        "pain": "Content production is difficult to scale without losing alignment or consistency.",
+        "outcome": "A structured production lane with sources, pedagogy and review gates."
+      },
+      "landing_page": "sites/homs_learning/index.html",
+      "proof_asset": "sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-learning/education-publishers/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-learning/education-publishers/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-learning/education-publishers/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-learning/education-publishers/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-learning/education-publishers/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-learning/education-publishers/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/education-publishers/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-learning/education-publishers/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "HOMS_LEARNING--parents_learners",
+      "generated_at": "2026-08-09T14:02:14+00:00",
+      "product": {
+        "id": "HOMS_LEARNING",
+        "name": "HOMS Learning Studio",
+        "offer": "learning_materials"
+      },
+      "audience": {
+        "id": "parents_learners",
+        "name": "Parents supporting school learners",
+        "pain": "Generic online material often does not match the learner's grade, term or topic.",
+        "outcome": "A focused learning pack built around the actual classroom need."
+      },
+      "landing_page": "sites/homs_learning/index.html",
+      "proof_asset": "sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+      "assets": {
+        "square_1080": "state/marketing_factory/homs-learning/parents-learners/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/homs-learning/parents-learners/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/homs-learning/parents-learners/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/homs-learning/parents-learners/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/homs-learning/parents-learners/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/homs-learning/parents-learners/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/homs-learning/parents-learners/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/homs-learning/parents-learners/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "SOPHIA_REVIEW--postgraduate_students",
+      "generated_at": "2026-08-09T14:02:15+00:00",
+      "product": {
+        "id": "SOPHIA_REVIEW",
+        "name": "Sophia Academic Review Desk",
+        "offer": "academic_review"
+      },
+      "audience": {
+        "id": "postgraduate_students",
+        "name": "Postgraduate students",
+        "pain": "Dense feedback, reference checks and literature gaps are hard to resolve alone.",
+        "outcome": "A structured review that strengthens the student's own academic work."
+      },
+      "landing_page": "sites/sophia/index.html",
+      "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/sophia-review/postgraduate-students/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/sophia-review/postgraduate-students/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/sophia-review/postgraduate-students/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/sophia-review/postgraduate-students/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/sophia-review/postgraduate-students/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/sophia-review/postgraduate-students/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/postgraduate-students/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/sophia-review/postgraduate-students/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "SOPHIA_REVIEW--research_supervisors",
+      "generated_at": "2026-08-09T14:02:17+00:00",
+      "product": {
+        "id": "SOPHIA_REVIEW",
+        "name": "Sophia Academic Review Desk",
+        "offer": "academic_review"
+      },
+      "audience": {
+        "id": "research_supervisors",
+        "name": "Research supervisors",
+        "pain": "Repeated technical corrections consume time better spent on substantive supervision.",
+        "outcome": "A first-pass review with issues grouped for faster supervisor attention."
+      },
+      "landing_page": "sites/sophia/index.html",
+      "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/sophia-review/research-supervisors/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/sophia-review/research-supervisors/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/sophia-review/research-supervisors/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/sophia-review/research-supervisors/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/sophia-review/research-supervisors/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/sophia-review/research-supervisors/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-supervisors/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/sophia-review/research-supervisors/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "SOPHIA_REVIEW--writing_centres",
+      "generated_at": "2026-08-09T14:02:18+00:00",
+      "product": {
+        "id": "SOPHIA_REVIEW",
+        "name": "Sophia Academic Review Desk",
+        "offer": "academic_review"
+      },
+      "audience": {
+        "id": "writing_centres",
+        "name": "Writing centres and academic libraries",
+        "pain": "Support teams need a scalable way to triage technical and source-related issues.",
+        "outcome": "Consistent review notes with provenance and human escalation points."
+      },
+      "landing_page": "sites/sophia/index.html",
+      "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/sophia-review/writing-centres/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/sophia-review/writing-centres/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/sophia-review/writing-centres/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/sophia-review/writing-centres/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/sophia-review/writing-centres/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/sophia-review/writing-centres/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/writing-centres/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/sophia-review/writing-centres/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "SOPHIA_REVIEW--research_groups",
+      "generated_at": "2026-08-09T14:02:19+00:00",
+      "product": {
+        "id": "SOPHIA_REVIEW",
+        "name": "Sophia Academic Review Desk",
+        "offer": "academic_review"
+      },
+      "audience": {
+        "id": "research_groups",
+        "name": "Research offices and project teams",
+        "pain": "Collaborative manuscripts accumulate inconsistent references and argument seams.",
+        "outcome": "A shared technical review trail before formal peer review or submission."
+      },
+      "landing_page": "sites/sophia/index.html",
+      "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/sophia-review/research-groups/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/sophia-review/research-groups/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/sophia-review/research-groups/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/sophia-review/research-groups/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/sophia-review/research-groups/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/sophia-review/research-groups/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/sophia-review/research-groups/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/sophia-review/research-groups/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "VAMP_ACADEMIC--academic_professional_staff",
+      "generated_at": "2026-08-09T14:02:21+00:00",
+      "product": {
+        "id": "VAMP_ACADEMIC",
+        "name": "VAMP Performance Evidence Desk",
+        "offer": "performance_evidence"
+      },
+      "audience": {
+        "id": "academic_professional_staff",
+        "name": "Academic and professional staff",
+        "pain": "Useful performance evidence is buried across Outlook, documents and project records.",
+        "outcome": "A review snapshot showing what supports each objective and what is missing."
+      },
+      "landing_page": "sites/vamp/index.html",
+      "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/vamp-academic/academic-professional-staff/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "VAMP_ACADEMIC--hr_performance_admin",
+      "generated_at": "2026-08-09T14:02:22+00:00",
+      "product": {
+        "id": "VAMP_ACADEMIC",
+        "name": "VAMP Performance Evidence Desk",
+        "offer": "performance_evidence"
+      },
+      "audience": {
+        "id": "hr_performance_admin",
+        "name": "HR and performance administrators",
+        "pain": "Performance submissions arrive late, inconsistent and difficult to verify.",
+        "outcome": "A standard evidence workflow with human acceptance and provenance."
+      },
+      "landing_page": "sites/vamp/index.html",
+      "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/vamp-academic/hr-performance-admin/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/vamp-academic/hr-performance-admin/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/vamp-academic/hr-performance-admin/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/vamp-academic/hr-performance-admin/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/vamp-academic/hr-performance-admin/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/vamp-academic/hr-performance-admin/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/hr-performance-admin/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/vamp-academic/hr-performance-admin/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "VAMP_ACADEMIC--line_managers",
+      "generated_at": "2026-08-09T14:02:24+00:00",
+      "product": {
+        "id": "VAMP_ACADEMIC",
+        "name": "VAMP Performance Evidence Desk",
+        "offer": "performance_evidence"
+      },
+      "audience": {
+        "id": "line_managers",
+        "name": "Line managers and HODs",
+        "pain": "Review meetings lose time establishing what evidence exists and whether it is relevant.",
+        "outcome": "A concise evidence map prepared before the conversation begins."
+      },
+      "landing_page": "sites/vamp/index.html",
+      "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/vamp-academic/line-managers/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/vamp-academic/line-managers/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/vamp-academic/line-managers/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/vamp-academic/line-managers/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/vamp-academic/line-managers/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/vamp-academic/line-managers/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/line-managers/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/vamp-academic/line-managers/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "VAMP_ACADEMIC--institution_leaders",
+      "generated_at": "2026-08-09T14:02:25+00:00",
+      "product": {
+        "id": "VAMP_ACADEMIC",
+        "name": "VAMP Performance Evidence Desk",
+        "offer": "performance_evidence"
+      },
+      "audience": {
+        "id": "institution_leaders",
+        "name": "University and organisation leaders",
+        "pain": "Performance processes generate administration without creating a clear institutional view.",
+        "outcome": "Comparable, governed snapshots without surrendering managerial judgement."
+      },
+      "landing_page": "sites/vamp/index.html",
+      "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "assets": {
+        "square_1080": "state/marketing_factory/vamp-academic/institution-leaders/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/vamp-academic/institution-leaders/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/vamp-academic/institution-leaders/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/vamp-academic/institution-leaders/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/vamp-academic/institution-leaders/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/vamp-academic/institution-leaders/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/vamp-academic/institution-leaders/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/vamp-academic/institution-leaders/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "DOCUMENT_STUDIO--professional_firms",
+      "generated_at": "2026-08-09T14:02:26+00:00",
+      "product": {
+        "id": "DOCUMENT_STUDIO",
+        "name": "DIO Document Studio",
+        "offer": "editing_translation"
+      },
+      "audience": {
+        "id": "professional_firms",
+        "name": "SMEs and professional firms",
+        "pain": "Client-facing documents need polish without losing technical meaning or house terminology.",
+        "outcome": "A clean document plus an auditable change and terminology trail."
+      },
+      "landing_page": "sites/document-studio/index.html",
+      "proof_asset": "sites/document-studio/assets/document-studio-proof.png",
+      "assets": {
+        "square_1080": "state/marketing_factory/document-studio/professional-firms/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/document-studio/professional-firms/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/document-studio/professional-firms/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/document-studio/professional-firms/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/document-studio/professional-firms/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/document-studio/professional-firms/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/professional-firms/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/document-studio/professional-firms/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "DOCUMENT_STUDIO--ngo_public_programmes",
+      "generated_at": "2026-08-09T14:02:28+00:00",
+      "product": {
+        "id": "DOCUMENT_STUDIO",
+        "name": "DIO Document Studio",
+        "offer": "editing_translation"
+      },
+      "audience": {
+        "id": "ngo_public_programmes",
+        "name": "NGOs and public programmes",
+        "pain": "Reports and public material must work across English, Afrikaans, isiZulu, Sesotho and Setswana.",
+        "outcome": "Controlled multilingual delivery with semantic QA and human authority."
+      },
+      "landing_page": "sites/document-studio/index.html",
+      "proof_asset": "sites/document-studio/assets/document-studio-proof.png",
+      "assets": {
+        "square_1080": "state/marketing_factory/document-studio/ngo-public-programmes/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/document-studio/ngo-public-programmes/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/document-studio/ngo-public-programmes/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/document-studio/ngo-public-programmes/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/document-studio/ngo-public-programmes/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/document-studio/ngo-public-programmes/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/ngo-public-programmes/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/document-studio/ngo-public-programmes/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "DOCUMENT_STUDIO--education_academia",
+      "generated_at": "2026-08-09T14:02:29+00:00",
+      "product": {
+        "id": "DOCUMENT_STUDIO",
+        "name": "DIO Document Studio",
+        "offer": "editing_translation"
+      },
+      "audience": {
+        "id": "education_academia",
+        "name": "Education and academic teams",
+        "pain": "Learning and research documents require technical editing as well as domain-aware language checks.",
+        "outcome": "Readable, consistent material that preserves disciplinary intent."
+      },
+      "landing_page": "sites/document-studio/index.html",
+      "proof_asset": "sites/document-studio/assets/document-studio-proof.png",
+      "assets": {
+        "square_1080": "state/marketing_factory/document-studio/education-academia/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/document-studio/education-academia/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/document-studio/education-academia/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/document-studio/education-academia/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/document-studio/education-academia/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/document-studio/education-academia/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/education-academia/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/document-studio/education-academia/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    },
+    {
+      "schema": "dio.marketing.creative_family.v1",
+      "family_id": "DOCUMENT_STUDIO--government_communications",
+      "generated_at": "2026-08-09T14:02:30+00:00",
+      "product": {
+        "id": "DOCUMENT_STUDIO",
+        "name": "DIO Document Studio",
+        "offer": "editing_translation"
+      },
+      "audience": {
+        "id": "government_communications",
+        "name": "Government and public-facing teams",
+        "pain": "High-stakes public documents must remain consistent across languages and revisions.",
+        "outcome": "Terminology-controlled translation with deterministic QA and review evidence."
+      },
+      "landing_page": "sites/document-studio/index.html",
+      "proof_asset": "sites/document-studio/assets/document-studio-proof.png",
+      "assets": {
+        "square_1080": "state/marketing_factory/document-studio/government-communications/assets/square_1080.jpg",
+        "landscape_1200x628": "state/marketing_factory/document-studio/government-communications/assets/landscape_1200x628.jpg",
+        "portrait_1080x1350": "state/marketing_factory/document-studio/government-communications/assets/portrait_1080x1350.jpg",
+        "vertical_1080x1920": "state/marketing_factory/document-studio/government-communications/assets/vertical_1080x1920.jpg",
+        "youtube_1280x720": "state/marketing_factory/document-studio/government-communications/assets/youtube_1280x720.jpg",
+        "reel_1080x1920": "state/marketing_factory/document-studio/government-communications/assets/reel_1080x1920.mp4"
+      },
+      "copy": {
+        "LINKEDIN_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/linkedin_organic.json",
+          "state": "passed"
+        },
+        "FACEBOOK_PAGE": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/facebook_page.json",
+          "state": "passed"
+        },
+        "META_ADS": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/meta_ads.json",
+          "state": "passed"
+        },
+        "INSTAGRAM_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/instagram_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/tiktok_organic.json",
+          "state": "passed"
+        },
+        "TIKTOK_ADS": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/tiktok_ads.json",
+          "state": "passed"
+        },
+        "REDDIT_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/reddit_organic.json",
+          "state": "passed"
+        },
+        "REDDIT_ADS": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/reddit_ads.json",
+          "state": "passed"
+        },
+        "GOOGLE_ADS": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/google_ads.json",
+          "state": "passed"
+        },
+        "YOUTUBE_ORGANIC": {
+          "path": "state/marketing_factory/document-studio/government-communications/copy/youtube_organic.json",
+          "state": "passed"
+        }
+      },
+      "nichefoundry": {
+        "request": "state/marketing_factory/document-studio/government-communications/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+        "reel_state": "ready",
+        "reel_error": "",
+        "long_form_state": "brief_ready"
+      },
+      "validation": {
+        "state": "passed",
+        "errors": []
+      },
+      "governance": {
+        "state": "draft_ready",
+        "publication": "held",
+        "spend": "disabled",
+        "promotion": "operator_required"
+      }
+    }
+  ]
+}

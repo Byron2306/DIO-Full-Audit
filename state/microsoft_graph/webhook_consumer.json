@@ -1,0 +1,25 @@
+{
+  "schema": "dio.graph_webhook_consumer.v1",
+  "updated_at": "2026-08-08T20:06:21+00:00",
+  "processed_lines": 10,
+  "last_pull_receipt": {
+    "schema": "dio.mail_ingress_sync_receipt.v1",
+    "created_at": "2026-08-08T20:06:21+00:00",
+    "received": [
+      {
+        "mail_ingress_id": "INGRESS-F244FCBC314DDE5B",
+        "state": "created"
+      },
+      {
+        "mail_ingress_id": "INGRESS-8F365C94A6C545E3",
+        "state": "updated"
+      },
+      {
+        "mail_ingress_id": "INGRESS-0726C225D841995E",
+        "state": "updated"
+      }
+    ],
+    "removed_provider_ids": [],
+    "delta_state": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/microsoft_graph/mail_delta.json"
+  }
+}

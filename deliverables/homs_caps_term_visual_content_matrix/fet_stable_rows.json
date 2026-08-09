@@ -1,0 +1,1024 @@
+[
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 10,
+    "term": 1,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "synoptic weather maps and satellite",
+      "The Atmosphere \u00b1 36 hours",
+      "weather measuring instruments",
+      "weather reports from the media"
+    ],
+    "content_lines": [
+      "The Atmosphere \u00b1 36 hours",
+      "weather measuring instruments",
+      "synoptic weather maps and satellite",
+      "weather reports from the media",
+      "Composition and Structure of the Atmosphere [5 hours]",
+      "importance of the atmosphere"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 10,
+    "term": 2,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "Plate Tectonics [6 hours]",
+      "plate tectonics \u2013 an explanation for the movement of continents",
+      "the world\u2019s volcanic and earthquake zones.",
+      "Geomorphology \u00b1 36 hours atlases"
+    ],
+    "content_lines": [
+      "Geomorphology \u00b1 36 hours atlases",
+      "The Structure of the Earth [6 hours]",
+      "the internal structure of the Earth",
+      "Plate Tectonics [6 hours]",
+      "plate tectonics \u2013 an explanation for the movement of continents",
+      "the mechanics of plate movements"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 10,
+    "term": 3,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "Population \u00b1 36 hours",
+      "Population Distribution and Density [4 hours]",
+      "meaning of population distribution and population density",
+      "world population density and distribution"
+    ],
+    "content_lines": [
+      "Population \u00b1 36 hours",
+      "Population Distribution and Density [4 hours]",
+      "meaning of population distribution and population density",
+      "world population density and distribution",
+      "factors that affect distribution and density of the world\u2019s population.",
+      "Population Structure [4 hours]"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 10,
+    "term": 4,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "Water Resources \u00b1 24 hours",
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "challenges of providing free basic water to rural and urban communities in South Africa",
+      "Water in the World [2 hours]"
+    ],
+    "content_lines": [
+      "Water Resources \u00b1 24 hours",
+      "Water in the World [2 hours]",
+      "different forms of water in the world: liquid, solid and gas",
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "Water Management in South Africa [5 hours]",
+      "factors influencing the availability of water in South Africa"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 11,
+    "term": 1,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "Africa\u2019s Weather and Climate [8 hours]",
+      "The atmosphere \u00b1 36 hours",
+      "The Earth\u2019s Energy Balance [4 hours]",
+      "the unequal heating of the atmosphere \u2013 latitudinal and seasonal"
+    ],
+    "content_lines": [
+      "The atmosphere \u00b1 36 hours",
+      "The Earth\u2019s Energy Balance [4 hours]",
+      "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+      "significance of Earth\u2019s axis and revolution around the Sun",
+      "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+      "Africa\u2019s Weather and Climate [8 hours]"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 11,
+    "term": 2,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "Plate Tectonics [6 hours]",
+      "plate tectonics \u2013 an explanation for the movement of continents",
+      "the world\u2019s volcanic and earthquake zones.",
+      "Geomorphology \u00b1 36 hours atlases"
+    ],
+    "content_lines": [
+      "Geomorphology \u00b1 36 hours atlases",
+      "The Structure of the Earth [6 hours]",
+      "the internal structure of the Earth",
+      "Plate Tectonics [6 hours]",
+      "plate tectonics \u2013 an explanation for the movement of continents",
+      "the mechanics of plate movements"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 12,
+    "term": 1,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "reading and interpreting satellite images and synoptic weather maps.",
+      "(regional and local weather systems) (includes consolidation, mapwork and",
+      "and synoptic weather charts",
+      "Climate and weather \u00b1 14 + 5 hours"
+    ],
+    "content_lines": [
+      "Climate and weather \u00b1 14 + 5 hours",
+      "(regional and local weather systems) (includes consolidation, mapwork and",
+      "weather prediction, satellite images",
+      "and synoptic weather charts",
+      "stages of development and related weather conditions",
+      "weather patterns associated with cold, warm, and occluded fronts"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 12,
+    "term": 2,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "topographic and orthophoto maps",
+      "(includes mapwork, consolidation and",
+      "Rural Settlement and Urban \u00b1 36 hours",
+      "Settlement"
+    ],
+    "content_lines": [
+      "Rural Settlement and Urban \u00b1 36 hours",
+      "Settlement",
+      "(includes mapwork, consolidation and",
+      "topographic and orthophoto maps",
+      "images (such as Google Earth)",
+      "economic activities in a settlement."
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract",
+      "visual_source"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract",
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence.",
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 12,
+    "term": 3,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "atlases, topographic maps, aerial",
+      "Economic Geography of South \u00b1 36 hours",
+      "(includes map work, consolidation and",
+      "information on Maputo Corridor:"
+    ],
+    "content_lines": [
+      "Economic Geography of South \u00b1 36 hours",
+      "atlases, topographic maps, aerial",
+      "(includes map work, consolidation and",
+      "information on Maputo Corridor:",
+      "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "grade": 12,
+    "term": 4,
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "stable": true,
+    "decision": "render_candidate",
+    "reasons": [],
+    "warnings": [],
+    "topic_focus": [
+      "Water Resources \u00b1 24 hours",
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "challenges of providing free basic water to rural and urban communities in South Africa",
+      "Water in the World [2 hours]"
+    ],
+    "content_lines": [
+      "Water Resources \u00b1 24 hours",
+      "Water in the World [2 hours]",
+      "different forms of water in the world: liquid, solid and gas",
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "Water Management in South Africa [5 hours]",
+      "factors influencing the availability of water in South Africa"
+    ],
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix signals data, graph, or diagram assessment.",
+        "Geography term/theme content requires spatial evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      }
+    },
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "paper_contract": {
+      "question_behaviour": [
+        "identify",
+        "describe",
+        "explain",
+        "infer",
+        "cite evidence"
+      ],
+      "stimulus_must_provide": [
+        "source extract",
+        "map or table",
+        "evidence table"
+      ],
+      "educator_approval_required": true
+    },
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf"
+  }
+]

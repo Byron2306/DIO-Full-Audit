@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Evidex turns scattered programme evidence into mapped claims, provenance and gaps for human review.">
+  <title>Evidex Evidence Pack | Traceable Evidence Review</title>
+  <style>
+    :root {
+      --ink: #17221f;
+      --muted: #5e6965;
+      --paper: #ffffff;
+      --soft: #f1f4f0;
+      --line: #ced6d1;
+      --green: #185f47;
+      --green-dark: #104533;
+      --coral: #e46f5d;
+      --coral-soft: #fff0ed;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Aptos, "Segoe UI", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .site-nav { min-height: 68px; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: #fff; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; font-weight: 900; }
+    .brand-mark { color: var(--green); font-size: 24px; }
+    .brand-note { color: var(--muted); font-size: 14px; font-weight: 700; }
+    .nav-links { display: flex; align-items: center; gap: 24px; font-size: 14px; font-weight: 750; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--green); }
+    .hero {
+      position: relative;
+      min-height: min(740px, calc(100svh - 68px));
+      display: flex;
+      align-items: center;
+      background: #f7f8f6 url("assets/evidex-review-hero.png") center center / cover no-repeat;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .hero-inner { position: relative; width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .hero-copy { width: min(600px, 55%); margin-left: auto; padding-block: 70px; }
+    .eyebrow { margin: 0 0 14px; color: var(--green); font-size: 14px; font-weight: 900; text-transform: uppercase; }
+    h1, h2, h3 { margin: 0; line-height: 1.08; letter-spacing: 0; }
+    h1 { font-size: clamp(44px, 6vw, 78px); }
+    h2 { font-size: clamp(30px, 4vw, 48px); }
+    h3 { font-size: 22px; }
+    .hero p { max-width: 590px; margin: 22px 0 0; color: #3b4743; font-size: 20px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border: 1px solid var(--green);
+      border-radius: 5px;
+      background: var(--green);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button:hover { background: var(--green-dark); }
+    .button.secondary { background: #fff; color: var(--green); }
+    .button.secondary:hover { background: var(--soft); }
+    .button.is-hidden { display: none; }
+    .trust-band { background: var(--green-dark); color: #fff; }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .trust-item { min-height: 112px; padding: 24px; border-right: 1px solid rgba(255,255,255,.2); }
+    .trust-item:last-child { border-right: 0; }
+    .trust-item strong { display: block; font-size: 23px; }
+    .trust-item span { color: #cde0d8; font-size: 14px; }
+    section { padding: 88px 0; }
+    .section-head { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: end; margin-bottom: 40px; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 19px; }
+    .flow { background: var(--soft); }
+    .flow-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; }
+    .flow-step { border-top: 3px solid var(--green); padding-top: 18px; }
+    .flow-step span { color: var(--coral); font-weight: 900; }
+    .flow-step h3 { margin-top: 8px; font-size: 20px; }
+    .flow-step p { color: var(--muted); font-size: 15px; }
+    .case-layout { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 48px; align-items: start; }
+    .case-copy p { color: var(--muted); }
+    .case-link { margin-top: 24px; }
+    .evidence-table { border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; background: #fff; }
+    table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 14px; }
+    th, td { padding: 13px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; background: var(--soft); }
+    .status { display: inline-block; padding: 3px 7px; border-radius: 4px; background: #e5f2eb; color: var(--green-dark); font-size: 12px; font-weight: 800; }
+    .case-note { margin: 0; padding: 15px 18px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+    .offer-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    .offer { border: 1px solid var(--line); border-radius: 6px; padding: 28px; }
+    .offer h3 { margin-bottom: 12px; }
+    .offer p { color: var(--muted); }
+    .offer ul { padding-left: 20px; min-height: 132px; }
+    .price { padding-top: 18px; border-top: 1px solid var(--line); font-size: 23px; font-weight: 900; }
+    .boundary { padding: 28px 0; background: var(--coral-soft); border-top: 1px solid #f0c7bf; border-bottom: 1px solid #f0c7bf; }
+    .boundary strong { color: #933d30; }
+    .intake { background: #182821; color: #fff; }
+    .intake .section-head p { color: #cbd7d1; }
+    form { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    label { display: grid; gap: 7px; font-size: 14px; font-weight: 800; }
+    label.full, .form-actions, .result { grid-column: 1 / -1; }
+    input, select, textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 12px;
+      border: 1px solid #81948b;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .intake .button.secondary { border-color: #fff; }
+    .result { min-height: 24px; color: #d7e1dc; }
+    footer { padding: 28px 0; background: #101b16; color: #bdc9c3; font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+    @media (max-width: 860px) {
+      .nav-links a:not(.button) { display: none; }
+      .brand-note { display: none; }
+      .hero { min-height: 680px; background-position: 34% center; }
+      .hero::before { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.84); }
+      .hero-copy { width: 100%; margin-left: 0; padding-block: 58px; }
+      h1 { font-size: clamp(44px, 13vw, 66px); }
+      .trust-grid, .section-head, .flow-grid, .case-layout, .offer-grid, form { grid-template-columns: 1fr; }
+      .trust-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+      .trust-item:last-child { border-bottom: 0; }
+      section { padding: 64px 0; }
+      .section-head { gap: 20px; }
+      .offer ul { min-height: 0; }
+      label.full, .form-actions, .result { grid-column: auto; }
+      .footer-inner { display: block; }
+    }
+    @media (max-width: 480px) {
+      .wrap, .hero-inner { width: min(100% - 28px, var(--max)); }
+      .site-nav .button { min-height: 42px; padding: 8px 10px; }
+      .hero p { font-size: 18px; }
+      .actions .button, .form-actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="brand-mark">Evidex</span><span class="brand-note">Evidence Pack</span></a>
+      <div class="nav-links">
+        <a href="#case">Golden case</a>
+        <a href="#offers">Pricing</a>
+        <a class="button" href="#intake">Request a pilot</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Evidex Evidence Pack</p>
+          <h1>Scattered proof, mapped into one review trail.</h1>
+          <p>Send a bounded set of receipts, notes, photos and spreadsheets. Evidex organises the evidence, maps it to claims, records provenance and flags gaps for human review.</p>
+          <div class="actions">
+            <a class="button" href="#case">See the golden case</a>
+            <a class="button secondary" href="#intake">Request a pilot</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="trust-band" aria-label="Evidex operating boundaries">
+      <div class="wrap trust-grid">
+        <div class="trust-item"><strong>Mixed inputs</strong><span>Notes, receipts, registers, photos and spreadsheets</span></div>
+        <div class="trust-item"><strong>Traceable output</strong><span>Claims, source IDs, provenance and gaps</span></div>
+        <div class="trust-item"><strong>Human reviewed</strong><span>No automatic donor, auditor or regulator sign-off</span></div>
+      </div>
+    </div>
+
+    <section class="flow" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">The service</p><h2>A defined evidence transformation.</h2></div>
+          <p>Evidex does not hide your source material behind a summary. It builds a reviewable line from each claim back to the evidence that supports it.</p>
+        </div>
+        <div class="flow-grid">
+          <div class="flow-step"><span>01</span><h3>Bound the request</h3><p>Define the reporting context, the claims to support and the non-sensitive files available.</p></div>
+          <div class="flow-step"><span>02</span><h3>Index the evidence</h3><p>Record each artifact, source ID, date, type and provenance details.</p></div>
+          <div class="flow-step"><span>03</span><h3>Map and flag</h3><p>Connect claims to supporting artifacts and make missing or weak evidence visible.</p></div>
+          <div class="flow-step"><span>04</span><h3>Review and deliver</h3><p>A human checks the pack before the evidence table, claims map and receipt are delivered.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="case">
+      <div class="wrap case-layout">
+        <div class="case-copy">
+          <p class="eyebrow">The golden Evidex case</p>
+          <h2>Five messy inputs. One inspectable pack.</h2>
+          <p>This controlled demonstration begins with an attendance register, field notes, KPI progress data, a photo log and a receipts summary.</p>
+          <p>The output maps programme claims to those source artifacts and keeps the source IDs visible. It is a demonstration, not a real client or approval claim.</p>
+          <div class="case-link"><a class="button secondary" href="golden-case/">Open the complete golden case</a></div>
+        </div>
+        <div class="evidence-table" aria-label="Golden case evidence table preview">
+          <table>
+            <thead><tr><th>Source ID</th><th>Artifact</th><th>Mapped use</th><th>Review</th></tr></thead>
+            <tbody>
+              <tr><td>EVD-001</td><td>Attendance register</td><td>Participation claim</td><td><span class="status">Indexed</span></td></tr>
+              <tr><td>EVD-002</td><td>Field visit notes</td><td>Activity and context</td><td><span class="status">Mapped</span></td></tr>
+              <tr><td>EVD-003</td><td>KPI progress table</td><td>Progress claim</td><td><span class="status">Mapped</span></td></tr>
+              <tr><td>EVD-004</td><td>Photo log</td><td>Activity corroboration</td><td><span class="status">Review</span></td></tr>
+              <tr><td>EVD-005</td><td>Receipts summary</td><td>Expenditure trail</td><td><span class="status">Indexed</span></td></tr>
+            </tbody>
+          </table>
+          <p class="case-note">Controlled dummy data. The full case shows the evidence table, mapped claims, provenance and finished pack structure.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow" id="offers">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Pilot pricing</p><h2>Start with the smallest useful pack.</h2></div>
+          <p>Final scope depends on file volume, source quality, the number of claims and the review deadline. Sensitive data requires an agreed handling route.</p>
+        </div>
+        <div class="offer-grid">
+          <article class="offer">
+            <h3>Starter Pack</h3>
+            <p>A bounded evidence set for one clear reporting need.</p>
+            <ul><li>Evidence table</li><li>Claim mapping</li><li>Source IDs and basic provenance</li></ul>
+            <div class="price">R350-R750</div>
+          </article>
+          <article class="offer">
+            <h3>Standard Pack</h3>
+            <p>A broader review pack with a clearer reporting trail.</p>
+            <ul><li>Multi-source evidence index</li><li>Mapped claims and gaps</li><li>Provenance and review receipt</li></ul>
+            <div class="price">R950-R1,500</div>
+          </article>
+          <article class="offer">
+            <h3>Complex Pack</h3>
+            <p>A larger or multi-claim request scoped after intake.</p>
+            <ul><li>Expanded source set</li><li>Multiple claim families</li><li>Agreed review and revision boundary</li></ul>
+            <div class="price">R2,500-R5,000</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="boundary"><div class="wrap"><strong>Important:</strong> Evidex prepares evidence for review. It does not guarantee funding, compliance, audit outcomes, donor acceptance or regulator approval.</div></div>
+
+    <section class="intake" id="intake">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Start with a bounded case</p><h2>Request an Evidex pilot.</h2></div>
+          <p>Use the connected Google intake form, create a local JSON request, or open a pre-addressed email to the DIO workflow mailbox.</p>
+        </div>
+        <form id="intakeForm">
+          <label>Name
+            <input name="name" autocomplete="name" required>
+          </label>
+          <label>Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>Organisation
+            <input name="organisation" autocomplete="organization">
+          </label>
+          <label>Reporting context
+            <select name="context" required>
+              <option value="donor_reporting">Donor or programme reporting</option>
+              <option value="grant_evidence">Grant evidence</option>
+              <option value="monitoring_evaluation">Monitoring and evaluation</option>
+              <option value="audit_preparation">Audit preparation support</option>
+              <option value="compliance_review">Compliance review support</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>Deadline
+            <input name="deadline" type="date">
+          </label>
+          <label>Approximate file count
+            <input name="file_count" type="number" min="1" step="1">
+          </label>
+          <label>Pack language
+            <select name="output_language"><option>English</option><option>Afrikaans</option><option>isiZulu</option><option>Sesotho</option><option>Setswana</option></select>
+          </label>
+          <label class="full">What should the evidence pack help demonstrate?
+            <textarea name="claims" required></textarea>
+          </label>
+          <label class="full">Files available
+            <textarea name="files" placeholder="For example: receipts, attendance register, photos, spreadsheet and field notes"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="button" type="submit">Create pilot request</button>
+            <a class="button secondary is-hidden" id="googleFormLink" href="#" target="_blank" rel="noopener">Open Google intake form</a>
+            <a class="button secondary" id="outlookDraftLink" href="mailto:dio_workflows@outlook.com?subject=EVIDEX%20PILOT%20PACK%20REQUEST">Open email draft</a>
+          </div>
+          <div class="result" id="result" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><span>Evidex Evidence Pack</span><span>Campaign imagery is illustrative. Golden-case data is controlled and non-client.</span></div></footer>
+
+  <script src="assets/commercial-links.js"></script>
+  <script src="../assets/dio-public-intake.js"></script>
+  <script>
+    const contactEmail = "dio_workflows@outlook.com";
+    const commercialLinks = window.EVIDEX_COMMERCIAL_LINKS || {};
+    const form = document.querySelector("#intakeForm");
+    const googleFormLink = document.querySelector("#googleFormLink");
+    const outlookDraftLink = document.querySelector("#outlookDraftLink");
+    const result = document.querySelector("#result");
+
+    if ((commercialLinks.google_form_url || "").trim()) {
+      googleFormLink.href = commercialLinks.google_form_url;
+      googleFormLink.classList.remove("is-hidden");
+    }
+
+    function draftFrom(data = {}) {
+      const body = [
+        "Hi Evidex,", "", "I would like to request a controlled evidence-pack pilot.", "",
+        `Name: ${data.name || ""}`, `Email: ${data.email || ""}`, `Organisation: ${data.organisation || ""}`,
+        `Reporting context: ${data.context || ""}`, `Deadline: ${data.deadline || ""}`,
+        `Approximate file count: ${data.file_count || ""}`, `Pack language: ${data.output_language || "English"}`, `Claims or purpose: ${data.claims || ""}`,
+        `Files available: ${data.files || ""}`, "",
+        "I understand that Evidex supports human review and does not guarantee donor, auditor, regulator or funder approval."
+      ].join("\n");
+      return `mailto:${contactEmail}?subject=${encodeURIComponent("EVIDEX PILOT PACK REQUEST")}&body=${encodeURIComponent(body)}`;
+    }
+
+    function updateDraft() { outlookDraftLink.href = draftFrom(Object.fromEntries(new FormData(form).entries())); }
+    form.addEventListener("input", updateDraft);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      outlookDraftLink.href = draftFrom(data);
+      const button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+      result.textContent = "Submitting to DIO...";
+      try {
+        const receipt = await window.DIOPublicIntake.submit({
+          product: "evidex",
+          offer: "evidence_pack_pilot",
+          contact: { name: data.name, email: data.email, organisation: data.organisation || null },
+          request: { context: data.context, deadline: data.deadline || null, file_count: data.file_count ? Number(data.file_count) : null, claims: data.claims, files_available: data.files || null, lingua: { source_language: "English", target_language: data.output_language || "English", proficient_review_required: data.output_language !== "English" } },
+          consents: { review_boundary_acknowledged: true, no_sensitive_files_submitted: true },
+          attribution: window.DIOPublicIntake.attribution("evidex_site"),
+        });
+        result.textContent = `Request received. Reference: ${receipt.lead_id}. DIO will reply through Outlook after scope review.`;
+      } catch {
+        window.DIOPublicIntake.showFallback(result, "The online intake could not be reached.", outlookDraftLink.href);
+      } finally {
+        button.disabled = false;
+      }
+    });
+    updateDraft();
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "History",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Geskiedenis (History)",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+    "sha256": "73b5a4c0bc79dba0491009452821769dd0c5587b54a201592bb88adf4450b192"
+  },
+  "canonical_profile_id": "fet.history",
+  "assessment_family": "source_based_plus_essay",
+  "render_shell": "source_essay_paper",
+  "source_type_contract": {
+    "schema": "knowedge.homs_source_type_contract.v1",
+    "source_types": [
+      "source_extract",
+      "visual_source",
+      "data_table",
+      "evidence_table"
+    ],
+    "source_type_reasons": [
+      "FET old-paper catalogue: text_extract observed in History (20 source/stimulus object(s) across 2 paper(s)).",
+      "FET old-paper catalogue: photograph_or_image observed in History (20 source/stimulus object(s) across 2 paper(s)).",
+      "FET old-paper catalogue: data_table observed in History (20 source/stimulus object(s) across 2 paper(s)).",
+      "Learners must cite, compare, or reason from source evidence."
+    ],
+    "matrix_signals_used": {
+      "signals_source_based": false,
+      "signals_essay_or_extended_response": false,
+      "signals_case_study": false,
+      "signals_data_graph_diagram": false,
+      "signals_practical_investigation": false,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": false,
+      "signals_calculation_problem": false,
+      "signals_formal_test_or_exam": false
+    },
+    "old_paper_contract_used": null,
+    "exam_source_catalogue_used": {
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+      "subject": "History",
+      "paper_count": 2,
+      "observed_contract": [
+        "text_extract",
+        "photograph_or_image",
+        "data_table",
+        "cartoon"
+      ]
+    }
+  },
+  "caps_theme_candidates": [],
+  "assessment_content_focus": [
+    "Cold War, Cuban Missile Crisis and the division of Germany",
+    "source reliability, perspective, causation and consequence",
+    "provenance, contextualisation and evidence comparison",
+    "argumentative essay using historical evidence and chronology"
+  ],
+  "content_alignment_notes": [
+    "CAPS term/content alignment requires educator confirmation."
+  ],
+  "required_visuals": [
+    {
+      "id": "source_provenance_panel",
+      "title": "Source provenance panel",
+      "role": "stimulus",
+      "visual_kind": "source_extract",
+      "must_show": [
+        "author/origin",
+        "date/context",
+        "caption",
+        "extract or visual description"
+      ],
+      "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+    },
+    {
+      "id": "claim_evidence_reasoning_table",
+      "title": "Claim-evidence-reasoning table",
+      "role": "learner_workspace",
+      "visual_kind": "evidence_table",
+      "must_show": [
+        "claim column",
+        "evidence column",
+        "reasoning/inference column"
+      ],
+      "assessment_use": "Learners connect source evidence to answers."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

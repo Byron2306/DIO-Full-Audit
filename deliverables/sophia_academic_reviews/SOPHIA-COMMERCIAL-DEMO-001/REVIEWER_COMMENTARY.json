@@ -1,0 +1,172 @@
+{
+  "status": "completed",
+  "source": "reasoned_integrity_lane",
+  "encounter_id": "enc-9fe55bad2999",
+  "attempt_count": 1,
+  "attempt_encounters": [
+    "enc-9fe55bad2999"
+  ],
+  "provider": "gemini",
+  "provider_status": "ok",
+  "model": "gemini-flash-lite-latest",
+  "remote_processing": true,
+  "characters_transmitted": 3008,
+  "manuscript_truncated": false,
+  "repair_applied": false,
+  "repair_steps": [],
+  "mandos_judgment": {
+    "schema_version": "mandos.protocol_judge.v1",
+    "created_at": "2026-08-08T19:44:18.260490+00:00",
+    "passed": true,
+    "score": 1.0,
+    "failed_checks": [],
+    "checks": {
+      "source_grounding": {
+        "passed": true,
+        "score": 1.0,
+        "detail": {
+          "provenance_status": "document_evidence",
+          "retrieval_fragments": 5,
+          "document_quality": []
+        }
+      },
+      "zpd_pedagogical_fit": {
+        "passed": true,
+        "score": 1.0,
+        "detail": {
+          "active_office": "speculum",
+          "handback": true,
+          "substantive": true,
+          "generic": false
+        }
+      },
+      "source_entailment_humility": {
+        "passed": true,
+        "score": 1.0,
+        "detail": {
+          "overclaim": false,
+          "limitation": true
+        }
+      },
+      "covenant_integrity": {
+        "passed": true,
+        "score": 1.0,
+        "detail": {
+          "criterion": "STRAINED",
+          "false_confidence": false,
+          "contained_false_confidence": false,
+          "harmonic_mode": "observe_and_review"
+        }
+      }
+    },
+    "verdict": "RELEASE",
+    "speculum_note": "Mandos judged observable response behavior, not hidden intent."
+  },
+  "article_conformity": {
+    "schema_version": "genesis.article_conformity.v1",
+    "source": "reasoned_integrity_lane",
+    "raw_model_available": true,
+    "repaired": false,
+    "summary": {
+      "passed": 12,
+      "total": 12,
+      "pass_rate": 1.0,
+      "all_passed": true
+    },
+    "articles": {
+      "I": {
+        "title": "De Auctoritate",
+        "passed": true,
+        "evidence": "Response preserves human/learner authorship and handback."
+      },
+      "II": {
+        "title": "De Veritate",
+        "passed": true,
+        "evidence": "Response marks source/evidence limits rather than treating confidence as proof."
+      },
+      "III": {
+        "title": "De Recusatione",
+        "passed": true,
+        "evidence": "Mandos judgment exists and can hold/repair/refuse if provenance or authority fails."
+      },
+      "IV": {
+        "title": "De Viis et Limitibus",
+        "passed": true,
+        "evidence": "Office/lane recorded: speculum."
+      },
+      "V": {
+        "title": "De Iudicio Semantico",
+        "passed": true,
+        "evidence": "Response has release ledger plus Mandos arbitral judgment."
+      },
+      "VI": {
+        "title": "De Catena Integra",
+        "passed": true,
+        "evidence": "Release source preserved as reasoned_integrity_lane."
+      },
+      "VII": {
+        "title": "De Reparatione",
+        "passed": true,
+        "evidence": "If repaired, raw model output is preserved or its absence/degradation is explicitly declared."
+      },
+      "VIII": {
+        "title": "De Memoria et Origine",
+        "passed": true,
+        "evidence": "Provenance status: document_evidence."
+      },
+      "IX": {
+        "title": "De Tempore",
+        "passed": true,
+        "evidence": "Harmonic cadence mode recorded: observe_and_review."
+      },
+      "X": {
+        "title": "De Custodia",
+        "passed": true,
+        "evidence": "Maintenance/override-sensitive release is logged and attributable."
+      },
+      "XI": {
+        "title": "De Suprematia Humana",
+        "passed": true,
+        "evidence": "Response does not replace conscience/authorship; it returns the next move."
+      },
+      "XII": {
+        "title": "De Finibus Honestis",
+        "passed": true,
+        "evidence": "Response states limits/uncertainty/plain boundary of its strength."
+      }
+    },
+    "trigger_terms": {
+      "authorship_risk": false,
+      "source_task": true,
+      "ambiguous_reasoning": true
+    }
+  },
+  "validation": {
+    "passed": true,
+    "checks": {
+      "provider_is_gemini": true,
+      "provider_completed": true,
+      "reasoned_lane_used": true,
+      "mandos_passed": true,
+      "genesis_articles_passed": true,
+      "document_anchor_present": true,
+      "no_unknown_anchors": true,
+      "no_unknown_citations": true,
+      "no_unknown_dois": true
+    },
+    "valid_anchors_mentioned": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "invalid_anchors": [],
+    "unknown_citations": [],
+    "unknown_dois": []
+  },
+  "commentary": "### Overall assessment\nThe manuscript introduces a valuable research question regarding how formative feedback can support postgraduate writing while preserving learner authorship [P1, P2]. However, the current draft is severely truncated, ending abruptly at [P3], and exhibits critical disconnects in its citation and claim architecture. Per the local audit dossier, the reference list contains uncommitted errors: `mekheimer:2025` is cited parenthetically in the text but missing from the references, while Carless and Boud (2018) is listed but never cited. Furthermore, major causal and comparative claims ([C1], [C2]) rely on candidate support classified as background-only or partial/bounded leads, creating high evidence risks. \n\n### Major revisions\n1. **Resolve Causal Evidence Gaps for Core Claims:** Address the high evidence risk flagged for [C1] and [C2]. The assertion that structured formative feedback *necessarily* produces stronger long-term academic identity than ordinary supervisor feedback is currently supported only by background-only literature (Boud & Molloy, 2013). You must soften these causal claims to warranted interpretations or introduce direct empirical evidence.\n2. **Rectify Reference List Discrepancies:** Per the audit dossier, reconcile the two actionable reference errors. Either add the missing bibliographic entry for `mekheimer:2025` or remove the parenthetical citation, and integrate or remove the uncited entry for Carless and Boud (2018).\n3. **Complete the Truncated Text:** The manuscript currently terminates mid-sentence at [P3]. Expand the draft beyond the introduction to fully develop the methodology, argument, and conclusion required for a complete scholarly contribution.\n\n### Minor revisions\n1. **Verify Citation Formatting:** Ensure all in-text citations strictly adhere to APA 7 guidelines as specified in the research design parameters.\n2. **Refine Normative Assertions:** Ensure that normative claims such as [C3] and [C4] are clearly distinguished from empirical findings so that the boundary between argument and evidence remains transparent.\n\n### Evidence limits\nThe evidence available is strictly bounded by the provided source text (ending abruptly at paragraph P3) and the local audit dossier. Source text for P1\u2013P3 is incomplete, and candidate support for all claims in the claim ledger ([C1] through [C5]) is restricted to background-only or partial/bounded leads rather than direct empirical verification. Any broader claims regarding the universal efficacy of authorship-preserving feedback remain unknown based on this closed dataset.\n\n### Author-owned next steps\n1. Complete the missing body paragraphs and conclusion of the manuscript beyond [P3].\n2. Update the reference list to resolve the citation mismatch for `mekheimer:2025` and the orphan entry for Carless and Boud (2018).\n3. Revise claims [C1] and [C2] to accurately reflect the partial or background-only nature of their supporting literature."
+}

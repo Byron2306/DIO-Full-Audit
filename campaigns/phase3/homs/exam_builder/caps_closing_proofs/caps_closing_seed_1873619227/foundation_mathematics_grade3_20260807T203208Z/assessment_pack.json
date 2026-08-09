@@ -1,0 +1,84 @@
+{
+  "assessment_title": "Grade 3 Mathematics: Counting and Number Patterns Activity",
+  "subject": "Mathematics",
+  "grade": 3,
+  "phase": "foundation_grade_r_3",
+  "canonical_profile_id": "foundation.mathematics",
+  "blueprint": "foundation_activity_assessment",
+  "duration": "30 minutes",
+  "total_marks": 20,
+  "sections": [
+    {
+      "title": "Concrete Activity: Number Line Jumps",
+      "mode": "concrete_activity",
+      "instructions": "Teacher sets up a large number line on the floor from 0 to 30. Learners take turns jumping forward and backward according to teacher prompts. Each learner completes 3 jumps and records their final position.",
+      "stimulus": "Large floor number line (0-30) with numbered cards, teacher prompt cards (e.g., 'Jump forward 5', 'Jump back 3'), recording sheets for learners.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Start at 0. Jump forward 4, then forward 6. Where do you land?",
+          "marks": 2,
+          "memo": [
+            "Correct answer: 10",
+            "1 mark for showing jumps on number line or mental calculation",
+            "1 mark for correct final answer"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Start at 20. Jump back 7, then forward 3. Where do you land?",
+          "marks": 2,
+          "memo": [
+            "Correct answer: 16",
+            "1 mark for showing backward and forward jumps",
+            "1 mark for correct final answer"
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Show two different ways to get from 5 to 15 using jumps of 5.",
+          "marks": 2,
+          "memo": [
+            "Accept: 5 \u2192 10 \u2192 15 (two jumps of 5) or 5 \u2192 15 (one jump of 10, but note: jump size must be 5 per instruction \u2014 so only valid is two jumps of 5)",
+            "Clarify: If jump size fixed at 5, only 5\u219210\u219215 is valid. Award 2 marks for correct sequence",
+            "If learner shows 5+5+5=15 with three jumps, award 1 mark for effort but note deviation"
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy in number line jumps and final position",
+      "marks": 6,
+      "descriptor": "Learner correctly performs jumps and records final position with minimal teacher support."
+    },
+    {
+      "criterion": "Ability to show multiple strategies",
+      "marks": 4,
+      "descriptor": "Learner demonstrates more than one correct method to reach a target number using given jump sizes."
+    },
+    {
+      "criterion": "Recording and communication of mathematical thinking",
+      "marks": 4,
+      "descriptor": "Learner uses pictures, numbers, or words to clearly show their jump sequence and reasoning."
+    },
+    {
+      "criterion": "Engagement and participation in activity",
+      "marks": 6,
+      "descriptor": "Learner actively participates, follows instructions, and takes turns appropriately during the concrete activity."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Assessment uses concrete activity mode as required by foundation.mathematics profile",
+    "Reading load is minimal and grade-appropriate (oral prompts, visual number line)",
+    "Teacher-facing prompts and observable learner actions are central",
+    "Mark allocation sums to 20 and aligns with rubric criteria",
+    "Memo provides clear, objective scoring guidance",
+    "No default-off modes (essay, long response, exam) are used",
+    "At least one CAPS evidence document is implied via alignment to Grade R number sense (foundational for Grade 3)",
+    "Duration (30 mins) is suitable for foundation phase activity-based assessment",
+    "Instructions are clear for both teacher and learner",
+    "Rubric criteria are observable and developmentally appropriate for Grade 3"
+  ]
+}

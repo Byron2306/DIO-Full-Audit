@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KnowEdge AutoRelease Job",
+  "type": "object",
+  "required": [
+    "job_id",
+    "created_at",
+    "source",
+    "route",
+    "status",
+    "inputs",
+    "evidence",
+    "approval"
+  ],
+  "properties": {
+    "job_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["outlook_triage", "outlook_browser", "form", "drive", "file_drop", "manual"]
+        },
+        "path": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        },
+        "thread_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "route": {
+      "type": "object",
+      "required": ["product", "confidence", "reason"],
+      "properties": {
+        "product": {
+          "type": "string",
+          "enum": ["evidex", "nichefoundry", "homs", "vamp", "sophia", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["received", "processing", "needs_review", "approved", "delivered", "blocked"]
+    },
+    "risk": {
+      "type": "string",
+      "enum": ["routine", "moderate", "sensitive", "formal", "unknown"]
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "evidence.schema.json"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "approval": {
+      "type": "object",
+      "required": ["required", "state"],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["not_required", "pending", "approved", "rejected"]
+        },
+        "reviewer": {
+          "type": "string"
+        },
+        "reviewed_at": {
+          "type": "string"
+        }
+      }
+    },
+    "billing": {
+      "type": "object",
+      "properties": {
+        "invoice_id": {
+          "type": ["string", "null"]
+        },
+        "payment_status": {
+          "type": "string",
+          "enum": ["not_required", "pending", "paid", "waived"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

@@ -1,0 +1,633 @@
+{
+  "schema": "dio.campaign.live_market_signals.v1",
+  "observation_id": "LIVE-OBS-CA27200E37540DF3",
+  "campaign_id": "CMP-C6283E8E7122",
+  "hypothesis_id": "W4-HYP-0075",
+  "product_layer": "vamp",
+  "source_system": "nichefoundry_connector_federation",
+  "connectors": [
+    {
+      "id": "youtube_public_discovery",
+      "adapter": "youtube_public",
+      "version": "1.0.0",
+      "trust_note": "Public metadata is market evidence, not factual source evidence for a script."
+    },
+    {
+      "id": "rss_monitor",
+      "adapter": "rss",
+      "version": "1.0.0",
+      "trust_note": "Feed descriptions are discovery leads. Full source review is still required for factual claims."
+    }
+  ],
+  "search": {
+    "query": "\"performance management\" employee evidence South Africa",
+    "region_code": "ZA",
+    "relevance_language": "en",
+    "published_after_days": 365,
+    "started_at": "2026-08-09T00:47:39.230Z",
+    "finished_at": "2026-08-09T00:47:56.852Z"
+  },
+  "depth": {
+    "returned_videos": 7,
+    "relevant_videos": 5,
+    "rejected_as_irrelevant": 2,
+    "returned_news_or_blog_items": 20,
+    "relevant_news_or_blog_items": 2,
+    "rejected_news_or_blog_items": 18,
+    "approximate_search_results": 7,
+    "total_views_in_sample": 51307,
+    "median_views_in_sample": 129,
+    "latest_published_at": "2026-07-19T14:49:38Z",
+    "scored_candidates": 7
+  },
+  "top_opportunities": [
+    {
+      "opportunity_id": "opp_229728b756ed932b",
+      "title": "They’re Putting You on a PIP — But Here’s How to Fight Back",
+      "decision": "reject_fit",
+      "opportunity_score": 43,
+      "audience_demand": 0.577,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=KBn_BBR3pII"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_f8fbe8dd522a503f",
+      "title": "Investigating the impact of decent work perception on employee voice behavior: evidence from text mining - Nature",
+      "decision": "reject_fit",
+      "opportunity_score": 41,
+      "audience_demand": 0.45,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1yWFZ2b2YwZ3o4SkdkbDhudGJqbnRDY2Ruc3RFa1JhWXBGOV9fWTd5aU40Tk9udVlab3FxTFZqVS1Bb3pKb3lWc1pvcmxHbnNyMDdkN1ZaeWJVQ0JTNVBR?oc=5",
+        "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_eec1aed58781ca95",
+      "title": "The influence of workplace relationships and job satisfaction of private universities in Mogadishu: employee performance as a mediator variable - Frontiers",
+      "decision": "reject_fit",
+      "opportunity_score": 41,
+      "audience_demand": 0.45,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMikAFBVV95cUxNN0ZSX2F3QlJmYmJTN2h2MjhnVm9QTFRYU2NqNEYtUWs0QmhoMmJmR1JnUURXamxzcXlJenRERl9KbE5DMC1jTGxBTWFDdDc5ZlJLY0luc0x6R3Y0Z21BbkhjSGkydlFhRzU3N0NjdldraTA1SGFBOTIxYll3SHdDTkdFRFZUWTdsTmxTOEdiZVA?oc=5",
+        "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_55dddc22c02f37a8",
+      "title": "Performance Management | One of the Few Places You're Welcome to Talk About Your Accomplishments",
+      "decision": "reject_fit",
+      "opportunity_score": 40,
+      "audience_demand": 0.42,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=cjIflaYEAE0"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_a98916e367c5f18d",
+      "title": "[Webinar] Professionalisation: Building skills for Impact",
+      "decision": "reject_fit",
+      "opportunity_score": 38,
+      "audience_demand": 0.245,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=zC60cNB9ovI"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    }
+  ],
+  "records": [
+    {
+      "video_id": "D0aSw5R7eVE",
+      "title": "Poor Work Performance Can You Prove It | South African Labour Law | Ruan Jansen van Rensburg",
+      "description": "When performance is poor, but the proof is missing, the risk is yours Most poor performance cases aren’t lost because the employee was good. They’re lost because the employer couldn’t prove the decline. SA Labour law expects a structured, well documented process - not assumptions or frustration. 👉 Performance management requires: • Clear, measurable standards • Training, guidance, or support • Reasonable time to improve • Proper record keeping Without these steps, dismissals become risky and easily challenged. Performance management is a process, not a once off decision. 🤝 When performance starts slipping, early legal guidance helps you build a defensible case and avoid costly CCMA outcomes.",
+      "channel_id": "UC1PGe7LKJSV7YWmiia-4_xw",
+      "channel_title": "KJVR Attorneys",
+      "published_at": "2026-04-21T09:00:48Z",
+      "views": 129,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT37S",
+      "url": "https://www.youtube.com/watch?v=D0aSw5R7eVE",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "performance management",
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "KBn_BBR3pII",
+      "title": "They’re Putting You on a PIP — But Here’s How to Fight Back",
+      "description": "Something feel off at work? Try my new app: Workplace Decoder Get personalized strategic guidance built from 30 years inside corporate HR leadership. Learn how career decisions actually get made—and what to do next. https://studio.com/apps/well-that-happened-now-what/career Resources, guides, and more: https://www.wellthathappenednowwhat.com/ 🚨 They Put Her on a PIP… But She’s Not Backing Down. In this video, I share a real viewer update from Mindy — a government employee who was blindsided by a Performance Improvement Plan (PIP) and told she was “excellent” in the same breath. Instead of quitting, she’s decided to stay and fight — and her story is packed with lessons for anyone facing unfair treatment, toxic leadership, or confusing HR doublespeak. 💼 You’ll learn: ✅ What really happens behind the scenes when you’re put on a PIP ✅ How to tell if your PIP is fair or a setup to fail ✅ What to do in the first 48 hours (signing, SMART goals, documentation) ✅ How to protect your sanity, boundaries, and reputation ✅ Why sometimes staying and fighting can be the most strategic move If you’ve ever been blindsided by a “performance conversation,” felt gaslit by your boss, or wondered if HR was really on your side — this one’s for you. 📋 Watch Next: 👉 https://youtu.be/RYVFZ1n9LcE 👉 https://youtu.be/ZjC50QTYVMc 👉 https://youtu.be/C8cL9c0KQlw Chapters 00:34 -What is a PIP? 01:06 - Mindy's Story - Updated! 04:30 - What did Mindy do right? 06:50 - Why is Mindy's Story so Powerful? 08:23 - What to do if you're on a PIP ⚖️ Quick Disclaimer: I’m not a lawyer — I just play one in HR meetings. 😉 Seriously though, this video isn’t legal advice. It’s based on my experience and meant to help you think through workplace situations. If you’re dealing with something serious (like a potential firing, discrimination, or retaliation), talk to a licensed employment attorney or other qualified professional who can give you guidance specific to your case. 🎙️ Powered by Just Talk Studios — Bellevue, WA’s premier podcast and video studio. Learn more or book your session: www.justtalkstudios.com #career #careeradvice #pip #performanceimprovementplan #toxicworkplace #corporatelife #jobsearch #layoffs #hr #leadership #motivation #wellthathappened #robohlau #justtalkstudios #workplace #professionaldevelopment 💼🔥",
+      "channel_id": "UCF2xBqZoAPy6RtxUQ9DDwWw",
+      "channel_title": "Well That Happened! NOW WHAT",
+      "published_at": "2025-10-16T14:00:36Z",
+      "views": 10999,
+      "likes": 262,
+      "comments": 193,
+      "duration": "PT15M19S",
+      "url": "https://www.youtube.com/watch?v=KBn_BBR3pII",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "employee",
+          "hr",
+          "workplace"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "cjIflaYEAE0",
+      "title": "Performance Management | One of the Few Places You're Welcome to Talk About Your Accomplishments",
+      "description": "Thando Thabethe and Nonhle Thema's interview reminded me of one of the wise things that was said by a client: \"Performance reviews are one of the few platforms where people are welcome to talk about their accomplishments.\" Unlike many everyday conversations where discussing accomplishments may be perceived as boasting, performance reviews are designed to give employees an opportunity to present what they have achieved during the review period. The difference? Those accomplishments should be supported with evidence. Whether you're conducting probation reviews or annual performance reviews, encouraging employees to prepare examples, results and supporting documentation leads to more objective and meaningful discussions. 💬 What evidence do you think employees should bring to a performance review? #ThandoThabethe #NonhleThema #PerformanceManagement #PerformanceReviews #HumanResources #HR #BusinessOwners #Leadership #EmployeeDevelopment #Management #Probation #SouthAfrica",
+      "channel_id": "UCzMh5SdXk2w980Wjon1ICfQ",
+      "channel_title": "Phumzile Msiza",
+      "published_at": "2026-07-19T14:49:38Z",
+      "views": 865,
+      "likes": 3,
+      "comments": 0,
+      "duration": "PT11S",
+      "url": "https://www.youtube.com/watch?v=cjIflaYEAE0",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "performance review",
+          "performance management",
+          "employee",
+          "evidence",
+          "hr"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "zC60cNB9ovI",
+      "title": "[Webinar] Professionalisation: Building skills for Impact",
+      "description": "Future Cities Africa and the Municipal Edge present the 5th Annual \"Local Government Conversations\" Webinar Series. Webinar: Professionalisation: Building skills for Impact through Capacity Development, Partnerships, and Knowledge Networks Opening Remarks: Dr. Emmanuel Ngcobo, Past President, CIGFARO Moderator: Mr. Zolani SS Zonyane, Editorial Director, Webinar Curator & Moderator, The Municipal Edge Panel: Ms. Alinah Motloung, Membership Coordinator, CIGFARO Mr. Attie Butler, CEO, Ignite Advisory Services Mr. Trevor Francis, CEO, Institute of Municipal People Practitioners of South Africa Prof. Zwelinzima Ndevu, Director of the School of Public Leadership (SPL), Stellenbosch University Mr. Evans Mulera Head of the Secretariat and CEO, African Professionalisation Initiative (API) Key Panelist Contributions Ms. Alinah Motloung (CIGFARO Membership Coordinator) Presented CIGFARO's role as a SAQA-recognized professional body for public sector finance, audit, risk, and performance management practitioners. Mr. Attie Butler (CEO, Ignite Advisory Services) Delivered the core baseline presentation, arguing professionalization is now essential for institutional survival. Why it matters now - Only 41 municipalities with clean audits (16% success rate), intense public scrutiny via social media, service delivery crises (water, electricity, sewage), weak leadership pipeline, intensifying enforcement of Municipal Staff Regulations (MSR) (introduced ~2021, with Regulation 890 on staffing), and SALGA/COGTA professionalization frameworks. High employee costs exceed 40% threshold in many municipalities, limiting service investment. Training often fails to build real capability due to absent competency assessments. Framework elements - Institutional (legislation, governance, norms, competency/curriculum development); Organizational (workforce planning, attraction/selection, onboarding, performance management, career pathing); Individual (occupational roles, professional standards, competencies, continuous education). Proposed solutions - Standardized competency-based recruitment (with accredited tools), institutionalized performance management + consequence management (positive/negative), national ethical tracking, coordinated capacity initiatives via dashboards, and crucially professional accreditation (similar to doctors/engineers/chartered accountants). Ignite's Municipal Professionalisation Model (MPM) - Competency frameworks accreditation per job function (minimum quals/experience/internships/exams) CPD. Suggested national accreditation board. Business cases - Municipalities implementing mandatory competency assessments saw reduced turnover (~30%), fewer disciplinary cases, better audits, aligned performance contracts, faster service delivery, improved public confidence. Five accelerators - Institutionalize ethics (linked to outcomes), enforce competency recruitment, monitor CPD, build succession via mentoring/networks/secondments, national coordination forum. Blockers: Monitoring gaps, capacity constraints, political dynamics (e.g., upcoming elections). Next 5 years critical. Mr. Trevor Francis (CEO, Institute of Municipal People Practitioners of South Africa - IMPSA) Contextualized professionalization (not new - SALGA/COGTA framework from 2013, driven by Auditor-General findings and protests). Core aspects: Enabling environment, institutional capacity, individual capacity. IMPSA repositioned in 2024/2025; signed MOU with COGTA for collaboration on HR professionalization, ethical leadership. Minister's emphasis (late 2025): Professionalization is foundational, not tick-box; merit over patronage. Resolutions (e.g., from prior conference): Unwavering integrity, merit-based appointments, competence over compliance, innovation/continuous learning. Stressed collaboration among bodies (IMPSA, CIGFARO, others) to avoid silos and drive impact. Prof. Zwelinzima Ndevu (Director, School of Public Leadership, Stellenbosch University) Focused on academia's role in professionalizing personnel, institutions, and processes. Universities as centers of excellence must understand local government needs and co-create knowledge with practitioners/professional bodies. Key: Partnerships for curriculum development (fit-for-purpose, evidence-based, standardized, aligned to competencies/NQF). Blend short/medium/long-term interventions; allow diagonal articulation (short courses - formal qualifications). Specialization (e.g., local government-specific finance/policy); quality assurance via accreditation bodies. Address current workforce via upskilling; build ethical, competent pipeline via research/practice integration and revolving door between academia/practice. Mr. Evans Mulera (Head of Secretariat & CEO, African Professionalisation Initiative - API) Provided continental perspective; API (partnership of AFROSAI-E, PAFA, CREFIA, AAAG) focuses on professionalizing public finance actors (accountants/auditors/non-finance officers).",
+      "channel_id": "UCbLvBr7EAx0GEDgUSyKzK1w",
+      "channel_title": "Future Cities Africa",
+      "published_at": "2026-03-02T10:25:26Z",
+      "views": 51,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT1H51M10S",
+      "url": "https://www.youtube.com/watch?v=zC60cNB9ovI",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "performance management",
+          "employee",
+          "evidence",
+          "hr"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "1KG_bS2RzIg",
+      "title": "Can Depression Justify Poor Performance? Abels v Stellenbosch University",
+      "description": "In this video, I talk about the Labour Court case Abels v University of Stellenbosch and Others (C362/2023) , a landmark 2025 judgment that clarifies how South African employers should manage poor work performance when an employee also has mental health challenges like depression. You’ll learn: ✔️ What the Labour Court decided in the Abels v University of Stellenbosch case ✔️ Whether mental health can justify or protect poor performance ✔️ What evidence employees must provide to prove their mental illness caused their performance issues ✔️ What employers MUST do to reasonably accommodate mental health in the workplace ✔️ Why senior employees may face stricter performance expectations ✔️ Practical HR guidance for small business owners and managers in South Africa This case is essential for HR professionals, managers, and employees navigating the sensitive intersection of legal obligations, mental health, and performance management. If this helped, please LIKE, COMMENT, and SUBSCRIBE for more HR and labour law insights tailored for South African businesses.",
+      "channel_id": "UCzMh5SdXk2w980Wjon1ICfQ",
+      "channel_title": "Phumzile Msiza",
+      "published_at": "2025-11-18T17:22:38Z",
+      "views": 45,
+      "likes": 1,
+      "comments": 0,
+      "duration": "PT1M1S",
+      "url": "https://www.youtube.com/watch?v=1KG_bS2RzIg",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "performance management",
+          "employee",
+          "evidence",
+          "hr",
+          "workplace"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "u0THgtnnCAc",
+      "title": "Finance Dashboard in Excel (Complete Financial Reporting & Analysis)",
+      "description": "In this video, you will learn how to create a complete Finance Dashboard in Excel for financial reporting and financial analysis. This Excel finance dashboard helps you track revenue, expenses, profit & loss, and overall business performance using professional KPIs, charts, and slicers. This tutorial is perfect for finance professionals, accountants, business analysts, and anyone looking to build an interactive financial dashboard in Excel. 📊 What This Finance Dashboard Includes: • Overview page for complete financial summary • Revenue dashboard with trend analysis • Expense dashboard with category-wise analysis • Profit & Loss dashboard with margin insights 💡 What You’ll Learn in This Excel Tutorial: • Financial data preparation in Excel • Profit & Loss calculations using formulas • Interactive charts and visuals • Excel slicers for dynamic filtering • Professional dashboard design best practices Download the Excel Finance Dashboard Source Files: https://youtu.be/2Uvydr_nHM8 📧 For Excel Dashboard, Power BI & Data Analysis Consulting: datauniversebi@gmail.com #FinanceDashboard #ExcelDashboard #FinancialAnalysis #ExcelTutorial",
+      "channel_id": "UCV3WVadReWTlbD5sz_nUHgA",
+      "channel_title": "Data Universe",
+      "published_at": "2026-01-15T08:07:13Z",
+      "views": 39201,
+      "likes": 122,
+      "comments": 0,
+      "duration": "PT5S",
+      "url": "https://www.youtube.com/watch?v=u0THgtnnCAc",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "kpi"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "21umyb2kRrU",
+      "title": "Are Businesses in Africa Leaving Money on the Table by Ignoring Working Parents? with Soledad San...",
+      "description": "Episode 230 with Soledad Sanchez Canamares, Family Friendly Workplace Policy Specialist at UNICEF Eastern and Southern Africa, where she works with businesses, governments, and development partners to advance workplace policies that improve employee wellbeing, talent retention, workforce productivity, and long term business performance. As organisations across Africa and around the world face growing talent shortages, rising employee turnover, and changing workforce expectations, family friendly workplace policies are increasingly being recognised as a competitive advantage rather than simply an employee benefit. In this episode, Soledad explains why policies such as paid parental leave, childcare support, flexible working arrangements, and breastfeeding accommodations are becoming critical tools for attracting and retaining talent, improving workforce participation, and strengthening organisational resilience. Drawing on global evidence, business case studies, and UNICEF's Family Friendly Policies Toolkit, Soledad explores the relationship between workforce wellbeing and business performance. She discusses how employers can improve employee retention, productivity, engagement, and gender equality while building stronger and more resilient organisations. The conversation also examines the economic impact of care responsibilities, the role of workplace flexibility in the future of work, and why supporting working parents is increasingly being viewed as a business growth strategy. The discussion focuses on the African context, where informality remains high and many businesses operate with limited resources. What We Discuss With Soleded • Why businesses may be losing money by failing to invest in family friendly workplace policies. • Whether Africa is leaving billions in economic growth untapped because workplaces are not designed around how people actually live and care for their families. • The hidden link between talent shortages, employee turnover, and the lack of support for working parents and caregivers. • What family friendly workplace policies look like in Africa's informal economy, SMEs, and labour intensive industries where traditional models often fall short. • Why investors, multinational companies, and global supply chains are increasingly treating family friendly policies as a competitiveness and business resilience issue. Did you miss my previous episode where I discuss The Grandmothers Helping Solve Africa's Mental Health Crisis? (https://www.buzzsprout.com/1901592/episodes/19344398) Make sure to check it out! Connect with Terser: LinkedIn - Terser Adamu (https://www.linkedin.com/in/terseradamu/) Instagram - unlockingafrica (https://www.instagram.com/unlockingafrica/) Twitter (X) - @TerserAdamu (https://twitter.com/TerserAdamu) Connect with Soledad LinkedIn - Soledad Sánchez-Cañamares Ríos (https://www.linkedin.com/in/soledad-s%C3%A1nchez-ca%C3%B1amares-r%C3%ADos-62001766/) Many of the businesses unlocking opportunities in Africa don’t do it alone. If you’d like strategic support on entering or expanding across African markets, reach out to our partners ETK Group: www.etkgroup.co.uk (https://www.etkgroup.co.uk/) info@etkgroup.co.uk (mailto: info@etkgroup.co.uk)",
+      "channel_id": "UCCYU1aZdRacaq19aM0PWo1Q",
+      "channel_title": "Unlocking Africa",
+      "published_at": "2026-06-22T05:22:26Z",
+      "views": 17,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT36M51S",
+      "url": "https://www.youtube.com/watch?v=21umyb2kRrU",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "employee",
+          "evidence",
+          "workplace"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    }
+  ],
+  "news_or_blog_records": [
+    {
+      "title": "Quiet quitting among Gen Z and millennial employees: contributing factors and organisational mitigation strategies - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNS3IyLTYwTlo4RUpvWlZyZUlCWmFkNjJwZU5MR1FScVkzXzFkSjJPTjQ3WUZid1kzVnRSMWZiRGdlZGJ5c1pReXNlV0Z3TXhfLWMtNzV4NE1fNlZ5UC1nT3NMUUFrZWl3QTE2cXZjdWpYZXNGUWUwdHkyWEVwZ1hVY3RucFpHQ1V4cWI4Q3BhZ3Fudw?oc=5",
+      "description": "Quiet quitting among Gen Z and millennial employees: contributing factors and organisational mitigation strategies &nbsp;&nbsp; Frontiers",
+      "published_at": "Wed, 17 Jun 2026 21:58:05 GMT",
+      "author": null,
+      "guid": "CBMikgFBVV95cUxNS3IyLTYwTlo4RUpvWlZyZUlCWmFkNjJwZU5MR1FScVkzXzFkSjJPTjQ3WUZid1kzVnRSMWZiRGdlZGJ5c1pReXNlV0Z3TXhfLWMtNzV4NE1fNlZ5UC1nT3NMUUFrZWl3QTE2cXZjdWpYZXNGUWUwdHkyWEVwZ1hVY3RucFpHQ1V4cWI4Q3BhZ3Fudw",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The Benefits of Employee Engagement - Gallup.com",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNQlVrLWRRYTZYTW5pUjU0UHlVUm8yRDhVLVZOdlRucTJfbS1LU1Btcy1RRW1LWDFuUTFfSXl1SVRPVkV2cV8tTV9DTGdCOG9ZYTVQSWVFbDVqcHdNQU95RF9DOGwwSzJseFY5R2YtS0EtMk82cnBaTnZ4NEZyeHVJOW9MVTA?oc=5",
+      "description": "The Benefits of Employee Engagement &nbsp;&nbsp; Gallup.com",
+      "published_at": "Mon, 16 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMihAFBVV95cUxNQlVrLWRRYTZYTW5pUjU0UHlVUm8yRDhVLVZOdlRucTJfbS1LU1Btcy1RRW1LWDFuUTFfSXl1SVRPVkV2cV8tTV9DTGdCOG9ZYTVQSWVFbDVqcHdNQU95RF9DOGwwSzJseFY5R2YtS0EtMk82cnBaTnZ4NEZyeHVJOW9MVTA",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Mental health is not always a justification for poor conduct – Labour Court upholds dismissal for poor performance despite employee’s mental health concerns - Polity.org.za",
+      "link": "https://news.google.com/rss/articles/CBMipAJBVV95cUxPbXZ0T1NYMFB5cTdhM1dqd2o1R004cVBJSENYa3hNQ2JKQUFPbzloRWFtYnVEYnJGSkViTlVUbjlFQVdab3RnRmx1eG5hTVhRRXJpOGc2ZjRIa1N2eWVOMXY3cDdmZHdQQVdKaXJiVDNvWi1pS1AwY3piVVZPLWpHbjh1c3pPY0EzTW5ZeTRGeDNJRXpMYTlNZU5fS2hndHBTd3VDdXozNVRxZ1BnWENjSFQtZmU0bVRReDdielRWU19hY3JhTzBVVmg4bmNlSk4zcGsxZEFvOGhHWE5ydkpZcThpRVRUN3R6T0plVzQ0b29DSjEzVkk5ZmJXOVlzbEZUenl3cjNuRmh2VUktNHdlTkk4bktSNTJ4UjJ3ZU5BczZPcF9q?oc=5",
+      "description": "Mental health is not always a justification for poor conduct – Labour Court upholds dismissal for poor performance despite employee’s mental health concerns &nbsp;&nbsp; Polity.org.za",
+      "published_at": "Tue, 11 Nov 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMipAJBVV95cUxPbXZ0T1NYMFB5cTdhM1dqd2o1R004cVBJSENYa3hNQ2JKQUFPbzloRWFtYnVEYnJGSkViTlVUbjlFQVdab3RnRmx1eG5hTVhRRXJpOGc2ZjRIa1N2eWVOMXY3cDdmZHdQQVdKaXJiVDNvWi1pS1AwY3piVVZPLWpHbjh1c3pPY0EzTW5ZeTRGeDNJRXpMYTlNZU5fS2hndHBTd3VDdXozNVRxZ1BnWENjSFQtZmU0bVRReDdielRWU19hY3JhTzBVVmg4bmNlSk4zcGsxZEFvOGhHWE5ydkpZcThpRVRUN3R6T0plVzQ0b29DSjEzVkk5ZmJXOVlzbEZUenl3cjNuRmh2VUktNHdlTkk4bktSNTJ4UjJ3ZU5BczZPcF9q",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Impacts of artificial intelligence in the workplace - kpmg.com",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQejVyMjdBV3plbk93bDVTN1hTSWJXdVFLMjNQaTFmVi1pcVRhS3ZleXVNRkJqY3ZlSWR1aXlGTks0MWpLdndpTVlxVFg5RU9CRVBpMWEwMFZibjFmb19YZTZmNjMzX3B2MjE0VkwyNzBMeVFlbnRRUGRYUDVQNENKWE9NTUFUSzJ6dldJb1F5YlJOODl6Q1g4RkhLSzY?oc=5",
+      "description": "Impacts of artificial intelligence in the workplace &nbsp;&nbsp; kpmg.com",
+      "published_at": "Fri, 20 Feb 2026 05:06:13 GMT",
+      "author": null,
+      "guid": "CBMinAFBVV95cUxQejVyMjdBV3plbk93bDVTN1hTSWJXdVFLMjNQaTFmVi1pcVRhS3ZleXVNRkJqY3ZlSWR1aXlGTks0MWpLdndpTVlxVFg5RU9CRVBpMWEwMFZibjFmb19YZTZmNjMzX3B2MjE0VkwyNzBMeVFlbnRRUGRYUDVQNENKWE9NTUFUSzJ6dldJb1F5YlJOODl6Q1g4RkhLSzY",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "workplace"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "World's Largest Ongoing Study of the Employee Experience - Gallup.com",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPbHhfTUkzMjZNZGtXVDFwNFpVQzBJM3gxUkVMZmg2WUtTUV9Xa3BDaTR1blEwai1udW1lU05razl1LWxRT2NSWGMxVG51ZW0tTEU0dEVIVzQ0YmxIZFE3ZzZZR0RiX25HcTNNTV9naElzalVNSldrRjdYUjI3N2VGVkxfUG9kZ2o3cFBjczk1ZXBmazYzNzE0?oc=5",
+      "description": "World's Largest Ongoing Study of the Employee Experience &nbsp;&nbsp; Gallup.com",
+      "published_at": "Mon, 16 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMilwFBVV95cUxPbHhfTUkzMjZNZGtXVDFwNFpVQzBJM3gxUkVMZmg2WUtTUV9Xa3BDaTR1blEwai1udW1lU05razl1LWxRT2NSWGMxVG51ZW0tTEU0dEVIVzQ0YmxIZFE3ZzZZR0RiX25HcTNNTV9naElzalVNSldrRjdYUjI3N2VGVkxfUG9kZ2o3cFBjczk1ZXBmazYzNzE0",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Happening in Parliament This Week - Parliament of South Africa",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOa0ZoRTU1TExQcFFIcG9xQjN2VnJUcFJQY3BlMGFGSXgtVUR1VnBpTTJxLTFYZTFRWGZNQmw5V1hsWmN3ZWY4dVZYRGRoNC1EcjREV0xaeTNRbmE0bW1WeldrejRCY1NJVGwxejczcjdfcUZIcTByQk1iREF3aER4N2VfZHdpSldK?oc=5",
+      "description": "Happening in Parliament This Week &nbsp;&nbsp; Parliament of South Africa",
+      "published_at": "Sun, 12 Oct 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiiAFBVV95cUxOa0ZoRTU1TExQcFFIcG9xQjN2VnJUcFJQY3BlMGFGSXgtVUR1VnBpTTJxLTFYZTFRWGZNQmw5V1hsWmN3ZWY4dVZYRGRoNC1EcjREV0xaeTNRbmE0bW1WeldrejRCY1NJVGwxejczcjdfcUZIcTByQk1iREF3aER4N2VfZHdpSldK",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Emotional intelligence and employee productivity in a developing economy: analysing the moderating and mediating effect of gender and teamwork - Nature",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5LUW95clUwS2M4Yk1Hb3ktNlMtRHB1aW9LeEEtTDVFenViY2VFVy1jQWQwN0lJQ1dBel9LcHlzNkpqSU41bkExd3k0R3FNZXJXZkpkeTVjOXRkYkdIWS1J?oc=5",
+      "description": "Emotional intelligence and employee productivity in a developing economy: analysing the moderating and mediating effect of gender and teamwork &nbsp;&nbsp; Nature",
+      "published_at": "Tue, 28 Oct 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiX0FVX3lxTE5LUW95clUwS2M4Yk1Hb3ktNlMtRHB1aW9LeEEtTDVFenViY2VFVy1jQWQwN0lJQ1dBel9LcHlzNkpqSU41bkExd3k0R3FNZXJXZkpkeTVjOXRkYkdIWS1J",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Talent management perspectives in a South African provincial department - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNZ1NPSVR6WnZ0bTNjclNzRTRwMEhTS0pTMEZ5bGpqTlBJSmZyYTl3ZTJHWUlGNWd4OWlmbHl5aGdreEU1U3o4a3BwcHhpY0ExRWxmMENlUm1aMDJkNmhQamRQN3ZFUHFCNTR0VzBCczEyeFFUX201aE5qT1lzeGNJQzM5alp5S1pIc0hKUWhpOVNOclZScTVYN2Z0UHBOREVuRW5HWXBn?oc=5",
+      "description": "Talent management perspectives in a South African provincial department &nbsp;&nbsp; Frontiers",
+      "published_at": "Tue, 26 Aug 2025 00:01:39 GMT",
+      "author": null,
+      "guid": "CBMipgFBVV95cUxNZ1NPSVR6WnZ0bTNjclNzRTRwMEhTS0pTMEZ5bGpqTlBJSmZyYTl3ZTJHWUlGNWd4OWlmbHl5aGdreEU1U3o4a3BwcHhpY0ExRWxmMENlUm1aMDJkNmhQamRQN3ZFUHFCNTR0VzBCczEyeFFUX201aE5qT1lzeGNJQzM5alp5S1pIc0hKUWhpOVNOclZScTVYN2Z0UHBOREVuRW5HWXBn",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Nursing profession in Africa: A study on work engagement and talent management practices in South Africa - Wiley Online Library",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0wTjRwZU1EVGZWZ1YtTjgwVTFrUzdzbVZnbVJPbkVETzJpTWxCWmI1SUlkRVVxY2VpaG5hNFc5b3R3RGtDZV9HOG9henNHVXR0SFlDc0p2U0N2TVNrTjRWZFNOTzVuSFU?oc=5",
+      "description": "Nursing profession in Africa: A study on work engagement and talent management practices in South Africa &nbsp;&nbsp; Wiley Online Library",
+      "published_at": "Thu, 04 May 2023 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiZ0FVX3lxTE0wTjRwZU1EVGZWZ1YtTjgwVTFrUzdzbVZnbVJPbkVETzJpTWxCWmI1SUlkRVVxY2VpaG5hNFc5b3R3RGtDZV9HOG9henNHVXR0SFlDc0p2U0N2TVNrTjRWZFNOTzVuSFU",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Navigating Claims for Non-Payment: What You Need to Know in 2025 - fanews.co.za",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQbFJvLWRMYWVESXV6SUdBM1daVVVzUHNUdjhpaTlxc2ZZOGR6R0p0Z09OZVVNTklZMFhoRmJ5X1pvUTVXTUNsQm9na2tEbGVSNEhtNFRsYmhKNEVsTW5ldFMyRDZmOVpYOVV4NGtleHZ5aGEwaUVYNUZPUFdCbmFFdjBud3B6THdUREJnNjUtVWpoZjl2dmFDR2Qtc1lLRUVCTGlYcDJKWUs4Vy0taUFVdWQ0aWxzTVBEUGVxalBodkRZY1ZYVm12QmsycGI?oc=5",
+      "description": "Navigating Claims for Non-Payment: What You Need to Know in 2025 &nbsp;&nbsp; fanews.co.za",
+      "published_at": "Mon, 31 Mar 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMizAFBVV95cUxQbFJvLWRMYWVESXV6SUdBM1daVVVzUHNUdjhpaTlxc2ZZOGR6R0p0Z09OZVVNTklZMFhoRmJ5X1pvUTVXTUNsQm9na2tEbGVSNEhtNFRsYmhKNEVsTW5ldFMyRDZmOVpYOVV4NGtleHZ5aGEwaUVYNUZPUFdCbmFFdjBud3B6THdUREJnNjUtVWpoZjl2dmFDR2Qtc1lLRUVCTGlYcDJKWUs4Vy0taUFVdWQ0aWxzTVBEUGVxalBodkRZY1ZYVm12QmsycGI",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Stateless in SA: Primrose Modisane’s years-long struggle for legal recognition - spotlightnsp.co.za",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQTE5NXzRPVGFWdUszbjV4VHRoUkMzVEdVaDd0cDctMWhmVjlwNHNhc1pyTHJyVU56dnVYb1JKSGhMdnNxVzJQVDhFeERNRUNCN0RpMWZPdWp1T1h5ZGV0Mzd5U2xMcmtqU2FRbUJWbkVhY09BRTNMMjNDYVYteEZpWGwwRk80UnJ3eFhYU0lWU2cybGRlb1ZtaFFfNU1sNjQ1TzFNM0VYTU1lRkRHZTJDdVFUZndQYk1YYXVz?oc=5",
+      "description": "Stateless in SA: Primrose Modisane’s years-long struggle for legal recognition &nbsp;&nbsp; spotlightnsp.co.za",
+      "published_at": "Fri, 22 Aug 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiuwFBVV95cUxQTE5NXzRPVGFWdUszbjV4VHRoUkMzVEdVaDd0cDctMWhmVjlwNHNhc1pyTHJyVU56dnVYb1JKSGhMdnNxVzJQVDhFeERNRUNCN0RpMWZPdWp1T1h5ZGV0Mzd5U2xMcmtqU2FRbUJWbkVhY09BRTNMMjNDYVYteEZpWGwwRk80UnJ3eFhYU0lWU2cybGRlb1ZtaFFfNU1sNjQ1TzFNM0VYTU1lRkRHZTJDdVFUZndQYk1YYXVz",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Batohi’s performance as NPA head questioned over handling of Cato Manor unit - Mail & Guardian",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOUG54Wnh2VWJKMUt5YUYxbGk1d0IwY3llNE1URURnSUhUTXpVRU0tWDlha29GWk4xQld3VmZxclVyekZTcXVqVHU4U0xaOE5CV04yTHAzVHd3eVZ0X0xnQm1MTWwybmxEd1dTSnhIdHRRU2dYbS1GckhkVEI3S2x3eFQ3UkNpcmZLc2Jmc180WTRaR0FWMlZaQ243eTZad2diZEZ1WjJ1dzUxUmVqUzZMcUdFaHlnaGotYldfUE1IaGk?oc=5",
+      "description": "Batohi’s performance as NPA head questioned over handling of Cato Manor unit &nbsp;&nbsp; Mail & Guardian",
+      "published_at": "Mon, 15 Dec 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiwAFBVV95cUxOUG54Wnh2VWJKMUt5YUYxbGk1d0IwY3llNE1URURnSUhUTXpVRU0tWDlha29GWk4xQld3VmZxclVyekZTcXVqVHU4U0xaOE5CV04yTHAzVHd3eVZ0X0xnQm1MTWwybmxEd1dTSnhIdHRRU2dYbS1GckhkVEI3S2x3eFQ3UkNpcmZLc2Jmc180WTRaR0FWMlZaQ243eTZad2diZEZ1WjJ1dzUxUmVqUzZMcUdFaHlnaGotYldfUE1IaGk",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Statement by Parliament on Misleading Claims by the DA Regarding the Appointment of the CFO - Parliament of South Africa",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPb3ZkNFNHX1hVZTBwbjFGZUc3VDVMQnBYREV5bEI1WEZYamdRMVFrNWIyeDIwSjdEbGgzWWM4Y1R1TFBxaVh2b3FSbm1ONG9FdXR4UFBOSms0N0pma05VbVRFdURoSUt6RlpCTWxSOFFBU29DUkhQUzRtM0ZaVVh4dThnaDRNNktRSmxXRUd6QXpuMkhlNG10b01OQnV3S2dxOURmSFRqS1pqRFpQZnlzVGdB?oc=5",
+      "description": "Statement by Parliament on Misleading Claims by the DA Regarding the Appointment of the CFO &nbsp;&nbsp; Parliament of South Africa",
+      "published_at": "Mon, 23 Feb 2026 06:59:32 GMT",
+      "author": null,
+      "guid": "CBMisgFBVV95cUxPb3ZkNFNHX1hVZTBwbjFGZUc3VDVMQnBYREV5bEI1WEZYamdRMVFrNWIyeDIwSjdEbGgzWWM4Y1R1TFBxaVh2b3FSbm1ONG9FdXR4UFBOSms0N0pma05VbVRFdURoSUt6RlpCTWxSOFFBU29DUkhQUzRtM0ZaVVh4dThnaDRNNktRSmxXRUd6QXpuMkhlNG10b01OQnV3S2dxOURmSFRqS1pqRFpQZnlzVGdB",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "How do leadership styles influence employee engagement and performance in SMEs? - Nature",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9Wdk5KWXkwZWQxeUdtMnpEcTRPaXhVZXppMHZqdEFhRzdOc29rZnV5YnB4Q1llS0FkUkhJSUY3QkRNVWM2VVk3WlZheVRZT25VTm1SWjBfd0dKWEVXTjIw?oc=5",
+      "description": "How do leadership styles influence employee engagement and performance in SMEs? &nbsp;&nbsp; Nature",
+      "published_at": "Sat, 23 Aug 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiX0FVX3lxTE9Wdk5KWXkwZWQxeUdtMnpEcTRPaXhVZXppMHZqdEFhRzdOc29rZnV5YnB4Q1llS0FkUkhJSUY3QkRNVWM2VVk3WlZheVRZT25VTm1SWjBfd0dKWEVXTjIw",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Balancing autonomy and accountability: rethinking performance management in hybrid work - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOS3pEdTZ6bTljMV9hVlVLT1IzdE51WTlraHlwbS1DQXZHZUQydXRfZnI1ZV9tMnVQNk9lSkNoSUt4ZlRObG1QbWZFT2xySl83cktsNWtEbXRMOThqeTR2cVN0MnVaNU5KbHBteVp1RXB0bk9EUmpiZXBQeVRBZWtHQVhPalI1ZVVvZnFZWmZGY2JRekRYa3R6RC1ERTZLOVduclZqclNR?oc=5",
+      "description": "Balancing autonomy and accountability: rethinking performance management in hybrid work &nbsp;&nbsp; Frontiers",
+      "published_at": "Fri, 12 Dec 2025 20:28:09 GMT",
+      "author": null,
+      "guid": "CBMipgFBVV95cUxOS3pEdTZ6bTljMV9hVlVLT1IzdE51WTlraHlwbS1DQXZHZUQydXRfZnI1ZV9tMnVQNk9lSkNoSUt4ZlRObG1QbWZFT2xySl83cktsNWtEbXRMOThqeTR2cVN0MnVaNU5KbHBteVp1RXB0bk9EUmpiZXBQeVRBZWtHQVhPalI1ZVVvZnFZWmZGY2JRekRYa3R6RC1ERTZLOVduclZqclNR",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "performance management"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Navigating the maze: the effects of algorithmic management on employee performance - Nature",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1xdk5oeE1MNnR1a0gwZEtsQXBhajhueFVscFpDcDNJZV81d2xRLU5NWktHcFRUVjNPMHkxLXo2R3BCbFFSaEdOMG1udklpMmhaMmtkRXQ4SW9zTFhTQm9j?oc=5",
+      "description": "Navigating the maze: the effects of algorithmic management on employee performance &nbsp;&nbsp; Nature",
+      "published_at": "Fri, 26 Jul 2024 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiX0FVX3lxTE1xdk5oeE1MNnR1a0gwZEtsQXBhajhueFVscFpDcDNJZV81d2xRLU5NWktHcFRUVjNPMHkxLXo2R3BCbFFSaEdOMG1udklpMmhaMmtkRXQ4SW9zTFhTQm9j",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "employee"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Change management practices and counterproductive work behavior among South African academics: does gender matter? - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPazJpdjBTaUhZWHpHR3doVm9UOW5SUnZHWUphVDc5LUdUWGxTX2paNHVJQ0ctd2lOQ2VuQTZZTWFkUFhwcFZOSHJ6alBQU3hGU1VJVVI0Q0FKYnFlTVA2Y05pZkFKczN3OWZRLU1rNzFad293YUZEY3FTSFdNanVoSjNFeHBKU0c4a0JNUVNxQno?oc=5",
+      "description": "Change management practices and counterproductive work behavior among South African academics: does gender matter? &nbsp;&nbsp; Frontiers",
+      "published_at": "Sun, 07 Sep 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxPazJpdjBTaUhZWHpHR3doVm9UOW5SUnZHWUphVDc5LUdUWGxTX2paNHVJQ0ctd2lOQ2VuQTZZTWFkUFhwcFZOSHJ6alBQU3hGU1VJVVI0Q0FKYnFlTVA2Y05pZkFKczN3OWZRLU1rNzFad293YUZEY3FTSFdNanVoSjNFeHBKU0c4a0JNUVNxQno",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Investigating the impact of decent work perception on employee voice behavior: evidence from text mining - Nature",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1yWFZ2b2YwZ3o4SkdkbDhudGJqbnRDY2Ruc3RFa1JhWXBGOV9fWTd5aU40Tk9udVlab3FxTFZqVS1Bb3pKb3lWc1pvcmxHbnNyMDdkN1ZaeWJVQ0JTNVBR?oc=5",
+      "description": "Investigating the impact of decent work perception on employee voice behavior: evidence from text mining &nbsp;&nbsp; Nature",
+      "published_at": "Fri, 24 Oct 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiX0FVX3lxTE1yWFZ2b2YwZ3o4SkdkbDhudGJqbnRDY2Ruc3RFa1JhWXBGOV9fWTd5aU40Tk9udVlab3FxTFZqVS1Bb3pKb3lWc1pvcmxHbnNyMDdkN1ZaeWJVQ0JTNVBR",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "employee",
+          "evidence"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Job Demands and Job Resources of Academics in Higher Education - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPN19MZHdyQm45UDQyQXJyTlVWcXpNOXhFZGJvZ3dEdzdjenA5VkpCUXVCQ2VCdFVTVmo5YzNXUWNOc3BZSk5jNXk5cmFUbFhRWVdIUW8xd3N0djk2TzB4eHktWUh1Ui1UVXEyaVo3b0QyUG5kS2YwNFhka3JxVXpWRWFjVVBlRjd0REJMcGtra3U?oc=5",
+      "description": "Job Demands and Job Resources of Academics in Higher Education &nbsp;&nbsp; Frontiers",
+      "published_at": "Tue, 22 Jun 2021 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxPN19MZHdyQm45UDQyQXJyTlVWcXpNOXhFZGJvZ3dEdzdjenA5VkpCUXVCQ2VCdFVTVmo5YzNXUWNOc3BZSk5jNXk5cmFUbFhRWVdIUW8xd3N0djk2TzB4eHktWUh1Ui1UVXEyaVo3b0QyUG5kS2YwNFhka3JxVXpWRWFjVVBlRjd0REJMcGtra3U",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The influence of workplace relationships and job satisfaction of private universities in Mogadishu: employee performance as a mediator variable - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNN0ZSX2F3QlJmYmJTN2h2MjhnVm9QTFRYU2NqNEYtUWs0QmhoMmJmR1JnUURXamxzcXlJenRERl9KbE5DMC1jTGxBTWFDdDc5ZlJLY0luc0x6R3Y0Z21BbkhjSGkydlFhRzU3N0NjdldraTA1SGFBOTIxYll3SHdDTkdFRFZUWTdsTmxTOEdiZVA?oc=5",
+      "description": "The influence of workplace relationships and job satisfaction of private universities in Mogadishu: employee performance as a mediator variable &nbsp;&nbsp; Frontiers",
+      "published_at": "Tue, 10 Dec 2024 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNN0ZSX2F3QlJmYmJTN2h2MjhnVm9QTFRYU2NqNEYtUWs0QmhoMmJmR1JnUURXamxzcXlJenRERl9KbE5DMC1jTGxBTWFDdDc5ZlJLY0luc0x6R3Y0Z21BbkhjSGkydlFhRzU3N0NjdldraTA1SGFBOTIxYll3SHdDTkdFRFZUWTdsTmxTOEdiZVA",
+      "feed_title": "\"performance management employee evidence South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=performance+management+employee+evidence+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "employee",
+          "workplace"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    }
+  ],
+  "provider_state": {
+    "web_news_rss": "connected",
+    "youtube_public": "connected",
+    "facebook_instagram": "pending_meta_access_token_and_page_authority",
+    "linkedin": "not_connected"
+  },
+  "interpretation": {
+    "status": "relevant_live_sample_available",
+    "claim": "Current public YouTube and RSS metadata are market-opportunity evidence only; they are not customer demand, sales proof or factual source evidence.",
+    "hivenance_use": "Attach this observation to the campaign hypothesis before operator release and settle it against measured campaign results later."
+  },
+  "warnings": [
+    "YouTube public metadata is opportunity evidence and cannot satisfy script source requirements.",
+    "RSS/Atom descriptions are source leads and are not eligible for claim extraction by default."
+  ]
+}

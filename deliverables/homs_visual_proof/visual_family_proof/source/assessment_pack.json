@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "grade": 10,
+  "total_marks": 50,
+  "duration": "2 hours",
+  "teacher_review_checklist": [
+    "Verify CAPS scope",
+    "Check marks",
+    "Approve before use"
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy and subject knowledge",
+      "marks": 15,
+      "descriptor": "Correct, relevant subject knowledge."
+    },
+    {
+      "criterion": "Evidence and reasoning",
+      "marks": 15,
+      "descriptor": "Uses evidence to justify answers."
+    },
+    {
+      "criterion": "Communication",
+      "marks": 10,
+      "descriptor": "Clear presentation."
+    },
+    {
+      "criterion": "Process evidence",
+      "marks": 10,
+      "descriptor": "Shows planning, method or reflection."
+    }
+  ],
+  "subject": "Geography",
+  "assessment_title": "Grade 10 Geography Source Response: Settlement Patterns",
+  "blueprint": "source_based_plus_extended_response",
+  "sections": [
+    {
+      "title": "Source response",
+      "mode": "source_response_paper",
+      "stimulus": "A map extract and population table showing rural and urban settlement change from 2000 to 2025.",
+      "questions": [
+        {
+          "number": "1.1",
+          "marks": 3,
+          "question": "Identify two settlement changes visible in Source A."
+        },
+        {
+          "number": "1.2",
+          "marks": 6,
+          "question": "Use Source A and Source B to explain one possible cause."
+        }
+      ]
+    }
+  ],
+  "canonical_profile_id": "visual.proof.source"
+}

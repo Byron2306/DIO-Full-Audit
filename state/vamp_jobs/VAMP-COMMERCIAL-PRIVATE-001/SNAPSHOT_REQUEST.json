@@ -1,0 +1,26 @@
+{
+  "schema": "dio.vamp_snapshot_request.v1",
+  "job_id": "VAMP-COMMERCIAL-PRIVATE-001",
+  "profile_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/vamp_profiles/nwu_academic_v1.json",
+  "source": {
+    "kind": "vamp_sqlite",
+    "database_path": "/home/byron/Vamp-Offline/backend/data/progress/progress.db",
+    "staff_id": "20172672",
+    "year": 2026
+  },
+  "review": {
+    "months": [
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05"
+    ]
+  },
+  "privacy_mode": "private_internal",
+  "consents": {
+    "evidence_owner_authorized": true,
+    "performance_data_processing_approved": true,
+    "human_review_terms_accepted": true
+  }
+}

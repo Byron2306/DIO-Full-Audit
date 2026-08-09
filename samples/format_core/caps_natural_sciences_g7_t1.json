@@ -1,0 +1,138 @@
+{
+  "schema": "dio.semantic_content.v1",
+  "object_id": "DIO-FORMAT-GOLDEN-001",
+  "version": "1.0.0",
+  "title": "Natural Sciences: Photosynthesis Learning Pack",
+  "source_language": "English",
+  "context": {
+    "product": "homs",
+    "artifact_type": "classroom_bundle",
+    "audience": "Grade 7 learners and educators",
+    "subject": "Natural Sciences",
+    "grade": 7,
+    "curriculum_concept": "Term 1: Photosynthesis and plant nutrition"
+  },
+  "blocks": [
+    {
+      "block_id": "B001",
+      "type": "title",
+      "text": "Natural Sciences: Photosynthesis Learning Pack"
+    },
+    {
+      "block_id": "B002",
+      "type": "learning_objective",
+      "text": "Explain how green plants use light energy, carbon dioxide and water to produce glucose and oxygen."
+    },
+    {
+      "block_id": "B003",
+      "type": "heading",
+      "level": 1,
+      "text": "1. Core concept"
+    },
+    {
+      "block_id": "B004",
+      "type": "paragraph",
+      "text": "Photosynthesis is the process by which chlorophyll-containing plants convert light energy into stored chemical energy. The process takes place mainly in the leaves."
+    },
+    {
+      "block_id": "B005",
+      "type": "diagram",
+      "caption": "Figure 1: Inputs and products of photosynthesis",
+      "alt_text": "A flow diagram showing sunlight, carbon dioxide and water entering a green leaf, with glucose and oxygen leaving it.",
+      "nodes": [
+        {"id": "sun", "label": "Sunlight", "x": 0.16, "y": 0.22},
+        {"id": "carbon", "label": "Carbon dioxide", "x": 0.16, "y": 0.72},
+        {"id": "leaf", "label": "Green leaf\nchlorophyll", "x": 0.50, "y": 0.47},
+        {"id": "glucose", "label": "Glucose", "x": 0.84, "y": 0.22},
+        {"id": "oxygen", "label": "Oxygen", "x": 0.84, "y": 0.72}
+      ],
+      "edges": [
+        {"from": "sun", "to": "leaf", "label": "energy"},
+        {"from": "carbon", "to": "leaf", "label": "input"},
+        {"from": "leaf", "to": "glucose", "label": "stored"},
+        {"from": "leaf", "to": "oxygen", "label": "released"}
+      ]
+    },
+    {
+      "block_id": "B006",
+      "type": "equation",
+      "text": "carbon dioxide + water -> glucose + oxygen  (in the presence of light and chlorophyll)"
+    },
+    {
+      "block_id": "B007",
+      "type": "heading",
+      "level": 1,
+      "text": "2. Guided investigation"
+    },
+    {
+      "block_id": "B008",
+      "type": "teacher_instruction",
+      "text": "Prepare one destarched plant and demonstrate the iodine test using the school's approved laboratory safety procedure."
+    },
+    {
+      "block_id": "B009",
+      "type": "learner_instruction",
+      "text": "Record the colour observed before and after iodine is added. Do not handle hot ethanol or an open flame."
+    },
+    {
+      "block_id": "B010",
+      "type": "table",
+      "title": "Investigation observations",
+      "headers": ["Leaf area", "Light exposure", "Colour after iodine", "Starch present?"],
+      "rows": [
+        ["Covered section", "No direct light", "Yellow-brown", "No"],
+        ["Exposed section", "Direct light", "Blue-black", "Yes"]
+      ]
+    },
+    {
+      "block_id": "B011",
+      "type": "question",
+      "number": "2.1",
+      "text": "Identify the independent variable in this investigation.",
+      "marks": 1,
+      "answer_lines": 1
+    },
+    {
+      "block_id": "B012",
+      "type": "question",
+      "number": "2.2",
+      "text": "Use the observations to explain why light is necessary for starch production in the leaf.",
+      "marks": 3,
+      "answer_lines": 3
+    },
+    {
+      "block_id": "B013",
+      "type": "heading",
+      "level": 1,
+      "text": "3. Assessment rubric"
+    },
+    {
+      "block_id": "B014",
+      "type": "rubric",
+      "title": "Explanation rubric",
+      "headers": ["Criterion", "2 marks", "1 mark", "0 marks"],
+      "rows": [
+        ["Evidence", "Uses both observed colours accurately", "Uses one relevant observation", "No relevant observation"],
+        ["Reasoning", "Links light to starch production", "States a partial link", "No valid scientific link"]
+      ]
+    },
+    {
+      "block_id": "B015",
+      "type": "annexure",
+      "text": "Annexure A: Educator memorandum"
+    },
+    {
+      "block_id": "B016",
+      "type": "expected_response",
+      "text": "2.1 Light exposure. 2.2 Only the exposed area turned blue-black, showing that starch formed where light was available."
+    },
+    {
+      "block_id": "B017",
+      "type": "transcript",
+      "start_seconds": 0,
+      "end_seconds": 8,
+      "text": "Plants do not absorb food from soil. They manufacture glucose through photosynthesis."
+    }
+  ],
+  "translations": {}
+}

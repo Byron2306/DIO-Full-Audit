@@ -1,0 +1,68 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "agricultural_sciences",
+  "display_name": "Agricultural Sciences",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "structured_exam",
+    "diagram_interpretation",
+    "data_response",
+    "practical_investigation_memo",
+    "calculation_item",
+    "marking_relief"
+  ],
+  "source_types": [
+    "diagram",
+    "table",
+    "graph",
+    "feed_or_production_data",
+    "farm_system_scenario",
+    "experimental_description"
+  ],
+  "question_families": [
+    "define_term",
+    "label_diagram",
+    "interpret_data",
+    "calculate_value",
+    "explain_process",
+    "justify_classification",
+    "evaluate_farming_practice"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "understanding",
+    "application",
+    "data_handling",
+    "scientific_reasoning"
+  ],
+  "rubric_dimensions": [
+    "concept_accuracy",
+    "terminology",
+    "data_interpretation",
+    "calculation_method",
+    "diagram_reference",
+    "practical_reasoning"
+  ],
+  "memo_expectations": [
+    "accept agriculturally valid equivalent wording",
+    "credit correct units and calculation method marks",
+    "tie recommendations to supplied farm data",
+    "separate observation, inference and management recommendation"
+  ],
+  "retrieval_queries": [
+    "agricultural sciences data response assessment memo",
+    "farm animal nutrition diagram interpretation assessment",
+    "agricultural sciences practical investigation rubric"
+  ],
+  "human_review_checks": [
+    "verify terminology against local CAPS scope",
+    "check animal/plant diagrams are appropriate and labelled",
+    "confirm calculations use only supplied values",
+    "confirm recommendations are educational and not operational farming advice"
+  ],
+  "blocked_claims_or_modes": [
+    "unsafe animal treatment or chemical-use advice",
+    "invented production data presented as real",
+    "diagram labels that are not visible or supplied"
+  ]
+}

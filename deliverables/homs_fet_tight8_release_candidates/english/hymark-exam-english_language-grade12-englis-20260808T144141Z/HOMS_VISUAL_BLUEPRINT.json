@@ -1,0 +1,74 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "English",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_fal_english_gr_10-12_web_65dc.pdf",
+    "sha256": "3d97f707a8ad56b58713ecd3a7e0ca8cf8698ba367e128a647718f7a47067407"
+  },
+  "canonical_profile_id": "fet.english_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "source_type_contract": {
+    "schema": "knowedge.homs_source_type_contract.v1",
+    "source_types": [
+      "source_extract",
+      "evidence_table"
+    ],
+    "source_type_reasons": [
+      "CAPS/source matrix or subject profile supports source-based assessment.",
+      "Learners must cite, compare, or reason from source evidence."
+    ],
+    "matrix_signals_used": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    },
+    "old_paper_contract_used": null,
+    "exam_source_catalogue_used": null
+  },
+  "caps_theme_candidates": [
+    "ENGLISH FIRST ADDITIONAL LANGUAGE GRADES 10-12",
+    "t and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "CONTENTS",
+    "language. They should choose a text type and a topic that will interest learners as little or no learning can be achieved",
+    "if learners are not engaged and motivated. For example, a topic for an argumentative essay might be \u2018Should",
+    "education be free?\u2019 Teachers could introduce the topic through listening and/or reading, building the language and",
+    "for this topic, they could do a writing activity, such as an argumentative essay. This would provide further opportunities",
+    "for working with language. Teachers should provide feedback throughout the process and an appropriate assessment"
+  ],
+  "assessment_content_focus": [
+    "integrated comprehension, summary and language structures in context",
+    "tone, purpose, inference, word choice and critical language awareness",
+    "editing for grammar, word choice, register and punctuation",
+    ""
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: language."
+  ],
+  "required_visuals": [],
+  "generation_constraints": [
+    "Render complete generated learner-facing texts before the questions.",
+    "Do not insert a generic planner, source placeholder, or described-but-missing visual."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

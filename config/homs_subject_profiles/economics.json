@@ -1,0 +1,72 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "economics",
+  "display_name": "Economics",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "structured_exam",
+    "case_study_response",
+    "data_response",
+    "graph_interpretation",
+    "cartoon_interpretation",
+    "essay_exam",
+    "marking_relief"
+  ],
+  "source_types": [
+    "text_extract",
+    "case_study",
+    "data_table",
+    "graph",
+    "cartoon",
+    "photograph_or_image",
+    "economic_indicator_snapshot"
+  ],
+  "question_families": [
+    "define_concept",
+    "identify_from_source",
+    "interpret_graph",
+    "calculate_or_compare_indicator",
+    "explain_causal_link",
+    "evaluate_policy_or_market_effect",
+    "write_economic_essay"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "comprehension",
+    "application",
+    "analysis",
+    "evaluation",
+    "synthesis"
+  ],
+  "rubric_dimensions": [
+    "economic_concept_accuracy",
+    "source_application",
+    "graph_or_data_interpretation",
+    "causal_reasoning",
+    "policy_evaluation",
+    "essay_structure"
+  ],
+  "memo_expectations": [
+    "credit economically valid alternatives supported by the source",
+    "separate generic theory marks from source-application marks",
+    "show calculation method where data is supplied",
+    "avoid real-world financial advice framing"
+  ],
+  "retrieval_queries": [
+    "CAPS Economics data response graph cartoon assessment memo",
+    "Economics school exam essay rubric",
+    "Economics case study source based questions"
+  ],
+  "human_review_checks": [
+    "verify economic terminology and policy framing",
+    "check any data source is supplied and readable",
+    "confirm cartoons or graphs are visible if questioned",
+    "ensure advice remains educational, not financial advice"
+  ],
+  "blocked_claims_or_modes": [
+    "professional financial or investment advice",
+    "invented current economic statistics presented as real",
+    "cartoon question without supplied cartoon",
+    "memo that rewards generic theory without source application"
+  ]
+}

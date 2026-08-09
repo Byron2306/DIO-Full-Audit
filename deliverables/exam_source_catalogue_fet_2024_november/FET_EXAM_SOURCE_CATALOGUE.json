@@ -1,0 +1,1800 @@
+{
+  "schema": "knowedge.homs_exam_source_catalogue.v1",
+  "generated_at": "2026-08-07T22:48:31+00:00",
+  "matrix": "corpora/exam_papers/dbe_fet_2024_november_manifest.json",
+  "paper_count": 25,
+  "subject_count": 15,
+  "subjects": {
+    "Accounting": {
+      "paper_count": 1,
+      "papers": [
+        {
+          "title": "Accounting P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/accounting/2024/november/accounting_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=LPWTS_eR8NI%3D&mid=13703&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 9,
+          "embedded_image_count": 7,
+          "source_types": {
+            "data_table": 3,
+            "unclassified_stimulus": 3,
+            "text_extract": 4
+          }
+        }
+      ],
+      "unique_source_object_count": 9,
+      "embedded_image_count": 7,
+      "text_extraction_methods": {
+        "pdftotext": 1
+      },
+      "source_type_counts": {
+        "data_table": 3,
+        "unclassified_stimulus": 3,
+        "text_extract": 4
+      },
+      "observed_contract": [
+        "text_extract",
+        "data_table",
+        "unclassified_stimulus"
+      ],
+      "examples": {
+        "data_table": [
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 3,
+            "snippet": "9. Use the information in the table below as a guide when answering the question paper. Try NOT to deviate from it."
+          },
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 5,
+            "snippet": "The following extract of the vehicle sold was taken from the Fixed Asset Register: Cost price: R240 000 Date purchased: 1 July 2021 Rate of depreciation: 20% p.a. on the diminishing-balance method"
+          },
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 11,
+            "snippet": "financial data: 29 Feb. 2024 28 Feb. 2023 Mark-up percentage 45% 40%"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 4,
+            "snippet": "1.1 Refer to Information B (i) for fixed assets: Calculate the following: 1.1.1 Depreciation on equipment on 29 February 2024 (2) 1.1.2 Cost price of vehicles on 29 February 2024 (4)"
+          },
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 9,
+            "snippet": "\uf0b7 Refer to information C. The directors decided to buy new fixed assets in 2024 to enhance the company."
+          },
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 10,
+            "snippet": "\uf0b7 Refer to Information B. Calculate the number of shares that Grant bought through the rights issue on 31 October 2023. (3)"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 5,
+            "snippet": "The following extract of the vehicle sold was taken from the Fixed Asset Register: Cost price: R240 000 Date purchased: 1 July 2021 Rate of depreciation: 20% p.a. on the diminishing-balance method"
+          },
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 6,
+            "snippet": "A. Extract from the Statement of Comprehensive Income for the year ended 29 February 2024. R"
+          },
+          {
+            "paper": "Accounting P1 November 2024",
+            "page": 11,
+            "snippet": "C. Extract from the Notes and Statement of Financial Position as at: 29 Feb. 2024 28 Feb. 2023 Fixed assets purchased R8 235 000 R4 180 000 Fixed assets sold 710 000 0"
+          }
+        ]
+      }
+    },
+    "Agricultural Sciences": {
+      "paper_count": 1,
+      "papers": [
+        {
+          "title": "Agricultural Sciences P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/agricultural_sciences/2024/november/agricultural_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=fS2uU1NiSaU%3D&mid=13705&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 8,
+          "embedded_image_count": 14,
+          "source_types": {
+            "diagram_or_model": 2,
+            "data_table": 4,
+            "graph_or_chart": 1,
+            "unclassified_stimulus": 1
+          }
+        }
+      ],
+      "unique_source_object_count": 8,
+      "embedded_image_count": 14,
+      "text_extraction_methods": {
+        "pdftotext": 1
+      },
+      "source_type_counts": {
+        "diagram_or_model": 2,
+        "data_table": 4,
+        "graph_or_chart": 1,
+        "unclassified_stimulus": 1
+      },
+      "observed_contract": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus"
+      ],
+      "examples": {
+        "diagram_or_model": [
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 7,
+            "snippet": "2.1 The diagram below represents the alimentary canal of a farm animal."
+          },
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 15,
+            "snippet": "4.1 The diagram below shows the reproductive process in farm animals."
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 8,
+            "snippet": "2.4.2 Justify the classification of FEED B in QUESTION 2.4.1, based on the data provided above. (1) 2.4.3 Name the farm animal that is unable to digest FEED A. (1)"
+          },
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 8,
+            "snippet": "the data provided above. (1) 2.4.3 Name the farm animal that is unable to digest FEED A. (1)"
+          },
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 9,
+            "snippet": "2.5.3 Calculate the digestibility coefficient of the feed using the data in the schematic representation above, assuming that the animal excreted 6 kg dry material. Show ALL calculations. (4)"
+          }
+        ],
+        "graph_or_chart": [
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 12,
+            "snippet": "Draw a combined bar graph showing the body temperatures and the number of heartbeats of the different farm animals. (6) 3.5 Name a method that is used to administer the types of medication listed"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Agricultural Sciences P1 November 2024",
+            "page": 13,
+            "snippet": "3.7.3 Classify parasite B based on the number of hosts to complete the life cycle. (1) 3.7.4 Name TWO costs associated with the control of the parasites"
+          }
+        ]
+      }
+    },
+    "Business Studies": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Business Studies P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/business_studies/2024/november/business_studies_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=VGv_B_A4kxA%3D&mid=13707&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 1,
+          "embedded_image_count": 1,
+          "source_types": {
+            "data_table": 1
+          }
+        },
+        {
+          "title": "Business Studies P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/business_studies/2024/november/business_studies_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1_eNM5ajC0g%3D&mid=13707&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 3,
+          "embedded_image_count": 7,
+          "source_types": {
+            "unclassified_stimulus": 2,
+            "data_table": 1
+          }
+        }
+      ],
+      "unique_source_object_count": 4,
+      "embedded_image_count": 8,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "data_table": 2,
+        "unclassified_stimulus": 2
+      },
+      "observed_contract": [
+        "data_table",
+        "unclassified_stimulus"
+      ],
+      "examples": {
+        "data_table": [
+          {
+            "paper": "Business Studies P1 November 2024",
+            "page": 8,
+            "snippet": "Use the table below as a GUIDE to answer QUESTION 4.6. COMPONENTS OF A JOB ANALYSIS MOTIVATIONS 1. 2. (6)"
+          },
+          {
+            "paper": "Business Studies P2 November 2024",
+            "page": 8,
+            "snippet": "Use the table below as a GUIDE to answer QUESTION 4.7. HUMAN RIGHTS MOTIVATIONS 1."
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Business Studies P2 November 2024",
+            "page": 5,
+            "snippet": "1.3.5 Expert D based on the principle of indemnity E can be bought back at the option of the issuing company"
+          },
+          {
+            "paper": "Business Studies P2 November 2024",
+            "page": 5,
+            "snippet": "G based on the principle of certainty H allows employees to randomly generate suggestions aloud"
+          }
+        ]
+      }
+    },
+    "Computer Applications Technology": {
+      "paper_count": 1,
+      "papers": [
+        {
+          "title": "Computer Applications Technology P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/computer_applications_technology/2024/november/computer_applications_technology_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=p5EqqIZnago%3D&mid=13709&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 21,
+          "embedded_image_count": 313,
+          "source_types": {
+            "data_table": 19,
+            "text_extract": 2,
+            "unclassified_stimulus": 2,
+            "map_extract": 1,
+            "photograph_or_image": 1
+          }
+        }
+      ],
+      "unique_source_object_count": 21,
+      "embedded_image_count": 313,
+      "text_extraction_methods": {
+        "pdftotext": 1
+      },
+      "source_type_counts": {
+        "data_table": 19,
+        "text_extract": 2,
+        "unclassified_stimulus": 2,
+        "map_extract": 1,
+        "photograph_or_image": 1
+      },
+      "observed_contract": [
+        "data_table",
+        "text_extract",
+        "unclassified_stimulus",
+        "map_extract",
+        "photograph_or_image",
+        "image_rendered_or_scanned_pages"
+      ],
+      "examples": {
+        "data_table": [
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 2,
+            "snippet": "2. If you are working on the network, or the data files have been preloaded on your system, you must follow the instructions provided by the invigilator/ educator."
+          },
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 3,
+            "snippet": "the existing data. 17. You may NOT use a word processing program such as Word to answer the HTML question."
+          },
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 3,
+            "snippet": "19. Use the correct settings or features in an application as required by a question. 20. The data files that you need to complete this question paper have been provided to you on the disk/CD/DVD/flash disk or on the disk space allocated"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 3,
+            "snippet": "CAT P1 Nov 2024 DATA.exe \uf0b7 Click on the 'Extract' button. \uf0b7 Click the 'Show Password' check box. \uf0b7 Enter the following password: N#24@"
+          },
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 16,
+            "snippet": "\uf0b7 Use the 7Members spreadsheet as the data source for the 7Envelope document. \uf0b7 Replace the text <<ADDRESS>> with the Address field. \uf0b7 Save the 7Envelope document in your examination folder, but do NOT"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 9,
+            "snippet": "4.4 Insert a function in cell C10 to determine the session for Pieterse, B. Use the show time and the Session worksheet. (4) 4.5 Insert a formula in cell D12 to determine the number of days from the current"
+          },
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 14,
+            "snippet": "\uf0b7 Use the example on the previous page as a guideline when answering this question. \uf0b7 Question numbers appear as comments in the coding to indicate where you should insert the answer(s). DO NOT delete these comments."
+          }
+        ],
+        "map_extract": [
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 17,
+            "snippet": "<font face=\"Times New Table Tags Sets font type Roman\"></font> Tag Description Links Tags <table></table> Creates a table"
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "Computer Applications Technology P1 November 2024",
+            "page": 17,
+            "snippet": "<font face=\"Times New Table Tags Sets font type Roman\"></font> Tag Description Links Tags <table></table> Creates a table"
+          }
+        ]
+      }
+    },
+    "Consumer Studies": {
+      "paper_count": 1,
+      "papers": [
+        {
+          "title": "Consumer Studies November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/consumer_studies/2024/november/consumer_studies_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Lyp_k8RVqGs%3D&mid=13710&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 15,
+          "embedded_image_count": 20,
+          "source_types": {
+            "text_extract": 7,
+            "unclassified_stimulus": 6,
+            "data_table": 1,
+            "graph_or_chart": 1,
+            "photograph_or_image": 1
+          }
+        }
+      ],
+      "unique_source_object_count": 15,
+      "embedded_image_count": 20,
+      "text_extraction_methods": {
+        "pdftotext": 1
+      },
+      "source_type_counts": {
+        "text_extract": 7,
+        "unclassified_stimulus": 6,
+        "data_table": 1,
+        "graph_or_chart": 1,
+        "photograph_or_image": 1
+      },
+      "observed_contract": [
+        "text_extract",
+        "unclassified_stimulus",
+        "data_table",
+        "graph_or_chart",
+        "photograph_or_image"
+      ],
+      "examples": {
+        "text_extract": [
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 5,
+            "snippet": "[Source: Farfetch] Yellow, pleated long skirt"
+          },
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 10,
+            "snippet": "2.8 Read the extract below and answer the question that follows. 'The water is pitch black, smelly and foamy with unacceptable levels of pollution.' Barker's description of the Klip River sums up the state of many rivers"
+          },
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 10,
+            "snippet": "[Source: Daily Maverick, February 2024] Suggest ways in which communities can reduce water pollution to improve the state of ALL rivers. (4)"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 5,
+            "snippet": "1.1.13 Study the pictures of the clothing items below and answer the question that follows. Yellow, pleated maxi dress"
+          },
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 9,
+            "snippet": "2.7 Study the information on a front-loader washing machine below and answer the question that follows. \uf0b7 Energy-efficient"
+          },
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 12,
+            "snippet": "3.6 Study the information below and answer the questions that follow. The Dagwood sandwich consists of:"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 10,
+            "snippet": "2.8 Read the extract below and answer the question that follows. 'The water is pitch black, smelly and foamy with unacceptable levels of pollution.' Barker's description of the Klip River sums up the state of many rivers"
+          }
+        ],
+        "graph_or_chart": [
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 13,
+            "snippet": "4.3 Study the graph of the fashion cycles below and answer the questions that follow."
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "Consumer Studies November 2024",
+            "page": 13,
+            "snippet": "4.4 Study the picture below and answer the question that follows. A company has a formal dress This outfit consists of: code."
+          }
+        ]
+      }
+    },
+    "Economics": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Economics P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=gZ8YszYxrcI%3D&mid=13714&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 8,
+          "embedded_image_count": 11,
+          "source_types": {
+            "data_table": 3,
+            "text_extract": 3,
+            "graph_or_chart": 2,
+            "cartoon": 1
+          }
+        },
+        {
+          "title": "Economics P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=bFm9Gw3zowg%3D&mid=13714&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 9,
+          "embedded_image_count": 46,
+          "source_types": {
+            "text_extract": 3,
+            "unclassified_stimulus": 3,
+            "graph_or_chart": 2,
+            "cartoon": 1,
+            "photograph_or_image": 2
+          }
+        }
+      ],
+      "unique_source_object_count": 17,
+      "embedded_image_count": 57,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "data_table": 3,
+        "text_extract": 6,
+        "graph_or_chart": 4,
+        "cartoon": 2,
+        "unclassified_stimulus": 3,
+        "photograph_or_image": 2
+      },
+      "observed_contract": [
+        "text_extract",
+        "graph_or_chart",
+        "data_table",
+        "unclassified_stimulus",
+        "cartoon",
+        "photograph_or_image"
+      ],
+      "examples": {
+        "data_table": [
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 4,
+            "snippet": "fluctuations in time series data H the process of the movement of people from rural areas to cities and towns"
+          },
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 9,
+            "snippet": "[Source: www.ceicdata.com] 3.3.1 Identify the percentage change in South Africa's labour productivity in the fourth quarter of 2022. (1)"
+          },
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 10,
+            "snippet": "4.2 Study the table below and answer the questions that follow. BUSINESS CYCLES OF SOUTH AFRICA SINCE 1999"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 6,
+            "snippet": "2.2 Study the extract below and answer the questions that follow. PUBLIC SECTOR FAILURE"
+          },
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 8,
+            "snippet": "3.2 Study the extract below and answer the questions that follow. SOUTH AFRICA'S INDUSTRIAL DEVELOPMENT STRATEGIES"
+          },
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 9,
+            "snippet": "[Source: www.ceicdata.com] 3.3.1 Identify the percentage change in South Africa's labour productivity in the fourth quarter of 2022. (1)"
+          }
+        ],
+        "graph_or_chart": [
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 7,
+            "snippet": "2.3 Study the graph below and answer the questions that follow. MULTIPLIER EFFECT IN A TWO-SECTOR ECONOMY"
+          },
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 9,
+            "snippet": "3.3 Study the graph below and answer the questions that follow."
+          },
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 7,
+            "snippet": "2.3 Study the graph below and answer the questions that follow. POSITIVE EXTERNALITIES OF EDUCATION"
+          }
+        ],
+        "cartoon": [
+          {
+            "paper": "Economics P1 November 2024",
+            "page": 11,
+            "snippet": "4.3 Study the cartoon below and answer the questions that follow. INTERNATIONAL TRADE RESTRICTIONS"
+          },
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 8,
+            "snippet": "3.2 Study the cartoon below and answer the questions that follow. IMPACT OF INFLATION ON THE CONSUMER"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 6,
+            "snippet": "In any city, many restaurants compete based on the quality of their food and prices. The basic concept of providing hospitality services differs when restaurants change their strategies."
+          },
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 9,
+            "snippet": "3.3 Study the information below and answer the questions that follow."
+          },
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 10,
+            "snippet": "4.2 Study the graphs below and answer the questions that follow. INDUSTRY/MARKET INDIVIDUAL FIRM"
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 11,
+            "snippet": "4.3 Study the images below and answer the questions that follow. SOUTH AFRICAN TOURISM IMAGE A IMAGE B"
+          },
+          {
+            "paper": "Economics P2 November 2024",
+            "page": 11,
+            "snippet": "[Source: www.google.com] 4.3.1 Identify the image that relates to eco-tourism. (1)"
+          }
+        ]
+      }
+    },
+    "English First Additional Language": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "English First Additional Language P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ZJZsyNpCu9Y%3D&mid=13691&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 27,
+          "embedded_image_count": 12,
+          "source_types": {
+            "unclassified_stimulus": 21,
+            "data_table": 2,
+            "text_extract": 5,
+            "cartoon": 1
+          }
+        },
+        {
+          "title": "English First Additional Language P3 November 2024",
+          "paper": "P3",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p3_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Gb_3vgw3pg8%3D&mid=13691&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 2,
+          "embedded_image_count": 4,
+          "source_types": {
+            "map_extract": 1,
+            "graph_or_chart": 1,
+            "diagram_or_model": 1,
+            "text_extract": 1
+          }
+        }
+      ],
+      "unique_source_object_count": 29,
+      "embedded_image_count": 16,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "unclassified_stimulus": 21,
+        "data_table": 2,
+        "text_extract": 6,
+        "cartoon": 1,
+        "map_extract": 1,
+        "graph_or_chart": 1,
+        "diagram_or_model": 1
+      },
+      "observed_contract": [
+        "unclassified_stimulus",
+        "text_extract",
+        "data_table",
+        "cartoon",
+        "map_extract",
+        "graph_or_chart",
+        "diagram_or_model"
+      ],
+      "examples": {
+        "unclassified_stimulus": [
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 2,
+            "snippet": "9. Use the following time frame as a guideline: SECTION A: 50 minutes SECTION B: 20 minutes"
+          },
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 4,
+            "snippet": "1.1 Refer to paragraph 1. 1.1.1 Why is artificial intelligence considered one of the most important technologies? (1)"
+          },
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 4,
+            "snippet": "1.2 1. Refer to paragraph 2. 1.2.1 Using your OWN words, explain what artificial intelligence is. State TWO points. (2)"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 3,
+            "snippet": "involves training a computer program on a large amount of data so it can learn to identify patterns and make predictions based on that data. AI is also used in 10 industries to help automate1 tasks and improve efficiency."
+          },
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 3,
+            "snippet": "to identify patterns and make predictions based on that data. AI is also used in 10 industries to help automate1 tasks and improve efficiency. 3 Through the use of AI, individuals and groups enjoy a more personalised"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 6,
+            "snippet": "1. 2. A source of information"
+          },
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 8,
+            "snippet": "[Source: Clicks ClubCard Magazine, September 2023] Copyright reserved Please turn over"
+          },
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 10,
+            "snippet": "QUESTION 4: ANALYSING A CARTOON Read the cartoon (TEXT E) below and answer the set questions. TEXT E DENNIS THE MENACE by Hank Ketcham"
+          }
+        ],
+        "cartoon": [
+          {
+            "paper": "English First Additional Language P1 November 2024",
+            "page": 10,
+            "snippet": "QUESTION 4: ANALYSING A CARTOON Read the cartoon (TEXT E) below and answer the set questions. TEXT E DENNIS THE MENACE by Hank Ketcham"
+          }
+        ],
+        "map_extract": [
+          {
+            "paper": "English First Additional Language P3 November 2024",
+            "page": 2,
+            "snippet": "5. You must plan (e.g. using a mind map/diagram/flow chart/key words), edit and proofread your work. The plan must appear BEFORE each text. 6. All planning must be clearly indicated as such and handed in. It is advisable to"
+          }
+        ],
+        "graph_or_chart": [
+          {
+            "paper": "English First Additional Language P3 November 2024",
+            "page": 2,
+            "snippet": "5. You must plan (e.g. using a mind map/diagram/flow chart/key words), edit and proofread your work. The plan must appear BEFORE each text. 6. All planning must be clearly indicated as such and handed in. It is advisable to"
+          }
+        ],
+        "diagram_or_model": [
+          {
+            "paper": "English First Additional Language P3 November 2024",
+            "page": 2,
+            "snippet": "5. You must plan (e.g. using a mind map/diagram/flow chart/key words), edit and proofread your work. The plan must appear BEFORE each text. 6. All planning must be clearly indicated as such and handed in. It is advisable to"
+          }
+        ]
+      }
+    },
+    "English Home Language": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "English Home Language P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=de2qPWCUDzw%3D&mid=13691&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 15,
+          "embedded_image_count": 41,
+          "source_types": {
+            "data_table": 1,
+            "text_extract": 3,
+            "unclassified_stimulus": 9,
+            "cartoon": 2
+          }
+        },
+        {
+          "title": "English Home Language P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=22HdBbdLTxU%3D&mid=13691&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 58,
+          "embedded_image_count": 7,
+          "source_types": {
+            "data_table": 2,
+            "text_extract": 7,
+            "unclassified_stimulus": 50,
+            "photograph_or_image": 2
+          }
+        }
+      ],
+      "unique_source_object_count": 73,
+      "embedded_image_count": 48,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "data_table": 3,
+        "text_extract": 10,
+        "unclassified_stimulus": 59,
+        "cartoon": 2,
+        "photograph_or_image": 2
+      },
+      "observed_contract": [
+        "unclassified_stimulus",
+        "text_extract",
+        "data_table",
+        "cartoon",
+        "photograph_or_image"
+      ],
+      "examples": {
+        "data_table": [
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 3,
+            "snippet": "phone-on-the-table syndrome and technological dependency. However, the 25 most significant deficit is the lack of social genuineness. What should be explained about our current society are the reasons why this society has produced these results."
+          },
+          {
+            "paper": "English Home Language P2 November 2024",
+            "page": 2,
+            "snippet": "2. Do not attempt to read the entire question paper. Consult the table of contents on page 4 and mark the numbers of the questions set on texts you have studied this year. Thereafter, read these questions and choose the ones you wish to answer."
+          },
+          {
+            "paper": "English Home Language P2 November 2024",
+            "page": 13,
+            "snippet": "He did not know what to do, or what to think. Finally, he went over to the table, and wrote a passionate letter to the girl he had loved, imploring her forgiveness, and accusing himself of madness. He covered page after page with wild words of sorrow, and wilder words of pain. There is a luxury in self-reproach. When we blame ourselves 15"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 5,
+            "snippet": "[Source: madisonjournal.com] Glossary: CAB (FRAME 4): Americanism for taxi"
+          },
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 8,
+            "snippet": "[Source: ebonyivory.co.za] Copyright reserved Please turn over"
+          },
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 11,
+            "snippet": "[Source: thecomicstrips.com] CHARACTERS:"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 5,
+            "snippet": "1.2 Refer to the opening sentence of paragraph 1: 'The youngest of \u2026, you name it \u2026'"
+          },
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 5,
+            "snippet": "1.4 Refer to paragraph 2. Explain what is meant by 'the value of genuine \"socialness\" has been whittled away' (lines 14\u201315), in the context of the paragraph. (2)"
+          },
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 6,
+            "snippet": "1.13 Refer to both TEXT A and TEXT B. Critically discuss the extent to which TEXT B illustrates the writer's view in paragraph 7 of TEXT A. (3)"
+          }
+        ],
+        "cartoon": [
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 6,
+            "snippet": "1.11 In the context of the cartoon, suggest why the driver's facial expression remains unchanged. (2) 1.12 With close reference to FRAME 4, comment on the satirical message"
+          },
+          {
+            "paper": "English Home Language P1 November 2024",
+            "page": 11,
+            "snippet": "Study the cartoon (TEXT F) below and answer the set questions. TEXT F"
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "English Home Language P2 November 2024",
+            "page": 9,
+            "snippet": "3.3 Refer to line 13: 'And who sacrifice their lives like the poor man his last garment'. 3.3.1 Identify the figure of speech in this line. (1)"
+          },
+          {
+            "paper": "English Home Language P2 November 2024",
+            "page": 10,
+            "snippet": "4.3 Refer to line 9: 'Arise! The brassy shout of Freedom stirs our earth'. 4.3.1 Identify the figure of speech in this line. (1)"
+          }
+        ]
+      }
+    },
+    "History": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "History P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=qM73YgRemdM%3D&mid=13718&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 13,
+          "embedded_image_count": 1,
+          "source_types": {
+            "text_extract": 11,
+            "cartoon": 1,
+            "photograph_or_image": 2,
+            "data_table": 2
+          }
+        },
+        {
+          "title": "History P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1FNRebZ9qcw%3D&mid=13718&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 7,
+          "embedded_image_count": 1,
+          "source_types": {
+            "text_extract": 6,
+            "photograph_or_image": 4
+          }
+        }
+      ],
+      "unique_source_object_count": 20,
+      "embedded_image_count": 2,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "text_extract": 17,
+        "cartoon": 1,
+        "photograph_or_image": 6,
+        "data_table": 2
+      },
+      "observed_contract": [
+        "text_extract",
+        "photograph_or_image",
+        "data_table",
+        "cartoon"
+      ],
+      "examples": {
+        "text_extract": [
+          {
+            "paper": "History P1 November 2024",
+            "page": 2,
+            "snippet": "QUESTION 2: INDEPENDENT AFRICA: CASE STUDY \u2013 ANGOLA QUESTION 3: CIVIL SOCIETY PROTESTS FROM THE 1950s TO THE 1970s: THE US CIVIL RIGHTS MOVEMENT"
+          },
+          {
+            "paper": "History P1 November 2024",
+            "page": 2,
+            "snippet": "QUESTION 4: THE EXTENSION OF THE COLD WAR: CASE STUDY \u2013 VIETNAM QUESTION 5: INDEPENDENT AFRICA: CASE STUDY \u2013 THE CONGO"
+          },
+          {
+            "paper": "History P1 November 2024",
+            "page": 2,
+            "snippet": "QUESTION 5: INDEPENDENT AFRICA: CASE STUDY \u2013 THE CONGO QUESTION 6: CIVIL SOCIETY PROTESTS FROM THE 1950s TO THE 1970s: THE BLACK POWER MOVEMENT"
+          }
+        ],
+        "cartoon": [
+          {
+            "paper": "History P1 November 2024",
+            "page": 4,
+            "snippet": "to be an appropriate caption for the cartoon. (1 x 2) (2) 1.5.2 Comment on the implication of the message on the signpost on the Western Sector side, '\u2026 DEFECTORS WELCOME'. (1 x 2) (2)"
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "History P1 November 2024",
+            "page": 5,
+            "snippet": "2.3.1 Explain why you think this photograph was taken. (1 x 2) (2) 2.3.2 What do you think was the significance of the presence of the United Nations' Secretary General during the signing of the"
+          },
+          {
+            "paper": "History P1 November 2024",
+            "page": 5,
+            "snippet": "Study Sources 2A, 2B, 2C and 2D and answer the questions that follow. 2.1 Read Source 2A."
+          },
+          {
+            "paper": "History P2 November 2024",
+            "page": 5,
+            "snippet": "2.3.1 Explain why this photograph could be very important to the Kondile family. (1 x 2) (2) 2.3.2 Using the information in the source and your own knowledge,"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "History P1 November 2024",
+            "page": 5,
+            "snippet": "Study Sources 2A, 2B, 2C and 2D and answer the questions that follow. 2.1 Read Source 2A."
+          },
+          {
+            "paper": "History P1 November 2024",
+            "page": 5,
+            "snippet": "why South Africa had 'to sit down around the negotiating table'. (2 x 1) (2) 2.3 Use Source 2C."
+          }
+        ]
+      }
+    },
+    "Life Sciences": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Life Sciences P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=UH53U88PRPE%3D&mid=13722&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 8,
+          "embedded_image_count": 102,
+          "source_types": {
+            "graph_or_chart": 1,
+            "diagram_or_model": 3,
+            "data_table": 2,
+            "unclassified_stimulus": 2
+          }
+        },
+        {
+          "title": "Life Sciences P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=B-Ss2iShxUE%3D&mid=13722&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 10,
+          "embedded_image_count": 118,
+          "source_types": {
+            "graph_or_chart": 2,
+            "data_table": 5,
+            "text_extract": 1,
+            "diagram_or_model": 2,
+            "unclassified_stimulus": 1
+          }
+        }
+      ],
+      "unique_source_object_count": 18,
+      "embedded_image_count": 220,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "graph_or_chart": 3,
+        "diagram_or_model": 5,
+        "data_table": 7,
+        "unclassified_stimulus": 3,
+        "text_extract": 1
+      },
+      "observed_contract": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus",
+        "text_extract",
+        "image_rendered_or_scanned_pages"
+      ],
+      "examples": {
+        "graph_or_chart": [
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 2,
+            "snippet": "9. Do NOT use graph paper. 10. You must use a non-programmable calculator, protractor and a compass, where necessary."
+          },
+          {
+            "paper": "Life Sciences P2 November 2024",
+            "page": 2,
+            "snippet": "9. Do NOT use graph paper. 10. You must use a non-programmable calculator, protractor and a compass, where necessary."
+          },
+          {
+            "paper": "Life Sciences P2 November 2024",
+            "page": 10,
+            "snippet": "2.3.4 Plot a bar graph to represent the data in the table. (6) (13)"
+          }
+        ],
+        "diagram_or_model": [
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 4,
+            "snippet": "1.1.6 The diagram below represents a part of the human eye."
+          },
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 9,
+            "snippet": "2.1 The diagram below represents a part of the female reproductive system. A"
+          },
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 15,
+            "snippet": "from diagram A to diagram B. (4) (11)"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 10,
+            "snippet": "2.2 The table below shows the levels of two hormones during the menstrual cycle of a healthy human female. DAY OF OESTROGEN PROGESTERONE"
+          },
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 16,
+            "snippet": "The results are recorded in the table below. GROUP X GROUP Y Time after glucose"
+          },
+          {
+            "paper": "Life Sciences P2 November 2024",
+            "page": 4,
+            "snippet": "1.1.8 Which option in the table below shows the CORRECT comparison between mitosis and meiosis? MITOSIS MEIOSIS"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 12,
+            "snippet": "2.5.4 Use the letters A, B and C to indicate the direction in which an impulse moves through the neuron. (2) 2.5.5 Name the disorder associated with degeneration of the myelin"
+          },
+          {
+            "paper": "Life Sciences P1 November 2024",
+            "page": 13,
+            "snippet": "2.6.2 Use the graphs to describe the following: (a) Difference in impulse speed for myelinated and unmyelinated neurons (2)"
+          },
+          {
+            "paper": "Life Sciences P2 November 2024",
+            "page": 14,
+            "snippet": "3.4.3 Use the information in the passage regarding Homo erectus and tabulate TWO differences between the features of Homo erectus and Homo sapiens. (5)"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Life Sciences P2 November 2024",
+            "page": 5,
+            "snippet": "1.3.1 A source of variation in populations A: Random fertilisation B: Random mating 1.3.2 Discovery of the structure of the A: Franklin and Wilkins DNA molecule B: Lamarck and Darwin"
+          }
+        ]
+      }
+    },
+    "Marine Sciences": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Marine Sciences P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/marine_sciences/2024/november/marine_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=O9hcI5lWDMQ%3D&mid=13725&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 27,
+          "embedded_image_count": 24,
+          "source_types": {
+            "graph_or_chart": 3,
+            "text_extract": 8,
+            "unclassified_stimulus": 8,
+            "diagram_or_model": 3,
+            "data_table": 8,
+            "map_extract": 1
+          }
+        },
+        {
+          "title": "Marine Sciences P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/marine_sciences/2024/november/marine_sciences_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=aBYIP3_Ar_U%3D&mid=13725&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 16,
+          "embedded_image_count": 36,
+          "source_types": {
+            "graph_or_chart": 3,
+            "text_extract": 6,
+            "data_table": 5,
+            "unclassified_stimulus": 3,
+            "diagram_or_model": 2
+          }
+        }
+      ],
+      "unique_source_object_count": 43,
+      "embedded_image_count": 60,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "graph_or_chart": 6,
+        "text_extract": 14,
+        "unclassified_stimulus": 11,
+        "diagram_or_model": 5,
+        "data_table": 13,
+        "map_extract": 1
+      },
+      "observed_contract": [
+        "text_extract",
+        "data_table",
+        "unclassified_stimulus",
+        "graph_or_chart",
+        "diagram_or_model",
+        "map_extract"
+      ],
+      "examples": {
+        "graph_or_chart": [
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 2,
+            "snippet": "9. Do NOT use graph paper. 10. You must use a non-programmable calculator, protractor and a compass, where necessary."
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 6,
+            "snippet": "1.2.6 A composite graph that illustrates a place's temperature and precipitation over a year 1.2.7 Intervention to decrease the negative impact of damage caused by"
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 11,
+            "snippet": "units cheaper and reduce the price per kW/h of electricity, as shown in the table below. TABLE 3.1: Costs of energy sources"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 3,
+            "snippet": "[Source: Examiner] Where along the South African coastline is this type of fish trap used today?"
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 5,
+            "snippet": "1.1.10 The diagram below shows the energy balance of the Earth's atmosphere. The arrows indicate the movement of energy from a solar source."
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 9,
+            "snippet": "[Source inspired by Zekri et al., 2022; https//:www.researchgate.net/publication/239296426]"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 4,
+            "snippet": "1.1.6 The phrases below refer to common factors contributing to climate change in the past. (i) Increase in the volume of greenhouse gases"
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 4,
+            "snippet": "1.1.8 The statements below refer to the chemical process of ocean acidification. (i) Carbonic acid is formed."
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 10,
+            "snippet": "2.3.6 Explain why the oil is found on the surface. Refer to the chemical properties of the two liquids in your answer. (2) 2.3.7 The company decided to test the efficiency of a fourth opening with"
+          }
+        ],
+        "diagram_or_model": [
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 5,
+            "snippet": "1.1.10 The diagram below shows the energy balance of the Earth's atmosphere. The arrows indicate the movement of energy from a solar source."
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 11,
+            "snippet": "units cheaper and reduce the price per kW/h of electricity, as shown in the table below. TABLE 3.1: Costs of energy sources"
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 12,
+            "snippet": "3.2 Draw an annotated diagram from a side view perspective, illustrating a typical rip current. (8)"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 7,
+            "snippet": "The data collected on deep-water trawl bycatch are shown in the table below. TABLE 2.1: Mass (tons) of bycatch landed from the KwaZulu-Natal crustacean trawl fishery for the 2021 fishing season"
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 7,
+            "snippet": "TABLE 2.1: Mass (tons) of bycatch landed from the KwaZulu-Natal crustacean trawl fishery for the 2021 fishing season BYCATCH SPECIES MASS (TONS)"
+          },
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 10,
+            "snippet": "TABLE 2.3: Volume of oil and water for three different diameters (cm) of tube openings DIAMETER VOLUME OF OIL VOLUME OF WATER"
+          }
+        ],
+        "map_extract": [
+          {
+            "paper": "Marine Sciences P1 November 2024",
+            "page": 12,
+            "snippet": "3.1.2 Use the MAP to answer the following questions: (a) Where will the OTEC system be more efficient: at D or E? (1)"
+          }
+        ]
+      }
+    },
+    "Mathematical Literacy": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Mathematical Literacy P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematical_literacy/2024/november/mathematical_literacy_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=r3H6xWQUYXg%3D&mid=13723&portalid=0&tabid=5193",
+          "text_extraction_method": "ocr",
+          "unique_source_object_count": 39,
+          "embedded_image_count": 232,
+          "source_types": {
+            "unclassified_stimulus": 10,
+            "graph_or_chart": 8,
+            "data_table": 25
+          }
+        },
+        {
+          "title": "Mathematical Literacy P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematical_literacy/2024/november/mathematical_literacy_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1EZXhzf3-sI%3D&mid=13723&portalid=0&tabid=5193",
+          "text_extraction_method": "ocr",
+          "unique_source_object_count": 32,
+          "embedded_image_count": 181,
+          "source_types": {
+            "unclassified_stimulus": 18,
+            "text_extract": 4,
+            "data_table": 6,
+            "diagram_or_model": 5,
+            "map_extract": 2,
+            "photograph_or_image": 2
+          }
+        }
+      ],
+      "unique_source_object_count": 71,
+      "embedded_image_count": 413,
+      "text_extraction_methods": {
+        "ocr": 2
+      },
+      "source_type_counts": {
+        "unclassified_stimulus": 28,
+        "graph_or_chart": 8,
+        "data_table": 31,
+        "text_extract": 4,
+        "diagram_or_model": 5,
+        "map_extract": 2,
+        "photograph_or_image": 2
+      },
+      "observed_contract": [
+        "data_table",
+        "unclassified_stimulus",
+        "graph_or_chart",
+        "diagram_or_model",
+        "text_extract",
+        "map_extract",
+        "photograph_or_image",
+        "image_rendered_or_scanned_pages"
+      ],
+      "examples": {
+        "unclassified_stimulus": [
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 2,
+            "snippet": "2. 2.1. Use the ANNEXURES in the ADDENDUM to answer the following questions: ANNEXURE A for QUESTION 2.3 ANNEXURE B for QUESTION 3.1"
+          },
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 2,
+            "snippet": "ANNEXURE A for QUESTION 2.3 ANNEXURE B for QUESTION 3.1 ANNEXURE C for QUESTION 5.1 2.2. Use the attached ANSWER SHEET to answer QUESTION 4.1."
+          },
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 2,
+            "snippet": "ANNEXURE B for QUESTION 3.1 ANNEXURE C for QUESTION 5.1 2.2. Use the attached ANSWER SHEET to answer QUESTION 4.1. 3. Write your centre number and examination number in the spaces provided on the"
+          }
+        ],
+        "graph_or_chart": [
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 3,
+            "snippet": "school governing body (SGB). The graph below shows the number of voters voting during different time slots at School X and School Y. ~ NUMBER OF VOTERS PER TIME SLOT AT SCHOOL X AND SCHOOL Y 35 \u2014\u2014"
+          },
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 3,
+            "snippet": "Use the information above to answer the questions that follow. LL Write down the number of voters at School Y from 16:00-16:30. (2) : 1.1.2 Identify the time slot when 30 people voted at School X. (2) 1.1.3 Choose the statement (A\u2014C) below that BEST describes the trend of the"
+          },
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 8,
+            "snippet": "Shoprite and Pick n Pay stores for the period 2014 to 2023. GRAPH 2 shows the trends in the total number of employees in these two stores for the period 2005 to 2023. Use ANNEXURE B and the information above to answer the questions that follow."
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 4,
+            "snippet": "TABLE 1 below shows the average comparative food prices for May 2022 and May 2023 needed for some of the lunch items. TABLE 1: COMPARATIVE FOOD PRICES FOR SOME LUNCH ITEMS PERCENTAGE"
+          },
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 5,
+            "snippet": "[ bp | Value or values appearing most often in a data set The difference between the highest and lowest values in a data set An amount paid regularly at a particular rate for the use/loan of mone G These are amounts that must be paid every month and which stay the"
+          },
+          {
+            "paper": "Mathematical Literacy P1 November 2024",
+            "page": 5,
+            "snippet": "The difference between the highest and lowest values in a data set An amount paid regularly at a particular rate for the use/loan of mone G These are amounts that must be paid every month and which stay the same, like rent, school fees and transport costs"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 3,
+            "snippet": "[Source: econbrick.co.za Use the information above to answer the questions that follow. 1.2.1 Convert 220 mm to metres. (2) 1.2.2 Choose, from the options (A, B or C) below, the correct one that could"
+          },
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 9,
+            "snippet": "sweets, as shown in the diagram and picture below. DIAGRAM AND PICTURE OF A CUBE AND A CUBIC-SHAPED PACKET \u2014\u2014 be {Adapted from www.pinterest.com\u2019"
+          },
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 10,
+            "snippet": "41 Crude oil is heated in a vertical, cylindrical tower to separate and extract products, such as petroleum gas, gasoline (petrol), kerosene (lamp oil), diesel, industrial oil, and paraffin wax, which boil at different temperatures. CYLINDRICAL TOWER SHOWING DIAGRAM OF A VERTICAL,"
+          }
+        ],
+        "diagram_or_model": [
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 4,
+            "snippet": "1.3 The fold-up chair is a beach chair that folds into itself. A 3D sketch, a side view, a material list, the assembled chair and a folded-up chair are shown below. 3D SKETCH OF FOLD-UP CHAIR | SIDE VIEW OF FOLD-UP CHAIR Crosspiece"
+          },
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 9,
+            "snippet": "sweets, as shown in the diagram and picture below. DIAGRAM AND PICTURE OF A CUBE AND A CUBIC-SHAPED PACKET \u2014\u2014 be {Adapted from www.pinterest.com\u2019"
+          },
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 10,
+            "snippet": "CYLINDRICAL TOWER SHOWING DIAGRAM OF A VERTICAL, DIFFERENT PRODUCTS AND THEIR CYLINDRICAL TOWER BOILING TEMPERATURES 20\u00b0C Petroleum gas LAL"
+          }
+        ],
+        "map_extract": [
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 6,
+            "snippet": "ANNEXURE B shows the map as well as the elevation map of the Leopard Trail Run in the Baviaanskloof situated close to Willowmore. Visitors to the Baviaanskloof can also do a four-day hike, starting at the Cedar Falls Home Base."
+          },
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 12,
+            "snippet": "ANNEXURE C is a map of Australia and the distances and driving times between the major cities and the states or territories. Next to it is the plan of their trip. Use ANNEXURE C and the information above to answer the questions that follow. 5.1.1 Write down the names of the cities where the distance between them"
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 9,
+            "snippet": "sweets, as shown in the diagram and picture below. DIAGRAM AND PICTURE OF A CUBE AND A CUBIC-SHAPED PACKET \u2014\u2014 be {Adapted from www.pinterest.com\u2019"
+          },
+          {
+            "paper": "Mathematical Literacy P2 November 2024",
+            "page": 12,
+            "snippet": "You may use the following formula: Distance = speed x time (4) 5.2 | Chris and Boipelo plan to visit Uluru. This Picture of Uluru oval-shaped big rock rises 1 142 feet above the 3 = surrounding desert plain. A picture of Uluru is 7 . A"
+          }
+        ]
+      }
+    },
+    "Mathematics": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Mathematics P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=8W2dAxBUTQA%3D&mid=13724&portalid=0&tabid=5193",
+          "text_extraction_method": "ocr",
+          "unique_source_object_count": 7,
+          "embedded_image_count": 168,
+          "source_types": {
+            "diagram_or_model": 4,
+            "graph_or_chart": 4
+          }
+        },
+        {
+          "title": "Mathematics P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ycHWvBVvV2M%3D&mid=13724&portalid=0&tabid=5193",
+          "text_extraction_method": "ocr",
+          "unique_source_object_count": 17,
+          "embedded_image_count": 279,
+          "source_types": {
+            "data_table": 6,
+            "map_extract": 1,
+            "diagram_or_model": 9,
+            "graph_or_chart": 3,
+            "unclassified_stimulus": 2
+          }
+        }
+      ],
+      "unique_source_object_count": 24,
+      "embedded_image_count": 447,
+      "text_extraction_methods": {
+        "ocr": 2
+      },
+      "source_type_counts": {
+        "diagram_or_model": 13,
+        "graph_or_chart": 7,
+        "data_table": 6,
+        "map_extract": 1,
+        "unclassified_stimulus": 2
+      },
+      "observed_contract": [
+        "diagram_or_model",
+        "graph_or_chart",
+        "data_table",
+        "unclassified_stimulus",
+        "map_extract",
+        "image_rendered_or_scanned_pages"
+      ],
+      "examples": {
+        "diagram_or_model": [
+          {
+            "paper": "Mathematics P1 November 2024",
+            "page": 4,
+            "snippet": "circle internally, as shown in the diagram. A third, smaller circle is drawn through the centre of the second circle and touches the second circle internally. The process of drawing circles"
+          },
+          {
+            "paper": "Mathematics P1 November 2024",
+            "page": 4,
+            "snippet": "43 Sketch the graph of f Clearly show the intercepts with the axes and asymptotes, if any. (3) . . . . 19 44 It is further given that C isapointon f at y="
+          },
+          {
+            "paper": "Mathematics P1 November 2024",
+            "page": 6,
+            "snippet": "In the diagram below, the graphs of f(x) =-x?+4x+5 and g, astraight line, are drawn. cB 3 8) is a point of intersection of f and g. EH is drawn parallel to the y-axis, with E apointon f and H apointon g. yy"
+          }
+        ],
+        "graph_or_chart": [
+          {
+            "paper": "Mathematics P1 November 2024",
+            "page": 4,
+            "snippet": "43 Sketch the graph of f Clearly show the intercepts with the axes and asymptotes, if any. (3) . . . . 19 44 It is further given that C isapointon f at y="
+          },
+          {
+            "paper": "Mathematics P1 November 2024",
+            "page": 5,
+            "snippet": "The graph of f cuts the y-axis at (0; 1). A line of symmetry of f is given by g(x)=x-3. : g (0) f"
+          },
+          {
+            "paper": "Mathematics P1 November 2024",
+            "page": 5,
+            "snippet": "Sketched below is the graph of f(x) = 4 4 q having the domain (\u2014\u00ab0 ;1)U(1; 0). x+p The graph of f cuts the y-axis at (0; 1). A line of symmetry of f is given by g(x)=x-3. : g"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Mathematics P2 November 2024",
+            "page": 3,
+            "snippet": "11 Determine the equation of the least squares regression line for the data. (3) 1.2 Write down the correlation coefficient. (69) 13 The coach uses the least squares regression line to set the target for the minimum number of push-ups by each team member according to their weight. Predict the"
+          },
+          {
+            "paper": "Mathematics P2 November 2024",
+            "page": 3,
+            "snippet": "14 Write down the mean number of push-ups for the given data. (dd) 1.5 The players trained hard during the season. At the end of the season, the coach reported that each player was able to do 5 more push-ups per minute than they did at the beginning of the season. How does the increase in the number of push-ups influence"
+          },
+          {
+            "paper": "Mathematics P2 November 2024",
+            "page": 3,
+            "snippet": "the standard deviation of the data? dd) 1.6 At the beginning of the season, the coach used the least squares regression line as the minimum target for a player to aim for. Determine the maximum possible increase in the number of push-ups that a team member must obtain to reach the minimum target. (2)"
+          }
+        ],
+        "map_extract": [
+          {
+            "paper": "Mathematics P2 November 2024",
+            "page": 4,
+            "snippet": "and whisker diagram to indicate the distribution of the data as represented in the ogive above. (2) 2.5 The company manager decided that all employees who travel for an hour or more will be allowed to work from home for part of the day. What percentage of the employees"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Mathematics P2 November 2024",
+            "page": 8,
+            "snippet": "6.1.1 Use the compound angle identity given above to derive a formula for cos(x + y). (2) 6.1.2 Hence, or otherwise, show that: jo in(\u2014 o"
+          },
+          {
+            "paper": "Mathematics P2 November 2024",
+            "page": 9,
+            "snippet": "73.2 On the grid given in the ANSWER BOOK, draw the graph of g(x)=cos2x+1 for the interval x e[-180\u00b0; 180\u00b0]. Clearly show the intercepts with the axes as well as the coordinates of the turning points. (3) 74 Use the graphs to determine the general solution of 2cos\u2019 x\u2014sinx=0. (4)"
+          }
+        ]
+      }
+    },
+    "Physical Sciences": {
+      "paper_count": 2,
+      "papers": [
+        {
+          "title": "Physical Sciences Physics P1 November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=jKqWYBbucS4%3D&mid=13728&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 17,
+          "embedded_image_count": 223,
+          "source_types": {
+            "graph_or_chart": 5,
+            "diagram_or_model": 10,
+            "data_table": 5
+          }
+        },
+        {
+          "title": "Physical Sciences Chemistry P2 November 2024",
+          "paper": "P2",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ZxN41kEGHhI%3D&mid=13728&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 15,
+          "embedded_image_count": 206,
+          "source_types": {
+            "unclassified_stimulus": 1,
+            "diagram_or_model": 3,
+            "data_table": 9,
+            "graph_or_chart": 2
+          }
+        }
+      ],
+      "unique_source_object_count": 32,
+      "embedded_image_count": 429,
+      "text_extraction_methods": {
+        "pdftotext": 2
+      },
+      "source_type_counts": {
+        "graph_or_chart": 7,
+        "diagram_or_model": 13,
+        "data_table": 14,
+        "unclassified_stimulus": 1
+      },
+      "observed_contract": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus",
+        "image_rendered_or_scanned_pages"
+      ],
+      "examples": {
+        "graph_or_chart": [
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 3,
+            "snippet": "t seconds to strike the ground. Consider the acceleration-time graph below for the motion of the stone. The effects of air friction are ignored."
+          },
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 8,
+            "snippet": "2.3.2 Magnitude of the acceleration represented by Y on the graph if the coefficient of kinetic friction between the crate and the table is 0,40 (5) 2.4 A 5 kg block is now placed inside the crate and the experiment is repeated."
+          },
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 8,
+            "snippet": "The results obtained were used to draw the sketch graph below. Acceleration of crate (m\u00b7s-2)"
+          }
+        ],
+        "diagram_or_model": [
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 6,
+            "snippet": "are r metres apart, as shown in the diagram below. Ignore ALL frictional effects. +Q"
+          },
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 8,
+            "snippet": "a frictionless pulley, as shown in the diagram below. Mass pieces are added to the mass hanger and the acceleration of the crate is measured. The experiment is repeated several times by adding different masses to increase the hanging mass each time. Ignore the effects of air friction."
+          },
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 8,
+            "snippet": "The results obtained were used to draw the sketch graph below. Acceleration of crate (m\u00b7s-2)"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 8,
+            "snippet": "2.3.2 Magnitude of the acceleration represented by Y on the graph if the coefficient of kinetic friction between the crate and the table is 0,40 (5) 2.4 A 5 kg block is now placed inside the crate and the experiment is repeated."
+          },
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 8,
+            "snippet": "In an experiment, a crate of mass 8,5 kg, lying stationary on a rough horizontal table, is connected to a mass hanger by means of a light inextensible string passing over a frictionless pulley, as shown in the diagram below. Mass pieces are added to the mass hanger and the acceleration of the crate is measured. The experiment is repeated"
+          },
+          {
+            "paper": "Physical Sciences Physics P1 November 2024",
+            "page": 17,
+            "snippet": "DATA FOR PHYSICAL SCIENCES GRADE 12 PAPER 1 (PHYSICS) GEGEWENS VIR FISIESE WETENSKAPPE GRAAD 12"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Physical Sciences Chemistry P2 November 2024",
+            "page": 3,
+            "snippet": "1.3 Study the reactions below. H2SO4 Reaction 1: CH3CH2CHOHCH3 conc. Compound P (major product) + H2O"
+          }
+        ]
+      }
+    },
+    "Tourism": {
+      "paper_count": 1,
+      "papers": [
+        {
+          "title": "Tourism November 2024",
+          "paper": "P1",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/tourism/2024/november/tourism_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=KAEKU9bLIrA%3D&mid=13732&portalid=0&tabid=5193",
+          "text_extraction_method": "pdftotext",
+          "unique_source_object_count": 22,
+          "embedded_image_count": 40,
+          "source_types": {
+            "map_extract": 4,
+            "photograph_or_image": 2,
+            "data_table": 2,
+            "text_extract": 3,
+            "unclassified_stimulus": 11
+          }
+        }
+      ],
+      "unique_source_object_count": 22,
+      "embedded_image_count": 40,
+      "text_extraction_methods": {
+        "pdftotext": 1
+      },
+      "source_type_counts": {
+        "map_extract": 4,
+        "photograph_or_image": 2,
+        "data_table": 2,
+        "text_extract": 3,
+        "unclassified_stimulus": 11
+      },
+      "observed_contract": [
+        "unclassified_stimulus",
+        "map_extract",
+        "text_extract",
+        "photograph_or_image",
+        "data_table"
+      ],
+      "examples": {
+        "map_extract": [
+          {
+            "paper": "Tourism November 2024",
+            "page": 2,
+            "snippet": "B Map Work and Tour Planning; Foreign Exchange 50 50 Tourist Attractions; Culture and Heritage C 50 50"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 10,
+            "snippet": "SECTION B: MAP WORK AND TOUR PLANNING; FOREIGN EXCHANGE QUESTION 2"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 10,
+            "snippet": "Study the World Time Zone map and the information below and answer the questions that follow."
+          }
+        ],
+        "photograph_or_image": [
+          {
+            "paper": "Tourism November 2024",
+            "page": 4,
+            "snippet": "1.1.7 The photo below, taken in the Black Forest, is associated with this country:"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 18,
+            "snippet": "6.2 Study the picture below and answer the questions that follow. SOUTH AFRICA SHOWCASES ITS BEST! TRAVEL TRADE SHOW IN GERMANY"
+          }
+        ],
+        "data_table": [
+          {
+            "paper": "Tourism November 2024",
+            "page": 4,
+            "snippet": "1.1.6 EXCHANGE RATE TABLE: CURRENCIES COMPARED TO THE SOUTH AFRICAN RAND Australian United States Euro British dollar dollar pound"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 7,
+            "snippet": "C An internet connection and data are required. D A smartphone or a laptop can be used to complete the feedback. (20 x 1) (20) 1.2 Give ONE word/term for EACH of the following descriptions by choosing a"
+          }
+        ],
+        "text_extract": [
+          {
+            "paper": "Tourism November 2024",
+            "page": 7,
+            "snippet": "[Source: www.statssa.gov.za] A Holiday B Shopping"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 14,
+            "snippet": "[Source: Own creation] 4.1.1 Refer to the puzzle above."
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 19,
+            "snippet": "[Source: www.silverwind.com] 7.1.1 Name the agreement between the cruise line and a crew member that must be signed before reporting for duty on a cruise ship. (2)"
+          }
+        ],
+        "unclassified_stimulus": [
+          {
+            "paper": "Tourism November 2024",
+            "page": 9,
+            "snippet": "1.5 Study the information below and answer the questions that follow. APPEARANCE SAYS IT ALL First impressions last! By the time the guest checks in, several judgements"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 13,
+            "snippet": "3.1 Refer to the information below and answer the questions that follow. Each South African team member had R50 000 spending money for the trip to the Summer Olympic Games in Paris. They exchanged their rands at the"
+          },
+          {
+            "paper": "Tourism November 2024",
+            "page": 14,
+            "snippet": "4.1 Study the information below and answer the questions that follow. Andile, a South African globetrotter (world traveller), had a puzzle made of some of his favourite destinations in the world."
+          }
+        ]
+      }
+    }
+  }
+}

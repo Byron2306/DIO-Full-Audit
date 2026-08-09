@@ -1,0 +1,116 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Life Orientation",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Life Orientation",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_orientation_gr_10-12_web_e6b3.pdf",
+    "sha256": "29478a3420addef1239e0836c69b9862ff903fabc01b581c1c65ca044eca69c3"
+  },
+  "canonical_profile_id": "fet.life_orientation",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "teaching of Life Orientation in Grades 10 and 11, and 56 hours in Grade 12. The content is grouped in Section 3 of",
+    "Physical Education on the school timetable.",
+    "2.4 Weighting of topics",
+    "Topic Grade 10 Grade 11 Grade 12",
+    "Physical Education 4 hours Textbook, resources on various types of games",
+    "Formal assessment: It is compulsory to cover the given topics in the term indicated.",
+    "The sequence of the topics within the term is however, not",
+    "14 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "LIFE ORIENTATION GRADES 10-12",
+    "TOPIC TERM 3 GRADE 10",
+    "WEEKS 1 - 5 Recommended resources",
+    "is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the"
+  ],
+  "assessment_content_focus": [
+    "Physical Education 4 hours Textbook, resources on various types of games",
+    "WEEKS 1 - 5 Recommended resources",
+    "2.4 Weighting of topics",
+    "Topic Grade 10 Grade 11 Grade 12",
+    "The sequence of the topics within the term is however, not",
+    "TOPIC TERM 3 GRADE 10",
+    "Physical Education on the school timetable.",
+    "Physical Education 4 hours Textbook, resources on various types of games",
+    "Physical Education on the school timetable."
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: education, games, hours, however, physical, recommended."
+  ],
+  "required_visuals": [
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "2.4 Weighting of topics",
+      "Topic Grade 10 Grade 11 Grade 12",
+      "Physical Education 4 hours Textbook, resources on various types of games",
+      "The sequence of the topics within the term is however, not",
+      "TOPIC TERM 3 GRADE 10",
+      "WEEKS 1 - 5 Recommended resources"
+    ],
+    "admin_lines": [
+      "teaching of Life Orientation in Grades 10 and 11, and 56 hours in Grade 12. The content is grouped in Section 3 of",
+      "Formal assessment: It is compulsory to cover the given topics in the term indicated.",
+      "14 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "Guidelines and Subject Assessment Guidelines with the"
+    ],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

@@ -1,0 +1,2382 @@
+{
+  "schema": "knowedge.homs_senior_phase_spine.v1",
+  "created_at": "2026-08-08T07:18:51+00:00",
+  "phase": "senior_grade_7_9",
+  "principle": "Translate FET source grammar downward, but reduce cognitive load using grade-specific Bloom distributions and scaffolds.",
+  "bloom_by_grade": {
+    "7": {
+      "remember": 20,
+      "understand": 30,
+      "apply": 30,
+      "analyse": 15,
+      "evaluate": 5,
+      "create": 0,
+      "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+    },
+    "8": {
+      "remember": 15,
+      "understand": 25,
+      "apply": 30,
+      "analyse": 20,
+      "evaluate": 8,
+      "create": 2,
+      "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+    },
+    "9": {
+      "remember": 10,
+      "understand": 20,
+      "apply": 30,
+      "analyse": 25,
+      "evaluate": 10,
+      "create": 5,
+      "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+    }
+  },
+  "subjects": [
+    {
+      "subject_id": "english_language",
+      "display_name": "English Language",
+      "senior_subject": "English Home Language / First Additional Language",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_hl_english_gr_7-9_web.pdf",
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_fal_english_gr_7-9_web.pdf"
+      ],
+      "assessment_family": "language_integrated_assessment",
+      "source_grammar": [
+        "text_extract",
+        "cartoon",
+        "photograph_or_image",
+        "data_table"
+      ],
+      "grade_focus": {
+        "7": "short comprehension, vocabulary in context, paragraph writing and simple visual literacy",
+        "8": "multi-paragraph comprehension, language-in-context, summary and guided transactional writing",
+        "9": "FET bridge: comprehension, visual literacy, language structures and controlled extended writing"
+      },
+      "sections": [
+        "reading_viewing",
+        "language_structures",
+        "writing_presenting"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 8,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "english_language",
+          "display_name": "English Language",
+          "senior_subject": "English Home Language / First Additional Language",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "text_extract",
+            "cartoon",
+            "photograph_or_image",
+            "data_table"
+          ],
+          "caps_focus": "short comprehension, vocabulary in context, paragraph writing and simple visual literacy",
+          "sections": [
+            {
+              "title": "reading_viewing",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "reading_viewing",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 English Language stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "language_structures",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "language_structures",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 English Language task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "writing_presenting",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "writing_presenting",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 English Language stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "english_language",
+          "display_name": "English Language",
+          "senior_subject": "English Home Language / First Additional Language",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "text_extract",
+            "cartoon",
+            "photograph_or_image",
+            "data_table"
+          ],
+          "caps_focus": "multi-paragraph comprehension, language-in-context, summary and guided transactional writing",
+          "sections": [
+            {
+              "title": "reading_viewing",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "reading_viewing",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 English Language stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "language_structures",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "language_structures",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 English Language task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "writing_presenting",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "writing_presenting",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 English Language stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "english_language",
+          "display_name": "English Language",
+          "senior_subject": "English Home Language / First Additional Language",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "text_extract",
+            "cartoon",
+            "photograph_or_image",
+            "data_table"
+          ],
+          "caps_focus": "FET bridge: comprehension, visual literacy, language structures and controlled extended writing",
+          "sections": [
+            {
+              "title": "reading_viewing",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "reading_viewing",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 English Language stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "language_structures",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "language_structures",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 English Language task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "writing_presenting",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "writing_presenting",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 English Language stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "display_name": "Afrikaans Language",
+      "senior_subject": "Afrikaans Home Language / First Additional Language",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_home_afrikaans_gr_7-9_web.pdf",
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_fal_afrikaans_gr_7-9_web.pdf"
+      ],
+      "assessment_family": "language_integrated_assessment",
+      "source_grammar": [
+        "text_extract",
+        "cartoon",
+        "photograph_or_image",
+        "graph_or_chart"
+      ],
+      "grade_focus": {
+        "7": "kort leesbegrip, woordeskat, eenvoudige visuele teks en paragraafskryf",
+        "8": "leesbegrip, taal-in-konteks, opsomming en begeleide transaksionele skryfwerk",
+        "9": "FET-brug: leesbegrip, visuele geletterdheid, taalstrukture en beheerde skryfwerk"
+      },
+      "sections": [
+        "lees_en_kyk",
+        "taalstrukture",
+        "skryf_en_aanbied"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 10,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "afrikaans_language",
+          "display_name": "Afrikaans Language",
+          "senior_subject": "Afrikaans Home Language / First Additional Language",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "text_extract",
+            "cartoon",
+            "photograph_or_image",
+            "graph_or_chart"
+          ],
+          "caps_focus": "kort leesbegrip, woordeskat, eenvoudige visuele teks en paragraafskryf",
+          "sections": [
+            {
+              "title": "lees_en_kyk",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "lees_en_kyk",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Afrikaans Language stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "taalstrukture",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "taalstrukture",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Afrikaans Language task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "skryf_en_aanbied",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "skryf_en_aanbied",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Afrikaans Language stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "afrikaans_language",
+          "display_name": "Afrikaans Language",
+          "senior_subject": "Afrikaans Home Language / First Additional Language",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "text_extract",
+            "cartoon",
+            "photograph_or_image",
+            "graph_or_chart"
+          ],
+          "caps_focus": "leesbegrip, taal-in-konteks, opsomming en begeleide transaksionele skryfwerk",
+          "sections": [
+            {
+              "title": "lees_en_kyk",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "lees_en_kyk",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Afrikaans Language stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "taalstrukture",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "taalstrukture",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Afrikaans Language task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "skryf_en_aanbied",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "skryf_en_aanbied",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Afrikaans Language stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "afrikaans_language",
+          "display_name": "Afrikaans Language",
+          "senior_subject": "Afrikaans Home Language / First Additional Language",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "text_extract",
+            "cartoon",
+            "photograph_or_image",
+            "graph_or_chart"
+          ],
+          "caps_focus": "FET-brug: leesbegrip, visuele geletterdheid, taalstrukture en beheerde skryfwerk",
+          "sections": [
+            {
+              "title": "lees_en_kyk",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "lees_en_kyk",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Afrikaans Language stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "taalstrukture",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "taalstrukture",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Afrikaans Language task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "skryf_en_aanbied",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "skryf_en_aanbied",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Afrikaans Language stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "mathematics",
+      "display_name": "Mathematics",
+      "senior_subject": "Mathematics",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_mathematics_gr_7-9.pdf"
+      ],
+      "assessment_family": "calculation_problem_solving",
+      "source_grammar": [
+        "diagram_or_model",
+        "graph_or_chart",
+        "data_table",
+        "number_line_or_grid"
+      ],
+      "grade_focus": {
+        "7": "procedures, number operations, simple graphs, measurement and visible working",
+        "8": "multi-step procedures, algebraic reasoning, geometry and data handling",
+        "9": "FET bridge: algebra, functions, geometry, data and integrated problem solving"
+      },
+      "sections": [
+        "short_procedures",
+        "problem_solving",
+        "data_geometry_or_measurement"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 6,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "mathematics",
+          "display_name": "Mathematics",
+          "senior_subject": "Mathematics",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "calculation_problem_solving",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "graph_or_chart",
+            "data_table",
+            "number_line_or_grid"
+          ],
+          "caps_focus": "procedures, number operations, simple graphs, measurement and visible working",
+          "sections": [
+            {
+              "title": "short_procedures",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "short_procedures",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Mathematics stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "problem_solving",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "problem_solving",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Mathematics task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "data_geometry_or_measurement",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "data_geometry_or_measurement",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Mathematics stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "mathematics",
+          "display_name": "Mathematics",
+          "senior_subject": "Mathematics",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "calculation_problem_solving",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "graph_or_chart",
+            "data_table",
+            "number_line_or_grid"
+          ],
+          "caps_focus": "multi-step procedures, algebraic reasoning, geometry and data handling",
+          "sections": [
+            {
+              "title": "short_procedures",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "short_procedures",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Mathematics stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "problem_solving",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "problem_solving",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Mathematics task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "data_geometry_or_measurement",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "data_geometry_or_measurement",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Mathematics stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "mathematics",
+          "display_name": "Mathematics",
+          "senior_subject": "Mathematics",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "calculation_problem_solving",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "graph_or_chart",
+            "data_table",
+            "number_line_or_grid"
+          ],
+          "caps_focus": "FET bridge: algebra, functions, geometry, data and integrated problem solving",
+          "sections": [
+            {
+              "title": "short_procedures",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "short_procedures",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Mathematics stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "problem_solving",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "problem_solving",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Mathematics task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "data_geometry_or_measurement",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "data_geometry_or_measurement",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Mathematics stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "life_orientation",
+      "display_name": "Life Orientation",
+      "senior_subject": "Life Orientation",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_life_orientation_web.pdf"
+      ],
+      "assessment_family": "practical_performance_or_portfolio",
+      "source_grammar": [
+        "scenario",
+        "case_extract",
+        "rubric_checklist",
+        "reflection_prompt"
+      ],
+      "grade_focus": {
+        "7": "personal wellbeing, relationships, study habits and guided reflection",
+        "8": "wellbeing, citizenship, decision-making and short scenario responses",
+        "9": "FET bridge: careers, rights, social responsibility and structured reflection"
+      },
+      "sections": [
+        "scenario_response",
+        "reflection",
+        "educator_observation_rubric"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 5,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "life_orientation",
+          "display_name": "Life Orientation",
+          "senior_subject": "Life Orientation",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "scenario",
+            "case_extract",
+            "rubric_checklist",
+            "reflection_prompt"
+          ],
+          "caps_focus": "personal wellbeing, relationships, study habits and guided reflection",
+          "sections": [
+            {
+              "title": "scenario_response",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "scenario_response",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Life Orientation stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "reflection",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "reflection",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Life Orientation task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "educator_observation_rubric",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "educator_observation_rubric",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Life Orientation stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "life_orientation",
+          "display_name": "Life Orientation",
+          "senior_subject": "Life Orientation",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "scenario",
+            "case_extract",
+            "rubric_checklist",
+            "reflection_prompt"
+          ],
+          "caps_focus": "wellbeing, citizenship, decision-making and short scenario responses",
+          "sections": [
+            {
+              "title": "scenario_response",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "scenario_response",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Life Orientation stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "reflection",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "reflection",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Life Orientation task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "educator_observation_rubric",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "educator_observation_rubric",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Life Orientation stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "life_orientation",
+          "display_name": "Life Orientation",
+          "senior_subject": "Life Orientation",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "scenario",
+            "case_extract",
+            "rubric_checklist",
+            "reflection_prompt"
+          ],
+          "caps_focus": "FET bridge: careers, rights, social responsibility and structured reflection",
+          "sections": [
+            {
+              "title": "scenario_response",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "scenario_response",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Life Orientation stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "reflection",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "reflection",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Life Orientation task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "educator_observation_rubric",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "educator_observation_rubric",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Life Orientation stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "life_sciences",
+      "display_name": "Natural Sciences: Life And Living Strand",
+      "senior_subject": "Natural Sciences",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_natural_sciences_gr_7-9_web.pdf"
+      ],
+      "assessment_family": "data_diagram_practical_investigation",
+      "source_grammar": [
+        "diagram_or_model",
+        "data_table",
+        "graph_or_chart",
+        "investigation_sheet"
+      ],
+      "grade_focus": {
+        "7": "classification, ecosystems, body systems and guided diagram interpretation",
+        "8": "cells, reproduction, ecology and simple practical investigation evidence",
+        "9": "FET bridge: life processes, systems, data interpretation and controlled investigation reasoning"
+      },
+      "sections": [
+        "concepts",
+        "diagram_or_data",
+        "practical_investigation"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 10,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "life_sciences",
+          "display_name": "Natural Sciences: Life And Living Strand",
+          "senior_subject": "Natural Sciences",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "data_table",
+            "graph_or_chart",
+            "investigation_sheet"
+          ],
+          "caps_focus": "classification, ecosystems, body systems and guided diagram interpretation",
+          "sections": [
+            {
+              "title": "concepts",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "concepts",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Natural Sciences: Life And Living Strand stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "diagram_or_data",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "diagram_or_data",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Natural Sciences: Life And Living Strand task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "practical_investigation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "practical_investigation",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Natural Sciences: Life And Living Strand stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "life_sciences",
+          "display_name": "Natural Sciences: Life And Living Strand",
+          "senior_subject": "Natural Sciences",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "data_table",
+            "graph_or_chart",
+            "investigation_sheet"
+          ],
+          "caps_focus": "cells, reproduction, ecology and simple practical investigation evidence",
+          "sections": [
+            {
+              "title": "concepts",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "concepts",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Natural Sciences: Life And Living Strand stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "diagram_or_data",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "diagram_or_data",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Natural Sciences: Life And Living Strand task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "practical_investigation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "practical_investigation",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Natural Sciences: Life And Living Strand stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "life_sciences",
+          "display_name": "Natural Sciences: Life And Living Strand",
+          "senior_subject": "Natural Sciences",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "data_table",
+            "graph_or_chart",
+            "investigation_sheet"
+          ],
+          "caps_focus": "FET bridge: life processes, systems, data interpretation and controlled investigation reasoning",
+          "sections": [
+            {
+              "title": "concepts",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "concepts",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Natural Sciences: Life And Living Strand stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "diagram_or_data",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "diagram_or_data",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Natural Sciences: Life And Living Strand task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "practical_investigation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "practical_investigation",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Natural Sciences: Life And Living Strand stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "physical_sciences",
+      "display_name": "Natural Sciences: Matter, Energy, Planet Earth Strand",
+      "senior_subject": "Natural Sciences",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_natural_sciences_gr_7-9_web.pdf"
+      ],
+      "assessment_family": "data_diagram_practical_investigation",
+      "source_grammar": [
+        "diagram_or_model",
+        "data_table",
+        "graph_or_chart",
+        "calculation_values"
+      ],
+      "grade_focus": {
+        "7": "materials, forces, energy and short observable investigation questions",
+        "8": "matter, reactions, electricity, energy transfer and data handling",
+        "9": "FET bridge: particles, chemical reactions, circuits, forces and graph-based reasoning"
+      },
+      "sections": [
+        "concepts",
+        "data_or_calculation",
+        "practical_investigation"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 6,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "physical_sciences",
+          "display_name": "Natural Sciences: Matter, Energy, Planet Earth Strand",
+          "senior_subject": "Natural Sciences",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "data_table",
+            "graph_or_chart",
+            "calculation_values"
+          ],
+          "caps_focus": "materials, forces, energy and short observable investigation questions",
+          "sections": [
+            {
+              "title": "concepts",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "concepts",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Natural Sciences: Matter, Energy, Planet Earth Strand stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "data_or_calculation",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "data_or_calculation",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Natural Sciences: Matter, Energy, Planet Earth Strand task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "practical_investigation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "practical_investigation",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Natural Sciences: Matter, Energy, Planet Earth Strand stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "physical_sciences",
+          "display_name": "Natural Sciences: Matter, Energy, Planet Earth Strand",
+          "senior_subject": "Natural Sciences",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "data_table",
+            "graph_or_chart",
+            "calculation_values"
+          ],
+          "caps_focus": "matter, reactions, electricity, energy transfer and data handling",
+          "sections": [
+            {
+              "title": "concepts",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "concepts",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Natural Sciences: Matter, Energy, Planet Earth Strand stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "data_or_calculation",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "data_or_calculation",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Natural Sciences: Matter, Energy, Planet Earth Strand task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "practical_investigation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "practical_investigation",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Natural Sciences: Matter, Energy, Planet Earth Strand stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "physical_sciences",
+          "display_name": "Natural Sciences: Matter, Energy, Planet Earth Strand",
+          "senior_subject": "Natural Sciences",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "diagram_or_model",
+            "data_table",
+            "graph_or_chart",
+            "calculation_values"
+          ],
+          "caps_focus": "FET bridge: particles, chemical reactions, circuits, forces and graph-based reasoning",
+          "sections": [
+            {
+              "title": "concepts",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "concepts",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Natural Sciences: Matter, Energy, Planet Earth Strand stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "data_or_calculation",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "data_or_calculation",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Natural Sciences: Matter, Energy, Planet Earth Strand task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "practical_investigation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "practical_investigation",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Natural Sciences: Matter, Energy, Planet Earth Strand stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "geography",
+      "display_name": "Social Sciences: Geography",
+      "senior_subject": "Social Sciences",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_social_science_gr_7-9.pdf"
+      ],
+      "assessment_family": "source_based_plus_extended_response",
+      "source_grammar": [
+        "map_extract",
+        "photograph_or_image",
+        "graph_or_chart",
+        "data_table"
+      ],
+      "grade_focus": {
+        "7": "basic maps, settlements, resources and direct source observation",
+        "8": "maps, climate, population and comparison of source evidence",
+        "9": "FET bridge: development, resource use, maps, data and short justified responses"
+      },
+      "sections": [
+        "map_or_source_skills",
+        "context_questions",
+        "short_explanation"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 23,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "geography",
+          "display_name": "Social Sciences: Geography",
+          "senior_subject": "Social Sciences",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_extended_response",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "map_extract",
+            "photograph_or_image",
+            "graph_or_chart",
+            "data_table"
+          ],
+          "caps_focus": "basic maps, settlements, resources and direct source observation",
+          "sections": [
+            {
+              "title": "map_or_source_skills",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "map_or_source_skills",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Social Sciences: Geography stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "context_questions",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "context_questions",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Social Sciences: Geography task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "short_explanation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "short_explanation",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Social Sciences: Geography stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "geography",
+          "display_name": "Social Sciences: Geography",
+          "senior_subject": "Social Sciences",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_extended_response",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "map_extract",
+            "photograph_or_image",
+            "graph_or_chart",
+            "data_table"
+          ],
+          "caps_focus": "maps, climate, population and comparison of source evidence",
+          "sections": [
+            {
+              "title": "map_or_source_skills",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "map_or_source_skills",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Social Sciences: Geography stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "context_questions",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "context_questions",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Social Sciences: Geography task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "short_explanation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "short_explanation",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Social Sciences: Geography stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "geography",
+          "display_name": "Social Sciences: Geography",
+          "senior_subject": "Social Sciences",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_extended_response",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "map_extract",
+            "photograph_or_image",
+            "graph_or_chart",
+            "data_table"
+          ],
+          "caps_focus": "FET bridge: development, resource use, maps, data and short justified responses",
+          "sections": [
+            {
+              "title": "map_or_source_skills",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "map_or_source_skills",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Social Sciences: Geography stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "context_questions",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "context_questions",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Social Sciences: Geography task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "short_explanation",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "short_explanation",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Social Sciences: Geography stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "history",
+      "display_name": "Social Sciences: History",
+      "senior_subject": "Social Sciences",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_social_science_gr_7-9.pdf"
+      ],
+      "assessment_family": "source_based_plus_essay",
+      "source_grammar": [
+        "text_extract",
+        "photograph_or_image",
+        "cartoon",
+        "timeline"
+      ],
+      "grade_focus": {
+        "7": "sequence, cause and effect, simple source extraction and paragraph answers",
+        "8": "source comparison, perspective, cause and consequence and short evidence paragraphs",
+        "9": "FET bridge: reliability, usefulness, comparison and controlled extended paragraph response"
+      },
+      "sections": [
+        "source_extraction",
+        "source_comparison",
+        "short_paragraph_response"
+      ],
+      "status": "senior_blueprint_ready_release_blocked",
+      "source_assets_from_fet_spine": 6,
+      "missing_caps_bridge": [],
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review",
+      "blueprints": [
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "history",
+          "display_name": "Social Sciences: History",
+          "senior_subject": "Social Sciences",
+          "grade": 7,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_essay",
+          "marks": 50,
+          "duration_minutes": 60,
+          "bloom_distribution": {
+            "remember": 20,
+            "understand": 30,
+            "apply": 30,
+            "analyse": 15,
+            "evaluate": 5,
+            "create": 0,
+            "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+          },
+          "source_grammar": [
+            "text_extract",
+            "photograph_or_image",
+            "cartoon",
+            "timeline"
+          ],
+          "caps_focus": "sequence, cause and effect, simple source extraction and paragraph answers",
+          "sections": [
+            {
+              "title": "source_extraction",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "source_extraction",
+                  "bloom_level": "remember",
+                  "prompt_shape": "Identify or name key facts from a Grade 7 Social Sciences: History stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "source_comparison",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "source_comparison",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Social Sciences: History task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "short_paragraph_response",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "short_paragraph_response",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Social Sciences: History stimulus or task.",
+                  "scaffold": [
+                    "single source or short task",
+                    "keywords supplied",
+                    "answer frame or labelled steps"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "history",
+          "display_name": "Social Sciences: History",
+          "senior_subject": "Social Sciences",
+          "grade": 8,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_essay",
+          "marks": 60,
+          "duration_minutes": 75,
+          "bloom_distribution": {
+            "remember": 15,
+            "understand": 25,
+            "apply": 30,
+            "analyse": 20,
+            "evaluate": 8,
+            "create": 2,
+            "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+          },
+          "source_grammar": [
+            "text_extract",
+            "photograph_or_image",
+            "cartoon",
+            "timeline"
+          ],
+          "caps_focus": "source comparison, perspective, cause and consequence and short evidence paragraphs",
+          "sections": [
+            {
+              "title": "source_extraction",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "source_extraction",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Social Sciences: History stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "source_comparison",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "source_comparison",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Social Sciences: History task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "short_paragraph_response",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "short_paragraph_response",
+                  "bloom_level": "analyse",
+                  "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Social Sciences: History stimulus or task.",
+                  "scaffold": [
+                    "one or two linked sources",
+                    "guided comparison",
+                    "show evidence from the task"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        },
+        {
+          "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+          "subject_id": "history",
+          "display_name": "Social Sciences: History",
+          "senior_subject": "Social Sciences",
+          "grade": 9,
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_essay",
+          "marks": 70,
+          "duration_minutes": 90,
+          "bloom_distribution": {
+            "remember": 10,
+            "understand": 20,
+            "apply": 30,
+            "analyse": 25,
+            "evaluate": 10,
+            "create": 5,
+            "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+          },
+          "source_grammar": [
+            "text_extract",
+            "photograph_or_image",
+            "cartoon",
+            "timeline"
+          ],
+          "caps_focus": "FET bridge: reliability, usefulness, comparison and controlled extended paragraph response",
+          "sections": [
+            {
+              "title": "source_extraction",
+              "questions": [
+                {
+                  "number": "1.1",
+                  "section": "source_extraction",
+                  "bloom_level": "understand",
+                  "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Social Sciences: History stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "source_comparison",
+              "questions": [
+                {
+                  "number": "2.1",
+                  "section": "source_comparison",
+                  "bloom_level": "apply",
+                  "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Social Sciences: History task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion"
+                  ],
+                  "marks": 6
+                }
+              ]
+            },
+            {
+              "title": "short_paragraph_response",
+              "questions": [
+                {
+                  "number": "3.1",
+                  "section": "short_paragraph_response",
+                  "bloom_level": "evaluate",
+                  "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Social Sciences: History stimulus or task.",
+                  "scaffold": [
+                    "two linked sources or multi-step task",
+                    "learner chooses relevant evidence",
+                    "short justified conclusion",
+                    "educator-approved rubric required"
+                  ],
+                  "marks": 8
+                }
+              ]
+            }
+          ],
+          "generation_constraints": [
+            "Use Senior Phase reading load and vocabulary, not FET wording.",
+            "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+            "Use Bloom distribution as a hard planning gate before generation.",
+            "Require educator approval before learner use."
+          ]
+        }
+      ]
+    }
+  ],
+  "extensions": [
+    {
+      "subject_id": "economics",
+      "display_name": "EMS / Economics Extension",
+      "senior_subject": "Economic and Management Sciences",
+      "caps_bridge": [
+        "corpora/caps/pdf/senior_grade_7_9/caps_sp_ems_web.pdf"
+      ],
+      "reason": "Economics carries downward mainly through EMS in Grades 7-9, then becomes a FET elective.",
+      "assessment_family": "case_study_structured_questions",
+      "source_grammar": [
+        "case_extract",
+        "data_table",
+        "graph_or_chart",
+        "basic_accounting_record"
+      ],
+      "status": "extension_ready",
+      "missing_caps_bridge": []
+    }
+  ],
+  "status_counts": {
+    "senior_blueprint_ready_release_blocked": 8
+  }
+}

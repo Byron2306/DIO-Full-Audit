@@ -1,0 +1,46 @@
+{
+  "schema": "dio.document_studio.languages.v1",
+  "languages": {
+    "English": {
+      "code": "en-ZA",
+      "status": "established_source_language",
+      "prompt_guidance": "Use clear South African English and preserve the requested professional register.",
+      "reviewer_requirement": "A proficient technical editor must approve edited English."
+    },
+    "Afrikaans": {
+      "code": "af-ZA",
+      "status": "golden_review_candidate",
+      "prompt_guidance": "Use standard contemporary South African Afrikaans. Prefer natural professional phrasing over literal English word order.",
+      "reviewer_requirement": "A proficient Afrikaans language reviewer must approve the complete translation."
+    },
+    "isiZulu": {
+      "code": "zu-ZA",
+      "status": "configured_review_candidate",
+      "prompt_guidance": "Use standard contemporary South African isiZulu orthography and natural concords. Do not force English sentence structure or invent technical terminology; flag uncertain domain terms.",
+      "reviewer_requirement": "A proficient isiZulu language reviewer with relevant domain knowledge must approve the complete translation."
+    },
+    "Sesotho": {
+      "code": "st-ZA",
+      "status": "configured_review_candidate",
+      "prompt_guidance": "Use standard contemporary South African Sesotho orthography and natural professional phrasing. Do not force English sentence structure or invent technical terminology; flag uncertain domain terms.",
+      "reviewer_requirement": "A proficient Sesotho language reviewer with relevant domain knowledge must approve the complete translation."
+    },
+    "Setswana": {
+      "code": "tn-ZA",
+      "status": "configured_review_candidate",
+      "prompt_guidance": "Use standard contemporary South African Setswana orthography and natural professional phrasing. Do not force English sentence structure or invent technical terminology; flag uncertain domain terms.",
+      "reviewer_requirement": "A proficient Setswana language reviewer with relevant domain knowledge must approve the complete translation."
+    }
+  },
+  "aliases": {
+    "english": "English",
+    "afrikaans": "Afrikaans",
+    "isizulu": "isiZulu",
+    "zulu": "isiZulu",
+    "sesotho": "Sesotho",
+    "sotho": "Sesotho",
+    "setswana": "Setswana",
+    "setstwana": "Setswana",
+    "tswana": "Setswana"
+  }
+}

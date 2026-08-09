@@ -1,0 +1,93 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T21:45:07+00:00",
+  "enabled": true,
+  "subject_id": "life_sciences",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "preferred_language": "English",
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "score": 190,
+      "document_id": "fileticket_yunfv0a_8o",
+      "title": "Life Sciences",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=_yUNfV0A_8o%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20LIFE%20SCIENCES%20_%20GR%2010-12%20Web_2636.pdf?ver=2015-01-27-154429-123",
+      "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455",
+      "bytes": 1913680
+    },
+    {
+      "score": 150,
+      "document_id": "fileticket_hkltwvc2jbc",
+      "title": "Lewenswetenskappe (Life Sciences)",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=HKLtWvC2jBc%3d&tabid=570&portalid=0&mid=1559",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20LIFE%20SCIENCES%20%20%20web.pdf?ver=2015-01-27-154840-313",
+      "sha256": "c87cef14176247dbd958ea54649194d812857d75ffbc1344506bb927dcd3259b",
+      "bytes": 725635
+    }
+  ],
+  "selected": {
+    "score": 190,
+    "document_id": "fileticket_yunfv0a_8o",
+    "title": "Life Sciences",
+    "phase": "fet_grade_10_12",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+    "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=_yUNfV0A_8o%3d&tabid=570&portalid=0&mid=1558",
+    "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20LIFE%20SCIENCES%20_%20GR%2010-12%20Web_2636.pdf?ver=2015-01-27-154429-123",
+    "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455",
+    "bytes": 1913680
+  },
+  "assessment_ontology_profile": {
+    "profile_id": "fet.life_sciences",
+    "subject": "Life Sciences",
+    "phase": "fet_grade_10_12",
+    "assessment_family": "data_diagram_practical_investigation"
+  },
+  "assessment_design_profile": {
+    "profile_id": "fet.life_sciences",
+    "subject": "Life Sciences",
+    "phase": "fet_grade_10_12",
+    "phase_group": "fet",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "confidence": "medium",
+    "assessment_forms": [],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "conceptual_understanding": 30,
+      "data_diagram_work": 25,
+      "practical_investigation": 25,
+      "application_reasoning": 20
+    },
+    "marking_instruments": [
+      "memorandum",
+      "rubric"
+    ],
+    "generation_constraints": [
+      "Use diagrams, data, observations, or investigation contexts where appropriate.",
+      "Keep practical tasks safe and feasible for the grade band."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      "...........................................................66 4.2 Informal and Daily Assessment ...................................................................................................................66 4.3 Formal Assessment.......................................................................................................................................67 CAPS 1 LIFE SCIENCES GRADES 10-12 4.4 Assessment Requirements for Life Sciences: Grades 10-12....................................................................68 4.4.1 Grade 10: Programme of Formal Assessment. .....................................................................................68 4.4.2 Grade 11: Programme of Formal Assessment.......................................................................................69 4.4.3 Grade 12: Programme of Formal Assessment. .................................",
+      "CULUM AND ASSESSMENT POLICY STATEMENT (CAPS) LIFE SCIENCES GRADES 10-12 Informal, ongoing assessments should be used to structure the acquisition of knowledge and skills and should be a precursor to formal tasks in the Programme of Assessment. 4.3 Formal Assessment Grades Formal school-based assessments End-of-year examinations R-3 100% n/a 4-6 75% 25% 7-9 40% 60% 10 and 11 25% including a mid-year examination 75% 12 25% including mid-year and trial External examination: 75% examinations All assessment tasks that make up a formal programme of assessment for the year are regarded as formal assessment. Formal assessment tasks are marked and formally recorded by the teacher for progression and certification purposes. All formal assessment tasks are subject to moderation to ensure that appropriate standards are maintained. Formal assessment provides teachers with a systematic way",
+      "of Assessment in each grade and subject. The cognitive demands in assessment should be appropriate for the age and developmental level of the learners in the grade. Assessment in Life Sciences must cater for a range of cognitive levels and abilities of learners. The assessment tasks should be carefully designed to cover the content of the subject as well as the range of skills and the cognitive levels that have been identified in the specific aims. The design of assessments should therefore ensure that a full range of content and skills are assessed within each Grade in the Phase. The specific aims, topics, content and range of skills in the subject should be used to inform the planning and development of assessments. Weighting of Cognitive Demands for the Assessment of content in Grades 10, 11 and 12 Evaluating, Understanding Applying scientific analysing and Knowing Science Scie",
+      "de feedback to the learners and to inform planning for teaching, but it need not be recorded. It should not be seen as separate from learning activities taking place in the classroom. Learners or teachers can mark these assessment tasks. Self-assessment and peer assessment actively involve the learners being assessed. This is important as it allows learners to learn from and reflect on their own performance. The results of the informal daily assessment tasks are not formally recorded unless the teacher wishes to do so. The results of daily assessment tasks are not taken into account for promotion or certification purposes. 66 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS) LIFE SCIENCES GRADES 10-12 Informal, ongoing assessments should be used to structure the acquisition of knowledge and skills and should be a precursor to formal tasks in the Programme of Assessment. 4.3 Formal A"
+    ]
+  },
+  "extracted_excerpt": "National Curriculum Statement (NCS)\n\n                                   Curriculum and Assessment\n                                         Policy Statement\nLIFE SCIENCES\n\n                         Further Education and Training Phase\n                                    Grades 10-12\n\n        \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n        \u0013\u0012\u0011\u001e\u0010\u0016\u000f\u0012\u0014\u0016\u000e\n        \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n        \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0017\u0014\u0016\u001c\u0013\u0012\u0017\u0011\u0015\u001f\u0019\u0018\u0011\n\f   Curriculum and Assessment Policy Statement\n                  Grades 10-12\n\n                  life sciences\n\nCAPS\n\fLIFE SCIENCES GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0578-4\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n                     CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n\f                                                                      LIFE SCIENCES GRADES 10-12\nFOREWORD by thE ministER\n\n                                 Our national curriculum is the culmination of our efforts over a period of seventeen\n                                 years to transform the curriculum bequeathed to us by apartheid. From the start of\n                                 democracy we have built our curriculum on the values that inspired our Constitution\n                                 (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n                                 Constitution are to:\n\n                                 \u2022     heal the divisions of the past and establish a society based on democratic\n                                       values, social justice and fundamental human rights;\n\n                                 \u2022     improve the quality of life of all citizens and free the potential of each person;\n\n                                 \u2022     lay the foundations for a democratic and open society in which government is\n                                       based on the will of the people and every citizen is equally protected by law;\n                                       and\n\n\u2022     build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n      nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nin 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experience\nof implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National Curriculum\nStatement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) and the National Curriculum Statement Grades 10-12 to produce this document.\n\nFrom 2012 the two national Curriculum statements, for Grades R-9 and Grades 10-12 respectively, are combined\nin a single document and will simply be known as the National Curriculum Statement Grades R-12. the National\nCurriculum Statement for Grades R-12 builds on the previous curriculum but also updates it and aims to provide\nclearer specification of what is to be taught and learnt on a term-by-term basis.\n\nthe National Curriculum Statement Grades R-12 represents",
+  "extraction_error": null
+}

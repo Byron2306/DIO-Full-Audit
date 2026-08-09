@@ -1,0 +1,249 @@
+{
+  "schema": "knowedge.homs_evidence_construction_grammar.v2",
+  "purpose": "Teach HOMS how to construct CAPS-aligned assessment evidence before writing questions. Some subjects require historical/language sources; others need scenarios, diagrams, tables, maps, data or no external source at all.",
+  "global_rules": [
+    "CAPS subject, grade, term and theme are the authority.",
+    "Decide whether the assessment needs source material, stimulus material, or no external source before writing questions.",
+    "When evidence/stimulus is required, build it before questions.",
+    "Every evidence-dependent question must cite a source label, figure label, data table, map, diagram or scenario supplied in the evidence set.",
+    "Do not use instruction pages, contents pages, question menus or mark-allocation snippets as source material.",
+    "If the material is constructed rather than extracted from an official source, label it as constructed classroom evidence.",
+    "Do not fabricate exact official quotations. Use paraphrased extracts, adapted classroom accounts, data, maps, diagrams or visual briefs unless the exact source text is supplied.",
+    "Each evidence card must expose usable evidence: dates, actors, places, values, labels, features, claims, perspectives, variables, language features or scenario facts that questions can assess.",
+    "Evidence sets must be review-ready but still require educator approval before classroom use."
+  ],
+  "subjects": {
+    "history": {
+      "evidence_policy": "source_required",
+      "evidence_label": "historical source set",
+      "source_families": [
+        "constructed_primary_extract",
+        "constructed_visual_source",
+        "constructed_secondary_account",
+        "timeline_or_context_table"
+      ],
+      "minimum_sources": 3,
+      "required_fields": [
+        "label",
+        "type",
+        "title",
+        "provenance",
+        "content",
+        "context",
+        "usable_evidence",
+        "allowed_question_moves"
+      ],
+      "allowed_question_moves": [
+        "extract evidence",
+        "contextualise provenance",
+        "explain message or viewpoint",
+        "compare sources",
+        "evaluate usefulness",
+        "evaluate reliability and limitation",
+        "explain causation/consequence",
+        "synthesise evidence into a judgement"
+      ],
+      "visual_construction": {
+        "allowed": [
+          "political_cartoon_brief",
+          "photograph_brief",
+          "map_or_timeline_brief",
+          "propaganda_poster_brief"
+        ],
+        "rules": [
+          "A visual brief must include visible elements, labels/caption, perspective, implied message and contextual note.",
+          "Questions may ask about a visual only if those visible elements are named in the brief."
+        ]
+      },
+      "banned_source_shapes": [
+        "table_of_contents",
+        "exam_instructions",
+        "question_prompt_only",
+        "missing_addendum_reference"
+      ]
+    },
+    "geography": {
+      "evidence_policy": "stimulus_required",
+      "evidence_label": "map/data/visual stimulus set",
+      "source_families": [
+        "constructed_map_extract",
+        "constructed_data_table",
+        "constructed_graph",
+        "constructed_photo_or_satellite_brief",
+        "constructed_case_context"
+      ],
+      "minimum_sources": 2,
+      "allowed_question_moves": [
+        "identify spatial pattern",
+        "read map feature",
+        "interpret graph or table",
+        "calculate from scale or data",
+        "explain process",
+        "compare places",
+        "justify a management response"
+      ],
+      "visual_construction": {
+        "allowed": [
+          "map_with_legend_scale_north_arrow",
+          "synoptic_weather_map",
+          "settlement_map",
+          "river_profile_or_cross_section",
+          "data_graph"
+        ],
+        "rules": [
+          "Maps must include title, legend, scale, north arrow and labelled features.",
+          "Data visuals must include units, axes or column labels, and values."
+        ]
+      }
+    },
+    "life_sciences": {
+      "evidence_policy": "stimulus_required",
+      "evidence_label": "data/diagram/investigation stimulus set",
+      "source_families": [
+        "constructed_data_table",
+        "constructed_graph",
+        "constructed_labelled_diagram",
+        "constructed_investigation_sheet"
+      ],
+      "minimum_sources": 3,
+      "allowed_question_moves": [
+        "define concept",
+        "read data trend",
+        "calculate change",
+        "interpret diagram labels",
+        "identify variables",
+        "evaluate validity and reliability",
+        "draw evidence-based conclusion"
+      ],
+      "visual_construction": {
+        "allowed": [
+          "labelled_biological_diagram",
+          "data_table_and_graph",
+          "investigation_setup"
+        ],
+        "rules": [
+          "Diagrams must have named labels that questions can reference.",
+          "Data tables must contain plausible values and units."
+        ]
+      }
+    },
+    "physical_sciences": {
+      "evidence_policy": "stimulus_required",
+      "evidence_label": "experiment/data/diagram stimulus set",
+      "source_families": [
+        "constructed_experiment_setup",
+        "constructed_data_table",
+        "constructed_graph",
+        "constructed_labelled_apparatus_diagram"
+      ],
+      "minimum_sources": 3,
+      "allowed_question_moves": [
+        "apply formula",
+        "read apparatus diagram",
+        "calculate from values",
+        "interpret graph",
+        "identify variables",
+        "evaluate method",
+        "explain scientific relationship"
+      ]
+    },
+    "mathematics": {
+      "evidence_policy": "no_external_source_required",
+      "evidence_label": "problem context or diagram only when required",
+      "source_families": [
+        "constructed_problem_context",
+        "constructed_graph",
+        "constructed_table",
+        "constructed_diagram"
+      ],
+      "minimum_sources": 2,
+      "allowed_question_moves": [
+        "calculate",
+        "solve equation",
+        "interpret graph",
+        "prove or justify",
+        "model a situation",
+        "check reasonableness"
+      ]
+    },
+    "life_orientation": {
+      "evidence_policy": "stimulus_required",
+      "evidence_label": "scenario/case evidence set",
+      "source_families": [
+        "constructed_case_study",
+        "decision_table",
+        "policy_or_rights_extract",
+        "reflection_prompt"
+      ],
+      "minimum_sources": 2,
+      "allowed_question_moves": [
+        "identify issue",
+        "analyse consequence",
+        "recommend action",
+        "justify decision",
+        "reflect safely",
+        "build action plan"
+      ]
+    },
+    "english_language": {
+      "evidence_policy": "source_required",
+      "evidence_label": "comprehension and visual text set",
+      "source_families": [
+        "constructed_reading_text",
+        "constructed_visual_text",
+        "language_extract",
+        "writing_prompt"
+      ],
+      "minimum_sources": 2,
+      "allowed_question_moves": [
+        "main idea",
+        "quote evidence",
+        "infer tone",
+        "analyse visual message",
+        "summarise",
+        "edit language",
+        "write in genre"
+      ]
+    },
+    "afrikaans_language": {
+      "evidence_policy": "source_required",
+      "evidence_label": "begripstoets- en visuele teksstel",
+      "source_families": [
+        "constructed_reading_text",
+        "constructed_visual_text",
+        "language_extract",
+        "writing_prompt"
+      ],
+      "minimum_sources": 2,
+      "allowed_question_moves": [
+        "hoofgedagte",
+        "haal bewys aan",
+        "toon en register",
+        "visuele geletterdheid",
+        "opsomming",
+        "taalstrukture",
+        "skryfrespons"
+      ],
+      "language_rule": "Learner-facing sources, questions and memo points must be in Afrikaans."
+    },
+    "economics": {
+      "evidence_policy": "stimulus_required",
+      "evidence_label": "case/data/policy stimulus set",
+      "source_families": [
+        "constructed_case_context",
+        "constructed_data_table",
+        "constructed_graph",
+        "policy_extract"
+      ],
+      "minimum_sources": 2,
+      "allowed_question_moves": [
+        "define concept",
+        "interpret data",
+        "explain relationship",
+        "analyse policy effect",
+        "evaluate impact",
+        "recommend response"
+      ]
+    }
+  }
+}

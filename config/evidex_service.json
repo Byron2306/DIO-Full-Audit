@@ -1,0 +1,50 @@
+{
+  "service": {
+    "name": "Evidex Evidence Pack",
+    "positioning": "48-hour evidence pack for grant, audit, donor, and compliance reporting.",
+    "default_currency": "ZAR",
+    "tiers": [
+      {
+        "id": "pilot",
+        "name": "Pilot Pack",
+        "price": 950,
+        "description": "One small review pack from supplied files, suitable for a first client demo."
+      },
+      {
+        "id": "ngo_standard",
+        "name": "NGO Standard Pack",
+        "price": 3500,
+        "description": "Structured evidence table, narrative, source folder, quality report, and delivery ZIP."
+      },
+      {
+        "id": "consultant_batch",
+        "name": "Consultant Batch Pack",
+        "price": 2500,
+        "description": "Per-pack reseller rate when supplied in batches of 3 or more."
+      },
+      {
+        "id": "urgent",
+        "name": "Urgent 48h Pack",
+        "price": 6500,
+        "description": "Priority turnaround for deadline-driven reporting or audit preparation."
+      }
+    ]
+  },
+  "required_client_questions": [
+    "What organization or project name should appear on the pack?",
+    "What reporting period does this evidence cover?",
+    "Who is the donor, funder, auditor, or client receiving the pack?",
+    "Is there a donor template, logframe, KPI sheet, rubric, or reporting checklist?",
+    "Which evidence files are primary proof, and which are supporting context?",
+    "Are there sensitive files or personal data that should be excluded or redacted?",
+    "Should finance/invoice proof be included?",
+    "What deadline and delivery format should be used?"
+  ],
+  "operator_gate": {
+    "payment_required_before_final_delivery": true,
+    "manual_payment_status_file": "PAID.txt",
+    "approval_required_before_delivery": true,
+    "no_auto_email": true
+  }
+}
+

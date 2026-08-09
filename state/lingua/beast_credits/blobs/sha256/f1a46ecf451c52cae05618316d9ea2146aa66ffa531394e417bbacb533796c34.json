@@ -1,0 +1,29 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:f1a46ecf451c52cae05618316d9ea2146aa66ffa531394e417bbacb533796c34",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 12,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "guard:protected_token_preservation",
+    "impact_fingerprint_hash": "sha256:6e0ad55e41b383f139d029a6811509057b1cb97de40989110f3c4e844ce5d6e8",
+    "metadata": {
+      "authority": "deterministic_validator",
+      "domain": "*",
+      "guard": "protected_token_preservation",
+      "rule": "Every configured protected token must remain exact in the target unit.",
+      "target_language": "isiZulu"
+    },
+    "policy_version": "dio_lingua_deterministic_learning_v1",
+    "repo_fingerprint": "sha256:6e0ad55e41b383f139d029a6811509057b1cb97de40989110f3c4e844ce5d6e8",
+    "task_class": "dio_lingua_deterministic_guard",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

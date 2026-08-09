@@ -1,0 +1,78 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Isizulu Language",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "IsiZulu",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_fal_isizulu_gr_10-12_web_6cfe.pdf",
+    "sha256": "f8beaf32df9e991933d71d25dbefa3265623a692e662fc5c4b6ad534238259b7"
+  },
+  "canonical_profile_id": "fet.isizulu_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [
+    "to the Curriculum and Assessment Policy Statements and the supplementary policy documents, possible errors may occur in the said documents",
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are"
+  ],
+  "assessment_content_focus": [
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are",
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are",
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: african, content, documents, languages, please, translated."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "low",
+    "render_allowed": false,
+    "content_lines": [],
+    "admin_lines": [
+      "to the Curriculum and Assessment Policy Statements and the supplementary policy documents, possible errors may occur in the said documents"
+    ],
+    "content_terms": [
+      "comprehension",
+      "language structures",
+      "listening",
+      "presenting",
+      "reading",
+      "speaking",
+      "viewing",
+      "writing"
+    ]
+  },
+  "render_gate": {
+    "status": "blocked",
+    "reason": "CAPS term/theme extraction did not produce a confident content theme.",
+    "action": "Curate or improve the CAPS term map before rendering subject visuals."
+  }
+}

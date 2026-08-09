@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+
+def q(number: str, question: str, marks: int, memo: list[str], source: str = "", lines: int | None = None) -> dict[str, Any]:
+    item: dict[str, Any] = {"number": number, "question": question, "marks": marks, "memo": memo}
+    if source:
+        item["source_reference"] = source
+    if lines:
+        item["answer_lines"] = lines
+    return item
+
+
+def build_pack() -> dict[str, Any]:
+    return {
+        "assessment_title": "Life Orientation Grade 12 Term 3 Controlled Test",
+        "subject": "Life Orientation",
+        "grade": 12,
+        "phase": "FET",
+        "canonical_profile_id": "fet.life_orientation",
+        "blueprint": "structured_case_paper",
+        "render_shell": "question_paper",
+        "language_of_assessment": "English",
+        "duration": "1.5 hours",
+        "total_marks": 50,
+        "evidence_cards": [
+            {
+                "label": "SOURCE A",
+                "title": "Mahlodi community health profile",
+                "type": "constructed community case and survey table",
+                "provenance": "Constructed CAPS-aligned scenario for educator review; not a real community dataset.",
+                "date": "Term 3 classroom scenario",
+                "context": "Human factors, lifestyle disease and intervention planning",
+                "content": "Mahlodi is a low-income settlement beside an industrial area. The nearest public clinic is 12 km away and public transport is irregular. Many adults work shifts or in insecure jobs. Local shops mainly stock inexpensive processed food, while safe recreation space is limited. A voluntary screening of 200 adults recorded: raised blood pressure, 64; current smokers, 52; fewer than 150 minutes of physical activity per week, 118; missed a clinic appointment because of transport or work, 76. Women in informal work reported that unpaid care duties often prevented exercise and clinic visits. A community group proposes weekend screening, a mobile clinic, safe walking groups, nutrition workshops using affordable local foods, and referral support."
+            },
+            {
+                "label": "SOURCE B",
+                "title": "Extract from a proposed employment contract",
+                "type": "constructed workplace document",
+                "provenance": "Fictional contract extract drafted for CAPS assessment; legal details require educator verification.",
+                "date": "Proposed appointment",
+                "context": "Contract elements, rights, obligations and conditions of service",
+                "content": "POST: Junior Laboratory Assistant (permanent, subject to a three-month probation period). HOURS: Monday to Friday, 08:00-16:30, including a 30-minute unpaid meal interval. REMUNERATION: R12 800 per month, paid on the final working day. OVERTIME: May be worked only by prior agreement and will be compensated according to applicable law and company policy. LEAVE: Annual, sick and family-responsibility leave are provided according to applicable law and policy. EMPLOYEE DUTIES: Follow lawful instructions, wear required protective equipment, protect confidential records and report hazards. EMPLOYER DUTIES: Provide a safe workplace, agreed remuneration, fair procedures and written records of employment. GRIEVANCE: The employee may raise a concern with the supervisor, HR or a representative without retaliation."
+            },
+            {
+                "label": "SOURCE C",
+                "title": "Recruitment and workplace scenario",
+                "type": "constructed decision case",
+                "provenance": "Constructed CAPS-aligned scenario for educator review.",
+                "date": "Recruitment exercise",
+                "context": "Equity, redress, recruitment, organised labour and work ethics",
+                "content": "Ubuntu Technical Services advertises two trainee posts with the same published criteria for all applicants. A shortlist panel records reasons for each decision and provides reasonable accommodation for an applicant with a hearing impairment. One manager nevertheless proposes appointing a relative who did not meet the minimum criteria. Employees at the company may join a recognised trade union, elect representatives and use a formal grievance process. The trainees will handle client information, safety checklists and shared equipment."
+            },
+        ],
+        "source_embedding": {"generated_visual_policy": "suppress_generated_visuals_when_evidence_cards_present"},
+        "visual_blueprint": {"required_visuals": []},
+        "sections": [
+            {
+                "title": "QUESTION 1: HEALTH, HUMAN FACTORS AND INTERVENTION",
+                "instructions": "Use Source A and relevant Life Orientation knowledge.",
+                "stimulus": "Refer to SOURCE A.",
+                "questions": [
+                    q("1.1", "Calculate the percentage of screened adults who reported fewer than 150 minutes of physical activity per week.", 2, ["118/200 x 100 = 59%."], "SOURCE A", 2),
+                    q("1.2", "Identify TWO human factors in Source A that may increase the risk of ill-health. Explain the effect of each.", 4, ["Any two supported factors: poverty/insecure work, transport barriers, limited healthy-food access, shift work, unsafe recreation space, smoking or unequal care duties.", "Award one mark for each identified factor and one for a plausible health effect."], "SOURCE A", 4),
+                    q("1.3", "Explain how poverty and gender imbalance may interact to make prevention or early treatment more difficult for some residents.", 4, ["Low income and insecure work restrict transport, healthy-food choices and time for care.", "Unequal unpaid care duties can particularly reduce women's time and autonomy.", "The combined barriers delay screening, treatment or sustained physical activity."], "SOURCE A", 4),
+                    q("1.4", "Evaluate TWO proposed community interventions. For each, explain how it addresses evidence in Source A.", 6, ["Award up to three marks per intervention: name it, link it to a stated barrier/risk, and explain a likely benefit or limitation.", "Examples include mobile clinic, weekend screening, walking groups, affordable-food workshops and referral support."], "SOURCE A", 6),
+                    q("1.5", "Write a realistic personal action step that could support long-term physical, mental or social well-being, and identify one way progress could be monitored.", 4, ["Specific, achievable action linked to long-term well-being (2).", "A measurable monitoring method or indicator (1).", "Recognition of safety, support or a likely barrier (1)."], "SOURCE A", 4),
+                ],
+            },
+            {
+                "title": "QUESTION 2: WORKPLACE READINESS AND FAIR PRACTICE",
+                "instructions": "Use Sources B and C. Support each answer with details from the sources.",
+                "stimulus": "Refer to SOURCE B and SOURCE C.",
+                "questions": [
+                    q("2.1", "Identify TWO employee rights or employer obligations stated in Source B. Explain why each matters.", 4, ["Any two stated items, each with significance: safe workplace, remuneration, fair procedures, records, leave, grievance route or overtime agreement/compensation."], "SOURCE B", 4),
+                    q("2.2", "Identify TWO employee obligations in Source B and explain how each supports a safe or ethical workplace.", 4, ["Any two: lawful instructions, PPE, confidentiality, hazard reporting; one mark for identification and one for explanation each."], "SOURCE B", 4),
+                    q("2.3", "Explain how the recorded selection criteria and reasonable accommodation in Source C support equity and redress.", 4, ["Common criteria and recorded reasons promote consistent, accountable selection.", "Reasonable accommodation removes an avoidable barrier without discarding competence criteria.", "Together they widen fair access and help address exclusion."], "SOURCE C", 4),
+                    q("2.4", "State TWO functions that organised labour or a trade union could perform for employees in this workplace.", 3, ["Any two relevant functions: represent members, collective bargaining, advise on rights, accompany grievances/discipline, promote safe conditions.", "Award the third mark for a clear link to the scenario."], "SOURCE C", 3),
+                    q("2.5", "Evaluate the manager's proposal to appoint a relative who does not meet the criteria. Recommend an ethical response by the panel.", 5, ["Recognise conflict of interest, unfairness and damage to trust (2).", "Reject or recuse the conflicted manager and apply the published criteria consistently (2).", "Document and communicate the defensible decision (1)."], "SOURCE C", 5),
+                ],
+            },
+            {
+                "title": "QUESTION 3: INTEGRATED TRANSITION PLAN",
+                "instructions": "Apply the health and workplace ideas from all three sources.",
+                "stimulus": "A Grade 12 learner is preparing for work while trying to establish healthy long-term routines.",
+                "questions": [
+                    q("3.1", "Develop a five-part, six-month action plan that combines workplace readiness with sustainable personal well-being. Each action must include a concrete indicator of progress.", 10, ["Award two marks per credible action: one for a specific action and one for a measurable indicator.", "The plan should cover both workplace readiness and well-being, for example contract literacy, application preparation, ethical conduct, physical activity, support/referral or time management."], lines=8),
+                ],
+            },
+        ],
+        "rubric": [
+            {"criterion": "Question 1: Health and intervention", "marks": 20, "descriptor": "Data use, human-factor reasoning and feasible intervention planning."},
+            {"criterion": "Question 2: Workplace readiness", "marks": 20, "descriptor": "Contract evidence, fair practice, organised labour and ethical judgement."},
+            {"criterion": "Question 3: Integrated plan", "marks": 10, "descriptor": "Specific actions with measurable progress indicators."},
+        ],
+        "teacher_review_checklist": [
+            "Confirm the Grade 12 Term 3 health and workplace scope.",
+            "Verify employment-law framing against current school-approved material before use.",
+            "Accept well-supported alternative interventions and action plans.",
+            "Approve the paper and memorandum before classroom use.",
+        ],
+        "generation_backend": "hymark_life_orientation_evidence_first",
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("out", type=Path)
+    args = parser.parse_args()
+    args.out.mkdir(parents=True, exist_ok=True)
+    pack = build_pack()
+    (args.out / "assessment_pack.json").write_text(json.dumps(pack, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"status": "completed", "out": str(args.out), "total_marks": 50}, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

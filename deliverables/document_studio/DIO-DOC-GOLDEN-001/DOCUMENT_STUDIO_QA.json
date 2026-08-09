@@ -1,0 +1,226 @@
+{
+  "schema": "dio.document_studio.qa.v1",
+  "job_id": "DIO-DOC-GOLDEN-001",
+  "passed": true,
+  "automated_validation": {
+    "passed": true,
+    "errors": [],
+    "paragraph_count": 7,
+    "edit_rows": 7,
+    "translation_rows": 7,
+    "protected_tokens": [
+      "pH",
+      "NTU",
+      "QMS-07"
+    ],
+    "preferred_terms_checked": 3
+  },
+  "provider_flags": [],
+  "translation_review_overrides": {
+    "reviewer": "Byron Bunt",
+    "applied_count": 6,
+    "corrections": [
+      {
+        "paragraph_id": "P1",
+        "before": "Gemeenskapswatergehalte-moniteringsprosedure",
+        "after": "Prosedure vir Gemeenskapswatergehaltemonitering",
+        "reason": "Bilingual proof-review correction applied; final target-language approval remains pending."
+      },
+      {
+        "paragraph_id": "P3",
+        "before": "Omvang: Dit is van toepassing op roetinemonsters wat van reservoirs, behandelingsuitlate en openbare krane versamel word. Die prosedure dek nie nood- chemiese stortings of laboratorium-instrumentkalibrasie nie.",
+        "after": "Omvang: Dit is van toepassing op roetinemonsters wat by reservoirs, behandelingsuitlate en openbare krane versamel word. Die prosedure dek nie chemiese noodstortings of die kalibrering van laboratoriuminstrumente nie.",
+        "reason": "Bilingual proof-review correction applied; final target-language approval remains pending."
+      },
+      {
+        "paragraph_id": "P4",
+        "before": "Verantwoordelikhede: Die spanleier kontroleer dat elke tegnikus PBT, skoon monsterbottels en 'n gekalibreerde meter het. Tegnici is verantwoordelik vir die voltooiing van vorm QMS-07 vir die bewaringsketting en die aanmelding van onveilige toestande.",
+        "after": "Verantwoordelikhede: Die spanleier kontroleer dat elke tegnikus oor persoonlike beskermende toerusting (PBT), skoon monsterbottels en 'n gekalibreerde meter beskik. Tegnici is verantwoordelik vir die voltooiing van Bewaringskettingvorm QMS-07 en die aanmelding van onveilige toestande.",
+        "reason": "Bilingual proof-review correction applied; final target-language approval remains pending."
+      },
+      {
+        "paragraph_id": "P5",
+        "before": "Prosedure: Voordat u 'n monster versamel, laat die kraan vir 2 minute loop. Spoel die sonde met skoon water af, maar moenie 'n steriele mikrobiologiese bottel uitspoel nie. Teken pH en troebelheid in NTU op die terrein aan. Monsters moet in 'n koeler tussen 2 en 8 grade Celsius geplaas word.",
+        "after": "Prosedure: Laat die kraan 2 minute lank loop voordat 'n monster geneem word. Spoel die sonde met skoon water af, maar moenie 'n steriele mikrobiologiese bottel uitspoel nie. Teken die pH en troebelheid in NTU op die terrein aan. Monsters moet in 'n koelhouer tussen 2 en 8 grade Celsius geplaas word.",
+        "reason": "Bilingual proof-review correction applied; final target-language approval remains pending."
+      },
+      {
+        "paragraph_id": "P6",
+        "before": "Data-aantekening: Skryf die terreinkode, datum, tyd en monsternemer se voorletters op sowel die bottel as QMS-07. Korreksies moet gemaak word deur een lyn deur die fout te trek; tipewater is nie toegelaat nie. Die rede vir enige ontbrekende lesing moet vermeld word.",
+        "after": "Data-aantekening: Skryf die terreinkode, datum, tyd en monsternemer se voorletters op die bottel en QMS-07. Maak regstellings deur 'n enkele streep deur die fout te trek; korreksievloeistof word nie toegelaat nie. Die rede vir enige ontbrekende lesing moet aangedui word.",
+        "reason": "Bilingual proof-review correction applied; final target-language approval remains pending."
+      },
+      {
+        "paragraph_id": "P7",
+        "before": "Eskalering: As pH onder 6.5 of bo 9.5 is, of troebelheid ho\u00ebr as 1 NTU is, skakel die spanleier onmiddellik. Moenie aan die gemeenskap s\u00ea die water is veilig of onveilig voordat die gemagtigde amptenaar die resultaat hersien het nie.",
+        "after": "Eskalering: Indien pH laer as 6.5 of ho\u00ebr as 9.5 is, of troebelheid ho\u00ebr as 1 NTU is, skakel die spanleier onmiddellik. Moenie die gemeenskap inlig dat die water veilig of onveilig is voordat die gemagtigde amptenaar die resultaat hersien het nie.",
+        "reason": "Bilingual proof-review correction applied; final target-language approval remains pending."
+      }
+    ],
+    "final_language_approval_still_required": false,
+    "reviewer_role": "Language practitioner",
+    "approved_at": "2026-08-09T11:39:58+00:00"
+  },
+  "human_gates": {
+    "technical_editor_approval": "pending",
+    "target_language_reviewer_approval": "approved",
+    "client_final_approval": "pending"
+  },
+  "claim_boundaries": [
+    "Paragraph-level formatting is rebuilt; complex source layout preservation is not yet proven.",
+    "Translation is a review candidate, not certified, sworn, or legally attested translation.",
+    "Operational facts, thresholds, identifiers, and terminology require human verification."
+  ],
+  "automated_integrity_passed": true,
+  "linguistic_quality_approved": true,
+  "release_readiness": "linguistic_approved_pending_remaining_review",
+  "language_controls": {
+    "beast_reuse": {
+      "schema": "dio.lingua.beast_resolution.v1",
+      "status": "resolved",
+      "approved_units": [],
+      "approved_terms": [],
+      "risk_patterns": [],
+      "deterministic_guards": [
+        {
+          "guard": "anchor_completeness",
+          "rule": "Every source unit must have exactly one aligned target unit.",
+          "credit_id": "scc_b7b3257b9efd415b"
+        },
+        {
+          "guard": "protected_token_preservation",
+          "rule": "Every configured protected token must remain exact in the target unit.",
+          "credit_id": "scc_e22c7d367f2e5aa4"
+        },
+        {
+          "guard": "numeral_preservation",
+          "rule": "Every operational numeral present in a source unit must remain present in its target unit.",
+          "credit_id": "scc_100a9d60bfb75236"
+        },
+        {
+          "guard": "source_hash_staleness",
+          "rule": "A changed source-unit hash makes every previously aligned target unit stale.",
+          "credit_id": "scc_765eaca0ec10c118"
+        }
+      ],
+      "active_negative_capabilities": [],
+      "reuse_state": "miss",
+      "provider_call_displaced": false,
+      "crystal_chain": {
+        "beast_object_type": "crystal_chain_verification",
+        "version": "1.0",
+        "valid": true,
+        "block_count": 29,
+        "head_hash": "sha256:723dd664e355f4b631decea35212607f26e77df128bcee351e775a1cee07bb11",
+        "errors": [],
+        "consensus": "local_hash_chain_no_distributed_consensus"
+      },
+      "memory_residue": {
+        "beast_object_type": "memory_hull_write_receipt",
+        "version": "2.0",
+        "residue_id": "residue_a232486930954056d119",
+        "section": "decisions",
+        "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_a232486930954056d119.md",
+        "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_a232486930954056d119.residue.json",
+        "residue_seal": {
+          "beast_object_type": "beast_residue_seal",
+          "version": "2.0",
+          "purpose": "memory_hull_decisions",
+          "algorithm": "Ed25519",
+          "provider": "cryptography",
+          "created_at": "2026-08-09T11:38:04.864550+00:00",
+          "payload_sha256": "sha256:c61cad1af5a748c5a65ac9f4b3084758144f9da413acc8ed6adb915ffc0613fa",
+          "message_sha256": "sha256:10e246e3bb07ce3334d008bf01e6ba84428ff21d4ddc8b2e1de125e7eb73f1d6",
+          "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+          "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+          "signature_b64": "7LAlkPFSqp9rOsvagWMpGjjU1rgP/cvMXulgUiPOl5dzltB1gw79Rg83cFeto3358Figi0oHq5e2EkRYSMLVAw==",
+          "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+        },
+        "verified": true,
+        "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+      },
+      "prec_lifecycle": {
+        "beast_object_type": "prec_lifecycle",
+        "version": "1.0",
+        "lifecycle_id": "prec_6b72a58b478b00b20a",
+        "kind": "dio_lingua",
+        "objective": "Lingua resolve for Afrikaans",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "current_phase": "crystallize",
+        "task_id": "",
+        "provider": "BEAST",
+        "summary": "Lingua resolve lifecycle completed",
+        "metadata": {
+          "operation": "resolve",
+          "target_language": "Afrikaans"
+        },
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:a1bcefb999a76d6c900d101d1e4bf58fb1ae1436f0a85baf5cdab83d9326cbc7"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "resolved"
+            }
+          }
+        },
+        "created_at": "2026-08-09T11:38:04.868151+00:00",
+        "updated_at": "2026-08-09T11:38:04.875675+00:00",
+        "completed_at": "2026-08-09T11:38:04.875675+00:00",
+        "phase_events": [
+          {
+            "phase": "perceive",
+            "status": "completed",
+            "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+            "artifacts": {},
+            "signals": [
+              "resolve"
+            ],
+            "created_at": "2026-08-09T11:38:04.869667+00:00"
+          },
+          {
+            "phase": "reason",
+            "status": "completed",
+            "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+            "artifacts": {
+              "result_status": "resolved"
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:38:04.871090+00:00"
+          },
+          {
+            "phase": "economize",
+            "status": "completed",
+            "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+            "artifacts": {
+              "provider_call_displaced": false
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:38:04.872565+00:00"
+          },
+          {
+            "phase": "crystallize",
+            "status": "completed",
+            "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+            "artifacts": {
+              "receipt_digest": "sha256:a1bcefb999a76d6c900d101d1e4bf58fb1ae1436f0a85baf5cdab83d9326cbc7"
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:38:04.874318+00:00"
+          }
+        ],
+        "phase_status": {
+          "perceive": "completed",
+          "reason": "completed",
+          "economize": "completed",
+          "crystallize": "completed"
+        }
+      }
+    }
+  }
+}

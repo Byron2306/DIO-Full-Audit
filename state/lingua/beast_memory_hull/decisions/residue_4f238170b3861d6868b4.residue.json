@@ -1,0 +1,48 @@
+{
+  "beast_object_type": "memory_hull_sidecar",
+  "markdown_sha256": "sha256:2082919a34c293083b3020963957a4d0e70eb7e1ccf0a97c53b1587a66e9db8b",
+  "payload": {
+    "beast_object_type": "memory_hull_residue",
+    "beast_systems": {
+      "chronicle_compatible": true,
+      "residue_sealed": true,
+      "vault_editable": true
+    },
+    "caller": "spiffe://dio.local/lingua",
+    "correlation_id": "",
+    "cost_saved": "",
+    "created_at": "2026-08-09T11:40:48.805065+00:00",
+    "decision": "Accepted proficient reviewer authority from Byron Bunt (Language practitioner).",
+    "evidence": {
+      "approval_state": "approved",
+      "credit_count": 7
+    },
+    "files_touched": [],
+    "markdown_sha256": "sha256:2082919a34c293083b3020963957a4d0e70eb7e1ccf0a97c53b1587a66e9db8b",
+    "policy_tags": [
+      "lingua",
+      "human-approved",
+      "semantic-authority"
+    ],
+    "provider": "BEAST",
+    "residue_id": "residue_4f238170b3861d6868b4",
+    "section": "decisions",
+    "task": "Crystallize DIO-LINGUA-WATER-001 in Sesotho",
+    "version": "2.0"
+  },
+  "residue_seal": {
+    "algorithm": "Ed25519",
+    "beast_object_type": "beast_residue_seal",
+    "created_at": "2026-08-09T11:40:48.805981+00:00",
+    "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation",
+    "message_sha256": "sha256:81c2df92527a5763a7e76dd9e2b8cb5e16d07be505e14af590c50bb61bb5685b",
+    "payload_sha256": "sha256:77229646aaf241cd1e6d9dc29edaa27f52efed95e96fb06dd36182e4d00b51d9",
+    "provider": "cryptography",
+    "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+    "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+    "purpose": "memory_hull_decisions",
+    "signature_b64": "RVfic+I9uk2dMRjptxoCZ1icE1cXaSduUzQ6q0GaI/JDBlaA/2QyGpXlpQwzFRBnR8kLj0m8qX7YlWnoobvOAA==",
+    "version": "2.0"
+  },
+  "version": "2.0"
+}

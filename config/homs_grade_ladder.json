@@ -1,0 +1,149 @@
+{
+  "schema": "knowedge.homs_grade_ladder.v1",
+  "grades": [
+    {
+      "grade": 1,
+      "phase": "foundation",
+      "learner_level": "emergent",
+      "bloom_targets": ["remember", "understand"],
+      "zpd_level": "close scaffold",
+      "question_style": ["oral_prompt", "picture_prompt", "matching", "short_word_or_phrase"],
+      "reading_load": "very_low",
+      "writing_load": "very_low",
+      "memo_style": "accept concrete wording, drawings, pointing, and teacher-mediated responses",
+      "review_checks": ["age-appropriate language", "visual clarity", "no unsupported reading load"]
+    },
+    {
+      "grade": 2,
+      "phase": "foundation",
+      "learner_level": "early",
+      "bloom_targets": ["remember", "understand", "apply"],
+      "zpd_level": "close scaffold",
+      "question_style": ["picture_prompt", "matching", "sentence_starter", "short_answer"],
+      "reading_load": "low",
+      "writing_load": "low",
+      "memo_style": "accept simple explanations and concrete examples",
+      "review_checks": ["plain language", "clear mark split", "limited abstraction"]
+    },
+    {
+      "grade": 3,
+      "phase": "foundation",
+      "learner_level": "early",
+      "bloom_targets": ["remember", "understand", "apply"],
+      "zpd_level": "guided scaffold",
+      "question_style": ["short_answer", "sequence_steps", "picture_interpretation", "sentence_response"],
+      "reading_load": "low",
+      "writing_load": "low_to_moderate",
+      "memo_style": "credit simple reason-giving and correct everyday examples",
+      "review_checks": ["curriculum vocabulary", "short instructions", "balanced picture/text load"]
+    },
+    {
+      "grade": 4,
+      "phase": "intermediate",
+      "learner_level": "developing",
+      "bloom_targets": ["remember", "understand", "apply"],
+      "zpd_level": "guided scaffold",
+      "question_style": ["short_answer", "basic_source_use", "explain_in_own_words", "simple_table"],
+      "reading_load": "moderate",
+      "writing_load": "moderate",
+      "memo_style": "credit accurate concept use and first-step explanation",
+      "review_checks": ["avoid senior-school abstraction", "support new terminology", "include clear examples"]
+    },
+    {
+      "grade": 5,
+      "phase": "intermediate",
+      "learner_level": "developing",
+      "bloom_targets": ["remember", "understand", "apply", "analyze"],
+      "zpd_level": "moderate scaffold",
+      "question_style": ["source_prompt", "compare_two_items", "explain_cause", "interpret_simple_graph"],
+      "reading_load": "moderate",
+      "writing_load": "moderate",
+      "memo_style": "credit supported comparison and simple causal explanation",
+      "review_checks": ["fair vocabulary", "visible evidence in source questions", "mark allocation matches demand"]
+    },
+    {
+      "grade": 6,
+      "phase": "intermediate",
+      "learner_level": "developing_to_intermediate",
+      "bloom_targets": ["remember", "understand", "apply", "analyze"],
+      "zpd_level": "moderate scaffold",
+      "question_style": ["structured_response", "data_or_source_interpretation", "compare_and_explain", "paragraph_answer"],
+      "reading_load": "moderate",
+      "writing_load": "moderate_to_high",
+      "memo_style": "credit evidence-linked explanation and structured paragraphs",
+      "review_checks": ["transition to senior phase readiness", "clear command verbs", "no hidden prerequisite knowledge"]
+    },
+    {
+      "grade": 7,
+      "phase": "senior",
+      "learner_level": "intermediate",
+      "bloom_targets": ["remember", "understand", "apply", "analyze"],
+      "zpd_level": "moderate scaffold",
+      "question_style": ["source_analysis", "case_or_data_response", "explain_relationship", "paragraph_answer"],
+      "reading_load": "moderate_to_high",
+      "writing_load": "moderate_to_high",
+      "memo_style": "credit supported reasoning and correct subject vocabulary",
+      "review_checks": ["phase-appropriate challenge", "avoid Grade 10-12 depth", "support evidence use"]
+    },
+    {
+      "grade": 8,
+      "phase": "senior",
+      "learner_level": "intermediate",
+      "bloom_targets": ["understand", "apply", "analyze", "evaluate"],
+      "zpd_level": "moderate scaffold",
+      "question_style": ["multi_step_source_analysis", "scenario_application", "justify_answer", "short_essay"],
+      "reading_load": "high",
+      "writing_load": "high",
+      "memo_style": "credit justified reasoning, not only keyword recall",
+      "review_checks": ["balanced recall and reasoning", "scenario facts align with memo", "mark levels are clear"]
+    },
+    {
+      "grade": 9,
+      "phase": "senior",
+      "learner_level": "intermediate_to_advanced",
+      "bloom_targets": ["understand", "apply", "analyze", "evaluate"],
+      "zpd_level": "guided challenge",
+      "question_style": ["integrated_source_analysis", "case_evaluation", "extended_paragraph", "pre_fet_problem"],
+      "reading_load": "high",
+      "writing_load": "high",
+      "memo_style": "credit defensible conclusions and evidence-linked judgment",
+      "review_checks": ["prepare for FET demand", "avoid undergraduate framing", "moderate cognitive spread"]
+    },
+    {
+      "grade": 10,
+      "phase": "fet",
+      "learner_level": "advanced_school",
+      "bloom_targets": ["understand", "apply", "analyze", "evaluate"],
+      "zpd_level": "light scaffold",
+      "question_style": ["source_based_question", "data_response", "structured_essay", "case_analysis"],
+      "reading_load": "high",
+      "writing_load": "high",
+      "memo_style": "credit accurate content, source use, and defended explanation",
+      "review_checks": ["subject assessment guidelines", "content depth", "fair command verbs"]
+    },
+    {
+      "grade": 11,
+      "phase": "fet",
+      "learner_level": "advanced_school",
+      "bloom_targets": ["apply", "analyze", "evaluate", "create"],
+      "zpd_level": "light scaffold",
+      "question_style": ["complex_source_based_question", "case_analysis", "argumentative_essay", "method_or_investigation"],
+      "reading_load": "high",
+      "writing_load": "high",
+      "memo_style": "credit independent reasoning, substantiated judgment, and alternative valid routes",
+      "review_checks": ["difficulty progression", "memo alternatives", "mark allocation consistency"]
+    },
+    {
+      "grade": 12,
+      "phase": "fet_exit",
+      "learner_level": "advanced_school_exit",
+      "bloom_targets": ["apply", "analyze", "evaluate", "create"],
+      "zpd_level": "expert challenge",
+      "question_style": ["exam_source_set", "extended_case_response", "argumentative_essay", "synthesis_question"],
+      "reading_load": "high",
+      "writing_load": "high",
+      "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+      "review_checks": ["exit-level standard", "moderation readiness", "equivalent second opportunity", "no undergraduate-only assumptions"]
+    }
+  ]
+}

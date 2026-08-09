@@ -1,0 +1,33 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:2b834c7742e68e727b529964ebd5e53a15e5a793072a0ba3689f14c6158c0070",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 61,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "DIO-LINGUA-WATER-001:P7",
+    "impact_fingerprint_hash": "sha256:ae0a95941f23fd292f20512fc34b86529fb3aef467b0afe62ffc7c84a988cf2d",
+    "metadata": {
+      "approved_at": "2026-08-09T11:39:58+00:00",
+      "domain": "Water-quality operations",
+      "reviewer": "Byron Bunt",
+      "reviewer_role": "Language practitioner",
+      "semantic_object_id": "DIO-LINGUA-WATER-001",
+      "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+      "target_language": "Afrikaans",
+      "target_text": "Eskalering: Indien pH laer as 6.5 of ho\u00ebr as 9.5 is, of troebelheid ho\u00ebr as 1 NTU is, skakel die spanleier onmiddellik. Moenie die gemeenskap inlig dat die water veilig of onveilig is voordat die gemagtigde amptenaar die resultaat hersien het nie.",
+      "unit_id": "P7"
+    },
+    "policy_version": "dio_lingua_human_authority_v1",
+    "repo_fingerprint": "sha256:ae0a95941f23fd292f20512fc34b86529fb3aef467b0afe62ffc7c84a988cf2d",
+    "task_class": "dio_lingua_translation_unit",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

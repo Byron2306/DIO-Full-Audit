@@ -1,0 +1,79 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Dramatic Arts",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "4",
+  "caps_source": {
+    "title": "Dramatic Arts",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dramatic_arts_gr_10-12_web_ea5e.pdf",
+    "sha256": "cc17139684ab6c8c7681b62eda43d33e1e1666e9b81bc64be178378ac404636a"
+  },
+  "canonical_profile_id": "fet.dramatic_arts",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "Topic 5: Origins of theatre and Greek theatre",
+    "Topic 6: Play Text 2: Greek theatre",
+    "Topic 7: Non-verbal communication (individual or group)",
+    "Topic 8: Text interpretation (individual)",
+    "Topic 9: Choice of medieval/commedia dell\u2019arte/Indian theatre",
+    "Topic 10: Play Text 3: Choice of medieval/commedia dell\u2019arte/Indian/South African theatre",
+    "Topic 11: South African theatre: Introduction to workshopped theatre",
+    "Topic 12: Staging and/or film conventions",
+    "Topic 13: Group performance",
+    "Assessment:",
+    "24 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "Practical",
+    "Conduct ongoing self and peer assessment",
+    "Task 5: Performance Assessment Task 3 50 marks"
+  ],
+  "assessment_content_focus": [
+    "Topic 5: Origins of theatre and Greek theatre",
+    "Topic 6: Play Text 2: Greek theatre",
+    "Topic 5: Origins of theatre and Greek theatre",
+    "Topic 6: Play Text 2: Greek theatre"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: greek, origins, theatre, topic."
+  ],
+  "required_visuals": [
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

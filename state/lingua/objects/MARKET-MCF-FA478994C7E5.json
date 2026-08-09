@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-MCF-FA478994C7E5",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "multichannel_campaign_family",
+    "artifact_id": "CNT-FA478994C7E5",
+    "campaign_id": "MCF-FA478994C7E5",
+    "product_line_id": "EVIDEX_PACK",
+    "audience": "NGO and NPO programme leads",
+    "channel": "facebook_page",
+    "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+    "cta": "Request a controlled evidence-pack pilot",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:1de7222055f14611fe1778f69cbb69d408a330d136d94addb35dac16997f81a6",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "A donor-ready evidence trail that a\u2026",
+        "source_hash": "sha256:1b73ee5b589dcd8e5370c2ab43d776e6f2ae39597b3175b0b51c3375b773e056",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "Reporting evidence is scattered across folders, email and staff memory. Evidex prepares the work for human review. Request\u2026",
+        "source_hash": "sha256:631e3be885ced2770c3e9a0a13c2ba43e4c1d90552b263c386bef66ffcb2f9ac",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:1de7222055f14611fe1778f69cbb69d408a330d136d94addb35dac16997f81a6",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T13:55:48+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T13:55:48+00:00"
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "knowedge.homs_marking_request.v1",
+  "created_at": "2026-08-07T16:37:34+00:00",
+  "job_id": "homs-09d7b6a2e7463661bc81",
+  "homs_root": "/home/byron/Downloads/NoEdge-Multi-Hymark-main",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "dummy-homs-outlook-20260807T163632Z",
+    "thread_ref": "dummy-homs-thread-20260807T163632Z"
+  },
+  "route": {
+    "product": "homs",
+    "confidence": 0.95,
+    "reason": "Matched route keywords: homs, marking relief, marking, efundi, gradebook."
+  },
+  "intake_summary": {
+    "sender": "Lecturer <[email]>",
+    "subject": "HOMS Marking Relief Request - EDU221 Essay Batch",
+    "attachments_listed": "",
+    "triage_next_step": "Check Gradebook, SIS/Student360, and eFundi before using any draft.",
+    "triage_draft_status": "draft_ready",
+    "risk": "moderate"
+  },
+  "required_inputs": {
+    "assignment_batch_zip": {
+      "required": true,
+      "status": "not_verified",
+      "notes": "Expected eFundi export ZIP or equivalent batch folder."
+    },
+    "rubric_or_memo": {
+      "required": true,
+      "status": "not_verified",
+      "notes": "Expected rubric, memo, essay matrix, or marking guide."
+    },
+    "gradebook_csv": {
+      "required": false,
+      "status": "not_verified",
+      "notes": "Needed for automated mark collation/update."
+    },
+    "assignment_instructions": {
+      "required": false,
+      "status": "not_verified",
+      "notes": "Can be pasted text or uploaded file."
+    }
+  },
+  "requested_outputs": [
+    "per-student draft feedback",
+    "annotated submission files where possible",
+    "filled rubric documents",
+    "collated marks CSV",
+    "lecturer review summary",
+    "return-ready ZIP"
+  ],
+  "approval": {
+    "required": true,
+    "reason": "Educator must approve final marks and feedback before release."
+  },
+  "source_extract": "Evidence note for: HOMS Marking Relief Request - EDU221 Essay Batch\n\nEvidence seen:\n- Sender visible: Lecturer <[email]>\n- Subject visible: HOMS Marking Relief Request - EDU221 Essay Batch\n- Received timestamp visible: 2026-08-07T16:36:32+00:00\n- Folder/source context: Inbox\n- Attachment names visible: edu221-essay-batch.zip; rubric.pdf; memo.docx; marksheet.csv\n- Body text or preview reviewed.\n- Risk flags assigned: contains_grade_issue, references_evidence_or_attachment\n\nMissing information:\n- Gradebook record\n- SIS/Student360 record\n- eFundi evidence\n\nThis note is for review and audit. It is not an outbound email."
+}

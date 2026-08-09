@@ -1,0 +1,111 @@
+{
+  "schema": "knowedge.homs_design_law_receipt.v1",
+  "created_at": "2026-08-08T10:09:54+00:00",
+  "status": "formatted",
+  "job_dir": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z",
+  "design_law": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_design_law.json",
+  "assessment_design": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/caps_assessment_design/caps_assessment_design.json",
+  "canonical_profile_id": "fet.life_sciences",
+  "render_shell": "investigation_task_sheet",
+  "input_pack": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_pack.json",
+  "formatted_docx": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/ASSESSMENT_PACK_FORMATTED.docx",
+  "visual_manifest": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/HOMS_VISUAL_MANIFEST.json",
+  "source_assets": [
+    {
+      "source_number": 1,
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "paper": "Life Sciences P1 November 2024",
+      "page": 10,
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/data_table/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/margin_trim/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 2,
+      "title": "Official-paper exemplar: Diagram Or Model",
+      "source_type": "diagram_or_model",
+      "paper": "Life Sciences P1 November 2024",
+      "page": 4,
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/diagram_or_model/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/margin_trim/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 3,
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "paper": "Life Sciences P1 November 2025",
+      "page": 10,
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/graph_or_chart/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/margin_trim/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_candidate_may_be_too_aggressive",
+        "page_level_source_not_object_crop",
+        "question_asks_learner_to_draw_graph",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "assets": [
+    {
+      "title": "Science Data Table And Graph Stimulus",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_visuals/01_science_data_table_and_graph_stimulus.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_visuals/01_science_data_table_and_graph_stimulus.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Investigation Data And Method Sheet",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_visuals/02_investigation_data_and_method_sheet.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_visuals/02_investigation_data_and_method_sheet.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Life Sciences Labelled Diagram Stimulus",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_visuals/03_life_sciences_labelled_diagram_stimulus.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/assessment_visuals/03_life_sciences_labelled_diagram_stimulus.png",
+      "status": "png_rendered",
+      "quality_flags": [
+        "generated_schematic_not_authoritative_source"
+      ]
+    }
+  ],
+  "educator_approval_required": true,
+  "formatted_zip": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t1-20260808T100953Z/HOMS_FORMATTED_ASSESSMENT_PACK.zip"
+}

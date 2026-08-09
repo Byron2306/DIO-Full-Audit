@@ -1,0 +1,61 @@
+{
+  "schema": "knowedge.phase3.storyboard.v1",
+  "episode_id": "homs-cmp-d3e55414c7b5",
+  "campaign_id": "CMP-D3E55414C7B5",
+  "hypothesis_id": "W4-HYP-0002",
+  "studio_id": "dio_proof_led_services",
+  "product_layer": "homs",
+  "created_at": "2026-08-08T22:11:08+00:00",
+  "target_runtime_seconds": 60,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 7,
+      "narration": "One curriculum spine should not produce eight identical-looking papers. Watch HOMS change the assessment architecture with the subject.",
+      "screen_text": "HOMS Assessment Desk",
+      "visual": "Open on the real finished proof, not an abstract AI graphic."
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 10,
+      "narration": "Marking backlogs, exam setup, memoranda, and grade-appropriate assessment design drain teacher time.",
+      "screen_text": "The actual workload",
+      "visual": "Show the source mess or assessment-production burden with realistic work objects."
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "proof",
+      "duration_seconds": 14,
+      "narration": "Eight Grade 12 Term 3 subject packs with separate memoranda, source-grounded papers, embedded media and educator approval boundaries.",
+      "screen_text": "Inspect the proof",
+      "visual": "Move through legible excerpts from the existing proof asset."
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "workflow",
+      "duration_seconds": 12,
+      "narration": "Draft feedback, gradebook support, exam papers, memoranda, subject profiles, grade-level constraints, and educator review summaries.",
+      "screen_text": "Input -> review -> delivery",
+      "visual": "Show the controlled workflow and its receipts."
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 9,
+      "narration": "Educator approves final marks and feedback. AI never becomes the final assessor.",
+      "screen_text": "Human authority remains",
+      "visual": "Show the explicit operator or educator approval gate."
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "narration": "Review the tight-eight proof and request one subject-and-grade pilot.",
+      "screen_text": "Academic Production Pilot",
+      "visual": "End on one bounded action and the proof landing page."
+    }
+  ],
+  "approval_required": true
+}

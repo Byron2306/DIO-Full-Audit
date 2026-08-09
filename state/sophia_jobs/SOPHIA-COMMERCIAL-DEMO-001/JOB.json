@@ -1,0 +1,51 @@
+{
+  "schema": "dio.sophia_commercial_job.v1",
+  "job_id": "SOPHIA-COMMERCIAL-DEMO-001",
+  "product_code": "SOPHIA_SECTION_REVIEW",
+  "service_name": "Sophia Section Review Pilot",
+  "state": "delivery_draft_ready",
+  "controlled": true,
+  "created_at": "2026-08-08T19:43:50+00:00",
+  "customer": {
+    "name": "Controlled Sophia Customer",
+    "email": "byron.bunt@nwu.ac.za",
+    "institution": "Controlled demonstration"
+  },
+  "consents": {
+    "manuscript_owner_authorized": true,
+    "gemini_remote_processing_approved": true,
+    "service_terms_accepted": true
+  },
+  "source": {
+    "request_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/sophia_jobs/SOPHIA-COMMERCIAL-DEMO-001/REVIEW_REQUEST.json",
+    "document_name": "demo_manuscript.md",
+    "document_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/samples/sophia/demo_manuscript.md"
+  },
+  "payment": {
+    "required": false,
+    "state": "waived",
+    "order_id": null,
+    "amount_minor": 4900,
+    "currency": "USD",
+    "checkout_url": null
+  },
+  "review": {
+    "state": "ready_for_human_review",
+    "output_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/sophia_academic_reviews/SOPHIA-COMMERCIAL-DEMO-001",
+    "grounding_passed": true,
+    "provider": "gemini",
+    "model": "gemini-flash-lite-latest",
+    "reference_findings": 2
+  },
+  "approval": {
+    "state": "approved",
+    "reviewer": "Codex controlled QA review",
+    "reviewed_at": "2026-08-08T19:44:46+00:00"
+  },
+  "delivery": {
+    "state": "draft_ready",
+    "mail_intent_id": "MAIL-635D8E3B87F0BCA8",
+    "released": false
+  },
+  "updated_at": "2026-08-08T19:44:47+00:00"
+}

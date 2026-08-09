@@ -1,0 +1,87 @@
+{
+  "assessment_title": "Grade 6 Mathematics: Calculation and Problem-Solving Assessment Demo Pack",
+  "subject": "Mathematics",
+  "grade": 6,
+  "phase": "intermediate_grade_4_6",
+  "canonical_profile_id": "intermediate.mathematics",
+  "blueprint": "calculation_problem_solving",
+  "duration": "60 minutes",
+  "total_marks": 40,
+  "sections": [
+    {
+      "title": "Section A: Calculations and Procedures",
+      "mode": "calculation_problem_solving",
+      "instructions": "Answer all questions in this section. Show all working steps where required. Marks are awarded for correct methods and accurate answers.",
+      "stimulus": "No additional stimulus required. All information is provided in each question.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Calculate: 428 + 576",
+          "marks": 2,
+          "memo": [
+            "Step 1: Add units: 8 + 6 = 14 \u2192 write 4, carry 1",
+            "Step 2: Add tens: 2 + 7 + 1 (carry) = 10 \u2192 write 0, carry 1",
+            "Step 3: Add hundreds: 4 + 5 + 1 (carry) = 10",
+            "Step 4: Final answer: 1004",
+            "Award 1 mark for correct method (showing carrying), 1 mark for correct answer"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Calculate: 7 \u00d7 8",
+          "marks": 1,
+          "memo": [
+            "Recall multiplication fact: 7 \u00d7 8 = 56",
+            "Award 1 mark for correct answer"
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "What is 3\u20444 of 80?",
+          "marks": 2,
+          "memo": [
+            "Step 1: Find 1\u20444 of 80 = 80 \u00f7 4 = 20",
+            "Step 2: Multiply by 3: 20 \u00d7 3 = 60",
+            "Alternative: (3 \u00d7 80) \u00f7 4 = 240 \u00f7 4 = 60",
+            "Award 1 mark for correct method, 1 mark for correct answer"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Subtract: 5.00 \u2013 2.35",
+          "marks": 2,
+          "memo": [
+            "Step 1: Align decimal points",
+            "Step 2: Subtract hundredths: 0 \u2013 5 \u2192 borrow from tenths \u2192 10 \u2013 5 = 5",
+            "Step 3: Subtract tenths: (0\u20131 borrowed) \u2192 9 \u2013 3 = 6",
+            "Step 4: Subtract units: 4 \u2013 2 = 2",
+            "Step 5: Final answer: 2.65",
+            "Award 1 mark for correct method (showing borrowing), 1 mark for correct answer"
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Correct calculation with appropriate method shown",
+      "marks": 20,
+      "descriptor": "Learner demonstrates correct procedural fluency in addition, multiplication, fraction of amount, and decimal subtraction with clear, logical steps shown where required."
+    },
+    {
+      "criterion": "Accuracy of final answers",
+      "marks": 20,
+      "descriptor": "Learner produces correct numerical answers for all questions: 1004, 56, 60, and 2.65 respectively."
+    }
+  ],
+  "teacher_review_checklist": [
+    "All questions align with Grade 6 CAPS Mathematics content for Numbers, Operations and Relationships (addition, subtraction, multiplication, fractions, decimals)",
+    "Mark allocation follows the required distribution: calculation and procedure (55%) \u2014 22 marks out of 40 (55%)",
+    "Memo includes clear, step-by-step methodological guidance for consistent marking",
+    "No essay or source-based sections included \u2014 compliant with default-off modes in canonical profile",
+    "Instructions are clear and appropriate for Grade 6 learners",
+    "Total marks = 40, duration = 60 minutes \u2014 suitable for a formal class assessment",
+    "Assessment declares canonical_profile_id and assessment_family as required",
+    "At least one supporting CAPS evidence document is cited (the provided CAPS excerpt for Mathematics Grades 4-6)"
+  ]
+}

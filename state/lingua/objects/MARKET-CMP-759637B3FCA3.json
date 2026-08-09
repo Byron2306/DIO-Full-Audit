@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-CMP-759637B3FCA3",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "proof_story",
+    "artifact_id": "CNT-759637B3FCA3",
+    "campaign_id": "CMP-759637B3FCA3",
+    "product_line_id": "SOPHIA_LEARN",
+    "audience": "South African schools, tutors, extra-class providers and education publishers",
+    "channel": "linkedin_organic",
+    "proof_asset": "config/media_layers.json",
+    "cta": "Nominate one subject, grade, term and topic for a controlled companion-pack pilot.",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "2026-08-08T22:11:08+00:00",
+    "document_hash": "sha256:cf44788e6ad3b0ccd72d3f30238caf9371c1e62b341519764e6bc401df15fb67",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "One curriculum spine should drive the explanation, activity, worksheet, assessment, memo and optional video lesson.",
+        "source_hash": "sha256:b42d4391124ef998e588931af79315343e72619f6b02df18009b3c24ae373800",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "HOMS assessment and CAPS controls plus NicheFoundry media production can be combined; a connected one-topic guide, activity, worksheet, assessment, memo and video proof remains the release gate.\n\nIf Publishers Association of South Africa (PASA) is shown 'One-topic companion proof: beautiful guided-learning pack + visual resource + practice sheet + HOMS assessment/memo from the same curriculum spine.', then the Curriculum/content decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Nominate one subject, grade, term and topic for a controlled companion-pack pilot.",
+        "source_hash": "sha256:49d82114e447f7cbd20d240ae86643ba397bee1741459c9708f8892501cf4e26",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "2026-08-08T22:11:08+00:00",
+      "document_hash": "sha256:cf44788e6ad3b0ccd72d3f30238caf9371c1e62b341519764e6bc401df15fb67",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T12:02:20+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T12:02:20+00:00"
+}

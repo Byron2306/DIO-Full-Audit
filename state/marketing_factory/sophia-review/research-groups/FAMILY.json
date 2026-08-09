@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "SOPHIA_REVIEW--research_groups",
+  "generated_at": "2026-08-09T14:02:19+00:00",
+  "product": {
+    "id": "SOPHIA_REVIEW",
+    "name": "Sophia Academic Review Desk",
+    "offer": "academic_review"
+  },
+  "audience": {
+    "id": "research_groups",
+    "name": "Research offices and project teams",
+    "pain": "Collaborative manuscripts accumulate inconsistent references and argument seams.",
+    "outcome": "A shared technical review trail before formal peer review or submission."
+  },
+  "landing_page": "sites/sophia/index.html",
+  "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+  "assets": {
+    "square_1080": "state/marketing_factory/sophia-review/research-groups/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/sophia-review/research-groups/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/sophia-review/research-groups/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/sophia-review/research-groups/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/sophia-review/research-groups/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/sophia-review/research-groups/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/sophia-review/research-groups/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/sophia-review/research-groups/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

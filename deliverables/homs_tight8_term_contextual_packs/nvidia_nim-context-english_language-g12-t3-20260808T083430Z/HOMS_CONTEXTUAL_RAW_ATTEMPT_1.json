@@ -1,0 +1,202 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Term 3 Controlled Assessment: English Language",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "sections": [
+    {
+      "title": "Section A: Integrated Comprehension, Summary and Language Structures",
+      "mode": "comprehension",
+      "instructions": "Read the following text and answer the questions that follow.",
+      "stimulus": "A cartoon advertisement for a new smartphone.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "What is the main idea of the cartoon advertisement?",
+          "marks": 2,
+          "memo": [
+            "The main idea of the cartoon advertisement is to promote the new smartphone as a status symbol."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "What language structure is used to convey the main idea?",
+          "marks": 2,
+          "memo": [
+            "The language structure used to convey the main idea is a complex sentence with a subordinate clause."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Cartoon, Advertisement or Infographic Analysis",
+      "mode": "visual_literacy",
+      "instructions": "Analyze the following infographic and answer the questions that follow.",
+      "stimulus": "An infographic showing the benefits of a healthy lifestyle.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "What is the main message of the infographic?",
+          "marks": 2,
+          "memo": [
+            "The main message of the infographic is that a healthy lifestyle can improve overall well-being."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "What visual element is used to convey the main message?",
+          "marks": 2,
+          "memo": [
+            "The visual element used to convey the main message is a bar chart showing the benefits of a healthy lifestyle."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Editing for Grammar, Diction, Register and Punctuation",
+      "mode": "language_structures",
+      "instructions": "Edit the following text to correct any grammatical errors and improve the overall clarity.",
+      "stimulus": "A text with grammatical errors.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "What is the correct grammatical structure for the sentence?",
+          "marks": 2,
+          "memo": [
+            "The correct grammatical structure for the sentence is a simple sentence with a subject and a predicate."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "What is the correct register for the text?",
+          "marks": 2,
+          "memo": [
+            "The correct register for the text is formal."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section D: Formal Transactional Writing and Controlled Response Planning",
+      "mode": "transactional_writing",
+      "instructions": "Plan a formal transactional letter to a friend.",
+      "stimulus": "A language response planner.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "What is the main purpose of the letter?",
+          "marks": 2,
+          "memo": [
+            "The main purpose of the letter is to inform a friend about a recent event."
+          ]
+        },
+        {
+          "number": "4.2",
+          "question": "What language structure is used to convey the main purpose?",
+          "marks": 2,
+          "memo": [
+            "The language structure used to convey the main purpose is a formal letter with a greeting and a closing."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Comprehension",
+      "marks": 20,
+      "descriptor": "The learner demonstrates a clear understanding of the text and is able to identify the main idea and supporting details."
+    },
+    {
+      "criterion": "Language Structures",
+      "marks": 20,
+      "descriptor": "The learner demonstrates a clear understanding of language structures and is able to identify and correct grammatical errors."
+    },
+    {
+      "criterion": "Visual Literacy",
+      "marks": 15,
+      "descriptor": "The learner demonstrates a clear understanding of visual literacy and is able to analyze and interpret visual information."
+    },
+    {
+      "criterion": "Transactional Writing",
+      "marks": 15,
+      "descriptor": "The learner demonstrates a clear understanding of transactional writing and is able to plan and write a formal letter."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the learner has demonstrated a clear understanding of the text and is able to identify the main idea and supporting details.",
+    "Verify that the learner has demonstrated a clear understanding of language structures and is able to identify and correct grammatical errors.",
+    "Verify that the learner has demonstrated a clear understanding of visual literacy and is able to analyze and interpret visual information.",
+    "Verify that the learner has demonstrated a clear understanding of transactional writing and is able to plan and write a formal letter."
+  ]
+}

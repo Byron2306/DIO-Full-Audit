@@ -1,0 +1,60 @@
+{
+  "schema": "dio.format_core.receipt.v1",
+  "object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "rendered_at": "2026-08-09T16:07:41+00:00",
+  "status": "rendered_release_candidate",
+  "style_profile": "dio_professional",
+  "style_profile_hash": "f08f383c90917a43a2f70439657fe368302ac1a623a61656cf7443c3bfad23e5",
+  "delivery_profile": "editable_review",
+  "delivery_profile_hash": "6edd3459fdf23d7ce62d5bf1ed48796f132f98e2ec25273a777c02aa84b0ece8",
+  "language": {
+    "language": "isiZulu",
+    "lane": "translation",
+    "status": "human_approved_crystallized",
+    "stale_units": []
+  },
+  "release_mode": true,
+  "semantic_source_hash": "b42f332b618ede22316ebc5d160dbd3e5832f76e0b9c991c8dd5e79426cd9c85",
+  "semantic_blocks": 7,
+  "translation_expansion_ratio": 1.172,
+  "templates": {},
+  "qa": {
+    "passed": true,
+    "errors": [],
+    "warnings": [],
+    "semantic_completeness": {
+      "docx": {
+        "expected_strings": 7,
+        "missing_count": 0,
+        "missing": []
+      },
+      "html": {
+        "expected_strings": 7,
+        "missing_count": 0,
+        "missing": []
+      }
+    }
+  },
+  "claim_boundary": "Format Core rebuilds typed semantic content through controlled profiles; it does not claim pixel-identical reconstruction of arbitrary source files.",
+  "outputs": [
+    {
+      "channel": "docx",
+      "path": "dio-lingua-water-001-isizulu.docx",
+      "sha256": "943034271c588bf2e2be34f846cf407c040af1e290ca340cc34e9dba884d9e5f",
+      "bytes": 39269
+    },
+    {
+      "channel": "html",
+      "path": "dio-lingua-water-001-isizulu.html",
+      "sha256": "b4811940d32f549815c5c953f7154092ffc30ec4dfa55f9175529ca6480ce105",
+      "bytes": 3989
+    },
+    {
+      "channel": "pdf",
+      "path": "dio-lingua-water-001-isizulu.pdf",
+      "sha256": "798060fe24d3b9763848803dfe2f1821dc2e25affc40e6136ae3eae87abf063a",
+      "bytes": 55651
+    }
+  ]
+}

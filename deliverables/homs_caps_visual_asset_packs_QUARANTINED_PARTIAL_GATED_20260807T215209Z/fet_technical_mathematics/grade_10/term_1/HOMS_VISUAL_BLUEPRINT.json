@@ -1,0 +1,97 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Technical Mathematics",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Technical Mathematics",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_maths_tech_final_bleed_and_crops.pdf",
+    "sha256": "89a9c9bc207ef6e929a0d203837ab11b7797bc4e2b412677bf679d82cd84e869"
+  },
+  "canonical_profile_id": "fet.technical_mathematics",
+  "assessment_family": "calculation_problem_solving",
+  "render_shell": "question_paper",
+  "caps_theme_candidates": [
+    "taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R \u2013 12",
+    "(c) National Protocol for Assessment Grades R \u2013 12.",
+    "CONTENTS",
+    "SECTION 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS 6",
+    "FOR TECHNICAL MATHEMATICS GRADE 10 - 12 TECHNICAL MATHEMATICS",
+    "Curriculum Assessment",
+    "GRADES 10 \u2013 12",
+    "CURRICULUM AND ASSESSMENT POLICY",
+    "editorial changes and layout adjustments to the Curriculum and Assessment Policy Statements and the supplementary",
+    "If any editorial, layout, content, terminology or formulae inconsistencies are detected, the user is kindly requested to"
+  ],
+  "assessment_content_focus": [
+    "taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: accordingly, basis, curriculum, grades, learning, learnt."
+  ],
+  "required_visuals": [
+    {
+      "id": "working_grid",
+      "title": "Working grid with method mark space",
+      "role": "learner_workspace",
+      "visual_kind": "working_grid",
+      "must_show": [
+        "question number",
+        "marks",
+        "working area",
+        "final answer cue"
+      ],
+      "assessment_use": "Learners show method before final answer."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "low",
+    "render_allowed": false,
+    "content_lines": [],
+    "admin_lines": [
+      "Guidelines and Subject Assessment Guidelines with the",
+      "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+      "(c) National Protocol for Assessment Grades R \u2013 12.",
+      "CONTENTS",
+      "SECTION 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS 6",
+      "Curriculum Assessment",
+      "CURRICULUM AND ASSESSMENT POLICY",
+      "editorial changes and layout adjustments to the Curriculum and Assessment Policy Statements and the supplementary"
+    ],
+    "content_terms": [
+      "algebra",
+      "data",
+      "function",
+      "geometry",
+      "graph",
+      "measurement",
+      "number",
+      "pattern",
+      "probability"
+    ]
+  },
+  "render_gate": {
+    "status": "blocked",
+    "reason": "CAPS term/theme extraction did not produce a confident content theme.",
+    "action": "Curate or improve the CAPS term map before rendering subject visuals."
+  }
+}

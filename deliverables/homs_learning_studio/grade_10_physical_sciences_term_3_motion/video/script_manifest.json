@@ -1,0 +1,79 @@
+{
+  "episode_id": "homs-learning-g10-motion-001",
+  "tone": "clear, calm, learner-centred, curriculum-grounded",
+  "cast": {
+    "main_host": "South African English lesson narrator"
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "card_id": "01_reference_frame",
+      "role": "lesson_open",
+      "objective": "Establish the topic and the reference-frame rule.",
+      "on_screen_text": "Motion starts with a reference frame",
+      "voiceover": "Before calculating motion, choose an origin and a positive direction. Every position, displacement and velocity is then described relative to that reference frame.",
+      "visual_note": "Use the pack's signed reference-frame diagram.",
+      "duration_seconds": 13
+    },
+    {
+      "scene_id": "scene_02",
+      "card_id": "02_distance_displacement",
+      "role": "worked_concept",
+      "objective": "Separate distance from displacement.",
+      "on_screen_text": "Distance is path. Displacement is change in position.",
+      "voiceover": "Suppose a learner walks twenty metres east, then five metres west. The distance is twenty-five metres. The displacement is positive fifteen metres, or fifteen metres east. Path length and change in position are not the same quantity.",
+      "visual_note": "Use the signed track to show the outward and return motion.",
+      "duration_seconds": 19
+    },
+    {
+      "scene_id": "scene_03",
+      "card_id": "03_velocity_acceleration",
+      "role": "worked_concept",
+      "objective": "Explain velocity sign and acceleration.",
+      "on_screen_text": "Velocity includes direction. Acceleration changes velocity.",
+      "voiceover": "A negative velocity means motion in the chosen negative direction. It does not automatically mean slowing down. Acceleration measures how quickly velocity changes, so signs must stay consistent from the sketch to the final answer.",
+      "visual_note": "Use the reference frame and motion arrow as the sign anchor.",
+      "duration_seconds": 18
+    },
+    {
+      "scene_id": "scene_04",
+      "card_id": "04_position_time",
+      "role": "graph_lesson",
+      "objective": "Teach position-time graph interpretation.",
+      "on_screen_text": "Position-time gradient equals velocity",
+      "voiceover": "On this position-time graph, A to B has a positive gradient, so velocity is positive. B to C is horizontal, so the object is at rest. C to D has a negative gradient, so the object moves back toward the origin.",
+      "visual_note": "Use the labelled position-time graph from the learner pack.",
+      "duration_seconds": 20
+    },
+    {
+      "scene_id": "scene_05",
+      "card_id": "05_velocity_time",
+      "role": "graph_lesson",
+      "objective": "Teach velocity-time gradient and area.",
+      "on_screen_text": "Velocity-time gradient is acceleration. Area is displacement.",
+      "voiceover": "On a velocity-time graph, gradient gives acceleration. The signed area between the graph and time axis gives displacement. Here the object accelerates, moves at constant velocity, and then slows uniformly to rest.",
+      "visual_note": "Use the labelled velocity-time graph and shaded area.",
+      "duration_seconds": 19
+    },
+    {
+      "scene_id": "scene_06",
+      "card_id": "06_practical",
+      "role": "practical_transfer",
+      "objective": "Connect the concepts to measurement.",
+      "on_screen_text": "Measure motion, then test the graph",
+      "voiceover": "You can test these ideas with a toy car, a straight track, a metre rule and a stopwatch. Record the time at fixed positions, average repeated runs, plot position against time, and use a suitable gradient to estimate velocity.",
+      "visual_note": "Use the pack's practical setup diagram.",
+      "duration_seconds": 20
+    },
+    {
+      "scene_id": "scene_07",
+      "card_id": "07_practice_route",
+      "role": "lesson_close",
+      "objective": "Direct the learner into deliberate practice.",
+      "on_screen_text": "Learn. Investigate. Practise. Check.",
+      "voiceover": "Now complete the guide examples, practical activity and worksheet before attempting the mini-assessment. Check every answer for a formula, substitution, unit, direction and a physically sensible result.",
+      "visual_note": "Use the learner graph grid as a quiet practice close.",
+      "duration_seconds": 17
+    }
+  ]
+}

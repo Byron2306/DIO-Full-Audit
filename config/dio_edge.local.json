@@ -1,0 +1,9 @@
+{
+  "schema": "dio.edge_connection.v1",
+  "base_url": "https://dio-edge-gateway.dio-workflows.workers.dev",
+  "event_api_path": "/api/dio/events",
+  "ack_api_path": "/api/dio/events/ack",
+  "edge_token_path": "/home/byron/.local/state/knowedge-dio/edge-pull-token",
+  "graph_queue_path": "/home/byron/.local/state/knowedge-dio/graph-notifications.jsonl",
+  "commerce_queue_path": "/home/byron/.local/state/knowedge-dio/commerce-events.jsonl"
+}

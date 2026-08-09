@@ -1,0 +1,746 @@
+{
+  "schema": "dio.campaign.live_market_signals.v1",
+  "observation_id": "LIVE-OBS-5C38EB30817E5C72",
+  "campaign_id": "CMP-D3E55414C7B5",
+  "hypothesis_id": "W4-HYP-0002",
+  "product_layer": "homs",
+  "source_system": "nichefoundry_connector_federation",
+  "connectors": [
+    {
+      "id": "youtube_public_discovery",
+      "adapter": "youtube_public",
+      "version": "1.0.0",
+      "trust_note": "Public metadata is market evidence, not factual source evidence for a script."
+    },
+    {
+      "id": "rss_monitor",
+      "adapter": "rss",
+      "version": "1.0.0",
+      "trust_note": "Feed descriptions are discovery leads. Full source review is still required for factual claims."
+    }
+  ],
+  "search": {
+    "query": "\"CAPS assessment\" teacher South Africa",
+    "region_code": "ZA",
+    "relevance_language": "en",
+    "published_after_days": 365,
+    "started_at": "2026-08-09T00:42:10.370Z",
+    "finished_at": "2026-08-09T00:42:27.447Z"
+  },
+  "depth": {
+    "returned_videos": 10,
+    "relevant_videos": 8,
+    "rejected_as_irrelevant": 2,
+    "returned_news_or_blog_items": 20,
+    "relevant_news_or_blog_items": 3,
+    "rejected_news_or_blog_items": 17,
+    "approximate_search_results": 24314,
+    "total_views_in_sample": 224584,
+    "median_views_in_sample": 81,
+    "latest_published_at": "2026-07-02T16:02:22Z",
+    "scored_candidates": 11
+  },
+  "top_opportunities": [
+    {
+      "opportunity_id": "opp_c85ff3091ae80686",
+      "title": "IEB CAPS vs Cambridge: How to choose the right curriculum for your child - Advtech",
+      "decision": "watch",
+      "opportunity_score": 50,
+      "audience_demand": 0.57,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRlJTNGxZbkJqeENScEJjTU9QeE1xQ1pzdkp6U0k3dEY0VDBXMk1TVFJrWjRzYjh6a29IX3VTM0ppbzBzUDZzd1Fib3Z4R2xMR0V6NUpsX2Q1N2FpOTd0Uko1THhKSVFyR0VHME45eGNTcXhXTUw1T2Nnb2R6c3hvUW40NTNBZ0VTaWVnTEFyeWJkTWZCSTA2RGZaMUxSdjZrVkE?oc=5",
+        "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_b3a496d6ebbfdcdf",
+      "title": "One profession, many roles: Why South African teachers are being set up to fail - educationnews.co.ke",
+      "decision": "watch",
+      "opportunity_score": 49,
+      "audience_demand": 0.57,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOcWFUZkNBWGtqTTFUTzhoaUZTS25zVDlDSHNkS0VWb252QWg0emVNWVFLZXZXU3V5Qm5KMXZUc2ExS3ZzM0UySUtfZXJnd0FaWU9ydEdRdkV5WUlPZ3d5RFRJS0tlb3A0MVJ5ZUc4TjBDcUxfNHR2aVRFbERDTTV1ay1jUWhsenB0enVLaG1zZ0dGWFR2SFZnamExMVdxN1I2a25Ya3g3X3J4dw?oc=5",
+        "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_c582da50b1d51a8e",
+      "title": "Teaching for autonomy: Grade 3 teachers’ strategies for self-directed learning in literacy - Frontiers",
+      "decision": "watch",
+      "opportunity_score": 47,
+      "audience_demand": 0.45,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMikAFBVV95cUxPV29ZS3lvMks4Mmd1dF81T3FJN0dpa20wbkM5QVJTVFZsY1gtYk91dmpUWXEwcENmWjRha05pangxRTJ3Y19yYVRpN0tGWGF5YzVSUnBTOGFFUUh1YUg0UV9XUEpyUlFfV3U3LWQ0anhnZDB5Q0hwQW9lRDItbzBPNjNRdHhJQlg0RF9idlNDc1U?oc=5",
+        "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_abe4cca32bd97eba",
+      "title": "Grade 6 NSTech Final Assessment: Electricity, Solar System & Fuels (CAPS Aligned)",
+      "decision": "watch",
+      "opportunity_score": 45,
+      "audience_demand": 0.344,
+      "content_gap": 0.525,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=7968m_cHISQ"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_459f2ee9f155555c",
+      "title": "The Only CAPS Lesson Planning Tutorial South African Teachers Need (Step-by-Step Guide)",
+      "decision": "reject_fit",
+      "opportunity_score": 39,
+      "audience_demand": 0.302,
+      "content_gap": 0.525,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=IhmxVmgzidA"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    }
+  ],
+  "records": [
+    {
+      "video_id": "uLr6DuHxXiU",
+      "title": "ICA1501|ASSIGNMENT 03|STEP BY STEP GUIDE 2026",
+      "description": "📚 ICA1501 Assessment 03 | CAPS and Creative Arts Education | UNISA 2026 Welcome to this ICA1501 Assessment 03 presentation. This presentation provides the official assessment instructions, requirements, and questions for Learning Unit 1: CAPS and Creative Arts Education. It is designed to help students understand what is expected in Assessment 03 and how the assessment is structured. Topics covered: • Assessment information • Assessment instructions • Formatting requirements • Submission requirements • Question 1: Interpreting Creative Arts in CAPS • Question 1.1 • Question 1.2 • Mark allocation Assessment Details: Module: ICA1501 Assessment Number: 03 Unique Number: 666643 Total Marks: 30 Due Date: 18 June 2026 @ 23:00 Remember: Include a cover page Include a reference list Use APA 7th edition referencing Submit as a single PDF document Complete the Declaration of Honesty Thank you for watching. Please Like, Share, Comment and Subscribe for more UNISA educational content. #ICA1501 #UNISA #CreativeArts #CAPS #Assessment03 #Education #TeacherEducation #SouthAfrica #UniversityStudies #DistanceLearning",
+      "channel_id": "UC7zlShf88t85rp2eIKjMoXw",
+      "channel_title": "Nkateko H. Mbidhli ",
+      "published_at": "2026-06-04T18:33:34Z",
+      "views": 123,
+      "likes": 2,
+      "comments": 1,
+      "duration": "PT7M59S",
+      "url": "https://www.youtube.com/watch?v=uLr6DuHxXiU",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "teacher"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "aghK4Q6UDN8",
+      "title": "'CAPS curriculum created obedient kids, not critical thinkers'",
+      "description": "John Maytham speaks to educational anthropologist Esmé van Deventer about the CAPS curriculum and its negative effects on students. #JohnMaytham #CapeTalk #JoinTheConversation --- Afternoon Drive with John Maytham serves a round-up of local and international news coupled with the latest in business, sport, traffic and weather. The host’s eclectic interests mean the program often surprises the audience with intriguing book reviews and inspiring interviews profiling artists. --- Thank you for watching Afternoon Drive with John Maytham on YouTube. Like and subscribe to CapeTalk on YouTube: https://www.youtube.com/@capetalk Afternoon Drive with John Maytham audio catch-up on YouTube: https://www.youtube.com/playlist?list=PL7abMsEpkwTBjzOXJD2DXqapEauxy2viO Afternoon Drive with John Maytham YouTube Playlist: https://www.youtube.com/playlist?list=PL7abMsEpkwTCoerPioX6OhiEgLB_l_3AY ---- FOLLOW CAPETALK ON SOCIAL MEDIA CapeTalk on Facebook: https://www.facebook.com/CapeTalk CapeTalk on TikTok: https://www.tiktok.com/@capetalk CapeTalk on Instagram: https://www.instagram.com/ CapeTalk on X: https://x.com/CapeTalk ---- Listen live on Primedia+ weekdays from 15:00 and 18:00 (SA Time) to Afternoon Drive with John Maytham broadcast on CapeTalk https://buff.ly/gUqHZSX For more from the show go to https://buff.ly/cqqa6ft or find all the catch-up podcasts here https://buff.ly/f1ybNCX Subscribe to the CapeTalk Daily and Weekly Newsletters https://buff.ly/q6z8tRM",
+      "channel_id": "UC6FFYdsWLEpBXXjhz0an3kg",
+      "channel_title": "CapeTalk",
+      "published_at": "2025-11-27T11:29:51Z",
+      "views": 146,
+      "likes": 3,
+      "comments": 2,
+      "duration": "PT7M48S",
+      "url": "https://www.youtube.com/watch?v=aghK4Q6UDN8",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "test",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "XXetqor5ivU",
+      "title": "National Teacher Awards 2025 | Project-Based Learning immersion at Future Nation Schools",
+      "description": "As part of the FirstRand Foundation-sponsored National Teacher Awards professional development programme, South Africa's top teachers visited Future Nation Schools for an immersive Project-Based Learning (PBL) experience. Over three days, the cohort explored how learner-centred teaching, authentic assessment and real-world problem-solving can be integrated into the CAPS curriculum. Through classroom observations, workshops and reflective discussions, teachers engaged with practical strategies designed to strengthen teaching and learning in South African schools. The immersion formed part of a broader professional learning journey that includes participation in the International Research Symposium on Project-Based Learning (IRSPBL) and an international study tour to Denmark. Together, these experiences are helping build a national community of educators committed to preparing learners for the future through meaningful, engaging and relevant learning. #NationalTeacherAwards #NTA2025 #ProjectBasedLearning #PBL #FutureNationSchools #FirstRandFoundation #TeacherDevelopment #CurriculumStrengthening #EducationInnovation #SouthAfricanEducation",
+      "channel_id": "UCrH0aEyrKedA_VGzSWx82Lw",
+      "channel_title": "Sifiso Learning Group",
+      "published_at": "2026-06-22T11:02:36Z",
+      "views": 38,
+      "likes": 3,
+      "comments": 0,
+      "duration": "PT4M42S",
+      "url": "https://www.youtube.com/watch?v=XXetqor5ivU",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "teacher",
+          "south africa",
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "IhmxVmgzidA",
+      "title": "The Only CAPS Lesson Planning Tutorial South African Teachers Need (Step-by-Step Guide)",
+      "description": "If you're a South African teacher spending hours creating CAPS-aligned lesson plans, this step-by-step tutorial will show you how to generate a detailed, curriculum-aligned lesson in minutes using AI — the right way. In this video, I demonstrate exactly how to generate a Grade 4 CAPS-aligned English lesson plan (Adjectives – 30 minutes) using CAPScribe, and how to use the Additional Notes section to give AI deeper classroom context for better output. Most teachers only enter: • Grade • Subject • Topic But high-quality AI lesson plans require context. In this walkthrough, you'll learn: ✅ How to structure your prompt for better AI output ✅ How to align lessons to CAPS Intermediate Phase requirements ✅ How to include differentiation and informal assessment ✅ How to support mixed-ability and ESL learners ✅ How to reduce admin time without compromising standards 🚀 CAPScribe Adjectives Lesson Plan Here: 👉 https://tinyurl.com/capslessonplan 📌 COPY-AND-PASTE TEMPLATE FOR “ADDITIONAL NOTES” Teachers can copy this and replace the bracket sections with their own details: Learner Context: • Class size: [Number of learners] • Ability level: [Mixed ability / Mostly average / Strong class / Struggling class] • Learners who need support: [e.g., 5 struggle with reading / 3 ESL learners / learners with barriers] • Behaviour/attention span: [Short / Moderate / High energy] • What works well with this class: [Group work / Visuals / Movement / Practical activities / Discussion] Curriculum Alignment: • Subject: [Subject name] • Phase: [Foundation / Intermediate / Senior / FET] • CAPS focus area/strand: [Specific strand or skill] • Core concept for this lesson: [Topic] • By the end of the lesson learners should be able to: [Outcome 1] [Outcome 2] [Outcome 3] Lesson Requirements: • Lesson duration: [30 / 45 / 60 minutes] • Structure the lesson to include: Clear lesson objectives Warm-up activity ([X minutes]) Direct teaching/input ([X minutes]) Guided practice ([X minutes]) Informal assessment Closure activity ([X minutes]) Teaching Approach: • Use examples relevant to South African learners • Keep explanations clear and age-appropriate • Include at least one: [Pair activity / Group activity / Movement activity / Discussion] • Include differentiation strategies for: Struggling learners Advanced learners (extension activity) Keep transitions smooth to maintain engagement Resources Available: • [Whiteboard / Chalkboard / Projector / Smartboard] • [Worksheets / Textbook / Flashcards] • [Limited tech / No internet / Full tech access] • Any constraints: [Large class / No printing / Limited time] Assessment: • Include at least 3 informal assessment questions • Provide observable success criteria • Suggest what the teacher should look for during the lesson Tone & Output Style: • Keep instructions teacher-friendly • Avoid overly complex academic language • Make activities practical and classroom-ready • Ensure the lesson is realistic for a South African classroom context 🚀 Try CAPScribe Here: 👉 https://www.capscribe.co.za 🎁 LIMITED PROMO CODE FOR SA TEACHERS: Use code ELITE3MONTHS at checkout to get 🔥 50% OFF Educator Pro for 3 months (Valid for the first 100 teachers on monthly plans.) 🔗 Follow Us Here: CAPScribe Facebook 👉 https://tinyurl.com/capscribefacebook Follow Me 👉 https://tinyurl.com/dylanmaartfacebook 🔔 Subscribe for More: I share practical AI workflows, lesson planning systems, admin-saving strategies, and productivity tools specifically for South African teachers.",
+      "channel_id": "UCapjROhvc9NFTvM1tgfc7tQ",
+      "channel_title": "Dylan Willis Maart",
+      "published_at": "2026-02-20T05:00:00Z",
+      "views": 130,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT14M36S",
+      "url": "https://www.youtube.com/watch?v=IhmxVmgzidA",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "exam",
+          "teacher",
+          "south africa",
+          "grade",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "6vcLs4N_its",
+      "title": "CAPPI AI for Teachers, Parents and High School Learners",
+      "description": "Dr. Karen Walstra, Tim Holiday (Creator: Maze Education), and Glenn du Toit (Acer Africa) will discuss CAPPI AI for teachers, parents, and high school learners, including ACER's involvement. The live stream is Wednesday, 20 May 2026, from 19:00 - 19:45 on LinkedIN, Facebook, and YouTube. Cappi AI is a curriculum-aligned assistant designed to slash admin time and bring CAPS-focused innovation to South African classrooms. Cappi (developed by CapsGPT) is a South African AI assistant aligned with CAPS (Curriculum and Assessment Policy Statement) and IEB (Independent Examinations Board) frameworks. Unlike generic tools like ChatGPT, it is \"grounded\" in South African curriculum documents, ensuring it understands SA-specific grade requirements, term structures, and terminology. Key Features for Teachers: CAPS & IEB Toggle: Switches output to match specific assessment styles, including the IEB’s focus on cognitive weighting and \"unseen\" context questions. Instant Lesson Planning: Generates structured lesson plans for Grade R to 12, including objectives, activities, and Annual Teaching Plans (ATPs)-aligned assessments. Assessment & Rubric Generator: Creates tests, worksheets, and rubrics, specifically helping with required cognitive weighting for formal assessments. Language Support: Primary support is English and Afrikaans, with AI-assisted translation for all other official South African languages. Source Citations: Provides citations showing the exact curriculum document or page number for accuracy and trust. How It Works (Teacher Portal): Select Grade/Phase (Foundation, Intermediate, Senior, or FET) and Subject. Input requirements naturally (e.g., \"Create a Grade 9 Math lesson plan on Geometry for Term 2.\"). Generate, refine the draft, and Export content as PDF or Word for sharing. Specialised \"Think-First\" Learner Protocol: For learners (Grades 8–12), Cappi uses a Socratic method. Instead of giving direct answers, it: Probes knowledge. Scaffolds with hints/analogies. Confirms understanding by asking the student to explain the concept back. Cappi for Parents helps with homework and exam prep, maintaining Socratic foundations but treating the user as a parent, not a student. It allows a single subscription to load individual kid profiles for seamless switching. Security and Compliance: The system is POPIA Compliant and includes safety protocols with South African emergency numbers (e.g., Childline SA) for mental health or safety risks. Access Cappi at www.cappi.co.za, which offers tiers including a free \"Learner Portal\" and dedicated \"Teacher Portals\".",
+      "channel_id": "UCns2Y0RuIe3I_nvm4v4kTgQ",
+      "channel_title": "Karen Walstra",
+      "published_at": "2026-05-21T06:10:37Z",
+      "views": 19,
+      "likes": 3,
+      "comments": 0,
+      "duration": "PT1H4M2S",
+      "url": "https://www.youtube.com/watch?v=6vcLs4N_its",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "exam",
+          "test",
+          "teacher",
+          "south africa",
+          "grade",
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "7968m_cHISQ",
+      "title": "Grade 6 NSTech Final Assessment: Electricity, Solar System & Fuels (CAPS Aligned)",
+      "description": "Grade 6 Natural Science and Technology year-end exam. This 50-mark paper covers critical Term 3 and 4 topics, including electric circuits, conductors and insulators, fossil fuels, and space exploration (Solar System, telescopes, and moon phases). Includes a full teacher’s memo for easy marking. Perfect for South African CAPS revision. 3. Keywords (Tags) Broad: Grade 6, Natural Science and Technology, NSTech, Year-End Exam, Final Assessment, Term 4, Primary School Science. Topic Specific: Electric Circuits, Conductors and Insulators, Fossil Fuels, Renewable Energy, Solar System, Planets, Moon Phases, Telescopes, Space Exploration, Coal Power. Context/Format: CAPS Aligned, South Africa, Printable PDF, Exam Paper with Memo, Revision Worksheet, Science Test. 4. Hashtags (Social Media) #Grade6 #NaturalScience #NSTech #ScienceExam #TeacherResources #SouthAfricanTeachers #CAPScurriculum #ExamPrep #ScienceTeacher #HomeschoolingSA #Term4Revision Why these work (SEO Rationale): Specificity: The exam specifically mentions \"South Africa\" regarding fuel usage and covers specific topics like \"Circuits\" and \"Space\". Highlighting these specific topics helps users looking for those exact modules find your file. \"With Memo\": The file includes the answer key (Section A - C Memo). Adding \"With Memo\" to the title drastically increases click-through rates as teachers love resources that save them grading time. Region Locking: Since the content references South African power stations, using keywords like \"CAPS\" and \"South Africa\" ensures you attract the right audience who needs this specific curriculum.",
+      "channel_id": "UC7TgLpt1OyV_SdMfSXyijQA",
+      "channel_title": "Learning Made Simple With Sir Rudolph Mathumbu ",
+      "published_at": "2025-11-24T05:56:29Z",
+      "views": 256,
+      "likes": 4,
+      "comments": 0,
+      "duration": "PT36M5S",
+      "url": "https://www.youtube.com/watch?v=7968m_cHISQ",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "exam",
+          "test",
+          "marking",
+          "teacher",
+          "south africa",
+          "grade",
+          "school",
+          "curriculum",
+          "paper"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "SbzlKeliyDs",
+      "title": "Grade 9 ENGHL Assessment Resources | CAPS Learning | Twinkl SA",
+      "description": "We’re sharing useful assessment resources to help teachers plan with confidence, track learner progress, and save valuable prep time. From ready-to-use activities to simple tools for checking understanding, these resources can make assessment easier and more effective. Sign up for a free trial on the Twinkl website to access thousands of worksheets, activities, and interactive learning materials aligned to CAPS https://www.twinkl.co.za/l/w5mum Don’t forget to like, comment, and subscribe for more classroom ideas and resources! #twinklstoriesza#resourcesforteachers#KidsLearning #EducationalVideo#twinklsa#InclusionWithTwinkl #ReadyForTomorrow",
+      "channel_id": "UC5Q1UI6R1KK42IBvEYJ9OZw",
+      "channel_title": "Twinkl South Africa",
+      "published_at": "2026-05-08T12:45:56Z",
+      "views": 9,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT1M19S",
+      "url": "https://www.youtube.com/watch?v=SbzlKeliyDs",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "teacher",
+          "grade"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "5drcLGFWXfY",
+      "title": "Grade 10 Accounting | Financial Statements | CAPS Exam Preparation",
+      "description": "Welcome to FutureAfricaMinds! In this Grade 10 Accounting lesson, we introduce Financial Statements and explain why they are one of the most important parts of accounting. In this lesson you will learn: ✔ What financial statements are ✔ Why businesses prepare financial statements ✔ The main types of financial statements ✔ Users of financial statements ✔ The purpose of financial reporting ✔ Basic financial statement structure This lesson follows the South African CAPS curriculum and is designed to prepare learners for school assessments and the NSC examinations. ━━━━━━━━━━━━━━━ Topics Covered • Definition of Financial Statements • Purpose of Financial Reporting • Income Statement • Balance Sheet • Cash Flow Statement (Introduction) • Users of Financial Statements • Financial Decision Making ━━━━━━━━━━━━━━━ This lesson is ideal for: • Grade 10 Accounting learners • CAPS students • Teachers • Parents • Revision and exam preparation ━━━━━━━━━━━━━━━ Subscribe for more FREE Accounting lessons. FutureAfricaMinds Learn Today. Lead Tomorrow. #Grade10Accounting #Accounting #FinancialStatements #CAPS #SouthAfrica #NSC #AccountingLessons #FutureAfricaMinds",
+      "channel_id": "UCuaqYT3PO_uT1I4ZE3TmH0w",
+      "channel_title": "FutureAfricaMinds",
+      "published_at": "2026-07-02T16:02:22Z",
+      "views": 1,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT3M55S",
+      "url": "https://www.youtube.com/watch?v=5drcLGFWXfY",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "assessment",
+          "exam",
+          "teacher",
+          "south africa",
+          "grade",
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "S43OzxFDFnY",
+      "title": "2026 South African Grade 12 CAPS English. What's in store.",
+      "description": "Help me help you - Support my You Tube venture so I can make more and better content: buymeacoffee.com/lifelonglearner Join me for English lessons : https://www.italki.com/en/teacher/7046524",
+      "channel_id": "UC3phS7fzj-QHICNeVeQJ86w",
+      "channel_title": "The bald truth",
+      "published_at": "2026-02-04T10:36:54Z",
+      "views": 6,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT6M3S",
+      "url": "https://www.youtube.com/watch?v=S43OzxFDFnY",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "teacher",
+          "south africa",
+          "grade"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "tlwca5QZMxM",
+      "title": "Studying with past papers",
+      "description": "",
+      "channel_id": "UCRfDNAbcR-Y3T46XiL4Sqsw",
+      "channel_title": "Kevinmathscience",
+      "published_at": "2025-09-01T18:56:58Z",
+      "views": 223856,
+      "likes": 18088,
+      "comments": 128,
+      "duration": "PT45S",
+      "url": "https://www.youtube.com/watch?v=tlwca5QZMxM",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "paper"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "news_or_blog_records": [
+    {
+      "title": "Reading crisis shocks SA as millions of children struggle with basics - independentonsaturday.co.za",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPdE1EVlZjSHpmZ2czaG1uc1U1dnVzUzR1UXBCYXFudzI0Zmdwb2tIc0x1QURLaVRfbFhPYU5Cc0VJLUpYV3lwaXNjMUVfSGp2dDZpalFUOS1GTjZCbmNRNXZ2U3dsMUpadm9YMGY1ZnRoUVBlTHZjbFN2dUsyeHQ1MWw1blJlWnJCdjZXMzcxdEZGaDRBS1loVzdiWC10eXBRdkJsMm15aTBnWTk0TWl3cEdUdlRqWXFPNjc2THk3VHUxckt0QjFzUzh5eUU?oc=5",
+      "description": "Reading crisis shocks SA as millions of children struggle with basics &nbsp;&nbsp; independentonsaturday.co.za",
+      "published_at": "Thu, 30 Jul 2026 21:06:53 GMT",
+      "author": null,
+      "guid": "CBMizAFBVV95cUxPdE1EVlZjSHpmZ2czaG1uc1U1dnVzUzR1UXBCYXFudzI0Zmdwb2tIc0x1QURLaVRfbFhPYU5Cc0VJLUpYV3lwaXNjMUVfSGp2dDZpalFUOS1GTjZCbmNRNXZ2U3dsMUpadm9YMGY1ZnRoUVBlTHZjbFN2dUsyeHQ1MWw1blJlWnJCdjZXMzcxdEZGaDRBS1loVzdiWC10eXBRdkJsMm15aTBnWTk0TWl3cEdUdlRqWXFPNjc2THk3VHUxckt0QjFzUzh5eUU",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "We planted Caps in 2012 — we’re harvesting the educational failure in 2025 - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOMjJQMWFSRVZaS19VU09xRzVvcHBzOGdfTjhLSkYzQXVjb0t4NnUzTUhEeUx3eVhLbFdCQVNTVkh2SzZuSHBGY1NHVFg4WW5RQmVsb2ZuSkF1SUtYWlJ2T3puWld6VFBVUUJXMVgxMmw5RGFkc1J4c1VRbG83djRReXF5eFd5emlGVl9oZXFXazFzTTY0ZjlfYklNdUJHcERsbXFWbW1UeVdkSVFCSnpHRmpCNnFzQ3hvWEZyeENkRVA2R0RQemc?oc=5",
+      "description": "We planted Caps in 2012 — we’re harvesting the educational failure in 2025 &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Tue, 25 Nov 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMixgFBVV95cUxOMjJQMWFSRVZaS19VU09xRzVvcHBzOGdfTjhLSkYzQXVjb0t4NnUzTUhEeUx3eVhLbFdCQVNTVkh2SzZuSHBGY1NHVFg4WW5RQmVsb2ZuSkF1SUtYWlJ2T3puWld6VFBVUUJXMVgxMmw5RGFkc1J4c1VRbG83djRReXF5eFd5emlGVl9oZXFXazFzTTY0ZjlfYklNdUJHcERsbXFWbW1UeVdkSVFCSnpHRmpCNnFzQ3hvWEZyeENkRVA2R0RQemc",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "caps"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The challenges facing accounting education in high schools: the South African experience - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNNTN4Q0NGSGFZRTEzVENyd3VMcjNNX1hGSUF0RUd3cEhqTm1CRk1sOE9RdGZiQ2hCUGZBWlU1TTRHU3VXSjdFcTJkN2RUQk5UQzh5RjFmSm9INUtMVUNURWdEcFdhUWFBLWFKRFdjeXA5bVhqRkc2cmtyeHNMdG5DbHNXVEhOOU0zRF85ejRTVjM?oc=5",
+      "description": "The challenges facing accounting education in high schools: the South African experience &nbsp;&nbsp; Frontiers",
+      "published_at": "Fri, 10 Jul 2026 11:53:58 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNNTN4Q0NGSGFZRTEzVENyd3VMcjNNX1hGSUF0RUd3cEhqTm1CRk1sOE9RdGZiQ2hCUGZBWlU1TTRHU3VXSjdFcTJkN2RUQk5UQzh5RjFmSm9INUtMVUNURWdEcFdhUWFBLWFKRFdjeXA5bVhqRkc2cmtyeHNMdG5DbHNXVEhOOU0zRF85ejRTVjM",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa",
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Saving Grace online homeschool faces AI curriculum, service failure allegations - News24",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNR016UWNnRlpjTUNMR3d5WmR4MXB1bXk2eHpUUzh3VWRqRmN1RFJoYUNKU3k3MzNCWmxabU5DZEMxdFBoYUl0NVQxR0dFTU05S0kydk4xcnFaQWxCbHpJUkZxaVBhQ1c2VnNpaDZzUUNlLXU0Z1J2SnZhVzcxMmRTUjZrOEpqc1VPNl93WXU5dHpoTFhiYzRaa2l2Z0RUcW9nOXJJb0o2ZEpETjJuT2pNUFFnZ1JKa0dYX0RoWlJBTUJEb3ZBLTJ2QnhsLXJpWFU4NTNadHBR?oc=5",
+      "description": "Saving Grace online homeschool faces AI curriculum, service failure allegations &nbsp;&nbsp; News24",
+      "published_at": "Mon, 27 Jul 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMi1gFBVV95cUxNR016UWNnRlpjTUNMR3d5WmR4MXB1bXk2eHpUUzh3VWRqRmN1RFJoYUNKU3k3MzNCWmxabU5DZEMxdFBoYUl0NVQxR0dFTU05S0kydk4xcnFaQWxCbHpJUkZxaVBhQ1c2VnNpaDZzUUNlLXU0Z1J2SnZhVzcxMmRTUjZrOEpqc1VPNl93WXU5dHpoTFhiYzRaa2l2Z0RUcW9nOXJJb0o2ZEpETjJuT2pNUFFnZ1JKa0dYX0RoWlJBTUJEb3ZBLTJ2QnhsLXJpWFU4NTNadHBR",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "IEB CAPS vs Cambridge: How to choose the right curriculum for your child - Advtech",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRlJTNGxZbkJqeENScEJjTU9QeE1xQ1pzdkp6U0k3dEY0VDBXMk1TVFJrWjRzYjh6a29IX3VTM0ppbzBzUDZzd1Fib3Z4R2xMR0V6NUpsX2Q1N2FpOTd0Uko1THhKSVFyR0VHME45eGNTcXhXTUw1T2Nnb2R6c3hvUW40NTNBZ0VTaWVnTEFyeWJkTWZCSTA2RGZaMUxSdjZrVkE?oc=5",
+      "description": "IEB CAPS vs Cambridge: How to choose the right curriculum for your child &nbsp;&nbsp; Advtech",
+      "published_at": "Mon, 16 Mar 2026 11:15:30 GMT",
+      "author": null,
+      "guid": "CBMiogFBVV95cUxPRlJTNGxZbkJqeENScEJjTU9QeE1xQ1pzdkp6U0k3dEY0VDBXMk1TVFJrWjRzYjh6a29IX3VTM0ppbzBzUDZzd1Fib3Z4R2xMR0V6NUpsX2Q1N2FpOTd0Uko1THhKSVFyR0VHME45eGNTcXhXTUw1T2Nnb2R6c3hvUW40NTNBZ0VTaWVnTEFyeWJkTWZCSTA2RGZaMUxSdjZrVkE",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "What changes are coming to South Africa's history curriculum? - Cape Argus",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNRmRKMnUtZkFNVXZrWTFRZTBMN0tnZWg3azdLWnh2VkFqVElpZW5rdVVnVWxMZVZURWRSZzg5cmJqUVNZYlQtbEJlS1JYUHB1TnpJZ1UxNU16eGtSM0pibWlQTjVuWkw5bldjelhIVDFudXp3S05iRHdMSndQZlhwaG1rS1UzMmVaQmZQQk5GZmk2ay1aVzZkUHFTd3BxRlJHd01USlFrR2w2ZG5LVW1ldjNqZHk?oc=5",
+      "description": "What changes are coming to South Africa's history curriculum? &nbsp;&nbsp; Cape Argus",
+      "published_at": "Tue, 14 Apr 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMitAFBVV95cUxNRmRKMnUtZkFNVXZrWTFRZTBMN0tnZWg3azdLWnh2VkFqVElpZW5rdVVnVWxMZVZURWRSZzg5cmJqUVNZYlQtbEJlS1JYUHB1TnpJZ1UxNU16eGtSM0pibWlQTjVuWkw5bldjelhIVDFudXp3S05iRHdMSndQZlhwaG1rS1UzMmVaQmZQQk5GZmk2ay1aVzZkUHFTd3BxRlJHd01USlFrR2w2ZG5LVW1ldjNqZHk",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa",
+          "curriculum"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Don’t blame the kids: Prof shares tips from the trenches - University World News",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBkOXJrYzNEeDdZWVdlajg5aDAtVElRT3ZSdkpjYXF6NlVWWEEyc242V0t6ODBZZUtYMzBiNHF0bXhha2tTa3l1a3l1UFNVOVN3S2ZnSXc2OUFMb2lrR3hNaTlzbEJJRDZYZ0RIa3ZLaUJ6ektKMlJz?oc=5",
+      "description": "Don’t blame the kids: Prof shares tips from the trenches &nbsp;&nbsp; University World News",
+      "published_at": "Tue, 07 Oct 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMid0FVX3lxTFBkOXJrYzNEeDdZWVdlajg5aDAtVElRT3ZSdkpjYXF6NlVWWEEyc242V0t6ODBZZUtYMzBiNHF0bXhha2tTa3l1a3l1UFNVOVN3S2ZnSXc2OUFMb2lrR3hNaTlzbEJJRDZYZ0RIa3ZLaUJ6ektKMlJz",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The matric pass rate in South African public schools over the years - newsday.co.za",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQYlk4U2tON190VjBFMHJObW0yWktCVnU3emNidzl2ckV0WUR5UVpUM1NhZDFYcHNDcGV3X1lUc3VhUXNfdzVpdThwN1ViQkhuNXhWajB2M2RrTjFhX0s4Q3BaOXNNLXIwT0pZSGxJUFA4b0YtOWJuTG1yQXlWUlNuOXRSLVFGY2VXYlRJR1lTRU5kdjJQN2VPdVI3NjlBajJjUkc0REpKc3NQUkh0cnc?oc=5",
+      "description": "The matric pass rate in South African public schools over the years &nbsp;&nbsp; newsday.co.za",
+      "published_at": "Mon, 12 Jan 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMirgFBVV95cUxQYlk4U2tON190VjBFMHJObW0yWktCVnU3emNidzl2ckV0WUR5UVpUM1NhZDFYcHNDcGV3X1lUc3VhUXNfdzVpdThwN1ViQkhuNXhWajB2M2RrTjFhX0s4Q3BaOXNNLXIwT0pZSGxJUFA4b0YtOWJuTG1yQXlWUlNuOXRSLVFGY2VXYlRJR1lTRU5kdjJQN2VPdVI3NjlBajJjUkc0REpKc3NQUkh0cnc",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa",
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Have your say as draft history curriculum recasts the past through an African lens - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxORlNXTzA5MlhuX3BjZzF6T25IV0FycmxDX0NqLWdPYUlTZGRhWXJkSG5CQnV4dFVXQVF4Z0pCXzQtc1Y4Ulg3OFA0VkNMLU40SFAxbXV0ZTJWVFRSLS1xYW83R05jbE53VkY5ak5IUGxWUFVrN250WDRqcHBZYzV5NUdUa3d6SmkyOUdSTzE2ZFR5M0Q3N25iM2hFZFpsYldITkZmT1AwUHFubG9NRloxWnMycVRyRkhySmVEVHFkcXMxWUZSakgwYjc1cVBUbWc?oc=5",
+      "description": "Have your say as draft history curriculum recasts the past through an African lens &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Sun, 19 Apr 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMizwFBVV95cUxORlNXTzA5MlhuX3BjZzF6T25IV0FycmxDX0NqLWdPYUlTZGRhWXJkSG5CQnV4dFVXQVF4Z0pCXzQtc1Y4Ulg3OFA0VkNMLU40SFAxbXV0ZTJWVFRSLS1xYW83R05jbE53VkY5ak5IUGxWUFVrN250WDRqcHBZYzV5NUdUa3d6SmkyOUdSTzE2ZFR5M0Q3N25iM2hFZFpsYldITkZmT1AwUHFubG9NRloxWnMycVRyRkhySmVEVHFkcXMxWUZSakgwYjc1cVBUbWc",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "curriculum"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Teaching for autonomy: Grade 3 teachers’ strategies for self-directed learning in literacy - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPV29ZS3lvMks4Mmd1dF81T3FJN0dpa20wbkM5QVJTVFZsY1gtYk91dmpUWXEwcENmWjRha05pangxRTJ3Y19yYVRpN0tGWGF5YzVSUnBTOGFFUUh1YUg0UV9XUEpyUlFfV3U3LWQ0anhnZDB5Q0hwQW9lRDItbzBPNjNRdHhJQlg0RF9idlNDc1U?oc=5",
+      "description": "Teaching for autonomy: Grade 3 teachers’ strategies for self-directed learning in literacy &nbsp;&nbsp; Frontiers",
+      "published_at": "Mon, 23 Feb 2026 16:54:05 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxPV29ZS3lvMks4Mmd1dF81T3FJN0dpa20wbkM5QVJTVFZsY1gtYk91dmpUWXEwcENmWjRha05pangxRTJ3Y19yYVRpN0tGWGF5YzVSUnBTOGFFUUh1YUg0UV9XUEpyUlFfV3U3LWQ0anhnZDB5Q0hwQW9lRDItbzBPNjNRdHhJQlg0RF9idlNDc1U",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "teacher",
+          "grade"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Teaching Recruitment at Gauteng Department of Education 2026 for Unemployed South Africans - After School Africa",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQNW9tN04teVltWnktX1c2R2JDR1g2SW9ISXlnS3ZSTUxzbFdxMXFiWnV3c3dKUng1ZWJjZEljRkZLUHJzQkstbERMNmNSTDdhcEVJX3kzbzVLQndXTS1fRDd4VS1obkFLUmZwQkE1Mi1Ra3FHS3B4ZFVMS1dUR2pLaWRBQTlkajdMeG52WXZ0ODlzZy1FR2ZWMEtoMlJLd0dwNGhkZWEwb19kWTFHZE1uTDR0b2ZPZHJzRE1EY2tTT0Fmc2lIeWtEb1ItWQ?oc=5",
+      "description": "Teaching Recruitment at Gauteng Department of Education 2026 for Unemployed South Africans &nbsp;&nbsp; After School Africa",
+      "published_at": "Sun, 25 Jan 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiywFBVV95cUxQNW9tN04teVltWnktX1c2R2JDR1g2SW9ISXlnS3ZSTUxzbFdxMXFiWnV3c3dKUng1ZWJjZEljRkZLUHJzQkstbERMNmNSTDdhcEVJX3kzbzVLQndXTS1fRDd4VS1obkFLUmZwQkE1Mi1Ra3FHS3B4ZFVMS1dUR2pLaWRBQTlkajdMeG52WXZ0ODlzZy1FR2ZWMEtoMlJLd0dwNGhkZWEwb19kWTFHZE1uTDR0b2ZPZHJzRE1EY2tTT0Fmc2lIeWtEb1ItWQ",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa",
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "‘Giving Children Responsible Screen-Time’: Meet The South African EdTech Entrepreneur Gamifying The Classroom - Forbes Africa",
+      "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNVG1pZ2cwSVFDUHplZGt0SVRLVGViVThpXy1NTGZ5X0N5Mzd6NDR4YWlnT05jR0NCSmZ1TDhrclNsWWVaa242Y3U5dVZQYjhfamJnTDctVlRtenN4dS13ZzFHUk5ZVlZHM3Z6M2U2T3k5WHVXZF9oMDZQMmFCRlRwaGU4MlN3RGtjcm5RVGNrTmVEangxX1NnNFFyamE4V0JzcWZmanZVcUhDUHRmLUQ0RHpfeVhVakw1VnpnU1RDZlR5NmJDcUpteklkWHJMVHRBd2xxWnRYX1puWVUtZHhtVHhlekwyazdsckY3ZWE4Ym00b1pHU0E?oc=5",
+      "description": "‘Giving Children Responsible Screen-Time’: Meet The South African EdTech Entrepreneur Gamifying The Classroom &nbsp;&nbsp; Forbes Africa",
+      "published_at": "Sun, 12 Jul 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMi9gFBVV95cUxNVG1pZ2cwSVFDUHplZGt0SVRLVGViVThpXy1NTGZ5X0N5Mzd6NDR4YWlnT05jR0NCSmZ1TDhrclNsWWVaa242Y3U5dVZQYjhfamJnTDctVlRtenN4dS13ZzFHUk5ZVlZHM3Z6M2U2T3k5WHVXZF9oMDZQMmFCRlRwaGU4MlN3RGtjcm5RVGNrTmVEangxX1NnNFFyamE4V0JzcWZmanZVcUhDUHRmLUQ0RHpfeVhVakw1VnpnU1RDZlR5NmJDcUpteklkWHJMVHRBd2xxWnRYX1puWVUtZHhtVHhlekwyazdsckY3ZWE4Ym00b1pHU0E",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "One profession, many roles: Why South African teachers are being set up to fail - educationnews.co.ke",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOcWFUZkNBWGtqTTFUTzhoaUZTS25zVDlDSHNkS0VWb252QWg0emVNWVFLZXZXU3V5Qm5KMXZUc2ExS3ZzM0UySUtfZXJnd0FaWU9ydEdRdkV5WUlPZ3d5RFRJS0tlb3A0MVJ5ZUc4TjBDcUxfNHR2aVRFbERDTTV1ay1jUWhsenB0enVLaG1zZ0dGWFR2SFZnamExMVdxN1I2a25Ya3g3X3J4dw?oc=5",
+      "description": "One profession, many roles: Why South African teachers are being set up to fail &nbsp;&nbsp; educationnews.co.ke",
+      "published_at": "Wed, 20 May 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiqgFBVV95cUxOcWFUZkNBWGtqTTFUTzhoaUZTS25zVDlDSHNkS0VWb252QWg0emVNWVFLZXZXU3V5Qm5KMXZUc2ExS3ZzM0UySUtfZXJnd0FaWU9ydEdRdkV5WUlPZ3d5RFRJS0tlb3A0MVJ5ZUc4TjBDcUxfNHR2aVRFbERDTTV1ay1jUWhsenB0enVLaG1zZ0dGWFR2SFZnamExMVdxN1I2a25Ya3g3X3J4dw",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "teacher",
+          "south africa"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "‘Anti-intellectual and soul-deadening’: Prof Jansen slams proposed history curriculum - News24",
+      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPal9idy1aX0x5UWs3TTNwVHFMWF9feEQ0ME9mS2FoaHUwblo0N0xuVlFnU3hObUxuNXhnaWNZNVppbEtfeEtkTHZQdk5GQkVKX2hxb0FJeWRpRERZbmt6d3VzSndDN1VkZlhoUDRRRDhZNVgtank5aGZJZGtmcUVFYkxRdnd1bmREaWN0cjVLV2d0bjNwa2RGUEFoWU9XaVBLb09nZWQtaWdQZHJSSTlyT1RrRFVaemVYZ0Y0V25XX1FuYjFMWkpNS203VDljVmFPb19lLVlXSkg?oc=5",
+      "description": "‘Anti-intellectual and soul-deadening’: Prof Jansen slams proposed history curriculum &nbsp;&nbsp; News24",
+      "published_at": "Thu, 09 Apr 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMi2AFBVV95cUxPal9idy1aX0x5UWs3TTNwVHFMWF9feEQ0ME9mS2FoaHUwblo0N0xuVlFnU3hObUxuNXhnaWNZNVppbEtfeEtkTHZQdk5GQkVKX2hxb0FJeWRpRERZbmt6d3VzSndDN1VkZlhoUDRRRDhZNVgtank5aGZJZGtmcUVFYkxRdnd1bmREaWN0cjVLV2d0bjNwa2RGUEFoWU9XaVBLb09nZWQtaWdQZHJSSTlyT1RrRFVaemVYZ0Y0V25XX1FuYjFMWkpNS203VDljVmFPb19lLVlXSkg",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "curriculum"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The SA school curriculum isn’t broken, the conditions are — and we’ve designed it that way - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQLWxZS3lzeEdGTWRJRUNZWUJPMzl6N192TU9NV2FQaExOTXJ1M05DaGg2MlJqdm9Rb1ZwUnZSMFltYk9VZWRvU2t3cmd6cTNUZk90TW1tcjdYNFQzUG5nRURZR3ZhMk1FZnlaVWhVWVFnNmNiclNycTUyZlJuUTVickxUQW5mNjN5d2NZVlNWVEQ5Zjg4SVBhLVlhX0IyRlpmOU1vaEhycEpRVHJPTlB4ZHM4U2poZHRacDlZanlkVFItSmhPVmZZX0ZOV04wZnhU?oc=5",
+      "description": "The SA school curriculum isn’t broken, the conditions are — and we’ve designed it that way &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Wed, 14 Jan 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMi0AFBVV95cUxQLWxZS3lzeEdGTWRJRUNZWUJPMzl6N192TU9NV2FQaExOTXJ1M05DaGg2MlJqdm9Rb1ZwUnZSMFltYk9VZWRvU2t3cmd6cTNUZk90TW1tcjdYNFQzUG5nRURZR3ZhMk1FZnlaVWhVWVFnNmNiclNycTUyZlJuUTVickxUQW5mNjN5d2NZVlNWVEQ5Zjg4SVBhLVlhX0IyRlpmOU1vaEhycEpRVHJPTlB4ZHM4U2poZHRacDlZanlkVFItSmhPVmZZX0ZOV04wZnhU",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Educational technology and mathematical problem-solving skills in Grade 3: evidence from a stimulated recall study - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNUWlTbVF4akRvV05DYlhvQTh1T2VNZkc2cVowSmdMQkhtcFZTb3V5M0dVX05BZEhSdWxuMFg0VHgyVTNPNHlDd2tmNHBabmpTZmZUZkpCOHVYeWw5TjhTUDZHMU4tQ0hhS3AwVzQwLXBhUXVLNDRuQTV1aDI0Y2JkQkFzSXpGQ054cVRzdXJoSnM?oc=5",
+      "description": "Educational technology and mathematical problem-solving skills in Grade 3: evidence from a stimulated recall study &nbsp;&nbsp; Frontiers",
+      "published_at": "Tue, 05 May 2026 12:49:03 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNUWlTbVF4akRvV05DYlhvQTh1T2VNZkc2cVowSmdMQkhtcFZTb3V5M0dVX05BZEhSdWxuMFg0VHgyVTNPNHlDd2tmNHBabmpTZmZUZkpCOHVYeWw5TjhTUDZHMU4tQ0hhS3AwVzQwLXBhUXVLNDRuQTV1aDI0Y2JkQkFzSXpGQ054cVRzdXJoSnM",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "grade"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "How the Javett Art Centre is redefining the art classroom - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNTU5QOVRtaVhsN0hzRURyUzFHYTRpVFpoYk83T1dyX184aFZFejVDNGU1ZVpwaGF0anVMRS1abHBZY2stVy1FMzhjV3J2eUFibEt3cG5hVXVwRm9GQWNkay1jbl8xSGtBdU81Mkwza1Rhb1dhek1MUnc3dHMzaHpsRkNIZkFRNnBpX3JFelc2OHJrYTh6RDhEMURHS0s4T2hEOC03dTRtM2REU2NfMXc?oc=5",
+      "description": "How the Javett Art Centre is redefining the art classroom &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Fri, 24 Apr 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMirgFBVV95cUxNTU5QOVRtaVhsN0hzRURyUzFHYTRpVFpoYk83T1dyX184aFZFejVDNGU1ZVpwaGF0anVMRS1abHBZY2stVy1FMzhjV3J2eUFibEt3cG5hVXVwRm9GQWNkay1jbl8xSGtBdU81Mkwza1Rhb1dhek1MUnc3dHMzaHpsRkNIZkFRNnBpX3JFelc2OHJrYTh6RDhEMURHS0s4T2hEOC03dTRtM2REU2NfMXc",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "SA leads SADC in literacy and numeracy, but faces persistent learning challenges - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQTjNQclB2azMtTnVzd0hzTFZvekZKR3U2Y2EzdHJWU3kwSnNidXJHX3JXVFZpcUo4SlFIRTNLZjcxM1hEMWVEUlFNd01LRGZ0ektfQk5HM25XUHR2ei1ROEFqS1h6RHZNSHA1cmo0V09tNFZHalBKR3lqOWY2S1NUemtiOGlxbDBsY3BMS1B5N2dxazBXcEg5N0ExMnBMQmladnRFZTgzbklNV2Jhbm9tbmFsU3pWUFNDb3ZqZVBUdkF2Y2hsMmF5cjluNA?oc=5",
+      "description": "SA leads SADC in literacy and numeracy, but faces persistent learning challenges &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Fri, 14 Nov 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiywFBVV95cUxQTjNQclB2azMtTnVzd0hzTFZvekZKR3U2Y2EzdHJWU3kwSnNidXJHX3JXVFZpcUo4SlFIRTNLZjcxM1hEMWVEUlFNd01LRGZ0ektfQk5HM25XUHR2ei1ROEFqS1h6RHZNSHA1cmo0V09tNFZHalBKR3lqOWY2S1NUemtiOGlxbDBsY3BMS1B5N2dxazBXcEg5N0ExMnBMQmladnRFZTgzbklNV2Jhbm9tbmFsU3pWUFNDb3ZqZVBUdkF2Y2hsMmF5cjluNA",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Curriculum transformations in South Africa: some discomforting truths on interminable poverty and inequalities in schools and society - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNRURua1ZxV09KaFNOYUJsanhjMXlnbk5mWlhVWVN4NzJVMi03S2stdC13SVJ2dEdvaDNmckpBMzhtT25FMjcwM245SC01NDJYNzdYa2I5SGxhQXNIckFBUkZ6OVJQMndkckFzQWlWdDhrdGdMME1XWS10Nkswbzg1OXFiYkdmRE80cS1nX0d2WmM?oc=5",
+      "description": "Curriculum transformations in South Africa: some discomforting truths on interminable poverty and inequalities in schools and society &nbsp;&nbsp; Frontiers",
+      "published_at": "Sun, 11 Jun 2023 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNRURua1ZxV09KaFNOYUJsanhjMXlnbk5mWlhVWVN4NzJVMi03S2stdC13SVJ2dEdvaDNmckpBMzhtT25FMjcwM245SC01NDJYNzdYa2I5SGxhQXNIckFBUkZ6OVJQMndkckFzQWlWdDhrdGdMME1XWS10Nkswbzg1OXFiYkdmRE80cS1nX0d2WmM",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa",
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The school-fees tipping point: How African families are choosing online curricula that travel - Business Insider Africa",
+      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPdVA1Y2lxUUJwVUxzdzFGSWlHam9TV3lZaEhFekZPUjJud2RDWFBBcDV5T294elpyeVJmRmdza09FYlhZdHBUZ2tnTG9LWFNJWGlCQzNSYXBod0lXWWN0TWwzYXBGRkFWbGxrODlCeVJyVEUtUG9zdk9hR25EYUFqR0RTMzBlZDh1czFqSlN2MVU2amdUa2xfbmZZRk1lZ3lCSTNNNEIwRllIc2tyMDlWS0ZuLXNnTXNrNkdqQU8zVTJULTNtRkZ1ZjBpdVg2Y19wM3JpcjNnM05jZw?oc=5",
+      "description": "The school-fees tipping point: How African families are choosing online curricula that travel &nbsp;&nbsp; Business Insider Africa",
+      "published_at": "Mon, 25 Aug 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMi2gFBVV95cUxPdVA1Y2lxUUJwVUxzdzFGSWlHam9TV3lZaEhFekZPUjJud2RDWFBBcDV5T294elpyeVJmRmdza09FYlhZdHBUZ2tnTG9LWFNJWGlCQzNSYXBod0lXWWN0TWwzYXBGRkFWbGxrODlCeVJyVEUtUG9zdk9hR25EYUFqR0RTMzBlZDh1czFqSlN2MVU2amdUa2xfbmZZRk1lZ3lCSTNNNEIwRllIc2tyMDlWS0ZuLXNnTXNrNkdqQU8zVTJULTNtRkZ1ZjBpdVg2Y19wM3JpcjNnM05jZw",
+      "feed_title": "\"CAPS assessment teacher South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+assessment+teacher+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "provider_state": {
+    "web_news_rss": "connected",
+    "youtube_public": "connected",
+    "facebook_instagram": "pending_meta_access_token_and_page_authority",
+    "linkedin": "not_connected"
+  },
+  "interpretation": {
+    "status": "relevant_live_sample_available",
+    "claim": "Current public YouTube and RSS metadata are market-opportunity evidence only; they are not customer demand, sales proof or factual source evidence.",
+    "hivenance_use": "Attach this observation to the campaign hypothesis before operator release and settle it against measured campaign results later."
+  },
+  "warnings": [
+    "YouTube public metadata is opportunity evidence and cannot satisfy script source requirements.",
+    "RSS/Atom descriptions are source leads and are not eligible for claim extraction by default."
+  ]
+}

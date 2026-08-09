@@ -1,0 +1,54 @@
+{
+  "schema": "dio.vamp_commercial_job.v1",
+  "job_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+  "product_code": "VAMP_EVIDENCE_SNAPSHOT",
+  "service_name": "VAMP Performance Evidence Snapshot",
+  "state": "delivery_draft_ready",
+  "controlled": true,
+  "created_at": "2026-08-08T20:53:12+00:00",
+  "customer": {
+    "name": "Controlled Portability Reviewer",
+    "email": "dio_workflows@outlook.com",
+    "organization": "Example Metropolitan University"
+  },
+  "consents": {
+    "evidence_owner_authorized": true,
+    "performance_data_processing_approved": true,
+    "human_review_terms_accepted": true
+  },
+  "source": {
+    "request_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/vamp_jobs/VAMP-GENERIC-UNIVERSITY-PROOF-001/SNAPSHOT_REQUEST.json",
+    "profile_id": "university_generic_v1",
+    "review_months": [
+      "2026-01",
+      "2026-02"
+    ],
+    "privacy_mode": "redacted_demo"
+  },
+  "payment": {
+    "required": false,
+    "state": "waived",
+    "order_id": null,
+    "amount_minor": 7900,
+    "currency": "USD",
+    "checkout_url": null
+  },
+  "snapshot": {
+    "state": "ready_for_human_review",
+    "output_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001",
+    "evidence_backed_pct": 50.0,
+    "accepted_mappings": 3,
+    "candidate_mappings": 1
+  },
+  "approval": {
+    "state": "approved",
+    "reviewer": "DIO operator via control deck",
+    "reviewed_at": "2026-08-08T21:00:02+00:00"
+  },
+  "delivery": {
+    "state": "draft_ready",
+    "mail_intent_id": "MAIL-459E215F830F782B",
+    "released": false
+  },
+  "updated_at": "2026-08-08T21:02:04+00:00"
+}

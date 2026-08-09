@@ -1,0 +1,268 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Language Term 1 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS FET Phase Grade 12 Term 1 English Language Assessment focusing on comprehension, language in context, visual literacy, summary planning, and transactional writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "1",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "comprehension, language in context and visual literacy",
+      "tone, audience, purpose, inference and evidence from a supplied text",
+      "summary planning and precise language editing",
+      "transactional writing with register, structure and audience control"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Comprehension and Language in Context",
+      "mode": "comprehension",
+      "instructions": "Read Text A below and answer the questions that follow. Ensure your answers are grammatically correct and directly reference the text where required.",
+      "stimulus": "TEXT A: THE DIGITAL SHIFT IN MODERN PROSE\n\n[1] The rapid evolution of digital communication has fundamentally altered how we construct meaning. In the contemporary landscape, brevity often supersedes syntactic complexity. Text messages, social media updates, and micro-blogs demand immediate, condensed expressions of thought. While some linguists celebrate this shift as a creative expansion of language, others warn of a decline in formal writing proficiency among school-leavers.\n\n[2] This linguistic evolution is not merely about short-cuts; it represents a shift in register. Formal prose, once characterized by subordinate clauses and precise punctuation, is increasingly replaced by colloquialisms and fragmented sentences. In academic environments, educators observe that students struggle to transition from the informal register of digital platforms to the rigorous, objective tone required in formal essays. The challenge lies not in the use of digital language itself, but in the inability to code-switch effectively between different communicative contexts.\n\n[3] To address this gap, systematic planning tools are essential. Writers must consciously separate their initial thoughts from their final edited products. By mapping out the main ideas and verifying textual evidence before drafting, learners can maintain control over their register, ensuring that their final output meets the expectations of their intended audience.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "State the primary reason given in paragraph 1 for the shift towards brevity in modern communication.",
+          "marks": 2,
+          "memo": [
+            "The rapid evolution of digital communication / the demands of platforms like text messages, social media, and micro-blogs which require immediate, condensed expressions of thought."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain the contrast in perspective between the two groups of linguists mentioned in paragraph 1 regarding the digital shift.",
+          "marks": 3,
+          "memo": [
+            "One group of linguists views the shift positively, celebrating it as a creative expansion of language (1 mark).",
+            "The opposing group views it negatively, warning that it leads to a decline in formal writing proficiency among school-leavers (1 mark).",
+            "The contrast highlights the tension between linguistic evolution and the preservation of formal standards (1 mark)."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Refer to paragraph 2. Discuss why the inability to 'code-switch' presents a challenge for students in academic environments.",
+          "marks": 3,
+          "memo": [
+            "Students become so accustomed to the informal register of digital platforms that they struggle to adopt the rigorous, objective tone required in formal essays (1 mark).",
+            "They fail to adapt their language to suit different communicative contexts (1 mark).",
+            "This results in academic writing that is inappropriately colloquial or fragmented (1 mark)."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Analyze the author's tone in paragraph 2. Support your answer with reference to specific word choices from the paragraph.",
+          "marks": 4,
+          "memo": [
+            "The tone is analytical, objective, or critical (1 mark).",
+            "Words like 'struggle', 'rigorous', 'objective tone', and 'inability' indicate a serious, academic evaluation of the linguistic challenges faced by students (2 marks).",
+            "The author avoids emotional bias, presenting the issue as a structural educational challenge rather than a personal failure of the students (1 mark)."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Rewrite the following sentence from paragraph 2 in the passive voice: 'Educators observe that students struggle to transition from the informal register.'",
+          "marks": 2,
+          "memo": [
+            "That students struggle to transition from the informal register is observed by educators. (2 marks for correct passive structure; 1 mark for minor errors)."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Identify a synonym from paragraph 2 for the word 'short-cuts'.",
+          "marks": 1,
+          "memo": [
+            "colloquialisms / fragmented sentences (Accept 'fragmented' or 'colloquialisms' as contextual equivalents of linguistic shortcuts)."
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "Identify the part of speech of the underlined word in the following phrase: 'systematic planning tools are *essential*'.",
+          "marks": 1,
+          "memo": [
+            "Adjective"
+          ]
+        },
+        {
+          "number": "1.8",
+          "question": "Refer to the 'language_response_planner' workspace layout described in your visual blueprint. Explain how the progression from the 'text panel' and 'main idea' sections through to the 'draft' and 'edit' sections helps a learner overcome the 'code-switching' challenges described in paragraph 2.",
+          "marks": 4,
+          "memo": [
+            "The progression forces the learner to first isolate the core message in the 'text panel' and 'main idea' sections before writing, preventing immediate, unstructured drafting (1 mark).",
+            "By requiring 'evidence' and a 'plan' before the 'draft' stage, it encourages conscious selection of formal register and structure (1 mark).",
+            "The final 'edit' section provides a dedicated space to check for and remove informal digital habits (such as colloquialisms or fragments) before final submission (1 mark).",
+            "This systematic process directly trains the cognitive skill of code-switching by separating raw thought from formal presentation (1 mark)."
+          ]
+        },
+        {
+          "number": "1.9",
+          "question": "Look at the 'language_response_planner' workspace. Why is the 'edit' section placed as the final step after the 'draft' section, rather than before it? Explain with reference to the writing process.",
+          "marks": 4,
+          "memo": [
+            "Editing requires a completed draft to evaluate for coherence, tone, and grammatical accuracy (1 mark).",
+            "If editing occurred before drafting, the creative flow of ideas would be restricted, and there would be no continuous text to refine (1 mark).",
+            "The placement ensures that the writer first focuses on content generation ('draft') and then shifts focus to technical precision and register control ('edit') (2 marks)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Summary Planning and Precise Language Editing",
+      "mode": "summary",
+      "instructions": "Read Text B below. You are required to write a summary of the key strategies for effective digital editing. Your summary must be written in a clear, concise paragraph of no more than 90 words. You must also complete the language editing questions that follow.",
+      "stimulus": "TEXT B: THE ART OF THE RED PENCIL\n\nEditing digital prose requires a deliberate, systematic approach to ensure clarity and professional register. First, always read your draft aloud; hearing the words helps identify awkward phrasing and broken syntax that the eye might overlook. Second, verify your subject-verb agreement, as digital writing often introduces errors when sentences are rapidly modified. Third, eliminate redundant adjectives and adverbs to keep your sentences concise and impactful. Fourth, check that your pronouns have clear, unambiguous referents so the reader is never left guessing who or what is being discussed. Finally, scrutinize your punctuation, paying close attention to comma splices which disrupt the logical flow of your arguments. By applying these five steps, writers can elevate their informal drafts into polished, formal communications suitable for any academic or professional audience.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Write a summary of the five key strategies for effective digital editing outlined in Text B. Your summary must be in a single paragraph, written in your own words as far as possible, and must not exceed 90 words. State your word count at the end of your summary.",
+          "marks": 7,
+          "memo": [
+            "Key points to include:",
+            "1. Read the draft aloud to catch awkward phrasing and syntax errors.",
+            "2. Ensure correct subject-verb agreement.",
+            "3. Remove unnecessary adjectives and adverbs to maintain conciseness.",
+            "4. Verify that all pronouns refer clearly to their nouns.",
+            "5. Check punctuation carefully, especially avoiding comma splices.",
+            "Marking allocation:",
+            "5 marks for the 5 points (1 mark per point).",
+            "2 marks for language, spelling, punctuation, and adherence to word count/format rules."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "The following sentence contains a grammatical error: 'Each of the students are required to submit their editing plan before Friday.' Rewrite the sentence correcting the error.",
+          "marks": 2,
+          "memo": [
+            "Each of the students is required to submit his/her/their editing plan before Friday. (1 mark for changing 'are' to 'is' to match the singular pronoun 'Each'; 1 mark for overall sentence correctness)."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Identify the error in the following sentence and write down the corrected version: 'The editor read the manuscript, he found several comma splices.'",
+          "marks": 2,
+          "memo": [
+            "The error is a comma splice (1 mark).",
+            "Corrected version: 'The editor read the manuscript and found several comma splices.' OR 'The editor read the manuscript; he found several comma splices.' OR 'The editor read the manuscript. He found several comma splices.' (1 mark)."
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Give the correct form of the word in brackets: 'The digital shift has (significant) altered our writing habits.'",
+          "marks": 1,
+          "memo": [
+            "significantly"
+          ]
+        },
+        {
+          "number": "2.5",
+          "question": "Rewrite the following sentence in direct speech: 'The teacher told the class that they had to edit their work carefully.'",
+          "marks": 3,
+          "memo": [
+            "The teacher said to the class, \"You must edit your work carefully.\" (1 mark for correct punctuation, 1 mark for correct pronoun change, 1 mark for correct tense change)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Transactional Writing",
+      "mode": "transactional_writing",
+      "instructions": "Write a formal transactional response to the prompt below. Pay close attention to register, structure, and audience control. Your response should be between 120 and 150 words.",
+      "stimulus": "PROMPT: FORMAL LETTER TO THE EDITOR\n\nFollowing a recent debate in your school community about the impact of instant messaging on academic performance, write a formal letter to the editor of a local newspaper. In your letter, express your views on whether digital communication tools should be integrated into the Grade 12 English curriculum to teach code-switching, or if they should be banned from academic spaces entirely. Refer to the structural planning steps (such as planning, drafting, and editing) to support your argument.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Write a formal letter to the editor of a local newspaper expressing your views on integrating digital communication tools into the Grade 12 English curriculum. Ensure you use the correct formal letter format, maintain an appropriate register, and structure your arguments logically.",
+          "marks": 25,
+          "memo": [
+            "Format: Formal letter structure (sender's address, date, recipient's designation and address, salutation, subject line, body paragraphs, formal sign-off) (5 marks).",
+            "Content and Argument: Clear stance on digital tools in the curriculum, logical arguments referencing code-switching and systematic planning (10 marks).",
+            "Language, Style, and Register: Formal, persuasive register, precise vocabulary, correct grammar, spelling, and punctuation (10 marks)."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Comprehension and Language in Context",
+      "marks": 30,
+      "descriptor": "Assesses literal comprehension, inference, tone, register, grammatical structures, and visual literacy analysis of the response planner."
+    },
+    {
+      "criterion": "Section B: Summary Planning and Precise Language Editing",
+      "marks": 15,
+      "descriptor": "Assesses the ability to extract key points concisely, rewrite sentences using correct grammar, identify and correct common errors (comma splices, subject-verb agreement), and change direct/indirect speech."
+    },
+    {
+      "criterion": "Section C: Transactional Writing",
+      "marks": 25,
+      "descriptor": "Assesses formal letter format, logical structuring of arguments, appropriate register, audience control, and linguistic accuracy."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum to exactly 70.",
+    "Confirm that the duration is set to 2 hours.",
+    "Ensure the language response planner visual elements (text panel, main idea, evidence, plan, draft, edit) are clearly referenced in Section A.",
+    "Check that the transactional writing prompt provides clear guidelines on register, structure, and word count."
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "schema": "dio.document_studio.qa.v1",
+  "job_id": "DIO-DOC-SETSWANA-001",
+  "passed": true,
+  "automated_validation": {
+    "passed": true,
+    "errors": [],
+    "paragraph_count": 7,
+    "edit_rows": 7,
+    "translation_rows": 7,
+    "protected_tokens": [
+      "pH",
+      "NTU",
+      "QMS-07",
+      "PBT"
+    ],
+    "preferred_terms_checked": 0
+  },
+  "provider_flags": [
+    {
+      "paragraph_id": "P4",
+      "severity": "medium",
+      "issue": "The term 'Chain of Custody' is a legal/administrative concept; ensure the translation conveys the formal tracking process. Consider adding a brief explanation if needed."
+    },
+    {
+      "paragraph_id": "P5",
+      "severity": "medium",
+      "issue": "Technical terms 'probe', 'microbiological', 'turbidity', and 'degrees Celsius' are retained in English; verify that this is acceptable for the target audience or if local equivalents exist."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "medium",
+      "issue": "The translation of 'sampler initials' as 'dit\u0161hupiso tsa motlhatlheledi' may not be precise; consider 'dit\u0161hupiso tsa yo o tsayang sampole' for clarity."
+    },
+    {
+      "paragraph_id": "P6",
+      "severity": "medium",
+      "issue": "The term 'correction fluid' is translated as 'setlhotlho sa go phimola' (eraser fluid); verify that this is the common term in Setswana for correction fluid."
+    },
+    {
+      "paragraph_id": "P7",
+      "severity": "medium",
+      "issue": "The translation of 'authorised official' as 'lekgetho le le letleletsweng' may be ambiguous; consider 'modiri yo o letleletsweng' or 'ofisiri e e letleletsweng' for clarity."
+    }
+  ],
+  "translation_review_overrides": {
+    "reviewer": "Byron Bunt",
+    "applied_count": 0,
+    "corrections": [],
+    "final_language_approval_still_required": false,
+    "reviewer_role": "Language practitioner",
+    "approved_at": "2026-08-09T11:41:38+00:00"
+  },
+  "language_controls": {
+    "source_language": "English",
+    "source_profile": {
+      "code": "en-ZA",
+      "status": "established_source_language",
+      "prompt_guidance": "Use clear South African English and preserve the requested professional register.",
+      "reviewer_requirement": "A proficient technical editor must approve edited English."
+    },
+    "target_language": "Setswana",
+    "target_profile": {
+      "code": "tn-ZA",
+      "status": "configured_review_candidate",
+      "prompt_guidance": "Use standard contemporary South African Setswana orthography and natural professional phrasing. Do not force English sentence structure or invent technical terminology; flag uncertain domain terms.",
+      "reviewer_requirement": "A proficient Setswana language reviewer with relevant domain knowledge must approve the complete translation."
+    },
+    "automated_critic": {
+      "provider": "nvidia_nim",
+      "model": "deepseek-ai/deepseek-v4-flash-0731",
+      "reviewed_count": 7,
+      "changed_count": 0,
+      "changes": [],
+      "human_language_approval_still_required": true
+    },
+    "beast_reuse": {
+      "schema": "dio.lingua.beast_resolution.v1",
+      "status": "resolved",
+      "approved_units": [],
+      "approved_terms": [],
+      "risk_patterns": [
+        {
+          "issue": "Technical terms 'probe', 'microbiological', 'turbidity', and 'degrees Celsius' are retained in English; verify that this is acceptable for the target audience or if local equivalents exist.",
+          "severity": "medium",
+          "action": "retain uncertainty and require proficient review",
+          "observation_type": null,
+          "credit_id": "scc_48f7916a39bbc1c8"
+        },
+        {
+          "issue": "The term 'correction fluid' is translated as 'setlhotlho sa go phimola' (eraser fluid); verify that this is the common term in Setswana for correction fluid.",
+          "severity": "medium",
+          "action": "retain uncertainty and require proficient review",
+          "observation_type": null,
+          "credit_id": "scc_99058a1924bf3660"
+        },
+        {
+          "issue": "The term 'Chain of Custody' is a legal/administrative concept; ensure the translation conveys the formal tracking process. Consider adding a brief explanation if needed.",
+          "severity": "medium",
+          "action": "retain uncertainty and require proficient review",
+          "observation_type": null,
+          "credit_id": "scc_9a932b512791b5be"
+        },
+        {
+          "issue": "The translation of 'authorised official' as 'lekgetho le le letleletsweng' may be ambiguous; consider 'modiri yo o letleletsweng' or 'ofisiri e e letleletsweng' for clarity.",
+          "severity": "medium",
+          "action": "retain uncertainty and require proficient review",
+          "observation_type": null,
+          "credit_id": "scc_19b61a62a5f59afc"
+        },
+        {
+          "issue": "The translation of 'sampler initials' as 'dit\u0161hupiso tsa motlhatlheledi' may not be precise; consider 'dit\u0161hupiso tsa yo o tsayang sampole' for clarity.",
+          "severity": "medium",
+          "action": "retain uncertainty and require proficient review",
+          "observation_type": null,
+          "credit_id": "scc_fb50c9c0eb78d96b"
+        }
+      ],
+      "deterministic_guards": [
+        {
+          "guard": "numeral_preservation",
+          "rule": "Every operational numeral present in a source unit must remain present in its target unit.",
+          "credit_id": "scc_d46d5a7d4dd71fdd"
+        },
+        {
+          "guard": "anchor_completeness",
+          "rule": "Every source unit must have exactly one aligned target unit.",
+          "credit_id": "scc_432adf16c476fcd8"
+        },
+        {
+          "guard": "protected_token_preservation",
+          "rule": "Every configured protected token must remain exact in the target unit.",
+          "credit_id": "scc_3a086c2e44bf5863"
+        },
+        {
+          "guard": "source_hash_staleness",
+          "rule": "A changed source-unit hash makes every previously aligned target unit stale.",
+          "credit_id": "scc_fc46f5ae9de4ad44"
+        }
+      ],
+      "active_negative_capabilities": [],
+      "reuse_state": "miss",
+      "provider_call_displaced": false,
+      "crystal_chain": {
+        "beast_object_type": "crystal_chain_verification",
+        "version": "1.0",
+        "valid": true,
+        "block_count": 49,
+        "head_hash": "sha256:4da83cf7e3df20cc8fe6f90c1e8ad509800399e8adf17828cd5329d0643bdac7",
+        "errors": [],
+        "consensus": "local_hash_chain_no_distributed_consensus"
+      },
+      "memory_residue": {
+        "beast_object_type": "memory_hull_write_receipt",
+        "version": "2.0",
+        "residue_id": "residue_2fb609c1a6c27aa67d9e",
+        "section": "decisions",
+        "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_2fb609c1a6c27aa67d9e.md",
+        "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_2fb609c1a6c27aa67d9e.residue.json",
+        "residue_seal": {
+          "beast_object_type": "beast_residue_seal",
+          "version": "2.0",
+          "purpose": "memory_hull_decisions",
+          "algorithm": "Ed25519",
+          "provider": "cryptography",
+          "created_at": "2026-08-09T11:38:06.422839+00:00",
+          "payload_sha256": "sha256:863ebac118d51b2db461a92941c3760fc76164b364e8501c835bd0729161ce06",
+          "message_sha256": "sha256:f2abaf03650ebbc3dcb9563efce5fc1b9d97d20f1e3abc0803db4106ff86677c",
+          "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+          "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+          "signature_b64": "hc1fD3oLKibsiYvcyeuhH2BS/ygng4fd+YTf6gg3QEJg2f+Fofn2cCMX2qYGDX3QZ9b58CKPhvkQP3GGrTlfCw==",
+          "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+        },
+        "verified": true,
+        "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+      },
+      "prec_lifecycle": {
+        "beast_object_type": "prec_lifecycle",
+        "version": "1.0",
+        "lifecycle_id": "prec_a4710f26309757026e",
+        "kind": "dio_lingua",
+        "objective": "Lingua resolve for Setswana",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "current_phase": "crystallize",
+        "task_id": "",
+        "provider": "BEAST",
+        "summary": "Lingua resolve lifecycle completed",
+        "metadata": {
+          "operation": "resolve",
+          "target_language": "Setswana"
+        },
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:83f6e4fabf628671b0ebe5ab3899ba68a7ae73eb2c9f3f6e00f5a1322d0488d2"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "resolved"
+            }
+          }
+        },
+        "created_at": "2026-08-09T11:38:06.427798+00:00",
+        "updated_at": "2026-08-09T11:38:06.437095+00:00",
+        "completed_at": "2026-08-09T11:38:06.437095+00:00",
+        "phase_events": [
+          {
+            "phase": "perceive",
+            "status": "completed",
+            "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+            "artifacts": {},
+            "signals": [
+              "resolve"
+            ],
+            "created_at": "2026-08-09T11:38:06.430370+00:00"
+          },
+          {
+            "phase": "reason",
+            "status": "completed",
+            "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+            "artifacts": {
+              "result_status": "resolved"
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:38:06.432583+00:00"
+          },
+          {
+            "phase": "economize",
+            "status": "completed",
+            "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+            "artifacts": {
+              "provider_call_displaced": false
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:38:06.434536+00:00"
+          },
+          {
+            "phase": "crystallize",
+            "status": "completed",
+            "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+            "artifacts": {
+              "receipt_digest": "sha256:83f6e4fabf628671b0ebe5ab3899ba68a7ae73eb2c9f3f6e00f5a1322d0488d2"
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:38:06.435853+00:00"
+          }
+        ],
+        "phase_status": {
+          "perceive": "completed",
+          "reason": "completed",
+          "economize": "completed",
+          "crystallize": "completed"
+        }
+      }
+    }
+  },
+  "human_gates": {
+    "technical_editor_approval": "pending",
+    "target_language_reviewer_approval": "approved",
+    "client_final_approval": "pending"
+  },
+  "claim_boundaries": [
+    "Paragraph-level formatting is rebuilt; complex source layout preservation is not yet proven.",
+    "Translation is a review candidate, not certified, sworn, or legally attested translation.",
+    "Operational facts, thresholds, identifiers, and terminology require human verification."
+  ],
+  "automated_integrity_passed": true,
+  "linguistic_quality_approved": true,
+  "release_readiness": "linguistic_approved_pending_remaining_review"
+}

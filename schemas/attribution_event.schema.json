@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Marketing Attribution Event",
+  "type": "object",
+  "required": ["event_type", "source"],
+  "properties": {
+    "schema": {"const": "dio.market_attribution_event.v2"},
+    "campaign_id": {"type": ["string", "null"]},
+    "channel_id": {"type": ["string", "null"]},
+    "content_id": {"type": ["string", "null"]},
+    "lead_id": {"type": ["string", "null"]},
+    "order_id": {"type": ["string", "null"]},
+    "payment_id": {"type": ["string", "null"]},
+    "job_id": {"type": ["string", "null"]},
+    "event_type": {"type": "string", "minLength": 1},
+    "value_minor": {"type": "integer", "minimum": 0},
+    "currency": {"type": "string"},
+    "evidence_ref": {"type": ["string", "null"]},
+    "source": {"type": "string", "minLength": 1},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": true
+}

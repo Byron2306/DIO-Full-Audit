@@ -1,0 +1,48 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dio-edge-gateway",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-08",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PAYPAL_ENV": "sandbox",
+    "PAYPAL_WEBHOOKS_ENABLED": "true",
+    "PAYFAST_ENV": "sandbox",
+    "PAYFAST_WEBHOOKS_ENABLED": "false",
+    "PAYFAST_CURRENCY": "ZAR",
+    "PUBLIC_INTAKE_ENABLED": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DIO_DB",
+      "database_name": "dio-commerce",
+      "database_id": "75f5b630-de1e-4153-a806-afb5f80913fc",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "env": {
+    "live": {
+      "name": "dio-edge-gateway-live",
+      "vars": {
+        "PAYPAL_ENV": "live",
+        "PAYPAL_WEBHOOKS_ENABLED": "true",
+        "PAYFAST_ENV": "live",
+        "PAYFAST_WEBHOOKS_ENABLED": "false",
+        "PAYFAST_CURRENCY": "ZAR",
+        "PUBLIC_INTAKE_ENABLED": "true"
+      },
+      "d1_databases": [
+        {
+          "binding": "DIO_DB",
+          "database_name": "dio-commerce-live",
+          "database_id": "aa8a4cc2-b200-4c6b-b020-8deab208f899",
+          "migrations_dir": "migrations"
+        }
+      ]
+    }
+  }
+}

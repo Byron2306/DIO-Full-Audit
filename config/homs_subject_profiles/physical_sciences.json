@@ -1,0 +1,70 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "physical_sciences",
+  "display_name": "Physical Sciences",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "structured_exam",
+    "calculation_problem",
+    "diagram_interpretation",
+    "graph_response",
+    "practical_investigation_memo",
+    "worked_memo"
+  ],
+  "source_types": [
+    "circuit_or_apparatus_diagram",
+    "force_or_motion_diagram",
+    "chemical_equation",
+    "data_table",
+    "graph",
+    "experimental_description",
+    "formula_sheet_reference"
+  ],
+  "question_families": [
+    "define_law_or_concept",
+    "calculate_with_formula",
+    "interpret_graph",
+    "analyse_apparatus",
+    "balance_or_interpret_equation",
+    "evaluate_investigation",
+    "explain_relationship"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "routine_calculation",
+    "application",
+    "analysis",
+    "scientific_reasoning"
+  ],
+  "rubric_dimensions": [
+    "concept_accuracy",
+    "formula_selection",
+    "substitution_and_units",
+    "calculation_accuracy",
+    "diagram_reference",
+    "experimental_reasoning"
+  ],
+  "memo_expectations": [
+    "award formula, substitution and final-answer marks separately",
+    "credit correct units and signs",
+    "state accepted significant-figure or rounding range",
+    "separate observations from explanations"
+  ],
+  "retrieval_queries": [
+    "Physical Sciences CAPS calculation memo formula substitution units",
+    "Physical Sciences practical investigation graph response assessment",
+    "physics chemistry diagram interpretation assessment"
+  ],
+  "human_review_checks": [
+    "verify numerical answers and unit conversions",
+    "check all constants/formulae required are supplied or allowed",
+    "confirm diagrams are scientifically coherent",
+    "confirm practical contexts are safe and classroom-appropriate"
+  ],
+  "blocked_claims_or_modes": [
+    "unsafe experimental instructions",
+    "invented data presented as real experimental results",
+    "calculation answer not derivable from supplied values",
+    "diagram labels that are not visible or supplied"
+  ]
+}

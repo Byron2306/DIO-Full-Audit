@@ -1,0 +1,87 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "geography",
+  "display_name": "Social Sciences: Geography",
+  "senior_subject": "Social Sciences",
+  "grade": 9,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "source_based_plus_extended_response",
+  "marks": 70,
+  "duration_minutes": 90,
+  "bloom_distribution": {
+    "remember": 10,
+    "understand": 20,
+    "apply": 30,
+    "analyse": 25,
+    "evaluate": 10,
+    "create": 5,
+    "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+  },
+  "source_grammar": [
+    "map_extract",
+    "photograph_or_image",
+    "graph_or_chart",
+    "data_table"
+  ],
+  "caps_focus": "FET bridge: development, resource use, maps, data and short justified responses",
+  "sections": [
+    {
+      "title": "map_or_source_skills",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "map_or_source_skills",
+          "bloom_level": "understand",
+          "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Social Sciences: Geography stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "context_questions",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "context_questions",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Social Sciences: Geography task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "short_explanation",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "short_explanation",
+          "bloom_level": "evaluate",
+          "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Social Sciences: Geography stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion",
+            "educator-approved rubric required"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

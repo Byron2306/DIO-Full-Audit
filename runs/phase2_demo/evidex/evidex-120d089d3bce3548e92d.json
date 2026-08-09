@@ -1,0 +1,61 @@
+{
+  "job_id": "evidex-120d089d3bce3548e92d",
+  "created_at": "2026-08-07T14:49:30+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "demo-evidex-001",
+    "thread_ref": "thread-grant-report-001"
+  },
+  "route": {
+    "product": "evidex",
+    "confidence": 0.95,
+    "reason": "Matched route keywords: grant, reporting, evidence pack, kpi, funder, donor, monitoring."
+  },
+  "status": "approved",
+  "risk": "moderate",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "Grant reporting evidence pack for Q2 donor submission",
+      "sender": "[email]",
+      "attachment_names": "attendance_registers.zip; invoices.xlsx; monitoring_notes.docx",
+      "intent": "",
+      "urgency": "",
+      "next_step": "",
+      "draft_status": "",
+      "primary_draft_path": "",
+      "safer_draft_path": "",
+      "shorter_draft_path": "",
+      "evidence_note_path": ""
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "120d089d3bce3548e92d",
+      "source_type": "email",
+      "source_path": "",
+      "title": "Grant reporting evidence pack for Q2 donor submission",
+      "date_observed": "2026-08-07T14:49:30+00:00",
+      "text_extract": "Please prepare the funder reporting evidence pack. We have KPI proof, attendance registers, photos, invoices, and monitoring notes that need to be mapped for the donor report.",
+      "hash": "dd9ce270ba618607667d",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.95,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "approved",
+    "reviewer": "byron",
+    "reviewed_at": "2026-08-07T14:49:39+00:00",
+    "note": "Phase 2 demo approved for deterministic service-pack review."
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

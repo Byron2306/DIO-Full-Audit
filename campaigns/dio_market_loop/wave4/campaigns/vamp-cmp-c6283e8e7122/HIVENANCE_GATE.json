@@ -1,0 +1,21 @@
+{
+  "schema": "dio.hivenance.marketing_gate.v1",
+  "campaign_id": "CMP-C6283E8E7122",
+  "hypothesis_id": "W4-HYP-0075",
+  "evaluated_at": "2026-08-08T22:11:08+00:00",
+  "state": "creative_review_ready",
+  "gates": {
+    "content_generation": "allowed",
+    "publication": "operator_approval_required",
+    "personalised_outreach": "blocked",
+    "electronic_sales_outreach": "blocked",
+    "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH",
+    "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+  },
+  "next_allowed_action": "operator_editorial_review",
+  "blocked_actions": [
+    "automatic_publication",
+    "automatic_direct_message",
+    "automatic_sales_email"
+  ]
+}

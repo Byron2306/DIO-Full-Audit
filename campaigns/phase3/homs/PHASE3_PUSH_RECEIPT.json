@@ -1,0 +1,38 @@
+{
+  "schema": "knowedge.phase3.push_receipt.v1",
+  "product_layer": "homs",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "status": "episode_packaged",
+  "nichefoundry_root": "/home/byron/Downloads/NicheFoundry_Phase11",
+  "files": [
+    "CAMPAIGN_PACK.md",
+    "editorial_review.json",
+    "foundry_opportunity.json",
+    "metadata_package.json",
+    "storyboard.json",
+    "visual_plan.json"
+  ],
+  "next_gate": "operator editorial approval before media generation",
+  "approval": {
+    "state": "approved",
+    "reviewer": "codex",
+    "reviewed_at": "2026-08-07T16:32:44+00:00",
+    "approval_path": "campaigns/phase3/homs/PHASE3_APPROVAL.json"
+  },
+  "episode": {
+    "episode_dir": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b",
+    "episode_id": "homs-c32b49867157b9ad",
+    "packaged_at": "2026-08-07T16:32:44+00:00",
+    "files": [
+      "script_manifest.json",
+      "render_manifest.json",
+      "visual_manifest.json",
+      "narration_manifest.json",
+      "audio_manifest.json",
+      "metadata_package.json",
+      "script.md",
+      "gamma_input.md",
+      "approval_checklist.md"
+    ]
+  }
+}

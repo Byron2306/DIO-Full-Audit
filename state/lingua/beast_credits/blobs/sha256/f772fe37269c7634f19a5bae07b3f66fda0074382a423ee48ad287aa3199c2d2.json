@@ -1,0 +1,33 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:f772fe37269c7634f19a5bae07b3f66fda0074382a423ee48ad287aa3199c2d2",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 63,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "DIO-LINGUA-WATER-001:P3",
+    "impact_fingerprint_hash": "sha256:54880d065c433c07b18a569288cd2a4c21dd05552584f3238c233fa0cb0fbc51",
+    "metadata": {
+      "approved_at": "2026-08-09T11:40:48+00:00",
+      "domain": "Water-quality operations",
+      "reviewer": "Byron Bunt",
+      "reviewer_role": "Language practitioner",
+      "semantic_object_id": "DIO-LINGUA-WATER-001",
+      "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+      "target_language": "Sesotho",
+      "target_text": "Sebaka sa t\u0161ebeliso: Se sebetsa ho mehlala e tloaelehileng e bokelloang matamong, libakeng tsa phekolo ea metsi, le lipompong tsa sechaba. Mokhoa ona ha o akaretse ho qhalana ha lik'hemik'hale tsa t\u0161ohanyetso kapa ho lekanya lisebelisoa tsa laboratori.",
+      "unit_id": "P3"
+    },
+    "policy_version": "dio_lingua_human_authority_v1",
+    "repo_fingerprint": "sha256:54880d065c433c07b18a569288cd2a4c21dd05552584f3238c233fa0cb0fbc51",
+    "task_class": "dio_lingua_translation_unit",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

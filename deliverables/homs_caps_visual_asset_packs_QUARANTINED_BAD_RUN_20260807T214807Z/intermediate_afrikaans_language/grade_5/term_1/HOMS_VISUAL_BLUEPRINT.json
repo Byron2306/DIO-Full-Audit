@@ -1,0 +1,58 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Afrikaans Language",
+  "grade": 5,
+  "phase": "intermediate_grade_4_6",
+  "term": "1",
+  "caps_source": {
+    "title": "Afrikaans",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_ip_fal_afrikaans_gr_4-6_web.pdf",
+    "sha256": "b4f9ebf244692d05c60f37ea14cd1aba5815464768d2a901f077d4f7e233566c"
+  },
+  "canonical_profile_id": "intermediate.afrikaans_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [
+    "Onderrigtyd vir die Eerste Addisionele Taal is 5 uur per week in die Intermedi\u00eare Fase. Alle taalinhoud word oor",
+    "to the Curriculum and Assessment Policy Statements and the supplementary policy documents, possible errors may occur in the said documents",
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are",
+    "Intermedi\u00eare fase"
+  ],
+  "assessment_content_focus": [
+    "Onderrigtyd vir die Eerste Addisionele Taal is 5 uur per week in die Intermedi\u00eare Fase. Alle taalinhoud word oor",
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are",
+    "Onderrigtyd vir die Eerste Addisionele Taal is 5 uur per week in die Intermedi\u00eare Fase. Alle taalinhoud word oor",
+    "translated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: addisionele, african, content, documents, eerste, intermedi."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

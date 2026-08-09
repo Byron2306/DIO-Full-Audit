@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"DIO Marketing Content Item",
+  "type":"object",
+  "required":["schema","content_id","campaign_id","channel_id","format","state","approval_state"],
+  "properties":{
+    "schema":{"const":"dio.marketing_content_item.v1"},
+    "content_id":{"type":"string"},
+    "campaign_id":{"type":"string"},
+    "channel_id":{"type":"string"},
+    "format":{"type":"string"},
+    "state":{"enum":["draft","approved","published","retired"]},
+    "approval_state":{"enum":["pending","approved","rejected"]}
+  },
+  "additionalProperties":true
+}

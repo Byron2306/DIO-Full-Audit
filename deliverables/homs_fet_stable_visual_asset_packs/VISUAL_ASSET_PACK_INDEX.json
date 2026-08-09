@@ -1,0 +1,4258 @@
+{
+  "schema": "knowedge.homs_caps_visual_asset_pack_index.v1",
+  "created_at": "2026-08-07T22:19:58+00:00",
+  "pack_count": 10,
+  "skipped_count": 507,
+  "assessment_family_counts": {
+    "source_based_plus_extended_response": 10
+  },
+  "render_status_counts": {
+    "rendered": 10
+  },
+  "theme_confidence_counts": {
+    "high": 10
+  },
+  "rows": [
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 10,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: atmosphere, composition, heating, hours, importance, instruments."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "The Atmosphere \u00b1 36 hours",
+          "weather measuring instruments",
+          "synoptic weather maps and satellite",
+          "weather reports from the media",
+          "Composition and Structure of the Atmosphere [5 hours]",
+          "importance of the atmosphere",
+          "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+          "Heating of the Atmosphere [8 hours]"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "as well as formal and informal http://www.weathersa.co.za",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Synoptic Weather Map And Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_1/assessment_visuals/01_synoptic_weather_map_and_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_1/assessment_visuals/01_synoptic_weather_map_and_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_1"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 10,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: associated, atlases, boundaries, continents, different, earth."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Geomorphology \u00b1 36 hours atlases",
+          "The Structure of the Earth [6 hours]",
+          "the internal structure of the Earth",
+          "Plate Tectonics [6 hours]",
+          "plate tectonics \u2013 an explanation for the movement of continents",
+          "the mechanics of plate movements",
+          "processes and landforms associated with different kinds of plate boundaries",
+          "the world\u2019s volcanic and earthquake zones."
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "as well as formal and informal bigmap/index.phtml",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Plate Boundary Map And Hazard Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_2/assessment_visuals/01_plate_boundary_map_and_hazard_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_2/assessment_visuals/01_plate_boundary_map_and_hazard_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_2"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 10,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: affect, birth, death, density, distribution, expectancy."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Population \u00b1 36 hours",
+          "Population Distribution and Density [4 hours]",
+          "meaning of population distribution and population density",
+          "world population density and distribution",
+          "factors that affect distribution and density of the world\u2019s population.",
+          "Population Structure [4 hours]",
+          "population indicators: birth rates, death rates, life expectancy, fertility rate and natural increase",
+          "factors that influence population indicators"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Population Distribution Map And Density Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_3/assessment_visuals/01_population_distribution_map_and_density_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_3/assessment_visuals/01_population_distribution_map_and_density_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_3"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 10,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: africa, atmosphere, availability, basic, building, challenges."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Water Resources \u00b1 24 hours",
+          "Water in the World [2 hours]",
+          "different forms of water in the world: liquid, solid and gas",
+          "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+          "Water Management in South Africa [5 hours]",
+          "factors influencing the availability of water in South Africa",
+          "challenges of providing free basic water to rural and urban communities in South Africa",
+          "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "websites: world water at http://www.",
+          "worldwater.org/data.html",
+          "Department of Water Affairs http://",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Water Resources Map And Availability Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_4/assessment_visuals/01_water_resources_map_and_availability_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_4/assessment_visuals/01_water_resources_map_and_availability_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_10/term_4"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 11,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: africa, around, atmosphere, balance, circulation, climate."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "The atmosphere \u00b1 36 hours",
+          "The Earth\u2019s Energy Balance [4 hours]",
+          "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+          "significance of Earth\u2019s axis and revolution around the Sun",
+          "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+          "Africa\u2019s Weather and Climate [8 hours]",
+          "Africa\u2019s climate regions",
+          "the role of oceans in climate control in Africa"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Synoptic Weather Map And Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_11/term_1/assessment_visuals/01_synoptic_weather_map_and_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_11/term_1/assessment_visuals/01_synoptic_weather_map_and_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_11/term_1"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 11,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: associated, atlases, boundaries, continents, different, earth."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Geomorphology \u00b1 36 hours atlases",
+          "The Structure of the Earth [6 hours]",
+          "the internal structure of the Earth",
+          "Plate Tectonics [6 hours]",
+          "plate tectonics \u2013 an explanation for the movement of continents",
+          "the mechanics of plate movements",
+          "processes and landforms associated with different kinds of plate boundaries",
+          "the world\u2019s volcanic and earthquake zones."
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "as well as formal and informal bigmap/index.phtml",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Plate Boundary Map And Hazard Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_11/term_2/assessment_visuals/01_plate_boundary_map_and_hazard_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_11/term_2/assessment_visuals/01_plate_boundary_map_and_hazard_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_11/term_2"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 12,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: associated, charts, climate, conditions, consolidation, development."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Climate and weather \u00b1 14 + 5 hours",
+          "(regional and local weather systems) (includes consolidation, mapwork and",
+          "weather prediction, satellite images",
+          "and synoptic weather charts",
+          "stages of development and related weather conditions",
+          "weather patterns associated with cold, warm, and occluded fronts",
+          "reading and interpreting satellite images and synoptic weather maps.",
+          "associated weather patterns"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "http://www.weathersa.co.za for",
+          "http://www.weathersa.co.za",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Synoptic Weather Map And Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_1/assessment_visuals/01_synoptic_weather_map_and_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_1/assessment_visuals/01_synoptic_weather_map_and_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_1"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 12,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: activities, concept, consolidation, earth, economic, google."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Rural Settlement and Urban \u00b1 36 hours",
+          "Settlement",
+          "(includes mapwork, consolidation and",
+          "topographic and orthophoto maps",
+          "images (such as Google Earth)",
+          "economic activities in a settlement.",
+          "Study of Settlements [3 hours]",
+          "concept of settlement"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract",
+          "visual_source"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence.",
+          "Term/theme content references visual source material."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract",
+        "visual_source"
+      ],
+      "assets": [
+        {
+          "title": "Population Distribution Map And Density Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_2/assessment_visuals/01_population_distribution_map_and_density_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_2/assessment_visuals/01_population_distribution_map_and_density_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_2"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 12,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: aerial, africa, agriculture, atlases, climate, consolidation."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Economic Geography of South \u00b1 36 hours",
+          "atlases, topographic maps, aerial",
+          "(includes map work, consolidation and",
+          "information on Maputo Corridor:",
+          "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Economic Geography Map And Resource Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_3/assessment_visuals/01_economic_geography_map_and_resource_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_3/assessment_visuals/01_economic_geography_map_and_resource_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_3"
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 12,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: africa, atmosphere, availability, basic, building, challenges."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Water Resources \u00b1 24 hours",
+          "Water in the World [2 hours]",
+          "different forms of water in the world: liquid, solid and gas",
+          "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+          "Water Management in South Africa [5 hours]",
+          "factors influencing the availability of water in South Africa",
+          "challenges of providing free basic water to rural and urban communities in South Africa",
+          "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+        ],
+        "admin_lines": [
+          "Topic: Time: Additional Resources:",
+          "websites: world water at http://www.",
+          "worldwater.org/data.html",
+          "Department of Water Affairs http://",
+          "GEOGRAPHICAL KNOWLEDGE"
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "earth",
+          "earthquake",
+          "economic geography",
+          "faulting",
+          "folding",
+          "geomorphology",
+          "gis",
+          "map",
+          "plate",
+          "population",
+          "river",
+          "rock",
+          "rural",
+          "settlement",
+          "synoptic",
+          "tectonic",
+          "urban",
+          "volcano"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "data_table",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "data_table",
+        "map_extract"
+      ],
+      "assets": [
+        {
+          "title": "Water Resources Map And Availability Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_4/assessment_visuals/01_water_resources_map_and_availability_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_4/assessment_visuals/01_water_resources_map_and_availability_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_stable_visual_asset_packs/fet_geography/grade_12/term_4"
+    }
+  ],
+  "skipped": [
+    {
+      "profile_id": "fet.accounting",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.accounting",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.afrikaans_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_management_practices",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.agricultural_sciences",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.business_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.consumer_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dance_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.design_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.dramatic_arts",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.economics",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.engineering_graphics_and_design",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.english_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.equine_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.french_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.geography",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.geography",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.guidelines_to_strengthen_caps_implementation_2017_fet",
+      "reason": "support_or_guideline_profile"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.history",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.hospitality_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_orientation",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.life_sciences",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mandarin_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.marine_sciences",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematical_literacy",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.mathematics",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.music",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.nautical_science",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.physical_sciences",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.religion_studies",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sepedi_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sesotho_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.setswana_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.siswati_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.south_african_sign_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.sport_and_exercise_science",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_mathematics",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technical_sciences",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.technology",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tourism",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.tshivenda_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.visual_arts",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.xitsonga_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isindebele_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isixhosa_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 10,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 10,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 10,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 10,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 11,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 11,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 11,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 11,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 12,
+      "term": 1,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 12,
+      "term": 2,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 12,
+      "term": 3,
+      "reason": "stable_audit_not_approved"
+    },
+    {
+      "profile_id": "fet.isizulu_language",
+      "grade": 12,
+      "term": 4,
+      "reason": "stable_audit_not_approved"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "schema": "knowedge.homs_source_attachment_receipt.v1",
+  "created_at": "2026-08-08T10:10:20+00:00",
+  "status": "attached",
+  "job_dir": "deliverables/homs_tight8_term_source_first_packs/deterministic-geography-g12-t3-20260808T101020Z",
+  "bank": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+  "subject_id": "geography",
+  "requested_source_types": [
+    "data_table",
+    "map_extract",
+    "synoptic_weather_map",
+    "graph_or_chart",
+    "photograph_or_image"
+  ],
+  "attached_count": 3,
+  "missing_requested_source_types": [],
+  "source_assets": [
+    {
+      "id": "source_01_data_table",
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "map_extract",
+        "photograph_or_image",
+        "topographic_map_and_orthophoto"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 2,
+      "object_id": "Q3:topographic_orthophoto_mapwork",
+      "snippet": "14. A 1 : 50 000 topographical map 2828CB CLARENS and a 1 : 10 000 orthophoto map 2828 CB 7 MAGDALENAS RUST are provided. 15. The area demarcated in RED/BLACK on the topographical map represents the",
+      "bank_png": "deliverables/homs_core_source_bank/geography/data_table/01_geography_p1_may_june_2024_p02_q3_topographic_orthophoto_mapwork.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/data_table/margin_trim/01_geography_p1_may_june_2024_p02_q3_topographic_orthophoto_mapwork.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/data_table/object_candidate/01_geography_p1_may_june_2024_p02_q3_topographic_orthophoto_mapwork.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/data_table/object_candidate/01_geography_p1_may_june_2024_p02_q3_topographic_orthophoto_mapwork.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          861,
+          1337
+        ],
+        "content_bbox": [
+          62,
+          34,
+          923,
+          1371
+        ],
+        "crop_ratio": 0.8257,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/data_table/object_candidate/01_geography_p1_may_june_2024_p02_q3_topographic_orthophoto_mapwork.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          837,
+          252
+        ],
+        "object_candidate_bbox": [
+          63,
+          1039,
+          900,
+          1291
+        ],
+        "object_candidate_crop_ratio": 0.1513,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_map_extract",
+      "title": "Official-paper exemplar: Map Extract",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "synoptic_weather_map",
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 7,
+      "object_id": "Q1:extract_1",
+      "snippet": "1.4 Refer to the extract and map below on Tropical Cyclone Freddy. IMPACT OF TROPICAL CYCLONE FREDDY According to the Australian Bureau of Meteorology and the US Joint Typhoon Warning",
+      "bank_png": "deliverables/homs_core_source_bank/geography/map_extract/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/margin_trim/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          905,
+          1337
+        ],
+        "content_bbox": [
+          63,
+          34,
+          968,
+          1371
+        ],
+        "crop_ratio": 0.8679,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          873,
+          771
+        ],
+        "object_candidate_bbox": [
+          63,
+          104,
+          936,
+          875
+        ],
+        "object_candidate_crop_ratio": 0.4828,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_synoptic_weather_map",
+      "title": "Official-paper exemplar: Synoptic Weather Map",
+      "source_type": "synoptic_weather_map",
+      "source_types": [
+        "synoptic_weather_map",
+        "map_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 3,
+      "object_id": "Q1:map_1",
+      "snippet": "1.1 The questions below refer to the synoptic weather map. Various options are provided as possible answers to the questions. Choose the answer and write only the letter (A\u2013D) next to the question numbers (1.1.1 to 1.1.7) in the ANSWER BOOK, e.g. 1.1.8 D.",
+      "bank_png": "deliverables/homs_core_source_bank/geography/synoptic_weather_map/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/margin_trim/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          861,
+          1337
+        ],
+        "content_bbox": [
+          62,
+          34,
+          923,
+          1371
+        ],
+        "crop_ratio": 0.8257,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          827,
+          773
+        ],
+        "object_candidate_bbox": [
+          63,
+          198,
+          890,
+          971
+        ],
+        "object_candidate_crop_ratio": 0.4585,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "missing_source_bank": false,
+  "educator_approval_required": true
+}

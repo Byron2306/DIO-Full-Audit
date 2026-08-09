@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-CMP-D3F941CEA4BD",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "proof_story",
+    "artifact_id": "CNT-D3F941CEA4BD",
+    "campaign_id": "CMP-D3F941CEA4BD",
+    "product_line_id": "SOPHIA_REVIEW",
+    "audience": "Postgraduate students, supervisors, writing centres and research groups",
+    "channel": "linkedin_organic",
+    "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+    "cta": "Request one bounded manuscript-section review.",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "2026-08-08T22:11:08+00:00",
+    "document_hash": "sha256:a83e2df6899a196a97e027aed46a90d12e0567eac10fc2befada43d6f3fa2d73",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "Academic AI should show an author what to strengthen, not write the work for them.",
+        "source_hash": "sha256:d2ac3cc1c4541b3994e5d18f58f0f3a62b194f558087c5155ef580d65efe07b6",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "Grounded Gemini reviewer commentary, technical citation audit and claim-to-source ledger with human approval and academic-integrity boundaries.\n\nIf HELTASA is shown 'Authorship-safe research audit: source-fit/citation/format/literature-review critique before-and-after report, with no ghostwriting.', then the Postgraduate/research-support decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Request one bounded manuscript-section review.",
+        "source_hash": "sha256:b3c3cd26c9f187287fb0961862d394369a3adae5b9642cc7eaca307004a8fad1",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "2026-08-08T22:11:08+00:00",
+      "document_hash": "sha256:a83e2df6899a196a97e027aed46a90d12e0567eac10fc2befada43d6f3fa2d73",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T12:02:20+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T12:02:20+00:00"
+}

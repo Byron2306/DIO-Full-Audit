@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.caps_assessment_demo_receipt.v1",
+  "created_at": "2026-08-07T20:29:45+00:00",
+  "status": "generated",
+  "job_id": "foundation_coding_and_robotics_grade2_20260807T202945Z",
+  "proof_group": "foundation",
+  "selected_grade": 2,
+  "caps": {
+    "title": "Coding and Robotics",
+    "phase": "foundation_grade_r_3",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/fp_coding_and_robotics_caps_final_2025.pdf",
+    "sha256": "570e1d87f30d06646940851ebfd2aa58639a3fe91e576a62853f1bbc084f08fe",
+    "recommended_blueprint": "foundation_activity_assessment",
+    "source_document_title": "English",
+    "signals": {
+      "signals_source_based": false,
+      "signals_essay_or_extended_response": false,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": false,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    }
+  },
+  "canonical_profile": {
+    "profile_id": "foundation.coding_and_robotics",
+    "subject": "Coding and Robotics",
+    "subject_family": "technology",
+    "assessment_family": "foundation_activity_assessment",
+    "allowed": [
+      "concrete_activity",
+      "teacher_observation",
+      "oral_prompt",
+      "picture_prompt",
+      "short_constructed_response"
+    ],
+    "default_off": [
+      "essay",
+      "long_source_based_response",
+      "case_study",
+      "formal_exam_pressure"
+    ],
+    "required_distribution": {
+      "observable_activity": 50,
+      "oral_or_practical_response": 30,
+      "short_recorded_response": 20
+    }
+  },
+  "duration_seconds": 23.22,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/foundation_coding_and_robotics_grade2_20260807T202945Z",
+    "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/foundation_coding_and_robotics_grade2_20260807T202945Z/assessment_pack.json",
+    "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/foundation_coding_and_robotics_grade2_20260807T202945Z/ASSESSMENT_PACK.md",
+    "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/foundation_coding_and_robotics_grade2_20260807T202945Z/ASSESSMENT_PACK.docx",
+    "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1125534964/foundation_coding_and_robotics_grade2_20260807T202945Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+  }
+}

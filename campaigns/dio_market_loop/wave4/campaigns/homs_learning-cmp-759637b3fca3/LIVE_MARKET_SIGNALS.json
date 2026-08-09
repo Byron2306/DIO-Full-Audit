@@ -1,0 +1,584 @@
+{
+  "schema": "dio.campaign.live_market_signals.v1",
+  "observation_id": "LIVE-OBS-2ECE77B187E5F708",
+  "campaign_id": "CMP-759637B3FCA3",
+  "hypothesis_id": "W4-HYP-0003",
+  "product_layer": "homs_learning",
+  "source_system": "nichefoundry_connector_federation",
+  "connectors": [
+    {
+      "id": "youtube_public_discovery",
+      "adapter": "youtube_public",
+      "version": "1.0.0",
+      "trust_note": "Public metadata is market evidence, not factual source evidence for a script."
+    },
+    {
+      "id": "rss_monitor",
+      "adapter": "rss",
+      "version": "1.0.0",
+      "trust_note": "Feed descriptions are discovery leads. Full source review is still required for factual claims."
+    }
+  ],
+  "search": {
+    "query": "CAPS worksheet grade South Africa education",
+    "region_code": "ZA",
+    "relevance_language": "en",
+    "published_after_days": 365,
+    "started_at": "2026-08-09T13:57:04.327Z",
+    "finished_at": "2026-08-09T13:57:21.097Z"
+  },
+  "depth": {
+    "returned_videos": 10,
+    "relevant_videos": 9,
+    "rejected_as_irrelevant": 1,
+    "returned_news_or_blog_items": 12,
+    "relevant_news_or_blog_items": 1,
+    "rejected_news_or_blog_items": 11,
+    "approximate_search_results": 291,
+    "total_views_in_sample": 753655,
+    "median_views_in_sample": 30,
+    "latest_published_at": "2026-07-01T19:53:05Z",
+    "scored_candidates": 10
+  },
+  "top_opportunities": [
+    {
+      "opportunity_id": "opp_9e2cfb98a081c05b",
+      "title": "Mathematics Assessment Resources | Grade 7 | CAPS Learning| Twinkl SA",
+      "decision": "watch",
+      "opportunity_score": 43,
+      "audience_demand": 0.207,
+      "content_gap": 0.733,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=k7tOGtP4uBg"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_c85ff3091ae80686",
+      "title": "IEB CAPS vs Cambridge: How to choose the right curriculum for your child - Advtech",
+      "decision": "reject_fit",
+      "opportunity_score": 43,
+      "audience_demand": 0.57,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRlJTNGxZbkJqeENScEJjTU9QeE1xQ1pzdkp6U0k3dEY0VDBXMk1TVFJrWjRzYjh6a29IX3VTM0ppbzBzUDZzd1Fib3Z4R2xMR0V6NUpsX2Q1N2FpOTd0Uko1THhKSVFyR0VHME45eGNTcXhXTUw1T2Nnb2R6c3hvUW40NTNBZ0VTaWVnTEFyeWJkTWZCSTA2RGZaMUxSdjZrVkE?oc=5",
+        "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_47de87f362795006",
+      "title": "Grade 9 ENGHL Assessment Resources | CAPS Learning | Twinkl SA",
+      "decision": "reject_low_value",
+      "opportunity_score": 42,
+      "audience_demand": 0.143,
+      "content_gap": 0.733,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=SbzlKeliyDs"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_1562c06c617bac2a",
+      "title": "Grade 4 History | CAPS | Full Year Summary | South Africa | Story-Based Learning for Kids",
+      "decision": "reject_fit",
+      "opportunity_score": 40,
+      "audience_demand": 0.451,
+      "content_gap": 0.733,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=iloh-DVYhCI"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_641be9d8ab965dc4",
+      "title": "Droughts and Floods: Causes, Effects & How They Impact South Africa Grade 5 & 6",
+      "decision": "reject_fit",
+      "opportunity_score": 37,
+      "audience_demand": 0.217,
+      "content_gap": 0.733,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=mK8otTB2TT4"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    }
+  ],
+  "records": [
+    {
+      "video_id": "jWQp6nqmvkU",
+      "title": "MZANSI Series Part 1 | CAPS Grade 1 Worksheet 19 | Addition Up to 5 Part 1",
+      "description": "In this lesson, we explore Addition Up to 5 using the African Math Toybox, and South Africa's CAPS DBE Grade 1, Book 1, Worksheet 19. Learners practice combining groups, counting objects, using number lines, and solving simple addition problems through hands-on, play-based learning. Play for FREE: 👉🏿 https://africanmath.com/games/toybox/ Download the workbook to follow along! (p. 40): https://www.education.gov.za/LinkClick.aspx?fileticket=dwyVB3go6Tc%3d&tabid=5726&portalid=0&mid=14757 Perfect for: ✅ Parents ✅ Teachers ✅ Homeschoolers ✅ After-school programs Subscribe to our YouTube Channel! : https://www.youtube.com/channel/UCPhmKy9jpbaR-A0-lzXGn5Q)**?sub_confirmation=1** Bitric Kinder Prewriting PlayJournal: https://www.amazon.com/Kinder-Prewriting-PlayJournalTM-Paperback-Journal/dp/B0DG29YJBW Kinder Prewriting PlayJournal™ Black and White Paperback: Play based Prewriting: Play + Daily = Plaily™ Fun Play based Prewriting Journal for Kids: https://a.co/d/05DYV7Fw Junior PlayJournal™ 1 (Hardcover): Play Based Journal For Kids: https://a.co/d/0erNxd78 Junior PlayJournal™ 1 Black and White (Paperback): Play + Daily = Plaily™ Practice | Fun Play based Journal for Kids: https://a.co/d/03GcgMnd I Can I Can I Can: Grow Confidence Through Competence In Early Life Skills (Little Legacy™): https://a.co/d/04vPYHWL What I Like (Little Legacy™): https://a.co/d/0hzpfKaZ Other African Math Books: https://africanmath.com/books/ Follow us on social media! Instagram: [https://www.instagram.com/africanmath/](https://www.instagram.com/africanmath/) Facebook: [https://www.facebook.com/africanmath/](https://www.facebook.com/africanmath/) Twitter: [https://twitter.com/AfricanMaths](https://twitter.com/AfricanMaths) TikTok: @africanmath #africanmath #addition #grade1 #southafrica",
+      "channel_id": "UCPhmKy9jpbaR-A0-lzXGn5Q",
+      "channel_title": "AFRICAN MATH",
+      "published_at": "2026-06-18T17:41:35Z",
+      "views": 16,
+      "likes": 1,
+      "comments": 1,
+      "duration": "PT4M26S",
+      "url": "https://www.youtube.com/watch?v=jWQp6nqmvkU",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "lesson",
+          "south africa",
+          "grade",
+          "school"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "iloh-DVYhCI",
+      "title": "Grade 4 History | CAPS | Full Year Summary | South Africa | Story-Based Learning for Kids",
+      "description": "Welcome to another Learning Story with Tanja! 🌟 This Grade 4 History CAPS video is a complete year summary designed for South African learners, especially special needs and visual learners. In this engaging and easy-to-follow lesson, learners will journey through all four terms of the Grade 4 History curriculum, using storytelling, visuals, and simple explanations to make history come alive. 📚 What’s in this video: 🧭 Term 1: Local History – Our community and how it has changed over time 👑 Term 2: Learning from Leaders – Shaka Zulu, Moshoeshoe I, Nelson Mandela, Albertina Sisulu, and Mahatma Gandhi 🚗 Term 3: Transport Through Time – From ox-wagons to cars and airplanes 💬 Term 4: Communication Through Time – From cave paintings to cellphones and the internet This video helps learners understand the past, build memory skills, and prepare for assessments, while keeping learning fun and inclusive. 🎥 Perfect for: Classroom use (teachers following the CAPS curriculum) Homeschool lessons Learning support and revision Special needs education 💡 Every story connects history to real life, helping learners remember key facts through visuals and repetition. #Grade4History #CAPS #CAPSEducation #SouthAfricaEducation #LearningWithTanja #InclusiveLearning #SpecialNeedsEducation #StoryBasedLearning #SouthAfricanHistory #NelsonMandela #ShakaZulu #HomeschoolSouthAfrica #TeachingResources #VisualLearning #CAPSLessons",
+      "channel_id": "UCqdTlppr2y8p41GJc46dmWQ",
+      "channel_title": "PowerUp Life smart kids.",
+      "published_at": "2025-11-09T11:00:06Z",
+      "views": 1429,
+      "likes": 13,
+      "comments": 0,
+      "duration": "PT6M4S",
+      "url": "https://www.youtube.com/watch?v=iloh-DVYhCI",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "lesson",
+          "south africa",
+          "grade",
+          "school",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "k7tOGtP4uBg",
+      "title": "Mathematics Assessment Resources | Grade 7 | CAPS Learning| Twinkl SA",
+      "description": "This video is designed to make maths easier to understand through simple explanations and helpful revision support. Sign up for a free trial on the Twinkl website to access thousands of worksheets, activities, and interactive learning materials aligned to CAPS https://www.twinkl.co.za/l/w5mum Don’t forget to like, comment, and subscribe for more classroom ideas and resources! #PrepWithTwinklZA #twinklstoriesza#resourcesforteachers#KidsLearning #EducationalVideo#twinklsa#InclusionWithTwinkl #ReadyForTomorrow",
+      "channel_id": "UC5Q1UI6R1KK42IBvEYJ9OZw",
+      "channel_title": "Twinkl South Africa",
+      "published_at": "2026-06-27T07:59:53Z",
+      "views": 27,
+      "likes": 1,
+      "comments": 0,
+      "duration": "PT1M48S",
+      "url": "https://www.youtube.com/watch?v=k7tOGtP4uBg",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "learning material",
+          "grade"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "0oLBec3_Gdw",
+      "title": "EVERYTHING You Need to Know About Equations of Motion | Grade 10 CAPS Physics",
+      "description": "🎓 Welcome to Alchematics! In this lesson, we break down one of the most important topics in Grade 10 Physical Sciences — Equations of Motion. Whether you’re revising for tests, catching up on class, or aiming for distinctions, this video will help you understand and apply the equations with clarity and confidence. 💡 What you’ll learn: What each motion variable means How to choose the right equation for each question Step-by-step examples of horizontal motion (CAPS Level) Common mistakes and how to avoid them Quick tips to solve problems faster in exams 🧪 Aligned with the South African CAPS Curriculum Perfect for Grade 10 learners preparing for Physical Sciences assessments and exams. 🔹 Downloadable Resources 📘 Worksheet and Notes (coming soon!) 📚 More lessons at https://www.youtube.com/@AlcheMathics 🔹 Follow for more! 🔔 Subscribe for weekly lessons in Physical Sciences, Chemistry, and Maths 👍 Like and comment your questions below — I reply to every one! #EquationsOfMotion #Grade10PhysicalSciences #CAPS #Alchematics #PhysicsMadeEasy #SUVAT #LearnScience",
+      "channel_id": "UCERwp-XwQKYV-VaP1iMbF9A",
+      "channel_title": "AlcheMathics",
+      "published_at": "2025-10-04T20:09:05Z",
+      "views": 51,
+      "likes": 1,
+      "comments": 0,
+      "duration": "PT16M11S",
+      "url": "https://www.youtube.com/watch?v=0oLBec3_Gdw",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "lesson",
+          "south africa",
+          "grade",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "mK8otTB2TT4",
+      "title": "Droughts and Floods: Causes, Effects & How They Impact South Africa Grade 5 & 6",
+      "description": "🌍 Why do some places experience devastating floods while others suffer from severe drought? In Droughts and Floods, you'll explore two of the world's most significant weather-related natural hazards. Discover what causes droughts and floods, how they affect people, animals, agriculture, and ecosystems, and what we can do to reduce their impact. Using real-life South African examples, this lesson helps learners understand the importance of weather, climate, and water management. 📚 In this lesson you'll learn: What droughts and floods are The causes of droughts The causes of floods The effects on people, wildlife, farming, and the environment South African examples of droughts and floods Ways to prepare for and reduce the impacts of extreme weather 🎯 Perfect for: Grade 5–7 learners CAPS & IEB Natural Sciences & Geography Teachers, parents, and homeschoolers 📥 Download ready-to-use worksheets, PowerPoints, assessments, and classroom resources: https://www.teacha.co.za/store/beyond-the-books/ ▶️ Subscribe for more educational videos: https://www.youtube.com/@beyondthebooks.education 👍 Like, subscribe, and turn on notifications for new science and geography lessons every week!",
+      "channel_id": "UCS6M02ObB5t030ImpUAkHjA",
+      "channel_title": "Beyond the Books",
+      "published_at": "2026-07-01T19:53:05Z",
+      "views": 32,
+      "likes": 1,
+      "comments": 0,
+      "duration": "PT7M38S",
+      "url": "https://www.youtube.com/watch?v=mK8otTB2TT4",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "lesson",
+          "south africa",
+          "grade",
+          "school"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "IisfmzxhnUY",
+      "title": "MZANSI Series Part 2 | CAPS Grade 1 Worksheet 19 | Addition up to 5 Part 2",
+      "description": "In this lesson, we continue to explore Addition Up to 5 using the African Math Toybox, and South Africa's CAPS DBE Grade 1, Book 1, Worksheet 19. Learners practice combining groups, counting objects, using number lines, and solving simple addition problems through hands-on, play-based learning. Play for FREE: 👉🏿 https://africanmath.com/games/toybox/ Download the workbook to follow along! (p. 40): https://www.education.gov.za/LinkClick.aspx?fileticket=dwyVB3go6Tc%3d&tabid=5726&portalid=0&mid=14757 Perfect for: ✅ Parents ✅ Teachers ✅ Homeschoolers ✅ After-school programs Subscribe to our YouTube Channel! : https://www.youtube.com/channel/UCPhmKy9jpbaR-A0-lzXGn5Q)**?sub_confirmation=1** Bitric Kinder Prewriting PlayJournal: https://www.amazon.com/Kinder-Prewriting-PlayJournalTM-Paperback-Journal/dp/B0DG29YJBW Kinder Prewriting PlayJournal™ Black and White Paperback: Play based Prewriting: Play + Daily = Plaily™ Fun Play based Prewriting Journal for Kids: https://a.co/d/05DYV7Fw Junior PlayJournal™ 1 (Hardcover): Play Based Journal For Kids: https://a.co/d/0erNxd78 Junior PlayJournal™ 1 Black and White (Paperback): Play + Daily = Plaily™ Practice | Fun Play based Journal for Kids: https://a.co/d/03GcgMnd I Can I Can I Can: Grow Confidence Through Competence In Early Life Skills (Little Legacy™): https://a.co/d/04vPYHWL What I Like (Little Legacy™): https://a.co/d/0hzpfKaZ Other African Math Books: https://africanmath.com/books/ Follow us on social media! Instagram: [https://www.instagram.com/africanmath/](https://www.instagram.com/africanmath/) Facebook: [https://www.facebook.com/africanmath/](https://www.facebook.com/africanmath/) Twitter: [https://twitter.com/AfricanMaths](https://twitter.com/AfricanMaths) TikTok: @africanmath #africanmath #addition #grade1 #southafrica",
+      "channel_id": "UCPhmKy9jpbaR-A0-lzXGn5Q",
+      "channel_title": "AFRICAN MATH",
+      "published_at": "2026-06-19T17:34:55Z",
+      "views": 13,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT8M7S",
+      "url": "https://www.youtube.com/watch?v=IisfmzxhnUY",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "lesson",
+          "south africa",
+          "grade",
+          "school"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "tbaLFhFlJjI",
+      "title": "Writing: Handwriting 'm', 's', 'a', 't', and 'e'",
+      "description": "📌 Grade 1: English (FAL) - Term 2 📚 Writing 📺 \"Handwriting 'm', 's', 'a', 't', and 'e'\" 📋 Learners should be able to: • Form lower case letters. This is episode 1/6 of Reading & Phonics in English Language. 🏷️ SKU: G1T2W1E02 ✏️ Lesson Notes: https://www.mindset.africa/worksheets/G1T2W1E02.pdf 📱 Download the APP: https://bit.ly/tenfold-app 📺 TV schedule: https://bit.ly/TV-Primary",
+      "channel_id": "UC_ayO9NLpGuhCvxnWZ0KwYw",
+      "channel_title": "Mindset",
+      "published_at": "2026-04-20T11:19:08Z",
+      "views": 330,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT14M58S",
+      "url": "https://www.youtube.com/watch?v=tbaLFhFlJjI",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "worksheet",
+          "lesson",
+          "grade"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "7d8Q8SaviYA",
+      "title": "MZANSI Series Part 3 | CAPS Grade 1 Worksheet 20 | Subtraction Up to 5",
+      "description": "In this lesson, we continue to explore Subtraction Up to 5 using the African Math Toybox, and South Africa's CAPS DBE Grade 1, Book 1, Worksheet 20. Learners practice splitting groups, counting objects, and solving simple subtraction problems through hands-on, play-based learning. Play for FREE: 👉🏿 https://africanmath.com/games/toybox/ Download the workbook to follow along! (p. 42): https://www.education.gov.za/LinkClick.aspx?fileticket=dwyVB3go6Tc%3d&tabid=5726&portalid=0&mid=14757 Perfect for: ✅ Parents ✅ Teachers ✅ Homeschoolers ✅ After-school programs Subscribe to our YouTube Channel! : https://www.youtube.com/channel/UCPhmKy9jpbaR-A0-lzXGn5Q)**?sub_confirmation=1** Bitric Kinder Prewriting PlayJournal: https://www.amazon.com/Kinder-Prewriting-PlayJournalTM-Paperback-Journal/dp/B0DG29YJBW Kinder Prewriting PlayJournal™ Black and White Paperback: Play based Prewriting: Play + Daily = Plaily™ Fun Play based Prewriting Journal for Kids: https://a.co/d/05DYV7Fw Junior PlayJournal™ 1 (Hardcover): Play Based Journal For Kids: https://a.co/d/0erNxd78 Junior PlayJournal™ 1 Black and White (Paperback): Play + Daily = Plaily™ Practice | Fun Play based Journal for Kids: https://a.co/d/03GcgMnd I Can I Can I Can: Grow Confidence Through Competence In Early Life Skills (Little Legacy™): https://a.co/d/04vPYHWL What I Like (Little Legacy™): https://a.co/d/0hzpfKaZ Other African Math Books: https://africanmath.com/books/ Follow us on social media! Instagram: [https://www.instagram.com/africanmath/](https://www.instagram.com/africanmath/) Facebook: [https://www.facebook.com/africanmath/](https://www.facebook.com/africanmath/) Twitter: [https://twitter.com/AfricanMaths](https://twitter.com/AfricanMaths) TikTok: @africanmath #africanmath #addition #grade1 #southafrica",
+      "channel_id": "UCPhmKy9jpbaR-A0-lzXGn5Q",
+      "channel_title": "AFRICAN MATH",
+      "published_at": "2026-06-30T01:31:20Z",
+      "views": 4,
+      "likes": 0,
+      "comments": 1,
+      "duration": "PT5M",
+      "url": "https://www.youtube.com/watch?v=7d8Q8SaviYA",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "lesson",
+          "south africa",
+          "grade",
+          "school"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "SbzlKeliyDs",
+      "title": "Grade 9 ENGHL Assessment Resources | CAPS Learning | Twinkl SA",
+      "description": "We’re sharing useful assessment resources to help teachers plan with confidence, track learner progress, and save valuable prep time. From ready-to-use activities to simple tools for checking understanding, these resources can make assessment easier and more effective. Sign up for a free trial on the Twinkl website to access thousands of worksheets, activities, and interactive learning materials aligned to CAPS https://www.twinkl.co.za/l/w5mum Don’t forget to like, comment, and subscribe for more classroom ideas and resources! #twinklstoriesza#resourcesforteachers#KidsLearning #EducationalVideo#twinklsa#InclusionWithTwinkl #ReadyForTomorrow",
+      "channel_id": "UC5Q1UI6R1KK42IBvEYJ9OZw",
+      "channel_title": "Twinkl South Africa",
+      "published_at": "2026-05-08T12:45:56Z",
+      "views": 9,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT1M19S",
+      "url": "https://www.youtube.com/watch?v=SbzlKeliyDs",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "worksheet",
+          "learning material",
+          "grade"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "YdF_A1O006Q",
+      "title": "Grade 2 Math Quiz | Easy Addition Practice for All Learners",
+      "description": "Mastering addition is the very first step toward mathematical literacy! Did you know that early civilizations, like the Egyptians, developed simple addition tables over 4,000 years ago using tally marks? This quiz focuses on building quick mental arithmetic skills by practicing simple sums, which will prepare learners for every other math skill they encounter. Keep practicing to build speed and accuracy! 🧮 Grade 2 Math Quiz | Easy Addition Practice for All Learners 🎓 Are you ready to practice your math skills and become more confident with numbers? This Grade 2 math quiz is designed for learners of all levels who want to improve their addition skills in a fun and interactive way. With simple problems explained step by step, this video makes easy addition practice enjoyable and stress-free. In this quiz, learners will: ✔️ Practice easy addition problems designed for Grade 2 students ✔️ Improve confidence through fun math quiz questions with answers ✔️ Test their speed and accuracy while learning in a playful way ✔️ Strengthen their foundation for future math success This video is perfect for: 🎓 Students who want extra math practice outside the classroom 👩‍👩‍👧 Parents looking for fun learning resources for their kids 📚 Teachers who want to use it as a classroom or homework activity Our math quiz for learners encourages participation by letting kids pause the video, think about the answer, and then check how they did. It’s an excellent way to make learning addition practice fun while preparing for tests, schoolwork, or just everyday problem-solving. 👉 Don’t forget to LIKE 👍, SUBSCRIBE 🔔, and COMMENT your score at the end — let’s see how many you got right! #mathquiz #grade2math #addition #learners #mathpractice #quizforkids #easyaddition KN00062",
+      "channel_id": "UCjzbbc9x44nCNsc6-xGvSnw",
+      "channel_title": "Quiz Kognito",
+      "published_at": "2025-08-27T14:00:52Z",
+      "views": 751744,
+      "likes": 9645,
+      "comments": 0,
+      "duration": "PT6M46S",
+      "url": "https://www.youtube.com/watch?v=YdF_A1O006Q",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "grade",
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "news_or_blog_records": [
+    {
+      "title": "Saving Grace Education Group launches Learn to Read programme for Grade R–6 learners - Bizcommunity",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVFJNOFhHUi1PeVpvNkxoT1ppMkdKc3RzTzJZbmJXQWRkSklCdlhYaTVtWktvdG05dVBwWlc5ZlczLVgzMjZ1Tm00SWtMQ3lFc0J1c3owUHRhaEZMTlNXUWNZbnJVUXoyZk5tTXd4aW5fUVZlLW1ZazFXZ1h4REptSVNTMmVrQkN1dHFIa2hlaXhDb29GMFJNWUxfb3JnZHhSWmdMSFhJRjNibm4wZEFhZjJYR0JILTRJM3U1d3J3R3VUM1NuOWhnVg?oc=5",
+      "description": "Saving Grace Education Group launches Learn to Read programme for Grade R–6 learners &nbsp;&nbsp; Bizcommunity",
+      "published_at": "Mon, 03 Aug 2026 07:48:37 GMT",
+      "author": null,
+      "guid": "CBMiyAFBVV95cUxOVFJNOFhHUi1PeVpvNkxoT1ppMkdKc3RzTzJZbmJXQWRkSklCdlhYaTVtWktvdG05dVBwWlc5ZlczLVgzMjZ1Tm00SWtMQ3lFc0J1c3owUHRhaEZMTlNXUWNZbnJVUXoyZk5tTXd4aW5fUVZlLW1ZazFXZ1h4REptSVNTMmVrQkN1dHFIa2hlaXhDb29GMFJNWUxfb3JnZHhSWmdMSFhJRjNibm4wZEFhZjJYR0JILTRJM3U1d3J3R3VUM1NuOWhnVg",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "grade"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "IEB CAPS vs Cambridge: How to choose the right curriculum for your child - Advtech",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPRlJTNGxZbkJqeENScEJjTU9QeE1xQ1pzdkp6U0k3dEY0VDBXMk1TVFJrWjRzYjh6a29IX3VTM0ppbzBzUDZzd1Fib3Z4R2xMR0V6NUpsX2Q1N2FpOTd0Uko1THhKSVFyR0VHME45eGNTcXhXTUw1T2Nnb2R6c3hvUW40NTNBZ0VTaWVnTEFyeWJkTWZCSTA2RGZaMUxSdjZrVkE?oc=5",
+      "description": "IEB CAPS vs Cambridge: How to choose the right curriculum for your child &nbsp;&nbsp; Advtech",
+      "published_at": "Mon, 16 Mar 2026 11:15:30 GMT",
+      "author": null,
+      "guid": "CBMiogFBVV95cUxPRlJTNGxZbkJqeENScEJjTU9QeE1xQ1pzdkp6U0k3dEY0VDBXMk1TVFJrWjRzYjh6a29IX3VTM0ppbzBzUDZzd1Fib3Z4R2xMR0V6NUpsX2Q1N2FpOTd0Uko1THhKSVFyR0VHME45eGNTcXhXTUw1T2Nnb2R6c3hvUW40NTNBZ0VTaWVnTEFyeWJkTWZCSTA2RGZaMUxSdjZrVkE",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "caps",
+          "curriculum"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "South Africa’s tutoring boom is really a feedback crisis - Bizcommunity",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQSG5TOHNYZko0UXo3UFQ1NWJuTHdxLWxjZF9rd3ZGLUpDNFptMW9pZ1BheVJlMk9ZNGYzbHk0RzVkZGxxRkhPcHRyV1FlYUI1VjFXWlduU0FKdkZtSkJySFB4Um4wWko4UDFzR1NscURHTkFreUJBa3hkWG9ZaHNQLVZITTNJR1hhb0FNdjFiTVhBSl91ZFRwck5kT2R3NVBVWWc?oc=5",
+      "description": "South Africa’s tutoring boom is really a feedback crisis &nbsp;&nbsp; Bizcommunity",
+      "published_at": "Wed, 29 Jul 2026 13:35:58 GMT",
+      "author": null,
+      "guid": "CBMiogFBVV95cUxQSG5TOHNYZko0UXo3UFQ1NWJuTHdxLWxjZF9rd3ZGLUpDNFptMW9pZ1BheVJlMk9ZNGYzbHk0RzVkZGxxRkhPcHRyV1FlYUI1VjFXWlduU0FKdkZtSkJySFB4Um4wWko4UDFzR1NscURHTkFreUJBa3hkWG9ZaHNQLVZITTNJR1hhb0FNdjFiTVhBSl91ZFRwck5kT2R3NVBVWWc",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Creating multilingual spaces through arts-based methods in foundation phase classrooms - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNc0pSZlZyQXNDU3FYQTJWZG1pNGpyTFM1LUZ5QklJNEMwVW5lTkNQOE5wZlB4c3N3LW5Nci0zSk1JbDRBNjROZ2hRd0pfN3gyYlVtRXdRMWlRc3NTcEpBbUFfejM5cUpzRDBCeExPZkdZaHRGRXYycGctQjcybG1LVDltTm9tMEJqQkcxdGpoLXg?oc=5",
+      "description": "Creating multilingual spaces through arts-based methods in foundation phase classrooms &nbsp;&nbsp; Frontiers",
+      "published_at": "Tue, 26 Aug 2025 15:33:26 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNc0pSZlZyQXNDU3FYQTJWZG1pNGpyTFM1LUZ5QklJNEMwVW5lTkNQOE5wZlB4c3N3LW5Nci0zSk1JbDRBNjROZ2hRd0pfN3gyYlVtRXdRMWlRc3NTcEpBbUFfejM5cUpzRDBCeExPZkdZaHRGRXYycGctQjcybG1LVDltTm9tMEJqQkcxdGpoLXg",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Useful study resources for all grades in SA - News24",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPRWc4QzVwX0cxWlpvNHhoLWdJZUtiU19obDVWQ2J3SFJqYWRJcDhuVGk0djlHRVJfOFowa0hacE12RmNCS3Z6ZzFxUC1nQVc2Y3o2c0tsMkdGNWtfa1F4d01kdGluVV9fZ1ZkYTZnd3lzTU5qaGtJem44Yi13TGYtMnF5a3FFdw?oc=5",
+      "description": "Useful study resources for all grades in SA &nbsp;&nbsp; News24",
+      "published_at": "Fri, 03 Nov 2017 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMihgFBVV95cUxPRWc4QzVwX0cxWlpvNHhoLWdJZUtiU19obDVWQ2J3SFJqYWRJcDhuVGk0djlHRVJfOFowa0hacE12RmNCS3Z6ZzFxUC1nQVc2Y3o2c0tsMkdGNWtfa1F4d01kdGluVV9fZ1ZkYTZnd3lzTU5qaGtJem44Yi13TGYtMnF5a3FFdw",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "grade"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Free support for homeschooling kids and parents - Food For Mzansi",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPalU1anVGUDhYTncyZlc4X1Rqd0lQVnlNZzBtQk9BcjhDSTVMUFI3c01RUmlnT3FqT041cG9uMjFJMEN5U21pUDM4b3RFc2NjM1NjRlA2MS1SMGo3V0xNMjRVVFdWOUl4cHFWUVg0REVUaTM3eE05NXdpUmNRMjZ2RzM0WTJrUjg?oc=5",
+      "description": "Free support for homeschooling kids and parents &nbsp;&nbsp; Food For Mzansi",
+      "published_at": "Thu, 05 Mar 2020 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMihwFBVV95cUxPalU1anVGUDhYTncyZlc4X1Rqd0lQVnlNZzBtQk9BcjhDSTVMUFI3c01RUmlnT3FqT041cG9uMjFJMEN5U21pUDM4b3RFc2NjM1NjRlA2MS1SMGo3V0xNMjRVVFdWOUl4cHFWUVg0REVUaTM3eE05NXdpUmNRMjZ2RzM0WTJrUjg",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Which South African online schools are internationally accredited - htxt.co.za",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPOGhvQVVmckxuWVh4a19lcFJVNlZveWZ6Znk1Z1M3ZWNFeXdvR0dwR2tMMVJqRlhNSi1UcmZjS2gzeTdzUjNlai1KNm1GY2dGZlRXUkdfay1zdDF2WHM2Qkc1eXFmbk9QcjhJZ29zSnplZngzNFpBdm9IemJCRUhQMUM5c2NES3JjYncwOS1PMkk4NnBkWmxGcQ?oc=5",
+      "description": "Which South African online schools are internationally accredited &nbsp;&nbsp; htxt.co.za",
+      "published_at": "Thu, 28 Sep 2023 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMimAFBVV95cUxPOGhvQVVmckxuWVh4a19lcFJVNlZveWZ6Znk1Z1M3ZWNFeXdvR0dwR2tMMVJqRlhNSi1UcmZjS2gzeTdzUjNlai1KNm1GY2dGZlRXUkdfay1zdDF2WHM2Qkc1eXFmbk9QcjhJZ29zSnplZngzNFpBdm9IemJCRUhQMUM5c2NES3JjYncwOS1PMkk4NnBkWmxGcQ",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "south africa",
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "DStv Now adds free education to ‘lockdown channels’ - gadget.co.za",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBzelFNRmwxWVE1TXJqWTNLOVMwYUM2ZHJjekZoOEQ0OTJ6RTZRRjY0LTdBYkpsd2Y1cHpCWXllS091cUFFWGNxSzl5eWRCcXVTOExlWXdfQWRfMnhkQ3YxajJOZ0hmSUNXN1BEQ1ZzSUtrYkx3U3VEUG5OMNIBgwFBVV95cUxNZFdfZnZiVE1BQUhwUkY1UERvcnhrODA4MVVYVUlCV3JndWZ4cFpQNjNVYXVKY2t6NzhXcmtlU3hSOC1JbHFjWUlZSGl1cEREblpyNlYzUVJtTml4aUh0eVh2TnVlNlZfZ1BfWmZUZnJSRXRZU3ZGZTU4b2RlNncxT1lTMA?oc=5",
+      "description": "DStv Now adds free education to ‘lockdown channels’ &nbsp;&nbsp; gadget.co.za",
+      "published_at": "Fri, 03 Apr 2020 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMie0FVX3lxTFBzelFNRmwxWVE1TXJqWTNLOVMwYUM2ZHJjekZoOEQ0OTJ6RTZRRjY0LTdBYkpsd2Y1cHpCWXllS091cUFFWGNxSzl5eWRCcXVTOExlWXdfQWRfMnhkQ3YxajJOZ0hmSUNXN1BEQ1ZzSUtrYkx3U3VEUG5OMNIBgwFBVV95cUxNZFdfZnZiVE1BQUhwUkY1UERvcnhrODA4MVVYVUlCV3JndWZ4cFpQNjNVYXVKY2t6NzhXcmtlU3hSOC1JbHFjWUlZSGl1cEREblpyNlYzUVJtTml4aUh0eVh2TnVlNlZfZ1BfWmZUZnJSRXRZU3ZGZTU4b2RlNncxT1lTMA",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Mobi Class continues to enhance lives through digital learning - Rising Sun Newspapers",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNR0ZDZXhfMDAtMjYxZGk2bU1BQWNFdnp4dnoxdy02TkZBcXMxeXFrY2Vzb2gxYWlIQ05MXzJUMGRIWC1RM3l5cERJNEZ6YTNocjZEZFE1bEFpdnpBUnBOME5JSWRUb3lpVjY2NnJJNDZWeXhUOFZlY0hoeThETVlmQkxJY09xWEJTNmFMQk5zNm9vREswQ3A4eUNENUYwMHZnRzg5VW8tdw?oc=5",
+      "description": "Mobi Class continues to enhance lives through digital learning &nbsp;&nbsp; Rising Sun Newspapers",
+      "published_at": "Wed, 12 Oct 2022 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMipwFBVV95cUxNR0ZDZXhfMDAtMjYxZGk2bU1BQWNFdnp4dnoxdy02TkZBcXMxeXFrY2Vzb2gxYWlIQ05MXzJUMGRIWC1RM3l5cERJNEZ6YTNocjZEZFE1bEFpdnpBUnBOME5JSWRUb3lpVjY2NnJJNDZWeXhUOFZlY0hoeThETVlmQkxJY09xWEJTNmFMQk5zNm9vREswQ3A4eUNENUYwMHZnRzg5VW8tdw",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Online schooling? Find handy local resources here - News24",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNT1ZiaEJtb0VwSGxEUXA4VlBnZjVXQ1pGUWlsZ1dkU1FHUm4yOHAzN2VJVHN4VHNja0l6bElvLXRiZ2M3OHMwc1QwcUJOMFQ4OVBHWFd1N2hiVi1sQTQ0NXQtTkM2d1QxaDU5RlhGb284ZHkzRk1XTXlLX2Nrd1pvRTJnd0VCelBfcWg3cUh2cHoxQUpBVTBzVUVxX3hnUVc1ZVlMOWRwMDEyM2EwVmJsSG1CdnRSUQ?oc=5",
+      "description": "Online schooling? Find handy local resources here &nbsp;&nbsp; News24",
+      "published_at": "Thu, 16 Apr 2020 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMitgFBVV95cUxNT1ZiaEJtb0VwSGxEUXA4VlBnZjVXQ1pGUWlsZ1dkU1FHUm4yOHAzN2VJVHN4VHNja0l6bElvLXRiZ2M3OHMwc1QwcUJOMFQ4OVBHWFd1N2hiVi1sQTQ0NXQtTkM2d1QxaDU5RlhGb284ZHkzRk1XTXlLX2Nrd1pvRTJnd0VCelBfcWg3cUh2cHoxQUpBVTBzVUVxX3hnUVc1ZVlMOWRwMDEyM2EwVmJsSG1CdnRSUQ",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "A Theory-Based Contextual Nutrition Education Manual Enhanced Nutrition Teaching Skill - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOLVU0M3hobHo1cC1EUUIwTndUVEQza1FHRS1EOFMzaXprNVlhaEpJZnR0UWdYT21XTk40eER5ZllaYzBJMXN3MjdaZUNqMl82enNLNzRXNzFNMVV2T3hRQVVSbFpkcWJ6dXYyMXdqMmJlS1V4cnhrTkg4V0xFSllRUlo0OXdCOWpJRlFWYzVSY0dYeUk?oc=5",
+      "description": "A Theory-Based Contextual Nutrition Education Manual Enhanced Nutrition Teaching Skill &nbsp;&nbsp; Frontiers",
+      "published_at": "Mon, 05 Feb 2024 12:23:08 GMT",
+      "author": null,
+      "guid": "CBMikwFBVV95cUxOLVU0M3hobHo1cC1EUUIwTndUVEQza1FHRS1EOFMzaXprNVlhaEpJZnR0UWdYT21XTk40eER5ZllaYzBJMXN3MjdaZUNqMl82enNLNzRXNzFNMVV2T3hRQVVSbFpkcWJ6dXYyMXdqMmJlS1V4cnhrTkg4V0xFSllRUlo0OXdCOWpJRlFWYzVSY0dYeUk",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "School exams! We're here to help with past papers, study guides and tips - News24",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQczRHcVdQR0l4NklyOWQ2Y1B5Z0FtYVlDdzBBdVUxOFduU1NaUzMxQzh2V241aHJQQ19fdHJRZVpaLU5LdC1QQl9sNUwyZy14bjJBbFF4b0FHNnVnN2lyNjNyRzBQTzNsT2VybWNSVm1fM083QkY2VHRFZG9Ea2k2eFFDd3c3S0ZnMDcxdDV6U194MTBzak0yOGZXeTRsbXByNGxlODB1a20zUQ?oc=5",
+      "description": "School exams! We're here to help with past papers, study guides and tips &nbsp;&nbsp; News24",
+      "published_at": "Wed, 07 Nov 2018 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiqgFBVV95cUxQczRHcVdQR0l4NklyOWQ2Y1B5Z0FtYVlDdzBBdVUxOFduU1NaUzMxQzh2V241aHJQQ19fdHJRZVpaLU5LdC1QQl9sNUwyZy14bjJBbFF4b0FHNnVnN2lyNjNyRzBQTzNsT2VybWNSVm1fM083QkY2VHRFZG9Ea2k2eFFDd3c3S0ZnMDcxdDV6U194MTBzak0yOGZXeTRsbXByNGxlODB1a20zUQ",
+      "feed_title": "\"CAPS worksheet grade South Africa education\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=CAPS+worksheet+grade+South+Africa+education&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "school"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "provider_state": {
+    "web_news_rss": "connected",
+    "youtube_public": "connected",
+    "facebook_instagram": "pending_meta_access_token_and_page_authority",
+    "linkedin": "not_connected"
+  },
+  "interpretation": {
+    "status": "relevant_live_sample_available",
+    "claim": "Current public YouTube and RSS metadata are market-opportunity evidence only; they are not customer demand, sales proof or factual source evidence.",
+    "hivenance_use": "Attach this observation to the campaign hypothesis before operator release and settle it against measured campaign results later."
+  },
+  "warnings": [
+    "YouTube public metadata is opportunity evidence and cannot satisfy script source requirements.",
+    "RSS/Atom descriptions are source leads and are not eligible for claim extraction by default."
+  ]
+}

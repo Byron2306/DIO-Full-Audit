@@ -1,0 +1,100 @@
+{
+  "schema": "dio.lingua.human_approval.v1",
+  "approval_state": "approved",
+  "semantic_object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "target_language": "Setswana",
+  "domain": "Water-quality operations",
+  "origin": {
+    "product": "document_studio",
+    "artifact_type": "document",
+    "artifact_id": "DIO-LINGUA-WATER-001",
+    "audience": "Municipal field technicians",
+    "channel": "document"
+  },
+  "reviewer": "Byron Bunt",
+  "reviewer_role": "Language practitioner",
+  "approved_at": "2026-08-09T11:41:38+00:00",
+  "updated_at": "2026-08-09T11:41:38+00:00",
+  "units": [
+    {
+      "unit_id": "P1",
+      "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+      "target_text": "Mokgwa wa go Lekola Boleng jwa Metsi a Set\u0161haba",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P2",
+      "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+      "target_text": "Maikaelelo: Mokgwa o o tlhalosa gore ditlhopha tsa kwa ntle di kgobokanya le go kwala disampole tsa metsi a go nwa jang gore dipholo di nne tse di tshephegang le tse di ka latelwang kwa lefelong le le siameng.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P3",
+      "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+      "target_text": "Kakaretso: O dira ka disampole tsa tlwaelo tse di tserweng mo matamong, mo mafelong a go alafa metsi, le mo dipompong tsa set\u0161haba. Mokgwa o ga o akaretse tshetleho ya dikhemikale tsa tshoganetso kgotsa go lekanyetsa didirisiwa tsa kwa laboratoring.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P4",
+      "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+      "target_text": "Maikarabelo: Moeteledipele wa setlhopha o tlhatlhoba gore motekheniki mongwe le mongwe o na le PBT, dibotlelana tsa disampole tse di phepa, le selekanyetsi se se lekanyeditsweng. Batekheniki ba na le maikarabelo a go tlatsa Foromo ya QMS-07 ya Chain of Custody le go bega maemo a a sa bolokehang.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P5",
+      "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+      "target_text": "Mokgwa: Pele o tsaya sampole, letla pompo e elele ka metsotso e 2. Tlhatswa probe ka metsi a a phepa, mme o se ka wa tlhatswa botlhelo jo bo sa bolaeng jwa microbiological. Kwala pH le turbidity ka NTU kwa lefelong. Disampole di tshwanetse go bewa mo setsidifatsing magareng ga 2 le 8 degrees Celsius.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P6",
+      "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+      "target_text": "Go kwala datha: Kwala khoutu ya lefelo, letlha, nako, le dit\u0161hupiso tsa motlhatlheledi mo botlhelong le mo QMS-07. Diphoso di tshwanetse go suthisiwa ka mola o le mongwe go ralala phoso; ga go letlelelwe go dirisa setlhotlho sa go phimola. Lebaka la go tlhoka go bala lepe le tshwanetse go tlhalosiwa.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        },
+        {
+          "index": 1,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P7",
+      "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+      "target_text": "Go oket\u0161a: Fa pH e le kwa tlase ga 6.5 kgotsa e feta 9.5, kgotsa turbidity e feta 1 NTU, bitsa moeteledipele wa setlhopha ka bonako. O se ka wa bolelela set\u0161haba gore metsi a bolokehile kgotsa ga a bolokeha go fitlha lekgetho le le letleletsweng le lekotse dipholo.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "terms": []
+}

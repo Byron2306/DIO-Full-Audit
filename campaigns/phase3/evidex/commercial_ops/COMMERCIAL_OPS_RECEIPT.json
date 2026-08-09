@@ -1,0 +1,73 @@
+{
+  "schema": "knowedge.evidex_commercial_ops_bridge.v1",
+  "created_at": "2026-08-07T15:58:56+00:00",
+  "status": "outlook_first_commercial_ops_ready",
+  "source_repo": "/home/byron/Evidex",
+  "env_presence": {
+    "EVIDEX_CLASP_CMD": "set",
+    "EVIDEX_EMAIL_IMAP_HOST": "set",
+    "EVIDEX_EMAIL_IMAP_PASSWORD": "set_redacted",
+    "EVIDEX_EMAIL_IMAP_PORT": "set",
+    "EVIDEX_EMAIL_IMAP_USER": "set",
+    "EVIDEX_GAS_PROJECT_DIR": "set",
+    "EVIDEX_GOOGLE_DRIVE_FOLDER_ID": "set",
+    "EVIDEX_GOOGLE_FORM_ID": "set",
+    "LLM_DISABLED": "set",
+    "NARRATIVE_USE_LLM": "set",
+    "OLLAMA_BASE_URL": "set",
+    "OLLAMA_EXE_PATH": "set",
+    "OLLAMA_MODEL": "set",
+    "OLLAMA_MODEL_NARRATIVE": "set",
+    "OLLAMA_MODEL_SUMMARY": "set",
+    "PAYPAL_LINK": "set_public_link_redacted",
+    "SUMMARY_USE_LLM": "set"
+  },
+  "public_intake": {
+    "google_form_configured": true,
+    "outlook_first_enabled": true,
+    "landing_page": "http://127.0.0.1:8787/",
+    "site_links_js": "sites/evidex/assets/commercial-links.js"
+  },
+  "internal_drive": {
+    "drive_root_configured": true,
+    "note": "Drive folder URL is intentionally not copied into the public landing assets."
+  },
+  "payment_gate": {
+    "local_payment_link_present": true,
+    "script_support": [
+      "Stripe Checkout",
+      "PayPal Checkout/webhook",
+      "PayFast ITN/webhook",
+      "manual PAID.txt"
+    ],
+    "processing_blocker": "REQUIRE_PAYMENT=1 makes Evidex watcher wait for PAID.txt before processing.",
+    "delivery_blocker": "Drive delivery emailer can also require PAID.txt before sending DELIVERABLE.zip."
+  },
+  "ad_rotation": {
+    "source": "/home/byron/Evidex/output/marketing/rotation_20260710_10d_3pd.json",
+    "source_count": 30,
+    "linked_count": 12,
+    "output": "campaigns/phase3/evidex/commercial_ops/linked_ad_rotation.json"
+  },
+  "outlook_first": {
+    "status": "verified",
+    "subject_marker": "EVIDEX PILOT PACK REQUEST",
+    "receipt": "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_RECEIPT.json",
+    "guide": "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_INTAKE.md",
+    "ad": "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_AD.md",
+    "dummy_intake": "campaigns/phase3/evidex/commercial_ops/outlook_first/dummy_outlook_evidex_intake.json",
+    "dry_run": "runs/evidex_outlook_first_dry_run",
+    "dry_run_result": "1 Outlook-style lead routed to Evidex, review pack built, Evidex engine returned code 0, service layer generated.",
+    "bot_output": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output",
+    "bot_csv_dry_run": "runs/evidex_outlook_bot_csv_dry_run",
+    "bot_csv_result": "KnowEdge Outlook Triage 2.0.0 processed the dummy lead, wrote triage_summary.csv, AutoRelease routed that CSV to Evidex, and the Evidex engine returned code 0."
+  },
+  "files": [
+    "campaigns/phase3/evidex/commercial_ops/COMMERCIAL_OPS_BRIDGE.md",
+    "campaigns/phase3/evidex/commercial_ops/linked_ad_rotation.json",
+    "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_INTAKE.md",
+    "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_AD.md",
+    "campaigns/phase3/evidex/commercial_ops/outlook_first/dummy_outlook_evidex_intake.json",
+    "sites/evidex/assets/commercial-links.js"
+  ]
+}

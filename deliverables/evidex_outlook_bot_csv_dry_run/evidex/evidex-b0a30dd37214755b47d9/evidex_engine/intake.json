@@ -1,0 +1,44 @@
+{
+  "client": {
+    "organization": "Client organization to confirm",
+    "contact_name": "M&E Coordinator",
+    "contact_email": "[email]"
+  },
+  "pack": {
+    "purpose": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+    "donor": "To be confirmed",
+    "project_name": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+    "grant_id": "evidex-b0a30dd37214755b47d9",
+    "reporting_period": {
+      "start": "To be confirmed",
+      "end": "To be confirmed"
+    },
+    "tone": "clear, conservative, audit-ready",
+    "include_appendix": true
+  },
+  "kpis": [
+    {
+      "name": "Evidence request and source materials organized",
+      "target": "Complete evidence pack",
+      "actual": "Candidate evidence received",
+      "measurement": "Email request, listed attachments, and source notes"
+    }
+  ],
+  "constraints": {
+    "avoid_claims": [
+      "Do not claim outcomes that are not directly supported by supplied evidence.",
+      "Do not treat this generated pack as final until reviewed by the operator."
+    ],
+    "known_gaps": [
+      "Client organization, reporting period, donor template, and KPI list may need confirmation.",
+      "Original route reason: Matched route keywords: evidex, pilot pack, m&e.",
+      "Original evidence extract: Evidence note for: EVIDEX Pilot Pack Request - Thandi Community Trust\n\nEvidence seen:\n- Sender visible: M&E Coordinator <[email]>\n- Subject visible: EVIDEX Pilot Pack Request - Thandi Community Trust\n- Received timestamp visible: 2026-08-07T16:25:20+00:00\n- Folder/source context: Inbox\n- Attachment names visible: kpi-progress.csv; receipts-summary.xlsx; attendance-register.pdf; field-photos.zip\n- Body text or preview reviewed.\n- Risk flags assigned: references_evidence_or_attachment\n\nMissing inf"
+    ]
+  },
+  "billing": {
+    "client_type": "ngo",
+    "quantity": 1,
+    "currency": "ZAR",
+    "service_name": "Evidex Evidence Pack"
+  }
+}

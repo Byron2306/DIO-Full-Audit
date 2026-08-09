@@ -1,0 +1,81 @@
+{
+  "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+  "created_at": "2026-08-08T08:20:23+00:00",
+  "status": "passed",
+  "subject": "English Language",
+  "grade": 12,
+  "term": "2",
+  "focus": "literary extract, character, theme and language analysis; visual literacy and media message interpretation; quote selection, evidence integration and paragraph structure; discursive or argumentative writing with coherent development",
+  "provider": {
+    "selected_provider": "gemini",
+    "selected_model": "gemini-3.5-flash",
+    "selected_key_name": "GEMINI_API_KEY",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "values_redacted": true
+  },
+  "question_count": 11,
+  "question_marks": 70,
+  "rubric_marks": 70,
+  "validation_errors": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "errors": [
+        "rubric marks sum to 30, expected 70"
+      ],
+      "question_count": 12
+    },
+    {
+      "attempt": 2,
+      "errors": [],
+      "question_count": 11
+    }
+  ],
+  "elapsed_seconds": 56.61,
+  "paths": {
+    "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z",
+    "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/assessment_pack.json",
+    "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+    "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/HOMS_VISUAL_BLUEPRINT.json",
+    "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/ASSESSMENT_PACK_FORMATTED.docx",
+    "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/ASSESSMENT_LEARNER.docx",
+    "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+    "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+    "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+  }
+}

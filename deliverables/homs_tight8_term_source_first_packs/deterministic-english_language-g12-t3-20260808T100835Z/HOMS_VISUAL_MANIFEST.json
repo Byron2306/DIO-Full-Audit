@@ -1,0 +1,100 @@
+{
+  "schema": "knowedge.homs_visual_manifest.v1",
+  "created_at": "2026-08-08T10:08:35+00:00",
+  "assessment_title": "English Language Grade 12 Term 3 Controlled Assessment Pack",
+  "subject": "English Language",
+  "grade": 12,
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "visual_family": {
+    "visuals": [
+      "text_panel",
+      "response_planner",
+      "language_structures_table"
+    ],
+    "rules": [
+      "Separate reading/viewing, writing/presenting, language structures, and oral/listening.",
+      "Scale text length to grade.",
+      "Do not import subject-case-study structure unless the language task needs it."
+    ]
+  },
+  "source_assets": [
+    {
+      "source_number": 1,
+      "title": "Official-paper exemplar: Text Extract",
+      "source_type": "text_extract",
+      "paper": "English First Additional Language P1 November 2024",
+      "page": 6,
+      "bank_png": "deliverables/homs_core_source_bank/english_language/text_extract/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/english_language/text_extract/margin_trim/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/english_language/text_extract/object_candidate/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/english_language/text_extract/object_candidate/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 2,
+      "title": "Official-paper exemplar: Cartoon",
+      "source_type": "cartoon",
+      "paper": "English First Additional Language P1 November 2024",
+      "page": 10,
+      "bank_png": "deliverables/homs_core_source_bank/english_language/cartoon/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/english_language/cartoon/margin_trim/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/english_language/cartoon/object_candidate/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/english_language/cartoon/object_candidate/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 3,
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "paper": "English First Additional Language P1 November 2024",
+      "page": 3,
+      "bank_png": "deliverables/homs_core_source_bank/english_language/data_table/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/english_language/data_table/margin_trim/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/english_language/data_table/object_candidate/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/english_language/data_table/object_candidate/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "assets": [
+    {
+      "title": "Text Response And Language Planner",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-english_language-g12-t3-20260808T100835Z/assessment_visuals/01_text_response_and_language_planner.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-english_language-g12-t3-20260808T100835Z/assessment_visuals/01_text_response_and_language_planner.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    }
+  ]
+}

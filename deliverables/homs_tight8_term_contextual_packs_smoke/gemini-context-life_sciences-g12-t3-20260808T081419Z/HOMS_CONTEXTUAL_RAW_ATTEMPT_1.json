@@ -1,0 +1,378 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 Life Sciences Term 3 Controlled Assessment: Evolution and Speciation",
+  "canonical_profile_id": "fet.life_sciences",
+  "blueprint": "CAPS Term 3 Controlled Assessment focusing on Evolution by natural selection, speciation, human evolution evidence, and scientific investigation design.",
+  "render_shell": "investigation_task_sheet",
+  "duration": "1.5 hours",
+  "total_marks": 75,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Sciences",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Life Sciences",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+      "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455"
+    },
+    "canonical_profile_id": "fet.life_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "diagram",
+        "investigation_sheet",
+        "calculation_workspace"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: data_table observed in Life Sciences (18 source/stimulus object(s) across 2 paper(s)).",
+        "FET old-paper catalogue: diagram_or_model observed in Life Sciences (18 source/stimulus object(s) across 2 paper(s)).",
+        "CAPS/source matrix signals practical investigation or experiment evidence.",
+        "CAPS/source matrix signals calculation/problem-solving evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "Life Sciences",
+        "paper_count": 2,
+        "observed_contract": [
+          "data_table",
+          "diagram_or_model",
+          "graph_or_chart",
+          "unclassified_stimulus",
+          "text_extract",
+          "image_rendered_or_scanned_pages"
+        ]
+      }
+    },
+    "caps_theme_candidates": [
+      "LIFE SCIENCES GRADES 10-12",
+      "and 3. Assessment for learning (informal) using a variety",
+      "of strategies and appropriate forms of assessment",
+      "Note that knowledge and understanding of investigations",
+      "and practical work should also be assessed in written",
+      "understanding of investigations.",
+      "clearer specification of what is to be taught and learnt on a term-by-term basis.",
+      "the National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in south",
+      "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+      "Grades R-12",
+      "(c) National Protocol for Assessment Grades R-12.",
+      "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "CONTENTS",
+      "Section 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3"
+    ],
+    "assessment_content_focus": [
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation",
+      "Scientific investigation design for natural selection",
+      "Using data and anatomical evidence to support evolutionary explanations"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: investigation."
+    ],
+    "required_visuals": [
+      {
+        "id": "working_grid",
+        "title": "Working grid with method mark space",
+        "role": "learner_workspace",
+        "visual_kind": "working_grid",
+        "must_show": [
+          "question number",
+          "marks",
+          "working area",
+          "final answer cue"
+        ],
+        "assessment_use": "Learners show method before final answer."
+      },
+      {
+        "id": "axis_or_diagram",
+        "title": "Axis, diagram or table required by the topic",
+        "role": "stimulus_or_workspace",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "labelled axes or diagram labels",
+          "units where needed",
+          "plot/table space"
+        ],
+        "assessment_use": "Learners interpret or construct visual mathematical evidence."
+      },
+      {
+        "id": "science_diagram",
+        "title": "Science labelled diagram stimulus",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "clear structure/process labels",
+          "visible arrows or stages where needed",
+          "caption",
+          "label key"
+        ],
+        "assessment_use": "Learners identify, label, compare, and explain using the diagram."
+      },
+      {
+        "id": "science_data_or_graph",
+        "title": "Science data table or graph stimulus",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "variables",
+          "units",
+          "readable values",
+          "trend or comparison"
+        ],
+        "assessment_use": "Learners calculate, compare, interpret trends, and support conclusions from data."
+      },
+      {
+        "id": "investigation_method_data",
+        "title": "Investigation method and data sheet",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "investigation_sheet",
+        "must_show": [
+          "aim",
+          "variables",
+          "method",
+          "data table",
+          "conclusion line"
+        ],
+        "assessment_use": "Learners record observations and draw a supported conclusion."
+      }
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Evolution by Natural Selection (Data Response)",
+      "mode": "structured_exam",
+      "instructions": "Answer all questions. Refer to Figure 1 when answering the questions in this section.",
+      "stimulus": "Figure 1: Finch beak depth data table and graph.\n- 2019: rainfall 820 mm, hard seeds 24%, mean beak depth 8.7 mm\n- 2020: rainfall 610 mm, hard seeds 37%, mean beak depth 9.1 mm\n- 2021: rainfall 430 mm, hard seeds 58%, mean beak depth 9.8 mm\n- 2022: rainfall 390 mm, hard seeds 64%, mean beak depth 10.2 mm",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Calculate the difference in the mean beak depth of the finches between 2019 and 2022. Show all working.",
+          "marks": 3,
+          "memo": [
+            "10.2 mm - 8.7 mm (1 mark for correct values from table)",
+            "= 1.5 (1 mark for correct calculation)",
+            "mm (1 mark for correct unit)"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Describe the trend in rainfall and the availability of hard seeds from 2019 to 2022 as shown in Figure 1.",
+          "marks": 4,
+          "memo": [
+            "Rainfall decreased consistently over the four-year period from 820 mm to 390 mm. (2 marks)",
+            "The percentage of hard seeds increased consistently from 24% to 64% as rainfall decreased. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Explain how the change in rainfall acts as an environmental selection pressure on this finch population.",
+          "marks": 6,
+          "memo": [
+            "Decreased rainfall leads to a shortage of soft, easily cracked seeds. (2 marks)",
+            "Only plants producing hard, drought-resistant seeds survive and reproduce. (2 marks)",
+            "This creates a selection pressure where finches must compete for the remaining hard seeds to survive. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Using Darwin's theory of natural selection, explain why a larger mean beak depth became more common in this population over the four-year period.",
+          "marks": 8,
+          "memo": [
+            "There is variation in beak depth within the finch population; some have smaller beaks, others have larger beaks. (2 marks)",
+            "When rainfall decreased and hard seeds became dominant, finches with larger beak depths were better adapted to crack and feed on hard seeds. (2 marks)",
+            "Finches with smaller beak depths could not feed efficiently and died of starvation (natural selection occurred). (2 marks)",
+            "The surviving finches with larger beaks reproduced and passed on the allele/gene for larger beak depth to their offspring. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Define the term 'speciation' and outline how geographic isolation could lead to the formation of a new finch species on a neighboring island.",
+          "marks": 4,
+          "memo": [
+            "Speciation: The formation of a new species from an existing species. (1 mark)",
+            "Geographic isolation splits the population into two, preventing gene flow between them. (1 mark)",
+            "Each population experiences different environmental conditions/selection pressures, leading to natural selection favoring different traits. (1 mark)",
+            "Over time, the two populations become genotypically and phenotypically so different that they can no longer interbreed to produce fertile offspring. (1 mark)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Scientific Investigation Design",
+      "mode": "practical_investigation_memo",
+      "instructions": "Answer the following questions based on the design of scientific investigations for natural selection as outlined in Figure 2.",
+      "stimulus": "Figure 2: Investigation method and data sheet. This figure outlines the experimental design used to model natural selection using mechanical tools (pliers and tweezers) to collect different seed types (soft and hard) over a set period.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Formulate a suitable aim for this investigation.",
+          "marks": 2,
+          "memo": [
+            "To determine the effect of beak size/shape (modeled by tools) on the efficiency of feeding on different seed types (hard vs. soft seeds). (2 marks)"
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Identify the independent and dependent variables in this investigation.",
+          "marks": 2,
+          "memo": [
+            "Independent variable: Beak size/shape (or tool type used). (1 mark)",
+            "Dependent variable: Feeding efficiency (number of seeds collected/cracked). (1 mark)"
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "State two variables that must be controlled (kept constant) during this investigation to ensure a fair test.",
+          "marks": 2,
+          "memo": [
+            "Any two of: Time allowed for feeding (e.g., 30 seconds), total starting number of seeds, size of the feeding tray, distance from which seeds are collected. (2 marks)"
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Explain the difference between the reliability and the validity of this investigation, and suggest one way to improve the reliability of the results.",
+          "marks": 4,
+          "memo": [
+            "Reliability refers to the consistency of the results when the experiment is repeated. (1 mark)",
+            "Validity refers to whether the experiment successfully tests what it set out to test (controlling all variables except the independent one). (1 mark)",
+            "Improve reliability: Repeat the investigation multiple times and calculate an average, or increase the sample size of participants using the tools. (2 marks)"
+          ]
+        },
+        {
+          "number": "2.5",
+          "question": "Critique the quality of using mechanical tools (pliers and tweezers) as models for biological beak structures. State one limitation of this model.",
+          "marks": 3,
+          "memo": [
+            "Mechanical tools provide a simple, quantifiable physical analog for grip strength and tip surface area. (1 mark)",
+            "Limitation: Tools do not account for biological factors like muscle fatigue, sensory feedback, beak wear, or behavioral differences in live birds. (2 marks)"
+          ]
+        },
+        {
+          "number": "2.6",
+          "question": "Based on the observations from Figure 1 where hard seeds dominate in dry years, write a scientifically sound conclusion that the learners could record on their data sheet.",
+          "marks": 3,
+          "memo": [
+            "Larger/stronger beak models (pliers) are significantly more efficient at cracking and consuming hard seeds than smaller beak models (tweezers). (2 marks)",
+            "Therefore, larger beak structures provide a survival advantage when hard seeds are the primary food source. (1 mark)"
+          ]
+        },
+        {
+          "number": "2.7",
+          "question": "Explain how natural selection would operate on this population if only hard seeds were available for an extended period of several generations.",
+          "marks": 9,
+          "memo": [
+            "There is variation in beak size in the population. (1 mark)",
+            "If only hard seeds are available, individuals with larger beaks can easily crack them to obtain food. (2 marks)",
+            "Individuals with smaller beaks cannot crack the hard seeds and will starve/die. (2 marks)",
+            "The individuals with larger beaks survive and reproduce. (2 marks)",
+            "They pass the genes for larger beaks to their offspring. (1 mark)",
+            "Over several generations, the proportion of individuals with larger beaks increases, changing the gene pool of the population. (1 mark)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Human Evolution Evidence and Interpretation",
+      "mode": "diagram_interpretation",
+      "instructions": "Answer all questions. Refer to Figure 3 when answering the questions in this section.",
+      "stimulus": "Figure 3: Hominin skull comparison diagram.\n- Skull A represents an earlier hominin profile.\n- Skull B represents a later hominin profile.\n- Label A indicates cranial capacity.\n- Label B indicates jaw projection (prognathism).\n- Label C indicates foramen magnum position.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identify the anatomical features represented by Labels A, B, and C in Figure 3.",
+          "marks": 3,
+          "memo": [
+            "Label A: Cranial capacity / braincase volume (1 mark)",
+            "Label B: Jaw projection / prognathism (1 mark)",
+            "Label C: Foramen magnum position (1 mark)"
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Compare Skull A and Skull B with respect to:\n(a) Cranial capacity (Label A)\n(b) Jaw projection (Label B)",
+          "marks": 4,
+          "memo": [
+            "(a) Skull A has a smaller cranial capacity, whereas Skull B has a larger cranial capacity. (2 marks)",
+            "(b) Skull A has a more projecting jaw (prognathous), whereas Skull B has a flatter, more vertical face (non-prognathous). (2 marks)"
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Explain the significance of the change in the position of the foramen magnum (Label C) from Skull A to Skull B in relation to bipedalism.",
+          "marks": 6,
+          "memo": [
+            "In Skull A (earlier hominin), the foramen magnum is positioned further back/posteriorly on the skull. (2 marks)",
+            "In Skull B (later hominin), the foramen magnum is positioned centrally/underneath the skull. (2 marks)",
+            "This central position allows the skull to balance vertically on top of the vertebral column, which is an essential adaptation for upright bipedal walking. (2 marks)"
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Describe how anatomical evidence from the pelvis and the spine supports the transition to bipedalism in hominins.",
+          "marks": 6,
+          "memo": [
+            "Pelvis: Bipedal hominins have a shorter, wider, and bowl-shaped pelvis to support the weight of the upper body. (3 marks)",
+            "Spine: Bipedal hominins have an S-shaped vertebral column to absorb shock and keep the center of gravity over the feet, whereas quadrupeds have a C-shaped spine. (3 marks)"
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Discuss how cultural evidence (such as tool use) is often correlated with the change in cranial capacity (Label A) observed between earlier and later hominins.",
+          "marks": 6,
+          "memo": [
+            "An increase in cranial capacity (Label A) indicates a larger brain size and higher cognitive ability. (2 marks)",
+            "This allowed later hominins to develop complex tool-making technologies (e.g., Acheulean and Mousterian tool cultures). (2 marks)",
+            "The use of tools improved hunting and food processing efficiency, providing high-energy food that further supported brain development (co-evolution of culture and biology). (2 marks)"
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Evolution by Natural Selection (Data Response)",
+      "marks": 25,
+      "descriptor": "Learners must accurately calculate changes, describe trends, link rainfall to selection pressure, and explain natural selection and speciation using Figure 1."
+    },
+    {
+      "criterion": "Section B: Scientific Investigation Design",
+      "marks": 25,
+      "descriptor": "Learners must critique investigation design, identify variables, formulate aims, explain reliability/validity, and draw conclusions based on Figure 2."
+    },
+    {
+      "criterion": "Section C: Human Evolution Evidence and Interpretation",
+      "marks": 25,
+      "descriptor": "Learners must identify anatomical labels, compare hominin skulls, and explain adaptations for bipedalism and cultural evolution using Figure 3."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that all questions are directly grounded in the provided figures (Figure 1, Figure 2, and Figure 3).",
+    "Ensure the total marks sum to exactly 75.",
+    "Confirm that the memo guidelines accept scientifically equivalent wording.",
+    "Check that no undergraduate-level assumptions are made, keeping the challenge level appropriate for Grade 12 exit standard."
+  ]
+}

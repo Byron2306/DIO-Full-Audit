@@ -1,0 +1,404 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 Life Sciences: Evolution and Speciation Formal Assessment",
+  "canonical_profile_id": "fet.life_sciences",
+  "blueprint": "This assessment targets Grade 12 CAPS content on Evolution, Speciation, and Human Evolution. It integrates data interpretation, diagram analysis, and scientific investigation design to assess cognitive levels from basic recall to high-level synthesis and evaluation.",
+  "render_shell": "investigation_task_sheet",
+  "duration": "1.5 hours",
+  "total_marks": 75,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Sciences",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Life Sciences",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+      "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455"
+    },
+    "canonical_profile_id": "fet.life_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "diagram",
+        "investigation_sheet",
+        "calculation_workspace"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: data_table observed in Life Sciences.",
+        "FET old-paper catalogue: diagram_or_model observed in Life Sciences.",
+        "CAPS/source matrix signals practical investigation or experiment evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "Life Sciences",
+        "paper_count": 2,
+        "observed_contract": [
+          "data_table",
+          "diagram_or_model",
+          "graph_or_chart",
+          "unclassified_stimulus",
+          "text_extract",
+          "image_rendered_or_scanned_pages"
+        ]
+      }
+    },
+    "caps_theme_candidates": [
+      "LIFE SCIENCES GRADES 10-12",
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation"
+    ],
+    "assessment_content_focus": [
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation",
+      "Scientific investigation design for natural selection",
+      "Using data and anatomical evidence to support evolutionary explanations"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: investigation."
+    ],
+    "required_visuals": [
+      {
+        "id": "Figure_1",
+        "title": "Geographic Speciation in Colophon Beetles",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "Original population on single mountain peak",
+          "Environmental change leading to isolation on separate peaks",
+          "Two distinct species after long period of isolation"
+        ],
+        "assessment_use": "Learners explain the process of geographic speciation using the diagram."
+      },
+      {
+        "id": "Figure_2",
+        "title": "Anatomical Comparison of Hominid Skulls",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "Skull A: Australopithecus africanus (slanted face, small braincase, large brow ridge, prominent jaw)",
+          "Skull B: Homo erectus (intermediate features)",
+          "Skull C: Homo sapiens (flat face, large rounded braincase, chin present, reduced brow ridge)"
+        ],
+        "assessment_use": "Learners identify skulls, tabulate differences, and explain evolutionary trends."
+      },
+      {
+        "id": "Figure_3",
+        "title": "Phylogenetic Tree of Hominid Evolution",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "Time scale in millions of years ago (mya) from 4 mya to present",
+          "Branching lineages for Australopithecus anamensis, A. afarensis, A. africanus, Homo habilis, H. erectus, and H. sapiens"
+        ],
+        "assessment_use": "Learners interpret evolutionary relationships and estimate divergence times."
+      },
+      {
+        "id": "Table_1",
+        "title": "Snail Shell Thickness Under Predation Pressure",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "Year (0, 10, 20, 30, 40, 50)",
+          "Average Shell Thickness (mm)",
+          "Number of Crabs (Predators) per square meter"
+        ],
+        "assessment_use": "Learners analyze natural selection data, calculate percentage change, and formulate hypotheses."
+      },
+      {
+        "id": "Table_2",
+        "title": "Bacterial Resistance to Streptomycin Over Time",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "Day (1 to 10)",
+          "Streptomycin Concentration (micrograms/mL)",
+          "Number of Surviving Bacterial Colonies"
+        ],
+        "assessment_use": "Learners plot a line graph, identify variables, and explain resistance mechanisms."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "Every required visual must have a clear assessment role."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Visuals must match subject, phase, and content focus."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Evolution by Natural Selection and Speciation",
+      "mode": "structured_exam",
+      "instructions": "Answer all questions. Refer to Figure 1 and Table 1 where indicated.",
+      "stimulus": "Figure 1 illustrates the geographic isolation of a population of Colophon beetles in the Cape Fold Mountains over millions of years. Table 1 shows data collected by researchers studying a population of marine snails (Littorina saxatilis) exposed to crab predators over a 50-year period.\n\nTable 1: Snail Shell Thickness and Crab Predator Density Over 50 Years\n- Year 0: Average Shell Thickness = 3.2 mm; Crab Density = 2 per m\u00b2\n- Year 10: Average Shell Thickness = 3.8 mm; Crab Density = 5 per m\u00b2\n- Year 20: Average Shell Thickness = 4.5 mm; Crab Density = 12 per m\u00b2\n- Year 30: Average Shell Thickness = 5.0 mm; Crab Density = 15 per m\u00b2\n- Year 40: Average Shell Thickness = 5.5 mm; Crab Density = 14 per m\u00b2\n- Year 50: Average Shell Thickness = 5.8 mm; Crab Density = 16 per m\u00b2",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Define the term 'speciation'.",
+          "marks": 2,
+          "memo": [
+            "The evolutionary process by which new, distinct species are formed from existing species (2 marks).",
+            "Accept: The split of one species into two or more species that can no longer interbreed (2 marks)."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Refer to Figure 1. Explain how geographic isolation has led to the speciation of the Colophon beetles in the Cape Fold Mountains.",
+          "marks": 6,
+          "memo": [
+            "An original population of Colophon beetles became separated by a geographical barrier (mountain valleys/climate change) into different subpopulations (1 mark).",
+            "There was no gene flow between the isolated subpopulations (1 mark).",
+            "The environmental conditions on each mountain peak were different (1 mark).",
+            "Natural selection occurred independently in each subpopulation (1 mark).",
+            "The subpopulations became genotypically and phenotypically different from each other over time (1 mark).",
+            "Even if the barrier is removed, they can no longer interbreed to produce fertile offspring, indicating they are now distinct species (1 mark)."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Formulate a hypothesis for the investigation represented by the data in Table 1.",
+          "marks": 2,
+          "memo": [
+            "An increase in crab predator density leads to an increase in the average shell thickness of the snail population over time (2 marks).",
+            "Accept: Snail shell thickness is positively correlated with the density of crab predators (2 marks).",
+            "Award 0 marks if variables are not clear, or if the statement is written as a question."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Identify the independent and dependent variables in the snail investigation shown in Table 1.",
+          "marks": 2,
+          "memo": [
+            "Independent variable: Time (Years) / Crab predator density (1 mark).",
+            "Dependent variable: Average shell thickness of snails (1 mark)."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Calculate the percentage increase in average snail shell thickness from Year 0 to Year 50. Show all working.",
+          "marks": 3,
+          "memo": [
+            "Difference = 5.8 mm - 3.2 mm = 2.6 mm (1 mark).",
+            "Percentage Increase = (2.6 / 3.2) x 100 (1 mark) = 81.25% (1 mark).",
+            "Accept 81.3% or 81% if rounded correctly. Correct final answer without working gets 1 mark."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Explain the change in average snail shell thickness over the 50-year period using Darwin's theory of natural selection.",
+          "marks": 8,
+          "memo": [
+            "There was variation in shell thickness in the original snail population; some had thin shells and some had thick shells (1 mark).",
+            "This variation is genetic and can be inherited (1 mark).",
+            "Crabs acted as a selective pressure by preying on the snails (1 mark).",
+            "Snails with thinner shells were easily crushed and eaten by the crabs (1 mark).",
+            "These thin-shelled snails had a lower chance of survival (were selected against) (1 mark).",
+            "Snails with thicker shells were protected from predation and survived longer (were selected for) (1 mark).",
+            "The surviving thick-shelled snails reproduced and passed the gene/allele for thick shells to their offspring (1 mark).",
+            "Over 50 years, the frequency of thick-shelled snails increased, leading to an increase in the average shell thickness of the population (1 mark)."
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "State two ways the researchers could have ensured the reliability of the data collected in Table 1.",
+          "marks": 2,
+          "memo": [
+            "Increase the sample size of snails measured at each interval (1 mark).",
+            "Repeat the measurements multiple times and calculate an average (1 mark).",
+            "Select snails randomly from different parts of the habitat to avoid bias (1 mark).",
+            "Any two correct points."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Human Evolution Evidence and Interpretation",
+      "mode": "diagram_interpretation",
+      "instructions": "Answer all questions. Refer to Figure 2 and Figure 3 where indicated.",
+      "stimulus": "Figure 2 shows the skulls of three hominid species: Skull A (Australopithecus africanus), Skull B (Homo erectus), and Skull C (Homo sapiens). Figure 3 shows a simplified phylogenetic tree of hominid evolution.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Identify Skull A and Skull C from Figure 2, providing one visible anatomical reason for each identification.",
+          "marks": 4,
+          "memo": [
+            "Skull A: Australopithecus africanus (1 mark) - Reason: Slanted face / prominent jaw (prognathism) / large brow ridges / small braincase (1 mark).",
+            "Skull C: Homo sapiens (1 mark) - Reason: Flat face / chin present / reduced brow ridges / large rounded braincase (1 mark)."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Draw a table to compare three anatomical differences between Skull A (Australopithecus africanus) and Skull C (Homo sapiens) that relate to their diet and posture.",
+          "marks": 7,
+          "memo": [
+            "Table format with correct headers (Skull A / Australopithecus and Skull C / Homo sapiens) and borders (1 mark).",
+            "Difference 1 (Diet/Jaw): Skull A has a prominent jaw (prognathism) / large teeth / no chin vs. Skull C has a flat face (non-prognathic) / smaller teeth / distinct chin (2 marks).",
+            "Difference 2 (Diet/Muscles): Skull A has a sagittal crest / large zygomatic arches for chewing muscles vs. Skull C has no sagittal crest / reduced zygomatic arches (2 marks).",
+            "Difference 3 (Posture/Foramen Magnum): Skull A has the foramen magnum positioned towards the back of the skull vs. Skull C has the foramen magnum positioned centrally/at the base of the skull (2 marks)."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Explain the significance of the change in the position of the foramen magnum from Australopithecus africanus to Homo sapiens.",
+          "marks": 4,
+          "memo": [
+            "In Australopithecus, the foramen magnum is further back, indicating a semi-erect posture / quadrupedal movement (1 mark).",
+            "In Homo sapiens, the foramen magnum is located centrally at the base of the skull (1 mark).",
+            "This central position allows the skull to balance vertically on top of the vertebral column (1 mark).",
+            "This is an adaptation for bipedalism / walking upright on two legs (1 mark)."
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Explain how genetic evidence, specifically mitochondrial DNA (mtDNA), supports the 'Out of Africa' hypothesis of human origins.",
+          "marks": 5,
+          "memo": [
+            "Mitochondrial DNA (mtDNA) is inherited only from the mother / maternal line (1 mark).",
+            "mtDNA mutates at a known, constant rate over time (1 mark).",
+            "The highest level of mtDNA variation / diversity is found in modern African populations (1 mark).",
+            "This indicates that modern humans have existed in Africa for the longest period of time (1 mark).",
+            "The mtDNA of non-African populations shows fewer mutations, suggesting they descended from a small founder group that migrated out of Africa more recently (1 mark)."
+          ]
+        },
+        {
+          "number": "2.5",
+          "question": "Refer to the phylogenetic tree in Figure 3. Identify the common ancestor of Homo erectus and Homo sapiens, and estimate how many millions of years ago (mya) they diverged.",
+          "marks": 5,
+          "memo": [
+            "Common ancestor: Homo habilis (2 marks).",
+            "Divergence time: Accept any value between 1.8 mya and 2.0 mya (2 marks).",
+            "Correct unit (mya or million years ago) must be stated (1 mark)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Scientific Investigation Design & Evolutionary Explanations",
+      "mode": "practical_investigation_memo",
+      "instructions": "Answer all questions. Refer to Table 2 where indicated.",
+      "stimulus": "Table 2 shows the results of an investigation where a population of Escherichia coli bacteria was exposed to increasing concentrations of the antibiotic streptomycin over a period of 10 days.\n\nTable 2: Bacterial Colony Survival Under Streptomycin Exposure\n- Day 1: Streptomycin Concentration = 0 mcg/mL; Surviving Colonies = 500\n- Day 2: Streptomycin Concentration = 2 mcg/mL; Surviving Colonies = 350\n- Day 4: Streptomycin Concentration = 4 mcg/mL; Surviving Colonies = 120\n- Day 6: Streptomycin Concentration = 8 mcg/mL; Surviving Colonies = 45\n- Day 8: Streptomycin Concentration = 16 mcg/mL; Surviving Colonies = 12\n- Day 10: Streptomycin Concentration = 32 mcg/mL; Surviving Colonies = 8",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "State the aim of the investigation shown in Table 2.",
+          "marks": 2,
+          "memo": [
+            "To investigate the effect of increasing concentrations of streptomycin on the survival of Escherichia coli colonies over 10 days (2 marks).",
+            "Accept: To determine if E. coli can develop resistance to increasing concentrations of streptomycin (2 marks)."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Plot a line graph using the data in Table 2 to show the relationship between the days of exposure and the number of surviving bacterial colonies.",
+          "marks": 6,
+          "memo": [
+            "Type of graph: Line graph plotted (1 mark).",
+            "Title: Suitable title containing both variables (e.g., 'The number of surviving E. coli colonies over 10 days of streptomycin exposure') (1 mark).",
+            "X-axis: Correctly labelled 'Day' or 'Time (Days)' with appropriate scale (1 mark).",
+            "Y-axis: Correctly labelled 'Number of Surviving Bacterial Colonies' with appropriate scale (1 mark).",
+            "Plotting: All points plotted accurately (1 mark).",
+            "Line: Points connected with a neat, continuous line (1 mark)."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Explain the biological process that allowed 8 bacterial colonies to survive on Day 10 despite the high concentration of streptomycin.",
+          "marks": 4,
+          "memo": [
+            "Within the original population of E. coli, some bacteria had a genetic mutation that made them resistant to streptomycin (1 mark).",
+            "When exposed to streptomycin, the non-resistant bacteria were killed (1 mark).",
+            "The resistant bacteria survived the antibiotic exposure (1 mark).",
+            "These surviving bacteria reproduced rapidly by binary fission, passing the resistance gene to their offspring, resulting in 8 surviving colonies on Day 10 (1 mark)."
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Explain why the continuous use of low-dose antibiotics is a major concern in modern medicine, using evolutionary principles.",
+          "marks": 5,
+          "memo": [
+            "Low-dose antibiotics do not kill all bacteria, especially those with partial resistance (1 mark).",
+            "This acts as a selective pressure, killing only the highly susceptible bacteria (1 mark).",
+            "The partially resistant and highly resistant bacteria survive (1 mark).",
+            "These resistant bacteria multiply and pass on their resistance genes (1 mark).",
+            "Over time, the entire bacterial population becomes resistant, making standard antibiotic treatments ineffective (superbugs) (1 mark)."
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Design a suitable control for this experiment and explain its purpose.",
+          "marks": 3,
+          "memo": [
+            "Control design: Set up a culture of E. coli under the exact same environmental conditions but without adding any streptomycin (0 mcg/mL) for the entire 10 days (2 marks).",
+            "Purpose: To prove that any decrease in the number of bacterial colonies in the experimental group is due to the streptomycin and not other environmental factors (1 mark)."
+          ]
+        },
+        {
+          "number": "3.6",
+          "question": "Identify two controlled (fixed) variables that the researchers must keep constant to ensure a fair test.",
+          "marks": 2,
+          "memo": [
+            "The temperature at which the bacteria are incubated (e.g., 37 degrees Celsius) (1 mark).",
+            "The type of nutrient agar/medium used for culturing the bacteria (1 mark).",
+            "The species/strain of bacteria used (Escherichia coli) (1 mark).",
+            "Any two correct points."
+          ]
+        },
+        {
+          "number": "3.7",
+          "question": "Predict the outcome if a different antibiotic, such as penicillin, is introduced on Day 11 to the surviving colony of 8 bacterial colonies. Explain your prediction.",
+          "marks": 3,
+          "memo": [
+            "Prediction: Most or all of the 8 surviving colonies will die (1 mark).",
+            "Explanation: The mutation that gave the bacteria resistance to streptomycin does not automatically make them resistant to penicillin (1 mark).",
+            "Penicillin has a different mechanism of action, and the bacteria would need a different mutation to survive it (1 mark)."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Evolution and Speciation (Questions 1.1 - 1.7)",
+      "marks": 25,
+      "descriptor": "Assesses knowledge of speciation mechanisms, natural selection theory, and basic scientific investigation design (variables, hypothesis, reliability, and calculations)."
+    },
+    {
+      "criterion": "Section B: Human Evolution (Questions 2.1 - 2.5)",
+      "marks": 25,
+      "descriptor": "Assesses anatomical comparisons of hominid skulls, bipedalism adaptations, genetic evidence (mtDNA) for human origins, and phylogenetic tree interpretation."
+    },
+    {
+      "criterion": "Section C: Scientific Investigation Design (Questions 3.1 - 3.7)",
+      "marks": 25,
+      "descriptor": "Assesses practical investigation skills including graphing, identifying aims, designing controls, identifying fixed variables, and applying natural selection to antibiotic resistance."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that all questions are directly grounded in the provided CAPS Grade 12 Life Sciences curriculum.",
+    "Confirm that the total marks sum to exactly 75.",
+    "Ensure that the memo provides clear, objective marking criteria with alternative scientific phrasing accepted.",
+    "Check that no medical advice or diagnostic claims are made in the antibiotic resistance scenario.",
+    "Ensure all referenced figures (Figure 1, Figure 2, Figure 3, Table 1, Table 2) are fully described in the stimulus text."
+  ]
+}

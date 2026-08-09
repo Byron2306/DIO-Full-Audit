@@ -1,0 +1,29 @@
+{
+  "schema": "dio.commercial_triune.config.v1",
+  "internal_automatic_actions": [
+    "triage_intake",
+    "bind_conversation",
+    "capture_attachment_to_quarantine",
+    "collect_or_validate_intake",
+    "stage_product_job",
+    "reconcile_verified_payment",
+    "monitor_product_job",
+    "prepare_outbound_package",
+    "prepare_closeout_receipt"
+  ],
+  "operator_required_actions": [
+    "review_qualification",
+    "prepare_quote",
+    "issue_invoice_and_payment_link",
+    "human_output_review",
+    "approve_and_send_delivery",
+    "close_transaction"
+  ],
+  "hard_invariants": [
+    "provider_notifications_never_prove_payment_without_verified_webhook_state",
+    "mail_attachments_remain_untrusted_until_scanned_or_approved",
+    "delivery_requires_human_output_authority",
+    "external_mail_requires_one_time_send_authority",
+    "lineage_ids_are_preserved_across_campaign_lead_conversation_order_job_delivery"
+  ]
+}

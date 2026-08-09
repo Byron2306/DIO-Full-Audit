@@ -1,0 +1,58 @@
+{
+  "job_id": "homs-341742543229d464db27",
+  "created_at": "2026-08-07T14:49:51+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "1ca05c38271912365d40",
+    "thread_ref": "1ca05c38271912365d40"
+  },
+  "route": {
+    "product": "homs",
+    "confidence": 0.75,
+    "reason": "Matched route keywords: efundi, gradebook."
+  },
+  "status": "needs_review",
+  "risk": "moderate",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "CD",
+      "sender": "Charles Dlamini<[email]>",
+      "attachment_names": "",
+      "intent": "student_mark_query",
+      "urgency": "high",
+      "next_step": "Check Gradebook, SIS/Student360, and eFundi before using any draft.",
+      "draft_status": "draft_ready",
+      "primary_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/primary_1ca05c38271912365d40_CD.txt",
+      "safer_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/safer_1ca05c38271912365d40_CD.txt",
+      "shorter_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/shorter_1ca05c38271912365d40_CD.txt",
+      "evidence_note_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/evidence_note_1ca05c38271912365d40_CD.txt"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "341742543229d464db27",
+      "source_type": "email",
+      "source_path": "",
+      "title": "CD",
+      "date_observed": "2026-08-07T14:49:51+00:00",
+      "text_extract": "Evidence note for: CD\n\nEvidence seen:\n- Sender visible: Charles Dlamini<[email]>\n- Subject visible: CD\n- Folder/source context: Inbox\n- Body text or preview reviewed.\n- Risk flags assigned: contains_deadline, contains_grade_issue, contains_identifier_or_private_info\n\nMissing information:\n- Gradebook record\n- SIS/Student360 record\n- eFundi evidence\n\nThis note is for review and audit. It is not an outbound email.",
+      "hash": "c9f26211d1f562781786",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.75,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

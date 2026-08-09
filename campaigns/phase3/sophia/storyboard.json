@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.phase3.storyboard.v1",
+  "episode_id": "sophia-f0ef8b7588d6d5c8",
+  "studio_id": "practical_open_source",
+  "product_layer": "sophia",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "target_runtime_seconds": 66,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 8,
+      "narration": "The safest academic AI is not the one that writes for you. It is the one that shows you what to fix.",
+      "visual": "Show chapter draft becoming argument, evidence, and citation review lanes as the opening transformation.",
+      "screen_text": "Sophia Academic Review Desk"
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 12,
+      "narration": "Students need high-level feedback on argument, sources, referencing, and structure without crossing integrity lines.",
+      "visual": "Show the messy input state: emails, folders, files, forms, rubrics, or drafts.",
+      "screen_text": "The messy input"
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "workflow",
+      "duration_seconds": 14,
+      "narration": "Sophia Academic Review Desk routes the work through a controlled pipeline instead of pretending AI can decide everything.",
+      "visual": "Show route card, evidence card, approval gate, and output folder.",
+      "screen_text": "Route -> Review -> Pack"
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "promise",
+      "duration_seconds": 14,
+      "narration": "Argument review, source-fit checks, referencing feedback, revision priorities, and supervisor-friendly summaries.",
+      "visual": "Show the finished review-ready pack with checklist and receipt.",
+      "screen_text": "Review-ready output"
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 10,
+      "narration": "No ghostwriting, no fabricated citations, no authorship replacement.",
+      "visual": "Show human approval as an explicit final gate.",
+      "screen_text": "Human approval stays"
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "narration": "Submit one section for source-fit and argument review.",
+      "visual": "Show a simple intake action and pilot label.",
+      "screen_text": "Chapter Review Pilot"
+    }
+  ],
+  "approval_required": true
+}

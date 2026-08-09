@@ -1,0 +1,69 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "life_orientation",
+  "display_name": "Life Orientation",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "scenario_response",
+    "reflective_task",
+    "project_or_portfolio",
+    "source_based_response",
+    "rubric_marked_activity",
+    "marking_relief"
+  ],
+  "source_types": [
+    "learner_scenario",
+    "case_study",
+    "policy_or_rights_extract",
+    "wellbeing_context",
+    "career_or_study_pathway_data",
+    "reflection_prompt",
+    "rubric"
+  ],
+  "question_families": [
+    "identify_issue",
+    "apply_concept_to_scenario",
+    "evaluate_choice_or_consequence",
+    "propose_support_strategy",
+    "reflect_on_personal_action",
+    "justify_recommendation"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "application",
+    "personal_reflection",
+    "ethical_reasoning",
+    "decision_making"
+  ],
+  "rubric_dimensions": [
+    "concept_accuracy",
+    "scenario_application",
+    "reasoned_choice",
+    "respectful_language",
+    "practicality",
+    "reflection_quality"
+  ],
+  "memo_expectations": [
+    "credit context-appropriate alternatives",
+    "avoid diagnosing learners or giving clinical advice",
+    "separate factual CAPS concepts from personal reflection",
+    "keep educator judgement explicit through rubrics"
+  ],
+  "retrieval_queries": [
+    "Life Orientation CAPS assessment task rubric",
+    "Life Orientation scenario based assessment senior phase FET",
+    "Life Orientation project portfolio assessment"
+  ],
+  "human_review_checks": [
+    "check sensitivity and learner safety",
+    "confirm local school policy fit",
+    "verify that advice remains educational and referral-based",
+    "confirm rubric can be applied fairly"
+  ],
+  "blocked_claims_or_modes": [
+    "mental health diagnosis or treatment advice",
+    "legal advice presented as professional instruction",
+    "assessment that asks learners to disclose private trauma",
+    "moralising memo that allows only one personal response"
+  ]
+}

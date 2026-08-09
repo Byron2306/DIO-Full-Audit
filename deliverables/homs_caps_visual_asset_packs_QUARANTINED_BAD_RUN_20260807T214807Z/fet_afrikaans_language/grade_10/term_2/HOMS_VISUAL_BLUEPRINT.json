@@ -1,0 +1,63 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Afrikaans Language",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Afrikaans",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_sal_web_e3dc.pdf",
+    "sha256": "f9c4df86365036b19e5fe17c41a9160804508a54c230c271849fac8fcd6fba15"
+  },
+  "canonical_profile_id": "fet.afrikaans_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [
+    "From 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document",
+    "and will simply be known as the National Curriculum Statement Grades R-12. The National Curriculum Statement for",
+    "Grades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification of what",
+    "is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12."
+  ],
+  "assessment_content_focus": [
+    "From 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document",
+    "and will simply be known as the National Curriculum Statement Grades R-12. The National Curriculum Statement for",
+    "From 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document",
+    "and will simply be known as the National Curriculum Statement Grades R-12. The National Curriculum Statement for"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: combined, curricula, curriculum, document, grades, known."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

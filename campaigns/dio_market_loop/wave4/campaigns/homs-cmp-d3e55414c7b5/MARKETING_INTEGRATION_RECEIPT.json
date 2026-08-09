@@ -1,0 +1,28 @@
+{
+  "schema": "dio.marketing.integration_receipt.v1",
+  "campaign_id": "CMP-D3E55414C7B5",
+  "hypothesis_id": "W4-HYP-0002",
+  "product_layer": "homs",
+  "created_at": "2026-08-08T22:11:08+00:00",
+  "status": "hypothesis_registered_campaign_review_ready",
+  "files": [
+    "CAMPAIGN_PACK.md",
+    "HIVENANCE_GATE.json",
+    "HIVENANCE_HYPOTHESIS.json",
+    "MARKET_OBSERVATION.json",
+    "NICHEFOUNDRY_SCORE.json",
+    "editorial_review.json",
+    "foundry_campaign_request.json",
+    "foundry_opportunity.json",
+    "measurement.json",
+    "metadata_package.json",
+    "storyboard.json",
+    "visual_plan.json"
+  ],
+  "nichefoundry_scored": true,
+  "next_gate": "operator approval before production, publication or channel submission",
+  "nichefoundry_score_path": "NICHEFOUNDRY_SCORE.json",
+  "nichefoundry_decision": "prioritize",
+  "nichefoundry_opportunity_score": 74,
+  "nichefoundry_fit_passed": true
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "subject_id": "geography",
+    "grade": 10,
+    "term": 3,
+    "phase": "fet_grade_10_12",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "status": "needs_curation",
+    "render_eligible": false,
+    "candidate_count": 2,
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "extraction_error": null,
+    "content_terms_used": [
+      "atmosphere",
+      "climate",
+      "economic geography",
+      "geomorphology",
+      "gis",
+      "map",
+      "river",
+      "rural",
+      "settlement",
+      "synoptic",
+      "urban",
+      "weather"
+    ],
+    "caps_theme_candidates": [
+      "Topic: Time: Additional Resources:",
+      "Population \u00b1 36 hours",
+      "demographic statistics",
+      "GEOGRAPHICAL KNOWLEDGE",
+      "Population Distribution and Density [4 hours]",
+      "meaning of population distribution and population density",
+      "world population density and distribution",
+      "factors that affect distribution and density of the world\u2019s population.",
+      "Population Structure [4 hours]",
+      "population indicators: birth rates, death rates, life expectancy, fertility rate and natural increase",
+      "factors that influence population indicators",
+      "population structure: age and sex, represented as population pyramids.",
+      "Population Growth (Using case studies from around the world is essential) [6 hours]",
+      "world population growth over time"
+    ],
+    "content_lines": [],
+    "admin_or_noise_lines": [],
+    "theme_confidence": "low",
+    "topic_focus": [
+      "Topic: Time: Additional Resources:",
+      "Population \u00b1 36 hours"
+    ],
+    "topic_scores": [
+      {
+        "line": "Topic: Time: Additional Resources:",
+        "score": 8
+      },
+      {
+        "line": "Population \u00b1 36 hours",
+        "score": 0
+      }
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ]
+  }
+]

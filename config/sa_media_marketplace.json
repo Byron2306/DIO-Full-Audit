@@ -1,0 +1,102 @@
+{
+  "schema": "dio.sa_media_marketplace.v1",
+  "verified_at": "2026-08-08",
+  "vendors": [
+    {
+      "id": "BIZCOMMUNITY",
+      "name": "Bizcommunity",
+      "type": "publisher_b2b",
+      "best_for": ["HOMS", "Sophia", "VAMP", "Evidex", "DIO thought leadership"],
+      "inventory": ["industry website banners", "industry newsletters", "promoted content", "press office", "sponsorship", "promo mailers"],
+      "public_rate_summary": "2026 public rate card includes website CPM placements and newsletter placements; industry-specific promoted content is also publicly priced.",
+      "rate_state": "public_current_verify_at_booking",
+      "source_url": "https://www.bizcommunity.com/advertise/rates",
+      "booking_mode": "manual_media_buy",
+      "priority": "very_high"
+    },
+    {
+      "id": "BROAD_MEDIA",
+      "name": "Broad Media / BusinessTech / MyBroadband",
+      "type": "publisher_network",
+      "best_for": ["DIO", "VAMP", "Sophia institutional", "B2B technology positioning"],
+      "inventory": ["sponsored articles", "display", "campaign packages", "social amplification", "business and technology publications"],
+      "public_rate_summary": "Quote required; Broad Media operates BusinessTech, MyBroadband, TopAuto and Daily Investor.",
+      "rate_state": "quote_required",
+      "source_url": "https://broadmedia.co.za/",
+      "booking_mode": "manual_media_buy",
+      "priority": "high"
+    },
+    {
+      "id": "SME_SA",
+      "name": "SME South Africa",
+      "type": "publisher_sme",
+      "best_for": ["Evidex", "DIO services", "small-business workflow automation"],
+      "inventory": ["website banners", "sponsored content", "newsletter sponsorship", "social promotion", "lead generation"],
+      "public_rate_summary": "Advertising packages are offered; current page describes targeted B2B founder reach and measurable reporting. Quote required.",
+      "rate_state": "quote_required",
+      "source_url": "https://smesouthafrica.co.za/advertise-with-us/",
+      "booking_mode": "manual_media_buy",
+      "priority": "high"
+    },
+    {
+      "id": "ARENA_TIMESLIVE",
+      "name": "Arena Holdings / TimesLIVE",
+      "type": "publisher_network",
+      "best_for": ["broad South African awareness", "executive and professional audiences"],
+      "inventory": ["digital display", "publisher campaigns", "sponsored content"],
+      "public_rate_summary": "Current Adroom pages expose audience/readership and downloadable rate cards; quote/rate-card verification required per placement.",
+      "rate_state": "rate_card_verify",
+      "source_url": "https://adroom.arena.africa/advertise/readership/digital/timeslive-co-za/",
+      "booking_mode": "manual_media_buy",
+      "priority": "medium"
+    },
+    {
+      "id": "MAIL_GUARDIAN",
+      "name": "Mail & Guardian",
+      "type": "publisher_news",
+      "best_for": ["Sophia", "education and research thought leadership", "institutional awareness"],
+      "inventory": ["advertising enquiries", "digital and print opportunities"],
+      "public_rate_summary": "Advertise enquiry route is public; placement pricing requires a quote.",
+      "rate_state": "quote_required",
+      "source_url": "https://pressoffice.mg.co.za/advertise",
+      "booking_mode": "manual_media_buy",
+      "priority": "medium"
+    },
+    {
+      "id": "ADSPACE24",
+      "name": "Adspace24 / Media24",
+      "type": "publisher_sales_house",
+      "best_for": ["national and regional South African reach", "education and consumer campaigns"],
+      "inventory": ["digital", "content marketing", "television", "Media24 brands"],
+      "public_rate_summary": "Public rates/specs page currently exposes a downloadable 2025 rate card; obtain a current quote before approval.",
+      "rate_state": "stale_public_rate_verify",
+      "source_url": "https://www.adspace24.co.za/rates-and-specs",
+      "booking_mode": "manual_media_buy",
+      "priority": "medium"
+    },
+    {
+      "id": "ISASA_BULLETIN",
+      "name": "ISASA Weekly Bulletin",
+      "type": "vertical_member_channel",
+      "best_for": ["HOMS", "Sophia Learn"],
+      "inventory": ["reviewed member bulletin submission"],
+      "public_rate_summary": "Use the reviewed submission/partnership route; do not assume paid placement or endorsement.",
+      "rate_state": "channel_submission",
+      "source_url": "https://www.isasa.org/weekly-bulletin-submission/",
+      "booking_mode": "manual_submission",
+      "priority": "very_high"
+    },
+    {
+      "id": "IAB_SA_NETWORK",
+      "name": "IAB South Africa network",
+      "type": "industry_network",
+      "best_for": ["agency sourcing", "publisher sourcing", "adtech sourcing", "industry credibility"],
+      "inventory": ["member discovery", "industry events", "agency and publisher ecosystem"],
+      "public_rate_summary": "Not an ad-buy channel itself. Use the current member directory to identify verified local agencies, publishers and adtech partners.",
+      "rate_state": "network_discovery",
+      "source_url": "https://iabsa.net/members/",
+      "booking_mode": "partner_discovery",
+      "priority": "high"
+    }
+  ]
+}

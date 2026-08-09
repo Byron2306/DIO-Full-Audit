@@ -1,0 +1,56 @@
+{
+  "schema": "dio.performance_profile.v1",
+  "profile_id": "nwu_academic_v1",
+  "version": "1.0.0",
+  "institution": {
+    "name": "North-West University",
+    "sector": "higher_education",
+    "jurisdiction": "South Africa"
+  },
+  "terminology": {
+    "domain": "Key Performance Area",
+    "objective": "Task / KPI",
+    "evidence": "Performance evidence",
+    "review_cycle": "Performance Agreement year"
+  },
+  "domains": [
+    {"code": "KPA1", "label": "Teaching and Learning", "aliases": ["teaching", "assessment", "supervision"], "weight": null},
+    {"code": "KPA2", "label": "Occupational Health and Safety", "aliases": ["OHS", "safety", "compliance"], "weight": null},
+    {"code": "KPA3", "label": "Research, Innovation and Creative Outputs", "aliases": ["research", "publication", "innovation"], "weight": null},
+    {"code": "KPA4", "label": "Academic Leadership and Management", "aliases": ["leadership", "committee", "administration"], "weight": null},
+    {"code": "KPA5", "label": "Social Responsiveness and Engagement", "aliases": ["community", "industry", "engagement"], "weight": null}
+  ],
+  "mapping_policy": {
+    "stopwords": [
+      "and", "the", "for", "with", "from", "this", "that", "into", "school", "meeting", "meetings",
+      "functions", "general", "activity", "progress", "project", "performance", "evidence"
+    ],
+    "identifier_pattern": "(?i)\\b[A-Z]{2,8}[- ]?[0-9]{2,4}\\b",
+    "human_assertion_precedence": true
+  },
+  "confidence_policy": {
+    "acceptance_thresholds": {
+      "retrieval": 0.7,
+      "relevance": 0.7,
+      "provenance": 0.8,
+      "sufficiency": 0.6
+    }
+  },
+  "evidence_policy": {
+    "strong_source_cues": [
+      "approved", "approval", "submitted", "acceptance", "accepted", "published", "publication",
+      "minutes", "report", "moderation", "memo", "memorandum", "marks", "gradebook", "attendance",
+      "feedback", "completed", "completion", "certificate", "assessment", "exam", "deliverable"
+    ],
+    "weak_source_cues": [
+      "invitation", "invite", "reminder", "newsletter", "announcement", "save the date", "calendar",
+      "agenda only", "vacancy", "daily comms", "call for papers"
+    ],
+    "deduplicate_by_hash": true
+  },
+  "rating_policy": {
+    "enabled": false,
+    "authoritative_rubric_required": true,
+    "default_output": "evidence_coverage_only"
+  }
+}

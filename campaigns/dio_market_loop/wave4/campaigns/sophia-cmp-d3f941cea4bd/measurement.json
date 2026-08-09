@@ -1,0 +1,45 @@
+{
+  "schema": "dio.marketing.measurement.v1",
+  "campaign_id": "CMP-D3F941CEA4BD",
+  "measurement_window": {
+    "started_at": null,
+    "ended_at": null
+  },
+  "acquisition": {
+    "impressions": 0,
+    "views": 0,
+    "clicks": 0,
+    "landing_visits": 0
+  },
+  "leads": {
+    "enquiries": 0,
+    "qualified_leads": 0,
+    "quotes": 0
+  },
+  "commerce": {
+    "orders": 0,
+    "paid_orders": 0,
+    "revenue_minor": 0,
+    "refunds_minor": 0
+  },
+  "fulfilment": {
+    "completed": 0,
+    "delivered": 0,
+    "manual_minutes": 0,
+    "revisions": 0
+  },
+  "economics": {
+    "ad_spend_minor": 0,
+    "payment_fees_minor": 0,
+    "external_cost_minor": 0,
+    "manual_labour_minor": 0,
+    "gross_contribution_minor": 0
+  },
+  "governance": {
+    "outreach_attempts": 0,
+    "blocked_outreach_attempts": 0,
+    "permission_failures": 0,
+    "publication_approved": false,
+    "unresolved_incidents": 0
+  }
+}

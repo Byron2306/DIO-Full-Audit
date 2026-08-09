@@ -1,0 +1,88 @@
+{
+  "schema": "dio.lingua.human_approval.v1",
+  "approval_state": "approved",
+  "semantic_object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "target_language": "Sesotho",
+  "domain": "Water-quality operations",
+  "origin": {
+    "product": "document_studio",
+    "artifact_type": "document",
+    "artifact_id": "DIO-LINGUA-WATER-001",
+    "audience": "Municipal field technicians",
+    "channel": "document"
+  },
+  "reviewer": "Byron Bunt",
+  "reviewer_role": "Language practitioner",
+  "approved_at": "2026-08-09T11:40:48+00:00",
+  "updated_at": "2026-08-09T11:40:48+00:00",
+  "units": [
+    {
+      "unit_id": "P1",
+      "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+      "target_text": "Mokhoa oa ho Lekola Boleng ba Metsi a Sechaba",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P2",
+      "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+      "target_text": "Morero: Mokhoa ona o hlalosa hore na lihlopha tsa masimong li bokella le ho ngola mehlala ea metsi a nooang joang e le hore liphetho li t\u0161epahale le ho lateloa ho ea sebakeng se nepahetseng.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P3",
+      "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+      "target_text": "Sebaka sa t\u0161ebeliso: Se sebetsa ho mehlala e tloaelehileng e bokelloang matamong, libakeng tsa phekolo ea metsi, le lipompong tsa sechaba. Mokhoa ona ha o akaretse ho qhalana ha lik'hemik'hale tsa t\u0161ohanyetso kapa ho lekanya lisebelisoa tsa laboratori.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P4",
+      "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+      "target_text": "Boikarabelo: Moetapele oa sehlopha o hlahloba hore setekheniki se seng le se seng se na le PBT, libotlolo tse hloekileng tsa mehlala, le metha e lekantsoeng. Lithekheniki li ikarabella ho tlatsa Foromo ea Chain of Custody QMS-07 le ho tlaleha maemo a sa bolokehang.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "corrected",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P5",
+      "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+      "target_text": "Mokhoa: Pele o bokella sampole, lumella pompo hore e phalle metsi ka metsotso e 2. Hlatsoa probe ka metsi a hloekileng, empa u se ke ua hlatsoa botlolo e sa t\u0161oaetsoang ea likokoana-hloko. Ngola pH le turbidity ka NTU sebakeng seo. Mehlala e tlameha ho behoa ka har'a sehatsetsi pakeng tsa 2 le 8 degrees Celsius.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        },
+        {
+          "index": 1,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P6",
+      "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+      "target_text": "Ho ngola data: Ngola khoutu ea sebaka, letsatsi, nako, le litlhaku tsa motho ea nkang sampole botlolong le ho QMS-07. Litokiso li tlameha ho etsoa ka mola o le mong ho t\u0161ela phoso; ha ho lumelloe ho sebelisa mokelikeli oa ho lokisa. Lebaka la ho se baloe ho itseng le tlameha ho boleloa.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P7",
+      "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+      "target_text": "Ho nyolla taba: Haeba pH e ka tlase ho 6.5 kapa e kaholimo ho 9.5, kapa turbidity e phahame ho feta 1 NTU, letsetsa moetapele oa sehlopha hang-hang. U se ke ua bolella sechaba hore metsi a bolokehile kapa ha a bolokeha ho fihlela ofisiri e lumelletsoeng e hlahlobile sephetho.",
+      "approved": true,
+      "flag_resolutions": []
+    }
+  ],
+  "terms": []
+}

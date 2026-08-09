@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "grade": 10,
+  "total_marks": 50,
+  "duration": "2 hours",
+  "teacher_review_checklist": [
+    "Verify CAPS scope",
+    "Check marks",
+    "Approve before use"
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy and subject knowledge",
+      "marks": 15,
+      "descriptor": "Correct, relevant subject knowledge."
+    },
+    {
+      "criterion": "Evidence and reasoning",
+      "marks": 15,
+      "descriptor": "Uses evidence to justify answers."
+    },
+    {
+      "criterion": "Communication",
+      "marks": 10,
+      "descriptor": "Clear presentation."
+    },
+    {
+      "criterion": "Process evidence",
+      "marks": 10,
+      "descriptor": "Shows planning, method or reflection."
+    }
+  ],
+  "subject": "Coding and Robotics",
+  "assessment_title": "Grade 6 Coding and Robotics Design Task",
+  "blueprint": "practical_project_design_task",
+  "sections": [
+    {
+      "title": "Robot maze",
+      "mode": "practical_project_design_task",
+      "stimulus": "Design a simple route-following algorithm for a floor robot.",
+      "questions": [
+        {
+          "number": "1.1",
+          "marks": 10,
+          "question": "Draw the route and explain the turn logic."
+        },
+        {
+          "number": "1.2",
+          "marks": 10,
+          "question": "Test the route and record one improvement."
+        }
+      ]
+    }
+  ],
+  "canonical_profile_id": "visual.proof.project"
+}

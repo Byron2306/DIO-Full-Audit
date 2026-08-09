@@ -1,0 +1,23 @@
+{
+  "schema": "knowedge.homs_launch_assets.v1",
+  "created_at": "2026-08-07T16:36:32+00:00",
+  "status": "homs_launch_assets_ready",
+  "episode_dir": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b",
+  "visual_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/HOMS_VISUAL_ASSET_RECEIPT.json",
+  "site": "sites/homs/index.html",
+  "outlook_first": {
+    "guide": "campaigns/phase3/homs/commercial_ops/outlook_first/OUTLOOK_FIRST_INTAKE.md",
+    "ad": "campaigns/phase3/homs/commercial_ops/outlook_first/OUTLOOK_FIRST_AD.md",
+    "dummy": "campaigns/phase3/homs/commercial_ops/outlook_first/dummy_outlook_homs_intake.json"
+  },
+  "subject_marker": "HOMS MARKING RELIEF REQUEST",
+  "verified_runs": {
+    "outlook_bot_csv": {
+      "bot_output": "campaigns/phase3/homs/commercial_ops/outlook_first/outlook_bot_output",
+      "csv": "campaigns/phase3/homs/commercial_ops/outlook_first/outlook_bot_output/triage_summary.csv",
+      "run": "runs/homs_outlook_bot_csv_dry_run",
+      "deliverable": "deliverables/homs_outlook_bot_csv_dry_run/homs/homs-09d7b6a2e7463661bc81",
+      "result": "Dummy HOMS lead processed by KnowEdge Outlook Triage 2.0.0; CSV routed to HOMS at 0.95 confidence; HOMS marking request pack generated."
+    }
+  }
+}

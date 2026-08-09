@@ -1,0 +1,32 @@
+{
+  "schema": "knowedge.homs_visual_manifest.v1",
+  "created_at": "2026-08-08T08:58:47+00:00",
+  "assessment_title": "English Language Grade 12 Term 4 Controlled Assessment Pack",
+  "subject": "English Language",
+  "grade": 12,
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "visual_family": {
+    "visuals": [
+      "text_panel",
+      "response_planner",
+      "language_structures_table"
+    ],
+    "rules": [
+      "Separate reading/viewing, writing/presenting, language structures, and oral/listening.",
+      "Scale text length to grade.",
+      "Do not import subject-case-study structure unless the language task needs it."
+    ]
+  },
+  "source_assets": [],
+  "assets": [
+    {
+      "title": "Text Response And Language Planner",
+      "svg": "deliverables/homs_tight8_term_deterministic_packs/deterministic-english_language-g12-t4-20260808T085846Z/assessment_visuals/01_text_response_and_language_planner.svg",
+      "png": "deliverables/homs_tight8_term_deterministic_packs/deterministic-english_language-g12-t4-20260808T085846Z/assessment_visuals/01_text_response_and_language_planner.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    }
+  ]
+}

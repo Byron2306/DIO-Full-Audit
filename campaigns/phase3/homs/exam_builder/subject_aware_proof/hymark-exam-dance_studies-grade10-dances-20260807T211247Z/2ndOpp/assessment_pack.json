@@ -1,0 +1,67 @@
+{
+  "assessment_title": "Grade 10 Dance Studies: Second Opportunity CAPS-Aligned Assessment",
+  "subject": "Dance Studies",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "canonical_profile_id": "fet.dance_studies",
+  "blueprint": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "duration": "2 hours",
+  "total_marks": 50,
+  "sections": [
+    {
+      "title": "Performance Assessment Task",
+      "mode": "performance_task_sheet",
+      "instructions": "Prepare and perform the required sequence under educator supervision. The educator records observable performance evidence against the rubric.",
+      "stimulus": "Use classroom-taught technique, movement vocabulary, composition principles, and safe dance practice.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Perform the prepared practical sequence according to the task brief and safety conditions.",
+          "marks": 30,
+          "memo": [
+            "Assess observable technique, control, accuracy, spatial use, and performance readiness."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Present a short oral or written reflection on movement choices, style, and improvement.",
+          "marks": 20,
+          "memo": [
+            "Credit correct terminology, relevant reflection, and links to the studied dance context."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Technique and safe body use",
+      "marks": 15,
+      "descriptor": "Accurate, controlled, safe execution of required movement vocabulary."
+    },
+    {
+      "criterion": "Composition, space, dynamics and musicality",
+      "marks": 15,
+      "descriptor": "Clear movement structure with effective use of space, timing, dynamics and transitions."
+    },
+    {
+      "criterion": "Performance quality and expression",
+      "marks": 10,
+      "descriptor": "Committed, focused performance with appropriate expressive intent."
+    },
+    {
+      "criterion": "Reflection and dance terminology",
+      "marks": 10,
+      "descriptor": "Clear reflection using relevant subject vocabulary and evidence from the performed work."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS topic scope and phase appropriateness.",
+    "Confirm all marks reconcile before use.",
+    "Confirm the assessment form matches the subject and phase.",
+    "Approve learner-facing wording and memo before classroom use."
+  ],
+  "generation_backend": "deterministic_shell_fallback",
+  "validation_errors": []
+}

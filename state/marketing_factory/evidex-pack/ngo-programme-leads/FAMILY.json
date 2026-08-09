@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "EVIDEX_PACK--ngo_programme_leads",
+  "generated_at": "2026-08-09T14:01:59+00:00",
+  "product": {
+    "id": "EVIDEX_PACK",
+    "name": "Evidex Evidence Pack",
+    "offer": "evidence_pack"
+  },
+  "audience": {
+    "id": "ngo_programme_leads",
+    "name": "NGO and NPO programme leads",
+    "pain": "Reporting evidence is scattered across folders, email and staff memory.",
+    "outcome": "A donor-ready evidence trail that a human can verify."
+  },
+  "landing_page": "sites/evidex/index.html",
+  "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+  "assets": {
+    "square_1080": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/evidex-pack/ngo-programme-leads/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/evidex-pack/ngo-programme-leads/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

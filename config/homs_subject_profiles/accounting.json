@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "accounting",
+  "display_name": "Accounting",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "structured_exam",
+    "financial_data_response",
+    "ledger_or_statement_task",
+    "scenario_response",
+    "calculation_memo",
+    "marking_relief"
+  ],
+  "source_types": [
+    "financial_snapshot",
+    "ledger_extract",
+    "fixed_asset_register_extract",
+    "ratio_table",
+    "transaction_list",
+    "business_scenario"
+  ],
+  "question_families": [
+    "calculate_amount",
+    "complete_statement",
+    "interpret_ratio",
+    "identify_accounting_concept",
+    "explain_internal_control",
+    "recommend_accounting_action"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "routine_procedure",
+    "application",
+    "analysis",
+    "justified_recommendation"
+  ],
+  "rubric_dimensions": [
+    "calculation_accuracy",
+    "method_marks",
+    "accounting_format",
+    "source_data_use",
+    "concept_accuracy",
+    "recommendation_quality"
+  ],
+  "memo_expectations": [
+    "show method marks before final-answer marks",
+    "credit correct accounting format and workings",
+    "use only supplied financial data",
+    "separate calculation answers from explanation/recommendation marks"
+  ],
+  "retrieval_queries": [
+    "accounting school assessment financial statement memo",
+    "accounting ratio interpretation assessment rubric",
+    "fixed asset register depreciation assessment"
+  ],
+  "human_review_checks": [
+    "verify calculations and mark allocations",
+    "check source data is sufficient for each required answer",
+    "confirm accounting format matches local CAPS expectations",
+    "confirm recommendations are educational and not professional financial advice"
+  ],
+  "blocked_claims_or_modes": [
+    "professional financial advice",
+    "invented company figures presented as real",
+    "memo answer that cannot be calculated from supplied information"
+  ]
+}

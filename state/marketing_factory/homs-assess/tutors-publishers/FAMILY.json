@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "HOMS_ASSESS--tutors_publishers",
+  "generated_at": "2026-08-09T14:02:09+00:00",
+  "product": {
+    "id": "HOMS_ASSESS",
+    "name": "HOMS Assessment Desk",
+    "offer": "assessment_desk"
+  },
+  "audience": {
+    "id": "tutors_publishers",
+    "name": "Tutors and education publishers",
+    "pain": "Creating credible activities, memos and feedback repeatedly is slow.",
+    "outcome": "Curriculum-aware assessment drafts that can be professionally refined."
+  },
+  "landing_page": "sites/homs/index.html",
+  "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+  "assets": {
+    "square_1080": "state/marketing_factory/homs-assess/tutors-publishers/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/homs-assess/tutors-publishers/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/homs-assess/tutors-publishers/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/homs-assess/tutors-publishers/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/homs-assess/tutors-publishers/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/homs-assess/tutors-publishers/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/tutors-publishers/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/homs-assess/tutors-publishers/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

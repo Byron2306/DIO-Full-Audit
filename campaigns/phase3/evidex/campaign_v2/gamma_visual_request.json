@@ -1,0 +1,25 @@
+{
+  "schema": "knowedge.gamma_campaign_request.v1",
+  "product_id": "evidex",
+  "product_name": "Evidex Evidence Pack",
+  "assets": [
+    {
+      "id": "evidex_hero",
+      "title": "Evidex Evidence Pack hero",
+      "purpose": "website hero and campaign key art",
+      "prompt": "Create a single photorealistic 16:9 commercial key-art image for an evidence-pack service. Show a real worktable where scattered but anonymised receipts, field notes, attendance sheets, programme photos and spreadsheets are being consolidated into one ordered evidence table and mapped-claims pack. The transformation should be visible through physical arrangement from mixed inputs at left to a clean, traceable pack at right. Use crisp neutral daylight, paper white, graphite, restrained forest green and one coral accent. No readable private data. No text overlay, no logo, no presentation slide, no infographic, no floating cards, no dashboard, no PowerPoint template."
+    },
+    {
+      "id": "evidex_mapping_proof",
+      "title": "Evidex mapping proof",
+      "purpose": "golden-case and social proof creative",
+      "prompt": "Create one detailed 16:9 overhead editorial photograph of a real evidence review desk. Centre a professionally formatted evidence table with rows connecting five anonymised source artifacts to three programme claims; include subtle source IDs, dates and provenance fields that look plausible but are not readable enough to expose data. Around it place a receipt summary, attendance register, KPI chart, field note and photo log. Show a reviewer checking one source-to-claim link with a pen. Clear, precise, trustworthy, white paper, charcoal, forest green and coral accents. No headline, no logos, no slide, no infographic board, no floating UI, no template cards."
+    },
+    {
+      "id": "evidex_delivery_proof",
+      "title": "Evidex reviewed delivery",
+      "purpose": "conversion and process creative",
+      "prompt": "Create a single realistic 16:9 editorial image of a finished evidence-pack delivery being reviewed. Show a bound or clipped pack containing an evidence table, mapped claims, provenance register, gap notes and a concise review receipt. A human reviewer is making a final annotation before delivery. Nearby mixed source documents are neatly archived, showing that the trail remains inspectable. Natural professional workspace, bright neutral light, paper white, graphite, forest green and coral accents. No approval stamp, no claim of compliance, no readable personal data, no headline, no logos, no presentation, no infographic, no floating cards."
+    }
+  ]
+}

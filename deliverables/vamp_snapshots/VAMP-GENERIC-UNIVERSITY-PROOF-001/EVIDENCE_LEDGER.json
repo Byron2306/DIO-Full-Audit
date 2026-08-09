@@ -1,0 +1,152 @@
+[
+  {
+    "schema": "dio.evidence_record.v2",
+    "evidence_id": "GEN-E01",
+    "source": {
+      "kind": "lms",
+      "display_name": "Evidence 001",
+      "path_registered": true
+    },
+    "sha1": "3389b756c6382cf293692dfe52ed2aef4e51ebfb",
+    "period": "2026-01",
+    "domain_code": "TEACHING",
+    "duplicate_of": null,
+    "mappings": [
+      {
+        "objective_id": "GEN-TEACH-001",
+        "mapped_by": "efundi_collect:direct_lms",
+        "confidence": {
+          "retrieval": 0.98,
+          "relevance": 0.95,
+          "provenance": 1.0,
+          "sufficiency": 0.86,
+          "overall": 0.86
+        },
+        "decision": "accepted",
+        "reasons": [
+          "Direct LMS collection with an explicit task mapping.",
+          "Registered source path and hash are present.",
+          "Substantive source cues: approved, moderation."
+        ]
+      }
+    ],
+    "review_status": "accepted"
+  },
+  {
+    "schema": "dio.evidence_record.v2",
+    "evidence_id": "GEN-E02",
+    "source": {
+      "kind": "outlook",
+      "display_name": "Evidence 002",
+      "path_registered": true
+    },
+    "sha1": "4a9edb7ad63e5048c056a44b513829c811e9bfdb",
+    "period": "2026-01",
+    "domain_code": "RESEARCH",
+    "duplicate_of": null,
+    "mappings": [
+      {
+        "objective_id": "GEN-RES-001",
+        "mapped_by": "outlook_collect:targeted",
+        "confidence": {
+          "retrieval": 0.92,
+          "relevance": 0.94,
+          "provenance": 1.0,
+          "sufficiency": 0.86,
+          "overall": 0.86
+        },
+        "decision": "accepted",
+        "reasons": [
+          "Targeted Outlook collection; semantic relevance recalibrated independently.",
+          "Registered source path and hash are present.",
+          "3 meaningful mapping terms matched.",
+          "Automated domain route agrees with the objective domain.",
+          "Substantive source cues: accepted."
+        ]
+      }
+    ],
+    "review_status": "accepted"
+  },
+  {
+    "schema": "dio.evidence_record.v2",
+    "evidence_id": "GEN-E03",
+    "source": {
+      "kind": "human_review",
+      "display_name": "Evidence 003",
+      "path_registered": true
+    },
+    "sha1": "b5556ae32c1309860b8646d928224e37719e2656",
+    "period": "2026-01",
+    "domain_code": "LEADERSHIP",
+    "duplicate_of": null,
+    "mappings": [
+      {
+        "objective_id": "GEN-LEAD-001",
+        "mapped_by": "human_asserted",
+        "confidence": {
+          "retrieval": 1.0,
+          "relevance": 1.0,
+          "provenance": 1.0,
+          "sufficiency": 0.9,
+          "overall": 0.9
+        },
+        "decision": "accepted",
+        "reasons": [
+          "Human-confirmed mapping takes precedence.",
+          "Registered source path and hash are present."
+        ]
+      }
+    ],
+    "review_status": "accepted"
+  },
+  {
+    "schema": "dio.evidence_record.v2",
+    "evidence_id": "GEN-E04",
+    "source": {
+      "kind": "outlook",
+      "display_name": "Evidence 004",
+      "path_registered": true
+    },
+    "sha1": "137f7e527b8c32279c1994862a99f3f65414d114",
+    "period": "2026-02",
+    "domain_code": "ENGAGEMENT",
+    "duplicate_of": null,
+    "mappings": [
+      {
+        "objective_id": "GEN-ENG-001",
+        "mapped_by": "outlook_collect:targeted",
+        "confidence": {
+          "retrieval": 0.92,
+          "relevance": 0.94,
+          "provenance": 1.0,
+          "sufficiency": 0.35,
+          "overall": 0.35
+        },
+        "decision": "candidate",
+        "reasons": [
+          "Targeted Outlook collection; semantic relevance recalibrated independently.",
+          "Registered source path and hash are present.",
+          "3 meaningful mapping terms matched.",
+          "Automated domain route agrees with the objective domain.",
+          "Weak source form: invitation."
+        ]
+      }
+    ],
+    "review_status": "candidate"
+  },
+  {
+    "schema": "dio.evidence_record.v2",
+    "evidence_id": "GEN-E05",
+    "source": {
+      "kind": "registered_file",
+      "display_name": "Evidence 005",
+      "path_registered": true
+    },
+    "sha1": "0f1c83bc9c0cee8e4a72c5e2003536dfce1cd411",
+    "period": "2026-02",
+    "domain_code": "DEVELOPMENT",
+    "duplicate_of": null,
+    "mappings": [],
+    "review_status": "unmapped"
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "schema": "dio.presence_operator_policy.v2",
+  "operator_channel": "separate_telegram_edge_plus_server_allowlist",
+  "allowed": ["read_operator_summary","read_campaign_summary","read_commerce_summary","read_mail_summary","read_job_summary","read_needs_you","submit_product_intake","create_or_revoke_status_identity_binding_via_operator_api_or_cli"],
+  "held": ["change_control_policy","approve_professional_work","send_outbound_mail","release_fulfilment","refund_or_cancel","spend_money","publish_marketing","automatic_attachment_processing"],
+  "note": "Wave 2 operator Lilith remains a read/prepare/escalate PA. Identity binding grants minimal status disclosure only and is auditable/revocable."
+}

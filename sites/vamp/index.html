@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="VAMP prepares authorised performance evidence against an organisation-specific objective profile for human review.">
+  <title>VAMP | Performance Evidence Snapshot</title>
+  <style>
+    :root { --ink:#20262b; --muted:#626b72; --paper:#fff; --soft:#f1f4f2; --line:#d5dcda; --green:#174f3f; --magenta:#8b245f; --max:1160px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:17px/1.55 Inter,Aptos,"Segoe UI",Arial,sans-serif; letter-spacing:0; }
+    a { color:inherit; }
+    .wrap { width:min(var(--max),calc(100% - 40px)); margin-inline:auto; }
+    nav { min-height:68px; display:flex; align-items:center; border-bottom:1px solid var(--line); background:#fff; }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { text-decoration:none; font-size:24px; font-weight:900; color:var(--magenta); }
+    .brand small { margin-left:8px; color:var(--muted); font-size:13px; font-weight:750; }
+    .links { display:flex; align-items:center; gap:22px; font-size:14px; font-weight:750; }
+    .links a { text-decoration:none; }
+    .button { display:inline-flex; min-height:48px; align-items:center; justify-content:center; padding:11px 18px; border:1px solid var(--magenta); border-radius:5px; background:var(--magenta); color:#fff; text-decoration:none; font-weight:850; }
+    .button:hover { background:#6d1948; }
+    .button.secondary { background:#fff; color:var(--magenta); }
+    .hero { position:relative; min-height:min(740px,calc(100svh - 68px)); display:flex; align-items:center; overflow:hidden; border-bottom:1px solid var(--line); background:#eef1ef url("../../campaigns/phase3/vamp/campaign_v2/gamma/vamp_hero.png") center/cover no-repeat; }
+    .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.9) 40%,rgba(255,255,255,.18) 72%); }
+    .hero-inner { position:relative; width:min(var(--max),calc(100% - 40px)); margin-inline:auto; }
+    .hero-copy { width:min(630px,58%); padding:70px 0; }
+    .eyebrow { margin:0 0 14px; color:var(--magenta); font-size:13px; font-weight:900; text-transform:uppercase; }
+    h1,h2,h3 { margin:0; line-height:1.08; letter-spacing:0; }
+    h1 { max-width:700px; font-size:clamp(44px,6vw,78px); }
+    h2 { font-size:clamp(30px,4vw,48px); }
+    h3 { font-size:22px; }
+    .hero p { max-width:590px; margin:22px 0 0; color:#3f494f; font-size:20px; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    .trust { background:var(--green); color:#fff; }
+    .trust-grid { display:grid; grid-template-columns:repeat(3,1fr); }
+    .trust-grid div { min-height:110px; padding:24px; border-right:1px solid #ffffff33; }
+    .trust-grid div:last-child { border-right:0; }
+    .trust strong { display:block; font-size:24px; }
+    .trust span { color:#cae0d8; font-size:14px; }
+    section { padding:86px 0; }
+    .section-head { display:grid; grid-template-columns:.8fr 1.2fr; gap:64px; align-items:end; margin-bottom:38px; }
+    .section-head p { margin:0; color:var(--muted); font-size:19px; }
+    .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+    .step { padding-top:18px; border-top:3px solid var(--magenta); }
+    .step span { color:var(--magenta); font-weight:900; }
+    .step h3 { margin-top:8px; font-size:20px; }
+    .step p { color:var(--muted); font-size:15px; }
+    .proof { background:var(--soft); }
+    .proof-layout { display:grid; grid-template-columns:1fr 1fr; gap:54px; align-items:center; }
+    .proof-image { width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line); }
+    .metrics { display:grid; grid-template-columns:repeat(2,1fr); margin-top:28px; border-top:1px solid var(--line); }
+    .metric { padding:18px 16px 18px 0; border-bottom:1px solid var(--line); }
+    .metric strong { display:block; font-size:28px; }
+    .metric span { color:var(--muted); font-size:13px; }
+    .boundary { padding:28px 0; border-block:1px solid var(--line); }
+    .boundary strong { color:var(--green); }
+    .buy { background:#20282c; color:#fff; }
+    .buy .section-head p { color:#ccd4d6; }
+    .buy-layout { display:grid; grid-template-columns:.8fr 1.2fr; gap:54px; }
+    .offer { border-top:3px solid #d857a1; padding-top:20px; }
+    .offer .price { font-size:30px; font-weight:900; }
+    .offer p,.buy li { color:#d4dcde; }
+    .buy ul { padding-left:20px; }
+    .invoice { padding:22px 0; border-block:1px solid #ffffff2b; }
+    .invoice b { display:block; margin-bottom:8px; }
+    form { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+    label { display:grid; gap:6px; font-size:13px; font-weight:800; }
+    label.full,.form-actions,.result { grid-column:1/-1; }
+    input,select,textarea { width:100%; min-height:48px; padding:11px 12px; border:1px solid #8b989d; border-radius:4px; background:#fff; color:var(--ink); font:inherit; }
+    textarea { min-height:120px; resize:vertical; }
+    .result { min-height:24px; color:#d4dcde; }
+    footer { padding:28px 0; background:#151c20; color:#bfc8ca; font-size:13px; }
+    :focus-visible { outline:3px solid #e168ad; outline-offset:3px; }
+    @media(max-width:820px) { .links a:not(.button){display:none}.brand small{display:none}.hero{min-height:680px;background-position:62% center}.hero::before{background:rgba(255,255,255,.84)}.hero-copy{width:100%}.section-head,.flow,.proof-layout,.buy-layout,form{grid-template-columns:1fr}.section-head,.buy-layout{gap:24px}.trust-grid{grid-template-columns:1fr}.trust-grid div{border-right:0;border-bottom:1px solid #ffffff33}section{padding:62px 0}label.full,.form-actions,.result{grid-column:auto} }
+    @media(max-width:480px) { .wrap,.hero-inner{width:min(100% - 28px,var(--max))}.actions .button,.form-actions .button{width:100%}h1{font-size:44px}.metrics{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap nav-inner"><a class="brand" href="#top">VAMP <small>Performance Evidence Desk</small></a><div class="links"><a href="#process">Process</a><a href="#proof">Proof</a><a class="button" href="#pilot">Request a pilot</a></div></div></nav>
+  <main id="top">
+    <header class="hero"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">Performance Evidence Snapshot</p><h1>Stop hunting for review evidence.</h1><p>VAMP maps an authorised evidence set to your organisation's own objectives, keeps candidates and gaps visible, and prepares one inspectable snapshot for human review.</p><div class="actions"><a class="button" href="#pilot">Request a bounded pilot</a><a class="button secondary" href="#proof">See the controlled proof</a></div></div></div></header>
+    <div class="trust"><div class="wrap trust-grid"><div><strong>Your profile</strong><span>Objective language is calibrated to the organisation</span></div><div><strong>Your evidence</strong><span>Consent, provenance and duplicates remain visible</span></div><div><strong>Your decision</strong><span>No automatic rating or employment decision</span></div></div></div>
+    <section id="process"><div class="wrap"><div class="section-head"><div><p class="eyebrow">The route</p><h2>From agreement to review snapshot.</h2></div><p>The service is deliberately bounded. VAMP prepares the evidence trail; the authorised reviewer remains responsible for interpretation and release.</p></div><div class="flow"><article class="step"><span>01</span><h3>Calibrate</h3><p>Map the task agreement, objective vocabulary, review period and accepted evidence types.</p></article><article class="step"><span>02</span><h3>Collect</h3><p>Process only the approved evidence set and retain source references and declarations.</p></article><article class="step"><span>03</span><h3>Map</h3><p>Separate accepted mappings, review candidates, duplicates and genuine evidence gaps.</p></article><article class="step"><span>04</span><h3>Approve</h3><p>An authorised person reviews the snapshot before any delivery or downstream decision.</p></article></div></div></section>
+    <section class="proof" id="proof"><div class="wrap proof-layout"><div><p class="eyebrow">Controlled private proof</p><h2>The system exposes uncertainty.</h2><p>In the current proof, VAMP did not force every record into an objective. It retained review candidates, suppressed duplicates and reported where support was missing.</p><div class="metrics"><div class="metric"><strong>190</strong><span>evidence records processed</span></div><div class="metric"><strong>116</strong><span>accepted mappings</span></div><div class="metric"><strong>24</strong><span>human-review candidates</span></div><div class="metric"><strong>63.9%</strong><span>evidence-backed coverage</span></div></div></div><img class="proof-image" src="../../campaigns/phase3/vamp/campaign_v2/gamma/vamp_hero.png" alt="Illustrative human review of a performance-evidence snapshot"></div></section>
+    <div class="boundary"><div class="wrap"><strong>Boundary:</strong> VAMP prepares evidence. It does not assign performance ratings, recommend promotion or dismissal, or replace an authorised reviewer.</div></div>
+    <section class="buy" id="pilot"><div class="wrap"><div class="section-head"><div><p class="eyebrow">Launch pilot</p><h2>One bounded evidence snapshot.</h2></div><p>Scope comes before payment. Once the intake is accepted, DIO issues a job-specific invoice email with a secure PayPal button. Processing starts only after the signed payment webhook is verified.</p></div><div class="buy-layout"><div class="offer"><div class="price">$79 launch pilot</div><p>One performance agreement, up to six review months and 250 authorised evidence items.</p><ul><li>Objective-to-evidence coverage</li><li>Accepted and candidate mapping ledger</li><li>Duplicate and provenance audit</li><li>Evidence-gap register</li><li>Evidex-compatible pack</li><li>One revision round</li></ul><div class="invoice"><b>How invoicing works</b>Request and consent first. We confirm scope. You then receive an invoice summary and a secure payment button tied to that exact job.</div></div><form id="pilotForm"><label>Name<input name="name" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Organisation<input name="organisation" autocomplete="organization"></label><label>Role<select name="role"><option>Academic staff</option><option>HR administrator</option><option>Department head</option><option>Performance coordinator</option><option>Other authorised reviewer</option></select></label><label>Snapshot language<select name="output_language"><option>English</option><option>Afrikaans</option><option>isiZulu</option><option>Sesotho</option><option>Setswana</option></select></label><label class="full">Pilot scope<textarea name="scope" required placeholder="Describe the task agreement, review months and approximate evidence volume. Do not include sensitive evidence here."></textarea></label><label class="full"><span><input name="consent" type="checkbox" required style="width:auto;min-height:0"> I am authorised to request this evidence-processing pilot.</span></label><div class="form-actions"><button class="button" type="submit">Prepare request email</button></div><div class="result" id="result" aria-live="polite"></div></form></div></div></section>
+  </main>
+  <footer><div class="wrap">VAMP Performance Evidence Desk · DIO Workflows · Evidence preparation with a human final gate</div></footer>
+  <script src="../assets/dio-public-intake.js"></script>
+  <script>
+    document.querySelector('#pilotForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const subject = 'VAMP PERFORMANCE EVIDENCE SNAPSHOT REQUEST';
+      const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nOrganisation: ${data.get('organisation')}\nRole: ${data.get('role')}\nSnapshot language: ${data.get('output_language')}\n\nPilot scope:\n${data.get('scope')}\n\nI confirm I am authorised to request this pilot.`;
+      const mailto = `mailto:dio_workflows@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const result = document.querySelector('#result');
+      const button = event.currentTarget.querySelector('button[type="submit"]');
+      button.disabled = true;
+      result.textContent = 'Submitting to DIO...';
+      try {
+        const receipt = await window.DIOPublicIntake.submit({
+          product: 'vamp',
+          offer: 'performance_evidence_snapshot',
+          contact: { name: data.get('name'), email: data.get('email'), organisation: data.get('organisation') || null },
+          request: { role: data.get('role'), scope: data.get('scope'), lingua: { source_language: 'English', target_language: data.get('output_language') || 'English', proficient_review_required: data.get('output_language') !== 'English' } },
+          consents: { requester_authorised: data.get('consent') === 'on', no_sensitive_evidence_submitted: true },
+          attribution: window.DIOPublicIntake.attribution('vamp_site'),
+        });
+        result.textContent = `Request received. Reference: ${receipt.lead_id}. DIO will confirm scope before requesting evidence or payment.`;
+      } catch {
+        window.DIOPublicIntake.showFallback(result, 'The online intake could not be reached.', mailto);
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

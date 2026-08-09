@@ -1,0 +1,91 @@
+{
+  "product_layer": "homs",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "status": "outlook_first_intake_ready",
+  "nichefoundry_root": "/home/byron/Downloads/NicheFoundry_Phase11",
+  "files": [
+    "CAMPAIGN_PACK.md",
+    "editorial_review.json",
+    "foundry_opportunity.json",
+    "metadata_package.json",
+    "storyboard.json",
+    "visual_plan.json"
+  ],
+  "next_gate": "send Outlook-first HOMS outreach and validate one real fake/redacted pilot batch",
+  "approval": {
+    "state": "approved",
+    "reviewer": "codex",
+    "reviewed_at": "2026-08-07T16:32:44+00:00",
+    "approval_path": "campaigns/phase3/homs/PHASE3_APPROVAL.json"
+  },
+  "episode": {
+    "episode_dir": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b",
+    "episode_id": "homs-c32b49867157b9ad",
+    "packaged_at": "2026-08-07T16:32:44+00:00",
+    "files": [
+      "script_manifest.json",
+      "render_manifest.json",
+      "visual_manifest.json",
+      "narration_manifest.json",
+      "audio_manifest.json",
+      "metadata_package.json",
+      "script.md",
+      "gamma_input.md",
+      "approval_checklist.md"
+    ]
+  },
+  "foundry_build": {
+    "status": "passed",
+    "built_at": "2026-08-07T16:32:44+00:00",
+    "outputs": [
+      "cards/*.svg",
+      "imports/canva_storyboard.html",
+      "imports/adobe_storyboard.html",
+      "imports/elevenlabs_lines.csv",
+      "imports/import_manifest.json"
+    ]
+  },
+  "visual_assets": {
+    "status": "passed",
+    "built_at": "2026-08-07T16:36:32+00:00",
+    "mode": "local_svg_workflow_visuals",
+    "thumbnail": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/thumbnail.png",
+    "receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/HOMS_VISUAL_ASSET_RECEIPT.json"
+  },
+  "free_media_preview": {
+    "status": "passed_with_visual_replacements",
+    "built_at": "2026-08-07T16:37:24+00:00",
+    "provider": "edge",
+    "music_mode": "procedural_placeholder",
+    "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/free_preview.mp4",
+    "receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/FREE_MEDIA_RECEIPT.json",
+    "duration_seconds": 66.021,
+    "visual_source_mode": "imports/visuals override before generated cards"
+  },
+  "landing_page": {
+    "status": "ready",
+    "built_at": "2026-08-07T16:36:32+00:00",
+    "path": "sites/homs/index.html",
+    "assets": [
+      "sites/homs/assets/free_preview.mp4",
+      "sites/homs/assets/thumbnail.png",
+      "sites/homs/assets/04_promise.png"
+    ],
+    "intake_mode": "outlook_first_reply_or_static_form_downloads_json"
+  },
+  "commercial_ops": {
+    "status": "outlook_first_ready",
+    "built_at": "2026-08-07T16:37:34+00:00",
+    "receipt": "campaigns/phase3/homs/commercial_ops/HOMS_COMMERCIAL_OPS_RECEIPT.json",
+    "outlook_first": {
+      "status": "verified",
+      "subject_marker": "HOMS MARKING RELIEF REQUEST",
+      "guide": "campaigns/phase3/homs/commercial_ops/outlook_first/OUTLOOK_FIRST_INTAKE.md",
+      "ad": "campaigns/phase3/homs/commercial_ops/outlook_first/OUTLOOK_FIRST_AD.md",
+      "bot_output": "campaigns/phase3/homs/commercial_ops/outlook_first/outlook_bot_output",
+      "bot_csv_dry_run": "runs/homs_outlook_bot_csv_dry_run",
+      "bot_csv_deliverable": "deliverables/homs_outlook_bot_csv_dry_run/homs/homs-09d7b6a2e7463661bc81"
+    },
+    "boundary": "HOMS prepares marking support only; educator approval remains required before final marks or feedback."
+  }
+}

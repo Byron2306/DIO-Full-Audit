@@ -1,0 +1,87 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "life_sciences",
+  "display_name": "Natural Sciences: Life And Living Strand",
+  "senior_subject": "Natural Sciences",
+  "grade": 9,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "data_diagram_practical_investigation",
+  "marks": 70,
+  "duration_minutes": 90,
+  "bloom_distribution": {
+    "remember": 10,
+    "understand": 20,
+    "apply": 30,
+    "analyse": 25,
+    "evaluate": 10,
+    "create": 5,
+    "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+  },
+  "source_grammar": [
+    "diagram_or_model",
+    "data_table",
+    "graph_or_chart",
+    "investigation_sheet"
+  ],
+  "caps_focus": "FET bridge: life processes, systems, data interpretation and controlled investigation reasoning",
+  "sections": [
+    {
+      "title": "concepts",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "concepts",
+          "bloom_level": "understand",
+          "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Natural Sciences: Life And Living Strand stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "diagram_or_data",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "diagram_or_data",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Natural Sciences: Life And Living Strand task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "practical_investigation",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "practical_investigation",
+          "bloom_level": "evaluate",
+          "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Natural Sciences: Life And Living Strand stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion",
+            "educator-approved rubric required"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

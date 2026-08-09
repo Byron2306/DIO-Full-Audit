@@ -1,0 +1,64 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "French Language",
+  "grade": 6,
+  "phase": "intermediate_grade_4_6",
+  "term": "1",
+  "caps_source": {
+    "title": "French",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/french_caps_second_additional_language_grades_4-6_final_12_01_2017.pdf",
+    "sha256": "53e6e9e8e6c352bb290894e8eeb558310654d865d19621f9e155657267e577b6"
+  },
+  "canonical_profile_id": "intermediate.french_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [
+    "3.5 Content and Teaching Plans for French 32",
+    "3.5.1 Grade 4 32",
+    "3.5.2 Grade 5 49",
+    "3.5.3 Grade 6 66",
+    "3.3 SPREADS OF TEXTS ACROSS GRADES 4-6",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT",
+    "GRADES 4-6",
+    "express, orally and in writing, and emotions in order to become comfortable in the language",
+    "use language as a means for expressing information on familiar topics",
+    "SECTION 4 Assessment in Second Additional Language 89"
+  ],
+  "assessment_content_focus": [
+    "3.5 Content and Teaching Plans for French 32",
+    "3.5.1 Grade 4 32",
+    "3.5 Content and Teaching Plans for French 32",
+    "3.5.1 Grade 4 32"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: content, french, plans, teaching."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

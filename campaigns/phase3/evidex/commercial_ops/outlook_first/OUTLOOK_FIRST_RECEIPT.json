@@ -1,0 +1,29 @@
+{
+  "schema": "knowedge.evidex_outlook_first_intake.v1",
+  "created_at": "2026-08-07T16:25:20+00:00",
+  "status": "outlook_first_intake_ready",
+  "subject_marker": "EVIDEX PILOT PACK REQUEST",
+  "adapter": "adapters/outlook_triage/README.md",
+  "outlook_bot": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED",
+  "files": [
+    "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_INTAKE.md",
+    "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_AD.md",
+    "campaigns/phase3/evidex/commercial_ops/outlook_first/dummy_outlook_evidex_intake.json",
+    "sites/evidex/assets/commercial-links.js"
+  ],
+  "verified_runs": {
+    "autorelease_direct_json": {
+      "run": "runs/evidex_outlook_first_dry_run",
+      "deliverable": "deliverables/evidex_outlook_first_dry_run/evidex/evidex-5b0d667788d69e7b8008",
+      "result": "1 Outlook-style JSON lead routed to Evidex; review pack, Evidex ZIP, and service/payment wrapper generated."
+    },
+    "outlook_bot_csv": {
+      "bot_output": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output",
+      "csv": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output/triage_summary.csv",
+      "run": "runs/evidex_outlook_bot_csv_dry_run",
+      "deliverable": "deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9",
+      "result": "Dummy lead processed by KnowEdge Outlook Triage 2.0.0; CSV routed to Evidex; review pack, Evidex ZIP, and service/payment wrapper generated."
+    }
+  },
+  "next_command": "python3 scripts/run_phase1_pipeline.py --input campaigns/phase3/evidex/commercial_ops/outlook_first/dummy_outlook_evidex_intake.json --run runs/evidex_outlook_first_dry_run --out deliverables/evidex_outlook_first_dry_run"
+}

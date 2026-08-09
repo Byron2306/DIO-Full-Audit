@@ -1,0 +1,25 @@
+{
+  "schema": "knowedge.campaign_visual_review.v1",
+  "product_id": "evidex",
+  "reviewed_at": "2026-08-08T18:13:46Z",
+  "assets": [
+    {
+      "asset_id": "evidex_delivery_proof",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["website_hero", "campaign_key_art"],
+      "note": "Clear human-review composition. Must be labelled illustrative and not described as a real client delivery."
+    },
+    {
+      "asset_id": "evidex_hero",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["campaign_background"],
+      "note": "Useful input-to-pack composition with no approval claim."
+    },
+    {
+      "asset_id": "evidex_mapping_proof",
+      "status": "rejected",
+      "allowed_uses": [],
+      "note": "Pseudo-document heading and source text are too visible. Use the real controlled golden-case table instead."
+    }
+  ]
+}

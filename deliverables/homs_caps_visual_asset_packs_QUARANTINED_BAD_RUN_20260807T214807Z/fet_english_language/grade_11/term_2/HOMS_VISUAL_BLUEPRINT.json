@@ -1,0 +1,68 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "English Language",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "English",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_fal_english_gr_10-12_web_65dc.pdf",
+    "sha256": "3d97f707a8ad56b58713ecd3a7e0ca8cf8698ba367e128a647718f7a47067407"
+  },
+  "canonical_profile_id": "fet.english_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [
+    "ENGLISH FIRST ADDITIONAL LANGUAGE GRADES 10-12",
+    "t and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "CONTENTS",
+    "language. They should choose a text type and a topic that will interest learners as little or no learning can be achieved",
+    "if learners are not engaged and motivated. For example, a topic for an argumentative essay might be \u2018Should",
+    "education be free?\u2019 Teachers could introduce the topic through listening and/or reading, building the language and",
+    "for this topic, they could do a writing activity, such as an argumentative essay. This would provide further opportunities",
+    "for working with language. Teachers should provide feedback throughout the process and an appropriate assessment"
+  ],
+  "assessment_content_focus": [
+    "ENGLISH FIRST ADDITIONAL LANGUAGE GRADES 10-12",
+    "t and learnt on a term-by-term basis.",
+    "ENGLISH FIRST ADDITIONAL LANGUAGE GRADES 10-12",
+    "t and learnt on a term-by-term basis."
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: additional, basis, english, first, grades, language."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Mathematical Literacy",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "4",
+  "caps_source": {
+    "title": "Mathematical Literacy",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematical_literacy_gr_10-12_web_dda9.pdf",
+    "sha256": "5231eaf7f6bf3cb88a35c01170eac4d4bdf5287bd65fddec2fa3b31d3ab26a6c"
+  },
+  "canonical_profile_id": "fet.mathematical_literacy",
+  "assessment_family": "calculation_problem_solving",
+  "render_shell": "question_paper",
+  "caps_theme_candidates": [
+    "content topics can and should be utilised. This approach must be adopted for all problem-solving scenarios.",
+    "2.2.1 Content",
+    "One of the ways in which Mathematical Literacy develops across the grades is in terms of mathematical concepts/",
+    "skills. E.g. in Grade 10 learners are expected to be able to work with one graph on a set of axes",
+    "in Grade 11 two",
+    "MATHEMATICAL LITERACY GRADES 10-12",
+    "and in Grade 12 two or more graphs on the same set of axes. This is not the case for all topics, though, and",
+    "there are some instances where there is no new content in Grade 12 compared to Grades 10 and 11. In such cases",
+    "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+    "GRADE 10: TERM 3",
+    "Topics statements and budgets)",
+    "Contexts focusing on Maps, plans and other representations of the physical world",
+    "Assignment/Investigation",
+    "Assessment"
+  ],
+  "assessment_content_focus": [
+    "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+    "Contexts focusing on Maps, plans and other representations of the physical world",
+    "content topics can and should be utilised. This approach must be adopted for all problem-solving scenarios.",
+    "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+    "content topics can and should be utilised. This approach must be adopted for all problem-solving scenarios."
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: adopted, approach, content, contexts, covering, finance."
+  ],
+  "required_visuals": [
+    {
+      "id": "working_grid",
+      "title": "Working grid with method mark space",
+      "role": "learner_workspace",
+      "visual_kind": "working_grid",
+      "must_show": [
+        "question number",
+        "marks",
+        "working area",
+        "final answer cue"
+      ],
+      "assessment_use": "Learners show method before final answer."
+    },
+    {
+      "id": "axis_or_diagram",
+      "title": "Axis, diagram or table required by the topic",
+      "role": "stimulus_or_workspace",
+      "visual_kind": "axis_diagram",
+      "must_show": [
+        "labelled axes or diagram labels",
+        "units where needed",
+        "plot/table space"
+      ],
+      "assessment_use": "Learners interpret or construct visual mathematical evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+      "Contexts focusing on Maps, plans and other representations of the physical world"
+    ],
+    "admin_lines": [
+      "Assessment"
+    ],
+    "content_terms": [
+      "data",
+      "finance",
+      "interest",
+      "maps",
+      "measurement",
+      "plans",
+      "tariff",
+      "tax"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

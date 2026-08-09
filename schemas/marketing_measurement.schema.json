@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Marketing Experiment Measurement",
+  "type": "object",
+  "required": [
+    "schema",
+    "campaign_id",
+    "measurement_window",
+    "acquisition",
+    "leads",
+    "commerce",
+    "fulfilment",
+    "economics",
+    "governance"
+  ],
+  "properties": {
+    "schema": {"const": "dio.marketing.measurement.v1"},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "measurement_window": {
+      "type": "object",
+      "required": ["started_at", "ended_at"],
+      "properties": {
+        "started_at": {"type": ["string", "null"]},
+        "ended_at": {"type": ["string", "null"]}
+      }
+    },
+    "acquisition": {"type": "object"},
+    "leads": {"type": "object"},
+    "commerce": {"type": "object"},
+    "fulfilment": {"type": "object"},
+    "economics": {"type": "object"},
+    "governance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

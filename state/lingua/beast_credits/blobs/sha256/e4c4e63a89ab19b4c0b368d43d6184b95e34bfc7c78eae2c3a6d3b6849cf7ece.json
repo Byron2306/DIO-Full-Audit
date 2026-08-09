@@ -1,0 +1,33 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:e4c4e63a89ab19b4c0b368d43d6184b95e34bfc7c78eae2c3a6d3b6849cf7ece",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 75,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "DIO-LINGUA-WATER-001:P5",
+    "impact_fingerprint_hash": "sha256:33eaa921323834c3586044be31a548127e0a36c78ab6af134aa1e738cb96a463",
+    "metadata": {
+      "approved_at": "2026-08-09T11:39:58+00:00",
+      "domain": "Water-quality operations",
+      "reviewer": "Byron Bunt",
+      "reviewer_role": "Language practitioner",
+      "semantic_object_id": "DIO-LINGUA-WATER-001",
+      "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+      "target_language": "Afrikaans",
+      "target_text": "Prosedure: Laat die kraan 2 minute lank loop voordat 'n monster geneem word. Spoel die sonde met skoon water af, maar moenie 'n steriele mikrobiologiese bottel uitspoel nie. Teken die pH en troebelheid in NTU op die terrein aan. Monsters moet in 'n koelhouer tussen 2 en 8 grade Celsius geplaas word.",
+      "unit_id": "P5"
+    },
+    "policy_version": "dio_lingua_human_authority_v1",
+    "repo_fingerprint": "sha256:33eaa921323834c3586044be31a548127e0a36c78ab6af134aa1e738cb96a463",
+    "task_class": "dio_lingua_translation_unit",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

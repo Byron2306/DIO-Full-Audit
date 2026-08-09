@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh DIO audience and channel creative packages daily
+
+[Timer]
+OnCalendar=*-*-* 06:15:00
+RandomizedDelaySec=20m
+Persistent=true
+Unit=dio-marketing-factory.service
+
+[Install]
+WantedBy=timers.target

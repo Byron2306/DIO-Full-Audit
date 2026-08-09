@@ -1,0 +1,284 @@
+{
+  "assessment_title": "Life Sciences Grade 12 Term 3 Evolution Controlled Test",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "FET",
+  "canonical_profile_id": "fet.life_sciences",
+  "blueprint": "data_diagram_investigation_assessment",
+  "render_shell": "question_paper",
+  "language_of_assessment": "English",
+  "duration": "1.5 hours",
+  "total_marks": 50,
+  "source_assets": [
+    {
+      "title": "Finch beak depth and drought selection",
+      "source_type": "data_table_and_graph",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/life_sciences/life-sciences-grade12-term3-reference/source_material/source_1_finch_selection_data.png",
+      "asset_status": "constructed_release_candidate"
+    },
+    {
+      "title": "Hominin evidence table and timeline",
+      "source_type": "scientific_evidence_table",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/life_sciences/life-sciences-grade12-term3-reference/source_material/source_2_hominin_evidence_timeline.png",
+      "asset_status": "constructed_release_candidate"
+    },
+    {
+      "title": "Insecticide-resistance investigation",
+      "source_type": "investigation_graph",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/life_sciences/life-sciences-grade12-term3-reference/source_material/source_3_resistance_investigation.png",
+      "asset_status": "constructed_release_candidate"
+    }
+  ],
+  "source_embedding": {
+    "generated_visual_policy": "suppress_generated_visuals_when_source_assets_present"
+  },
+  "visual_blueprint": {
+    "required_visuals": [
+      {
+        "visual_kind": "data_table"
+      },
+      {
+        "visual_kind": "axis_diagram"
+      },
+      {
+        "visual_kind": "investigation_sheet"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "QUESTION 1: EVOLUTION CORE CONCEPTS",
+      "instructions": "Answer the questions using correct biological terminology.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Define biological evolution.",
+          "marks": 2,
+          "memo": [
+            "A change in the inherited characteristics/allele frequencies of a population over successive generations."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Distinguish between a scientific hypothesis and a scientific theory.",
+          "marks": 2,
+          "memo": [
+            "A hypothesis is a testable proposed explanation.",
+            "A theory is a broad explanation supported by extensive evidence and repeated testing."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Explain why genetic variation is necessary for natural selection to occur.",
+          "marks": 3,
+          "memo": [
+            "Individuals must differ in inherited traits.",
+            "Some variants improve survival/reproduction in a given environment.",
+            "Those alleles are passed on more frequently."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "State TWO sources of genetic variation in a sexually reproducing population.",
+          "marks": 2,
+          "memo": [
+            "Any two: mutation; crossing over; independent assortment; random fertilisation."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "State the role of reproductive isolation in speciation.",
+          "marks": 1,
+          "memo": [
+            "It prevents gene flow, allowing populations to diverge into separate species."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 2: NATURAL SELECTION IN FINCHES",
+      "instructions": "Use Source 1. Show calculations where required.",
+      "stimulus": "Refer to SOURCE 1.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Calculate the increase in mean beak depth from the pre-drought population to the survivors.",
+          "marks": 2,
+          "memo": [
+            "10.1 - 9.4 = 0.7 mm."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "2.2",
+          "question": "Describe TWO patterns shown by the table and graph.",
+          "marks": 3,
+          "memo": [
+            "Survivors had the greatest mean beak depth.",
+            "Offspring retained a greater mean than the pre-drought population.",
+            "Hard-seed availability increased during the drought and then declined."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "2.3",
+          "question": "Explain why birds with deeper beaks were more likely to survive the drought.",
+          "marks": 3,
+          "memo": [
+            "Drought reduced softer seeds and increased the proportion of hard seeds.",
+            "Deeper/stronger beaks could crack hard seeds more effectively.",
+            "Those birds obtained more food and survived/reproduced."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "2.4",
+          "question": "Use Source 1 to explain natural selection across the three groups.",
+          "marks": 4,
+          "memo": [
+            "Variation in beak depth existed before the drought.",
+            "The changed food environment created selection pressure.",
+            "Deeper-beaked birds survived disproportionately.",
+            "Their offspring inherited alleles associated with greater beak depth, shifting the population mean."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "2.5",
+          "question": "Suggest ONE additional measurement that would strengthen the investigation and explain why.",
+          "marks": 3,
+          "memo": [
+            "Examples: individual survival/reproductive success, seed-size distribution, parent-offspring beak measurements, repeated seasons.",
+            "The explanation must show how the measurement tests inheritance, selection pressure or repeatability."
+          ],
+          "source_reference": "SOURCE 1"
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 3: EVIDENCE FOR HUMAN EVOLUTION",
+      "instructions": "Use Source 2. Treat the table as a summary of approximate scientific evidence.",
+      "stimulus": "Refer to SOURCE 2.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Compare Australopithecus afarensis and Homo erectus using THREE features from Source 2.",
+          "marks": 3,
+          "memo": [
+            "H. erectus is more recent; has a larger cranial capacity; and shows evidence of long-distance walking/fire, while A. afarensis shows earlier bipedalism and a projecting face."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "3.2",
+          "question": "Describe the general trend in cranial capacity shown in Source 2 and state ONE limitation of using cranial capacity alone to judge evolutionary relationships.",
+          "marks": 3,
+          "memo": [
+            "General increase from about 430 cm3 to about 1 350 cm3.",
+            "Capacity alone does not establish ancestry/intelligence and must be combined with age, anatomy, DNA and other evidence."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "3.3",
+          "question": "Explain why the timeline should not be interpreted as a single straight 'ladder of progress'.",
+          "marks": 4,
+          "memo": [
+            "Evolution branches rather than moving toward a predetermined goal.",
+            "Different hominin species overlapped in time.",
+            "A later species is not automatically a direct descendant of every earlier species.",
+            "Relationships require multiple lines of evidence."
+          ],
+          "source_reference": "SOURCE 2"
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 4: INSECTICIDE RESISTANCE INVESTIGATION",
+      "instructions": "Use Source 3. Show calculations where required.",
+      "stimulus": "Refer to SOURCE 3.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "Identify the independent variable in the investigation.",
+          "marks": 1,
+          "memo": [
+            "Exposure to insecticide / treatment condition."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "4.2",
+          "question": "Describe the trend in frequency of the R allele in the treated population.",
+          "marks": 2,
+          "memo": [
+            "It increased each generation, from 0.08 to 0.79, with faster increase after generation 2."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "4.3",
+          "question": "Calculate the change in R-allele frequency in the treated population from generation 0 to generation 6.",
+          "marks": 3,
+          "memo": [
+            "0.79 - 0.08 = 0.71, or 71 percentage points."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "4.4",
+          "question": "Explain the change in R-allele frequency in terms of natural selection. Do not state that individual insects changed because they needed to.",
+          "marks": 5,
+          "memo": [
+            "Resistance variation already existed in the starting population.",
+            "Insecticide acted as a selection pressure.",
+            "Susceptible insects died more frequently.",
+            "Resistant insects survived and reproduced.",
+            "The R allele was inherited more often, increasing its frequency over generations."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "4.5",
+          "question": "Evaluate the reliability of the investigation and recommend ONE improvement.",
+          "marks": 4,
+          "memo": [
+            "A control and constant conditions improve reliability.",
+            "One population/run may not represent natural populations.",
+            "Improve by repeating with multiple populations/larger samples and reporting variation/error bars."
+          ],
+          "source_reference": "SOURCE 3"
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Question 1: Core concepts",
+      "marks": 10,
+      "descriptor": "Credit accurate biological definitions and causal explanation."
+    },
+    {
+      "criterion": "Question 2: Finch selection",
+      "marks": 15,
+      "descriptor": "Credit calculation, data interpretation and natural-selection reasoning."
+    },
+    {
+      "criterion": "Question 3: Human-evolution evidence",
+      "marks": 10,
+      "descriptor": "Credit comparison, trend interpretation and evidence-aware reasoning."
+    },
+    {
+      "criterion": "Question 4: Resistance investigation",
+      "marks": 15,
+      "descriptor": "Credit variable identification, calculation, selection mechanism and reliability evaluation."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm Grade 12 Term 3 evolution scope and terminology.",
+    "Verify all calculations and acceptable biological alternatives.",
+    "Confirm that no diagram implies a linear ladder of human evolution.",
+    "Approve the paper and memorandum before classroom use."
+  ],
+  "generation_backend": "hymark_life_sciences_constructed_data_first"
+}

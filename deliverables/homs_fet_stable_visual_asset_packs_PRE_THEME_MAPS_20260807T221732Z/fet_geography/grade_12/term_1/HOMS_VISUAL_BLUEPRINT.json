@@ -1,0 +1,154 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Geography",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Geography",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"
+  },
+  "canonical_profile_id": "fet.geography",
+  "assessment_family": "source_based_plus_extended_response",
+  "render_shell": "source_response_paper",
+  "source_type_contract": {
+    "schema": "knowedge.homs_source_type_contract.v1",
+    "source_types": [
+      "data_table",
+      "map_extract"
+    ],
+    "source_type_reasons": [
+      "CAPS/source matrix signals data, graph, or diagram assessment.",
+      "Geography term/theme content requires spatial evidence."
+    ],
+    "matrix_signals_used": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    }
+  },
+  "caps_theme_candidates": [
+    "Topic: Time: Additional Resources:",
+    "Climate and weather \u00b1 14 + 5 hours",
+    "(regional and local weather systems) (includes consolidation, mapwork and",
+    "http://www.weathersa.co.za for",
+    "weather prediction, satellite images",
+    "and synoptic weather charts",
+    "http://www.weathersa.co.za",
+    "GEOGRAPHICAL KNOWLEDGE",
+    "stages of development and related weather conditions",
+    "weather patterns associated with cold, warm, and occluded fronts",
+    "reading and interpreting satellite images and synoptic weather maps.",
+    "associated weather patterns",
+    "reading and interpreting satellite images and synoptic weather maps",
+    "Subtropical Anticyclones and Associated Weather Conditions [3 hours]"
+  ],
+  "assessment_content_focus": [
+    "reading and interpreting satellite images and synoptic weather maps.",
+    "(regional and local weather systems) (includes consolidation, mapwork and",
+    "and synoptic weather charts",
+    "Climate and weather \u00b1 14 + 5 hours",
+    "weather prediction, satellite images",
+    "stages of development and related weather conditions",
+    "weather patterns associated with cold, warm, and occluded fronts",
+    "associated weather patterns",
+    "reading and interpreting satellite images and synoptic weather maps.",
+    "associated weather patterns"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: associated, charts, climate, conditions, consolidation, development."
+  ],
+  "required_visuals": [
+    {
+      "id": "geo_map_extract",
+      "title": "Map extract with legend, scale, north arrow and labelled features",
+      "role": "stimulus",
+      "visual_kind": "map_extract",
+      "must_show": [
+        "map frame",
+        "legend",
+        "scale",
+        "north arrow",
+        "labelled physical or human features"
+      ],
+      "assessment_use": "Learners identify spatial patterns and cite map evidence."
+    },
+    {
+      "id": "geo_data_table_or_graph",
+      "title": "Geography data table or graph",
+      "role": "stimulus",
+      "visual_kind": "data_table",
+      "must_show": [
+        "units",
+        "years/categories",
+        "clear trend",
+        "source label"
+      ],
+      "assessment_use": "Learners compare data with the map/source before explaining."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "Climate and weather \u00b1 14 + 5 hours",
+      "(regional and local weather systems) (includes consolidation, mapwork and",
+      "weather prediction, satellite images",
+      "and synoptic weather charts",
+      "stages of development and related weather conditions",
+      "weather patterns associated with cold, warm, and occluded fronts",
+      "reading and interpreting satellite images and synoptic weather maps.",
+      "associated weather patterns"
+    ],
+    "admin_lines": [
+      "Topic: Time: Additional Resources:",
+      "http://www.weathersa.co.za for",
+      "http://www.weathersa.co.za",
+      "GEOGRAPHICAL KNOWLEDGE"
+    ],
+    "content_terms": [
+      "atmosphere",
+      "climate",
+      "earth",
+      "earthquake",
+      "economic geography",
+      "faulting",
+      "folding",
+      "geomorphology",
+      "gis",
+      "map",
+      "plate",
+      "population",
+      "river",
+      "rock",
+      "rural",
+      "settlement",
+      "synoptic",
+      "tectonic",
+      "urban",
+      "volcano"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:dc98a354660b07f4540404cb1bbc1ed89f9b9fba284de66bed80385912c80ecf",
+    "ref": "blobs/sha256/dc98a354660b07f4540404cb1bbc1ed89f9b9fba284de66bed80385912c80ecf.json"
+  },
+  "artifact_type": "verified_capability",
+  "avoided_tokens_estimate": 20,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.9,
+  "created_at": "2026-08-09T11:03:17.504601+00:00",
+  "credit_id": "scc_a19bbb0d54c00704",
+  "evidence_packet_id": "risk:isiZulu:sha256:0d29b1ebf6b69",
+  "impact_fingerprint_hash": "sha256:e9cda49a44046601c44ce5b082dc4a1fe155d7b2801eba9fd4a693198fd13292",
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "asserts_translation_truth": false,
+    "authority": "conservative_machine_risk_escalation",
+    "domain": "Water-quality operations",
+    "issue": "The term 'treatment outlets' is translated descriptively; confirm if a standard isiZulu term exists in municipal water operations.",
+    "severity": "medium",
+    "target_language": "isiZulu"
+  },
+  "policy_version": "dio_lingua_conservative_risk_learning_v1",
+  "repo_fingerprint": "sha256:e9cda49a44046601c44ce5b082dc4a1fe155d7b2801eba9fd4a693198fd13292",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "dio_lingua_risk_pattern",
+  "verified_tests": [
+    "visible",
+    "hidden"
+  ],
+  "version": "1.0"
+}

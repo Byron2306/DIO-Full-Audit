@@ -1,0 +1,15 @@
+[Unit]
+Description=DIO governed commercial transaction orchestrator
+After=network-online.target dio-graph-mail-processor.service dio-commerce-processor-live.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/run_commercial_orchestrator.py --watch --interval 5
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

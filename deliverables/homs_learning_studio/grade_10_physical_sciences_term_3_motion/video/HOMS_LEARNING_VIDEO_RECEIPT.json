@@ -1,0 +1,253 @@
+{
+  "schema": "knowedge.free_media_preview.v1",
+  "created_at": "2026-08-09T01:19:35+00:00",
+  "episode_id": "homs-learning-g10-motion-001",
+  "provider_requested": "auto",
+  "provider_selected": "reused",
+  "voice_profile": {
+    "provider": "Microsoft Edge TTS",
+    "voice": "en-US-GuyNeural",
+    "rate": "default",
+    "pitch": "default",
+    "reused_from_original_preview": true
+  },
+  "music_mode": "imported",
+  "transition": {
+    "type": "scene_audio_video_fade",
+    "requested_seconds": 0.55,
+    "applied_seconds": 0.275
+  },
+  "visual_motion": {
+    "type": "static_educational",
+    "note": "Educational static mode preserves complete diagrams and labels."
+  },
+  "mastering": {
+    "resolution": "1920x1080",
+    "video_crf": 22,
+    "audio": "AAC 192k stereo, -16 LUFS target, -1.5 dBTP target",
+    "visual_subdir": "visuals"
+  },
+  "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+  "duration_seconds": 126.021,
+  "scene_count": 7,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "card_id": "01_reference_frame",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 13.0,
+      "fade_in_seconds": 0,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/01_reference_frame.png",
+      "frame": "free_media_preview/frames/00_scene_01.png",
+      "voice": "free_media_preview/voice/00_scene_01.wav",
+      "music": "free_media_preview/music/00_scene_01.wav",
+      "segment": "free_media_preview/segments/00_scene_01.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 0
+      }
+    },
+    {
+      "scene_id": "scene_02",
+      "card_id": "02_distance_displacement",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 19.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/02_distance_displacement.png",
+      "frame": "free_media_preview/frames/01_scene_02.png",
+      "voice": "free_media_preview/voice/01_scene_02.wav",
+      "music": "free_media_preview/music/01_scene_02.wav",
+      "segment": "free_media_preview/segments/01_scene_02.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 13.0
+      }
+    },
+    {
+      "scene_id": "scene_03",
+      "card_id": "03_velocity_acceleration",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 18.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/03_velocity_acceleration.png",
+      "frame": "free_media_preview/frames/02_scene_03.png",
+      "voice": "free_media_preview/voice/02_scene_03.wav",
+      "music": "free_media_preview/music/02_scene_03.wav",
+      "segment": "free_media_preview/segments/02_scene_03.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 32.0
+      }
+    },
+    {
+      "scene_id": "scene_04",
+      "card_id": "04_position_time",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 20.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/04_position_time.png",
+      "frame": "free_media_preview/frames/03_scene_04.png",
+      "voice": "free_media_preview/voice/03_scene_04.wav",
+      "music": "free_media_preview/music/03_scene_04.wav",
+      "segment": "free_media_preview/segments/03_scene_04.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 50.0
+      }
+    },
+    {
+      "scene_id": "scene_05",
+      "card_id": "05_velocity_time",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 19.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/05_velocity_time.png",
+      "frame": "free_media_preview/frames/04_scene_05.png",
+      "voice": "free_media_preview/voice/04_scene_05.wav",
+      "music": "free_media_preview/music/04_scene_05.wav",
+      "segment": "free_media_preview/segments/04_scene_05.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 70.0
+      }
+    },
+    {
+      "scene_id": "scene_06",
+      "card_id": "06_practical",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 20.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/06_practical.png",
+      "frame": "free_media_preview/frames/05_scene_06.png",
+      "voice": "free_media_preview/voice/05_scene_06.wav",
+      "music": "free_media_preview/music/05_scene_06.wav",
+      "segment": "free_media_preview/segments/05_scene_06.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 89.0
+      }
+    },
+    {
+      "scene_id": "scene_07",
+      "card_id": "07_practice_route",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 17.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0,
+      "visual_motion": {
+        "type": "static_educational",
+        "crop_x": null,
+        "crop_y": null
+      },
+      "visual_source": "imports/visuals/07_practice_route.png",
+      "frame": "free_media_preview/frames/06_scene_07.png",
+      "voice": "free_media_preview/voice/06_scene_07.wav",
+      "music": "free_media_preview/music/06_scene_07.wav",
+      "segment": "free_media_preview/segments/06_scene_07.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg",
+        "title": "Warm Sunset by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+        "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 109.0
+      }
+    }
+  ],
+  "note": "Free preview output for editorial review. Replace voice and music with approved assets before public release if needed."
+}

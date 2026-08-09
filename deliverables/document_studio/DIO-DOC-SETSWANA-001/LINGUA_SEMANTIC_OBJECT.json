@@ -1,0 +1,885 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "DIO-LINGUA-WATER-001",
+  "domain": "Water-quality operations",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "document_studio",
+    "artifact_type": "document",
+    "artifact_id": "DIO-LINGUA-WATER-001",
+    "audience": "Municipal field technicians",
+    "channel": "document"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:5ab9ef5c773944a4fa7412b4ad13f034a399adcd240c258a8aca90cd56f2b9b4",
+    "units": [
+      {
+        "unit_id": "P1",
+        "unit_type": "title",
+        "source_text": "Community Water Quality Monitoring Procedure",
+        "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P2",
+        "unit_type": "labelled_instruction",
+        "source_text": "Purpose: This procedure explains how field teams collect and record drinking water samples so that results are reliable and traceable to the correct site.",
+        "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P3",
+        "unit_type": "labelled_instruction",
+        "source_text": "Scope: It applies to routine samples collected from reservoirs, treatment outlets, and public taps. The procedure does not cover emergency chemical spills or laboratory instrument calibration.",
+        "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P4",
+        "unit_type": "labelled_instruction",
+        "source_text": "Responsibilities: The team leader checks that each technician has PBT, clean sample bottles, and a calibrated meter. Technicians are responsible for completing the Chain of Custody Form QMS-07 and reporting unsafe conditions.",
+        "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P5",
+        "unit_type": "labelled_instruction",
+        "source_text": "Procedure: Before collecting a sample, allow the tap to run for 2 minutes. Rinse the probe with clean water, but do not rinse a sterile microbiological bottle. Record pH and turbidity in NTU at the site. Samples must be placed in a cooler between 2 and 8 degrees Celsius.",
+        "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P6",
+        "unit_type": "labelled_instruction",
+        "source_text": "Data recording: Write the site code, date, time, and sampler initials on both the bottle and QMS-07. Corrections must be made with a single line through the error; correction fluid is not allowed. The reason for any missing reading must be stated.",
+        "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P7",
+        "unit_type": "labelled_instruction",
+        "source_text": "Escalation: If pH is below 6.5 or above 9.5, or turbidity is higher than 1 NTU, phone the team leader immediately. Do not tell the community that the water is safe or unsafe until the authorised official has reviewed the result.",
+        "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:5ab9ef5c773944a4fa7412b4ad13f034a399adcd240c258a8aca90cd56f2b9b4",
+      "changed_units": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T10:58:49+00:00"
+    }
+  ],
+  "translations": {
+    "isiZulu": {
+      "language": "isiZulu",
+      "status": "human_approved_crystallized",
+      "source_version": "1.0.0",
+      "updated_at": "2026-08-09T11:38:05+00:00",
+      "units": [
+        {
+          "unit_id": "P1",
+          "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+          "target_text": "Inqubo Yokuqapha Ikhwalithi Yamanzi Okuphuza Emphakathini",
+          "target_hash": "sha256:759b2a115d71a376e76eb36c43af0c7cafa6b8b5cc3a20bca8fe62d738d82c5b",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P2",
+          "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+          "target_text": "Inhloso: Le nqubo ichaza ukuthi amaqembu asemkhakheni awaqoqa futhi awarekhoda kanjani amasampula amanzi okuphuza ukuze imiphumela ithembeke futhi ilandeleke endaweni efanele.",
+          "target_hash": "sha256:1e8bc39302e060a2860f3ad01bf4c93e6d0f5fe11585634a4854498656ff38f8",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P3",
+          "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+          "target_text": "Ububanzi: Isebenza kumasampula avamile aqoqwa emadamu, ezindaweni zokukhipha amanzi okwelashwa, nasempompini zomphakathi. Le nqubo ayihlanganisi ukuvuza kwamakhemikhali okuphuthumayo noma ukulinganisa amathuluzi aselabhorethri.",
+          "target_hash": "sha256:e99cda96ec24d4b6bfe19bede9b5b4301c925beef99774b5ddfb5905c8282239",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P3",
+              "severity": "medium",
+              "issue": "The term 'treatment outlets' is translated descriptively; confirm if a standard isiZulu term exists in municipal water operations."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P4",
+          "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+          "target_text": "Izemfanelo: Umholi weqembu uhlola ukuthi uchwepheshe ngamunye une-PBT, amabhodlela amasampula ahlanzekile, nemitha elinganisiwe. Ochwepheshe banomthwalo wemfanelo wokuqedela Ifomu Lokulandelelwa Kokutholakala Kwezinto (QMS-07) nokubika izimo ezingaphephile.",
+          "target_hash": "sha256:18da59e6903c05ee591d820b7ab4bab964180738915f364d1fc4832a54d1708d",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P4",
+              "severity": "high",
+              "issue": "The acronym 'PBT' is not expanded in the source and its meaning is unclear; a human reviewer must confirm the intended term (e.g., personal protective equipment) and its isiZulu equivalent."
+            },
+            {
+              "paragraph_id": "P4",
+              "severity": "medium",
+              "issue": "The term 'Chain of Custody Form' is translated descriptively; confirm if a standard isiZulu term is used by the municipality."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            },
+            {
+              "index": 1,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P5",
+          "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+          "target_text": "Inqubo: Ngaphambi kokuqoqa isampula, vumela impompi igijime imizuzu emi-2. Geza iphrobu ngamanzi ahlanzekile, kodwa ungagezi ibhodlela elinyumba elingenawo amagciwane. Bhala i-pH nokufiphala (turbidity) nge-NTU endaweni. Amasampula kufanele abekwe esiqandisini phakathi kuka-2 no-8 degrees Celsius.",
+          "target_hash": "sha256:4ea8eae6ae1547d5ef185656e8f3a7a4a8f9d969167855329e49a86c644f6dce",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P5",
+              "severity": "medium",
+              "issue": "The term 'probe' is transliterated as 'iphrobu'; confirm if a more standard term is used in the field."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P6",
+          "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+          "target_text": "Ukurekhoda idatha: Bhala ikhodi yendawo, usuku, isikhathi, nama-inishiyali zomuntu othatha isampula kubhodlela naku-QMS-07. Ukulungisa amaphutha kufanele kwenziwe ngomugqa owodwa phezu kwephutha; ukusebenzisa uketshezi lokulungisa akukuvunyelwe. Isizathu sanoma yikuphi ukungafundi okungekho kufanele sishiwo.",
+          "target_hash": "sha256:1b53e0f10fb0932f70eac122d5b11a9c06498835296eb5beca7d8403feb8af0f",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P6",
+              "severity": "medium",
+              "issue": "The phrase 'sampler initials' is translated descriptively; confirm if a shorter standard term exists."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P7",
+          "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+          "target_text": "Ukuphakamisa udaba: Uma i-pH ingaphansi kuka-6.5 noma ingaphezu kuka-9.5, noma ukufiphala kuphakeme kuno-1 NTU, shayela umholi weqembu ngokushesha. Ungatsheli umphakathi ukuthi amanzi aphephile noma awaphephile kuze kube yilapho isikhulu esigunyaziwe sibuyekeze umphumela.",
+          "target_hash": "sha256:f48781c7aea1989bbab85e0cdde109aeb5f19ba2590d942aa87075512b1032a9",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:42:27+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        }
+      ],
+      "review": {
+        "reviewer": "Byron Bunt",
+        "reviewer_role": "Language practitioner",
+        "approved_at": "2026-08-09T11:42:27+00:00",
+        "approval_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/reviews/DIO-LINGUA-WATER-001__isiZulu.json"
+      }
+    },
+    "Sesotho": {
+      "language": "Sesotho",
+      "status": "human_approved_crystallized",
+      "source_version": "1.0.0",
+      "updated_at": "2026-08-09T11:38:06+00:00",
+      "units": [
+        {
+          "unit_id": "P1",
+          "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+          "target_text": "Mokhoa oa ho Lekola Boleng ba Metsi a Sechaba",
+          "target_hash": "sha256:bf12d0c5ea012fea704081604245256d89cd914da61e97f97a5239ab37cbcd9d",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P2",
+          "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+          "target_text": "Morero: Mokhoa ona o hlalosa hore na lihlopha tsa masimong li bokella le ho ngola mehlala ea metsi a nooang joang e le hore liphetho li t\u0161epahale le ho lateloa ho ea sebakeng se nepahetseng.",
+          "target_hash": "sha256:5e5c60fdbe9d0bddc0115ba4c005b01959dca1ffd03eed70484f3d95295d659e",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P3",
+          "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+          "target_text": "Sebaka sa t\u0161ebeliso: Se sebetsa ho mehlala e tloaelehileng e bokelloang matamong, libakeng tsa phekolo ea metsi, le lipompong tsa sechaba. Mokhoa ona ha o akaretse ho qhalana ha lik'hemik'hale tsa t\u0161ohanyetso kapa ho lekanya lisebelisoa tsa laboratori.",
+          "target_hash": "sha256:0d8b1880f07881e5ba46c69d4854bc560d6075811bdca8b8e9bcd209d958f552",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P4",
+          "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+          "target_text": "Boikarabelo: Moetapele oa sehlopha o hlahloba hore setekheniki se seng le se seng se na le PBT, libotlolo tse hloekileng tsa mehlala, le metha e lekantsoeng. Lithekheniki li ikarabella ho tlatsa Foromo ea Chain of Custody QMS-07 le ho tlaleha maemo a sa bolokehang.",
+          "target_hash": "sha256:81210c0df45d2396b9ba234074810260cebfa4d9c4cf8339e753d1cd53384211",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P4",
+              "severity": "high",
+              "issue": "PBT is not expanded; technicians may not know what it stands for. Consider adding a definition or using a local term for personal protective equipment."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "corrected",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P5",
+          "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+          "target_text": "Mokhoa: Pele o bokella sampole, lumella pompo hore e phalle metsi ka metsotso e 2. Hlatsoa probe ka metsi a hloekileng, empa u se ke ua hlatsoa botlolo e sa t\u0161oaetsoang ea likokoana-hloko. Ngola pH le turbidity ka NTU sebakeng seo. Mehlala e tlameha ho behoa ka har'a sehatsetsi pakeng tsa 2 le 8 degrees Celsius.",
+          "target_hash": "sha256:ea288dcdad38cab48aaf7e3d37b0d9e4b4e5ce5da170775235ffaf23164a5c05",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P5",
+              "severity": "medium",
+              "issue": "The term 'probe' is retained in English; ensure technicians understand it refers to the sensor of the meter."
+            },
+            {
+              "paragraph_id": "P5",
+              "severity": "medium",
+              "issue": "The phrase 'degrees Celsius' is kept in English; consider using 'likhato tsa Celsius' for clarity."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            },
+            {
+              "index": 1,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P6",
+          "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+          "target_text": "Ho ngola data: Ngola khoutu ea sebaka, letsatsi, nako, le litlhaku tsa motho ea nkang sampole botlolong le ho QMS-07. Litokiso li tlameha ho etsoa ka mola o le mong ho t\u0161ela phoso; ha ho lumelloe ho sebelisa mokelikeli oa ho lokisa. Lebaka la ho se baloe ho itseng le tlameha ho boleloa.",
+          "target_hash": "sha256:21d8b800831f3279c11755f1695c754cf6b4af7aa6596799834e97fcb1d42fe5",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P7",
+          "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+          "target_text": "Ho nyolla taba: Haeba pH e ka tlase ho 6.5 kapa e kaholimo ho 9.5, kapa turbidity e phahame ho feta 1 NTU, letsetsa moetapele oa sehlopha hang-hang. U se ke ua bolella sechaba hore metsi a bolokehile kapa ha a bolokeha ho fihlela ofisiri e lumelletsoeng e hlahlobile sephetho.",
+          "target_hash": "sha256:cde0434c4199d01f9f31d9d349d819574f38a291cfd8485ae27571ac3d32da56",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:40:48+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        }
+      ],
+      "review": {
+        "reviewer": "Byron Bunt",
+        "reviewer_role": "Language practitioner",
+        "approved_at": "2026-08-09T11:40:48+00:00",
+        "approval_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/reviews/DIO-LINGUA-WATER-001__Sesotho.json"
+      }
+    },
+    "Setswana": {
+      "language": "Setswana",
+      "status": "human_approved_crystallized",
+      "source_version": "1.0.0",
+      "updated_at": "2026-08-09T11:38:06+00:00",
+      "units": [
+        {
+          "unit_id": "P1",
+          "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+          "target_text": "Mokgwa wa go Lekola Boleng jwa Metsi a Set\u0161haba",
+          "target_hash": "sha256:3bad983d00aabf755a86872e0c1eedbb90d59cd7ec5ff19f6a3f5d1f823c258d",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P2",
+          "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+          "target_text": "Maikaelelo: Mokgwa o o tlhalosa gore ditlhopha tsa kwa ntle di kgobokanya le go kwala disampole tsa metsi a go nwa jang gore dipholo di nne tse di tshephegang le tse di ka latelwang kwa lefelong le le siameng.",
+          "target_hash": "sha256:d26854fa8c09390587b99954f453112486fdea9293201c0e8196de881e76380b",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P3",
+          "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+          "target_text": "Kakaretso: O dira ka disampole tsa tlwaelo tse di tserweng mo matamong, mo mafelong a go alafa metsi, le mo dipompong tsa set\u0161haba. Mokgwa o ga o akaretse tshetleho ya dikhemikale tsa tshoganetso kgotsa go lekanyetsa didirisiwa tsa kwa laboratoring.",
+          "target_hash": "sha256:f0b7b0e63fd5d60e69d0fe7e8a4baabd1da7596af5b5465010b54a72a88d52c6",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P4",
+          "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+          "target_text": "Maikarabelo: Moeteledipele wa setlhopha o tlhatlhoba gore motekheniki mongwe le mongwe o na le PBT, dibotlelana tsa disampole tse di phepa, le selekanyetsi se se lekanyeditsweng. Batekheniki ba na le maikarabelo a go tlatsa Foromo ya QMS-07 ya Chain of Custody le go bega maemo a a sa bolokehang.",
+          "target_hash": "sha256:3d9b317afeae2309f033700f9a23f611f71a218e7a0d715be1ea5d2b40a9a24b",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P4",
+              "severity": "medium",
+              "issue": "The term 'Chain of Custody' is a legal/administrative concept; ensure the translation conveys the formal tracking process. Consider adding a brief explanation if needed."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P5",
+          "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+          "target_text": "Mokgwa: Pele o tsaya sampole, letla pompo e elele ka metsotso e 2. Tlhatswa probe ka metsi a a phepa, mme o se ka wa tlhatswa botlhelo jo bo sa bolaeng jwa microbiological. Kwala pH le turbidity ka NTU kwa lefelong. Disampole di tshwanetse go bewa mo setsidifatsing magareng ga 2 le 8 degrees Celsius.",
+          "target_hash": "sha256:c0342f5bec158e2fcbdd559dc5eced6760c9d245fe874a9ffd1ad3cac0b29552",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P5",
+              "severity": "medium",
+              "issue": "Technical terms 'probe', 'microbiological', 'turbidity', and 'degrees Celsius' are retained in English; verify that this is acceptable for the target audience or if local equivalents exist."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P6",
+          "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+          "target_text": "Go kwala datha: Kwala khoutu ya lefelo, letlha, nako, le dit\u0161hupiso tsa motlhatlheledi mo botlhelong le mo QMS-07. Diphoso di tshwanetse go suthisiwa ka mola o le mongwe go ralala phoso; ga go letlelelwe go dirisa setlhotlho sa go phimola. Lebaka la go tlhoka go bala lepe le tshwanetse go tlhalosiwa.",
+          "target_hash": "sha256:202b8f264268d704e62edc908a1e5804e24b9b63c5ba9ef8a8115e2d915a7e81",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P6",
+              "severity": "medium",
+              "issue": "The translation of 'sampler initials' as 'dit\u0161hupiso tsa motlhatlheledi' may not be precise; consider 'dit\u0161hupiso tsa yo o tsayang sampole' for clarity."
+            },
+            {
+              "paragraph_id": "P6",
+              "severity": "medium",
+              "issue": "The term 'correction fluid' is translated as 'setlhotlho sa go phimola' (eraser fluid); verify that this is the common term in Setswana for correction fluid."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            },
+            {
+              "index": 1,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "unit_id": "P7",
+          "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+          "target_text": "Go oket\u0161a: Fa pH e le kwa tlase ga 6.5 kgotsa e feta 9.5, kgotsa turbidity e feta 1 NTU, bitsa moeteledipele wa setlhopha ka bonako. O se ka wa bolelela set\u0161haba gore metsi a bolokehile kgotsa ga a bolokeha go fitlha lekgetho le le letleletsweng le lekotse dipholo.",
+          "target_hash": "sha256:9601e45e6b6c5e8e0ef73c234ece27bbc955467071f84235a796c55d1378ed72",
+          "status": "human_approved_crystallized",
+          "provider": "nvidia_nim",
+          "model": "deepseek-ai/deepseek-v4-flash-0731",
+          "critic_changed": false,
+          "qa_flags": [
+            {
+              "paragraph_id": "P7",
+              "severity": "medium",
+              "issue": "The translation of 'authorised official' as 'lekgetho le le letleletsweng' may be ambiguous; consider 'modiri yo o letleletsweng' or 'ofisiri e e letleletsweng' for clarity."
+            }
+          ],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:41:38+00:00",
+          "updated_at": "2026-08-09T11:38:06+00:00",
+          "flag_resolutions": [
+            {
+              "index": 0,
+              "resolution": "accepted_as_is",
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "review": {
+        "reviewer": "Byron Bunt",
+        "reviewer_role": "Language practitioner",
+        "approved_at": "2026-08-09T11:41:38+00:00",
+        "approval_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/reviews/DIO-LINGUA-WATER-001__Setswana.json"
+      }
+    },
+    "Afrikaans": {
+      "language": "Afrikaans",
+      "status": "human_approved_crystallized",
+      "source_version": "1.0.0",
+      "updated_at": "2026-08-09T11:38:05+00:00",
+      "units": [
+        {
+          "unit_id": "P1",
+          "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+          "target_text": "Prosedure vir Gemeenskapswatergehaltemonitering",
+          "target_hash": "sha256:cb16d28c5bdf03a5373d2fcde0cbc44e51dc6e8ade548c11dc24e3191d7c135b",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P2",
+          "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+          "target_text": "Doel: Hierdie prosedure verduidelik hoe veldspanne drinkwatermonsters versamel en aanteken sodat resultate betroubaar is en na die korrekte terrein teruggespoor kan word.",
+          "target_hash": "sha256:b96b6e7969d7049c8f706de592f285b0043f70e62e716b992ff25e811a3a59b2",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P3",
+          "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+          "target_text": "Omvang: Dit is van toepassing op roetinemonsters wat by reservoirs, behandelingsuitlate en openbare krane versamel word. Die prosedure dek nie chemiese noodstortings of die kalibrering van laboratoriuminstrumente nie.",
+          "target_hash": "sha256:4a7a0975bd1dfea9952a73c64df0ed316f4739e134137ceee104f5f64a68545e",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P4",
+          "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+          "target_text": "Verantwoordelikhede: Die spanleier kontroleer dat elke tegnikus oor persoonlike beskermende toerusting (PBT), skoon monsterbottels en 'n gekalibreerde meter beskik. Tegnici is verantwoordelik vir die voltooiing van Bewaringskettingvorm QMS-07 en die aanmelding van onveilige toestande.",
+          "target_hash": "sha256:ac6763c842037535da617dfce65a8958da436917de576251476b2f0b9b7bbe43",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P5",
+          "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+          "target_text": "Prosedure: Laat die kraan 2 minute lank loop voordat 'n monster geneem word. Spoel die sonde met skoon water af, maar moenie 'n steriele mikrobiologiese bottel uitspoel nie. Teken die pH en troebelheid in NTU op die terrein aan. Monsters moet in 'n koelhouer tussen 2 en 8 grade Celsius geplaas word.",
+          "target_hash": "sha256:fa334fe3998d6172b8ec4fb702494f18b6777c08435cd0435c190a6e97c4659a",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P6",
+          "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+          "target_text": "Data-aantekening: Skryf die terreinkode, datum, tyd en monsternemer se voorletters op die bottel en QMS-07. Maak regstellings deur 'n enkele streep deur die fout te trek; korreksievloeistof word nie toegelaat nie. Die rede vir enige ontbrekende lesing moet aangedui word.",
+          "target_hash": "sha256:c52cd898d4ae2354d00af5b4d295ae89cf7a993cd40b29e6b6e722173d4350a8",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        },
+        {
+          "unit_id": "P7",
+          "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+          "target_text": "Eskalering: Indien pH laer as 6.5 of ho\u00ebr as 9.5 is, of troebelheid ho\u00ebr as 1 NTU is, skakel die spanleier onmiddellik. Moenie die gemeenskap inlig dat die water veilig of onveilig is voordat die gemagtigde amptenaar die resultaat hersien het nie.",
+          "target_hash": "sha256:4bef8941e3b2f3f87cf7a790a3e735c55bb2f362864c7f01db82edfc96c3e0de",
+          "status": "human_approved_crystallized",
+          "provider": "gemini",
+          "model": "gemini-flash-lite-latest",
+          "critic_changed": false,
+          "qa_flags": [],
+          "reviewer": "Byron Bunt",
+          "approved_at": "2026-08-09T11:39:58+00:00",
+          "updated_at": "2026-08-09T11:38:05+00:00",
+          "flag_resolutions": []
+        }
+      ],
+      "review": {
+        "reviewer": "Byron Bunt",
+        "reviewer_role": "Language practitioner",
+        "approved_at": "2026-08-09T11:39:58+00:00",
+        "approval_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/reviews/DIO-LINGUA-WATER-001__Afrikaans.json"
+      }
+    }
+  },
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST",
+    "last_approved_language": "isiZulu",
+    "last_crystallization_receipt": {
+      "schema": "dio.lingua.beast_crystallization_receipt.v1",
+      "status": "crystallized",
+      "credits": [
+        {
+          "credit_id": "scc_33b1999b1483e6c5",
+          "unit_id": "P1",
+          "block_hash": "sha256:77693e96fe73f9b0a0837f1d17935ea9bc5495c64c0084600990fb7f4ecb45f5"
+        },
+        {
+          "credit_id": "scc_4d4f9cf59a1bb414",
+          "unit_id": "P2",
+          "block_hash": "sha256:074a085327680de1c0ca695e0380c4085d796bdd57ac56f9808898752bb9e354"
+        },
+        {
+          "credit_id": "scc_dc8358b6938dd6e3",
+          "unit_id": "P3",
+          "block_hash": "sha256:4e38272b2961d569a10ed643c87edf3cfbac57944445369d5f1f45ac3fbce836"
+        },
+        {
+          "credit_id": "scc_09fb679170350df9",
+          "unit_id": "P4",
+          "block_hash": "sha256:d9c2e781632aa2904a03d3599387f511ba7b6b6007db115abab18337d7228518"
+        },
+        {
+          "credit_id": "scc_92eee3f77c1ef751",
+          "unit_id": "P5",
+          "block_hash": "sha256:c05320a89f6c95078e0e8139c9cd708c660ef784987d0358e1cd4d21f4bffa15"
+        },
+        {
+          "credit_id": "scc_05a746260a6b068e",
+          "unit_id": "P6",
+          "block_hash": "sha256:0552e7e865125a3e8960c398a429d3e8cf569439d84534c98beb44dce39078da"
+        },
+        {
+          "credit_id": "scc_7eae0b22b05f063a",
+          "unit_id": "P7",
+          "block_hash": "sha256:4f53e4efd5214b1780991552bd336abb5d9978abfbabc323e7995bc8b9bcc512"
+        }
+      ],
+      "machine_drafts_promoted": false,
+      "human_authority_verified": true,
+      "chain": {
+        "beast_object_type": "crystal_chain_verification",
+        "version": "1.0",
+        "valid": true,
+        "block_count": 86,
+        "head_hash": "sha256:4f53e4efd5214b1780991552bd336abb5d9978abfbabc323e7995bc8b9bcc512",
+        "errors": [],
+        "consensus": "local_hash_chain_no_distributed_consensus"
+      },
+      "learning_event": {
+        "event_digest": "sha256:45d4f10741d32c73dc3242b4cf3eaffcd537c47d5a1e3fe0636b59f4af467a37",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:isiZulu"
+      },
+      "memory_residue": {
+        "beast_object_type": "memory_hull_write_receipt",
+        "version": "2.0",
+        "residue_id": "residue_598c929fcc880766e90c",
+        "section": "decisions",
+        "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_598c929fcc880766e90c.md",
+        "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_598c929fcc880766e90c.residue.json",
+        "residue_seal": {
+          "beast_object_type": "beast_residue_seal",
+          "version": "2.0",
+          "purpose": "memory_hull_decisions",
+          "algorithm": "Ed25519",
+          "provider": "cryptography",
+          "created_at": "2026-08-09T11:42:27.298821+00:00",
+          "payload_sha256": "sha256:ad5be9af0e9fcfab3142d8ac0995ae25444852807a63f4e38a34a08cdae30ec5",
+          "message_sha256": "sha256:fe6288e61438c8d63cc7f5a555c7e6e048ca669664f4c0add984071f085d8d81",
+          "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+          "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+          "signature_b64": "saLSzryR/pzl55cd8S1ZzHN7GEuC29PxxI9gj4q4iYoct4dVPpx8q1U+801r3mndefXNzPbtSTqg1dTBcoRSDQ==",
+          "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+        },
+        "verified": true,
+        "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+      },
+      "prec_lifecycle": {
+        "beast_object_type": "prec_lifecycle",
+        "version": "1.0",
+        "lifecycle_id": "prec_58dc8c56b018ae780d",
+        "kind": "dio_lingua",
+        "objective": "Lingua crystallize for isiZulu",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "current_phase": "crystallize",
+        "task_id": "DIO-LINGUA-WATER-001",
+        "provider": "BEAST",
+        "summary": "Lingua crystallize lifecycle completed",
+        "metadata": {
+          "operation": "crystallize",
+          "target_language": "isiZulu"
+        },
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:98c5d845a8761023caaac68b144ae19cf84641c086c9d06c21a7e6dbaceebdf9"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "crystallized"
+            }
+          }
+        },
+        "created_at": "2026-08-09T11:42:27.304244+00:00",
+        "updated_at": "2026-08-09T11:42:27.318067+00:00",
+        "completed_at": "2026-08-09T11:42:27.318067+00:00",
+        "phase_events": [
+          {
+            "phase": "perceive",
+            "status": "completed",
+            "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+            "artifacts": {},
+            "signals": [
+              "crystallize"
+            ],
+            "created_at": "2026-08-09T11:42:27.307023+00:00"
+          },
+          {
+            "phase": "reason",
+            "status": "completed",
+            "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+            "artifacts": {
+              "result_status": "crystallized"
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:42:27.309163+00:00"
+          },
+          {
+            "phase": "economize",
+            "status": "completed",
+            "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+            "artifacts": {
+              "provider_call_displaced": false
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:42:27.311788+00:00"
+          },
+          {
+            "phase": "crystallize",
+            "status": "completed",
+            "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+            "artifacts": {
+              "receipt_digest": "sha256:98c5d845a8761023caaac68b144ae19cf84641c086c9d06c21a7e6dbaceebdf9"
+            },
+            "signals": [],
+            "created_at": "2026-08-09T11:42:27.315277+00:00"
+          }
+        ],
+        "phase_status": {
+          "perceive": "completed",
+          "reason": "completed",
+          "economize": "completed",
+          "crystallize": "completed"
+        }
+      }
+    }
+  },
+  "updated_at": "2026-08-09T11:42:27+00:00"
+}

@@ -1,0 +1,239 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Home Language Term 1 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS FET Phase Grade 12 Term 1 Controlled Assessment focusing on comprehension, language in context, summary planning, and transactional writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "1",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "comprehension, language in context and visual literacy",
+      "tone, audience, purpose, inference and evidence from a supplied text",
+      "summary planning and precise language editing",
+      "transactional writing with register, structure and audience control"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Comprehension and Language in Context",
+      "mode": "comprehension",
+      "instructions": "Read Text A below and answer the questions that follow. Use the language_response_planner workspace visual to organize your thoughts where indicated.",
+      "stimulus": "TEXT A: THE EVOLUTION OF THE WRITTEN WORD IN THE DIGITAL AGE\n\nParagraph 1\nThe digital landscape has compressed our language, forcing complex emotions into bite-sized acronyms. Where once stood the elegant, flowing sentences of formal letters, we now find rapid-fire instant messages dominated by truncated syntax and phonetic spelling. Critics argue that this rapid shift represents a degradation of literacy standards, pointing to the decline in spelling accuracy and grammatical cohesion among school-leavers.\n\nParagraph 2\nHowever, linguists argue this is not decay, but a dynamic adaptation. Emojis and abbreviations serve as vital non-verbal cues, replacing tone of voice and facial expressions in text-only environments. This digital shorthand allows for immediate, nuanced emotional connection across vast distances, creating a global dialect that transcends traditional linguistic barriers.\n\nParagraph 3\nEducators express deep concern that informal registers are bleeding into academic essays, where precision and formal syntax remain non-negotiable. The challenge lies not in the existence of digital dialects, but in the learners' inability to code-switch effectively between informal online spaces and formal academic environments.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "State two ways in which digital communication has compressed language, according to the details provided in Paragraph 1.",
+          "marks": 2,
+          "memo": [
+            "Forcing complex emotions into bite-sized acronyms. (1 mark)",
+            "Replacing elegant sentences with rapid-fire instant messages dominated by truncated syntax/phonetic spelling. (1 mark)"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain the linguistic purpose of emojis as argued by the linguists in Paragraph 2.",
+          "marks": 3,
+          "memo": [
+            "Emojis serve as vital non-verbal cues. (1 mark)",
+            "They replace tone of voice and facial expressions in text-only environments. (1 mark)",
+            "They allow for immediate, nuanced emotional connection across distances. (1 mark)"
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Analyze the tone of the educators in Paragraph 3. Provide evidence from the text to support your answer.",
+          "marks": 3,
+          "memo": [
+            "Tone: Concerned / apprehensive / critical. (1 mark)",
+            "Evidence: 'express deep concern' or 'informal registers are bleeding into academic essays'. (1 mark)",
+            "Explanation: The educators are worried that students cannot separate informal digital habits from formal academic writing requirements, which threatens academic standards. (1 mark)"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Evaluate the writer's purpose in presenting both the critics' and the linguists' perspectives in Paragraphs 1 and 2.",
+          "marks": 3,
+          "memo": [
+            "The writer aims to present a balanced, objective view of the digital language debate. (1 mark)",
+            "By contrasting the critics' view of 'degradation' with the linguists' view of 'dynamic adaptation', the reader is encouraged to see language change as a complex issue rather than a simple decline. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Refer to Paragraph 2: 'However, linguists argue this is not decay, but a dynamic adaptation.'\n(a) Identify the part of speech of the word 'dynamic' in this context. (1 mark)\n(b) Rewrite the sentence 'The digital landscape has compressed our language' (Paragraph 1) in the passive voice. (3 marks)",
+          "marks": 4,
+          "memo": [
+            "(a) Adjective. (1 mark)",
+            "(b) Our language (1 mark) has been compressed (1 mark) by the digital landscape (1 mark)."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Identify and correct the five grammatical errors in the following sentence:\n'Its clear that modern texting, which rely on shortcuts, don't help students whom are trying to write formal essays.'",
+          "marks": 5,
+          "memo": [
+            "1. 'Its' should be 'It's' (apostrophe of contraction). (1 mark)",
+            "2. 'rely' should be 'relies' (subject-verb agreement with singular 'texting'). (1 mark)",
+            "3. 'don't' should be 'doesn't' (subject-verb agreement with singular 'texting'). (1 mark)",
+            "4. 'whom' should be 'who' (subject pronoun required). (1 mark)",
+            "5. 'are trying' -> wait, if 'whom' is corrected to 'who', then 'who are trying' is correct. Let's ensure the fifth error is distinct: 'Its clear that modern texting, which rely on shortcuts, don't help students whom is trying to write formal essays.' -> 'is' should be 'are' (agreement with plural 'students'). (1 mark)"
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "Refer to the language_response_planner workspace visual. Use the 'text panel' and 'main idea' sections of the planner to map out the core argument of Text A.\n(a) State the main idea of Text A as formulated in your planner. (2 marks)\n(b) Identify two pieces of textual evidence from Text A that you have mapped to the 'evidence' section of your planner. (4 marks)\n(c) Explain how using the planner's structure helps you distinguish between the writer's objective facts and subjective bias in Text A. (4 marks)",
+          "marks": 10,
+          "memo": [
+            "(a) The main idea is that digital communication is transforming language structures, creating a tension between informal adaptation and formal academic standards. (2 marks)",
+            "(b) Evidence 1: 'decline in spelling accuracy and grammatical cohesion among school-leavers' (Paragraph 1). (2 marks)\nEvidence 2: 'informal registers are bleeding into academic essays' (Paragraph 3). (2 marks)",
+            "(c) The planner separates the raw text ('text panel') from the 'main idea' and 'evidence' sections. This forces the learner to isolate specific textual claims from emotional language, allowing them to see if assertions are backed by linguistic facts or represent subjective educator/critic anxieties. (4 marks)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Summary Planning and Precise Language Editing",
+      "mode": "summary",
+      "instructions": "Read Text B below and complete the summary task using the language_response_planner workspace visual.",
+      "stimulus": "TEXT B: ACTIVE READING STRATEGIES FOR ACADEMIC SUCCESS\n\nActive reading is a crucial skill for high school learners preparing for exit-level examinations. Firstly, always preview the text by scanning headings and subheadings to establish context before reading in detail. Secondly, annotate the margins with questions and key terms to maintain focus and track your comprehension. Thirdly, highlight only essential thesis statements rather than entire paragraphs to avoid visual clutter. Fourthly, summarize each section in your own words immediately after reading it to consolidate your memory. Finally, discuss the concepts with peers to test your understanding and clarify difficult points.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Using the 'plan' and 'draft' sections of the language_response_planner, write a summary of the active reading strategies described in Text B.\n\nInstructions:\n1. Summarize five key strategies in point form.\n2. Write your final summary in full sentences, using no more than 60 words.\n3. Indicate the word count at the end of your summary.\n4. Show your planning process in the 'plan' section of the planner.",
+          "marks": 10,
+          "memo": [
+            "Points to include (max 5 marks, 1 mark per point):",
+            "1. Preview the text by scanning headings/subheadings.",
+            "2. Annotate margins with questions and key terms.",
+            "3. Highlight only essential thesis statements.",
+            "4. Summarize sections in your own words.",
+            "5. Discuss concepts with peers.",
+            "Language and Planning (max 5 marks):",
+            "5 marks: Excellent planning shown in the planner, fluent language, strict adherence to word count (under 60 words), correct point form.",
+            "3-4 marks: Good planning, minor language errors, word count slightly exceeded.",
+            "1-2 marks: Poor planning, weak language control, word count ignored."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Rewrite the following sentence to remove all tautology and redundant language: 'In my personal opinion, I think that active reading is a very essential skill that is absolutely necessary for students.'",
+          "marks": 5,
+          "memo": [
+            "Award marks for identifying and correcting the following redundancies:",
+            "1. 'In my personal opinion, I think' -> Change to 'In my opinion' or 'I think'. (2 marks)",
+            "2. 'very essential' -> Change to 'essential' (essential cannot be graded with 'very'). (1.5 marks)",
+            "3. 'absolutely necessary' -> Remove, as it repeats the meaning of 'essential'. (1.5 marks)",
+            "Acceptable corrected sentence: 'I think that active reading is an essential skill for students.' or 'In my opinion, active reading is an essential skill for students.'"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Transactional Writing",
+      "mode": "transactional_writing",
+      "instructions": "Write a transactional response to the prompt below. Use the 'draft' and 'edit' sections of the language_response_planner to organize, draft, and edit your response before writing your final version.",
+      "stimulus": "PROMPT:\nFollowing the debate in Text A regarding the impact of digital communication on language skills, write a formal letter to the editor of a national newspaper. Express your views on whether digital communication (texting, emojis, acronyms) is enriching or degrading the language skills of Grade 12 learners.\n\nYour response must be between 120 and 150 words (excluding the address and date).",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Write the formal letter to the editor based on the prompt provided. Ensure you use the correct formal register, structure (addresses, salutation, signing off), and show evidence of planning and editing in your language_response_planner.",
+          "marks": 25,
+          "memo": [
+            "Marking criteria based on CAPS Transactional Writing Rubric:",
+            "Content, Planning, and Context (15 marks):",
+            "- Formulates a clear, persuasive argument regarding digital communication. (5 marks)",
+            "- Adheres strictly to the formal letter format (two addresses, date, subject line, formal salutation, and sign-off). (5 marks)",
+            "- Shows clear evidence of planning and systematic editing in the language_response_planner. (5 marks)",
+            "Language, Register, and Style (10 marks):",
+            "- Uses an appropriate formal register suitable for a newspaper editor. (4 marks)",
+            "- Demonstrates precise vocabulary, correct sentence structures, and accurate punctuation. (4 marks)",
+            "- Adheres to the word limit of 120-150 words. (2 marks)"
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Comprehension and Language in Context",
+      "marks": 30,
+      "descriptor": "Assesses literal comprehension, inference, tone analysis, evaluation of writer's purpose, grammatical structures (passive voice, parts of speech), error correction, and structured text mapping using the workspace planner."
+    },
+    {
+      "criterion": "Section B: Summary Planning and Precise Language Editing",
+      "marks": 15,
+      "descriptor": "Assesses the ability to extract key points, synthesize information within a strict word limit using the planner's draft/plan sections, and eliminate tautology and redundancy in language editing."
+    },
+    {
+      "criterion": "Section C: Transactional Writing",
+      "marks": 25,
+      "descriptor": "Assesses formal letter structure, register control, persuasive argument formulation, and the practical application of drafting and editing processes in the workspace planner."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum exactly to 70.",
+    "Confirm that the language_response_planner is printed and available as a workspace for Sections A, B, and C.",
+    "Check that the comprehension passage (Text A) and summary passage (Text B) match Grade 12 cognitive demands.",
+    "Ensure the marking memo allows for alternative, plausible interpretations in the open-ended comprehension questions."
+  ]

@@ -1,0 +1,284 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Term 3 Controlled Assessment: Integrated Language and Visual Literacy",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS-aligned integrated assessment covering comprehension, summary, language structures, visual literacy, editing, and transactional writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Comprehension and Summary",
+      "mode": "integrated_comprehension_summary",
+      "instructions": "Read the passage below and answer the questions that follow. Use your own words where instructed.",
+      "stimulus": "Passage: The Rise of Urban Rooftop Farming\nUrban rooftop farming has transformed unused city spaces into productive green areas. In Johannesburg, several buildings now host vegetable gardens that supply fresh produce to local markets. These gardens reduce the distance food travels, cutting carbon emissions and providing jobs. However, challenges include high setup costs and the need for regular maintenance. Despite these obstacles, community support has been strong, with volunteers helping to sustain the gardens. Experts believe that rooftop farming can improve food security in densely populated areas.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "What is the main idea of the passage?",
+          "marks": 2,
+          "memo": [
+            "The main idea is that urban rooftop farming transforms unused city spaces into productive green areas, providing fresh produce and environmental benefits."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "List TWO benefits of rooftop farming mentioned in the passage.",
+          "marks": 2,
+          "memo": [
+            "Reduces distance food travels, cutting carbon emissions.",
+            "Provides jobs."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "What challenges are mentioned? Provide one.",
+          "marks": 1,
+          "memo": [
+            "High setup costs."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "In your own words, explain why community support is important for the success of rooftop gardens.",
+          "marks": 2,
+          "memo": [
+            "Community support provides volunteers who help sustain the gardens, ensuring their maintenance and survival."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Summarise the passage in no more than 40 words. List SEVEN points.",
+          "marks": 7,
+          "memo": [
+            "1. Urban rooftop farming transforms unused city spaces.",
+            "2. Gardens in Johannesburg supply fresh produce.",
+            "3. Reduces food travel distance.",
+            "4. Cuts carbon emissions.",
+            "5. Provides jobs.",
+            "6. Challenges: high setup costs and maintenance.",
+            "7. Community support and volunteers sustain gardens."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Visual Literacy \u2013 Cartoon and Advertisement",
+      "mode": "visual_literacy",
+      "instructions": "Study the cartoon and advertisement provided. Answer the questions based on the visual details.",
+      "stimulus": "Cartoon: A single-panel cartoon shows a character standing on a rooftop garden holding a watering can. The character says, 'Who knew the city could be this green?' The background shows skyscrapers and a clear sky. Advertisement: A print advertisement for a local farmers' market shows a basket of fresh vegetables with the slogan 'Fresh from the city's rooftops.' The ad includes a logo and a website URL.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "What is the character's attitude in the cartoon? Provide a reason for your answer.",
+          "marks": 2,
+          "memo": [
+            "The character is surprised/pleased, as indicated by the statement 'Who knew the city could be this green?' and the context of a rooftop garden."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "How does the advertisement use colour to attract attention? Refer to specific details.",
+          "marks": 2,
+          "memo": [
+            "The advertisement uses bright colours for the vegetables (e.g., red tomatoes, green lettuce) to make them look fresh and appealing, drawing the viewer's eye."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "What is the intended effect of the slogan 'Fresh from the city's rooftops'?",
+          "marks": 2,
+          "memo": [
+            "The slogan suggests that the produce is locally grown and therefore fresh, appealing to consumers who value sustainability and quality."
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Compare the cartoon and the advertisement. How do both convey the message of urban farming?",
+          "marks": 3,
+          "memo": [
+            "Both use positive imagery: the cartoon shows a green rooftop with a satisfied character, while the ad shows fresh vegetables with a catchy slogan. Both highlight the benefits of urban farming in a city setting."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Language Structures and Editing",
+      "mode": "language_structures_editing",
+      "instructions": "Answer the following questions on language structures and editing.",
+      "stimulus": "Text: 'The gardens, which are located on rooftops, provide fresh produce to the community. They also create jobs for local residents. However, the cost of setting up a garden is high.'",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identify the relative clause in the sentence: 'The gardens, which are located on rooftops, provide fresh produce to the community.'",
+          "marks": 1,
+          "memo": [
+            "which are located on rooftops"
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Rewrite the following sentence in the passive voice: 'The community supports the gardens.'",
+          "marks": 2,
+          "memo": [
+            "The gardens are supported by the community."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Correct the punctuation error in the following sentence: 'The gardens provide fresh produce, they also create jobs.'",
+          "marks": 1,
+          "memo": [
+            "Change the comma to a semicolon or full stop: 'The gardens provide fresh produce; they also create jobs.' or 'The gardens provide fresh produce. They also create jobs.'"
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Choose the correct word: 'The cost of setting up a garden is (high/highly).'",
+          "marks": 1,
+          "memo": [
+            "high"
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Provide a synonym for 'provide' as used in the text.",
+          "marks": 1,
+          "memo": [
+            "supply"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section D: Transactional Writing and Planning",
+      "mode": "transactional_writing",
+      "instructions": "Choose ONE of the following topics and write a response. Use the language_response_planner to plan your response before writing.",
+      "stimulus": "Topic 1: Write a letter to the editor of a local newspaper arguing for the expansion of rooftop farming in your city. Topic 2: Write a speech to be delivered at a community meeting encouraging residents to start rooftop gardens.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "Plan your response using the language_response_planner. Complete the 'main idea', 'evidence', and 'plan' sections.",
+          "marks": 5,
+          "memo": [
+            "Main idea: Clear argument for rooftop farming.",
+            "Evidence: Uses facts from the passage or own knowledge.",
+            "Plan: Logical structure with introduction, body, conclusion."
+          ]
+        },
+        {
+          "number": "4.2",
+          "question": "Write your response (letter or speech) in 180\u2013200 words. Ensure appropriate register and format.",
+          "marks": 20,
+          "memo": [
+            "Content: 10 marks \u2013 clear argument, relevant points, persuasive language.",
+            "Structure: 5 marks \u2013 logical flow, paragraphs, appropriate format.",
+            "Language: 5 marks \u2013 grammar, punctuation, spelling, register."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Comprehension and Summary",
+      "marks": 14,
+      "descriptor": "Accurate retrieval, interpretation, and concise summarisation."
+    },
+    {
+      "criterion": "Visual Literacy",
+      "marks": 9,
+      "descriptor": "Ability to analyse and evaluate visual texts using concrete details."
+    },
+    {
+      "criterion": "Language Structures and Editing",
+      "marks": 6,
+      "descriptor": "Correct identification and application of grammar, punctuation, and diction."
+    },
+    {
+      "criterion": "Transactional Writing: Planning",
+      "marks": 5,
+      "descriptor": "Effective use of the planner to organise ideas."
+    },
+    {
+      "criterion": "Transactional Writing: Final Response",
+      "marks": 20,
+      "descriptor": "Quality of writing: content, structure, and language accuracy."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the passage and visuals are appropriate for Grade 12 level.",
+    "Confirm that all questions are answerable based on the provided stimulus.",
+    "Check that the memo allows equivalent wording for interpretive questions.",
+    "Ensure that the writing rubric aligns with CAPS transactional writing criteria.",
+    "Confirm that the total marks sum to 70 and duration is 2 hours."
+  ]
+}

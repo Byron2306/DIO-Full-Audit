@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "DOCUMENT_STUDIO--government_communications",
+  "generated_at": "2026-08-09T14:02:30+00:00",
+  "product": {
+    "id": "DOCUMENT_STUDIO",
+    "name": "DIO Document Studio",
+    "offer": "editing_translation"
+  },
+  "audience": {
+    "id": "government_communications",
+    "name": "Government and public-facing teams",
+    "pain": "High-stakes public documents must remain consistent across languages and revisions.",
+    "outcome": "Terminology-controlled translation with deterministic QA and review evidence."
+  },
+  "landing_page": "sites/document-studio/index.html",
+  "proof_asset": "sites/document-studio/assets/document-studio-proof.png",
+  "assets": {
+    "square_1080": "state/marketing_factory/document-studio/government-communications/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/document-studio/government-communications/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/document-studio/government-communications/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/document-studio/government-communications/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/document-studio/government-communications/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/document-studio/government-communications/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/government-communications/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/document-studio/government-communications/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

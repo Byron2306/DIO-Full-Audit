@@ -1,0 +1,162 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "assessment_title": "Grade 10 Geography Term 1 Source Response: Settlement Change",
+  "subject": "Geography",
+  "grade": 10,
+  "phase": "fet",
+  "canonical_profile_id": "fet.geography",
+  "blueprint": "source_based_plus_extended_response",
+  "render_shell": "source_response_paper",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Geography",
+    "grade": 10,
+    "phase": "fet_grade_10_12",
+    "term": "1",
+    "caps_source": {
+      "title": "Geography",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"
+    },
+    "canonical_profile_id": "fet.geography",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "caps_theme_candidates": [
+      "GEOGRAPHY GRADES 10-12",
+      "Information Systems (GIS)",
+      "The atmosphere",
+      "Composition and structure of the atmosphere",
+      "Heating of the atmosphere",
+      "Moisture in the atmosphere",
+      "Reading and interpreting synoptic weather maps",
+      "Geomorphology",
+      "of what is to be taught and learnt on a term-by-term basis.",
+      "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+      "Guidelines and Subject Assessment Guidelines with the",
+      "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+      "ment Grades R-12",
+      "(c) National Protocol for Assessment Grades R-12."
+    ],
+    "assessment_content_focus": [
+      "Settlement patterns and spatial change",
+      "Population movement and urban growth",
+      "Map and data interpretation",
+      "Explain settlement change using map and data evidence"
+    ],
+    "content_alignment_notes": [
+      "Requested focus was not clearly found in extracted CAPS term/theme lines. Confirm term fit before generation.",
+      "Use this as a visual planning warning, not an automatic blocker; PDF extraction can miss table structure."
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "duration": "1 hour",
+  "total_marks": 50,
+  "sections": [
+    {
+      "title": "Map and data response",
+      "mode": "source_response_paper",
+      "instructions": "Use the map extract and population table to answer the questions. Refer to map evidence and data trends where required.",
+      "stimulus": "A map extract and population table showing rural and urban settlement change from 2000 to 2025.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identify one spatial pattern shown by the map extract.",
+          "marks": 5,
+          "memo": [
+            "Credit one accurate map pattern supported by map features."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Use the population table to describe the urban trend between 2000 and 2025.",
+          "marks": 10,
+          "memo": [
+            "Credit correct use of table values and trend language."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Explain how the map and table together show settlement change.",
+          "marks": 15,
+          "memo": [
+            "Credit linked map and data evidence with a clear explanation."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Suggest one planning response and justify it using evidence from the sources.",
+          "marks": 20,
+          "memo": [
+            "Credit a feasible planning response justified from map/data evidence."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Map evidence",
+      "marks": 10,
+      "descriptor": "Correctly identifies and uses spatial evidence from the map."
+    },
+    {
+      "criterion": "Data interpretation",
+      "marks": 10,
+      "descriptor": "Accurately reads values/trends from the population table."
+    },
+    {
+      "criterion": "Linked explanation",
+      "marks": 15,
+      "descriptor": "Connects map and data evidence in a coherent explanation."
+    },
+    {
+      "criterion": "Justified response",
+      "marks": 15,
+      "descriptor": "Provides a feasible, evidence-based planning response."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS topic and term fit.",
+    "Confirm map/data values are appropriate.",
+    "Confirm marks reconcile."
+  ]
+}

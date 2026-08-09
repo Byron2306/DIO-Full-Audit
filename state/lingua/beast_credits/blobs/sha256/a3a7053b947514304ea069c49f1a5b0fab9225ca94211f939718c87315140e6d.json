@@ -1,0 +1,33 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:a3a7053b947514304ea069c49f1a5b0fab9225ca94211f939718c87315140e6d",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 68,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "DIO-LINGUA-WATER-001:P7",
+    "impact_fingerprint_hash": "sha256:3404f9e62fdff12c8d6de1221a7b66e1d1108977c39b54944b542f43a089729e",
+    "metadata": {
+      "approved_at": "2026-08-09T11:42:27+00:00",
+      "domain": "Water-quality operations",
+      "reviewer": "Byron Bunt",
+      "reviewer_role": "Language practitioner",
+      "semantic_object_id": "DIO-LINGUA-WATER-001",
+      "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+      "target_language": "isiZulu",
+      "target_text": "Ukuphakamisa udaba: Uma i-pH ingaphansi kuka-6.5 noma ingaphezu kuka-9.5, noma ukufiphala kuphakeme kuno-1 NTU, shayela umholi weqembu ngokushesha. Ungatsheli umphakathi ukuthi amanzi aphephile noma awaphephile kuze kube yilapho isikhulu esigunyaziwe sibuyekeze umphumela.",
+      "unit_id": "P7"
+    },
+    "policy_version": "dio_lingua_human_authority_v1",
+    "repo_fingerprint": "sha256:3404f9e62fdff12c8d6de1221a7b66e1d1108977c39b54944b542f43a089729e",
+    "task_class": "dio_lingua_translation_unit",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

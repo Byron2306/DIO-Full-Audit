@@ -1,0 +1,86 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "geography",
+  "display_name": "Social Sciences: Geography",
+  "senior_subject": "Social Sciences",
+  "grade": 7,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "source_based_plus_extended_response",
+  "marks": 50,
+  "duration_minutes": 60,
+  "bloom_distribution": {
+    "remember": 20,
+    "understand": 30,
+    "apply": 30,
+    "analyse": 15,
+    "evaluate": 5,
+    "create": 0,
+    "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+  },
+  "source_grammar": [
+    "map_extract",
+    "photograph_or_image",
+    "graph_or_chart",
+    "data_table"
+  ],
+  "caps_focus": "basic maps, settlements, resources and direct source observation",
+  "sections": [
+    {
+      "title": "map_or_source_skills",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "map_or_source_skills",
+          "bloom_level": "remember",
+          "prompt_shape": "Identify or name key facts from a Grade 7 Social Sciences: Geography stimulus or task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "context_questions",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "context_questions",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Social Sciences: Geography task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "short_explanation",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "short_explanation",
+          "bloom_level": "analyse",
+          "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Social Sciences: Geography stimulus or task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

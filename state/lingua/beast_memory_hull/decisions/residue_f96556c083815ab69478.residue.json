@@ -1,0 +1,57 @@
+{
+  "beast_object_type": "memory_hull_sidecar",
+  "markdown_sha256": "sha256:dfc4239a50d179da63ecfce5e1f47795b634217bc5c62c50eb5620bc3058ebef",
+  "payload": {
+    "beast_object_type": "memory_hull_residue",
+    "beast_systems": {
+      "chronicle_compatible": true,
+      "residue_sealed": true,
+      "vault_editable": true
+    },
+    "caller": "spiffe://dio.local/lingua",
+    "correlation_id": "",
+    "cost_saved": "",
+    "created_at": "2026-08-09T11:38:06.054322+00:00",
+    "decision": "Recorded 3 observations without promoting machine-drafted meaning.",
+    "evidence": {
+      "learned_count": 7,
+      "negative_capability": {
+        "activation_failures": 3,
+        "active": 0,
+        "beast_object_type": "negative_capability_summary",
+        "observing": 8,
+        "outcomes": 8,
+        "records": 8,
+        "revalidation": 0,
+        "version": "1.0"
+      }
+    },
+    "files_touched": [],
+    "markdown_sha256": "sha256:dfc4239a50d179da63ecfce5e1f47795b634217bc5c62c50eb5620bc3058ebef",
+    "policy_tags": [
+      "lingua",
+      "deterministic-learning",
+      "no-semantic-promotion"
+    ],
+    "provider": "BEAST",
+    "residue_id": "residue_f96556c083815ab69478",
+    "section": "decisions",
+    "task": "Learn Lingua quality evidence for Water-quality operations",
+    "version": "2.0"
+  },
+  "residue_seal": {
+    "algorithm": "Ed25519",
+    "beast_object_type": "beast_residue_seal",
+    "created_at": "2026-08-09T11:38:06.056348+00:00",
+    "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation",
+    "message_sha256": "sha256:8f80036371b96dc1b362f01fafd37c4331f4ccee18554148888648dee6062134",
+    "payload_sha256": "sha256:01b956b3cacd7b164d1276261bc7aac86f9dee923ce394c1797cd9c67e69e9ee",
+    "provider": "cryptography",
+    "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+    "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+    "purpose": "memory_hull_decisions",
+    "signature_b64": "xB5SOYO8jsZ43UBo9B8CzIL0RBpl5/LrqFOSK0+rL1V4YWaRh9nB7h9Yw0p/+yyGaBpkV0sbGX/qqs1AfWoWAw==",
+    "version": "2.0"
+  },
+  "version": "2.0"
+}

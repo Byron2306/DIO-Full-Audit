@@ -1,0 +1,161 @@
+{
+  "schema": "dio.lingua.beast_learning_receipt.v1",
+  "status": "learned",
+  "learned": [
+    {
+      "kind": "deterministic_guard",
+      "name": "anchor_completeness",
+      "credit_id": "scc_394af0775ff61527",
+      "created": true
+    },
+    {
+      "kind": "deterministic_guard",
+      "name": "numeral_preservation",
+      "credit_id": "scc_c7c647dca8f123a2",
+      "created": true
+    },
+    {
+      "kind": "deterministic_guard",
+      "name": "protected_token_preservation",
+      "credit_id": "scc_6dd880a330babee8",
+      "created": true
+    },
+    {
+      "kind": "deterministic_guard",
+      "name": "source_hash_staleness",
+      "credit_id": "scc_3c738a24fa0ed354",
+      "created": true
+    }
+  ],
+  "automatic_learning_scope": [
+    "deterministic_guards",
+    "conservative_review_routing"
+  ],
+  "semantic_translation_truth_promoted": false,
+  "human_intervention_required": false,
+  "chain": {
+    "beast_object_type": "crystal_chain_verification",
+    "version": "1.0",
+    "valid": true,
+    "block_count": 33,
+    "head_hash": "sha256:37b9e6549085a294be2e8591f1835aa1af5e15c67063ddbb408061c0112fcc51",
+    "errors": [],
+    "consensus": "local_hash_chain_no_distributed_consensus"
+  },
+  "negative_capability": {
+    "beast_object_type": "negative_capability_summary",
+    "version": "1.0",
+    "outcomes": 0,
+    "records": 0,
+    "active": 0,
+    "observing": 0,
+    "revalidation": 0,
+    "activation_failures": 3
+  },
+  "memory_residue": {
+    "beast_object_type": "memory_hull_write_receipt",
+    "version": "2.0",
+    "residue_id": "residue_aee512bebb1173be63ed",
+    "section": "decisions",
+    "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_aee512bebb1173be63ed.md",
+    "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_aee512bebb1173be63ed.residue.json",
+    "residue_seal": {
+      "beast_object_type": "beast_residue_seal",
+      "version": "2.0",
+      "purpose": "memory_hull_decisions",
+      "algorithm": "Ed25519",
+      "provider": "cryptography",
+      "created_at": "2026-08-09T11:38:04.986639+00:00",
+      "payload_sha256": "sha256:1f2d9d4d4bd1f45e89d3b00603ae7b3c3f2486ac721a840b5e6d5e598ada16f3",
+      "message_sha256": "sha256:a63b39f1c773e6a66a59ff00300b33343fc795855e53b2cae0c4c2b43ec4f3e7",
+      "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+      "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+      "signature_b64": "iTfySBkMUB/6lrtBuQ6vbcJ+vMaObG+uacikKHqeiKr7QvhKSO/MrLrZdYle14CmK21QDOAha3S9RkZy/yDuCw==",
+      "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+    },
+    "verified": true,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+  },
+  "prec_lifecycle": {
+    "beast_object_type": "prec_lifecycle",
+    "version": "1.0",
+    "lifecycle_id": "prec_b163fc85a68a463ef5",
+    "kind": "dio_lingua",
+    "objective": "Lingua learn_flags for Afrikaans",
+    "scope": "Water-quality operations",
+    "status": "completed",
+    "current_phase": "crystallize",
+    "task_id": "",
+    "provider": "BEAST",
+    "summary": "Lingua learn_flags lifecycle completed",
+    "metadata": {
+      "operation": "learn_flags",
+      "target_language": "Afrikaans"
+    },
+    "artifact_refs": {
+      "crystallize": {
+        "receipt_digest": {
+          "value": "sha256:71e103fee7bcf562bbf032bc95f026bd666d81a5b165cd76a91ff2b21d461a38"
+        }
+      },
+      "economize": {},
+      "perceive": {},
+      "reason": {
+        "result_status": {
+          "value": "learned"
+        }
+      }
+    },
+    "created_at": "2026-08-09T11:38:04.991955+00:00",
+    "updated_at": "2026-08-09T11:38:05.011911+00:00",
+    "completed_at": "2026-08-09T11:38:05.011911+00:00",
+    "phase_events": [
+      {
+        "phase": "perceive",
+        "status": "completed",
+        "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+        "artifacts": {},
+        "signals": [
+          "learn_flags"
+        ],
+        "created_at": "2026-08-09T11:38:04.995715+00:00"
+      },
+      {
+        "phase": "reason",
+        "status": "completed",
+        "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+        "artifacts": {
+          "result_status": "learned"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:04.999878+00:00"
+      },
+      {
+        "phase": "economize",
+        "status": "completed",
+        "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+        "artifacts": {
+          "provider_call_displaced": false
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.003701+00:00"
+      },
+      {
+        "phase": "crystallize",
+        "status": "completed",
+        "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+        "artifacts": {
+          "receipt_digest": "sha256:71e103fee7bcf562bbf032bc95f026bd666d81a5b165cd76a91ff2b21d461a38"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.008240+00:00"
+      }
+    ],
+    "phase_status": {
+      "perceive": "completed",
+      "reason": "completed",
+      "economize": "completed",
+      "crystallize": "completed"
+    }
+  }
+}

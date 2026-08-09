@@ -1,0 +1,33 @@
+{
+  "schema": "dio.mail_intent.v1",
+  "mail_intent_id": "MAIL-AA5B0A2568B8D6B3",
+  "direction": "outbound",
+  "purpose": "delivery",
+  "lead_id": null,
+  "order_id": null,
+  "job_id": "evidex-b0a30dd37214755b47d9",
+  "campaign_id": null,
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAMBlEQL_MSdBmYprNbQ9IBg=",
+  "source_message_id": null,
+  "recipient": "dio_workflows@outlook.com",
+  "subject": "Your reviewed Evidex evidence pack is ready (evidex-b0a30dd37214755b47d9)",
+  "body": "Your reviewed Evidex pack is attached. It contains the evidence table, source provenance, narrative support, quality notes and delivery material. Please retain the source archive for audit and revision requests.\n\nJob reference: evidex-b0a30dd37214755b47d9\n",
+  "body_path": null,
+  "attachments": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/evidex_engine/output/Client_organization_to_confirm_EVIDEX_Pilot_Pack_Request_-_Thandi_Community_Trust_To_be_confirmed_to_To_be_confirmed_intake.zip"
+  ],
+  "risk": "moderate",
+  "approval": {
+    "required": true,
+    "state": "consumed",
+    "approved_at": "2026-08-08T22:48:13+00:00",
+    "expires_at": null,
+    "token_sha256": null
+  },
+  "send_state": "sent",
+  "created_at": "2026-08-08T21:00:39+00:00",
+  "updated_at": "2026-08-08T22:48:20+00:00",
+  "provider": "microsoft_graph",
+  "provider_draft_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAAEZBwAA",
+  "sent_at": "2026-08-08T22:48:20+00:00"
+}

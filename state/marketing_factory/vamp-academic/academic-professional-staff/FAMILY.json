@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "VAMP_ACADEMIC--academic_professional_staff",
+  "generated_at": "2026-08-09T14:02:21+00:00",
+  "product": {
+    "id": "VAMP_ACADEMIC",
+    "name": "VAMP Performance Evidence Desk",
+    "offer": "performance_evidence"
+  },
+  "audience": {
+    "id": "academic_professional_staff",
+    "name": "Academic and professional staff",
+    "pain": "Useful performance evidence is buried across Outlook, documents and project records.",
+    "outcome": "A review snapshot showing what supports each objective and what is missing."
+  },
+  "landing_page": "sites/vamp/index.html",
+  "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+  "assets": {
+    "square_1080": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/vamp-academic/academic-professional-staff/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/vamp-academic/academic-professional-staff/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/vamp-academic/academic-professional-staff/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio-workflows.local/schemas/public_intake.schema.json",
+  "title": "DIO public intake envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "product", "offer", "contact", "request", "consents", "attribution", "submitted_at"],
+  "properties": {
+    "schema": {"const": "dio.public_intake.v1"},
+    "product": {"enum": ["evidex", "homs", "sophia", "vamp", "document_studio"]},
+    "offer": {"type": "string", "minLength": 1, "maxLength": 80},
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "email"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 160},
+        "email": {"type": "string", "format": "email", "maxLength": 254},
+        "organisation": {"type": ["string", "null"], "maxLength": 240}
+      }
+    },
+    "request": {"type": "object"},
+    "consents": {"type": "object"},
+    "attribution": {"type": "object"},
+    "submitted_at": {"type": "string", "format": "date-time"},
+    "website_honeypot": {"type": "string", "maxLength": 0}
+  }
+}

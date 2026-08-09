@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"DIO Market Command Campaign",
+  "type":"object",
+  "required":["schema","campaign_id","product_line_id","name","audience","channel_id","objective","state","approval_state"],
+  "properties":{
+    "schema":{"const":"dio.market_campaign.v1"},
+    "campaign_id":{"type":"string"},
+    "product_line_id":{"type":"string"},
+    "name":{"type":"string"},
+    "audience":{"type":"string"},
+    "channel_id":{"type":"string"},
+    "objective":{"type":"string"},
+    "budget_cap_minor":{"type":"integer","minimum":0},
+    "state":{"enum":["draft","approved","active","paused","completed","settled"]},
+    "approval_state":{"enum":["pending","approved","rejected"]}
+  },
+  "additionalProperties":true
+}

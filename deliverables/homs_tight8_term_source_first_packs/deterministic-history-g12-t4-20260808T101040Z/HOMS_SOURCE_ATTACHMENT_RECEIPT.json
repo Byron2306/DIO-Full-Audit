@@ -1,0 +1,221 @@
+{
+  "schema": "knowedge.homs_source_attachment_receipt.v1",
+  "created_at": "2026-08-08T10:10:40+00:00",
+  "status": "attached",
+  "job_dir": "deliverables/homs_tight8_term_source_first_packs/deterministic-history-g12-t4-20260808T101040Z",
+  "bank": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+  "subject_id": "history",
+  "requested_source_types": [
+    "text_extract",
+    "photograph_or_image",
+    "cartoon",
+    "data_table"
+  ],
+  "attached_count": 3,
+  "missing_requested_source_types": [],
+  "source_assets": [
+    {
+      "id": "source_01_text_extract",
+      "title": "Official-paper exemplar: Text Extract",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "History P1 November 2024",
+      "page": 2,
+      "object_id": "Q2:text_extract:2:15",
+      "snippet": "QUESTION 2: INDEPENDENT AFRICA: CASE STUDY \u2013 ANGOLA QUESTION 3: CIVIL SOCIETY PROTESTS FROM THE 1950s TO THE 1970s: THE US CIVIL RIGHTS MOVEMENT",
+      "bank_png": "deliverables/homs_core_source_bank/history/text_extract/01_history_p1_november_2024_p02_q2_text_extract_2_15.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/history/text_extract/margin_trim/01_history_p1_november_2024_p02_q2_text_extract_2_15.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/history/text_extract/object_candidate/01_history_p1_november_2024_p02_q2_text_extract_2_15.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/history/text_extract/object_candidate/01_history_p1_november_2024_p02_q2_text_extract_2_15.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          715,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          762,
+          1147
+        ],
+        "crop_ratio": 0.8306,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/history/text_extract/object_candidate/01_history_p1_november_2024_p02_q2_text_extract_2_15.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          698,
+          643
+        ],
+        "object_candidate_bbox": [
+          47,
+          271,
+          745,
+          914
+        ],
+        "object_candidate_crop_ratio": 0.4638,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_photograph_or_image",
+      "title": "Official-paper exemplar: Photograph Or Image",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image"
+      ],
+      "paper": "History P1 November 2024",
+      "page": 5,
+      "object_id": "Q2:photograph_2",
+      "snippet": "2.3.1 Explain why you think this photograph was taken. (1 x 2) (2) 2.3.2 What do you think was the significance of the presence of the United Nations' Secretary General during the signing of the",
+      "bank_png": "deliverables/homs_core_source_bank/history/photograph_or_image/01_history_p1_november_2024_p05_q2_photograph_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/history/photograph_or_image/margin_trim/01_history_p1_november_2024_p05_q2_photograph_2.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/history/photograph_or_image/object_candidate/01_history_p1_november_2024_p05_q2_photograph_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/history/photograph_or_image/object_candidate/01_history_p1_november_2024_p05_q2_photograph_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          742,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          789,
+          1147
+        ],
+        "crop_ratio": 0.8619,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/history/photograph_or_image/object_candidate/01_history_p1_november_2024_p05_q2_photograph_2.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          674,
+          134
+        ],
+        "object_candidate_bbox": [
+          115,
+          942,
+          789,
+          1076
+        ],
+        "object_candidate_crop_ratio": 0.0933,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_cartoon",
+      "title": "Official-paper exemplar: Cartoon",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon"
+      ],
+      "paper": "History P1 November 2024",
+      "page": 4,
+      "object_id": "Q1:cartoon_1",
+      "snippet": "to be an appropriate caption for the cartoon. (1 x 2) (2) 1.5.2 Comment on the implication of the message on the signpost on the Western Sector side, '\u2026 DEFECTORS WELCOME'. (1 x 2) (2)",
+      "bank_png": "deliverables/homs_core_source_bank/history/cartoon/01_history_p1_november_2024_p04_q1_cartoon_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/history/cartoon/margin_trim/01_history_p1_november_2024_p04_q1_cartoon_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/history/cartoon/object_candidate/01_history_p1_november_2024_p04_q1_cartoon_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/history/cartoon/object_candidate/01_history_p1_november_2024_p04_q1_cartoon_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          761,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          808,
+          1147
+        ],
+        "crop_ratio": 0.884,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/history/cartoon/object_candidate/01_history_p1_november_2024_p04_q1_cartoon_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          760,
+          298
+        ],
+        "object_candidate_bbox": [
+          48,
+          578,
+          808,
+          876
+        ],
+        "object_candidate_crop_ratio": 0.2341,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "missing_source_bank": false,
+  "educator_approval_required": true
+}

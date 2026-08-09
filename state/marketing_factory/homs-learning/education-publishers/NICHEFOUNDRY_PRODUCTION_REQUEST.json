@@ -1,0 +1,32 @@
+{
+  "schema": "nichefoundry.dio_campaign_production_request.v1",
+  "family_id": "HOMS_LEARNING--education_publishers",
+  "title": "HOMS Learning for Education publishers and content teams",
+  "product": "HOMS_LEARNING",
+  "audience": "Education publishers and content teams",
+  "proof_asset": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+  "source_image": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/homs_learning_companion.png",
+  "scene_images": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-learning/education-publishers/assets/01_hook.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-learning/education-publishers/assets/02_proof.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-learning/education-publishers/assets/03_action.jpg"
+  ],
+  "music": {
+    "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "attribution": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/MUSIC_ATTRIBUTION.md",
+    "voice_required": false
+  },
+  "outputs": {
+    "vertical_reel": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-learning/education-publishers/assets/reel_1080x1920.mp4",
+    "long_form_explainer": {
+      "state": "brief_ready",
+      "target_seconds": 45,
+      "requires_operator_script_review": true
+    }
+  },
+  "release": {
+    "state": "held",
+    "operator_approval_required": true
+  },
+  "request_hash": "sha256:2b22e3a8bfb1034f3ab91f267be769c5d2aead8cc9451d9f84fe3417cdc07c29"
+}

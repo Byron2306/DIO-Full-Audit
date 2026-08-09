@@ -1,0 +1,100 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Consumer Studies",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Consumer Studies",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_consumer_studies_gr_10-12_web_c5db.pdf",
+    "sha256": "920f50fc0be1ab5c75e37a0135cd967362d75add40db601645f124697e845a57"
+  },
+  "canonical_profile_id": "fet.consumer_studies",
+  "assessment_family": "case_study_structured_questions",
+  "render_shell": "structured_case_paper",
+  "caps_theme_candidates": [
+    "The annual teaching plan in this CAPS document indicates that the theory for the subject and the practical",
+    "About 1,5 hours for practical work and the theory for practical work (one continuous period of 80 minutes",
+    "The practical assessment task (PAT) consists of two practical examinations per year for each grade. The",
+    "following minimum timeslots must be allocated for each practical examination:",
+    "about 1\u00bd hours in grade 10 for food production, two hours for all other options",
+    "two hours in grade 11 for food production, three hours for all other options",
+    "2\u00bd hours in grade 12 for food production, three hours for all the other options",
+    "Practical examinations for Grades 11 and 12 should be conducted in the time set aside for examinations/tests",
+    "Only 12 learners can do a practical examination simultaneously in Grades 11 and 12 in the section Food",
+    "Production. In view of this, there may have to be two timeslots per term per class. For the clothing and soft",
+    "Correct sizes and heights of work surfaces, storage of equipment and other resources.",
+    "CONSUMER STUDIES GRADES 10-12",
+    "Term 4: Promotion mark for Grade 10",
+    "Term 1 100 Practical examination 1 100 Written examination paper 200"
+  ],
+  "assessment_content_focus": [
+    "About 1,5 hours for practical work and the theory for practical work (one continuous period of 80 minutes",
+    "following minimum timeslots must be allocated for each practical examination:",
+    "Practical examinations for Grades 11 and 12 should be conducted in the time set aside for examinations/tests",
+    "Correct sizes and heights of work surfaces, storage of equipment and other resources.",
+    "Term 1 100 Practical examination 1 100 Written examination paper 200",
+    "About 1,5 hours for practical work and the theory for practical work (one continuous period of 80 minutes",
+    "Term 1 100 Practical examination 1 100 Written examination paper 200"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: about, allocated, aside, conducted, continuous, correct."
+  ],
+  "required_visuals": [
+    {
+      "id": "case_decision_table",
+      "title": "Case facts and decision table",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "case_table",
+      "must_show": [
+        "scenario facts",
+        "stakeholder",
+        "problem",
+        "evidence",
+        "recommendation"
+      ],
+      "assessment_use": "Learners justify decisions from case evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "About 1,5 hours for practical work and the theory for practical work (one continuous period of 80 minutes",
+      "following minimum timeslots must be allocated for each practical examination:",
+      "Practical examinations for Grades 11 and 12 should be conducted in the time set aside for examinations/tests",
+      "Correct sizes and heights of work surfaces, storage of equipment and other resources.",
+      "Term 1 100 Practical examination 1 100 Written examination paper 200"
+    ],
+    "admin_lines": [
+      "The annual teaching plan in this CAPS document indicates that the theory for the subject and the practical",
+      "The practical assessment task (PAT) consists of two practical examinations per year for each grade. The",
+      "Only 12 learners can do a practical examination simultaneously in Grades 11 and 12 in the section Food"
+    ],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

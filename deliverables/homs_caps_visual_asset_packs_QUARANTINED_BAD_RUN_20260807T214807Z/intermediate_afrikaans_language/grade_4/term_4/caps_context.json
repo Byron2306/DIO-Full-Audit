@@ -1,0 +1,101 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T21:47:31+00:00",
+  "enabled": true,
+  "subject_id": "afrikaans",
+  "subject": "Afrikaans Language",
+  "grade": 4,
+  "phase": "intermediate_grade_4_6",
+  "preferred_language": "English",
+  "candidate_count": 3,
+  "candidates": [
+    {
+      "score": 100,
+      "document_id": "fileticket_gsipje-gytg",
+      "title": "Afrikaans",
+      "phase": "intermediate_grade_4_6",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_ip_fal_afrikaans_gr_4-6_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=GsipjE-GyTg%3d&tabid=572&portalid=0&mid=1565",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20IP%20%20FAL%20%20AFRIKAANS%20GR%204-6%20%20WEB.pdf?ver=2015-01-27-160948-897",
+      "sha256": "b4f9ebf244692d05c60f37ea14cd1aba5815464768d2a901f077d4f7e233566c",
+      "bytes": 1660207
+    },
+    {
+      "score": 100,
+      "document_id": "fileticket_h2w6zb4_cvs",
+      "title": "Afrikaans",
+      "phase": "intermediate_grade_4_6",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_ip_home_afrikaans_gr_4-6_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=H2w6zb4_CVs%3d&tabid=572&portalid=0&mid=1564",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20IP%20%20HOME%20%20AFRIKAANS%20GR%204-6%20%20WEB.pdf?ver=2015-01-27-160403-030",
+      "sha256": "7341083f52d6bfa0c8f40ed3e6c80a34046295238e316ad1ef3edaab6ec2e8df",
+      "bytes": 1156120
+    },
+    {
+      "score": 100,
+      "document_id": "fileticket_ome0qurgpk0",
+      "title": "Afrikaans",
+      "phase": "intermediate_grade_4_6",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_ip_sal_afrikaans_gr_4-6_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=oMe0QuRgpk0%3d&tabid=572&portalid=0&mid=1566",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20IP%20%20SAL%20%20AFRIKAANS%20GR%204-6%20%20WEB.pdf?ver=2015-01-27-161300-377",
+      "sha256": "994b97888f999f3cf8ac1f1b282c12626815db216a033958a87b9a687246bb39",
+      "bytes": 1356251
+    }
+  ],
+  "selected": {
+    "score": 100,
+    "document_id": "fileticket_gsipje-gytg",
+    "title": "Afrikaans",
+    "phase": "intermediate_grade_4_6",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_ip_fal_afrikaans_gr_4-6_web.pdf",
+    "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=GsipjE-GyTg%3d&tabid=572&portalid=0&mid=1565",
+    "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20IP%20%20FAL%20%20AFRIKAANS%20GR%204-6%20%20WEB.pdf?ver=2015-01-27-160948-897",
+    "sha256": "b4f9ebf244692d05c60f37ea14cd1aba5815464768d2a901f077d4f7e233566c",
+    "bytes": 1660207
+  },
+  "assessment_ontology_profile": {
+    "profile_id": "intermediate.afrikaans_language",
+    "subject": "Afrikaans Language",
+    "phase": "intermediate_grade_4_6",
+    "assessment_family": "language_integrated_assessment"
+  },
+  "assessment_design_profile": {
+    "profile_id": "intermediate.afrikaans_language",
+    "subject": "Afrikaans Language",
+    "phase": "intermediate_grade_4_6",
+    "phase_group": "intermediate",
+    "assessment_family": "language_integrated_assessment",
+    "render_shell": "language_integrated_task",
+    "confidence": "medium",
+    "assessment_forms": [],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "reading_viewing": 35,
+      "writing_presenting": 30,
+      "language_structures": 20,
+      "listening_speaking": 15
+    },
+    "marking_instruments": [
+      "memorandum",
+      "rubric"
+    ],
+    "generation_constraints": [
+      "Use language-skills integration instead of a generic content subject exam.",
+      "Scale text length, vocabulary, and writing load to the phase."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      "assessering van die leerder se vordering in die tweede helfte van die jaar, tot op die tyd van die eksamen. KABV 99 AFRIKAANS EERSTE ADDISIONELE TAAL GRAAD 4-6 Skoolgebaseerde Assessering en eksamens in Graad 4 en 5 Programme of Assessment SBA per Term Kwartaal 1: Kwartaal 2: Kwartaal 3: Kwartaal 4: 2 Take 1 Taak 2 Take 1 Taak + 1 Halfjaar eksamen 2 Vraestelle: Vraestel 1: SBA Mondeling; 75% Hardoplees, Luister en Praat Vraestel 2 (2 ure): Skriftelik: Leesbegrip , Taal in konteks en Skryf - kreatiewe tekste en transaksionele tekste) 1 Jaareind-eksamen: 2 Vraestelle: Vraestel 1: Mondeling: EXAMINATIONS Hardoplees, Luister en Praat 25% Vraestel 2: Skriftelik: Leesbegrip , Taal in konteks en Skryf - kreatiewe tekste en transaksionele tekste) Assesseringsprogram 100 KURRIKULUM- EN ASSESSERINGSBELEIDSVERKLARING (KABV) AFRIKAANS EERSTE ADDISIONELE"
+    ]
+  },
+  "extracted_excerpt": "AFRIKAANS EERSTE ADDISIONELE TAAL\n\n                                     Nasionale Kurrikulumverklaring (NKV)\n\n                                                      Kurrikulum- en\n                                               assesseringsbeleidsverklaring\n\n                                                    Intermedi\u00eare fase\n                                                        Graad 4-6\n\n                    \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n                    \u0013\u0012\u0011\u001e\u0010\u0016\u000f\u0012\u0014\u0016\u000e\n                    \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n                    \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0017\u0014\u0016\u001c\u0013\u0012\u0017\u0011\u0015\u001f\u0019\u0018\u0011\n\f  KURRIKULUM- EN ASSESSERINGSBELEIDSVERKLARING\n                    GRAAD 4-6\n\n        AFRIKAANS EERSTE ADDISIONELE TAAL\n\nKABV\n\fAFRIKAANS EERSTE ADDISIONELE TAAL GRAAD 4-6\nDISCLAIMER\n\nIn view of the stringent time requirements encountered by the Department of Basic Education to effect the necessary editorial changes and layout\nto the Curriculum and Assessment Policy Statements and the supplementary policy documents, possible errors may occur in the said documents\nplaced on the official departmental websites.\n\nThere may also be vernacular inconsistencies in the language documents at Home-, First and Second Additional Language levels which have been\ntranslated in the various African Languages. Please note that the content of the documents translated and versioned in the African Languages are\ncorrect as they are based on the English generic language documents at all three language levels to be implemented in all four school phases.\n\nIf any editorial, layout or vernacular inconsistencies are detected, the user is kindly requested to bring this to the attention of the Department of\nBasic Education.\n\nE-mail: capslangcomments@dbe.gov.za or fax (012) 328 9828\n\nDepartment of Basic Education\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nISBN: 978-1-4315-0467-1\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n        2            KURRIKULUM- EN ASSESSERINGSBELEIDSVERKLARING (KABV)\n\f                                     AFRIKAANS EERSTE ADDISIONELE TAAL GRAAD 4-6\nFOREWORD BY THE MINISTER\n\n                                 Our national curriculum is the culmination of our efforts over a period of seventeen\n                                 years to transform the curriculum bequeathed to us by apartheid. From the start of\n                                 democracy we have built our curriculum on the values that inspired our Constitution\n                                 (Act 108 of 1996). The Preamble to the Constitution states that the aims of the\n                                 Constitution are to:\n\n                                 \u2022     heal the divisions of the past and establish a society based on democratic\n                                       values, social justice and fundamental human rights;\n\n                                 \u2022     improve the quality of life of all citizens and free the potential of each person;\n\n                                 \u2022     lay the foundations for a democratic and open society in which government is\n                                       based on the will of the people and every citizen is equally protected by law;\n                                       and\n\n\u2022     build a united and democratic South Africa",
+  "extraction_error": null
+}

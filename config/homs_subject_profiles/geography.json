@@ -1,0 +1,72 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "geography",
+  "display_name": "Geography",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "source_based_exam",
+    "mapwork",
+    "data_response",
+    "diagram_interpretation",
+    "extended_response",
+    "marking_relief"
+  ],
+  "source_types": [
+    "topographic_map_and_orthophoto",
+    "synoptic_weather_map",
+    "map_extract",
+    "photograph_or_image",
+    "graph",
+    "data_table",
+    "text_extract",
+    "diagram"
+  ],
+  "question_families": [
+    "read_map_evidence",
+    "interpret_synoptic_weather",
+    "analyse_graph_or_table",
+    "compare_spatial_patterns",
+    "explain_physical_process",
+    "evaluate_human_environment_interaction",
+    "write_extended_geographical_response"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "map_skill",
+    "data_interpretation",
+    "spatial_reasoning",
+    "process_explanation",
+    "evaluation"
+  ],
+  "rubric_dimensions": [
+    "geographical_accuracy",
+    "source_use",
+    "mapwork_method",
+    "data_interpretation",
+    "spatial_reasoning",
+    "terminology"
+  ],
+  "memo_expectations": [
+    "credit source-based evidence explicitly",
+    "separate mapwork method marks from final answers",
+    "accept geographically valid equivalent wording",
+    "flag when a map or photograph must be supplied as an official source asset"
+  ],
+  "retrieval_queries": [
+    "CAPS Geography mapwork source based assessment memorandum",
+    "Geography synoptic weather map assessment questions",
+    "Geography data response and extended writing rubric"
+  ],
+  "human_review_checks": [
+    "verify map extracts and images are present and readable",
+    "confirm scale, direction and grid references are internally consistent",
+    "check terminology against CAPS topic and grade",
+    "confirm extended response mark allocation matches cognitive demand"
+  ],
+  "blocked_claims_or_modes": [
+    "mapwork question without a supplied map or extract",
+    "photograph/image question without supplied visual evidence",
+    "invented place data presented as official",
+    "diagram labels not visible in the source"
+  ]
+}

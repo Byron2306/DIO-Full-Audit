@@ -1,0 +1,26 @@
+{
+  "schema": "dio.mail_ingress.v1",
+  "mail_ingress_id": "INGRESS-7747389E5637CD4A",
+  "provider": "microsoft_graph",
+  "provider_message_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAACXjAAA",
+  "internet_message_id": null,
+  "conversation_id": null,
+  "received_at": null,
+  "captured_at": "2026-08-08T17:51:16+00:00",
+  "sender": {
+    "name": null,
+    "address": null
+  },
+  "subject": "",
+  "body": {},
+  "body_preview": "",
+  "has_attachments": false,
+  "is_read": true,
+  "routing_state": "needs_operator_triage",
+  "triage": {
+    "state": "needs_operator_triage",
+    "reason": "No authoritative lead, conversation binding, or confident product route was found.",
+    "assessed_at": "2026-08-09T18:48:15+00:00",
+    "authority": "dio_triune_internal"
+  }
+}

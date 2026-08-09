@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.caps_assessment_demo_receipt.v1",
+  "created_at": "2026-08-07T20:32:08+00:00",
+  "status": "generated",
+  "job_id": "foundation_mathematics_grade3_20260807T203208Z",
+  "proof_group": "foundation",
+  "selected_grade": 3,
+  "caps": {
+    "title": "Mathematics",
+    "phase": "foundation_grade_r_3",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/caps_maths_english_gr_r_fs.pdf",
+    "sha256": "946fb1ac29386a3bf6db7a77437ab3d7126ed67961780c24fe6f4b34733d20aa",
+    "recommended_blueprint": "foundation_activity_assessment",
+    "source_document_title": "English",
+    "signals": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": false,
+      "signals_case_study": false,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": false,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    }
+  },
+  "canonical_profile": {
+    "profile_id": "foundation.mathematics",
+    "subject": "Mathematics",
+    "subject_family": "mathematics",
+    "assessment_family": "foundation_activity_assessment",
+    "allowed": [
+      "concrete_activity",
+      "teacher_observation",
+      "oral_prompt",
+      "picture_prompt",
+      "short_constructed_response"
+    ],
+    "default_off": [
+      "essay",
+      "long_source_based_response",
+      "case_study",
+      "formal_exam_pressure"
+    ],
+    "required_distribution": {
+      "observable_activity": 50,
+      "oral_or_practical_response": 30,
+      "short_recorded_response": 20
+    }
+  },
+  "duration_seconds": 14.854,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/foundation_mathematics_grade3_20260807T203208Z",
+    "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/foundation_mathematics_grade3_20260807T203208Z/assessment_pack.json",
+    "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/foundation_mathematics_grade3_20260807T203208Z/ASSESSMENT_PACK.md",
+    "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/foundation_mathematics_grade3_20260807T203208Z/ASSESSMENT_PACK.docx",
+    "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/foundation_mathematics_grade3_20260807T203208Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+  }
+}

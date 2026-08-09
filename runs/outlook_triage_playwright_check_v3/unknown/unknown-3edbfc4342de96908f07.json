@@ -1,0 +1,58 @@
+{
+  "job_id": "unknown-3edbfc4342de96908f07",
+  "created_at": "2026-08-07T14:41:04+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "965782ab5ab5499df886",
+    "thread_ref": "965782ab5ab5499df886"
+  },
+  "route": {
+    "product": "unknown",
+    "confidence": 0.2,
+    "reason": "No configured route keywords matched."
+  },
+  "status": "blocked",
+  "risk": "sensitive",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "Michael Gent",
+      "sender": "Michael Gent",
+      "attachment_names": "",
+      "intent": "meeting_or_scheduling",
+      "urgency": "high",
+      "next_step": "Review availability, then insert/send manually from Outlook if appropriate.",
+      "draft_status": "draft_ready",
+      "primary_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/primary_965782ab5ab5499df886_Michael_Gent.txt",
+      "safer_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/safer_965782ab5ab5499df886_Michael_Gent.txt",
+      "shorter_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/shorter_965782ab5ab5499df886_Michael_Gent.txt",
+      "evidence_note_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/evidence_note_965782ab5ab5499df886_Michael_Gent.txt"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "3edbfc4342de96908f07",
+      "source_type": "email",
+      "source_path": "",
+      "title": "Michael Gent",
+      "date_observed": "2026-08-07T14:41:04+00:00",
+      "text_extract": "Evidence note for: Michael Gent\n\nEvidence seen:\n- Sender visible: Michael Gent\n- Subject visible: Michael Gent\n- Folder/source context: Inbox\n- Body text or preview reviewed.\n- Risk flags assigned: contains_email_address, contains_phone_number, references_evidence_or_attachment\n\nMissing information:\n- Confirmed availability\n\nThis note is for review and audit. It is not an outbound email.",
+      "hash": "89ceff5c0e5bd70db37f",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.2,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

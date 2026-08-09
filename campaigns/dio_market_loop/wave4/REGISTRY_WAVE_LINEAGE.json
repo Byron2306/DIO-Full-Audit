@@ -1,0 +1,45 @@
+{
+  "schema": "dio.registry_wave_lineage.v1",
+  "generated_at": "2026-08-08T22:11:08+00:00",
+  "waves": [
+    {
+      "archive": "DIO_Prospect_Intelligence_Wave2.zip",
+      "archive_sha256": "f8a8c44970b0f3fb7b38d2e25e59771ef9f8835385f965073f6352d8ed19bbe7",
+      "schema": "dio.prospect_intelligence.wave2.v1",
+      "created_at": "2026-08-08T15:00:00Z",
+      "active": false,
+      "counts": {
+        "prospects": 2376,
+        "product_opportunities": null,
+        "buyer_unit_targets": null,
+        "electronic_sales_allowed": null
+      }
+    },
+    {
+      "archive": "DIO_Prospect_Intelligence_Wave3.zip",
+      "archive_sha256": "6145372344d46ca401de8452a44a3f41c4e5542240aefd43c71cfbe61e127266",
+      "schema": "dio.prospect_intelligence.wave3.v1",
+      "created_at": "2026-08-08",
+      "active": false,
+      "counts": {
+        "prospects": 2422,
+        "product_opportunities": 4834,
+        "buyer_unit_targets": null,
+        "electronic_sales_allowed": 0
+      }
+    },
+    {
+      "archive": "DIO_Prospect_Intelligence_Wave4.zip",
+      "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+      "schema": "dio.prospect_intelligence.wave4.v1",
+      "created_at": "2026-08-08",
+      "active": true,
+      "counts": {
+        "prospects": 2422,
+        "product_opportunities": 4834,
+        "buyer_unit_targets": 426,
+        "electronic_sales_allowed": 0
+      }
+    }
+  ]
+}

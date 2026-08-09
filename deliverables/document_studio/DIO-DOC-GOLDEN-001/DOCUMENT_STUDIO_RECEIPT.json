@@ -1,0 +1,127 @@
+{
+  "schema": "dio.document_studio.receipt.v1",
+  "job_id": "DIO-DOC-GOLDEN-001",
+  "created_at": "2026-08-09T01:54:13+00:00",
+  "status": "linguistic_approved_pending_remaining_review",
+  "service": "edit_and_translate",
+  "source": {
+    "name": "water_quality_procedure_source.txt",
+    "sha256": "2b5bb65ba87da2a0eb3458cbbe16b03cf991d4ec3cc8d7329057e9a95f8f7afe",
+    "parser": "plain_text",
+    "paragraphs": 7
+  },
+  "processing": {
+    "provider": "gemini",
+    "model": "gemini-flash-lite-latest",
+    "provider_status": "ok",
+    "remote_processing_approved": true,
+    "owner_authorized": true,
+    "local_validation_passed": true,
+    "beast_reuse_state": "miss",
+    "beast_learning_count": 4,
+    "semantic_object_id": "DIO-LINGUA-WATER-001"
+  },
+  "release": {
+    "delivery_released": false,
+    "certified_translation": false,
+    "human_approval_required": true,
+    "linguistic_quality_approved": true,
+    "release_readiness": "linguistic_approved_pending_remaining_review",
+    "language_reviewer": "Byron Bunt",
+    "language_approved_at": "2026-08-09T11:39:58+00:00"
+  },
+  "outputs": [
+    {
+      "path": "BEAST_LEARNING_RECEIPT.json",
+      "sha256": "e12e32f5b7b97e409499dd276fd1dbb06d2b785ac55a6170a4f4936797320257"
+    },
+    {
+      "path": "BEAST_REUSE_RECEIPT.json",
+      "sha256": "d0fd90bb7980edabdda7d5cba7244226ec75b826f42fa76a7d770ba6133a1bc7"
+    },
+    {
+      "path": "BILINGUAL_REVIEW_COPY.docx",
+      "sha256": "feef54b84a22edae0d3f17e701b9b00b452a33a35329b9ef29ed9be0c29058b2"
+    },
+    {
+      "path": "CHANGE_LEDGER.csv",
+      "sha256": "ff26194707fcb5e37007dca88ebe0aa56d93f3f0771d399ee5e21ea88961228a"
+    },
+    {
+      "path": "CLEAN_EDITED_COPY.docx",
+      "sha256": "22b378f43ae449fdadc65ce68c49336655370b4e54f417440844c5de87c0dc26"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_PROOF.png",
+      "sha256": "980e75b2b8cf3e888f87b3d0bc383a5c83ca4995f46f4df6e5426e03f336a412"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_QA.json",
+      "sha256": "d581ba396a5883ad306195fa835867bd4f2062db53e7e4861a6785971b4cf58d"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_QA.md",
+      "sha256": "37a7ea969c8b789bc3e1e87e2f15d2e97524bb0dee3ccd840f29020a7381eda7"
+    },
+    {
+      "path": "HUMAN_APPROVAL.md",
+      "sha256": "8a3cdeff35ba2da058977942d6b49dc6f0e6af56b9c755ee9ce9d02ee6726b3d"
+    },
+    {
+      "path": "LINGUA_APPROVAL_TEMPLATE.json",
+      "sha256": "7bae5f72182a24ff48eea2bc9e62dce39a7ed50545dd16b497bcee56e50d834c"
+    },
+    {
+      "path": "LINGUA_BEAST_APPROVAL_RECEIPT.json",
+      "sha256": "fb0bd89cf898c29979bd4fb0ec1d779f99d86bb4c2833fa9576b0e54178bad0a"
+    },
+    {
+      "path": "LINGUA_CHANGE_RECEIPT.json",
+      "sha256": "e998c49139385fb20f49bfea1c2dfa43bfdf2d54b761ec702bfcbed0754a6f7d"
+    },
+    {
+      "path": "LINGUA_HUMAN_APPROVAL.json",
+      "sha256": "4bfc6a6628f89fb1df6f3da36ab30d5c8a4486d5c270eeea214b719f3e5c406f"
+    },
+    {
+      "path": "LINGUA_QA.json",
+      "sha256": "f6ba1e1f8f2971992e6b8781bb3ca7cb9460d865e4dc5809fd140e9b302cd9bd"
+    },
+    {
+      "path": "LINGUA_SEMANTIC_OBJECT.json",
+      "sha256": "d7b801f6185bbad5063ba3be4e7083c163182d224356c29a93abbd716d8140e3"
+    },
+    {
+      "path": "PROVIDER_OUTPUT.json",
+      "sha256": "b4fe798e7f56434e81e34c1dafb2910c7b898fb7d2065112abcf97a48dc3129d"
+    },
+    {
+      "path": "REDLINE_REVIEW_COPY.docx",
+      "sha256": "d7c2a5a4c02b6333fecaebe5b54f58ae7b96e1dddb491f5d4ff8903695b02075"
+    },
+    {
+      "path": "TERMINOLOGY_GLOSSARY.csv",
+      "sha256": "1d1654c96431da04f86f7cb93cb1075d07873ef7248242def5f52cd047fe74d2"
+    },
+    {
+      "path": "TRANSLATED_CLEAN_COPY.docx",
+      "sha256": "0de1b180fde6b9774469262fdbff4ed63d359eb5ce0262b9ee1c92a7cc17813d"
+    },
+    {
+      "path": "pdf/BILINGUAL_REVIEW_COPY.pdf",
+      "sha256": "f9ac24e5a543f92e3f98a01d745f7eb8a6f02798313886b5ae986badac77397e"
+    },
+    {
+      "path": "pdf/CLEAN_EDITED_COPY.pdf",
+      "sha256": "3da00b44d4aec067db04edc5e76d5f3788c53aa3d364b4f3873c3bc71005b364"
+    },
+    {
+      "path": "pdf/REDLINE_REVIEW_COPY.pdf",
+      "sha256": "7f54fc5dff8c777490c41ac96d808d2d823249cbbe46467adc3ed587d7a2724f"
+    },
+    {
+      "path": "pdf/TRANSLATED_CLEAN_COPY.pdf",
+      "sha256": "86199c45e3e951cf7988847199b5cf2e0fe00223f66fc81833cea1e22c73b274"
+    }
+  ]
+}

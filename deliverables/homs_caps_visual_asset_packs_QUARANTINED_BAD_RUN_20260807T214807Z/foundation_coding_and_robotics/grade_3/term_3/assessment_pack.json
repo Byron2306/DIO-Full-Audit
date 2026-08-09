@@ -1,0 +1,127 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "assessment_title": "Grade 3 Coding and Robotics Term 3 Visual Asset Pack: In Grades R, 1 and 2, 1 hour per week (10 hours per term) is allocated",
+  "subject": "Coding and Robotics",
+  "grade": 3,
+  "phase": "foundation_grade_r_3",
+  "canonical_profile_id": "foundation.coding_and_robotics",
+  "blueprint": "foundation_activity_assessment",
+  "render_shell": "project_task_sheet",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Coding And Robotics",
+    "grade": 3,
+    "phase": "foundation_grade_r_3",
+    "term": "3",
+    "caps_source": {
+      "title": "English",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/fp_coding_and_robotics_caps_final_2025.pdf",
+      "sha256": "570e1d87f30d06646940851ebfd2aa58639a3fe91e576a62853f1bbc084f08fe"
+    },
+    "canonical_profile_id": "foundation.coding_and_robotics",
+    "assessment_family": "foundation_activity_assessment",
+    "render_shell": "project_task_sheet",
+    "caps_theme_candidates": [
+      "In Grades R, 1 and 2, 1 hour per week (10 hours per term) is allocated for coding and robotics. In Grade 3, the",
+      "time allocation for coding and robotics is 2 hours per week (20 hours per term).",
+      "The following table provides the time allocation per term as a percentage of the total available time per term:",
+      "Table 2.1: Time allocation for Foundation Phase Coding and Robotics",
+      "Gr R ,1,2 = % per Term 1 Term 2 Term 3 Term 4",
+      "The content and competencies are also grouped based on the main topic areas. This organisation helps teachers understand which",
+      "skills and knowledge are related and how they are connected. The content and competencies are therefore not necessarily listed in",
+      "the order they must be taught. Teachers have flexibility in how they sequence the topics based on the context of their teaching",
+      "Teachers should therefore develop their Annual Teaching Plans (ATPs) sequencing content and competencies in a manner that will",
+      "3.1 GRADE R",
+      "Teachers must include the following competencies and content in their Annual Teaching Plans (ATPs), distributed across the terms and sequenced, organised, grouped",
+      "(and synergised with other subjects in Grade R, where applicable), and in a manner that will facilitate learning, ensure ample retrieval and deliberate practise, with",
+      "make optimal use of available time and resources.",
+      "ulum Statement for Grades R-12 builds on the previous curriculum but also updates it and"
+    ],
+    "assessment_content_focus": [
+      "In Grades R, 1 and 2, 1 hour per week (10 hours per term) is allocated for coding and robotics. In Grade 3, the",
+      "time allocation for coding and robotics is 2 hours per week (20 hours per term).",
+      "In Grades R, 1 and 2, 1 hour per week (10 hours per term) is allocated for coding and robotics. In Grade 3, the",
+      "time allocation for coding and robotics is 2 hours per week (20 hours per term)."
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: allocated, allocation, coding, grades, hours, robotics."
+    ],
+    "required_visuals": [
+      {
+        "id": "design_test_log",
+        "title": "Design, build, test and improve log",
+        "role": "learner_workspace",
+        "visual_kind": "design_log",
+        "must_show": [
+          "problem",
+          "constraints",
+          "diagram",
+          "test result",
+          "improvement"
+        ],
+        "assessment_use": "Learners retain process evidence for marking."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "duration": "visual preflight",
+  "total_marks": 25,
+  "sections": [
+    {
+      "title": "Visual Evidence Preflight",
+      "mode": "project_task_sheet",
+      "instructions": "Use this pre-made visual pack as the visual contract before generating the final assessment.",
+      "stimulus": "Coding and Robotics Grade 3 Term 3: In Grades R, 1 and 2, 1 hour per week (10 hours per term) is allocated for coding and robotics. In Grade 3, the",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Use the supplied Coding and Robotics visual evidence to answer the structured task.",
+          "marks": 10,
+          "memo": [
+            "Credit accurate subject knowledge."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain your answer using evidence from the visual or source.",
+          "marks": 15,
+          "memo": [
+            "Credit evidence-linked reasoning."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Visual evidence use",
+      "marks": 10,
+      "descriptor": "Learner uses the supplied visual evidence accurately."
+    },
+    {
+      "criterion": "Subject reasoning",
+      "marks": 10,
+      "descriptor": "Response shows CAPS-aligned reasoning for the subject and grade."
+    },
+    {
+      "criterion": "Communication or process evidence",
+      "marks": 5,
+      "descriptor": "Working, planning, observation or response is clear enough to mark."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS subject, grade and term fit.",
+    "Confirm the final assessment questions use the planned visuals as evidence.",
+    "Confirm visual labels, units and mark expectations before classroom use."
+  ]
+}

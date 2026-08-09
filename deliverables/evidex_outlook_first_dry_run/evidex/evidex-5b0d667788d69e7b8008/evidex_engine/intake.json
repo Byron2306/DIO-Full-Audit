@@ -1,0 +1,44 @@
+{
+  "client": {
+    "organization": "Client organization to confirm",
+    "contact_name": "M&E Coordinator",
+    "contact_email": "[email]"
+  },
+  "pack": {
+    "purpose": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+    "donor": "To be confirmed",
+    "project_name": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+    "grant_id": "evidex-5b0d667788d69e7b8008",
+    "reporting_period": {
+      "start": "To be confirmed",
+      "end": "To be confirmed"
+    },
+    "tone": "clear, conservative, audit-ready",
+    "include_appendix": true
+  },
+  "kpis": [
+    {
+      "name": "Evidence request and source materials organized",
+      "target": "Complete evidence pack",
+      "actual": "Candidate evidence received",
+      "measurement": "Email request, listed attachments, and source notes"
+    }
+  ],
+  "constraints": {
+    "avoid_claims": [
+      "Do not claim outcomes that are not directly supported by supplied evidence.",
+      "Do not treat this generated pack as final until reviewed by the operator."
+    ],
+    "known_gaps": [
+      "Client organization, reporting period, donor template, and KPI list may need confirmation.",
+      "Original route reason: Matched route keywords: grant, reporting, evidence pack, kpi, donor, m&e.",
+      "Original evidence extract: We need a review-ready evidence pack for a donor grant report. The project has KPI progress, attendance registers, receipts, photos, and email approvals, but the evidence is scattered. We need a source index, evidence table, narrative draft, QA receipt, and a ZIP that our grant consultant can review. Reporting period is April to June. Please tell us how to send a redacted pilot folder and invoice/payment link."
+    ]
+  },
+  "billing": {
+    "client_type": "ngo",
+    "quantity": 1,
+    "currency": "ZAR",
+    "service_name": "Evidex Evidence Pack"
+  }
+}

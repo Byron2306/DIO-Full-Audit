@@ -1,0 +1,74 @@
+{
+  "schema": "knowedge.homs_senior_phase_validation.v1",
+  "created_at": "2026-08-08T07:18:51+00:00",
+  "status": "passed",
+  "release_status": "blocked",
+  "passed": 8,
+  "failed": 0,
+  "results": [
+    {
+      "subject_id": "english_language",
+      "display_name": "English Language",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "display_name": "Afrikaans Language",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "mathematics",
+      "display_name": "Mathematics",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "life_orientation",
+      "display_name": "Life Orientation",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "life_sciences",
+      "display_name": "Natural Sciences: Life And Living Strand",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "physical_sciences",
+      "display_name": "Natural Sciences: Matter, Energy, Planet Earth Strand",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "geography",
+      "display_name": "Social Sciences: Geography",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    },
+    {
+      "subject_id": "history",
+      "display_name": "Social Sciences: History",
+      "status": "passed",
+      "failures": [],
+      "blueprint_count": 3,
+      "release_gate": "blocked_until_senior_phase_source_and_educator_review"
+    }
+  ]
+}

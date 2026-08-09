@@ -1,0 +1,32 @@
+{
+  "schema": "dio.document_studio.request.v1",
+  "job_id": "DIO-DOC-GOLDEN-001",
+  "title": "Community Water Quality Monitoring Procedure",
+  "document_path": "water_quality_procedure_source.txt",
+  "service": "edit_and_translate",
+  "source_language": "English",
+  "target_language": "Afrikaans",
+  "audience": "Municipal field technicians",
+  "document_domain": "Water-quality operations",
+  "style_standard": "Plain South African technical English; concise instructions; preserve operational meaning",
+  "protected_tokens": ["pH", "NTU", "QMS-07"],
+  "preferred_terms": [
+    {"source": "personal protective equipment", "target": "persoonlike beskermende toerusting", "abbreviation": "PBT"},
+    {"source": "turbidity", "target": "troebelheid", "abbreviation": ""},
+    {"source": "chain of custody", "target": "bewaringsketting", "abbreviation": ""}
+  ],
+  "translation_review_overrides": {
+    "P1": "Prosedure vir Gemeenskapswatergehaltemonitering",
+    "P3": "Omvang: Dit is van toepassing op roetinemonsters wat by reservoirs, behandelingsuitlate en openbare krane versamel word. Die prosedure dek nie chemiese noodstortings of die kalibrering van laboratoriuminstrumente nie.",
+    "P4": "Verantwoordelikhede: Die spanleier kontroleer dat elke tegnikus oor persoonlike beskermende toerusting (PBT), skoon monsterbottels en 'n gekalibreerde meter beskik. Tegnici is verantwoordelik vir die voltooiing van Bewaringskettingvorm QMS-07 en die aanmelding van onveilige toestande.",
+    "P5": "Prosedure: Laat die kraan 2 minute lank loop voordat 'n monster geneem word. Spoel die sonde met skoon water af, maar moenie 'n steriele mikrobiologiese bottel uitspoel nie. Teken die pH en troebelheid in NTU op die terrein aan. Monsters moet in 'n koelhouer tussen 2 en 8 grade Celsius geplaas word.",
+    "P6": "Data-aantekening: Skryf die terreinkode, datum, tyd en monsternemer se voorletters op die bottel en QMS-07. Maak regstellings deur 'n enkele streep deur die fout te trek; korreksievloeistof word nie toegelaat nie. Die rede vir enige ontbrekende lesing moet aangedui word.",
+    "P7": "Eskalering: Indien pH laer as 6.5 of ho\u00ebr as 9.5 is, of troebelheid ho\u00ebr as 1 NTU is, skakel die spanleier onmiddellik. Moenie die gemeenskap inlig dat die water veilig of onveilig is voordat die gemagtigde amptenaar die resultaat hersien het nie."
+  },
+  "translation_override_reviewer": "DIO internal bilingual proof review",
+  "owner_authorized": true,
+  "remote_processing_approved": true,
+  "certified_translation_required": false,
+  "human_language_review_required": true,
+  "gemini_model": "gemini-flash-lite-latest"
+}

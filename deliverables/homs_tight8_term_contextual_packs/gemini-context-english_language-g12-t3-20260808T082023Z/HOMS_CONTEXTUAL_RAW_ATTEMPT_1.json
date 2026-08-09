@@ -1,0 +1,303 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Home Language Term 3 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS Grade 12 English Language Term 3 Assessment focusing on integrated comprehension, summary, visual literacy, language structures, and formal transactional writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Comprehension and Summary",
+      "mode": "comprehension",
+      "instructions": "Read the passage below (Text A) and answer the questions that follow. Then, complete the summary task.",
+      "stimulus": "TEXT A: THE DIGITAL SHIFT: LANGUAGE EVOLUTION IN THE 21ST CENTURY CLASSROOM\n\nParagraph 1\nFor decades, educators have guarded the gates of formal English with fierce determination. Red pens have slashed through colloquialisms, and split infinitives have been treated as grammatical crimes. However, the digital revolution has breached these defenses. Instant messaging, social media algorithms, and rapid-fire texting have introduced a new linguistic hybridity that challenges traditional classroom norms.\n\nParagraph 2\nRather than signaling the death of formal language, some linguists argue that digital communication fosters a sophisticated form of code-switching. High school learners navigate between the highly abbreviated, emoji-laden register of text messages and the structured, formal register required for academic essays. This dual-fluency suggests that the modern learner is not linguistically impoverished, but rather highly adaptable. \n\nParagraph 3\nYet, the transition is not always seamless. Teachers frequently report the intrusion of SMS shorthand\u2014such as 'u' for 'you' and 'btw' for 'by the way'\u2014into formal examinations. This leakage of informal registers into formal contexts points to a lack of critical awareness among learners regarding audience and purpose. Without explicit instruction on register boundaries, the line between casual digital banter and professional communication becomes dangerously blurred.\n\nParagraph 4\nTo bridge this gap, forward-thinking schools are integrating digital literacy directly into the language curriculum. By analyzing text messages as linguistic artifacts, learners develop a meta-cognitive awareness of how language functions in different spaces. This approach does not degrade formal standards; instead, it contextualizes them, showing learners that formal English is not an arbitrary set of rules, but a powerful tool for professional and public discourse.",
+      "questions": [
+        {
+          "number": "1.1.1",
+          "question": "State two ways in which digital communication has challenged traditional classroom language norms, according to Paragraph 1.",
+          "marks": 2,
+          "memo": [
+            "It has introduced a new linguistic hybridity.",
+            "It has breached traditional defenses by introducing instant messaging, social media algorithms, and rapid-fire texting into learners' writing habits."
+          ]
+        },
+        {
+          "number": "1.1.2",
+          "question": "Explain what the author means by the term 'linguistic hybridity' in the context of Paragraph 1.",
+          "marks": 2,
+          "memo": [
+            "Linguistic hybridity refers to the blending or mixing of different language registers, specifically combining informal digital shorthand/slang with formal grammatical structures."
+          ]
+        },
+        {
+          "number": "1.1.3",
+          "question": "Refer to Paragraph 2. Discuss the author's view that digital communication does not signal 'the death of formal language'.",
+          "marks": 3,
+          "memo": [
+            "The author argues that digital communication actually fosters a sophisticated form of code-switching.",
+            "Learners are able to navigate between highly abbreviated digital registers and structured academic registers.",
+            "This demonstrates dual-fluency and adaptability rather than linguistic decay."
+          ]
+        },
+        {
+          "number": "1.1.4",
+          "question": "Refer to Paragraph 3. Why does the 'leakage' of SMS shorthand into formal examinations present a challenge for educators?",
+          "marks": 3,
+          "memo": [
+            "It indicates that learners lack critical awareness of audience and purpose.",
+            "It shows that learners struggle to maintain register boundaries between casual and formal contexts.",
+            "It results in grammatically incorrect and inappropriate language usage in formal assessments."
+          ]
+        },
+        {
+          "number": "1.1.5",
+          "question": "Critically evaluate the solution proposed in Paragraph 4. Do you agree that analyzing digital texts in the classroom can protect formal language standards? Motivate your answer.",
+          "marks": 4,
+          "memo": [
+            "Yes: Analyzing digital texts helps learners develop meta-cognitive awareness of language functions. It contextualizes formal English as a tool for specific professional spaces rather than just arbitrary rules, making them more likely to respect and apply it correctly.",
+            "No: Bringing digital shorthand into the classroom might legitimize informal writing styles, further blurring the lines for struggling learners who cannot easily distinguish between the two registers.",
+            "Accept any well-motivated response that addresses the balance between digital literacy and formal standards."
+          ]
+        },
+        {
+          "number": "1.1.6",
+          "question": "Identify and correct the grammatical error in the following sentence: 'The collection of text messages were analyzed by the teacher to find errors.'",
+          "marks": 2,
+          "memo": [
+            "Error: 'were' (subject-verb agreement error with the singular noun 'collection').",
+            "Correction: 'The collection of text messages was analyzed by the teacher to find errors.'"
+          ]
+        },
+        {
+          "number": "1.1.7",
+          "question": "Rewrite the following sentence in the active voice: 'Formal standards are not degraded by this modern approach.'",
+          "marks": 2,
+          "memo": [
+            "Correction: 'This modern approach does not degrade formal standards.'"
+          ]
+        },
+        {
+          "number": "1.1.8",
+          "question": "Refer to Text A. Summarize the benefits of integrating digital literacy into the formal English curriculum. Write your summary in point form, using no more than 90 words. State your word count at the end of the summary.",
+          "marks": 10,
+          "memo": [
+            "Points to include:",
+            "1. It bridges the gap between casual digital communication and formal academic writing.",
+            "2. It develops learners' meta-cognitive awareness of how language functions in different spaces.",
+            "3. It prevents the degradation of formal standards by contextualizing them.",
+            "4. It demonstrates that formal English is a powerful tool for professional and public discourse.",
+            "5. It helps learners understand register boundaries and audience expectations.",
+            "6. It treats digital texts as useful linguistic artifacts for study.",
+            "7. It encourages sophisticated code-switching and dual-fluency.",
+            "Marking: 7 marks for 7 correct points (1 mark per point), 3 marks for language/style/word count compliance."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Visual Literacy and Language Structures",
+      "mode": "visual_literacy",
+      "instructions": "Analyze the visual and textual details of the Infographic (Text B) and the Cartoon (Text C) described below, then answer the questions.",
+      "stimulus": "TEXT B: INFOGRAPHIC - 'THE ANATOMY OF A MODERN READER'\nVisual Description: The infographic displays a silhouette of a human head filled with digital icons (smartphones, tablets, chat bubbles, and book icons). \n- Label A: '85% of teenagers read digital texts daily.'\n- Label B: 'Multi-modal reading: 60% of digital reading involves interactive media (videos, hyperlinks).'\n- Label C: 'The Attention Span Myth: Digital readers scan quickly but synthesize information across multiple sources simultaneously.'\n\nTEXT C: CARTOON - 'CLASSROOM DIALOGUE'\nFrame 1: A teacher is standing at the front of the classroom holding a printed essay. She has a puzzled, frowning expression. She says to a student sitting at a desk: 'Your essay has excellent points, Thabo, but why is there a blue underlined hyperlink drawn next to your paragraph?'\nFrame 2: Thabo is smiling widely, pointing to his head. He replies: 'That's so you can click it to read my bibliography, Ma'am!'",
+      "questions": [
+        {
+          "number": "2.1.1",
+          "question": "Refer to Text B (Infographic). Explain how the visual icons inside the human head silhouette support the message of Label B ('Multi-modal reading').",
+          "marks": 3,
+          "memo": [
+            "The icons represent different media formats (smartphones, tablets, chat bubbles, books).",
+            "This visually demonstrates that modern reading is not limited to print, but is multi-modal, combining interactive digital platforms and traditional text formats."
+          ]
+        },
+        {
+          "number": "2.1.2",
+          "question": "Critically discuss the impact of Label C ('The Attention Span Myth') on the perception of modern digital readers.",
+          "marks": 3,
+          "memo": [
+            "It challenges the negative stereotype that digital reading reduces attention spans.",
+            "It redefines scanning behavior as a sophisticated cognitive skill where readers synthesize information from multiple sources simultaneously."
+          ]
+        },
+        {
+          "number": "2.1.3",
+          "question": "Refer to Text C (Cartoon). Describe the humor in the cartoon by contrasting the expectations of the teacher with Thabo's digital mindset.",
+          "marks": 4,
+          "memo": [
+            "The teacher expects a traditional, static printed essay with a written bibliography.",
+            "Thabo has a digital mindset where he assumes paper can function like a web page, drawing a physical hyperlink for the teacher to 'click'.",
+            "The humor lies in the absurdity of trying to interact with a physical piece of paper as if it were a digital screen."
+          ]
+        },
+        {
+          "number": "2.1.4",
+          "question": "Analyze Thabo's body language in Frame 2. How does his physical gesture reinforce his attitude toward his work?",
+          "marks": 2,
+          "memo": [
+            "Thabo is smiling widely and pointing to his head.",
+            "This gesture shows he is proud of his cleverness and believes his solution of drawing a hyperlink is highly innovative and helpful."
+          ]
+        },
+        {
+          "number": "2.1.5",
+          "question": "Identify the part of speech of the underlined word in the following sentence from Text C: 'Your essay has excellent points, Thabo, but why is there a blue underlined hyperlink drawn next to your paragraph?'",
+          "marks": 2,
+          "memo": [
+            "The word 'underlined' is a participle functioning as an adjective (it describes the noun 'hyperlink')."
+          ]
+        },
+        {
+          "number": "2.1.6",
+          "question": "Rewrite Thabo's dialogue in Frame 2 ('That's so you can click it to read my bibliography, Ma'am!') into indirect speech.",
+          "marks": 3,
+          "memo": [
+            "Thabo told his teacher/Ma'am that that was so she could click it to read his bibliography."
+          ]
+        },
+        {
+          "number": "2.1.7",
+          "question": "Provide a homophone for the word 'blue' used in Text C, and use it in a sentence that clearly demonstrates its meaning.",
+          "marks": 3,
+          "memo": [
+            "Homophone: 'blew'.",
+            "Sentence: 'The strong wind blew the papers off the teacher's desk.' (1 mark for homophone, 2 marks for correct contextual sentence)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Formal Transactional Writing and Controlled Response Planning",
+      "mode": "transactional_writing",
+      "instructions": "Use the required visual workspace 'language_response_planner' to plan your response before writing. You must complete both the planning matrix and the final written response.",
+      "stimulus": "WRITING PROMPT:\nYour school's Governing Body is considering replacing all printed English textbooks with digital tablets. Write a formal letter to the school principal expressing your views on this proposal. You may argue in favor of the digital transition, against it, or propose a hybrid approach. \n\nUse the 'language_response_planner' visual workspace to structure your thoughts under the following headings before drafting your letter:\n1. Text Panel (Format & Audience)\n2. Main Idea (Your core stance)\n3. Evidence (Key arguments/points)\n4. Plan (Paragraph structure)\n5. Draft (Opening sentence)\n6. Edit (Self-correction check)",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Complete the planning matrix using the layout of the 'language_response_planner' visual workspace. Provide concrete details for all six required sections: text panel, main idea, evidence, plan, draft, and edit.",
+          "marks": 5,
+          "memo": [
+            "1. Text Panel: Formal letter format, addressed to the Principal of the school.",
+            "2. Main Idea: Clear stance on the digital transition (e.g., advocating for a hybrid model to balance digital literacy and cognitive focus).",
+            "3. Evidence: At least two points (e.g., cost-effectiveness of tablets vs. the distraction factor and eye strain).",
+            "4. Plan: Introduction (stance), Body Paragraph 1 (benefits of digital), Body Paragraph 2 (drawbacks/need for print), Conclusion (recommendation).",
+            "5. Draft: A formal, engaging opening sentence.",
+            "6. Edit: A checklist of language aspects to review (e.g., checking formal register, removing contractions like 'don't' or 'can't').",
+            "Award 5 marks for complete, logical, and highly structured planning across all six fields."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Write your formal letter to the school principal based on your plan in Question 3.1. Your response must be between 120 and 150 words. Pay close attention to register, format, and grammatical accuracy.",
+          "marks": 15,
+          "memo": [
+            "Marking criteria based on CAPS transactional writing rubric:",
+            "- Content, Planning and Format (8 Marks): Correct formal letter structure (two addresses, date, subject line, formal salutation, appropriate signing-off). Clear, persuasive arguments aligned with the plan.",
+            "- Language, Style and Editing (7 Marks): Sophisticated vocabulary, formal register, correct sentence structures, and absence of grammatical/spelling errors.",
+            "Length: 120\u2013150 words. Deduct marks if length is significantly outside the limit."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Comprehension (Literal, Inferential, Evaluative)",
+      "marks": 20,
+      "descriptor": "Measures the ability to retrieve information, infer meaning, analyze tone, and evaluate arguments in a complex text."
+    },
+    {
+      "criterion": "Section A: Summary Writing",
+      "marks": 10,
+      "descriptor": "Measures the ability to extract key points, synthesize information, and write concisely within a specified word limit."
+    },
+    {
+      "criterion": "Section B: Visual Literacy and Language Structures",
+      "marks": 20,
+      "descriptor": "Measures the ability to analyze visual texts (infographics and cartoons) and apply grammatical rules, editing skills, and language structures."
+    },
+    {
+      "criterion": "Section C: Controlled Response Planning (language_response_planner)",
+      "marks": 5,
+      "descriptor": "Measures the systematic planning of a transactional text using the required visual planner workspace."
+    },
+    {
+      "criterion": "Section C: Formal Transactional Writing",
+      "marks": 15,
+      "descriptor": "Measures the ability to draft a formal letter with correct formatting, appropriate register, coherent structure, and linguistic accuracy."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum to exactly 70.",
+    "Confirm that the language_response_planner visual workspace is printed and made available to learners for Section C.",
+    "Ensure the comprehension text difficulty is appropriate for Grade 12 exit-level learners.",
+    "Check that the memo allows for alternative, well-motivated interpretations in the evaluative questions."
+  ]
+}

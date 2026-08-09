@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Calibrated Evidence Record",
+  "type": "object",
+  "required": ["schema", "evidence_id", "source", "sha1", "period", "domain_code", "mappings", "review_status"],
+  "properties": {
+    "schema": {"const": "dio.evidence_record.v2"},
+    "evidence_id": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "required": ["kind", "display_name", "path_registered"],
+      "properties": {
+        "kind": {"type": "string"},
+        "display_name": {"type": "string"},
+        "path_registered": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "sha1": {"type": "string"},
+    "period": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$"},
+    "domain_code": {"type": "string"},
+    "duplicate_of": {"type": ["string", "null"]},
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["objective_id", "mapped_by", "confidence", "decision", "reasons"],
+        "properties": {
+          "objective_id": {"type": "string"},
+          "mapped_by": {"type": "string"},
+          "confidence": {
+            "type": "object",
+            "required": ["retrieval", "relevance", "provenance", "sufficiency", "overall"],
+            "properties": {
+              "retrieval": {"type": "number", "minimum": 0, "maximum": 1},
+              "relevance": {"type": "number", "minimum": 0, "maximum": 1},
+              "provenance": {"type": "number", "minimum": 0, "maximum": 1},
+              "sufficiency": {"type": "number", "minimum": 0, "maximum": 1},
+              "overall": {"type": "number", "minimum": 0, "maximum": 1}
+            },
+            "additionalProperties": false
+          },
+          "decision": {"enum": ["accepted", "candidate", "duplicate_suppressed", "rejected"]},
+          "reasons": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "review_status": {"enum": ["accepted", "candidate", "duplicate_suppressed", "unmapped"]}
+  },
+  "additionalProperties": false
+}

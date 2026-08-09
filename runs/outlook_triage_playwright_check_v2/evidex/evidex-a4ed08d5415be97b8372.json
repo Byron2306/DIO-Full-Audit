@@ -1,0 +1,58 @@
+{
+  "job_id": "evidex-a4ed08d5415be97b8372",
+  "created_at": "2026-08-07T14:40:41+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "130b373ed3bd6cfcd529",
+    "thread_ref": "130b373ed3bd6cfcd529"
+  },
+  "route": {
+    "product": "evidex",
+    "confidence": 0.65,
+    "reason": "Matched route keywords: audit."
+  },
+  "status": "needs_review",
+  "risk": "moderate",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "Outlook",
+      "sender": "Outlook<no-reply@outlook.mail.microsoft>",
+      "attachment_names": "",
+      "intent": "management_or_admin",
+      "urgency": "medium",
+      "next_step": "Review relevant operational facts before use.",
+      "draft_status": "needs_approval",
+      "primary_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/primary_130b373ed3bd6cfcd529_Outlook.txt",
+      "safer_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/safer_130b373ed3bd6cfcd529_Outlook.txt",
+      "shorter_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/shorter_130b373ed3bd6cfcd529_Outlook.txt",
+      "evidence_note_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/evidence_note_130b373ed3bd6cfcd529_Outlook.txt"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "a4ed08d5415be97b8372",
+      "source_type": "email",
+      "source_path": "",
+      "title": "Outlook",
+      "date_observed": "2026-08-07T14:40:41+00:00",
+      "text_extract": "Evidence note for: Outlook\n\nEvidence seen:\n- Sender visible: Outlook<no-reply@outlook.mail.microsoft>\n- Subject visible: Outlook\n- Received timestamp visible: Wed 6/3/2026 11:13:00 AM\n- Folder/source context: Inbox\n- Body text or preview reviewed.\n\nMissing information:\n- Relevant operational context\n\nThis note is for review and audit. It is not an outbound email.",
+      "hash": "c9212c1713be45dd3838",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.65,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

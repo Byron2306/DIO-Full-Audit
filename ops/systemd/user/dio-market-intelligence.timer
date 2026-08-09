@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh market evidence and Hivenance campaign reasoning weekly
+
+[Timer]
+OnCalendar=Mon *-*-* 07:10:00
+RandomizedDelaySec=30m
+Persistent=true
+Unit=dio-market-intelligence.service
+
+[Install]
+WantedBy=timers.target

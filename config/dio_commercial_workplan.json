@@ -1,0 +1,170 @@
+{
+  "schema": "knowedge.dio_commercial_workplan.v1",
+  "status": "planning_baseline",
+  "horizon_days": 90,
+  "objective": "Prove repeatable, profitable, evidence-bearing sales loops for Evidex and HOMS before broad product expansion.",
+  "decisions": {
+    "orchestrator_brand": "dio",
+    "customer_facing_brands": ["evidex", "homs", "vamp", "sophia", "document_studio", "outlook_triage"],
+    "first_commercial_product": "evidex",
+    "second_commercial_product": "homs",
+    "system_of_record": "dio_commerce_core",
+    "initial_database": "sqlite",
+    "local_payment_provider": "payfast",
+    "international_payment_provider_after_proof": "paypal",
+    "outreach_mode": "human_approved_permission_gated",
+    "campaign_concurrency_limit": 2
+  },
+  "registry_contract": {
+    "required_ids": ["organisation_id", "contact_id", "permission_event_id"],
+    "permission_states": [
+      "consented",
+      "existing_customer",
+      "consent_request_available",
+      "consent_request_sent",
+      "blocked",
+      "withdrawn",
+      "unknown"
+    ],
+    "marketing_allowed_states": ["consented", "existing_customer"],
+    "single_consent_request_state": "consent_request_available",
+    "public_source_is_permission": false
+  },
+  "phases": [
+    {
+      "id": "C0",
+      "name": "Contract freeze and registry handshake",
+      "days": "1-3",
+      "depends_on": [],
+      "outputs": [
+        "canonical identity contract",
+        "event envelope",
+        "registry field mapping",
+        "Evidex and HOMS offer policies"
+      ],
+      "acceptance": [
+        "sample organisation traces from registry to mock order without duplicate identity",
+        "unknown and blocked permission states fail the outreach gate"
+      ]
+    },
+    {
+      "id": "C1",
+      "name": "Attribution and site instrumentation",
+      "days": "4-10",
+      "depends_on": ["C0"],
+      "outputs": [
+        "shared UTM vocabulary",
+        "first-party attribution capture",
+        "campaign and creative records",
+        "minimal KnowEdge/DIO hub"
+      ],
+      "acceptance": [
+        "controlled visit preserves attribution through lead creation and Outlook triage",
+        "analytics exclude sensitive intake contents"
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "Commerce Core dry run",
+      "days": "8-18",
+      "depends_on": ["C0"],
+      "outputs": [
+        "SQLite commerce database",
+        "append-only event ledger",
+        "order payment fulfilment and delivery projections",
+        "commercial receipt v1"
+      ],
+      "acceptance": [
+        "Evidex golden loop replays from lead capture to commercial receipt",
+        "event replay duplicates no commercial object or action"
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "PayFast sandbox and verified webhook",
+      "days": "15-25",
+      "depends_on": ["C2"],
+      "outputs": [
+        "payment provider interface",
+        "PayFast initiation adapter",
+        "verified webhook endpoint",
+        "raw payment receipt archive",
+        "idempotent normalization"
+      ],
+      "acceptance": [
+        "valid payment releases exactly one fulfilment",
+        "duplicate event releases no additional fulfilment",
+        "invalid signature amount currency and order references are held"
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "First real Evidex commercial loop",
+      "days": "20-35",
+      "depends_on": ["C1", "C2", "C3"],
+      "outputs": [
+        "narrow Evidex offer",
+        "25-organisation research cohort",
+        "proof-led content sequence",
+        "one closed external pilot"
+      ],
+      "acceptance": [
+        "real lead closes through payment fulfilment review delivery receipt and campaign decision"
+      ]
+    },
+    {
+      "id": "C5",
+      "name": "First HOMS commercial loop",
+      "days": "30-50",
+      "depends_on": ["C1", "C2"],
+      "outputs": [
+        "FET tight-eight proof library",
+        "25-school or educator pilot cohort",
+        "association pitch",
+        "one closed HOMS pilot"
+      ],
+      "acceptance": [
+        "HOMS order closes with educator approval delivery evidence measured manual time and commercial receipt"
+      ]
+    },
+    {
+      "id": "C6",
+      "name": "Demand Loop and weekly experiment gate",
+      "days": "35-70",
+      "depends_on": ["C1", "C2"],
+      "outputs": [
+        "market opportunity schema",
+        "weekly sensor run",
+        "marketing console",
+        "campaign decision receipts"
+      ],
+      "acceptance": [
+        "creative-level paid-order and contribution attribution works"
+      ]
+    },
+    {
+      "id": "C7",
+      "name": "Repeatability decision",
+      "days": "60-90",
+      "depends_on": ["C4", "C5", "C6"],
+      "outputs": [
+        "unit economics report",
+        "repeatability decision",
+        "next product recommendation",
+        "conditional PayPal or PayShap recommendation"
+      ],
+      "acceptance": [
+        "one product reaches repeatable evidence tier or receives a formal pivot or stop decision"
+      ]
+    }
+  ],
+  "evidence_tiers": {
+    "instrumented": "visit-to-lead lineage works",
+    "interest": "at least three qualified conversations",
+    "commercial": "at least one verified paid order",
+    "repeatable": "at least three paid orders from at least two campaigns or periods",
+    "scalable": "positive contribution, acceptable fulfilment load and repeatable conversion"
+  },
+  "campaign_decisions": ["promote", "continue", "revise", "kill"],
+  "north_star": "closed paid orders with positive gross contribution and complete evidence lineage"
+}

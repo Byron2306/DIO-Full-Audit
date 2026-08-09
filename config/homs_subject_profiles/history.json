@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "history",
+  "display_name": "History",
+  "default_level": "senior_school_or_undergraduate",
+  "assessment_modes": [
+    "source_based_exam",
+    "essay_exam",
+    "first_opportunity_exam",
+    "second_opportunity_exam",
+    "marking_relief"
+  ],
+  "source_types": [
+    "primary_source_extract",
+    "historiographical_extract",
+    "visual_source",
+    "map",
+    "timeline",
+    "political_speech",
+    "policy_document"
+  ],
+  "question_families": [
+    "contextualise_source",
+    "compare_sources",
+    "evaluate_reliability",
+    "explain_causation",
+    "assess_change_and_continuity",
+    "argumentative_essay"
+  ],
+  "cognitive_targets": [
+    "recall",
+    "comprehension",
+    "analysis",
+    "evaluation",
+    "argument_synthesis"
+  ],
+  "rubric_dimensions": [
+    "historical_accuracy",
+    "source_use",
+    "causal_reasoning",
+    "chronology",
+    "argument_structure",
+    "evidence_integration"
+  ],
+  "memo_expectations": [
+    "credit historically plausible alternatives",
+    "identify source limits",
+    "separate factual recall from interpretation",
+    "provide level descriptors for essays"
+  ],
+  "retrieval_queries": [
+    "history source-based assessment reliability",
+    "history education source analysis rubric",
+    "historical thinking causation continuity change evidence"
+  ],
+  "human_review_checks": [
+    "verify factual dates and names",
+    "check source provenance and political sensitivity",
+    "confirm marks add correctly",
+    "confirm second opportunity is equivalent but not duplicated"
+  ],
+  "blocked_claims_or_modes": [
+    "invented quotations",
+    "uncited historical claims presented as sourced",
+    "single-answer memo for interpretive questions without alternatives"
+  ]
+}

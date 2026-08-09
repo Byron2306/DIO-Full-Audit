@@ -1,0 +1,299 @@
+{
+  "schema": "knowedge.homs_source_attachment_receipt.v1",
+  "created_at": "2026-08-08T07:43:08+00:00",
+  "status": "attached",
+  "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke",
+  "bank": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+  "subject_id": "geography",
+  "requested_source_types": [
+    "map_extract",
+    "synoptic_weather_map",
+    "graph_or_chart",
+    "photograph_or_image"
+  ],
+  "attached_count": 4,
+  "missing_requested_source_types": [],
+  "source_assets": [
+    {
+      "id": "source_01_map_extract",
+      "title": "Official-paper exemplar: Map Extract",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "synoptic_weather_map",
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 7,
+      "object_id": "Q1:extract_1",
+      "snippet": "1.4 Refer to the extract and map below on Tropical Cyclone Freddy. IMPACT OF TROPICAL CYCLONE FREDDY According to the Australian Bureau of Meteorology and the US Joint Typhoon Warning",
+      "bank_png": "deliverables/homs_core_source_bank/geography/map_extract/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/margin_trim/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          905,
+          1337
+        ],
+        "content_bbox": [
+          63,
+          34,
+          968,
+          1371
+        ],
+        "crop_ratio": 0.8679,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          873,
+          771
+        ],
+        "object_candidate_bbox": [
+          63,
+          104,
+          936,
+          875
+        ],
+        "object_candidate_crop_ratio": 0.4828,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_synoptic_weather_map",
+      "title": "Official-paper exemplar: Synoptic Weather Map",
+      "source_type": "synoptic_weather_map",
+      "source_types": [
+        "synoptic_weather_map",
+        "map_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 3,
+      "object_id": "Q1:map_1",
+      "snippet": "1.1 The questions below refer to the synoptic weather map. Various options are provided as possible answers to the questions. Choose the answer and write only the letter (A\u2013D) next to the question numbers (1.1.1 to 1.1.7) in the ANSWER BOOK, e.g. 1.1.8 D.",
+      "bank_png": "deliverables/homs_core_source_bank/geography/synoptic_weather_map/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/margin_trim/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          861,
+          1337
+        ],
+        "content_bbox": [
+          62,
+          34,
+          923,
+          1371
+        ],
+        "crop_ratio": 0.8257,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          827,
+          773
+        ],
+        "object_candidate_bbox": [
+          63,
+          198,
+          890,
+          971
+        ],
+        "object_candidate_crop_ratio": 0.4585,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_graph_or_chart",
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "photograph_or_image"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 18,
+      "object_id": "Q3:photograph_3",
+      "snippet": "3.2.3 At what time (morning or afternoon) was the photograph taken? (1 x 1) (1) 3.2.4 Give a reason for your answer to QUESTION 3.2.3. (1 x 2) (2)",
+      "bank_png": "deliverables/homs_core_source_bank/geography/graph_or_chart/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/graph_or_chart/margin_trim/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/graph_or_chart/object_candidate/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/graph_or_chart/object_candidate/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          887,
+          1337
+        ],
+        "content_bbox": [
+          62,
+          34,
+          949,
+          1371
+        ],
+        "crop_ratio": 0.8506,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/graph_or_chart/object_candidate/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          807,
+          672
+        ],
+        "object_candidate_bbox": [
+          142,
+          619,
+          949,
+          1291
+        ],
+        "object_candidate_crop_ratio": 0.389,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_04_photograph_or_image",
+      "title": "Official-paper exemplar: Photograph Or Image",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "synoptic_weather_map"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "page": 6,
+      "object_id": "Q1:image_1",
+      "snippet": "1.3 Refer to the satellite image below on mid-latitude cyclones.",
+      "bank_png": "deliverables/homs_core_source_bank/geography/photograph_or_image/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/photograph_or_image/margin_trim/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/photograph_or_image/object_candidate/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/photograph_or_image/object_candidate/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          993,
+          1404
+        ],
+        "curated_size": [
+          890,
+          1337
+        ],
+        "content_bbox": [
+          63,
+          34,
+          953,
+          1371
+        ],
+        "crop_ratio": 0.8535,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/geography/photograph_or_image/object_candidate/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          889,
+          772
+        ],
+        "object_candidate_bbox": [
+          63,
+          515,
+          952,
+          1287
+        ],
+        "object_candidate_crop_ratio": 0.4923,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "missing_source_bank": false,
+  "educator_approval_required": true
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "dio.vamp_commercial_job.v1",
+  "job_id": "VAMP-COMMERCIAL-PRIVATE-001",
+  "product_code": "VAMP_EVIDENCE_SNAPSHOT",
+  "service_name": "VAMP Performance Evidence Snapshot",
+  "state": "delivery_draft_ready",
+  "controlled": true,
+  "created_at": "2026-08-08T20:45:52+00:00",
+  "customer": {
+    "name": "Byron Bunt",
+    "email": "byron.bunt@nwu.ac.za",
+    "organization": "North-West University"
+  },
+  "consents": {
+    "evidence_owner_authorized": true,
+    "performance_data_processing_approved": true,
+    "human_review_terms_accepted": true
+  },
+  "source": {
+    "request_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/vamp_jobs/VAMP-COMMERCIAL-PRIVATE-001/SNAPSHOT_REQUEST.json",
+    "profile_id": "nwu_academic_v1",
+    "review_months": [
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05"
+    ],
+    "privacy_mode": "private_internal"
+  },
+  "payment": {
+    "required": false,
+    "state": "waived",
+    "order_id": null,
+    "amount_minor": 7900,
+    "currency": "USD",
+    "checkout_url": null
+  },
+  "snapshot": {
+    "state": "ready_for_human_review",
+    "output_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-COMMERCIAL-PRIVATE-001",
+    "evidence_backed_pct": 63.9,
+    "accepted_mappings": 116,
+    "candidate_mappings": 24
+  },
+  "approval": {
+    "state": "approved",
+    "reviewer": "DIO operator via control deck",
+    "reviewed_at": "2026-08-08T20:49:54+00:00"
+  },
+  "delivery": {
+    "state": "draft_ready",
+    "mail_intent_id": "MAIL-BFE6DABCFDBADDBA",
+    "released": false
+  },
+  "updated_at": "2026-08-08T20:49:57+00:00"
+}

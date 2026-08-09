@@ -1,0 +1,79 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Visual Arts",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Visual Arts",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_visual_arts_gr_10-12_web_a758.pdf",
+    "sha256": "db20934536eebcb5d75ba5519c7c0adf09889ee4fa25994a91257a2862ce874d"
+  },
+  "canonical_profile_id": "fet.visual_arts",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "Use appropriate terminology related to all areas of art theory to describe and discuss artworks, crafts and",
+    "notes on the source book.)",
+    "Start in Grade 10 and Grade 11 by specific briefs and exercises for learners\u2019 source books, so that they can",
+    "independently develop creative ideas by the time they reach Grade 12.",
+    "Be creative in setting briefs for the source book and always try to surprise and excite the learners by giving them",
+    "a different approach (e.g. do a mind map in class to generate ideas for a theme, play word games, document",
+    "Use appropriate visual arts terminology in all areas of Visual Arts.",
+    "VISUAL ARTS GRADES 10-12",
+    "Visual Arts Grade 11 Term 1",
+    "Grade 12",
+    "TERM FORMAL ASSESSMENT TASKS ACTIVITIES",
+    "1 1 (practical) Practical Assessment Task (PAT) 1",
+    "2 3 (practical) Practical Assessment Task (PAT) 2",
+    "3 5 (practical) Preliminary Examination:"
+  ],
+  "assessment_content_focus": [
+    "Use appropriate terminology related to all areas of art theory to describe and discuss artworks, crafts and",
+    "notes on the source book.)",
+    "Use appropriate terminology related to all areas of art theory to describe and discuss artworks, crafts and",
+    "notes on the source book.)"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: appropriate, areas, artworks, crafts, describe, discuss."
+  ],
+  "required_visuals": [
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

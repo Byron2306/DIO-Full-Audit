@@ -1,0 +1,4074 @@
+{
+  "schema": "knowedge.homs_knowledge_bank_registry.v1",
+  "created_at": "2026-08-08T08:03:41+00:00",
+  "root": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite",
+  "knowledge_layers": {
+    "curriculum_authority": {
+      "document_count": 282,
+      "phase_counts": {
+        "fet_grade_10_12": 108,
+        "foundation_grade_r_3": 66,
+        "intermediate_grade_4_6": 48,
+        "policy_and_support": 8,
+        "senior_grade_7_9": 52
+      },
+      "status_counts": {
+        "downloaded": 282
+      }
+    },
+    "caps_document_evidence": {
+      "document_count": 282,
+      "failure_count": 0,
+      "blueprint_counts": {
+        "calculation_problem_solving": 10,
+        "case_study_structured_questions": 11,
+        "data_diagram_practical_investigation": 8,
+        "foundation_activity_assessment": 7,
+        "language_integrated_assessment": 166,
+        "practical_investigation": 21,
+        "practical_performance_or_portfolio": 5,
+        "practical_project_design_task": 13,
+        "project_or_sba_task": 1,
+        "source_based_plus_essay": 1,
+        "source_based_plus_extended_response": 28,
+        "structured_test_or_task": 10,
+        "structured_theory_application": 1
+      },
+      "known_noise": [
+        "Document-level keyword extraction can over-trigger broad signals.",
+        "Generic policy/support documents are evidence only, not generation blueprints.",
+        "Language variants must collapse into canonical subject+phase profiles before generation."
+      ]
+    },
+    "canonical_caps_ontology": {
+      "profile_count": 104,
+      "profiles_by_id": {
+        "fet.accounting": {
+          "subject": "Accounting",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.agricultural_management_practices": {
+          "subject": "Agricultural Management Practices",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.agricultural_sciences": {
+          "subject": "Agricultural Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.business_studies": {
+          "subject": "Business Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.consumer_studies": {
+          "subject": "Consumer Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.dance_studies": {
+          "subject": "Dance Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "performance_or_product",
+            "portfolio",
+            "reflection",
+            "technique_vocabulary",
+            "rubric_levels"
+          ],
+          "required_distribution": {
+            "performance_or_product": 50,
+            "technique_and_process": 25,
+            "reflection_or_context": 25
+          }
+        },
+        "fet.design_studies": {
+          "subject": "Design Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "performance_or_product",
+            "portfolio",
+            "reflection",
+            "technique_vocabulary",
+            "rubric_levels"
+          ],
+          "required_distribution": {
+            "performance_or_product": 50,
+            "technique_and_process": 25,
+            "reflection_or_context": 25
+          }
+        },
+        "fet.dramatic_arts": {
+          "subject": "Dramatic Arts",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "performance_or_product",
+            "portfolio",
+            "reflection",
+            "technique_vocabulary",
+            "rubric_levels"
+          ],
+          "required_distribution": {
+            "performance_or_product": 50,
+            "technique_and_process": 25,
+            "reflection_or_context": 25
+          }
+        },
+        "fet.economics": {
+          "subject": "Economics",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.engineering_graphics_and_design": {
+          "subject": "Engineering Graphics and Design",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "design_brief",
+            "practical_task",
+            "technical_diagram",
+            "structured_theory",
+            "project_deliverable"
+          ],
+          "required_distribution": {
+            "design_or_practical": 40,
+            "technical_knowledge": 30,
+            "diagrams_or_specifications": 20,
+            "reflection_or_safety": 10
+          }
+        },
+        "fet.english_language": {
+          "subject": "English Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.equine_studies": {
+          "subject": "Equine Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.french_language": {
+          "subject": "French Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.geography": {
+          "subject": "Geography",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "source_or_stimulus_analysis",
+            "map_graph_or_data_interpretation",
+            "structured_context_questions",
+            "extended_response"
+          ],
+          "required_distribution": {
+            "source_or_stimulus": 30,
+            "contextual_knowledge": 30,
+            "extended_or_explanatory_response": 40
+          }
+        },
+        "fet.guidelines_to_strengthen_caps_implementation_2017_fet": {
+          "subject": "Guidelines to strengthen CAPS Implementation 2017: FET",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "structured_test_or_task",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_questions",
+            "short_response",
+            "applied_task"
+          ],
+          "required_distribution": {
+            "structured_items": 70,
+            "applied_response": 30
+          }
+        },
+        "fet.history": {
+          "subject": "History",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "source_based_plus_essay",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "source_or_stimulus_analysis",
+            "map_graph_or_data_interpretation",
+            "structured_context_questions",
+            "extended_response"
+          ],
+          "required_distribution": {
+            "source_or_stimulus": 45,
+            "contextual_knowledge": 30,
+            "extended_or_explanatory_response": 25
+          }
+        },
+        "fet.hospitality_studies": {
+          "subject": "Hospitality Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.life_orientation": {
+          "subject": "Life Orientation",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_questions",
+            "short_response",
+            "applied_task"
+          ],
+          "required_distribution": {
+            "structured_items": 70,
+            "applied_response": 30
+          }
+        },
+        "fet.life_sciences": {
+          "subject": "Life Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.mandarin_language": {
+          "subject": "Mandarin Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.marine_sciences": {
+          "subject": "Marine Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.mathematical_literacy": {
+          "subject": "Mathematical Literacy",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "calculations",
+            "problem_solving",
+            "diagrams",
+            "patterns",
+            "short_reasoning"
+          ],
+          "required_distribution": {
+            "calculation_and_procedure": 55,
+            "problem_solving": 30,
+            "reasoning_or_representation": 15
+          }
+        },
+        "fet.mathematics": {
+          "subject": "Mathematics",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "calculations",
+            "problem_solving",
+            "diagrams",
+            "patterns",
+            "short_reasoning"
+          ],
+          "required_distribution": {
+            "calculation_and_procedure": 55,
+            "problem_solving": 30,
+            "reasoning_or_representation": 15
+          }
+        },
+        "fet.music": {
+          "subject": "Music",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "performance_or_product",
+            "portfolio",
+            "reflection",
+            "technique_vocabulary",
+            "rubric_levels"
+          ],
+          "required_distribution": {
+            "performance_or_product": 50,
+            "technique_and_process": 25,
+            "reflection_or_context": 25
+          }
+        },
+        "fet.nautical_science": {
+          "subject": "Nautical Science",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.physical_sciences": {
+          "subject": "Physical Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.religion_studies": {
+          "subject": "Religion Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "source_or_stimulus_analysis",
+            "map_graph_or_data_interpretation",
+            "structured_context_questions",
+            "extended_response"
+          ],
+          "required_distribution": {
+            "source_or_stimulus": 30,
+            "contextual_knowledge": 30,
+            "extended_or_explanatory_response": 40
+          }
+        },
+        "fet.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.sport_and_exercise_science": {
+          "subject": "Sport and Exercise Science",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.technical_mathematics": {
+          "subject": "Technical Mathematics",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "calculations",
+            "problem_solving",
+            "diagrams",
+            "patterns",
+            "short_reasoning"
+          ],
+          "required_distribution": {
+            "calculation_and_procedure": 55,
+            "problem_solving": 30,
+            "reasoning_or_representation": 15
+          }
+        },
+        "fet.technical_sciences": {
+          "subject": "Technical Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "fet.technology": {
+          "subject": "Technology",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "design_brief",
+            "practical_task",
+            "technical_diagram",
+            "structured_theory",
+            "project_deliverable"
+          ],
+          "required_distribution": {
+            "design_or_practical": 40,
+            "technical_knowledge": 30,
+            "diagrams_or_specifications": 20,
+            "reflection_or_safety": 10
+          }
+        },
+        "fet.tourism": {
+          "subject": "Tourism",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "fet.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.visual_arts": {
+          "subject": "Visual Arts",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "performance_or_product",
+            "portfolio",
+            "reflection",
+            "technique_vocabulary",
+            "rubric_levels"
+          ],
+          "required_distribution": {
+            "performance_or_product": 50,
+            "technique_and_process": 25,
+            "reflection_or_context": 25
+          }
+        },
+        "fet.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "fet.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "foundation.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.coding_and_robotics": {
+          "subject": "Coding and Robotics",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.english_language": {
+          "subject": "English Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.life_skills": {
+          "subject": "Life Skills",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.mathematics": {
+          "subject": "Mathematics",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "foundation.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "concrete_activity",
+            "teacher_observation",
+            "oral_prompt",
+            "picture_prompt",
+            "short_constructed_response"
+          ],
+          "required_distribution": {
+            "observable_activity": 50,
+            "oral_or_practical_response": 30,
+            "short_recorded_response": 20
+          }
+        },
+        "intermediate.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.coding_and_robotics": {
+          "subject": "Coding and Robotics",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "design_brief",
+            "practical_task",
+            "technical_diagram",
+            "structured_theory",
+            "project_deliverable"
+          ],
+          "required_distribution": {
+            "design_or_practical": 40,
+            "technical_knowledge": 30,
+            "diagrams_or_specifications": 20,
+            "reflection_or_safety": 10
+          }
+        },
+        "intermediate.english_language": {
+          "subject": "English Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.french_language": {
+          "subject": "French Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.german_language": {
+          "subject": "German Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.life_skills": {
+          "subject": "Life Skills",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_questions",
+            "short_response",
+            "applied_task"
+          ],
+          "required_distribution": {
+            "structured_items": 70,
+            "applied_response": 30
+          }
+        },
+        "intermediate.mandarin_language": {
+          "subject": "Mandarin Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.mathematics": {
+          "subject": "Mathematics",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "calculations",
+            "problem_solving",
+            "diagrams",
+            "patterns",
+            "short_reasoning"
+          ],
+          "required_distribution": {
+            "calculation_and_procedure": 55,
+            "problem_solving": 30,
+            "reasoning_or_representation": 15
+          }
+        },
+        "intermediate.natural_sciences_and_technology": {
+          "subject": "Natural Sciences and Technology",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "intermediate.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.serbian_language": {
+          "subject": "Serbian Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.social_sciences": {
+          "subject": "Social Sciences",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "source_or_stimulus_analysis",
+            "map_graph_or_data_interpretation",
+            "structured_context_questions",
+            "extended_response"
+          ],
+          "required_distribution": {
+            "source_or_stimulus": 30,
+            "contextual_knowledge": 30,
+            "extended_or_explanatory_response": 40
+          }
+        },
+        "intermediate.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "intermediate.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.coding_and_robotics": {
+          "subject": "Coding and Robotics",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "design_brief",
+            "practical_task",
+            "technical_diagram",
+            "structured_theory",
+            "project_deliverable"
+          ],
+          "required_distribution": {
+            "design_or_practical": 40,
+            "technical_knowledge": 30,
+            "diagrams_or_specifications": 20,
+            "reflection_or_safety": 10
+          }
+        },
+        "senior.creative_arts": {
+          "subject": "Creative Arts",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "performance_or_product",
+            "portfolio",
+            "reflection",
+            "technique_vocabulary",
+            "rubric_levels"
+          ],
+          "required_distribution": {
+            "performance_or_product": 50,
+            "technique_and_process": 25,
+            "reflection_or_context": 25
+          }
+        },
+        "senior.economics": {
+          "subject": "Economics",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "case_study",
+            "structured_questions",
+            "calculation_or_data",
+            "recommendation_with_reason"
+          ],
+          "required_distribution": {
+            "scenario_or_case": 35,
+            "structured_content": 30,
+            "calculation_or_data": 25,
+            "justified_recommendation": 10
+          }
+        },
+        "senior.english_language": {
+          "subject": "English Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.french_language": {
+          "subject": "French Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.german_language": {
+          "subject": "German Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.life_orientation": {
+          "subject": "Life Orientation",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_questions",
+            "short_response",
+            "applied_task"
+          ],
+          "required_distribution": {
+            "structured_items": 70,
+            "applied_response": 30
+          }
+        },
+        "senior.mandarin_language": {
+          "subject": "Mandarin Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.mathematics": {
+          "subject": "Mathematics",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "calculations",
+            "problem_solving",
+            "diagrams",
+            "patterns",
+            "short_reasoning"
+          ],
+          "required_distribution": {
+            "calculation_and_procedure": 55,
+            "problem_solving": 30,
+            "reasoning_or_representation": 15
+          }
+        },
+        "senior.natural_sciences": {
+          "subject": "Natural Sciences",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "structured_concepts",
+            "data_or_diagram_interpretation",
+            "practical_investigation",
+            "application_questions"
+          ],
+          "required_distribution": {
+            "conceptual_understanding": 30,
+            "data_diagram_work": 25,
+            "practical_investigation": 25,
+            "application_reasoning": 20
+          }
+        },
+        "senior.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.serbian_language": {
+          "subject": "Serbian Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.social_sciences": {
+          "subject": "Social Sciences",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "source_or_stimulus_analysis",
+            "map_graph_or_data_interpretation",
+            "structured_context_questions",
+            "extended_response"
+          ],
+          "required_distribution": {
+            "source_or_stimulus": 30,
+            "contextual_knowledge": 30,
+            "extended_or_explanatory_response": 40
+          }
+        },
+        "senior.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.technology": {
+          "subject": "Technology",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "design_brief",
+            "practical_task",
+            "technical_diagram",
+            "structured_theory",
+            "project_deliverable"
+          ],
+          "required_distribution": {
+            "design_or_practical": 40,
+            "technical_knowledge": 30,
+            "diagrams_or_specifications": 20,
+            "reflection_or_safety": 10
+          }
+        },
+        "senior.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        },
+        "senior.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": null,
+          "confidence": null,
+          "allowed": [
+            "reading_viewing",
+            "writing_presenting",
+            "language_structures",
+            "listening_speaking",
+            "short_source_or_text_response"
+          ],
+          "required_distribution": {
+            "reading_viewing": 35,
+            "writing_presenting": 30,
+            "language_structures": 20,
+            "listening_speaking": 15
+          }
+        }
+      }
+    },
+    "render_and_assessment_design": {
+      "profile_count": 104,
+      "profiles_by_id": {
+        "fet.accounting": {
+          "subject": "Accounting",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.agricultural_management_practices": {
+          "subject": "Agricultural Management Practices",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.agricultural_sciences": {
+          "subject": "Agricultural Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.business_studies": {
+          "subject": "Business Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.consumer_studies": {
+          "subject": "Consumer Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.dance_studies": {
+          "subject": "Dance Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "high",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.design_studies": {
+          "subject": "Design Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.dramatic_arts": {
+          "subject": "Dramatic Arts",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.economics": {
+          "subject": "Economics",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.engineering_graphics_and_design": {
+          "subject": "Engineering Graphics and Design",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": "project_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.english_language": {
+          "subject": "English Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.equine_studies": {
+          "subject": "Equine Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.french_language": {
+          "subject": "French Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.geography": {
+          "subject": "Geography",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": "source_response_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.guidelines_to_strengthen_caps_implementation_2017_fet": {
+          "subject": "Guidelines to strengthen CAPS Implementation 2017: FET",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "structured_test_or_task",
+          "render_shell": "question_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.history": {
+          "subject": "History",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "source_based_plus_essay",
+          "render_shell": "source_essay_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.hospitality_studies": {
+          "subject": "Hospitality Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.life_orientation": {
+          "subject": "Life Orientation",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.life_sciences": {
+          "subject": "Life Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.mandarin_language": {
+          "subject": "Mandarin Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.marine_sciences": {
+          "subject": "Marine Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.mathematical_literacy": {
+          "subject": "Mathematical Literacy",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": "question_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.mathematics": {
+          "subject": "Mathematics",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": "question_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.music": {
+          "subject": "Music",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.nautical_science": {
+          "subject": "Nautical Science",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.physical_sciences": {
+          "subject": "Physical Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.religion_studies": {
+          "subject": "Religion Studies",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": "source_response_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.sport_and_exercise_science": {
+          "subject": "Sport and Exercise Science",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.technical_mathematics": {
+          "subject": "Technical Mathematics",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": "question_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.technical_sciences": {
+          "subject": "Technical Sciences",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.technology": {
+          "subject": "Technology",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": "project_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.tourism": {
+          "subject": "Tourism",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.visual_arts": {
+          "subject": "Visual Arts",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "fet.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "fet_grade_10_12",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.coding_and_robotics": {
+          "subject": "Coding and Robotics",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "project_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.english_language": {
+          "subject": "English Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.life_skills": {
+          "subject": "Life Skills",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.mathematics": {
+          "subject": "Mathematics",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "high",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "foundation.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "foundation_grade_r_3",
+          "assessment_family": "foundation_activity_assessment",
+          "render_shell": "activity_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.coding_and_robotics": {
+          "subject": "Coding and Robotics",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": "project_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.english_language": {
+          "subject": "English Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.french_language": {
+          "subject": "French Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.german_language": {
+          "subject": "German Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.life_skills": {
+          "subject": "Life Skills",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.mandarin_language": {
+          "subject": "Mandarin Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.mathematics": {
+          "subject": "Mathematics",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": "question_paper",
+          "confidence": "high",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.natural_sciences_and_technology": {
+          "subject": "Natural Sciences and Technology",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.serbian_language": {
+          "subject": "Serbian Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.social_sciences": {
+          "subject": "Social Sciences",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": "source_response_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "intermediate.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "intermediate_grade_4_6",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.afrikaans_language": {
+          "subject": "Afrikaans Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.coding_and_robotics": {
+          "subject": "Coding and Robotics",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": "project_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.creative_arts": {
+          "subject": "Creative Arts",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.economics": {
+          "subject": "Economics",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "case_study_structured_questions",
+          "render_shell": "structured_case_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.english_language": {
+          "subject": "English Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.french_language": {
+          "subject": "French Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.german_language": {
+          "subject": "German Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.life_orientation": {
+          "subject": "Life Orientation",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_performance_or_portfolio",
+          "render_shell": "performance_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.mandarin_language": {
+          "subject": "Mandarin Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.mathematics": {
+          "subject": "Mathematics",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "calculation_problem_solving",
+          "render_shell": "question_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.natural_sciences": {
+          "subject": "Natural Sciences",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "data_diagram_practical_investigation",
+          "render_shell": "investigation_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.sepedi_language": {
+          "subject": "Sepedi Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.serbian_language": {
+          "subject": "Serbian Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.sesotho_language": {
+          "subject": "Sesotho Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.setswana_language": {
+          "subject": "Setswana Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.siswati_language": {
+          "subject": "Siswati Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.social_sciences": {
+          "subject": "Social Sciences",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "source_based_plus_extended_response",
+          "render_shell": "source_response_paper",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.south_african_sign_language": {
+          "subject": "South African Sign Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.technology": {
+          "subject": "Technology",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "practical_project_design_task",
+          "render_shell": "project_task_sheet",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.tshivenda_language": {
+          "subject": "Tshivenda Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.xitsonga_language": {
+          "subject": "Xitsonga Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.isindebele_language": {
+          "subject": "isiNdebele Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.isixhosa_language": {
+          "subject": "isiXhosa Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        },
+        "senior.isizulu_language": {
+          "subject": "isiZulu Language",
+          "phase": "senior_grade_7_9",
+          "assessment_family": "language_integrated_assessment",
+          "render_shell": "language_integrated_task",
+          "confidence": "medium",
+          "allowed": null,
+          "required_distribution": null
+        }
+      }
+    },
+    "official_paper_source_catalogue": {
+      "paper_count": 9,
+      "source_type_counts": {
+        "graph_or_chart": 6,
+        "text_extract": 103,
+        "unclassified_stimulus": 42,
+        "photograph_or_image": 6,
+        "cartoon": 2,
+        "data_table": 9,
+        "diagram_or_model": 7,
+        "map_extract": 3
+      },
+      "subjects": {
+        "Afrikaans First Additional Language": {
+          "text_extract": 80,
+          "unclassified_stimulus": 28,
+          "photograph_or_image": 6,
+          "graph_or_chart": 2,
+          "cartoon": 3
+        },
+        "Afrikaans Home Language": {
+          "text_extract": 86,
+          "unclassified_stimulus": 9,
+          "cartoon": 2,
+          "photograph_or_image": 1,
+          "map_extract": 17
+        },
+        "Life Orientation": {
+          "unclassified_stimulus": 8,
+          "text_extract": 10,
+          "data_table": 2
+        },
+        "Life Sciences": {
+          "graph_or_chart": 5,
+          "data_table": 11,
+          "diagram_or_model": 24,
+          "text_extract": 8,
+          "unclassified_stimulus": 2,
+          "map_extract": 2
+        }
+      },
+      "paper_shapes": [
+        {
+          "subject": "Afrikaans First Additional Language",
+          "title": "Afrikaans FAL P1 November 2025",
+          "unique_source_object_count": 15,
+          "source_type_counts": {
+            "text_extract": 23,
+            "unclassified_stimulus": 6,
+            "photograph_or_image": 5,
+            "graph_or_chart": 2,
+            "cartoon": 3
+          },
+          "quality_counts": {
+            "source_stimulus_contract": 23,
+            "needs_human_classification": 6,
+            "structured_visual_or_data_contract": 2
+          },
+          "question_titles_seen": {
+            "1": "",
+            "2": "",
+            "3": "ADVERTENSIE",
+            "4": "STROKIESPRENT",
+            "5": "ARTIKEL EN PRENT"
+          }
+        },
+        {
+          "subject": "Afrikaans Home Language",
+          "title": "Afrikaans HL P1 November 2025",
+          "unique_source_object_count": 9,
+          "source_type_counts": {
+            "text_extract": 16,
+            "unclassified_stimulus": 5,
+            "cartoon": 2
+          },
+          "quality_counts": {
+            "source_stimulus_contract": 16,
+            "needs_human_classification": 5
+          },
+          "question_titles_seen": {
+            "1": "",
+            "2": "",
+            "3": "ADVERTENSIE",
+            "4": "STROKIESPRENT",
+            "5": "ARTIKEL"
+          }
+        },
+        {
+          "subject": "Life Sciences",
+          "title": "Life Sciences P1 November 2025",
+          "unique_source_object_count": 9,
+          "source_type_counts": {
+            "graph_or_chart": 3,
+            "data_table": 5,
+            "diagram_or_model": 14,
+            "text_extract": 1
+          },
+          "quality_counts": {
+            "structured_visual_or_data_contract": 21
+          },
+          "question_titles_seen": {
+            "1": "",
+            "2": "",
+            "3": ""
+          }
+        },
+        {
+          "subject": "Afrikaans First Additional Language",
+          "title": "Afrikaans FAL P2 November 2025",
+          "unique_source_object_count": 46,
+          "source_type_counts": {
+            "unclassified_stimulus": 21,
+            "text_extract": 50
+          },
+          "quality_counts": {
+            "needs_human_classification": 21,
+            "source_stimulus_contract": 50
+          },
+          "question_titles_seen": {
+            "1": "KRINGE IN 'N BOS \u2013 Dalene Matthee",
+            "2": "DIE ONGELOOFLIKE AVONTURE VAN HANNA HOEKOM \u2013",
+            "3": "MEEULANDERS \u2013 Esta Steyn",
+            "4": "LIEN SE LANKSTAANSKOENE \u2013 Derick van der Walt",
+            "5": "POPPIE \u2013 DIE DRAMA \u2013 Elsa Joubert en Sandra Kotz\u00e9",
+            "6": "PALJAS \u2013 Chris Barnard",
+            "7": "FIELA SE KIND \u2013 DIE DRAMA \u2013 Dalene Matthee",
+            "8": "SPIE\u00cbLBEELDE",
+            "9": "VERSKUNS VIR EERSTE ADDISIONELE TAAL"
+          }
+        },
+        {
+          "subject": "Afrikaans Home Language",
+          "title": "Afrikaans HL P2 November 2025",
+          "unique_source_object_count": 50,
+          "source_type_counts": {
+            "text_extract": 70,
+            "unclassified_stimulus": 4,
+            "photograph_or_image": 1,
+            "map_extract": 17
+          },
+          "quality_counts": {
+            "source_stimulus_contract": 71,
+            "needs_human_classification": 12,
+            "structured_visual_or_data_contract": 17
+          },
+          "question_titles_seen": {
+            "1": "OPSTELVRAAG",
+            "2": "KONTEKSTUELE VRAAG",
+            "3": "KONTEKSTUELE VRAAG",
+            "4": "KONTEKSTUELE VRAAG",
+            "5": "KONTEKSTUELE VRAAG",
+            "7": "ONDERW\u00caRELD \u2013 KONTEKSTUELE VRAAG",
+            "9": "MANAKA PLEK VAN DIE HORINGS \u2013 KONTEKSTUELE VRAAG",
+            "11": "VATMAAR \u2013 KONTEKSTUELE VRAAG",
+            "13": "DIE KWART-VOOR-SEWE-LELIE \u2013 KONTEKSTUELE VRAAG",
+            "14": "KRISMIS VAN MAP JACOBS \u2013 OPSTELVRAAG",
+            "15": "KRISMIS VAN MAP JACOBS \u2013 KONTEKSTUELE VRAAG",
+            "17": "MIS \u2013 KONTEKSTUELE VRAAG"
+          }
+        },
+        {
+          "subject": "Life Sciences",
+          "title": "Life Sciences P2 November 2025",
+          "unique_source_object_count": 11,
+          "source_type_counts": {
+            "graph_or_chart": 2,
+            "diagram_or_model": 10,
+            "unclassified_stimulus": 2,
+            "data_table": 6,
+            "map_extract": 2,
+            "text_extract": 7
+          },
+          "quality_counts": {
+            "structured_visual_or_data_contract": 18,
+            "needs_human_classification": 2,
+            "source_stimulus_contract": 3
+          },
+          "question_titles_seen": {
+            "1": "",
+            "2": ".2.2 might NOT be convicted if only this evidence is",
+            "3": ""
+          }
+        },
+        {
+          "subject": "Afrikaans First Additional Language",
+          "title": "Afrikaans FAL P3 November 2025",
+          "unique_source_object_count": 6,
+          "source_type_counts": {
+            "text_extract": 7,
+            "photograph_or_image": 1,
+            "unclassified_stimulus": 1
+          },
+          "quality_counts": {
+            "source_stimulus_contract": 8,
+            "needs_human_classification": 1
+          },
+          "question_titles_seen": {
+            "1": ".1 tot 1.8.",
+            "2": ""
+          }
+        },
+        {
+          "subject": "Life Orientation",
+          "title": "Life Orientation Paper 1 English September 2025",
+          "unique_source_object_count": 10,
+          "source_type_counts": {
+            "unclassified_stimulus": 4,
+            "text_extract": 5,
+            "data_table": 1
+          },
+          "quality_counts": {
+            "needs_human_classification": 4,
+            "source_stimulus_contract": 5,
+            "structured_visual_or_data_contract": 1
+          },
+          "question_titles_seen": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": ""
+          }
+        },
+        {
+          "subject": "Life Orientation",
+          "title": "Life Orientation Paper 1 Afrikaans September 2025",
+          "unique_source_object_count": 10,
+          "source_type_counts": {
+            "unclassified_stimulus": 4,
+            "text_extract": 5,
+            "data_table": 1
+          },
+          "quality_counts": {
+            "needs_human_classification": 4,
+            "source_stimulus_contract": 5,
+            "structured_visual_or_data_contract": 1
+          },
+          "question_titles_seen": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": ""
+          }
+        }
+      ]
+    },
+    "curated_source_asset_bank": {
+      "asset_count": 82,
+      "subjects": {
+        "afrikaans_language": {
+          "cartoon": 2,
+          "graph_or_chart": 1,
+          "map_extract": 1,
+          "photograph_or_image": 3,
+          "text_extract": 3
+        },
+        "economics": {
+          "cartoon": 2,
+          "data_table": 1,
+          "graph_or_chart": 2,
+          "photograph_or_image": 1,
+          "text_extract": 2
+        },
+        "english_language": {
+          "cartoon": 2,
+          "data_table": 2,
+          "photograph_or_image": 1,
+          "text_extract": 3
+        },
+        "geography": {
+          "cartoon": 2,
+          "data_table": 3,
+          "diagram_or_model": 3,
+          "graph_or_chart": 3,
+          "map_extract": 3,
+          "photograph_or_image": 3,
+          "synoptic_weather_map": 3,
+          "text_extract": 3
+        },
+        "history": {
+          "cartoon": 1,
+          "data_table": 1,
+          "photograph_or_image": 2,
+          "text_extract": 2
+        },
+        "life_orientation": {
+          "data_table": 2,
+          "text_extract": 3
+        },
+        "life_sciences": {
+          "data_table": 3,
+          "diagram_or_model": 3,
+          "graph_or_chart": 1,
+          "map_extract": 2,
+          "text_extract": 1
+        },
+        "mathematics": {
+          "data_table": 1,
+          "diagram_or_model": 2,
+          "graph_or_chart": 2,
+          "map_extract": 1
+        },
+        "physical_sciences": {
+          "data_table": 2,
+          "diagram_or_model": 2,
+          "graph_or_chart": 2
+        }
+      },
+      "flags_by_subject": {},
+      "embedding_policy": "Official-paper exemplars may support shape/source-type learning; review copyright/licensing before client delivery."
+    },
+    "subject_profiles": {
+      "count": 12,
+      "profiles": [
+        {
+          "subject_id": "accounting",
+          "display_name": "Accounting",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/accounting.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "financial_snapshot",
+            "ledger_extract",
+            "fixed_asset_register_extract",
+            "ratio_table",
+            "transaction_list",
+            "business_scenario"
+          ],
+          "question_families": [
+            "calculate_amount",
+            "complete_statement",
+            "interpret_ratio",
+            "identify_accounting_concept",
+            "explain_internal_control",
+            "recommend_accounting_action"
+          ],
+          "blocked_claims_or_modes": [
+            "professional financial advice",
+            "invented company figures presented as real",
+            "memo answer that cannot be calculated from supplied information"
+          ]
+        },
+        {
+          "subject_id": "afrikaans_language",
+          "display_name": "Afrikaans Language",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/afrikaans_language.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "leesstuk",
+            "advertensie",
+            "spotprent",
+            "visuele_teks",
+            "grafiek_of_infografika",
+            "skryfprikkel",
+            "literere_uittreksel"
+          ],
+          "question_families": [
+            "letterlike_begrip",
+            "afleiding",
+            "toon_of_register_analise",
+            "visuele_boodskap_evalueer",
+            "opsom",
+            "taalredigering",
+            "uitgebreide_skryfreaksie"
+          ],
+          "blocked_claims_or_modes": [
+            "ongeciteerde kopieregteks in 'n vraestel",
+            "enkelantwoord-memo vir interpretiewe taalvrae",
+            "visuele vrae sonder verskafde visuele bron"
+          ]
+        },
+        {
+          "subject_id": "agricultural_sciences",
+          "display_name": "Agricultural Sciences",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/agricultural_sciences.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "diagram",
+            "table",
+            "graph",
+            "feed_or_production_data",
+            "farm_system_scenario",
+            "experimental_description"
+          ],
+          "question_families": [
+            "define_term",
+            "label_diagram",
+            "interpret_data",
+            "calculate_value",
+            "explain_process",
+            "justify_classification",
+            "evaluate_farming_practice"
+          ],
+          "blocked_claims_or_modes": [
+            "unsafe animal treatment or chemical-use advice",
+            "invented production data presented as real",
+            "diagram labels that are not visible or supplied"
+          ]
+        },
+        {
+          "subject_id": "business_studies",
+          "display_name": "Business Studies",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/business_studies.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "case_study",
+            "financial_snapshot",
+            "policy_extract",
+            "organisational_scenario",
+            "market_context"
+          ],
+          "question_families": [
+            "identify_concept",
+            "apply_theory_to_case",
+            "compare_options",
+            "recommend_action",
+            "evaluate_business_decision",
+            "structured_essay"
+          ],
+          "blocked_claims_or_modes": [
+            "financial advice presented as professional recommendation",
+            "invented company data",
+            "memo that rewards generic theory without case application"
+          ]
+        },
+        {
+          "subject_id": "economics",
+          "display_name": "Economics",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/economics.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "text_extract",
+            "case_study",
+            "data_table",
+            "graph",
+            "cartoon",
+            "photograph_or_image",
+            "economic_indicator_snapshot"
+          ],
+          "question_families": [
+            "define_concept",
+            "identify_from_source",
+            "interpret_graph",
+            "calculate_or_compare_indicator",
+            "explain_causal_link",
+            "evaluate_policy_or_market_effect",
+            "write_economic_essay"
+          ],
+          "blocked_claims_or_modes": [
+            "professional financial or investment advice",
+            "invented current economic statistics presented as real",
+            "cartoon question without supplied cartoon",
+            "memo that rewards generic theory without source application"
+          ]
+        },
+        {
+          "subject_id": "english_language",
+          "display_name": "English Language",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/english_language.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "reading_text",
+            "advertisement",
+            "cartoon",
+            "visual_text",
+            "graph_or_infographic",
+            "writing_prompt",
+            "literary_extract"
+          ],
+          "question_families": [
+            "literal_comprehension",
+            "infer_meaning",
+            "analyse_tone_or_register",
+            "evaluate_visual_message",
+            "summarise_key_points",
+            "edit_language",
+            "compose_extended_response"
+          ],
+          "blocked_claims_or_modes": [
+            "uncited copyrighted text copied into a paper",
+            "single-answer memo for interpretive language questions",
+            "visual questions without supplied visual evidence"
+          ]
+        },
+        {
+          "subject_id": "geography",
+          "display_name": "Geography",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/geography.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "topographic_map_and_orthophoto",
+            "synoptic_weather_map",
+            "map_extract",
+            "photograph_or_image",
+            "graph",
+            "data_table",
+            "text_extract",
+            "diagram"
+          ],
+          "question_families": [
+            "read_map_evidence",
+            "interpret_synoptic_weather",
+            "analyse_graph_or_table",
+            "compare_spatial_patterns",
+            "explain_physical_process",
+            "evaluate_human_environment_interaction",
+            "write_extended_geographical_response"
+          ],
+          "blocked_claims_or_modes": [
+            "mapwork question without a supplied map or extract",
+            "photograph/image question without supplied visual evidence",
+            "invented place data presented as official",
+            "diagram labels not visible in the source"
+          ]
+        },
+        {
+          "subject_id": "history",
+          "display_name": "History",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/history.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "primary_source_extract",
+            "historiographical_extract",
+            "visual_source",
+            "map",
+            "timeline",
+            "political_speech",
+            "policy_document"
+          ],
+          "question_families": [
+            "contextualise_source",
+            "compare_sources",
+            "evaluate_reliability",
+            "explain_causation",
+            "assess_change_and_continuity",
+            "argumentative_essay"
+          ],
+          "blocked_claims_or_modes": [
+            "invented quotations",
+            "uncited historical claims presented as sourced",
+            "single-answer memo for interpretive questions without alternatives"
+          ]
+        },
+        {
+          "subject_id": "life_orientation",
+          "display_name": "Life Orientation",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/life_orientation.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "learner_scenario",
+            "case_study",
+            "policy_or_rights_extract",
+            "wellbeing_context",
+            "career_or_study_pathway_data",
+            "reflection_prompt",
+            "rubric"
+          ],
+          "question_families": [
+            "identify_issue",
+            "apply_concept_to_scenario",
+            "evaluate_choice_or_consequence",
+            "propose_support_strategy",
+            "reflect_on_personal_action",
+            "justify_recommendation"
+          ],
+          "blocked_claims_or_modes": [
+            "mental health diagnosis or treatment advice",
+            "legal advice presented as professional instruction",
+            "assessment that asks learners to disclose private trauma",
+            "moralising memo that allows only one personal response"
+          ]
+        },
+        {
+          "subject_id": "life_sciences",
+          "display_name": "Life Sciences",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/life_sciences.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "diagram",
+            "table",
+            "graph",
+            "experimental_description",
+            "case_context",
+            "terminology_list"
+          ],
+          "question_families": [
+            "define_term",
+            "label_diagram",
+            "interpret_graph",
+            "explain_process",
+            "predict_outcome",
+            "evaluate_investigation"
+          ],
+          "blocked_claims_or_modes": [
+            "medical diagnosis or treatment advice",
+            "fabricated experimental results",
+            "diagram labels that are not visible or supplied"
+          ]
+        },
+        {
+          "subject_id": "mathematics",
+          "display_name": "Mathematics",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/mathematics.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "equation_set",
+            "function_graph",
+            "geometry_diagram",
+            "data_table",
+            "probability_context",
+            "calculation_workspace"
+          ],
+          "question_families": [
+            "solve_equation",
+            "simplify_expression",
+            "interpret_function",
+            "prove_geometry_statement",
+            "calculate_measure",
+            "analyse_data",
+            "show_working"
+          ],
+          "blocked_claims_or_modes": [
+            "answer cannot be derived from supplied information",
+            "diagram-dependent question without supplied diagram",
+            "single method required when alternate valid methods exist"
+          ]
+        },
+        {
+          "subject_id": "physical_sciences",
+          "display_name": "Physical Sciences",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/physical_sciences.json",
+          "retrieval_queries": 3,
+          "source_types": [
+            "circuit_or_apparatus_diagram",
+            "force_or_motion_diagram",
+            "chemical_equation",
+            "data_table",
+            "graph",
+            "experimental_description",
+            "formula_sheet_reference"
+          ],
+          "question_families": [
+            "define_law_or_concept",
+            "calculate_with_formula",
+            "interpret_graph",
+            "analyse_apparatus",
+            "balance_or_interpret_equation",
+            "evaluate_investigation",
+            "explain_relationship"
+          ],
+          "blocked_claims_or_modes": [
+            "unsafe experimental instructions",
+            "invented data presented as real experimental results",
+            "calculation answer not derivable from supplied values",
+            "diagram labels that are not visible or supplied"
+          ]
+        }
+      ]
+    },
+    "grade_ladder": {
+      "schema": "knowedge.homs_grade_ladder.v1",
+      "grades": [
+        {
+          "grade": 1,
+          "phase": "foundation",
+          "learner_level": "emergent",
+          "bloom_targets": [
+            "remember",
+            "understand"
+          ],
+          "zpd_level": "close scaffold",
+          "question_style": [
+            "oral_prompt",
+            "picture_prompt",
+            "matching",
+            "short_word_or_phrase"
+          ],
+          "reading_load": "very_low",
+          "writing_load": "very_low",
+          "memo_style": "accept concrete wording, drawings, pointing, and teacher-mediated responses",
+          "review_checks": [
+            "age-appropriate language",
+            "visual clarity",
+            "no unsupported reading load"
+          ]
+        },
+        {
+          "grade": 2,
+          "phase": "foundation",
+          "learner_level": "early",
+          "bloom_targets": [
+            "remember",
+            "understand",
+            "apply"
+          ],
+          "zpd_level": "close scaffold",
+          "question_style": [
+            "picture_prompt",
+            "matching",
+            "sentence_starter",
+            "short_answer"
+          ],
+          "reading_load": "low",
+          "writing_load": "low",
+          "memo_style": "accept simple explanations and concrete examples",
+          "review_checks": [
+            "plain language",
+            "clear mark split",
+            "limited abstraction"
+          ]
+        },
+        {
+          "grade": 3,
+          "phase": "foundation",
+          "learner_level": "early",
+          "bloom_targets": [
+            "remember",
+            "understand",
+            "apply"
+          ],
+          "zpd_level": "guided scaffold",
+          "question_style": [
+            "short_answer",
+            "sequence_steps",
+            "picture_interpretation",
+            "sentence_response"
+          ],
+          "reading_load": "low",
+          "writing_load": "low_to_moderate",
+          "memo_style": "credit simple reason-giving and correct everyday examples",
+          "review_checks": [
+            "curriculum vocabulary",
+            "short instructions",
+            "balanced picture/text load"
+          ]
+        },
+        {
+          "grade": 4,
+          "phase": "intermediate",
+          "learner_level": "developing",
+          "bloom_targets": [
+            "remember",
+            "understand",
+            "apply"
+          ],
+          "zpd_level": "guided scaffold",
+          "question_style": [
+            "short_answer",
+            "basic_source_use",
+            "explain_in_own_words",
+            "simple_table"
+          ],
+          "reading_load": "moderate",
+          "writing_load": "moderate",
+          "memo_style": "credit accurate concept use and first-step explanation",
+          "review_checks": [
+            "avoid senior-school abstraction",
+            "support new terminology",
+            "include clear examples"
+          ]
+        },
+        {
+          "grade": 5,
+          "phase": "intermediate",
+          "learner_level": "developing",
+          "bloom_targets": [
+            "remember",
+            "understand",
+            "apply",
+            "analyze"
+          ],
+          "zpd_level": "moderate scaffold",
+          "question_style": [
+            "source_prompt",
+            "compare_two_items",
+            "explain_cause",
+            "interpret_simple_graph"
+          ],
+          "reading_load": "moderate",
+          "writing_load": "moderate",
+          "memo_style": "credit supported comparison and simple causal explanation",
+          "review_checks": [
+            "fair vocabulary",
+            "visible evidence in source questions",
+            "mark allocation matches demand"
+          ]
+        },
+        {
+          "grade": 6,
+          "phase": "intermediate",
+          "learner_level": "developing_to_intermediate",
+          "bloom_targets": [
+            "remember",
+            "understand",
+            "apply",
+            "analyze"
+          ],
+          "zpd_level": "moderate scaffold",
+          "question_style": [
+            "structured_response",
+            "data_or_source_interpretation",
+            "compare_and_explain",
+            "paragraph_answer"
+          ],
+          "reading_load": "moderate",
+          "writing_load": "moderate_to_high",
+          "memo_style": "credit evidence-linked explanation and structured paragraphs",
+          "review_checks": [
+            "transition to senior phase readiness",
+            "clear command verbs",
+            "no hidden prerequisite knowledge"
+          ]
+        },
+        {
+          "grade": 7,
+          "phase": "senior",
+          "learner_level": "intermediate",
+          "bloom_targets": [
+            "remember",
+            "understand",
+            "apply",
+            "analyze"
+          ],
+          "zpd_level": "moderate scaffold",
+          "question_style": [
+            "source_analysis",
+            "case_or_data_response",
+            "explain_relationship",
+            "paragraph_answer"
+          ],
+          "reading_load": "moderate_to_high",
+          "writing_load": "moderate_to_high",
+          "memo_style": "credit supported reasoning and correct subject vocabulary",
+          "review_checks": [
+            "phase-appropriate challenge",
+            "avoid Grade 10-12 depth",
+            "support evidence use"
+          ]
+        },
+        {
+          "grade": 8,
+          "phase": "senior",
+          "learner_level": "intermediate",
+          "bloom_targets": [
+            "understand",
+            "apply",
+            "analyze",
+            "evaluate"
+          ],
+          "zpd_level": "moderate scaffold",
+          "question_style": [
+            "multi_step_source_analysis",
+            "scenario_application",
+            "justify_answer",
+            "short_essay"
+          ],
+          "reading_load": "high",
+          "writing_load": "high",
+          "memo_style": "credit justified reasoning, not only keyword recall",
+          "review_checks": [
+            "balanced recall and reasoning",
+            "scenario facts align with memo",
+            "mark levels are clear"
+          ]
+        },
+        {
+          "grade": 9,
+          "phase": "senior",
+          "learner_level": "intermediate_to_advanced",
+          "bloom_targets": [
+            "understand",
+            "apply",
+            "analyze",
+            "evaluate"
+          ],
+          "zpd_level": "guided challenge",
+          "question_style": [
+            "integrated_source_analysis",
+            "case_evaluation",
+            "extended_paragraph",
+            "pre_fet_problem"
+          ],
+          "reading_load": "high",
+          "writing_load": "high",
+          "memo_style": "credit defensible conclusions and evidence-linked judgment",
+          "review_checks": [
+            "prepare for FET demand",
+            "avoid undergraduate framing",
+            "moderate cognitive spread"
+          ]
+        },
+        {
+          "grade": 10,
+          "phase": "fet",
+          "learner_level": "advanced_school",
+          "bloom_targets": [
+            "understand",
+            "apply",
+            "analyze",
+            "evaluate"
+          ],
+          "zpd_level": "light scaffold",
+          "question_style": [
+            "source_based_question",
+            "data_response",
+            "structured_essay",
+            "case_analysis"
+          ],
+          "reading_load": "high",
+          "writing_load": "high",
+          "memo_style": "credit accurate content, source use, and defended explanation",
+          "review_checks": [
+            "subject assessment guidelines",
+            "content depth",
+            "fair command verbs"
+          ]
+        },
+        {
+          "grade": 11,
+          "phase": "fet",
+          "learner_level": "advanced_school",
+          "bloom_targets": [
+            "apply",
+            "analyze",
+            "evaluate",
+            "create"
+          ],
+          "zpd_level": "light scaffold",
+          "question_style": [
+            "complex_source_based_question",
+            "case_analysis",
+            "argumentative_essay",
+            "method_or_investigation"
+          ],
+          "reading_load": "high",
+          "writing_load": "high",
+          "memo_style": "credit independent reasoning, substantiated judgment, and alternative valid routes",
+          "review_checks": [
+            "difficulty progression",
+            "memo alternatives",
+            "mark allocation consistency"
+          ]
+        },
+        {
+          "grade": 12,
+          "phase": "fet_exit",
+          "learner_level": "advanced_school_exit",
+          "bloom_targets": [
+            "apply",
+            "analyze",
+            "evaluate",
+            "create"
+          ],
+          "zpd_level": "expert challenge",
+          "question_style": [
+            "exam_source_set",
+            "extended_case_response",
+            "argumentative_essay",
+            "synthesis_question"
+          ],
+          "reading_load": "high",
+          "writing_load": "high",
+          "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+          "review_checks": [
+            "exit-level standard",
+            "moderation readiness",
+            "equivalent second opportunity",
+            "no undergraduate-only assumptions"
+          ]
+        }
+      ]
+    },
+    "paper_quality_memory": {
+      "overall_status": "failed",
+      "paper_count": 9,
+      "status_counts": {},
+      "top_failures": {},
+      "hard_bans_for_learner_papers": [
+        "smoke test",
+        "source exemplar",
+        "review pipeline",
+        "quality gate",
+        "method and review",
+        "educator approval required before classroom use"
+      ]
+    },
+    "sophia_mandos_bridge": {
+      "sophia_services": {
+        "academic_retrieval": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/academic_retrieval.py",
+        "pedagogy_orchestrator": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/sophia_pedagogy_orchestrator.py",
+        "curriculum_gate": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/sophia_curriculum_gate.py",
+        "all_present": true
+      },
+      "sophia_project_store": {
+        "path": "/home/byron/Integritas-Mechanicus/evidence/sophia_project_store",
+        "exists": true,
+        "project_count": 123,
+        "event_count": 2075
+      },
+      "mandos_memory": {
+        "relational_memory": {
+          "exists": true,
+          "encrypted_or_wrapped": true,
+          "top_level_keys": [
+            "encryption",
+            "payload",
+            "record"
+          ]
+        },
+        "covenant_db": {
+          "path": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/mandos/covenant_chain.db",
+          "exists": true,
+          "bytes": 53248
+        },
+        "homs_recommendation": "Use a new HOMS correction ledger first; import old Mandos only as design pattern, not raw memory."
+      }
+    }
+  },
+  "provider_support": {
+    "secret_file": "/home/byron/EdgeK-BEAST/.beast/provider_secrets.env",
+    "values_redacted": true,
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "gemini_ready": true,
+    "gemini_default_model_hint": "gemini-3.5-flash",
+    "nvidia_nim_ready": true,
+    "nvidia_default_base_url": "https://integrate.api.nvidia.com/v1",
+    "nvidia_default_model_hint": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "required_runtime_order": [
+    "resolve subject + grade + term",
+    "retrieve CAPS excerpts and canonical assessment profile",
+    "retrieve official-paper source/object patterns for that subject",
+    "retrieve HOMS correction memory and hard bans",
+    "construct subject knowledge packet",
+    "provider draft generation as JSON only",
+    "provider critic pass against CAPS/profile/source/format constraints",
+    "render only if validation passes",
+    "educator approval before classroom use"
+  ]
+}

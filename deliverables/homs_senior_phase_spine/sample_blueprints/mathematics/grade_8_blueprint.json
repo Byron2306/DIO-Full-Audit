@@ -1,0 +1,86 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "mathematics",
+  "display_name": "Mathematics",
+  "senior_subject": "Mathematics",
+  "grade": 8,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "calculation_problem_solving",
+  "marks": 60,
+  "duration_minutes": 75,
+  "bloom_distribution": {
+    "remember": 15,
+    "understand": 25,
+    "apply": 30,
+    "analyse": 20,
+    "evaluate": 8,
+    "create": 2,
+    "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+  },
+  "source_grammar": [
+    "diagram_or_model",
+    "graph_or_chart",
+    "data_table",
+    "number_line_or_grid"
+  ],
+  "caps_focus": "multi-step procedures, algebraic reasoning, geometry and data handling",
+  "sections": [
+    {
+      "title": "short_procedures",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "short_procedures",
+          "bloom_level": "understand",
+          "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 Mathematics stimulus or task.",
+          "scaffold": [
+            "one or two linked sources",
+            "guided comparison",
+            "show evidence from the task"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "problem_solving",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "problem_solving",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 Mathematics task.",
+          "scaffold": [
+            "one or two linked sources",
+            "guided comparison",
+            "show evidence from the task"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "data_geometry_or_measurement",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "data_geometry_or_measurement",
+          "bloom_level": "analyse",
+          "prompt_shape": "Compare, sort or interpret parts of a Grade 8 Mathematics stimulus or task.",
+          "scaffold": [
+            "one or two linked sources",
+            "guided comparison",
+            "show evidence from the task"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

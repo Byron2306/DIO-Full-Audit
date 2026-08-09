@@ -1,0 +1,32 @@
+{
+  "schema": "nichefoundry.dio_campaign_production_request.v1",
+  "family_id": "HOMS_ASSESS--heads_assessment",
+  "title": "HOMS for HODs and assessment coordinators",
+  "product": "HOMS_ASSESS",
+  "audience": "HODs and assessment coordinators",
+  "proof_asset": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+  "source_image": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/homs_exam_proof.png",
+  "scene_images": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/heads-assessment/assets/01_hook.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/heads-assessment/assets/02_proof.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/heads-assessment/assets/03_action.jpg"
+  ],
+  "music": {
+    "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "attribution": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/MUSIC_ATTRIBUTION.md",
+    "voice_required": false
+  },
+  "outputs": {
+    "vertical_reel": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/heads-assessment/assets/reel_1080x1920.mp4",
+    "long_form_explainer": {
+      "state": "brief_ready",
+      "target_seconds": 45,
+      "requires_operator_script_review": true
+    }
+  },
+  "release": {
+    "state": "held",
+    "operator_approval_required": true
+  },
+  "request_hash": "sha256:41e87fb6d22cf5b2a5a65a1e9d48b7552d788f28a7348453b0c4139962813579"
+}

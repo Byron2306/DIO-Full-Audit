@@ -1,0 +1,153 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "assessment_title": "Grade 11 Physical Sciences Term 4 Visual Asset Pack: The effects of intermolecular forces: boiling Determine the critical a",
+  "subject": "Physical Sciences",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "canonical_profile_id": "fet.physical_sciences",
+  "blueprint": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Physical Sciences",
+    "grade": 11,
+    "phase": "fet_grade_10_12",
+    "term": "4",
+    "caps_source": {
+      "title": "Physical Sciences",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_physical_science_web.pdf",
+      "sha256": "8b7b20f350a46fc077c4e9b2fcf4ecfd7b63e7f6cd56d7d6ea94de75dbcd209f"
+    },
+    "canonical_profile_id": "fet.physical_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "caps_theme_candidates": [
+      "Term1 maximum static friction by keeping the object",
+      "The effects of intermolecular forces: boiling Determine the critical angle of a rectangular",
+      "Project: Experiment (physics)",
+      "You may do any of these topics or any other Obtain current and voltage data for a resistor",
+      "a velocity+time graph and hence determine",
+      "the investigation:",
+      "determine how the inclination impacts",
+      "determine how the different surfaces",
+      "specification of what is to be taught and learnt on a term-by-term basis.",
+      "the National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in south",
+      "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+      "Grades R-12",
+      "(c) National Protocol for Assessment Grades R-12.",
+      "PHYSICAL SCIENCES GRADES 10-12"
+    ],
+    "assessment_content_focus": [
+      "The effects of intermolecular forces: boiling Determine the critical angle of a rectangular",
+      "Term1 maximum static friction by keeping the object",
+      "The effects of intermolecular forces: boiling Determine the critical angle of a rectangular",
+      "Term1 maximum static friction by keeping the object"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: angle, boiling, critical, determine, effects, forces."
+    ],
+    "required_visuals": [
+      {
+        "id": "investigation_method_data",
+        "title": "Investigation method and data sheet",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "investigation_sheet",
+        "must_show": [
+          "aim",
+          "variables",
+          "method",
+          "data table",
+          "conclusion line"
+        ],
+        "assessment_use": "Learners record observations and draw a supported conclusion."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ],
+    "theme_quality": {
+      "confidence": "medium",
+      "render_allowed": true,
+      "content_lines": [
+        "The effects of intermolecular forces: boiling Determine the critical angle of a rectangular"
+      ],
+      "admin_lines": [
+        "the National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in south",
+        "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+        "(c) National Protocol for Assessment Grades R-12."
+      ],
+      "content_terms": [
+        "chemical",
+        "electric",
+        "energy",
+        "force",
+        "matter",
+        "motion",
+        "reaction",
+        "waves"
+      ]
+    },
+    "render_gate": {
+      "status": "passed",
+      "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+    }
+  },
+  "duration": "visual preflight",
+  "total_marks": 25,
+  "sections": [
+    {
+      "title": "Visual Evidence Preflight",
+      "mode": "investigation_task_sheet",
+      "instructions": "Use this pre-made visual pack as the visual contract before generating the final assessment.",
+      "stimulus": "Physical Sciences Grade 11 Term 4: The effects of intermolecular forces: boiling Determine the critical angle of a rectangular",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Record the method, variables and observations in the investigation sheet.",
+          "marks": 10,
+          "memo": [
+            "Credit correct method and observations."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Use the data to write a supported conclusion.",
+          "marks": 15,
+          "memo": [
+            "Credit conclusion linked to evidence."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Visual evidence use",
+      "marks": 10,
+      "descriptor": "Learner uses the supplied visual evidence accurately."
+    },
+    {
+      "criterion": "Subject reasoning",
+      "marks": 10,
+      "descriptor": "Response shows CAPS-aligned reasoning for the subject and grade."
+    },
+    {
+      "criterion": "Communication or process evidence",
+      "marks": 5,
+      "descriptor": "Working, planning, observation or response is clear enough to mark."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS subject, grade and term fit.",
+    "Confirm the final assessment questions use the planned visuals as evidence.",
+    "Confirm visual labels, units and mark expectations before classroom use."
+  ]
+}

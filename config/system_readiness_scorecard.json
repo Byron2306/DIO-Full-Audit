@@ -1,0 +1,32 @@
+{
+  "schema": "dio.system_readiness_scorecard.v1",
+  "assessed_at": "2026-08-09",
+  "weights": {
+    "functional_proof": 0.25,
+    "safety_governance": 0.20,
+    "reliability_automation": 0.15,
+    "observability": 0.10,
+    "external_validation": 0.20,
+    "maintainability_operations": 0.10
+  },
+  "systems": [
+    {"id":"dio_core","name":"DIO Core and Control Deck","scores":[90,92,82,88,35,65],"evidence":"Local control service, policy gates, actionable queues, hash-linked event ledger and passing UI checks.","next_gate":"Reduce operator backlog and add durable deployment/change recovery."},
+    {"id":"edge_intake","name":"Cloudflare Edge and Public Intake","scores":[88,90,82,80,45,72],"evidence":"Live Worker/D1 intake, deterministic IDs, public form validation and local reconciliation are proven.","next_gate":"Run repeated external submissions and recovery tests under realistic interruption."},
+    {"id":"outlook","name":"Outlook, Graph and Triage","scores":[88,90,80,82,45,72],"evidence":"Webhook ingress, message capture, drafts, one-time send leases and receipts are connected.","next_gate":"Add attachment scanning/trust promotion and prove a complete real customer conversation."},
+    {"id":"commerce","name":"Commerce and PayPal","scores":[86,94,78,84,40,72],"evidence":"Sandbox and live signed webhooks are verified; browser returns do not grant payment authority.","next_gate":"Join a real customer payment to fulfilment, acknowledgement, revision and margin telemetry."},
+    {"id":"triune","name":"Commercial Transaction and Triune Governance","scores":[82,94,80,86,20,70],"evidence":"Canonical transaction, Metatron belief, Michael actions, Loki dissent and harmonic state are active.","next_gate":"Standardise product runner, delivery closeout and verified outcome learning."},
+    {"id":"evidex","name":"Evidex","scores":[92,90,78,86,30,72],"evidence":"Golden controlled transaction and reviewed evidence pack are complete.","next_gate":"One external paid evidence pack with acknowledgement, revisions and effective hourly return."},
+    {"id":"homs_marking","name":"HOMS Marking Relief","scores":[85,90,70,75,20,68],"evidence":"Three-submission NIM batch produced marks, criterion feedback and review pack.","next_gate":"One redacted real educator batch with a retained correction ledger."},
+    {"id":"homs_exam","name":"HOMS Exam Studio","scores":[88,85,70,76,15,68],"evidence":"Grade 12 Term 3 tight-eight release passed structural and rendering checks.","next_gate":"External subject-expert approval and controlled expansion by subject, term and grade."},
+    {"id":"homs_learning","name":"HOMS Learning Studio","scores":[78,82,65,68,10,65],"evidence":"One Physical Sciences companion pack and video lesson exist.","next_gate":"Subject-expert review and one paid topic-level pilot."},
+    {"id":"sophia","name":"Sophia Academic Review","scores":[84,90,72,76,15,70],"evidence":"Consented Gemini-backed review, grounding, approval and delivery draft are proven.","next_gate":"External postgraduate or researcher pilot with revision telemetry."},
+    {"id":"vamp","name":"VAMP","scores":[82,92,70,78,15,68],"evidence":"NWU and institution-neutral profiles produce approved evidence snapshots.","next_gate":"External organisation onboarding, privacy review and measured profile economics."},
+    {"id":"lingua","name":"Lingua, Document Studio and BEAST","scores":[84,92,72,82,15,68],"evidence":"Four language lanes, practitioner approvals, deterministic QA and BEAST crystallisation are proven in controlled packs.","next_gate":"Independent language review and paid authorised-document pilot."},
+    {"id":"market_command","name":"Market Command","scores":[86,92,76,84,10,72],"evidence":"Campaign authority, content gates, read adapters, attribution, creative factory and procurement controls are implemented.","next_gate":"Produce real impressions, enquiries, qualified leads, paid orders and settlement evidence."},
+    {"id":"hivenance","name":"Hivenance Market Intelligence","scores":[80,84,70,75,5,65],"evidence":"Web and YouTube observations feed strategist, oracle and dissent reasoning into bounded hypotheses.","next_gate":"Calibrate recommendations against repeated real campaign outcomes rather than research signals."},
+    {"id":"nichefoundry","name":"NicheFoundry Media Layer","scores":[88,82,76,78,15,70],"evidence":"Gamma assets, posters, channel copy, shorts, long-form video, music rights and YouTube OAuth exist.","next_gate":"Editorially approve and publish a repeatable proof-led content series, then bind its outcomes."},
+    {"id":"agency_procurement","name":"South African Agency Procurement","scores":[75,94,65,72,0,70],"evidence":"Verified registry, RFQ, Outlook draft, quote, spend and provider-report gates are implemented; one draft is prepared.","next_gate":"Receive and compare real quotes, then run at most one capped pilot."},
+    {"id":"security","name":"Security and Privacy","scores":[75,90,65,80,20,55],"evidence":"Least-authority gates, signed payment verification, secret separation and attachment quarantine are present.","next_gate":"Malware scanning, backup/restore proof, dependency scanning and formal data-retention policy."},
+    {"id":"operations","name":"Operations and Change Management","scores":[78,80,72,72,25,45],"evidence":"Core services and recurring timers are active with zero failed user services.","next_gate":"Initialise Git safely, add backups/runbooks, reduce disk pressure and test disaster recovery."}
+  ]
+}

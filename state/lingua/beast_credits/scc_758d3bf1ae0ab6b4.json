@@ -1,0 +1,35 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:0f517bb815a82103ca1f35b421f551a5269ac8e689f95b4bd9a6d6eb1b69d6d2",
+    "ref": "blobs/sha256/0f517bb815a82103ca1f35b421f551a5269ac8e689f95b4bd9a6d6eb1b69d6d2.json"
+  },
+  "artifact_type": "verified_capability",
+  "avoided_tokens_estimate": 20,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.9,
+  "created_at": "2026-08-09T11:03:17.515179+00:00",
+  "credit_id": "scc_758d3bf1ae0ab6b4",
+  "evidence_packet_id": "risk:isiZulu:sha256:2c4da9f1092ee",
+  "impact_fingerprint_hash": "sha256:e410883bfe2b2c374897dafb5c0cb8eccce7e1943fe1b5b73f3f25dca5890764",
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "asserts_translation_truth": false,
+    "authority": "conservative_machine_risk_escalation",
+    "domain": "Water-quality operations",
+    "issue": "The phrase 'sampler initials' is translated descriptively; confirm if a shorter standard term exists.",
+    "severity": "medium",
+    "target_language": "isiZulu"
+  },
+  "policy_version": "dio_lingua_conservative_risk_learning_v1",
+  "repo_fingerprint": "sha256:e410883bfe2b2c374897dafb5c0cb8eccce7e1943fe1b5b73f3f25dca5890764",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "dio_lingua_risk_pattern",
+  "verified_tests": [
+    "visible",
+    "hidden"
+  ],
+  "version": "1.0"
+}

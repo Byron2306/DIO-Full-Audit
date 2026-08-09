@@ -1,0 +1,26 @@
+{
+  "schema": "dio.market_command.build_report.v2",
+  "built_at": "2026-08-08",
+  "artifact": "DIO_Market_Command_Wave2.zip",
+  "standalone_tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "integration_tests_with_registry_lineage": {
+    "passed": 19,
+    "failed": 0
+  },
+  "server_smoke": {
+    "health": true,
+    "state_schema": "dio.market_command.state.v2"
+  },
+  "demo_seed": {
+    "simulated": true,
+    "campaigns": 3,
+    "real_spend_created": false
+  },
+  "authority": {
+    "paid_platform_write_adapters": false,
+    "automatic_spend": "off"
+  }
+}

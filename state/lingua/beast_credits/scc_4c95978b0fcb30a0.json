@@ -1,0 +1,34 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:c951c252579706bbf84b3a7493bc5216e7a7ba3935817342e32a1b34e64a66a0",
+    "ref": "blobs/sha256/c951c252579706bbf84b3a7493bc5216e7a7ba3935817342e32a1b34e64a66a0.json"
+  },
+  "artifact_type": "verified_capability",
+  "avoided_tokens_estimate": 12,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 1.0,
+  "created_at": "2026-08-09T11:03:17.494107+00:00",
+  "credit_id": "scc_4c95978b0fcb30a0",
+  "evidence_packet_id": "guard:numeral_preservation",
+  "impact_fingerprint_hash": "sha256:9eb3ceaf2556c2e23d2f8ab9e2aaeba346625ef094886e0d14d2e21bfaf439dc",
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "authority": "deterministic_validator",
+    "domain": "*",
+    "guard": "numeral_preservation",
+    "rule": "Every operational numeral present in a source unit must remain present in its target unit.",
+    "target_language": "isiZulu"
+  },
+  "policy_version": "dio_lingua_deterministic_learning_v1",
+  "repo_fingerprint": "sha256:9eb3ceaf2556c2e23d2f8ab9e2aaeba346625ef094886e0d14d2e21bfaf439dc",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "dio_lingua_deterministic_guard",
+  "verified_tests": [
+    "visible",
+    "hidden"
+  ],
+  "version": "1.0"
+}

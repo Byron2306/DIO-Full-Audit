@@ -1,0 +1,314 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Language Term 3 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS Grade 12 Term 3 English Language Paper 1 & 3 Integration",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Integrated Comprehension and Summary",
+      "mode": "comprehension",
+      "instructions": "Read Text A and Text B carefully before answering the questions that follow.",
+      "stimulus": "TEXT A: THE DIGITAL SHIFT IN PROFESSIONAL COMMUNICATION\n\n[Paragraph 1] The landscape of modern professional communication has undergone a seismic shift. Traditional corporate correspondence, once dominated by highly structured, formal emails and physical memoranda, has largely been supplanted by instant messaging platforms such as Slack, Microsoft Teams, and WhatsApp. While these platforms facilitate rapid decision-making and break down rigid corporate hierarchies, they have also introduced a level of linguistic informality that threatens the clarity and precision of professional discourse.\n\n[Paragraph 2] This shift has resulted in what linguists call 'linguistic hybridity'\u2014a blend of written and spoken language characteristics. In these digital workspaces, employees frequently employ sentence fragments, omit punctuation, and rely heavily on abbreviations. The boundary between personal, casual speech and professional, written communication has become increasingly blurred, leading to potential misunderstandings and a perceived decline in professional decorum.\n\n[Paragraph 3] Furthermore, the integration of emojis into professional platforms has sparked intense debate. Proponents argue that emojis inject necessary emotional context into otherwise sterile text, preventing misinterpretation. Detractors, however, view the emoji invasion as a regression to pictographic communication, arguing that it diminishes the writer's vocabulary and undermines the authority of the message.\n\n[Paragraph 4] Despite these concerns, some organizational theorists claim that informal communication channels actually increase workplace productivity. By reducing the time spent drafting elaborate emails, employees can resolve issues in real-time. However, this efficiency often comes at the cost of grammatical accuracy and depth of thought, raising questions about the long-term impact on cognitive writing skills.\n\n[Paragraph 5] The rapid evolution of language in digital spaces is a double-edged sword. It reflects a dynamic, adaptable workforce, yet it demands a new form of linguistic literacy. Professionals must now navigate multiple registers, seamlessly transitioning from highly formal client proposals to highly informal internal chats without compromising their professional credibility.\n\nTEXT B: THE VALUE OF MAINTAINING FORMAL REGISTER\n\nMaintaining a formal register in professional environments remains a cornerstone of effective business operations. Firstly, a formal register establishes clear boundaries, ensuring that professional relationships remain objective and focused on organizational goals. Secondly, it projects an image of competence and reliability to external stakeholders, which is vital for building brand trust. Thirdly, formal language minimizes ambiguity, as it adheres to standardized grammatical rules that leave little room for misinterpretation. Fourthly, it fosters an inclusive environment by avoiding colloquialisms or slang that may exclude non-native speakers or older generations. Fifthly, formal documentation provides a legally robust record of business transactions and agreements. Sixthly, practicing formal writing sharpens critical thinking and analytical skills, as it requires the writer to structure complex arguments logically. Finally, a commitment to formal language preserves the rich heritage of linguistic precision in an increasingly fragmented digital age.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "State the primary reason the author gives in Paragraph 1 for the decline of formal email etiquette in modern workplaces.",
+          "marks": 2,
+          "memo": [
+            "The rise of instant messaging platforms (such as Slack, Microsoft Teams, and WhatsApp) has supplanted traditional, highly structured emails.",
+            "These platforms prioritize rapid decision-making and informal, real-time communication over formal structures."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain the concept of 'linguistic hybridity' as described in Paragraph 2, referencing specific linguistic features mentioned in the text.",
+          "marks": 3,
+          "memo": [
+            "Linguistic hybridity is a blend of written and spoken language characteristics (1 mark).",
+            "It is characterized by sentence fragments, the omission of punctuation, and the heavy use of abbreviations (1 mark).",
+            "This blurs the boundary between casual speech and formal written communication in professional spaces (1 mark)."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Analyze the author's tone in Paragraph 3 when discussing 'the emoji invasion'. Support your answer with reference to the diction used in the paragraph.",
+          "marks": 3,
+          "memo": [
+            "The tone is critical, skeptical, or objective/analytical when presenting both sides of the debate (1 mark).",
+            "The use of the phrase 'emoji invasion' suggests a hostile or overwhelming takeover of professional language (1 mark).",
+            "Diction like 'regression to pictographic communication' and 'diminishes the writer's vocabulary' highlights the negative, regressive view of emojis in professional contexts (1 mark)."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Evaluate the validity of the claim in Paragraph 4 that informal communication channels increase workplace productivity. Refer to the counter-arguments presented in the same paragraph.",
+          "marks": 3,
+          "memo": [
+            "The claim is partially valid because real-time communication reduces the time spent drafting elaborate emails, allowing quick resolution of issues (1 mark).",
+            "However, the author invalidates or qualifies this by pointing out that this efficiency comes at the cost of grammatical accuracy and depth of thought (1 mark).",
+            "Ultimately, it raises concerns about the long-term degradation of cognitive writing skills, suggesting that short-term speed may lead to long-term intellectual decline (1 mark)."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Identify the metaphor used in Paragraph 5 and explain its effectiveness in conveying the nature of language evolution in digital spaces.",
+          "marks": 3,
+          "memo": [
+            "The metaphor is 'double-edged sword' (1 mark).",
+            "It is effective because it illustrates that digital language evolution has both positive and negative consequences simultaneously (1 mark).",
+            "It reflects a dynamic, adaptable workforce (one edge) but also demands complex linguistic literacy and threatens professional credibility if mismanaged (the other edge) (1 mark)."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Explain how the final sentence of Text A serves as an effective conclusion to the author's argument.",
+          "marks": 3,
+          "memo": [
+            "The final sentence emphasizes the need for modern professionals to be linguistically versatile/adaptable (1 mark).",
+            "It synthesizes the main tension of the passage: balancing highly formal client proposals with highly informal internal chats (1 mark).",
+            "It leaves the reader with a clear, practical resolution\u2014that professional credibility must be maintained despite changing communication channels (1 mark)."
+          ]
+        },
+        {
+          "number": "2.1",
+          "question": "Read Text B ('The Value of Maintaining Formal Register'). Summarise the seven key benefits of maintaining a formal register in professional environments. Write your summary in a single, coherent paragraph of 70-90 words. You must use your own words as far as possible and provide an accurate word count at the end of your summary.",
+          "marks": 10,
+          "memo": [
+            "Point 1: Establishes clear, objective professional boundaries.",
+            "Point 2: Projects competence, reliability, and builds brand trust with external stakeholders.",
+            "Point 3: Minimizes ambiguity and misinterpretation through standardized grammar.",
+            "Point 4: Fosters inclusivity by avoiding exclusionary slang or colloquialisms.",
+            "Point 5: Provides legally robust documentation of business transactions.",
+            "Point 6: Sharpens critical thinking and logical reasoning skills.",
+            "Point 7: Preserves linguistic precision in a fragmented digital age.",
+            "Mark allocation: 7 marks for the 7 points (1 mark per point); 3 marks for language, sentence structure, adherence to word count, and paragraph format."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Visual Literacy and Language Structures",
+      "mode": "visual_literacy",
+      "instructions": "Answer all questions in this section. Refer to the 'language_response_planner' visual workspace and the provided editing passage.",
+      "stimulus": "VISUAL STIMULUS: The 'language_response_planner' is a structured workspace containing six distinct blocks: 'text panel', 'main idea', 'evidence', 'plan', 'draft', and 'edit'.\n\nTEXT C: EDITING PASSAGE\n\n[1] The committee have decided to postpone the meeting. [2] Its clear that nobody wants to take responsibility for the project's failure. [3] The manager spoke very good, but he did not convince the staff. [4] We must implement these changes immediately.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Locate the 'text panel' and 'main idea' blocks in the 'language_response_planner'. Explain how isolating the 'main idea' from the raw 'text panel' prevents a writer from misinterpreting a complex text.",
+          "marks": 3,
+          "memo": [
+            "The 'text panel' contains the raw, unanalyzed source text which may contain distracting details or complex language (1 mark).",
+            "Isolating the 'main idea' forces the reader to synthesize and extract the core thesis statement (1 mark).",
+            "This prevents cognitive overload and ensures that subsequent analysis remains aligned with the author's primary argument rather than superficial details (1 mark)."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Examine the transition from the 'evidence' block to the 'plan' block in the 'language_response_planner'. Why is it linguistically vital to organize evidence before drafting a response?",
+          "marks": 3,
+          "memo": [
+            "The 'evidence' block holds specific textual citations and concrete facts (1 mark).",
+            "The 'plan' block structures these facts into a logical argumentative sequence (1 mark).",
+            "Organizing evidence before drafting prevents logical fallacies, ensures structural coherence, and stops the writer from making unsubstantiated claims during the drafting phase (1 mark)."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Contrast the 'draft' and 'edit' blocks in the 'language_response_planner'. Explain why the 'edit' phase requires a shift from creative expression to critical grammatical analysis.",
+          "marks": 4,
+          "memo": [
+            "The 'draft' block focuses on the fluid generation of ideas, vocabulary choice, and argument flow (2 marks).",
+            "The 'edit' block requires a critical, objective review of mechanics, such as correcting concord, punctuation, spelling, and register errors (1 mark).",
+            "This shift is necessary because creative drafting often overlooks technical errors, whereas editing ensures the text meets formal academic and professional standards of accuracy (1 mark)."
+          ]
+        },
+        {
+          "number": "4.1",
+          "question": "Identify and correct the concord error in Sentence 1 of Text C.",
+          "marks": 1,
+          "memo": [
+            "Error: 'The committee have decided' (1 mark for identifying or correcting).",
+            "Correction: 'The committee has decided' (Accept 'have' changed to 'has' because 'committee' is a collective noun acting as a single unit)."
+          ]
+        },
+        {
+          "number": "4.2",
+          "question": "Correct the homophone/punctuation error in Sentence 2 of Text C.",
+          "marks": 1,
+          "memo": [
+            "Error: 'Its clear' (1 mark for correcting).",
+            "Correction: 'It's clear' (or 'It is clear')."
+          ]
+        },
+        {
+          "number": "4.3",
+          "question": "Rewrite Sentence 3 of Text C ('The manager spoke very good...') to correct the error in adverb usage.",
+          "marks": 2,
+          "memo": [
+            "Error: 'good' is an adjective modifying the verb 'spoke' (1 mark).",
+            "Correction: 'The manager spoke very well, but he did not convince the staff.' (1 mark)."
+          ]
+        },
+        {
+          "number": "4.4",
+          "question": "Rewrite Sentence 4 of Text C ('We must implement these changes immediately') in the passive voice.",
+          "marks": 2,
+          "memo": [
+            "These changes must be implemented immediately (by us).",
+            "Award 2 marks for correct passive construction ('must be implemented'). Award 1 mark if minor errors occur but passive voice is attempted."
+          ]
+        },
+        {
+          "number": "4.5",
+          "question": "Rewrite the following colloquial sentence in a formal, professional register suitable for an executive report: 'The boss was totally stressed out because the team messed up the presentation.'",
+          "marks": 4,
+          "memo": [
+            "The manager/director was highly anxious/concerned because the team failed to deliver/executed poorly the presentation.",
+            "Award 1 mark for replacing 'boss' with a formal term (e.g., 'manager', 'director', 'supervisor').",
+            "Award 1 mark for replacing 'totally stressed out' with a formal equivalent (e.g., 'highly concerned', 'under significant pressure').",
+            "Award 1 mark for replacing 'messed up' with a formal equivalent (e.g., 'compromised', 'failed to execute successfully').",
+            "Award 1 mark for overall formal sentence structure and tone."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Formal Transactional Writing and Controlled Response Planning",
+      "mode": "transactional_writing",
+      "instructions": "Complete both Part A and Part B of this section. Use the 'language_response_planner' workspace to plan your response before writing the final draft.",
+      "stimulus": "SCENARIO: The School Governing Body (SGB) at your school has proposed a new language policy that restricts learners from speaking their home languages during informal school breaks, mandating that only the school's official medium of instruction may be spoken on school grounds at all times. As the chairperson of the Representative Council of Learners (RCL), you must write a formal letter of complaint to the SGB expressing the student body's concerns regarding this policy.",
+      "questions": [
+        {
+          "number": "5.1",
+          "question": "PART A: Controlled Response Planning\nUsing the 'language_response_planner' workspace, complete the planning phase for your formal letter. You must explicitly write out your plan under the following headings corresponding to the planner's blocks:\n1. Main Idea (The core thesis of your complaint)\n2. Evidence (Two specific arguments or constitutional/linguistic rights you will cite)\n3. Plan (The structural outline of your letter's paragraphs)",
+          "marks": 6,
+          "memo": [
+            "Main Idea (2 marks): Must clearly state the objection to the language policy on the grounds of inclusivity, cultural identity, or linguistic rights.",
+            "Evidence (2 marks): Must provide two logical points (e.g., Section 6 of the South African Constitution regarding language rights, or the psychological impact of restricting mother-tongue expression during social breaks).",
+            "Plan (2 marks): Must outline a logical paragraph structure (e.g., Paragraph 1: Introduction and purpose; Paragraph 2: Argument on cultural identity; Paragraph 3: Argument on constitutional rights; Paragraph 4: Proposed compromise/conclusion)."
+          ]
+        },
+        {
+          "number": "5.2",
+          "question": "PART B: Formal Transactional Writing\nWrite the formal letter of complaint to the School Governing Body based on your planning in Question 5.1. Your letter must be between 120 and 150 words in length. Pay close attention to the formal letter format, appropriate register, persuasive diction, and accurate grammar.",
+          "marks": 14,
+          "memo": [
+            "Format (3 marks): Correct formal letter layout, including two addresses (sender and recipient), date, formal salutation (e.g., Dear Chairperson of the SGB), subject line (underlined/bolded), and formal sign-off (Yours faithfully, Signature, Name, Designation).",
+            "Content and Register (6 marks): Clear expression of the student body's grievances, maintaining a respectful yet firm formal register. Avoidance of colloquialisms. Logical flow of arguments as planned in 5.1.",
+            "Language and Editing (5 marks): Accurate grammar, punctuation, spelling, and sentence construction. Adherence to the word count limit (120-150 words)."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Comprehension (Text A)",
+      "marks": 20,
+      "descriptor": "Assessment of literal comprehension, inference, tone analysis, evaluation of arguments, and synthesis of textual evidence."
+    },
+    {
+      "criterion": "Section A: Summary (Text B)",
+      "marks": 10,
+      "descriptor": "Assessment of the ability to extract 7 core points, synthesize information, use own words, and adhere to paragraph formatting and word limits."
+    },
+    {
+      "criterion": "Section B: Visual Literacy (Language Response Planner)",
+      "marks": 10,
+      "descriptor": "Assessment of the learner's ability to analyze the structural and cognitive functions of the text panel, main idea, evidence, plan, draft, and edit blocks."
+    },
+    {
+      "criterion": "Section B: Language & Editing (Text C)",
+      "marks": 10,
+      "descriptor": "Assessment of grammatical accuracy, including concord, punctuation, adverb usage, passive voice conversion, and register shift."
+    },
+    {
+      "criterion": "Section C: Controlled Response Planning (Part A)",
+      "marks": 6,
+      "descriptor": "Assessment of the planning process using the language response planner's main idea, evidence, and plan blocks."
+    },
+    {
+      "criterion": "Section C: Formal Transactional Writing (Part B)",
+      "marks": 14,
+      "descriptor": "Assessment of formal letter format, persuasive register, language accuracy, and adherence to the transactional writing scenario."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum to exactly 70.",
+    "Confirm that the 'language_response_planner' visual is provided to learners as a workspace.",
+    "Check that the comprehension passage (Text A) and summary passage (Text B) are clearly distinguished.",
+    "Ensure the marking memo allows for alternative, linguistically sound interpretations in the comprehension section.",
+    "Verify that the transactional writing rubric aligns with the CAPS assessment guidelines for Grade 12 Term 3."
+  ]
+}

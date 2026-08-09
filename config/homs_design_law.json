@@ -1,0 +1,87 @@
+{
+  "schema": "knowedge.homs_design_law.v1",
+  "name": "HOMS Assessment Design Law",
+  "created_for": "CAPS-aligned HOMS Exam Studio",
+  "principles": [
+    "Assessment format follows the canonical CAPS ontology, not a generic exam template.",
+    "Every generated visual must serve an assessment purpose: stimulus, learner workspace, teacher scoring aid, or moderation evidence.",
+    "Foundation phase prioritises concrete, observable, low-reading-load visuals.",
+    "Intermediate phase prioritises labelled diagrams, process charts, tables, and visible reasoning scaffolds.",
+    "Senior and FET phases may use richer diagrams, tables, grids, source panels, and rubric matrices when the ontology allows it.",
+    "Long essays, source packs, business case studies, and formal exam layouts are default-off unless the subject profile allows them.",
+    "A human educator must approve the final visual and marking interpretation before classroom use."
+  ],
+  "document_style": {
+    "font": "Arial",
+    "body_size_pt": 10.5,
+    "heading_size_pt": 15,
+    "table_style": "Table Grid",
+    "page_note": "Educator approval required before classroom use."
+  },
+  "visual_families": {
+    "foundation_activity_assessment": {
+      "visuals": ["concrete_activity_board", "teacher_observation_grid", "learner_response_strip"],
+      "rules": [
+        "Use large labels and simple shapes.",
+        "Keep learner reading load minimal.",
+        "Prefer manipulatives, cards, number lines, matching grids, and picture prompts."
+      ]
+    },
+    "calculation_problem_solving": {
+      "visuals": ["working_grid", "number_line_or_axis", "method_marks_table"],
+      "rules": [
+        "Show workspace and method marks.",
+        "Use grids, axes, diagrams, or tables when the question requires visible reasoning.",
+        "Do not turn calculations into essay prompts."
+      ]
+    },
+    "data_diagram_practical_investigation": {
+      "visuals": ["data_table", "labelled_diagram", "investigation_flow"],
+      "rules": [
+        "Use readable data tables and labelled diagrams.",
+        "Separate observation, interpretation, and conclusion.",
+        "Flag safety or method controls where practical work appears."
+      ]
+    },
+    "case_study_structured_questions": {
+      "visuals": ["scenario_card", "decision_table", "evidence_to_recommendation_flow"],
+      "rules": [
+        "Keep the case scenario compact.",
+        "Use tables for facts, stakeholders, numbers, and recommendations.",
+        "Memo must accept justified alternatives where appropriate."
+      ]
+    },
+    "practical_project_design_task": {
+      "visuals": ["design_cycle", "labelled_build_diagram", "test_log_table"],
+      "rules": [
+        "Show design, build, test, improve as a visible workflow.",
+        "Use labelled diagrams and test log tables.",
+        "State safety, materials, constraints, and deliverables."
+      ]
+    },
+    "practical_performance_or_portfolio": {
+      "visuals": ["performance_space", "rubric_matrix", "reflection_prompt_cards"],
+      "rules": [
+        "Use observable criteria.",
+        "Make performance space, process, and reflection visible.",
+        "Rubric levels must be readable and teacher-facing."
+      ]
+    },
+    "language_integrated_assessment": {
+      "visuals": ["text_panel", "response_planner", "language_structures_table"],
+      "rules": [
+        "Separate reading/viewing, writing/presenting, language structures, and oral/listening.",
+        "Scale text length to grade.",
+        "Do not import subject-case-study structure unless the language task needs it."
+      ]
+    },
+    "source_based_plus_extended_response": {
+      "visuals": ["source_panel", "claim_evidence_table", "extended_response_planner"],
+      "rules": [
+        "Sources must be visibly separated from questions.",
+        "Use claim/evidence/reasoning tables.",
+        "Keep extended responses scaffolded for younger phases."
+      ]
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema": "dio.lingua.human_approval.v1",
+  "approval_state": "approved",
+  "semantic_object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "target_language": "isiZulu",
+  "domain": "Water-quality operations",
+  "origin": {
+    "product": "document_studio",
+    "artifact_type": "document",
+    "artifact_id": "DIO-LINGUA-WATER-001",
+    "audience": "Municipal field technicians",
+    "channel": "document"
+  },
+  "reviewer": "Byron Bunt",
+  "reviewer_role": "Language practitioner",
+  "approved_at": "2026-08-09T11:42:27+00:00",
+  "updated_at": "2026-08-09T11:42:27+00:00",
+  "units": [
+    {
+      "unit_id": "P1",
+      "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+      "target_text": "Inqubo Yokuqapha Ikhwalithi Yamanzi Okuphuza Emphakathini",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P2",
+      "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+      "target_text": "Inhloso: Le nqubo ichaza ukuthi amaqembu asemkhakheni awaqoqa futhi awarekhoda kanjani amasampula amanzi okuphuza ukuze imiphumela ithembeke futhi ilandeleke endaweni efanele.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P3",
+      "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+      "target_text": "Ububanzi: Isebenza kumasampula avamile aqoqwa emadamu, ezindaweni zokukhipha amanzi okwelashwa, nasempompini zomphakathi. Le nqubo ayihlanganisi ukuvuza kwamakhemikhali okuphuthumayo noma ukulinganisa amathuluzi aselabhorethri.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P4",
+      "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+      "target_text": "Izemfanelo: Umholi weqembu uhlola ukuthi uchwepheshe ngamunye une-PBT, amabhodlela amasampula ahlanzekile, nemitha elinganisiwe. Ochwepheshe banomthwalo wemfanelo wokuqedela Ifomu Lokulandelelwa Kokutholakala Kwezinto (QMS-07) nokubika izimo ezingaphephile.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        },
+        {
+          "index": 1,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P5",
+      "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+      "target_text": "Inqubo: Ngaphambi kokuqoqa isampula, vumela impompi igijime imizuzu emi-2. Geza iphrobu ngamanzi ahlanzekile, kodwa ungagezi ibhodlela elinyumba elingenawo amagciwane. Bhala i-pH nokufiphala (turbidity) nge-NTU endaweni. Amasampula kufanele abekwe esiqandisini phakathi kuka-2 no-8 degrees Celsius.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P6",
+      "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+      "target_text": "Ukurekhoda idatha: Bhala ikhodi yendawo, usuku, isikhathi, nama-inishiyali zomuntu othatha isampula kubhodlela naku-QMS-07. Ukulungisa amaphutha kufanele kwenziwe ngomugqa owodwa phezu kwephutha; ukusebenzisa uketshezi lokulungisa akukuvunyelwe. Isizathu sanoma yikuphi ukungafundi okungekho kufanele sishiwo.",
+      "approved": true,
+      "flag_resolutions": [
+        {
+          "index": 0,
+          "resolution": "accepted_as_is",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "unit_id": "P7",
+      "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+      "target_text": "Ukuphakamisa udaba: Uma i-pH ingaphansi kuka-6.5 noma ingaphezu kuka-9.5, noma ukufiphala kuphakeme kuno-1 NTU, shayela umholi weqembu ngokushesha. Ungatsheli umphakathi ukuthi amanzi aphephile noma awaphephile kuze kube yilapho isikhulu esigunyaziwe sibuyekeze umphumela.",
+      "approved": true,
+      "flag_resolutions": []
+    }
+  ],
+  "terms": []
+}

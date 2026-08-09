@@ -1,0 +1,36 @@
+{
+  "schema": "dio.sophia_service.v1",
+  "product_code": "SOPHIA_SECTION_REVIEW",
+  "public_name": "Sophia Section Review Pilot",
+  "status": "controlled_pilot_ready",
+  "price": {
+    "amount_minor": 4900,
+    "currency": "USD",
+    "display": "$49 launch pilot"
+  },
+  "limits": {
+    "maximum_words": 5000,
+    "maximum_manuscripts": 1,
+    "included_revision_rounds": 1,
+    "target_turnaround_working_days": 3
+  },
+  "deliverables": [
+    "literature discovery map",
+    "technical citation and reference audit",
+    "claim-to-source ledger",
+    "anchored Gemini reviewer commentary",
+    "human approval receipt"
+  ],
+  "required_consents": [
+    "manuscript_owner_authorized",
+    "gemini_remote_processing_approved",
+    "service_terms_accepted"
+  ],
+  "release_policy": {
+    "payment_before_processing": true,
+    "human_review_before_delivery": true,
+    "automatic_email": false,
+    "automatic_refund": false,
+    "delivery_requires_grounding_pass": true
+  }
+}

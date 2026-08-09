@@ -1,0 +1,24 @@
+{
+  "schema": "dio.microsoft_graph_connection.v1",
+  "client_id": "REPLACE_WITH_ENTRA_APPLICATION_CLIENT_ID",
+  "authority": "https://login.microsoftonline.com/consumers",
+  "scopes": [
+    "https://graph.microsoft.com/User.Read",
+    "https://graph.microsoft.com/Mail.ReadWrite",
+    "https://graph.microsoft.com/Mail.Send",
+    "https://graph.microsoft.com/Files.ReadWrite"
+  ],
+  "graph_base_url": "https://graph.microsoft.com/v1.0",
+  "token_cache_path": "/home/byron/.local/state/knowedge-dio/msal-token-cache.json",
+  "mailbox": "me",
+  "onedrive_remote_root": "DIO",
+  "local_mirror_root": "/home/byron/KnowEdge_Microsoft_Mirror",
+  "outbound_graph_send_enabled": false,
+  "webhook": {
+    "notification_url": "https://REPLACE_WITH_PUBLIC_HOST/webhooks/microsoft-graph/notifications",
+    "lifecycle_url": "https://REPLACE_WITH_PUBLIC_HOST/webhooks/microsoft-graph/lifecycle",
+    "client_state_path": "/home/byron/.local/state/knowedge-dio/graph-webhook-client-state",
+    "subscription_state_path": "/home/byron/.local/state/knowedge-dio/graph-subscription.json",
+    "queue_path": "/home/byron/.local/state/knowedge-dio/graph-notifications.jsonl"
+  }
+}

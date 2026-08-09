@@ -1,0 +1,656 @@
+{
+  "schema": "dio.lingua.beast_learning_receipt.v1",
+  "status": "learned",
+  "learned": [
+    {
+      "kind": "deterministic_guard",
+      "name": "anchor_completeness",
+      "credit_id": "scc_178f0e5e0ae980bc",
+      "created": true
+    },
+    {
+      "kind": "deterministic_guard",
+      "name": "numeral_preservation",
+      "credit_id": "scc_47a906c232e813ae",
+      "created": true
+    },
+    {
+      "kind": "deterministic_guard",
+      "name": "protected_token_preservation",
+      "credit_id": "scc_77a524b7b665cb47",
+      "created": true
+    },
+    {
+      "kind": "deterministic_guard",
+      "name": "source_hash_staleness",
+      "credit_id": "scc_f51908e4ce0b6151",
+      "created": true
+    },
+    {
+      "kind": "risk_pattern",
+      "issue": "The acronym 'PBT' is not expanded in the source and its meaning is unclear; a human reviewer must confirm the intended term (e.g., personal protective equipment) and its isiZulu equivalent.",
+      "credit_id": "scc_cf6b629f8c1d25cb",
+      "created": true,
+      "evidence_score": {
+        "expected_value": 0.6974,
+        "priority_score": 0.88694,
+        "failure_probability": 0.6835,
+        "uncertainty": 0.215,
+        "promotion_candidate": true,
+        "learning_status": "promotion_candidate",
+        "breakdown": {
+          "score_schema_version": "1.0",
+          "expected_value_weights": {
+            "relevance": 0.22,
+            "confidence": 0.18,
+            "severity": 0.18,
+            "freshness": 0.1,
+            "repetition": 0.14,
+            "verification": 0.12,
+            "blast_radius_inverse": 0.06
+          },
+          "expected_value_components": {
+            "relevance": 0.22,
+            "confidence": 0.144,
+            "severity": 0.1404,
+            "freshness": 0.1,
+            "repetition": 0.0,
+            "verification": 0.078,
+            "blast_radius_inverse": 0.015
+          },
+          "expected_value_raw": 0.6974,
+          "failure_probability_weights": {
+            "relevance": 0.25,
+            "confidence": 0.25,
+            "severity": 0.2,
+            "repetition": 0.15,
+            "verification": 0.1,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.05
+          },
+          "failure_probability_components": {
+            "relevance": 0.25,
+            "confidence": 0.2,
+            "severity": 0.156,
+            "repetition": 0.0,
+            "verification": 0.065,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.0375
+          },
+          "failure_probability_raw": 0.6835,
+          "priority_weights": {
+            "expected_value": 3.0,
+            "confidence": 1.0,
+            "relevance": 1.0,
+            "verification": 1.0,
+            "repeat_bonus": 1.0,
+            "blast_radius_penalty": -1.0
+          },
+          "priority_components": {
+            "expected_value": 2.0922,
+            "confidence": 0.8,
+            "relevance": 1.0,
+            "verification": 0.65,
+            "repeat_bonus": 0.08,
+            "blast_radius_penalty": -0.1875
+          },
+          "priority_raw": 4.4347,
+          "local_scores": {
+            "relevance": 1.0,
+            "confidence": 0.8,
+            "severity": 0.78,
+            "blast_radius": 0.75,
+            "freshness": 1.0,
+            "repetition": 0.0,
+            "failure_probability": 0.6835,
+            "expected_value": 0.6974,
+            "verification_strength": 0.65
+          },
+          "uncertainty": 0.215,
+          "thresholds": {
+            "promotion_repeat_count": 2,
+            "promotion_expected_value": 0.55,
+            "promotion_priority_score": 0.72,
+            "promotion_verification_strength": 0.5,
+            "prioritize_priority_score": 0.55
+          }
+        }
+      },
+      "negative_capability_state": "observing",
+      "chronicle": {
+        "written": true,
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_chronicle/evidence_chronicles/outcome_5db101d9476fcd7d1431f32e.json",
+        "format": "json",
+        "reason": "repeated_or_material_lingua_quality_evidence",
+        "priority_score": 0.88694
+      }
+    },
+    {
+      "kind": "risk_pattern",
+      "issue": "The term 'treatment outlets' is translated descriptively; confirm if a standard isiZulu term exists in municipal water operations.",
+      "credit_id": "scc_ea361688f163449e",
+      "created": true,
+      "evidence_score": {
+        "expected_value": 0.674,
+        "priority_score": 0.8879,
+        "failure_probability": 0.6525,
+        "uncertainty": 0.215,
+        "promotion_candidate": true,
+        "learning_status": "promotion_candidate",
+        "breakdown": {
+          "score_schema_version": "1.0",
+          "expected_value_weights": {
+            "relevance": 0.22,
+            "confidence": 0.18,
+            "severity": 0.18,
+            "freshness": 0.1,
+            "repetition": 0.14,
+            "verification": 0.12,
+            "blast_radius_inverse": 0.06
+          },
+          "expected_value_components": {
+            "relevance": 0.22,
+            "confidence": 0.144,
+            "severity": 0.099,
+            "freshness": 0.1,
+            "repetition": 0.0,
+            "verification": 0.078,
+            "blast_radius_inverse": 0.033
+          },
+          "expected_value_raw": 0.674,
+          "failure_probability_weights": {
+            "relevance": 0.25,
+            "confidence": 0.25,
+            "severity": 0.2,
+            "repetition": 0.15,
+            "verification": 0.1,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.05
+          },
+          "failure_probability_components": {
+            "relevance": 0.25,
+            "confidence": 0.2,
+            "severity": 0.11,
+            "repetition": 0.0,
+            "verification": 0.065,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.0225
+          },
+          "failure_probability_raw": 0.6525,
+          "priority_weights": {
+            "expected_value": 3.0,
+            "confidence": 1.0,
+            "relevance": 1.0,
+            "verification": 1.0,
+            "repeat_bonus": 1.0,
+            "blast_radius_penalty": -1.0
+          },
+          "priority_components": {
+            "expected_value": 2.022,
+            "confidence": 0.8,
+            "relevance": 1.0,
+            "verification": 0.65,
+            "repeat_bonus": 0.08,
+            "blast_radius_penalty": -0.1125
+          },
+          "priority_raw": 4.4395,
+          "local_scores": {
+            "relevance": 1.0,
+            "confidence": 0.8,
+            "severity": 0.55,
+            "blast_radius": 0.45,
+            "freshness": 1.0,
+            "repetition": 0.0,
+            "failure_probability": 0.6525,
+            "expected_value": 0.674,
+            "verification_strength": 0.65
+          },
+          "uncertainty": 0.215,
+          "thresholds": {
+            "promotion_repeat_count": 2,
+            "promotion_expected_value": 0.55,
+            "promotion_priority_score": 0.72,
+            "promotion_verification_strength": 0.5,
+            "prioritize_priority_score": 0.55
+          }
+        }
+      },
+      "negative_capability_state": "observing",
+      "chronicle": {
+        "written": true,
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_chronicle/evidence_chronicles/outcome_cdd62d2f14ae07f6704ea71d.json",
+        "format": "json",
+        "reason": "repeated_or_material_lingua_quality_evidence",
+        "priority_score": 0.8879
+      }
+    },
+    {
+      "kind": "risk_pattern",
+      "issue": "The term 'Chain of Custody Form' is translated descriptively; confirm if a standard isiZulu term is used by the municipality.",
+      "credit_id": "scc_bd22638a37e6f5d0",
+      "created": true,
+      "evidence_score": {
+        "expected_value": 0.674,
+        "priority_score": 0.8879,
+        "failure_probability": 0.6525,
+        "uncertainty": 0.215,
+        "promotion_candidate": true,
+        "learning_status": "promotion_candidate",
+        "breakdown": {
+          "score_schema_version": "1.0",
+          "expected_value_weights": {
+            "relevance": 0.22,
+            "confidence": 0.18,
+            "severity": 0.18,
+            "freshness": 0.1,
+            "repetition": 0.14,
+            "verification": 0.12,
+            "blast_radius_inverse": 0.06
+          },
+          "expected_value_components": {
+            "relevance": 0.22,
+            "confidence": 0.144,
+            "severity": 0.099,
+            "freshness": 0.1,
+            "repetition": 0.0,
+            "verification": 0.078,
+            "blast_radius_inverse": 0.033
+          },
+          "expected_value_raw": 0.674,
+          "failure_probability_weights": {
+            "relevance": 0.25,
+            "confidence": 0.25,
+            "severity": 0.2,
+            "repetition": 0.15,
+            "verification": 0.1,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.05
+          },
+          "failure_probability_components": {
+            "relevance": 0.25,
+            "confidence": 0.2,
+            "severity": 0.11,
+            "repetition": 0.0,
+            "verification": 0.065,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.0225
+          },
+          "failure_probability_raw": 0.6525,
+          "priority_weights": {
+            "expected_value": 3.0,
+            "confidence": 1.0,
+            "relevance": 1.0,
+            "verification": 1.0,
+            "repeat_bonus": 1.0,
+            "blast_radius_penalty": -1.0
+          },
+          "priority_components": {
+            "expected_value": 2.022,
+            "confidence": 0.8,
+            "relevance": 1.0,
+            "verification": 0.65,
+            "repeat_bonus": 0.08,
+            "blast_radius_penalty": -0.1125
+          },
+          "priority_raw": 4.4395,
+          "local_scores": {
+            "relevance": 1.0,
+            "confidence": 0.8,
+            "severity": 0.55,
+            "blast_radius": 0.45,
+            "freshness": 1.0,
+            "repetition": 0.0,
+            "failure_probability": 0.6525,
+            "expected_value": 0.674,
+            "verification_strength": 0.65
+          },
+          "uncertainty": 0.215,
+          "thresholds": {
+            "promotion_repeat_count": 2,
+            "promotion_expected_value": 0.55,
+            "promotion_priority_score": 0.72,
+            "promotion_verification_strength": 0.5,
+            "prioritize_priority_score": 0.55
+          }
+        }
+      },
+      "negative_capability_state": "observing",
+      "chronicle": {
+        "written": true,
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_chronicle/evidence_chronicles/outcome_faff4dc2d21bb018fb555650.json",
+        "format": "json",
+        "reason": "repeated_or_material_lingua_quality_evidence",
+        "priority_score": 0.8879
+      }
+    },
+    {
+      "kind": "risk_pattern",
+      "issue": "The term 'probe' is transliterated as 'iphrobu'; confirm if a more standard term is used in the field.",
+      "credit_id": "scc_d3cad3cdd9488aff",
+      "created": true,
+      "evidence_score": {
+        "expected_value": 0.674,
+        "priority_score": 0.8879,
+        "failure_probability": 0.6525,
+        "uncertainty": 0.215,
+        "promotion_candidate": true,
+        "learning_status": "promotion_candidate",
+        "breakdown": {
+          "score_schema_version": "1.0",
+          "expected_value_weights": {
+            "relevance": 0.22,
+            "confidence": 0.18,
+            "severity": 0.18,
+            "freshness": 0.1,
+            "repetition": 0.14,
+            "verification": 0.12,
+            "blast_radius_inverse": 0.06
+          },
+          "expected_value_components": {
+            "relevance": 0.22,
+            "confidence": 0.144,
+            "severity": 0.099,
+            "freshness": 0.1,
+            "repetition": 0.0,
+            "verification": 0.078,
+            "blast_radius_inverse": 0.033
+          },
+          "expected_value_raw": 0.674,
+          "failure_probability_weights": {
+            "relevance": 0.25,
+            "confidence": 0.25,
+            "severity": 0.2,
+            "repetition": 0.15,
+            "verification": 0.1,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.05
+          },
+          "failure_probability_components": {
+            "relevance": 0.25,
+            "confidence": 0.2,
+            "severity": 0.11,
+            "repetition": 0.0,
+            "verification": 0.065,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.0225
+          },
+          "failure_probability_raw": 0.6525,
+          "priority_weights": {
+            "expected_value": 3.0,
+            "confidence": 1.0,
+            "relevance": 1.0,
+            "verification": 1.0,
+            "repeat_bonus": 1.0,
+            "blast_radius_penalty": -1.0
+          },
+          "priority_components": {
+            "expected_value": 2.022,
+            "confidence": 0.8,
+            "relevance": 1.0,
+            "verification": 0.65,
+            "repeat_bonus": 0.08,
+            "blast_radius_penalty": -0.1125
+          },
+          "priority_raw": 4.4395,
+          "local_scores": {
+            "relevance": 1.0,
+            "confidence": 0.8,
+            "severity": 0.55,
+            "blast_radius": 0.45,
+            "freshness": 1.0,
+            "repetition": 0.0,
+            "failure_probability": 0.6525,
+            "expected_value": 0.674,
+            "verification_strength": 0.65
+          },
+          "uncertainty": 0.215,
+          "thresholds": {
+            "promotion_repeat_count": 2,
+            "promotion_expected_value": 0.55,
+            "promotion_priority_score": 0.72,
+            "promotion_verification_strength": 0.5,
+            "prioritize_priority_score": 0.55
+          }
+        }
+      },
+      "negative_capability_state": "observing",
+      "chronicle": {
+        "written": true,
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_chronicle/evidence_chronicles/outcome_12bcd3a1b8c0712b52fbfae8.json",
+        "format": "json",
+        "reason": "repeated_or_material_lingua_quality_evidence",
+        "priority_score": 0.8879
+      }
+    },
+    {
+      "kind": "risk_pattern",
+      "issue": "The phrase 'sampler initials' is translated descriptively; confirm if a shorter standard term exists.",
+      "credit_id": "scc_20cc472aa2f07a64",
+      "created": true,
+      "evidence_score": {
+        "expected_value": 0.674,
+        "priority_score": 0.8879,
+        "failure_probability": 0.6525,
+        "uncertainty": 0.215,
+        "promotion_candidate": true,
+        "learning_status": "promotion_candidate",
+        "breakdown": {
+          "score_schema_version": "1.0",
+          "expected_value_weights": {
+            "relevance": 0.22,
+            "confidence": 0.18,
+            "severity": 0.18,
+            "freshness": 0.1,
+            "repetition": 0.14,
+            "verification": 0.12,
+            "blast_radius_inverse": 0.06
+          },
+          "expected_value_components": {
+            "relevance": 0.22,
+            "confidence": 0.144,
+            "severity": 0.099,
+            "freshness": 0.1,
+            "repetition": 0.0,
+            "verification": 0.078,
+            "blast_radius_inverse": 0.033
+          },
+          "expected_value_raw": 0.674,
+          "failure_probability_weights": {
+            "relevance": 0.25,
+            "confidence": 0.25,
+            "severity": 0.2,
+            "repetition": 0.15,
+            "verification": 0.1,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.05
+          },
+          "failure_probability_components": {
+            "relevance": 0.25,
+            "confidence": 0.2,
+            "severity": 0.11,
+            "repetition": 0.0,
+            "verification": 0.065,
+            "freshness": 0.05,
+            "blast_radius_penalty": -0.0225
+          },
+          "failure_probability_raw": 0.6525,
+          "priority_weights": {
+            "expected_value": 3.0,
+            "confidence": 1.0,
+            "relevance": 1.0,
+            "verification": 1.0,
+            "repeat_bonus": 1.0,
+            "blast_radius_penalty": -1.0
+          },
+          "priority_components": {
+            "expected_value": 2.022,
+            "confidence": 0.8,
+            "relevance": 1.0,
+            "verification": 0.65,
+            "repeat_bonus": 0.08,
+            "blast_radius_penalty": -0.1125
+          },
+          "priority_raw": 4.4395,
+          "local_scores": {
+            "relevance": 1.0,
+            "confidence": 0.8,
+            "severity": 0.55,
+            "blast_radius": 0.45,
+            "freshness": 1.0,
+            "repetition": 0.0,
+            "failure_probability": 0.6525,
+            "expected_value": 0.674,
+            "verification_strength": 0.65
+          },
+          "uncertainty": 0.215,
+          "thresholds": {
+            "promotion_repeat_count": 2,
+            "promotion_expected_value": 0.55,
+            "promotion_priority_score": 0.72,
+            "promotion_verification_strength": 0.5,
+            "prioritize_priority_score": 0.55
+          }
+        }
+      },
+      "negative_capability_state": "observing",
+      "chronicle": {
+        "written": true,
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_chronicle/evidence_chronicles/outcome_b677c176189ed06f319df7de.json",
+        "format": "json",
+        "reason": "repeated_or_material_lingua_quality_evidence",
+        "priority_score": 0.8879
+      }
+    }
+  ],
+  "automatic_learning_scope": [
+    "deterministic_guards",
+    "conservative_review_routing"
+  ],
+  "semantic_translation_truth_promoted": false,
+  "human_intervention_required": false,
+  "chain": {
+    "beast_object_type": "crystal_chain_verification",
+    "version": "1.0",
+    "valid": true,
+    "block_count": 42,
+    "head_hash": "sha256:80a1209495534f83071bc69d787d3a32d73d9804a98aa5e158a122f61b881946",
+    "errors": [],
+    "consensus": "local_hash_chain_no_distributed_consensus"
+  },
+  "negative_capability": {
+    "beast_object_type": "negative_capability_summary",
+    "version": "1.0",
+    "outcomes": 5,
+    "records": 5,
+    "active": 0,
+    "observing": 5,
+    "revalidation": 0,
+    "activation_failures": 3
+  },
+  "memory_residue": {
+    "beast_object_type": "memory_hull_write_receipt",
+    "version": "2.0",
+    "residue_id": "residue_d3b9793ea2916a104971",
+    "section": "decisions",
+    "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_d3b9793ea2916a104971.md",
+    "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_d3b9793ea2916a104971.residue.json",
+    "residue_seal": {
+      "beast_object_type": "beast_residue_seal",
+      "version": "2.0",
+      "purpose": "memory_hull_decisions",
+      "algorithm": "Ed25519",
+      "provider": "cryptography",
+      "created_at": "2026-08-09T11:38:05.523754+00:00",
+      "payload_sha256": "sha256:a0be81a72e5769938a562cefc78a2e0b3378270c67d42b6be6bc415a1d7ab56a",
+      "message_sha256": "sha256:26dbea1d3e300c2fe5fcbad7b8ca3bf1a179fab02d846618a2ccd50af508a53a",
+      "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+      "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+      "signature_b64": "xXKiEkSgCtLwKGIIS9XqtQRsYQ6lKmqzw1ssqFmXoQj82rvE+qhGRHDvO+XCe4Xe+KAcaLylyyze1QEK2/4FDA==",
+      "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+    },
+    "verified": true,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+  },
+  "prec_lifecycle": {
+    "beast_object_type": "prec_lifecycle",
+    "version": "1.0",
+    "lifecycle_id": "prec_ca3997439b1f6da145",
+    "kind": "dio_lingua",
+    "objective": "Lingua learn_flags for isiZulu",
+    "scope": "Water-quality operations",
+    "status": "completed",
+    "current_phase": "crystallize",
+    "task_id": "",
+    "provider": "BEAST",
+    "summary": "Lingua learn_flags lifecycle completed",
+    "metadata": {
+      "operation": "learn_flags",
+      "target_language": "isiZulu"
+    },
+    "artifact_refs": {
+      "crystallize": {
+        "receipt_digest": {
+          "value": "sha256:e62685c758892d4edc63060efd45a2ad6d336fd46a79d7ea059e9c11144e7506"
+        }
+      },
+      "economize": {},
+      "perceive": {},
+      "reason": {
+        "result_status": {
+          "value": "learned"
+        }
+      }
+    },
+    "created_at": "2026-08-09T11:38:05.532020+00:00",
+    "updated_at": "2026-08-09T11:38:05.547088+00:00",
+    "completed_at": "2026-08-09T11:38:05.547088+00:00",
+    "phase_events": [
+      {
+        "phase": "perceive",
+        "status": "completed",
+        "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+        "artifacts": {},
+        "signals": [
+          "learn_flags"
+        ],
+        "created_at": "2026-08-09T11:38:05.535707+00:00"
+      },
+      {
+        "phase": "reason",
+        "status": "completed",
+        "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+        "artifacts": {
+          "result_status": "learned"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.538525+00:00"
+      },
+      {
+        "phase": "economize",
+        "status": "completed",
+        "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+        "artifacts": {
+          "provider_call_displaced": false
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.541099+00:00"
+      },
+      {
+        "phase": "crystallize",
+        "status": "completed",
+        "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+        "artifacts": {
+          "receipt_digest": "sha256:e62685c758892d4edc63060efd45a2ad6d336fd46a79d7ea059e9c11144e7506"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.543966+00:00"
+      }
+    ],
+    "phase_status": {
+      "perceive": "completed",
+      "reason": "completed",
+      "economize": "completed",
+      "crystallize": "completed"
+    }
+  }
+}

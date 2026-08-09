@@ -1,0 +1,63 @@
+{
+  "client": {
+    "organization": "BrightStart Community Trust",
+    "contact_name": "Controlled Prospect",
+    "contact_email": "controlled.prospect@example.org"
+  },
+  "pack": {
+    "purpose": "Donor evidence pack for community reading and food support pilot",
+    "donor": "Ubuntu Community Fund",
+    "project_name": "Community Reading and Food Support Pilot",
+    "grant_id": "GOLDEN-evidex-488c40b13ce3498ed076",
+    "reporting_period": {
+      "start": "2026-04-01",
+      "end": "2026-06-30"
+    },
+    "tone": "clear, conservative, donor-ready",
+    "include_appendix": true
+  },
+  "kpis": [
+    {
+      "name": "Youth reading workshops delivered",
+      "target": 8,
+      "actual": 9,
+      "measurement": "Workshop sessions delivered"
+    },
+    {
+      "name": "Learners reached",
+      "target": 120,
+      "actual": 137,
+      "measurement": "Unique learners attending"
+    },
+    {
+      "name": "Food parcels distributed",
+      "target": 200,
+      "actual": 214,
+      "measurement": "Parcels issued to households"
+    },
+    {
+      "name": "Receipts reconciled",
+      "target": "95%",
+      "actual": "98%",
+      "measurement": "Eligible spend linked to receipt records"
+    }
+  ],
+  "constraints": {
+    "avoid_claims": [
+      "Do not claim audited financial assurance.",
+      "Do not claim public permission to use learner images.",
+      "Do not imply donor approval has already been granted."
+    ],
+    "known_gaps": [
+      "Two photo consent forms pending; learner images excluded from public appendix.",
+      "Finance officer should confirm receipt total before final donor submission."
+    ]
+  },
+  "billing": {
+    "client_type": "ngo",
+    "quantity": 1,
+    "unit_price": 950,
+    "currency": "ZAR",
+    "service_name": "Evidex Pilot Evidence Pack"
+  }
+}

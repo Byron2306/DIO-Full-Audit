@@ -1,0 +1,60 @@
+{
+  "schema": "dio.format_core.profiles.v1",
+  "styles": {
+    "dio_professional": {
+      "label": "DIO Professional",
+      "page": {"size": "A4", "orientation": "portrait", "margins_mm": [18, 17, 18, 17]},
+      "fonts": {"body": "Liberation Sans", "display": "Liberation Sans", "mono": "Liberation Mono"},
+      "sizes_pt": {"body": 10.5, "title": 25, "subtitle": 12, "h1": 18, "h2": 14, "h3": 11.5, "caption": 8.5},
+      "colours": {"ink": "17212B", "accent": "146A6F", "accent_2": "A13D2D", "muted": "5F6B76", "line": "A8B7B5", "fill": "E8F0EE", "paper": "FFFFFF"},
+      "header": "DIO CONTROLLED ASSET",
+      "footer": "Human authority retained",
+      "cover": true,
+      "table_header_repeat": true,
+      "slide_ratio": "16:9"
+    },
+    "caps_educator": {
+      "label": "CAPS Educator Pack",
+      "page": {"size": "A4", "orientation": "portrait", "margins_mm": [17, 16, 17, 16]},
+      "fonts": {"body": "Liberation Sans", "display": "Liberation Sans", "mono": "Liberation Mono"},
+      "sizes_pt": {"body": 10.5, "title": 24, "subtitle": 11, "h1": 17, "h2": 13.5, "h3": 11.5, "caption": 8.5},
+      "colours": {"ink": "17212B", "accent": "174E78", "accent_2": "A24A2A", "muted": "5B6874", "line": "94A6B5", "fill": "EAF1F6", "paper": "FFFFFF"},
+      "header": "HOMS LEARNING STUDIO",
+      "footer": "CAPS-aligned review candidate",
+      "cover": true,
+      "table_header_repeat": true,
+      "slide_ratio": "16:9"
+    },
+    "institutional_academic": {
+      "label": "Institutional Academic",
+      "page": {"size": "A4", "orientation": "portrait", "margins_mm": [22, 20, 22, 20]},
+      "fonts": {"body": "Liberation Serif", "display": "Liberation Sans", "mono": "Liberation Mono"},
+      "sizes_pt": {"body": 11, "title": 24, "subtitle": 12, "h1": 17, "h2": 14, "h3": 12, "caption": 9},
+      "colours": {"ink": "20252A", "accent": "394B59", "accent_2": "8A3B3B", "muted": "66717A", "line": "AAB1B7", "fill": "EEF1F3", "paper": "FFFFFF"},
+      "header": "CONTROLLED ACADEMIC ASSET",
+      "footer": "Review before release",
+      "cover": true,
+      "table_header_repeat": true,
+      "slide_ratio": "16:9"
+    },
+    "minimal_print": {
+      "label": "Minimal Print",
+      "page": {"size": "A4", "orientation": "portrait", "margins_mm": [18, 18, 18, 18]},
+      "fonts": {"body": "Liberation Sans", "display": "Liberation Sans", "mono": "Liberation Mono"},
+      "sizes_pt": {"body": 10, "title": 22, "subtitle": 11, "h1": 16, "h2": 13, "h3": 11, "caption": 8},
+      "colours": {"ink": "111111", "accent": "222222", "accent_2": "555555", "muted": "555555", "line": "999999", "fill": "F2F2F2", "paper": "FFFFFF"},
+      "header": "",
+      "footer": "",
+      "cover": false,
+      "table_header_repeat": true,
+      "slide_ratio": "16:9"
+    }
+  },
+  "deliveries": {
+    "editable_review": {"channels": ["docx", "pdf", "html"], "review_label": true, "include_receipt": true},
+    "print_pack": {"channels": ["docx", "pdf"], "review_label": false, "include_receipt": true},
+    "classroom_bundle": {"channels": ["docx", "pdf", "pptx", "html", "vtt"], "review_label": true, "include_receipt": true},
+    "projector": {"channels": ["pptx", "pdf"], "review_label": true, "include_receipt": true},
+    "mobile_lms": {"channels": ["html", "pdf", "vtt"], "review_label": true, "include_receipt": true}
+  }
+}

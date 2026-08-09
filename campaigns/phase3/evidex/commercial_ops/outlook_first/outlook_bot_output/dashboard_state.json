@@ -1,0 +1,93 @@
+{
+  "run_id": "20260807-112830-triage",
+  "processed_at": "2026-08-07T16:28:30+00:00",
+  "source": "Outlook/local exports",
+  "mode": "draft_only",
+  "items_reviewed": 1,
+  "duplicates_skipped": 0,
+  "summary": {
+    "total": 1,
+    "by_urgency": {
+      "medium": 1
+    },
+    "by_risk": {
+      "moderate": 1
+    },
+    "by_intent": {
+      "management_or_admin": 1
+    },
+    "drafts_ready": 1,
+    "blocked": 0,
+    "approval_required": 1,
+    "safe_send": {
+      "caution": 1
+    }
+  },
+  "follow_up": [],
+  "drafts_ready": [
+    "dummy-evidex-outlook-20260807T162520Z"
+  ],
+  "blocked": [],
+  "items": [
+    {
+      "message_id": "dummy-evidex-outlook-20260807T162520Z",
+      "thread_ref": "dummy-evidex-thread-20260807T162520Z",
+      "item_ref": "dummy-evidex-outlook-20260807T162520Z",
+      "created_at": "2026-08-07T16:28:30+00:00",
+      "sender_type": "external",
+      "subject": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+      "urgency": "medium",
+      "intent": "management_or_admin",
+      "risk": "moderate",
+      "lane": "guarded",
+      "risk_flags": [
+        "references_evidence_or_attachment"
+      ],
+      "confidence": 0.73,
+      "summary": "Message 'EVIDEX Pilot Pack Request - Thandi Community Trust' was classified as management_or_admin with medium urgency and moderate risk based only on visible message evidence.",
+      "evidence_seen": [
+        "Sender visible: M&E Coordinator <pilot.client@example.org>",
+        "Subject visible: EVIDEX Pilot Pack Request - Thandi Community Trust",
+        "Received timestamp visible: 2026-08-07T16:25:20+00:00",
+        "Folder/source context: Inbox",
+        "Attachment names visible: kpi-progress.csv; receipts-summary.xlsx; attendance-register.pdf; field-photos.zip",
+        "Body text or preview reviewed.",
+        "Risk flags assigned: references_evidence_or_attachment"
+      ],
+      "missing_information": [
+        "Relevant operational context"
+      ],
+      "recommended_action": "Draft reply",
+      "draft_status": "needs_approval",
+      "approval_required": true,
+      "reason_for_approval": "Operational context should be checked before any outward response.",
+      "next_step": "Review relevant operational facts before use.",
+      "safe_send_rating": "caution",
+      "safe_send_issues": [
+        "Missing information must be checked before relying on the draft."
+      ],
+      "allowed_transitions": [
+        "draft_ready",
+        "blocked",
+        "rejected"
+      ],
+      "reasons": [
+        "Message refers to evidence or attachments."
+      ],
+      "draft_paths": {
+        "primary": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output/drafts/primary_dummy-evidex-outlook-20260807T162520Z_EVIDEX_Pilot_Pack_Request_-_Thandi_Community_Trust.txt",
+        "safer": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output/drafts/safer_dummy-evidex-outlook-20260807T162520Z_EVIDEX_Pilot_Pack_Request_-_Thandi_Community_Trust.txt",
+        "shorter": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output/drafts/shorter_dummy-evidex-outlook-20260807T162520Z_EVIDEX_Pilot_Pack_Request_-_Thandi_Community_Trust.txt",
+        "evidence_note": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output/drafts/evidence_note_dummy-evidex-outlook-20260807T162520Z_EVIDEX_Pilot_Pack_Request_-_Thandi_Community_Trust.txt"
+      },
+      "source": "outlook_triage_dummy",
+      "source_path": "campaigns/phase3/evidex/commercial_ops/outlook_first/dummy_outlook_evidex_intake.json",
+      "sender": "M&E Coordinator <pilot.client@example.org>",
+      "recipients": "",
+      "received_at": "2026-08-07T16:25:20+00:00",
+      "folder": "Inbox",
+      "thread_id_reference": "dummy-evidex-thread-20260807T162520Z",
+      "status": "needs_approval"
+    }
+  ]
+}

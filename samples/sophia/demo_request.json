@@ -1,0 +1,16 @@
+{
+  "schema": "dio.sophia_review_request.v1",
+  "job_id": "SOPHIA-DEMO-001",
+  "title": "Authorship-Preserving Feedback in Postgraduate Writing",
+  "document_path": "demo_manuscript.md",
+  "research_question": "How can formative feedback support postgraduate academic writing while preserving learner authorship and agency?",
+  "literature_queries": [
+    "doctoral writing formative feedback academic identity learner agency",
+    "authorship preserving generative AI feedback postgraduate academic writing"
+  ],
+  "citation_style": "APA 7",
+  "external_retrieval": true,
+  "gemini_review_approved": true,
+  "gemini_model": "gemini-flash-lite-latest",
+  "human_approval_required": true
+}

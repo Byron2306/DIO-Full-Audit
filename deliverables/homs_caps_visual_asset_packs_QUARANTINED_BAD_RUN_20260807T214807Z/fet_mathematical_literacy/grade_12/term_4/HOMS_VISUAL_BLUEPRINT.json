@@ -1,0 +1,78 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Mathematical Literacy",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "4",
+  "caps_source": {
+    "title": "Mathematical Literacy",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematical_literacy_gr_10-12_web_dda9.pdf",
+    "sha256": "5231eaf7f6bf3cb88a35c01170eac4d4bdf5287bd65fddec2fa3b31d3ab26a6c"
+  },
+  "canonical_profile_id": "fet.mathematical_literacy",
+  "assessment_family": "calculation_problem_solving",
+  "render_shell": "question_paper",
+  "caps_theme_candidates": [
+    "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+    "GRADE 10: TERM 3",
+    "MATHEMATICAL LITERACY GRADES 10-12",
+    "Topics statements and budgets)",
+    "Contexts focusing on Maps, plans and other representations of the physical world",
+    "Assignment/Investigation",
+    "Assessment",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "cation of what is to be taught and learnt on a term-by-term basis.",
+    "the National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in south",
+    "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CONTENTS"
+  ],
+  "assessment_content_focus": [
+    "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+    "GRADE 10: TERM 3",
+    "covering Finance, Measurement, Maps, and Probability integrated with Numbers and Patterns",
+    "GRADE 10: TERM 3"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: covering, finance, integrated, measurement, numbers, probability."
+  ],
+  "required_visuals": [
+    {
+      "id": "working_grid",
+      "title": "Working grid with method mark space",
+      "role": "learner_workspace",
+      "visual_kind": "working_grid",
+      "must_show": [
+        "question number",
+        "marks",
+        "working area",
+        "final answer cue"
+      ],
+      "assessment_use": "Learners show method before final answer."
+    },
+    {
+      "id": "axis_or_diagram",
+      "title": "Axis, diagram or table required by the topic",
+      "role": "stimulus_or_workspace",
+      "visual_kind": "axis_diagram",
+      "must_show": [
+        "labelled axes or diagram labels",
+        "units where needed",
+        "plot/table space"
+      ],
+      "assessment_use": "Learners interpret or construct visual mathematical evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

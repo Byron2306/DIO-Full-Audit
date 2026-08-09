@@ -1,0 +1,286 @@
+{
+  "schema": "dio.marketing_channels.v2",
+  "channels": [
+    {
+      "id": "META_ADS",
+      "name": "Meta Ads",
+      "family": "paid_social",
+      "surfaces": [
+        "Facebook",
+        "Instagram",
+        "Messenger",
+        "WhatsApp",
+        "Audience Network"
+      ],
+      "adapter_mode": "api_read_first",
+      "capabilities": [
+        "campaign_management",
+        "ad_management",
+        "insights"
+      ],
+      "publication_gate": "future_write_adapter_not_enabled",
+      "credential_state": "read_credentials_required",
+      "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+      "source_url": "https://www.postman.com/meta/facebook-marketing-api/overview",
+      "write_authority": "blocked_by_dio_wave2"
+    },
+    {
+      "id": "FACEBOOK_PAGE",
+      "name": "Facebook Page Organic",
+      "family": "organic_social",
+      "surfaces": [
+        "Facebook Page"
+      ],
+      "adapter_mode": "api_read_optional_manual_publish",
+      "capabilities": [
+        "page_posts",
+        "page_insights"
+      ],
+      "publication_gate": "human_approval_required",
+      "credential_state": "manual_ready_api_optional",
+      "notes": "DIO can read Page post evidence when API credentials are configured. Approved publication remains in Meta Business Suite.",
+      "source_url": "https://developers.facebook.com/docs/graph-api/reference/page/feed/",
+      "write_authority": "human_business_suite_publish"
+    },
+    {
+      "id": "INSTAGRAM_ORGANIC",
+      "name": "Instagram Organic",
+      "family": "organic_social_visual",
+      "surfaces": [
+        "Instagram feed",
+        "Instagram Reels"
+      ],
+      "adapter_mode": "api_read_optional_manual_publish",
+      "capabilities": [
+        "media_insights",
+        "reel_insights",
+        "manual_result_import"
+      ],
+      "publication_gate": "human_approval_required",
+      "credential_state": "manual_ready_api_optional",
+      "notes": "DIO reads connected professional-account evidence when available. Publishing remains an approved Business Suite action.",
+      "source_url": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/",
+      "write_authority": "human_business_suite_publish"
+    },
+    {
+      "id": "GOOGLE_ADS",
+      "name": "Google Ads",
+      "family": "paid_search_display_video",
+      "surfaces": [
+        "Search",
+        "Display",
+        "YouTube"
+      ],
+      "adapter_mode": "api_read_first",
+      "capabilities": [
+        "campaign_management",
+        "reporting",
+        "conversion_tracking"
+      ],
+      "publication_gate": "future_write_adapter_not_enabled",
+      "credential_state": "read_credentials_required",
+      "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+      "source_url": "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+      "write_authority": "blocked_by_dio_wave2"
+    },
+    {
+      "id": "REDDIT_ADS",
+      "name": "Reddit Ads",
+      "family": "paid_social_community",
+      "surfaces": [
+        "Reddit"
+      ],
+      "adapter_mode": "api_read_first",
+      "capabilities": [
+        "campaign_management",
+        "creative_management",
+        "reporting",
+        "conversion_signals"
+      ],
+      "publication_gate": "future_write_adapter_not_enabled",
+      "credential_state": "read_credentials_required",
+      "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+      "source_url": "https://ads-api.reddit.com/docs/v3/",
+      "write_authority": "blocked_by_dio_wave2"
+    },
+    {
+      "id": "REDDIT_ORGANIC",
+      "name": "Reddit Organic",
+      "family": "community",
+      "surfaces": [
+        "Subreddits"
+      ],
+      "adapter_mode": "human_publish_only",
+      "capabilities": [
+        "content_brief",
+        "community_research",
+        "manual_result_import"
+      ],
+      "publication_gate": "human_review_and_subreddit_rules",
+      "credential_state": "not_required",
+      "notes": "Never automate cross-subreddit promotion. DIO can prepare useful, community-specific material and record outcomes.",
+      "source_url": "https://www.reddit.com/"
+    },
+    {
+      "id": "TIKTOK_ADS",
+      "name": "TikTok Ads",
+      "family": "paid_video",
+      "surfaces": [
+        "TikTok"
+      ],
+      "adapter_mode": "api_read_first",
+      "capabilities": [
+        "campaign_management",
+        "creative_assets",
+        "audiences",
+        "performance_data"
+      ],
+      "publication_gate": "future_write_adapter_not_enabled",
+      "credential_state": "read_credentials_required",
+      "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+      "source_url": "https://business-api.tiktok.com/portal",
+      "write_authority": "blocked_by_dio_wave2"
+    },
+    {
+      "id": "TIKTOK_ORGANIC",
+      "name": "TikTok Organic",
+      "family": "organic_short_video",
+      "surfaces": [
+        "TikTok"
+      ],
+      "adapter_mode": "nichefoundry_plus_human_publish",
+      "capabilities": [
+        "short_video_brief",
+        "caption",
+        "manual_result_import"
+      ],
+      "publication_gate": "human_approval_required",
+      "credential_state": "manual_ready",
+      "notes": "NicheFoundry prepares the bounded creative package. Publication and the resulting URL remain explicit operator actions.",
+      "source_url": "https://developers.tiktok.com/products/content-posting-api/",
+      "write_authority": "human_publish_only"
+    },
+    {
+      "id": "LINKEDIN_DISCOVERY",
+      "name": "LinkedIn Professional Intelligence",
+      "family": "professional_discovery",
+      "surfaces": [
+        "LinkedIn"
+      ],
+      "adapter_mode": "connected_discovery",
+      "capabilities": [
+        "buyer_role_search",
+        "professional_identity_verification"
+      ],
+      "publication_gate": "not_applicable",
+      "credential_state": "connected",
+      "notes": "Current ChatGPT connector is discovery-only. Publishing and messaging remain manual.",
+      "source_url": "https://www.linkedin.com/"
+    },
+    {
+      "id": "LINKEDIN_ORGANIC",
+      "name": "LinkedIn Founder Content",
+      "family": "organic_professional",
+      "surfaces": [
+        "LinkedIn personal profile",
+        "LinkedIn Page"
+      ],
+      "adapter_mode": "api_read_optional_human_publish",
+      "capabilities": [
+        "founder_post_brief",
+        "proof_story",
+        "manual_result_import"
+      ],
+      "publication_gate": "human_approval_required",
+      "credential_state": "manual_ready_api_optional",
+      "notes": "Use founder-led proof marketing. Organization analytics activate only with approved LinkedIn API access; publication remains human-controlled.",
+      "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api",
+      "write_authority": "human_publish_only"
+    },
+    {
+      "id": "YOUTUBE_ORGANIC",
+      "name": "YouTube",
+      "family": "organic_video",
+      "surfaces": [
+        "YouTube",
+        "YouTube Shorts"
+      ],
+      "adapter_mode": "nichefoundry_oauth_plus_api_read",
+      "capabilities": [
+        "video_brief",
+        "thumbnail",
+        "description",
+        "utm_link",
+        "public_video_statistics",
+        "oauth_upload_transport"
+      ],
+      "publication_gate": "human_approval_required",
+      "credential_state": "configured_in_nichefoundry",
+      "notes": "NicheFoundry owns approved upload transport. Market Command reads video evidence and binds each video ID to campaign lineage.",
+      "source_url": "https://developers.google.com/youtube/v3/docs/videos/list",
+      "write_authority": "nichefoundry_operator_approval"
+    },
+    {
+      "id": "WHATSAPP_BUSINESS",
+      "name": "WhatsApp Business",
+      "family": "permissioned_conversation",
+      "surfaces": [
+        "WhatsApp Business"
+      ],
+      "adapter_mode": "approved_conversation_only",
+      "capabilities": [
+        "approved_reply_copy",
+        "conversation_attribution",
+        "manual_result_import"
+      ],
+      "publication_gate": "explicit_conversation_or_opt_in_required",
+      "credential_state": "manual_ready",
+      "notes": "Translation does not create permission. DIO may prepare a response only for an existing conversation or recorded opt-in.",
+      "source_url": "https://developers.facebook.com/docs/whatsapp/",
+      "write_authority": "approved_conversation_only"
+    },
+    {
+      "id": "OUTLOOK_PERMISSIONED",
+      "name": "Outlook Permissioned Email",
+      "family": "owned_email",
+      "surfaces": [
+        "Outlook"
+      ],
+      "adapter_mode": "dio_mail_core",
+      "capabilities": [
+        "approved_drafts",
+        "customer_operations",
+        "existing_customer_followup"
+      ],
+      "publication_gate": "dio_mail_intent_approval",
+      "credential_state": "configured_separately",
+      "notes": "Electronic marketing remains subject to DIO consent/existing-customer gates and POPIA controls.",
+      "source_url": "https://learn.microsoft.com/en-us/graph/api/resources/mail-api-overview"
+    },
+    {
+      "id": "SA_MEDIA_BUY",
+      "name": "South African Publisher / Agency Media Buy",
+      "family": "external_media",
+      "surfaces": [
+        "publisher banners",
+        "newsletters",
+        "sponsored content",
+        "agency-managed media",
+        "events"
+      ],
+      "adapter_mode": "manual_media_buy",
+      "capabilities": [
+        "quote",
+        "brief",
+        "creative_spec",
+        "approval",
+        "invoice",
+        "result_import"
+      ],
+      "publication_gate": "approved_media_buy_required",
+      "credential_state": "not_required",
+      "notes": "Turns any local publisher or agency into a governed DIO channel even when no API exists.",
+      "source_url": "https://iabsa.net/members/"
+    }
+  ]
+}

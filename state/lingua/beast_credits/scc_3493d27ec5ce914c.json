@@ -1,0 +1,35 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:6b5ec360734cabda6ba15e6ecd01a4b1c5d48dcff25fe7718c2315e571e5069d",
+    "ref": "blobs/sha256/6b5ec360734cabda6ba15e6ecd01a4b1c5d48dcff25fe7718c2315e571e5069d.json"
+  },
+  "artifact_type": "verified_capability",
+  "avoided_tokens_estimate": 20,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.9,
+  "created_at": "2026-08-09T11:03:29.160723+00:00",
+  "credit_id": "scc_3493d27ec5ce914c",
+  "evidence_packet_id": "risk:Sesotho:sha256:f0a485696b9cc",
+  "impact_fingerprint_hash": "sha256:afe25f74f6c22cd42bf7943cb5177690432acfd869c5bace862d515290b03ad1",
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "asserts_translation_truth": false,
+    "authority": "conservative_machine_risk_escalation",
+    "domain": "Water-quality operations",
+    "issue": "The term 'probe' is retained in English; ensure technicians understand it refers to the sensor of the meter.",
+    "severity": "medium",
+    "target_language": "Sesotho"
+  },
+  "policy_version": "dio_lingua_conservative_risk_learning_v1",
+  "repo_fingerprint": "sha256:afe25f74f6c22cd42bf7943cb5177690432acfd869c5bace862d515290b03ad1",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "dio_lingua_risk_pattern",
+  "verified_tests": [
+    "visible",
+    "hidden"
+  ],
+  "version": "1.0"
+}

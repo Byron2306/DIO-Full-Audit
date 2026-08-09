@@ -1,0 +1,169 @@
+{
+  "schema": "dio.lingua.beast_resolution.v1",
+  "status": "resolved",
+  "approved_units": [],
+  "approved_terms": [],
+  "risk_patterns": [
+    {
+      "issue": "The term 'probe' is retained in English; ensure technicians understand it refers to the sensor of the meter.",
+      "severity": "medium",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_3493d27ec5ce914c"
+    },
+    {
+      "issue": "The phrase 'degrees Celsius' is kept in English; consider using 'likhato tsa Celsius' for clarity.",
+      "severity": "medium",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_00d24590c436dc47"
+    },
+    {
+      "issue": "PBT is not expanded; technicians may not know what it stands for. Consider adding a definition or using a local term for personal protective equipment.",
+      "severity": "high",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_1a93725581e17cab"
+    }
+  ],
+  "deterministic_guards": [
+    {
+      "guard": "anchor_completeness",
+      "rule": "Every source unit must have exactly one aligned target unit.",
+      "credit_id": "scc_43b6d28fa83b8292"
+    },
+    {
+      "guard": "source_hash_staleness",
+      "rule": "A changed source-unit hash makes every previously aligned target unit stale.",
+      "credit_id": "scc_a912739495ce0e9d"
+    },
+    {
+      "guard": "protected_token_preservation",
+      "rule": "Every configured protected token must remain exact in the target unit.",
+      "credit_id": "scc_15be5dd2c2028488"
+    },
+    {
+      "guard": "numeral_preservation",
+      "rule": "Every operational numeral present in a source unit must remain present in its target unit.",
+      "credit_id": "scc_567b36c9078b8be4"
+    }
+  ],
+  "active_negative_capabilities": [],
+  "reuse_state": "miss",
+  "provider_call_displaced": false,
+  "crystal_chain": {
+    "beast_object_type": "crystal_chain_verification",
+    "version": "1.0",
+    "valid": true,
+    "block_count": 42,
+    "head_hash": "sha256:80a1209495534f83071bc69d787d3a32d73d9804a98aa5e158a122f61b881946",
+    "errors": [],
+    "consensus": "local_hash_chain_no_distributed_consensus"
+  },
+  "memory_residue": {
+    "beast_object_type": "memory_hull_write_receipt",
+    "version": "2.0",
+    "residue_id": "residue_065d857ce657351bceaa",
+    "section": "decisions",
+    "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_065d857ce657351bceaa.md",
+    "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_065d857ce657351bceaa.residue.json",
+    "residue_seal": {
+      "beast_object_type": "beast_residue_seal",
+      "version": "2.0",
+      "purpose": "memory_hull_decisions",
+      "algorithm": "Ed25519",
+      "provider": "cryptography",
+      "created_at": "2026-08-09T11:38:05.859965+00:00",
+      "payload_sha256": "sha256:4c6cd5f41d3801b16bb4e2b0281724c7d805bfb0d91951bd53f0e5b9d5c062c5",
+      "message_sha256": "sha256:349c245af77a44b21e3de361efa93813231652a0286f85dce307e7222b89e78f",
+      "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+      "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+      "signature_b64": "gvmt3434c5iqoMnkK5XPVWQBCz18h7lbQF2zLdURjgcvEQ1Q8VU6EDOwbTQw0Nu8TZbm2Y+zSzBXqyX9EyrrCA==",
+      "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+    },
+    "verified": true,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+  },
+  "prec_lifecycle": {
+    "beast_object_type": "prec_lifecycle",
+    "version": "1.0",
+    "lifecycle_id": "prec_7970cd3cc5b9f95c4c",
+    "kind": "dio_lingua",
+    "objective": "Lingua resolve for Sesotho",
+    "scope": "Water-quality operations",
+    "status": "completed",
+    "current_phase": "crystallize",
+    "task_id": "",
+    "provider": "BEAST",
+    "summary": "Lingua resolve lifecycle completed",
+    "metadata": {
+      "operation": "resolve",
+      "target_language": "Sesotho"
+    },
+    "artifact_refs": {
+      "crystallize": {
+        "receipt_digest": {
+          "value": "sha256:ea72e47c961355dc9e0f8c0f19c6193907213415a43e441a52b2b307aa502138"
+        }
+      },
+      "economize": {},
+      "perceive": {},
+      "reason": {
+        "result_status": {
+          "value": "resolved"
+        }
+      }
+    },
+    "created_at": "2026-08-09T11:38:05.865775+00:00",
+    "updated_at": "2026-08-09T11:38:05.874706+00:00",
+    "completed_at": "2026-08-09T11:38:05.874706+00:00",
+    "phase_events": [
+      {
+        "phase": "perceive",
+        "status": "completed",
+        "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+        "artifacts": {},
+        "signals": [
+          "resolve"
+        ],
+        "created_at": "2026-08-09T11:38:05.867918+00:00"
+      },
+      {
+        "phase": "reason",
+        "status": "completed",
+        "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+        "artifacts": {
+          "result_status": "resolved"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.869330+00:00"
+      },
+      {
+        "phase": "economize",
+        "status": "completed",
+        "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+        "artifacts": {
+          "provider_call_displaced": false
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.871029+00:00"
+      },
+      {
+        "phase": "crystallize",
+        "status": "completed",
+        "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+        "artifacts": {
+          "receipt_digest": "sha256:ea72e47c961355dc9e0f8c0f19c6193907213415a43e441a52b2b307aa502138"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.872640+00:00"
+      }
+    ],
+    "phase_status": {
+      "perceive": "completed",
+      "reason": "completed",
+      "economize": "completed",
+      "crystallize": "completed"
+    }
+  }
+}

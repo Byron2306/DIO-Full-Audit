@@ -1,0 +1,77 @@
+{
+  "schema": "knowedge.homs_design_law_receipt.v1",
+  "created_at": "2026-08-08T07:43:11+00:00",
+  "status": "formatted",
+  "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke",
+  "design_law": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_design_law.json",
+  "assessment_design": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/caps_assessment_design/caps_assessment_design.json",
+  "canonical_profile_id": "fet.life_orientation",
+  "render_shell": "performance_task_sheet",
+  "input_pack": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/assessment_pack.json",
+  "formatted_docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/ASSESSMENT_PACK_FORMATTED.docx",
+  "visual_manifest": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/HOMS_VISUAL_MANIFEST.json",
+  "source_assets": [
+    {
+      "source_number": 1,
+      "title": "Official-paper exemplar: Text Extract",
+      "source_type": "text_extract",
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "page": 6,
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/text_extract/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_orientation/text_extract/margin_trim/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_orientation/text_extract/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_orientation/text_extract/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 2,
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "page": 10,
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/data_table/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/margin_trim/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "assets": [
+    {
+      "title": "Performance Floor Plan And Sequence Map",
+      "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/assessment_visuals/01_performance_floor_plan_and_sequence_map.svg",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/assessment_visuals/01_performance_floor_plan_and_sequence_map.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Teacher Observation Instrument",
+      "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/assessment_visuals/02_teacher_observation_instrument.svg",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/assessment_visuals/02_teacher_observation_instrument.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    }
+  ],
+  "educator_approval_required": true,
+  "formatted_zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke/HOMS_FORMATTED_ASSESSMENT_PACK.zip"
+}

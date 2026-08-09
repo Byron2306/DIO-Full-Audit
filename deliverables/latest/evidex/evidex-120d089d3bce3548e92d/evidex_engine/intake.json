@@ -1,0 +1,44 @@
+{
+  "client": {
+    "organization": "Client organization to confirm",
+    "contact_name": "Client",
+    "contact_email": "programme.manager@example.org"
+  },
+  "pack": {
+    "purpose": "Grant reporting evidence pack for Q2 donor submission",
+    "donor": "To be confirmed",
+    "project_name": "Grant reporting evidence pack for Q2 donor submission",
+    "grant_id": "evidex-120d089d3bce3548e92d",
+    "reporting_period": {
+      "start": "To be confirmed",
+      "end": "To be confirmed"
+    },
+    "tone": "clear, conservative, audit-ready",
+    "include_appendix": true
+  },
+  "kpis": [
+    {
+      "name": "Evidence request and source materials organized",
+      "target": "Complete evidence pack",
+      "actual": "Candidate evidence received",
+      "measurement": "Email request, listed attachments, and source notes"
+    }
+  ],
+  "constraints": {
+    "avoid_claims": [
+      "Do not claim outcomes that are not directly supported by supplied evidence.",
+      "Do not treat this generated pack as final until reviewed by the operator."
+    ],
+    "known_gaps": [
+      "Client organization, reporting period, donor template, and KPI list may need confirmation.",
+      "Original route reason: Matched route keywords: grant, reporting, evidence pack, proof, kpi, funder, donor, monitoring.",
+      "Original evidence extract: Please prepare the funder reporting evidence pack. We have KPI proof, attendance registers, photos, invoices, and monitoring notes that need to be mapped for the donor report."
+    ]
+  },
+  "billing": {
+    "client_type": "ngo",
+    "quantity": 1,
+    "currency": "ZAR",
+    "service_name": "Evidex Evidence Pack"
+  }
+}

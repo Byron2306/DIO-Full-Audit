@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-CMP-C6283E8E7122",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "proof_story",
+    "artifact_id": "CNT-C6283E8E7122",
+    "campaign_id": "CMP-C6283E8E7122",
+    "product_line_id": "VAMP_ACADEMIC",
+    "audience": "Academic staff, HR administrators, department heads and performance coordinators",
+    "channel": "linkedin_organic",
+    "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+    "cta": "Request one task-agreement and evidence snapshot pilot.",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "2026-08-08T22:11:08+00:00",
+    "document_hash": "sha256:30b48dc512aa24da127dbdfc9edd1bebbf0e4e6009c794f440134f3572b75fbb",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "Performance review panic starts when evidence was never collected as evidence.",
+        "source_hash": "sha256:23cf85911f8694622810522b6708806e0c8a015660035da77aec9522511dcbf3",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "A controlled private proof mapped 190 evidence records to performance objectives, retained review candidates and exposed evidence gaps without making a rating decision.\n\nIf Institute of People Management (IPM) is shown 'Fake staff annual-review case: agreement + approved Outlook/file evidence -> KPA/task mapping -> gaps -> human-reviewed performance snapshot.', then the HR/performance-management decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Request one task-agreement and evidence snapshot pilot.",
+        "source_hash": "sha256:caeeec95f7c289431db5685ed47400cc21d82a8d21cc5d84ba65fd3cc39eb7e1",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "2026-08-08T22:11:08+00:00",
+      "document_hash": "sha256:30b48dc512aa24da127dbdfc9edd1bebbf0e4e6009c794f440134f3572b75fbb",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T12:02:20+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T12:02:20+00:00"
+}

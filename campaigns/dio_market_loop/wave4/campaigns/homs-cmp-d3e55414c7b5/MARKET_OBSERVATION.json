@@ -1,0 +1,37 @@
+{
+  "schema": "dio.market_observation.v1",
+  "observation_id": "OBS-93FF3ACF15C0",
+  "observed_at": "2026-08-08",
+  "recorded_at": "2026-08-08T22:11:08+00:00",
+  "source": {
+    "kind": "prospect_registry_wave",
+    "wave": "wave4",
+    "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/DIO_Prospect_Intelligence_Wave4.zip",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+    "registry_hypothesis_id": "W4-HYP-0002",
+    "target_id": "W4-TGT-0020",
+    "source_reference": "https://www.isasa.org/weekly-bulletin-submission/"
+  },
+  "product_line_id": "HOMS_ASSESS",
+  "market": {
+    "organisation": "ISASA",
+    "segment": "Education ecosystem",
+    "province_or_reach": "Southern Africa",
+    "buyer_unit": "Programme/Member Services; Technology/Innovation; Partnerships/Business Development"
+  },
+  "signals": {
+    "attack_score": 97.6,
+    "route_state": "CHANNEL_SUBMISSION_AVAILABLE",
+    "route_mode": "reviewed_channel_submission",
+    "proof_readiness_score": 5.0,
+    "timing_score": 5.0,
+    "seasonal_urgency": "HIGH",
+    "seasonal_trigger": "2026 public-school Term 3 is active (21 Jul\u201323 Sep); Term 4 starts 6 Oct. Use as a market-timing reference only; verify each independent school's calendar."
+  },
+  "controls": {
+    "outreach_state": "Research only",
+    "consent_status": "Not recorded",
+    "do_not_contact": "No",
+    "high_score_is_permission": false
+  }
+}

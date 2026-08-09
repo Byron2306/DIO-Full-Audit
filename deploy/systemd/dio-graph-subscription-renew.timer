@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily DIO Microsoft Graph webhook subscription renewal
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=15m
+Unit=dio-graph-subscription-renew.service
+
+[Install]
+WantedBy=timers.target

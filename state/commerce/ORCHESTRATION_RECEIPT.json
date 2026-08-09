@@ -1,0 +1,35 @@
+{
+  "schema": "dio.commercial_orchestration_receipt.v1",
+  "created_at": "2026-08-09T18:48:15+00:00",
+  "triage": {
+    "system_ignored": 11,
+    "bound": 0,
+    "staged": 0,
+    "needs_review": 5
+  },
+  "transactions": 1,
+  "stages": {
+    "observed": 0,
+    "acknowledgement_ready": 0,
+    "acknowledged": 0,
+    "qualification_pending": 0,
+    "qualified": 1,
+    "intake_collecting": 0,
+    "intake_ready": 0,
+    "quote_ready": 0,
+    "payment_pending": 0,
+    "paid": 0,
+    "processing": 0,
+    "review_required": 0,
+    "delivery_ready": 0,
+    "delivered": 0,
+    "closeout_ready": 0,
+    "closed": 0,
+    "blocked": 0
+  },
+  "decisions": {
+    "ALLOW": 1,
+    "ALLOW_WITH_OBLIGATIONS": 0,
+    "BLOCK": 0
+  }
+}

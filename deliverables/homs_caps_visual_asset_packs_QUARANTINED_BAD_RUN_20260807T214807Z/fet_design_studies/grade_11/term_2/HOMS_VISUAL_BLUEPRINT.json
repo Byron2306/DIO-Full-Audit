@@ -1,0 +1,93 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Design Studies",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Design Studies",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_design_studies_gr_10-12_web_4977.pdf",
+    "sha256": "f4cc13d827222ab42a8eb0180a86d285732e755be8ee5e4d7abd4ed79ebdafac"
+  },
+  "canonical_profile_id": "fet.design_studies",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "Many aspects of design can be covered during Grades 10 to 12, but it is impossible to include everything. The",
+    "encourage creativity and diversity. However, a specialised field of focus from Grade 11 is recommended to ensure",
+    "Content/concepts/skills",
+    "Visual analysis (examples of design not previously analysed in the classroom): basic terminology (design elements and",
+    "DESIGN GRADES 10-12",
+    "DESIGN GRADE 11 TERM 1",
+    "improvements \uf0e0 Select best solution/idea \uf0e0 Plan production process \uf0e0 Produce \uf0e0 Reflect (linked to practical",
+    "assessment task)",
+    "integrated with practical task)",
+    "DESIGN GRADE 10 TERM 2",
+    "Topic 1 Suggested contact time Resources",
+    "clearer specification of what is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in South",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document"
+  ],
+  "assessment_content_focus": [
+    "Many aspects of design can be covered during Grades 10 to 12, but it is impossible to include everything. The",
+    "encourage creativity and diversity. However, a specialised field of focus from Grade 11 is recommended to ensure",
+    "Many aspects of design can be covered during Grades 10 to 12, but it is impossible to include everything. The",
+    "encourage creativity and diversity. However, a specialised field of focus from Grade 11 is recommended to ensure"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: aspects, covered, creativity, design, diversity, during."
+  ],
+  "required_visuals": [
+    {
+      "id": "design_test_log",
+      "title": "Design, build, test and improve log",
+      "role": "learner_workspace",
+      "visual_kind": "design_log",
+      "must_show": [
+        "problem",
+        "constraints",
+        "diagram",
+        "test result",
+        "improvement"
+      ],
+      "assessment_use": "Learners retain process evidence for marking."
+    },
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

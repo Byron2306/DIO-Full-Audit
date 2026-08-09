@@ -1,0 +1,78 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Religion Studies",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Religion Studies",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_religion_studies_gr_10-12_web_32d7.pdf",
+    "sha256": "d25ba9e1b0efce21e16033dc52d3ab34693baebecebb56285e157b4a9c29ff2a"
+  },
+  "canonical_profile_id": "fet.religion_studies",
+  "assessment_family": "source_based_plus_extended_response",
+  "render_shell": "source_response_paper",
+  "caps_theme_candidates": [
+    "for the teaching of Religion Studies in Grades 10, 11 and 12 hours in Grade 12. The groupings of content in",
+    "8 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "RELIGION STUDIES GRADES 10-12",
+    "2.4 Weighting of topics",
+    "Topic Grade 10 Grade 11 Grade 12",
+    "Formal assessment: It is compulsory to cover the given topics in the term",
+    "indicated. The sequence in the term is, however, not fixed.",
+    "TOPIC TERM 2 GRADE 10",
+    "clearer specification of what is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in South",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+  ],
+  "assessment_content_focus": [
+    "for the teaching of Religion Studies in Grades 10, 11 and 12 hours in Grade 12. The groupings of content in",
+    "8 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "for the teaching of Religion Studies in Grades 10, 11 and 12 hours in Grade 12. The groupings of content in",
+    "8 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: content, curriculum, grades, groupings, hours, policy."
+  ],
+  "required_visuals": [
+    {
+      "id": "source_provenance_panel",
+      "title": "Source provenance panel",
+      "role": "stimulus",
+      "visual_kind": "source_extract",
+      "must_show": [
+        "author/origin",
+        "date/context",
+        "caption",
+        "extract or visual description"
+      ],
+      "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+    },
+    {
+      "id": "claim_evidence_reasoning_table",
+      "title": "Claim-evidence-reasoning table",
+      "role": "learner_workspace",
+      "visual_kind": "evidence_table",
+      "must_show": [
+        "claim column",
+        "evidence column",
+        "reasoning/inference column"
+      ],
+      "assessment_use": "Learners connect source evidence to answers."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

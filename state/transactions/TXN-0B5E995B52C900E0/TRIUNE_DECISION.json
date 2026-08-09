@@ -1,0 +1,84 @@
+{
+  "schema": "dio.commercial_triune_decision.v1",
+  "verdict": "ALLOW",
+  "metatron": {
+    "status": "ok",
+    "commercial_belief": {
+      "stage": "qualified",
+      "stage_confidence": 1.0,
+      "lineage_completeness": 0.5,
+      "lineage_present": [
+        "lead_id",
+        "conversation_id"
+      ],
+      "intake_meaningful": true,
+      "attachment_count": 0,
+      "consent_confidence": 1.0,
+      "readiness_score": 0.875,
+      "risk_score": 0.0
+    },
+    "policy_tier_suggestion": "routine"
+  },
+  "michael": {
+    "ranked_actions": [
+      {
+        "action": "collect_or_validate_intake",
+        "authority": "automatic_internal",
+        "score": 0.8275,
+        "reason": "Correlate supplied messages and quarantined files into an intake packet.",
+        "components": {
+          "readiness": 0.875,
+          "customer_value": 0.85,
+          "reversibility": 0.95,
+          "urgency": 0.5
+        }
+      },
+      {
+        "action": "prepare_quote",
+        "authority": "operator_required",
+        "score": 0.81,
+        "reason": "Price and scope require commercial authority.",
+        "components": {
+          "readiness": 0.875,
+          "customer_value": 0.9,
+          "reversibility": 0.8,
+          "urgency": 0.5
+        }
+      }
+    ],
+    "selected_action": {
+      "action": "collect_or_validate_intake",
+      "authority": "automatic_internal",
+      "score": 0.8275,
+      "reason": "Correlate supplied messages and quarantined files into an intake packet.",
+      "components": {
+        "readiness": 0.875,
+        "customer_value": 0.85,
+        "reversibility": 0.95,
+        "urgency": 0.5
+      }
+    }
+  },
+  "loki": {
+    "status": "clear",
+    "selected_action": "collect_or_validate_intake",
+    "challenges": [],
+    "alternative_hypotheses": [
+      "This may be a support conversation rather than a new order.",
+      "The customer may be supplying missing material for an existing job.",
+      "A platform notification may be mistaken for customer payment authority."
+    ]
+  },
+  "harmonic": {
+    "sample_size": 3,
+    "median_interval_seconds": 2073.33,
+    "jitter_seconds": 1946.67,
+    "burstiness": 0.5,
+    "age_hours": 19.05,
+    "stale": false,
+    "resonance_score": 0.6625,
+    "discord_score": 0.0,
+    "confidence": 0.25,
+    "mode_recommendation": "normal_flow"
+  }
+}

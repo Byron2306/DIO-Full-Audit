@@ -1,0 +1,263 @@
+{
+  "schema": "dio.registry_wave_import_receipt.v1",
+  "created_at": "2026-08-08T22:11:08+00:00",
+  "status": "completed",
+  "registry_wave": "wave4",
+  "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/DIO_Prospect_Intelligence_Wave4.zip",
+  "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+  "installed_nichefoundry_studio": "/home/byron/Downloads/NicheFoundry_Phase11/studios/custom/dio_proof_led_services.json",
+  "wave_lineage": [
+    {
+      "archive": "DIO_Prospect_Intelligence_Wave2.zip",
+      "archive_sha256": "f8a8c44970b0f3fb7b38d2e25e59771ef9f8835385f965073f6352d8ed19bbe7",
+      "schema": "dio.prospect_intelligence.wave2.v1",
+      "created_at": "2026-08-08T15:00:00Z",
+      "active": false,
+      "counts": {
+        "prospects": 2376,
+        "product_opportunities": null,
+        "buyer_unit_targets": null,
+        "electronic_sales_allowed": null
+      }
+    },
+    {
+      "archive": "DIO_Prospect_Intelligence_Wave3.zip",
+      "archive_sha256": "6145372344d46ca401de8452a44a3f41c4e5542240aefd43c71cfbe61e127266",
+      "schema": "dio.prospect_intelligence.wave3.v1",
+      "created_at": "2026-08-08",
+      "active": false,
+      "counts": {
+        "prospects": 2422,
+        "product_opportunities": 4834,
+        "buyer_unit_targets": null,
+        "electronic_sales_allowed": 0
+      }
+    },
+    {
+      "archive": "DIO_Prospect_Intelligence_Wave4.zip",
+      "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+      "schema": "dio.prospect_intelligence.wave4.v1",
+      "created_at": "2026-08-08",
+      "active": true,
+      "counts": {
+        "prospects": 2422,
+        "product_opportunities": 4834,
+        "buyer_unit_targets": 426,
+        "electronic_sales_allowed": 0
+      }
+    }
+  ],
+  "manifest": {
+    "schema": "dio.prospect_intelligence.wave4.v1",
+    "created_at": "2026-08-08",
+    "master_prospects": 2422,
+    "product_opportunities": 4834,
+    "buyer_unit_targets": 426,
+    "enrichment_queue": 250,
+    "current_public_routes": 14,
+    "ready_channel_routes": 8,
+    "electronic_sales_allowed": 0,
+    "top_10": [
+      {
+        "rank": "1",
+        "organisation": "FEDSAS",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "97.6",
+        "route_state": "PARTNERSHIP_ROUTE_AVAILABLE"
+      },
+      {
+        "rank": "2",
+        "organisation": "ISASA",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "97.6",
+        "route_state": "CHANNEL_SUBMISSION_AVAILABLE"
+      },
+      {
+        "rank": "3",
+        "organisation": "Publishers Association of South Africa (PASA)",
+        "product_line_id": "SOPHIA_LEARN",
+        "attack_score": "94.3",
+        "route_state": "PARTNERSHIP_ROUTE_AVAILABLE"
+      },
+      {
+        "rank": "4",
+        "organisation": "Independent Examinations Board (IEB)",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "94.2",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      },
+      {
+        "rank": "5",
+        "organisation": "Universities South Africa Education Deans' Forum",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "94.2",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      },
+      {
+        "rank": "6",
+        "organisation": "NASCEE",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "94.1",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      },
+      {
+        "rank": "7",
+        "organisation": "Universities South Africa Education Deans' Forum",
+        "product_line_id": "SOPHIA_LEARN",
+        "attack_score": "92.6",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      },
+      {
+        "rank": "8",
+        "organisation": "ADvTECH Group",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "92.0",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      },
+      {
+        "rank": "9",
+        "organisation": "Curro Holdings",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "92.0",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      },
+      {
+        "rank": "10",
+        "organisation": "National Education Collaboration Trust (NECT)",
+        "product_line_id": "HOMS_ASSESS",
+        "attack_score": "91.3",
+        "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE"
+      }
+    ],
+    "files": [
+      "README.md",
+      "bundles.csv",
+      "buyer_unit_targets.csv",
+      "campaign_hypotheses.csv",
+      "campaign_playbooks.csv",
+      "channel_multipliers.csv",
+      "contact_enrichment_queue.csv",
+      "current_public_routes.csv",
+      "dio_prospect_intelligence_wave4.sqlite",
+      "homs_independent_school_universe.csv",
+      "product_lines.csv",
+      "product_opportunities.csv",
+      "proof_asset_matrix.csv",
+      "prospects_master.csv",
+      "seasonal_triggers.csv",
+      "source_registry.csv",
+      "wave3_new_prospects.csv"
+    ]
+  },
+  "validated_counts": {
+    "buyer_unit_targets": 426,
+    "campaign_hypotheses": 150,
+    "contact_enrichment_queue": 250,
+    "current_public_routes": 14,
+    "product_opportunities": 4834,
+    "proof_asset_matrix": 5
+  },
+  "selected_campaigns": [
+    "CMP-D3E55414C7B5",
+    "CMP-E96BD8B1464A",
+    "CMP-759637B3FCA3",
+    "CMP-D3F941CEA4BD",
+    "CMP-C6283E8E7122"
+  ],
+  "nichefoundry_scores": {
+    "CMP-D3E55414C7B5": {
+      "decision": "prioritize",
+      "opportunity_score": 74,
+      "studio_fit_passed": true
+    },
+    "CMP-E96BD8B1464A": {
+      "decision": "develop",
+      "opportunity_score": 70,
+      "studio_fit_passed": true
+    },
+    "CMP-759637B3FCA3": {
+      "decision": "develop",
+      "opportunity_score": 70,
+      "studio_fit_passed": true
+    },
+    "CMP-D3F941CEA4BD": {
+      "decision": "develop",
+      "opportunity_score": 70,
+      "studio_fit_passed": true
+    },
+    "CMP-C6283E8E7122": {
+      "decision": "develop",
+      "opportunity_score": 70,
+      "studio_fit_passed": true
+    }
+  },
+  "hivenance_register_sync": {
+    "schema": "dio.hivenance.marketing_register_bridge.v1",
+    "synced_at": "2026-08-08T22:11:08+00:00",
+    "source_root": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite",
+    "source_output": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/dio_market_loop/wave4",
+    "hivenance_root": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation",
+    "register_namespace": "marketing",
+    "trading_execution_connected": false,
+    "records": [
+      {
+        "hypothesis_id": "W4-HYP-0002",
+        "campaign_id": "CMP-D3E55414C7B5",
+        "state": "already_registered",
+        "path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/hypothesis_registry/marketing/W4-HYP-0002.json",
+        "sha256": "2f8255c7b6137a69e044076972e4b2826719272683cb40be491ca06b1f4dd313"
+      },
+      {
+        "hypothesis_id": "W4-HYP-0011",
+        "campaign_id": "CMP-E96BD8B1464A",
+        "state": "already_registered",
+        "path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/hypothesis_registry/marketing/W4-HYP-0011.json",
+        "sha256": "c6d212b4c14e94fef22f9d133cee4a494853f2db42347b6966f040f42ad2ecd8"
+      },
+      {
+        "hypothesis_id": "W4-HYP-0003",
+        "campaign_id": "CMP-759637B3FCA3",
+        "state": "registered",
+        "path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/hypothesis_registry/marketing/W4-HYP-0003.json",
+        "sha256": "fa1c017373a0d06933c8807bf4f3bc5f232eef71081d6fd25cac2d23b535dd59"
+      },
+      {
+        "hypothesis_id": "W4-HYP-0014",
+        "campaign_id": "CMP-D3F941CEA4BD",
+        "state": "registered",
+        "path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/hypothesis_registry/marketing/W4-HYP-0014.json",
+        "sha256": "03a4b6ff3edb747028d7fd5d2c546738d5dd4eaffb121096eea3ef5171a3d537"
+      },
+      {
+        "hypothesis_id": "W4-HYP-0075",
+        "campaign_id": "CMP-C6283E8E7122",
+        "state": "registered",
+        "path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/hypothesis_registry/marketing/W4-HYP-0075.json",
+        "sha256": "7ab9507ef95ac646f949a3bf21d489ea07d6426f7349ce92fa269f41efb949b5"
+      }
+    ]
+  },
+  "registrations": [
+    {
+      "hypothesis_id": "W4-HYP-0002",
+      "state": "already_registered"
+    },
+    {
+      "hypothesis_id": "W4-HYP-0011",
+      "state": "already_registered"
+    },
+    {
+      "hypothesis_id": "W4-HYP-0003",
+      "state": "registered"
+    },
+    {
+      "hypothesis_id": "W4-HYP-0014",
+      "state": "registered"
+    },
+    {
+      "hypothesis_id": "W4-HYP-0075",
+      "state": "registered"
+    }
+  ],
+  "electronic_sales_outreach_authorised": 0
+}

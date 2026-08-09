@@ -1,0 +1,174 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Afrikaans",
+  "language_of_assessment": "Afrikaans",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Afrikaans Grade 12 Term 4 Controlled Assessment Pack",
+  "canonical_profile_id": "fet.afrikaans_language",
+  "blueprint": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "duration": "1 hour",
+  "total_marks": 50,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Afrikaans Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "4",
+    "canonical_profile_id": "fet.afrikaans_language",
+    "assessment_family": "language_integrated_assessment",
+    "render_shell": "language_integrated_task",
+    "assessment_content_focus": [
+      "finale geintegreerde taaleksamenoefening",
+      "onvoorbereide teksinterpretasie en visuele geletterdheidsintese",
+      "tydbestuurde opsomming, redigering en bewysgebaseerde antwoorde",
+      "uitgebreide skryfwerk met argument, samehang en stylbeheer"
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner"
+      }
+    ],
+    "generation_constraints": [
+      "Every question must be answerable from the stated term focus, supplied stimulus and grade-appropriate subject knowledge.",
+      "Mark totals must reconcile exactly.",
+      "Educator approval is required before classroom use."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Afdeling A: Begrip En Visuele Geletterdheid",
+      "mode": "source_response",
+      "instructions": "Lees die bron- en visuele stimulus noukeurig en beantwoord die vrae in Afrikaans.",
+      "stimulus": "Bronstel oor finale geintegreerde taaleksamenoefening en onvoorbereide teksinterpretasie en visuele geletterdheidsintese. Die opvoeder voeg die goedgekeurde teks, spotprent, advertensie of infografika by.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identifiseer die hoofgedagte van die teks en haal EEN bewys uit die bron aan.",
+          "marks": 4,
+          "memo": [
+            "Hoofgedagte korrek.",
+            "Bewys uit die bron pas by die hoofgedagte."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Verduidelik hoe toon en register die teikengroep beinvloed.",
+          "marks": 6,
+          "memo": [
+            "Verwys na toon.",
+            "Verwys na register.",
+            "Koppel aan teikengroep."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Ontleed die visuele boodskap en verduidelik hoe beeld en woorde saam betekenis skep.",
+          "marks": 8,
+          "memo": [
+            "Noem visuele tegniek.",
+            "Noem taalkeuse.",
+            "Verduidelik gesamentlike effek."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Skryf 'n kort opsomming van die kerninligting in 60-80 woorde.",
+          "marks": 7,
+          "memo": [
+            "Kernpunte gekies.",
+            "Geen onnodige besonderhede.",
+            "Woordtelling en eie woorde."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling B: Taal In Konteks",
+      "mode": "language_structures",
+      "instructions": "Gebruik die bronteks vir taalstruktuur- en redigeringsvrae.",
+      "stimulus": "Taalfokus: tydbestuurde opsomming, redigering en bewysgebaseerde antwoorde.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Verbeter die gegewe sin deur woordkeuse, leestekens en register te korrigeer.",
+          "marks": 5,
+          "memo": [
+            "Korrekte woordkeuse.",
+            "Korrekte leestekens.",
+            "Register bly gepas."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Verduidelik die funksie van TWEE taalstrukture in die teks.",
+          "marks": 5,
+          "memo": [
+            "Twee strukture genoem.",
+            "Funksies akkuraat verduidelik."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Herskryf 'n sin in 'n meer formele register sonder om die betekenis te verander.",
+          "marks": 5,
+          "memo": [
+            "Betekenis behou.",
+            "Formele register konsekwent."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling C: Skryfrespons",
+      "mode": "writing_response",
+      "instructions": "Beplan en skryf 'n gestruktureerde respons.",
+      "stimulus": "Skryfopdrag: uitgebreide skryfwerk met argument, samehang en stylbeheer.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Skryf 'n beplande transaksionele teks met gepaste struktuur, register en doel.",
+          "marks": 10,
+          "memo": [
+            "Struktuur pas by tekssoort.",
+            "Register en doel is duidelik.",
+            "Inhoud is samehangend."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Subject accuracy and terminology",
+      "marks": 12,
+      "descriptor": "Uses accurate concepts and terminology."
+    },
+    {
+      "criterion": "Evidence, data or source use",
+      "marks": 12,
+      "descriptor": "Uses supplied evidence appropriately."
+    },
+    {
+      "criterion": "Reasoning and explanation",
+      "marks": 12,
+      "descriptor": "Shows logical, grade-appropriate reasoning."
+    },
+    {
+      "criterion": "Communication and completion",
+      "marks": 14,
+      "descriptor": "Answers are clear, complete and structured."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS term and topic fit before classroom use.",
+    "Insert or approve final source material where the pack requests educator-supplied sources.",
+    "Check mark allocation, memo wording and learner level.",
+    "Confirm visuals are suitable and not treated as official source material unless sourced separately."
+  ],
+  "generation_backend": "deterministic_caps_term_template_with_provider_enrichment_ready"
+}

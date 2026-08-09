@@ -1,0 +1,17 @@
+{
+  "status": "generated",
+  "command": [
+    "/home/byron/Evidex/.venv/bin/python",
+    "-m",
+    "evidence_pack_engine.cli",
+    "generate",
+    "--intake",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001/evidex_input/intake.json",
+    "--uploads",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001/evidex_input/uploads",
+    "--out",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001/evidex_output"
+  ],
+  "returncode": 0,
+  "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001/evidex_output/Institution-neutral_university_profile_VAMP_evidence_snapshot_VAMP-GENERIC-UNIVERSITY-PROOF-001_2026-01_to_2026-02_intake.zip"
+}

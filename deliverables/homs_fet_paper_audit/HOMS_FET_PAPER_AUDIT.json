@@ -1,0 +1,714 @@
+{
+  "schema": "knowedge.homs_fet_paper_audit.v1",
+  "created_at": "2026-08-08T07:42:28+00:00",
+  "overall_status": "failed",
+  "paper_count": 9,
+  "status_counts": {
+    "fatal": 9
+  },
+  "results": [
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/afrikaans_language_g12_source_smoke",
+      "subject": "Afrikaans",
+      "assessment_title": "Afrikaans Graad 12 Bron-Ingebedde Roetetoets",
+      "blueprint": "language_integrated_assessment",
+      "render_shell": "language_integrated_task",
+      "total_marks": 31,
+      "duration": "45 minutes",
+      "question_count": 7,
+      "source_summary": {
+        "count": 4,
+        "types": {
+          "text_extract": 1,
+          "cartoon": 1,
+          "graph_or_chart": 1,
+          "photograph_or_image": 1
+        },
+        "release_blocked": 4,
+        "flags": {
+          "auto_margin_trim": 4,
+          "multi_source_page": 4,
+          "object_candidate_may_be_too_aggressive": 1,
+          "page_level_source_not_object_crop": 4,
+          "release_blocked_auto_crop_needs_human_review": 4,
+          "release_blocked_object_crop_needs_human_review": 4,
+          "snippet_anchored_object_candidate": 4
+        }
+      },
+      "visual_assets": [
+        "Text Response And Language Planner"
+      ],
+      "expected_shape": "subject-specific final paper shape",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "4 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/economics_g12_source_smoke",
+      "subject": "Economics",
+      "assessment_title": "Economics Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "case_study_structured_questions",
+      "render_shell": "structured_case_paper",
+      "total_marks": 31,
+      "duration": "45 minutes",
+      "question_count": 7,
+      "source_summary": {
+        "count": 4,
+        "types": {
+          "text_extract": 1,
+          "graph_or_chart": 1,
+          "data_table": 1,
+          "cartoon": 1
+        },
+        "release_blocked": 4,
+        "flags": {
+          "auto_margin_trim": 4,
+          "page_level_source_not_object_crop": 4,
+          "release_blocked_auto_crop_needs_human_review": 4,
+          "release_blocked_object_crop_needs_human_review": 4,
+          "snippet_anchored_object_candidate": 4
+        }
+      },
+      "visual_assets": [
+        "Case Facts And Decision Table"
+      ],
+      "expected_shape": "Economics paper: concepts, data/graphs, case material, short/structured and longer analytical responses",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: Economics Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 31 marks; expected final-paper scale is around 150 marks for this subject route."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "4 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/english_language_g12_source_smoke",
+      "subject": "English Language",
+      "assessment_title": "English Language Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "language_integrated_assessment",
+      "render_shell": "language_integrated_task",
+      "total_marks": 31,
+      "duration": "45 minutes",
+      "question_count": 7,
+      "source_summary": {
+        "count": 4,
+        "types": {
+          "text_extract": 1,
+          "cartoon": 1,
+          "data_table": 1,
+          "photograph_or_image": 1
+        },
+        "release_blocked": 4,
+        "flags": {
+          "auto_margin_trim": 4,
+          "page_level_source_not_object_crop": 4,
+          "release_blocked_auto_crop_needs_human_review": 4,
+          "release_blocked_object_crop_needs_human_review": 4,
+          "snippet_anchored_object_candidate": 4,
+          "multi_source_page": 2
+        }
+      },
+      "visual_assets": [
+        "Text Response And Language Planner"
+      ],
+      "expected_shape": "language paper: reading/viewing, language structures, writing/presenting; no product QA questions",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: English Language Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "4 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke",
+      "subject": "Geography",
+      "assessment_title": "Geography Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "total_marks": 31,
+      "duration": "45 minutes",
+      "question_count": 7,
+      "source_summary": {
+        "count": 4,
+        "types": {
+          "map_extract": 1,
+          "synoptic_weather_map": 1,
+          "graph_or_chart": 1,
+          "photograph_or_image": 1
+        },
+        "release_blocked": 4,
+        "flags": {
+          "auto_margin_trim": 4,
+          "multi_source_page": 4,
+          "object_id_source_type_mismatch": 2,
+          "page_level_source_not_object_crop": 4,
+          "release_blocked_auto_crop_needs_human_review": 4,
+          "release_blocked_object_crop_needs_human_review": 4,
+          "snippet_anchored_object_candidate": 4
+        }
+      },
+      "visual_assets": [
+        "Source Panel And Evidence Table"
+      ],
+      "expected_shape": "Geography paper: mapwork/source skills, climate/geomorphology/settlement/economic geography and data interpretation",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: Geography Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 31 marks; expected final-paper scale is around 150 marks for this subject route."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "4 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/history_g12_source_smoke",
+      "subject": "History",
+      "assessment_title": "History Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "total_marks": 31,
+      "duration": "45 minutes",
+      "question_count": 7,
+      "source_summary": {
+        "count": 4,
+        "types": {
+          "text_extract": 1,
+          "photograph_or_image": 1,
+          "cartoon": 1,
+          "data_table": 1
+        },
+        "release_blocked": 4,
+        "flags": {
+          "auto_margin_trim": 4,
+          "page_level_source_not_object_crop": 4,
+          "release_blocked_auto_crop_needs_human_review": 4,
+          "release_blocked_object_crop_needs_human_review": 4,
+          "snippet_anchored_object_candidate": 4,
+          "multi_source_page": 1,
+          "object_id_source_type_mismatch": 1
+        }
+      },
+      "visual_assets": [
+        "Source Panel And Evidence Table"
+      ],
+      "expected_shape": "History paper: source-based analysis, reliability/usefulness/comparison and essay/paragraph argument",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: History Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 31 marks; expected final-paper scale is around 150 marks for this subject route."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "4 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_orientation_g12_source_smoke",
+      "subject": "Life Orientation",
+      "assessment_title": "Life Orientation Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "practical_performance_or_portfolio",
+      "render_shell": "performance_task_sheet",
+      "total_marks": 23,
+      "duration": "45 minutes",
+      "question_count": 5,
+      "source_summary": {
+        "count": 2,
+        "types": {
+          "text_extract": 1,
+          "data_table": 1
+        },
+        "release_blocked": 2,
+        "flags": {
+          "auto_margin_trim": 2,
+          "page_level_source_not_object_crop": 2,
+          "release_blocked_auto_crop_needs_human_review": 2,
+          "release_blocked_object_crop_needs_human_review": 2,
+          "snippet_anchored_object_candidate": 2
+        }
+      },
+      "visual_assets": [
+        "Performance Floor Plan And Sequence Map",
+        "Teacher Observation Instrument"
+      ],
+      "expected_shape": "LO CAT/question paper: Section A/B compulsory, Section C choice, scenario extracts, full-sentence paragraph responses",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: Life Orientation Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 23 marks; expected final-paper scale is around 100 marks for this subject route."
+        },
+        {
+          "severity": "fatal",
+          "code": "wrong_subject_visual_shell",
+          "detail": "Subject uses inappropriate visual/shell token: performance floor"
+        },
+        {
+          "severity": "fatal",
+          "code": "wrong_subject_visual_shell",
+          "detail": "Subject uses inappropriate visual/shell token: teacher observation"
+        },
+        {
+          "severity": "fatal",
+          "code": "lo_wrong_render_shell",
+          "detail": "FET LO CAT should render as a structured question paper, not a performance task sheet."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "2 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        },
+        {
+          "severity": "major",
+          "code": "lo_false_data_table_candidate",
+          "detail": "LO paragraph mentioning data analytics was classified as a data_table source."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/life_sciences_g12_source_smoke",
+      "subject": "Life Sciences",
+      "assessment_title": "Life Sciences Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "total_marks": 27,
+      "duration": "45 minutes",
+      "question_count": 6,
+      "source_summary": {
+        "count": 3,
+        "types": {
+          "data_table": 1,
+          "diagram_or_model": 1,
+          "graph_or_chart": 1
+        },
+        "release_blocked": 3,
+        "flags": {
+          "auto_margin_trim": 3,
+          "page_level_source_not_object_crop": 3,
+          "release_blocked_auto_crop_needs_human_review": 3,
+          "release_blocked_object_crop_needs_human_review": 3,
+          "snippet_anchored_object_candidate": 3,
+          "multi_source_page": 1,
+          "object_candidate_may_be_too_aggressive": 1,
+          "question_asks_learner_to_draw_graph": 1
+        }
+      },
+      "visual_assets": [
+        "Investigation Data And Method Sheet"
+      ],
+      "expected_shape": "Life Sciences paper: biological concepts, diagrams, data/graphs, investigations and content-specific questions",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: Life Sciences Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 27 marks; expected final-paper scale is around 150 marks for this subject route."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "3 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/mathematics_g12_source_smoke",
+      "subject": "Mathematics",
+      "assessment_title": "Mathematics Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "calculation_problem_solving",
+      "render_shell": "question_paper",
+      "total_marks": 27,
+      "duration": "45 minutes",
+      "question_count": 6,
+      "source_summary": {
+        "count": 3,
+        "types": {
+          "diagram_or_model": 1,
+          "graph_or_chart": 1,
+          "data_table": 1
+        },
+        "release_blocked": 3,
+        "flags": {
+          "auto_margin_trim": 3,
+          "minimal_crop_detected": 3,
+          "page_level_source_not_object_crop": 3,
+          "release_blocked_auto_crop_needs_human_review": 3,
+          "multi_source_page": 1
+        }
+      },
+      "visual_assets": [
+        "Working Grid And Method Marks"
+      ],
+      "expected_shape": "calculation/problem paper with values, diagrams, graphs and worked memo; no source-curation meta",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: Mathematics Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 27 marks; expected final-paper scale is around 150 marks for this subject route."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "3 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    },
+    {
+      "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/physical_sciences_g12_source_smoke",
+      "subject": "Physical Sciences",
+      "assessment_title": "Physical Sciences Grade 12 Source-Embedded Smoke Test",
+      "blueprint": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "total_marks": 27,
+      "duration": "45 minutes",
+      "question_count": 6,
+      "source_summary": {
+        "count": 3,
+        "types": {
+          "data_table": 1,
+          "diagram_or_model": 1,
+          "graph_or_chart": 1
+        },
+        "release_blocked": 3,
+        "flags": {
+          "auto_margin_trim": 3,
+          "page_level_source_not_object_crop": 3,
+          "release_blocked_auto_crop_needs_human_review": 3,
+          "release_blocked_object_crop_needs_human_review": 3,
+          "snippet_anchored_object_candidate": 3,
+          "not_drawn_to_scale": 1
+        }
+      },
+      "visual_assets": [
+        "Investigation Data And Method Sheet"
+      ],
+      "expected_shape": "Physical Sciences paper: equations/calculations, experiments, graphs/tables, units and scientific reasoning",
+      "audit_status": "fatal",
+      "failures": [
+        {
+          "severity": "fatal",
+          "code": "smoke_test_language",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "product_qa_question",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "source_exemplar_meta",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "pipeline_review_rubric",
+          "detail": "Learner-facing paper contains smoke-test/product-QA language."
+        },
+        {
+          "severity": "fatal",
+          "code": "non_learner_method_review_section",
+          "detail": "Pack includes a review section aimed at product/educator QA rather than learners."
+        },
+        {
+          "severity": "fatal",
+          "code": "smoke_title",
+          "detail": "Assessment title is not a final classroom paper title: Physical Sciences Grade 12 Source-Embedded Smoke Test"
+        },
+        {
+          "severity": "major",
+          "code": "not_full_fet_paper_scale",
+          "detail": "Pack has 27 marks; expected final-paper scale is around 150 marks for this subject route."
+        },
+        {
+          "severity": "critical",
+          "code": "source_release_blocked",
+          "detail": "3 embedded source(s) remain blocked for human source review."
+        },
+        {
+          "severity": "major",
+          "code": "source_curation_flags",
+          "detail": "One or more source assets are still page-level, mismatched, or require object-level review."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "knowedge.release_lanes.v1",
+  "updated_at": "2026-08-08",
+  "spine": [
+    "intake",
+    "route",
+    "job_packet",
+    "adapter_output",
+    "approval",
+    "deliverable",
+    "campaign_asset",
+    "pilot_sale"
+  ],
+  "lanes": [
+    {
+      "id": "evidex",
+      "priority": 1,
+      "lane": "cash_wedge",
+      "current_status": "outlook_first_intake_verified",
+      "next_milestone": "send_outlook_first_messages_and_validate_first_paid_pilot",
+      "buyer": "NGO operators, grant consultants, M&E teams, and small compliance teams",
+      "offer": "Pilot Pack",
+      "first_sale_motion": "direct outreach and ad posts asking prospects to reply with EVIDEX PILOT PACK REQUEST; Outlook triages replies, then Google/Drive/paygate handles structured upload and payment when needed"
+    },
+    {
+      "id": "homs",
+      "priority": 2,
+      "lane": "education_vertical",
+      "current_status": "outlook_first_intake_verified",
+      "next_milestone": "send_homs_outlook_first_messages_and_validate_one_fake_or_redacted_pilot_batch",
+      "buyer": "Lecturers, teachers, markers, tutors, and academic departments",
+      "offer": "Marking Relief Pilot",
+      "first_sale_motion": "direct outreach asking overloaded lecturers or teachers to reply with HOMS MARKING RELIEF REQUEST; Outlook triages replies, then HOMS prepares a request pack for fake/redacted pilot batches"
+    },
+    {
+      "id": "outlook_triage",
+      "priority": 4,
+      "lane": "intake_router",
+      "current_status": "phase_1_ingestion_working_and_evidex_reply_route_verified",
+      "next_milestone": "turn_triage_results_into_operator_queue",
+      "buyer": "Busy academics, administrators, consultants, and small business owners",
+      "offer": "Inbox Control Setup",
+      "first_sale_motion": "show before/after inbox route map from a small exported sample"
+    },
+    {
+      "id": "vamp",
+      "priority": 5,
+      "lane": "performance_vertical",
+      "current_status": "profiled_evidex_backed_controlled_commercial_lane_ready",
+      "next_milestone": "validate_one_consenting_external_organisation_profile_with_real_redacted_evidence",
+      "buyer": "Professionals, HR administrators, department heads, and performance review coordinators in evidence-heavy organisations",
+      "offer": "Performance Evidence Snapshot",
+      "first_sale_motion": "install an organisation profile, process one to six review months, calibrate every mapping, obtain human approval, and deliver an Evidex-backed snapshot"
+    },
+    {
+      "id": "sophia",
+      "priority": 3,
+      "lane": "academic_review_vertical",
+      "current_status": "gemini_backed_controlled_commercial_lane_ready",
+      "next_milestone": "complete_first_paid_section_review_pilot",
+      "buyer": "Postgraduate students, supervisors, writing centres, and research groups",
+      "offer": "Section Review Pilot",
+      "first_sale_motion": "qualify one postgraduate section by Outlook, issue a governed PayPal quote, run the grounded Gemini review, obtain human approval, and deliver the diagnostic pack"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "knowedge.homs_live_batch_receipt.v1",
+  "created_at": "2026-08-07T17:42:12+00:00",
+  "job_id": "homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z",
+  "status": "completed",
+  "input_dir": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/incoming/HOMS-HUMAN-DUMMY-001_EDU221-short-essay",
+  "secret_file_used": "/home/byron/EdgeK-BEAST/.beast/provider_secrets.env",
+  "rubric": {
+    "name": "EDU221 Short Essay Pilot Rubric",
+    "total_marks": 30,
+    "criteria": [
+      "Argument and focus",
+      "Evidence and source use",
+      "Structure and academic communication"
+    ]
+  },
+  "provider": {
+    "selected_provider": "nvidia_nim",
+    "selected_model": "nvidia/nemotron-3-super-120b-a12b",
+    "selected_key_name": "NVIDIA_API_KEY",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "values_redacted": true
+  },
+  "submissions": 3,
+  "provider_errors": [],
+  "duration_seconds": 64.34,
+  "outputs": {
+    "job_dir": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done/homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z",
+    "results": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done/homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z/results.json",
+    "marks_csv": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done/homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z/marks.csv",
+    "marked_gradebook": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done/homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z/gradebook_marked.csv",
+    "lecturer_summary": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done/homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z/LECTURER_REVIEW_SUMMARY.md",
+    "review_zip": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done/homs-homs-human-dummy-001_edu221-short-essay-20260807T174107Z/HOMS_REVIEW_PACK.zip"
+  }
+}

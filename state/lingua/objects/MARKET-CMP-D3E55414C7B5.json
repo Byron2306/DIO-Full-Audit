@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-CMP-D3E55414C7B5",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "proof_story",
+    "artifact_id": "CNT-D3E55414C7B5",
+    "campaign_id": "CMP-D3E55414C7B5",
+    "product_line_id": "HOMS_ASSESS",
+    "audience": "South African independent-school academic leaders, assessment coordinators and educators",
+    "channel": "sa_media_buy",
+    "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+    "cta": "Review the tight-eight proof and request one subject-and-grade pilot.",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "2026-08-08T15:52:42+00:00",
+    "document_hash": "sha256:e995b83a49a1e26f218fe355e67fae4ece50975c830b590e9888fc18672dbdb2",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "One curriculum spine should not produce eight identical-looking papers. Watch HOMS change the assessment architecture with the subject.",
+        "source_hash": "sha256:0950cb89cbf95a678d893e9fbef74e4d53a05fee82c481ffd636f299975ae2c6",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "Eight Grade 12 Term 3 subject packs with separate memoranda, source-grounded papers, embedded media and educator approval boundaries.\n\nIf ISASA is shown 'Cross-phase live proof: Grade 3 Mathematics activity-style pack vs Grade 10 Dance Studies performance task, each with memo/rubric and educator approval.', then the Academic/curriculum decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Review the tight-eight proof and request one subject-and-grade pilot.",
+        "source_hash": "sha256:118b67a617e8ecaae0e8d4602dc3cdcc63686401efde87534447eff58d3f215d",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "2026-08-08T15:52:42+00:00",
+      "document_hash": "sha256:e995b83a49a1e26f218fe355e67fae4ece50975c830b590e9888fc18672dbdb2",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T12:02:20+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T12:02:20+00:00"
+}

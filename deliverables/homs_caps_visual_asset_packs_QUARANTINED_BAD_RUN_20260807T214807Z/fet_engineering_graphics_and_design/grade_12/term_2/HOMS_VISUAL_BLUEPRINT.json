@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Engineering Graphics And Design",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Engineering Graphics and Design",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_engineering_grapichs_design_gr_10-12_web_8899.pdf",
+    "sha256": "f5f1251d07edd0ed7ff05c1d78b28e6632a04b7653475db6c742b5ee30d08dc3"
+  },
+  "canonical_profile_id": "fet.engineering_graphics_and_design",
+  "assessment_family": "practical_project_design_task",
+  "render_shell": "project_task_sheet",
+  "caps_theme_candidates": [
+    "4.3 Formal assessment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33",
+    "4.4 Projects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+    "4.5 Programme of assessment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+    "4.5.1 Grades 10 & 11 formal assessment programme. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+    "4.5.2 Grade 12 formal assessment programme. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35",
+    "4.5.3 The EGD annual formal assessment plan. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35",
+    "4.5.4 The compulsory EGD school-based assessment (SBA) tasks for each term. . . . . . . . . . . . . . . . . . . 36",
+    "4.5.5 The EGD formal assessment tasks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38",
+    "4.5.6 Assessment of the EGD formal assessment task.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41",
+    "4.8 Moderation of assessment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42",
+    "4.9 Practical Assessment Task (PAT).. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42",
+    "ENGINEERING GRAPHICS AND DESIGN GRADES 10-12",
+    "3 hrs 11 PAT (Practical Phase 1: Complete the following Design Process requirements:",
+    "Assessment Task)"
+  ],
+  "assessment_content_focus": [
+    "4.3 Formal assessment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33",
+    "4.4 Projects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+    "4.3 Formal assessment. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33",
+    "4.4 Projects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: formal, projects."
+  ],
+  "required_visuals": [
+    {
+      "id": "design_test_log",
+      "title": "Design, build, test and improve log",
+      "role": "learner_workspace",
+      "visual_kind": "design_log",
+      "must_show": [
+        "problem",
+        "constraints",
+        "diagram",
+        "test result",
+        "improvement"
+      ],
+      "assessment_use": "Learners retain process evidence for marking."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

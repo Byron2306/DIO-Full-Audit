@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.phase3.storyboard.v1",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "studio_id": "practical_open_source",
+  "product_layer": "evidex",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "target_runtime_seconds": 66,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 8,
+      "narration": "Your donor report is not missing effort. It is missing an evidence pipeline.",
+      "visual": "Show messy files becoming a clean evidence table and ZIP as the opening transformation.",
+      "screen_text": "Evidex Evidence Pack"
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 12,
+      "narration": "Reporting evidence is scattered across emails, attachments, spreadsheets, and old folders.",
+      "visual": "Show the messy input state: emails, folders, files, forms, rubrics, or drafts.",
+      "screen_text": "The messy input"
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "workflow",
+      "duration_seconds": 14,
+      "narration": "Evidex Evidence Pack routes the work through a controlled pipeline instead of pretending AI can decide everything.",
+      "visual": "Show route card, evidence card, approval gate, and output folder.",
+      "screen_text": "Route -> Review -> Pack"
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "promise",
+      "duration_seconds": 14,
+      "narration": "A structured evidence table, source pack, narrative, quality report, invoice, and delivery ZIP.",
+      "visual": "Show the finished review-ready pack with checklist and receipt.",
+      "screen_text": "Review-ready output"
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 10,
+      "narration": "Review-ready, not automatically final. Client and operator approval required before delivery.",
+      "visual": "Show human approval as an explicit final gate.",
+      "screen_text": "Human approval stays"
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "narration": "Send one non-sensitive evidence folder for a pilot pack.",
+      "visual": "Show a simple intake action and pilot label.",
+      "screen_text": "Pilot Pack"
+    }
+  ],
+  "approval_required": true
+}

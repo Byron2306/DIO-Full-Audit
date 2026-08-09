@@ -1,0 +1,30 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:4457124a48a1a9abaa7b4e46f4007625917da7e3e83edcd4473a52381b4351f7",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 20,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.9,
+    "evidence_packet_id": "risk:Setswana:sha256:fea911a677c52",
+    "impact_fingerprint_hash": "sha256:0558ddbb5e1f0b71a75d11ee502f89cd90199eba7e5b5e49dc20bfe3adf06e0c",
+    "metadata": {
+      "asserts_translation_truth": false,
+      "authority": "conservative_machine_risk_escalation",
+      "domain": "Water-quality operations",
+      "issue": "The term 'correction fluid' is translated as 'setlhotlho sa go phimola' (eraser fluid); verify that this is the common term in Setswana for correction fluid.",
+      "severity": "medium",
+      "target_language": "Setswana"
+    },
+    "policy_version": "dio_lingua_conservative_risk_learning_v1",
+    "repo_fingerprint": "sha256:0558ddbb5e1f0b71a75d11ee502f89cd90199eba7e5b5e49dc20bfe3adf06e0c",
+    "task_class": "dio_lingua_risk_pattern",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

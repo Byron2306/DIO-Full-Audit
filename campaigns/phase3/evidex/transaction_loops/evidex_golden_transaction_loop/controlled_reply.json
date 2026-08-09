@@ -1,0 +1,27 @@
+{
+  "schema": "knowedge.outlook_triage_export.v1",
+  "created_at": "2026-08-07T16:45:10+00:00",
+  "items": [
+    {
+      "message_id": "golden-evidex-reply-20260807T164510Z",
+      "thread_ref": "golden-evidex-thread-20260807T164510Z",
+      "source": "controlled_outlook_reply",
+      "folder": "Inbox",
+      "subject": "EVIDEX Pilot Pack Request - BrightStart Community Trust",
+      "sender": "M&E Coordinator <controlled.prospect@example.org>",
+      "received_at": "2026-08-07T16:45:10+00:00",
+      "sender_type": "external_client",
+      "urgency": "high",
+      "intent": "evidence_pack_request",
+      "risk": "routine",
+      "lane": "evidex",
+      "draft_status": "draft_ready",
+      "approval_required": "true",
+      "safe_send_rating": "caution",
+      "recommended_action": "Route to Evidex pilot pack and request approved non-sensitive evidence intake.",
+      "next_step": "Qualify the lead, approve evidence intake, generate the controlled pilot pack, then gate delivery on review and payment state.",
+      "attachment_names": "kpi_progress.csv; attendance_register.csv; receipts_summary.csv; field_visit_notes.txt; photo_log.txt",
+      "body": "Replying to your Evidex ad. We need a donor-ready evidence pack for a community reading and food support pilot. The evidence is scattered across KPI notes, attendance registers, receipt summaries, field visit notes, and photo logs. We need a clean evidence table, mapped claims, provenance, narrative support, QA receipt, and delivery ZIP. The sample is controlled and non-sensitive. Please send the intake/payment path."
+    }
+  ]
+}

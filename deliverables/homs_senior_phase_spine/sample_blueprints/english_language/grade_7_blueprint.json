@@ -1,0 +1,86 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "english_language",
+  "display_name": "English Language",
+  "senior_subject": "English Home Language / First Additional Language",
+  "grade": 7,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "language_integrated_assessment",
+  "marks": 50,
+  "duration_minutes": 60,
+  "bloom_distribution": {
+    "remember": 20,
+    "understand": 30,
+    "apply": 30,
+    "analyse": 15,
+    "evaluate": 5,
+    "create": 0,
+    "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+  },
+  "source_grammar": [
+    "text_extract",
+    "cartoon",
+    "photograph_or_image",
+    "data_table"
+  ],
+  "caps_focus": "short comprehension, vocabulary in context, paragraph writing and simple visual literacy",
+  "sections": [
+    {
+      "title": "reading_viewing",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "reading_viewing",
+          "bloom_level": "remember",
+          "prompt_shape": "Identify or name key facts from a Grade 7 English Language stimulus or task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "language_structures",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "language_structures",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 English Language task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "writing_presenting",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "writing_presenting",
+          "bloom_level": "analyse",
+          "prompt_shape": "Compare, sort or interpret parts of a Grade 7 English Language stimulus or task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

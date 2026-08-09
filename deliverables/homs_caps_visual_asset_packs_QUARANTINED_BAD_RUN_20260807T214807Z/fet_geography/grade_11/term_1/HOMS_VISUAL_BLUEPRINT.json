@@ -1,0 +1,80 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Geography",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Geography",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"
+  },
+  "canonical_profile_id": "fet.geography",
+  "assessment_family": "source_based_plus_extended_response",
+  "render_shell": "source_response_paper",
+  "caps_theme_candidates": [
+    "GEOGRAPHY GRADES 10-12",
+    "Geomorphology",
+    "Topography associated horizontal and inclined strata",
+    "Topography associated with massive igneous rocks",
+    "Development Geography",
+    "Resources and sustainability",
+    "Using resources",
+    "The atmosphere",
+    "Composition and structure of the atmosphere",
+    "Heating of the atmosphere",
+    "Moisture in the atmosphere",
+    "Reading and interpreting synoptic weather maps",
+    "of what is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme"
+  ],
+  "assessment_content_focus": [
+    "GEOGRAPHY GRADES 10-12",
+    "Geomorphology",
+    "GEOGRAPHY GRADES 10-12",
+    "Geomorphology"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: geography, geomorphology, grades."
+  ],
+  "required_visuals": [
+    {
+      "id": "geo_map_extract",
+      "title": "Map extract with legend, scale, north arrow and labelled features",
+      "role": "stimulus",
+      "visual_kind": "map_extract",
+      "must_show": [
+        "map frame",
+        "legend",
+        "scale",
+        "north arrow",
+        "labelled physical or human features"
+      ],
+      "assessment_use": "Learners identify spatial patterns and cite map evidence."
+    },
+    {
+      "id": "geo_data_table_or_graph",
+      "title": "Geography data table or graph",
+      "role": "stimulus",
+      "visual_kind": "data_table",
+      "must_show": [
+        "units",
+        "years/categories",
+        "clear trend",
+        "source label"
+      ],
+      "assessment_use": "Learners compare data with the map/source before explaining."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

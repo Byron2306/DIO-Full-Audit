@@ -1,0 +1,131 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Life Orientation",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Life Orientation",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_orientation_gr_10-12_web_e6b3.pdf",
+    "sha256": "29478a3420addef1239e0836c69b9862ff903fabc01b581c1c65ca044eca69c3"
+  },
+  "canonical_profile_id": "fet.life_orientation",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "source_type_contract": {
+    "schema": "knowedge.homs_source_type_contract.v1",
+    "source_types": [
+      "source_extract",
+      "evidence_table",
+      "data_table"
+    ],
+    "source_type_reasons": [
+      "CAPS/source matrix or subject profile supports source-based assessment.",
+      "Learners must cite, compare, or reason from source evidence.",
+      "CAPS/source matrix signals data, graph, or diagram assessment."
+    ],
+    "matrix_signals_used": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    },
+    "old_paper_contract_used": null,
+    "exam_source_catalogue_used": null
+  },
+  "caps_theme_candidates": [
+    "6) expose learners to various study methods and skills pertaining to assessment processes and",
+    "teaching of Life Orientation in Grades 10 and 11, and 56 hours in Grade 12. The content is grouped in Section 3 of",
+    "Physical Education on the school timetable.",
+    "2.4 Weighting of topics",
+    "Topic Grade 10 Grade 11 Grade 12",
+    "Long-term engagement",
+    "is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "LIFE ORIENTATION GRADES 10-12",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+  ],
+  "assessment_content_focus": [
+    "development of the self in society and goal-directed choices",
+    "wellbeing, relationships, stress management and responsible decision-making",
+    "scenario evidence, reflective response and support strategy evaluation",
+    "personal action plan with safe, non-invasive educator review"
+  ],
+  "content_alignment_notes": [
+    "Requested focus was not clearly found in extracted CAPS term/theme lines. Confirm term fit before generation.",
+    "Use this as a visual planning warning, not an automatic blocker; PDF extraction can miss table structure."
+  ],
+  "required_visuals": [
+    {
+      "id": "source_provenance_panel",
+      "title": "Source provenance panel",
+      "role": "stimulus",
+      "visual_kind": "source_extract",
+      "must_show": [
+        "author/origin",
+        "date/context",
+        "caption",
+        "extract or visual description"
+      ],
+      "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+    },
+    {
+      "id": "claim_evidence_reasoning_table",
+      "title": "Claim-evidence-reasoning table",
+      "role": "learner_workspace",
+      "visual_kind": "evidence_table",
+      "must_show": [
+        "claim column",
+        "evidence column",
+        "reasoning/inference column"
+      ],
+      "assessment_use": "Learners connect source evidence to answers."
+    },
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

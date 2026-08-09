@@ -1,0 +1,25 @@
+{
+  "schema": "knowedge.campaign_visual_review.v1",
+  "product_id": "vamp",
+  "reviewed_at": "2026-08-08T22:15:00Z",
+  "assets": [
+    {
+      "asset_id": "vamp_hero",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["website_hero", "campaign_key_art", "campaign_background"],
+      "note": "Clear authorised-human review composition. It must remain labelled illustrative and cannot be described as a real client case."
+    },
+    {
+      "asset_id": "vamp_mapping_proof",
+      "status": "rejected",
+      "allowed_uses": [],
+      "note": "Pseudo-document headings and mapping text are too visible. Use the approved hero art or the controlled real snapshot instead."
+    },
+    {
+      "asset_id": "vamp_review_pack",
+      "status": "rejected",
+      "allowed_uses": [],
+      "note": "The central pseudo-document heading is visibly malformed and is not publication quality."
+    }
+  ]
+}

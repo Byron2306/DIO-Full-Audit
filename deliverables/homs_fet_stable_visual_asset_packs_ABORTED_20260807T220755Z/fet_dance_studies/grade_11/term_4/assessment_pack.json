@@ -1,0 +1,174 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "assessment_title": "Grade 11 Dance Studies Term 4 Visual Asset Pack: Analysis and interpretation of any professional dance work, including ",
+  "subject": "Dance Studies",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "canonical_profile_id": "fet.dance_studies",
+  "blueprint": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Dance Studies",
+    "grade": 11,
+    "phase": "fet_grade_10_12",
+    "term": "4",
+    "caps_source": {
+      "title": "Dance Studies",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+      "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada"
+    },
+    "canonical_profile_id": "fet.dance_studies",
+    "assessment_family": "practical_performance_or_portfolio",
+    "render_shell": "performance_task_sheet",
+    "caps_theme_candidates": [
+      "DANCE STUDIES GRADES 10-12",
+      "The table below outlines the content progression from Grade 10 \u2013 12:",
+      "Topic 1: Dance performance",
+      "Grade 10 Grade 11 Grade 12",
+      "Choreography",
+      "Topic 3 Suggested contact time Resources",
+      "Dance history and literacy 7-8 hours per term taught in modules, plus homework time Textbooks, study guides,",
+      "Content/concepts/skills",
+      "Dance terminology: steps, principles according to the dance form",
+      "22 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "projector, writing materials, worksheets",
+      "tionally and in South Africa (formal assessment research project)",
+      "Analysis and interpretation of any professional dance work, including choreographer, composer, choreographic intention,",
+      "Analysis of the indigenous/cross-cultural dance studied and comparison with dance major in terms of style as well as"
+    ],
+    "assessment_content_focus": [
+      "Analysis and interpretation of any professional dance work, including choreographer, composer, choreographic intention,",
+      "Topic 1: Dance performance",
+      "Dance history and literacy 7-8 hours per term taught in modules, plus homework time Textbooks, study guides,",
+      "Dance terminology: steps, principles according to the dance form",
+      "Analysis of the indigenous/cross-cultural dance studied and comparison with dance major in terms of style as well as",
+      "The table below outlines the content progression from Grade 10 \u2013 12:",
+      "Analysis and interpretation of any professional dance work, including choreographer, composer, choreographic intention,",
+      "The table below outlines the content progression from Grade 10 \u2013 12:"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: according, analysis, below, choreographer, choreographic, comparison."
+    ],
+    "required_visuals": [
+      {
+        "id": "performance_space_map",
+        "title": "Performance space or portfolio evidence map",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "performance_map",
+        "must_show": [
+          "space/stage orientation",
+          "sequence/process labels",
+          "observable evidence fields"
+        ],
+        "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+      },
+      {
+        "id": "observation_instrument",
+        "title": "Teacher observation instrument",
+        "role": "marking_evidence",
+        "visual_kind": "rubric_observation_table",
+        "must_show": [
+          "criterion",
+          "marks",
+          "evidence seen",
+          "concern",
+          "score"
+        ],
+        "assessment_use": "Educator records live observable evidence against the rubric."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ],
+    "theme_quality": {
+      "confidence": "high",
+      "render_allowed": true,
+      "content_lines": [
+        "Topic 1: Dance performance",
+        "Dance history and literacy 7-8 hours per term taught in modules, plus homework time Textbooks, study guides,",
+        "Dance terminology: steps, principles according to the dance form",
+        "Analysis and interpretation of any professional dance work, including choreographer, composer, choreographic intention,",
+        "Analysis of the indigenous/cross-cultural dance studied and comparison with dance major in terms of style as well as"
+      ],
+      "admin_lines": [
+        "DANCE STUDIES GRADES 10-12",
+        "22 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+        "tionally and in South Africa (formal assessment research project)"
+      ],
+      "content_terms": [
+        "composition",
+        "dance",
+        "design",
+        "drama",
+        "improvisation",
+        "music",
+        "performance",
+        "portfolio",
+        "visual"
+      ]
+    },
+    "render_gate": {
+      "status": "passed",
+      "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+    }
+  },
+  "duration": "visual preflight",
+  "total_marks": 25,
+  "sections": [
+    {
+      "title": "Visual Evidence Preflight",
+      "mode": "performance_task_sheet",
+      "instructions": "Use this pre-made visual pack as the visual contract before generating the final assessment.",
+      "stimulus": "Dance Studies Grade 11 Term 4: Analysis and interpretation of any professional dance work, including choreographer, composer, choreographic intention,",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Prepare the performance or portfolio evidence using the planning map.",
+          "marks": 10,
+          "memo": [
+            "Credit complete planning evidence."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Perform, present or submit the final work for observation against the instrument.",
+          "marks": 15,
+          "memo": [
+            "Credit observable evidence against criteria."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Visual evidence use",
+      "marks": 10,
+      "descriptor": "Learner uses the supplied visual evidence accurately."
+    },
+    {
+      "criterion": "Subject reasoning",
+      "marks": 10,
+      "descriptor": "Response shows CAPS-aligned reasoning for the subject and grade."
+    },
+    {
+      "criterion": "Communication or process evidence",
+      "marks": 5,
+      "descriptor": "Working, planning, observation or response is clear enough to mark."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS subject, grade and term fit.",
+    "Confirm the final assessment questions use the planned visuals as evidence.",
+    "Confirm visual labels, units and mark expectations before classroom use."
+  ]
+}

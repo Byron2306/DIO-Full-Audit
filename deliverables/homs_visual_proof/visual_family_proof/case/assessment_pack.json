@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "grade": 10,
+  "total_marks": 50,
+  "duration": "2 hours",
+  "teacher_review_checklist": [
+    "Verify CAPS scope",
+    "Check marks",
+    "Approve before use"
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy and subject knowledge",
+      "marks": 15,
+      "descriptor": "Correct, relevant subject knowledge."
+    },
+    {
+      "criterion": "Evidence and reasoning",
+      "marks": 15,
+      "descriptor": "Uses evidence to justify answers."
+    },
+    {
+      "criterion": "Communication",
+      "marks": 10,
+      "descriptor": "Clear presentation."
+    },
+    {
+      "criterion": "Process evidence",
+      "marks": 10,
+      "descriptor": "Shows planning, method or reflection."
+    }
+  ],
+  "subject": "Business Studies",
+  "assessment_title": "Grade 11 Business Studies Case Study: Retail Expansion",
+  "blueprint": "case_study_structured_questions",
+  "sections": [
+    {
+      "title": "Case study",
+      "mode": "structured_case_paper",
+      "stimulus": "A small retailer is deciding whether to open a second branch after sales increased but cash flow tightened.",
+      "questions": [
+        {
+          "number": "1.1",
+          "marks": 4,
+          "question": "Identify the main business risk in the case."
+        },
+        {
+          "number": "1.2",
+          "marks": 8,
+          "question": "Recommend a decision and justify it with evidence from the case."
+        }
+      ]
+    }
+  ],
+  "canonical_profile_id": "visual.proof.case"
+}

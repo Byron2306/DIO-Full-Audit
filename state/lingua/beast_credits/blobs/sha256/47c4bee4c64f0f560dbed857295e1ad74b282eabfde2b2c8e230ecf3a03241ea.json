@@ -1,0 +1,30 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:47c4bee4c64f0f560dbed857295e1ad74b282eabfde2b2c8e230ecf3a03241ea",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 20,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.9,
+    "evidence_packet_id": "risk:isiZulu:sha256:0183b75cfd4eb",
+    "impact_fingerprint_hash": "sha256:dff2f37618902b8c80141c88277ff9e964f16fd12363c3f9bc655ccaf5e29f33",
+    "metadata": {
+      "asserts_translation_truth": false,
+      "authority": "conservative_machine_risk_escalation",
+      "domain": "Water-quality operations",
+      "issue": "The term 'probe' is transliterated as 'iphrobu'; confirm if a more standard term is used in the field.",
+      "severity": "medium",
+      "target_language": "isiZulu"
+    },
+    "policy_version": "dio_lingua_conservative_risk_learning_v1",
+    "repo_fingerprint": "sha256:dff2f37618902b8c80141c88277ff9e964f16fd12363c3f9bc655ccaf5e29f33",
+    "task_class": "dio_lingua_risk_pattern",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

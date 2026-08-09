@@ -1,0 +1,102 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Life Skills",
+  "grade": 1,
+  "phase": "foundation_grade_r_3",
+  "term": "1",
+  "caps_source": {
+    "title": "English",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/caps_life_skills_english_gr_r-3_fs.pdf",
+    "sha256": "4d4df1e5c4eb7db4157cd80f2a3b0cdb0a22b155474e432a3578c9a798845c1d"
+  },
+  "canonical_profile_id": "foundation.life_skills",
+  "assessment_family": "foundation_activity_assessment",
+  "render_shell": "activity_sheet",
+  "caps_theme_candidates": [
+    "LIFE SKILLS GRADES R-3",
+    "Grade R learners can fall within the 0-4 stage of development. For this reason the National Early Learning Development",
+    "skills that very young learners need to master and understand before they go to Grade 1 and Grade R should help",
+    "them, acquiring those skills. One of the most important roles of the Grade R teacher is to provide learners with an",
+    "a range of resources for routine, structured and free play activities",
+    "A suggested order for the topics is provided as one of the important principles of early childhood education is to",
+    "begin with what is familiar to the learner and introduce less familiar topics and skills later. Therefore sequencing and",
+    "progression have been built into the design of the topics. The sequence of the topics can be changed, but teachers",
+    "should pay attention to the progression and level at which the topic is addressed.",
+    "14 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "Term 1 Grade R",
+    "Beginning Knowledge and Personal 20 hours Recommended resources",
+    "is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme"
+  ],
+  "assessment_content_focus": [
+    "a range of resources for routine, structured and free play activities",
+    "begin with what is familiar to the learner and introduce less familiar topics and skills later. Therefore sequencing and",
+    "LIFE SKILLS GRADES R-3",
+    "skills that very young learners need to master and understand before they go to Grade 1 and Grade R should help",
+    "them, acquiring those skills. One of the most important roles of the Grade R teacher is to provide learners with an",
+    "A suggested order for the topics is provided as one of the important principles of early childhood education is to",
+    "progression have been built into the design of the topics. The sequence of the topics can be changed, but teachers",
+    "should pay attention to the progression and level at which the topic is addressed.",
+    "a range of resources for routine, structured and free play activities",
+    "should pay attention to the progression and level at which the topic is addressed."
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: acquiring, activities, addressed, attention, before, begin."
+  ],
+  "required_visuals": [
+    {
+      "id": "structured_response_workspace",
+      "title": "Structured response workspace",
+      "role": "learner_workspace",
+      "visual_kind": "structured_table",
+      "must_show": [
+        "question",
+        "evidence/working",
+        "answer"
+      ],
+      "assessment_use": "Learners make reasoning visible."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "LIFE SKILLS GRADES R-3",
+      "skills that very young learners need to master and understand before they go to Grade 1 and Grade R should help",
+      "them, acquiring those skills. One of the most important roles of the Grade R teacher is to provide learners with an",
+      "a range of resources for routine, structured and free play activities",
+      "A suggested order for the topics is provided as one of the important principles of early childhood education is to",
+      "begin with what is familiar to the learner and introduce less familiar topics and skills later. Therefore sequencing and",
+      "progression have been built into the design of the topics. The sequence of the topics can be changed, but teachers",
+      "should pay attention to the progression and level at which the topic is addressed."
+    ],
+    "admin_lines": [
+      "14 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+    ],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

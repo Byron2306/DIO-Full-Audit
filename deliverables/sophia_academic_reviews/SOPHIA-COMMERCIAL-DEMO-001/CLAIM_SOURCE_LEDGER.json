@@ -1,0 +1,2752 @@
+{
+  "schema": "dio.sophia_claim_source_ledger.v1",
+  "claims": [
+    {
+      "claim_record": {
+        "claim": "Structured formative feedback improves academic writing because it helps learners identify gaps between an intended argument and the evidence visible in a draft (Inouye & McAlpine, 2019).",
+        "claim_type": "causal",
+        "secondary_types": [],
+        "evidence_standard": "Needs design capable of causal inference; otherwise downgrade to association or proposal.",
+        "evidence_risk": "high",
+        "integrity_prompt": "Classify the claim, check whether the evidence standard is met, then scaffold a learner-owned revision rather than writing the final answer."
+      },
+      "source_map": {
+        "method": "knowedge_tri_artifact_bridge",
+        "claim": "Structured formative feedback improves academic writing because it helps learners identify gaps between an intended argument and the evidence visible in a draft (Inouye & McAlpine, 2019).",
+        "sources_considered": 5,
+        "sources_returned": 5,
+        "direct_support_count": 0,
+        "partial_support_count": 0,
+        "provenance_rule": "No source is treated as supporting unless its visible span overlaps the selected claim.",
+        "ranking_rule": "Sources are ordered by support class, then ranking score built from confidence, lexical/construct relevance, quality, and citation hygiene.",
+        "export_rule": "APA, BibTeX, RIS, and CSL-JSON/Zotero-importable records are citation leads for verification, not final references unless metadata has been checked.",
+        "semantic_rule": "Broad disciplinary overlap can inform role/ranking, but direct support still requires visible span overlap or narrower construct alignment.",
+        "metadata_enrichment": "local_metadata_only",
+        "results": [
+          {
+            "source_name": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+            "support_label": "background only",
+            "confidence": 0.599,
+            "relevance": 0.116,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.712,
+              "band": "usable",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 0.82,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.625
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4883,
+            "source_type": "OpenAlex",
+            "source_role": "disciplinary context: arts humanities",
+            "overlap_terms": [
+              "academic",
+              "feedback",
+              "writing"
+            ],
+            "exact_span": "The goal was to examine how this literature characterizes the development of academic identity in doctoral students to better understand the conceptual relationships underpinning previous studies, and advance work on writing, feedback, and identity to",
+            "authors": [
+              "Kelsey Inouye",
+              "Lynn McAlpine"
+            ],
+            "year": "2019",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.28945/4168",
+            "url": "https://doi.org/10.28945/4168",
+            "apa_candidate": "Inouye, K., & McAlpine, L.. (2019). Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback. https://doi.org/10.28945/4168",
+            "bibtex_candidate": "@article{inouye2019developing,\n  author = {Kelsey Inouye and Lynn McAlpine},\n  title = {Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback},\n  year = {2019},\n  doi = {10.28945/4168},\n  url = {https://doi.org/10.28945/4168}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback\nAU  - Kelsey Inouye\nAU  - Lynn McAlpine\nPY  - 2019\nDO  - 10.28945/4168\nUR  - https://doi.org/10.28945/4168\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+              "issued": {
+                "date-parts": [
+                  [
+                    2019
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Kelsey",
+                  "family": "Inouye"
+                },
+                {
+                  "given": "Lynn",
+                  "family": "McAlpine"
+                }
+              ],
+              "DOI": "10.28945/4168",
+              "URL": "https://doi.org/10.28945/4168"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.12; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic, feedback, writing.",
+            "entailment_status": "partial_or_contextual_only",
+            "entailment_warnings": [
+              "claim uses proof/universal/causal scope not visible in the source span"
+            ],
+            "entailment_score": 0.3018,
+            "lexical_vector_score": 0.1485,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.1,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+            "support_label": "background only",
+            "confidence": 0.544,
+            "relevance": 0.06,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.686,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.2
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4639,
+            "source_type": "OpenAlex",
+            "source_role": "disciplinary context: arts humanities",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "This systematic literature review captures the initial academic response to generative AI, providing insights into how higher education has adopted this transformative technology in i",
+            "authors": [
+              "Yufeng Qian"
+            ],
+            "year": "2025",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.1007/s11528-025-01100-1",
+            "url": "https://doi.org/10.1007/s11528-025-01100-1",
+            "apa_candidate": "Qian, Y.. (2025). Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field. https://doi.org/10.1007/s11528-025-01100-1",
+            "bibtex_candidate": "@article{qian2025pedagogical,\n  author = {Yufeng Qian},\n  title = {Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field},\n  year = {2025},\n  doi = {10.1007/s11528-025-01100-1},\n  url = {https://doi.org/10.1007/s11528-025-01100-1}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field\nAU  - Yufeng Qian\nPY  - 2025\nDO  - 10.1007/s11528-025-01100-1\nUR  - https://doi.org/10.1007/s11528-025-01100-1\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+              "issued": {
+                "date-parts": [
+                  [
+                    2025
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Yufeng",
+                  "family": "Qian"
+                }
+              ],
+              "DOI": "10.1007/s11528-025-01100-1",
+              "URL": "https://doi.org/10.1007/s11528-025-01100-1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.06; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic.",
+            "entailment_status": "partial_or_contextual_only",
+            "entailment_warnings": [
+              "claim uses proof/universal/causal scope not visible in the source span"
+            ],
+            "entailment_score": 0.2879,
+            "lexical_vector_score": 0.0588,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.1,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.038,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.696,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4447,
+            "source_type": "OpenAlex",
+            "source_role": "policy/integrity context",
+            "overlap_terms": [
+              "writing"
+            ],
+            "exact_span": "However, this advancement has also given rise to ethical challenges, notably in scholarly writing.",
+            "authors": [
+              "Jing Miao",
+              "Charat Thongprayoon",
+              "Supawadee Suppadungsuk"
+            ],
+            "year": "2023",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.3390/clinpract14010008",
+            "url": "https://doi.org/10.3390/clinpract14010008",
+            "apa_candidate": "Miao, J., Thongprayoon, C., & Suppadungsuk, S.. (2023). Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review. https://doi.org/10.3390/clinpract14010008",
+            "bibtex_candidate": "@article{miao2023ethical,\n  author = {Jing Miao and Charat Thongprayoon and Supawadee Suppadungsuk},\n  title = {Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review},\n  year = {2023},\n  doi = {10.3390/clinpract14010008},\n  url = {https://doi.org/10.3390/clinpract14010008}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review\nAU  - Jing Miao\nAU  - Charat Thongprayoon\nAU  - Supawadee Suppadungsuk\nPY  - 2023\nDO  - 10.3390/clinpract14010008\nUR  - https://doi.org/10.3390/clinpract14010008\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+              "issued": {
+                "date-parts": [
+                  [
+                    2023
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Jing",
+                  "family": "Miao"
+                },
+                {
+                  "given": "Charat",
+                  "family": "Thongprayoon"
+                },
+                {
+                  "given": "Supawadee",
+                  "family": "Suppadungsuk"
+                }
+              ],
+              "DOI": "10.3390/clinpract14010008",
+              "URL": "https://doi.org/10.3390/clinpract14010008"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.04; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=writing.",
+            "entailment_status": "partial_or_contextual_only",
+            "entailment_warnings": [
+              "claim uses proof/universal/causal scope not visible in the source span"
+            ],
+            "entailment_score": 0.2808,
+            "lexical_vector_score": 0.0767,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+            "support_label": "background only",
+            "confidence": 0.533,
+            "relevance": 0.083,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.569,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4301,
+            "source_type": "arXiv",
+            "source_role": "method/evaluation evidence",
+            "overlap_terms": [
+              "academic",
+              "writing"
+            ],
+            "exact_span": "This study investigates the use of AI tools in academic writing through an analysis of AI usage declarations in journals.",
+            "authors": [
+              "Ziyang Xu"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2502.00632v2",
+            "apa_candidate": "Xu, Z.. (n.d.). Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing. http://arxiv.org/abs/2502.00632v2",
+            "bibtex_candidate": "@misc{xundpatterns,\n  author = {Ziyang Xu},\n  title = {Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2502.00632v2}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing\nAU  - Ziyang Xu\nUR  - http://arxiv.org/abs/2502.00632v2\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+              "author": [
+                {
+                  "given": "Ziyang",
+                  "family": "Xu"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2502.00632v2"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "background only: lexical/construct relevance=0.08; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=academic, writing.",
+            "entailment_status": "partial_or_contextual_only",
+            "entailment_warnings": [
+              "claim uses proof/universal/causal scope not visible in the source span"
+            ],
+            "entailment_score": 0.2929,
+            "lexical_vector_score": 0.1617,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+            "support_label": "background only",
+            "confidence": 0.509,
+            "relevance": 0.059,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.586,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.429
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4193,
+            "source_type": "arXiv",
+            "source_role": "disciplinary context: computer science ai",
+            "overlap_terms": [
+              "academic",
+              "writing"
+            ],
+            "exact_span": "The rise of generative artificial intelligence (GenAI) in academic writing and publishing (AWP) raises questions about linguistic inclusivity and the legitimacy of diverse Englishes in global scholarly communication.",
+            "authors": [
+              "Kingsley Ugwuanyi",
+              "Christian Mair",
+              "Sender Dovchin",
+              "Iker Erdocia",
+              "Maria Kuteeva"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2607.28505v1",
+            "apa_candidate": "Ugwuanyi, K., Mair, C., Dovchin, S., Erdocia, I., & Kuteeva, M.. (n.d.). Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes. http://arxiv.org/abs/2607.28505v1",
+            "bibtex_candidate": "@misc{ugwuanyindgenerative,\n  author = {Kingsley Ugwuanyi and Christian Mair and Sender Dovchin and Iker Erdocia and Maria Kuteeva},\n  title = {Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2607.28505v1}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes\nAU  - Kingsley Ugwuanyi\nAU  - Christian Mair\nAU  - Sender Dovchin\nAU  - Iker Erdocia\nAU  - Maria Kuteeva\nUR  - http://arxiv.org/abs/2607.28505v1\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+              "author": [
+                {
+                  "given": "Kingsley",
+                  "family": "Ugwuanyi"
+                },
+                {
+                  "given": "Christian",
+                  "family": "Mair"
+                },
+                {
+                  "given": "Sender",
+                  "family": "Dovchin"
+                },
+                {
+                  "given": "Iker",
+                  "family": "Erdocia"
+                },
+                {
+                  "given": "Maria",
+                  "family": "Kuteeva"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2607.28505v1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "background only: lexical/construct relevance=0.06; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=academic, writing.",
+            "entailment_status": "partial_or_contextual_only",
+            "entailment_warnings": [
+              "claim uses proof/universal/causal scope not visible in the source span"
+            ],
+            "entailment_score": 0.286,
+            "lexical_vector_score": 0.1113,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "claim_record": {
+        "claim": "Such a process necessarily produces stronger long-term academic identity than ordinary supervisor feedback (Boud & Molloy, 2013).",
+        "claim_type": "causal",
+        "secondary_types": [],
+        "evidence_standard": "Needs design capable of causal inference; otherwise downgrade to association or proposal.",
+        "evidence_risk": "high",
+        "integrity_prompt": "Classify the claim, check whether the evidence standard is met, then scaffold a learner-owned revision rather than writing the final answer."
+      },
+      "source_map": {
+        "method": "knowedge_tri_artifact_bridge",
+        "claim": "Such a process necessarily produces stronger long-term academic identity than ordinary supervisor feedback (Boud & Molloy, 2013).",
+        "sources_considered": 5,
+        "sources_returned": 5,
+        "direct_support_count": 0,
+        "partial_support_count": 0,
+        "provenance_rule": "No source is treated as supporting unless its visible span overlaps the selected claim.",
+        "ranking_rule": "Sources are ordered by support class, then ranking score built from confidence, lexical/construct relevance, quality, and citation hygiene.",
+        "export_rule": "APA, BibTeX, RIS, and CSL-JSON/Zotero-importable records are citation leads for verification, not final references unless metadata has been checked.",
+        "semantic_rule": "Broad disciplinary overlap can inform role/ranking, but direct support still requires visible span overlap or narrower construct alignment.",
+        "metadata_enrichment": "local_metadata_only",
+        "results": [
+          {
+            "source_name": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+            "support_label": "background only",
+            "confidence": 0.598,
+            "relevance": 0.115,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.712,
+              "band": "usable",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 0.82,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.625
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.488,
+            "source_type": "OpenAlex",
+            "source_role": "disciplinary context: arts humanities",
+            "overlap_terms": [
+              "academic",
+              "feedback",
+              "identity"
+            ],
+            "exact_span": "The goal was to examine how this literature characterizes the development of academic identity in doctoral students to better understand the conceptual relationships underpinning previous studies, and advance work on writing, feedback, and identity to",
+            "authors": [
+              "Kelsey Inouye",
+              "Lynn McAlpine"
+            ],
+            "year": "2019",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.28945/4168",
+            "url": "https://doi.org/10.28945/4168",
+            "apa_candidate": "Inouye, K., & McAlpine, L.. (2019). Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback. https://doi.org/10.28945/4168",
+            "bibtex_candidate": "@article{inouye2019developing,\n  author = {Kelsey Inouye and Lynn McAlpine},\n  title = {Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback},\n  year = {2019},\n  doi = {10.28945/4168},\n  url = {https://doi.org/10.28945/4168}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback\nAU  - Kelsey Inouye\nAU  - Lynn McAlpine\nPY  - 2019\nDO  - 10.28945/4168\nUR  - https://doi.org/10.28945/4168\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+              "issued": {
+                "date-parts": [
+                  [
+                    2019
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Kelsey",
+                  "family": "Inouye"
+                },
+                {
+                  "given": "Lynn",
+                  "family": "McAlpine"
+                }
+              ],
+              "DOI": "10.28945/4168",
+              "URL": "https://doi.org/10.28945/4168"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.12; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic, feedback, identity.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3757,
+            "lexical_vector_score": 0.2357,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences",
+              "psychology_cognition"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+            "support_label": "background only",
+            "confidence": 0.498,
+            "relevance": 0.051,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.686,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.2
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4511,
+            "source_type": "OpenAlex",
+            "source_role": "disciplinary context: arts humanities",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "This systematic literature review captures the initial academic response to generative AI, providing insights into how higher education has adopted this transformative technology in i",
+            "authors": [
+              "Yufeng Qian"
+            ],
+            "year": "2025",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.1007/s11528-025-01100-1",
+            "url": "https://doi.org/10.1007/s11528-025-01100-1",
+            "apa_candidate": "Qian, Y.. (2025). Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field. https://doi.org/10.1007/s11528-025-01100-1",
+            "bibtex_candidate": "@article{qian2025pedagogical,\n  author = {Yufeng Qian},\n  title = {Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field},\n  year = {2025},\n  doi = {10.1007/s11528-025-01100-1},\n  url = {https://doi.org/10.1007/s11528-025-01100-1}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field\nAU  - Yufeng Qian\nPY  - 2025\nDO  - 10.1007/s11528-025-01100-1\nUR  - https://doi.org/10.1007/s11528-025-01100-1\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+              "issued": {
+                "date-parts": [
+                  [
+                    2025
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Yufeng",
+                  "family": "Qian"
+                }
+              ],
+              "DOI": "10.1007/s11528-025-01100-1",
+              "URL": "https://doi.org/10.1007/s11528-025-01100-1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.05; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3547,
+            "lexical_vector_score": 0.07,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.029,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.696,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4427,
+            "source_type": "OpenAlex",
+            "source_role": "policy/integrity context",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "AI's capacity to automate labor-intensive tasks like literature reviews and data analysis has created opportunities for unethical practices, with scholars incorporating AI-generated text into their manuscripts, potentially undermining academic integrity.",
+            "authors": [
+              "Jing Miao",
+              "Charat Thongprayoon",
+              "Supawadee Suppadungsuk"
+            ],
+            "year": "2023",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.3390/clinpract14010008",
+            "url": "https://doi.org/10.3390/clinpract14010008",
+            "apa_candidate": "Miao, J., Thongprayoon, C., & Suppadungsuk, S.. (2023). Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review. https://doi.org/10.3390/clinpract14010008",
+            "bibtex_candidate": "@article{miao2023ethical,\n  author = {Jing Miao and Charat Thongprayoon and Supawadee Suppadungsuk},\n  title = {Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review},\n  year = {2023},\n  doi = {10.3390/clinpract14010008},\n  url = {https://doi.org/10.3390/clinpract14010008}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review\nAU  - Jing Miao\nAU  - Charat Thongprayoon\nAU  - Supawadee Suppadungsuk\nPY  - 2023\nDO  - 10.3390/clinpract14010008\nUR  - https://doi.org/10.3390/clinpract14010008\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+              "issued": {
+                "date-parts": [
+                  [
+                    2023
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Jing",
+                  "family": "Miao"
+                },
+                {
+                  "given": "Charat",
+                  "family": "Thongprayoon"
+                },
+                {
+                  "given": "Supawadee",
+                  "family": "Suppadungsuk"
+                }
+              ],
+              "DOI": "10.3390/clinpract14010008",
+              "URL": "https://doi.org/10.3390/clinpract14010008"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.03; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3481,
+            "lexical_vector_score": 0.0589,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+            "support_label": "background only",
+            "confidence": 0.506,
+            "relevance": 0.056,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.569,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.418,
+            "source_type": "arXiv",
+            "source_role": "method/evaluation evidence",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "This study investigates the use of AI tools in academic writing through an analysis of AI usage declarations in journals.",
+            "authors": [
+              "Ziyang Xu"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2502.00632v2",
+            "apa_candidate": "Xu, Z.. (n.d.). Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing. http://arxiv.org/abs/2502.00632v2",
+            "bibtex_candidate": "@misc{xundpatterns,\n  author = {Ziyang Xu},\n  title = {Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2502.00632v2}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing\nAU  - Ziyang Xu\nUR  - http://arxiv.org/abs/2502.00632v2\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+              "author": [
+                {
+                  "given": "Ziyang",
+                  "family": "Xu"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2502.00632v2"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "background only: lexical/construct relevance=0.06; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=academic.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3574,
+            "lexical_vector_score": 0.0962,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "psychology_cognition"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+            "support_label": "does not support",
+            "confidence": 0.532,
+            "relevance": 0.033,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.586,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.429
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.3287,
+            "source_type": "arXiv",
+            "source_role": "disciplinary context: computer science ai",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "The rise of generative artificial intelligence (GenAI) in academic writing and publishing (AWP) raises questions about linguistic inclusivity and the legitimacy of diverse Englishes in global scholarly communication.",
+            "authors": [
+              "Kingsley Ugwuanyi",
+              "Christian Mair",
+              "Sender Dovchin",
+              "Iker Erdocia",
+              "Maria Kuteeva"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2607.28505v1",
+            "apa_candidate": "Ugwuanyi, K., Mair, C., Dovchin, S., Erdocia, I., & Kuteeva, M.. (n.d.). Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes. http://arxiv.org/abs/2607.28505v1",
+            "bibtex_candidate": "@misc{ugwuanyindgenerative,\n  author = {Kingsley Ugwuanyi and Christian Mair and Sender Dovchin and Iker Erdocia and Maria Kuteeva},\n  title = {Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2607.28505v1}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes\nAU  - Kingsley Ugwuanyi\nAU  - Christian Mair\nAU  - Sender Dovchin\nAU  - Iker Erdocia\nAU  - Maria Kuteeva\nUR  - http://arxiv.org/abs/2607.28505v1\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+              "author": [
+                {
+                  "given": "Kingsley",
+                  "family": "Ugwuanyi"
+                },
+                {
+                  "given": "Christian",
+                  "family": "Mair"
+                },
+                {
+                  "given": "Sender",
+                  "family": "Dovchin"
+                },
+                {
+                  "given": "Iker",
+                  "family": "Erdocia"
+                },
+                {
+                  "given": "Maria",
+                  "family": "Kuteeva"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2607.28505v1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "does not support: lexical/construct relevance=0.03; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=academic.",
+            "entailment_status": "not_entailed",
+            "entailment_warnings": [],
+            "entailment_score": 0.0893,
+            "lexical_vector_score": 0.0662,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "claim_record": {
+        "claim": "This review argues that an authorship-preserving feedback process should diagnose claims, evidence, warrants, and limitations without producing submission-ready prose for the learner.",
+        "claim_type": "normative",
+        "secondary_types": [],
+        "evidence_standard": "Needs policy/ethical warrant and a stated value criterion.",
+        "evidence_risk": "medium",
+        "integrity_prompt": "Classify the claim, check whether the evidence standard is met, then scaffold a learner-owned revision rather than writing the final answer."
+      },
+      "source_map": {
+        "method": "knowedge_tri_artifact_bridge",
+        "claim": "This review argues that an authorship-preserving feedback process should diagnose claims, evidence, warrants, and limitations without producing submission-ready prose for the learner.",
+        "sources_considered": 5,
+        "sources_returned": 5,
+        "direct_support_count": 0,
+        "partial_support_count": 0,
+        "provenance_rule": "No source is treated as supporting unless its visible span overlaps the selected claim.",
+        "ranking_rule": "Sources are ordered by support class, then ranking score built from confidence, lexical/construct relevance, quality, and citation hygiene.",
+        "export_rule": "APA, BibTeX, RIS, and CSL-JSON/Zotero-importable records are citation leads for verification, not final references unless metadata has been checked.",
+        "semantic_rule": "Broad disciplinary overlap can inform role/ranking, but direct support still requires visible span overlap or narrower construct alignment.",
+        "metadata_enrichment": "local_metadata_only",
+        "results": [
+          {
+            "source_name": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+            "support_label": "background only",
+            "confidence": 0.559,
+            "relevance": 0.076,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.712,
+              "band": "usable",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 0.82,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.625
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4707,
+            "source_type": "OpenAlex",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [
+              "feedback",
+              "review"
+            ],
+            "exact_span": "Aim/Purpose: This systematic review synthesizes the literature on doctoral writing and feedback published in peer-reviewed English-language journals between 1997 and 2017 to provide insight into how these topics have been theorized and approached.",
+            "authors": [
+              "Kelsey Inouye",
+              "Lynn McAlpine"
+            ],
+            "year": "2019",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.28945/4168",
+            "url": "https://doi.org/10.28945/4168",
+            "apa_candidate": "Inouye, K., & McAlpine, L.. (2019). Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback. https://doi.org/10.28945/4168",
+            "bibtex_candidate": "@article{inouye2019developing,\n  author = {Kelsey Inouye and Lynn McAlpine},\n  title = {Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback},\n  year = {2019},\n  doi = {10.28945/4168},\n  url = {https://doi.org/10.28945/4168}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback\nAU  - Kelsey Inouye\nAU  - Lynn McAlpine\nPY  - 2019\nDO  - 10.28945/4168\nUR  - https://doi.org/10.28945/4168\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+              "issued": {
+                "date-parts": [
+                  [
+                    2019
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Kelsey",
+                  "family": "Inouye"
+                },
+                {
+                  "given": "Lynn",
+                  "family": "McAlpine"
+                }
+              ],
+              "DOI": "10.28945/4168",
+              "URL": "https://doi.org/10.28945/4168"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.08; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=feedback, review.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3613,
+            "lexical_vector_score": 0.1155,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.047,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.686,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.2
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4565,
+            "source_type": "OpenAlex",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [
+              "review"
+            ],
+            "exact_span": "This systematic literature review captures the initial academic response to generative AI, providing insights into how higher education has adopted this transformative technology in i",
+            "authors": [
+              "Yufeng Qian"
+            ],
+            "year": "2025",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.1007/s11528-025-01100-1",
+            "url": "https://doi.org/10.1007/s11528-025-01100-1",
+            "apa_candidate": "Qian, Y.. (2025). Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field. https://doi.org/10.1007/s11528-025-01100-1",
+            "bibtex_candidate": "@article{qian2025pedagogical,\n  author = {Yufeng Qian},\n  title = {Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field},\n  year = {2025},\n  doi = {10.1007/s11528-025-01100-1},\n  url = {https://doi.org/10.1007/s11528-025-01100-1}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field\nAU  - Yufeng Qian\nPY  - 2025\nDO  - 10.1007/s11528-025-01100-1\nUR  - https://doi.org/10.1007/s11528-025-01100-1\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+              "issued": {
+                "date-parts": [
+                  [
+                    2025
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Yufeng",
+                  "family": "Qian"
+                }
+              ],
+              "DOI": "10.1007/s11528-025-01100-1",
+              "URL": "https://doi.org/10.1007/s11528-025-01100-1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.05; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=review.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3537,
+            "lexical_vector_score": 0.0626,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.0,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.696,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.437,
+            "source_type": "OpenAlex",
+            "source_role": "policy/integrity context",
+            "overlap_terms": [],
+            "exact_span": "",
+            "authors": [
+              "Jing Miao",
+              "Charat Thongprayoon",
+              "Supawadee Suppadungsuk"
+            ],
+            "year": "2023",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.3390/clinpract14010008",
+            "url": "https://doi.org/10.3390/clinpract14010008",
+            "apa_candidate": "Miao, J., Thongprayoon, C., & Suppadungsuk, S.. (2023). Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review. https://doi.org/10.3390/clinpract14010008",
+            "bibtex_candidate": "@article{miao2023ethical,\n  author = {Jing Miao and Charat Thongprayoon and Supawadee Suppadungsuk},\n  title = {Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review},\n  year = {2023},\n  doi = {10.3390/clinpract14010008},\n  url = {https://doi.org/10.3390/clinpract14010008}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review\nAU  - Jing Miao\nAU  - Charat Thongprayoon\nAU  - Supawadee Suppadungsuk\nPY  - 2023\nDO  - 10.3390/clinpract14010008\nUR  - https://doi.org/10.3390/clinpract14010008\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+              "issued": {
+                "date-parts": [
+                  [
+                    2023
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Jing",
+                  "family": "Miao"
+                },
+                {
+                  "given": "Charat",
+                  "family": "Thongprayoon"
+                },
+                {
+                  "given": "Supawadee",
+                  "family": "Suppadungsuk"
+                }
+              ],
+              "DOI": "10.3390/clinpract14010008",
+              "URL": "https://doi.org/10.3390/clinpract14010008"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.00; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=none.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.34,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+            "support_label": "does not support",
+            "confidence": 0.532,
+            "relevance": 0.0,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.586,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.429
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.322,
+            "source_type": "arXiv",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [],
+            "exact_span": "",
+            "authors": [
+              "Kingsley Ugwuanyi",
+              "Christian Mair",
+              "Sender Dovchin",
+              "Iker Erdocia",
+              "Maria Kuteeva"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2607.28505v1",
+            "apa_candidate": "Ugwuanyi, K., Mair, C., Dovchin, S., Erdocia, I., & Kuteeva, M.. (n.d.). Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes. http://arxiv.org/abs/2607.28505v1",
+            "bibtex_candidate": "@misc{ugwuanyindgenerative,\n  author = {Kingsley Ugwuanyi and Christian Mair and Sender Dovchin and Iker Erdocia and Maria Kuteeva},\n  title = {Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2607.28505v1}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes\nAU  - Kingsley Ugwuanyi\nAU  - Christian Mair\nAU  - Sender Dovchin\nAU  - Iker Erdocia\nAU  - Maria Kuteeva\nUR  - http://arxiv.org/abs/2607.28505v1\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+              "author": [
+                {
+                  "given": "Kingsley",
+                  "family": "Ugwuanyi"
+                },
+                {
+                  "given": "Christian",
+                  "family": "Mair"
+                },
+                {
+                  "given": "Sender",
+                  "family": "Dovchin"
+                },
+                {
+                  "given": "Iker",
+                  "family": "Erdocia"
+                },
+                {
+                  "given": "Maria",
+                  "family": "Kuteeva"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2607.28505v1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "does not support: lexical/construct relevance=0.00; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=none.",
+            "entailment_status": "not_entailed",
+            "entailment_warnings": [],
+            "entailment_score": 0.08,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+            "support_label": "does not support",
+            "confidence": 0.532,
+            "relevance": 0.0,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.569,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.322,
+            "source_type": "arXiv",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [],
+            "exact_span": "",
+            "authors": [
+              "Ziyang Xu"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2502.00632v2",
+            "apa_candidate": "Xu, Z.. (n.d.). Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing. http://arxiv.org/abs/2502.00632v2",
+            "bibtex_candidate": "@misc{xundpatterns,\n  author = {Ziyang Xu},\n  title = {Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2502.00632v2}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing\nAU  - Ziyang Xu\nUR  - http://arxiv.org/abs/2502.00632v2\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+              "author": [
+                {
+                  "given": "Ziyang",
+                  "family": "Xu"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2502.00632v2"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "does not support: lexical/construct relevance=0.00; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=none.",
+            "entailment_status": "not_entailed",
+            "entailment_warnings": [],
+            "entailment_score": 0.08,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "claim_record": {
+        "claim": "Authorship-preserving academic assistance should make source fit and revision decisions visible while leaving final prose and judgment with the learner.",
+        "claim_type": "normative",
+        "secondary_types": [],
+        "evidence_standard": "Needs policy/ethical warrant and a stated value criterion.",
+        "evidence_risk": "medium",
+        "integrity_prompt": "Classify the claim, check whether the evidence standard is met, then scaffold a learner-owned revision rather than writing the final answer."
+      },
+      "source_map": {
+        "method": "knowedge_tri_artifact_bridge",
+        "claim": "Authorship-preserving academic assistance should make source fit and revision decisions visible while leaving final prose and judgment with the learner.",
+        "sources_considered": 5,
+        "sources_returned": 5,
+        "direct_support_count": 0,
+        "partial_support_count": 0,
+        "provenance_rule": "No source is treated as supporting unless its visible span overlaps the selected claim.",
+        "ranking_rule": "Sources are ordered by support class, then ranking score built from confidence, lexical/construct relevance, quality, and citation hygiene.",
+        "export_rule": "APA, BibTeX, RIS, and CSL-JSON/Zotero-importable records are citation leads for verification, not final references unless metadata has been checked.",
+        "semantic_rule": "Broad disciplinary overlap can inform role/ranking, but direct support still requires visible span overlap or narrower construct alignment.",
+        "metadata_enrichment": "local_metadata_only",
+        "results": [
+          {
+            "source_name": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.049,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.686,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.2
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4569,
+            "source_type": "OpenAlex",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "This systematic literature review captures the initial academic response to generative AI, providing insights into how higher education has adopted this transformative technology in i",
+            "authors": [
+              "Yufeng Qian"
+            ],
+            "year": "2025",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.1007/s11528-025-01100-1",
+            "url": "https://doi.org/10.1007/s11528-025-01100-1",
+            "apa_candidate": "Qian, Y.. (2025). Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field. https://doi.org/10.1007/s11528-025-01100-1",
+            "bibtex_candidate": "@article{qian2025pedagogical,\n  author = {Yufeng Qian},\n  title = {Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field},\n  year = {2025},\n  doi = {10.1007/s11528-025-01100-1},\n  url = {https://doi.org/10.1007/s11528-025-01100-1}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field\nAU  - Yufeng Qian\nPY  - 2025\nDO  - 10.1007/s11528-025-01100-1\nUR  - https://doi.org/10.1007/s11528-025-01100-1\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+              "issued": {
+                "date-parts": [
+                  [
+                    2025
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Yufeng",
+                  "family": "Qian"
+                }
+              ],
+              "DOI": "10.1007/s11528-025-01100-1",
+              "URL": "https://doi.org/10.1007/s11528-025-01100-1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.05; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3543,
+            "lexical_vector_score": 0.0673,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.045,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.712,
+              "band": "usable",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 0.82,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.625
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4561,
+            "source_type": "OpenAlex",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "The goal was to examine how this literature characterizes the development of academic identity in doctoral students to better understand the conceptual relationships underpinning previous studies, and advance work on writing, feedback, and identity to",
+            "authors": [
+              "Kelsey Inouye",
+              "Lynn McAlpine"
+            ],
+            "year": "2019",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.28945/4168",
+            "url": "https://doi.org/10.28945/4168",
+            "apa_candidate": "Inouye, K., & McAlpine, L.. (2019). Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback. https://doi.org/10.28945/4168",
+            "bibtex_candidate": "@article{inouye2019developing,\n  author = {Kelsey Inouye and Lynn McAlpine},\n  title = {Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback},\n  year = {2019},\n  doi = {10.28945/4168},\n  url = {https://doi.org/10.28945/4168}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback\nAU  - Kelsey Inouye\nAU  - Lynn McAlpine\nPY  - 2019\nDO  - 10.28945/4168\nUR  - https://doi.org/10.28945/4168\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+              "issued": {
+                "date-parts": [
+                  [
+                    2019
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Kelsey",
+                  "family": "Inouye"
+                },
+                {
+                  "given": "Lynn",
+                  "family": "McAlpine"
+                }
+              ],
+              "DOI": "10.28945/4168",
+              "URL": "https://doi.org/10.28945/4168"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.05; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.353,
+            "lexical_vector_score": 0.0566,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.05,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.028,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.696,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4426,
+            "source_type": "OpenAlex",
+            "source_role": "policy/integrity context",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "AI's capacity to automate labor-intensive tasks like literature reviews and data analysis has created opportunities for unethical practices, with scholars incorporating AI-generated text into their manuscripts, potentially undermining academic integrity.",
+            "authors": [
+              "Jing Miao",
+              "Charat Thongprayoon",
+              "Supawadee Suppadungsuk"
+            ],
+            "year": "2023",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.3390/clinpract14010008",
+            "url": "https://doi.org/10.3390/clinpract14010008",
+            "apa_candidate": "Miao, J., Thongprayoon, C., & Suppadungsuk, S.. (2023). Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review. https://doi.org/10.3390/clinpract14010008",
+            "bibtex_candidate": "@article{miao2023ethical,\n  author = {Jing Miao and Charat Thongprayoon and Supawadee Suppadungsuk},\n  title = {Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review},\n  year = {2023},\n  doi = {10.3390/clinpract14010008},\n  url = {https://doi.org/10.3390/clinpract14010008}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review\nAU  - Jing Miao\nAU  - Charat Thongprayoon\nAU  - Supawadee Suppadungsuk\nPY  - 2023\nDO  - 10.3390/clinpract14010008\nUR  - https://doi.org/10.3390/clinpract14010008\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+              "issued": {
+                "date-parts": [
+                  [
+                    2023
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Jing",
+                  "family": "Miao"
+                },
+                {
+                  "given": "Charat",
+                  "family": "Thongprayoon"
+                },
+                {
+                  "given": "Supawadee",
+                  "family": "Suppadungsuk"
+                }
+              ],
+              "DOI": "10.3390/clinpract14010008",
+              "URL": "https://doi.org/10.3390/clinpract14010008"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.03; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=academic.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3479,
+            "lexical_vector_score": 0.0566,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+            "support_label": "background only",
+            "confidence": 0.55,
+            "relevance": 0.1,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.569,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4374,
+            "source_type": "arXiv",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [
+              "academic",
+              "assistance"
+            ],
+            "exact_span": "Results show that ChatGPT dominates academic writing assistance (73.3 percent usage).",
+            "authors": [
+              "Ziyang Xu"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2502.00632v2",
+            "apa_candidate": "Xu, Z.. (n.d.). Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing. http://arxiv.org/abs/2502.00632v2",
+            "bibtex_candidate": "@misc{xundpatterns,\n  author = {Ziyang Xu},\n  title = {Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2502.00632v2}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing\nAU  - Ziyang Xu\nUR  - http://arxiv.org/abs/2502.00632v2\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+              "author": [
+                {
+                  "given": "Ziyang",
+                  "family": "Xu"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2502.00632v2"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "background only: lexical/construct relevance=0.10; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=academic, assistance.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3668,
+            "lexical_vector_score": 0.1849,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+            "support_label": "does not support",
+            "confidence": 0.532,
+            "relevance": 0.032,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.586,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.429
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.3285,
+            "source_type": "arXiv",
+            "source_role": "theory/construct definition",
+            "overlap_terms": [
+              "academic"
+            ],
+            "exact_span": "The rise of generative artificial intelligence (GenAI) in academic writing and publishing (AWP) raises questions about linguistic inclusivity and the legitimacy of diverse Englishes in global scholarly communication.",
+            "authors": [
+              "Kingsley Ugwuanyi",
+              "Christian Mair",
+              "Sender Dovchin",
+              "Iker Erdocia",
+              "Maria Kuteeva"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2607.28505v1",
+            "apa_candidate": "Ugwuanyi, K., Mair, C., Dovchin, S., Erdocia, I., & Kuteeva, M.. (n.d.). Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes. http://arxiv.org/abs/2607.28505v1",
+            "bibtex_candidate": "@misc{ugwuanyindgenerative,\n  author = {Kingsley Ugwuanyi and Christian Mair and Sender Dovchin and Iker Erdocia and Maria Kuteeva},\n  title = {Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2607.28505v1}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes\nAU  - Kingsley Ugwuanyi\nAU  - Christian Mair\nAU  - Sender Dovchin\nAU  - Iker Erdocia\nAU  - Maria Kuteeva\nUR  - http://arxiv.org/abs/2607.28505v1\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+              "author": [
+                {
+                  "given": "Kingsley",
+                  "family": "Ugwuanyi"
+                },
+                {
+                  "given": "Christian",
+                  "family": "Mair"
+                },
+                {
+                  "given": "Sender",
+                  "family": "Dovchin"
+                },
+                {
+                  "given": "Iker",
+                  "family": "Erdocia"
+                },
+                {
+                  "given": "Maria",
+                  "family": "Kuteeva"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2607.28505v1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "does not support: lexical/construct relevance=0.03; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=academic.",
+            "entailment_status": "not_entailed",
+            "entailment_warnings": [],
+            "entailment_score": 0.089,
+            "lexical_vector_score": 0.0636,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "claim_record": {
+        "claim": "This supports treating feedback as more than error correction.",
+        "claim_type": "comparative",
+        "secondary_types": [],
+        "evidence_standard": "Needs comparator, metric, and basis for comparison.",
+        "evidence_risk": "medium",
+        "integrity_prompt": "Classify the claim, check whether the evidence standard is met, then scaffold a learner-owned revision rather than writing the final answer."
+      },
+      "source_map": {
+        "method": "knowedge_tri_artifact_bridge",
+        "claim": "This supports treating feedback as more than error correction.",
+        "sources_considered": 5,
+        "sources_returned": 5,
+        "direct_support_count": 0,
+        "partial_support_count": 0,
+        "provenance_rule": "No source is treated as supporting unless its visible span overlaps the selected claim.",
+        "ranking_rule": "Sources are ordered by support class, then ranking score built from confidence, lexical/construct relevance, quality, and citation hygiene.",
+        "export_rule": "APA, BibTeX, RIS, and CSL-JSON/Zotero-importable records are citation leads for verification, not final references unless metadata has been checked.",
+        "semantic_rule": "Broad disciplinary overlap can inform role/ranking, but direct support still requires visible span overlap or narrower construct alignment.",
+        "metadata_enrichment": "local_metadata_only",
+        "results": [
+          {
+            "source_name": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+            "support_label": "background only",
+            "confidence": 0.555,
+            "relevance": 0.072,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.712,
+              "band": "usable",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 0.82,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.625
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.4689,
+            "source_type": "OpenAlex",
+            "source_role": "disciplinary context: arts humanities",
+            "overlap_terms": [
+              "feedback"
+            ],
+            "exact_span": "Aim/Purpose: This systematic review synthesizes the literature on doctoral writing and feedback published in peer-reviewed English-language journals between 1997 and 2017 to provide insight into how these topics have been theorized and approached.",
+            "authors": [
+              "Kelsey Inouye",
+              "Lynn McAlpine"
+            ],
+            "year": "2019",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.28945/4168",
+            "url": "https://doi.org/10.28945/4168",
+            "apa_candidate": "Inouye, K., & McAlpine, L.. (2019). Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback. https://doi.org/10.28945/4168",
+            "bibtex_candidate": "@article{inouye2019developing,\n  author = {Kelsey Inouye and Lynn McAlpine},\n  title = {Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback},\n  year = {2019},\n  doi = {10.28945/4168},\n  url = {https://doi.org/10.28945/4168}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback\nAU  - Kelsey Inouye\nAU  - Lynn McAlpine\nPY  - 2019\nDO  - 10.28945/4168\nUR  - https://doi.org/10.28945/4168\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Developing Academic Identity: A Review of the Literature on Doctoral Writing and Feedback",
+              "issued": {
+                "date-parts": [
+                  [
+                    2019
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Kelsey",
+                  "family": "Inouye"
+                },
+                {
+                  "given": "Lynn",
+                  "family": "McAlpine"
+                }
+              ],
+              "DOI": "10.28945/4168",
+              "URL": "https://doi.org/10.28945/4168"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.07; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=feedback.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3626,
+            "lexical_vector_score": 0.1,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.1,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.03,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.686,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.2
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.453,
+            "source_type": "OpenAlex",
+            "source_role": "disciplinary context: arts humanities",
+            "overlap_terms": [],
+            "exact_span": "Abstract The release of ChatGPT in late 2022 marked the beginning of a rapid transformation in higher education, soon followed by the development of multimodal generative AI programs.",
+            "authors": [
+              "Yufeng Qian"
+            ],
+            "year": "2025",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.1007/s11528-025-01100-1",
+            "url": "https://doi.org/10.1007/s11528-025-01100-1",
+            "apa_candidate": "Qian, Y.. (2025). Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field. https://doi.org/10.1007/s11528-025-01100-1",
+            "bibtex_candidate": "@article{qian2025pedagogical,\n  author = {Yufeng Qian},\n  title = {Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field},\n  year = {2025},\n  doi = {10.1007/s11528-025-01100-1},\n  url = {https://doi.org/10.1007/s11528-025-01100-1}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field\nAU  - Yufeng Qian\nPY  - 2025\nDO  - 10.1007/s11528-025-01100-1\nUR  - https://doi.org/10.1007/s11528-025-01100-1\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Pedagogical Applications of Generative AI in Higher Education: A Systematic Review of the Field",
+              "issued": {
+                "date-parts": [
+                  [
+                    2025
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Yufeng",
+                  "family": "Qian"
+                }
+              ],
+              "DOI": "10.1007/s11528-025-01100-1",
+              "URL": "https://doi.org/10.1007/s11528-025-01100-1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.03; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=none.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.3496,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [
+              "education_learning_sciences"
+            ],
+            "semantic_score": 0.1,
+            "citation_check": {
+              "compliance_score": 100.0,
+              "errors": [],
+              "warnings": [],
+              "pass_count": 5,
+              "fail_count": 0
+            }
+          },
+          {
+            "source_name": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+            "support_label": "background only",
+            "confidence": 0.523,
+            "relevance": 0.0,
+            "quality_score": 0.86,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.696,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 1.0,
+                "recency": 1.0,
+                "metadata_completeness": 0.4,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.437,
+            "source_type": "OpenAlex",
+            "source_role": "policy/integrity context",
+            "overlap_terms": [],
+            "exact_span": "",
+            "authors": [
+              "Jing Miao",
+              "Charat Thongprayoon",
+              "Supawadee Suppadungsuk"
+            ],
+            "year": "2023",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "10.3390/clinpract14010008",
+            "url": "https://doi.org/10.3390/clinpract14010008",
+            "apa_candidate": "Miao, J., Thongprayoon, C., & Suppadungsuk, S.. (2023). Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review. https://doi.org/10.3390/clinpract14010008",
+            "bibtex_candidate": "@article{miao2023ethical,\n  author = {Jing Miao and Charat Thongprayoon and Supawadee Suppadungsuk},\n  title = {Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review},\n  year = {2023},\n  doi = {10.3390/clinpract14010008},\n  url = {https://doi.org/10.3390/clinpract14010008}\n}",
+            "ris_candidate": "TY  - JOUR\nTI  - Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review\nAU  - Jing Miao\nAU  - Charat Thongprayoon\nAU  - Supawadee Suppadungsuk\nPY  - 2023\nDO  - 10.3390/clinpract14010008\nUR  - https://doi.org/10.3390/clinpract14010008\nER  -",
+            "csl_json_candidate": {
+              "type": "article-journal",
+              "title": "Ethical Dilemmas in Using AI for Academic Writing and an Example Framework for Peer Review in Nephrology Academia: A Narrative Review",
+              "issued": {
+                "date-parts": [
+                  [
+                    2023
+                  ]
+                ]
+              },
+              "author": [
+                {
+                  "given": "Jing",
+                  "family": "Miao"
+                },
+                {
+                  "given": "Charat",
+                  "family": "Thongprayoon"
+                },
+                {
+                  "given": "Supawadee",
+                  "family": "Suppadungsuk"
+                }
+              ],
+              "DOI": "10.3390/clinpract14010008",
+              "URL": "https://doi.org/10.3390/clinpract14010008"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "doi metadata present",
+            "metadata_chain": [],
+            "provenance_status": "scholarly_index",
+            "rationale": "background only: lexical/construct relevance=0.00; semantic families=none; quality=0.86 (scholarly/citation-indexed lead); lexical terms=none.",
+            "entailment_status": "bounded_lead",
+            "entailment_warnings": [],
+            "entailment_score": 0.34,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+            "support_label": "does not support",
+            "confidence": 0.532,
+            "relevance": 0.0,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.586,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.429
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.322,
+            "source_type": "arXiv",
+            "source_role": "disciplinary context: computer science ai",
+            "overlap_terms": [],
+            "exact_span": "",
+            "authors": [
+              "Kingsley Ugwuanyi",
+              "Christian Mair",
+              "Sender Dovchin",
+              "Iker Erdocia",
+              "Maria Kuteeva"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2607.28505v1",
+            "apa_candidate": "Ugwuanyi, K., Mair, C., Dovchin, S., Erdocia, I., & Kuteeva, M.. (n.d.). Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes. http://arxiv.org/abs/2607.28505v1",
+            "bibtex_candidate": "@misc{ugwuanyindgenerative,\n  author = {Kingsley Ugwuanyi and Christian Mair and Sender Dovchin and Iker Erdocia and Maria Kuteeva},\n  title = {Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2607.28505v1}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes\nAU  - Kingsley Ugwuanyi\nAU  - Christian Mair\nAU  - Sender Dovchin\nAU  - Iker Erdocia\nAU  - Maria Kuteeva\nUR  - http://arxiv.org/abs/2607.28505v1\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Generative AI and linguistic diversity in academic writing and publishing: Perspectives from World Englishes",
+              "author": [
+                {
+                  "given": "Kingsley",
+                  "family": "Ugwuanyi"
+                },
+                {
+                  "given": "Christian",
+                  "family": "Mair"
+                },
+                {
+                  "given": "Sender",
+                  "family": "Dovchin"
+                },
+                {
+                  "given": "Iker",
+                  "family": "Erdocia"
+                },
+                {
+                  "given": "Maria",
+                  "family": "Kuteeva"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2607.28505v1"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "does not support: lexical/construct relevance=0.00; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=none.",
+            "entailment_status": "not_entailed",
+            "entailment_warnings": [],
+            "entailment_score": 0.08,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          },
+          {
+            "source_name": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+            "support_label": "does not support",
+            "confidence": 0.532,
+            "relevance": 0.0,
+            "quality_score": 0.66,
+            "source_quality_rubric": {
+              "schema_version": "sophia.source_quality_rubric.v1",
+              "score": 0.569,
+              "band": "fragile",
+              "dimensions": {
+                "authority": 0.95,
+                "provenance": 0.85,
+                "recency": 0.5,
+                "metadata_completeness": 0.2,
+                "direct_span_available": 0.25,
+                "claim_relevance": 0.286
+              },
+              "weights": {
+                "authority": 0.22,
+                "provenance": 0.22,
+                "recency": 0.14,
+                "metadata_completeness": 0.12,
+                "direct_span_available": 0.18,
+                "claim_relevance": 0.12
+              },
+              "source_kind": "scholarly",
+              "warnings": [
+                "no_direct_span",
+                "metadata_incomplete",
+                "low_claim_relevance"
+              ],
+              "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard."
+            },
+            "ranking_score": 0.322,
+            "source_type": "arXiv",
+            "source_role": "method/evaluation evidence",
+            "overlap_terms": [],
+            "exact_span": "",
+            "authors": [
+              "Ziyang Xu"
+            ],
+            "year": "n.d.",
+            "container_title": "",
+            "publisher": "",
+            "volume": "",
+            "issue": "",
+            "pages": "",
+            "doi": "",
+            "url": "http://arxiv.org/abs/2502.00632v2",
+            "apa_candidate": "Xu, Z.. (n.d.). Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing. http://arxiv.org/abs/2502.00632v2",
+            "bibtex_candidate": "@misc{xundpatterns,\n  author = {Ziyang Xu},\n  title = {Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing},\n  year = {n.d.},\n  url = {http://arxiv.org/abs/2502.00632v2}\n}",
+            "ris_candidate": "TY  - GEN\nTI  - Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing\nAU  - Ziyang Xu\nUR  - http://arxiv.org/abs/2502.00632v2\nER  -",
+            "csl_json_candidate": {
+              "type": "document",
+              "title": "Patterns and Purposes: A Cross-Journal Analysis of AI Tool Usage in Academic Writing",
+              "author": [
+                {
+                  "given": "Ziyang",
+                  "family": "Xu"
+                }
+              ],
+              "URL": "http://arxiv.org/abs/2502.00632v2"
+            },
+            "page_status": "no page number visible; do not invent one",
+            "page_locator": "",
+            "citation_status": "citation-ready lead",
+            "metadata_status": "basic metadata only; verify before final citation",
+            "metadata_chain": [],
+            "provenance_status": "preprint",
+            "rationale": "does not support: lexical/construct relevance=0.00; semantic families=none; quality=0.66 (preprint/technical lead); lexical terms=none.",
+            "entailment_status": "not_entailed",
+            "entailment_warnings": [],
+            "entailment_score": 0.08,
+            "lexical_vector_score": 0.0,
+            "semantic_overlap": [],
+            "broad_field_overlap": [],
+            "semantic_score": 0.0,
+            "citation_check": {
+              "compliance_score": 80.0,
+              "errors": [
+                {
+                  "type": "YEAR_FORMAT",
+                  "text": "No clear year marker detected.",
+                  "suggestion": "Add or verify publication year before treating this as citation-ready.",
+                  "rule": "APA year/provenance"
+                }
+              ],
+              "warnings": [],
+              "pass_count": 4,
+              "fail_count": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

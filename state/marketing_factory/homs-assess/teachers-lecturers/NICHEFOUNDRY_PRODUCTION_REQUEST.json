@@ -1,0 +1,32 @@
+{
+  "schema": "nichefoundry.dio_campaign_production_request.v1",
+  "family_id": "HOMS_ASSESS--teachers_lecturers",
+  "title": "HOMS for Teachers and lecturers",
+  "product": "HOMS_ASSESS",
+  "audience": "Teachers and lecturers",
+  "proof_asset": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+  "source_image": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/homs_exam_proof.png",
+  "scene_images": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/teachers-lecturers/assets/01_hook.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/teachers-lecturers/assets/02_proof.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/teachers-lecturers/assets/03_action.jpg"
+  ],
+  "music": {
+    "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "attribution": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/MUSIC_ATTRIBUTION.md",
+    "voice_required": false
+  },
+  "outputs": {
+    "vertical_reel": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/homs-assess/teachers-lecturers/assets/reel_1080x1920.mp4",
+    "long_form_explainer": {
+      "state": "brief_ready",
+      "target_seconds": 45,
+      "requires_operator_script_review": true
+    }
+  },
+  "release": {
+    "state": "held",
+    "operator_approval_required": true
+  },
+  "request_hash": "sha256:118fd4a16c20fe56d68be29f6b60b05f12c9779f9ba3279b79e8c08b76595b5f"
+}

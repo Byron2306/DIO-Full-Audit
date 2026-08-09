@@ -1,0 +1,60 @@
+{
+  "schema": "knowedge.homs_marking_request.v1",
+  "created_at": "2026-08-07T14:49:32+00:00",
+  "job_id": "homs-1e1edf822a1e85c11170",
+  "homs_root": "/home/byron/Downloads/NoEdge-Multi-Hymark-main",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "demo-homs-001",
+    "thread_ref": "thread-marking-001"
+  },
+  "route": {
+    "product": "homs",
+    "confidence": 0.95,
+    "reason": "Matched route keywords: marking, assignment, rubric, memo, efundi, gradebook."
+  },
+  "intake_summary": {
+    "sender": "[email]",
+    "subject": "Assignment batch with memo and rubric",
+    "attachments_listed": "efundi_export.zip; rubric.docx; memo.pdf; grades.csv",
+    "triage_next_step": "",
+    "triage_draft_status": "",
+    "risk": "moderate"
+  },
+  "required_inputs": {
+    "assignment_batch_zip": {
+      "required": true,
+      "status": "not_verified",
+      "notes": "Expected eFundi export ZIP or equivalent batch folder."
+    },
+    "rubric_or_memo": {
+      "required": true,
+      "status": "not_verified",
+      "notes": "Expected rubric, memo, essay matrix, or marking guide."
+    },
+    "gradebook_csv": {
+      "required": false,
+      "status": "not_verified",
+      "notes": "Needed for automated mark collation/update."
+    },
+    "assignment_instructions": {
+      "required": false,
+      "status": "not_verified",
+      "notes": "Can be pasted text or uploaded file."
+    }
+  },
+  "requested_outputs": [
+    "per-student draft feedback",
+    "annotated submission files where possible",
+    "filled rubric documents",
+    "collated marks CSV",
+    "lecturer review summary",
+    "return-ready ZIP"
+  ],
+  "approval": {
+    "required": true,
+    "reason": "Educator must approve final marks and feedback before release."
+  },
+  "source_extract": "I need help with marking. The eFundi export, rubric, memo, and gradebook CSV are attached."
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "dio.product_workflow.v1",
+  "job_id": "evidex-b0a30dd37214755b47d9",
+  "product": "evidex",
+  "state": "active",
+  "mode": "controlled",
+  "run_name": "evidex_outlook_bot_csv_dry_run",
+  "created_at": "2026-08-08T20:56:46+00:00",
+  "updated_at": "2026-08-08T21:00:39+00:00",
+  "source_job_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/runs/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9.json",
+  "customer": {
+    "recipient": "dio_workflows@outlook.com",
+    "controlled_fallback": true
+  },
+  "intake": {
+    "state": "approved",
+    "reviewer": "Codex controlled workflow QA",
+    "reviewed_at": "2026-08-08T21:00:39+00:00"
+  },
+  "processing": {
+    "state": "review_ready",
+    "output_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9",
+    "receipt_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9/EVIDEX_RUN_RECEIPT.json"
+  },
+  "output_review": {
+    "required": true,
+    "state": "approved",
+    "reviewer": "Codex controlled workflow QA",
+    "reviewed_at": "2026-08-08T21:00:39+00:00"
+  },
+  "notification": {
+    "state": "draft_ready",
+    "mail_intent_id": "MAIL-AA5B0A2568B8D6B3"
+  }
+}

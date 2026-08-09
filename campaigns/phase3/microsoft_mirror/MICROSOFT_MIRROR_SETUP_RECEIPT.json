@@ -1,0 +1,19 @@
+{
+  "schema": "knowedge.microsoft_mirror_setup_receipt.v1",
+  "created_at": "2026-08-07T17:30:07+00:00",
+  "config": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/microsoft_mirror_routes.json",
+  "local_mirror_root": "/home/byron/KnowEdge_Microsoft_Mirror",
+  "created_or_verified": [
+    "/home/byron/KnowEdge_Microsoft_Mirror/EVIDEX/incoming",
+    "/home/byron/KnowEdge_Microsoft_Mirror/EVIDEX/processing",
+    "/home/byron/KnowEdge_Microsoft_Mirror/EVIDEX/done",
+    "/home/byron/KnowEdge_Microsoft_Mirror/EVIDEX/failed",
+    "/home/byron/KnowEdge_Microsoft_Mirror/EVIDEX/deliveries",
+    "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/incoming",
+    "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/processing",
+    "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done",
+    "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/failed",
+    "/home/byron/KnowEdge_Microsoft_Mirror/HOMS/deliveries"
+  ],
+  "note": "Local folders are ready. Cloud sync still needs OneDrive/rclone mapping on the host machine."
+}

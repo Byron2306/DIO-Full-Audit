@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Performance Evidence Institutional Profile",
+  "type": "object",
+  "required": [
+    "schema",
+    "profile_id",
+    "version",
+    "institution",
+    "terminology",
+    "domains",
+    "mapping_policy",
+    "confidence_policy",
+    "evidence_policy",
+    "rating_policy"
+  ],
+  "properties": {
+    "schema": {"const": "dio.performance_profile.v1"},
+    "profile_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "version": {"type": "string", "minLength": 1},
+    "institution": {
+      "type": "object",
+      "required": ["name", "sector"],
+      "properties": {
+        "name": {"type": "string", "minLength": 2},
+        "sector": {"type": "string", "minLength": 2},
+        "jurisdiction": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "terminology": {
+      "type": "object",
+      "required": ["domain", "objective", "evidence", "review_cycle"],
+      "properties": {
+        "domain": {"type": "string"},
+        "objective": {"type": "string"},
+        "evidence": {"type": "string"},
+        "review_cycle": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["code", "label"],
+        "properties": {
+          "code": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 2},
+          "aliases": {"type": "array", "items": {"type": "string"}},
+          "weight": {"type": ["number", "null"], "minimum": 0, "maximum": 100}
+        },
+        "additionalProperties": false
+      }
+    },
+    "mapping_policy": {
+      "type": "object",
+      "required": ["stopwords", "identifier_pattern", "human_assertion_precedence"],
+      "properties": {
+        "stopwords": {"type": "array", "items": {"type": "string"}},
+        "identifier_pattern": {"type": "string"},
+        "human_assertion_precedence": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "confidence_policy": {
+      "type": "object",
+      "required": ["acceptance_thresholds"],
+      "properties": {
+        "acceptance_thresholds": {
+          "type": "object",
+          "required": ["retrieval", "relevance", "provenance", "sufficiency"],
+          "properties": {
+            "retrieval": {"type": "number", "minimum": 0, "maximum": 1},
+            "relevance": {"type": "number", "minimum": 0, "maximum": 1},
+            "provenance": {"type": "number", "minimum": 0, "maximum": 1},
+            "sufficiency": {"type": "number", "minimum": 0, "maximum": 1}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_policy": {
+      "type": "object",
+      "required": ["strong_source_cues", "weak_source_cues", "deduplicate_by_hash"],
+      "properties": {
+        "strong_source_cues": {"type": "array", "items": {"type": "string"}},
+        "weak_source_cues": {"type": "array", "items": {"type": "string"}},
+        "deduplicate_by_hash": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "rating_policy": {
+      "type": "object",
+      "required": ["enabled", "authoritative_rubric_required", "default_output"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "authoritative_rubric_required": {"type": "boolean"},
+        "default_output": {"enum": ["evidence_coverage_only", "institutional_rating"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

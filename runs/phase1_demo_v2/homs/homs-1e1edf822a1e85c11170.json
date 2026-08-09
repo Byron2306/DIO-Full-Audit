@@ -1,0 +1,58 @@
+{
+  "job_id": "homs-1e1edf822a1e85c11170",
+  "created_at": "2026-08-07T14:40:41+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "demo-homs-001",
+    "thread_ref": "thread-marking-001"
+  },
+  "route": {
+    "product": "homs",
+    "confidence": 0.95,
+    "reason": "Matched route keywords: marking, assignment, rubric, memo, efundi, gradebook, exam."
+  },
+  "status": "needs_review",
+  "risk": "moderate",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "Assignment batch with memo and rubric",
+      "sender": "lecturer@example.ac.za",
+      "attachment_names": "efundi_export.zip; rubric.docx; memo.pdf; grades.csv",
+      "intent": "",
+      "urgency": "",
+      "next_step": "",
+      "draft_status": "",
+      "primary_draft_path": "",
+      "safer_draft_path": "",
+      "shorter_draft_path": "",
+      "evidence_note_path": ""
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "1e1edf822a1e85c11170",
+      "source_type": "email",
+      "source_path": "",
+      "title": "Assignment batch with memo and rubric",
+      "date_observed": "2026-08-07T14:40:41+00:00",
+      "text_extract": "I need help with marking. The eFundi export, rubric, memo, and gradebook CSV are attached.",
+      "hash": "43f23ee95af63868307e",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.95,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

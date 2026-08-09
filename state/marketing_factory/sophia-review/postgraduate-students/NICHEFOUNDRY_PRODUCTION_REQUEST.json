@@ -1,0 +1,32 @@
+{
+  "schema": "nichefoundry.dio_campaign_production_request.v1",
+  "family_id": "SOPHIA_REVIEW--postgraduate_students",
+  "title": "Sophia for Postgraduate students",
+  "product": "SOPHIA_REVIEW",
+  "audience": "Postgraduate students",
+  "proof_asset": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/sophia_commercial/SOPHIA-DEMO-001",
+  "source_image": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/sites/sophia/assets/sophia-review-hero.png",
+  "scene_images": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/sophia-review/postgraduate-students/assets/01_hook.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/sophia-review/postgraduate-students/assets/02_proof.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/sophia-review/postgraduate-students/assets/03_action.jpg"
+  ],
+  "music": {
+    "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "attribution": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/MUSIC_ATTRIBUTION.md",
+    "voice_required": false
+  },
+  "outputs": {
+    "vertical_reel": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/sophia-review/postgraduate-students/assets/reel_1080x1920.mp4",
+    "long_form_explainer": {
+      "state": "brief_ready",
+      "target_seconds": 45,
+      "requires_operator_script_review": true
+    }
+  },
+  "release": {
+    "state": "held",
+    "operator_approval_required": true
+  },
+  "request_hash": "sha256:a818ed96f6ac34bc4d08cee9af13d39c39c6bb6226d80424977b3d07e7ae25a2"
+}

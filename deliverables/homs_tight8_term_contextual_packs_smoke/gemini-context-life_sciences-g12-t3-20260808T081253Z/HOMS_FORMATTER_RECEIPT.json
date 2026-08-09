@@ -1,0 +1,42 @@
+{
+  "schema": "knowedge.homs_design_law_receipt.v1",
+  "created_at": "2026-08-08T08:13:51+00:00",
+  "status": "formatted",
+  "job_dir": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z",
+  "design_law": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_design_law.json",
+  "assessment_design": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/caps_assessment_design/caps_assessment_design.json",
+  "canonical_profile_id": "fet.life_sciences",
+  "render_shell": "investigation_task_sheet",
+  "input_pack": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_pack.json",
+  "formatted_docx": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/ASSESSMENT_PACK_FORMATTED.docx",
+  "visual_manifest": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/HOMS_VISUAL_MANIFEST.json",
+  "source_assets": [],
+  "assets": [
+    {
+      "title": "Finch Beak Data Table And Graph",
+      "svg": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_visuals/01_finch_beak_data_table_and_graph.svg",
+      "png": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_visuals/01_finch_beak_data_table_and_graph.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Investigation Data And Method Sheet",
+      "svg": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_visuals/02_investigation_data_and_method_sheet.svg",
+      "png": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_visuals/02_investigation_data_and_method_sheet.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Life Sciences Hominin Skull Diagram",
+      "svg": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_visuals/03_life_sciences_hominin_skull_diagram.svg",
+      "png": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/assessment_visuals/03_life_sciences_hominin_skull_diagram.png",
+      "status": "png_rendered",
+      "quality_flags": [
+        "generated_schematic_not_authoritative_source",
+        "anatomy_requires_curated_or_educator_verified_asset"
+      ]
+    }
+  ],
+  "educator_approval_required": true,
+  "formatted_zip": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081253Z/HOMS_FORMATTED_ASSESSMENT_PACK.zip"
+}

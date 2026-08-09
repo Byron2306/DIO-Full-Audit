@@ -1,0 +1,20 @@
+{
+  "schema": "dio.commerce_edge_event.v1",
+  "edge_event_id": 1,
+  "edge_event_key": "paypal:e5e935669b521498e292180f4de3c29d9aabb39d35d570f9d510f5055828fe8a",
+  "source": "paypal",
+  "event_type": "payment.paypal.payment.capture.completed",
+  "received_at": "2026-08-08T20:17:19.576Z",
+  "payload": {
+    "schema": "dio.payment_event.v1",
+    "provider": "paypal",
+    "provider_event_id": "WH-4YC58593090204929-2P744896JK2509320",
+    "event_type": "PAYMENT.CAPTURE.COMPLETED",
+    "order_id": "DIO-PAYPAL-LIVE-USD-001",
+    "provider_order_id": "1V94589255239132G",
+    "amount_minor": 100,
+    "currency": "USD",
+    "outcome": "paid",
+    "create_time": "2026-08-08T20:06:00.483Z"
+  }
+}

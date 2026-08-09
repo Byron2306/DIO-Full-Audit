@@ -1,0 +1,55 @@
+{
+  "schema": "dio.hivenance.marketing_hypothesis.v1",
+  "hypothesis_id": "W4-HYP-0014",
+  "campaign_id": "CMP-D3F941CEA4BD",
+  "registered_at": "2026-08-08T22:11:08+00:00",
+  "registered_by": "dio_registry_hivenance_bridge",
+  "immutable": true,
+  "source": {
+    "registry_wave": "wave4",
+    "registry_hypothesis_id": "W4-HYP-0014",
+    "target_id": "W4-TGT-0138",
+    "observation_id": "OBS-A2FD8F099F2A",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a"
+  },
+  "product": {
+    "product_line_id": "SOPHIA_REVIEW",
+    "product_layer": "sophia",
+    "public_name": "Sophia Academic Review Desk",
+    "offer_id": "SOPHIA-SECTION-REVIEW-PILOT"
+  },
+  "audience": {
+    "public_segment": "Postgraduate students, supervisors, writing centres and research groups",
+    "internal_research_organisation": "HELTASA",
+    "internal_buyer_unit": "Postgraduate Office; Research Support; Library; Academic Development/Writing Centre; Supervisor Development",
+    "personalisation_allowed": false
+  },
+  "hypothesis": "If HELTASA is shown 'Authorship-safe research audit: source-fit/citation/format/literature-review critique before-and-after report, with no ghostwriting.', then the Postgraduate/research-support decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+  "experiment": {
+    "mode": "operator_reviewed_partnership_request",
+    "channel": "Partnership/demo request through current public association route",
+    "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+    "proof_summary": "Grounded Gemini reviewer commentary, technical citation audit and claim-to-source ledger with human approval and academic-integrity boundaries.",
+    "public_hook": "Academic AI should show an author what to strengthen, not write the work for them.",
+    "cta": "Request one bounded manuscript-section review.",
+    "success_event": "qualified_pilot_conversation",
+    "kill_condition": "No qualified engagement after two permission-safe attempts or channel test; re-evaluate message/fit before any further approach.",
+    "window_days": 14,
+    "budget_cap_minor": 0,
+    "currency": "ZAR"
+  },
+  "gates": {
+    "content_generation": "allowed",
+    "publication": "operator_approval_required",
+    "personalised_outreach": "blocked",
+    "electronic_sales_outreach": "blocked",
+    "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH",
+    "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+  },
+  "settlement": {
+    "state": "unstarted",
+    "decision": "pending",
+    "measurement_path": "measurement.json",
+    "decision_path": "HIVENANCE_SETTLEMENT.json"
+  }
+}

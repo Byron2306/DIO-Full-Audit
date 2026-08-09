@@ -1,0 +1,87 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "english_language",
+  "display_name": "English Language",
+  "senior_subject": "English Home Language / First Additional Language",
+  "grade": 9,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "language_integrated_assessment",
+  "marks": 70,
+  "duration_minutes": 90,
+  "bloom_distribution": {
+    "remember": 10,
+    "understand": 20,
+    "apply": 30,
+    "analyse": 25,
+    "evaluate": 10,
+    "create": 5,
+    "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+  },
+  "source_grammar": [
+    "text_extract",
+    "cartoon",
+    "photograph_or_image",
+    "data_table"
+  ],
+  "caps_focus": "FET bridge: comprehension, visual literacy, language structures and controlled extended writing",
+  "sections": [
+    {
+      "title": "reading_viewing",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "reading_viewing",
+          "bloom_level": "understand",
+          "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 English Language stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "language_structures",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "language_structures",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 English Language task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "writing_presenting",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "writing_presenting",
+          "bloom_level": "evaluate",
+          "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 English Language stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion",
+            "educator-approved rubric required"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "english_language",
+  "display_name": "English Language",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "comprehension",
+    "summary",
+    "language_structures",
+    "visual_literacy",
+    "transactional_writing",
+    "essay_or_literature_response",
+    "marking_relief"
+  ],
+  "source_types": [
+    "reading_text",
+    "advertisement",
+    "cartoon",
+    "visual_text",
+    "graph_or_infographic",
+    "writing_prompt",
+    "literary_extract"
+  ],
+  "question_families": [
+    "literal_comprehension",
+    "infer_meaning",
+    "analyse_tone_or_register",
+    "evaluate_visual_message",
+    "summarise_key_points",
+    "edit_language",
+    "compose_extended_response"
+  ],
+  "cognitive_targets": [
+    "retrieval",
+    "interpretation",
+    "analysis",
+    "evaluation",
+    "composition"
+  ],
+  "rubric_dimensions": [
+    "textual_evidence",
+    "language_accuracy",
+    "interpretive_reasoning",
+    "structure",
+    "audience_purpose_register",
+    "original_response_quality"
+  ],
+  "memo_expectations": [
+    "credit plausible interpretations supported by the text",
+    "separate language mechanics from content marks",
+    "do not invent quotations",
+    "scale expected length to paper and grade"
+  ],
+  "retrieval_queries": [
+    "English language comprehension assessment memo visual literacy",
+    "English FAL Home Language paper 1 question types",
+    "language structures assessment rubric senior school"
+  ],
+  "human_review_checks": [
+    "verify text difficulty and length",
+    "check copyright/source status of reading extracts",
+    "confirm memo allows equivalent wording",
+    "confirm writing rubrics match the assessment form"
+  ],
+  "blocked_claims_or_modes": [
+    "uncited copyrighted text copied into a paper",
+    "single-answer memo for interpretive language questions",
+    "visual questions without supplied visual evidence"
+  ]
+}

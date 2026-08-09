@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-MCF-22FA748868D6",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "multichannel_campaign_family",
+    "artifact_id": "CNT-22FA748868D6",
+    "campaign_id": "MCF-22FA748868D6",
+    "product_line_id": "EVIDEX_PACK",
+    "audience": "Monitoring, evaluation and grant managers",
+    "channel": "facebook_page",
+    "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+    "cta": "Request a controlled evidence-pack pilot",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:221d8cb401d016a6730e507611ab1237567dbc08a464ce8de679c3f90fb5af3f",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "Mapped indicators, claims and\u2026",
+        "source_hash": "sha256:9400e20ebb1f3ef31de00e2ab509bace96ddb1134e10b2b1680efa248dd603ec",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "Claims, indicators and source files are difficult to reconcile before reporting deadlines. Evidex prepares the work for\u2026",
+        "source_hash": "sha256:e95d1d206d2bf1e24104abaf57f9f8bbdf2da040e88577a0e60098ffda8c9f53",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:221d8cb401d016a6730e507611ab1237567dbc08a464ce8de679c3f90fb5af3f",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T13:58:31+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T13:58:31+00:00"
+}

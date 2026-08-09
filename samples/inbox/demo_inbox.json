@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "message_id": "demo-evidex-001",
+      "thread_ref": "thread-grant-report-001",
+      "sender": "programme.manager@example.org",
+      "subject": "Grant reporting evidence pack for Q2 donor submission",
+      "body": "Please prepare the funder reporting evidence pack. We have KPI proof, attendance registers, photos, invoices, and monitoring notes that need to be mapped for the donor report.",
+      "attachment_names": "attendance_registers.zip; invoices.xlsx; monitoring_notes.docx",
+      "risk": "moderate"
+    },
+    {
+      "message_id": "demo-niche-001",
+      "thread_ref": "thread-campaign-001",
+      "sender": "founder@example.com",
+      "subject": "Need a campaign and lead magnet for academic marking support",
+      "body": "Can you turn the HOMS marking relief offer into a landing page angle, LinkedIn posts, newsletter, and short video script for lecturers?",
+      "attachment_names": "homs_offer_notes.pdf",
+      "risk": "routine"
+    },
+    {
+      "message_id": "demo-homs-001",
+      "thread_ref": "thread-marking-001",
+      "sender": "lecturer@example.ac.za",
+      "subject": "Assignment batch with memo and rubric",
+      "body": "I need help with marking. The eFundi export, rubric, memo, and gradebook CSV are attached.",
+      "attachment_names": "efundi_export.zip; rubric.docx; memo.pdf; grades.csv",
+      "risk": "moderate"
+    }
+  ]
+}
+

@@ -1,0 +1,226 @@
+{
+  "schema": "knowedge.homs_source_attachment_receipt.v1",
+  "created_at": "2026-08-08T10:09:58+00:00",
+  "status": "attached",
+  "job_dir": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t2-20260808T100958Z",
+  "bank": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+  "subject_id": "life_sciences",
+  "requested_source_types": [
+    "data_table",
+    "diagram_or_model",
+    "graph_or_chart",
+    "text_extract"
+  ],
+  "attached_count": 3,
+  "missing_requested_source_types": [],
+  "source_assets": [
+    {
+      "id": "source_01_data_table",
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Sciences P1 November 2024",
+      "page": 10,
+      "object_id": "Q2:table_2",
+      "snippet": "2.2 The table below shows the levels of two hormones during the menstrual cycle of a healthy human female. DAY OF OESTROGEN PROGESTERONE",
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/data_table/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/margin_trim/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          760,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          807,
+          1147
+        ],
+        "crop_ratio": 0.8829,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          752,
+          644
+        ],
+        "object_candidate_bbox": [
+          47,
+          98,
+          799,
+          742
+        ],
+        "object_candidate_crop_ratio": 0.5005,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_diagram_or_model",
+      "title": "Official-paper exemplar: Diagram Or Model",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Life Sciences P1 November 2024",
+      "page": 4,
+      "object_id": "Q1:diagram_1",
+      "snippet": "1.1.6 The diagram below represents a part of the human eye.",
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/diagram_or_model/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/margin_trim/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          715,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          762,
+          1147
+        ],
+        "crop_ratio": 0.8306,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          630,
+          644
+        ],
+        "object_candidate_bbox": [
+          115,
+          98,
+          745,
+          742
+        ],
+        "object_candidate_crop_ratio": 0.4193,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_graph_or_chart",
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "data_table"
+      ],
+      "paper": "Life Sciences P1 November 2025",
+      "page": 10,
+      "object_id": "Q2:graph_2",
+      "snippet": "2.3.4 Draw a bar graph to show the results in the table. (6) (14)",
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/graph_or_chart/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/margin_trim/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_candidate_may_be_too_aggressive",
+        "page_level_source_not_object_crop",
+        "question_asks_learner_to_draw_graph",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1050,
+          1551
+        ],
+        "content_bbox": [
+          77,
+          45,
+          1127,
+          1596
+        ],
+        "crop_ratio": 0.8586,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          948,
+          119
+        ],
+        "object_candidate_bbox": [
+          179,
+          850,
+          1127,
+          969
+        ],
+        "object_candidate_crop_ratio": 0.0595,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review",
+          "object_candidate_may_be_too_aggressive"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "missing_source_bank": false,
+  "educator_approval_required": true
+}

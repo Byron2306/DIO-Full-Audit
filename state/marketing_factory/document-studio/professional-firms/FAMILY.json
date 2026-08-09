@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "DOCUMENT_STUDIO--professional_firms",
+  "generated_at": "2026-08-09T14:02:26+00:00",
+  "product": {
+    "id": "DOCUMENT_STUDIO",
+    "name": "DIO Document Studio",
+    "offer": "editing_translation"
+  },
+  "audience": {
+    "id": "professional_firms",
+    "name": "SMEs and professional firms",
+    "pain": "Client-facing documents need polish without losing technical meaning or house terminology.",
+    "outcome": "A clean document plus an auditable change and terminology trail."
+  },
+  "landing_page": "sites/document-studio/index.html",
+  "proof_asset": "sites/document-studio/assets/document-studio-proof.png",
+  "assets": {
+    "square_1080": "state/marketing_factory/document-studio/professional-firms/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/document-studio/professional-firms/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/document-studio/professional-firms/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/document-studio/professional-firms/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/document-studio/professional-firms/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/document-studio/professional-firms/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/document-studio/professional-firms/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/document-studio/professional-firms/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

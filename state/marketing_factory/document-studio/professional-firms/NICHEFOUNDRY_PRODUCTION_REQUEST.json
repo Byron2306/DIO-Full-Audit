@@ -1,0 +1,32 @@
+{
+  "schema": "nichefoundry.dio_campaign_production_request.v1",
+  "family_id": "DOCUMENT_STUDIO--professional_firms",
+  "title": "Document Studio for SMEs and professional firms",
+  "product": "DOCUMENT_STUDIO",
+  "audience": "SMEs and professional firms",
+  "proof_asset": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/sites/document-studio/assets/document-studio-proof.png",
+  "source_image": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/sites/document-studio/assets/document-studio-proof.png",
+  "scene_images": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/document-studio/professional-firms/assets/01_hook.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/document-studio/professional-firms/assets/02_proof.jpg",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/document-studio/professional-firms/assets/03_action.jpg"
+  ],
+  "music": {
+    "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "attribution": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/MUSIC_ATTRIBUTION.md",
+    "voice_required": false
+  },
+  "outputs": {
+    "vertical_reel": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/marketing_factory/document-studio/professional-firms/assets/reel_1080x1920.mp4",
+    "long_form_explainer": {
+      "state": "brief_ready",
+      "target_seconds": 45,
+      "requires_operator_script_review": true
+    }
+  },
+  "release": {
+    "state": "held",
+    "operator_approval_required": true
+  },
+  "request_hash": "sha256:4ffbe2f730369670b9f00899bb0ddf3ca77885d24ad6399618bc35a59a7349c3"
+}

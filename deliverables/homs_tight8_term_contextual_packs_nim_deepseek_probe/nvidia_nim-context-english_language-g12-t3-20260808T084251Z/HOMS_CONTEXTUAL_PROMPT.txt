@@ -1,0 +1,291 @@
+You are HyMark's CAPS-aware assessment writer. Create a learner-facing assessment pack as strict JSON.
+
+The previous failure was generic no-context questions. Do not repeat it.
+
+Opportunity: Term 3 controlled assessment
+Subject: English Language
+Subject ID: english_language
+Grade: 12
+Phase: fet_exit
+Language of assessment: English
+Focus: integrated comprehension, summary and language structures; cartoon, advertisement or infographic analysis; editing for grammar, diction, register and punctuation; formal transactional writing and controlled response planning
+Total marks: 70
+Duration: 2 hours
+
+LOCKED SOURCE CARDS. These are the only source/figure facts you may assess:
+{
+  "generic_policy": {
+    "facts": [
+      "Use only visuals named in the visual blueprint.",
+      "Every visual-referenced question must contain concrete observable details, values, labels, or source facts."
+    ]
+  }
+}
+
+Knowledge packet:
+{
+  "schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "created_at": "2026-08-08T08:42:51+00:00",
+  "purpose": "Prevent generic no-context questions by grounding provider generation in CAPS, old-paper source contracts, visual facts, subject profile and hard bans.",
+  "subject_profile": {
+    "schema": "knowedge.homs_subject_profile.v1",
+    "subject_id": "english_language",
+    "display_name": "English Language",
+    "default_level": "senior_school",
+    "assessment_modes": [
+      "comprehension",
+      "summary",
+      "language_structures",
+      "visual_literacy",
+      "transactional_writing",
+      "essay_or_literature_response",
+      "marking_relief"
+    ],
+    "source_types": [
+      "reading_text",
+      "advertisement",
+      "cartoon",
+      "visual_text",
+      "graph_or_infographic",
+      "writing_prompt",
+      "literary_extract"
+    ],
+    "question_families": [
+      "literal_comprehension",
+      "infer_meaning",
+      "analyse_tone_or_register",
+      "evaluate_visual_message",
+      "summarise_key_points",
+      "edit_language",
+      "compose_extended_response"
+    ],
+    "cognitive_targets": [
+      "retrieval",
+      "interpretation",
+      "analysis",
+      "evaluation",
+      "composition"
+    ],
+    "rubric_dimensions": [
+      "textual_evidence",
+      "language_accuracy",
+      "interpretive_reasoning",
+      "structure",
+      "audience_purpose_register",
+      "original_response_quality"
+    ],
+    "memo_expectations": [
+      "credit plausible interpretations supported by the text",
+      "separate language mechanics from content marks",
+      "do not invent quotations",
+      "scale expected length to paper and grade"
+    ],
+    "retrieval_queries": [
+      "English language comprehension assessment memo visual literacy",
+      "English FAL Home Language paper 1 question types",
+      "language structures assessment rubric senior school"
+    ],
+    "human_review_checks": [
+      "verify text difficulty and length",
+      "check copyright/source status of reading extracts",
+      "confirm memo allows equivalent wording",
+      "confirm writing rubrics match the assessment form"
+    ],
+    "blocked_claims_or_modes": [
+      "uncited copyrighted text copied into a paper",
+      "single-answer memo for interpretive language questions",
+      "visual questions without supplied visual evidence"
+    ]
+  },
+  "grade_profile": {
+    "grade": 12,
+    "phase": "fet_exit",
+    "learner_level": "advanced_school_exit",
+    "bloom_targets": [
+      "apply",
+      "analyze",
+      "evaluate",
+      "create"
+    ],
+    "zpd_level": "expert challenge",
+    "question_style": [
+      "exam_source_set",
+      "extended_case_response",
+      "argumentative_essay",
+      "synthesis_question"
+    ],
+    "reading_load": "high",
+    "writing_load": "high",
+    "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+    "review_checks": [
+      "exit-level standard",
+      "moderation readiness",
+      "equivalent second opportunity",
+      "no undergraduate-only assumptions"
+    ]
+  },
+  "language_of_assessment": "English",
+  "focus": "integrated comprehension, summary and language structures; cartoon, advertisement or infographic analysis; editing for grammar, diction, register and punctuation; formal transactional writing and controlled response planning",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "renderable_visual_facts": {
+    "generic_policy": {
+      "facts": [
+        "Use only visuals named in the visual blueprint.",
+        "Every visual-referenced question must contain concrete observable details, values, labels, or source facts."
+      ]
+    }
+  },
+  "caps": {
+    "selected_title": null,
+    "selected_path": null,
+    "selected_sha256": null,
+    "phase": "fet_grade_10_12",
+    "preferred_language": "English",
+    "excerpt": "",
+    "ontology": null,
+    "assessment_design": null
+  },
+  "official_paper_source_contract": {
+    "schema": "knowedge.homs_exam_source_contract.v1",
+    "source_matrix": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/exam_source_matrix.json",
+    "subject": "English Language",
+    "paper_count": 0,
+    "source_type_counts": {},
+    "paper_shapes": [],
+    "evidence_snippets": []
+  },
+  "knowledge_bank_registry_summary": {
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_knowledge_bank/HOMS_KNOWLEDGE_BANK_REGISTRY.json",
+    "nvidia_nim_ready": true,
+    "caps_documents": 282,
+    "official_paper_catalogue_papers": 9
+  },
+  "hard_bans": [
+    "answer the first",
+    "complete the applied",
+    "using the stimulus",
+    "use the provided stimulus",
+    "controlled classroom stimulus supplied by the educator",
+    "structured task using the stimulus",
+    "credit accurate subject knowledge",
+    "evidence-based reasoning",
+    "identify one important feature of the",
+    "strongest assessment question",
+    "do not ask learners to evaluate whether the generated pack is ready",
+    "do not ask learners why official-paper exemplars are stronger than generated visuals",
+    "do not include source-quality, pipeline, route, smoke-test, design-law or product-QA questions",
+    "do not refer to a figure, table, map, graph or diagram unless concrete figure facts are supplied in this packet",
+    "do not invent new figure organisms, labels, datasets, years, diagram panels, tables, maps, chemicals or source facts",
+    "do not replace supplied renderable visual facts with a different scenario"
+  ]
+}
+
+Design requirements:
+- Use the CAPS ontology and assessment design as authority.
+- Use old-paper source contract only to decide source/stimulus types and question moves.
+- Use the renderable visual facts when writing questions that refer to figures.
+- Treat renderable visual facts as locked source truth: do not invent different figures, organisms, datasets, labels, panels, chemicals or tables.
+- If this packet supplies Figure 1, Figure 2 or Figure 3 facts, the assessment questions must use those exact figure identities and facts.
+- Figure numbering must remain: Figure 1 = finch beak data, Figure 2 = investigation method/data sheet, Figure 3 = hominin skull comparison.
+- Every section must have a concrete, content-specific stimulus or figure reference.
+- Every question must test actual subject content, data interpretation, diagram interpretation, investigation design, or CAPS-aligned reasoning.
+- Memo bullets must be specific enough for marking, with acceptable alternatives where appropriate.
+- Rubric marks must sum exactly to total_marks.
+- Question marks must sum exactly to total_marks.
+- Do not include internal review, smoke-test, product QA, route, source catalogue, or educator-release questions in learner sections.
+- Do not use any hard-ban phrase from the knowledge packet.
+- Do not use any source-drift term from hard_bans, even as an example or comparison.
+
+Return strict JSON only:
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "...",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "...",
+  "render_shell": "...",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {"schema": "knowedge.homs_visual_blueprint.v1", "subject": "English Language", "grade": 12, "phase": "fet_grade_10_12", "term": "3", "caps_source": {"title": null, "path": null, "sha256": null}, "canonical_profile_id": null, "assessment_family": "structured_test_or_task", "render_shell": "question_paper", "source_type_contract": {"schema": "knowedge.homs_source_type_contract.v1", "source_types": ["visual_source"], "source_type_reasons": ["Term/theme content references visual source material."], "matrix_signals_used": {}, "old_paper_contract_used": null, "exam_source_catalogue_used": null}, "caps_theme_candidates": [], "assessment_content_focus": ["integrated comprehension, summary and language structures", "cartoon, advertisement or infographic analysis", "editing for grammar, diction, register and punctuation", "formal transactional writing and controlled response planning"], "content_alignment_notes": ["CAPS term/content alignment requires educator confirmation."], "required_visuals": [{"id": "language_response_planner", "title": "Text response and language planner", "role": "learner_workspace", "visual_kind": "language_planner", "must_show": ["text panel", "main idea", "evidence", "plan", "draft", "edit"], "assessment_use": "Learners plan reading/viewing and writing responses."}], "generation_constraints": ["Plan visual evidence before writing questions.", "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.", "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.", "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."], "validation_rules": ["No learner-facing question may refer to a missing visual.", "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.", "Visuals must match subject, phase, term/content focus, and assessment family."]},
+  "sections": [
+    {
+      "title": "...",
+      "mode": "...",
+      "instructions": "...",
+      "stimulus": "Concrete context, data, figure reference, diagram reference or source extract.",
+      "questions": [
+        {"number": "1.1", "question": "...", "marks": 2, "memo": ["specific memo point"]}
+      ]
+    }
+  ],
+  "rubric": [
+    {"criterion": "...", "marks": 0, "descriptor": "..."}
+  ],
+  "teacher_review_checklist": ["..."]
+}

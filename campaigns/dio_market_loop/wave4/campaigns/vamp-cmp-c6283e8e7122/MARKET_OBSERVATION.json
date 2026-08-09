@@ -1,0 +1,37 @@
+{
+  "schema": "dio.market_observation.v1",
+  "observation_id": "OBS-67BAA9D1A863",
+  "observed_at": "2026-08-08",
+  "recorded_at": "2026-08-08T22:11:08+00:00",
+  "source": {
+    "kind": "prospect_registry_wave",
+    "wave": "wave4",
+    "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/DIO_Prospect_Intelligence_Wave4.zip",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+    "registry_hypothesis_id": "W4-HYP-0075",
+    "target_id": "W4-TGT-0139",
+    "source_reference": "https://www.ipm.co.za/"
+  },
+  "product_line_id": "VAMP_ACADEMIC",
+  "market": {
+    "organisation": "Institute of People Management (IPM)",
+    "segment": "HR ecosystem",
+    "province_or_reach": "National",
+    "buyer_unit": "Executive HR/HR Director; Performance Management; HR Business Partners; Organisational Development"
+  },
+  "signals": {
+    "attack_score": 84.7,
+    "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE",
+    "route_mode": "public_proof_content_only",
+    "proof_readiness_score": 3.8,
+    "timing_score": 3.0,
+    "seasonal_urgency": "MEDIUM",
+    "seasonal_trigger": "Performance-review timing is institution-specific; verify the current HR cycle before campaign activation."
+  },
+  "controls": {
+    "outreach_state": "Research only",
+    "consent_status": "Not recorded",
+    "do_not_contact": "No",
+    "high_score_is_permission": false
+  }
+}

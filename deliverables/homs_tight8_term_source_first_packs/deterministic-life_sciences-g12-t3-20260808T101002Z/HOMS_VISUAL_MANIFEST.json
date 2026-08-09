@@ -1,0 +1,119 @@
+{
+  "schema": "knowedge.homs_visual_manifest.v1",
+  "created_at": "2026-08-08T10:10:03+00:00",
+  "assessment_title": "Life Sciences Grade 12 Term 3 Controlled Assessment Pack",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "canonical_profile_id": "fet.life_sciences",
+  "blueprint": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "visual_family": {
+    "visuals": [
+      "data_table",
+      "labelled_diagram",
+      "investigation_flow"
+    ],
+    "rules": [
+      "Use readable data tables and labelled diagrams.",
+      "Separate observation, interpretation, and conclusion.",
+      "Flag safety or method controls where practical work appears."
+    ]
+  },
+  "source_assets": [
+    {
+      "source_number": 1,
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "paper": "Life Sciences P1 November 2024",
+      "page": 10,
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/data_table/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/margin_trim/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_sciences/data_table/object_candidate/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 2,
+      "title": "Official-paper exemplar: Diagram Or Model",
+      "source_type": "diagram_or_model",
+      "paper": "Life Sciences P1 November 2024",
+      "page": 4,
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/diagram_or_model/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/margin_trim/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_sciences/diagram_or_model/object_candidate/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 3,
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "paper": "Life Sciences P1 November 2025",
+      "page": 10,
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/graph_or_chart/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/margin_trim/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/life_sciences/graph_or_chart/object_candidate/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_candidate_may_be_too_aggressive",
+        "page_level_source_not_object_crop",
+        "question_asks_learner_to_draw_graph",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "assets": [
+    {
+      "title": "Science Data Table And Graph Stimulus",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t3-20260808T101002Z/assessment_visuals/01_science_data_table_and_graph_stimulus.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t3-20260808T101002Z/assessment_visuals/01_science_data_table_and_graph_stimulus.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Investigation Data And Method Sheet",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t3-20260808T101002Z/assessment_visuals/02_investigation_data_and_method_sheet.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t3-20260808T101002Z/assessment_visuals/02_investigation_data_and_method_sheet.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    },
+    {
+      "title": "Life Sciences Hominin Skull Diagram",
+      "svg": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t3-20260808T101002Z/assessment_visuals/03_life_sciences_hominin_skull_diagram.svg",
+      "png": "deliverables/homs_tight8_term_source_first_packs/deterministic-life_sciences-g12-t3-20260808T101002Z/assessment_visuals/03_life_sciences_hominin_skull_diagram.png",
+      "status": "png_rendered",
+      "quality_flags": [
+        "generated_schematic_not_authoritative_source",
+        "anatomy_requires_curated_or_educator_verified_asset"
+      ]
+    }
+  ]
+}

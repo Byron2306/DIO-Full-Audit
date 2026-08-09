@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Isizulu Language",
+  "grade": 2,
+  "phase": "foundation_grade_r_3",
+  "term": "4",
+  "caps_source": {
+    "title": "IsiZulu",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/caps_isizulu_fal_gr_1-3_fs.pdf",
+    "sha256": "3225544038ea7345eb8e16c2335095698c134404b298a456b310d35810f03ee8"
+  },
+  "canonical_profile_id": "foundation.isizulu_language",
+  "assessment_family": "foundation_activity_assessment",
+  "render_shell": "activity_sheet",
+  "caps_theme_candidates": [
+    "Curriculum and Assessment",
+    "Grades 1-3"
+  ],
+  "assessment_content_focus": [
+    "Curriculum and Assessment",
+    "Grades 1-3",
+    "Curriculum and Assessment",
+    "Grades 1-3"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: curriculum, grades."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

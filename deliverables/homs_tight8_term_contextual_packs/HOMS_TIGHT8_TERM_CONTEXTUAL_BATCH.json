@@ -1,0 +1,592 @@
+{
+  "schema": "knowedge.homs_tight8_term_contextual_batch.v1",
+  "created_at": "2026-08-08T08:24:20+00:00",
+  "status": "partial",
+  "provider": "gemini",
+  "model": null,
+  "grade": 12,
+  "subjects": [
+    "english_language",
+    "afrikaans_language",
+    "life_orientation",
+    "mathematics",
+    "physical_sciences",
+    "life_sciences",
+    "geography",
+    "history"
+  ],
+  "terms": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "planned_count": 32,
+  "completed_count": 5,
+  "passed_count": 4,
+  "failed_validation_count": 1,
+  "exception_count": 27,
+  "elapsed_seconds": 329.47,
+  "receipts": [
+    {
+      "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+      "created_at": "2026-08-08T08:19:27+00:00",
+      "status": "passed",
+      "subject": "English Language",
+      "grade": 12,
+      "term": "1",
+      "focus": "comprehension, language in context and visual literacy; tone, audience, purpose, inference and evidence from a supplied text; summary planning and precise language editing; transactional writing with register, structure and audience control",
+      "provider": {
+        "selected_provider": "gemini",
+        "selected_model": "gemini-3.5-flash",
+        "selected_key_name": "GEMINI_API_KEY",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta",
+        "available_secret_names": [
+          "BEAST_IMPORTED_SECRET_01",
+          "BEAST_IMPORTED_SECRET_02",
+          "BEAST_IMPORTED_SECRET_03",
+          "BEAST_IMPORTED_SECRET_04",
+          "BEAST_IMPORTED_SECRET_05",
+          "BEAST_IMPORTED_SECRET_06",
+          "BEAST_IMPORTED_SECRET_07",
+          "BEAST_IMPORTED_SECRET_08",
+          "CEREBRAS_API_KEY",
+          "COHERE_API_KEY",
+          "DEEPINFRA_API_KEY",
+          "FAL_KEY",
+          "FEATHERLESS_API_KEY",
+          "GEMINI_API_KEY",
+          "GROQ_API_KEY",
+          "HF_TOKEN",
+          "HYPERBOLIC_API_KEY",
+          "MISTRAL_API_KEY",
+          "NOVITA_API_KEY",
+          "NSCALE_API_KEY",
+          "NVIDIA_API_KEY",
+          "OPENAI_API_KEY",
+          "OPENAI_API_KEY_2",
+          "OPENAI_API_KEY_3",
+          "OPENROUTER_API_KEY",
+          "OVHCLOUD_API_KEY",
+          "OVHCLOUD_API_KEY_2",
+          "OVHCLOUD_API_KEY_3",
+          "OVHCLOUD_APP_KEY",
+          "OVHCLOUD_APP_SECRET",
+          "OVHCLOUD_CONSUMER_KEY",
+          "REPLICATE_API_TOKEN",
+          "XAI_API_KEY"
+        ],
+        "values_redacted": true
+      },
+      "question_count": 16,
+      "question_marks": 70,
+      "rubric_marks": 70,
+      "validation_errors": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "errors": [],
+          "question_count": 16
+        }
+      ],
+      "elapsed_seconds": 36.47,
+      "paths": {
+        "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z",
+        "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/assessment_pack.json",
+        "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+        "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/HOMS_VISUAL_BLUEPRINT.json",
+        "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/ASSESSMENT_PACK_FORMATTED.docx",
+        "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/ASSESSMENT_LEARNER.docx",
+        "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+        "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+        "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t1-20260808T081851Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+      }
+    },
+    {
+      "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+      "created_at": "2026-08-08T08:20:23+00:00",
+      "status": "passed",
+      "subject": "English Language",
+      "grade": 12,
+      "term": "2",
+      "focus": "literary extract, character, theme and language analysis; visual literacy and media message interpretation; quote selection, evidence integration and paragraph structure; discursive or argumentative writing with coherent development",
+      "provider": {
+        "selected_provider": "gemini",
+        "selected_model": "gemini-3.5-flash",
+        "selected_key_name": "GEMINI_API_KEY",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta",
+        "available_secret_names": [
+          "BEAST_IMPORTED_SECRET_01",
+          "BEAST_IMPORTED_SECRET_02",
+          "BEAST_IMPORTED_SECRET_03",
+          "BEAST_IMPORTED_SECRET_04",
+          "BEAST_IMPORTED_SECRET_05",
+          "BEAST_IMPORTED_SECRET_06",
+          "BEAST_IMPORTED_SECRET_07",
+          "BEAST_IMPORTED_SECRET_08",
+          "CEREBRAS_API_KEY",
+          "COHERE_API_KEY",
+          "DEEPINFRA_API_KEY",
+          "FAL_KEY",
+          "FEATHERLESS_API_KEY",
+          "GEMINI_API_KEY",
+          "GROQ_API_KEY",
+          "HF_TOKEN",
+          "HYPERBOLIC_API_KEY",
+          "MISTRAL_API_KEY",
+          "NOVITA_API_KEY",
+          "NSCALE_API_KEY",
+          "NVIDIA_API_KEY",
+          "OPENAI_API_KEY",
+          "OPENAI_API_KEY_2",
+          "OPENAI_API_KEY_3",
+          "OPENROUTER_API_KEY",
+          "OVHCLOUD_API_KEY",
+          "OVHCLOUD_API_KEY_2",
+          "OVHCLOUD_API_KEY_3",
+          "OVHCLOUD_APP_KEY",
+          "OVHCLOUD_APP_SECRET",
+          "OVHCLOUD_CONSUMER_KEY",
+          "REPLICATE_API_TOKEN",
+          "XAI_API_KEY"
+        ],
+        "values_redacted": true
+      },
+      "question_count": 11,
+      "question_marks": 70,
+      "rubric_marks": 70,
+      "validation_errors": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "errors": [
+            "rubric marks sum to 30, expected 70"
+          ],
+          "question_count": 12
+        },
+        {
+          "attempt": 2,
+          "errors": [],
+          "question_count": 11
+        }
+      ],
+      "elapsed_seconds": 56.61,
+      "paths": {
+        "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z",
+        "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/assessment_pack.json",
+        "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+        "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/HOMS_VISUAL_BLUEPRINT.json",
+        "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/ASSESSMENT_PACK_FORMATTED.docx",
+        "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/ASSESSMENT_LEARNER.docx",
+        "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+        "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+        "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t2-20260808T081927Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+      }
+    },
+    {
+      "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+      "created_at": "2026-08-08T08:21:26+00:00",
+      "status": "failed_validation",
+      "subject": "English Language",
+      "grade": 12,
+      "term": "3",
+      "focus": "integrated comprehension, summary and language structures; cartoon, advertisement or infographic analysis; editing for grammar, diction, register and punctuation; formal transactional writing and controlled response planning",
+      "provider": {
+        "selected_provider": "gemini",
+        "selected_model": "gemini-3.5-flash",
+        "selected_key_name": "GEMINI_API_KEY",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta",
+        "available_secret_names": [
+          "BEAST_IMPORTED_SECRET_01",
+          "BEAST_IMPORTED_SECRET_02",
+          "BEAST_IMPORTED_SECRET_03",
+          "BEAST_IMPORTED_SECRET_04",
+          "BEAST_IMPORTED_SECRET_05",
+          "BEAST_IMPORTED_SECRET_06",
+          "BEAST_IMPORTED_SECRET_07",
+          "BEAST_IMPORTED_SECRET_08",
+          "CEREBRAS_API_KEY",
+          "COHERE_API_KEY",
+          "DEEPINFRA_API_KEY",
+          "FAL_KEY",
+          "FEATHERLESS_API_KEY",
+          "GEMINI_API_KEY",
+          "GROQ_API_KEY",
+          "HF_TOKEN",
+          "HYPERBOLIC_API_KEY",
+          "MISTRAL_API_KEY",
+          "NOVITA_API_KEY",
+          "NSCALE_API_KEY",
+          "NVIDIA_API_KEY",
+          "OPENAI_API_KEY",
+          "OPENAI_API_KEY_2",
+          "OPENAI_API_KEY_3",
+          "OPENROUTER_API_KEY",
+          "OVHCLOUD_API_KEY",
+          "OVHCLOUD_API_KEY_2",
+          "OVHCLOUD_API_KEY_3",
+          "OVHCLOUD_APP_KEY",
+          "OVHCLOUD_APP_SECRET",
+          "OVHCLOUD_CONSUMER_KEY",
+          "REPLICATE_API_TOKEN",
+          "XAI_API_KEY"
+        ],
+        "values_redacted": true
+      },
+      "question_count": 17,
+      "question_marks": 67,
+      "rubric_marks": 70,
+      "validation_errors": [
+        "question marks sum to 67, expected 70"
+      ],
+      "attempts": [
+        {
+          "attempt": 1,
+          "errors": [
+            "question marks sum to 68, expected 70"
+          ],
+          "question_count": 17
+        },
+        {
+          "attempt": 2,
+          "errors": [
+            "question marks sum to 67, expected 70"
+          ],
+          "question_count": 17
+        }
+      ],
+      "elapsed_seconds": 62.92,
+      "paths": {
+        "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z",
+        "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/assessment_pack.json",
+        "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+        "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/HOMS_VISUAL_BLUEPRINT.json",
+        "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/ASSESSMENT_PACK_FORMATTED.docx",
+        "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/ASSESSMENT_LEARNER.docx",
+        "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+        "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+        "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t3-20260808T082023Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+      }
+    },
+    {
+      "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+      "created_at": "2026-08-08T08:21:58+00:00",
+      "status": "passed",
+      "subject": "English Language",
+      "grade": 12,
+      "term": "4",
+      "focus": "final integrated language examination practice; unseen text interpretation and visual literacy synthesis; time-managed summary, editing and evidence-based answers; extended writing with argument, coherence and style control",
+      "provider": {
+        "selected_provider": "gemini",
+        "selected_model": "gemini-3.5-flash",
+        "selected_key_name": "GEMINI_API_KEY",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta",
+        "available_secret_names": [
+          "BEAST_IMPORTED_SECRET_01",
+          "BEAST_IMPORTED_SECRET_02",
+          "BEAST_IMPORTED_SECRET_03",
+          "BEAST_IMPORTED_SECRET_04",
+          "BEAST_IMPORTED_SECRET_05",
+          "BEAST_IMPORTED_SECRET_06",
+          "BEAST_IMPORTED_SECRET_07",
+          "BEAST_IMPORTED_SECRET_08",
+          "CEREBRAS_API_KEY",
+          "COHERE_API_KEY",
+          "DEEPINFRA_API_KEY",
+          "FAL_KEY",
+          "FEATHERLESS_API_KEY",
+          "GEMINI_API_KEY",
+          "GROQ_API_KEY",
+          "HF_TOKEN",
+          "HYPERBOLIC_API_KEY",
+          "MISTRAL_API_KEY",
+          "NOVITA_API_KEY",
+          "NSCALE_API_KEY",
+          "NVIDIA_API_KEY",
+          "OPENAI_API_KEY",
+          "OPENAI_API_KEY_2",
+          "OPENAI_API_KEY_3",
+          "OPENROUTER_API_KEY",
+          "OVHCLOUD_API_KEY",
+          "OVHCLOUD_API_KEY_2",
+          "OVHCLOUD_API_KEY_3",
+          "OVHCLOUD_APP_KEY",
+          "OVHCLOUD_APP_SECRET",
+          "OVHCLOUD_CONSUMER_KEY",
+          "REPLICATE_API_TOKEN",
+          "XAI_API_KEY"
+        ],
+        "values_redacted": true
+      },
+      "question_count": 17,
+      "question_marks": 70,
+      "rubric_marks": 70,
+      "validation_errors": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "errors": [],
+          "question_count": 17
+        }
+      ],
+      "elapsed_seconds": 31.47,
+      "paths": {
+        "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z",
+        "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/assessment_pack.json",
+        "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+        "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/HOMS_VISUAL_BLUEPRINT.json",
+        "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/ASSESSMENT_PACK_FORMATTED.docx",
+        "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/ASSESSMENT_LEARNER.docx",
+        "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+        "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+        "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-english_language-g12-t4-20260808T082126Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+      }
+    },
+    {
+      "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+      "created_at": "2026-08-08T08:23:13+00:00",
+      "status": "passed",
+      "subject": "Afrikaans Language",
+      "grade": 12,
+      "term": "1",
+      "focus": "begripstoets, taal in konteks en visuele geletterdheid; toon, teikengroep, doel, afleiding en bewyse uit 'n gegewe teks; opsommingsbeplanning en noukeurige taalredigering; transaksionele skryfwerk met register, struktuur en teikengroepbeheer",
+      "provider": {
+        "selected_provider": "gemini",
+        "selected_model": "gemini-3.5-flash",
+        "selected_key_name": "GEMINI_API_KEY",
+        "base_url": "https://generativelanguage.googleapis.com/v1beta",
+        "available_secret_names": [
+          "BEAST_IMPORTED_SECRET_01",
+          "BEAST_IMPORTED_SECRET_02",
+          "BEAST_IMPORTED_SECRET_03",
+          "BEAST_IMPORTED_SECRET_04",
+          "BEAST_IMPORTED_SECRET_05",
+          "BEAST_IMPORTED_SECRET_06",
+          "BEAST_IMPORTED_SECRET_07",
+          "BEAST_IMPORTED_SECRET_08",
+          "CEREBRAS_API_KEY",
+          "COHERE_API_KEY",
+          "DEEPINFRA_API_KEY",
+          "FAL_KEY",
+          "FEATHERLESS_API_KEY",
+          "GEMINI_API_KEY",
+          "GROQ_API_KEY",
+          "HF_TOKEN",
+          "HYPERBOLIC_API_KEY",
+          "MISTRAL_API_KEY",
+          "NOVITA_API_KEY",
+          "NSCALE_API_KEY",
+          "NVIDIA_API_KEY",
+          "OPENAI_API_KEY",
+          "OPENAI_API_KEY_2",
+          "OPENAI_API_KEY_3",
+          "OPENROUTER_API_KEY",
+          "OVHCLOUD_API_KEY",
+          "OVHCLOUD_API_KEY_2",
+          "OVHCLOUD_API_KEY_3",
+          "OVHCLOUD_APP_KEY",
+          "OVHCLOUD_APP_SECRET",
+          "OVHCLOUD_CONSUMER_KEY",
+          "REPLICATE_API_TOKEN",
+          "XAI_API_KEY"
+        ],
+        "values_redacted": true
+      },
+      "question_count": 21,
+      "question_marks": 70,
+      "rubric_marks": 70,
+      "validation_errors": [],
+      "attempts": [
+        {
+          "attempt": 1,
+          "errors": [
+            "question marks sum to 69, expected 70",
+            "rubric marks sum to 20, expected 70"
+          ],
+          "question_count": 19
+        },
+        {
+          "attempt": 2,
+          "errors": [],
+          "question_count": 21
+        }
+      ],
+      "elapsed_seconds": 75.83,
+      "paths": {
+        "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z",
+        "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/assessment_pack.json",
+        "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+        "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/HOMS_VISUAL_BLUEPRINT.json",
+        "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/ASSESSMENT_PACK_FORMATTED.docx",
+        "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/ASSESSMENT_LEARNER.docx",
+        "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+        "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+        "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+      }
+    }
+  ],
+  "failures": [
+    {
+      "subject": "afrikaans_language",
+      "term": "2",
+      "error_type": "ProviderJsonError",
+      "error": "Gemini returned invalid JSON: Expecting ',' delimiter: line 291 column 6 (char 17071)"
+    },
+    {
+      "subject": "afrikaans_language",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 5.239133755s.\",\n    \""
+    },
+    {
+      "subject": "afrikaans_language",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 4.684581321s.\",\n    \""
+    },
+    {
+      "subject": "life_orientation",
+      "term": "1",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 3.056346478s.\",\n    \""
+    },
+    {
+      "subject": "life_orientation",
+      "term": "2",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 2.224755513s.\",\n    \""
+    },
+    {
+      "subject": "life_orientation",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 1.482010876s.\",\n    \""
+    },
+    {
+      "subject": "life_orientation",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 59.916400915s.\",\n    "
+    },
+    {
+      "subject": "mathematics",
+      "term": "1",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 58.982239881s.\",\n    "
+    },
+    {
+      "subject": "mathematics",
+      "term": "2",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 58.063792113s.\",\n    "
+    },
+    {
+      "subject": "mathematics",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 57.156585993s.\",\n    "
+    },
+    {
+      "subject": "mathematics",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 56.24731647s.\",\n    \""
+    },
+    {
+      "subject": "physical_sciences",
+      "term": "1",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 55.134489367s.\",\n    "
+    },
+    {
+      "subject": "physical_sciences",
+      "term": "2",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 54.100957263s.\",\n    "
+    },
+    {
+      "subject": "physical_sciences",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 53.035774054s.\",\n    "
+    },
+    {
+      "subject": "physical_sciences",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 51.987095413s.\",\n    "
+    },
+    {
+      "subject": "life_sciences",
+      "term": "1",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 51.11863347s.\",\n    \""
+    },
+    {
+      "subject": "life_sciences",
+      "term": "2",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 50.290674387s.\",\n    "
+    },
+    {
+      "subject": "life_sciences",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 49.440043501s.\",\n    "
+    },
+    {
+      "subject": "life_sciences",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 48.55798117s.\",\n    \""
+    },
+    {
+      "subject": "geography",
+      "term": "1",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 47.754189878s.\",\n    "
+    },
+    {
+      "subject": "geography",
+      "term": "2",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 46.156722064s.\",\n    "
+    },
+    {
+      "subject": "geography",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 44.560618537s.\",\n    "
+    },
+    {
+      "subject": "geography",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 42.965337362s.\",\n    "
+    },
+    {
+      "subject": "history",
+      "term": "1",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 42.233903912s.\",\n    "
+    },
+    {
+      "subject": "history",
+      "term": "2",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 41.49977121s.\",\n    \""
+    },
+    {
+      "subject": "history",
+      "term": "3",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 40.758856925s.\",\n    "
+    },
+    {
+      "subject": "history",
+      "term": "4",
+      "error_type": "RuntimeError",
+      "error": "Gemini request failed with HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\\nPlease retry in 39.92670383s.\",\n    \""
+    }
+  ]
+}

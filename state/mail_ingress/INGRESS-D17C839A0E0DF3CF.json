@@ -1,0 +1,29 @@
+{
+  "schema": "dio.mail_ingress.v1",
+  "mail_ingress_id": "INGRESS-D17C839A0E0DF3CF",
+  "provider": "microsoft_graph",
+  "provider_message_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAAA0RwAA",
+  "internet_message_id": "<4Y28O0ZVZTU4.OWQ88H0QMXR6@sn1pepf0003b6f2>",
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAIUcWGajVwpMrnXpyCAQn50=",
+  "received_at": "2026-08-08T16:59:34Z",
+  "captured_at": "2026-08-08T17:00:03+00:00",
+  "sender": {
+    "name": "Microsoft account team",
+    "address": "account-security-noreply@accountprotection.microsoft.com"
+  },
+  "subject": "New sign-in detected for your Microsoft account",
+  "body": {
+    "contentType": "html",
+    "content": "<html dir=\"ltr\"><head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><style type=\"text/css\">\r\n<!--\r\n-->\r\n</style></head><body><table dir=\"ltr\"><tbody><tr><td id=\"i1\" style=\"padding:0; font-family:'Segoe UI Semibold','Segoe UI Bold','Segoe UI','Helvetica Neue Medium',Arial,sans-serif; font-size:17px; color:#707070\">Microsoft account</td></tr><tr><td id=\"i2\" style=\"padding:0; font-family:'Segoe UI Light','Segoe UI','Helvetica Neue Medium',Arial,sans-serif; font-size:41px; color:#2672ec\">New sign-in detected</td></tr><tr><td id=\"i3\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">You recently signed in with your Microsoft account <a dir=\"ltr\" id=\"iAccount\" class=\"link\" href=\"mailto:DI**s@outlook.com\" style=\"color:#2672ec; text-decoration:none\">DI**s@outlook.com</a>. To help keep you safe, here are a few details:</td></tr><tr><td id=\"i4\" style=\"padding:0; padding-top:6px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">Country/region: South Africa</td></tr><tr><td id=\"i5\" style=\"padding:0; padding-top:6px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">Date: 8/8/2026 4:59 PM (GMT)</td></tr><tr><td id=\"i6\" style=\"padding:0; padding-top:6px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">Service: DIO Mail Core Local</td></tr><tr><td id=\"i7\" style=\"padding:0; padding-top:6px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">IP address: 41.193.212.251</td></tr><tr><td id=\"i8\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">If this was you, then you can safely ignore this email.</td></tr><tr><td id=\"i9\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">If you're not sure this was you, a malicious user might have access to your security information. You can review and change your information below.</td></tr><tr><td style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\"><table border=\"0\" cellspacing=\"0\"><tbody><tr><td bgcolor=\"#2672ec\" style=\"background-color:#2672ec; padding-top:5px; padding-right:20px; padding-bottom:5px; padding-left:20px; min-width:50px\"><a id=\"i10\" href=\"https://account.live.com/a?fn=email\" style=\"font-family:'Segoe UI Semibold','Segoe UI Bold','Segoe UI','Helvetica Neue Medium',Arial,sans-serif; font-size:14px; text-align:center; text-decoration:none; font-weight:600; letter-spacing:0.02em; color:#fff\">Review account activity</a></td></tr></tbody></table></td></tr><tr><td id=\"i11\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">You can also <a id=\"iLink3\" class=\"link\" href=\"https://account.live.com/SecurityNotifications/Update\" style=\"color:#2672ec; text-decoration:none\">opt out</a> or change where you receive security notifications.</td></tr><tr><td id=\"i12\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">Thanks,</td></tr><tr><td id=\"i13\" style=\"padding:0; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">The Microsoft account team</td></tr></tbody></table><div lang=\"en\" style=\"margin-top:20px; margin-bottom:10px\"><a class=\"link\" href=\"https://go.microsoft.com/fwlink/?LinkId=521839\">Privacy Statement</a><div style=\"margin-top:10px\">Microsoft Corporation, One Microsoft Way, Redmond, WA 98052</div></div></body></html>"
+  },
+  "body_preview": "Microsoft account\r\nNew sign-in detected\r\nYou recently signed in with your Microsoft account DI**s@outlook.com. To help keep you safe, here are a few details:\r\nCountry/region: South Africa\r\nDate: 8/8/2026 4:59 PM (GMT)\r\nService: DIO Mail Core Local\r\nIP add",
+  "has_attachments": false,
+  "is_read": false,
+  "routing_state": "system_ignored",
+  "triage": {
+    "state": "system_ignored",
+    "reason": "Known provider or platform notification sender.",
+    "assessed_at": "2026-08-09T18:48:15+00:00",
+    "authority": "dio_triune_internal"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "knowedge.homs_design_law_receipt.v1",
+  "created_at": "2026-08-08T07:43:08+00:00",
+  "status": "formatted",
+  "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke",
+  "design_law": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_design_law.json",
+  "assessment_design": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/caps_assessment_design/caps_assessment_design.json",
+  "canonical_profile_id": "fet.geography",
+  "render_shell": "source_response_paper",
+  "input_pack": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke/assessment_pack.json",
+  "formatted_docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke/ASSESSMENT_PACK_FORMATTED.docx",
+  "visual_manifest": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke/HOMS_VISUAL_MANIFEST.json",
+  "source_assets": [
+    {
+      "source_number": 1,
+      "title": "Official-paper exemplar: Map Extract",
+      "source_type": "map_extract",
+      "paper": "Geography P1 May June 2024",
+      "page": 7,
+      "bank_png": "deliverables/homs_core_source_bank/geography/map_extract/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/margin_trim/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/geography/map_extract/object_candidate/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 2,
+      "title": "Official-paper exemplar: Synoptic Weather Map",
+      "source_type": "synoptic_weather_map",
+      "paper": "Geography P1 May June 2024",
+      "page": 3,
+      "bank_png": "deliverables/homs_core_source_bank/geography/synoptic_weather_map/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/margin_trim/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/geography/synoptic_weather_map/object_candidate/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_id_source_type_mismatch",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 3,
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "paper": "Geography P1 May June 2024",
+      "page": 18,
+      "bank_png": "deliverables/homs_core_source_bank/geography/graph_or_chart/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/graph_or_chart/margin_trim/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/graph_or_chart/object_candidate/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/geography/graph_or_chart/object_candidate/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "source_number": 4,
+      "title": "Official-paper exemplar: Photograph Or Image",
+      "source_type": "photograph_or_image",
+      "paper": "Geography P1 May June 2024",
+      "page": 6,
+      "bank_png": "deliverables/homs_core_source_bank/geography/photograph_or_image/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/geography/photograph_or_image/margin_trim/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/geography/photograph_or_image/object_candidate/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/geography/photograph_or_image/object_candidate/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "assets": [
+    {
+      "title": "Source Panel And Evidence Table",
+      "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke/assessment_visuals/01_source_panel_and_evidence_table.svg",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke/assessment_visuals/01_source_panel_and_evidence_table.png",
+      "status": "png_rendered",
+      "quality_flags": []
+    }
+  ],
+  "educator_approval_required": true,
+  "formatted_zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_subject_smoke_packs/geography_g12_source_smoke/HOMS_FORMATTED_ASSESSMENT_PACK.zip"
+}

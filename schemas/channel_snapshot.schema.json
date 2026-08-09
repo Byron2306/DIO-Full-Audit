@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Marketing Channel Snapshot",
+  "type": "object",
+  "required": ["channel_id", "impressions", "clicks", "spend_minor", "source_mode", "evidence_grade"],
+  "properties": {
+    "schema": {"const": "dio.market_channel_snapshot.v2"},
+    "channel_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": ["string", "null"]},
+    "external_campaign_id": {"type": ["string", "null"]},
+    "window_start": {"type": ["string", "null"]},
+    "window_end": {"type": ["string", "null"]},
+    "currency": {"type": "string"},
+    "impressions": {"type": "integer", "minimum": 0},
+    "reach": {"type": "integer", "minimum": 0},
+    "views": {"type": "integer", "minimum": 0},
+    "clicks": {"type": "integer", "minimum": 0},
+    "conversions": {"type": "number", "minimum": 0},
+    "spend_minor": {"type": "integer", "minimum": 0},
+    "conversion_value_minor": {"type": "integer", "minimum": 0},
+    "source_mode": {"enum": ["api", "manual_import", "publisher_report", "agency_report"]},
+    "evidence_grade": {"enum": ["platform_api", "provider_report", "operator_import", "estimated"]},
+    "raw": {}
+  },
+  "additionalProperties": true
+}

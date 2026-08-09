@@ -1,0 +1,34 @@
+{
+  "schema": "dio.commerce_edge_event.v1",
+  "edge_event_id": 2,
+  "edge_event_key": "public_intake:4722d5f72d9eda3abd7c5bc9f9532c66dae38ad36fb2cbcbe570eebd20a48bb9",
+  "source": "public_intake",
+  "event_type": "public.intake.received",
+  "received_at": "2026-08-08T22:36:01.203Z",
+  "payload": {
+    "schema": "dio.public_intake_edge_event.v1",
+    "lead_id": "EVIDEX-20260808-36BC59BF0F",
+    "envelope": {
+      "schema": "dio.public_intake.v1",
+      "product": "evidex",
+      "offer": "controlled_bridge_verification",
+      "contact": {
+        "name": "DIO Controlled Verification",
+        "email": "dio_workflows@outlook.com",
+        "organisation": "DIO Workflows"
+      },
+      "request": {
+        "scope": "Verify public website intake to local lead and governed acknowledgement draft. No client data."
+      },
+      "consents": {
+        "controlled_test": true,
+        "no_sensitive_files_submitted": true
+      },
+      "attribution": {
+        "source": "codex_controlled_verification",
+        "medium": "system_test"
+      },
+      "submitted_at": "2026-08-08T23:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "schema": "hivenance_non_crypto_market_intelligence_v1",
+  "campaign_id": "CMP-D3F941CEA4BD",
+  "generated_at": "2026-08-09T00:37:56+00:00",
+  "lane": "professional_services_market_intelligence",
+  "explicitly_excluded_domains": [
+    "crypto",
+    "trading",
+    "wallets",
+    "orders",
+    "price_prediction"
+  ],
+  "context_root": "ff0d59c93e8f83a8caf54e515f8612d966fb78903bbeaee7e48de3e3015eea58",
+  "workers": [
+    {
+      "worker": "REGISTRY_WORKER",
+      "family": "buyer_route",
+      "recommendation": "TEST",
+      "signal_strength": 0.947689,
+      "risk": 0.25,
+      "evidence": [
+        "attack_score=90.8",
+        "route_state=PARTNERSHIP_ROUTE_AVAILABLE"
+      ],
+      "authority": "observation_and_proposal_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "worker": "YOUTUBE_WORKER",
+      "family": "social_video",
+      "recommendation": "REFINE",
+      "signal_strength": 0.529815,
+      "risk": 0.59,
+      "evidence": [
+        "relevant=4/10",
+        "median_views=145"
+      ],
+      "authority": "observation_and_proposal_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "worker": "WEB_BLOG_WORKER",
+      "family": "web_news_blogs",
+      "recommendation": "HOLD",
+      "signal_strength": 0.149965,
+      "risk": 0.8,
+      "evidence": [
+        "relevant=0/20",
+        "rss_synopses_are_discovery_leads_only"
+      ],
+      "authority": "observation_and_proposal_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "worker": "SOCIAL_COVERAGE_WORKER",
+      "family": "cross_platform_social",
+      "recommendation": "REFINE",
+      "signal_strength": 0.435,
+      "risk": 0.575,
+      "evidence": [
+        "providers={\"facebook_instagram\": \"pending_meta_access_token_and_page_authority\", \"linkedin\": \"not_connected\", \"web_news_rss\": \"connected\", \"youtube_public\": \"connected\"}"
+      ],
+      "authority": "observation_and_proposal_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "worker": "OUTCOME_MEMORY_WORKER",
+      "family": "measured_response",
+      "recommendation": "HOLD",
+      "signal_strength": 0.0,
+      "risk": 0.75,
+      "evidence": [
+        "clicks=0",
+        "enquiries=0",
+        "qualified=0",
+        "paid=0"
+      ],
+      "authority": "observation_and_proposal_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    }
+  ],
+  "oracle": {
+    "schema": "hivenance_market_regime_oracle_v1",
+    "regime": "SEASONAL_OPPORTUNITY",
+    "confidence": 0.805536,
+    "features": {
+      "registry": 0.947689,
+      "youtube": 0.529815,
+      "web_blogs": 0.149965,
+      "measured_outcome": 0.0,
+      "seasonal": true
+    },
+    "authority": "classification_only",
+    "commercial_claim_authority": "none"
+  },
+  "hypothesis_competition": [
+    {
+      "hypothesis_family": "permission_first_partnership",
+      "hypothesis": "Ask a relevant public route for consent to receive one proof example.",
+      "score": 0.813237,
+      "success_event": "qualified_reply_or_inbound_pilot_request",
+      "measurement_required": true,
+      "authority": "controlled_test_proposal_only"
+    },
+    {
+      "hypothesis_family": "proof_demo",
+      "hypothesis": "Show the real before-to-after artifact and the human approval boundary.",
+      "score": 0.659966,
+      "success_event": "qualified_reply_or_inbound_pilot_request",
+      "measurement_required": true,
+      "authority": "controlled_test_proposal_only"
+    },
+    {
+      "hypothesis_family": "faceless_search_video",
+      "hypothesis": "Answer a live search question with a proof-bearing short video.",
+      "score": 0.587054,
+      "success_event": "qualified_reply_or_inbound_pilot_request",
+      "measurement_required": true,
+      "authority": "controlled_test_proposal_only"
+    },
+    {
+      "hypothesis_family": "problem_education",
+      "hypothesis": "Teach one buyer pain with a short evidence-led article or post.",
+      "score": 0.533879,
+      "success_event": "qualified_reply_or_inbound_pilot_request",
+      "measurement_required": true,
+      "authority": "controlled_test_proposal_only"
+    }
+  ],
+  "triune_assessments": [
+    {
+      "schema": "hivenance_market_triune_mind_v1",
+      "candidate_family": "permission_first_partnership",
+      "michael": {
+        "role": "MICHAEL_VALIDATOR",
+        "validation_score": 0.752087,
+        "source_diversity": 0.75,
+        "relevant_live_items": 4
+      },
+      "loki": {
+        "role": "LOKI_ADVERSARY",
+        "risk_score": 0.92,
+        "challenges": [
+          {
+            "challenge": "no_campaign_outcome_yet",
+            "risk": 0.42,
+            "note": "market attention has not yet settled into measured response"
+          },
+          {
+            "challenge": "outreach_permission_missing",
+            "risk": 0.92,
+            "note": "only a compliant once-off consent request may be prepared"
+          }
+        ],
+        "alternative_hypothesis": "observed attention may reflect general education interest rather than buyer intent"
+      },
+      "metatron": {
+        "role": "METATRON_SYNTHESIS",
+        "harmony_score": 0.672676
+      },
+      "final_verdict": "VETO",
+      "authority": "research_admission_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "schema": "hivenance_market_triune_mind_v1",
+      "candidate_family": "proof_demo",
+      "michael": {
+        "role": "MICHAEL_VALIDATOR",
+        "validation_score": 0.698442,
+        "source_diversity": 0.75,
+        "relevant_live_items": 4
+      },
+      "loki": {
+        "role": "LOKI_ADVERSARY",
+        "risk_score": 0.42,
+        "challenges": [
+          {
+            "challenge": "no_campaign_outcome_yet",
+            "risk": 0.42,
+            "note": "market attention has not yet settled into measured response"
+          }
+        ],
+        "alternative_hypothesis": "observed attention may reflect general education interest rather than buyer intent"
+      },
+      "metatron": {
+        "role": "METATRON_SYNTHESIS",
+        "harmony_score": 0.667209
+      },
+      "final_verdict": "ALLOW_CONTROLLED_TEST",
+      "authority": "research_admission_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "schema": "hivenance_market_triune_mind_v1",
+      "candidate_family": "faceless_search_video",
+      "michael": {
+        "role": "MICHAEL_VALIDATOR",
+        "validation_score": 0.672923,
+        "source_diversity": 0.75,
+        "relevant_live_items": 4
+      },
+      "loki": {
+        "role": "LOKI_ADVERSARY",
+        "risk_score": 0.42,
+        "challenges": [
+          {
+            "challenge": "no_campaign_outcome_yet",
+            "risk": 0.42,
+            "note": "market attention has not yet settled into measured response"
+          }
+        ],
+        "alternative_hypothesis": "observed attention may reflect general education interest rather than buyer intent"
+      },
+      "metatron": {
+        "role": "METATRON_SYNTHESIS",
+        "harmony_score": 0.62893
+      },
+      "final_verdict": "ALLOW_CONTROLLED_TEST",
+      "authority": "research_admission_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    },
+    {
+      "schema": "hivenance_market_triune_mind_v1",
+      "candidate_family": "problem_education",
+      "michael": {
+        "role": "MICHAEL_VALIDATOR",
+        "validation_score": 0.654311,
+        "source_diversity": 0.75,
+        "relevant_live_items": 4
+      },
+      "loki": {
+        "role": "LOKI_ADVERSARY",
+        "risk_score": 0.42,
+        "challenges": [
+          {
+            "challenge": "no_campaign_outcome_yet",
+            "risk": 0.42,
+            "note": "market attention has not yet settled into measured response"
+          }
+        ],
+        "alternative_hypothesis": "observed attention may reflect general education interest rather than buyer intent"
+      },
+      "metatron": {
+        "role": "METATRON_SYNTHESIS",
+        "harmony_score": 0.601013
+      },
+      "final_verdict": "ALLOW_CONTROLLED_TEST",
+      "authority": "research_admission_only",
+      "publication_authority": "none",
+      "outreach_authority": "none"
+    }
+  ],
+  "council": {
+    "schema": "hivenance_market_ainur_council_v1",
+    "witnesses": [
+      {
+        "witness": "Manwe",
+        "domain": "cadence",
+        "score": 0.999769,
+        "judgment": "LAWFUL",
+        "basis": "fresh search and observation cadence"
+      },
+      {
+        "witness": "Varda",
+        "domain": "truth",
+        "score": 0.54249,
+        "judgment": "WITHHELD",
+        "basis": "registry, web and video relevance"
+      },
+      {
+        "witness": "Vaire",
+        "domain": "chronology",
+        "score": 0.805536,
+        "judgment": "LAWFUL",
+        "basis": "regime=SEASONAL_OPPORTUNITY"
+      },
+      {
+        "witness": "Mandos",
+        "domain": "settled memory",
+        "score": 0.2,
+        "judgment": "DISSONANT",
+        "basis": "measured campaign outcomes"
+      },
+      {
+        "witness": "Ulmo",
+        "domain": "signal depth",
+        "score": 0.333333,
+        "judgment": "WITHHELD",
+        "basis": "relevant cross-channel sample depth"
+      }
+    ],
+    "harmony_index": 0.576226,
+    "decision": "REFINE",
+    "selected_family": "proof_demo",
+    "canonical_runtime_state": "strained",
+    "authority": "campaign_research_routing_only",
+    "publication_authority": "operator_only",
+    "outreach_authority": "consent_gate_only",
+    "commerce_authority": "none"
+  },
+  "next_action": "improve query precision or source diversity before release",
+  "authority": {
+    "research": "allowed",
+    "campaign_test": "operator_approval_required",
+    "publication": "operator_only",
+    "direct_outreach": "consent_gate_only",
+    "commerce": "none"
+  }
+}

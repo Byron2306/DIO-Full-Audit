@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "HOMS_LEARNING--extra_class_tutors",
+  "generated_at": "2026-08-09T14:02:10+00:00",
+  "product": {
+    "id": "HOMS_LEARNING",
+    "name": "HOMS Learning Studio",
+    "offer": "learning_materials"
+  },
+  "audience": {
+    "id": "extra_class_tutors",
+    "name": "Tutors and extra-class providers",
+    "pain": "Every lesson needs fresh explanations, activities and take-home material.",
+    "outcome": "A reusable topic pack with a worksheet and companion explainer."
+  },
+  "landing_page": "sites/homs_learning/index.html",
+  "proof_asset": "sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+  "assets": {
+    "square_1080": "state/marketing_factory/homs-learning/extra-class-tutors/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/homs-learning/extra-class-tutors/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/homs-learning/extra-class-tutors/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/homs-learning/extra-class-tutors/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/homs-learning/extra-class-tutors/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/homs-learning/extra-class-tutors/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/extra-class-tutors/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/homs-learning/extra-class-tutors/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

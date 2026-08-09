@@ -1,0 +1,135 @@
+from __future__ import annotations
+import json
+from pathlib import Path
+from typing import Any
+from .attachments import AttachmentError, validate_and_store_attachment
+from .config import operator_ids
+from .events import emit_event
+from .identity import load_status_binding, bound_order_status
+from .llm import draft_with_ollama
+from .policy import authorize
+from .router import route_message
+from .state import load_or_create_conversation, update_conversation, create_intake, create_needs_you, list_needs_you, operator_summary
+
+PRODUCT_COPY={
+'homs':'HOMS turns curriculum intent into governed educator-ready work: assessments, marking support, lesson plans, slides, worksheets and lesson media. Educator approval remains the authority gate.',
+'evidex':'Evidex turns scattered evidence into a review trail with claims, source mapping, provenance and gaps kept visible for human review.',
+'sophia':'Sophia supports research review and guided learning while preserving authorship and human scholarship.',
+'vamp':'VAMP maps performance evidence to tasks, objectives and review structures while leaving performance judgment with the authorised human.',
+'nichefoundry':"NicheFoundry is DIO's media and campaign-production organ, used to turn validated ideas into audience-ready creative assets.",
+'document_studio':'Document Studio translates, edits and formats governed source meaning into client-ready DOCX, PDF, slide, web and caption outputs, with reviewable terminology and layout checks.'
+}
+
+def _role(envelope:dict[str,Any])->str:
+    trusted_edge_role=str(envelope.get('_trusted_edge_role') or 'public')
+    return 'operator' if trusted_edge_role=='operator' and envelope.get('channel')=='telegram' and str(envelope.get('external_user_id')) in operator_ids() else 'public'
+
+def _status_text(statuses:list[dict[str,Any]])->tuple[str,str]:
+    parts=[]
+    for s in statuses:
+        if s.get('state')!='found': parts.append(f"{s.get('order_id')}: not currently present in DIO's local commerce state")
+        else:
+            fulfil='released' if s.get('fulfilment_released') else 'not released'
+            parts.append(f"{s.get('order_id')}: payment {s.get('payment_state','unknown')}; fulfilment {fulfil}")
+    return 'I found the order status bound to this verified conversation: '+ '; '.join(parts)+'.',json.dumps(statuses,sort_keys=True)
+
+def _operator_brief_text(summary:dict[str,Any], focus:str='full')->str:
+    jobs=summary.get('jobs',{}); mail=summary.get('mail',{}); commerce=summary.get('commerce',{}); market=summary.get('market',{}); needs=summary.get('needs_you',{})
+    actions=summary.get('top_actions',[])
+    first_actions='; '.join(f"{x.get('kind')}: {x.get('summary')}" for x in actions[:4]) or 'none waiting'
+    if focus=='market':
+        metrics=market.get('metrics',{})
+        return (f"Market Command: {market.get('campaigns',0)} campaigns, {market.get('active',0)} active or approved, "
+                f"{market.get('released',0)} released, {market.get('awaiting_approval',0)} campaign approvals waiting and "
+                f"{market.get('content_awaiting_approval',0)} content approvals waiting. Metrics currently show "
+                f"{metrics.get('impressions',0)} impressions, {metrics.get('clicks',0)} clicks, {metrics.get('enquiries',0)} enquiries and "
+                f"{metrics.get('paid_orders',0)} paid orders. I have not published or spent anything.")
+    if focus=='commerce':
+        return (f"Commerce: {commerce.get('orders',0)} orders recorded, {commerce.get('paid',0)} paid, "
+                f"{commerce.get('live_paid',0)} live paid and {commerce.get('paid_unreleased',0)} paid but unreleased. "
+                "I have not released fulfilment or touched refunds.")
+    if focus=='mail':
+        return (f"Mail: {mail.get('total',0)} intents, {mail.get('pending',0)} pending and "
+                f"{mail.get('approval_required',0)} still requiring approval. Top actions: {first_actions}. "
+                "I have not sent anything.")
+    if focus=='jobs':
+        return (f"Jobs: {jobs.get('total',0)} total, by product {jobs.get('by_product',{})}, by state {jobs.get('by_state',{})}. "
+                f"{len(jobs.get('awaiting_review',[]))} awaiting review and {len(jobs.get('delivery_ready',[]))} delivery drafts ready. "
+                "I have not approved or delivered work.")
+    return (f"Morning, Professor. DIO is awake: {jobs.get('total',0)} jobs, {mail.get('pending',0)} pending mail, "
+            f"{commerce.get('paid_unreleased',0)} paid-unreleased order(s), {market.get('active',0)} active/approved campaigns, "
+            f"{needs.get('open',0)} Needs You item(s), {summary.get('leads',{}).get('total',0)} lead(s), "
+            f"{summary.get('incidents',{}).get('open_or_recorded',0)} recorded incident(s). Top actions: {first_actions}. "
+            "I have not sent, approved, released, published, spent, or processed attachments.")
+
+def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None)->tuple[str,str]:
+    intent=decision['intent']; product=decision.get('product')
+    if intent=='help':
+        if role=='operator':
+            return ("Operator commands: /status, /market, /commerce, /mail, /jobs, /needs, /help. "
+                    "Plain-language equivalents also work: market command, paid orders, pending mail, delivery drafts, attention queue. "
+                    "I am read-only here: I can brief and route, but I cannot send mail, publish, spend, approve, release fulfilment, or process attachments."), 'operator_help'
+        return ("I can explain DIO, HOMS, Evidex, Sophia, VAMP and Document Studio; capture a request; receive bounded uploads into quarantine; "
+                "and explain translation or formatting. I cannot take payment, release work, or disclose private order status from an unverified chat."), 'public_help'
+    if intent=='operator_summary' and summary:
+        return _operator_brief_text(summary),json.dumps(summary,sort_keys=True)
+    if intent in {'campaign_summary','revenue_summary','mail_summary','job_summary'} and summary:
+        focus={'campaign_summary':'market','revenue_summary':'commerce','mail_summary':'mail','job_summary':'jobs'}[intent]
+        return _operator_brief_text(summary,focus),json.dumps(summary,sort_keys=True)
+    if intent=='needs_you':
+        needs=needs or []
+        if not needs: return 'Your Needs You queue is clear right now. Suspiciously civilised.','needs_you=0'
+        top='; '.join(f"{x['needs_you_id']}: {x['summary'][:110]}" for x in needs[:5]); return f'You have {len(needs)} open Needs You item(s). Top items: {top}',f'needs_you={len(needs)}'
+    if intent=='intake_request' and intake:
+        suffix=f" I also quarantined attachment {attachment['attachment_id']} for human review; it has not been opened or parsed." if attachment else ''
+        return f"I’ve captured this as a {product.upper()} intake ({intake['intake_id']}) and placed it in human review. I haven’t charged you, started fulfilment, or promised a delivery time yet.{suffix}",f"intake={intake['intake_id']}; state=pending_operator_review"
+    if intent=='attachment_received' and attachment:
+        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined"
+    if intent=='pricing_info': return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
+    if intent=='status_request' and statuses is not None: return _status_text(statuses)
+    if intent=='status_request': return 'I can help with status, but this conversation has not yet been identity-bound to an order by DIO. I’ve put the request in the human queue rather than exposing customer information to an unverified chat.','public_status_lookup=identity_binding_required'
+    if intent=='translation_info': return 'Yes. DIO’s localisation path is designed to translate structured meaning before final rendering, so terminology, grade level and layout can be checked rather than blindly translating a finished document. Human language review remains available as a gate.','translation=structured_meaning_first'
+    if intent=='formatting_info': return 'Yes. DIO Format treats presentation as a governed render step: templates, document geometry, headings, tables, references, PowerPoint masters and delivery profiles can be applied without rewriting the underlying content.','formatting=render_layer'
+    if intent=='product_info' and product: return PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.'),f'product={product}'
+    if intent=='general_info': return 'I’m Lilith, DIO’s public concierge. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
+    return 'I’m not confident enough to route that safely yet. Tell me whether this is about HOMS, Evidex, Sophia, VAMP, translation/formatting, an uploaded file, or an existing DIO job and I’ll put it on the right rail.','classification=unresolved'
+
+def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->dict[str,Any]:
+    presence_root=dio_root/str(cfg.get('state_root','state/presence')); event_log=dio_root/str(cfg.get('event_log','telemetry/dio_events.jsonl')); routes_path=dio_root/str(cfg.get('routes_path','config/routes.json'))
+    role=_role(envelope); conv=load_or_create_conversation(presence_root,envelope,role); text=str(envelope.get('text') or '').strip(); correlation=conv['conversation_id']
+    emit_event(event_log,'presence.message_received','info','presence_conversation',correlation,{'channel':envelope.get('channel'),'role':role,'message_type':envelope.get('message_type','text'),'campaign_hint':(conv.get('attribution') or {}).get('campaign_hint')},correlation)
+    attachment_record=None
+    if envelope.get('attachment'):
+        try:
+            attachment_record=validate_and_store_attachment(presence_root,correlation,envelope['attachment'],cfg)
+            emit_event(event_log,'presence.attachment_quarantined','action','presence_attachment',attachment_record['attachment_id'],{'channel':envelope.get('channel'),'sha256':attachment_record['sha256'],'size_bytes':attachment_record['size_bytes'],'automatic_processing':False},correlation)
+        except AttachmentError as exc:
+            emit_event(event_log,'presence.attachment_rejected','warning','presence_conversation',correlation,{'reason':str(exc)},correlation)
+            return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':{'intent':'attachment_rejected','product':None,'confidence':1.0,'source':'policy','reason':str(exc)},'reply':{'text':f"I refused that upload safely: {exc}",'mode':'text','voice_eligible':False},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':None,'intake':None}
+    decision=route_message(text,role,routes_path).as_dict()
+    if attachment_record and decision['intent'] in {'unknown','general_info'}:
+        decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
+    ok,reason=authorize(role,decision['intent'])
+    if not ok: decision={'intent':'unknown','product':None,'confidence':1.0,'source':'policy','reason':reason}
+    summary=None; needs=None; intake=None; statuses=None
+    if decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
+    elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
+    elif decision['intent']=='intake_request' and decision.get('product'):
+        intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
+        item=create_needs_you(presence_root,reason='public_intake_review',conversation_id=correlation,product=decision['product'],summary=f"Review {decision['product']} intake {intake['intake_id']}: {text[:300]}")
+        emit_event(event_log,'presence.intake_received','action','presence_intake',intake['intake_id'],{'product':decision['product'],'needs_you_id':item['needs_you_id'],'automatic_fulfilment':False,'attachment_ids':intake.get('attachment_ids',[])},correlation)
+    elif decision['intent']=='attachment_received' and attachment_record:
+        item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary=f"Review quarantined attachment {attachment_record['attachment_id']}: {attachment_record['original_file_name']}")
+        emit_event(event_log,'presence.attachment_review_required','action','presence_attachment',attachment_record['attachment_id'],{'needs_you_id':item['needs_you_id']},correlation)
+    elif decision['intent']=='status_request':
+        binding=load_status_binding(presence_root,correlation)
+        if binding:
+            statuses=bound_order_status(dio_root,binding)
+            emit_event(event_log,'presence.status_disclosed','info','presence_conversation',correlation,{'binding_id':binding['binding_id'],'order_count':len(statuses),'disclosure':'minimal_status_only'},correlation)
+        else:
+            item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
+            emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
+    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record); reply=draft_with_ollama(decision,facts,fallback)
+    update_conversation(presence_root,conv,decision['intent'],decision.get('product'))
+    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory'},correlation)
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'})},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses}

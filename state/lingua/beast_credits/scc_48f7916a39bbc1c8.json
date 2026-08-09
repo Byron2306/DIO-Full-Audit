@@ -1,0 +1,35 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:33edf5e11dc518f85e22a444133149712a1c2fdf0cc61b75e2eadc53c16bfc44",
+    "ref": "blobs/sha256/33edf5e11dc518f85e22a444133149712a1c2fdf0cc61b75e2eadc53c16bfc44.json"
+  },
+  "artifact_type": "verified_capability",
+  "avoided_tokens_estimate": 20,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.9,
+  "created_at": "2026-08-09T11:03:36.429985+00:00",
+  "credit_id": "scc_48f7916a39bbc1c8",
+  "evidence_packet_id": "risk:Setswana:sha256:0235d4d9b7a68",
+  "impact_fingerprint_hash": "sha256:78bf1ab15839c6955ccf2735c19891bf12e737ae0159216f0c6116f7b9e66fac",
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "asserts_translation_truth": false,
+    "authority": "conservative_machine_risk_escalation",
+    "domain": "Water-quality operations",
+    "issue": "Technical terms 'probe', 'microbiological', 'turbidity', and 'degrees Celsius' are retained in English; verify that this is acceptable for the target audience or if local equivalents exist.",
+    "severity": "medium",
+    "target_language": "Setswana"
+  },
+  "policy_version": "dio_lingua_conservative_risk_learning_v1",
+  "repo_fingerprint": "sha256:78bf1ab15839c6955ccf2735c19891bf12e737ae0159216f0c6116f7b9e66fac",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "dio_lingua_risk_pattern",
+  "verified_tests": [
+    "visible",
+    "hidden"
+  ],
+  "version": "1.0"
+}

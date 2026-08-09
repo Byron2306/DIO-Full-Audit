@@ -1,0 +1,103 @@
+{
+  "schema": "knowedge.homs_caps_visual_asset_pack_index.v1",
+  "created_at": "2026-08-07T21:49:22+00:00",
+  "pack_count": 1,
+  "skipped_count": 0,
+  "assessment_family_counts": {
+    "source_based_plus_extended_response": 1
+  },
+  "render_status_counts": {
+    "rendered": 1
+  },
+  "theme_confidence_counts": {
+    "high": 1
+  },
+  "rows": [
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "grade": 10,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "alignment_notes": [
+        "Requested focus shares CAPS term/theme signals: atmosphere, composition, geography, geomorphology, grades, heating."
+      ],
+      "theme_quality": {
+        "confidence": "high",
+        "render_allowed": true,
+        "content_lines": [
+          "Information Systems (GIS)",
+          "The atmosphere",
+          "Composition and structure of the atmosphere",
+          "Heating of the atmosphere",
+          "Moisture in the atmosphere",
+          "Reading and interpreting synoptic weather maps",
+          "Geomorphology"
+        ],
+        "admin_lines": [
+          "Guidelines and Subject Assessment Guidelines with the",
+          "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+          "(c) National Protocol for Assessment Grades R-12."
+        ],
+        "content_terms": [
+          "atmosphere",
+          "climate",
+          "economic geography",
+          "geomorphology",
+          "gis",
+          "map",
+          "river",
+          "rural",
+          "settlement",
+          "synoptic",
+          "urban",
+          "weather"
+        ]
+      },
+      "render_status": "rendered",
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        }
+      ],
+      "assets": [
+        {
+          "title": "Synoptic Weather Map And Data",
+          "svg": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_caps_visual_asset_packs_geo_test_v2/fet_geography/grade_10/term_1/assessment_visuals/01_synoptic_weather_map_and_data.svg",
+          "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_caps_visual_asset_packs_geo_test_v2/fet_geography/grade_10/term_1/assessment_visuals/01_synoptic_weather_map_and_data.png",
+          "status": "png_rendered"
+        }
+      ],
+      "folder": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_caps_visual_asset_packs_geo_test_v2/fet_geography/grade_10/term_1"
+    }
+  ],
+  "skipped": []
+}

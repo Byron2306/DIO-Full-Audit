@@ -1,0 +1,37 @@
+{
+  "schema": "dio.market_observation.v1",
+  "observation_id": "OBS-CA5604D16952",
+  "observed_at": "2026-08-08",
+  "recorded_at": "2026-08-08T22:11:08+00:00",
+  "source": {
+    "kind": "prospect_registry_wave",
+    "wave": "wave4",
+    "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/DIO_Prospect_Intelligence_Wave4.zip",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+    "registry_hypothesis_id": "W4-HYP-0011",
+    "target_id": "W4-TGT-0141",
+    "source_reference": "https://nascee.org.za/contact-us"
+  },
+  "product_line_id": "EVIDEX_PACK",
+  "market": {
+    "organisation": "NASCEE",
+    "segment": "Education ecosystem",
+    "province_or_reach": "National",
+    "buyer_unit": "M&E/Impact; Grants/Donor Reporting; Programme Director/COO; Finance/Compliance; Knowledge Management"
+  },
+  "signals": {
+    "attack_score": 91.1,
+    "route_state": "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE",
+    "route_mode": "public_proof_content_only",
+    "proof_readiness_score": 5.0,
+    "timing_score": 3.5,
+    "seasonal_urgency": "MEDIUM",
+    "seasonal_trigger": "Grant/reporting timing is organisation/funder-specific; verify reporting cycle or active funding requirement."
+  },
+  "controls": {
+    "outreach_state": "Research only",
+    "consent_status": "Not recorded",
+    "do_not_contact": "No",
+    "high_score_is_permission": false
+  }
+}

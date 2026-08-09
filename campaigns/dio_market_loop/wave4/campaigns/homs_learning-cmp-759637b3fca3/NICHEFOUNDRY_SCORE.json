@@ -1,0 +1,130 @@
+{
+  "schema": "dio.nichefoundry.score_receipt.v1",
+  "scored_at": "2026-08-08T22:11:08.739Z",
+  "engine": {
+    "root": "/home/byron/Downloads/NicheFoundry_Phase11",
+    "studio_id": "dio_proof_led_services",
+    "studio_version": "1.0.0",
+    "opportunity_schema": "nichefoundry.opportunity.v1"
+  },
+  "source": {
+    "input": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/dio_market_loop/wave4/campaigns/homs_learning-cmp-759637b3fca3/foundry_opportunity.json",
+    "opportunity_id": "opp_41b9822ca6bef20c"
+  },
+  "result": {
+    "decision": "develop",
+    "opportunity_score": 70,
+    "score_confidence": 0.904,
+    "studio_fit_passed": true,
+    "studio_fit_score": 0.764,
+    "benefit_index": 0.781,
+    "risk_index": 0.26,
+    "explanation": [
+      "Studio fit passed at 0.764.",
+      "Benefit index 0.781; risk index 0.26.",
+      "7 signals came from operator/provider evidence."
+    ]
+  },
+  "scored_opportunity": {
+    "schema": "nichefoundry.opportunity.v1",
+    "opportunity_id": "opp_41b9822ca6bef20c",
+    "studio_id": "dio_proof_led_services",
+    "title": "HOMS Learning Studio: proof before promises",
+    "topic": "HOMS Learning Studio proof-led pilot campaign for South African schools, tutors, extra-class providers and education publishers",
+    "angle": "One curriculum spine should drive the explanation, activity, worksheet, assessment, memo and optional video lesson. Show the real proof artifact, the human approval boundary and the bounded pilot offer.",
+    "viewer_job": "decide whether HOMS Learning Studio can solve this workflow pain without surrendering professional control",
+    "discovery_source": "dio_registry_hivenance_bridge",
+    "source_reference": null,
+    "source_hints": [
+      "config/media_layers.json",
+      "DIO immutable hypothesis W4-HYP-0003",
+      "DIO Prospect Intelligence Wave 4"
+    ],
+    "competitor_examples": [],
+    "competitor_count": null,
+    "series_hint": "Proof-bearing workflow services for South African education and evidence teams",
+    "content_role": "commercial_intent",
+    "lifecycle": "discovered",
+    "operator_notes": "Generated from campaign CMP-759637B3FCA3. Contact details and named-target personalisation are intentionally excluded. Publication gate: operator_approval_required; outreach gate: blocked.",
+    "signals": {
+      "series_potential": 0.72,
+      "visual_potential": 0.78,
+      "monetization_alignment": 0.88,
+      "evidence_availability": 0.95,
+      "production_burden": 0.2,
+      "policy_risk": 0.42,
+      "freshness_risk": 0.08
+    },
+    "discovered_at": "2026-08-08T22:11:08.735Z",
+    "updated_at": "2026-08-08T22:11:08.735Z",
+    "content_hash": "c2799f6cc12196afcb9d9d1d83b6cfa828e5d8d17ed2dcb5b0accd35520d3ff4",
+    "fit": {
+      "passed": true,
+      "score": 0.764,
+      "threshold": 0.22,
+      "studio_id": "dio_proof_led_services",
+      "matched_keywords": [
+        "proof-led",
+        "human approval",
+        "bounded pilot"
+      ],
+      "matched_examples": [
+        "show a CAPS-aligned assessment pack from brief to educator approval",
+        "demonstrate claim mapping and human approval in an evidence workflow",
+        "run a bounded proof-led pilot without replacing professional judgement"
+      ],
+      "matched_domain_terms": [
+        "proof",
+        "led",
+        "south",
+        "african"
+      ],
+      "negative_matches": [],
+      "explanation": "The brief matches DIO Proof-Led Services through 10 niche signals."
+    },
+    "opportunity_score": 70,
+    "score_confidence": 0.904,
+    "decision": "develop",
+    "benefit_index": 0.781,
+    "risk_index": 0.26,
+    "normalized_signals": {
+      "audience_demand": 0.57,
+      "content_gap": 0.58,
+      "series_potential": 0.72,
+      "visual_potential": 0.78,
+      "monetization_alignment": 0.88,
+      "evidence_availability": 0.95,
+      "production_burden": 0.2,
+      "policy_risk": 0.42,
+      "freshness_risk": 0.08,
+      "studio_authority_fit": 1
+    },
+    "signal_provenance": {
+      "audience_demand": "documented_proxy_heuristic",
+      "content_gap": "documented_proxy_heuristic",
+      "series_potential": "operator_or_provider_signal",
+      "visual_potential": "operator_or_provider_signal",
+      "monetization_alignment": "operator_or_provider_signal",
+      "evidence_availability": "operator_or_provider_signal",
+      "production_burden": "operator_or_provider_signal",
+      "policy_risk": "operator_or_provider_signal",
+      "freshness_risk": "operator_or_provider_signal",
+      "studio_authority_fit": "studio_pack_fit_engine"
+    },
+    "scoring_weights": {
+      "audience_demand": 0.18,
+      "content_gap": 0.16,
+      "studio_authority_fit": 0.18,
+      "series_potential": 0.12,
+      "visual_potential": 0.1,
+      "monetization_alignment": 0.09,
+      "evidence_availability": 0.17
+    },
+    "score_explanation": [
+      "Studio fit passed at 0.764.",
+      "Benefit index 0.781; risk index 0.26.",
+      "7 signals came from operator/provider evidence."
+    ],
+    "scored_at": "2026-08-08T22:11:08.739Z"
+  }
+}

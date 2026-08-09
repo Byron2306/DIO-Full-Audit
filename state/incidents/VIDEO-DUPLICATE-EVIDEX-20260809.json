@@ -1,0 +1,15 @@
+{
+  "schema": "dio.incident.v1",
+  "incident_id": "VIDEO-DUPLICATE-EVIDEX-20260809",
+  "severity": "action",
+  "state": "operator_decision_required",
+  "created_at": "2026-08-09T00:06:19+00:00",
+  "entity_type": "video",
+  "entity_id": "evidex-9ef42c22313238c4",
+  "summary": "Two concurrent private upload requests created one extra Evidex video.",
+  "canonical_video_id": "oBrUwEno_eA",
+  "duplicate_video_id": "3VHo1dPd4F4",
+  "privacy_status": "private",
+  "containment": "Both videos remain private. Per-episode upload locking is now enforced.",
+  "next_action": "Delete the duplicate only after explicit operator confirmation."
+}

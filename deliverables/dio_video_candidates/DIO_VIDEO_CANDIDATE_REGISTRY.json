@@ -1,0 +1,97 @@
+{
+  "schema": "dio.video_candidate_registry.v1",
+  "generated_at": "2026-08-09T00:08:05+00:00",
+  "policy": {
+    "initial_upload_privacy": "private",
+    "human_watch_through_required": true,
+    "explicit_upload_authority_required": true,
+    "public_release_separate_from_upload": true
+  },
+  "counts": {
+    "total": 2,
+    "preflight_passed": 2,
+    "awaiting_human_review": 0,
+    "private_upload_ready": 0,
+    "uploaded_private": 2
+  },
+  "candidates": [
+    {
+      "product_id": "evidex",
+      "episode_id": "evidex-9ef42c22313238c4",
+      "title": "Evidex: Turn Scattered Evidence into One Traceable Review Pack",
+      "status": "uploaded_private_verified",
+      "channel": {
+        "id": "UCc916iuoPLseg05t5J5leaQ",
+        "title": "DIO workflows",
+        "handle": "@dioworkflows"
+      },
+      "duration_seconds": 66.021333,
+      "video": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/final.mp4",
+      "thumbnail": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/thumbnail.png",
+      "captions": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/captions.srt",
+      "candidate": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/FINAL_PUBLICATION_CANDIDATE.json",
+      "compliance_report": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/compliance_report.json",
+      "preflight_passed": true,
+      "private_upload_ready": false,
+      "gates": {
+        "private_upload_only": true,
+        "video_watch_through_approved": true,
+        "voice_approved": true,
+        "thumbnail_approved": true,
+        "metadata_approved": true,
+        "youtube_upload_authorised": true
+      },
+      "youtube": {
+        "video_id": "oBrUwEno_eA",
+        "url": "https://studio.youtube.com/video/oBrUwEno_eA/edit",
+        "watch_url": "https://www.youtube.com/watch?v=oBrUwEno_eA",
+        "privacy_status": "private",
+        "channel": {
+          "id": "UCc916iuoPLseg05t5J5leaQ",
+          "title": "DIO workflows"
+        },
+        "uploaded_at": "2026-08-09T00:06:18.598Z",
+        "verification_passed": true
+      }
+    },
+    {
+      "product_id": "homs",
+      "episode_id": "homs-c32b49867157b9ad",
+      "title": "HOMS Marking Relief: Turn a Marking Batch into a Review Pack",
+      "status": "uploaded_private_verified",
+      "channel": {
+        "id": "UCc916iuoPLseg05t5J5leaQ",
+        "title": "DIO workflows",
+        "handle": "@dioworkflows"
+      },
+      "duration_seconds": 66.021333,
+      "video": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/final.mp4",
+      "thumbnail": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/thumbnail.png",
+      "captions": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/captions.srt",
+      "candidate": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/FINAL_PUBLICATION_CANDIDATE.json",
+      "compliance_report": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/compliance_report.json",
+      "preflight_passed": true,
+      "private_upload_ready": false,
+      "gates": {
+        "private_upload_only": true,
+        "video_watch_through_approved": true,
+        "voice_approved": true,
+        "thumbnail_approved": true,
+        "metadata_approved": true,
+        "youtube_upload_authorised": true
+      },
+      "youtube": {
+        "video_id": "vdKPHe6Jg4Q",
+        "url": "https://studio.youtube.com/video/vdKPHe6Jg4Q/edit",
+        "watch_url": "https://www.youtube.com/watch?v=vdKPHe6Jg4Q",
+        "privacy_status": "private",
+        "channel": {
+          "id": "UCc916iuoPLseg05t5J5leaQ",
+          "title": "DIO workflows"
+        },
+        "uploaded_at": "2026-08-09T00:06:14.561Z",
+        "verification_passed": true
+      }
+    }
+  ]
+}

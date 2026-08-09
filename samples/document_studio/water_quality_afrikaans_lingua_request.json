@@ -1,0 +1,25 @@
+{
+  "schema": "dio.document_studio.request.v1",
+  "job_id": "DIO-DOC-GOLDEN-001",
+  "semantic_object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "title": "Community Water Quality Monitoring Procedure",
+  "document_path": "water_quality_procedure_controlled.txt",
+  "service": "translation",
+  "source_language": "English",
+  "target_language": "Afrikaans",
+  "audience": "Municipal field technicians",
+  "document_domain": "Water-quality operations",
+  "style_standard": "Plain South African technical language; preserve operational meaning",
+  "protected_tokens": ["pH", "NTU", "QMS-07", "PBT"],
+  "preferred_terms": [
+    {"source": "personal protective equipment", "target": "persoonlike beskermende toerusting", "abbreviation": "PBT"},
+    {"source": "turbidity", "target": "troebelheid", "abbreviation": ""},
+    {"source": "chain of custody", "target": "bewaringsketting", "abbreviation": ""}
+  ],
+  "owner_authorized": true,
+  "remote_processing_approved": true,
+  "certified_translation_required": false,
+  "human_language_review_required": true,
+  "provider": "gemini"
+}

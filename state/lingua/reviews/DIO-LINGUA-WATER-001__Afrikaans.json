@@ -1,0 +1,71 @@
+{
+  "schema": "dio.lingua.human_approval.v1",
+  "approval_state": "approved",
+  "semantic_object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "target_language": "Afrikaans",
+  "domain": "Water-quality operations",
+  "origin": {
+    "product": "document_studio",
+    "artifact_type": "document",
+    "artifact_id": "DIO-LINGUA-WATER-001",
+    "audience": "Municipal field technicians",
+    "channel": "document"
+  },
+  "reviewer": "Byron Bunt",
+  "reviewer_role": "Language practitioner",
+  "approved_at": "2026-08-09T11:39:58+00:00",
+  "updated_at": "2026-08-09T11:39:58+00:00",
+  "units": [
+    {
+      "unit_id": "P1",
+      "source_hash": "sha256:ae4ca5941c535365a8da742dd2bbdc26562a66d118a3091093e548920feef0fe",
+      "target_text": "Prosedure vir Gemeenskapswatergehaltemonitering",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P2",
+      "source_hash": "sha256:f9c09452413949dafbe0650d39a291b14e52adea80e9c7e016f10c44accaa34f",
+      "target_text": "Doel: Hierdie prosedure verduidelik hoe veldspanne drinkwatermonsters versamel en aanteken sodat resultate betroubaar is en na die korrekte terrein teruggespoor kan word.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P3",
+      "source_hash": "sha256:5fa9b423f038d374b2b7545169516f31213c3b78510a800e274200de427854d8",
+      "target_text": "Omvang: Dit is van toepassing op roetinemonsters wat by reservoirs, behandelingsuitlate en openbare krane versamel word. Die prosedure dek nie chemiese noodstortings of die kalibrering van laboratoriuminstrumente nie.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P4",
+      "source_hash": "sha256:a272e53fc39b49b3ebdf0382af87ccee81191dab762cc09c16bee87a30300d1a",
+      "target_text": "Verantwoordelikhede: Die spanleier kontroleer dat elke tegnikus oor persoonlike beskermende toerusting (PBT), skoon monsterbottels en 'n gekalibreerde meter beskik. Tegnici is verantwoordelik vir die voltooiing van Bewaringskettingvorm QMS-07 en die aanmelding van onveilige toestande.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P5",
+      "source_hash": "sha256:e6d80845288e1038283fce35bcef4338071e104294483476ba4b19b9183e6923",
+      "target_text": "Prosedure: Laat die kraan 2 minute lank loop voordat 'n monster geneem word. Spoel die sonde met skoon water af, maar moenie 'n steriele mikrobiologiese bottel uitspoel nie. Teken die pH en troebelheid in NTU op die terrein aan. Monsters moet in 'n koelhouer tussen 2 en 8 grade Celsius geplaas word.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P6",
+      "source_hash": "sha256:d5cffac5f5de7b263acb17219dfd1cc55aa9670249a668392aef211438f236eb",
+      "target_text": "Data-aantekening: Skryf die terreinkode, datum, tyd en monsternemer se voorletters op die bottel en QMS-07. Maak regstellings deur 'n enkele streep deur die fout te trek; korreksievloeistof word nie toegelaat nie. Die rede vir enige ontbrekende lesing moet aangedui word.",
+      "approved": true,
+      "flag_resolutions": []
+    },
+    {
+      "unit_id": "P7",
+      "source_hash": "sha256:2bf94e6373f0c398a51046f440a6dc53f7439500db2606458082030d89010c6c",
+      "target_text": "Eskalering: Indien pH laer as 6.5 of ho\u00ebr as 9.5 is, of troebelheid ho\u00ebr as 1 NTU is, skakel die spanleier onmiddellik. Moenie die gemeenskap inlig dat die water veilig of onveilig is voordat die gemagtigde amptenaar die resultaat hersien het nie.",
+      "approved": true,
+      "flag_resolutions": []
+    }
+  ],
+  "terms": []
+}

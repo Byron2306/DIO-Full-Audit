@@ -1,0 +1,1234 @@
+{
+  "schema": "knowedge.homs_caps_term_visual_content_matrix.v1",
+  "created_at": "2026-08-07T22:13:28+00:00",
+  "row_count": 12,
+  "skipped_count": 0,
+  "status_counts": {
+    "needs_curation": 12
+  },
+  "assessment_family_counts": {
+    "source_based_plus_essay": 12
+  },
+  "theme_confidence_counts": {
+    "low": 12
+  },
+  "rows": [
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 10,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 10 Term 1 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 10 Term 1 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 10,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 10 Term 2 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 10 Term 2 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 10,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [
+        "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die"
+      ],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die"
+      ],
+      "topic_scores": [
+        {
+          "line": "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die",
+          "score": 0
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 10,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 10 Term 4 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 10 Term 4 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 11,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 11 Term 1 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 11 Term 1 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 11,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 11 Term 2 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 11 Term 2 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 11,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [
+        "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die"
+      ],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die"
+      ],
+      "topic_scores": [
+        {
+          "line": "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die",
+          "score": 0
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 11,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 11 Term 4 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 11 Term 4 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 12,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 12 Term 1 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 12 Term 1 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 12,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 12 Term 2 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 12 Term 2 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 12,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [
+        "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die"
+      ],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die"
+      ],
+      "topic_scores": [
+        {
+          "line": "provinsies bekend staan, uitgeoefen het. In terme van die geografiese gebied wat hierdie koninkryk beslaan het, was dit die",
+          "score": 0
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    },
+    {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "subject_id": "history",
+      "grade": 12,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "status": "needs_curation",
+      "render_eligible": false,
+      "candidate_count": 1,
+      "caps_source": "Geskiedenis (History)",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "apartheid",
+        "civil",
+        "cold war",
+        "colonial",
+        "nationalism",
+        "resistance",
+        "revolution",
+        "source",
+        "war"
+      ],
+      "caps_theme_candidates": [],
+      "content_lines": [],
+      "admin_or_noise_lines": [],
+      "theme_confidence": "low",
+      "topic_focus": [
+        "History Grade 12 Term 4 CAPS content",
+        "History assessment theme and skills"
+      ],
+      "topic_scores": [
+        {
+          "line": "History Grade 12 Term 4 CAPS content",
+          "score": -29
+        },
+        {
+          "line": "History assessment theme and skills",
+          "score": -29
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        }
+      ],
+      "visual_kinds": [
+        "source_extract",
+        "evidence_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table"
+      ]
+    }
+  ],
+  "skipped": [],
+  "asset_pack_out": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_caps_visual_asset_packs"
+}

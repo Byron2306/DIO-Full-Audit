@@ -1,0 +1,298 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Afrikaans Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Graad 12 Afrikaans Eerste Addisionele Taal: Termyn 2 Gekontroleerde Toets",
+  "canonical_profile_id": "fet.afrikaans_language",
+  "blueprint": "Hierdie gekontroleerde assessering evalueer leerders se vermoë om literêre uittreksels te ontleed, visuele media te interpreteer, aanhalings korrek te integreer met behulp van 'n beplanningshulpmiddel, en 'n samehangende argumenterende opstel te skryf.",
+  "render_shell": "question_paper",
+  "duration": "2 uur",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Afrikaans Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "2",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "literere uittreksel, karakter, tema en taalontleding",
+      "visuele geletterdheid en media-boodskapinterpretasie",
+      "aanhalingskeuse, bewysinvoeging en paragraafstruktuur",
+      "beredenerende of argumenterende skryfwerk met samehangende ontwikkeling"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Afdeling A: Literêre Uittreksel, Karakter, Tema en Taalontleding",
+      "mode": "begripstoets",
+      "instructions": "Lees die onderstaande literêre uittreksel noukeurig deur en beantwoord al die vrae wat volg.",
+      "stimulus": "Lukas het na die dorre landskap gekyk. Die wind het die stof oor die verlate werf gewaai, 'n grys sluier wat alles toegegooi het. Sy pa se woorde het nog in sy ore weerklink: 'Ons verkoop nie die grond nie, Lukas. Dit is ons bloed.' Maar Lukas het geweet die bank wag nie vir bloed nie; hulle wag vir syfers. Hy het sy hande diep in sy sakke gedruk en weggestap van die ou opstal af, sy besluit geneem. Die toekoms lê nie in hierdie stof nie, maar in die stad se harde ligte.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Verduidelik die innerlike konflik wat Lukas in hierdie uittreksel ervaar. Verwys spesifiek na sy pa se siening teenoor sy eie realiteit.",
+          "marks": 3,
+          "memo": [
+            "Lukas ervaar konflik tussen lojaliteit aan sy familiegeskiedenis/pa se tradisie ('ons bloed') en die harde ekonomiese realiteit van skuld/die bank se eise ('syfers').",
+            "Hy moet kies tussen die behoud van die plaas en sy eie oorlewing in die stad."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Watter tema word deur die kontras tussen 'stof' en 'die stad se harde ligte' gesuggereer? Motiveer jou antwoord.",
+          "marks": 3,
+          "memo": [
+            "Die tema van tradisie teenoor modernisering/verstedeliking, of hoop teenoor agteruitgang.",
+            "Die stof verteenwoordig die sterwende landelike lewe, terwyl die stadsligte nuwe geleenthede of 'n harde nuwe realiteit simboliseer."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Kyk na die sin: 'Die wind het die stof oor die verlate werf gewaai.' (a) Identifiseer die woordsoort van 'verlate'. (1) (b) Skryf hierdie sin oor in die passiewe (lydende) vorm. (2)",
+          "marks": 3,
+          "memo": [
+            "(a) Byvoeglike naamwoord (attributief). (1)",
+            "(b) Die stof is deur die wind oor die verlate werf gewaai. (2)"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Gee die korrekte vorm van die woord in hakies: Lukas moes 'n (verantwoordelik) besluit neem oor sy toekoms.",
+          "marks": 1,
+          "memo": [
+            "verantwoordelike"
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Verduidelik die figuurlike betekenis van die frase 'dit is ons bloed' soos dit deur Lukas se pa gebruik word.",
+          "marks": 2,
+          "memo": [
+            "Dit beteken die grond is deel van hul identiteit, erfenis en geskiedenis.",
+            "Dit verteenwoordig geslagte se harde werk en diep familiebande wat nie met geld gemeet kan word nie."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Kies en skryf 'n aanhaling uit die teks neer wat bewys dat Lukas reeds 'n definitiewe keuse gemaak het oor sy toekoms, en verduidelik waarom hierdie aanhaling sy vasberadenheid toon.",
+          "marks": 4,
+          "memo": [
+            "Aanhaling: '...sy besluit geneem.' of 'Die toekoms lê nie in hierdie stof nie...' (2)",
+            "Verduideliking: Dit wys hy het die emosionele band met die plaas verbreek en is gereed om die onbekende stad aan te durf ten spyte van sy pa se teenkanting (2)."
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "Bespreek hoe die atmosfeer in die eerste twee sinne van die uittreksel geskep word deur die skrywer se woordkeuse.",
+          "marks": 3,
+          "memo": [
+            "Die atmosfeer is somber, troosteloos of neerdrukkend (1).",
+            "Woorde soos 'dorre landskap', 'stof', 'verlate werf' en 'grys sluier' skep 'n visuele beeld van verval en hopeloosheid (2)."
+          ]
+        },
+        {
+          "number": "1.8",
+          "question": "Verduidelik die ironie in die feit dat Lukas se pa dink die grond kan hulle red, terwyl die bank slegs in 'syfers' belangstel.",
+          "marks": 3,
+          "memo": [
+            "Die ironie lê daarin dat die pa emosionele waarde aan die grond heg as 'lewensbron' ('bloed'), terwyl die bank dit bloot as 'n koue finansiële bate ('syfers') beskou wat hulle kan ondergang toe lei as die skuld nie betaal word nie."
+          ]
+        },
+        {
+          "number": "1.9",
+          "question": "Skryf die volgende sin in die Indirekte Rede: Lukas het gesê: 'Ek kan nie meer hier op die plaas bly nie.'",
+          "marks": 3,
+          "memo": [
+            "Lukas het gesê dat hy nie meer daar op die plaas kon bly nie.",
+            "Punte-toekenning: 'dat'-byvoeging en verandering van woordorde (1); voornaamwoordverandering 'ek' na 'hy' (1); plekwoordverandering 'hier' na 'daar' en werkwoordverandering 'kan' na 'kon' (1)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling B: Visuele Geletterdheid en Media-boodskapinterpretasie",
+      "mode": "visuele_geletterdheid",
+      "instructions": "Bestudeer die beskrywing van die gedrukte media-advertensie (Figuur A) noukeurig en beantwoord al die vrae.",
+      "stimulus": "[Figuur A: 'n Advertensie van 'Water-Suid-Afrika'. Die agtergrond toon 'n droë, gekraakte grondoppervlak onder 'n brandende son. In die middel is daar 'n groot, blink kraan waaruit 'n enkele, helder waterdruppel val. Binne-in hierdie waterdruppel is die weerspieëling van 'n groen, welige boom sigbaar. Die hoofopskrif lees: 'Elke druppel tel: Jou môre begin vandag.' Regs onder is die logo van 'Water-Suid-Afrika' met die subteks: 'Bespaar nou vir 'n volhoubare toekoms.']",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Verduidelik die simboliese kontras tussen die gekraakte grondoppervlak in die agtergrond en die groen boom wat in die waterdruppel weerspieël word.",
+          "marks": 3,
+          "memo": [
+            "Die gekraakte grond simboliseer die huidige krisis van droogte, ekologiese agteruitgang en waterskaarste (1.5).",
+            "Die groen boom in die druppel simboliseer hoop, lewe en 'n volhoubare toekoms wat slegs deur waterbesparing moontlik is (1.5)."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Wie is die teikenmark van hierdie advertensie? Motiveer jou antwoord deur na die subteks te verwys.",
+          "marks": 3,
+          "memo": [
+            "Die teikenmark is die algemene publiek / alle Suid-Afrikaanse burgers (1).",
+            "Die subteks 'Bespaar nou vir 'n volhoubare toekoms' doen 'n beroep op almal se kollektiewe verantwoordelikheid om hulpbronne te bewaar (2)."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Evalueer die doeltreffendheid van die slagspreuk (slogan): 'Elke druppel tel: Jou môre begin vandag.' Hoe oortuig dit die leser om op te tree?",
+          "marks": 3,
+          "memo": [
+            "Dit is baie doeltreffend (1).",
+            "Dit beklemtoon dat selfs klein aksies ('elke druppel') 'n groot impak het en skep 'n gevoel van dringendheid ('vandag') deur die leser direk aan te spreek met die voornaamwoord 'jou' (2)."
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Watter emosie probeer die adverteerder by die leser ontlok met hierdie visuele samestelling? Verduidelik jou antwoord.",
+          "marks": 3,
+          "memo": [
+            "Dit ontlok 'n gevoel van dringendheid en besorgdheid oor die omgewing, maar ook hoop (1).",
+            "Die droë grond wek kommer oor waterskaarste, terwyl die helder druppel met die boom hoop gee dat aksie 'n verskil kan maak (2)."
+          ]
+        },
+        {
+          "number": "2.5",
+          "question": "Identifiseer die stylfiguur of kontras wat in die slagspreuk gebruik word en verduidelik die funksie daarvan in hierdie konteks.",
+          "marks": 3,
+          "memo": [
+            "Antitese / Kontras tussen 'môre' en 'vandag' (1).",
+            "Dit beklemtoon dat die toekoms ('môre') direk afhang van die aksies wat ons nou ('vandag') neem, wat die leser aanspoor tot onmiddellike optrede (2)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling C: Aanhalingskeuse, Bewysinvoeging en Paragraafstruktuur",
+      "mode": "taalstrukture",
+      "instructions": "Bestudeer die onderstaande swak gestruktureerde paragraaf oor die literêre uittreksel in Afdeling A. Verwys na die verskafde visuele hulpmiddel, die 'language_response_planner' (Teks- en taalbeplanner), wat die volgende panele bevat: 'text panel', 'main idea', 'evidence', 'plan', 'draft', 'edit'. Beantwoord dan die vrae.",
+      "stimulus": "Swak Paragraaf:\nLukas is baie hartseer oor die plaas. Hy sê hy wil weggaan. Sy pa sê 'dit is ons bloed'. Maar Lukas luister nie en hy loop net weg stad toe want hy hou nie van stof nie.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identifiseer twee foute in die manier waarop die aanhaling ('dit is ons bloed') in die bogenoemde swak paragraaf geïntegreer is.",
+          "marks": 2,
+          "memo": [
+            "Die aanhaling is bloot in die sin ingegooi sonder 'n vloeiende inleidende frase of behoorlike sinskonstruksie (1).",
+            "Die korrekte leestekens (soos 'n dubbelpunt of komma voor die aanhaling en dubbele aanhalingstekens vir direkte rede) ontbreek (1)."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Gebruik die 'evidence' (bewys) en 'draft' (konsep) panele van die 'language_response_planner' om hierdie paragraaf te herstruktureer. Skryf 'n verbeterde paragraaf van 40-50 woorde waarin jy 'n duidelike hoofidee (main idea) stel, die aanhaling korrek en vloeiend integreer met die regte leestekens, en logiese samehang (kohesie) verseker.",
+          "marks": 5,
+          "memo": [
+            "Hoofidee duidelik gestel (Lukas se besluit om die plaas te verlaat weens finansiële druk) (1).",
+            "Korrekte integrasie van die aanhaling met leestekens (bv. Sy pa herinner hom daaraan dat die grond hulle 'bloed' is, maar Lukas besef dat syfers belangriker is.) (2).",
+            "Logiese vloei, samehang en korrekte woordtelling (40-50 woorde) (2).",
+            "Voorbeeld van goeie paragraaf: Lukas staar na 'n onsekere toekoms weens die plaas se finansiële krisis. Alhoewel sy pa pleit dat die grond hulle 'bloed' is, besef Lukas dat sentiment nie die bank sal tevrede stel nie. Gevolglik neem hy die moeilike besluit om na die stad te vertrek vir beter geleenthede. (48 woorde)"
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Verduidelik hoe die 'edit' (redigeer) paneel van die 'language_response_planner' 'n leerder kan help om die finale weergawe van hul paragraaf te verbeter voordat dit ingedien word.",
+          "marks": 3,
+          "memo": [
+            "Dit help die leerder om te fokus op spelling- en grammatikafoute, veral die korrekte leestekengebruik by aanhalings (1).",
+            "Dit moedig die leerder aan om woordtelling en sinslengte te kontroleer vir beter vloei (1).",
+            "Dit help om herhalings of onnodige inligting te skrap om die argument meer bondig en kragtig te maak (1)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling D: Beredenerende of Argumenterende Skryfwerk",
+      "mode": "opstel_of_literere_reaksie",
+      "instructions": "Kies EEN van die volgende onderwerpe en skryf 'n beredenerende of argumenterende opstel van 200-250 woorde. Gebruik die 'language_response_planner' se panele ('main idea', 'plan', 'draft', 'edit') om jou skryfstuk te beplan. Jou beplanning moet duidelik bo-aan jou opstel getoon word.",
+      "stimulus": "Onderwerp 1:\n'Die stad bied beter geleenthede vir die jeug as die platteland.' Bespreek hierdie stelling krities vanuit 'n argumenterende perspektief.\n\nOF\n\nOnderwerp 2:\n'Tradisie is 'n anker wat ons terughou, nie 'n riglyn wat ons help nie.' Skryf 'n beredenerende opstel waarin jy beide kante van hierdie saak ondersoek.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "Skryf 'n beredenerende of argumenterende opstel van 200-250 woorde oor jou gekose onderwerp. Toon jou beplanning deur gebruik te maak van die struktuur in die 'language_response_planner'.",
+          "marks": 20,
+          "memo": [
+            "Die opstel word geassesseer volgens die amptelike CAPS-rubriek vir Lang Skryfstukke (20 punte).",
+            "Inhoud en Beplanning (10 punte): Die leerder moet 'n duidelike standpunt inneem, relevante argumente verskaf en die beplanningspanele ('main idea', 'plan') effektief gebruik.",
+            "Taal, Styl en Redigering (6 punte): Korrekte woordorde, gepaste register, ryk woordeskat en bewus wees van die 'edit'-fase.",
+            "Struktuur en Samehang (4 punte): Inleiding, liggaam en slot moet logies vloei met gepaste oorgangskonjunktiewe."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Inhoud en Beplanning (Afdeling D)",
+      "marks": 10,
+      "descriptor": "Toon uitstekende begrip van die onderwerp; argumente is hoogs oortuigend en logies gestruktureer. Beplanning met die beplanner is volledig en effektief aangewend."
+    },
+    {
+      "criterion": "Taal, Styl en Redigering (Afdeling D)",
+      "marks": 6,
+      "descriptor": "Taalgebruik is feitlik foutloos met 'n gepaste formele register vir 'n argumenterende opstel. Woordeskat is ryk en gevarieerd."
+    },
+    {
+      "criterion": "Struktuur en Samehang (Afdeling D)",
+      "marks": 4,
+      "descriptor": "Die opstel toon 'n duidelike inleiding, samehangende paragrawe met goeie oorgange, en 'n sterk, logiese slot."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Kontroleer dat die totale punte presies uitwerk op 70.",
+    "Beoordeel of die taalvlak gepas is vir Graad 12 Eerste Addisionele Taal of Huistaal leerders.",
+    "Verseker dat die 'language_response_planner' fisies of visueel aan leerders beskikbaar gestel word tydens die assessering.",
+    "Kontroleer dat die memorandum voorsiening maak vir alternatiewe, logiese interpretasies deur leerders."
+  ]

@@ -1,0 +1,37 @@
+{
+  "schema": "knowedge.campaign_visual_review.v1",
+  "product_id": "homs",
+  "reviewed_at": "2026-08-08T18:13:46Z",
+  "assets": [
+    {
+      "asset_id": "homs_hero",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["website_hero", "campaign_key_art"],
+      "note": "Strong educator-led composition with clear space for copy. Must not be presented as a real client photograph."
+    },
+    {
+      "asset_id": "homs_exam_proof",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["exam_studio_context"],
+      "note": "Useful subject-aware assessment context. Label as illustrative; do not use as proof of a client output."
+    },
+    {
+      "asset_id": "homs_marking_proof",
+      "status": "rejected",
+      "allowed_uses": [],
+      "note": "Pseudo-document text is too visible for publication. Use controlled real proof artifacts instead."
+    },
+    {
+      "asset_id": "homs_learning_companion",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["learning_companion_campaign"],
+      "note": "The connected topic artifacts read clearly as illustrative education work. Do not present it as a completed client pack."
+    },
+    {
+      "asset_id": "homs_video_lesson",
+      "status": "approved_as_synthetic_campaign_art",
+      "allowed_uses": ["video_lesson_campaign"],
+      "note": "Useful media-production context. Pseudo-document text must remain background-only and the image cannot be used as proof of curriculum accuracy."
+    }
+  ]
+}

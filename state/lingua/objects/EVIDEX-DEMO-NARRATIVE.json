@@ -1,0 +1,163 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "EVIDEX-DEMO-NARRATIVE",
+  "domain": "Grant reporting",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "evidex",
+    "artifact_type": "evidence_narrative",
+    "artifact_id": "EVIDEX-DEMO-NARRATIVE",
+    "source_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/phase1_demo_v4/evidex/evidex-120d089d3bce3548e92d/evidex_engine/output/Client_organization_to_confirm_Grant_reporting_evidence_pack_for_Q2_donor_submission_To_be_confirmed_to_To_be_confirmed/02_NARRATIVE/narrative_justification.docx",
+    "extraction_method": "docx_xml",
+    "audience": "NGO stakeholder",
+    "channel": "pdf",
+    "profile": "",
+    "privacy_domain": "institutional"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:f0c2dba9615fa7c02d70adc11521807292e024abff3d75bd9db62671f7e59c16",
+    "units": [
+      {
+        "unit_id": "P1",
+        "unit_type": "title",
+        "source_text": "Narrative Justification \u2014 Grant reporting evidence pack for Q2 donor submission",
+        "source_hash": "sha256:37218279561149cffb235fb44b08ccd940d8d75c14a67698c66b9002e079e049",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P2",
+        "unit_type": "body",
+        "source_text": "Overview",
+        "source_hash": "sha256:d4b1ea5708dd532930a85188b45aff6f0a3ed458500c7577e0127a538eb0d100",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P3",
+        "unit_type": "body",
+        "source_text": "This narrative summarizes progress against KPIs for the reporting period **To be confirmed to To be confirmed**.",
+        "source_hash": "sha256:c5ca6fe4699ad345885f6f52d7e268daef8bb7c148b1d9bd6972a789541ad21a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P4",
+        "unit_type": "body",
+        "source_text": "Results against KPIs",
+        "source_hash": "sha256:c7530cbec22fa39811b11f324882f3798d397dff917d82646d39d53b5609ba80",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P5",
+        "unit_type": "body",
+        "source_text": "1. Evidence request and source materials organized",
+        "source_hash": "sha256:b4f7c9f90a3b7ceaa2f92c626cbf931a3189f760758cc0e0ca4d4fdd384e94dd",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P6",
+        "unit_type": "labelled_instruction",
+        "source_text": "Target: Complete evidence pack; Actual: Candidate evidence received",
+        "source_hash": "sha256:e48d250aca4a0a69b33ad7c800218d85d38a2a9e4ebdc9258a861b1b5ffb8046",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P7",
+        "unit_type": "labelled_instruction",
+        "source_text": "Measurement: Email request, listed attachments, and source notes",
+        "source_hash": "sha256:44cbb845d5cc839b60e60346b2e337b3428426804ceb67c0bc0f90ba90d6b4b4",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P8",
+        "unit_type": "labelled_instruction",
+        "source_text": "Evidence summary: Evidence found in autorelease_source_email.txt supporting measurement: Email request, listed attachments, and source notes.",
+        "source_hash": "sha256:371b2b24c62929766d5c2bff0f60e5f6267c6fcdf52d4dd754a0170e3d424c0a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P9",
+        "unit_type": "labelled_instruction",
+        "source_text": "Key sources: autorelease_source_email.txt",
+        "source_hash": "sha256:57b754ee4e46d72f4ad4c9c6136563cc29cdf28d12b0a203a6773b44bc73f69b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P10",
+        "unit_type": "body",
+        "source_text": "Data integrity & audit trail",
+        "source_hash": "sha256:8eab8a8bdf8f79f2c09407858a96e70e0408958a4ad2dc0c2c7b8c1385c42057",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P11",
+        "unit_type": "body",
+        "source_text": "All referenced sources are copied into `03_SOURCES/` with filenames preserved. The evidence table links each KPI to source filenames.",
+        "source_hash": "sha256:de63d76bb55d29f8e69951280cf4ab9593458082ee67f16a2f60b6557be3386d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P12",
+        "unit_type": "body",
+        "source_text": "Risks / flags",
+        "source_hash": "sha256:b8f74268c719d264d1311a7c2e9a5d1536083d4c1b7b2a6ad0e4ebd68f365f26",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P13",
+        "unit_type": "labelled_instruction",
+        "source_text": "Known gap: Client organization, reporting period, donor template, and KPI list may need confirmation.",
+        "source_hash": "sha256:dbe3ab1c10825bbd260f6cd5e2cd27717089e175f23fd18954a592c52b6ee944",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P14",
+        "unit_type": "labelled_instruction",
+        "source_text": "Known gap: Original route reason: Matched route keywords: grant, reporting, evidence pack, kpi, funder, donor, monitoring.",
+        "source_hash": "sha256:088c2a3271c71d562e99639215e808180cd8906b4d6de0ce501bb991ef518a4a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P15",
+        "unit_type": "labelled_instruction",
+        "source_text": "Known gap: Original evidence extract: Please prepare the funder reporting evidence pack. We have KPI proof, attendance registers, photos, invoices, and monitoring notes that need to be mapped for the donor report.",
+        "source_hash": "sha256:6c653115f59cbaa2616d36af498e8693d8e7fc242f9180a4e7ce368aecb2e2aa",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:f0c2dba9615fa7c02d70adc11521807292e024abff3d75bd9db62671f7e59c16",
+      "changed_units": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8",
+        "P9",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T11:34:50+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T11:34:50+00:00"
+}

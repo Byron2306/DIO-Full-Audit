@@ -1,0 +1,337 @@
+{
+  "schema": "dio.vamp_snapshot.v1",
+  "job_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+  "created_at": "2026-08-08T20:53:20+00:00",
+  "profile": {
+    "profile_id": "university_generic_v1",
+    "version": "1.0.0",
+    "institution": "Institution-neutral university profile",
+    "terminology": {
+      "domain": "Performance domain",
+      "objective": "Objective",
+      "evidence": "Supporting evidence",
+      "review_cycle": "Review cycle"
+    }
+  },
+  "review": {
+    "year": 2026,
+    "months": [
+      "2026-01",
+      "2026-02"
+    ],
+    "privacy_mode": "redacted_demo"
+  },
+  "metrics": {
+    "evidence_records": 5,
+    "unique_hashes": 5,
+    "objectives_total": 6,
+    "objectives_evidence_backed": 3,
+    "objectives_partial": 0,
+    "objectives_declared_no_evidence": 1,
+    "objectives_gap": 2,
+    "evidence_backed_pct": 50.0,
+    "accepted_mappings": 3,
+    "candidate_mappings": 1,
+    "duplicates_suppressed": 0,
+    "unmapped_evidence": 1
+  },
+  "domains": [
+    {
+      "code": "DEVELOPMENT",
+      "label": "Professional Development and Compliance",
+      "objectives": 1,
+      "evidence_backed": 0,
+      "partial": 0,
+      "declared_no_evidence": 1,
+      "gaps": 0
+    },
+    {
+      "code": "ENGAGEMENT",
+      "label": "Engagement and Service",
+      "objectives": 1,
+      "evidence_backed": 0,
+      "partial": 0,
+      "declared_no_evidence": 0,
+      "gaps": 1
+    },
+    {
+      "code": "LEADERSHIP",
+      "label": "Leadership and Administration",
+      "objectives": 1,
+      "evidence_backed": 1,
+      "partial": 0,
+      "declared_no_evidence": 0,
+      "gaps": 0
+    },
+    {
+      "code": "RESEARCH",
+      "label": "Research and Innovation",
+      "objectives": 1,
+      "evidence_backed": 1,
+      "partial": 0,
+      "declared_no_evidence": 0,
+      "gaps": 0
+    },
+    {
+      "code": "TEACHING",
+      "label": "Teaching and Learning",
+      "objectives": 2,
+      "evidence_backed": 1,
+      "partial": 0,
+      "declared_no_evidence": 0,
+      "gaps": 1
+    }
+  ],
+  "objectives": [
+    {
+      "objective_id": "GEN-LEAD-001",
+      "domain_code": "LEADERSHIP",
+      "title": "Faculty committee participation",
+      "period": "2026-01",
+      "minimum_required": 1,
+      "accepted_evidence": 1,
+      "candidate_evidence": 0,
+      "declared_no_evidence": false,
+      "coverage_status": "evidence_backed"
+    },
+    {
+      "objective_id": "GEN-RES-001",
+      "domain_code": "RESEARCH",
+      "title": "Journal manuscript submission",
+      "period": "2026-01",
+      "minimum_required": 1,
+      "accepted_evidence": 1,
+      "candidate_evidence": 0,
+      "declared_no_evidence": false,
+      "coverage_status": "evidence_backed"
+    },
+    {
+      "objective_id": "GEN-TEACH-001",
+      "domain_code": "TEACHING",
+      "title": "ABCD101 assessment moderation",
+      "period": "2026-01",
+      "minimum_required": 1,
+      "accepted_evidence": 1,
+      "candidate_evidence": 0,
+      "declared_no_evidence": false,
+      "coverage_status": "evidence_backed"
+    },
+    {
+      "objective_id": "GEN-DEV-001",
+      "domain_code": "DEVELOPMENT",
+      "title": "Professional development completion",
+      "period": "2026-02",
+      "minimum_required": 1,
+      "accepted_evidence": 0,
+      "candidate_evidence": 0,
+      "declared_no_evidence": true,
+      "coverage_status": "declared_no_evidence"
+    },
+    {
+      "objective_id": "GEN-ENG-001",
+      "domain_code": "ENGAGEMENT",
+      "title": "Community workshop delivery",
+      "period": "2026-02",
+      "minimum_required": 1,
+      "accepted_evidence": 0,
+      "candidate_evidence": 1,
+      "declared_no_evidence": false,
+      "coverage_status": "gap"
+    },
+    {
+      "objective_id": "GEN-TEACH-002",
+      "domain_code": "TEACHING",
+      "title": "Student consultation report",
+      "period": "2026-02",
+      "minimum_required": 1,
+      "accepted_evidence": 0,
+      "candidate_evidence": 0,
+      "declared_no_evidence": false,
+      "coverage_status": "gap"
+    }
+  ],
+  "evidence": [
+    {
+      "schema": "dio.evidence_record.v2",
+      "evidence_id": "GEN-E01",
+      "source": {
+        "kind": "lms",
+        "display_name": "Evidence 001",
+        "path_registered": true
+      },
+      "sha1": "3389b756c6382cf293692dfe52ed2aef4e51ebfb",
+      "period": "2026-01",
+      "domain_code": "TEACHING",
+      "duplicate_of": null,
+      "mappings": [
+        {
+          "objective_id": "GEN-TEACH-001",
+          "mapped_by": "efundi_collect:direct_lms",
+          "confidence": {
+            "retrieval": 0.98,
+            "relevance": 0.95,
+            "provenance": 1.0,
+            "sufficiency": 0.86,
+            "overall": 0.86
+          },
+          "decision": "accepted",
+          "reasons": [
+            "Direct LMS collection with an explicit task mapping.",
+            "Registered source path and hash are present.",
+            "Substantive source cues: approved, moderation."
+          ]
+        }
+      ],
+      "review_status": "accepted"
+    },
+    {
+      "schema": "dio.evidence_record.v2",
+      "evidence_id": "GEN-E02",
+      "source": {
+        "kind": "outlook",
+        "display_name": "Evidence 002",
+        "path_registered": true
+      },
+      "sha1": "4a9edb7ad63e5048c056a44b513829c811e9bfdb",
+      "period": "2026-01",
+      "domain_code": "RESEARCH",
+      "duplicate_of": null,
+      "mappings": [
+        {
+          "objective_id": "GEN-RES-001",
+          "mapped_by": "outlook_collect:targeted",
+          "confidence": {
+            "retrieval": 0.92,
+            "relevance": 0.94,
+            "provenance": 1.0,
+            "sufficiency": 0.86,
+            "overall": 0.86
+          },
+          "decision": "accepted",
+          "reasons": [
+            "Targeted Outlook collection; semantic relevance recalibrated independently.",
+            "Registered source path and hash are present.",
+            "3 meaningful mapping terms matched.",
+            "Automated domain route agrees with the objective domain.",
+            "Substantive source cues: accepted."
+          ]
+        }
+      ],
+      "review_status": "accepted"
+    },
+    {
+      "schema": "dio.evidence_record.v2",
+      "evidence_id": "GEN-E03",
+      "source": {
+        "kind": "human_review",
+        "display_name": "Evidence 003",
+        "path_registered": true
+      },
+      "sha1": "b5556ae32c1309860b8646d928224e37719e2656",
+      "period": "2026-01",
+      "domain_code": "LEADERSHIP",
+      "duplicate_of": null,
+      "mappings": [
+        {
+          "objective_id": "GEN-LEAD-001",
+          "mapped_by": "human_asserted",
+          "confidence": {
+            "retrieval": 1.0,
+            "relevance": 1.0,
+            "provenance": 1.0,
+            "sufficiency": 0.9,
+            "overall": 0.9
+          },
+          "decision": "accepted",
+          "reasons": [
+            "Human-confirmed mapping takes precedence.",
+            "Registered source path and hash are present."
+          ]
+        }
+      ],
+      "review_status": "accepted"
+    },
+    {
+      "schema": "dio.evidence_record.v2",
+      "evidence_id": "GEN-E04",
+      "source": {
+        "kind": "outlook",
+        "display_name": "Evidence 004",
+        "path_registered": true
+      },
+      "sha1": "137f7e527b8c32279c1994862a99f3f65414d114",
+      "period": "2026-02",
+      "domain_code": "ENGAGEMENT",
+      "duplicate_of": null,
+      "mappings": [
+        {
+          "objective_id": "GEN-ENG-001",
+          "mapped_by": "outlook_collect:targeted",
+          "confidence": {
+            "retrieval": 0.92,
+            "relevance": 0.94,
+            "provenance": 1.0,
+            "sufficiency": 0.35,
+            "overall": 0.35
+          },
+          "decision": "candidate",
+          "reasons": [
+            "Targeted Outlook collection; semantic relevance recalibrated independently.",
+            "Registered source path and hash are present.",
+            "3 meaningful mapping terms matched.",
+            "Automated domain route agrees with the objective domain.",
+            "Weak source form: invitation."
+          ]
+        }
+      ],
+      "review_status": "candidate"
+    },
+    {
+      "schema": "dio.evidence_record.v2",
+      "evidence_id": "GEN-E05",
+      "source": {
+        "kind": "registered_file",
+        "display_name": "Evidence 005",
+        "path_registered": true
+      },
+      "sha1": "0f1c83bc9c0cee8e4a72c5e2003536dfce1cd411",
+      "period": "2026-02",
+      "domain_code": "DEVELOPMENT",
+      "duplicate_of": null,
+      "mappings": [],
+      "review_status": "unmapped"
+    }
+  ],
+  "quality_gates": [
+    {
+      "name": "profile_validated",
+      "passed": true,
+      "detail": "Loaded university_generic_v1 1.0.0."
+    },
+    {
+      "name": "source_read_only",
+      "passed": true,
+      "detail": "VAMP SQLite opened in read-only mode."
+    },
+    {
+      "name": "ratings_disabled",
+      "passed": true,
+      "detail": "Snapshot reports evidence coverage only."
+    },
+    {
+      "name": "provenance_registered",
+      "passed": true,
+      "detail": "Every normalized record must retain a source hash."
+    },
+    {
+      "name": "human_review_required",
+      "passed": true,
+      "detail": "Candidate mappings are withheld from evidence-backed coverage."
+    }
+  ],
+  "release": {
+    "status": "ready_for_human_review",
+    "rating_generated": false,
+    "employment_decision_generated": false
+  }
+}

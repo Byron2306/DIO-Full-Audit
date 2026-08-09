@@ -1,0 +1,162 @@
+{
+  "schema": "dio.lingua.beast_crystallization_receipt.v1",
+  "status": "crystallized",
+  "credits": [
+    {
+      "credit_id": "scc_a4a6aaf48a902640",
+      "unit_id": "P1",
+      "block_hash": "sha256:fb77b94f8c36981c6b195828e1935c8ec1596fb1975fa8eaa34d05e8e5177c2e"
+    },
+    {
+      "credit_id": "scc_fcc3f2a66cbe82f8",
+      "unit_id": "P2",
+      "block_hash": "sha256:f21717a8a473cf3554e23ffb8a5aa11c9cbc34051dda0e16312bc6e075dbf9f1"
+    },
+    {
+      "credit_id": "scc_d4e8325a808ad785",
+      "unit_id": "P3",
+      "block_hash": "sha256:097cdb4f03968b1f336b8eb6366c40133015ba06afcc4bfe0dc6866cb1ba3753"
+    },
+    {
+      "credit_id": "scc_90a3bfe7fde6c323",
+      "unit_id": "P4",
+      "block_hash": "sha256:25c3117af1e21375ef682c4fddeca40fe7c5c43af4db58bf99152c7b1cabe91b"
+    },
+    {
+      "credit_id": "scc_77ce21ad9e8c81ed",
+      "unit_id": "P5",
+      "block_hash": "sha256:1a91695f2273aeb0f4c1e8d6573dec5e761aacc5d06b4a29335ecd6a88db5835"
+    },
+    {
+      "credit_id": "scc_9687d24d1398b7c6",
+      "unit_id": "P6",
+      "block_hash": "sha256:f249dd2d8c31e9a2d8fd863f9c32516f315d97bb2909332f874d64bbf6ec298f"
+    },
+    {
+      "credit_id": "scc_c356f2936a54bf72",
+      "unit_id": "P7",
+      "block_hash": "sha256:81cf53a77bdbcc25004e94f7a20152956ee91d62b3dfffea3ed9de04f11136e3"
+    }
+  ],
+  "machine_drafts_promoted": false,
+  "human_authority_verified": true,
+  "chain": {
+    "beast_object_type": "crystal_chain_verification",
+    "version": "1.0",
+    "valid": true,
+    "block_count": 65,
+    "head_hash": "sha256:81cf53a77bdbcc25004e94f7a20152956ee91d62b3dfffea3ed9de04f11136e3",
+    "errors": [],
+    "consensus": "local_hash_chain_no_distributed_consensus"
+  },
+  "learning_event": {
+    "event_digest": "sha256:81aac4f2a898300eafe4f6ddff01e8cfb201c20157eca3b9c3dce1c3be5b4987",
+    "capability_id": "lingua:DIO-LINGUA-WATER-001:Afrikaans"
+  },
+  "memory_residue": {
+    "beast_object_type": "memory_hull_write_receipt",
+    "version": "2.0",
+    "residue_id": "residue_4fee7d06c99b5b3ad6f2",
+    "section": "decisions",
+    "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_4fee7d06c99b5b3ad6f2.md",
+    "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_4fee7d06c99b5b3ad6f2.residue.json",
+    "residue_seal": {
+      "beast_object_type": "beast_residue_seal",
+      "version": "2.0",
+      "purpose": "memory_hull_decisions",
+      "algorithm": "Ed25519",
+      "provider": "cryptography",
+      "created_at": "2026-08-09T11:39:58.311484+00:00",
+      "payload_sha256": "sha256:9dd5803eb5a92d8c4ed676e21d28a1259814cb0dd74b98176b9b04adbec125f7",
+      "message_sha256": "sha256:770746d46476ddc4bdeac68388262ba582d25e00290960d92f366bb1c734013f",
+      "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+      "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+      "signature_b64": "hw6JrJL5ho9tBBYvTECcA6lPzjQiZT7zRTOp/RsgtAdyeqLe5PsgMto3Oo/gFipsTc1Hs4JoFo7LepSemG1jAg==",
+      "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+    },
+    "verified": true,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+  },
+  "prec_lifecycle": {
+    "beast_object_type": "prec_lifecycle",
+    "version": "1.0",
+    "lifecycle_id": "prec_5cb3ea2f63fdaf7f7d",
+    "kind": "dio_lingua",
+    "objective": "Lingua crystallize for Afrikaans",
+    "scope": "Water-quality operations",
+    "status": "completed",
+    "current_phase": "crystallize",
+    "task_id": "DIO-LINGUA-WATER-001",
+    "provider": "BEAST",
+    "summary": "Lingua crystallize lifecycle completed",
+    "metadata": {
+      "operation": "crystallize",
+      "target_language": "Afrikaans"
+    },
+    "artifact_refs": {
+      "crystallize": {
+        "receipt_digest": {
+          "value": "sha256:1c6e2bba6842d6c516a6138fd5a48af889eada0407cf9f4963f7037149502c14"
+        }
+      },
+      "economize": {},
+      "perceive": {},
+      "reason": {
+        "result_status": {
+          "value": "crystallized"
+        }
+      }
+    },
+    "created_at": "2026-08-09T11:39:58.315560+00:00",
+    "updated_at": "2026-08-09T11:39:58.327744+00:00",
+    "completed_at": "2026-08-09T11:39:58.327744+00:00",
+    "phase_events": [
+      {
+        "phase": "perceive",
+        "status": "completed",
+        "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+        "artifacts": {},
+        "signals": [
+          "crystallize"
+        ],
+        "created_at": "2026-08-09T11:39:58.317912+00:00"
+      },
+      {
+        "phase": "reason",
+        "status": "completed",
+        "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+        "artifacts": {
+          "result_status": "crystallized"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:39:58.319991+00:00"
+      },
+      {
+        "phase": "economize",
+        "status": "completed",
+        "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+        "artifacts": {
+          "provider_call_displaced": false
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:39:58.321996+00:00"
+      },
+      {
+        "phase": "crystallize",
+        "status": "completed",
+        "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+        "artifacts": {
+          "receipt_digest": "sha256:1c6e2bba6842d6c516a6138fd5a48af889eada0407cf9f4963f7037149502c14"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:39:58.325062+00:00"
+      }
+    ],
+    "phase_status": {
+      "perceive": "completed",
+      "reason": "completed",
+      "economize": "completed",
+      "crystallize": "completed"
+    }
+  }
+}

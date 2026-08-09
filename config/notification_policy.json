@@ -1,0 +1,15 @@
+{
+  "schema": "dio.notification_policy.v1",
+  "dashboard_feed": true,
+  "desktop_notifications": false,
+  "ntfy": {
+    "enabled": false,
+    "url_env": "DIO_NTFY_URL",
+    "token_env": "DIO_NTFY_TOKEN"
+  },
+  "severity_routes": {
+    "info": ["dashboard"],
+    "action": ["dashboard", "desktop", "ntfy"],
+    "critical": ["dashboard", "desktop", "ntfy"]
+  }
+}

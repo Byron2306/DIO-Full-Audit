@@ -1,0 +1,14 @@
+[Unit]
+Description=DIO verified commerce event processor
+After=dio-edge-reconciler.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/process_commerce_events.py --watch --interval 2
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

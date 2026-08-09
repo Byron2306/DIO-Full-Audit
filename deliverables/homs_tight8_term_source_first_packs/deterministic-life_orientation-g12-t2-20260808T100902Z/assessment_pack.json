@@ -1,0 +1,365 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Life Orientation",
+  "language_of_assessment": "English",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Life Orientation Grade 12 Term 2 Controlled Assessment Pack",
+  "canonical_profile_id": "fet.life_orientation",
+  "blueprint": "case_study_structured_questions",
+  "render_shell": "question_paper",
+  "duration": "1 hour",
+  "total_marks": 50,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Orientation",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "2",
+    "canonical_profile_id": "fet.life_orientation",
+    "assessment_family": "case_study_structured_questions",
+    "render_shell": "question_paper",
+    "assessment_content_focus": [
+      "social and environmental responsibility",
+      "rights, responsibilities, community participation and media influence",
+      "case-study decision-making and evidence-based recommendation",
+      "portfolio or project response with rubric-marked reflection"
+    ],
+    "required_visuals": [
+      {
+        "id": "case_decision_table",
+        "title": "Case facts and decision table",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "case_table"
+      }
+    ],
+    "generation_constraints": [
+      "Every question must be answerable from the stated term focus, supplied stimulus and grade-appropriate subject knowledge.",
+      "Mark totals must reconcile exactly.",
+      "Educator approval is required before classroom use."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Scenario Analysis",
+      "mode": "case_response",
+      "instructions": "Use the scenario and respond with practical judgement.",
+      "stimulus": "Scenario: A Grade 12 learner faces choices linked to social and environmental responsibility.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identify the main issue in the scenario and explain why it matters.",
+          "marks": 5,
+          "memo": [
+            "Issue identified.",
+            "Importance explained."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Discuss TWO possible consequences of an unhealthy or irresponsible choice.",
+          "marks": 6,
+          "memo": [
+            "Two consequences.",
+            "Clear explanation."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Recommend TWO support strategies and justify each one.",
+          "marks": 8,
+          "memo": [
+            "Two strategies.",
+            "Justification linked to scenario."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Decision And Reflection",
+      "mode": "reflection",
+      "instructions": "Keep reflection appropriate and non-private.",
+      "stimulus": "Reflection focus: case-study decision-making and evidence-based recommendation.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Evaluate a responsible decision using evidence from the scenario.",
+          "marks": 8,
+          "memo": [
+            "Decision evaluated.",
+            "Scenario evidence used."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Create a brief action plan with three safe, realistic steps.",
+          "marks": 8,
+          "memo": [
+            "Three steps.",
+            "Steps realistic and safe."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Portfolio Evidence",
+      "mode": "portfolio_response",
+      "instructions": "Complete the supervised evidence item.",
+      "stimulus": "Portfolio focus: portfolio or project response with rubric-marked reflection.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Complete a portfolio entry showing what evidence an educator can assess.",
+          "marks": 15,
+          "memo": [
+            "Evidence is observable.",
+            "Reflection is relevant.",
+            "Plan is practical."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Subject accuracy and terminology",
+      "marks": 12,
+      "descriptor": "Uses accurate concepts and terminology."
+    },
+    {
+      "criterion": "Evidence, data or source use",
+      "marks": 12,
+      "descriptor": "Uses supplied evidence appropriately."
+    },
+    {
+      "criterion": "Reasoning and explanation",
+      "marks": 12,
+      "descriptor": "Shows logical, grade-appropriate reasoning."
+    },
+    {
+      "criterion": "Communication and completion",
+      "marks": 14,
+      "descriptor": "Answers are clear, complete and structured."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS term and topic fit before classroom use.",
+    "Insert or approve final source material where the pack requests educator-supplied sources.",
+    "Check mark allocation, memo wording and learner level.",
+    "Confirm visuals are suitable and not treated as official source material unless sourced separately."
+  ],
+  "generation_backend": "deterministic_caps_term_template_with_provider_enrichment_ready",
+  "source_assets": [
+    {
+      "id": "source_01_data_table",
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "page": 10,
+      "object_id": "Q6:data_table:10:13",
+      "snippet": "Current recruitment processes are driven by technology and data analytics, with a strong focus on a candidate's work experience. Therefore, choosing the right references to list in your curriculum vitae (CV) and researching a company's mission statement may be to your benefit when you are considered for a job.",
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/data_table/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/margin_trim/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1054,
+          1551
+        ],
+        "content_bbox": [
+          77,
+          45,
+          1131,
+          1596
+        ],
+        "crop_ratio": 0.8618,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          1054,
+          679
+        ],
+        "object_candidate_bbox": [
+          77,
+          320,
+          1131,
+          999
+        ],
+        "object_candidate_crop_ratio": 0.3773,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_data_table",
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Orientation Paper 1 English September 2025",
+      "page": 10,
+      "object_id": "Q6:data_table:10:13",
+      "snippet": "Current recruitment processes are driven by technology and data analytics, with a strong focus on a candidate's work experience. Therefore, choosing the right references to list in your curriculum vitae (CV) and researching a company's mission statement may be to your benefit when you are considered for a job.",
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/data_table/02_life_orientation_paper_1_english_september_2025_p10_q6_data_table_10_13.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/margin_trim/02_life_orientation_paper_1_english_september_2025_p10_q6_data_table_10_13.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/02_life_orientation_paper_1_english_september_2025_p10_q6_data_table_10_13.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/02_life_orientation_paper_1_english_september_2025_p10_q6_data_table_10_13.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1054,
+          1551
+        ],
+        "content_bbox": [
+          77,
+          45,
+          1131,
+          1596
+        ],
+        "crop_ratio": 0.8618,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_orientation/data_table/object_candidate/02_life_orientation_paper_1_english_september_2025_p10_q6_data_table_10_13.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          1054,
+          679
+        ],
+        "object_candidate_bbox": [
+          77,
+          320,
+          1131,
+          999
+        ],
+        "object_candidate_crop_ratio": 0.3773,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_text_extract",
+      "title": "Official-paper exemplar: Text Extract",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "page": 6,
+      "object_id": "Q2:extract_2",
+      "snippet": "Read the extract below and answer the questions that follow. HUMAN RIGHTS VIOLATIONS Safe and healthy living",
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/text_extract/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/life_orientation/text_extract/margin_trim/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_orientation/text_extract/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/life_orientation/text_extract/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1060,
+          1551
+        ],
+        "content_bbox": [
+          77,
+          45,
+          1137,
+          1596
+        ],
+        "crop_ratio": 0.8668,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/life_orientation/text_extract/object_candidate/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          1048,
+          901
+        ],
+        "object_candidate_bbox": [
+          77,
+          293,
+          1125,
+          1194
+        ],
+        "object_candidate_crop_ratio": 0.4978,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "source_embedding": {
+    "schema": "knowedge.homs_source_embedding.v1",
+    "attached_at": "2026-08-08T10:09:02+00:00",
+    "source_bank": "deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+    "subject_id": "life_orientation",
+    "requested_source_types": [],
+    "asset_count": 3,
+    "policy": "Official-paper exemplars are source material only; crop/readability/copyright review and educator approval remain mandatory before client delivery.",
+    "generated_visual_policy": "suppress_generated_visuals_when_source_assets_present"
+  }
+}

@@ -1,0 +1,109 @@
+[
+  {
+    "total_score": 15.0,
+    "criteria_scores": {
+      "Argument and focus": {
+        "score": 6.0,
+        "max_score": 10.0,
+        "feedback": ""
+      },
+      "Evidence and source use": {
+        "score": 4.0,
+        "max_score": 10.0,
+        "feedback": ""
+      },
+      "Structure and academic communication": {
+        "score": 5.0,
+        "max_score": 10.0,
+        "feedback": ""
+      }
+    },
+    "overall_feedback": "The submission addresses the prompt and presents a basic argument about community gardens contributing to food security, but the development is limited and lacks detailed evidence and deeper analysis.",
+    "strengths": [
+      "Identifies a clear link between community gardens and food security.",
+      "Notes limitations and the need for broader support."
+    ],
+    "areas_for_improvement": [
+      "Develop the argument with more specific examples and data.",
+      "Integrate concrete evidence such as citations or quantitative findings.",
+      "Improve academic style and organization with clearer paragraphing and a more substantive conclusion."
+    ],
+    "provider": "nvidia_nim",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "student_id": "student_alpha",
+    "submission_file": "student_alpha.txt",
+    "max_score": 30,
+    "percentage": 50.0
+  },
+  {
+    "total_score": 6.0,
+    "criteria_scores": {
+      "Argument and focus": {
+        "score": 2.0,
+        "max_score": 10.0,
+        "feedback": ""
+      },
+      "Evidence and source use": {
+        "score": 2.0,
+        "max_score": 10.0,
+        "feedback": ""
+      },
+      "Structure and academic communication": {
+        "score": 2.0,
+        "max_score": 10.0,
+        "feedback": ""
+      }
+    },
+    "overall_feedback": "The submission presents a very basic idea but lacks a clear argument, supporting evidence, and academic structure. It reads more like a personal opinion than an academic response.",
+    "strengths": [
+      "Identifies a relevant topic (community gardens) and expresses a positive stance."
+    ],
+    "areas_for_improvement": [
+      "Develop a clear thesis statement that directly answers the question.",
+      "Provide concrete evidence, examples, or references to support claims.",
+      "Organize the essay with introduction, body paragraphs, and a conclusion; use academic language and proper citation style."
+    ],
+    "provider": "nvidia_nim",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "student_id": "student_beta",
+    "submission_file": "student_beta.txt",
+    "max_score": 30,
+    "percentage": 20.0
+  },
+  {
+    "total_score": 18.0,
+    "criteria_scores": {
+      "Argument and focus": {
+        "score": 7.0,
+        "max_score": 10.0,
+        "feedback": ""
+      },
+      "Evidence and source use": {
+        "score": 5.0,
+        "max_score": 10.0,
+        "feedback": ""
+      },
+      "Structure and academic communication": {
+        "score": 6.0,
+        "max_score": 10.0,
+        "feedback": ""
+      }
+    },
+    "overall_feedback": "The submission addresses the prompt and identifies key factors influencing community garden effectiveness, showing a basic line of argument. It references types of data that could be used but lacks concrete evidence or citations. The response is organized but would benefit from a clearer introduction, more developed points, and a concluding summary.",
+    "strengths": [
+      "Identifies multiple relevant variables (participation, land access, water reliability, distribution).",
+      "Notes educational value and need for sustainable planning."
+    ],
+    "areas_for_improvement": [
+      "Develop a clearer thesis statement and ensure each paragraph supports it.",
+      "Provide specific examples, data, or citations to substantiate claims.",
+      "Improve academic style with a formal introduction, body, and conclusion; use linking sentences for coherence."
+    ],
+    "provider": "nvidia_nim",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "student_id": "student_gamma",
+    "submission_file": "student_gamma.txt",
+    "max_score": 30,
+    "percentage": 60.0
+  }
+]

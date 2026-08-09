@@ -1,0 +1,29 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:60cc73681898b762e0d049a593038b0699df01e2a85e91869624351d3685fc4c",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 12,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "guard:anchor_completeness",
+    "impact_fingerprint_hash": "sha256:31dcf96486864828d6b81e956e06e5878ae48892a917ba8e51733fb19aa1841b",
+    "metadata": {
+      "authority": "deterministic_validator",
+      "domain": "*",
+      "guard": "anchor_completeness",
+      "rule": "Every source unit must have exactly one aligned target unit.",
+      "target_language": "Setswana"
+    },
+    "policy_version": "dio_lingua_deterministic_learning_v1",
+    "repo_fingerprint": "sha256:31dcf96486864828d6b81e956e06e5878ae48892a917ba8e51733fb19aa1841b",
+    "task_class": "dio_lingua_deterministic_guard",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

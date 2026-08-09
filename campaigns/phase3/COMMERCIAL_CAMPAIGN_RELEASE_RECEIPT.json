@@ -1,0 +1,164 @@
+{
+  "schema": "knowedge.commercial_release_receipt.v1",
+  "generated_at": "2026-08-09T11:15:32.364449+00:00",
+  "passed": true,
+  "contact_email": "dio_workflows@outlook.com",
+  "google_form_present": true,
+  "html_checks": [
+    {
+      "path": "sites/homs/index.html",
+      "sha256": "eef839abce18a7184e53c2fbc6185310c4b00fcf6c7b17178e69bd720870118a",
+      "parsed": true,
+      "missing_local_references": [],
+      "forbidden_phrases": [],
+      "contact_routed": true
+    },
+    {
+      "path": "sites/evidex/index.html",
+      "sha256": "13e3e50f0ec7e78759f2621197026188e1049f7a50bd49962cd19d4f0c9487fc",
+      "parsed": true,
+      "missing_local_references": [],
+      "forbidden_phrases": [],
+      "contact_routed": true
+    },
+    {
+      "path": "sites/vamp/index.html",
+      "sha256": "aff72971e78adbdc737a539f287b9ebb84f286190dd7c7b0ad78bf9a88f5778e",
+      "parsed": true,
+      "missing_local_references": [],
+      "forbidden_phrases": [],
+      "contact_routed": true
+    },
+    {
+      "path": "sites/sophia/index.html",
+      "sha256": "7e68bb388f056ae2554c447faf892507024978d1ad8099b18aa67cecc01b1e54",
+      "parsed": true,
+      "missing_local_references": [],
+      "forbidden_phrases": [],
+      "contact_routed": true
+    },
+    {
+      "path": "sites/document-studio/index.html",
+      "sha256": "25085316db670ea55fc2d182e3705f09b5ddfff2c349bc66bb91603fdb501839",
+      "parsed": true,
+      "missing_local_references": [],
+      "forbidden_phrases": [],
+      "contact_routed": true
+    },
+    {
+      "path": "sites/evidex/golden-case/index.html",
+      "sha256": "92c012ee7a122ff4d024dce7d419a85cb2ac5c96ccb92a36ed0f3ed05233acc7",
+      "parsed": true,
+      "missing_local_references": [],
+      "forbidden_phrases": [],
+      "contact_routed": false
+    }
+  ],
+  "creative_checks": [
+    {
+      "path": "campaigns/phase3/homs/campaign_v2/creatives/homs_exam_studio.png",
+      "sha256": "70ed2be4a616c5cdfdf9fd1b920cdf350dfa07ae085a96b72e521ca714e2ece8",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/homs/campaign_v2/creatives/homs_learning_companion.png",
+      "sha256": "4fb5e59562a00c422c26960103275355c5a3dfaaf26cc9b800349abcb393c29c",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/homs/campaign_v2/creatives/homs_marking_relief.png",
+      "sha256": "c1e044f45732544e556963b12386d8cf6e9ec693a2576317b87f8a8c938978a2",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/homs/campaign_v2/creatives/homs_video_lesson.png",
+      "sha256": "4721871cc9e474d9b062d7a607451cad77b213922bfed0766c0f9b46a4b695fe",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/evidex/campaign_v2/creatives/evidex_golden_case.png",
+      "sha256": "fbdd90b6864e09ff1f1fd383e4f6a78dafdab07cf222f7f6b928d9a3577832c0",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/evidex/campaign_v2/creatives/evidex_review_trail.png",
+      "sha256": "fe6aa4fba7bde12057cfb3c3fd112e4c15fe6d051a90f146bd3cafb445924236",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/vamp/campaign_v2/creatives/vamp_evidence_snapshot.png",
+      "sha256": "0a19ef2e91e30005de71ce88046f009d9171161ec134de18f11b63ffcfcee468",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    },
+    {
+      "path": "campaigns/phase3/vamp/campaign_v2/creatives/vamp_mapping_proof.png",
+      "sha256": "2802325b4c38cd471b91cb9760f75aa4dd031bec1b9fdd3b0963b4a9b0fcbcdd",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "dimensions_valid": true
+    }
+  ],
+  "visual_reviews": [
+    {
+      "product_id": "homs",
+      "review_path": "campaigns/phase3/homs/campaign_v2/VISUAL_REVIEW.json",
+      "approved_count": 4,
+      "rejected_count": 1,
+      "all_decided": true
+    },
+    {
+      "product_id": "evidex",
+      "review_path": "campaigns/phase3/evidex/campaign_v2/VISUAL_REVIEW.json",
+      "approved_count": 2,
+      "rejected_count": 1,
+      "all_decided": true
+    },
+    {
+      "product_id": "vamp",
+      "review_path": "campaigns/phase3/vamp/campaign_v2/VISUAL_REVIEW.json",
+      "approved_count": 1,
+      "rejected_count": 2,
+      "all_decided": true
+    }
+  ],
+  "boundaries": [
+    "Gamma imagery is published only as illustrative campaign art.",
+    "Controlled proof artifacts are not described as live client outcomes.",
+    "HOMS retains educator or subject-expert approval.",
+    "Evidex does not guarantee donor, auditor, regulator, funder or compliance outcomes.",
+    "VAMP prepares evidence but never automates performance ratings or employment decisions.",
+    "Sophia remains diagnostic academic review and does not replace authorship.",
+    "Document Studio translation remains non-certified and requires target-language, technical and client approval.",
+    "NicheFoundry is shared media infrastructure and every publication remains human-gated."
+  ]
+}

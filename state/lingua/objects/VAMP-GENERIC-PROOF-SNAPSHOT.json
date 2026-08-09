@@ -1,0 +1,115 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "VAMP-GENERIC-PROOF-SNAPSHOT",
+  "domain": "Performance review",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "vamp",
+    "artifact_type": "review_snapshot",
+    "artifact_id": "VAMP-GENERIC-PROOF-SNAPSHOT",
+    "source_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001/VAMP_SNAPSHOT.md",
+    "extraction_method": "plain_text",
+    "audience": "University employee and reviewer",
+    "channel": "pdf",
+    "profile": "",
+    "privacy_domain": "institutional"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:bf993ee64460d60149e0a3d7596aacd4219154da28cff6a57ff57fd75450f09a",
+    "units": [
+      {
+        "unit_id": "P1",
+        "unit_type": "title",
+        "source_text": "# VAMP Performance Evidence Snapshot",
+        "source_hash": "sha256:91bbe3258dbfba93fc12a3cd05ce5ef06ea29e595ca870e44d7bbdf05e14dae6",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P2",
+        "unit_type": "labelled_instruction",
+        "source_text": "Profile: `university_generic_v1` Review period: 2026-01, 2026-02",
+        "source_hash": "sha256:cd20d0c2514f0642903dc2040268a6d1b98737788a00bc022a1d3d65957c886b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P3",
+        "unit_type": "body",
+        "source_text": "## Coverage",
+        "source_hash": "sha256:242d51ad84ded7f298bd81ecdc3f27fe259d0611415e30502d679363fa42cb9e",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P4",
+        "unit_type": "labelled_instruction",
+        "source_text": "- Objectives in period: **6** - Evidence-backed objectives: **3** (50.0%) - Partially supported objectives: **0** - Declared no-evidence objectives: **1** - Open gaps: **2** - Accepted mappings: **3** - Candidate mappings requiring review: **1** - Duplicate evidence records suppressed: **0**",
+        "source_hash": "sha256:2d8f85cb7a36159829ba219717a88f07e4bd6d112d31b3ea1ed44fda40e0f13b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P5",
+        "unit_type": "body",
+        "source_text": "This is evidence-coverage support, not an employee rating or employment decision.",
+        "source_hash": "sha256:ab8c354a10f771e1bcbfc358e1f1bfec251a6e9f38b2b2f515397af2351e29f4",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P6",
+        "unit_type": "body",
+        "source_text": "## Domains",
+        "source_hash": "sha256:443796223524b1094e05ed5eb793377f52d0313f1908aec81e5830bcad5aa135",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P7",
+        "unit_type": "body",
+        "source_text": "| Domain | Objectives | Backed | Partial | Declared no evidence | Gaps | |---|---:|---:|---:|---:|---:| | Professional Development and Compliance | 1 | 0 | 0 | 1 | 0 | | Engagement and Service | 1 | 0 | 0 | 0 | 1 | | Leadership and Administration | 1 | 1 | 0 | 0 | 0 | | Research and Innovation | 1 | 1 | 0 | 0 | 0 | | Teaching and Learning | 2 | 1 | 0 | 0 | 1 |",
+        "source_hash": "sha256:6dd4af753a793fc02145db4384bb9749f57669047f0a675698f945da3abbe45c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P8",
+        "unit_type": "body",
+        "source_text": "## Release Gates",
+        "source_hash": "sha256:ce41887e685b0a9ba13b5b68a2abfde6e22220c42886df0ccd667a5e88bc8573",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P9",
+        "unit_type": "labelled_instruction",
+        "source_text": "- [x] profile_validated: Loaded university_generic_v1 1.0.0. - [x] source_read_only: VAMP SQLite opened in read-only mode. - [x] ratings_disabled: Snapshot reports evidence coverage only. - [x] provenance_registered: Every normalized record must retain a source hash. - [x] human_review_required: Candidate mappings are withheld from evidence-backed coverage.",
+        "source_hash": "sha256:1744206bd55551e85d592dec2ec8b934eef5ab58aacd227cd2ddd8061d2b5b93",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:bf993ee64460d60149e0a3d7596aacd4219154da28cff6a57ff57fd75450f09a",
+      "changed_units": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8",
+        "P9"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T11:34:50+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T11:34:50+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "dio.document_studio.request.v1",
+  "job_id": "DIO-DOC-SETSWANA-001",
+  "title": "Community Water Quality Monitoring Procedure",
+  "semantic_object_id": "DIO-LINGUA-WATER-001",
+  "source_version": "1.0.0",
+  "document_path": "water_quality_procedure_controlled.txt",
+  "service": "edit_and_translate",
+  "source_language": "English",
+  "target_language": "Setswana",
+  "audience": "Municipal field technicians",
+  "document_domain": "Water-quality operations",
+  "style_standard": "Plain technical language for South African field operations; preserve operational meaning",
+  "protected_tokens": ["pH", "NTU", "QMS-07", "PBT"],
+  "preferred_terms": [],
+  "owner_authorized": true,
+  "remote_processing_approved": true,
+  "certified_translation_required": false,
+  "human_language_review_required": true,
+  "automated_language_critic": true,
+  "provider": "nvidia_nim",
+  "nim_model": "deepseek-ai/deepseek-v4-flash-0731"
+}

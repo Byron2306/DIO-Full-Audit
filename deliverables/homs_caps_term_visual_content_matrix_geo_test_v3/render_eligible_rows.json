@@ -1,0 +1,350 @@
+[
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "subject_id": "geography",
+    "grade": 10,
+    "term": 1,
+    "phase": "fet_grade_10_12",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "status": "content_ready",
+    "render_eligible": true,
+    "candidate_count": 2,
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "extraction_error": null,
+    "content_terms_used": [
+      "atmosphere",
+      "climate",
+      "economic geography",
+      "geomorphology",
+      "gis",
+      "map",
+      "river",
+      "rural",
+      "settlement",
+      "synoptic",
+      "urban",
+      "weather"
+    ],
+    "caps_theme_candidates": [
+      "Topic: Time: Additional Resources:",
+      "The Atmosphere \u00b1 36 hours",
+      "as well as formal and informal http://www.weathersa.co.za",
+      "weather measuring instruments",
+      "synoptic weather maps and satellite",
+      "weather reports from the media",
+      "GEOGRAPHICAL KNOWLEDGE",
+      "Composition and Structure of the Atmosphere [5 hours]",
+      "importance of the atmosphere",
+      "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+      "Heating of the Atmosphere [8 hours]",
+      "processes associated with the heating of the atmosphere: insolation, reflection, scattering, absorption, radiation,",
+      "the impact of climate and climate change on Africa\u2019s environment and people \u2013 deserts, droughts, floods and rising sea",
+      "Moisture in the Atmosphere [8 hours]"
+    ],
+    "content_lines": [
+      "The Atmosphere \u00b1 36 hours",
+      "as well as formal and informal http://www.weathersa.co.za",
+      "weather measuring instruments",
+      "synoptic weather maps and satellite",
+      "weather reports from the media",
+      "Composition and Structure of the Atmosphere [5 hours]",
+      "importance of the atmosphere",
+      "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere"
+    ],
+    "admin_or_noise_lines": [],
+    "theme_confidence": "high",
+    "topic_focus": [
+      "synoptic weather maps and satellite",
+      "The Atmosphere \u00b1 36 hours",
+      "as well as formal and informal http://www.weathersa.co.za",
+      "weather measuring instruments",
+      "weather reports from the media",
+      "Composition and Structure of the Atmosphere [5 hours]",
+      "importance of the atmosphere",
+      "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+      "Topic: Time: Additional Resources:"
+    ],
+    "topic_scores": [
+      {
+        "line": "synoptic weather maps and satellite",
+        "score": 33
+      },
+      {
+        "line": "The Atmosphere \u00b1 36 hours",
+        "score": 3
+      },
+      {
+        "line": "as well as formal and informal http://www.weathersa.co.za",
+        "score": 3
+      },
+      {
+        "line": "weather measuring instruments",
+        "score": 3
+      },
+      {
+        "line": "weather reports from the media",
+        "score": 3
+      },
+      {
+        "line": "Composition and Structure of the Atmosphere [5 hours]",
+        "score": 3
+      },
+      {
+        "line": "importance of the atmosphere",
+        "score": 3
+      },
+      {
+        "line": "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+        "score": 3
+      },
+      {
+        "line": "Topic: Time: Additional Resources:",
+        "score": 8
+      }
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ]
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "subject_id": "geography",
+    "grade": 10,
+    "term": 2,
+    "phase": "fet_grade_10_12",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "status": "content_ready",
+    "render_eligible": true,
+    "candidate_count": 2,
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "extraction_error": null,
+    "content_terms_used": [
+      "atmosphere",
+      "climate",
+      "economic geography",
+      "geomorphology",
+      "gis",
+      "map",
+      "river",
+      "rural",
+      "settlement",
+      "synoptic",
+      "urban",
+      "weather"
+    ],
+    "caps_theme_candidates": [
+      "Topic: Time: Additional Resources:",
+      "Geomorphology \u00b1 36 hours atlases",
+      "as well as formal and informal bigmap/index.phtml",
+      "GEOGRAPHICAL KNOWLEDGE",
+      "The Structure of the Earth [6 hours]",
+      "the internal structure of the Earth",
+      "Plate Tectonics [6 hours]",
+      "plate tectonics \u2013 an explanation for the movement of continents",
+      "the mechanics of plate movements",
+      "processes and landforms associated with different kinds of plate boundaries",
+      "the world\u2019s volcanic and earthquake zones.",
+      "the process of rock folding \u2013 link to plate movement",
+      "the process of faulting \u2013 link to plate movement",
+      "Earthquakes [4 hours]"
+    ],
+    "content_lines": [
+      "Geomorphology \u00b1 36 hours atlases",
+      "as well as formal and informal bigmap/index.phtml"
+    ],
+    "admin_or_noise_lines": [],
+    "theme_confidence": "high",
+    "topic_focus": [
+      "as well as formal and informal bigmap/index.phtml",
+      "Geomorphology \u00b1 36 hours atlases",
+      "Topic: Time: Additional Resources:"
+    ],
+    "topic_scores": [
+      {
+        "line": "as well as formal and informal bigmap/index.phtml",
+        "score": 11
+      },
+      {
+        "line": "Geomorphology \u00b1 36 hours atlases",
+        "score": 3
+      },
+      {
+        "line": "Topic: Time: Additional Resources:",
+        "score": 8
+      }
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ]
+  },
+  {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "subject_id": "geography",
+    "grade": 10,
+    "term": 4,
+    "phase": "fet_grade_10_12",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "status": "content_ready",
+    "render_eligible": true,
+    "candidate_count": 2,
+    "caps_source": "Geography",
+    "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "extraction_error": null,
+    "content_terms_used": [
+      "atmosphere",
+      "climate",
+      "economic geography",
+      "geomorphology",
+      "gis",
+      "map",
+      "river",
+      "rural",
+      "settlement",
+      "synoptic",
+      "urban",
+      "weather"
+    ],
+    "caps_theme_candidates": [
+      "Topic: Time: Additional Resources:",
+      "Water Resources \u00b1 24 hours",
+      "websites: world water at http://www.",
+      "worldwater.org/data.html",
+      "Department of Water Affairs http://",
+      "GEOGRAPHICAL KNOWLEDGE",
+      "Water in the World [2 hours]",
+      "different forms of water in the world: liquid, solid and gas",
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "oceans as sources of oxygen, food and energy",
+      "Water Management in South Africa [5 hours]",
+      "factors influencing the availability of water in South Africa",
+      "challenges of providing free basic water to rural and urban communities in South Africa",
+      "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+    ],
+    "content_lines": [
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "challenges of providing free basic water to rural and urban communities in South Africa"
+    ],
+    "admin_or_noise_lines": [],
+    "theme_confidence": "high",
+    "topic_focus": [
+      "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+      "challenges of providing free basic water to rural and urban communities in South Africa",
+      "Topic: Time: Additional Resources:"
+    ],
+    "topic_scores": [
+      {
+        "line": "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "score": 6
+      },
+      {
+        "line": "challenges of providing free basic water to rural and urban communities in South Africa",
+        "score": 6
+      },
+      {
+        "line": "Topic: Time: Additional Resources:",
+        "score": 8
+      }
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "visual_kinds": [
+      "map_extract",
+      "data_table"
+    ]
+  }
+]

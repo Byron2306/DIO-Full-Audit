@@ -1,0 +1,97 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Business Studies",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "4",
+  "caps_source": {
+    "title": "Business Studies",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_business_studies_gr_10-12_web_0ca7.pdf",
+    "sha256": "e6f0a21b96fa87ccfccb732a9240a579bf0157916b86a1cdd98a2876cf76db27"
+  },
+  "canonical_profile_id": "fet.business_studies",
+  "assessment_family": "case_study_structured_questions",
+  "render_shell": "structured_case_paper",
+  "caps_theme_candidates": [
+    "SECTION 3: OVERVIEW OF TOPICS PER TERM AND ANNUAL TEACHING PLANS . . . . . . . . . . . 10",
+    "3.1 Overview of topics per grade per term . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10",
+    "3.2.1 Summary of Annual Teaching Plan Grade 10 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12",
+    "3.2.2 Annual Teaching Plan Grade 10 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13",
+    "3.2.3 Summary of Annual Teaching Plan Grade 11 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22",
+    "3.2.4 Annual Teaching Plan Grade 11 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23",
+    "3.2.5 Summary of Annual Teaching Plan Grade 12 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32",
+    "3.2.6 Annual Teaching Plan Grade 12 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33",
+    "BUSINESS STUDIES GRADES 10-12",
+    "SECTION 4: ASSESSMENT IN BUSINESS STUDIES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44",
+    "4.1 Assessment in Business Studies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44",
+    "Topic Contemporary Entrepre- Forms of ownership Revision and preparation for Mid-year examination",
+    "Assessment Informal Formal Assessment: Presentation Mid-year examination",
+    "Topic Creative thinking and problem Business Business Contracts Presentation Business Plan Revision"
+  ],
+  "assessment_content_focus": [
+    "BUSINESS STUDIES GRADES 10-12",
+    "Topic Creative thinking and problem Business Business Contracts Presentation Business Plan Revision",
+    "3.1 Overview of topics per grade per term . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10",
+    "BUSINESS STUDIES GRADES 10-12",
+    "3.1 Overview of topics per grade per term . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: business, contracts, creative, grades, overview, presentation."
+  ],
+  "required_visuals": [
+    {
+      "id": "case_decision_table",
+      "title": "Case facts and decision table",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "case_table",
+      "must_show": [
+        "scenario facts",
+        "stakeholder",
+        "problem",
+        "evidence",
+        "recommendation"
+      ],
+      "assessment_use": "Learners justify decisions from case evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "BUSINESS STUDIES GRADES 10-12",
+      "Topic Creative thinking and problem Business Business Contracts Presentation Business Plan Revision"
+    ],
+    "admin_lines": [
+      "SECTION 3: OVERVIEW OF TOPICS PER TERM AND ANNUAL TEACHING PLANS . . . . . . . . . . . 10",
+      "3.1 Overview of topics per grade per term . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10",
+      "SECTION 4: ASSESSMENT IN BUSINESS STUDIES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44",
+      "4.1 Assessment in Business Studies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44",
+      "Assessment Informal Formal Assessment: Presentation Mid-year examination"
+    ],
+    "content_terms": [
+      "business",
+      "consumer",
+      "entrepreneur",
+      "legislation",
+      "management",
+      "market",
+      "stakeholder",
+      "strategy"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

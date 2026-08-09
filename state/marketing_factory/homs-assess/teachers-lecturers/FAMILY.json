@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "HOMS_ASSESS--teachers_lecturers",
+  "generated_at": "2026-08-09T14:02:04+00:00",
+  "product": {
+    "id": "HOMS_ASSESS",
+    "name": "HOMS Assessment Desk",
+    "offer": "assessment_desk"
+  },
+  "audience": {
+    "id": "teachers_lecturers",
+    "name": "Teachers and lecturers",
+    "pain": "Marking, feedback and paper preparation consume evenings and weekends.",
+    "outcome": "Structured drafts and learner feedback ready for educator review."
+  },
+  "landing_page": "sites/homs/index.html",
+  "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+  "assets": {
+    "square_1080": "state/marketing_factory/homs-assess/teachers-lecturers/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/homs-assess/teachers-lecturers/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/homs-assess/teachers-lecturers/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/homs-assess/teachers-lecturers/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/homs-assess/teachers-lecturers/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/homs-assess/teachers-lecturers/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/homs-assess/teachers-lecturers/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/homs-assess/teachers-lecturers/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

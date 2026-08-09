@@ -1,0 +1,66 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "life_sciences",
+  "display_name": "Life Sciences",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "structured_exam",
+    "diagram_interpretation",
+    "data_response",
+    "practical_investigation_memo",
+    "marking_relief"
+  ],
+  "source_types": [
+    "diagram",
+    "table",
+    "graph",
+    "experimental_description",
+    "case_context",
+    "terminology_list"
+  ],
+  "question_families": [
+    "define_term",
+    "label_diagram",
+    "interpret_graph",
+    "explain_process",
+    "predict_outcome",
+    "evaluate_investigation"
+  ],
+  "cognitive_targets": [
+    "knowledge",
+    "understanding",
+    "application",
+    "analysis",
+    "scientific_reasoning"
+  ],
+  "rubric_dimensions": [
+    "concept_accuracy",
+    "terminology",
+    "process_sequence",
+    "data_interpretation",
+    "diagram_reference",
+    "method_validity"
+  ],
+  "memo_expectations": [
+    "accept scientifically equivalent wording",
+    "state required keywords where necessary",
+    "separate observation from inference",
+    "credit correct units and labelled structures"
+  ],
+  "retrieval_queries": [
+    "life sciences assessment diagram interpretation rubric",
+    "biology education data response questions memo guidelines",
+    "scientific inquiry assessment school biology"
+  ],
+  "human_review_checks": [
+    "verify biological terminology",
+    "check diagrams and labels are appropriate",
+    "confirm memo accepts equivalent scientific wording",
+    "confirm no unsafe medical advice is framed as assessment content"
+  ],
+  "blocked_claims_or_modes": [
+    "medical diagnosis or treatment advice",
+    "fabricated experimental results",
+    "diagram labels that are not visible or supplied"
+  ]
+}

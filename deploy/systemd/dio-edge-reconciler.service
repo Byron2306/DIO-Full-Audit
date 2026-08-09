@@ -1,0 +1,15 @@
+[Unit]
+Description=DIO Cloudflare edge event reconciler
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/sync_dio_edge_events.py --watch --interval 5
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

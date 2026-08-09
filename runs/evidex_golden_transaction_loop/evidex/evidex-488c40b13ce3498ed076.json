@@ -1,0 +1,61 @@
+{
+  "job_id": "evidex-488c40b13ce3498ed076",
+  "created_at": "2026-08-07T16:45:10+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "golden-evidex-reply-20260807T164510Z",
+    "thread_ref": "golden-evidex-thread-20260807T164510Z"
+  },
+  "route": {
+    "product": "evidex",
+    "confidence": 0.85,
+    "reason": "Matched route keywords: evidex, pilot pack, m&e."
+  },
+  "status": "approved",
+  "risk": "unknown",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "EVIDEX Pilot Pack Request - BrightStart Community Trust",
+      "sender": "M&E Coordinator <[email]>",
+      "attachment_names": "",
+      "intent": "unknown",
+      "urgency": "low",
+      "next_step": "Ask user to confirm intent and required action.",
+      "draft_status": "blocked",
+      "primary_draft_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/primary_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt",
+      "safer_draft_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/safer_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt",
+      "shorter_draft_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/shorter_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt",
+      "evidence_note_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/evidence_note_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "488c40b13ce3498ed076",
+      "source_type": "email",
+      "source_path": "",
+      "title": "EVIDEX Pilot Pack Request - BrightStart Community Trust",
+      "date_observed": "2026-08-07T16:45:10+00:00",
+      "text_extract": "Evidence note for: EVIDEX Pilot Pack Request - BrightStart Community Trust\n\nEvidence seen:\n- Sender visible: M&E Coordinator <[email]>\n- Subject visible: EVIDEX Pilot Pack Request - BrightStart Community Trust\n- Received timestamp visible: 2026-08-07T16:45:10+00:00\n- Folder/source context: Inbox\n- Attachment names visible: kpi_progress.csv; attendance_register.csv; receipts_summary.csv; field_visit_notes.txt; photo_log.txt\n- Body text or preview reviewed.\n- Risk flags assigned: references_evidence_or_attachment\n\nMissing information:\n- Clear intent could not be confirmed from visible message evidence.\n\nThis note is for review and audit. It is not an outbound email.",
+      "hash": "db6b178544080942aaaf",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.85,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "approved",
+    "reviewer": "controlled_operator",
+    "reviewed_at": "2026-08-07T16:45:10+00:00",
+    "note": "Controlled golden loop approved for non-sensitive evidence intake."
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

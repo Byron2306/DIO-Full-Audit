@@ -1,0 +1,41 @@
+# Source Page Exemplars
+
+Rendered pages: 37
+
+- Afrikaans FAL P1 November 2025 p.3 graph_or_chart, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p03_graph_or_chart_q1_teks_1-03.png
+- Afrikaans FAL P1 November 2025 p.6 text_extract, photograph_or_image: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p06_text_extract_q1_foto_1-06.png
+- Afrikaans FAL P1 November 2025 p.9 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p09_text_extract_q2_teks_2-09.png
+- Afrikaans FAL P1 November 2025 p.12 cartoon, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p12_cartoon_q4_strokiesprent_4-12.png
+- Afrikaans FAL P1 November 2025 p.14 photograph_or_image, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p14_photograph_or_image_q5_prent_5-14.png
+- Afrikaans FAL P1 November 2025 p.14 photograph_or_image, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p14_photograph_or_image_q5_teks_5-14.png
+- Afrikaans HL P1 November 2025 p.3 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p1_november_2025/p03_text_extract_q1_teks_1-03.png
+- Afrikaans HL P1 November 2025 p.7 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p1_november_2025/p07_text_extract_q2_teks_2-07.png
+- Afrikaans HL P1 November 2025 p.10 cartoon, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p1_november_2025/p10_cartoon_q4_strokiesprent_4-10.png
+- Life Sciences P1 November 2025 p.2 graph_or_chart: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p02_graph_or_chart_qpaper_graph_paper-02.png
+- Life Sciences P1 November 2025 p.3 data_table: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p03_data_table_q1_table_1-03.png
+- Life Sciences P1 November 2025 p.4 diagram_or_model: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p04_diagram_or_model_q1_diagram_1-04.png
+- Life Sciences P1 November 2025 p.9 diagram_or_model: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p09_diagram_or_model_q2_diagram_2-09.png
+- Life Sciences P1 November 2025 p.9 data_table, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p09_data_table_q2_source_2-09.png
+- Life Sciences P1 November 2025 p.10 graph_or_chart, data_table: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p10_graph_or_chart_q2_graph_2-10.png
+- Afrikaans FAL P2 November 2025 p.5 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p2_november_2025/p05_text_extract_q1_teks_1-05.png
+- Afrikaans FAL P2 November 2025 p.5 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p2_november_2025/p05_text_extract_q1_uittreksel_1-05.png
+- Afrikaans HL P2 November 2025 p.2 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p2_november_2025/p02_text_extract_qpaper_text_extract_2_26-02.png
+- Afrikaans HL P2 November 2025 p.2 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p2_november_2025/p02_text_extract_qpaper_text_extract_2_45-02.png
+- Afrikaans HL P2 November 2025 p.17 photograph_or_image: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p2_november_2025/p17_photograph_or_image_q9_foto_9-17.png
+- Afrikaans HL P2 November 2025 p.25 map_extract, text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p2_november_2025/p25_map_extract_q15_map_15-25.png
+- Life Sciences P2 November 2025 p.2 graph_or_chart: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p02_graph_or_chart_qpaper_graph_paper-02.png
+- Life Sciences P2 November 2025 p.4 diagram_or_model: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p04_diagram_or_model_q1_diagram_1-04.png
+- Life Sciences P2 November 2025 p.9 data_table, diagram_or_model: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p09_data_table_q2_diagram_2-09.png
+- Life Sciences P2 November 2025 p.12 map_extract, graph_or_chart: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p12_map_extract_q2_graph_2-12.png
+- Life Sciences P2 November 2025 p.14 data_table: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p14_data_table_q3_table_3-14.png
+- Life Sciences P2 November 2025 p.15 diagram_or_model: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p15_diagram_or_model_q3_diagram_3-15.png
+- Life Sciences P2 November 2025 p.15 map_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p15_map_extract_q3_map_3-15.png
+- Afrikaans FAL P3 November 2025 p.2 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p3_november_2025/p02_text_extract_qpaper_teks_paper-2.png
+- Afrikaans FAL P3 November 2025 p.3 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p3_november_2025/p03_text_extract_q1_bron_1-3.png
+- Afrikaans FAL P3 November 2025 p.3 photograph_or_image: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p3_november_2025/p03_photograph_or_image_q1_prent_1-3.png
+- Life Orientation Paper 1 English September 2025 p.6 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_english_september_2025/p06_text_extract_q2_extract_2-06.png
+- Life Orientation Paper 1 English September 2025 p.7 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_english_september_2025/p07_text_extract_q3_extract_3-07.png
+- Life Orientation Paper 1 English September 2025 p.10 data_table: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_english_september_2025/p10_data_table_q6_data_table_10_13-10.png
+- Life Orientation Paper 1 Afrikaans September 2025 p.6 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_afrikaans_september_2025/p06_text_extract_q2_extract_2-06.png
+- Life Orientation Paper 1 Afrikaans September 2025 p.7 text_extract: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_afrikaans_september_2025/p07_text_extract_q3_extract_3-07.png
+- Life Orientation Paper 1 Afrikaans September 2025 p.10 data_table: deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_afrikaans_september_2025/p10_data_table_q6_data_table_10_13-10.png

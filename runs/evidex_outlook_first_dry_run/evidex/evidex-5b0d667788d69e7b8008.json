@@ -1,0 +1,58 @@
+{
+  "job_id": "evidex-5b0d667788d69e7b8008",
+  "created_at": "2026-08-07T16:25:20+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "dummy-evidex-outlook-20260807T162520Z",
+    "thread_ref": "dummy-evidex-thread-20260807T162520Z"
+  },
+  "route": {
+    "product": "evidex",
+    "confidence": 0.95,
+    "reason": "Matched route keywords: grant, reporting, evidence pack, kpi, donor, m&e."
+  },
+  "status": "needs_review",
+  "risk": "routine",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+      "sender": "M&E Coordinator <[email]>",
+      "attachment_names": "kpi-progress.csv; receipts-summary.xlsx; attendance-register.pdf; field-photos.zip",
+      "intent": "evidence_pack_request",
+      "urgency": "high",
+      "next_step": "Prepare grant evidence pack intake, invoice metadata, and source index request.",
+      "draft_status": "draft_ready",
+      "primary_draft_path": "",
+      "safer_draft_path": "",
+      "shorter_draft_path": "",
+      "evidence_note_path": ""
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "5b0d667788d69e7b8008",
+      "source_type": "email",
+      "source_path": "",
+      "title": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+      "date_observed": "2026-08-07T16:25:20+00:00",
+      "text_extract": "We need a review-ready evidence pack for a donor grant report. The project has KPI progress, attendance registers, receipts, photos, and email approvals, but the evidence is scattered. We need a source index, evidence table, narrative draft, QA receipt, and a ZIP that our grant consultant can review. Reporting period is April to June. Please tell us how to send a redacted pilot folder and invoice/payment link.",
+      "hash": "a87cbb7592dc92b85722",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.95,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

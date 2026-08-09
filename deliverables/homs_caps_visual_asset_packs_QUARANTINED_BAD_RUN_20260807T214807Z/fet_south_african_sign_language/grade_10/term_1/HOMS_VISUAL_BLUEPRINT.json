@@ -1,0 +1,53 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "South African Sign Language",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": null,
+    "path": null,
+    "sha256": null
+  },
+  "canonical_profile_id": "fet.south_african_sign_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [],
+  "assessment_content_focus": [
+    "South African Sign Language Grade 10 Term 1 CAPS content",
+    "South African Sign Language assessment theme and skills",
+    "South African Sign Language Grade 10 Term 1 CAPS content",
+    "South African Sign Language assessment theme and skills"
+  ],
+  "content_alignment_notes": [
+    "CAPS term/content alignment requires educator confirmation."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

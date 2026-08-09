@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A controlled Evidex demonstration showing messy evidence mapped into traceable claims and provenance.">
+  <title>Golden Evidex Case | From Mixed Files to Mapped Claims</title>
+  <style>
+    :root { --ink:#17221f; --muted:#5e6965; --paper:#fff; --soft:#f1f4f0; --line:#ced6d1; --green:#185f47; --coral:#e46f5d; --max:1100px; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:Inter,Aptos,"Segoe UI",Arial,sans-serif; font-size:17px; line-height:1.55; letter-spacing:0; }
+    a { color:inherit; }
+    .wrap { width:min(var(--max),calc(100% - 40px)); margin-inline:auto; }
+    nav { min-height:68px; display:flex; align-items:center; border-bottom:1px solid var(--line); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+    .brand { color:var(--green); font-size:22px; font-weight:900; text-decoration:none; }
+    .back { color:var(--green); font-weight:800; }
+    header { padding:76px 0 58px; background:var(--soft); border-bottom:1px solid var(--line); }
+    .eyebrow { margin:0 0 12px; color:var(--green); font-size:14px; font-weight:900; text-transform:uppercase; }
+    h1,h2,h3 { margin:0; line-height:1.08; letter-spacing:0; }
+    h1 { max-width:900px; font-size:clamp(42px,7vw,72px); }
+    h2 { font-size:clamp(30px,4vw,44px); }
+    h3 { font-size:20px; }
+    .lead { max-width:800px; margin:22px 0 0; color:var(--muted); font-size:21px; }
+    .notice { margin-top:28px; padding:15px 18px; border-left:4px solid var(--coral); background:#fff0ed; }
+    section { padding:72px 0; }
+    .section-head { display:grid; grid-template-columns:.75fr 1.25fr; gap:50px; align-items:end; margin-bottom:32px; }
+    .section-head p { margin:0; color:var(--muted); }
+    .inputs { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+    .input { min-height:135px; padding:18px; border-right:1px solid var(--line); background:#fff; }
+    .input:last-child { border-right:0; }
+    .input span { display:block; margin-bottom:10px; color:var(--coral); font-size:13px; font-weight:900; }
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:6px; }
+    table { width:100%; min-width:760px; border-collapse:collapse; background:#fff; font-size:14px; }
+    th,td { padding:14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); background:var(--soft); font-size:12px; text-transform:uppercase; }
+    .claims { background:var(--soft); }
+    .claim-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .claim { padding:22px; border:1px solid var(--line); border-radius:6px; background:#fff; }
+    .claim p { margin:9px 0 0; color:var(--muted); font-size:14px; }
+    .pack { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; }
+    .pack-item { border-top:3px solid var(--green); padding-top:16px; }
+    .pack-item p { color:var(--muted); font-size:14px; }
+    .cta { padding:56px 0; background:#173127; color:#fff; }
+    .cta-inner { display:flex; align-items:center; justify-content:space-between; gap:30px; }
+    .cta p { margin:8px 0 0; color:#cbd9d3; }
+    .button { min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:11px 18px; border:1px solid #fff; border-radius:5px; background:#fff; color:var(--green); font-weight:850; text-decoration:none; }
+    footer { padding:24px 0; color:var(--muted); font-size:13px; }
+    :focus-visible { outline:3px solid var(--coral); outline-offset:3px; }
+    @media (max-width:800px) {
+      .section-head,.claim-list,.pack { grid-template-columns:1fr; }
+      .section-head { gap:18px; }
+      .inputs { grid-template-columns:1fr; }
+      .input { border-right:0; border-bottom:1px solid var(--line); }
+      .input:last-child { border-bottom:0; }
+      .cta-inner { display:block; }
+      .cta .button { margin-top:22px; }
+    }
+    @media (max-width:480px) { .wrap { width:calc(100% - 28px); } header { padding-top:58px; } }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap nav-inner"><a class="brand" href="../">Evidex Evidence Pack</a><a class="back" href="../">Back to service</a></div></nav>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">Controlled demonstration</p>
+      <h1>Messy programme evidence becomes an inspectable claim trail.</h1>
+      <p class="lead">The golden case shows the exact Evidex transformation: mixed files become an evidence index, mapped claims, provenance and a finished review pack.</p>
+      <div class="notice"><strong>No client data:</strong> every figure and artifact in this case is controlled dummy material.</div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Before</p><h2>Five source types.</h2></div><p>The inputs resemble an ordinary reporting handoff: useful evidence, inconsistent formats, and no single line from the claim back to its proof.</p></div>
+        <div class="inputs">
+          <div class="input"><span>SOURCE 01</span><strong>Attendance register</strong></div>
+          <div class="input"><span>SOURCE 02</span><strong>Field visit notes</strong></div>
+          <div class="input"><span>SOURCE 03</span><strong>KPI progress table</strong></div>
+          <div class="input"><span>SOURCE 04</span><strong>Photo log</strong></div>
+          <div class="input"><span>SOURCE 05</span><strong>Receipts summary</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="claims">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Mapped evidence</p><h2>Each claim keeps its sources.</h2></div><p>Evidex does not simply rewrite the report. It records the claim, actual, target and supporting artifacts so a reviewer can inspect the trail.</p></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Programme claim</th><th>Actual</th><th>Target</th><th>Supporting sources</th><th>Review note</th></tr></thead>
+            <tbody>
+              <tr><td>Youth reading workshops delivered</td><td>9</td><td>8</td><td>Attendance register; field notes; KPI table</td><td>Triangulated across three artifacts</td></tr>
+              <tr><td>Learners reached</td><td>137</td><td>120</td><td>Field notes; KPI table; receipts summary</td><td>Check participant-count method</td></tr>
+              <tr><td>Food parcels distributed</td><td>214</td><td>200</td><td>Field notes; KPI table; photo log</td><td>Photo log corroborates activity</td></tr>
+              <tr><td>Receipts reconciled</td><td>98%</td><td>95%</td><td>Field notes; KPI table; receipts summary</td><td>Finance reviewer to approve</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">After</p><h2>The finished pack.</h2></div><p>The delivery keeps the evidence inspectable and makes the remaining human decisions explicit.</p></div>
+        <div class="pack">
+          <div class="pack-item"><h3>Evidence table</h3><p>Every artifact receives a stable source ID, type, date and provenance entry.</p></div>
+          <div class="pack-item"><h3>Mapped claims</h3><p>Each claim points back to supporting evidence rather than a hidden summary.</p></div>
+          <div class="pack-item"><h3>Gap notes</h3><p>Missing, weak or contradictory support is surfaced for a reviewer.</p></div>
+          <div class="pack-item"><h3>Review receipt</h3><p>The pack records what was prepared and what still needs human approval.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta-inner"><div><h2>Try the route on one bounded case.</h2><p>Start with non-sensitive or safely redacted evidence.</p></div><a class="button" href="../#intake">Request an Evidex pilot</a></div>
+    </section>
+  </main>
+  <footer><div class="wrap">Controlled Evidex demonstration. No approval outcome is claimed or implied.</div></footer>
+</body>
+</html>

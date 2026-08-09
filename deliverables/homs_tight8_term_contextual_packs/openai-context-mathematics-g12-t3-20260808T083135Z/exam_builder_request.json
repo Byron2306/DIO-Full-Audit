@@ -1,0 +1,430 @@
+{
+  "module_code": "MATHEM",
+  "module_name": "Mathematics Grade 12",
+  "topics": [
+    "statistics, probability, Euclidean geometry and measurement",
+    "data displays, probability rules and geometric proof"
+  ],
+  "methodology_topic": "interpreting diagrams, justifying steps and checking constraints",
+  "essay_topic": "mixed-topic source-based calculation paper",
+  "total_marks": 75,
+  "duration_hours": 2,
+  "additional_instructions": "Controlled CAPS-aligned demo generation. A qualified educator must verify topic scope, mark allocation, and assessment form before classroom use.\n\nSubject profile: Mathematics. Grade profile: Grade 12 (fet_exit); learner level advanced_school_exit; Bloom targets apply, analyze, evaluate, create; ZPD expert challenge; question style exam_source_set, extended_case_response, argumentative_essay, synthesis_question; reading load high; writing load high. Question families: solve_equation, simplify_expression, interpret_function, prove_geometry_statement, calculate_measure, analyse_data. Memo expectations: award method marks before final-answer marks, show alternate valid solution paths where likely, keep diagrams and given data sufficient for each answer, flag calculator and rounding assumptions. Grade memo style: credit mature synthesis, defensible argument, and curriculum-aligned alternatives. Human review checks: verify every answer independently; check diagrams are to scale only if stated; confirm all required values are supplied; confirm mark allocations match working complexity. Do not use blocked modes: answer cannot be derived from supplied information; diagram-dependent question without supplied diagram; single method required when alternate valid methods exist. CAPS CONTROL: Align this assessment draft to the official DBE CAPS source 'Mathematics' for Mathematics, Grade 12 / fet_exit. CAPS SHA-256: 042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5. CAPS assessment blueprint: calculation_problem_solving. Assessment format signals: source-based, case study, data/diagram, practical investigation, project/SBA, oral/performance, calculation/problem.  Canonical ontology profile: fet.mathematics / Mathematics. Allowed modes: calculations, problem_solving, diagrams, patterns, short_reasoning. Default-off modes: essay, long_source_based_response, generic_case_study. Distribution guide: calculation_and_procedure=55%, problem_solving=30%, reasoning_or_representation=15%. Generation constraints: Show memo steps and mark allocations for methods.; Avoid essay-style rubrics unless requested by a human educator.. Treat document keyword signals as supporting evidence, not the final assessment authority.  CAPS assessment design profile: render_shell=question_paper; assessment_forms=; annual_weightings=not extracted; cognitive_or_skill_distribution=calculation_and_procedure=55%, problem_solving=30%, reasoning_or_representation=15%; marking_instruments=memorandum, rubric; design_constraints=Show memo steps and mark allocations for methods. ; Avoid essay-style rubrics unless requested by a human educator.. Do not force source-based sections or essay matrices unless the canonical ontology profile and requested brief justify them. Bloom targets: apply, analyze, evaluate, create. Question styles: exam_source_set, extended_case_response, argumentative_essay, synthesis_question. Memo style: credit mature synthesis, defensible argument, and curriculum-aligned alternatives. CAPS excerpt: National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nMATHEMATICS\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n MATHEMATICS\n\nCAPS\n MATHEMATICS GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0573-9\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES GRADES 10-12\n MATHEMATICS\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 heal the",
+  "term": "3",
+  "grade": 12,
+  "subject_profile": {
+    "schema": "knowedge.homs_subject_profile.v1",
+    "subject_id": "mathematics",
+    "display_name": "Mathematics",
+    "default_level": "senior_school",
+    "assessment_modes": [
+      "structured_exam",
+      "calculation_problem_solving",
+      "proof_or_reasoning",
+      "graph_interpretation",
+      "geometry_diagram_response",
+      "worked_memo"
+    ],
+    "source_types": [
+      "equation_set",
+      "function_graph",
+      "geometry_diagram",
+      "data_table",
+      "probability_context",
+      "calculation_workspace"
+    ],
+    "question_families": [
+      "solve_equation",
+      "simplify_expression",
+      "interpret_function",
+      "prove_geometry_statement",
+      "calculate_measure",
+      "analyse_data",
+      "show_working"
+    ],
+    "cognitive_targets": [
+      "routine_procedure",
+      "complex_procedure",
+      "problem_solving",
+      "reasoning",
+      "proof"
+    ],
+    "rubric_dimensions": [
+      "method_accuracy",
+      "final_answer_accuracy",
+      "mathematical_notation",
+      "diagram_use",
+      "logical_reasoning",
+      "unit_or_rounding_accuracy"
+    ],
+    "memo_expectations": [
+      "award method marks before final-answer marks",
+      "show alternate valid solution paths where likely",
+      "keep diagrams and given data sufficient for each answer",
+      "flag calculator and rounding assumptions"
+    ],
+    "retrieval_queries": [
+      "CAPS mathematics assessment cognitive levels memo method marks",
+      "mathematics geometry diagram assessment memorandum",
+      "mathematics graph interpretation exam questions"
+    ],
+    "human_review_checks": [
+      "verify every answer independently",
+      "check diagrams are to scale only if stated",
+      "confirm all required values are supplied",
+      "confirm mark allocations match working complexity"
+    ],
+    "blocked_claims_or_modes": [
+      "answer cannot be derived from supplied information",
+      "diagram-dependent question without supplied diagram",
+      "single method required when alternate valid methods exist"
+    ]
+  },
+  "subject_profile_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/mathematics.json",
+  "grade_profile": {
+    "grade": 12,
+    "phase": "fet_exit",
+    "learner_level": "advanced_school_exit",
+    "bloom_targets": [
+      "apply",
+      "analyze",
+      "evaluate",
+      "create"
+    ],
+    "zpd_level": "expert challenge",
+    "question_style": [
+      "exam_source_set",
+      "extended_case_response",
+      "argumentative_essay",
+      "synthesis_question"
+    ],
+    "reading_load": "high",
+    "writing_load": "high",
+    "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+    "review_checks": [
+      "exit-level standard",
+      "moderation readiness",
+      "equivalent second opportunity",
+      "no undergraduate-only assumptions"
+    ]
+  },
+  "grade_ladder_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_grade_ladder.json",
+  "caps_context": {
+    "schema": "knowedge.homs_caps_context.v1",
+    "created_at": "2026-08-08T08:31:34+00:00",
+    "enabled": true,
+    "manifest": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/caps_corpus_manifest.json",
+    "subject_id": "mathematics",
+    "subject": "Mathematics",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "preferred_language": "English",
+    "candidate_count": 4,
+    "candidates": [
+      {
+        "score": 190,
+        "document_id": "fileticket_uxlzcia67re",
+        "title": "Mathematics",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematics_gr_10-12_web_1133.pdf",
+        "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=uXLZcIa67rE%3d&tabid=570&portalid=0&mid=1558",
+        "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20MATHEMATICS%20_%20GR%2010-12%20_%20Web_1133.pdf?ver=2015-01-27-154314-253",
+        "sha256": "042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5",
+        "bytes": 2966422
+      },
+      {
+        "score": 150,
+        "document_id": "fileticket_yukp5y8po0e",
+        "title": "Wiskunde (Mathematics)",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_wiskunde_gr_10-12_web.pdf",
+        "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=YuKP5y8Po0E%3d&tabid=570&portalid=0&mid=1559",
+        "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20%20AFRIKAANS%20%20WISKUNDE%20GR%2010-12%20%20WEB.pdf?ver=2015-01-27-154828-653",
+        "sha256": "b4758d7d908a2aa435c8e399221bcce492af20da41b7bb9991d2a50afeba933b",
+        "bytes": 1483105
+      },
+      {
+        "score": 110,
+        "document_id": "fileticket_baoy_t3zgsa",
+        "title": "Technical Mathematics",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_maths_tech_final_bleed_and_crops.pdf",
+        "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=baoY_t3ZgsA%3d&tabid=570&portalid=0&mid=1558",
+        "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20Maths%20Tech%20Final%20Bleed%20and%20crops.pdf?ver=2015-06-22-125124-000",
+        "sha256": "89a9c9bc207ef6e929a0d203837ab11b7797bc4e2b412677bf679d82cd84e869",
+        "bytes": 3031153
+      },
+      {
+        "score": 50,
+        "document_id": "fileticket_hv8s-irwnui",
+        "title": "Tegniese Wiskunde",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/tegniese_wiskunde.pdf",
+        "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=HV8S-IrWnUI%3d&tabid=570&portalid=0&mid=1559",
+        "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/TEGNIESE%20WISKUNDE.pdf?ver=2016-05-20-100931-397",
+        "sha256": "ac279deaca6b3cade032ce5d0b3df1e5b5ea53055cb5b1e80a1b0fd092e67967",
+        "bytes": 3114126
+      }
+    ],
+    "selected": {
+      "score": 190,
+      "document_id": "fileticket_uxlzcia67re",
+      "title": "Mathematics",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematics_gr_10-12_web_1133.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=uXLZcIa67rE%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20MATHEMATICS%20_%20GR%2010-12%20_%20Web_1133.pdf?ver=2015-01-27-154314-253",
+      "sha256": "042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5",
+      "bytes": 2966422
+    },
+    "assessment_matrix_row": {
+      "recommended_blueprint": "calculation_problem_solving",
+      "subject_family": "mathematics",
+      "language_guess": "Unknown",
+      "assessment_flags": {
+        "source_based": true,
+        "essay": false,
+        "case_study": true,
+        "data_graph_diagram": true,
+        "practical_investigation": true,
+        "project_assignment": true,
+        "oral_performance": true,
+        "calculation_problem": true,
+        "test_exam": true
+      },
+      "assessment_keyword_counts": {
+        "source_based": 1,
+        "essay": 0,
+        "case_study": 1,
+        "data_graph_diagram": 92,
+        "practical_investigation": 61,
+        "project_assignment": 39,
+        "oral_performance": 22,
+        "calculation_problem": 130,
+        "test_exam": 220
+      },
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": false,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    },
+    "assessment_ontology_profile": {
+      "profile_id": "fet.mathematics",
+      "subject": "Mathematics",
+      "phase": "fet_grade_10_12",
+      "phase_group": "fet",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "subject_family": "mathematics",
+      "assessment_family": "calculation_problem_solving",
+      "allowed": [
+        "calculations",
+        "problem_solving",
+        "diagrams",
+        "patterns",
+        "short_reasoning"
+      ],
+      "default_off": [
+        "essay",
+        "long_source_based_response",
+        "generic_case_study"
+      ],
+      "required_distribution": {
+        "calculation_and_procedure": 55,
+        "problem_solving": 30,
+        "reasoning_or_representation": 15
+      },
+      "generation_constraints": [
+        "Show memo steps and mark allocations for methods.",
+        "Avoid essay-style rubrics unless requested by a human educator."
+      ],
+      "validation_rules": [
+        "Generated packs must declare this profile_id and assessment_family.",
+        "Generated packs may not use default_off modes unless the human request explicitly overrides them.",
+        "Generated packs must cite at least one supporting CAPS evidence document.",
+        "Teacher memo, mark allocation, and learner instructions must be present.",
+        "Educator approval remains a required terminal gate before delivery or classroom use."
+      ],
+      "evidence_summary": {
+        "document_count": 2,
+        "languages": {
+          "Unknown": 1,
+          "Afrikaans": 1
+        },
+        "document_blueprints": {
+          "calculation_problem_solving": 2
+        },
+        "signal_counts": {
+          "signals_source_based": 1,
+          "signals_essay_or_extended_response": 0,
+          "signals_case_study": 1,
+          "signals_data_graph_diagram": 2,
+          "signals_practical_investigation": 2,
+          "signals_project_or_sba": 2,
+          "signals_oral_or_performance": 1,
+          "signals_calculation_problem": 1,
+          "signals_formal_test_or_exam": 1
+        },
+        "noisy_document_count": 1
+      }
+    },
+    "assessment_design_profile": {
+      "profile_id": "fet.mathematics",
+      "subject": "Mathematics",
+      "assessment_family": "calculation_problem_solving",
+      "render_shell": "question_paper",
+      "confidence": "medium",
+      "assessment_forms": [],
+      "annual_weightings": {},
+      "task_requirements": [],
+      "paper_structure": [],
+      "cognitive_distribution": {
+        "calculation_and_procedure": 55,
+        "problem_solving": 30,
+        "reasoning_or_representation": 15
+      },
+      "marking_instruments": [
+        "memorandum",
+        "rubric"
+      ],
+      "generation_constraints": [
+        "Show memo steps and mark allocations for methods.",
+        "Avoid essay-style rubrics unless requested by a human educator."
+      ],
+      "validation_rules": [
+        "Choose the render shell from assessment design before rendering learner-facing material.",
+        "Do not render practical performance tasks as written answer-question papers.",
+        "Marks in the learner pack must reconcile with the assessment instrument.",
+        "Keep educator approval as the final gate."
+      ]
+    },
+    "extracted_excerpt": "National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nMATHEMATICS\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n MATHEMATICS\n\nCAPS\n MATHEMATICS GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0573-9\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES GRADES 10-12\n MATHEMATICS\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 heal the divisions of the past and establish a society based on democratic\n values, social justice and fundamental human rights;\n\n \u2022 improve the quality of life of all citizens and free the potential of each person;\n\n \u2022 lay the foundations for a democratic and open society in which government is\n based on the will of the people and every citizen is equally protected by law;\n and\n\n\u2022 build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nin 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experience\nof implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National Curriculum\nStatement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) to produce this document.\n\nFrom 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document\nand will simply be known as the National Curriculum Statement Grades R-12. the National Curriculum Statement for\nGrades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification of what\nis to be taught and learnt on a term-by-term basis.\n\nthe National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme\nGuidelines and subject Assessment Guidelines with the\n\n(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document;\n\n(b) National policy pertaining to the programme and promotion requirements of the National Curriculum Statement\n Grades R-12; and\n\n(c) National Protocol for Assessment Grades R-12.\n\nMRS ANGIE MOTSHEKGA, MP\nMINISTER OF BASIC EDUCATION\n\nCAPS\n MATHEMATICS GRADES 10-12\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n MATHEMATICS GRADES 10-12\ncontents\n\nSection 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3\n\n1.1 Background .....................................................................................................................................................3\n\n1.2\tOverview...........................................................................................................................................................3\n\n1.3 General aims of the South African Curriculum.............................................................................................4\n\n1.4 Time allocation.................................................................................................................................................6\n\n 1.4.1 Foundation Phase....................................................................................................................................6\n\n 1.4.2 Intermediate Phase..................................................................................................................................6\n\n 1.4.3 Senior Phase...........................................................................................................................................7\n\n 1.4.4 Grades 10-12...........................................................................................................................................7\n\nSECTION 2: INTRODUCTION TO MATHEMATICS. ................................................................................. 8\n\n2.1 What is Mathematics?.....................................................................................................................................8\n\n2.2 Specific Aims. ..................................................................................................................................................8\n\n2.3 Specific Skills...................................................................................................................................................8\n\n2.4 Focus of Content Areas. .................................................................................................................................9\n\n2.5 Weighting of Content Areas............................................................................................................................9\n\n2.6\tMathematics in the FET.................................................................................................................................10\n\nSECTION 3: OVERVIEW OF TOPICS PER TERM AND ANNUAL TEACHING PLANS........................ 11\n\n3.1 Specification of content to show Progression............................................................................................11\n\n 3.1.1\tOverview of topics. ................................................................................................................................12\n\n3.2 Content clarification with teaching guidelines. ..........................................................................................16\n\n 3.2.1 Allocation of teaching time.....................................................................................................................16\n\n 3.2.2 Sequencing and pacing of topics...........................................................................................................18\n\n 3.2.3 Topic allocation per term........................................................................................................................21\n\n Grade 10 Term: 1...................................................................................................................................21\n\n Grade 10 Term: 2...................................................................................................................................24\n\n Grade 10 Term: 3...................................................................................................................................26\n\n Grade 10 Term: 4...................................................................................................................................29\n\n Grade 11 Term: 1...................................................................................................................................30\n\n Grade 11 Term: 2...................................................................................................................................32\n\n Grade 11 Term: 3...................................................................................................................................34\n\nCAPS 1\n MATHEMATICS GRADES 10-12\n Grade 11 Term: 4...................................................................................................................................39",
+    "extraction_error": null
+  },
+  "caps_generation_note": "CAPS CONTROL: Align this assessment draft to the official DBE CAPS source 'Mathematics' for Mathematics, Grade 12 / fet_exit. CAPS SHA-256: 042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5. CAPS assessment blueprint: calculation_problem_solving. Assessment format signals: source-based, case study, data/diagram, practical investigation, project/SBA, oral/performance, calculation/problem.  Canonical ontology profile: fet.mathematics / Mathematics. Allowed modes: calculations, problem_solving, diagrams, patterns, short_reasoning. Default-off modes: essay, long_source_based_response, generic_case_study. Distribution guide: calculation_and_procedure=55%, problem_solving=30%, reasoning_or_representation=15%. Generation constraints: Show memo steps and mark allocations for methods.; Avoid essay-style rubrics unless requested by a human educator.. Treat document keyword signals as supporting evidence, not the final assessment authority.  CAPS assessment design profile: render_shell=question_paper; assessment_forms=; annual_weightings=not extracted; cognitive_or_skill_distribution=calculation_and_procedure=55%, problem_solving=30%, reasoning_or_representation=15%; marking_instruments=memorandum, rubric; design_constraints=Show memo steps and mark allocations for methods. ; Avoid essay-style rubrics unless requested by a human educator.. Do not force source-based sections or essay matrices unless the canonical ontology profile and requested brief justify them. Bloom targets: apply, analyze, evaluate, create. Question styles: exam_source_set, extended_case_response, argumentative_essay, synthesis_question. Memo style: credit mature synthesis, defensible argument, and curriculum-aligned alternatives. CAPS excerpt: National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nMATHEMATICS\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n MATHEMATICS\n\nCAPS\n MATHEMATICS GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0573-9\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES GRADES 10-12\n MATHEMATICS\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 heal the",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Mathematics",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Mathematics",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematics_gr_10-12_web_1133.pdf",
+      "sha256": "042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5"
+    },
+    "canonical_profile_id": "fet.mathematics",
+    "assessment_family": "calculation_problem_solving",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "diagram",
+        "data_table",
+        "calculation_workspace"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: diagram_or_model observed in Mathematics (24 source/stimulus object(s) across 2 paper(s)).",
+        "FET old-paper catalogue: graph_or_chart observed in Mathematics (24 source/stimulus object(s) across 2 paper(s)).",
+        "CAPS/source matrix signals calculation/problem-solving evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": false,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "Mathematics",
+        "paper_count": 2,
+        "observed_contract": [
+          "diagram_or_model",
+          "graph_or_chart",
+          "data_table",
+          "unclassified_stimulus",
+          "map_extract",
+          "image_rendered_or_scanned_pages"
+        ]
+      }
+    },
+    "caps_theme_candidates": [
+      "MATHEMATICS GRADES 10-12",
+      "Term 1 Exponents 2 Equations and 3 series",
+      "Term 2 Trigonometric functions 1 Trigonometry (reduction 4 Polynomial functions 1",
+      "is to be taught and learnt on a term-by-term basis.",
+      "the National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme",
+      "Guidelines and subject Assessment Guidelines with the",
+      "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+      "Grades R-12",
+      "(c) National Protocol for Assessment Grades R-12.",
+      "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "contents",
+      "Section 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3",
+      "Curriculum and Assessment",
+      "Grades 10-12"
+    ],
+    "assessment_content_focus": [
+      "statistics, probability, Euclidean geometry and measurement",
+      "data displays, probability rules and geometric proof",
+      "interpreting diagrams, justifying steps and checking constraints",
+      "mixed-topic source-based calculation paper"
+    ],
+    "content_alignment_notes": [
+      "Requested focus was not clearly found in extracted CAPS term/theme lines. Confirm term fit before generation.",
+      "Use this as a visual planning warning, not an automatic blocker; PDF extraction can miss table structure."
+    ],
+    "required_visuals": [
+      {
+        "id": "working_grid",
+        "title": "Working grid with method mark space",
+        "role": "learner_workspace",
+        "visual_kind": "working_grid",
+        "must_show": [
+          "question number",
+          "marks",
+          "working area",
+          "final answer cue"
+        ],
+        "assessment_use": "Learners show method before final answer."
+      },
+      {
+        "id": "axis_or_diagram",
+        "title": "Axis, diagram or table required by the topic",
+        "role": "stimulus_or_workspace",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "labelled axes or diagram labels",
+          "units where needed",
+          "plot/table space"
+        ],
+        "assessment_use": "Learners interpret or construct visual mathematical evidence."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  }
+}

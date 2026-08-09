@@ -1,0 +1,91 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T21:47:36+00:00",
+  "enabled": true,
+  "subject_id": "coding_and_robotics",
+  "subject": "Coding And Robotics",
+  "grade": 5,
+  "phase": "intermediate_grade_4_6",
+  "preferred_language": "English",
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "score": 60,
+      "document_id": "fileticket_o1vkqbbwwy0",
+      "title": "English",
+      "phase": "intermediate_grade_4_6",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/ip_coding_and_robotics_caps_fin_oct_2025.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/IP%20Coding%20and%20Robotics%20CAPS%20Fin%20Oct%202025%20.pdf?ver=2025-10-27-133707-390",
+      "sha256": "0d87e20bcc5d3ea8f09db31a07c9b6d6bf5de2f837455c4f048aa2362ff272d8",
+      "bytes": 13521705
+    }
+  ],
+  "selected": {
+    "score": 60,
+    "document_id": "fileticket_o1vkqbbwwy0",
+    "title": "English",
+    "phase": "intermediate_grade_4_6",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/ip_coding_and_robotics_caps_fin_oct_2025.pdf",
+    "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087",
+    "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/IP%20Coding%20and%20Robotics%20CAPS%20Fin%20Oct%202025%20.pdf?ver=2025-10-27-133707-390",
+    "sha256": "0d87e20bcc5d3ea8f09db31a07c9b6d6bf5de2f837455c4f048aa2362ff272d8",
+    "bytes": 13521705
+  },
+  "assessment_ontology_profile": {
+    "profile_id": "intermediate.coding_and_robotics",
+    "subject": "Coding and Robotics",
+    "phase": "intermediate_grade_4_6",
+    "assessment_family": "practical_project_design_task"
+  },
+  "assessment_design_profile": {
+    "profile_id": "intermediate.coding_and_robotics",
+    "subject": "Coding and Robotics",
+    "phase": "intermediate_grade_4_6",
+    "phase_group": "intermediate",
+    "assessment_family": "practical_project_design_task",
+    "render_shell": "project_task_sheet",
+    "confidence": "medium",
+    "assessment_forms": [
+      "practical_task",
+      "design_project",
+      "structured_theory",
+      "oral_explanation",
+      "portfolio_evidence"
+    ],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "design_or_practical": 40,
+      "technical_knowledge": 30,
+      "diagrams_or_specifications": 20,
+      "reflection_or_safety": 10
+    },
+    "marking_instruments": [
+      "project_rubric",
+      "design_log",
+      "test_log",
+      "teacher_observation_record"
+    ],
+    "generation_constraints": [
+      "State design challenge, constraints, materials, safety, deliverables, and testing evidence.",
+      "Use questions only for theory or reflection sub-parts.",
+      "Require a rubric and visible evidence log for the educator."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      "s breakdown and progression .......................................... 36 Table 2-8 Intermediate phase robotics concepts, content and skills breakdown and progression ....................................... 48 Table 4-9 Minimum formal assessment requirements for Coding and Robotics .................................................................171 Table A-10 Coding - Clarification of concepts and terms........................................................................................................... i Table A-11 Robotics - Clarification of concepts and terms ....................................................................................................... ii Table A-12 Digital Concepts - Clarification of concepts and terms ........................................................................................... ii Figures Figure 2.1 Coding and Robotics as a STEAM discipline ..............................................................................................",
+      "ht and learnt on a term-by-term basis. The National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in South African schools and comprises of the following: (a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document; (b) National policy pertaining to the programme and promotion requirements of the National Curriculum Statement Grades R-12; and (c) National Protocol for Assessment Grades R-12. MRS ANGIE MOTSHEKGA, MP MINISTER OF BASIC EDUCATION i CONTENTS 1 Section 1 Introduction to the Curriculum and Assessment Policy Statement for Coding and Robotics Intermediate Phase (Grade 4 \u2013 6) ....................................................................................................................................... 4 1.1 Background ..........................................................................................................................................................",
+      "problem. It is therefore advisable that leaners practise coding New code using a Repeat 4 times to replace sequential code concepts using small, basic, manageable tasks/problems until they are ready for the next step. Practical paper-based activities can be applied to strengthen the Note: mastering of the content. In the example below pseudocode is written as simple instructions to solve a problem. SSB wants to collect all the carrots jumping over the logs and equivalent solution is presented using code blocks. Loops also ask questions, such as how many times? but ask the question over-and-over again and perform actions over- How many times and-over until the condition is satisfied Example activity 4 Open-ended Using computational thinking, learners design a game with the knowledge, skills and experience gained up to now. Concepts they could include: random position, repeat, if on edge, bounce, when sprite is clicked, using a grid to find a treasure, etc. 79 Content (Grade 4",
+      "Introduction to a robotics programming environment. \u2022 Basics of robot programming: variables, data types, control structures (sequence, if statements, loops), functions, and libraries. \u2022 Hands-on coding exercises and projects to develop skills in algorithm development and in robot programming. 2.6.3 Digital Concepts Digital concepts are fundamental ideas and principles that underpin and support coding and robotics. They encompass various aspects of technology and computer science, providing the context and application for these fields. In Coding and Robotics, digital concepts are divided into the following topics: Digital Citizenship, Digital Awareness and Digital Skills. The following must be read in conjunction with Table 2-6 in Section 2.12.3. 2.6.3.1 Digital Citizenship The rights, responsibilities and behaviours (respect, integrity, and safety) displayed by individuals in the digital world. It encompasses a spectrum of behaviours, spanning from respecting the privacy of othe"
+    ]
+  },
+  "extracted_excerpt": "FOREWORD BY THE MINISTER\n                         Our national curriculum is the culmination of our efforts over a period of seventeen\n                         years to transform the curriculum bequeathed to us by apartheid. From the start of\n                         democracy, we have built our curriculum on the values that inspired our Constitution\n                         (Act 108 of 1996). The Preamble to the Constitution states that the aims of the\n                         Constitution are to:\n\n                         \u2022    heal the divisions of the past and establish a society based on democratic\n                         \u2022    values, social justice and fundamental human rights;\n                         \u2022    improve the quality of life of all citizens and free the potential of each person;\n                         \u2022    lay the foundations for a democratic and open society in which government is based\n                              on the will of the people and every citizen is equally protected by law; and\n                          \u2022   build a united and democratic South Africa able to take its rightful place as a\n                              sovereign state in the family of nations.\n\nEducation and the curriculum have an important role to play in realising these aims. In 1997 we introduced\noutcomes-based education to overcome the curricular divisions of the past, but the experience of\nimplementation prompted a review in 2000. This led to the first curriculum revision: the Revised National\nCurriculum Statement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) and the National Curriculum Statement Grades 10-12 to produce this document.\n\nFrom 2012 the two National Curriculum Statements, for Grades R-9 and Grades 10-12 respectively, are\ncombined in a single document and will simply be known as the National Curriculum Statement Grades R-12.\nThe National Curriculum Statement for Grades R-12 builds on the previous curriculum but also updates it and\naims to provide clearer specification of what is to be taught and learnt on a term-by-term basis.\n\nThe National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in\nSouth African schools and comprises of the following:\n\n        (a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this\n        document;\n\n        (b) National policy pertaining to the programme and promotion requirements of the National Curriculum\n        Statement Grades R-12; and\n\n        (c) National Protocol for Assessment Grades R-12.\n\nMRS ANGIE MOTSHEKGA, MP\n\nMINISTER OF BASIC EDUCATION\n\n                                                          i\n\fCONTENTS\n1 Section 1 Introduction to the Curriculum and Assessment Policy Statement for Coding and Robotics\nIntermediate Phase (Grade 4 \u2013 6) ....................................................................................................................................... 4\n    1.1        Background ........................................................................................................................................................... 4\n    1.2        Overview ................................................................................................................................................................ 4\n    1.3      ",
+  "extraction_error": null
+}

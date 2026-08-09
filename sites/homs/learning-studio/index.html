@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Opening HOMS Learning Studio</title>
+  <script>
+    const target = new URL("../", window.location.href);
+    const incoming = new URLSearchParams(window.location.search);
+    incoming.set("offer", "learning_companion");
+    target.search = incoming.toString();
+    target.hash = "proof";
+    window.location.replace(target.href);
+  </script>
+</head>
+<body>
+  <p><a href="../?offer=learning_companion#proof">Open HOMS Learning Studio</a></p>
+</body>
+</html>

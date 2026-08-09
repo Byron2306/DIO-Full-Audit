@@ -1,0 +1,75 @@
+{
+  "schema": "knowedge.phase3.editorial_review.v1",
+  "episode_id": "vamp-0504eca3e38d142a",
+  "product_layer": "vamp",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "tasks": [
+    {
+      "task_id": "vamp-0504eca3e38d142a:source_research",
+      "review_type": "source_research",
+      "stage": "campaign_preflight",
+      "role": "researcher",
+      "priority": 50,
+      "required": false,
+      "status": "ready",
+      "artifacts": [
+        "CAMPAIGN_PACK.md",
+        "storyboard.json",
+        "visual_plan.json",
+        "metadata_package.json"
+      ]
+    },
+    {
+      "task_id": "vamp-0504eca3e38d142a:script_editorial",
+      "review_type": "script_editorial",
+      "stage": "campaign_preflight",
+      "role": "writer",
+      "priority": 80,
+      "required": true,
+      "status": "ready",
+      "artifacts": [
+        "CAMPAIGN_PACK.md",
+        "storyboard.json",
+        "visual_plan.json",
+        "metadata_package.json"
+      ]
+    },
+    {
+      "task_id": "vamp-0504eca3e38d142a:visual_editorial",
+      "review_type": "visual_editorial",
+      "stage": "campaign_preflight",
+      "role": "visual_editor",
+      "priority": 80,
+      "required": true,
+      "status": "ready",
+      "artifacts": [
+        "CAMPAIGN_PACK.md",
+        "storyboard.json",
+        "visual_plan.json",
+        "metadata_package.json"
+      ]
+    },
+    {
+      "task_id": "vamp-0504eca3e38d142a:release_compliance",
+      "review_type": "release_compliance",
+      "stage": "campaign_preflight",
+      "role": "publisher",
+      "priority": 80,
+      "required": true,
+      "status": "ready",
+      "artifacts": [
+        "CAMPAIGN_PACK.md",
+        "storyboard.json",
+        "visual_plan.json",
+        "metadata_package.json"
+      ]
+    }
+  ],
+  "blocking_rules": [
+    "No fake metrics or guaranteed outcomes.",
+    "No fabricated testimonials.",
+    "No private client data.",
+    "No claim that AI replaces professional judgment.",
+    "Evidence support only. Human manager or staff member approves interpretations."
+  ]
+}

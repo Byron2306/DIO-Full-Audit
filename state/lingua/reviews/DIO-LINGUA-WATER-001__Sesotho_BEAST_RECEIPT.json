@@ -1,0 +1,162 @@
+{
+  "schema": "dio.lingua.beast_crystallization_receipt.v1",
+  "status": "crystallized",
+  "credits": [
+    {
+      "credit_id": "scc_9a800c9bb54448b5",
+      "unit_id": "P1",
+      "block_hash": "sha256:23f0f0175be63962fc410af98b675f7b0ed0da7dcd88a951359da6a4d04d007c"
+    },
+    {
+      "credit_id": "scc_d1ba93a95472d225",
+      "unit_id": "P2",
+      "block_hash": "sha256:1cec839fe1d10414be39db0c9a14a77d649efe5bbd53171cf7d39aa21aff8516"
+    },
+    {
+      "credit_id": "scc_97f72ad75a513e2a",
+      "unit_id": "P3",
+      "block_hash": "sha256:a5cbf1cb8c73bc4cbf0b3c7efd3c51bc85b0d83706de5709865e29da15b934e2"
+    },
+    {
+      "credit_id": "scc_7702356a57343c39",
+      "unit_id": "P4",
+      "block_hash": "sha256:c41edf8812900566895ae7338716365d25be3d45fb2ff6bb7a1635a5663ab79d"
+    },
+    {
+      "credit_id": "scc_0ceb1dec16161f6f",
+      "unit_id": "P5",
+      "block_hash": "sha256:73f71bbd19e785bb48720aa6e633dab6dc026c87cba8da2dd9e5bb6b0188ff3f"
+    },
+    {
+      "credit_id": "scc_fb94e5793ca99895",
+      "unit_id": "P6",
+      "block_hash": "sha256:6b124042d9d0d16e2f88f05e33b40264cf3dd0b0d699b3ac8b1fe7d8bda5f158"
+    },
+    {
+      "credit_id": "scc_b4bca6e21e3f854e",
+      "unit_id": "P7",
+      "block_hash": "sha256:e204f7a89b2a0d3a8e4a7af016aaee103e1210ce6c575e1f7e79bc67f9292774"
+    }
+  ],
+  "machine_drafts_promoted": false,
+  "human_authority_verified": true,
+  "chain": {
+    "beast_object_type": "crystal_chain_verification",
+    "version": "1.0",
+    "valid": true,
+    "block_count": 72,
+    "head_hash": "sha256:e204f7a89b2a0d3a8e4a7af016aaee103e1210ce6c575e1f7e79bc67f9292774",
+    "errors": [],
+    "consensus": "local_hash_chain_no_distributed_consensus"
+  },
+  "learning_event": {
+    "event_digest": "sha256:bb88a10b15814c4819d8b7b9e749c76f03b07129de86fa59f88da1e2530216c8",
+    "capability_id": "lingua:DIO-LINGUA-WATER-001:Sesotho"
+  },
+  "memory_residue": {
+    "beast_object_type": "memory_hull_write_receipt",
+    "version": "2.0",
+    "residue_id": "residue_4f238170b3861d6868b4",
+    "section": "decisions",
+    "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_4f238170b3861d6868b4.md",
+    "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_4f238170b3861d6868b4.residue.json",
+    "residue_seal": {
+      "beast_object_type": "beast_residue_seal",
+      "version": "2.0",
+      "purpose": "memory_hull_decisions",
+      "algorithm": "Ed25519",
+      "provider": "cryptography",
+      "created_at": "2026-08-09T11:40:48.805981+00:00",
+      "payload_sha256": "sha256:77229646aaf241cd1e6d9dc29edaa27f52efed95e96fb06dd36182e4d00b51d9",
+      "message_sha256": "sha256:81c2df92527a5763a7e76dd9e2b8cb5e16d07be505e14af590c50bb61bb5685b",
+      "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+      "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+      "signature_b64": "RVfic+I9uk2dMRjptxoCZ1icE1cXaSduUzQ6q0GaI/JDBlaA/2QyGpXlpQwzFRBnR8kLj0m8qX7YlWnoobvOAA==",
+      "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+    },
+    "verified": true,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+  },
+  "prec_lifecycle": {
+    "beast_object_type": "prec_lifecycle",
+    "version": "1.0",
+    "lifecycle_id": "prec_6161bff87a507d965d",
+    "kind": "dio_lingua",
+    "objective": "Lingua crystallize for Sesotho",
+    "scope": "Water-quality operations",
+    "status": "completed",
+    "current_phase": "crystallize",
+    "task_id": "DIO-LINGUA-WATER-001",
+    "provider": "BEAST",
+    "summary": "Lingua crystallize lifecycle completed",
+    "metadata": {
+      "operation": "crystallize",
+      "target_language": "Sesotho"
+    },
+    "artifact_refs": {
+      "crystallize": {
+        "receipt_digest": {
+          "value": "sha256:7bcf723730f4b44101f274f37dfdf1670a5b73ba26336201bbe28fc5c679a51c"
+        }
+      },
+      "economize": {},
+      "perceive": {},
+      "reason": {
+        "result_status": {
+          "value": "crystallized"
+        }
+      }
+    },
+    "created_at": "2026-08-09T11:40:48.810843+00:00",
+    "updated_at": "2026-08-09T11:40:48.823314+00:00",
+    "completed_at": "2026-08-09T11:40:48.823314+00:00",
+    "phase_events": [
+      {
+        "phase": "perceive",
+        "status": "completed",
+        "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+        "artifacts": {},
+        "signals": [
+          "crystallize"
+        ],
+        "created_at": "2026-08-09T11:40:48.813473+00:00"
+      },
+      {
+        "phase": "reason",
+        "status": "completed",
+        "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+        "artifacts": {
+          "result_status": "crystallized"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:40:48.815997+00:00"
+      },
+      {
+        "phase": "economize",
+        "status": "completed",
+        "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+        "artifacts": {
+          "provider_call_displaced": false
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:40:48.818384+00:00"
+      },
+      {
+        "phase": "crystallize",
+        "status": "completed",
+        "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+        "artifacts": {
+          "receipt_digest": "sha256:7bcf723730f4b44101f274f37dfdf1670a5b73ba26336201bbe28fc5c679a51c"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:40:48.821073+00:00"
+      }
+    ],
+    "phase_status": {
+      "perceive": "completed",
+      "reason": "completed",
+      "economize": "completed",
+      "crystallize": "completed"
+    }
+  }
+}

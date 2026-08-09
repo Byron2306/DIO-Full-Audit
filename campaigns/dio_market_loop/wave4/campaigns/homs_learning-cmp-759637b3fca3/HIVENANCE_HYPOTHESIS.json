@@ -1,0 +1,55 @@
+{
+  "schema": "dio.hivenance.marketing_hypothesis.v1",
+  "hypothesis_id": "W4-HYP-0003",
+  "campaign_id": "CMP-759637B3FCA3",
+  "registered_at": "2026-08-08T22:11:08+00:00",
+  "registered_by": "dio_registry_hivenance_bridge",
+  "immutable": true,
+  "source": {
+    "registry_wave": "wave4",
+    "registry_hypothesis_id": "W4-HYP-0003",
+    "target_id": "W4-TGT-0136",
+    "observation_id": "OBS-A70CFEB1405E",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a"
+  },
+  "product": {
+    "product_line_id": "SOPHIA_LEARN",
+    "product_layer": "homs_learning",
+    "public_name": "HOMS Learning Studio",
+    "offer_id": "HOMS-ONE-TOPIC-COMPANION-PILOT"
+  },
+  "audience": {
+    "public_segment": "South African schools, tutors, extra-class providers and education publishers",
+    "internal_research_organisation": "Publishers Association of South Africa (PASA)",
+    "internal_buyer_unit": "Education Publishing; Digital Products; Partnerships; Rights/Content Operations",
+    "personalisation_allowed": false
+  },
+  "hypothesis": "If Publishers Association of South Africa (PASA) is shown 'One-topic companion proof: beautiful guided-learning pack + visual resource + practice sheet + HOMS assessment/memo from the same curriculum spine.', then the Curriculum/content decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+  "experiment": {
+    "mode": "operator_reviewed_partnership_request",
+    "channel": "Partnership/demo request through current public association route",
+    "proof_asset": "config/media_layers.json",
+    "proof_summary": "HOMS assessment and CAPS controls plus NicheFoundry media production can be combined; a connected one-topic guide, activity, worksheet, assessment, memo and video proof remains the release gate.",
+    "public_hook": "One curriculum spine should drive the explanation, activity, worksheet, assessment, memo and optional video lesson.",
+    "cta": "Nominate one subject, grade, term and topic for a controlled companion-pack pilot.",
+    "success_event": "qualified_pilot_conversation",
+    "kill_condition": "No qualified engagement after two permission-safe attempts or channel test; re-evaluate message/fit before any further approach.",
+    "window_days": 14,
+    "budget_cap_minor": 0,
+    "currency": "ZAR"
+  },
+  "gates": {
+    "content_generation": "allowed",
+    "publication": "operator_approval_required",
+    "personalised_outreach": "blocked",
+    "electronic_sales_outreach": "blocked",
+    "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH",
+    "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+  },
+  "settlement": {
+    "state": "unstarted",
+    "decision": "pending",
+    "measurement_path": "measurement.json",
+    "decision_path": "HIVENANCE_SETTLEMENT.json"
+  }
+}

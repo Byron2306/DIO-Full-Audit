@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "grade": 10,
+  "total_marks": 50,
+  "duration": "2 hours",
+  "teacher_review_checklist": [
+    "Verify CAPS scope",
+    "Check marks",
+    "Approve before use"
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy and subject knowledge",
+      "marks": 15,
+      "descriptor": "Correct, relevant subject knowledge."
+    },
+    {
+      "criterion": "Evidence and reasoning",
+      "marks": 15,
+      "descriptor": "Uses evidence to justify answers."
+    },
+    {
+      "criterion": "Communication",
+      "marks": 10,
+      "descriptor": "Clear presentation."
+    },
+    {
+      "criterion": "Process evidence",
+      "marks": 10,
+      "descriptor": "Shows planning, method or reflection."
+    }
+  ],
+  "subject": "English Language",
+  "assessment_title": "Grade 9 English Integrated Language Task",
+  "blueprint": "language_integrated_assessment",
+  "sections": [
+    {
+      "title": "Reading and writing",
+      "mode": "language_integrated_task",
+      "stimulus": "A short article about school transport and learner safety.",
+      "questions": [
+        {
+          "number": "1.1",
+          "marks": 4,
+          "question": "Identify the writer purpose and quote one phrase as evidence."
+        },
+        {
+          "number": "2.1",
+          "marks": 10,
+          "question": "Plan and write a short formal response to the issue."
+        }
+      ]
+    }
+  ],
+  "canonical_profile_id": "visual.proof.language"
+}

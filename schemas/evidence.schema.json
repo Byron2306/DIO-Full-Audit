@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KnowEdge Evidence Record",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "source_type",
+    "title",
+    "review_status"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["email", "attachment", "document", "spreadsheet", "form", "manual_note"]
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "date_observed": {
+      "type": "string"
+    },
+    "text_extract": {
+      "type": "string"
+    },
+    "hash": {
+      "type": "string"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mapped_to": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["candidate", "accepted", "rejected", "needs_review"]
+    }
+  },
+  "additionalProperties": false
+}
+

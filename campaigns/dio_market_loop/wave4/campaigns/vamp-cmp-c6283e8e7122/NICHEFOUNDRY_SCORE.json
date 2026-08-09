@@ -1,0 +1,129 @@
+{
+  "schema": "dio.nichefoundry.score_receipt.v1",
+  "scored_at": "2026-08-08T22:11:08.884Z",
+  "engine": {
+    "root": "/home/byron/Downloads/NicheFoundry_Phase11",
+    "studio_id": "dio_proof_led_services",
+    "studio_version": "1.0.0",
+    "opportunity_schema": "nichefoundry.opportunity.v1"
+  },
+  "source": {
+    "input": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/dio_market_loop/wave4/campaigns/vamp-cmp-c6283e8e7122/foundry_opportunity.json",
+    "opportunity_id": "opp_f1a8a35e2eb3af2d"
+  },
+  "result": {
+    "decision": "develop",
+    "opportunity_score": 70,
+    "score_confidence": 0.904,
+    "studio_fit_passed": true,
+    "studio_fit_score": 0.714,
+    "benefit_index": 0.781,
+    "risk_index": 0.26,
+    "explanation": [
+      "Studio fit passed at 0.714.",
+      "Benefit index 0.781; risk index 0.26.",
+      "7 signals came from operator/provider evidence."
+    ]
+  },
+  "scored_opportunity": {
+    "schema": "nichefoundry.opportunity.v1",
+    "opportunity_id": "opp_f1a8a35e2eb3af2d",
+    "studio_id": "dio_proof_led_services",
+    "title": "VAMP Performance Evidence Desk: proof before promises",
+    "topic": "VAMP Performance Evidence Desk proof-led pilot campaign for Academic staff, HR administrators, department heads and performance coordinators",
+    "angle": "Performance review panic starts when evidence was never collected as evidence. Show the real proof artifact, the human approval boundary and the bounded pilot offer.",
+    "viewer_job": "decide whether VAMP Performance Evidence Desk can solve this workflow pain without surrendering professional control",
+    "discovery_source": "dio_registry_hivenance_bridge",
+    "source_reference": null,
+    "source_hints": [
+      "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "DIO immutable hypothesis W4-HYP-0075",
+      "DIO Prospect Intelligence Wave 4"
+    ],
+    "competitor_examples": [],
+    "competitor_count": null,
+    "series_hint": "Proof-bearing workflow services for South African education and evidence teams",
+    "content_role": "commercial_intent",
+    "lifecycle": "discovered",
+    "operator_notes": "Generated from campaign CMP-C6283E8E7122. Contact details and named-target personalisation are intentionally excluded. Publication gate: operator_approval_required; outreach gate: blocked.",
+    "signals": {
+      "series_potential": 0.72,
+      "visual_potential": 0.78,
+      "monetization_alignment": 0.88,
+      "evidence_availability": 0.95,
+      "production_burden": 0.2,
+      "policy_risk": 0.42,
+      "freshness_risk": 0.08
+    },
+    "discovered_at": "2026-08-08T22:11:08.882Z",
+    "updated_at": "2026-08-08T22:11:08.882Z",
+    "content_hash": "2e30e0ae91d20f3efd853c991457e139ba38421a48fc5d930e893db172e989c5",
+    "fit": {
+      "passed": true,
+      "score": 0.714,
+      "threshold": 0.22,
+      "studio_id": "dio_proof_led_services",
+      "matched_keywords": [
+        "proof-led",
+        "human approval",
+        "bounded pilot"
+      ],
+      "matched_examples": [
+        "show a CAPS-aligned assessment pack from brief to educator approval",
+        "demonstrate claim mapping and human approval in an evidence workflow",
+        "run a bounded proof-led pilot without replacing professional judgement"
+      ],
+      "matched_domain_terms": [
+        "proof",
+        "led",
+        "evidence"
+      ],
+      "negative_matches": [],
+      "explanation": "The brief matches DIO Proof-Led Services through 9 niche signals."
+    },
+    "opportunity_score": 70,
+    "score_confidence": 0.904,
+    "decision": "develop",
+    "benefit_index": 0.781,
+    "risk_index": 0.26,
+    "normalized_signals": {
+      "audience_demand": 0.57,
+      "content_gap": 0.58,
+      "series_potential": 0.72,
+      "visual_potential": 0.78,
+      "monetization_alignment": 0.88,
+      "evidence_availability": 0.95,
+      "production_burden": 0.2,
+      "policy_risk": 0.42,
+      "freshness_risk": 0.08,
+      "studio_authority_fit": 1
+    },
+    "signal_provenance": {
+      "audience_demand": "documented_proxy_heuristic",
+      "content_gap": "documented_proxy_heuristic",
+      "series_potential": "operator_or_provider_signal",
+      "visual_potential": "operator_or_provider_signal",
+      "monetization_alignment": "operator_or_provider_signal",
+      "evidence_availability": "operator_or_provider_signal",
+      "production_burden": "operator_or_provider_signal",
+      "policy_risk": "operator_or_provider_signal",
+      "freshness_risk": "operator_or_provider_signal",
+      "studio_authority_fit": "studio_pack_fit_engine"
+    },
+    "scoring_weights": {
+      "audience_demand": 0.18,
+      "content_gap": 0.16,
+      "studio_authority_fit": 0.18,
+      "series_potential": 0.12,
+      "visual_potential": 0.1,
+      "monetization_alignment": 0.09,
+      "evidence_availability": 0.17
+    },
+    "score_explanation": [
+      "Studio fit passed at 0.714.",
+      "Benefit index 0.781; risk index 0.26.",
+      "7 signals came from operator/provider evidence."
+    ],
+    "scored_at": "2026-08-08T22:11:08.884Z"
+  }
+}

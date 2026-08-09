@@ -1,0 +1,52 @@
+{
+  "schema": "dio.hivenance.marketing_settlement.v1",
+  "campaign_id": "CMP-D3E55414C7B5",
+  "history": [
+    {
+      "decision_id": "SET-E46B859D59C7",
+      "decided_at": "2026-08-08T15:58:44+00:00",
+      "campaign_id": "CMP-D3E55414C7B5",
+      "hypothesis_id": "W4-HYP-0002",
+      "measurement_sha256": "82e2ccc6b4c46317ec3c67bd4d03a71cf93c27d7aa16b15817514f89fa06e14c",
+      "window_complete": false,
+      "decision": "pending",
+      "reasons": [
+        "The measurement window has not started."
+      ],
+      "economics": {
+        "revenue_minor": 0,
+        "refunds_minor": 0,
+        "total_cost_minor": 0,
+        "gross_contribution_minor": 0
+      },
+      "gate_effects": {
+        "content_hypothesis": "pending",
+        "publication_permission": "unchanged",
+        "electronic_outreach_permission": "unchanged"
+      }
+    }
+  ],
+  "latest": {
+    "decision_id": "SET-E46B859D59C7",
+    "decided_at": "2026-08-08T16:01:15+00:00",
+    "campaign_id": "CMP-D3E55414C7B5",
+    "hypothesis_id": "W4-HYP-0002",
+    "measurement_sha256": "82e2ccc6b4c46317ec3c67bd4d03a71cf93c27d7aa16b15817514f89fa06e14c",
+    "window_complete": false,
+    "decision": "pending",
+    "reasons": [
+      "The measurement window has not started."
+    ],
+    "economics": {
+      "revenue_minor": 0,
+      "refunds_minor": 0,
+      "total_cost_minor": 0,
+      "gross_contribution_minor": 0
+    },
+    "gate_effects": {
+      "content_hypothesis": "pending",
+      "publication_permission": "unchanged",
+      "electronic_outreach_permission": "unchanged"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+  "created_at": "2026-08-08T08:23:13+00:00",
+  "status": "passed",
+  "subject": "Afrikaans Language",
+  "grade": 12,
+  "term": "1",
+  "focus": "begripstoets, taal in konteks en visuele geletterdheid; toon, teikengroep, doel, afleiding en bewyse uit 'n gegewe teks; opsommingsbeplanning en noukeurige taalredigering; transaksionele skryfwerk met register, struktuur en teikengroepbeheer",
+  "provider": {
+    "selected_provider": "gemini",
+    "selected_model": "gemini-3.5-flash",
+    "selected_key_name": "GEMINI_API_KEY",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "values_redacted": true
+  },
+  "question_count": 21,
+  "question_marks": 70,
+  "rubric_marks": 70,
+  "validation_errors": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "errors": [
+        "question marks sum to 69, expected 70",
+        "rubric marks sum to 20, expected 70"
+      ],
+      "question_count": 19
+    },
+    {
+      "attempt": 2,
+      "errors": [],
+      "question_count": 21
+    }
+  ],
+  "elapsed_seconds": 75.83,
+  "paths": {
+    "job_dir": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z",
+    "assessment_pack": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/assessment_pack.json",
+    "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+    "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/HOMS_VISUAL_BLUEPRINT.json",
+    "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/ASSESSMENT_PACK_FORMATTED.docx",
+    "learner_docx": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/ASSESSMENT_LEARNER.docx",
+    "learner_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+    "review_pdf": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+    "zip": "deliverables/homs_tight8_term_contextual_packs/gemini-context-afrikaans_language-g12-t1-20260808T082158Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+  }
+}

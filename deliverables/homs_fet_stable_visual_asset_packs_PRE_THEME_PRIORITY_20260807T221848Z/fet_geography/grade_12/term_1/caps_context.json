@@ -1,0 +1,128 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T22:17:34+00:00",
+  "enabled": true,
+  "subject_id": "geography",
+  "subject": "Geography",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "preferred_language": "English",
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "score": 190,
+      "document_id": "fileticket_sdweoym0ny0",
+      "title": "Geography",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=sdwEoyM0nY0%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20GEOGRAPHY%20_%20GR%2010-12%20_%20WEB_C9A9.pdf?ver=2015-01-27-154144-177",
+      "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa",
+      "bytes": 1719727
+    },
+    {
+      "score": 150,
+      "document_id": "fileticket_bdussno1hjg",
+      "title": "Geografie (Geography)",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_afr_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=bDuSSNo1Hjg%3d&tabid=570&portalid=0&mid=1559",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20Geography%20Afr%20web.pdf?ver=2015-01-27-154639-207",
+      "sha256": "f58c9c6a40d85ce78847e735623180838853f64d2498a01443183434afc1de0c",
+      "bytes": 546615
+    }
+  ],
+  "selected": {
+    "score": 190,
+    "document_id": "fileticket_sdweoym0ny0",
+    "title": "Geography",
+    "phase": "fet_grade_10_12",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=sdwEoyM0nY0%3d&tabid=570&portalid=0&mid=1558",
+    "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20GEOGRAPHY%20_%20GR%2010-12%20_%20WEB_C9A9.pdf?ver=2015-01-27-154144-177",
+    "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa",
+    "bytes": 1719727
+  },
+  "assessment_ontology_profile": {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "phase": "fet_grade_10_12",
+    "assessment_family": "source_based_plus_extended_response"
+  },
+  "assessment_design_profile": {
+    "profile_id": "fet.geography",
+    "subject": "Geography",
+    "phase": "fet_grade_10_12",
+    "phase_group": "fet",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "confidence": "medium",
+    "assessment_forms": [],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "source_or_stimulus": 30,
+      "contextual_knowledge": 30,
+      "extended_or_explanatory_response": 40
+    },
+    "marking_instruments": [
+      "memorandum",
+      "rubric"
+    ],
+    "generation_constraints": [
+      "Use source, map, data, or contextual stimulus according to the specific subject.",
+      "Only use a full essay when the phase and subject profile justify it."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      "........................................................ 49 4.2 Informal or Daily Assessment. .................................................................................................................... 49 4.3 Formal Assessment...................................................................................................................................... 49 4.3.1 \ufffd Summary of formal assessments expected in Grades 10 to 12........................................................... 50 4.3.2 \ufffd Formal assessment requirements for Geography. ............................................................................... 51 4.4 Programme of Assessment. ........................................................................................................................ 52 4.4.1 \ufffd Summary of formal Assessment in Grades 10 to 12. ...........................................",
+      "ades 10 to 12........................................................... 50 4.3.2 \ufffd Formal assessment requirements for Geography. ............................................................................... 51 4.4 Programme of Assessment. ........................................................................................................................ 52 4.4.1 \ufffd Summary of formal Assessment in Grades 10 to 12. ........................................................................... 53 4.4.2 \ufffd Example of possible assessment activities........................................................................................... 54 4.5 Recording and Reporting............................................................................................................................. 54 4.6 Moderation of Assessment.............................................................",
+      "arners. \u2022 The criteria for assessing each task should be discussed and negotiated with the learners preferably before they start the task. CAPS 51 GEOGRAPHY GRADES 10-12 Formal assessements must cater for a range of cognitive levels and abilities of learners as shown in the table below Table 1: suggested weighting of cognitive levels in the FET band Lower order Middle order Higher order GRADE (Knowledge/ Remembering) (Understanding, Applying) (Analysing, Evaluating, Creating) 10 40% 40% 20% 11 30% 50% 20% 12 25% 50% 25% (b) Tests A test should be between 40 and 60 minutes long. A test should also cover a significant amount of content and skills, such as a section of work that covers about four to six weeks. Tests may include a variety of assessment styles, such as multiple choice questions, one line answers, written paragraphs, labeling diagrams, doing calculations and work",
+      "learners. Informal assessment informs planning for teaching, but need not be recorded. It should not be seen as separate from the learning activities that take place in the classroom. Learners or teachers can mark these assessment tasks. Self-assessment and peer assessment actively involves learners in assessment. This involvement is helpful, as it allows them to learn from and reflect on their own performance. The results of the informal daily assessment tasks are not usually formally recorded, unless the teacher wishes to do so. Therefore, the results of daily assessment tasks are not taken into account for promotion and certification purposes. 4.3 Formal Assessment All assessment tasks that make up a formal programme of assessment for the year are regarded as formal assessment. Teachers should mark and record formal assessment tasks for progression and certification purposes. All f"
+    ]
+  },
+  "assessment_matrix_row": {
+    "recommended_blueprint": "source_based_plus_extended_response",
+    "subject_family": "social_sciences",
+    "language_guess": "Unknown",
+    "assessment_flags": {
+      "source_based": true,
+      "essay": true,
+      "case_study": true,
+      "data_graph_diagram": true,
+      "practical_investigation": true,
+      "project_assignment": true,
+      "oral_performance": true,
+      "calculation_problem": true,
+      "test_exam": true
+    },
+    "assessment_keyword_counts": {
+      "source_based": 47,
+      "essay": 5,
+      "case_study": 19,
+      "data_graph_diagram": 361,
+      "practical_investigation": 48,
+      "project_assignment": 8,
+      "oral_performance": 16,
+      "calculation_problem": 8,
+      "test_exam": 133
+    },
+    "signals_source_based": true,
+    "signals_essay_or_extended_response": true,
+    "signals_case_study": true,
+    "signals_data_graph_diagram": true,
+    "signals_practical_investigation": true,
+    "signals_project_or_sba": true,
+    "signals_oral_or_performance": true,
+    "signals_calculation_problem": true,
+    "signals_formal_test_or_exam": true
+  },
+  "extracted_excerpt": "National Curriculum Statement (NCS)\n\n                                Curriculum and Assessment\n                                      Policy Statement\nGEOGRAPHY\n\n                      Further Education and Training Phase\n                                 Grades 10-12\n\n     \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n     \u0013\u0012\u0011\u001e\u0010\u0016\u000f\u0012\u0014\u0016\u000e\n     \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n     \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0017\u0014\u0016\u001c\u0013\u0012\u0017\u0011\u0015\u001f\u0019\u0018\u0011\n\f   Curriculum and Assessment Policy Statement\n                  Grades 10-12\n\n                  geography\n\nCAPS\n\fGEOGRAPHY GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0580-7\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n                     CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n\f                                                                          GEOGRAPHY GRADES 10-12\nFOREWORD by the minister\n\n                                Our national curriculum is the culmination of our efforts over a period of seventeen\n                                years to transform the curriculum bequeathed to us by apartheid. From the start of\n                                democracy we have built our curriculum on the values that inspired our Constitu-\n                                tion (Act 108 of 1996). The Preamble to the Constitution states that the aims of the\n                                Constitution are to:\n\n                                \u2022      heal the divisions of the past and establish a society based on democratic\n                                       values, social justice and fundamental human rights;\n\n                                \u2022      improve the quality of life of all citizens and free the potential of each person;\n\n                                \u2022      lay the foundations for a democratic and open society in which government is\n                                       based on the will of the people and every citizen is equally protected by law;\n                                       and\n\n\u2022     build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n      nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nIn 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experi-\nence of implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National\nCurriculum Statement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National Cur-\nriculum Statement (2002) to produce this document.\n\nFrom 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single docu-\nment and will simply be known as the National Curriculum Statement Grades R-12. The National Curriculum State-\nment for Grades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification\nof what is to be taught and learnt on a term-by-term basis.\n\nThe National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme\nGuidelines and Subject Assessment Guidelines",
+  "extraction_error": null
+}

@@ -1,0 +1,342 @@
+{
+  "schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "created_at": "2026-08-08T08:24:17+00:00",
+  "purpose": "Prevent generic no-context questions by grounding provider generation in CAPS, old-paper source contracts, visual facts, subject profile and hard bans.",
+  "subject_profile": {
+    "schema": "knowedge.homs_subject_profile.v1",
+    "subject_id": "history",
+    "display_name": "History",
+    "default_level": "senior_school_or_undergraduate",
+    "assessment_modes": [
+      "source_based_exam",
+      "essay_exam",
+      "first_opportunity_exam",
+      "second_opportunity_exam",
+      "marking_relief"
+    ],
+    "source_types": [
+      "primary_source_extract",
+      "historiographical_extract",
+      "visual_source",
+      "map",
+      "timeline",
+      "political_speech",
+      "policy_document"
+    ],
+    "question_families": [
+      "contextualise_source",
+      "compare_sources",
+      "evaluate_reliability",
+      "explain_causation",
+      "assess_change_and_continuity",
+      "argumentative_essay"
+    ],
+    "cognitive_targets": [
+      "recall",
+      "comprehension",
+      "analysis",
+      "evaluation",
+      "argument_synthesis"
+    ],
+    "rubric_dimensions": [
+      "historical_accuracy",
+      "source_use",
+      "causal_reasoning",
+      "chronology",
+      "argument_structure",
+      "evidence_integration"
+    ],
+    "memo_expectations": [
+      "credit historically plausible alternatives",
+      "identify source limits",
+      "separate factual recall from interpretation",
+      "provide level descriptors for essays"
+    ],
+    "retrieval_queries": [
+      "history source-based assessment reliability",
+      "history education source analysis rubric",
+      "historical thinking causation continuity change evidence"
+    ],
+    "human_review_checks": [
+      "verify factual dates and names",
+      "check source provenance and political sensitivity",
+      "confirm marks add correctly",
+      "confirm second opportunity is equivalent but not duplicated"
+    ],
+    "blocked_claims_or_modes": [
+      "invented quotations",
+      "uncited historical claims presented as sourced",
+      "single-answer memo for interpretive questions without alternatives"
+    ]
+  },
+  "grade_profile": {
+    "grade": 12,
+    "phase": "fet_exit",
+    "learner_level": "advanced_school_exit",
+    "bloom_targets": [
+      "apply",
+      "analyze",
+      "evaluate",
+      "create"
+    ],
+    "zpd_level": "expert challenge",
+    "question_style": [
+      "exam_source_set",
+      "extended_case_response",
+      "argumentative_essay",
+      "synthesis_question"
+    ],
+    "reading_load": "high",
+    "writing_load": "high",
+    "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+    "review_checks": [
+      "exit-level standard",
+      "moderation readiness",
+      "equivalent second opportunity",
+      "no undergraduate-only assumptions"
+    ]
+  },
+  "language_of_assessment": "English",
+  "focus": "Cold War, Cuban Missile Crisis and the division of Germany; source reliability, perspective, causation and consequence; provenance, contextualisation and evidence comparison; argumentative essay using historical evidence and chronology",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "History",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "1",
+    "caps_source": {
+      "title": "Geskiedenis (History)",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+      "sha256": "73b5a4c0bc79dba0491009452821769dd0c5587b54a201592bb88adf4450b192"
+    },
+    "canonical_profile_id": "fet.history",
+    "assessment_family": "source_based_plus_essay",
+    "render_shell": "source_essay_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "source_extract",
+        "visual_source",
+        "data_table",
+        "evidence_table"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: text_extract observed in History (20 source/stimulus object(s) across 2 paper(s)).",
+        "FET old-paper catalogue: photograph_or_image observed in History (20 source/stimulus object(s) across 2 paper(s)).",
+        "FET old-paper catalogue: data_table observed in History (20 source/stimulus object(s) across 2 paper(s)).",
+        "Learners must cite, compare, or reason from source evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": false,
+        "signals_essay_or_extended_response": false,
+        "signals_case_study": false,
+        "signals_data_graph_diagram": false,
+        "signals_practical_investigation": false,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": false,
+        "signals_calculation_problem": false,
+        "signals_formal_test_or_exam": false
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "History",
+        "paper_count": 2,
+        "observed_contract": [
+          "text_extract",
+          "photograph_or_image",
+          "data_table",
+          "cartoon"
+        ]
+      }
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "Cold War, Cuban Missile Crisis and the division of Germany",
+      "source reliability, perspective, causation and consequence",
+      "provenance, contextualisation and evidence comparison",
+      "argumentative essay using historical evidence and chronology"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "source_provenance_panel",
+        "title": "Source provenance panel",
+        "role": "stimulus",
+        "visual_kind": "source_extract",
+        "must_show": [
+          "author/origin",
+          "date/context",
+          "caption",
+          "extract or visual description"
+        ],
+        "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+      },
+      {
+        "id": "claim_evidence_reasoning_table",
+        "title": "Claim-evidence-reasoning table",
+        "role": "learner_workspace",
+        "visual_kind": "evidence_table",
+        "must_show": [
+          "claim column",
+          "evidence column",
+          "reasoning/inference column"
+        ],
+        "assessment_use": "Learners connect source evidence to answers."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "renderable_visual_facts": {
+    "generic_policy": {
+      "facts": [
+        "Use only visuals named in the visual blueprint.",
+        "Every visual-referenced question must contain concrete observable details, values, labels, or source facts."
+      ]
+    }
+  },
+  "caps": {
+    "selected_title": "Geskiedenis (History)",
+    "selected_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_geskiedenis_gr_10-12_web.pdf",
+    "selected_sha256": "73b5a4c0bc79dba0491009452821769dd0c5587b54a201592bb88adf4450b192",
+    "phase": "fet_grade_10_12",
+    "preferred_language": "English",
+    "excerpt": "Nasionale Kurrikulumverklaring (NKV)\n\n Kurrikulum- en\n assesseringsbeleidsverklaring\nGESKIEDENIS\n\n Verdere Onderwys- en Opleidingsfase\n Graad 10-12\n\n \n \n \n \n KURRIKULUM- EN ASSESSERINGSBELEIDSVERKLARING\n GRAAD 10-12\n\n GESKIEDENIS\n GESKIEDENIS GRAAD 10-12\n\nDepartement van Basiese Onderwys\nStrubenstraat 222\nPrivaatsak X895\nPretoria 0001\nSuid-Afrika\nTel: +27 12 357 3000\nFaks: +27 12 323 0601\n\nPleinstraat 120 Privaatsak X9023\nKaapstad 8000\nSuid-Afrika\nTel: +27 21 465 1701\nFaks: +27 21 461 8110\nWebtuiste: http: //www.education.gov.za\n\n\u00a9 2011 Departement van Basiese Onderwys\n\nIsbn: 978-1-4315-0601-9\n\nOntwerp en uitleg deur: Ndabase Printing Solution\n\nGedruk deur: Staatsdrukkery\n\n KURRIKULUM EN ASSESSERING BELEIDSVERKLARING (KABV)\n GESKIEDENIS GRAAD 10-12\nVOORWOORD VAN DIE MINISTER\n Die nasionale kurrikulum is die hoogtepunt van ons poging oor \u05b9\u2019n tydperk van 17\n jaar om die apartheidskurrikulum wat ons ge\u00ebrf het, te hervorm. Sedert die aanvang\n van demokrasie het ons gepoog om die kurrikum op die waardes deur die Grondwet\n (Wet No. 108 van 1998) ge\u03aanspireer, te skoei. Die Aanhef van die Grondwet verklaar\n die doelstellings van die Grondwet soos volg:\n\n \u2022 Die verdeeldheid van die verlede te heel en \u2019n samelewing gegrond op\n demokratiese waardes, maatskaplike geregtigheid en basiese menseregte te\n skep;\n\n \u2022 Die lewensgehalte van alle burgers te verhoog en die potensiaal van elke\n mens te onsluit;\n\n \u2022 Die grondslag te l\u00ea vir \u2019n demokratiese en oop samelewing waarin regering\n gebaseer is op die wil van die bevolking en elke burger gelyk deur die reg\n beskerm word; en\n\n\u2022 \u2019n Verenigde demokratiese Suid-Afrika te bou wat sy regmatige plek as soewereine staat in die gemeenskap\n van nasies inneem.\n\nOnderwys en die kurrikulum het \u2019n belangrike rol om in die verwesenliking van hierdie d",
+    "ontology": {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "phase": "fet_grade_10_12",
+      "phase_group": "fet",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "subject_family": "social_sciences",
+      "assessment_family": "source_based_plus_essay",
+      "allowed": [
+        "source_or_stimulus_analysis",
+        "map_graph_or_data_interpretation",
+        "structured_context_questions",
+        "extended_response"
+      ],
+      "default_off": [
+        "calculation_heavy_questions",
+        "generic_business_case",
+        "science_experiment"
+      ],
+      "required_distribution": {
+        "source_or_stimulus": 45,
+        "contextual_knowledge": 30,
+        "extended_or_explanatory_response": 25
+      },
+      "generation_constraints": [
+        "Use source, map, data, or contextual stimulus according to the specific subject.",
+        "Only use a full essay when the phase and subject profile justify it."
+      ],
+      "validation_rules": [
+        "Generated packs must declare this profile_id and assessment_family.",
+        "Generated packs may not use default_off modes unless the human request explicitly overrides them.",
+        "Generated packs must cite at least one supporting CAPS evidence document.",
+        "Teacher memo, mark allocation, and learner instructions must be present.",
+        "Educator approval remains a required terminal gate before delivery or classroom use."
+      ],
+      "evidence_summary": {
+        "document_count": 1,
+        "languages": {
+          "Afrikaans": 1
+        },
+        "document_blueprints": {
+          "source_based_plus_essay": 1
+        },
+        "signal_counts": {
+          "signals_source_based": 0,
+          "signals_essay_or_extended_response": 0,
+          "signals_case_study": 0,
+          "signals_data_graph_diagram": 0,
+          "signals_practical_investigation": 0,
+          "signals_project_or_sba": 1,
+          "signals_oral_or_performance": 0,
+          "signals_calculation_problem": 0,
+          "signals_formal_test_or_exam": 0
+        },
+        "noisy_document_count": 0
+      }
+    },
+    "assessment_design": {
+      "profile_id": "fet.history",
+      "subject": "History",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "confidence": "medium",
+      "assessment_forms": [],
+      "annual_weightings": {},
+      "task_requirements": [],
+      "paper_structure": [],
+      "cognitive_distribution": {
+        "source_or_stimulus": 45,
+        "contextual_knowledge": 30,
+        "extended_or_explanatory_response": 25
+      },
+      "marking_instruments": [
+        "memorandum",
+        "rubric"
+      ],
+      "generation_constraints": [
+        "Use source, map, data, or contextual stimulus according to the specific subject.",
+        "Only use a full essay when the phase and subject profile justify it."
+      ],
+      "validation_rules": [
+        "Choose the render shell from assessment design before rendering learner-facing material.",
+        "Do not render practical performance tasks as written answer-question papers.",
+        "Marks in the learner pack must reconcile with the assessment instrument.",
+        "Keep educator approval as the final gate."
+      ]
+    }
+  },
+  "official_paper_source_contract": {
+    "schema": "knowedge.homs_exam_source_contract.v1",
+    "source_matrix": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/exam_source_matrix.json",
+    "subject": "History",
+    "paper_count": 0,
+    "source_type_counts": {},
+    "paper_shapes": [],
+    "evidence_snippets": []
+  },
+  "knowledge_bank_registry_summary": {
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_knowledge_bank/HOMS_KNOWLEDGE_BANK_REGISTRY.json",
+    "nvidia_nim_ready": true,
+    "caps_documents": 282,
+    "official_paper_catalogue_papers": 9
+  },
+  "hard_bans": [
+    "answer the first",
+    "complete the applied",
+    "using the stimulus",
+    "use the provided stimulus",
+    "controlled classroom stimulus supplied by the educator",
+    "structured task using the stimulus",
+    "credit accurate subject knowledge",
+    "evidence-based reasoning",
+    "identify one important feature of the",
+    "strongest assessment question",
+    "do not ask learners to evaluate whether the generated pack is ready",
+    "do not ask learners why official-paper exemplars are stronger than generated visuals",
+    "do not include source-quality, pipeline, route, smoke-test, design-law or product-QA questions",
+    "do not refer to a figure, table, map, graph or diagram unless concrete figure facts are supplied in this packet",
+    "do not invent new figure organisms, labels, datasets, years, diagram panels, tables, maps, chemicals or source facts",
+    "do not replace supplied renderable visual facts with a different scenario"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "knowedge.caps_assessment_demo_receipt.v1",
+  "created_at": "2026-08-07T20:21:37+00:00",
+  "status": "generated",
+  "job_id": "intermediate_german_grade6_20260807T202137Z",
+  "proof_group": "intermediate",
+  "selected_grade": 6,
+  "caps": {
+    "title": "German",
+    "phase": "intermediate_grade_4_6",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_german_sal_ip_final.pdf",
+    "sha256": "0a0779d9c34bba24576acb5ae19c61884b690f2d41af2eea056a441d6aefc803",
+    "recommended_blueprint": "source_based_plus_extended_response",
+    "signals": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": false,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": false,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": false,
+      "signals_formal_test_or_exam": true
+    }
+  },
+  "duration_seconds": 26.671,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z",
+    "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/assessment_pack.json",
+    "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/ASSESSMENT_PACK.md",
+    "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/ASSESSMENT_PACK.docx",
+    "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+  }
+}

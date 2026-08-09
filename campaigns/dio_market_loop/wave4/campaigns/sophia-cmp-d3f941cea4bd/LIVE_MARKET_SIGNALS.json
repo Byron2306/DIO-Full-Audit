@@ -1,0 +1,707 @@
+{
+  "schema": "dio.campaign.live_market_signals.v1",
+  "observation_id": "LIVE-OBS-09B1B6988A7824AA",
+  "campaign_id": "CMP-D3F941CEA4BD",
+  "hypothesis_id": "W4-HYP-0014",
+  "product_layer": "sophia",
+  "source_system": "nichefoundry_connector_federation",
+  "connectors": [
+    {
+      "id": "youtube_public_discovery",
+      "adapter": "youtube_public",
+      "version": "1.0.0",
+      "trust_note": "Public metadata is market evidence, not factual source evidence for a script."
+    },
+    {
+      "id": "rss_monitor",
+      "adapter": "rss",
+      "version": "1.0.0",
+      "trust_note": "Feed descriptions are discovery leads. Full source review is still required for factual claims."
+    }
+  ],
+  "search": {
+    "query": "academic literature review university postgraduate South Africa",
+    "region_code": "ZA",
+    "relevance_language": "en",
+    "published_after_days": 365,
+    "started_at": "2026-08-09T00:33:09.786Z",
+    "finished_at": "2026-08-09T00:33:17.262Z"
+  },
+  "depth": {
+    "returned_videos": 10,
+    "relevant_videos": 4,
+    "rejected_as_irrelevant": 6,
+    "returned_news_or_blog_items": 20,
+    "relevant_news_or_blog_items": 0,
+    "rejected_news_or_blog_items": 20,
+    "approximate_search_results": 386,
+    "total_views_in_sample": 340889,
+    "median_views_in_sample": 145,
+    "latest_published_at": "2026-07-22T04:45:59Z",
+    "scored_candidates": 4
+  },
+  "top_opportunities": [
+    {
+      "opportunity_id": "opp_2a916458c23898d1",
+      "title": "LITERATURE REVIEW DISSERTATION | LITERATURE REVIEW CHAPTER EXPLAINED",
+      "decision": "reject_fit",
+      "opportunity_score": 40,
+      "audience_demand": 0.532,
+      "content_gap": 0.72,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=nOncpjePy-s"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_0433b6af27279e78",
+      "title": "Unlocking Academic Success How UK Essays’ Systematic Literature Review Service Just Got Better",
+      "decision": "reject_fit",
+      "opportunity_score": 36,
+      "audience_demand": 0.294,
+      "content_gap": 0.72,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=p4BdXhMIsLw"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_7d94df4c0858b0ee",
+      "title": "ROGE-2025, Presentations: Vincentia Mawuewoe Boham",
+      "decision": "reject_fit",
+      "opportunity_score": 34,
+      "audience_demand": 0.129,
+      "content_gap": 0.72,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=b0agLh4-KJ8"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_5c18f08f84f88905",
+      "title": "How to Get Your Master’s Degree in Record Time: Secrets No One Talks About",
+      "decision": "reject_fit",
+      "opportunity_score": 34,
+      "audience_demand": 0.143,
+      "content_gap": 0.72,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=tZ_nEl-DsOo"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    }
+  ],
+  "records": [
+    {
+      "video_id": "b0agLh4-KJ8",
+      "title": "ROGE-2025, Presentations: Vincentia Mawuewoe Boham",
+      "description": "PRESENTATIONS Vincentia Mawuewoe Boham Lasta Dangol Sandhya Thirunagari Palto Datta School of Business & Law, Regent College London, UK Title: Adaptive assessment in Higher Education: A systematic Literature Review of its impact on students’ engagement and performance for postgraduate Business Students in the UK 14th International Conference on Restructuring of the Global Economy (ROGE-2025)-Promoting Sustainability About CBER Centre for Business & Economic Research (CBER) was founded in London in 2006 with the aim of inspiring, recognizing and supporting excellence in business and Economic research Currently, the Centre has three main areas of endeavour: organizing an annual cycle of international academic conferences, producing academic journals, and offering bespoke consultancy projects both in the United Kingdom and further afield. CBER works assiduously to facilitate international collaboration, providing an independent and credible source of advice, as well as contributing to academic debate and research. The Centre is fortunate to have a truly international following and is committed to encouraging knowledge sharing, foresight planning and greater interaction between academics, policy makers, thought leaders and those engaged in diverse commercial activities. Through both its own researchers and a network of specialists internationally it is well placed to provide targeted consultancy work aimed at providing fresh insight and understanding that is underpinned by creditable research methods and a thorough and objective approach. info@cberuk.com https://cberuk.com/ https://www.facebook.com/cberuk https://www.linkedin.com/in/pdatta1 https://x.com/CBERUKcom #Conference #Journal #Management #economics #CBERUK #CentreForBusinessEconomicResearch #ResearchExcellence #BusinessResearch #EconomicResearch #ConsultancyServices #InternationalConferences #AcademicConferences #ICGEEE2025 #ROGE2025 #ICBED2026 #ROGE2026 #AcademicPublishing #ScholarlyJournals #IJBED #IJHEM #JBRMR #IJMCS #ProgressThroughTechnology #ManagerialExcellence #GlobalCollaboration #KnowledgeSharing #CallForPapers #SubmitYourAbstract #ConferenceSubmission #OpenAccess #ICGEEE2025, #ROGE2025, #ICBED2026, #InternationalConferences #AcademicPublishing, #IJBED, #IJHEM, #JBRMR, #IJMCS #ResearchExcellence, #GlobalCollaboration, #ProgressThroughTechnology #CallForPapers, #SubmitYourAbstract, #OpenAccessPRESENTATIONSPRESENTATIONS Simon Taylor Graduate School of Business and Leadership, University of KwaZulu-Natal, South Africa Title: The social field of servant leadership development: A grounded theory perspective 14th International Conference on Restructuring of the Global Economy (ROGE-2025)-Promoting Sustainability About CBER Centre for Business & Economic Research (CBER) was founded in London in 2006 with the aim of inspiring, recognizing and supporting excellence in business and Economic research Currently, the Centre has three main areas of endeavour: organizing an annual cycle of international academic conferences, producing academic journals, and offering bespoke consultancy projects both in the United Kingdom and further afield. CBER works assiduously to facilitate international collaboration, providing an independent and credible source of advice, as well as contributing to academic debate and research. The Centre is fortunate to have a truly international following and is committed to encouraging knowledge sharing, foresight planning and greater interaction between academics, policy makers, thought leaders and those engaged in diverse commercial activities. Through both its own researchers and a network of specialists internationally it is well placed to provide targeted consultancy work aimed at providing fresh insight and understanding that is underpinned by creditable research methods and a thorough and objective approach. info@cberuk.com https://cberuk.com/ https://www.facebook.com/cberuk https://www.linkedin.com/in/pdatta1 https://x.com/CBERUKcom #Conference #Journal #Management #economics #CBERUK #CentreForBusinessEconomicResearch #ResearchExcellence #BusinessResearch #EconomicResearch #ConsultancyServices #InternationalConferences #AcademicConferences #ICGEEE2025 #ROGE2025 #ICBED2026 #ROGE2026 #AcademicPublishing #ScholarlyJournals #IJBED #IJHEM #JBRMR #IJMCS #ProgressThroughTechnology #ManagerialExcellence #GlobalCollaboration #KnowledgeSharing #CallForPapers #SubmitYourAbstract #ConferenceSubmission #OpenAccess #ICGEEE2025, #ROGE2025, #ICBED2026, #InternationalConferences #AcademicPublishing, #IJBED, #IJHEM, #JBRMR, #IJMCS #ResearchExcellence, #GlobalCollaboration, #ProgressThroughTechnology #CallForPapers, #SubmitYourAbstract, #OpenAccessPRESENTATIONS",
+      "channel_id": "UChSrGU9SGsgCf7m9xib_pOA",
+      "channel_title": "Centre for Business & Economic Research - CBER",
+      "published_at": "2025-09-02T12:53:06Z",
+      "views": 7,
+      "likes": 1,
+      "comments": 0,
+      "duration": "PT11M48S",
+      "url": "https://www.youtube.com/watch?v=b0agLh4-KJ8",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "literature review",
+          "university",
+          "student",
+          "postgraduate",
+          "research"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "p4BdXhMIsLw",
+      "title": "Unlocking Academic Success  How UK Essays’ Systematic Literature Review Service Just Got Better",
+      "description": "If you’ve been asked to complete a systematic literature review and you’re feeling overwhelmed by the methodology, documentation requirements, or sheer amount of work involved, this video breaks everything down clearly. We take a deep look at the systematic literature review service offered by UK Essays and explain exactly what you get, how it works, and why the service has become far more affordable thanks to the brand-new pricing update introduced in November 2025. This is especially important for students working on major assignments, dissertations, or theses where systematic reviews are required. First, we explain what a systematic literature review actually is and how it differs from a normal literature review. A systematic review requires a precise research question, documented search strategies, strict inclusion and exclusion criteria, structured screening, quality appraisal, and detailed data extraction tables. It’s one of the hardest academic tasks to complete correctly because every decision must be transparent, justified, and reproducible. Many students underestimate the amount of technical work involved until they’re already deep into the process. Then we focus on how UK Essays approaches this task. Despite the name, UK Essays is an international academic support company based in Dubai and serving clients around the world. Their researchers come from global academic backgrounds, not just the UK. The name reflects the British standard of academic excellence rather than the location of their customers or staff. Students from Europe, Asia, Africa, Australia, North America, and the Middle East use the service, and the company matches each project with a subject specialist who understands the academic expectations of the client’s region. We explore the two different versions of the service that UK Essays offers. The full systematic review package includes everything: the development of your PICO or PEO research framework, complete search strategy documentation, search terms tables, inclusion and exclusion criteria tables, search screenshots, PRISMA flow diagrams, CASP quality appraisal checklists, and detailed data extraction tables such as study characteristics and literature matrix templates. This version is ideal for Masters and PhD students whose universities require complete methodological transparency. For students who want professional help but at a lower cost, the company also offers a cheaper version of the service without all the extras. In this case, the expert writes the systematic review itself while you complete the tables and documentation, or choose which components you want to handle personally. This flexible structure means students can customise the service based on budget, confidence and academic requirements. A key part of this video is the pricing update. As of November 2025, UK Essays introduced significantly cheaper prices for systematic literature reviews, making the service far more competitive than many other providers. This pricing shift matters because systematic reviews traditionally require more expert time and technical labour, which made them one of the more expensive academic services. The new pricing model lowers the barrier for students who need structured help but previously found full-service costs too high. We also look at the advantages of being able to submit your own materials. If you’ve already completed your database searches, compiled study lists, or begun your extraction work, you can hand that over and let a specialist complete the remaining tasks. This is especially useful for students who start confidently but become overwhelmed when the documentation requirements become more complex. By the end of the video, you’ll understand exactly what a systematic literature review requires, what UK Essays provides, how the two service levels differ, and why the new pricing update makes the service more accessible to students worldwide. With global researchers, international customers, and a brand reputation built on high academic standards, UK Essays offers one of the most flexible and cost-effective systematic review services available today. If you’re preparing for a dissertation, thesis, or major academic assessment and want expert support, this deep breakdown will help you decide whether the full or the cheaper streamlined version of the service is the right fit for your needs. Whether you’re studying in the UK, Malaysia, Canada, the Middle East, South Africa, Europe or anywhere else, this video explains how to use the service effectively and what to expect from each stage of the process. Learn more here: https://www.ukessays.com/services/systematic-literature-review.php",
+      "channel_id": "UCJUdb-feYsKnWB81ZNz53Bw",
+      "channel_title": "The-Review-Network",
+      "published_at": "2025-11-13T09:24:21Z",
+      "views": 114,
+      "likes": 1,
+      "comments": 0,
+      "duration": "PT6M16S",
+      "url": "https://www.youtube.com/watch?v=p4BdXhMIsLw",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "literature review",
+          "student",
+          "research",
+          "thesis",
+          "dissertation"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "tZ_nEl-DsOo",
+      "title": "How to Get Your Master’s Degree in Record Time: Secrets No One Talks About",
+      "description": "Master’s degree help, dissertation writing, research proposal writing, literature review, thesis time management, supervisor feedback, and postgraduate success – this book was written for every master’s student who is tired of feeling stuck. Are you doing your master’s degree and feeling overwhelmed, delayed, confused, or emotionally exhausted? Maybe your proposal is taking too long. Maybe your supervisor’s feedback is slow. Maybe your literature review is draining you. Maybe work, family, money, and research are all fighting for your attention. Maybe you keep saying, “I will submit next year” – but deep down, you are tired of waiting. This book is for you. 📘 How to Get Your Master’s Degree in Record Time: Secrets No One Talks About This practical book gives master’s students the hidden strategies many universities do not teach clearly enough: how to choose the right topic, manage your supervisor, plan your degree like a project, write your proposal, handle the literature review, collect data, stay motivated, edit your work, and submit with confidence. Whether you are studying at UNISA, UP, UJ, Wits, UKZN, NWU, UCT, TUT, DUT, CPUT, CUT, Rhodes, Stellenbosch, UFS, or any other university in South Africa or beyond, this book will help you stop drifting and start moving towards graduation. Your master’s degree should not steal years of your life. You do not need to be perfect. You need a plan. You need strategy. You need discipline. You need the right guidance. 📚 Get your copy today and start working towards finishing your master’s degree in record time. #MastersDegree #PostgraduateStudies #DissertationWriting #ThesisWriting #ResearchProposal #LiteratureReview #UNISA #SouthAfricanStudents #AcademicSuccess",
+      "channel_id": "UCfHeEnIZrv_NOh15LhpWL9A",
+      "channel_title": "Let's Edit",
+      "published_at": "2026-07-22T04:45:59Z",
+      "views": 9,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT3M36S",
+      "url": "https://www.youtube.com/watch?v=tZ_nEl-DsOo",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "literature review",
+          "university",
+          "student",
+          "postgraduate",
+          "research",
+          "thesis",
+          "dissertation"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "nOncpjePy-s",
+      "title": "LITERATURE REVIEW DISSERTATION | LITERATURE REVIEW CHAPTER EXPLAINED",
+      "description": "",
+      "channel_id": "UC2dSxp39w1xkKSnP6pFVXmw",
+      "channel_title": "RESEARCHWITHLYNN ",
+      "published_at": "2025-09-09T03:30:50Z",
+      "views": 5290,
+      "likes": 135,
+      "comments": 6,
+      "duration": "PT1M21S",
+      "url": "https://www.youtube.com/watch?v=nOncpjePy-s",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "literature review",
+          "dissertation"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "e4O6M7CDrjU",
+      "title": "RMAD Lecture 1: Introduction to Research (Global South Perspective)",
+      "description": "Welcome to the Research Methods Across Disciplines (RMAD) for Postgraduate Students and Organizational Executives Lecture Series. In Lecture 1, we examine the foundations of research, including: • What research is. • Why research matters. • Characteristics of good research. • Types of research. • The research process. • Examples from Africa and other developing countries. This lecture is designed for: ✔ PhD students. ✔ Master's students. ✔ Researchers. ✔ University lecturers. ✔ Government researchers. ✔ Organizational executives. ✔ Development practitioners. Future lectures will cover: • Research Design. • Sampling. • Measurement. • Data Analysis. • Regression Analysis. • Qualitative Research. • Mixed Methods Research. • Structural Equation Modeling. • AI in Research. • Grant Writing. • Research Ethics. • and many more. Subscribe for new lectures every week. Professor Linus Osuagwu, Professor of Marketing, Veritas University Abuja, Nigeria. #ResearchMethods. #PhD. #Research. #Statistics. #MarketingResearch. #GlobalSouth. #Nigeria.",
+      "channel_id": "UCNfsaXmPMcuTCkGxVRacHTg",
+      "channel_title": "Research Methods Across Disciplines",
+      "published_at": "2026-07-20T08:48:39Z",
+      "views": 143,
+      "likes": 6,
+      "comments": 0,
+      "duration": "PT1H55M18S",
+      "url": "https://www.youtube.com/watch?v=e4O6M7CDrjU",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university",
+          "student",
+          "postgraduate",
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "iTcF93RrcnE",
+      "title": "How to Publish Your Research A Step by Step Guide for Philosophy Postgraduates Rescheduled 20260508",
+      "description": "The workshop aims to provide clear and practical guidance on the academic publication process, particularly for early-career philosophers seeking to develop their research into publishable journal articles. The session will cover the following topics: PREPARING THE RESEARCH AND MANUSCRIPT •Structuring a philosophy article •What to include in the introduction, core argument, and conclusion •Common pitfalls in early-career submissions SELECTING AN APPROPRIATE JOURNAL •Matching a manuscript to a journal’s aims and scope •Identifying the relevant scholarly conversation •Considering audience and positioning •Reading and interpreting the “Guide for Authors” THE SUBMISSION AND REVIEW PROCESS •Preparing a manuscript for blind review •Writing a professional cover letter •Navigating submission portals •Understanding peer review and responding to reviewers PUBLISHING FROM A MASTER’S OR PHD •Transforming a dissertation chapter into a journal article •Narrowing and sharpening arguments for journal format •Reframing thesis research for a broader academic audience",
+      "channel_id": "UCA9Mk1txgmtPfNxpF_l82xw",
+      "channel_title": "South African Postgraduate Philosophy Society",
+      "published_at": "2026-07-13T22:00:06Z",
+      "views": 47,
+      "likes": 5,
+      "comments": 0,
+      "duration": "PT2H5M49S",
+      "url": "https://www.youtube.com/watch?v=iTcF93RrcnE",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "postgraduate",
+          "research",
+          "thesis",
+          "dissertation"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "j-nFSeEBhuo",
+      "title": "Top 10 Scholarships for International Students in Europe (2026) | Fully Funded Master’s & PhD Awards",
+      "description": "Top 10 Scholarships for International Students in Europe (2026) | Fully Funded Awards | Gazett.eu Global Ranking Dreaming of studying in Europe without worrying about tuition or living costs? 🌍 Gazett.eu’s 2026 Global Scholarship Index highlights the Top 10 fully funded scholarships offering outstanding opportunities for international students pursuing Master’s and Doctoral studies. This data-backed ranking combines funding depth, stipend support, seat availability, and career network value — helping global learners find programs that deliver real educational access and career growth potential. ⸻ 📘 Methodology: Gazett.eu Scholarship Value Score (2026) Gazett.eu Score = 45% Funding Depth (tuition + stipend) + 20% Stipend Level + 20% Award Scale + 15% Network/Employability This composite model evaluates scholarships based on financial value, coverage, number of awards available, and long-term international mobility impact. Data is verified from official education ministries, program reports, and European Union scholarship portals (2025–2026 cycle). Each score is normalized to a 1.00 scale, where 1.00 = top benchmark in total student benefit. ⸻ 💶 Top 10 Scholarships for International Students in Europe (2026) 1️⃣ Erasmus Mundus Joint Masters (EU) — Fully funded for 2 years, includes travel, tuition, insurance & €1,400/month stipend. 2️⃣ DAAD EPOS (Germany) — Tuition-free, €934 monthly stipend, plus health and travel benefits. 3️⃣ Eiffel Excellence (France) — Covers tuition, insurance, €1,180/month, strong employer network. 4️⃣ Chevening (UK) — Fully funded one-year Master’s, global leadership and alumni network. 5️⃣ Commonwealth Master’s (UK) — High stipend (~€1,430/month), return-airfare, and full tuition. 6️⃣ Swedish Institute (SISGP) — Covers tuition, €1,000 monthly allowance, 300+ seats. 7️⃣ ETH Zurich Excellence (Switzerland) — €1,800/month stipend + full tuition; highly selective. 8️⃣ Government of Ireland IES — Full tuition + €833/month stipend; open to all disciplines. 9️⃣ Stipendium Hungaricum (Hungary) — Tuition waiver + €150/month stipend; thousands of seats. 🔟 NAWA Banach (Poland) — Fully funded with €380/month stipend and regional development focus. ⸻ 💡 Insights from the 2026 Ranking • Erasmus Mundus remains the EU’s top flagship, covering full academic and living costs. • DAAD & Eiffel are Germany’s and France’s global education engines, rewarding academic excellence with employability weight. • UK scholarships continue to dominate in alumni impact, despite higher competition. • Emerging European programs (Hungary, Poland, Ireland) are scaling access with cost-efficient funding. • Overall trend (2026): Shift toward multi-country scholarships and talent-based global mobility models. ⸻ 🎓 Why This Matters European governments and universities are investing more in global scholarships than ever. For 2026, the focus has moved from simple fee waivers to career-integrated funding models — where scholarships open direct employment, research, or post-study work opportunities. Gazett.eu’s data helps you find where financial aid meets global career pathways. Explore verified funding guides & education intelligence on 👉 Gazett.eu #Scholarships2026 #StudyInEurope #GazettEU #InternationalStudents #FullyFunded #MastersScholarships #PhDScholarships #ErasmusMundus #DAADScholarship #EiffelScholarship #Chevening #CommonwealthScholarship #StudyAbroad #GazettInsights #EducationRanking #ScholarshipGuide #EuropeStudy #Top10Scholarships #StudyAbroad2026 #FundingOpportunities",
+      "channel_id": "UCMY6ID8NvJa6Upga3iQpIpA",
+      "channel_title": "Gazett_EU",
+      "published_at": "2025-10-05T22:14:16Z",
+      "views": 106854,
+      "likes": 689,
+      "comments": 6,
+      "duration": "PT10S",
+      "url": "https://www.youtube.com/watch?v=j-nFSeEBhuo",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "student",
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "flem0BRd-m4",
+      "title": "Types of Data | Quantitative Data | Qualitative Data | Primary Data | Secondary Data",
+      "description": "In this video Faisal Nadeem shared 12 important types of data 1. Based on Nature Qualitative Data (Categorical) Descriptive, non-numeric information. Example: Colors, gender, names, opinions. Quantitative Data (Numerical) Measured in numbers. Example: Age, height, salary. 2. Based on Source Primary Data – Collected first-hand for a specific purpose. (e.g., surveys, experiments) Secondary Data – Already collected by someone else. (e.g., reports, books, databases) 3. Based on Time Cross-sectional Data – Collected at one point in time. (e.g., population census of 2025) Time-series Data – Collected over a period of time. (e.g., monthly sales data for 5 years) 4. Based on Measurement Scale (Stevens’ Classification) Nominal – Labels without order. (e.g., blood group, country name) Ordinal – Ordered categories, but differences are not measurable. (e.g., rankings, satisfaction level) Interval – Numeric scale with equal intervals, but no true zero. (e.g., temperature in °C) Ratio – Numeric scale with equal intervals and a true zero. (e.g., weight, length, income) 5. Based on Processing Raw Data – Original, unprocessed facts. Processed Data – Organized and analyzed form of data. This video cover the following types of data kinds of data types of data qualitative and quantitative types of data qualitative vs. quantitative qualitative data vs quantitative primary data and secondary data primary data and secondary data difference cross sectional data cross sectional data and time series data cross sectional data vs time series longitudinal data time series data vs cross sectional data raw data processeed data nominal data ordinal data interval data panel data cross sectional data cross sectional data and time series data cross sectional data vs time series or common job interview questions and answers or important job interview questions and answers completely explained by @Knowledge Topper with suitable examples. Tell me something about yourself for experience candidates in english: https://youtu.be/wL-lAZMAbos Tell me something about yourself for fresher candidates in english: https://youtu.be/ynBwYlJsBbA More Interview Questions and Answers Playlist https://youtube.com/playlist?list=PLrL4pgVAnStkmWc3EbaEW4J2x9LOBzggv Youtube: https://www.youtube.com/KnowledgeTopper/ Facebook: https://www.facebook.com/KnowledgeTopper/ Facebook Group: https://www.facebook.com/groups// #computer #computerknowledge #knowledgetopper #computers",
+      "channel_id": "UCHxG68ZftvtnAcurwpi6uRA",
+      "channel_title": "Knowledge Topper",
+      "published_at": "2025-08-15T10:24:43Z",
+      "views": 227587,
+      "likes": 1015,
+      "comments": 25,
+      "duration": "PT6S",
+      "url": "https://www.youtube.com/watch?v=flem0BRd-m4",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "A_RoK-FYt6I",
+      "title": "Future- Ready Scholars: Beyond Research Towards Impact",
+      "description": "#UKZNSpring Grad2026, #UKZNGrad2026, #UKZN, #inspiringgreatness, #Inspired2026, UKZN Facebook page https://www.facebook.com/ukzn1 UKZN Twitter https://twitter.com/UKZN UKZN Online Newsletter http://www.ukzn.ac.za/media-publications-reports/UKZNonline",
+      "channel_id": "UCBxYStNRUP_vC38qO0E3ukg",
+      "channel_title": "University of KwaZulu-Natal South Africa",
+      "published_at": "2026-06-27T01:24:04Z",
+      "views": 146,
+      "likes": 5,
+      "comments": 8,
+      "duration": "PT3H48M52S",
+      "url": "https://www.youtube.com/watch?v=A_RoK-FYt6I",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "nn9ULTIz2lM",
+      "title": "Honours & PG Students Research Training Workshop - Critically reading and critical thinking skills",
+      "description": "Please subscribe to this channel and click on the notification bell. Workshops website schedule: https://tinyurl.com/unisaworkshops M&D Facebook Group https://tinyurl.com/UNISABMnD Honours Facebook Group https://tinyurl.com/UNISAhonours Facebook Page https://www.facebook.com/Unisaresearch/ Twitter Page: https://twitter.com/UnisaRandI",
+      "channel_id": "UCAs3DRVZ3O0BrAyv91pmGiA",
+      "channel_title": "UNISA College Of Graduate Studies (CGS)",
+      "published_at": "2026-04-16T10:37:43Z",
+      "views": 692,
+      "likes": 28,
+      "comments": 1,
+      "duration": "PT1H3M48S",
+      "url": "https://www.youtube.com/watch?v=nn9ULTIz2lM",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "student",
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "news_or_blog_records": [
+    {
+      "title": "UNIVEN Distinguished Alumnus Secures Landmark China Research Partnerships - University of Venda",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQR05yWkVKSW00R2RDbXNhNjhqdnp4Zi1NVzVickplNG5FMHBTcm1BQWVYWmVTWTN6VHdFMG5lTGctTFpVZzZHWFM1S1N3ZXh3ZjJIdzJ1a3VUOWVMUy1VUmN4b0xsZEMzOHp5WkQzd1BLQVVIYWV6MUhfa3hXSXp4ZkM3ZjJsdjFhaldsUVQ2S3ZWc0dnQ29LbFMyWWQyRVhtcGNLRHJXaw?oc=5",
+      "description": "UNIVEN Distinguished Alumnus Secures Landmark China Research Partnerships &nbsp;&nbsp; University of Venda",
+      "published_at": "Sun, 19 Jul 2026 15:42:05 GMT",
+      "author": null,
+      "guid": "CBMipwFBVV95cUxQR05yWkVKSW00R2RDbXNhNjhqdnp4Zi1NVzVickplNG5FMHBTcm1BQWVYWmVTWTN6VHdFMG5lTGctTFpVZzZHWFM1S1N3ZXh3ZjJIdzJ1a3VUOWVMUy1VUmN4b0xsZEMzOHp5WkQzd1BLQVVIYWV6MUhfa3hXSXp4ZkM3ZjJsdjFhaldsUVQ2S3ZWc0dnQ29LbFMyWWQyRVhtcGNLRHJXaw",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university",
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Academic and institutional support for postgraduate students in sub-Saharan Africa: a scoping review - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxObGl4WjFYc0o2cmU1ZWw5Nm9LUGt5MXpxMDlhbl9jOWdWYlBTaUVGY3h4clV5Nl9XY1Q1Z2otZk4tZS15TWFWdWRVeV84VEQ0UkEzOEN5RktWX04yekt6b1V2ZE90XzVSeHdZbVlJUERTU0gycFpITDJfUHZ3RlJMMVRuaGc1WEdaXzBHMUVvZWs?oc=5",
+      "description": "Academic and institutional support for postgraduate students in sub-Saharan Africa: a scoping review &nbsp;&nbsp; Frontiers",
+      "published_at": "Fri, 29 May 2026 18:53:52 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxObGl4WjFYc0o2cmU1ZWw5Nm9LUGt5MXpxMDlhbl9jOWdWYlBTaUVGY3h4clV5Nl9XY1Q1Z2otZk4tZS15TWFWdWRVeV84VEQ0UkEzOEN5RktWX04yekt6b1V2ZE90XzVSeHdZbVlJUERTU0gycFpITDJfUHZ3RlJMMVRuaGc1WEdaXzBHMUVvZWs",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "student",
+          "postgraduate"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Sasol Bursaries 2027 Open Applications for South African Students: STEM, Mining, Postgraduate and Graduate Development Opportunities - Global South Opportunities",
+      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE0wTnVpeXNLMGFDR2VzbWJVeXlZM3RiV0otd08tRXpqdERiN3lKWFFubDdqVVNXMnQ2Mk4wRGxxcW5ORlpRLWhjR3lkUlF6UlhMUEtZdmlSeUFqenBlVnNJY2xfTURJQkJLR0dvNg?oc=5",
+      "description": "Sasol Bursaries 2027 Open Applications for South African Students: STEM, Mining, Postgraduate and Graduate Development Opportunities &nbsp;&nbsp; Global South Opportunities",
+      "published_at": "Thu, 06 Aug 2026 22:20:42 GMT",
+      "author": null,
+      "guid": "CBMibEFVX3lxTE0wTnVpeXNLMGFDR2VzbWJVeXlZM3RiV0otd08tRXpqdERiN3lKWFFubDdqVVNXMnQ2Mk4wRGxxcW5ORlpRLWhjR3lkUlF6UlhMUEtZdmlSeUFqenBlVnNJY2xfTURJQkJLR0dvNg",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "student",
+          "postgraduate"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Researchers urged to keep human judgement at the centre of AI-driven science - Stellenbosch University",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxObEwyNGcxRVg3b0NONlJDNDB5Q0V2ZzFwU1BtWnJxUEs2Y3ZMdWZ4RVNmNHNXcTFUVFBTNmJBblJ2amlzOFl5SC1ackgwNWJHRl8tT2RTOTRKRzRaZjFYNmc0QzlWa0swbXZ4bU1GZ2s1eHlqZm1NcVdHRjEwM19TcFF6cFh1eGtwYUtOaUJza0tHR2NBVDNn?oc=5",
+      "description": "Researchers urged to keep human judgement at the centre of AI-driven science &nbsp;&nbsp; Stellenbosch University",
+      "published_at": "Wed, 20 May 2026 08:53:29 GMT",
+      "author": null,
+      "guid": "CBMilwFBVV95cUxObEwyNGcxRVg3b0NONlJDNDB5Q0V2ZzFwU1BtWnJxUEs2Y3ZMdWZ4RVNmNHNXcTFUVFBTNmJBblJ2amlzOFl5SC1ackgwNWJHRl8tT2RTOTRKRzRaZjFYNmc0QzlWa0swbXZ4bU1GZ2s1eHlqZm1NcVdHRjEwM19TcFF6cFh1eGtwYUtOaUJza0tHR2NBVDNn",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university",
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "UJ and Global research partners map South Africa’s hidden headache research to strengthen evidence-based care - UJ News",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPT2dHbEpDYU82TjdfWGJrcndNc2JsbmFsLXZ3U2tiNjdLV3MzVWhiVGd1Q3p6QXBtd1JNclpqVUlFWnB3M0Y2TnFoN3h2WTRrVjJ1bjA3NVZJX2FOaVlRcFJrcTZOYm1Qd3BGb1hMWk9HWUNCRnpLSFRYNVpTdjh0bUMzeFhwcmNoNnN3Ynl3TVJLNTFIcWpJYWZRTlByTTVnaDBCVWs0SGtJNFpBdlAtNkhsSWtuYlFPTzNtbzlsb3FaNzhLdl9CdmpHaDh4dHppa0E?oc=5",
+      "description": "UJ and Global research partners map South Africa’s hidden headache research to strengthen evidence-based care &nbsp;&nbsp; UJ News",
+      "published_at": "Thu, 19 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMi0gFBVV95cUxPT2dHbEpDYU82TjdfWGJrcndNc2JsbmFsLXZ3U2tiNjdLV3MzVWhiVGd1Q3p6QXBtd1JNclpqVUlFWnB3M0Y2TnFoN3h2WTRrVjJ1bjA3NVZJX2FOaVlRcFJrcTZOYm1Qd3BGb1hMWk9HWUNCRnpLSFRYNVpTdjh0bUMzeFhwcmNoNnN3Ynl3TVJLNTFIcWpJYWZRTlByTTVnaDBCVWs0SGtJNFpBdlAtNkhsSWtuYlFPTzNtbzlsb3FaNzhLdl9CdmpHaDh4dHppa0E",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Latest News - The existential compulsion of literature: honouring literary giants at Rhodes University - Rhodes University",
+      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBlTVFGNEtvcDVjQk50a3pEWnVYN3RJUGNWajRDanQtRVR4NkhPYTFlalpuUDVUdmZxblVadDdEWGZsdGtob3FISjd6OHFab0hOajBqTnlDRVJTcXZlSVhYUGdtV0ZoSW41?oc=5",
+      "description": "Latest News - The existential compulsion of literature: honouring literary giants at Rhodes University &nbsp;&nbsp; Rhodes University",
+      "published_at": "Thu, 12 Mar 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiaEFVX3lxTFBlTVFGNEtvcDVjQk50a3pEWnVYN3RJUGNWajRDanQtRVR4NkhPYTFlalpuUDVUdmZxblVadDdEWGZsdGtob3FISjd6OHFab0hOajBqTnlDRVJTcXZlSVhYUGdtV0ZoSW41",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Bridget breaking boundaries in science and literature - Limpopo Mirror",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNb0x1TnlHMU9pc2diRmo1N1M1LVR5eXZoNWZrdnVXYmprQWcyNEtpNjJxR1dSOUhwSE5HdFNTdFZwTVFkVGpqa2RVRE1RVlU4ejdqLTRzX1JUV0lKZlhXQ3dfQkJfQV9jc1paUDVicFNMRmRVLVQzMVluSV9Pa3VPbUZKQ0QtdUxWUUxsRjM0QU5VTlFObnp6Vg?oc=5",
+      "description": "Bridget breaking boundaries in science and literature &nbsp;&nbsp; Limpopo Mirror",
+      "published_at": "Thu, 28 May 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMimAFBVV95cUxNb0x1TnlHMU9pc2diRmo1N1M1LVR5eXZoNWZrdnVXYmprQWcyNEtpNjJxR1dSOUhwSE5HdFNTdFZwTVFkVGpqa2RVRE1RVlU4ejdqLTRzX1JUV0lKZlhXQ3dfQkJfQV9jc1paUDVicFNMRmRVLVQzMVluSV9Pa3VPbUZKQ0QtdUxWUUxsRjM0QU5VTlFObnp6Vg",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Ten graduates from South Africa and Botswana are heading to Oxford University on a fully-funded Rhodes Scholarship in 2026 - SA Good News",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQaF9jMXRUNmhLSURWNUsxZElPbC1OWTZoUWxhelhzZFNwSFJWXzBNX3M5QnQxUTdIQ3JKRmxLQ1NJOVdHc0NRYlBPRjlNSjg3V2JVSkR4bkhEc1hXaFhJdW81ZUoyRm9vUDNyeGZNbC1FVWtRWFFSVG9qUXZZTi1nSklaSzBnb2VvQzdHTEZJRDZoWmowLTYwT0h0cDJBRW1WdllSZnRvN2ZIc18wRWZyYWw0Y0NQdHNJRWN6UjQxcTNRVi1DanBpTlAxY1U0NE9ja3hFYUF4TWt6cGhvTDJMblQyVnJVZk0?oc=5",
+      "description": "Ten graduates from South Africa and Botswana are heading to Oxford University on a fully-funded Rhodes Scholarship in 2026 &nbsp;&nbsp; SA Good News",
+      "published_at": "Sun, 16 Nov 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMi5wFBVV95cUxQaF9jMXRUNmhLSURWNUsxZElPbC1OWTZoUWxhelhzZFNwSFJWXzBNX3M5QnQxUTdIQ3JKRmxLQ1NJOVdHc0NRYlBPRjlNSjg3V2JVSkR4bkhEc1hXaFhJdW81ZUoyRm9vUDNyeGZNbC1FVWtRWFFSVG9qUXZZTi1nSklaSzBnb2VvQzdHTEZJRDZoWmowLTYwT0h0cDJBRW1WdllSZnRvN2ZIc18wRWZyYWw0Y0NQdHNJRWN6UjQxcTNRVi1DanBpTlAxY1U0NE9ja3hFYUF4TWt6cGhvTDJMblQyVnJVZk0",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Integration of core accounting disciplines within the postgraduate accounting curriculum: evidence from South Africa - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNRkg3MlR2aUJlUC04eXJCeHBmMFdCNl9IM2d1My1jWW14MkpNT3pOU293TTUwQTBQcFlWXzdiMHkzblJqUW5DR0VOUWZjakdFeF9mZ2RGN2ZESmJ3OEpRN1VnN2p3NlBMbE45WW9qdU5Ual9STE0wMmQ1MlhqZlRRR0Jnd3F5X1ZvRUxabG1qc1I?oc=5",
+      "description": "Integration of core accounting disciplines within the postgraduate accounting curriculum: evidence from South Africa &nbsp;&nbsp; Frontiers",
+      "published_at": "Mon, 23 Feb 2026 16:54:05 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNRkg3MlR2aUJlUC04eXJCeHBmMFdCNl9IM2d1My1jWW14MkpNT3pOU293TTUwQTBQcFlWXzdiMHkzblJqUW5DR0VOUWZjakdFeF9mZ2RGN2ZESmJ3OEpRN1VnN2p3NlBMbE45WW9qdU5Ual9STE0wMmQ1MlhqZlRRR0Jnd3F5X1ZvRUxabG1qc1I",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "postgraduate"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Academic Freedom under Threat in African Universities - African Arguments",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOSVR2LVQ2QVlseUtwUEZfRVNQd3RPa2M1RzVGOHdfbjc5SUxNcDVPSnZ2UkN6ZGtXdS1RY1JvcmktN2RGN3BxWFlHYjhkSUxvRS14cDhpWUIzVlk0SWxfQnUydGZXdl9KNFhoQl9ldHBPZnYtZzFYZHg1eEVhV0EwYmtDRnJleXA4dWNuZWRzbE14a0x4YXc?oc=5",
+      "description": "Academic Freedom under Threat in African Universities &nbsp;&nbsp; African Arguments",
+      "published_at": "Wed, 08 Oct 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMilgFBVV95cUxOSVR2LVQ2QVlseUtwUEZfRVNQd3RPa2M1RzVGOHdfbjc5SUxNcDVPSnZ2UkN6ZGtXdS1RY1JvcmktN2RGN3BxWFlHYjhkSUxvRS14cDhpWUIzVlk0SWxfQnUydGZXdl9KNFhoQl9ldHBPZnYtZzFYZHg1eEVhV0EwYmtDRnJleXA4dWNuZWRzbE14a0x4YXc",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "In Conversation with the Incoming Deputy Vice-Chancellor for Research and Postgraduate Studies, Prof. Fulufhelo Netswera - University of Venda",
+      "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQRjd6c3hST21mYmNNRUYxYVdMVk0xeDUtYU5yVkFSTXphSU5jdFJ6blBkTlFXYzBRaTNpQ1pjODhUdFFhMWdVd3NocmdwWFFmUEItSG9ZOWY3RVNfbXhOOUpDX09adkQ0bDU5SFNzR1pvOE5IU3FaM25SVzlMXzhnSmE4SU5xUTdRTzZHY04yVURucjh0enk3OEp1eHdWTlBUSXZNOHZQMHZpRzJRSGtZd0ROS1o4OXBiUm9vNHI1NGh0NTVqX2g1N1lmSUdSbDVmaXZRODRTWkJjaGRRa3ozSm9ZYw?oc=5",
+      "description": "In Conversation with the Incoming Deputy Vice-Chancellor for Research and Postgraduate Studies, Prof. Fulufhelo Netswera &nbsp;&nbsp; University of Venda",
+      "published_at": "Thu, 02 Oct 2025 07:41:19 GMT",
+      "author": null,
+      "guid": "CBMi4wFBVV95cUxQRjd6c3hST21mYmNNRUYxYVdMVk0xeDUtYU5yVkFSTXphSU5jdFJ6blBkTlFXYzBRaTNpQ1pjODhUdFFhMWdVd3NocmdwWFFmUEItSG9ZOWY3RVNfbXhOOUpDX09adkQ0bDU5SFNzR1pvOE5IU3FaM25SVzlMXzhnSmE4SU5xUTdRTzZHY04yVURucjh0enk3OEp1eHdWTlBUSXZNOHZQMHZpRzJRSGtZd0ROS1o4OXBiUm9vNHI1NGh0NTVqX2g1N1lmSUdSbDVmaXZRODRTWkJjaGRRa3ozSm9ZYw",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university",
+          "postgraduate",
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Funding The Future: How Financial Aid Influences Postgraduate Study Decision And Success - UWC",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPaDRPdHI4SFNzYkQ0amVWQU1zbU9kSVFwdDlpaVNPc0lmeFp3UnhMT0h5WFRSMGFPV2JxZnJFYnVOQ0tZVTNUallIaUlRNkcxMFp1LXlrM2V4REgtQ0kwX3dTUG9sakpWa0RMTW4zdnhTb0x5WTI2S3RqLU4tYXpxM2luTmVESE1felRFcHNIZThkZERvcVlDV1AzU1JEajAwdmF4OVVSWFR6Z2dMQzFvQVZuLXhKQlhMaURiUjEyR0Q1cUd4UGhiZW0xUm9tYmhzcXMw?oc=5",
+      "description": "Funding The Future: How Financial Aid Influences Postgraduate Study Decision And Success &nbsp;&nbsp; UWC",
+      "published_at": "Tue, 19 May 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMi0wFBVV95cUxPaDRPdHI4SFNzYkQ0amVWQU1zbU9kSVFwdDlpaVNPc0lmeFp3UnhMT0h5WFRSMGFPV2JxZnJFYnVOQ0tZVTNUallIaUlRNkcxMFp1LXlrM2V4REgtQ0kwX3dTUG9sakpWa0RMTW4zdnhTb0x5WTI2S3RqLU4tYXpxM2luTmVESE1felRFcHNIZThkZERvcVlDV1AzU1JEajAwdmF4OVVSWFR6Z2dMQzFvQVZuLXhKQlhMaURiUjEyR0Q1cUd4UGhiZW0xUm9tYmhzcXMw",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "postgraduate"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Re-engineered PhD must produce capability beyond knowledge - University World News",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAxTE9GcTRQY2o4eGF0bWlNRndHUjRkSjFxdmo5dUhKQmVIajBoVERmNjBXMHdiVXgzazFOVW5SeEJPRmd5ZUdCZDQxY2lKanJlSjZlWVdYVk42eUdXYndWMzZtZHFpRHVQeEpEUVljeENiQjBpaG1J?oc=5",
+      "description": "Re-engineered PhD must produce capability beyond knowledge &nbsp;&nbsp; University World News",
+      "published_at": "Thu, 04 Jun 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMid0FVX3lxTFAxTE9GcTRQY2o4eGF0bWlNRndHUjRkSjFxdmo5dUhKQmVIajBoVERmNjBXMHdiVXgzazFOVW5SeEJPRmd5ZUdCZDQxY2lKanJlSjZlWVdYVk42eUdXYndWMzZtZHFpRHVQeEpEUVljeENiQjBpaG1J",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "TUT celebrates Science staff on UNESCO and UN International Day of Women and Girls in Science - Tshwane University of Technology",
+      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxOS0pYcUhlc0txYWtPSFAtOHRfNHpKRHJZNmQ0UVAxenZBZGdaaDhuc3Z2ek9QdEFDZHE0azI1eXBHNzJ0VjNpTmtYVktwdTRPd29faTVRY0NaZG1oQkZGTG1lV1BrUG03S1R1NXh5XzRBWWVOdFBNU2lkY0xNcGtDLTRPb2pXbDliRmtXSHR0ZlBzUkU3MV90Z0pUR182UVB5ZGRWUlllanBvR2Vydk5QY1ZTaEpsUFlzbklMQl9xcHo2RWtPb2c3UEhNX2FqX1RXRFNWNndJRm9tZw?oc=5",
+      "description": "TUT celebrates Science staff on UNESCO and UN International Day of Women and Girls in Science &nbsp;&nbsp; Tshwane University of Technology",
+      "published_at": "Wed, 11 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMi2gFBVV95cUxOS0pYcUhlc0txYWtPSFAtOHRfNHpKRHJZNmQ0UVAxenZBZGdaaDhuc3Z2ek9QdEFDZHE0azI1eXBHNzJ0VjNpTmtYVktwdTRPd29faTVRY0NaZG1oQkZGTG1lV1BrUG03S1R1NXh5XzRBWWVOdFBNU2lkY0xNcGtDLTRPb2pXbDliRmtXSHR0ZlBzUkU3MV90Z0pUR182UVB5ZGRWUlllanBvR2Vydk5QY1ZTaEpsUFlzbklMQl9xcHo2RWtPb2c3UEhNX2FqX1RXRFNWNndJRm9tZw",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Identifying existing research challenges and enhancing outcomes through the development of standardized methodologies - nature.com",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFB0RmF5aGxONmRBUVZOTXdyeXkybC00WnNVNldFRFhrbm16VUJkc2VzRDJZZUxJWV96cnpNRS01bEM3QmxXd1FnVkhfaXBjVVNjemNvcC1POE5JS1EtZ1JN?oc=5",
+      "description": "Identifying existing research challenges and enhancing outcomes through the development of standardized methodologies &nbsp;&nbsp; nature.com",
+      "published_at": "Tue, 11 Feb 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiX0FVX3lxTFB0RmF5aGxONmRBUVZOTXdyeXkybC00WnNVNldFRFhrbm16VUJkc2VzRDJZZUxJWV96cnpNRS01bEM3QmxXd1FnVkhfaXBjVVNjemNvcC1POE5JS1EtZ1JN",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Integrating TPACK in online pedagogies: effects on science postgraduate students’ competence - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNRjh3bGZBQnd0b3VVTGZsS0xWQ3NPWVUtZDBkeTFRNjlMakpfVmRZT29RNVNBWWZJWWJyNWREWUJsVkZBaXloWnN1QUxmVGpfalZ3Z2JQRldtUElCbUJ2M3FmU1dwcy1zOEU4NzZrWm1TdG55Y0FaY2d1WDdBUEthaklSVFJWOS10NEVSR2NrSVk?oc=5",
+      "description": "Integrating TPACK in online pedagogies: effects on science postgraduate students’ competence &nbsp;&nbsp; Frontiers",
+      "published_at": "Wed, 18 Mar 2026 13:52:38 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxNRjh3bGZBQnd0b3VVTGZsS0xWQ3NPWVUtZDBkeTFRNjlMakpfVmRZT29RNVNBWWZJWWJyNWREWUJsVkZBaXloWnN1QUxmVGpfalZ3Z2JQRldtUElCbUJ2M3FmU1dwcy1zOEU4NzZrWm1TdG55Y0FaY2d1WDdBUEthaklSVFJWOS10NEVSR2NrSVk",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "student",
+          "postgraduate"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "UJ retains its position as the highest producer of research outputs in SA - UJ News",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNakRKU1RmREZ3T3JJb0Y5VHkxazdYb3hQT3AxSHc0OTl4dUZRbWhBS0RtU3dxRGx0QTBGVHh4cURmd3ZHSW55Y3Rmek5qeHhKOC1tTWxsd2s1MDRJMlgyWHUzc2pwVzM4WVF6d3BQS2pwS3dvSUs1YzExNmN3RTc1MFhvLVZyVXp5MWRqeWY1cXpYb2luYUpiamE2c2JCWHI2T1RF?oc=5",
+      "description": "UJ retains its position as the highest producer of research outputs in SA &nbsp;&nbsp; UJ News",
+      "published_at": "Thu, 07 Mar 2024 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiowFBVV95cUxNakRKU1RmREZ3T3JJb0Y5VHkxazdYb3hQT3AxSHc0OTl4dUZRbWhBS0RtU3dxRGx0QTBGVHh4cURmd3ZHSW55Y3Rmek5qeHhKOC1tTWxsd2s1MDRJMlgyWHUzc2pwVzM4WVF6d3BQS2pwS3dvSUs1YzExNmN3RTc1MFhvLVZyVXp5MWRqeWY1cXpYb2luYUpiamE2c2JCWHI2T1RF",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "AI use in academic research: Examining the mediating effect of user experience and the moderating effect of disciplinary context on perceived integrity - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPRU0xRWFVa19SOWhTZ3VsV2c5NVdmZ3J2d1AzNHhwWTV0TlBpQU5wZlo4bW9sc1lFWV8xOUFNQUVQcXZlcXFKY18xTXlIbmMxUnY3OFFiSWdXSUE3UDAweE5tejJPRWFLUnM1VVdmVHJUcXFsWXFaS2FyWDY3MVFUdDVHWWJ6b3I0SmNVYkxFVnk?oc=5",
+      "description": "AI use in academic research: Examining the mediating effect of user experience and the moderating effect of disciplinary context on perceived integrity &nbsp;&nbsp; Frontiers",
+      "published_at": "Sun, 11 Jan 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxPRU0xRWFVa19SOWhTZ3VsV2c5NVdmZ3J2d1AzNHhwWTV0TlBpQU5wZlo4bW9sc1lFWV8xOUFNQUVQcXZlcXFKY18xTXlIbmMxUnY3OFFiSWdXSUE3UDAweE5tejJPRWFLUnM1VVdmVHJUcXFsWXFaS2FyWDY3MVFUdDVHWWJ6b3I0SmNVYkxFVnk",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "research"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Influence of physical activity on perceived stress and mental health in university students: a systematic review - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNMHNtRXU2RzhJdTJsb0o4SzJuenA0TjlVZkNhS1ptLU9acXdYZ1lLQzV6U2tYRGtIRUhnSjhIcUx1NWY1TGlSSEZBMTNfdi04ajZ3QnJ1REZrTVFFSDJBYXVIMFVvVVNZVWx4ak9RRm1CbmhrbUlWSVNQcEgzMTdhYks4S1NocVZtNUpWb0pYNWJtanJ6RmpSaGVjZi0wQ1EzR0NPSg?oc=5",
+      "description": "Influence of physical activity on perceived stress and mental health in university students: a systematic review &nbsp;&nbsp; Frontiers",
+      "published_at": "Mon, 08 Dec 2025 15:22:16 GMT",
+      "author": null,
+      "guid": "CBMipAFBVV95cUxNMHNtRXU2RzhJdTJsb0o4SzJuenA0TjlVZkNhS1ptLU9acXdYZ1lLQzV6U2tYRGtIRUhnSjhIcUx1NWY1TGlSSEZBMTNfdi04ajZ3QnJ1REZrTVFFSDJBYXVIMFVvVVNZVWx4ak9RRm1CbmhrbUlWSVNQcEgzMTdhYks4S1NocVZtNUpWb0pYNWJtanJ6RmpSaGVjZi0wQ1EzR0NPSg",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university",
+          "student"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Seven years of embracing the sustainable development goals: perspectives from University of South Africa’s academic staff - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPN3VkX2F0RngwVFZXeU5XZGxnOEppMFQwSENOZTUyY3BCeHdZcmhTM3NLZkpKaGt1Y0hqd2VTazB5WGp6YXNkY2tmODkyTWpzUFBpNDliN0lOSmZhaHBOZXZ0aG1Sc1FGa2VlMDVDNHV0VTlvNS1MOEhtLUEzcU1QRnhOU0tia0N2QVJKOV9BaUQ?oc=5",
+      "description": "Seven years of embracing the sustainable development goals: perspectives from University of South Africa’s academic staff &nbsp;&nbsp; Frontiers",
+      "published_at": "Wed, 15 May 2024 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMikAFBVV95cUxPN3VkX2F0RngwVFZXeU5XZGxnOEppMFQwSENOZTUyY3BCeHdZcmhTM3NLZkpKaGt1Y0hqd2VTazB5WGp6YXNkY2tmODkyTWpzUFBpNDliN0lOSmZhaHBOZXZ0aG1Sc1FGa2VlMDVDNHV0VTlvNS1MOEhtLUEzcU1QRnhOU0tia0N2QVJKOV9BaUQ",
+      "feed_title": "\"academic literature review university postgraduate South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=academic+literature+review+university+postgraduate+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "university"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "provider_state": {
+    "web_news_rss": "connected",
+    "youtube_public": "connected",
+    "facebook_instagram": "pending_meta_access_token_and_page_authority",
+    "linkedin": "not_connected"
+  },
+  "interpretation": {
+    "status": "relevant_live_sample_available",
+    "claim": "Current public YouTube and RSS metadata are market-opportunity evidence only; they are not customer demand, sales proof or factual source evidence.",
+    "hivenance_use": "Attach this observation to the campaign hypothesis before operator release and settle it against measured campaign results later."
+  },
+  "warnings": [
+    "YouTube public metadata is opportunity evidence and cannot satisfy script source requirements.",
+    "RSS/Atom descriptions are source leads and are not eligible for claim extraction by default."
+  ]
+}

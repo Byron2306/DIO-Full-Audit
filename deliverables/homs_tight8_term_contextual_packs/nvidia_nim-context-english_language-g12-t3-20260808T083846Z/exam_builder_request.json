@@ -1,0 +1,199 @@
+{
+  "module_code": "ENGLIS",
+  "module_name": "English Language Grade 12",
+  "topics": [
+    "integrated comprehension, summary and language structures",
+    "cartoon, advertisement or infographic analysis"
+  ],
+  "methodology_topic": "editing for grammar, diction, register and punctuation",
+  "essay_topic": "formal transactional writing and controlled response planning",
+  "total_marks": 70,
+  "duration_hours": 2,
+  "additional_instructions": "Controlled CAPS-aligned demo generation. A qualified educator must verify topic scope, mark allocation, and assessment form before classroom use.\n\nSubject profile: English Language. Grade profile: Grade 12 (fet_exit); learner level advanced_school_exit; Bloom targets apply, analyze, evaluate, create; ZPD expert challenge; question style exam_source_set, extended_case_response, argumentative_essay, synthesis_question; reading load high; writing load high. Question families: literal_comprehension, infer_meaning, analyse_tone_or_register, evaluate_visual_message, summarise_key_points, edit_language. Memo expectations: credit plausible interpretations supported by the text, separate language mechanics from content marks, do not invent quotations, scale expected length to paper and grade. Grade memo style: credit mature synthesis, defensible argument, and curriculum-aligned alternatives. Human review checks: verify text difficulty and length; check copyright/source status of reading extracts; confirm memo allows equivalent wording; confirm writing rubrics match the assessment form. Do not use blocked modes: uncited copyrighted text copied into a paper; single-answer memo for interpretive language questions; visual questions without supplied visual evidence. CAPS resolver found no matching official DBE CAPS document. Treat this as a human-review blocker for school-level use.",
+  "term": "3",
+  "grade": 12,
+  "subject_profile": {
+    "schema": "knowedge.homs_subject_profile.v1",
+    "subject_id": "english_language",
+    "display_name": "English Language",
+    "default_level": "senior_school",
+    "assessment_modes": [
+      "comprehension",
+      "summary",
+      "language_structures",
+      "visual_literacy",
+      "transactional_writing",
+      "essay_or_literature_response",
+      "marking_relief"
+    ],
+    "source_types": [
+      "reading_text",
+      "advertisement",
+      "cartoon",
+      "visual_text",
+      "graph_or_infographic",
+      "writing_prompt",
+      "literary_extract"
+    ],
+    "question_families": [
+      "literal_comprehension",
+      "infer_meaning",
+      "analyse_tone_or_register",
+      "evaluate_visual_message",
+      "summarise_key_points",
+      "edit_language",
+      "compose_extended_response"
+    ],
+    "cognitive_targets": [
+      "retrieval",
+      "interpretation",
+      "analysis",
+      "evaluation",
+      "composition"
+    ],
+    "rubric_dimensions": [
+      "textual_evidence",
+      "language_accuracy",
+      "interpretive_reasoning",
+      "structure",
+      "audience_purpose_register",
+      "original_response_quality"
+    ],
+    "memo_expectations": [
+      "credit plausible interpretations supported by the text",
+      "separate language mechanics from content marks",
+      "do not invent quotations",
+      "scale expected length to paper and grade"
+    ],
+    "retrieval_queries": [
+      "English language comprehension assessment memo visual literacy",
+      "English FAL Home Language paper 1 question types",
+      "language structures assessment rubric senior school"
+    ],
+    "human_review_checks": [
+      "verify text difficulty and length",
+      "check copyright/source status of reading extracts",
+      "confirm memo allows equivalent wording",
+      "confirm writing rubrics match the assessment form"
+    ],
+    "blocked_claims_or_modes": [
+      "uncited copyrighted text copied into a paper",
+      "single-answer memo for interpretive language questions",
+      "visual questions without supplied visual evidence"
+    ]
+  },
+  "subject_profile_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_subject_profiles/english_language.json",
+  "grade_profile": {
+    "grade": 12,
+    "phase": "fet_exit",
+    "learner_level": "advanced_school_exit",
+    "bloom_targets": [
+      "apply",
+      "analyze",
+      "evaluate",
+      "create"
+    ],
+    "zpd_level": "expert challenge",
+    "question_style": [
+      "exam_source_set",
+      "extended_case_response",
+      "argumentative_essay",
+      "synthesis_question"
+    ],
+    "reading_load": "high",
+    "writing_load": "high",
+    "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+    "review_checks": [
+      "exit-level standard",
+      "moderation readiness",
+      "equivalent second opportunity",
+      "no undergraduate-only assumptions"
+    ]
+  },
+  "grade_ladder_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_grade_ladder.json",
+  "caps_context": {
+    "schema": "knowedge.homs_caps_context.v1",
+    "created_at": "2026-08-08T08:38:46+00:00",
+    "enabled": true,
+    "manifest": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/caps_corpus_manifest.json",
+    "subject_id": "english_language",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "preferred_language": "English",
+    "candidate_count": 0,
+    "candidates": [],
+    "selected": null,
+    "assessment_matrix_row": null,
+    "assessment_ontology_profile": null,
+    "assessment_design_profile": null,
+    "extracted_excerpt": "",
+    "extraction_error": null
+  },
+  "caps_generation_note": "CAPS resolver found no matching official DBE CAPS document. Treat this as a human-review blocker for school-level use.",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  }
+}

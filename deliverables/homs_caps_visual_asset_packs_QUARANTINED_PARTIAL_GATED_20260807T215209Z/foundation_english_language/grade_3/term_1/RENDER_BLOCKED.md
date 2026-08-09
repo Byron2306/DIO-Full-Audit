@@ -1,0 +1,18 @@
+# Visual Render Blocked
+
+Subject: English Language
+Grade: 3
+Term: 1
+Confidence: low
+
+The builder wrote the blueprint and assessment-pack stub, but did not render visuals because the CAPS term/theme extraction was not content-confident.
+
+## Extracted Content Lines
+
+## Admin / Noisy Lines
+- 2.5 ASSESSMENT
+- The CAPS document provides suggestions for each of the Formal Assessment Activities in the Foundation Phase
+- Guidelines and Subject Assessment Guidelines with the
+- (a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document
+- (c) National Protocol for Assessment Grades R-12.
+- CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)

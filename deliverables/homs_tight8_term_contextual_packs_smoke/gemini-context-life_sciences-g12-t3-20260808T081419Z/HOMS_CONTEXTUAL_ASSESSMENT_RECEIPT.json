@@ -1,0 +1,85 @@
+{
+  "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+  "created_at": "2026-08-08T08:15:15+00:00",
+  "status": "failed_validation",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "term": "3",
+  "focus": "Evolution by natural selection and speciation; Human evolution evidence and interpretation; Scientific investigation design for natural selection; Using data and anatomical evidence to support evolutionary explanations",
+  "provider": {
+    "selected_provider": "gemini",
+    "selected_model": "gemini-3.5-flash",
+    "selected_key_name": "GEMINI_API_KEY",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "values_redacted": true
+  },
+  "question_count": 16,
+  "question_marks": 75,
+  "rubric_marks": 75,
+  "validation_errors": [
+    "unsupported invented Figure 3 scenario term found: pelvis"
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "errors": [
+        "unsupported invented Figure 3 scenario term found: pelvis"
+      ],
+      "question_count": 17
+    },
+    {
+      "attempt": 2,
+      "errors": [
+        "unsupported invented Figure 3 scenario term found: pelvis"
+      ],
+      "question_count": 16
+    }
+  ],
+  "elapsed_seconds": 56.61,
+  "paths": {
+    "job_dir": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z",
+    "assessment_pack": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/assessment_pack.json",
+    "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+    "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/HOMS_VISUAL_BLUEPRINT.json",
+    "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/ASSESSMENT_PACK_FORMATTED.docx",
+    "learner_docx": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/ASSESSMENT_LEARNER.docx",
+    "learner_pdf": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+    "review_pdf": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+    "zip": "deliverables/homs_tight8_term_contextual_packs_smoke/gemini-context-life_sciences-g12-t3-20260808T081419Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "assessment_title": "Grade 10 Geography Term 2 Visual Asset Pack: Reading and interpreting synoptic weather maps",
+  "subject": "Geography",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "canonical_profile_id": "fet.geography",
+  "blueprint": "source_based_plus_extended_response",
+  "render_shell": "source_response_paper",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Geography",
+    "grade": 10,
+    "phase": "fet_grade_10_12",
+    "term": "2",
+    "caps_source": {
+      "title": "Geography",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"
+    },
+    "canonical_profile_id": "fet.geography",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "caps_theme_candidates": [
+      "GEOGRAPHY GRADES 10-12",
+      "Information Systems (GIS)",
+      "The atmosphere",
+      "Composition and structure of the atmosphere",
+      "Heating of the atmosphere",
+      "Moisture in the atmosphere",
+      "Reading and interpreting synoptic weather maps",
+      "Geomorphology",
+      "k and Practical Work [4 hours]",
+      "using maps and other graphical representations: atlases, synoptic weather maps and temperature graphs",
+      "processing, collating and presenting fieldwork findings: line graphs, bar graphs, maps, diagrams and synoptic weather",
+      "map reading \u2013 comparing information from different maps",
+      "Assessment and Consolidation [3 hours]",
+      "22 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+    ],
+    "assessment_content_focus": [
+      "Reading and interpreting synoptic weather maps",
+      "using maps and other graphical representations: atlases, synoptic weather maps and temperature graphs",
+      "Information Systems (GIS)",
+      "The atmosphere",
+      "Composition and structure of the atmosphere",
+      "Heating of the atmosphere",
+      "Moisture in the atmosphere",
+      "Geomorphology",
+      "GEOGRAPHY GRADES 10-12",
+      "Reading and interpreting synoptic weather maps",
+      "GEOGRAPHY GRADES 10-12"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: atlases, atmosphere, composition, geography, geomorphology, grades."
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ],
+    "theme_quality": {
+      "confidence": "high",
+      "render_allowed": true,
+      "content_lines": [
+        "Information Systems (GIS)",
+        "The atmosphere",
+        "Composition and structure of the atmosphere",
+        "Heating of the atmosphere",
+        "Moisture in the atmosphere",
+        "Reading and interpreting synoptic weather maps",
+        "Geomorphology",
+        "using maps and other graphical representations: atlases, synoptic weather maps and temperature graphs"
+      ],
+      "admin_lines": [
+        "Assessment and Consolidation [3 hours]",
+        "22 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)"
+      ],
+      "content_terms": [
+        "atmosphere",
+        "climate",
+        "economic geography",
+        "geomorphology",
+        "gis",
+        "map",
+        "river",
+        "rural",
+        "settlement",
+        "synoptic",
+        "urban",
+        "weather"
+      ]
+    },
+    "render_gate": {
+      "status": "passed",
+      "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+    }
+  },
+  "duration": "visual preflight",
+  "total_marks": 25,
+  "sections": [
+    {
+      "title": "Visual Evidence Preflight",
+      "mode": "source_response_paper",
+      "instructions": "Use this pre-made visual pack as the visual contract before generating the final assessment.",
+      "stimulus": "Geography Grade 10 Term 2: Reading and interpreting synoptic weather maps",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Use the supplied Geography visual evidence to answer the structured task.",
+          "marks": 10,
+          "memo": [
+            "Credit accurate subject knowledge."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain your answer using evidence from the visual or source.",
+          "marks": 15,
+          "memo": [
+            "Credit evidence-linked reasoning."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Visual evidence use",
+      "marks": 10,
+      "descriptor": "Learner uses the supplied visual evidence accurately."
+    },
+    {
+      "criterion": "Subject reasoning",
+      "marks": 10,
+      "descriptor": "Response shows CAPS-aligned reasoning for the subject and grade."
+    },
+    {
+      "criterion": "Communication or process evidence",
+      "marks": 5,
+      "descriptor": "Working, planning, observation or response is clear enough to mark."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS subject, grade and term fit.",
+    "Confirm the final assessment questions use the planned visuals as evidence.",
+    "Confirm visual labels, units and mark expectations before classroom use."
+  ]
+}

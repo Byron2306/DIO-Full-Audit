@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Accounting",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Accounting",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_accounting_gr_10-12_web_cab3.pdf",
+    "sha256": "b245128f319c541660444953a70887cf70f43f3cb3611746af5f258af306c546"
+  },
+  "canonical_profile_id": "fet.accounting",
+  "assessment_family": "case_study_structured_questions",
+  "render_shell": "structured_case_paper",
+  "caps_theme_candidates": [
+    "ACCOUNTING GRADES 10-12",
+    "GRADE 12",
+    "Term Topic",
+    "is to be taught and learnt on a term-by-term basis.",
+    "the National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme",
+    "Guidelines and subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "CONTENTS",
+    "Section 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3",
+    "Curriculum and Assessment",
+    "Grades 10-12"
+  ],
+  "assessment_content_focus": [
+    "ACCOUNTING GRADES 10-12",
+    "GRADE 12",
+    "ACCOUNTING GRADES 10-12",
+    "GRADE 12"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: accounting, grades."
+  ],
+  "required_visuals": [
+    {
+      "id": "case_decision_table",
+      "title": "Case facts and decision table",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "case_table",
+      "must_show": [
+        "scenario facts",
+        "stakeholder",
+        "problem",
+        "evidence",
+        "recommendation"
+      ],
+      "assessment_use": "Learners justify decisions from case evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

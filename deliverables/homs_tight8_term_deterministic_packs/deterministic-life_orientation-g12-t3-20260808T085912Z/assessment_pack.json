@@ -1,0 +1,152 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Life Orientation",
+  "language_of_assessment": "English",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Life Orientation Grade 12 Term 3 Controlled Assessment Pack",
+  "canonical_profile_id": "fet.life_orientation",
+  "blueprint": "case_study_structured_questions",
+  "render_shell": "question_paper",
+  "duration": "1 hour",
+  "total_marks": 50,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Orientation",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "canonical_profile_id": "fet.life_orientation",
+    "assessment_family": "case_study_structured_questions",
+    "render_shell": "question_paper",
+    "assessment_content_focus": [
+      "careers, study pathways and workplace readiness",
+      "career data, subject choices, employability and post-school options",
+      "interpreting pathway information and justifying choices",
+      "practical plan for study, work exposure or career investigation"
+    ],
+    "required_visuals": [
+      {
+        "id": "case_decision_table",
+        "title": "Case facts and decision table",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "case_table"
+      }
+    ],
+    "generation_constraints": [
+      "Every question must be answerable from the stated term focus, supplied stimulus and grade-appropriate subject knowledge.",
+      "Mark totals must reconcile exactly.",
+      "Educator approval is required before classroom use."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Scenario Analysis",
+      "mode": "case_response",
+      "instructions": "Use the scenario and respond with practical judgement.",
+      "stimulus": "Scenario: A Grade 12 learner faces choices linked to careers, study pathways and workplace readiness.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identify the main issue in the scenario and explain why it matters.",
+          "marks": 5,
+          "memo": [
+            "Issue identified.",
+            "Importance explained."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Discuss TWO possible consequences of an unhealthy or irresponsible choice.",
+          "marks": 6,
+          "memo": [
+            "Two consequences.",
+            "Clear explanation."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Recommend TWO support strategies and justify each one.",
+          "marks": 8,
+          "memo": [
+            "Two strategies.",
+            "Justification linked to scenario."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Decision And Reflection",
+      "mode": "reflection",
+      "instructions": "Keep reflection appropriate and non-private.",
+      "stimulus": "Reflection focus: interpreting pathway information and justifying choices.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Evaluate a responsible decision using evidence from the scenario.",
+          "marks": 8,
+          "memo": [
+            "Decision evaluated.",
+            "Scenario evidence used."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Create a brief action plan with three safe, realistic steps.",
+          "marks": 8,
+          "memo": [
+            "Three steps.",
+            "Steps realistic and safe."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Portfolio Evidence",
+      "mode": "portfolio_response",
+      "instructions": "Complete the supervised evidence item.",
+      "stimulus": "Portfolio focus: practical plan for study, work exposure or career investigation.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Complete a portfolio entry showing what evidence an educator can assess.",
+          "marks": 15,
+          "memo": [
+            "Evidence is observable.",
+            "Reflection is relevant.",
+            "Plan is practical."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Subject accuracy and terminology",
+      "marks": 12,
+      "descriptor": "Uses accurate concepts and terminology."
+    },
+    {
+      "criterion": "Evidence, data or source use",
+      "marks": 12,
+      "descriptor": "Uses supplied evidence appropriately."
+    },
+    {
+      "criterion": "Reasoning and explanation",
+      "marks": 12,
+      "descriptor": "Shows logical, grade-appropriate reasoning."
+    },
+    {
+      "criterion": "Communication and completion",
+      "marks": 14,
+      "descriptor": "Answers are clear, complete and structured."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS term and topic fit before classroom use.",
+    "Insert or approve final source material where the pack requests educator-supplied sources.",
+    "Check mark allocation, memo wording and learner level.",
+    "Confirm visuals are suitable and not treated as official source material unless sourced separately."
+  ],
+  "generation_backend": "deterministic_caps_term_template_with_provider_enrichment_ready"
+}

@@ -1,0 +1,134 @@
+{
+  "schema": "dio.document_studio.receipt.v1",
+  "job_id": "DIO-DOC-ISIZULU-001",
+  "created_at": "2026-08-09T10:39:03+00:00",
+  "status": "linguistic_approved_pending_remaining_review",
+  "service": "edit_and_translate",
+  "source": {
+    "name": "water_quality_procedure_controlled.txt",
+    "sha256": "ade75ebe8a1a94e19775abf81d532b82011d4458a430c37436b594c31a9bbccc",
+    "parser": "plain_text",
+    "paragraphs": 7
+  },
+  "processing": {
+    "provider": "nvidia_nim",
+    "model": "deepseek-ai/deepseek-v4-flash-0731",
+    "provider_status": "ok",
+    "remote_processing_approved": true,
+    "owner_authorized": true,
+    "local_validation_passed": true,
+    "source_language": "English",
+    "source_language_status": "established_source_language",
+    "target_language": "isiZulu",
+    "target_language_status": "configured_review_candidate",
+    "target_language_reviewer_requirement": "A proficient isiZulu language reviewer with relevant domain knowledge must approve the complete translation.",
+    "automated_language_critic_provider": "nvidia_nim",
+    "automated_language_critic_model": "deepseek-ai/deepseek-v4-flash-0731",
+    "beast_reuse_state": "miss",
+    "semantic_object_id": "DIO-LINGUA-WATER-001",
+    "beast_learning_count": 9
+  },
+  "release": {
+    "delivery_released": false,
+    "certified_translation": false,
+    "human_approval_required": true,
+    "linguistic_quality_approved": true,
+    "release_readiness": "linguistic_approved_pending_remaining_review",
+    "language_reviewer": "Byron Bunt",
+    "language_approved_at": "2026-08-09T11:42:27+00:00"
+  },
+  "outputs": [
+    {
+      "path": "BEAST_LEARNING_RECEIPT.json",
+      "sha256": "b342be48615f4a673b3987429a581102f25d3578e4c9d8f1317db98e8e4d2a8c"
+    },
+    {
+      "path": "BEAST_REUSE_RECEIPT.json",
+      "sha256": "c4a7ef010e819e04aca4ddab4c1370dc468f7b5dbca95430e63bcc338df45142"
+    },
+    {
+      "path": "BILINGUAL_REVIEW_COPY.docx",
+      "sha256": "8f3c769ddbe55cdb508d4d781bf54883225d965bd1b6f99fc9b31368c87daa80"
+    },
+    {
+      "path": "CHANGE_LEDGER.csv",
+      "sha256": "9731e650fa1e470876f75542282d701d12951a18e436cc25006e66be1f845809"
+    },
+    {
+      "path": "CLEAN_EDITED_COPY.docx",
+      "sha256": "7dbecaaf86a8e1a63d12747fb879c14a4394c961dfb21184dcee4c776084487a"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_PROOF.png",
+      "sha256": "51275c334c7a5fa189cb4dbbf922c9be737b9adca1d5bde7df1e0fd2637a4171"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_QA.json",
+      "sha256": "29ba3b815f5dfcfe8267750d1189f3731fa4a15e8409008335298886953d088a"
+    },
+    {
+      "path": "DOCUMENT_STUDIO_QA.md",
+      "sha256": "6af743ddee1219bd33d8afb0324986dece41d41496ae5af7773652f5e41024da"
+    },
+    {
+      "path": "HUMAN_APPROVAL.md",
+      "sha256": "8a3cdeff35ba2da058977942d6b49dc6f0e6af56b9c755ee9ce9d02ee6726b3d"
+    },
+    {
+      "path": "LINGUA_APPROVAL_TEMPLATE.json",
+      "sha256": "7b0cdc455fc63c290a780f48461454e905641f0f90f238b59aa3265a78678e7d"
+    },
+    {
+      "path": "LINGUA_BEAST_APPROVAL_RECEIPT.json",
+      "sha256": "e9f37903cde5d7f0fe9037648c15487d9608dba4e1b7808016384bb1ab73166f"
+    },
+    {
+      "path": "LINGUA_CHANGE_RECEIPT.json",
+      "sha256": "e6f09a51102005d165abc9ebf8d26583b988aabcac435ef5ef17b149d00a98ea"
+    },
+    {
+      "path": "LINGUA_HUMAN_APPROVAL.json",
+      "sha256": "324f4ee97925552af6d13f81d68f808079b72f6744ee2485d52fda0621c9e01d"
+    },
+    {
+      "path": "LINGUA_QA.json",
+      "sha256": "3aac3cc702347c9747a3d5546a056b3ef6cb7de809ffe975936228e47e4003e1"
+    },
+    {
+      "path": "LINGUA_SEMANTIC_OBJECT.json",
+      "sha256": "d7b801f6185bbad5063ba3be4e7083c163182d224356c29a93abbd716d8140e3"
+    },
+    {
+      "path": "PROVIDER_OUTPUT.json",
+      "sha256": "628997c28b97faa6cdccb6ed801f6035da86da9f32761979426b825ccf696702"
+    },
+    {
+      "path": "REDLINE_REVIEW_COPY.docx",
+      "sha256": "f8e3796c7cb45b5c081fde363cc04f2ead5d33d0d5eccc4f67a9b6dbdf04cb88"
+    },
+    {
+      "path": "TERMINOLOGY_GLOSSARY.csv",
+      "sha256": "11454f7d1690d333b90cfafffd7599b5d7f992e05fc6c44177ac5995d3d23ebc"
+    },
+    {
+      "path": "TRANSLATED_CLEAN_COPY.docx",
+      "sha256": "0fbf50b0ee659a6ac951613e0a5bbd5f7ce30aa69386ee84a0ebe3bf339f97dd"
+    },
+    {
+      "path": "pdf/BILINGUAL_REVIEW_COPY.pdf",
+      "sha256": "43691a45c9cb8ed1852c64b5ecf9db8ec4c1e4023561144dd3306cbf00d60686"
+    },
+    {
+      "path": "pdf/CLEAN_EDITED_COPY.pdf",
+      "sha256": "0aa5f89646c62d7d580123d8c4fc66a1e26fb65e176e935f659229406cc3cad1"
+    },
+    {
+      "path": "pdf/REDLINE_REVIEW_COPY.pdf",
+      "sha256": "dad0edf2677d0f7b924fda2b2f1acab5923299ab7c6b5fc18b834c0086abaa57"
+    },
+    {
+      "path": "pdf/TRANSLATED_CLEAN_COPY.pdf",
+      "sha256": "fd3b499f75ba5e6d649f1bc5838696daf9d22a8ed9d60fe4a2d97a165f19efbc"
+    }
+  ]
+}

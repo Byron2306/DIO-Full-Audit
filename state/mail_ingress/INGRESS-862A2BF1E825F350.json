@@ -1,0 +1,29 @@
+{
+  "schema": "dio.mail_ingress.v1",
+  "mail_ingress_id": "INGRESS-862A2BF1E825F350",
+  "provider": "microsoft_graph",
+  "provider_message_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAAAY3QAA",
+  "internet_message_id": "<EQE3FVLVZTU4.GCL4XXBYK0CM1@bl02epf00024f26>",
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAOJsDK2CvLVOh5xOOCEqSGQ=",
+  "received_at": "2026-08-08T16:11:49Z",
+  "captured_at": "2026-08-08T17:00:03+00:00",
+  "sender": {
+    "name": "Microsoft account team",
+    "address": "account-security-noreply@accountprotection.microsoft.com"
+  },
+  "subject": "Microsoft account security info verification",
+  "body": {
+    "contentType": "html",
+    "content": "<html dir=\"ltr\"><head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><style type=\"text/css\">\r\n<!--\r\n-->\r\n</style></head><body><table dir=\"ltr\"><tbody><tr><td id=\"i1\" style=\"padding:0; font-family:'Segoe UI Semibold','Segoe UI Bold','Segoe UI','Helvetica Neue Medium',Arial,sans-serif; font-size:17px; color:#707070\">Microsoft account</td></tr><tr><td id=\"i2\" style=\"padding:0; font-family:'Segoe UI Light','Segoe UI','Helvetica Neue Medium',Arial,sans-serif; font-size:41px; color:#2672ec\">Thanks for verifying your security info</td></tr><tr><td id=\"i3\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">Recently, you verified the security info on the Microsoft account <a dir=\"ltr\" id=\"iAccount\" class=\"link\" href=\"mailto:DI**s@outlook.com\" style=\"color:#2672ec; text-decoration:none\">DI**s@outlook.com</a>. This was a periodic security check which only happens if you haven't used a security code recently. You won't need to provide a code every time you sign in.</td></tr><tr><td id=\"i4\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">It's important to keep the security info associated with your account correct and up-to-date. We'll never use this info to spam you or for any marketing purposes \u2014 it's only to verify your identity if there's ever a problem with your account.</td></tr><tr><td id=\"i5\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">To learn more or contact support, <a id=\"iLink1\" class=\"link\" href=\"http://go.microsoft.com/fwlink/?LinkID=281822\" style=\"color:#2672ec; text-decoration:none\">click here</a>.</td></tr><tr><td id=\"i6\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">To opt out or change where you receive security notifications, <a id=\"iLink2\" class=\"link\" href=\"https://account.live.com/SecurityNotifications/Update\" style=\"color:#2672ec; text-decoration:none\">click here</a>.</td></tr><tr><td id=\"i7\" style=\"padding:0; padding-top:25px; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">Thanks,</td></tr><tr><td id=\"i8\" style=\"padding:0; font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif; font-size:14px; color:#2a2a2a\">The Microsoft account team</td></tr></tbody></table><div lang=\"en\" style=\"margin-top:20px; margin-bottom:10px\"><a class=\"link\" href=\"https://go.microsoft.com/fwlink/?LinkId=521839\">Privacy Statement</a><div style=\"margin-top:10px\">Microsoft Corporation, One Microsoft Way, Redmond, WA 98052</div></div></body></html>"
+  },
+  "body_preview": "Microsoft account\r\nThanks for verifying your security info\r\nRecently, you verified the security info on the Microsoft account DI**s@outlook.com. This was a periodic security check which only happens if you haven't used a security code recently. You won't ",
+  "has_attachments": false,
+  "is_read": false,
+  "routing_state": "system_ignored",
+  "triage": {
+    "state": "system_ignored",
+    "reason": "Known provider or platform notification sender.",
+    "assessed_at": "2026-08-09T18:48:15+00:00",
+    "authority": "dio_triune_internal"
+  }
+}

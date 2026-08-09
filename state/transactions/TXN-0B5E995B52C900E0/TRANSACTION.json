@@ -1,0 +1,167 @@
+{
+  "schema": "dio.commercial_transaction.v1",
+  "transaction_id": "TXN-0B5E995B52C900E0",
+  "created_at": "2026-08-08T22:36:00.348Z",
+  "updated_at": "2026-08-09T18:48:15+00:00",
+  "product": "evidex",
+  "offer": "controlled_bridge_verification",
+  "stage": "qualified",
+  "customer": {
+    "name": "DIO Controlled Verification",
+    "email": "dio_workflows@outlook.com",
+    "organisation": "DIO Workflows"
+  },
+  "lineage": {
+    "campaign_id": null,
+    "lead_id": "EVIDEX-20260808-36BC59BF0F",
+    "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAIKADJ9rZ6RKqlBEOwqeOtc=",
+    "job_id": null,
+    "order_id": null,
+    "mail_intent_ids": [
+      "MAIL-98FC64B82BA270A3"
+    ]
+  },
+  "consents": {
+    "controlled_test": true,
+    "no_sensitive_files_submitted": true
+  },
+  "attribution": {
+    "source": "codex_controlled_verification",
+    "medium": "system_test"
+  },
+  "intake": {
+    "message_ids": [],
+    "attachments": [],
+    "attachments_untrusted": false,
+    "meaningful_input": true,
+    "sender_mismatch": false
+  },
+  "payment": {
+    "state": "not_started"
+  },
+  "review_approved": false,
+  "signals": {
+    "stage_confidence": 1.0,
+    "duplicate_messages": 0
+  },
+  "source_paths": {
+    "lead": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/leads/EVIDEX-20260808-36BC59BF0F.json",
+    "jobs": [],
+    "orders": []
+  },
+  "event_times": [
+    "2026-08-08T22:36:00.348Z",
+    "2026-08-08T23:45:07+00:00",
+    "2026-08-08T22:38:07+00:00"
+  ],
+  "triune": {
+    "schema": "dio.commercial_triune_decision.v1",
+    "verdict": "ALLOW",
+    "metatron": {
+      "status": "ok",
+      "commercial_belief": {
+        "stage": "qualified",
+        "stage_confidence": 1.0,
+        "lineage_completeness": 0.5,
+        "lineage_present": [
+          "lead_id",
+          "conversation_id"
+        ],
+        "intake_meaningful": true,
+        "attachment_count": 0,
+        "consent_confidence": 1.0,
+        "readiness_score": 0.875,
+        "risk_score": 0.0
+      },
+      "policy_tier_suggestion": "routine"
+    },
+    "michael": {
+      "ranked_actions": [
+        {
+          "action": "collect_or_validate_intake",
+          "authority": "automatic_internal",
+          "score": 0.8275,
+          "reason": "Correlate supplied messages and quarantined files into an intake packet.",
+          "components": {
+            "readiness": 0.875,
+            "customer_value": 0.85,
+            "reversibility": 0.95,
+            "urgency": 0.5
+          }
+        },
+        {
+          "action": "prepare_quote",
+          "authority": "operator_required",
+          "score": 0.81,
+          "reason": "Price and scope require commercial authority.",
+          "components": {
+            "readiness": 0.875,
+            "customer_value": 0.9,
+            "reversibility": 0.8,
+            "urgency": 0.5
+          }
+        }
+      ],
+      "selected_action": {
+        "action": "collect_or_validate_intake",
+        "authority": "automatic_internal",
+        "score": 0.8275,
+        "reason": "Correlate supplied messages and quarantined files into an intake packet.",
+        "components": {
+          "readiness": 0.875,
+          "customer_value": 0.85,
+          "reversibility": 0.95,
+          "urgency": 0.5
+        }
+      }
+    },
+    "loki": {
+      "status": "clear",
+      "selected_action": "collect_or_validate_intake",
+      "challenges": [],
+      "alternative_hypotheses": [
+        "This may be a support conversation rather than a new order.",
+        "The customer may be supplying missing material for an existing job.",
+        "A platform notification may be mistaken for customer payment authority."
+      ]
+    },
+    "harmonic": {
+      "sample_size": 3,
+      "median_interval_seconds": 2073.33,
+      "jitter_seconds": 1946.67,
+      "burstiness": 0.5,
+      "age_hours": 19.05,
+      "stale": false,
+      "resonance_score": 0.6625,
+      "discord_score": 0.0,
+      "confidence": 0.25,
+      "mode_recommendation": "normal_flow"
+    }
+  },
+  "next_actions": [
+    {
+      "action": "collect_or_validate_intake",
+      "authority": "automatic_internal",
+      "score": 0.8275,
+      "reason": "Correlate supplied messages and quarantined files into an intake packet.",
+      "components": {
+        "readiness": 0.875,
+        "customer_value": 0.85,
+        "reversibility": 0.95,
+        "urgency": 0.5
+      }
+    },
+    {
+      "action": "prepare_quote",
+      "authority": "operator_required",
+      "score": 0.81,
+      "reason": "Price and scope require commercial authority.",
+      "components": {
+        "readiness": 0.875,
+        "customer_value": 0.9,
+        "reversibility": 0.8,
+        "urgency": 0.5
+      }
+    }
+  ]
+}

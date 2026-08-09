@@ -1,0 +1,34 @@
+{
+  "schema": "dio.presence.config.v2",
+  "version": "2.0.0",
+  "state_root": "state/presence",
+  "event_log": "telemetry/dio_events.jsonl",
+  "routes_path": "config/routes.json",
+  "signature_ttl_seconds": 300,
+  "max_message_chars": 4000,
+  "attachments": {
+    "max_bytes": 8388608,
+    "mode": "quarantine_only",
+    "automatic_processing": false,
+    "blocked_active_content": true
+  },
+  "public": {
+    "automatic_fulfilment": false,
+    "public_status_lookup": "verified_conversation_order_binding_only",
+    "pricing": "human_quote_or_configured_catalog_only"
+  },
+  "operator": {
+    "can_read_summary": true,
+    "can_read_needs_you": true,
+    "can_create_identity_binding": true,
+    "can_change_control_policy": false,
+    "can_send_mail": false,
+    "can_spend_money": false
+  },
+  "channels": {
+    "telegram": {"wave": 2, "state": "implemented", "documents": "quarantine_only"},
+    "whatsapp": {"wave": 2, "state": "implemented", "documents": "quarantine_only"},
+    "webchat": {"wave": 2, "state": "implemented", "identity": "anonymous_session_by_default"}
+  },
+  "llm": {"role": "advisory_classifier_and_copy_drafter_only", "tool_authority": false}
+}

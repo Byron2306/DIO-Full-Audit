@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.caps_assessment_demo_receipt.v1",
+  "created_at": "2026-08-07T20:31:53+00:00",
+  "status": "generated",
+  "job_id": "intermediate_coding_and_robotics_grade5_20260807T203153Z",
+  "proof_group": "intermediate",
+  "selected_grade": 5,
+  "caps": {
+    "title": "Coding and Robotics",
+    "phase": "intermediate_grade_4_6",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/ip_coding_and_robotics_caps_fin_oct_2025.pdf",
+    "sha256": "0d87e20bcc5d3ea8f09db31a07c9b6d6bf5de2f837455c4f048aa2362ff272d8",
+    "recommended_blueprint": "practical_project_design_task",
+    "source_document_title": "English",
+    "signals": {
+      "signals_source_based": false,
+      "signals_essay_or_extended_response": false,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    }
+  },
+  "canonical_profile": {
+    "profile_id": "intermediate.coding_and_robotics",
+    "subject": "Coding and Robotics",
+    "subject_family": "technology",
+    "assessment_family": "practical_project_design_task",
+    "allowed": [
+      "design_brief",
+      "practical_task",
+      "technical_diagram",
+      "structured_theory",
+      "project_deliverable"
+    ],
+    "default_off": [
+      "history_essay",
+      "language_comprehension_only",
+      "unbounded_build_project"
+    ],
+    "required_distribution": {
+      "design_or_practical": 40,
+      "technical_knowledge": 30,
+      "diagrams_or_specifications": 20,
+      "reflection_or_safety": 10
+    }
+  },
+  "duration_seconds": 43.84,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/intermediate_coding_and_robotics_grade5_20260807T203153Z",
+    "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/intermediate_coding_and_robotics_grade5_20260807T203153Z/assessment_pack.json",
+    "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/intermediate_coding_and_robotics_grade5_20260807T203153Z/ASSESSMENT_PACK.md",
+    "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/intermediate_coding_and_robotics_grade5_20260807T203153Z/ASSESSMENT_PACK.docx",
+    "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/intermediate_coding_and_robotics_grade5_20260807T203153Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+  }
+}

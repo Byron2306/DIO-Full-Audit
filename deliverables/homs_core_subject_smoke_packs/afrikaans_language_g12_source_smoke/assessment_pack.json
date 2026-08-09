@@ -1,0 +1,443 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Afrikaans",
+  "language_of_assessment": "Afrikaans",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Afrikaans Graad 12 Bron-Ingebedde Roetetoets",
+  "canonical_profile_id": "fet.afrikaans_language",
+  "blueprint": "language_integrated_assessment",
+  "total_marks": 31,
+  "duration": "45 minute",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Afrikaans",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "assessment_family": "language_integrated_assessment",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "text_extract",
+        "cartoon",
+        "graph_or_chart",
+        "photograph_or_image"
+      ],
+      "source_type_reasons": [
+        "This smoke pack proves the Afrikaans route can embed source material before question rendering.",
+        "The subject focus is Afrikaans comprehension, literature context, visual literacy and writing prompts.",
+        "Educator approval remains mandatory before classroom use."
+      ]
+    },
+    "required_visuals": [],
+    "generation_constraints": [
+      "Every source-referenced question must name a supplied SOURCE number.",
+      "Questions must be answerable from visible source material and subject knowledge.",
+      "Source readability, copyright/reuse status and CAPS fit must be reviewed by an educator."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Broninterpretasie",
+      "mode": "source_response",
+      "instructions": "Gebruik die verskafde bronmateriaal. Beantwoord die vrae met sigbare bewyse en toepaslike vakkennis.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Verwys na BRON 1. Identifiseer een belangrike kenmerk van die teksuittreksel en verduidelik hoe dit as bewys in Afrikaans gebruik kan word.",
+          "marks": 4,
+          "memo": [
+            "'n Relevante kenmerk uit BRON 1 word geidentifiseer.",
+            "Die verduideliking word aan die vakkonteks gekoppel.",
+            "Die antwoord gebruik sigbare bewyse eerder as onondersteunde onthouwerk."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Verwys na BRON 2. Identifiseer een belangrike kenmerk van die spotprent en verduidelik hoe dit as bewys in Afrikaans gebruik kan word.",
+          "marks": 4,
+          "memo": [
+            "'n Relevante kenmerk uit BRON 2 word geidentifiseer.",
+            "Die verduideliking word aan die vakkonteks gekoppel.",
+            "Die antwoord gebruik sigbare bewyse eerder as onondersteunde onthouwerk."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Verwys na BRON 3. Identifiseer een belangrike kenmerk van die grafiek of diagram en verduidelik hoe dit as bewys in Afrikaans gebruik kan word.",
+          "marks": 4,
+          "memo": [
+            "'n Relevante kenmerk uit BRON 3 word geidentifiseer.",
+            "Die verduideliking word aan die vakkonteks gekoppel.",
+            "Die antwoord gebruik sigbare bewyse eerder as onondersteunde onthouwerk."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Verwys na BRON 4. Identifiseer een belangrike kenmerk van die foto of beeld en verduidelik hoe dit as bewys in Afrikaans gebruik kan word.",
+          "marks": 4,
+          "memo": [
+            "'n Relevante kenmerk uit BRON 4 word geidentifiseer.",
+            "Die verduideliking word aan die vakkonteks gekoppel.",
+            "Die antwoord gebruik sigbare bewyse eerder as onondersteunde onthouwerk."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Vergelyk TWEE van die verskafde bronne. Verduidelik watter een die sterkste assesseringsvraag sou oplewer en waarom.",
+          "marks": 5,
+          "memo": [
+            "Twee verskafde bronne word vergelyk.",
+            "'n Gemotiveerde oordeel word gemaak.",
+            "Redenering verwys na leesbaarheid, datarykheid, visuele duidelikheid of vakgeskiktheid."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Metode En Kontrole",
+      "mode": "review_response",
+      "instructions": "Evalueer of hierdie gegenereerde assesseringspak gereed is vir 'n werklike leerdergroep.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Noem TWEE kontroles wat 'n opvoeder moet uitvoer voordat hierdie assessering aan leerders gegee word.",
+          "marks": 4,
+          "memo": [
+            "Kontroleer bronleesbaarheid en relevansie.",
+            "Kontroleer CAPS-onderwerp- en graadbelyning.",
+            "Kontroleer puntetoekenning en memorandumkorrektheid.",
+            "Kontroleer kopiereg- en hergebruikvoorwaardes vir bronmateriaal."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Verduidelik waarom amptelike vraestel-bronvoorbeelde sterker is as generiese gegenereerde visuele materiaal vir hierdie roete.",
+          "marks": 6,
+          "memo": [
+            "Dit wys werklike brontipes wat in vraestelle gebruik word.",
+            "Dit verminder uitgedinkte visuele nonsens.",
+            "Dit vereis steeds aanpassing en opvoedergoedkeuring."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Bronbewysgebruik",
+      "marks": 10,
+      "descriptor": "Antwoorde gebruik sigbare bewyse uit die verskafde bronne."
+    },
+    {
+      "criterion": "Vakakkuraatheid",
+      "marks": 10,
+      "descriptor": "Antwoorde gebruik korrekte vakbegrippe en terminologie."
+    },
+    {
+      "criterion": "Kontrolegereedheid",
+      "marks": 10,
+      "descriptor": "Risiko's en goedkeuringskontroles word duidelik geidentifiseer."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Bevestig dat elke ingebedde bron leesbaar is na PDF-uitvoer.",
+    "Bevestig brongebruik en kopieregstatus voor klientlewering.",
+    "Bevestig dat vrae slegs na verskafde of duidelik gestelde bewyse verwys.",
+    "Bevestig dat memorandum en puntetoekenning by die vakroete pas."
+  ],
+  "source_assets": [
+    {
+      "id": "source_01_text_extract",
+      "title": "Official-paper exemplar: Text Extract",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract",
+        "photograph_or_image"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "page": 6,
+      "object_id": "Q1:foto_1",
+      "snippet": "1.16 Hoe ondersteun die eerste foto in die teks die inhoud in paragraaf 2? (1)",
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/text_extract/01_afrikaans_fal_p1_november_2025_p06_q1_foto_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/text_extract/margin_trim/01_afrikaans_fal_p1_november_2025_p06_q1_foto_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/text_extract/object_candidate/01_afrikaans_fal_p1_november_2025_p06_q1_foto_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/text_extract/object_candidate/01_afrikaans_fal_p1_november_2025_p06_q1_foto_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "object_candidate_may_be_too_aggressive",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1041,
+          1551
+        ],
+        "content_bbox": [
+          76,
+          45,
+          1117,
+          1596
+        ],
+        "crop_ratio": 0.8512,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/text_extract/object_candidate/01_afrikaans_fal_p1_november_2025_p06_q1_foto_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          1028,
+          92
+        ],
+        "object_candidate_bbox": [
+          89,
+          615,
+          1117,
+          707
+        ],
+        "object_candidate_crop_ratio": 0.0499,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review",
+          "object_candidate_may_be_too_aggressive"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_cartoon",
+      "title": "Official-paper exemplar: Cartoon",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "page": 12,
+      "object_id": "Q4:strokiesprent_4",
+      "snippet": "VRAAG 4: STROKIESPRENT \u2022 Die taalvrae wat volg, is op die strokiesprent (TEKS E) hieronder gebaseer. \u2022 Die nommering in die strokiesprent verwys na die nommer van die vraag wat",
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/cartoon/01_afrikaans_fal_p1_november_2025_p12_q4_strokiesprent_4.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/cartoon/margin_trim/01_afrikaans_fal_p1_november_2025_p12_q4_strokiesprent_4.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/cartoon/object_candidate/01_afrikaans_fal_p1_november_2025_p12_q4_strokiesprent_4.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/cartoon/object_candidate/01_afrikaans_fal_p1_november_2025_p12_q4_strokiesprent_4.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1043,
+          1551
+        ],
+        "content_bbox": [
+          76,
+          45,
+          1119,
+          1596
+        ],
+        "crop_ratio": 0.8529,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/cartoon/object_candidate/01_afrikaans_fal_p1_november_2025_p12_q4_strokiesprent_4.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          981,
+          886
+        ],
+        "object_candidate_bbox": [
+          77,
+          137,
+          1058,
+          1023
+        ],
+        "object_candidate_crop_ratio": 0.4582,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_graph_or_chart",
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "page": 3,
+      "object_id": "Q1:teks_1",
+      "snippet": "Lees die artikel hieronder en beantwoord die vrae wat volg. TEKS A: ARTIKEL",
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/graph_or_chart/01_afrikaans_fal_p1_november_2025_p03_q1_teks_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/graph_or_chart/margin_trim/01_afrikaans_fal_p1_november_2025_p03_q1_teks_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/graph_or_chart/object_candidate/01_afrikaans_fal_p1_november_2025_p03_q1_teks_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/graph_or_chart/object_candidate/01_afrikaans_fal_p1_november_2025_p03_q1_teks_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1047,
+          1551
+        ],
+        "content_bbox": [
+          76,
+          45,
+          1123,
+          1596
+        ],
+        "crop_ratio": 0.8561,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/graph_or_chart/object_candidate/01_afrikaans_fal_p1_november_2025_p03_q1_teks_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          1046,
+          901
+        ],
+        "object_candidate_bbox": [
+          77,
+          230,
+          1123,
+          1131
+        ],
+        "object_candidate_crop_ratio": 0.4969,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_04_photograph_or_image",
+      "title": "Official-paper exemplar: Photograph Or Image",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "page": 14,
+      "object_id": "Q5:prent_5",
+      "snippet": "VRAAG 5: ARTIKEL EN PRENT \u2022 Die taalvrae wat volg, is op die artikel (TEKS F) en prent (TEKS G) hieronder gebaseer.",
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/photograph_or_image/01_afrikaans_fal_p1_november_2025_p14_q5_prent_5.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/photograph_or_image/margin_trim/01_afrikaans_fal_p1_november_2025_p14_q5_prent_5.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/photograph_or_image/object_candidate/01_afrikaans_fal_p1_november_2025_p14_q5_prent_5.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/photograph_or_image/object_candidate/01_afrikaans_fal_p1_november_2025_p14_q5_prent_5.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          1158,
+          1638
+        ],
+        "curated_size": [
+          1042,
+          1551
+        ],
+        "content_bbox": [
+          76,
+          45,
+          1118,
+          1596
+        ],
+        "crop_ratio": 0.852,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/afrikaans_language/photograph_or_image/object_candidate/01_afrikaans_fal_p1_november_2025_p14_q5_prent_5.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          990,
+          886
+        ],
+        "object_candidate_bbox": [
+          87,
+          146,
+          1077,
+          1032
+        ],
+        "object_candidate_crop_ratio": 0.4624,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "source_embedding": {
+    "schema": "knowedge.homs_source_embedding.v1",
+    "attached_at": "2026-08-08T07:43:10+00:00",
+    "source_bank": "deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+    "subject_id": "afrikaans_language",
+    "requested_source_types": [
+      "text_extract",
+      "cartoon",
+      "graph_or_chart",
+      "photograph_or_image"
+    ],
+    "asset_count": 4,
+    "policy": "Official-paper exemplars are source material only; crop/readability/copyright review and educator approval remain mandatory before client delivery."
+  }
+}

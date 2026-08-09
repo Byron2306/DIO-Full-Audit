@@ -1,0 +1,115 @@
+{
+  "schema": "knowedge.caps_closing_proof_run.v1",
+  "created_at": "2026-08-07T20:21:57+00:00",
+  "seed": 667717003,
+  "provider": {
+    "selected_provider": "nvidia_nim",
+    "selected_model": "nvidia/nemotron-3-super-120b-a12b",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "values_redacted": true
+  },
+  "receipts": [
+    {
+      "schema": "knowedge.caps_assessment_demo_receipt.v1",
+      "created_at": "2026-08-07T20:21:10+00:00",
+      "status": "generated",
+      "job_id": "fet_senior_technical_mathematics_grade10_20260807T202110Z",
+      "proof_group": "fet_senior",
+      "selected_grade": 10,
+      "caps": {
+        "title": "Technical Mathematics",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_maths_tech_final_bleed_and_crops.pdf",
+        "sha256": "89a9c9bc207ef6e929a0d203837ab11b7797bc4e2b412677bf679d82cd84e869",
+        "recommended_blueprint": "calculation_problem_solving",
+        "signals": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "duration_seconds": 48.037,
+      "outputs": {
+        "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/fet_senior_technical_mathematics_grade10_20260807T202110Z",
+        "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/fet_senior_technical_mathematics_grade10_20260807T202110Z/assessment_pack.json",
+        "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/fet_senior_technical_mathematics_grade10_20260807T202110Z/ASSESSMENT_PACK.md",
+        "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/fet_senior_technical_mathematics_grade10_20260807T202110Z/ASSESSMENT_PACK.docx",
+        "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/fet_senior_technical_mathematics_grade10_20260807T202110Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+      }
+    },
+    {
+      "schema": "knowedge.caps_assessment_demo_receipt.v1",
+      "created_at": "2026-08-07T20:21:37+00:00",
+      "status": "generated",
+      "job_id": "intermediate_german_grade6_20260807T202137Z",
+      "proof_group": "intermediate",
+      "selected_grade": 6,
+      "caps": {
+        "title": "German",
+        "phase": "intermediate_grade_4_6",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_german_sal_ip_final.pdf",
+        "sha256": "0a0779d9c34bba24576acb5ae19c61884b690f2d41af2eea056a441d6aefc803",
+        "recommended_blueprint": "source_based_plus_extended_response",
+        "signals": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": false,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "duration_seconds": 26.671,
+      "outputs": {
+        "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z",
+        "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/assessment_pack.json",
+        "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/ASSESSMENT_PACK.md",
+        "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/ASSESSMENT_PACK.docx",
+        "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/intermediate_german_grade6_20260807T202137Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+      }
+    },
+    {
+      "schema": "knowedge.caps_assessment_demo_receipt.v1",
+      "created_at": "2026-08-07T20:21:57+00:00",
+      "status": "generated",
+      "job_id": "foundation_isindebele_grade1_20260807T202157Z",
+      "proof_group": "foundation",
+      "selected_grade": 1,
+      "caps": {
+        "title": "IsiNdebele",
+        "phase": "foundation_grade_r_3",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/caps_maths_isindebele_gr_r_fs.pdf",
+        "sha256": "b384613dfb0a83f531f16ab380840b817c3cc042c98557375cc27696f3f65701",
+        "recommended_blueprint": "foundation_activity_assessment",
+        "signals": {
+          "signals_source_based": false,
+          "signals_essay_or_extended_response": false,
+          "signals_case_study": false,
+          "signals_data_graph_diagram": false,
+          "signals_practical_investigation": false,
+          "signals_project_or_sba": false,
+          "signals_oral_or_performance": false,
+          "signals_calculation_problem": false,
+          "signals_formal_test_or_exam": false
+        }
+      },
+      "duration_seconds": 20.156,
+      "outputs": {
+        "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/foundation_isindebele_grade1_20260807T202157Z",
+        "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/foundation_isindebele_grade1_20260807T202157Z/assessment_pack.json",
+        "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/foundation_isindebele_grade1_20260807T202157Z/ASSESSMENT_PACK.md",
+        "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/foundation_isindebele_grade1_20260807T202157Z/ASSESSMENT_PACK.docx",
+        "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_667717003/foundation_isindebele_grade1_20260807T202157Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+      }
+    }
+  ]
+}

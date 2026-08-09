@@ -1,0 +1,397 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Physical Sciences",
+  "language_of_assessment": "English",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Physical Sciences Grade 12 Term 4 Controlled Assessment Pack",
+  "canonical_profile_id": "fet.physical_sciences",
+  "blueprint": "data_diagram_practical_investigation",
+  "render_shell": "question_paper",
+  "duration": "1 hour",
+  "total_marks": 50,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Physical Sciences",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "4",
+    "canonical_profile_id": "fet.physical_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "question_paper",
+    "assessment_content_focus": [
+      "final integrated Physical Sciences examination practice",
+      "mechanics, electricity, chemical change and organic chemistry",
+      "mixed calculations, graph interpretation and experimental design",
+      "source-linked final revision paper with memo-ready mark allocation"
+    ],
+    "required_visuals": [
+      {
+        "id": "science_data_or_graph",
+        "title": "Science data table or graph stimulus",
+        "role": "stimulus",
+        "visual_kind": "data_table"
+      },
+      {
+        "id": "science_diagram",
+        "title": "Science labelled diagram stimulus",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram"
+      },
+      {
+        "id": "investigation_method_data",
+        "title": "Investigation method and data sheet",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "investigation_sheet"
+      }
+    ],
+    "generation_constraints": [
+      "Every question must be answerable from the stated term focus, supplied stimulus and grade-appropriate subject knowledge.",
+      "Mark totals must reconcile exactly.",
+      "Educator approval is required before classroom use."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Concepts And Data",
+      "mode": "data_response",
+      "instructions": "Use the supplied data, diagram or graph.",
+      "stimulus": "Data/diagram stimulus linked to final integrated Physical Sciences examination practice.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Define one key concept from the term focus.",
+          "marks": 2,
+          "memo": [
+            "Definition scientifically accurate."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Describe the trend or relationship shown by the supplied data.",
+          "marks": 5,
+          "memo": [
+            "Trend described.",
+            "Evidence cited."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Explain the process or principle using correct terminology.",
+          "marks": 8,
+          "memo": [
+            "Correct terms.",
+            "Logical explanation."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Calculate or infer a result from the supplied values and show working where needed.",
+          "marks": 5,
+          "memo": [
+            "Working shown.",
+            "Answer accurate."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Investigation Design",
+      "mode": "investigation",
+      "instructions": "Critique method, variables and evidence.",
+      "stimulus": "Investigation focus: mixed calculations, graph interpretation and experimental design.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "State a suitable aim or hypothesis for the investigation.",
+          "marks": 3,
+          "memo": [
+            "Aim/hypothesis testable."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Identify independent, dependent and controlled variables.",
+          "marks": 6,
+          "memo": [
+            "Variables correctly classified."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Evaluate validity and reliability and suggest one improvement.",
+          "marks": 6,
+          "memo": [
+            "Validity/reliability explained.",
+            "Improvement practical."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Application",
+      "mode": "application",
+      "instructions": "Use subject knowledge and supplied evidence.",
+      "stimulus": "Application focus: source-linked final revision paper with memo-ready mark allocation.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Answer an integrated explanation question using evidence from the stimulus.",
+          "marks": 15,
+          "memo": [
+            "Evidence used.",
+            "Explanation coherent.",
+            "Conclusion supported."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Subject accuracy and terminology",
+      "marks": 12,
+      "descriptor": "Uses accurate concepts and terminology."
+    },
+    {
+      "criterion": "Evidence, data or source use",
+      "marks": 12,
+      "descriptor": "Uses supplied evidence appropriately."
+    },
+    {
+      "criterion": "Reasoning and explanation",
+      "marks": 12,
+      "descriptor": "Shows logical, grade-appropriate reasoning."
+    },
+    {
+      "criterion": "Communication and completion",
+      "marks": 14,
+      "descriptor": "Answers are clear, complete and structured."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS term and topic fit before classroom use.",
+    "Insert or approve final source material where the pack requests educator-supplied sources.",
+    "Check mark allocation, memo wording and learner level.",
+    "Confirm visuals are suitable and not treated as official source material unless sourced separately."
+  ],
+  "generation_backend": "deterministic_caps_term_template_with_provider_enrichment_ready",
+  "source_assets": [
+    {
+      "id": "source_01_data_table",
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Physical Sciences Chemistry P2 November 2024",
+      "page": 5,
+      "object_id": "Q1:table_1",
+      "snippet": "1.7 The table below shows the ionisation constants, Ka, for two acids at 25 \u00b0C. ACID Ka Butanoic acid 1,5 x 10-5",
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/data_table/01_physical_sciences_chemistry_p2_november_2024_p05_q1_table_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/physical_sciences/data_table/margin_trim/01_physical_sciences_chemistry_p2_november_2024_p05_q1_table_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/physical_sciences/data_table/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p05_q1_table_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/physical_sciences/data_table/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p05_q1_table_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          752,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          799,
+          1147
+        ],
+        "crop_ratio": 0.8736,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/physical_sciences/data_table/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p05_q1_table_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          750,
+          644
+        ],
+        "object_candidate_bbox": [
+          48,
+          373,
+          798,
+          1017
+        ],
+        "object_candidate_crop_ratio": 0.4992,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_diagram_or_model",
+      "title": "Official-paper exemplar: Diagram Or Model",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Physical Sciences Chemistry P2 November 2024",
+      "page": 4,
+      "object_id": "Q1:diagram_1",
+      "snippet": "1.4 The potential energy diagram below is for the following hypothetical chemical reaction: X + Y \u21cc Z",
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/diagram_or_model/01_physical_sciences_chemistry_p2_november_2024_p04_q1_diagram_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/physical_sciences/diagram_or_model/margin_trim/01_physical_sciences_chemistry_p2_november_2024_p04_q1_diagram_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/physical_sciences/diagram_or_model/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p04_q1_diagram_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/physical_sciences/diagram_or_model/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          751,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          798,
+          1147
+        ],
+        "crop_ratio": 0.8724,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/physical_sciences/diagram_or_model/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p04_q1_diagram_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          750,
+          644
+        ],
+        "object_candidate_bbox": [
+          48,
+          98,
+          798,
+          742
+        ],
+        "object_candidate_crop_ratio": 0.4992,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_graph_or_chart",
+      "title": "Official-paper exemplar: Graph Or Chart",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Physical Sciences Chemistry P2 November 2024",
+      "page": 11,
+      "object_id": "Q5:graph_5",
+      "snippet": "The graph of volume H2(g) versus time for this experiment, not drawn to scale, is shown below. Volume H2 (dm3)",
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/graph_or_chart/01_physical_sciences_chemistry_p2_november_2024_p11_q5_graph_5.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/physical_sciences/graph_or_chart/margin_trim/01_physical_sciences_chemistry_p2_november_2024_p11_q5_graph_5.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/physical_sciences/graph_or_chart/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p11_q5_graph_5.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/physical_sciences/graph_or_chart/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p11_q5_graph_5.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "not_drawn_to_scale",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          749,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          796,
+          1147
+        ],
+        "crop_ratio": 0.8701,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/physical_sciences/graph_or_chart/object_candidate/01_physical_sciences_chemistry_p2_november_2024_p11_q5_graph_5.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          683,
+          644
+        ],
+        "object_candidate_bbox": [
+          113,
+          381,
+          796,
+          1025
+        ],
+        "object_candidate_crop_ratio": 0.4546,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "source_embedding": {
+    "schema": "knowedge.homs_source_embedding.v1",
+    "attached_at": "2026-08-08T10:09:48+00:00",
+    "source_bank": "deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+    "subject_id": "physical_sciences",
+    "requested_source_types": [
+      "data_table",
+      "diagram_or_model",
+      "graph_or_chart"
+    ],
+    "asset_count": 3,
+    "policy": "Official-paper exemplars are source material only; crop/readability/copyright review and educator approval remain mandatory before client delivery.",
+    "generated_visual_policy": "suppress_generated_visuals_when_source_assets_present"
+  }
+}

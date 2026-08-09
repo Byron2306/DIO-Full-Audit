@@ -1,0 +1,97 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Technology",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Agricultural Technology",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_agricultural_technology_web_2af0.pdf",
+    "sha256": "b35179f225c2d8fe0b7e3c32fd77da7d306410c6ea2615241c43489e3a19f333"
+  },
+  "canonical_profile_id": "fet.technology",
+  "assessment_family": "practical_project_design_task",
+  "render_shell": "project_task_sheet",
+  "caps_theme_candidates": [
+    "AGRICULTURAL TECHNOLOGY GRADES 10-12",
+    "4.4.3 Practical Assessment",
+    "is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "CONTENTS",
+    "Section 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3",
+    "Curriculum and Assessment",
+    "Grades 10-12",
+    "Curriculum and Assessment Policy Statement"
+  ],
+  "assessment_content_focus": [
+    "AGRICULTURAL TECHNOLOGY GRADES 10-12",
+    "4.4.3 Practical Assessment",
+    "AGRICULTURAL TECHNOLOGY GRADES 10-12",
+    "4.4.3 Practical Assessment"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: agricultural, grades, practical, technology."
+  ],
+  "required_visuals": [
+    {
+      "id": "design_test_log",
+      "title": "Design, build, test and improve log",
+      "role": "learner_workspace",
+      "visual_kind": "design_log",
+      "must_show": [
+        "problem",
+        "constraints",
+        "diagram",
+        "test result",
+        "improvement"
+      ],
+      "assessment_use": "Learners retain process evidence for marking."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "low",
+    "render_allowed": false,
+    "content_lines": [],
+    "admin_lines": [
+      "4.4.3 Practical Assessment",
+      "Guidelines and Subject Assessment Guidelines with the",
+      "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+      "(c) National Protocol for Assessment Grades R-12.",
+      "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "CONTENTS",
+      "Section 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3",
+      "Curriculum and Assessment"
+    ],
+    "content_terms": [
+      "control",
+      "design",
+      "electrical",
+      "materials",
+      "mechanical",
+      "processing",
+      "structures",
+      "systems"
+    ]
+  },
+  "render_gate": {
+    "status": "blocked",
+    "reason": "CAPS term/theme extraction did not produce a confident content theme.",
+    "action": "Curate or improve the CAPS term map before rendering subject visuals."
+  }
+}

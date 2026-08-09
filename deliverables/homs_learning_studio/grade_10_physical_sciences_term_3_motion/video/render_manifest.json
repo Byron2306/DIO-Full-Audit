@@ -1,0 +1,33 @@
+{
+  "output": {
+    "video": "HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+    "captions": "captions.srt",
+    "thumbnail": "thumbnail.png"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "countdown_seconds": 0,
+  "slides": [
+    {"card_id": "01_reference_frame", "type": "lesson_diagram", "asset_path": "imports/visuals/01_reference_frame.png"},
+    {"card_id": "02_distance_displacement", "type": "worked_concept", "asset_path": "imports/visuals/02_distance_displacement.png"},
+    {"card_id": "03_velocity_acceleration", "type": "worked_concept", "asset_path": "imports/visuals/03_velocity_acceleration.png"},
+    {"card_id": "04_position_time", "type": "graph_lesson", "asset_path": "imports/visuals/04_position_time.png"},
+    {"card_id": "05_velocity_time", "type": "graph_lesson", "asset_path": "imports/visuals/05_velocity_time.png"},
+    {"card_id": "06_practical", "type": "practical", "asset_path": "imports/visuals/06_practical.png"},
+    {"card_id": "07_practice_route", "type": "lesson_close", "asset_path": "imports/visuals/07_practice_route.png"}
+  ],
+  "narration_order": [
+    {"scene_id": "scene_01", "card_id": "01_reference_frame", "duration_seconds": 13},
+    {"scene_id": "scene_02", "card_id": "02_distance_displacement", "duration_seconds": 19},
+    {"scene_id": "scene_03", "card_id": "03_velocity_acceleration", "duration_seconds": 18},
+    {"scene_id": "scene_04", "card_id": "04_position_time", "duration_seconds": 20},
+    {"scene_id": "scene_05", "card_id": "05_velocity_time", "duration_seconds": 19},
+    {"scene_id": "scene_06", "card_id": "06_practical", "duration_seconds": 20},
+    {"scene_id": "scene_07", "card_id": "07_practice_route", "duration_seconds": 17}
+  ]
+}

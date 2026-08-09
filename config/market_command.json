@@ -1,0 +1,31 @@
+{
+  "schema": "dio.market_command.config.v2",
+  "currency": "ZAR",
+  "default_experiment_window_days": 14,
+  "max_experiment_budget_minor": 0,
+  "require_approved_content_for_activation": true,
+  "promotion_min_qualified_leads": 5,
+  "promotion_min_paid_orders": 2,
+  "promotion_min_roas": 1.5,
+  "kill_min_spend_minor": 50000,
+  "revise_min_clicks": 50,
+  "principles": [
+    "DIO owns campaign truth; channels are adapters.",
+    "Wave 2 platform integrations are read-first. Ad creation, budget mutation and publication APIs are not exposed.",
+    "No spend without an explicit operator budget release.",
+    "No publication without proof binding and human approval.",
+    "No automated personal DMs or unsolicited bulk electronic sales outreach.",
+    "External media and agencies are first-class manual media-buy adapters.",
+    "Platform metrics are observations; verified leads, orders and payments remain DIO commercial truth.",
+    "Campaign decisions must be based on measured outcomes, not vanity metrics alone."
+  ],
+  "wave": 2,
+  "read_first_channels": [
+    "META_ADS",
+    "GOOGLE_ADS",
+    "REDDIT_ADS",
+    "TIKTOK_ADS"
+  ],
+  "write_capable_channel_adapters": false,
+  "control_token_env": "DIO_MARKET_CONTROL_TOKEN"
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-MCF-AB16C0952468",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "multichannel_campaign_family",
+    "artifact_id": "CNT-AB16C0952468",
+    "campaign_id": "MCF-AB16C0952468",
+    "product_line_id": "EVIDEX_PACK",
+    "audience": "NGO and NPO programme leads",
+    "channel": "linkedin_organic",
+    "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+    "cta": "Request a controlled evidence-pack pilot",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:f9ad5ce948386656ce9e0a6a60e7a2f5c528226a32a722c6b45bf0265a9a4e6d",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "A donor-ready evidence trail that a human can verify.",
+        "source_hash": "sha256:136aed39c4bc4803adeefba293ff54c7d600dc69d7f80c0c2efc203cd2271d40",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "Reporting evidence is scattered across folders, email and staff memory. Evidex prepares a donor-ready evidence trail that a human can verify. Human\u2026",
+        "source_hash": "sha256:73c14902b31d99dacf352037700d74ece4fa9c92fe2534a43cc46ba8b05048d3",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:f9ad5ce948386656ce9e0a6a60e7a2f5c528226a32a722c6b45bf0265a9a4e6d",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T13:58:21+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T13:58:21+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "job_id": "evidex-120d089d3bce3548e92d",
+  "created_at": "2026-08-07T14:38:25+00:00",
+  "command": [
+    "/home/byron/Evidex/.venv/bin/python",
+    "-m",
+    "evidence_pack_engine.cli",
+    "generate",
+    "--intake",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/intake.json",
+    "--uploads",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/uploads",
+    "--out",
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/output"
+  ],
+  "returncode": 0,
+  "stdout": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/output/Client_organization_to_confirm_Grant_reporting_evidence_pack_for_Q2_donor_submission_To_be_confirmed_to_To_be_confirmed_intake.zip",
+  "stderr": "",
+  "intake_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/intake.json",
+  "uploads_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/uploads",
+  "output_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/latest/evidex/evidex-120d089d3bce3548e92d/evidex_engine/output"
+}

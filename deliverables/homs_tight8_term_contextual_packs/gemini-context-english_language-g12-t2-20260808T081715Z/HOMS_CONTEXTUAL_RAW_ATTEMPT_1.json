@@ -1,0 +1,301 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Home Language Term 2 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS FET Phase Grade 12 Term 2 English Home Language Controlled Assessment focusing on literary analysis, visual literacy, integrated language structures, and discursive/argumentative writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "2",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "literary extract, character, theme and language analysis",
+      "visual literacy and media message interpretation",
+      "quote selection, evidence integration and paragraph structure",
+      "discursive or argumentative writing with coherent development"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Literary Extract, Character, Theme and Language Analysis",
+      "mode": "essay_or_literature_response",
+      "instructions": "Read the literary extract below carefully and answer the questions that follow. Your answers must be grounded in the text and demonstrate critical analysis of character, theme, and language.",
+      "stimulus": "TEXT A: LITERARY EXTRACT\n\nThe courtyard was a dry, sun-cracked expanse of red clay, where the dust settled like fine flour on Thabo\u2019s worn leather boots. He sat on a low wooden stool, his fingers tracing the rough grain of an ancient walking stick. Before him stood Lerato, her modern corporate blazer sharp and dark against the hazy afternoon heat.\n\n'This land has held our family's breath for four generations, Lerato,' Thabo said, his voice low, like stones grinding in a riverbed. 'The soil is our skin. If you sell it to the mining consortium, you scrape away who we are.'\n\nLerato sighed, checking her digital watch with a quick, impatient flick of her wrist. 'Progress does not wait for ghosts, Uncle. The old ways are dry wells. We cannot eat history. The consortium offers capital, jobs, and a future. If we do not adapt, the dust will swallow us anyway.'\n\nThabo looked up, his eyes clouded but intense. 'You call them ghosts; I call them anchors. A ship that cuts its anchor line does not sail faster\u2014it drifts until it smashes against the rocks.'",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Analyze the contrast in attitudes between Thabo and Lerato as revealed in the opening paragraph. Refer to specific details of their physical appearance and posture to support your answer.",
+          "marks": 4,
+          "memo": [
+            "Thabo is associated with traditional, natural, and worn elements: he sits on a 'low wooden stool', wears 'worn leather boots', and holds an 'ancient walking stick', showing his deep connection to the past and humility.",
+            "Lerato is associated with modernity and corporate life: she stands, wearing a 'sharp and dark' corporate blazer, showing her formal, business-minded, and detached attitude.",
+            "The contrast highlights the generational and ideological divide between ancestral preservation (Thabo) and modern economic progress (Lerato).",
+            "Award 1 mark per distinct point of contrast, up to a maximum of 4 marks."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain the effectiveness of the metaphor 'The soil is our skin' (line 6) in the context of Thabo's argument.",
+          "marks": 3,
+          "memo": [
+            "The metaphor compares the soil/land to human skin, which is a vital, protective, and inseparable part of the body.",
+            "It is highly effective because it conveys that the land is not just property, but an organic extension of their identity and survival.",
+            "To damage or sell the land is equated to physical mutilation ('scrape away who we are'), emphasizing the pain and loss of identity involved.",
+            "Award 1 mark for identifying the comparison, 1 mark for explaining the connection to identity, and 1 mark for evaluating its effectiveness/impact."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Identify the tone in Lerato's response: 'Progress does not wait for ghosts, Uncle. The old ways are dry wells. We cannot eat history.' (lines 8-9). Justify your answer with reference to her diction.",
+          "marks": 4,
+          "memo": [
+            "The tone is dismissive, pragmatic, or unsentimental.",
+            "Her diction supports this: she refers to ancestors/traditions as 'ghosts' (implying they are insubstantial and irrelevant) and 'dry wells' (implying they are exhausted and useless).",
+            "The blunt assertion 'We cannot eat history' shows a stark, utilitarian focus on physical survival and economic reality over sentimental heritage.",
+            "Award 1 mark for identifying the tone, 2 marks for citing and explaining specific diction, and 1 mark for linking it to her pragmatic outlook."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Discuss how the setting of the 'dry, sun-cracked expanse of red clay' serves as a symbol for the central conflict in the extract.",
+          "marks": 4,
+          "memo": [
+            "The 'dry, sun-cracked expanse' symbolizes the decay, exhaustion, and harsh economic reality of the rural homestead.",
+            "It reflects Lerato's view that the 'old ways are dry wells' and that traditional life is no longer viable without intervention.",
+            "Conversely, the 'red clay' represents the deep, ancestral roots and bloodline that Thabo is desperate to protect despite its barren appearance.",
+            "Award 2 marks for explaining the connection to Lerato's perspective (barrenness/need for change) and 2 marks for Thabo's perspective (deep roots/endurance)."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Critically evaluate Thabo's counter-argument: 'A ship that cuts its anchor line does not sail faster\u2014it drifts until it smashes against the rocks.' (lines 11-12). In your answer, explain the analogy and state whether you agree with his warning.",
+          "marks": 6,
+          "memo": [
+            "The analogy compares a family or community to a 'ship' and its traditions/heritage to an 'anchor'.",
+            "Thabo argues that discarding heritage ('cutting the anchor') does not lead to true freedom or progress ('sailing faster'); instead, it leads to moral and cultural instability ('drifts') and eventual destruction ('smashes against the rocks').",
+            "Learners must evaluate this: Agreeing means arguing that without cultural roots, a society loses its ethical compass and identity; disagreeing/qualifying means arguing that sometimes an anchor holds a ship back from escaping a storm (poverty/stagnation).",
+            "Award 2 marks for explaining the analogy, 2 marks for the critical evaluation of its validity, and 2 marks for a well-reasoned personal stance supported by the text."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Rewrite Lerato's statement: 'We cannot eat history' into indirect speech. Start your sentence with: 'Lerato argued that...'",
+          "marks": 4,
+          "memo": [
+            "Correct conversion: 'Lerato argued that they could not eat history.'",
+            "Award 1 mark for changing 'We' to 'they'.",
+            "Award 1 mark for changing 'cannot' to 'could not'.",
+            "Award 1 mark for maintaining correct tense and sentence structure.",
+            "Award 1 mark for correct punctuation (no quotation marks, correct word order)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Visual Literacy and Media Message Interpretation",
+      "mode": "visual_literacy",
+      "instructions": "Analyze the detailed description of the print advertisement below and answer the questions. Your analysis must focus on how visual and textual elements work together to convey a persuasive message.",
+      "stimulus": "TEXT B: DESCRIPTION OF A PRINT ADVERTISEMENT\n\n- Visual Focus: A massive, transparent hourglass dominates the center of the frame.\n- Top Bulb of Hourglass: Contains a vibrant, lush green forest with a clear blue river winding through it. Sunlight filters through the canopy.\n- Bottom Bulb of Hourglass: The green forest is gone. In its place is a dark, grey landscape filled with smoking factory chimneys, dry cracked earth, and skeletal, dead trees.\n- The Neck of the Hourglass: A single, bright green leaf is wedged tightly in the narrow opening, temporarily blocking the last few grains of sand from falling into the bottom bulb.\n- Slogan (printed in bold, white sans-serif font at the top): 'Time is running out. Preserve the green before the grey takes over.'\n- Logo and Call to Action (bottom right corner): 'EarthGuard Alliance. Act now at earthguard.org.'",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Explain how the visual metaphor of the hourglass conveys the advertisement's central message about environmental conservation.",
+          "marks": 3,
+          "memo": [
+            "An hourglass represents the passage of time and the inevitability of running out of time.",
+            "In this context, it shows that the opportunity to save the environment is rapidly disappearing.",
+            "It creates a sense of urgency, warning the viewer that once the 'sand' (representing natural resources) runs out, the destruction is irreversible.",
+            "Award 1 mark for identifying the hourglass as a symbol of time/urgency, 1 mark for linking it to environmental destruction, and 1 mark for explaining the overall message."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Analyze the symbolic contrast between the contents of the top bulb and the bottom bulb of the hourglass. Refer to specific visual details described in the stimulus.",
+          "marks": 4,
+          "memo": [
+            "The top bulb represents life, vitality, and ecological health, characterized by 'vibrant, lush green forest', 'clear blue river', and 'sunlight'.",
+            "The bottom bulb represents industrial decay, pollution, and death, characterized by 'grey landscape', 'smoking factory chimneys', 'dry cracked earth', and 'skeletal, dead trees'.",
+            "The contrast creates a stark, binary choice for the viewer: preserve natural beauty or allow industrial devastation.",
+            "Award 2 marks for analyzing the top bulb symbols and 2 marks for analyzing the bottom bulb symbols."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Discuss the significance of the single green leaf caught in the narrow neck of the hourglass.",
+          "marks": 4,
+          "memo": [
+            "The leaf acts as a physical barrier, stopping the flow of sand/destruction.",
+            "It symbolizes hope, human intervention, and the small window of opportunity remaining to halt environmental collapse.",
+            "It suggests that even small conservation efforts (represented by a single leaf) can hold back massive destruction if applied in time.",
+            "Award 2 marks for identifying the symbolic meaning of the leaf (hope/intervention) and 2 marks for explaining how it relates to the viewer's potential action."
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Evaluate the effectiveness of the slogan: 'Preserve the green before the grey takes over' in relation to the visual elements of the advertisement.",
+          "marks": 4,
+          "memo": [
+            "The slogan is highly effective because it uses color symbolism ('green' vs 'grey') that directly matches the visual elements in the hourglass bulbs.",
+            "'Green' corresponds to the lush forest in the top bulb (life/nature), while 'grey' corresponds to the industrial smoke and dead trees in the bottom bulb (pollution/death).",
+            "The use of alliteration ('green' / 'grey') and the urgent imperative 'Preserve' creates a memorable, persuasive call to action.",
+            "Award 2 marks for linking the slogan's color diction to the visual elements and 2 marks for evaluating the persuasive impact of the language."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Quote Selection, Evidence Integration and Paragraph Structure",
+      "mode": "language_structures",
+      "instructions": "Refer to the text below and use the 'language_response_planner' workspace (which contains the sections: 'text panel', 'main idea', 'evidence', 'plan', 'draft', 'edit') to structure your response. Write your final answers in the spaces provided.",
+      "stimulus": "TEXT C: COGNITIVE IMPACT OF DIGITAL MEDIA\n\n[text panel]\nThe rapid rise of short-form video platforms has fundamentally altered cognitive habits among adolescents. Recent neurological studies indicate that continuous exposure to fifteen-second media clips reduces sustained attention spans, as the brain becomes conditioned to constant novelty. Consequently, deep reading comprehension and critical analysis are increasingly compromised in school-going youth. Educators globally report a marked decline in the ability of students to engage with complex, long-form literary texts.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identify the 'main idea' of TEXT C and write it down as a single, concise topic sentence suitable for the 'main idea' section of your language_response_planner.",
+          "marks": 2,
+          "memo": [
+            "The main idea is that short-form digital media is reducing the attention spans and critical reading abilities of adolescents.",
+            "Accept any variation that captures both the cause (short-form media) and the effect (reduced attention/reading capacity).",
+            "Award 2 marks for a clear, concise, and accurate topic sentence."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Select two direct quotes from the 'text panel' of TEXT C that serve as strong 'evidence' to support this main idea. Write them down exactly as they appear, using correct quotation marks.",
+          "marks": 2,
+          "memo": [
+            "Quote 1: 'continuous exposure to fifteen-second media clips reduces sustained attention spans' OR 'fundamentally altered cognitive habits among adolescents'.",
+            "Quote 2: 'deep reading comprehension and critical analysis are increasingly compromised in school-going youth' OR 'Educators globally report a marked decline in the ability of students to engage with complex, long-form literary texts'.",
+            "Award 1 mark per correct, accurately transcribed quote with quotation marks."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Using the 'plan' and 'draft' sections of the language_response_planner, write a cohesive paragraph of 80-100 words. Your paragraph must: state the main idea, integrate both selected quotes smoothly using correct punctuation, explain how the evidence supports your point, and provide a concluding link. Use the PEEL (Point, Evidence, Explanation, Link) structure.",
+          "marks": 6,
+          "memo": [
+            "The paragraph must follow the PEEL structure: Point (1 mark), Evidence integrated smoothly (2 marks), Explanation of evidence (2 marks), Link to the main argument (1 mark).",
+            "Example response: Short-form digital media has severely damaged the academic capabilities of modern youth. Neurological research proves that 'continuous exposure to fifteen-second media clips reduces sustained attention spans' by habituating the brain to instant gratification. Because of this cognitive shift, 'deep reading comprehension and critical analysis are increasingly compromised' when students attempt schoolwork. This means that young people struggle to process complex arguments, as their minds are trained to seek constant distraction. Ultimately, the rise of rapid-fire media threatens to produce a generation unable to engage in deep, sustained intellectual thought.",
+            "Check that quotes are punctuated correctly (e.g., enclosed in single or double quotation marks and grammatically integrated)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section D: Discursive or Argumentative Writing",
+      "mode": "transactional_writing",
+      "instructions": "Choose ONE of the following prompts and write an essay of 250-300 words. You must use the 'language_response_planner' to structure your response. Specifically show your 'plan' (mind map or outline), 'draft' (initial paragraphs), and 'edit' (corrections made to language and structure) before presenting your final essay.",
+      "stimulus": "WRITING PROMPTS\n\nPROMPT 1 (Argumentative):\n'The digital age has democratized information, but it has destroyed our capacity for deep, reflective thought.' Write an argumentative essay in which you take a clear stand on this statement.\n\nPROMPT 2 (Discursive):\n'Traditional cultural practices and modern technological advancement can coexist harmoniously to build a stronger society.' Write a discursive essay in which you explore both sides of this debate objectively.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "Write a well-structured discursive or argumentative essay based on your chosen prompt. Ensure that your essay has a clear introduction, body paragraphs that develop coherent arguments, and a strong conclusion. Use the language_response_planner to show your planning, drafting, and editing process.",
+          "marks": 20,
+          "memo": [
+            "Marking must be guided by the CAPS assessment rubric for essay writing (Content: 10 marks; Language, Style and Editing: 6 marks; Structure and Planning: 4 marks).",
+            "Content (10 marks): Excellent essays will show a sophisticated understanding of the prompt, presenting mature, well-reasoned arguments (argumentative) or a balanced, insightful exploration of both sides (discursive).",
+            "Language, Style and Editing (6 marks): Tone must be formal and appropriate. Diction should be varied and precise. Grammatical accuracy, spelling, and punctuation must be of a high standard.",
+            "Structure and Planning (4 marks): Evidence of using the language_response_planner (plan, draft, edit) must be visible. The final essay must have a clear introduction, logical paragraph transitions, and a strong conclusion."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Literary Analysis (Content and Insight)",
+      "marks": 15,
+      "descriptor": "Ability to interpret character dynamics, analyze literary devices (metaphor, tone, setting), and critically evaluate thematic conflicts in the extract."
+    },
+    {
+      "criterion": "Section A: Language Structures and Accuracy",
+      "marks": 10,
+      "descriptor": "Accuracy in grammatical conversions (indirect speech) and precision in textual analysis."
+    },
+    {
+      "criterion": "Section B: Visual Literacy and Media Analysis",
+      "marks": 15,
+      "descriptor": "Understanding of visual metaphors, symbolic contrasts, color theory, and the integration of text and image to create persuasive messages."
+    },
+    {
+      "criterion": "Section C: Quote Integration and Paragraph Structure (PEEL)",
+      "marks": 10,
+      "descriptor": "Ability to identify main ideas, select relevant textual evidence, and construct a cohesive, grammatically correct paragraph using the PEEL structure within the language_response_planner."
+    },
+    {
+      "criterion": "Section D: Essay Writing - Content and Planning",
+      "marks": 12,
+      "descriptor": "Depth of argument, logical development of ideas, and clear evidence of planning, drafting, and editing using the language_response_planner."
+    },
+    {
+      "criterion": "Section D: Essay Writing - Language, Style and Structure",
+      "marks": 8,
+      "descriptor": "Register, formal diction, grammatical accuracy, cohesive devices, and paragraph structure in the final essay."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm that the literary extract in Section A matches the cognitive challenge expected of Grade 12 learners.",
+    "Verify that the visual description in Section B is sufficiently detailed to allow learners to answer without seeing a physical image, or ensure the matching graphic is printed clearly.",
+    "Check that the language_response_planner workspace is provided to learners for Sections C and D.",
+    "Ensure the total marks sum to exactly 70 and the duration is set to 2 hours."
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Technical Sciences",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Technical Sciences",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_science_tech_bleed_and_crops.pdf",
+    "sha256": "197902d5122492b57d40995eba37e45d8dfe9db79dc0eaa1c859350355a7c010"
+  },
+  "canonical_profile_id": "fet.technical_sciences",
+  "assessment_family": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "caps_theme_candidates": [
+    "Grade 12 Newton\u2019s laws of motion (Newton\u2019s First Law of motion, inertia, mass,",
+    "Viscosity (effect of temperature on viscosity, motor oil viscosity grades),",
+    "Hydraulics (Thrust, pressure, practical unit of pressure, fluid pressure,",
+    "Matter and Materials Grade 10 Classification of Matter (Pure substances, elements, compounds,",
+    "naming of compounds, cation and anion table, molecular formulae,",
+    "nt, concepts and skills columns throughout Section 3. Some of these practical activities",
+    "will be done as part of formal assessment and others can be done as part of informal assessment. Below is a table",
+    "that lists prescribed practical activities for formal assessment as well as recommended practical activities for informal",
+    "assessment across Grades 10 to 12.",
+    "Grade Term Prescribed Practical Activities Recommended Practical Activities",
+    "Formal Assessment Informal Assessment",
+    "Term 1 Experiment (formal): Experiment:",
+    "Grade 10 Term 2 Experiment (formal): Experiment:",
+    "Use a meter stick and mass pieces to Determine the mechanical advantage of a"
+  ],
+  "assessment_content_focus": [
+    "Grade 12 Newton\u2019s laws of motion (Newton\u2019s First Law of motion, inertia, mass,",
+    "Viscosity (effect of temperature on viscosity, motor oil viscosity grades),",
+    "Grade 12 Newton\u2019s laws of motion (Newton\u2019s First Law of motion, inertia, mass,",
+    "Viscosity (effect of temperature on viscosity, motor oil viscosity grades),"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: effect, first, grades, inertia, motion, motor."
+  ],
+  "required_visuals": [
+    {
+      "id": "investigation_method_data",
+      "title": "Investigation method and data sheet",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "investigation_sheet",
+      "must_show": [
+        "aim",
+        "variables",
+        "method",
+        "data table",
+        "conclusion line"
+      ],
+      "assessment_use": "Learners record observations and draw a supported conclusion."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

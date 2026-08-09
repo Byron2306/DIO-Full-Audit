@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew the DIO Microsoft Graph webhook subscription
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/manage_graph_subscription.py renew

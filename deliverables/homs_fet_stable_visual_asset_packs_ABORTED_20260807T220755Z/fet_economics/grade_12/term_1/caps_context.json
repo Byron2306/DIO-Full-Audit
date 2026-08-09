@@ -1,0 +1,105 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T22:06:45+00:00",
+  "enabled": true,
+  "subject_id": "economics",
+  "subject": "Economics",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "preferred_language": "English",
+  "candidate_count": 3,
+  "candidates": [
+    {
+      "score": 190,
+      "document_id": "fileticket_lv-97xkn0em",
+      "title": "Economics",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_economics_gr_10-12_web_bd13.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Lv-97xKN0eM%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20ECONOMICS%20_%20GR%2010-12%20_%20WEB_BD13.pdf?ver=2015-01-27-154011-050",
+      "sha256": "c683d798ec4eaf3ed42f937d8c51130daaa3537ea68c40233c5333e83e984268",
+      "bytes": 1618259
+    },
+    {
+      "score": 140,
+      "document_id": "fileticket_nalx9atkr3i",
+      "title": "Maritime Economics",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/maritime_economics.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=NAlx9ATKr3I%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/MARITIME%20ECONOMICS.pdf?ver=2019-10-24-125814-060",
+      "sha256": "2feae7e52b13fa2da698c048e43867e192748332812e4d81aeefe56302d874c1",
+      "bytes": 1010897
+    },
+    {
+      "score": 20,
+      "document_id": "fileticket_2wbks7i3bno",
+      "title": "Ekonomie (Economics)",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_ekonomie_gr_10-12_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=2WBKs7i3bNo%3d&tabid=570&portalid=0&mid=1559",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20%20AFRIKAANS%20%20EKONOMIE%20GR%2010-12%20%20WEB.pdf?ver=2015-01-27-154657-167",
+      "sha256": "b7d897b4bb9d6a3a60e19a90e98c2430f4ad0676dc79892680f5a0a2ea6ca941",
+      "bytes": 501161
+    }
+  ],
+  "selected": {
+    "score": 190,
+    "document_id": "fileticket_lv-97xkn0em",
+    "title": "Economics",
+    "phase": "fet_grade_10_12",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_economics_gr_10-12_web_bd13.pdf",
+    "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Lv-97xKN0eM%3d&tabid=570&portalid=0&mid=1558",
+    "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20ECONOMICS%20_%20GR%2010-12%20_%20WEB_BD13.pdf?ver=2015-01-27-154011-050",
+    "sha256": "c683d798ec4eaf3ed42f937d8c51130daaa3537ea68c40233c5333e83e984268",
+    "bytes": 1618259
+  },
+  "assessment_ontology_profile": {
+    "profile_id": "fet.economics",
+    "subject": "Economics",
+    "phase": "fet_grade_10_12",
+    "assessment_family": "case_study_structured_questions"
+  },
+  "assessment_design_profile": {
+    "profile_id": "fet.economics",
+    "subject": "Economics",
+    "phase": "fet_grade_10_12",
+    "phase_group": "fet",
+    "assessment_family": "case_study_structured_questions",
+    "render_shell": "structured_case_paper",
+    "confidence": "medium",
+    "assessment_forms": [],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "scenario_or_case": 35,
+      "structured_content": 30,
+      "calculation_or_data": 25,
+      "justified_recommendation": 10
+    },
+    "marking_instruments": [
+      "memorandum",
+      "rubric"
+    ],
+    "generation_constraints": [
+      "Use realistic learner-appropriate scenarios.",
+      "Separate memo facts from acceptable alternative recommendations."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      "...................................................... 39 4.2 Informal or daily assessment. ...................................................................................................................... 39 4.3 Formal assessment. ...................................................................................................................................... 39 4.4 Programme of assessment........................................................................................................................... 40 4.4.1 Other forms of assessment.................................................................................................................... 41 4.4.2 Examinations......................................................................................................................................... 43 4.5 Recording and reporting..........................",
+      "................................................. 39 4.3 Formal assessment. ...................................................................................................................................... 39 4.4 Programme of assessment........................................................................................................................... 40 4.4.1 Other forms of assessment.................................................................................................................... 41 4.4.2 Examinations......................................................................................................................................... 43 4.5 Recording and reporting............................................................................................................................... 44 4.6 Moderation of assessment............................",
+      "100 300 400 a mark out of: 4.4.1 Other forms of assessment Project A project in each of the grades is mandatory. Only one project per annum is recommended per grade. When preparing a project, consider the following minimum requirements: \u2022 Learners should be given the necessary guidance prior to the commencement of the project and progress must be monitored. \u2022 All criteria used to assess the project must be discussed with the learners. \u2022 Generally, projects are given a longer period of time as they involve some form of research, consolidating and choosing relevant information and preparing a written document as evidence. \u2022 Projects generally work well if they are structured around some form of problem. \u2022 Research often forms part of the project - the project is the evidence of the research conducted. However, sometimes projects involve the development of skills. \u2022 The purpos",
+      "mental level appropriate. The design of these tasks should cover the content of the subject and include a variety of tasks designed to achieve the objectives of the subject. Formal assessments must cater for a range of cognitive levels and abilities of learners as shown below: Table 1 Cognitive Levels Activity Percentage of Task Knowledge and Basic thinking skills (e.g. factual recall, low-level 30% Comprehension application and low-level comprehension) Levels 1 and 2 Application and Middle-order thinking skills (e.g. more advanced 40% Analysis application, interpretation and low-level analysis) Levels 3 and 4 Synthesis and Higher-order thinking skills (e.g. advanced analytical 30% Evaluation skills, synthesis and evaluation) Levels 5 and 6 4.4 Programme of assessment The Programme of Assessment is designed to spread formal assessment tasks in all subjects in a school t",
+      "o provide feedback to the learners and to inform planning for teaching, but need not be recorded. It should not be seen as separate from learning activities in the classroom. Learners or teachers can mark these informal assessment tasks. Self assessment and peer assessment actively involves learners in assessment. This is important as it allows learners to learn from and reflect on their own performance. The results of the informal daily assessment tasks are not formally recorded unless the teacher wishes to do so. The results of daily assessment tasks are not taken into account for promotion and certification purposes. 4.3 Formal assessment All assessment tasks that make up a formal programme of assessment for the year are regarded as Formal Assessment. Formal assessment tasks are marked and formally recorded by the teacher for progression and certification purposes. All Formal Asses"
+    ]
+  },
+  "extracted_excerpt": "National Curriculum Statement (NCS)\n\n                                Curriculum and Assessment\n                                      Policy Statement\nECONOMICS\n\n                      Further Education and Training Phase\n                                 Grades 10-12\n\n     \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n     \u0013\u0012\u0011\u001e\u0010\u0016\u000f\u0012\u0014\u0016\u000e\n     \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n     \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0017\u0014\u0016\u001c\u0013\u0012\u0017\u0011\u0015\u001f\u0019\u0018\u0011\n\f   Curriculum and Assessment Policy Statement\n                  Grades 10-12\n\n                   ECONOMICS\n\nCAPS\n\fECONOMICS GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0568-5\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n                     CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n\f                                                                           ECONOMICS GRADES 10-12\nFOREWORD by the minister\n\n                                 Our national curriculum is the culmination of our efforts over a period of seventeen\n                                 years to transform the curriculum bequeathed to us by apartheid. From the start of\n                                 democracy we have built our curriculum on the values that inspired our Constitution\n                                 (Act 108 of 1996). The Preamble to the Constitution states that the aims of the\n                                 Constitution are to:\n\n                                 \u2022     heal the divisions of the past and establish a society based on democratic\n                                       values, social justice and fundamental human rights;\n\n                                 \u2022     improve the quality of life of all citizens and free the potential of each person;\n\n                                 \u2022     lay the foundations for a democratic and open society in which government is\n                                       based on the will of the people and every citizen is equally protected by law;\n                                       and\n\n\u2022     build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n      nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nIn 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experience\nof implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National Curriculum\nStatement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) to produce this document.\n\nFrom 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document\nand will simply be known as the National Curriculum Statement Grades R-12. The National Curriculum Statement for\nGrades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification of what\nis to be taught and learnt on a term-by-term basis.\n\nThe National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme\nGuidelines and Subject Assessment Guidelines wi",
+  "extraction_error": null
+}

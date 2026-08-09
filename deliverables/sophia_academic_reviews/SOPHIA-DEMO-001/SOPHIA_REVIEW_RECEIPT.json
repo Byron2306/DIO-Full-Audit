@@ -1,0 +1,68 @@
+{
+  "schema": "dio.sophia_review_receipt.v1",
+  "job_id": "SOPHIA-DEMO-001",
+  "created_at": "2026-08-08T19:21:08+00:00",
+  "status": "needs_human_review",
+  "source": {
+    "name": "demo_manuscript.md",
+    "sha256": "746465d940e106619a906376464ecd970cceadc08c5c76ec12cd8110d8c97043",
+    "parser": "plain_text",
+    "word_count": 393,
+    "full_text_copied_to_pack": false
+  },
+  "metrics": {
+    "literature_queries": 2,
+    "candidate_sources": 5,
+    "claims_reviewed": 5,
+    "reference_entries": 3,
+    "reference_findings": 2,
+    "reviewer_commentary_status": "completed",
+    "reviewer_provider": "gemini",
+    "reviewer_model": "gemini-flash-lite-latest",
+    "reviewer_grounding_passed": true
+  },
+  "remote_processing": {
+    "gemini_review_approved": true,
+    "performed": true,
+    "characters_transmitted": 3008
+  },
+  "outputs": [
+    {
+      "name": "CLAIM_SOURCE_LEDGER.json",
+      "sha256": "ddc1698d69133e1cddddc84ac3756e8e585759f3831a0fb1c1dd9303e641cf07"
+    },
+    {
+      "name": "CLAIM_SOURCE_LEDGER.md",
+      "sha256": "d7248f48959c07268e3a5298658aea92571231d4907254cb12ab4a785b3e9345"
+    },
+    {
+      "name": "HUMAN_APPROVAL.md",
+      "sha256": "cb3c838e0518e735509d5377856e39a314129f5b385f96641bb2805561efe53b"
+    },
+    {
+      "name": "LITERATURE_MAP.json",
+      "sha256": "d7c43547c9e361bdbdbed5efa8f6f1082f475c49cd71b68f83b995daee286734"
+    },
+    {
+      "name": "LITERATURE_MAP.md",
+      "sha256": "49abc966894e941fae29ee9c519afac02ff04079290f9d61c28bef30835d0640"
+    },
+    {
+      "name": "REFERENCE_AUDIT.json",
+      "sha256": "fcc6b1755afd89b96e7a7b99ab4b4f5234ff6e7c2b5d5557b35071939d362fd2"
+    },
+    {
+      "name": "REFERENCE_AUDIT.md",
+      "sha256": "11517ef17db73bfddf148b548be5c845ccd3edee5513e8bf8c106e1e18317f67"
+    },
+    {
+      "name": "REVIEWER_COMMENTARY.json",
+      "sha256": "9cfa7d89278b52d430e2e2521c44ed77d4fc9dea6a25ad918a855673b8831ebd"
+    },
+    {
+      "name": "REVIEWER_COMMENTARY.md",
+      "sha256": "15dcc2a762f1e9fa2799098f59c2f555669259fe3548339d6a198fc8c6579c2b"
+    }
+  ],
+  "delivery_released": false
+}

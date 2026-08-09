@@ -1,0 +1,60 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "MARKET-CMP-E96BD8B1464A",
+  "domain": "Professional services marketing",
+  "subject": null,
+  "grade": null,
+  "curriculum_concept": null,
+  "origin": {
+    "product": "market",
+    "artifact_type": "proof_story",
+    "artifact_id": "CNT-E96BD8B1464A",
+    "campaign_id": "CMP-E96BD8B1464A",
+    "product_line_id": "EVIDEX_PACK",
+    "audience": "South African NGO, NPO, M&E, grant and programme teams",
+    "channel": "linkedin_organic",
+    "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+    "cta": "Review the golden case and nominate one bounded evidence-pack pilot.",
+    "privacy_domain": "public_marketing"
+  },
+  "source": {
+    "language": "English",
+    "version": "2026-08-08T15:52:42+00:00",
+    "document_hash": "sha256:a3a962fdbd08850be4fd960ec5fc74455a8e64b319e264e282192c1f926504e1",
+    "units": [
+      {
+        "unit_id": "HOOK",
+        "unit_type": "hook",
+        "source_text": "Your funder wants proof. The proof is spread across folders, spreadsheets and email. Evidex turns that evidence mess into a review-ready pack.",
+        "source_hash": "sha256:80dfabd5579a5a59e17ff654ca9d60b04762846050a24209f1f2447d7a4b788c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "BODY",
+        "unit_type": "campaign_body",
+        "source_text": "A controlled messy-input-to-evidence-pack case with mapped claims, provenance, human review, delivery state and business telemetry.\n\nIf NASCEE is shown 'Golden Evidex transaction: source intake -> evidence pack -> human approval -> payment/delivery receipt with provenance.', then the M&E/grants/compliance decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Review the golden case and nominate one bounded evidence-pack pilot.",
+        "source_hash": "sha256:491a6d5483b2ba353d6a7341ff9b403366a08d3d053f7031defaf5be0aeae3f1",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "2026-08-08T15:52:42+00:00",
+      "document_hash": "sha256:a3a962fdbd08850be4fd960ec5fc74455a8e64b319e264e282192c1f926504e1",
+      "changed_units": [
+        "HOOK",
+        "BODY"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T12:02:20+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T12:02:20+00:00"
+}

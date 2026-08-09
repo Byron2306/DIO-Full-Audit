@@ -1,0 +1,76 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Agricultural Sciences",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Landbouwetenskappe (Agricultural Sciences)",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_landbouwetenskappe_gr_10-12_web.pdf",
+    "sha256": "6bf7073bdf21b77738d718466dabd88a566afc7f90887e347280ec9b680a959a"
+  },
+  "canonical_profile_id": "fet.agricultural_sciences",
+  "assessment_family": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "caps_theme_candidates": [
+    "dit 'n langtermyntaak is",
+    "Werksopdrage (Grade 10 - 12)"
+  ],
+  "assessment_content_focus": [
+    "dit 'n langtermyntaak is",
+    "Werksopdrage (Grade 10 - 12)",
+    "dit 'n langtermyntaak is",
+    "Werksopdrage (Grade 10 - 12)"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: langtermyntaak, werksopdrage."
+  ],
+  "required_visuals": [
+    {
+      "id": "investigation_method_data",
+      "title": "Investigation method and data sheet",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "investigation_sheet",
+      "must_show": [
+        "aim",
+        "variables",
+        "method",
+        "data table",
+        "conclusion line"
+      ],
+      "assessment_use": "Learners record observations and draw a supported conclusion."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "low",
+    "render_allowed": false,
+    "content_lines": [],
+    "admin_lines": [],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "blocked",
+    "reason": "CAPS term/theme extraction did not produce a confident content theme.",
+    "action": "Curate or improve the CAPS term map before rendering subject visuals."
+  }
+}

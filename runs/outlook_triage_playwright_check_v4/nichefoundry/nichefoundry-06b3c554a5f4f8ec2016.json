@@ -1,0 +1,58 @@
+{
+  "job_id": "nichefoundry-06b3c554a5f4f8ec2016",
+  "created_at": "2026-08-07T14:41:27+00:00",
+  "client_id": "demo-or-unassigned",
+  "source": {
+    "kind": "outlook_triage",
+    "path": "",
+    "message_id": "6ca28c5003b40e8e0edd",
+    "thread_ref": "6ca28c5003b40e8e0edd"
+  },
+  "route": {
+    "product": "nichefoundry",
+    "confidence": 0.65,
+    "reason": "Matched route keywords: post."
+  },
+  "status": "needs_review",
+  "risk": "formal",
+  "inputs": [
+    {
+      "kind": "email_record",
+      "subject": "Good Morning, SA",
+      "sender": "Good Morning, SA | News24<email@eu.sparkpostmail.com>",
+      "attachment_names": "",
+      "intent": "risk_or_compliance",
+      "urgency": "critical",
+      "next_step": "Route to Formal Review. Preserve thread, attachments, timestamps, and avoid substantive reply until reviewed.",
+      "draft_status": "blocked",
+      "primary_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/primary_6ca28c5003b40e8e0edd_Good_Morning_SA.txt",
+      "safer_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/safer_6ca28c5003b40e8e0edd_Good_Morning_SA.txt",
+      "shorter_draft_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/shorter_6ca28c5003b40e8e0edd_Good_Morning_SA.txt",
+      "evidence_note_path": "/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED/triage_output_playwright/drafts/evidence_note_6ca28c5003b40e8e0edd_Good_Morning_SA.txt"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "06b3c554a5f4f8ec2016",
+      "source_type": "email",
+      "source_path": "",
+      "title": "Good Morning, SA",
+      "date_observed": "2026-08-07T14:41:27+00:00",
+      "text_extract": "Evidence note for: Good Morning, SA\n\nEvidence seen:\n- Sender visible: Good Morning, SA | News24<email@eu.sparkpostmail.com>\n- Subject visible: Good Morning, SA\n- Folder/source context: Inbox\n- Body text or preview reviewed.\n- Risk flags assigned: contains_formal_risk\n\nMissing information:\n- Reviewer decision\n- Governing process or policy path\n- Evidence register check\n\nThis note is for review and audit. It is not an outbound email.",
+      "hash": "a350f608ddb463811d44",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.65,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "not_required"
+  }
+}

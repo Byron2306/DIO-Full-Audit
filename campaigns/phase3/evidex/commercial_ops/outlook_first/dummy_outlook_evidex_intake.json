@@ -1,0 +1,33 @@
+{
+  "schema": "knowedge.outlook_triage_export.v1",
+  "created_at": "2026-08-07T16:25:20+00:00",
+  "items": [
+    {
+      "message_id": "dummy-evidex-outlook-20260807T162520Z",
+      "thread_ref": "dummy-evidex-thread-20260807T162520Z",
+      "source": "outlook_triage_dummy",
+      "folder": "Inbox",
+      "subject": "EVIDEX Pilot Pack Request - Thandi Community Trust",
+      "sender": "M&E Coordinator <pilot.client@example.org>",
+      "received_at": "2026-08-07T16:25:20+00:00",
+      "sender_type": "external_client",
+      "urgency": "high",
+      "intent": "evidence_pack_request",
+      "risk": "routine",
+      "lane": "evidex",
+      "risk_flags": "",
+      "confidence": "0.91",
+      "draft_status": "draft_ready",
+      "approval_required": "true",
+      "safe_send_rating": "caution",
+      "recommended_action": "Route to Evidex pilot pack; request redacted sample folder and payment confirmation before final delivery.",
+      "next_step": "Prepare grant evidence pack intake, invoice metadata, and source index request.",
+      "attachment_names": "kpi-progress.csv; receipts-summary.xlsx; attendance-register.pdf; field-photos.zip",
+      "body": "We need a review-ready evidence pack for a donor grant report. The project has KPI progress, attendance registers, receipts, photos, and email approvals, but the evidence is scattered. We need a source index, evidence table, narrative draft, QA receipt, and a ZIP that our grant consultant can review. Reporting period is April to June. Please tell us how to send a redacted pilot folder and invoice/payment link.",
+      "primary_draft_path": "",
+      "safer_draft_path": "",
+      "shorter_draft_path": "",
+      "evidence_note_path": ""
+    }
+  ]
+}

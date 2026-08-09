@@ -1,0 +1,259 @@
+{
+  "assessment_title": "Grade 12 Life Orientation: Evidence-First CAPS Assessment",
+  "subject": "Life Orientation",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "canonical_profile_id": "fet.life_orientation",
+  "blueprint": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "language_of_assessment": "English",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Orientation",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Life Orientation",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_orientation_gr_10-12_web_e6b3.pdf",
+      "sha256": "29478a3420addef1239e0836c69b9862ff903fabc01b581c1c65ca044eca69c3"
+    },
+    "canonical_profile_id": "fet.life_orientation",
+    "assessment_family": "practical_performance_or_portfolio",
+    "render_shell": "performance_task_sheet",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix or subject profile supports source-based assessment.",
+        "Learners must cite, compare, or reason from source evidence.",
+        "CAPS/source matrix signals data, graph, or diagram assessment."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [
+      "6) expose learners to various study methods and skills pertaining to assessment processes and",
+      "teaching of Life Orientation in Grades 10 and 11, and 56 hours in Grade 12. The content is grouped in Section 3 of",
+      "Physical Education on the school timetable.",
+      "2.4 Weighting of topics",
+      "Topic Grade 10 Grade 11 Grade 12",
+      "Physical Education 4 hours Textbook, resources on various types of games",
+      "Formal assessment: It is compulsory to cover the given topics in the term indicated.",
+      "The sequence of the topics within the term is however, not",
+      "14 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "LIFE ORIENTATION GRADES 10-12",
+      "TOPIC TERM 3 GRADE 10",
+      "WEEKS 1 - 5 Recommended resources",
+      "is to be taught and learnt on a term-by-term basis.",
+      "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme"
+    ],
+    "assessment_content_focus": [
+      "Life Orientation CAPS core knowledge and skills",
+      "Life Orientation applied task or assessment evidence",
+      "Life Orientation applied assessment task",
+      "Life Orientation extended or practical synthesis task"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: orientation, skills."
+    ],
+    "required_visuals": [
+      {
+        "id": "source_provenance_panel",
+        "title": "Source provenance panel",
+        "role": "stimulus",
+        "visual_kind": "source_extract",
+        "must_show": [
+          "author/origin",
+          "date/context",
+          "caption",
+          "extract or visual description"
+        ],
+        "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+      },
+      {
+        "id": "claim_evidence_reasoning_table",
+        "title": "Claim-evidence-reasoning table",
+        "role": "learner_workspace",
+        "visual_kind": "evidence_table",
+        "must_show": [
+          "claim column",
+          "evidence column",
+          "reasoning/inference column"
+        ],
+        "assessment_use": "Learners connect source evidence to answers."
+      },
+      {
+        "id": "performance_space_map",
+        "title": "Performance space or portfolio evidence map",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "performance_map",
+        "must_show": [
+          "space/stage orientation",
+          "sequence/process labels",
+          "observable evidence fields"
+        ],
+        "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+      },
+      {
+        "id": "observation_instrument",
+        "title": "Teacher observation instrument",
+        "role": "marking_evidence",
+        "visual_kind": "rubric_observation_table",
+        "must_show": [
+          "criterion",
+          "marks",
+          "evidence seen",
+          "concern",
+          "score"
+        ],
+        "assessment_use": "Educator records live observable evidence against the rubric."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "duration": "2 hours",
+  "total_marks": 50,
+  "evidence_cards": [
+    {
+      "label": "Text A",
+      "type": "constructed classroom evidence",
+      "title": "Youth Unemployment and Skills Development in a Rural Community",
+      "provenance": "Constructed CAPS-aligned classroom stimulus for educator review",
+      "date": "Not applicable",
+      "content": "In the Eastern Cape village of Qumbu, 68% of youth aged 18\u201324 are unemployed, according to a 2023 community survey conducted by the local youth forum. Many school leavers lack access to further education or training due to financial constraints and limited information about available opportunities. Thandi, a 19-year-old who passed matric in 2022, has been searching for work for eight months without success. She holds a National Senior Certificate but has no work experience or specialised skills. The village has one FET college 45 kilometres away, but transport costs are prohibitive. Recently, a non-governmental organisation launched a free six-month digital literacy and entrepreneurship programme targeting out-of-school youth. Participants receive training in basic computer skills, CV writing, and small business planning, along with a stipend for data costs. Thandi has applied but is unsure if she will be selected due to high demand. Local leaders note that while such programmes help, long-term solutions require government investment in rural infrastructure and youth-friendly economic zones.",
+      "context": "This scenario reflects real challenges faced by rural youth in South Africa regarding transition from school to work or further study. It aligns with CAPS Grade 12 Life Orientation topics on citizenship education, human rights, responsibility, and the world of work, particularly focusing on unemployment, skills development, and access to opportunities.",
+      "usable_evidence": [
+        "68% youth unemployment rate in Qumbu (18\u201324 age group)",
+        "2023 community survey by local youth forum",
+        "Thandi, 19, passed matric in 2022, unemployed for 8 months",
+        "No work experience or specialised skills despite NSC",
+        "Nearest FET college 45 km away, transport costs prohibitive",
+        "Free six-month NGO digital literacy and entrepreneurship programme",
+        "Training includes computer skills, CV writing, business planning, data stipend",
+        "High demand for programme, selection uncertain",
+        "Local leaders cite need for government investment in rural infrastructure and youth economic zones"
+      ],
+      "allowed_question_moves": [
+        "identify issue",
+        "analyse consequence",
+        "recommend action",
+        "justify decision",
+        "reflect safely",
+        "build action plan"
+      ]
+    },
+    {
+      "label": "Visual Text B",
+      "type": "constructed classroom evidence",
+      "title": "Decision-Making Framework for Post-School Pathways",
+      "provenance": "Constructed CAPS-aligned classroom stimulus for educator review",
+      "date": "Not applicable",
+      "content": "[DIAGRAM DESCRIPTION: A flowchart titled 'Choosing My Path After Matric' with three main branches from a central decision point: 'Further Education', 'Learnership/Internship', and 'Entrepreneurship/Job Seeking'. Each branch leads to sub-questions: Under 'Further Education': 'Do I meet admission requirements?', 'Can I access funding (NSFAS, bursaries)?', 'Is the institution accessible?'. Under 'Learnership/Internship': 'Is it in my field of interest?', 'Does it offer a stipend?', 'Is it accredited?'. Under 'Entrepreneurship/Job Seeking': 'Do I have a viable business idea?', 'Do I have start-up capital or support?', 'Do I have work-seeking skills (CV, interview)?'. Each path concludes with outcome boxes: 'Proceed with preparation', 'Seek guidance and upskill', or 'Re-evaluate goals'. Arrows show feedback loops to reassess based on answers.]",
+      "context": "This visual tool supports learners in making informed decisions about post-school pathways, a key component of the Grade 12 Life Orientation curriculum under 'Development of the self in society' and 'Career and career choices'. It encourages self-assessment, consideration of practical barriers, and goal-setting based on available resources and personal circumstances.",
+      "usable_evidence": [
+        "Flowchart title: 'Choosing My Path After Matric'",
+        "Three main pathways: Further Education, Learnership/Internship, Entrepreneurship/Job Seeking",
+        "Sub-questions under Further Education: admission requirements, funding access (NSFAS/bursaries), institution accessibility",
+        "Sub-questions under Learnership/Internship: field alignment, stipend availability, accreditation status",
+        "Sub-questions under Entrepreneurship/Job Seeking: viable business idea, start-up capital/support, work-seeking skills (CV, interview)",
+        "Outcome options: Proceed with preparation, Seek guidance and upskill, Re-evaluate goals",
+        "Feedback loops allowing reassessment based on responses"
+      ],
+      "allowed_question_moves": [
+        "identify issue",
+        "analyse consequence",
+        "recommend action",
+        "justify decision",
+        "reflect safely",
+        "build action plan"
+      ]
+    }
+  ],
+  "evidence_policy": "stimulus_required",
+  "sections": [
+    {
+      "title": "Section A: Evidence-Based Response",
+      "mode": "performance_task_sheet",
+      "instructions": "Read Text A and Visual Text B carefully before answering.",
+      "stimulus": "Use only the details in Text A, Visual Text B and Visual Text B as evidence.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identify the main issue, idea or message in Text A and support your answer with one detail from the evidence.",
+          "marks": 25,
+          "memo": [
+            "Credit a valid point supported by evidence from Text A."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain how a detail in Visual Text B affects the meaning, decision or viewpoint.",
+          "marks": 12,
+          "memo": [
+            "Credit accurate interpretation of Visual Text B and a clear explanation."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Write a structured response that uses Text A and Visual Text B to justify a conclusion or recommendation.",
+          "marks": 13,
+          "memo": [
+            "Credit a coherent response that uses evidence from Text A and Visual Text B."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Scenario comprehension and evidence use",
+      "marks": 25,
+      "descriptor": "Uses supplied evidence accurately."
+    },
+    {
+      "criterion": "Interpretation and explanation",
+      "marks": 12,
+      "descriptor": "Explains meaning, consequence or viewpoint clearly."
+    },
+    {
+      "criterion": "Structured response",
+      "marks": 13,
+      "descriptor": "Uses evidence to support a coherent conclusion or recommendation."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS topic scope and grade level.",
+    "Confirm the evidence/stimulus cards are suitable and school-safe.",
+    "Confirm every evidence-dependent question cites a supplied label.",
+    "Approve memo and mark allocation before classroom use."
+  ],
+  "fallback_reason": "question marks sum to 24, expected 50",
+  "generation_backend": "hymark_evidence_first_deterministic_fallback",
+  "validation_errors": []
+}

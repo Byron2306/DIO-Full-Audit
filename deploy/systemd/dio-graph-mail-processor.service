@@ -1,0 +1,15 @@
+[Unit]
+Description=DIO Microsoft Graph notification processor
+After=network-online.target dio-edge-reconciler.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/process_graph_notifications.py --watch --interval 2
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

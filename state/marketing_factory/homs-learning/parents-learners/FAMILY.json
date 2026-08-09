@@ -1,0 +1,84 @@
+{
+  "schema": "dio.marketing.creative_family.v1",
+  "family_id": "HOMS_LEARNING--parents_learners",
+  "generated_at": "2026-08-09T14:02:14+00:00",
+  "product": {
+    "id": "HOMS_LEARNING",
+    "name": "HOMS Learning Studio",
+    "offer": "learning_materials"
+  },
+  "audience": {
+    "id": "parents_learners",
+    "name": "Parents supporting school learners",
+    "pain": "Generic online material often does not match the learner's grade, term or topic.",
+    "outcome": "A focused learning pack built around the actual classroom need."
+  },
+  "landing_page": "sites/homs_learning/index.html",
+  "proof_asset": "sites/homs/assets/learning/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+  "assets": {
+    "square_1080": "state/marketing_factory/homs-learning/parents-learners/assets/square_1080.jpg",
+    "landscape_1200x628": "state/marketing_factory/homs-learning/parents-learners/assets/landscape_1200x628.jpg",
+    "portrait_1080x1350": "state/marketing_factory/homs-learning/parents-learners/assets/portrait_1080x1350.jpg",
+    "vertical_1080x1920": "state/marketing_factory/homs-learning/parents-learners/assets/vertical_1080x1920.jpg",
+    "youtube_1280x720": "state/marketing_factory/homs-learning/parents-learners/assets/youtube_1280x720.jpg",
+    "reel_1080x1920": "state/marketing_factory/homs-learning/parents-learners/assets/reel_1080x1920.mp4"
+  },
+  "copy": {
+    "LINKEDIN_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/linkedin_organic.json",
+      "state": "passed"
+    },
+    "FACEBOOK_PAGE": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/facebook_page.json",
+      "state": "passed"
+    },
+    "META_ADS": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/meta_ads.json",
+      "state": "passed"
+    },
+    "INSTAGRAM_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/instagram_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/tiktok_organic.json",
+      "state": "passed"
+    },
+    "TIKTOK_ADS": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/tiktok_ads.json",
+      "state": "passed"
+    },
+    "REDDIT_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/reddit_organic.json",
+      "state": "passed"
+    },
+    "REDDIT_ADS": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/reddit_ads.json",
+      "state": "passed"
+    },
+    "GOOGLE_ADS": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/google_ads.json",
+      "state": "passed"
+    },
+    "YOUTUBE_ORGANIC": {
+      "path": "state/marketing_factory/homs-learning/parents-learners/copy/youtube_organic.json",
+      "state": "passed"
+    }
+  },
+  "nichefoundry": {
+    "request": "state/marketing_factory/homs-learning/parents-learners/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+    "reel_state": "ready",
+    "reel_error": "",
+    "long_form_state": "brief_ready"
+  },
+  "validation": {
+    "state": "passed",
+    "errors": []
+  },
+  "governance": {
+    "state": "draft_ready",
+    "publication": "held",
+    "spend": "disabled",
+    "promotion": "operator_required"
+  }
+}

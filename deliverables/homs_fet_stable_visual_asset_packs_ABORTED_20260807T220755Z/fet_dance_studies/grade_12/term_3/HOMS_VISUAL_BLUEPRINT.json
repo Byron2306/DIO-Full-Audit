@@ -1,0 +1,115 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Dance Studies",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Dance Studies",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+    "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada"
+  },
+  "canonical_profile_id": "fet.dance_studies",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "DANCE STUDIES GRADES 10-12",
+    "2 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "INTRODUCTION TO THE Curriculum and Assessment Policy StatementS for DANCE",
+    "STUDIES gradeS 10-12",
+    "The National Curriculum Statement Grades R-12 (NCS) stipulates policy on curriculum and assessment in the",
+    "Topic 3 Suggested contact time Resources",
+    "or computer and data projector",
+    "Content/concepts/skills",
+    "Link Dance Literacy to choreography.",
+    "terminology.",
+    "Performance Assessment Tasks (PATs) take place in every grade.",
+    "Grade 10 2 compulsory PATs PAT 1: Composition of a sequence - term 2",
+    "PAT 2: Indigenous or cross-cultural dance term 3",
+    "Grade 11 2 compulsory PATs PAT 1: Indigenous or crosss-cultural dance - term 2"
+  ],
+  "assessment_content_focus": [
+    "Link Dance Literacy to choreography.",
+    "PAT 2: Indigenous or cross-cultural dance term 3",
+    "Grade 11 2 compulsory PATs PAT 1: Indigenous or crosss-cultural dance - term 2",
+    "Grade 10 2 compulsory PATs PAT 1: Composition of a sequence - term 2",
+    "Topic 3 Suggested contact time Resources",
+    "Link Dance Literacy to choreography.",
+    "Topic 3 Suggested contact time Resources"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: choreography, composition, compulsory, contact, cross-cultural, crosss-cultural."
+  ],
+  "required_visuals": [
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "Link Dance Literacy to choreography.",
+      "Grade 10 2 compulsory PATs PAT 1: Composition of a sequence - term 2",
+      "PAT 2: Indigenous or cross-cultural dance term 3",
+      "Grade 11 2 compulsory PATs PAT 1: Indigenous or crosss-cultural dance - term 2"
+    ],
+    "admin_lines": [
+      "DANCE STUDIES GRADES 10-12",
+      "2 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "INTRODUCTION TO THE Curriculum and Assessment Policy StatementS for DANCE",
+      "STUDIES gradeS 10-12",
+      "The National Curriculum Statement Grades R-12 (NCS) stipulates policy on curriculum and assessment in the",
+      "Performance Assessment Tasks (PATs) take place in every grade."
+    ],
+    "content_terms": [
+      "composition",
+      "dance",
+      "design",
+      "drama",
+      "improvisation",
+      "music",
+      "performance",
+      "portfolio",
+      "visual"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

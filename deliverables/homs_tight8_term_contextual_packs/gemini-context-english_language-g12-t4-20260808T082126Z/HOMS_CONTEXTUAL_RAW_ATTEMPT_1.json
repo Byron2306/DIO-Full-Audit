@@ -1,0 +1,311 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Language Term 4 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "Final integrated language examination practice focusing on unseen text interpretation, visual literacy synthesis using the language response planner, summary writing, language editing, and structured argumentative writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "4",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "final integrated language examination practice",
+      "unseen text interpretation and visual literacy synthesis",
+      "time-managed summary, editing and evidence-based answers",
+      "extended writing with argument, coherence and style control"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Comprehension and Visual Literacy Synthesis",
+      "mode": "comprehension",
+      "instructions": "Read Text A below and study the 'Text response and language planner' visual layout in your workspace before answering the questions. Ensure your answers are contextualized and supported by direct reference to the texts.",
+      "stimulus": "TEXT A: THE ATTENTION ECONOMY AND THE DEATH OF DEEP READING\n\nParagraph 1\nOur cognitive bandwidth is under siege. In the modern digital landscape, algorithms are engineered specifically to capture and monetize human focus. We no longer read; we skim, leaping from one hyperlinked island to another in a restless quest for novelty. This constant cognitive fragmentation has eroded our capacity for sustained, deep reading\u2014the very foundation of critical, analytical thought.\n\nParagraph 2\nThis erosion carries a heavy psychological toll. When we switch tasks every few seconds, we incur a 'cognitive switching cost'. The brain must expend energy to refocus, leaving less mental energy for synthesis, evaluation, and retention. We become passive consumers of fragmented data rather than active creators of structured knowledge. The antidote to this digital drift is not simply logging off, but actively practicing structured, deliberate cognitive processing.\n\nParagraph 3\nTo reclaim our minds, we must treat reading and writing as deliberate, multi-stage architectures. True comprehension requires us to isolate core arguments, interrogate supporting evidence, and systematically draft and refine our thoughts. Without these structured boundaries, our writing becomes as fragmented as the digital feeds that feed our distractions.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identify the term used by the writer in Paragraph 1 to describe the modern digital environment's aggressive capture of human focus.",
+          "marks": 2,
+          "memo": [
+            "The term is 'cognitive bandwidth is under siege' or 'attention economy' / 'modern digital landscape' where algorithms capture focus.",
+            "Award 2 marks for identifying 'cognitive bandwidth under siege' or 'algorithms engineered to capture and monetize human focus'."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain what the writer means by the phrase 'cognitive switching cost' in Paragraph 2.",
+          "marks": 3,
+          "memo": [
+            "It refers to the mental energy and focus lost when constantly shifting attention between tasks.",
+            "The brain must expend extra energy to refocus on a new task, leaving fewer cognitive resources for deep thinking, synthesis, and memory retention."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Analyze the shift in tone from Paragraph 2 to Paragraph 3. Support your answer with reference to specific words or phrases from both paragraphs.",
+          "marks": 3,
+          "memo": [
+            "Paragraph 2 has a cautionary, analytical, or clinical tone ('heavy psychological toll', 'erosion', 'passive consumers').",
+            "Paragraph 3 shifts to an assertive, urgent, or prescriptive tone ('To reclaim our minds', 'must treat', 'deliberate, multi-stage architectures').",
+            "Award 1 mark for identifying the shift, and 2 marks for appropriate textual evidence from both paragraphs."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Evaluate the effectiveness of the metaphor 'hyperlinked island' in Paragraph 1 in illustrating modern reading habits.",
+          "marks": 4,
+          "memo": [
+            "The metaphor compares digital texts to isolated islands connected only by superficial links.",
+            "It is highly effective because it conveys isolation and fragmentation; readers do not experience a continuous, deep landscape of thought but rather jump disjointedly from one isolated piece of information to another without exploring the depths of the surrounding ocean of context."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Refer to the 'Text response and language planner' visual workspace. Identify the two specific labels in the planner that correspond directly to the writer's demand in Paragraph 3 to 'isolate core arguments' and 'interrogate supporting evidence'.",
+          "marks": 3,
+          "memo": [
+            "The label 'main idea' corresponds to isolating core arguments.",
+            "The label 'evidence' corresponds to interrogating supporting evidence.",
+            "Award 1.5 marks for each correct identification."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Examine the structural progression of the 'Text response and language planner' from 'plan' to 'draft' to 'edit'. How does this visual progression offer a practical solution to the 'cognitive fragmentation' described in Paragraph 1?",
+          "marks": 3,
+          "memo": [
+            "The progression forces the writer into a deliberate, linear, and disciplined sequence of cognitive tasks.",
+            "By separating planning, drafting, and editing, it prevents the cognitive overload of trying to generate ideas, structure sentences, and correct errors simultaneously, directly countering the chaotic task-switching of the digital landscape."
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "Contrast the passive reading habits criticized in Paragraph 1 with the active reading process facilitated by the 'text panel' and 'main idea' sections of the visual planner.",
+          "marks": 4,
+          "memo": [
+            "Passive reading involves superficial skimming and leaping across links without deep engagement.",
+            "In contrast, using the 'text panel' alongside the 'main idea' section forces the reader to anchor their attention on a single text, extract its central thesis, and document it systematically, transforming them from a passive consumer into an active analyst."
+          ]
+        },
+        {
+          "number": "1.8",
+          "question": "Synthesize the core message of Text A with the design philosophy of the 'Text response and language planner'. In an extended paragraph of 80-100 words, evaluate how the planner serves as a cognitive defense mechanism against the attention economy.",
+          "marks": 8,
+          "memo": [
+            "The response must synthesize Text A (which warns against cognitive fragmentation and advocates for structured, deliberate processing) with the planner's design (which utilizes structured stages: text panel, main idea, evidence, plan, draft, edit).",
+            "The planner acts as a defense mechanism by externalizing cognitive steps, reducing the 'switching cost' by allowing the writer to focus on one stage at a time.",
+            "It enforces the 'deliberate, multi-stage architectures' called for in Paragraph 3, ensuring that critical analysis and systematic editing are not bypassed in a rush for digital novelty.",
+            "Award up to 4 marks for synthesis of ideas, 2 marks for evaluation of the planner's utility, and 2 marks for language control and coherence."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Summary",
+      "mode": "summary",
+      "instructions": "Read Text A again. Write a summary of the steps a modern reader must take to reclaim cognitive control and practice deep reading and writing. Write your summary in point form, using a maximum of 90 words. State your word count at the end of the summary.",
+      "stimulus": "Refer to TEXT A: THE ATTENTION ECONOMY AND THE DEATH OF DEEP READING.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Summarize the steps required to reclaim cognitive control and practice deep reading and writing, based on Text A.",
+          "marks": 10,
+          "memo": [
+            "Points to include:",
+            "1. Avoid superficial skimming and task-switching to protect cognitive bandwidth.",
+            "2. Practice structured, deliberate cognitive processing instead of passive consumption.",
+            "3. Treat reading and writing as a multi-stage architecture.",
+            "4. Isolate the core arguments of a text.",
+            "5. Interrogate and analyze supporting evidence.",
+            "6. Systematically plan and draft thoughts.",
+            "7. Refine and edit written work to avoid fragmented output.",
+            "Marking guidelines:",
+            "7 marks for 7 correct points (1 mark per point).",
+            "3 marks for language, sentence structure, and adherence to word count.",
+            "Subtract 1 mark if word count is omitted or exceeded."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Language Structures and Editing",
+      "mode": "language_structures",
+      "instructions": "Read the passage below, which contains several deliberate language and grammatical errors, and answer the questions that follow.",
+      "stimulus": "TEXT C: THE LITERACY CRISIS\n\n(1) The digital age has revolutionized how we communicate. (2) However, many a student struggles to maintain their focus when writing essays. (3) If one does not plan, they will fail to produce coherent arguments. (4) The affect of constant notifications is highly detrimental to deep thought. (5) The educator said, 'We must teach learners how to edit their drafts.' (6) It is critical that we do not allow technology to completely disintegrate our intellectual standards.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identify and correct the pronoun agreement error in sentence 2.",
+          "marks": 1,
+          "memo": [
+            "The singular subject 'many a student' does not agree with the plural pronoun 'their'.",
+            "Correction: 'However, many a student struggles to maintain his/her focus...' or change the subject to 'many students struggle to maintain their focus...'"
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Correct the pronoun inconsistency in sentence 3 to ensure formal grammatical concord.",
+          "marks": 1,
+          "memo": [
+            "The pronoun 'one' must be followed consistently by 'one' rather than 'they'.",
+            "Correction: 'If one does not plan, one will fail to produce coherent arguments.' (Accept: 'If students do not plan, they will fail...')"
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Identify and correct the homophone/word-choice error in sentence 4.",
+          "marks": 1,
+          "memo": [
+            "The noun 'affect' is incorrectly used instead of the noun 'effect'.",
+            "Correction: 'The effect of constant notifications...'"
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Rewrite sentence 1 in the passive voice.",
+          "marks": 2,
+          "memo": [
+            "Correction: 'How we communicate has been revolutionized by the digital age.'"
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Rewrite sentence 5 in reported (indirect) speech.",
+          "marks": 2,
+          "memo": [
+            "Correction: 'The educator said that they had to teach learners how to edit their drafts.' or 'The educator said that we must teach learners how to edit their drafts.'"
+          ]
+        },
+        {
+          "number": "3.6",
+          "question": "Identify the part of speech of the word 'detrimental' in sentence 4.",
+          "marks": 1,
+          "memo": [
+            "Adjective."
+          ]
+        },
+        {
+          "number": "3.7",
+          "question": "Identify the split infinitive in sentence 6 and rewrite the clause to correct it.",
+          "marks": 2,
+          "memo": [
+            "The split infinitive is 'to completely disintegrate'.",
+            "Correction: '...to disintegrate our intellectual standards completely.' or '...completely to disintegrate our intellectual standards.'"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section D: Extended Writing with Argument and Style Control",
+      "mode": "transactional_writing",
+      "instructions": "Write an argumentative essay of 200-250 words on the topic below. You must use the structure of the 'Text response and language planner' to organize your response. Your final essay must demonstrate a clear 'main idea', structured 'evidence', a logical 'plan', and a polished, error-free final 'draft' that shows evidence of the 'edit' phase.",
+      "stimulus": "TOPIC: 'The digital attention economy is producing a generation of shallow thinkers.'\n\nWrite an argumentative essay in which you either support or oppose this statement. Ensure your register is formal, your style is persuasive, and your argument is logically coherent.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "Write an argumentative essay of 200-250 words on the impact of the digital attention economy on youth critical thinking, demonstrating rigorous planning and editing.",
+          "marks": 20,
+          "memo": [
+            "The essay must be marked using the standard CAPS-aligned rubric for transactional/argumentative writing (20 marks total).",
+            "Content, Planning, and Format (12 marks):",
+            "- Excellent (10-12): Strong, highly persuasive argument. Clear stance. Sophisticated integration of evidence. Evidence of systematic planning using the planner's structure (main idea, evidence, plan).",
+            "- Satisfactory (7-9): Clear argument with reasonable support. Planning is evident but may lack depth.",
+            "- Poor (0-6): Weak or incoherent argument. No evidence of planning.",
+            "Language, Style, and Editing (8 marks):",
+            "- Excellent (7-8): Flawless register, varied sentence structures, precise vocabulary. Clear evidence of rigorous editing (no spelling, punctuation, or grammatical errors).",
+            "- Satisfactory (5-6): Minor errors that do not impede meaning. Appropriate register.",
+            "- Poor (0-4): Persistent grammatical errors, inappropriate register, lack of editing."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Comprehension and Visual Literacy Synthesis",
+      "marks": 30,
+      "descriptor": "Measures literal comprehension, inferential reasoning, tone analysis, metaphor evaluation, and visual-text synthesis using the planner's structural labels."
+    },
+    {
+      "criterion": "Section B: Summary Writing",
+      "marks": 10,
+      "descriptor": "Measures the ability to extract key points, synthesize information, and write concisely within a strict word limit using correct language structures."
+    },
+    {
+      "criterion": "Section C: Language Structures and Editing",
+      "marks": 10,
+      "descriptor": "Measures grammatical accuracy, pronoun concord, active/passive voice transformation, direct/indirect speech, and correction of common errors (homophones, split infinitives)."
+    },
+    {
+      "criterion": "Section D: Extended Argumentative Writing",
+      "marks": 20,
+      "descriptor": "Measures the ability to construct a coherent, persuasive argument with formal register, logical paragraphing, and evidence of planning and editing."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum to exactly 70.",
+    "Confirm that the 'Text response and language planner' visual is provided in the learner's workspace.",
+    "Ensure the comprehension questions directly reference the specific labels of the planner ('text panel', 'main idea', 'evidence', 'plan', 'draft', 'edit').",
+    "Check that the editing passage contains the exact errors targeted in Section C.",
+    "Verify that the marking guidelines allow for alternative, grammatically correct phrasing in the synthesis and language sections."
+  ]
+}

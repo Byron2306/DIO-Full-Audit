@@ -1,0 +1,274 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Term 3 English Language Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "sections": [
+    {
+      "title": "Section A: Integrated Comprehension and Summary",
+      "mode": "comprehension",
+      "instructions": "Read the following text and answer the questions that follow.",
+      "stimulus": "The advertisement for a new smartphone features a cartoon of a person using the phone to take a selfie. The caption reads, 'Capture life's moments with our new smartphone!'",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "What is the main idea of the advertisement?",
+          "marks": 5,
+          "memo": [
+            "The main idea of the advertisement is to promote the new smartphone as a device for capturing life's moments."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "What is the tone of the advertisement?",
+          "marks": 5,
+          "memo": [
+            "The tone of the advertisement is informal and inviting, with a focus on capturing life's moments."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Cartoon, Advertisement, or Infographic Analysis",
+      "mode": "visual_literacy",
+      "instructions": "Analyze the following infographic and answer the questions that follow.",
+      "stimulus": "The infographic shows the number of people who use social media platforms. The data is presented in a bar chart.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "What is the main finding of the infographic?",
+          "marks": 10,
+          "memo": [
+            "The main finding of the infographic is that the majority of people use social media platforms."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "What is the implication of the data presented in the infographic?",
+          "marks": 10,
+          "memo": [
+            "The implication of the data presented in the infographic is that social media platforms have a significant impact on people's lives."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Editing for Grammar, Diction, Register, and Punctuation",
+      "mode": "language_structures",
+      "instructions": "Edit the following text to ensure that it is free of grammatical errors and is written in the correct register.",
+      "stimulus": "The text reads, 'The new smartphone is a great device for taking selfies. It has a good camera and a long battery life.'",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "What is the subject of the sentence?",
+          "marks": 2,
+          "memo": [
+            "The subject of the sentence is the new smartphone."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "What is the verb of the sentence?",
+          "marks": 2,
+          "memo": [
+            "The verb of the sentence is 'is'."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section D: Formal Transactional Writing and Controlled Response Planning",
+      "mode": "transactional_writing",
+      "instructions": "Write a formal letter to the editor of a newspaper in response to the following article.",
+      "stimulus": "The article reads, 'The new smartphone is a game-changer for the tech industry.'",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "What is the main idea of the article?",
+          "marks": 10,
+          "memo": [
+            "The main idea of the article is that the new smartphone is a game-changer for the tech industry."
+          ]
+        },
+        {
+          "number": "4.2",
+          "question": "What is the tone of the article?",
+          "marks": 10,
+          "memo": [
+            "The tone of the article is formal and informative, with a focus on the impact of the new smartphone on the tech industry."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Comprehension",
+      "marks": 20,
+      "descriptor": "The learner demonstrates a clear understanding of the text and is able to identify the main idea and supporting details."
+    },
+    {
+      "criterion": "Analysis",
+      "marks": 20,
+      "descriptor": "The learner is able to analyze the data presented in the infographic and identify the main finding and implication of the data."
+    },
+    {
+      "criterion": "Editing",
+      "marks": 10,
+      "descriptor": "The learner is able to edit the text to ensure that it is free of grammatical errors and is written in the correct register."
+    },
+    {
+      "criterion": "Writing",
+      "marks": 20,
+      "descriptor": "The learner is able to write a formal letter to the editor of a newspaper in response to the article, demonstrating a clear understanding of the topic and the ability to write in a formal tone."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the learner has demonstrated a clear understanding of the text and is able to identify the main idea and supporting details.",
+    "Verify that the learner is able to analyze the data presented in the infographic and identify the main finding and implication of the data.",
+    "Verify that the learner is able to edit the text to ensure that it is free of grammatical errors and is written in the correct register.",
+    "Verify that the learner is able to write a formal letter to the editor of a newspaper in response to the article, demonstrating a clear understanding of the topic and the ability to write in a formal tone."
+  ],
+  "language_of_assessment": "English",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "visual_source"
+      ],
+      "source_type_reasons": [
+        "Term/theme content references visual source material."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "integrated comprehension, summary and language structures",
+      "cartoon, advertisement or infographic analysis",
+      "editing for grammar, diction, register and punctuation",
+      "formal transactional writing and controlled response planning"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "opportunity": 2,
+  "generation_backend": "nvidia_nim_contextual_knowledge_packet",
+  "knowledge_packet_schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "validation_errors": [
+    "question marks sum to 54, expected 70"
+  ]
+}

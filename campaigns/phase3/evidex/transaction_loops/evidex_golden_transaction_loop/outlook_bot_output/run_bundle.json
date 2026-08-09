@@ -1,0 +1,95 @@
+{
+  "run_id": "20260807-114510-triage",
+  "processed_at": "2026-08-07T16:45:10+00:00",
+  "source": "Outlook/local exports",
+  "mode": "draft_only",
+  "items_reviewed": 1,
+  "duplicates_skipped": 0,
+  "summary": {
+    "total": 1,
+    "by_urgency": {
+      "low": 1
+    },
+    "by_risk": {
+      "uncertain": 1
+    },
+    "by_intent": {
+      "unknown": 1
+    },
+    "drafts_ready": 0,
+    "blocked": 1,
+    "approval_required": 1,
+    "safe_send": {
+      "caution": 1
+    }
+  },
+  "follow_up": [
+    "golden-evidex-reply-20260807T164510Z"
+  ],
+  "drafts_ready": [],
+  "blocked": [
+    "golden-evidex-reply-20260807T164510Z"
+  ],
+  "items": [
+    {
+      "message_id": "golden-evidex-reply-20260807T164510Z",
+      "thread_ref": "golden-evidex-thread-20260807T164510Z",
+      "item_ref": "golden-evidex-reply-20260807T164510Z",
+      "created_at": "2026-08-07T16:45:10+00:00",
+      "sender_type": "external",
+      "subject": "EVIDEX Pilot Pack Request - BrightStart Community Trust",
+      "urgency": "low",
+      "intent": "unknown",
+      "risk": "uncertain",
+      "lane": "escalation",
+      "risk_flags": [
+        "references_evidence_or_attachment"
+      ],
+      "confidence": 0.53,
+      "summary": "Message 'EVIDEX Pilot Pack Request - BrightStart Community Trust' was classified as unknown with low urgency and uncertain risk based only on visible message evidence.",
+      "evidence_seen": [
+        "Sender visible: M&E Coordinator <controlled.prospect@example.org>",
+        "Subject visible: EVIDEX Pilot Pack Request - BrightStart Community Trust",
+        "Received timestamp visible: 2026-08-07T16:45:10+00:00",
+        "Folder/source context: Inbox",
+        "Attachment names visible: kpi_progress.csv; attendance_register.csv; receipts_summary.csv; field_visit_notes.txt; photo_log.txt",
+        "Body text or preview reviewed.",
+        "Risk flags assigned: references_evidence_or_attachment"
+      ],
+      "missing_information": [
+        "Clear intent could not be confirmed from visible message evidence."
+      ],
+      "recommended_action": "Ask user",
+      "draft_status": "blocked",
+      "approval_required": true,
+      "reason_for_approval": "Intent is uncertain; system must not infer facts.",
+      "next_step": "Ask user to confirm intent and required action.",
+      "safe_send_rating": "caution",
+      "safe_send_issues": [
+        "Missing information must be checked before relying on the draft."
+      ],
+      "allowed_transitions": [
+        "needs_approval",
+        "blocked",
+        "rejected"
+      ],
+      "reasons": [
+        "Message refers to evidence or attachments."
+      ],
+      "draft_paths": {
+        "primary": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/primary_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt",
+        "safer": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/safer_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt",
+        "shorter": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/shorter_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt",
+        "evidence_note": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/outlook_bot_output/drafts/evidence_note_golden-evidex-reply-20260807T164510Z_EVIDEX_Pilot_Pack_Request_-_BrightStart_Community.txt"
+      },
+      "source": "controlled_outlook_reply",
+      "source_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/transaction_loops/evidex_golden_transaction_loop/controlled_reply.json",
+      "sender": "M&E Coordinator <controlled.prospect@example.org>",
+      "recipients": "",
+      "received_at": "2026-08-07T16:45:10+00:00",
+      "folder": "Inbox",
+      "thread_id_reference": "golden-evidex-thread-20260807T164510Z",
+      "status": "blocked"
+    }
+  ]
+}

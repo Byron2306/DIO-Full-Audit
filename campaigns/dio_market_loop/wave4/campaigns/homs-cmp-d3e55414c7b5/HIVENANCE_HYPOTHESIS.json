@@ -1,0 +1,55 @@
+{
+  "schema": "dio.hivenance.marketing_hypothesis.v1",
+  "hypothesis_id": "W4-HYP-0002",
+  "campaign_id": "CMP-D3E55414C7B5",
+  "registered_at": "2026-08-08T15:52:42+00:00",
+  "registered_by": "dio_registry_hivenance_bridge",
+  "immutable": true,
+  "source": {
+    "registry_wave": "wave4",
+    "registry_hypothesis_id": "W4-HYP-0002",
+    "target_id": "W4-TGT-0020",
+    "observation_id": "OBS-93FF3ACF15C0",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a"
+  },
+  "product": {
+    "product_line_id": "HOMS_ASSESS",
+    "product_layer": "homs",
+    "public_name": "HOMS Assessment Desk",
+    "offer_id": "HOMS-ASSESSMENT-PILOT"
+  },
+  "audience": {
+    "public_segment": "South African independent-school academic leaders, assessment coordinators and educators",
+    "internal_research_organisation": "ISASA",
+    "internal_buyer_unit": "Programme/Member Services; Technology/Innovation; Partnerships/Business Development",
+    "personalisation_allowed": false
+  },
+  "hypothesis": "If ISASA is shown 'Cross-phase live proof: Grade 3 Mathematics activity-style pack vs Grade 10 Dance Studies performance task, each with memo/rubric and educator approval.', then the Academic/curriculum decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+  "experiment": {
+    "mode": "reviewed_channel_submission",
+    "channel": "Reviewed member-bulletin submission + proof landing page",
+    "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+    "proof_summary": "Eight Grade 12 Term 3 subject packs with separate memoranda, source-grounded papers, embedded media and educator approval boundaries.",
+    "public_hook": "One curriculum spine should not produce eight identical-looking papers. Watch HOMS change the assessment architecture with the subject.",
+    "cta": "Review the tight-eight proof and request one subject-and-grade pilot.",
+    "success_event": "qualified_pilot_conversation",
+    "kill_condition": "No qualified engagement after two permission-safe attempts or channel test; re-evaluate message/fit before any further approach.",
+    "window_days": 14,
+    "budget_cap_minor": 0,
+    "currency": "ZAR"
+  },
+  "gates": {
+    "content_generation": "allowed",
+    "publication": "operator_approval_required",
+    "personalised_outreach": "blocked",
+    "electronic_sales_outreach": "blocked",
+    "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH",
+    "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+  },
+  "settlement": {
+    "state": "unstarted",
+    "decision": "pending",
+    "measurement_path": "measurement.json",
+    "decision_path": "HIVENANCE_SETTLEMENT.json"
+  }
+}

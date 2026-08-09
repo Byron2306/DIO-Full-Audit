@@ -1,0 +1,364 @@
+{
+  "schema": "knowedge.commercial_campaigns.v2",
+  "contact_email": "dio_workflows@outlook.com",
+  "products": {
+    "homs": {
+      "name": "HOMS Assessment Desk",
+      "campaign_line": "Assessment work, prepared for educator review.",
+      "audiences": [
+        "South African teachers with a marking backlog",
+        "Lecturers and tutors handling electronic assessment batches",
+        "Schools and departments that need CAPS-aware papers and memoranda",
+        "Tutors, extra-class providers, and publishers building connected learning material"
+      ],
+      "offers": [
+        {
+          "id": "marking_relief",
+          "name": "HOMS Marking Relief",
+          "promise": "Send the learner work, rubric or memo, and marksheet. Receive structured draft marks, feedback, and an educator review pack.",
+          "price": "R950-R1,800 pilot"
+        },
+        {
+          "id": "exam_studio",
+          "name": "HOMS Exam Studio",
+          "promise": "Send the subject, grade, term, scope, and assessment requirements. Receive a draft paper, memorandum, and source or visual pack where the subject requires it.",
+          "price": "R1,800-R3,500 pilot"
+        },
+        {
+          "id": "learning_companion",
+          "name": "HOMS One-Topic Companion",
+          "promise": "Define one subject, grade, term, and topic. Receive a connected guide, activity, worksheet, assessment, and memo for subject-expert review.",
+          "price": "Scoped one-topic pilot"
+        },
+        {
+          "id": "video_lesson",
+          "name": "HOMS Video Lesson Pack",
+          "promise": "Add a faceless, captioned explainer lesson to the same curriculum spine, with its worksheet and assessment kept in alignment.",
+          "price": "Scoped after one-topic proof"
+        }
+      ],
+      "proof": [
+        "A controlled three-script marking batch produced marks, feedback, a marked gradebook, and a lecturer review summary.",
+        "Exam Studio proof runs produced paired papers and memoranda with CAPS-, grade-, term-, and subject-aware constraints.",
+        "The Grade 10 Physical Sciences Motion proof connects a guide, practical, worksheet, mini-assessment, memoranda, meaningful diagrams and a captioned video lesson through one curriculum spine.",
+        "Every output remains subject to educator or subject-expert approval before use."
+      ],
+      "claim_boundaries": [
+        "Do not claim that HOMS replaces an educator or subject expert.",
+        "Do not promise automatic correctness, final marks, or classroom-ready use without review.",
+        "Describe generated marks, feedback, papers, sources, and memoranda as drafts or review-ready outputs.",
+        "Describe the learning companion as a golden review candidate until its curriculum and answers pass subject-expert approval; media rights and attribution are already receipted."
+      ],
+      "channels": {
+        "meta": [
+          {
+            "angle": "marking_backlog",
+            "primary_text": "A marking batch is waiting. Send the scripts, rubric and marksheet. HOMS prepares a structured review pack for you.",
+            "headline": "Turn a batch into a review pack",
+            "description": "Educator approval stays final.",
+            "cta": "Send Message"
+          },
+          {
+            "angle": "exam_studio",
+            "primary_text": "Need a CAPS-aware paper and memo? Send the grade, term and scope. HOMS prepares the draft for subject-expert review.",
+            "headline": "Build the paper and memo",
+            "description": "CAPS-aware. Human approved.",
+            "cta": "Learn More"
+          },
+          {
+            "angle": "one_topic_companion",
+            "primary_text": "One topic. One guide, activity, worksheet, assessment and memo. HOMS keeps the learning sequence connected.",
+            "headline": "Build one connected topic pack",
+            "description": "Expert review stays final.",
+            "cta": "Learn More"
+          },
+          {
+            "angle": "video_lesson",
+            "primary_text": "Add a faceless video lesson to the same topic spine as the worksheet, activity and assessment.",
+            "headline": "Teach the topic beyond the page",
+            "description": "Pilot one controlled topic.",
+            "cta": "Send Message"
+          }
+        ],
+        "linkedin": [
+          {
+            "angle": "department_workflow",
+            "intro": "HOMS turns electronic marking batches into structured draft marks, feedback and review files, with educator approval kept at the centre.",
+            "headline": "A calmer marking workflow for educators",
+            "description": "Pilot a real non-sensitive batch with HOMS.",
+            "cta": "Request a pilot"
+          },
+          {
+            "angle": "assessment_production",
+            "intro": "HOMS Exam Studio prepares CAPS-aware draft papers, memoranda and required source material from a defined grade, term and scope.",
+            "headline": "Assessment production with a human final gate",
+            "description": "For schools, departments and subject teams.",
+            "cta": "Request a pilot"
+          },
+          {
+            "angle": "connected_learning_content",
+            "intro": "HOMS and NicheFoundry turn one defined curriculum topic into connected learning material, assessment and an optional video lesson.",
+            "headline": "One curriculum spine across every learner asset",
+            "description": "A controlled one-topic pilot for schools, tutors and publishers.",
+            "cta": "Request a pilot"
+          }
+        ],
+        "google_rsa": {
+          "headlines": [
+            "HOMS Marking Relief",
+            "Assessment Review Packs",
+            "CAPS-Aware Exam Drafts",
+            "Paper And Memo Support",
+            "CAPS Learning Materials",
+            "Worksheets And Activities",
+            "Faceless Video Lessons",
+            "Educator Review Stays Final",
+            "Pilot A Real Assessment"
+          ],
+          "descriptions": [
+            "Send scripts, a rubric and marksheet. Receive a structured draft review pack.",
+            "Request a CAPS-aware draft paper and memo for educator or subject-expert review.",
+            "Choose marking relief or exam production. Start with a controlled pilot."
+            ,"Build one connected guide, worksheet, activity, assessment, memo and video lesson."
+          ]
+        }
+      },
+      "gamma_assets": [
+        {
+          "id": "homs_hero",
+          "title": "HOMS Assessment Desk hero",
+          "purpose": "website hero and campaign key art",
+          "prompt": "Create a single photorealistic 16:9 commercial key-art image for a South African educator assessment service. Show an educator at a clean desk reviewing a coherent set of real-looking work artifacts: learner scripts with handwritten answers, a rubric, a marksheet grid, and a professionally formatted exam paper with a memorandum. The documents must look materially real, detailed and connected to one workflow, but contain no readable names or private learner information. Use natural daylight, restrained charcoal, paper white, muted teal and one warm amber accent. The educator remains visibly in control. Full-bleed editorial photography, practical and trustworthy. No text, no logos, no presentation slide, no infographic, no floating cards, no dashboard, no collage, no PowerPoint template."
+        },
+        {
+          "id": "homs_marking_proof",
+          "title": "HOMS Marking Relief proof",
+          "purpose": "marking-relief ad creative",
+          "prompt": "Create one realistic overhead 16:9 documentary photograph of an assessment marking workflow. On the left: a small batch of anonymised learner scripts and a concise rubric. In the centre: an educator's hand checking nuanced feedback. On the right: a clean marked gradebook and lecturer review summary. Make the before-to-review progression obvious through physical arrangement, not arrows or labels. Papers must have plausible lines, ticks and tables but no readable personal data. Crisp editorial lighting, white paper, graphite, restrained teal and amber details. No visible headline, no logos, no boxes, no infographic, no slide design, no artificial UI panels."
+        },
+        {
+          "id": "homs_exam_proof",
+          "title": "HOMS Exam Studio proof",
+          "purpose": "exam-studio ad creative",
+          "prompt": "Create a single high-end 16:9 editorial photograph showing a CAPS-aware assessment production desk. Include a South African curriculum document with non-readable text, a grade-and-term planning sheet, a polished exam paper, a matching memorandum, and one subject-appropriate source extract or scientific diagram. The outputs should visibly belong together and look professionally typeset. A subject expert is reviewing the final paper with a pen. Use clear neutral light, charcoal, white, muted blue-green and amber. No readable brands, no learner data, no headline, no logos, no presentation, no infographic, no floating cards, no generic template layout."
+        },
+        {
+          "id": "homs_learning_companion",
+          "title": "HOMS One-Topic Companion",
+          "purpose": "learning-material pilot campaign creative",
+          "prompt": "Create one photorealistic 16:9 editorial scene of a coherent South African Grade 9 Natural Sciences topic companion pack about electrical circuits. Show a concise concept guide, a clearly labelled circuit diagram, a hands-on activity sheet, a worksheet, a short assessment and its memorandum arranged as one visibly connected sequence. A teacher is checking alignment between the diagram, questions and answer key. Documents should look detailed and usable but contain no learner names. Natural classroom worktable, white paper, graphite, restrained teal and yellow accents. No headline, no logos, no slide deck, no floating cards, no generic template, no disconnected stock images."
+        },
+        {
+          "id": "homs_video_lesson",
+          "title": "HOMS Video Lesson Pack",
+          "purpose": "faceless extra-class video lesson campaign creative",
+          "prompt": "Create one realistic 16:9 production scene for a faceless curriculum video lesson. Show a laptop previewing a clear electrical-circuit explanation with a real labelled diagram, beside a matching storyboard, narration script, worksheet and short assessment. A compact audio timeline and headphones indicate a voiced, captioned lesson, while the paper materials visibly test the same topic. No presenter face is required. Use a practical educator workspace, crisp neutral light, charcoal, white, green and yellow details. No readable brand, no headline, no presentation slide, no floating UI cards, no fake dashboard, no generic PowerPoint composition."
+        }
+      ]
+    },
+    "evidex": {
+      "name": "Evidex Evidence Pack",
+      "campaign_line": "From scattered proof to a traceable review pack.",
+      "audiences": [
+        "NGOs and community organisations preparing donor or programme evidence",
+        "Monitoring and evaluation practitioners consolidating proof",
+        "Grant consultants and small compliance teams preparing review files"
+      ],
+      "offers": [
+        {
+          "id": "starter",
+          "name": "Starter Evidence Pack",
+          "promise": "A small, bounded evidence set organised into a table with mapped claims and provenance for human review.",
+          "price": "R350-R750"
+        },
+        {
+          "id": "standard",
+          "name": "Standard Evidence Pack",
+          "promise": "A broader reporting pack with evidence mapping, provenance, gaps, and a clear review trail.",
+          "price": "R950-R1,500"
+        },
+        {
+          "id": "complex",
+          "name": "Complex Evidence Pack",
+          "promise": "A larger multi-source pack scoped after intake, with human review before delivery.",
+          "price": "R2,500-R5,000"
+        }
+      ],
+      "proof": [
+        "The golden case converts attendance, field notes, KPI data, a photo log, and receipts into an evidence table and mapped claims.",
+        "Each mapped claim retains a source reference and provenance trail.",
+        "The pack supports review; it does not guarantee donor, auditor, regulator, or funder approval."
+      ],
+      "claim_boundaries": [
+        "Do not claim Evidex guarantees approval, compliance, audit outcomes, or funding.",
+        "Do not describe unreviewed outputs as final or submission-ready.",
+        "Use review-ready only when human review is explicitly stated."
+      ],
+      "channels": {
+        "meta": [
+          {
+            "angle": "evidence_mess",
+            "primary_text": "Receipts, photos, notes and spreadsheets everywhere? Evidex maps the proof into one traceable pack for your review.",
+            "headline": "Turn scattered proof into a pack",
+            "description": "Claims and source gaps mapped.",
+            "cta": "Learn More"
+          },
+          {
+            "angle": "reporting_deadline",
+            "primary_text": "Your report needs evidence, not another folder hunt. Send a bounded set and receive a mapped pack for human review.",
+            "headline": "Make the evidence reviewable",
+            "description": "Start with a controlled pilot.",
+            "cta": "Send Message"
+          }
+        ],
+        "linkedin": [
+          {
+            "angle": "ngo_me",
+            "intro": "Evidex consolidates scattered programme evidence into a traceable table of claims, sources, provenance and gaps for human review.",
+            "headline": "A clearer evidence trail for reporting teams",
+            "description": "For NGOs, M&E practitioners and grant teams.",
+            "cta": "View the golden case"
+          },
+          {
+            "angle": "consultant_capacity",
+            "intro": "When client evidence arrives as mixed files, Evidex provides a bounded intake and a consistent review pack without hiding the source trail.",
+            "headline": "Evidence-pack capacity for busy consultants",
+            "description": "Pilot one non-sensitive or redacted case.",
+            "cta": "Request a pilot"
+          }
+        ],
+        "google_rsa": {
+          "headlines": [
+            "Evidex Evidence Packs",
+            "Map Claims To Their Proof",
+            "Traceable Evidence Review",
+            "Organise Reporting Evidence",
+            "See The Golden Case",
+            "Start With A Small Pilot"
+          ],
+          "descriptions": [
+            "Turn mixed files into mapped claims, provenance and gaps for human review.",
+            "A structured evidence-pack service for NGOs, M&E teams and grant consultants.",
+            "Send a bounded non-sensitive evidence set and review the finished trail."
+          ]
+        }
+      },
+      "gamma_assets": [
+        {
+          "id": "evidex_hero",
+          "title": "Evidex Evidence Pack hero",
+          "purpose": "website hero and campaign key art",
+          "prompt": "Create a single photorealistic 16:9 commercial key-art image for an evidence-pack service. Show a real worktable where scattered but anonymised receipts, field notes, attendance sheets, programme photos and spreadsheets are being consolidated into one ordered evidence table and mapped-claims pack. The transformation should be visible through physical arrangement from mixed inputs at left to a clean, traceable pack at right. Use crisp neutral daylight, paper white, graphite, restrained forest green and one coral accent. No readable private data. No text overlay, no logo, no presentation slide, no infographic, no floating cards, no dashboard, no PowerPoint template."
+        },
+        {
+          "id": "evidex_mapping_proof",
+          "title": "Evidex mapping proof",
+          "purpose": "golden-case and social proof creative",
+          "prompt": "Create one detailed 16:9 overhead editorial photograph of a real evidence review desk. Centre a professionally formatted evidence table with rows connecting five anonymised source artifacts to three programme claims; include subtle source IDs, dates and provenance fields that look plausible but are not readable enough to expose data. Around it place a receipt summary, attendance register, KPI chart, field note and photo log. Show a reviewer checking one source-to-claim link with a pen. Clear, precise, trustworthy, white paper, charcoal, forest green and coral accents. No headline, no logos, no slide, no infographic board, no floating UI, no template cards."
+        },
+        {
+          "id": "evidex_delivery_proof",
+          "title": "Evidex reviewed delivery",
+          "purpose": "conversion and process creative",
+          "prompt": "Create a single realistic 16:9 editorial image of a finished evidence-pack delivery being reviewed. Show a bound or clipped pack containing an evidence table, mapped claims, provenance register, gap notes and a concise review receipt. A human reviewer is making a final annotation before delivery. Nearby mixed source documents are neatly archived, showing that the trail remains inspectable. Natural professional workspace, bright neutral light, paper white, graphite, forest green and coral accents. No approval stamp, no claim of compliance, no readable personal data, no headline, no logos, no presentation, no infographic, no floating cards."
+        }
+      ]
+    },
+    "vamp": {
+      "name": "VAMP Performance Evidence Desk",
+      "campaign_line": "Evidence prepared for the review, with the human decision kept human.",
+      "audiences": [
+        "Academic staff preparing performance-review evidence",
+        "HR administrators and performance coordinators consolidating proof",
+        "Department heads who need an inspectable objective-to-evidence trail"
+      ],
+      "offers": [
+        {
+          "id": "snapshot",
+          "name": "Performance Evidence Snapshot",
+          "promise": "Send an authorised task agreement and bounded evidence set. Receive objective mapping, candidates, gaps, provenance and a review snapshot.",
+          "price": "$79 launch pilot"
+        }
+      ],
+      "proof": [
+        "A controlled private proof processed 190 evidence records and retained 116 accepted mappings plus 24 review candidates.",
+        "The proof reported 63.9% evidence-backed objective coverage and exposed gaps instead of inventing support.",
+        "VAMP prepares evidence; an authorised human owns interpretation, ratings and release."
+      ],
+      "claim_boundaries": [
+        "Do not claim that VAMP makes performance ratings, promotion decisions or employment decisions.",
+        "Do not publish raw employment evidence or identifiable client records as campaign proof.",
+        "Require consent, an organisation-specific objective profile and authorised human approval before delivery."
+      ],
+      "channels": {
+        "meta": [
+          {
+            "angle": "review_panic",
+            "primary_text": "Performance review due? VAMP maps authorised evidence to objectives and shows the gaps for your review.",
+            "headline": "Stop hunting for review evidence",
+            "description": "Human decisions stay human.",
+            "cta": "Learn More"
+          },
+          {
+            "angle": "objective_mapping",
+            "primary_text": "Turn an approved task agreement and evidence set into one inspectable objective-to-proof snapshot.",
+            "headline": "Make the evidence traceable",
+            "description": "Start with a bounded pilot.",
+            "cta": "Send Message"
+          }
+        ],
+        "linkedin": [
+          {
+            "angle": "academic_staff",
+            "intro": "VAMP prepares an inspectable objective-to-evidence snapshot while leaving interpretation, ratings and release with authorised people.",
+            "headline": "A clearer performance-evidence trail",
+            "description": "For academic staff, HR teams and department heads.",
+            "cta": "Request a pilot"
+          },
+          {
+            "angle": "performance_operations",
+            "intro": "Consolidate authorised evidence, duplicates, mapping candidates and gaps against an organisation-specific objective profile.",
+            "headline": "Prepare the evidence before review time",
+            "description": "One bounded snapshot with a human final gate.",
+            "cta": "Request a pilot"
+          }
+        ],
+        "google_rsa": {
+          "headlines": [
+            "VAMP Evidence Snapshot",
+            "Map Evidence To Objectives",
+            "Prepare For Performance Review",
+            "Find Performance Evidence Gaps",
+            "Human Review Stays Final",
+            "Pilot One Evidence Snapshot"
+          ],
+          "descriptions": [
+            "Map authorised evidence to objectives, candidates and gaps for human review.",
+            "Prepare an inspectable performance-evidence trail without automating ratings.",
+            "Start with one task agreement and a bounded, authorised evidence set."
+          ]
+        }
+      },
+      "gamma_assets": [
+        {
+          "id": "vamp_hero",
+          "title": "VAMP Performance Evidence hero",
+          "purpose": "website hero and campaign key art",
+          "prompt": "Create one photorealistic 16:9 editorial image for a professional performance-evidence service. Show an authorised staff member at a bright, calm desk comparing a task agreement with a structured evidence ledger and a concise review snapshot. The objective rows, source IDs and gap indicators should look materially plausible but contain no readable personal data. The person is visibly reviewing and annotating the result. Use paper white, charcoal, deep green and restrained magenta accents. No ratings, no approval stamp, no headline, no logo, no dashboard, no presentation slide, no floating cards, no generic corporate stock pose."
+        },
+        {
+          "id": "vamp_mapping_proof",
+          "title": "VAMP objective mapping proof",
+          "purpose": "evidence-mapping campaign creative",
+          "prompt": "Create one detailed 16:9 overhead editorial photograph of an objective-to-evidence review desk. Centre a task agreement with eight objective rows beside a mapping ledger that distinguishes accepted evidence, human-review candidates, duplicates and genuine gaps. Include anonymised email, document and activity evidence around the ledger with plausible source IDs but no readable identities. A reviewer is checking one candidate mapping with a pen. Precise, restrained and audit-like, using white paper, graphite, deep green and magenta accents. No rating score, no approval stamp, no headline, no logo, no infographic board, no floating UI or slide template."
+        },
+        {
+          "id": "vamp_review_pack",
+          "title": "VAMP reviewed snapshot",
+          "purpose": "conversion and process campaign creative",
+          "prompt": "Create a single realistic 16:9 editorial image of a finished performance-evidence snapshot under human review. Show a concise coverage summary, accepted and candidate mapping ledger, duplicate register, provenance notes and an evidence-gap page clipped into one coherent pack. An authorised reviewer is adding a final handwritten note before release. Keep all details anonymous and unreadable. Bright professional workspace, paper white, charcoal, deep green and magenta details. No employee rating, no promotion decision, no approval stamp, no headline, no logo, no presentation deck, no dashboard, no floating cards."
+        }
+      ]
+    }
+  }
+}

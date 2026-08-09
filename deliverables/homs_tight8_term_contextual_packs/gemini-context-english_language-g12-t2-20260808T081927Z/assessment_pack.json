@@ -1,0 +1,247 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "English Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 English Home Language Term 2 Controlled Assessment",
+  "canonical_profile_id": "fet.english_language",
+  "blueprint": "CAPS FET Phase Grade 12 Term 2 English Home Language assessment framework focusing on literary analysis, visual literacy, and transactional/extended writing.",
+  "render_shell": "question_paper",
+  "duration": "2 hours",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "English Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "2",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "literary extract, character, theme and language analysis",
+      "visual literacy and media message interpretation",
+      "quote selection, evidence integration and paragraph structure",
+      "discursive or argumentative writing with coherent development"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Literary Extract, Character, Theme and Language Analysis",
+      "mode": "literary_extract",
+      "instructions": "Read the following extract from 'The Winds of Change' by S. Ndlovu and answer the questions that follow.",
+      "stimulus": "Mr. Khumalo adjusted his spectacles, his eyes scanning the dusty floorboards of the community hall before settling on Thabo. 'You speak of progress, boy, as if it is a crop you can harvest tomorrow. This soil has been dry for decades. You cannot simply pour new ideas into cracked earth and expect a forest.'\n\nThabo stood taller, his hands clenched at his sides. 'With respect, Baba, if we do not plant now, the wind will carry away what little soil we have left. The youth are not waiting for a forest; we are asking for a single seed of opportunity. Your caution is no longer a shield; it has become our cage.'\n\nMr. Khumalo sighed, the heavy sound echoing in the quiet room. He turned his back to the window, blocking the afternoon light, casting a long shadow that stretched across the table between them.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Analyze the contrast between Mr. Khumalo's and Thabo's perspectives on change, referencing their specific dialogue in the extract.",
+          "marks": 4,
+          "memo": [
+            "Mr. Khumalo views change as a slow, organic process that cannot be rushed, especially in an unprepared environment ('This soil has been dry for decades'). (2 marks)",
+            "Thabo views change as an urgent necessity to prevent further decay and loss ('if we do not plant now, the wind will carry away what little soil we have left'). (2 marks)"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain how the metaphors of 'cracked earth' and 'seed of opportunity' reflect the central theme of generational conflict in this extract.",
+          "marks": 4,
+          "memo": [
+            "'Cracked earth' represents the older generation's view of a damaged, fragile community that is unready for radical ideas. (2 marks)",
+            "'Seed of opportunity' represents the younger generation's hope and demand for a starting point, showing their willingness to take risks despite the harsh conditions. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Discuss the dramatic impact of the action where Mr. Khumalo 'turned his back to the window, blocking the afternoon light'. How does this action reinforce his characterization?",
+          "marks": 4,
+          "memo": [
+            "The action physically symbolizes his resistance to progress and new ideas (blocking the light of the future/afternoon). (2 marks)",
+            "It reinforces his characterization as an obstructionist or a figure of dark, looming traditional authority ('casting a long shadow') over the younger generation. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Write a cohesive paragraph of 50-60 words that integrates the quote 'Your caution is no longer a shield; it has become our cage' to argue that Thabo views traditional authority as restrictive.",
+          "marks": 5,
+          "memo": [
+            "Award 2 marks for paragraph structure (topic sentence, supporting details, concluding sentence).",
+            "Award 2 marks for seamless integration of the quote without grammatical disruption.",
+            "Award 1 mark for correct word count and language accuracy."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Identify the tone in Thabo's response ('With respect, Baba...') and evaluate whether his register remains appropriate for addressing an elder in this context.",
+          "marks": 4,
+          "memo": [
+            "The tone is assertive yet formally respectful. (2 marks)",
+            "The register is appropriate because he uses the honorific 'Baba' and polite phrasing ('With respect') to maintain cultural decorum while firmly challenging the elder's stance. (2 marks)"
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Rewrite the following sentence from the extract, correcting the grammatical error in concord: 'The youth is not waiting for a forest; they are asking for a single seed.'",
+          "marks": 4,
+          "memo": [
+            "Correct sentence: 'The youth are not waiting for a forest; they are asking for a single seed.' (2 marks for changing 'is' to 'are' to match the plural pronoun 'they' and collective noun 'youth' in this context).",
+            "Award 2 marks for maintaining the correct punctuation and overall sentence structure."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Visual Literacy and Media Message Interpretation",
+      "mode": "visual_literacy",
+      "instructions": "Refer to the 'language_response_planner' (Text response and language planner) workspace layout, which contains the following designated sections: 'text panel', 'main idea', 'evidence', 'plan', 'draft', and 'edit'. Use this structural framework to answer the questions below.",
+      "stimulus": "The 'language_response_planner' is a visual workspace designed to help learners systematically deconstruct media messages and plan their written responses.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Explain how a reader should utilize the 'text panel' section of the planner to isolate key visual elements when analyzing a high-impact media advertisement.",
+          "marks": 3,
+          "memo": [
+            "The 'text panel' should be used to transcribe or note down the literal visual details, copy, and layout elements of the advertisement. (2 marks)",
+            "This prevents the reader from making premature interpretations before analyzing the facts. (1 mark)"
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Describe the relationship between the 'main idea' and 'evidence' blocks in the planner when formulating an analysis of a target audience's emotional response.",
+          "marks": 4,
+          "memo": [
+            "The 'main idea' block states the core claim about what emotional response the advertisement intends to evoke. (2 marks)",
+            "The 'evidence' block must contain specific visual or textual proofs (such as facial expressions, color choices, or slogans) that directly support that claim. (2 marks)"
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "Analyze how the transition from the 'plan' block to the 'draft' block ensures that a paragraph maintains a logical, coherent development of an argument.",
+          "marks": 4,
+          "memo": [
+            "The 'plan' block allows the writer to outline the sequence of points and transitions. (2 marks)",
+            "The 'draft' block expands these points into full sentences, ensuring that the logical flow established in the plan is maintained without losing focus. (2 marks)"
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Explain how the 'edit' block can be systematically used to identify and correct stylistic flaws, such as passive voice or ambiguous pronoun reference, in a written analysis.",
+          "marks": 4,
+          "memo": [
+            "The 'edit' block serves as a checklist where the writer actively scans the draft for passive verbs and replaces them with active ones to strengthen the analysis. (2 marks)",
+            "It also allows the writer to trace pronouns back to their nouns to ensure clear, unambiguous references. (2 marks)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Discursive or Argumentative Writing",
+      "mode": "transactional_writing",
+      "instructions": "Write an argumentative or discursive essay on ONE of the following topics. Your essay must be 350\u2013400 words in length. Ensure that you use the 'language_response_planner' structure to organize your thoughts before writing.",
+      "stimulus": "Topic 1: 'The digital age has brought us closer together, yet left us more isolated than ever.'\n\nOR\n\nTopic 2: 'True leadership lies not in asserting authority, but in fostering collaboration across generations.'",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Write a well-structured discursive or argumentative essay based on your chosen topic. Your response will be assessed on coherent development, effective paragraphing, and language accuracy.",
+          "marks": 30,
+          "memo": [
+            "Planning and Structure (10 marks): Evidence of using the planner, logical introduction, body paragraphs with clear topic sentences, and a strong conclusion.",
+            "Content and Argumentation (10 marks): Depth of argument, balanced perspective (if discursive) or strong persuasive stance (if argumentative), and original insights.",
+            "Language, Style, and Editing (10 marks): Correct grammatical structures, appropriate register, varied sentence lengths, and evidence of editing."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Literary Analysis and Textual Evidence (Section A)",
+      "marks": 15,
+      "descriptor": "Demonstrates deep understanding of characterization, theme, and dramatic action. Successfully integrates textual quotes to support analytical claims."
+    },
+    {
+      "criterion": "Language Structures, Editing, and Register (Section A)",
+      "marks": 10,
+      "descriptor": "Accurately identifies and corrects grammatical errors (concord, sentence structure) and evaluates tone and register appropriateness."
+    },
+    {
+      "criterion": "Visual Literacy and Media Interpretation (Section B)",
+      "marks": 15,
+      "descriptor": "Effectively analyzes the structure of visual communication and planning. Demonstrates clear understanding of how to transition from planning to drafting."
+    },
+    {
+      "criterion": "Planning, Structure, and Coherent Development (Section C)",
+      "marks": 10,
+      "descriptor": "Essay shows clear evidence of systematic planning. Paragraphs are logically sequenced with strong transitions and a cohesive overall structure."
+    },
+    {
+      "criterion": "Content, Argumentation, and Originality (Section C)",
+      "marks": 10,
+      "descriptor": "Arguments are highly persuasive or well-balanced, showing mature insight into the chosen topic with original, well-developed ideas."
+    },
+    {
+      "criterion": "Language Accuracy, Style, and Editing (Section C)",
+      "marks": 10,
+      "descriptor": "Virtually free of grammatical, spelling, and punctuation errors. Vocabulary is sophisticated and register is consistently appropriate."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum to exactly 70 across all sections.",
+    "Confirm that the literary extract contains rich enough language for Grade 12 analysis.",
+    "Ensure the visual literacy questions directly reference the components of the 'language_response_planner'.",
+    "Check that the essay topics align with CAPS requirements for discursive and argumentative writing."
+  ],
+  "language_of_assessment": "English",
+  "opportunity": 2,
+  "generation_backend": "gemini_contextual_knowledge_packet",
+  "knowledge_packet_schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "validation_errors": []
+}

@@ -1,0 +1,576 @@
+{
+  "schema": "dio.campaign.live_market_signals.v1",
+  "observation_id": "LIVE-OBS-90B2FB37CD5616B1",
+  "campaign_id": "CMP-E96BD8B1464A",
+  "hypothesis_id": "W4-HYP-0011",
+  "product_layer": "evidex",
+  "source_system": "nichefoundry_connector_federation",
+  "connectors": [
+    {
+      "id": "youtube_public_discovery",
+      "adapter": "youtube_public",
+      "version": "1.0.0",
+      "trust_note": "Public metadata is market evidence, not factual source evidence for a script."
+    },
+    {
+      "id": "rss_monitor",
+      "adapter": "rss",
+      "version": "1.0.0",
+      "trust_note": "Feed descriptions are discovery leads. Full source review is still required for factual claims."
+    }
+  ],
+  "search": {
+    "query": "\"donor reporting\" NGO South Africa",
+    "region_code": "ZA",
+    "relevance_language": "en",
+    "published_after_days": 365,
+    "started_at": "2026-08-09T01:02:03.840Z",
+    "finished_at": "2026-08-09T01:02:15.740Z"
+  },
+  "depth": {
+    "returned_videos": 4,
+    "relevant_videos": 4,
+    "rejected_as_irrelevant": 0,
+    "returned_news_or_blog_items": 20,
+    "relevant_news_or_blog_items": 1,
+    "rejected_news_or_blog_items": 19,
+    "approximate_search_results": 4,
+    "total_views_in_sample": 128,
+    "median_views_in_sample": 17,
+    "latest_published_at": "2026-05-05T00:50:31Z",
+    "scored_candidates": 5
+  },
+  "top_opportunities": [
+    {
+      "opportunity_id": "opp_2a0a9eab37e5b044",
+      "title": "Introducing a new way for NGOs to report their contribution to the Sustainable Development Goals - bond.org.uk",
+      "decision": "watch",
+      "opportunity_score": 49,
+      "audience_demand": 0.45,
+      "content_gap": 0.58,
+      "source_hints": [
+        "https://news.google.com/rss/articles/CBMizwFBVV95cUxPSFFkZlBFWnpFN1BxLUllSVY1bTk1c0lzQ0ZMc0UxcG1wTFl5UnhzZFpZNWY2ejF2eTdKcFp6MzE0Nms4cUdyVnBibVNqa2cwc2ZMUnljMlVyZTQ4enhfM0VMY3dfazNSRV9PMFdBaU9wczNHR08wcW9zLU5DMWZVOHFxdGtIa294TWZGVFduMVJld0U5OWwxOXNMZWhGYmV1ZXlJVlExSVdUR0xaMS1iYk0yUmJCbmpRNVJyczRBRUZXSFdEblp2QnFRcEhHa2M?oc=5",
+        "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen"
+      ],
+      "discovery_channel": "rss_news_search"
+    },
+    {
+      "opportunity_id": "opp_844810d18a7aa46f",
+      "title": "Durban Documentary | SAFDA at 10 Years | A Decade Empowering South African Farmers | NGO Film",
+      "decision": "reject_fit",
+      "opportunity_score": 42,
+      "audience_demand": 0.28,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=JFtDd4QW9U4"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_db43b6c6933746e1",
+      "title": "How to Run a Custom Tracking Category Report in Xero | Project and Donor Reporting (South Africa)",
+      "decision": "reject_fit",
+      "opportunity_score": 40,
+      "audience_demand": 0.197,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=nLcq6JUgvG0"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_cc13e68a1a02450a",
+      "title": "NGOs Are Losing Funding — Their Reports Are the Problem",
+      "decision": "reject_fit",
+      "opportunity_score": 39,
+      "audience_demand": 0.149,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=c4uZ7w7wbXg"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    },
+    {
+      "opportunity_id": "opp_207d9e896bc3c127",
+      "title": "Xero Session 6 Recording 1 How to find Tracking Categories in the new updated Xero View",
+      "decision": "reject_fit",
+      "opportunity_score": 35,
+      "audience_demand": 0.111,
+      "content_gap": 0.9,
+      "source_hints": [
+        "https://www.youtube.com/watch?v=8xCURjcCOtY"
+      ],
+      "discovery_channel": "youtube_public_connector"
+    }
+  ],
+  "records": [
+    {
+      "video_id": "nLcq6JUgvG0",
+      "title": "How to Run a Custom Tracking Category Report in Xero | Project and Donor Reporting (South Africa)",
+      "description": "Learn how to run a custom report for a Tracking Category in Xero so your South African NPO, NGO, or non-profit organisation can report by project, donor, funder, programme, or cost centre. This tutorial shows you how to filter a report by tracking category, customise the layout, and save the report so you can reuse it for monthly reporting and funder reporting. Tracking Category reporting is one of the best ways to produce clean project and donor reports in Xero without duplicating accounts in your Chart of Accounts. In this video you’ll see: How to select a Tracking Category in Xero reporting How to run a report filtered by project, donor, or programme How to customise a report layout for clearer tracking category reporting How to compare periods and drill down into figures How to save and reuse the custom tracking category report Tips for accurate tracking category reporting for NPOs Common searches this video helps with: xero tracking category report custom report xero tracking category run report by tracking category xero xero project report custom xero donor reporting xero xero funder reporting xero npo reporting south africa This is part of Turning Point Chartered Accountants’ Xero tutorial series for South African NPOs, NGOs, and non-profit organisations.",
+      "channel_id": "UCAT8cryMz536R2xAnAqEWJA",
+      "channel_title": "Turning Point Chartered Accountants",
+      "published_at": "2026-02-02T12:52:23Z",
+      "views": 23,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT1M21S",
+      "url": "https://www.youtube.com/watch?v=nLcq6JUgvG0",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "donor",
+          "ngo",
+          "non-profit",
+          "npo",
+          "funder",
+          "report",
+          "reporting"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "c4uZ7w7wbXg",
+      "title": "NGOs Are Losing Funding — Their Reports Are the Problem",
+      "description": "NGOs and CSR teams are doing extraordinary work — but losing funding because they cannot communicate their impact effectively. Oageng Tsatsi, the founder of OagengAIComms, breaks down the structural imbalance that is keeping the Global South from accessing the funding it deserves and introduces ImpactReport AI, the platform she built to solve it. 📊 What you will learn: → Why rigid donor reporting structures prevent NGOs from telling their full story → How only 2.1% of global civil society funding reaches the Global South directly → How ImpactReport AI generates a complete, branded donor report in under 60 seconds → How FunderIQ gives funders portfolio-level intelligence across all grantees 🆓 Generate your first impact report FREE — no credit card needed: 👉 https://impactreportai.oagengaicomms.com 📋 Are you an NGO leader or CSR manager? Take our FREE AI & Digital Readiness Mini Assessment — understand exactly where your organisation stands in the age of AI, in under 15 minutes. 📩 Email: info@oagengaicomms.com 🌐 Website: https://oagengaicomms.com 🔔 Subscribe for weekly content on AI, impact reporting, and the future of the development sector. 📌 Share this with one NGO leader who needs to hear it.",
+      "channel_id": "UC1V36EmSlUOTgYeHJr-Ogwg",
+      "channel_title": "oagengaicomms",
+      "published_at": "2026-05-05T00:50:31Z",
+      "views": 10,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT2M41S",
+      "url": "https://www.youtube.com/watch?v=c4uZ7w7wbXg",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "donor",
+          "ngo",
+          "grant",
+          "funder",
+          "report",
+          "reporting"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "JFtDd4QW9U4",
+      "title": "Durban Documentary | SAFDA at 10 Years | A Decade Empowering South African Farmers | NGO Film",
+      "description": "NGO documentary marking a decade of agricultural development across South Africa — produced by Audio Visual Lab, Durban's leading documentary and nonprofit video production company. SAFDA (South African Farmers Development Association) has spent 10 years empowering South African farmers through capacity building, economic development, and sector-wide transformation. This anniversary documentary captures the people, the milestones, and the impact behind one of South Africa's most dedicated agricultural NGOs. Filmed across South Africa, this documentary serves as a legacy record, donor reporting asset, and advocacy tool for SAFDA's continued mission in the agricultural sector. 📍 Filmed across South Africa 🏢 Client: SAFDA — South African Farmers Development Association 🎥 Video Type: NGO Anniversary Documentary | Agricultural Sector | Impact Film ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 🎬 ABOUT AUDIO VISUAL LAB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Audio Visual Lab is Durban's leading NGO and documentary video production company. We produce impact documentaries, anniversary films, and social development content for NGOs, development agencies, and agricultural organisations across South Africa and internationally. Our documentary work has been produced for CSIR, UNDP, VVOB, SAFDA, and leading SA government institutions. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 📞 COMMISSION YOUR NGO OR ANNIVERSARY DOCUMENTARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 👉 https://www.audiovisuallab.co.za/contact 📞 Tel: +27 (0)81 511 9869 📧 info@audiovisuallab.co.za 🌐 https://www.audiovisuallab.co.za 📍 Durban HQ | NGO Documentary Production Across South Africa 🔔 Subscribe for more NGO, agricultural, and impact documentary productions from Durban. #SAFDASouthAfrica #NGODocumentary #SouthAfricanFarmers #AgriculturalDevelopmentSA #AudioVisualLab",
+      "channel_id": "UCFq3CTVC6rVgTADLM5OsUFw",
+      "channel_title": "Audio Visual Lab | Video Production Durban",
+      "published_at": "2026-01-28T11:58:35Z",
+      "views": 90,
+      "likes": 0,
+      "comments": 1,
+      "duration": "PT52M30S",
+      "url": "https://www.youtube.com/watch?v=JFtDd4QW9U4",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "donor",
+          "ngo",
+          "nonprofit",
+          "report",
+          "reporting"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "video_id": "8xCURjcCOtY",
+      "title": "Xero Session 6 Recording 1   How to find Tracking Categories in the new updated Xero View",
+      "description": "Learn how to find Tracking Categories in the new updated Xero view and how to use them for project, donor, or programme reporting in your South African NPO, NGO, or non-profit organisation. This tutorial shows you where Tracking Categories are located in the updated Xero interface and what to check so your transactions can be tracked correctly. Tracking Categories are one of the most useful tools in Xero for NPOs that need to report by project, donor, funder, programme, or cost centre. When set up correctly, they help you produce clearer reports without changing your Chart of Accounts. In this video you’ll see: Where to find Tracking Categories in the new Xero view How Tracking Categories work for project and donor reporting What to check before you start using tracking on transactions Examples of how NPOs use tracking categories for funder reporting Common mistakes to avoid when setting up or selecting tracking Common searches this video helps with: xero tracking categories new view where to find tracking categories in xero xero tracking categories updated view xero tracking categories for nonprofits xero donor tracking xero project tracking xero npo reporting south africa This is part of Turning Point Chartered Accountants’ Xero tutorial series for South African NPOs, NGOs, and non-profit organisations.",
+      "channel_id": "UCAT8cryMz536R2xAnAqEWJA",
+      "channel_title": "Turning Point Chartered Accountants",
+      "published_at": "2026-01-30T12:06:25Z",
+      "views": 5,
+      "likes": 0,
+      "comments": 0,
+      "duration": "PT3M10S",
+      "url": "https://www.youtube.com/watch?v=8xCURjcCOtY",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "donor",
+          "ngo",
+          "nonprofit",
+          "non-profit",
+          "npo",
+          "funder",
+          "report",
+          "reporting"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    }
+  ],
+  "news_or_blog_records": [
+    {
+      "title": "Call for urgent support for NPOs - SABC News",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBHTk5FWlVsNG5sbzVZdTc0S0pRNTdnS3dHZkFsQmUyUUM4elF0LVdGaEFnT1ZFc21qem9NaW11RUtrQl9jS0laRFB5X1QxQ2pjaFdIOTNPV1kySWx0YWlWenFYVmQtTm5XUlF4SWdQeWN5RWRURmc?oc=5",
+      "description": "Call for urgent support for NPOs &nbsp;&nbsp; SABC News",
+      "published_at": "Tue, 07 Apr 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMidkFVX3lxTFBHTk5FWlVsNG5sbzVZdTc0S0pRNTdnS3dHZkFsQmUyUUM4elF0LVdGaEFnT1ZFc21qem9NaW11RUtrQl9jS0laRFB5X1QxQ2pjaFdIOTNPV1kySWx0YWlWenFYVmQtTm5XUlF4SWdQeWN5RWRURmc",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "npo"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Burkina Faso is right to regulate NGOs - Mail & Guardian",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOT1FUSkR1MmpPOHB5RWRpaVNxRlVTSnVLVkl0VFJFeWl1SUZVQzVKZHN6QzFfcDRpeDdTcDgtUXZyVEsxS1ljVmYzdllIWDlMV05kZm1PeTk3ZVplNlBlUjh0Nm9rNXk0M2FEN21FVl9YZk9OQmhET0w3a3FMbVI0MW5MSFMzYnVQWEE?oc=5",
+      "description": "Burkina Faso is right to regulate NGOs &nbsp;&nbsp; Mail & Guardian",
+      "published_at": "Wed, 22 Apr 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiigFBVV95cUxOT1FUSkR1MmpPOHB5RWRpaVNxRlVTSnVLVkl0VFJFeWl1SUZVQzVKZHN6QzFfcDRpeDdTcDgtUXZyVEsxS1ljVmYzdllIWDlMV05kZm1PeTk3ZVplNlBlUjh0Nm9rNXk0M2FEN21FVl9YZk9OQmhET0w3a3FMbVI0MW5MSFMzYnVQWEE",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "ngo"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Justice Desk Africa is seeking Fundraising and Partnerships Manager, Based in Cape Town, South Africa: Apply by 30 June 2026 - Global South Opportunities",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE84SThsQjZsMmFhbTUtNHY3TVByVGJhN0FQVlh3MWFKSWpsTFRVUmtmM1ZwQmFhLW5xNXdONHpGYjltd25MdldFdGZTVzVjVkI1aUNrYmNYUTlmOGhlaWM0Y1FzZnhheE9BcE4yYjFLOHNDNkk?oc=5",
+      "description": "Justice Desk Africa is seeking Fundraising and Partnerships Manager, Based in Cape Town, South Africa: Apply by 30 June 2026 &nbsp;&nbsp; Global South Opportunities",
+      "published_at": "Sun, 07 Jun 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMic0FVX3lxTE84SThsQjZsMmFhbTUtNHY3TVByVGJhN0FQVlh3MWFKSWpsTFRVUmtmM1ZwQmFhLW5xNXdONHpGYjltd25MdldFdGZTVzVjVkI1aUNrYmNYUTlmOGhlaWM0Y1FzZnhheE9BcE4yYjFLOHNDNkk",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Update: Calls for urgent donations as Cape storm leaves 83 184 affected - Cape Town ETC",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE14MWxVVkR1aTFXMXNQQXZ2cm9Ibm1qUk1yMVJGWmxUQndOTUQyLUF5RFZocFpzQkc0SGFRQnJ5SklHLVRWVjNnLTJsbmVwbnZ1Rm90SmtCZC11c2JJaG93YzM5X1hPbzBaSDVVM2RGU3ZMaDNwVEhEM05xQkV2QQ?oc=5",
+      "description": "Update: Calls for urgent donations as Cape storm leaves 83 184 affected &nbsp;&nbsp; Cape Town ETC",
+      "published_at": "Tue, 12 May 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMifkFVX3lxTE14MWxVVkR1aTFXMXNQQXZ2cm9Ibm1qUk1yMVJGWmxUQndOTUQyLUF5RFZocFpzQkc0SGFRQnJ5SklHLVRWVjNnLTJsbmVwbnZ1Rm90SmtCZC11c2JJaG93YzM5X1hPbzBaSDVVM2RGU3ZMaDNwVEhEM05xQkV2QQ",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Financing models for biogas technology in rural areas: insights from global and South African experiences - Frontiers",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbDFXSXByaklKYnNBdWs0RU1ValI0NkFHNzU2eVlQaVBWODU2NDdrclJ3WnJKQUUxTUVsc1FpLVYwS2ZuaFVSR1lCQXZSRTRiRGVNbjZTaVdibWNKQ2ctbEsyR2FWdENRa1BlMUxRRC1BN2ZtUU9HdzNlcHVGSnl3a3VaQkJfTVIzXzBXWUxR?oc=5",
+      "description": "Financing models for biogas technology in rural areas: insights from global and South African experiences &nbsp;&nbsp; Frontiers",
+      "published_at": "Wed, 11 Feb 2026 17:22:00 GMT",
+      "author": null,
+      "guid": "CBMijgFBVV95cUxPbDFXSXByaklKYnNBdWs0RU1ValI0NkFHNzU2eVlQaVBWODU2NDdrclJ3WnJKQUUxTUVsc1FpLVYwS2ZuaFVSR1lCQXZSRTRiRGVNbjZTaVdibWNKQ2ctbEsyR2FWdENRa1BlMUxRRC1BN2ZtUU9HdzNlcHVGSnl3a3VaQkJfTVIzXzBXWUxR",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Introducing a new way for NGOs to report their contribution to the Sustainable Development Goals - bond.org.uk",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPSFFkZlBFWnpFN1BxLUllSVY1bTk1c0lzQ0ZMc0UxcG1wTFl5UnhzZFpZNWY2ejF2eTdKcFp6MzE0Nms4cUdyVnBibVNqa2cwc2ZMUnljMlVyZTQ4enhfM0VMY3dfazNSRV9PMFdBaU9wczNHR08wcW9zLU5DMWZVOHFxdGtIa294TWZGVFduMVJld0U5OWwxOXNMZWhGYmV1ZXlJVlExSVdUR0xaMS1iYk0yUmJCbmpRNVJyczRBRUZXSFdEblp2QnFRcEhHa2M?oc=5",
+      "description": "Introducing a new way for NGOs to report their contribution to the Sustainable Development Goals &nbsp;&nbsp; bond.org.uk",
+      "published_at": "Mon, 16 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMizwFBVV95cUxPSFFkZlBFWnpFN1BxLUllSVY1bTk1c0lzQ0ZMc0UxcG1wTFl5UnhzZFpZNWY2ejF2eTdKcFp6MzE0Nms4cUdyVnBibVNqa2cwc2ZMUnljMlVyZTQ4enhfM0VMY3dfazNSRV9PMFdBaU9wczNHR08wcW9zLU5DMWZVOHFxdGtIa294TWZGVFduMVJld0U5OWwxOXNMZWhGYmV1ZXlJVlExSVdUR0xaMS1iYk0yUmJCbmpRNVJyczRBRUZXSFdEblp2QnFRcEhHa2M",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": true,
+        "matched_terms": [
+          "ngo",
+          "report"
+        ],
+        "matched_groups": 2,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "How good are South Africans at giving? - SA Good News",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5ud1BWbTFnVHNLOEhub3JaRlNvUm8zVGF0OTVUQ09Sbk9DeXIyalpJamtNc01EWjlkb190V04xQ1VXc01wUWtlS2VIamhXeXRJNnU4Ti14cEEwdjRrLTl6b0t1S1lpRFNKYXBRejF1TjZBSzBwU1E?oc=5",
+      "description": "How good are South Africans at giving? &nbsp;&nbsp; SA Good News",
+      "published_at": "Sat, 07 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMidkFVX3lxTE5ud1BWbTFnVHNLOEhub3JaRlNvUm8zVGF0OTVUQ09Sbk9DeXIyalpJamtNc01EWjlkb190V04xQ1VXc01wUWtlS2VIamhXeXRJNnU4Ti14cEEwdjRrLTl6b0t1S1lpRFNKYXBRejF1TjZBSzBwU1E",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Health sector struggles to transition from donor money - monitor.co.ug",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQkNqRTdQel9IazNNYkdPVWdvSXBfUW5oTDJac0h3R0N0dFZsYXowRzlnM05wTFJpbjlHdmJjeHhjaDFYRmZlUXdPWDBkTTNndG5SWUd5aFZvSXNrRDNXTzRWLVFybWFjT01ha2lfRzZoTXRLM18wS3BVUy1LVXlKQS1xaklwcW1HQXltSjd6dzY5d0xqb3gyN2tEN1dYQzh2UHM3VWdnRXJJeUMxOUtEdg?oc=5",
+      "description": "Health sector struggles to transition from donor money &nbsp;&nbsp; monitor.co.ug",
+      "published_at": "Wed, 10 Jun 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMisAFBVV95cUxPQkNqRTdQel9IazNNYkdPVWdvSXBfUW5oTDJac0h3R0N0dFZsYXowRzlnM05wTFJpbjlHdmJjeHhjaDFYRmZlUXdPWDBkTTNndG5SWUd5aFZvSXNrRDNXTzRWLVFybWFjT01ha2lfRzZoTXRLM18wS3BVUy1LVXlKQS1xaklwcW1HQXltSjd6dzY5d0xqb3gyN2tEN1dYQzh2UHM3VWdnRXJJeUMxOUtEdg",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "donor"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "‘They’re in the wind’: How US cuts pushed trans people out of care - Bhekisisa",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOeEFUUWdLUGl5UXJqRjZqbUxJN0tSTjdnUGs0OWw4SzFrQ0pUV1l0TEJUcXVkVDUxLWszdFprbUpoVUtrTE5ab21JRk9ZSUs3QXh4dFdvZkd0bVBsU05XX1B5ODUzOGVrUzNING5pT0VHcDR0SWo5aVBlYng0eEp3SU5CcXNTRXZfWGY3dVQwWXVBUWIxdExXby05VE85YzN6aDZSRm1MdjQwTjJHTFVUVUM0Vnhnejg?oc=5",
+      "description": "‘They’re in the wind’: How US cuts pushed trans people out of care &nbsp;&nbsp; Bhekisisa",
+      "published_at": "Thu, 25 Jun 2026 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMitwFBVV95cUxOeEFUUWdLUGl5UXJqRjZqbUxJN0tSTjdnUGs0OWw4SzFrQ0pUV1l0TEJUcXVkVDUxLWszdFprbUpoVUtrTE5ab21JRk9ZSUs3QXh4dFdvZkd0bVBsU05XX1B5ODUzOGVrUzNING5pT0VHcDR0SWo5aVBlYng0eEp3SU5CcXNTRXZfWGY3dVQwWXVBUWIxdExXby05VE85YzN6aDZSRm1MdjQwTjJHTFVUVUM0Vnhnejg",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The Balancing Act of Donor-Funded Journalism: A Case Study from South Africa - Global Investigative Journalism Network (GIJN)",
+      "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBXcFMzSnJ2M1FQc3ZSbmExR3JMZWNzMVNMTDZhYnR5TTdVYWNVNWl1OUNFRl9zbVZCRkJXUkE3eXNuX1hNUmR6SEFRaw?oc=5",
+      "description": "The Balancing Act of Donor-Funded Journalism: A Case Study from South Africa &nbsp;&nbsp; Global Investigative Journalism Network (GIJN)",
+      "published_at": "Wed, 14 Feb 2018 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMiS0FVX3lxTFBXcFMzSnJ2M1FQc3ZSbmExR3JMZWNzMVNMTDZhYnR5TTdVYWNVNWl1OUNFRl9zbVZCRkJXUkE3eXNuX1hNUmR6SEFRaw",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "donor"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Trump’s funding freeze threatens to paralyse SA NGOs - Juta MedicalBrief",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE8tQlczdzZ0X0NnUkFfaEk4WTFjNDQtOVd6clkxM3BTeUlSMWJVazUxeHA4c3JSZnpNMDZpeGt5Ykg1YUg3ZE9pYUpQRlU2RVRBZkxGSGk2RXFoM3F4Y1NJZGd5ZHljdDVoRzkzQ1hyLVlKTXRIS0JNaGJTcw?oc=5",
+      "description": "Trump’s funding freeze threatens to paralyse SA NGOs &nbsp;&nbsp; Juta MedicalBrief",
+      "published_at": "Wed, 29 Jan 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMie0FVX3lxTE8tQlczdzZ0X0NnUkFfaEk4WTFjNDQtOVd6clkxM3BTeUlSMWJVazUxeHA4c3JSZnpNMDZpeGt5Ykg1YUg3ZE9pYUpQRlU2RVRBZkxGSGk2RXFoM3F4Y1NJZGd5ZHljdDVoRzkzQ1hyLVlKTXRIS0JNaGJTcw",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "ngo"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "20 Nonprofit Industry Trends to Capitalize On in 2026 - shopify.com",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9SdzNRQlNibE9KaUdlenZaMTNfVE1PeVUyUjBHWEZWdE5MRUItdWxYcklQZmNHZ3JSUm1CaVNBek52LUNEU2FtUnF5UHZpRWQ1UFFSN18zLXhjUW5Jb2JMMkpid1FoMTdMYkM2Z0ltVWR4b0p0WFRnTg?oc=5",
+      "description": "20 Nonprofit Industry Trends to Capitalize On in 2026 &nbsp;&nbsp; shopify.com",
+      "published_at": "Thu, 06 Nov 2025 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMieEFVX3lxTE9SdzNRQlNibE9KaUdlenZaMTNfVE1PeVUyUjBHWEZWdE5MRUItdWxYcklQZmNHZ3JSUm1CaVNBek52LUNEU2FtUnF5UHZpRWQ1UFFSN18zLXhjUW5Jb2JMMkpid1FoMTdMYkM2Z0ltVWR4b0p0WFRnTg",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "nonprofit"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "SA has very low organ donation rates – how can we fix it? - spotlightnsp.co.za",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNaHRHYlFjR2tDSk1qaEtvLTk4WE9mMHd4ckp0MWp2YkZMMlkyazVET0o0cWFzSkNad1FFQUVYVWl0MzI1eUVqY0E2UFZBczdOSzIyUUtaS3Q2T0NzdGZqdW9iYi1jNEFQREt6dV9GZi1FVFJMZThKWVhqbUh1clUwSDRZaGtsYmQtb05qdzdVRHNMeF82dzE4V0x0d1BDUQ?oc=5",
+      "description": "SA has very low organ donation rates – how can we fix it? &nbsp;&nbsp; spotlightnsp.co.za",
+      "published_at": "Mon, 29 Sep 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMingFBVV95cUxNaHRHYlFjR2tDSk1qaEtvLTk4WE9mMHd4ckp0MWp2YkZMMlkyazVET0o0cWFzSkNad1FFQUVYVWl0MzI1eUVqY0E2UFZBczdOSzIyUUtaS3Q2T0NzdGZqdW9iYi1jNEFQREt6dV9GZi1FVFJMZThKWVhqbUh1clUwSDRZaGtsYmQtb05qdzdVRHNMeF82dzE4V0x0d1BDUQ",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Tax Exempt Institutions Connect Issue 4 (April 2024) - South African Revenue Service",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWDc0M0RJZ3AyNVFlWHlSbGQxTlNUQnlPWFEwUVZSX3RYMmRONGRxWnhQRTRVd2RGUUFXTE4tTzZXaHhjN3JWbURuTTRfaEtISHg1VjUycnVTSmd1bFk4TjhyNHpNWEF5N2ZoYnh3aERTaEhqS2w5Z0c5T2J4RlUyd1pTdXhZLUlxWkNLd1J2alpiYy1Jcll5RFNqa05TTlV2eGpHWlJ3N3FpNGdaVGhwVF95WXlLTDBWRHBSazM3X1hUdw?oc=5",
+      "description": "Tax Exempt Institutions Connect Issue 4 (April 2024) &nbsp;&nbsp; South African Revenue Service",
+      "published_at": "Thu, 18 Apr 2024 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiwgFBVV95cUxQWDc0M0RJZ3AyNVFlWHlSbGQxTlNUQnlPWFEwUVZSX3RYMmRONGRxWnhQRTRVd2RGUUFXTE4tTzZXaHhjN3JWbURuTTRfaEtISHg1VjUycnVTSmd1bFk4TjhyNHpNWEF5N2ZoYnh3aERTaEhqS2w5Z0c5T2J4RlUyd1pTdXhZLUlxWkNLd1J2alpiYy1Jcll5RFNqa05TTlV2eGpHWlJ3N3FpNGdaVGhwVF95WXlLTDBWRHBSazM3X1hUdw",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Beleaguered NPOs — trying to hit the mark but missing the point - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQdDVReUZ1WXRIWnRkWHZ2X0wtU19zbGd4MnZpNk54eEp3cG53ZDFJbjRQM3BtTTVlN1V5eFA0N3FmbWhrMGxvTFlSSFNyUlRmTEMtcWE5MzNMWlFxcWl3dUtQbEN1LU9MaDh5cHVpcHlwamlHR29oaks0SkJWN2g3R3RsQnVFUDd5bUdocGp5U21IYjltZmRuX2l3N0N6RmprTVhLYWpGMTRBQlJIWTRFd2g1SQ?oc=5",
+      "description": "Beleaguered NPOs — trying to hit the mark but missing the point &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Mon, 12 May 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMiswFBVV95cUxQdDVReUZ1WXRIWnRkWHZ2X0wtU19zbGd4MnZpNk54eEp3cG53ZDFJbjRQM3BtTTVlN1V5eFA0N3FmbWhrMGxvTFlSSFNyUlRmTEMtcWE5MzNMWlFxcWl3dUtQbEN1LU9MaDh5cHVpcHlwamlHR29oaks0SkJWN2g3R3RsQnVFUDd5bUdocGp5U21IYjltZmRuX2l3N0N6RmprTVhLYWpGMTRBQlJIWTRFd2g1SQ",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "npo"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "South Africa's Manufactured Russia Panic – From Job Recruitment to Global Conflict Narratives - IOL",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQeG9NbFFma1U4eUJGMThWVjZhWFpiZlhDNnkzOC1WYXZUd3cwMDNCdmEyS3JCb3V0cEh3cG4zeEhid3ZSUEc4S1VnYmNzUklQTTB3czlzd3FNelNWelJGTDcyNktxaXloSHpuOXNMek91b2ducC1xcTRZcDlJUkdCcXprM2FheDRuNzhNZjZmZmtmRnFVdHJKeE1xTVUwOWpHU2N2S2VVa1ZxMk42ejQ5dFZNcXZXVmtnVEowODZZdm80M05fS2VuM2VmUHVhQQ?oc=5",
+      "description": "South Africa's Manufactured Russia Panic – From Job Recruitment to Global Conflict Narratives &nbsp;&nbsp; IOL",
+      "published_at": "Mon, 01 Sep 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMizgFBVV95cUxQeG9NbFFma1U4eUJGMThWVjZhWFpiZlhDNnkzOC1WYXZUd3cwMDNCdmEyS3JCb3V0cEh3cG4zeEhid3ZSUEc4S1VnYmNzUklQTTB3czlzd3FNelNWelJGTDcyNktxaXloSHpuOXNMek91b2ducC1xcTRZcDlJUkdCcXprM2FheDRuNzhNZjZmZmtmRnFVdHJKeE1xTVUwOWpHU2N2S2VVa1ZxMk42ejQ5dFZNcXZXVmtnVEowODZZdm80M05fS2VuM2VmUHVhQQ",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [],
+        "matched_groups": 0,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "New report reveals who is really making money through South Africa’s R1.76 trillion clean energy drive - businesstech.co.za",
+      "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNZXRsbWJIRGJPd2tpZWR2Z0Jmanh6ZzZnc2ZpOURZN3FQTkhUR09TdkNrWVhjUktZc2dPSmRCUWlSR0IzRzNheXZFS0VjcEdFanZ3LVZDbHVlSmw2VnZGbm5EU1NhRm1nMmdveVJaNjhDX3dWZmExaUhvQkdUVEsyX255WWlNLWkxQllUbk05UWR3V01kMUdGZTBwM1dsTTRicUNLSy0xRUZtQXdESWZaRnROVnAzODFINWQyeUptRG5SVzZrRGFOUE1UT0tBZ3VETm91Xzk5MFdRMzFFMFFPYm1OM2I?oc=5",
+      "description": "New report reveals who is really making money through South Africa’s R1.76 trillion clean energy drive &nbsp;&nbsp; businesstech.co.za",
+      "published_at": "Mon, 30 Jun 2025 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMi5AFBVV95cUxNZXRsbWJIRGJPd2tpZWR2Z0Jmanh6ZzZnc2ZpOURZN3FQTkhUR09TdkNrWVhjUktZc2dPSmRCUWlSR0IzRzNheXZFS0VjcEdFanZ3LVZDbHVlSmw2VnZGbm5EU1NhRm1nMmdveVJaNjhDX3dWZmExaUhvQkdUVEsyX255WWlNLWkxQllUbk05UWR3V01kMUdGZTBwM1dsTTRicUNLSy0xRUZtQXdESWZaRnROVnAzODFINWQyeUptRG5SVzZrRGFOUE1UT0tBZ3VETm91Xzk5MFdRMzFFMFFPYm1OM2I",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "report"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Programme Assistant (Remote) 2026 at Forest Peoples Programme | International NGO Career Opportunity - Global South Opportunities",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9SWDZFNXJWUlliS2RRSG5LbnM3cUF2cEFiM1kzSHFUaUxfbEkyaGRhaS1MYnctVXBOa2hWdHFkalRoLVl0YWc1aUxxdklWcUYzYmdoa1g2aWVUUmd0TFVXeHllc1prTWpkX2VMN2tQcnMtR00?oc=5",
+      "description": "Programme Assistant (Remote) 2026 at Forest Peoples Programme | International NGO Career Opportunity &nbsp;&nbsp; Global South Opportunities",
+      "published_at": "Fri, 13 Feb 2026 08:00:00 GMT",
+      "author": null,
+      "guid": "CBMic0FVX3lxTE9SWDZFNXJWUlliS2RRSG5LbnM3cUF2cEFiM1kzSHFUaUxfbEkyaGRhaS1MYnctVXBOa2hWdHFkalRoLVl0YWc1aUxxdklWcUYzYmdoa1g2aWVUUmd0TFVXeHllc1prTWpkX2VMN2tQcnMtR00",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "ngo"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "The Big Eight funders of South Africa’s major political parties who keep the system moving - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxORnZlTDFMNGZCVXU2U1RzN2JSZGU2NWlJX0h5ZjIzbXFwS2Ywd21HM1d0ZFVDM1ZrRW0wMHJ5czRyWFhXdWtmSEFYMFpfekM0RGM5bzZPX3FvUzJSMUlTYmRJRUk5YmNQSnp4YnFuMGdYSkZxT0lmbXYyUkZWSVVDX1ZCQTBMLUhUSFZrTFJLcHViNEJfRkQ3ZEg3UHBobmZSbUtuLXZuVjVCZm9QNnR1SlF0MGw?oc=5",
+      "description": "The Big Eight funders of South Africa’s major political parties who keep the system moving &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Sun, 10 Sep 2023 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMitAFBVV95cUxORnZlTDFMNGZCVXU2U1RzN2JSZGU2NWlJX0h5ZjIzbXFwS2Ywd21HM1d0ZFVDM1ZrRW0wMHJ5czRyWFhXdWtmSEFYMFpfekM0RGM5bzZPX3FvUzJSMUlTYmRJRUk5YmNQSnp4YnFuMGdYSkZxT0lmbXYyUkZWSVVDX1ZCQTBMLUhUSFZrTFJLcHViNEJfRkQ3ZEg3UHBobmZSbUtuLXZuVjVCZm9QNnR1SlF0MGw",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "funder"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    },
+    {
+      "title": "Let it burn, says animal welfare NGO about South Africa’s 75-tonne rhino horn stockpile - Daily Maverick",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNeE50MzlFTGRNc085S0ZJNVc3Rk9oUDdISHJwOUpCMVlycG5Nc3V6dThwSHB5NWYxMnR3aGN4Y3VYQXJFVG0yM0JTU0lINWVXZW5qeHdrZi1CTDZuYWJ4SFNzdENKMDQ3TG52cl9sS1NEdWtiNTJpVVVjb1RjcDhSTUx6SXZ2OTU1N1RwaWlnYUY1UWZ6dVZPQUhEdXhRQkRtM1pIQjhPNmEtUHdLY1BvYmRB?oc=5",
+      "description": "Let it burn, says animal welfare NGO about South Africa’s 75-tonne rhino horn stockpile &nbsp;&nbsp; Daily Maverick",
+      "published_at": "Tue, 19 Mar 2024 07:00:00 GMT",
+      "author": null,
+      "guid": "CBMisgFBVV95cUxNeE50MzlFTGRNc085S0ZJNVc3Rk9oUDdISHJwOUpCMVlycG5Nc3V6dThwSHB5NWYxMnR3aGN4Y3VYQXJFVG0yM0JTU0lINWVXZW5qeHdrZi1CTDZuYWJ4SFNzdENKMDQ3TG52cl9sS1NEdWtiNTJpVVVjb1RjcDhSTUx6SXZ2OTU1N1RwaWlnYUY1UWZ6dVZPQUhEdXhRQkRtM1pIQjhPNmEtUHdLY1BvYmRB",
+      "feed_title": "\"donor reporting NGO South Africa\" - Google News",
+      "feed_url": "https://news.google.com/rss/search?q=donor+reporting+NGO+South+Africa&hl=en-ZA&gl=ZA&ceid=ZA%3Aen",
+      "relevance": {
+        "passed": false,
+        "matched_terms": [
+          "ngo"
+        ],
+        "matched_groups": 1,
+        "required_groups": 2
+      }
+    }
+  ],
+  "provider_state": {
+    "web_news_rss": "connected",
+    "youtube_public": "connected",
+    "facebook_instagram": "pending_meta_access_token_and_page_authority",
+    "linkedin": "not_connected"
+  },
+  "interpretation": {
+    "status": "relevant_live_sample_available",
+    "claim": "Current public YouTube and RSS metadata are market-opportunity evidence only; they are not customer demand, sales proof or factual source evidence.",
+    "hivenance_use": "Attach this observation to the campaign hypothesis before operator release and settle it against measured campaign results later."
+  },
+  "warnings": [
+    "YouTube public metadata is opportunity evidence and cannot satisfy script source requirements.",
+    "RSS/Atom descriptions are source leads and are not eligible for claim extraction by default."
+  ]
+}

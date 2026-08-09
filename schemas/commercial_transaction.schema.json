@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio-workflows.local/schemas/commercial_transaction.schema.json",
+  "title": "DIO canonical commercial transaction",
+  "type": "object",
+  "required": ["schema", "transaction_id", "product", "stage", "lineage", "intake", "payment", "triune", "created_at", "updated_at"],
+  "properties": {
+    "schema": {"const": "dio.commercial_transaction.v1"},
+    "transaction_id": {"type": "string", "pattern": "^TXN-[A-F0-9]{16}$"},
+    "product": {"type": ["string", "null"]},
+    "offer": {"type": ["string", "null"]},
+    "stage": {"enum": ["observed", "acknowledgement_ready", "acknowledged", "qualification_pending", "qualified", "intake_collecting", "intake_ready", "quote_ready", "payment_pending", "paid", "processing", "review_required", "delivery_ready", "delivered", "closeout_ready", "closed", "blocked"]},
+    "customer": {"type": "object"},
+    "lineage": {"type": "object"},
+    "consents": {"type": "object"},
+    "attribution": {"type": "object"},
+    "intake": {"type": "object"},
+    "payment": {"type": "object"},
+    "review_approved": {"type": "boolean"},
+    "signals": {"type": "object"},
+    "triune": {"type": "object"},
+    "next_actions": {"type": "array", "items": {"type": "object"}},
+    "source_paths": {"type": "object"},
+    "event_times": {"type": "array", "items": {"type": "string"}},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": true
+}

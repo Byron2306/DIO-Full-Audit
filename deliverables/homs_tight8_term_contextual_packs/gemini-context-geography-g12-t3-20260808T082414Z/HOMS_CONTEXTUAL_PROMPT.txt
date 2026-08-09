@@ -1,0 +1,325 @@
+You are HyMark's CAPS-aware assessment writer. Create a learner-facing assessment pack as strict JSON.
+
+The previous failure was generic no-context questions. Do not repeat it.
+
+Opportunity: Term 3 controlled assessment
+Subject: Geography
+Subject ID: geography
+Grade: 12
+Phase: fet_exit
+Language of assessment: English
+Focus: economic geography, development and GIS/mapwork; industry, trade, transport, spatial inequality and geographic data; map scale, coordinates, graphs, tables and spatial reasoning; source-based economic geography response with map/data support
+Total marks: 75
+Duration: 1.5 hours
+
+LOCKED SOURCE CARDS. These are the only source/figure facts you may assess:
+{
+  "generic_policy": {
+    "facts": [
+      "Use only visuals named in the visual blueprint.",
+      "Every visual-referenced question must contain concrete observable details, values, labels, or source facts."
+    ]
+  }
+}
+
+Knowledge packet:
+{
+  "schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "created_at": "2026-08-08T08:24:14+00:00",
+  "purpose": "Prevent generic no-context questions by grounding provider generation in CAPS, old-paper source contracts, visual facts, subject profile and hard bans.",
+  "subject_profile": {
+    "schema": "knowedge.homs_subject_profile.v1",
+    "subject_id": "geography",
+    "display_name": "Geography",
+    "default_level": "senior_school",
+    "assessment_modes": [
+      "source_based_exam",
+      "mapwork",
+      "data_response",
+      "diagram_interpretation",
+      "extended_response",
+      "marking_relief"
+    ],
+    "source_types": [
+      "topographic_map_and_orthophoto",
+      "synoptic_weather_map",
+      "map_extract",
+      "photograph_or_image",
+      "graph",
+      "data_table",
+      "text_extract",
+      "diagram"
+    ],
+    "question_families": [
+      "read_map_evidence",
+      "interpret_synoptic_weather",
+      "analyse_graph_or_table",
+      "compare_spatial_patterns",
+      "explain_physical_process",
+      "evaluate_human_environment_interaction",
+      "write_extended_geographical_response"
+    ],
+    "cognitive_targets": [
+      "knowledge",
+      "map_skill",
+      "data_interpretation",
+      "spatial_reasoning",
+      "process_explanation",
+      "evaluation"
+    ],
+    "rubric_dimensions": [
+      "geographical_accuracy",
+      "source_use",
+      "mapwork_method",
+      "data_interpretation",
+      "spatial_reasoning",
+      "terminology"
+    ],
+    "memo_expectations": [
+      "credit source-based evidence explicitly",
+      "separate mapwork method marks from final answers",
+      "accept geographically valid equivalent wording",
+      "flag when a map or photograph must be supplied as an official source asset"
+    ],
+    "retrieval_queries": [
+      "CAPS Geography mapwork source based assessment memorandum",
+      "Geography synoptic weather map assessment questions",
+      "Geography data response and extended writing rubric"
+    ],
+    "human_review_checks": [
+      "verify map extracts and images are present and readable",
+      "confirm scale, direction and grid references are internally consistent",
+      "check terminology against CAPS topic and grade",
+      "confirm extended response mark allocation matches cognitive demand"
+    ],
+    "blocked_claims_or_modes": [
+      "mapwork question without a supplied map or extract",
+      "photograph/image question without supplied visual evidence",
+      "invented place data presented as official",
+      "diagram labels not visible in the source"
+    ]
+  },
+  "grade_profile": {
+    "grade": 12,
+    "phase": "fet_exit",
+    "learner_level": "advanced_school_exit",
+    "bloom_targets": [
+      "apply",
+      "analyze",
+      "evaluate",
+      "create"
+    ],
+    "zpd_level": "expert challenge",
+    "question_style": [
+      "exam_source_set",
+      "extended_case_response",
+      "argumentative_essay",
+      "synthesis_question"
+    ],
+    "reading_load": "high",
+    "writing_load": "high",
+    "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+    "review_checks": [
+      "exit-level standard",
+      "moderation readiness",
+      "equivalent second opportunity",
+      "no undergraduate-only assumptions"
+    ]
+  },
+  "language_of_assessment": "English",
+  "focus": "economic geography, development and GIS/mapwork; industry, trade, transport, spatial inequality and geographic data; map scale, coordinates, graphs, tables and spatial reasoning; source-based economic geography response with map/data support",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Geography",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Geography",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"
+    },
+    "canonical_profile_id": "fet.geography",
+    "assessment_family": "source_based_plus_extended_response",
+    "render_shell": "source_response_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "source_extract",
+        "map_extract",
+        "visual_source",
+        "diagram"
+      ],
+      "source_type_reasons": [
+        "Official old-paper contract: graph_or_chart recurs in P2 settlement_economic_geography_and_mapwork (45 object hit(s) across 6 paper(s)).",
+        "Official old-paper contract: text_extract recurs in P2 settlement_economic_geography_and_mapwork (39 object hit(s) across 6 paper(s)).",
+        "Official old-paper contract: map_extract recurs in P2 settlement_economic_geography_and_mapwork (28 object hit(s) across 6 paper(s)).",
+        "Official old-paper contract: photograph_or_image recurs in P2 settlement_economic_geography_and_mapwork (27 object hit(s) across 6 paper(s)).",
+        "Official old-paper contract: diagram_or_model recurs in P2 settlement_economic_geography_and_mapwork (25 object hit(s) across 6 paper(s))."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/exam_source_contracts.json",
+        "paper": "P2",
+        "paper_theme": "settlement_economic_geography_and_mapwork",
+        "paper_count": 6
+      },
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [
+      "Topic: Time: Additional Resources:",
+      "Economic Geography of South ± 36 hours",
+      "atlases, topographic maps, aerial",
+      "(includes map work, consolidation and",
+      "information on Maputo Corridor:",
+      "Structure of the Economy [3 hours]",
+      "use of statistical and graphical information.",
+      "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"
+    ],
+    "assessment_content_focus": [
+      "economic geography, development and GIS/mapwork",
+      "industry, trade, transport, spatial inequality and geographic data",
+      "map scale, coordinates, graphs, tables and spatial reasoning",
+      "source-based economic geography response with map/data support"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: economic, geography, trade."
+    ],
+    "required_visuals": [
+      {
+        "id": "geo_map_extract",
+        "title": "Map extract with legend, scale, north arrow and labelled features",
+        "role": "stimulus",
+        "visual_kind": "map_extract",
+        "must_show": [
+          "map frame",
+          "legend",
+          "scale",
+          "north arrow",
+          "labelled physical or human features"
+        ],
+        "assessment_use": "Learners identify spatial patterns and cite map evidence."
+      },
+      {
+        "id": "geo_data_table_or_graph",
+        "title": "Geography data table or graph",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "units",
+          "years/categories",
+          "clear trend",
+          "source label"
+        ],
+        "assessment_use": "Learners compare data with the map/source before explaining."
+      },
+      {
+        "id": "geo_process_diagram",
+        "title": "Geography process diagram",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "clear process labels",
+          "direction arrows where needed",
+          "feature labels",
+          "caption"
+        ],
+        "assessment_use": "Learners interpret a geographic process, structure or relationship before explaining."
+      },
+      {
+        "id": "geo_photo_or_infographic_source",
+        "title": "Geography photograph or infographic source",
+        "role": "stimulus",
+        "visual_kind": "source_extract",
+        "must_show": [
+          "caption",
+          "visible evidence cues",
+          "source note",
+          "labelled features"
+        ],
+        "assessment_use": "Learners cite visible evidence from the image/source in structured answers."
+      },
+      {
+        "id": "source_provenance_panel",
+        "title": "Source provenance panel",
+        "role": "stimulus",
+        "visual_kind": "source_extract",
+        "must_show": [
+          "author/origin",
+          "date/context",
+          "caption",
+          "extract or visual description"
+        ],
+        "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+      },
+      {
+        "id": "claim_evidence_reasoning_table",
+        "title": "Claim-evidence-reasoning table",
+        "role": "learner_workspace",
+        "visual_kind": "evidence_table",
+        "must_show": [
+          "claim column",
+          "evidence column",
+          "reasoning/inference column"
+        ],
+        "assessment_use": "Learners connect source evidence to answers."
+      }
+    ],
+    "generation_constra
+
+Design requirements:
+- Use the CAPS ontology and assessment design as authority.
+- Use old-paper source contract only to decide source/stimulus types and question moves.
+- Use the renderable visual facts when writing questions that refer to figures.
+- Treat renderable visual facts as locked source truth: do not invent different figures, organisms, datasets, labels, panels, chemicals or tables.
+- If this packet supplies Figure 1, Figure 2 or Figure 3 facts, the assessment questions must use those exact figure identities and facts.
+- Figure numbering must remain: Figure 1 = finch beak data, Figure 2 = investigation method/data sheet, Figure 3 = hominin skull comparison.
+- Every section must have a concrete, content-specific stimulus or figure reference.
+- Every question must test actual subject content, data interpretation, diagram interpretation, investigation design, or CAPS-aligned reasoning.
+- Memo bullets must be specific enough for marking, with acceptable alternatives where appropriate.
+- Rubric marks must sum exactly to total_marks.
+- Question marks must sum exactly to total_marks.
+- Do not include internal review, smoke-test, product QA, route, source catalogue, or educator-release questions in learner sections.
+- Do not use any hard-ban phrase from the knowledge packet.
+- Do not use any source-drift term from hard_bans, even as an example or comparison.
+
+Return strict JSON only:
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Geography",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "...",
+  "canonical_profile_id": "fet.geography",
+  "blueprint": "...",
+  "render_shell": "...",
+  "duration": "1.5 hours",
+  "total_marks": 75,
+  "visual_blueprint": {"schema": "knowedge.homs_visual_blueprint.v1", "subject": "Geography", "grade": 12, "phase": "fet_grade_10_12", "term": "3", "caps_source": {"title": "Geography", "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf", "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"}, "canonical_profile_id": "fet.geography", "assessment_family": "source_based_plus_extended_response", "render_shell": "source_response_paper", "source_type_contract": {"schema": "knowedge.homs_source_type_contract.v1", "source_types": ["data_table", "source_extract", "map_extract", "visual_source", "diagram"], "source_type_reasons": ["Official old-paper contract: graph_or_chart recurs in P2 settlement_economic_geography_and_mapwork (45 object hit(s) across 6 paper(s)).", "Official old-paper contract: text_extract recurs in P2 settlement_economic_geography_and_mapwork (39 object hit(s) across 6 paper(s)).", "Official old-paper contract: map_extract recurs in P2 settlement_economic_geography_and_mapwork (28 object hit(s) across 6 paper(s)).", "Official old-paper contract: photograph_or_image recurs in P2 settlement_economic_geography_and_mapwork (27 object hit(s) across 6 paper(s)).", "Official old-paper contract: diagram_or_model recurs in P2 settlement_economic_geography_and_mapwork (25 object hit(s) across 6 paper(s))."], "matrix_signals_used": {"signals_source_based": true, "signals_essay_or_extended_response": true, "signals_case_study": true, "signals_data_graph_diagram": true, "signals_practical_investigation": true, "signals_project_or_sba": true, "signals_oral_or_performance": true, "signals_calculation_problem": true, "signals_formal_test_or_exam": true}, "old_paper_contract_used": {"path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/exam_source_contracts.json", "paper": "P2", "paper_theme": "settlement_economic_geography_and_mapwork", "paper_count": 6}, "exam_source_catalogue_used": null}, "caps_theme_candidates": ["Topic: Time: Additional Resources:", "Economic Geography of South ± 36 hours", "atlases, topographic maps, aerial", "(includes map work, consolidation and", "information on Maputo Corridor:", "Structure of the Economy [3 hours]", "use of statistical and graphical information.", "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"], "assessment_content_focus": ["economic geography, development and GIS/mapwork", "industry, trade, transport, spatial inequality and geographic data", "map scale, coordinates, graphs, tables and spatial reasoning", "source-based economic geography response with map/data support"], "content_alignment_notes": ["Requested focus shares CAPS term/theme signals: economic, geography, trade."], "required_visuals": [{"id": "geo_map_extract", "title": "Map extract with legend, scale, north arrow and labelled features", "role": "stimulus", "visual_kind": "map_extract", "must_show": ["map frame", "legend", "scale", "north arrow", "labelled physical or human features"], "assessment_use": "Learners identify spatial patterns and cite map evidence."}, {"id": "geo_data_table_or_graph", "title": "Geography data table or graph", "role": "stimulus", "visual_kind": "data_table", "must_show": ["units", "years/categories", "clear trend", "source label"], "assessment_use": "Learners compare data with the map/source before explaining."}, {"id": "geo_process_diagram", "title": "Geography process diagram", "role": "stimulus", "visual_kind": "axis_diagram", "must_show": ["clear process labels", "direction arrows where needed", "feature labels", "caption"], "assessment_use": "Learners interpret a geographic process, structure or relationship before explaining."}, {"id": "geo_photo_or_infographic_source", "title": "Geography photograph or infographic source", "role": "stimulus", "visual_kind": "source_extract", "must_show": ["caption", "visible evidence cues", "source note", "labelled features"], "assessment_use": "Learners cite visible evidence from the image/source in structured answers."}, {"id": "source_provenance_panel", "title": "Source provenance panel", "role": "stimulus", "visual_kind": "source_extract", "must_show": ["author/origin", "date/context", "caption", "extract or visual description"], "assessment_use": "Learners evaluate usefulness, reliability and perspective."}, {"id": "claim_evidence_reasoning_table", "title": "Claim-evidence-reasoning table", "role": "learner_workspace", "visual_kind": "evidence_table", "must_show": ["claim column", "evidence column", "reasoning/inference column"], "assessment_use": "Learners connect source evidence to answers."}], "generation_constraints": ["Plan visual evidence before writing questions.", "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.", "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.", "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."], "validation_rules": ["No learner-facing question may refer to a missing visual.", "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.", "Visuals must match subject, phase, term/content focus, and assessment family."]},
+  "sections": [
+    {
+      "title": "...",
+      "mode": "...",
+      "instructions": "...",
+      "stimulus": "Concrete context, data, figure reference, diagram reference or source extract.",
+      "questions": [
+        {"number": "1.1", "question": "...", "marks": 2, "memo": ["specific memo point"]}
+      ]
+    }
+  ],
+  "rubric": [
+    {"criterion": "...", "marks": 0, "descriptor": "..."}
+  ],
+  "teacher_review_checklist": ["..."]
+}

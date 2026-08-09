@@ -1,0 +1,20 @@
+{
+  "schema": "dio.commerce_edge_event.v1",
+  "edge_event_id": 11,
+  "edge_event_key": "paypal:670052f43570b31e444cfc243289ca7ad3f1eff5ded97696ed2b1f44b75da03c",
+  "source": "paypal",
+  "event_type": "payment.paypal.payment.capture.completed",
+  "received_at": "2026-08-08T18:49:42.244Z",
+  "payload": {
+    "schema": "dio.payment_event.v1",
+    "provider": "paypal",
+    "provider_event_id": "WH-7VD77221RF385343H-9AU03610TH048053S",
+    "event_type": "PAYMENT.CAPTURE.COMPLETED",
+    "order_id": "DIO-PAYPAL-SANDBOX-USD-001",
+    "provider_order_id": "6MC45873BU437482R",
+    "amount_minor": 100,
+    "currency": "USD",
+    "outcome": "paid",
+    "create_time": "2026-08-08T18:49:25.539Z"
+  }
+}

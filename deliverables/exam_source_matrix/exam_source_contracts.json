@@ -1,0 +1,334 @@
+{
+  "schema": "knowedge.homs_exam_source_contracts.v1",
+  "generated_at": "2026-08-07T22:30:26+00:00",
+  "source_matrix": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/exam_source_matrix.json",
+  "subject": "Geography",
+  "phase": "fet_grade_10_12",
+  "grade": 12,
+  "contracts": {
+    "P1:climate_weather_geomorphology_and_mapwork": {
+      "paper": "P1",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "paper_count": 6,
+      "source_type_counts": {
+        "data_table": 32,
+        "diagram_or_model": 39,
+        "graph_or_chart": 28,
+        "map_extract": 27,
+        "photograph_or_image": 29,
+        "text_extract": 32,
+        "topographic_map_and_orthophoto": 6,
+        "synoptic_weather_map": 32,
+        "unclassified_stimulus": 10
+      },
+      "required_repeated_source_types": [
+        {
+          "source_type": "diagram_or_model",
+          "hits": 39,
+          "coverage_ratio": 6.5
+        },
+        {
+          "source_type": "data_table",
+          "hits": 32,
+          "coverage_ratio": 5.33
+        },
+        {
+          "source_type": "text_extract",
+          "hits": 32,
+          "coverage_ratio": 5.33
+        },
+        {
+          "source_type": "synoptic_weather_map",
+          "hits": 32,
+          "coverage_ratio": 5.33
+        },
+        {
+          "source_type": "photograph_or_image",
+          "hits": 29,
+          "coverage_ratio": 4.83
+        },
+        {
+          "source_type": "graph_or_chart",
+          "hits": 28,
+          "coverage_ratio": 4.67
+        },
+        {
+          "source_type": "map_extract",
+          "hits": 27,
+          "coverage_ratio": 4.5
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "hits": 10,
+          "coverage_ratio": 1.67
+        },
+        {
+          "source_type": "topographic_map_and_orthophoto",
+          "hits": 6,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "supporting_papers": [
+        {
+          "title": "Geography P1 November 2022",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2022NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=T4gsWEf6_A0%3D&forcedownload=true&mid=12719&portalid=0&tabid=4683",
+          "unique_source_object_type_counts": {
+            "data_table": 10,
+            "diagram_or_model": 8,
+            "graph_or_chart": 7,
+            "map_extract": 4,
+            "photograph_or_image": 5,
+            "text_extract": 6,
+            "topographic_map_and_orthophoto": 1,
+            "synoptic_weather_map": 6,
+            "unclassified_stimulus": 3
+          }
+        },
+        {
+          "title": "Geography P1 November 2023",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2023/november/geography_2023_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2023NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=sOLlvteQCeM%3D&mid=12674&portalid=0&tabid=4682",
+          "unique_source_object_type_counts": {
+            "data_table": 8,
+            "graph_or_chart": 4,
+            "map_extract": 6,
+            "photograph_or_image": 3,
+            "topographic_map_and_orthophoto": 1,
+            "diagram_or_model": 7,
+            "synoptic_weather_map": 7,
+            "text_extract": 4
+          }
+        },
+        {
+          "title": "Geography P1 May June 2024",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCMayJunepastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=5lhg9xHnA2s%3D&mid=13140&portalid=0&tabid=4933",
+          "unique_source_object_type_counts": {
+            "data_table": 5,
+            "diagram_or_model": 7,
+            "graph_or_chart": 3,
+            "map_extract": 3,
+            "photograph_or_image": 3,
+            "topographic_map_and_orthophoto": 1,
+            "synoptic_weather_map": 4,
+            "text_extract": 4,
+            "unclassified_stimulus": 2
+          }
+        },
+        {
+          "title": "Geography P1 November 2024",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/november/geography_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Hc8_CaQJpd4%3D&mid=13717&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 3,
+            "graph_or_chart": 2,
+            "map_extract": 3,
+            "photograph_or_image": 2,
+            "topographic_map_and_orthophoto": 1,
+            "diagram_or_model": 5,
+            "synoptic_weather_map": 6,
+            "text_extract": 5,
+            "unclassified_stimulus": 2
+          }
+        },
+        {
+          "title": "Geography P1 May June 2025",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2025NSCMayJunepastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=SeR59ikc1gc%3D&mid=14238&portalid=0&tabid=5475",
+          "unique_source_object_type_counts": {
+            "data_table": 2,
+            "diagram_or_model": 6,
+            "graph_or_chart": 2,
+            "map_extract": 5,
+            "photograph_or_image": 4,
+            "topographic_map_and_orthophoto": 1,
+            "synoptic_weather_map": 3,
+            "text_extract": 6,
+            "unclassified_stimulus": 1
+          }
+        },
+        {
+          "title": "Geography P1 November 2025",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/november/geography_2025_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2025NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=-yt9PT3ew3w%3D&mid=14839&portalid=0&tabid=5742",
+          "unique_source_object_type_counts": {
+            "data_table": 4,
+            "graph_or_chart": 10,
+            "map_extract": 6,
+            "photograph_or_image": 12,
+            "text_extract": 7,
+            "topographic_map_and_orthophoto": 1,
+            "synoptic_weather_map": 6,
+            "diagram_or_model": 6,
+            "unclassified_stimulus": 2
+          }
+        }
+      ]
+    },
+    "P2:settlement_economic_geography_and_mapwork": {
+      "paper": "P2",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "paper_count": 6,
+      "source_type_counts": {
+        "data_table": 43,
+        "diagram_or_model": 25,
+        "graph_or_chart": 45,
+        "map_extract": 28,
+        "photograph_or_image": 27,
+        "text_extract": 39,
+        "topographic_map_and_orthophoto": 6,
+        "unclassified_stimulus": 14,
+        "cartoon": 5
+      },
+      "required_repeated_source_types": [
+        {
+          "source_type": "graph_or_chart",
+          "hits": 45,
+          "coverage_ratio": 7.5
+        },
+        {
+          "source_type": "data_table",
+          "hits": 43,
+          "coverage_ratio": 7.17
+        },
+        {
+          "source_type": "text_extract",
+          "hits": 39,
+          "coverage_ratio": 6.5
+        },
+        {
+          "source_type": "map_extract",
+          "hits": 28,
+          "coverage_ratio": 4.67
+        },
+        {
+          "source_type": "photograph_or_image",
+          "hits": 27,
+          "coverage_ratio": 4.5
+        },
+        {
+          "source_type": "diagram_or_model",
+          "hits": 25,
+          "coverage_ratio": 4.17
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "hits": 14,
+          "coverage_ratio": 2.33
+        },
+        {
+          "source_type": "topographic_map_and_orthophoto",
+          "hits": 6,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "supporting_papers": [
+        {
+          "title": "Geography P2 November 2022",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2022NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=yFfqSPQtFNw%3D&mid=10979&portalid=0&tabid=3294",
+          "unique_source_object_type_counts": {
+            "data_table": 6,
+            "diagram_or_model": 5,
+            "graph_or_chart": 10,
+            "map_extract": 5,
+            "photograph_or_image": 5,
+            "text_extract": 7,
+            "topographic_map_and_orthophoto": 1,
+            "unclassified_stimulus": 1
+          }
+        },
+        {
+          "title": "Geography P2 November 2023",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2023/november/geography_2023_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2023NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=qCvbCunZPCY%3D&mid=12674&portalid=0&tabid=4682",
+          "unique_source_object_type_counts": {
+            "data_table": 6,
+            "graph_or_chart": 10,
+            "map_extract": 3,
+            "photograph_or_image": 7,
+            "text_extract": 8,
+            "topographic_map_and_orthophoto": 1,
+            "diagram_or_model": 2
+          }
+        },
+        {
+          "title": "Geography P2 May June 2024",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCMayJunepastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1iZYBxy7a7k%3D&mid=13140&portalid=0&tabid=4933",
+          "unique_source_object_type_counts": {
+            "data_table": 6,
+            "diagram_or_model": 4,
+            "graph_or_chart": 6,
+            "map_extract": 7,
+            "photograph_or_image": 3,
+            "text_extract": 5,
+            "topographic_map_and_orthophoto": 1,
+            "cartoon": 2,
+            "unclassified_stimulus": 2
+          }
+        },
+        {
+          "title": "Geography P2 November 2024",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/november/geography_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=LrQ39-VlNh4%3D&mid=13717&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 9,
+            "graph_or_chart": 8,
+            "map_extract": 2,
+            "photograph_or_image": 4,
+            "topographic_map_and_orthophoto": 1,
+            "diagram_or_model": 3,
+            "text_extract": 7,
+            "unclassified_stimulus": 1
+          }
+        },
+        {
+          "title": "Geography P2 May June 2025",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2025NSCMayJunepastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=3LThLqo5qzA%3D&mid=14238&portalid=0&tabid=5475",
+          "unique_source_object_type_counts": {
+            "data_table": 8,
+            "graph_or_chart": 3,
+            "map_extract": 6,
+            "photograph_or_image": 1,
+            "topographic_map_and_orthophoto": 1,
+            "diagram_or_model": 5,
+            "text_extract": 3,
+            "unclassified_stimulus": 6,
+            "cartoon": 1
+          }
+        },
+        {
+          "title": "Geography P2 November 2025",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/november/geography_2025_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2025NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=q-0mpNmbw9Q%3D&mid=14839&portalid=0&tabid=5742",
+          "unique_source_object_type_counts": {
+            "data_table": 8,
+            "diagram_or_model": 6,
+            "graph_or_chart": 8,
+            "map_extract": 5,
+            "photograph_or_image": 7,
+            "text_extract": 9,
+            "topographic_map_and_orthophoto": 1,
+            "cartoon": 2,
+            "unclassified_stimulus": 4
+          }
+        }
+      ]
+    }
+  }
+}

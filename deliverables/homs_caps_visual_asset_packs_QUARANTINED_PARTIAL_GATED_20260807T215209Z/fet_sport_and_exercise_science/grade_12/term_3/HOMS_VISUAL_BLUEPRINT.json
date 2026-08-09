@@ -1,0 +1,96 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Sport And Exercise Science",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Sport and Exercise Science",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/sport_and_exercise_science.pdf",
+    "sha256": "a7ef6a321d708239b7dc568d122533dd22c4271cf454a33c048742c5e338b857"
+  },
+  "canonical_profile_id": "fet.sport_and_exercise_science",
+  "assessment_family": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "caps_theme_candidates": [
+    "Curriculum and Assessment",
+    "Grades 10\u201312",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT",
+    "GRADES 10\u201312",
+    "IMPLEMENTATION DATE: GRADE 12, 2019",
+    "to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R\u201312 represents a policy statement for learning and",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in",
+    "Curriculum Statement Grades R\u201312",
+    "(c) National Protocol for Assessment Grades R\u201312.",
+    "CONTENTS",
+    "CONTENT OVERVIEW",
+    "The following topics are covered in Grades 10, 11 and 12 in a developmental manner:"
+  ],
+  "assessment_content_focus": [
+    "The following topics are covered in Grades 10, 11 and 12 in a developmental manner:",
+    "Curriculum and Assessment",
+    "The following topics are covered in Grades 10, 11 and 12 in a developmental manner:",
+    "Curriculum and Assessment"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: covered, curriculum, developmental, following, grades, manner."
+  ],
+  "required_visuals": [
+    {
+      "id": "investigation_method_data",
+      "title": "Investigation method and data sheet",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "investigation_sheet",
+      "must_show": [
+        "aim",
+        "variables",
+        "method",
+        "data table",
+        "conclusion line"
+      ],
+      "assessment_use": "Learners record observations and draw a supported conclusion."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "medium",
+    "render_allowed": true,
+    "content_lines": [
+      "The following topics are covered in Grades 10, 11 and 12 in a developmental manner:"
+    ],
+    "admin_lines": [
+      "Curriculum and Assessment",
+      "CURRICULUM AND ASSESSMENT POLICY STATEMENT",
+      "The National Curriculum Statement Grades R\u201312 represents a policy statement for learning and",
+      "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in",
+      "(c) National Protocol for Assessment Grades R\u201312.",
+      "CONTENTS",
+      "CONTENT OVERVIEW"
+    ],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

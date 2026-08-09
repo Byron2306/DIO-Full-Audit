@@ -1,0 +1,86 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "english_language",
+  "display_name": "English Language",
+  "senior_subject": "English Home Language / First Additional Language",
+  "grade": 8,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "language_integrated_assessment",
+  "marks": 60,
+  "duration_minutes": 75,
+  "bloom_distribution": {
+    "remember": 15,
+    "understand": 25,
+    "apply": 30,
+    "analyse": 20,
+    "evaluate": 8,
+    "create": 2,
+    "stance": "moderate scaffold, longer source handling, early comparison and justified choices"
+  },
+  "source_grammar": [
+    "text_extract",
+    "cartoon",
+    "photograph_or_image",
+    "data_table"
+  ],
+  "caps_focus": "multi-paragraph comprehension, language-in-context, summary and guided transactional writing",
+  "sections": [
+    {
+      "title": "reading_viewing",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "reading_viewing",
+          "bloom_level": "understand",
+          "prompt_shape": "Describe or explain the meaning of evidence in a Grade 8 English Language stimulus or task.",
+          "scaffold": [
+            "one or two linked sources",
+            "guided comparison",
+            "show evidence from the task"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "language_structures",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "language_structures",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 8 English Language task.",
+          "scaffold": [
+            "one or two linked sources",
+            "guided comparison",
+            "show evidence from the task"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "writing_presenting",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "writing_presenting",
+          "bloom_level": "analyse",
+          "prompt_shape": "Compare, sort or interpret parts of a Grade 8 English Language stimulus or task.",
+          "scaffold": [
+            "one or two linked sources",
+            "guided comparison",
+            "show evidence from the task"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

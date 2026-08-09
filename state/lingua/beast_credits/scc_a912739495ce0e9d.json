@@ -1,0 +1,34 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:50abcc455e193cd5143436a9488fd7c4ca716dbaa939b43c43816f0ca292cc3d",
+    "ref": "blobs/sha256/50abcc455e193cd5143436a9488fd7c4ca716dbaa939b43c43816f0ca292cc3d.json"
+  },
+  "artifact_type": "verified_capability",
+  "avoided_tokens_estimate": 12,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 1.0,
+  "created_at": "2026-08-09T11:03:29.151249+00:00",
+  "credit_id": "scc_a912739495ce0e9d",
+  "evidence_packet_id": "guard:source_hash_staleness",
+  "impact_fingerprint_hash": "sha256:81d0932350fe38a0daec9ccbe4c40e9ef6ef8afaf94f225a29c98df64ffcf0a3",
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "authority": "deterministic_validator",
+    "domain": "*",
+    "guard": "source_hash_staleness",
+    "rule": "A changed source-unit hash makes every previously aligned target unit stale.",
+    "target_language": "Sesotho"
+  },
+  "policy_version": "dio_lingua_deterministic_learning_v1",
+  "repo_fingerprint": "sha256:81d0932350fe38a0daec9ccbe4c40e9ef6ef8afaf94f225a29c98df64ffcf0a3",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "dio_lingua_deterministic_guard",
+  "verified_tests": [
+    "visible",
+    "hidden"
+  ],
+  "version": "1.0"
+}

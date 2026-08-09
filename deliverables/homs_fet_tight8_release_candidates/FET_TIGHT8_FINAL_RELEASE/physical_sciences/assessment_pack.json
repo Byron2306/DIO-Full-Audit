@@ -1,0 +1,272 @@
+{
+  "assessment_title": "Physical Sciences Grade 12 Term 3 Controlled Test",
+  "subject": "Physical Sciences",
+  "grade": 12,
+  "phase": "FET",
+  "canonical_profile_id": "fet.physical_sciences",
+  "blueprint": "data_diagram_practical_investigation",
+  "render_shell": "question_paper",
+  "language_of_assessment": "English",
+  "duration": "1.5 hours",
+  "total_marks": 50,
+  "source_assets": [
+    {
+      "title": "Internal resistance investigation",
+      "source_type": "circuit_diagram_and_data_table",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/physical_sciences/physical-sciences-grade12-term3-reference/source_material/source_1_internal_resistance.png",
+      "asset_status": "constructed_release_candidate"
+    },
+    {
+      "title": "Photoelectric-effect graph",
+      "source_type": "quantitative_graph",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/physical_sciences/physical-sciences-grade12-term3-reference/source_material/source_2_photoelectric_graph.png",
+      "asset_status": "constructed_release_candidate"
+    },
+    {
+      "title": "Zinc-copper galvanic cell",
+      "source_type": "labelled_cell_diagram_and_data",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/physical_sciences/physical-sciences-grade12-term3-reference/source_material/source_3_galvanic_cell.png",
+      "asset_status": "constructed_release_candidate"
+    }
+  ],
+  "source_embedding": {
+    "generated_visual_policy": "suppress_generated_visuals_when_source_assets_present"
+  },
+  "visual_blueprint": {
+    "required_visuals": [
+      {
+        "visual_kind": "data_table"
+      },
+      {
+        "visual_kind": "axis_diagram"
+      },
+      {
+        "visual_kind": "investigation_sheet"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "QUESTION 1: INTERNAL RESISTANCE",
+      "instructions": "Use Source 1. Show formulae, substitutions and units.",
+      "stimulus": "Refer to SOURCE 1.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Distinguish between the emf of a cell and its terminal potential difference.",
+          "marks": 2,
+          "memo": [
+            "Emf is energy supplied per coulomb/open-circuit potential difference.",
+            "Terminal potential difference is energy transferred per coulomb in the external circuit and decreases under load."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "1.2",
+          "question": "Identify the independent variable, the dependent variable and ONE controlled variable in this investigation.",
+          "marks": 3,
+          "memo": [
+            "Independent: current, varied with the variable resistor.",
+            "Dependent: terminal voltage.",
+            "Controlled: same cell/temperature/circuit components."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "1.3",
+          "question": "Describe the relationship between terminal voltage and current shown by the data.",
+          "marks": 2,
+          "memo": [
+            "Terminal voltage decreases linearly as current increases."
+          ],
+          "source_reference": "SOURCE 1"
+        },
+        {
+          "number": "1.4",
+          "question": "Use the data and V = emf - Ir to determine the emf and internal resistance of the cell.",
+          "marks": 5,
+          "memo": [
+            "Gradient = (1.00 - 1.40)/(1.00 - 0.20) = -0.50 V.A^-1.",
+            "r = 0.50 ohm.",
+            "Using any point, emf = V + Ir = 1.50 V."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 4
+        },
+        {
+          "number": "1.5",
+          "question": "Calculate the terminal voltage and the potential difference across the internal resistance when the current is 0.70 A.",
+          "marks": 4,
+          "memo": [
+            "V = 1.50 - (0.70)(0.50) = 1.15 V.",
+            "Vinternal = Ir = 0.35 V."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 3
+        },
+        {
+          "number": "1.6",
+          "question": "Explain why the switch should be opened between readings.",
+          "marks": 2,
+          "memo": [
+            "To limit heating/discharge of the cell, which would change internal resistance/emf and reduce validity."
+          ],
+          "source_reference": "SOURCE 1"
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 2: PHOTOELECTRIC EFFECT",
+      "instructions": "Use Source 2 and the supplied constant h = 6.63 x 10^-34 J.s.",
+      "stimulus": "Refer to SOURCE 2.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Define the work function of a metal.",
+          "marks": 2,
+          "memo": [
+            "The minimum energy needed to remove an electron from the metal surface."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "2.2",
+          "question": "Calculate the work function of the metal.",
+          "marks": 4,
+          "memo": [
+            "W0 = hf0 = (6.63 x 10^-34)(5.5 x 10^14) = 3.65 x 10^-19 J."
+          ],
+          "source_reference": "SOURCE 2",
+          "answer_lines": 3
+        },
+        {
+          "number": "2.3",
+          "question": "Calculate the maximum kinetic energy of emitted electrons when the frequency is 8.0 x 10^14 Hz.",
+          "marks": 4,
+          "memo": [
+            "KEmax = h(f - f0) = (6.63 x 10^-34)(2.5 x 10^14) = 1.66 x 10^-19 J."
+          ],
+          "source_reference": "SOURCE 2",
+          "answer_lines": 3
+        },
+        {
+          "number": "2.4",
+          "question": "State the effect of increasing light intensity when the frequency is above f0, and explain what happens when the frequency is below f0.",
+          "marks": 3,
+          "memo": [
+            "Above f0, more electrons are emitted per second but KEmax is unchanged.",
+            "Below f0, no electrons are emitted regardless of intensity."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "2.5",
+          "question": "State why the photoelectric effect supports the particle model of light.",
+          "marks": 2,
+          "memo": [
+            "Energy is transferred in discrete photons with energy hf; one photon transfers energy to one electron."
+          ],
+          "source_reference": "SOURCE 2"
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 3: GALVANIC CELLS",
+      "instructions": "Use Source 3. Standard conditions apply.",
+      "stimulus": "Refer to SOURCE 3.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identify the anode and the cathode.",
+          "marks": 2,
+          "memo": [
+            "Anode: Zn; cathode: Cu."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "3.2",
+          "question": "State the direction of electron flow in the external circuit.",
+          "marks": 2,
+          "memo": [
+            "From the zinc electrode to the copper electrode."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "3.3",
+          "question": "Write the oxidation and reduction half-reactions.",
+          "marks": 4,
+          "memo": [
+            "Zn(s) -> Zn2+(aq) + 2e-.",
+            "Cu2+(aq) + 2e- -> Cu(s)."
+          ],
+          "source_reference": "SOURCE 3",
+          "answer_lines": 3
+        },
+        {
+          "number": "3.4",
+          "question": "Write the overall cell reaction.",
+          "marks": 2,
+          "memo": [
+            "Zn(s) + Cu2+(aq) -> Zn2+(aq) + Cu(s)."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "3.5",
+          "question": "Calculate the standard emf of the cell and state whether the reaction is spontaneous.",
+          "marks": 3,
+          "memo": [
+            "Ecell = 0.34 - (-0.76) = +1.10 V.",
+            "Positive Ecell means the reaction is spontaneous under standard conditions."
+          ],
+          "source_reference": "SOURCE 3",
+          "answer_lines": 3
+        },
+        {
+          "number": "3.6",
+          "question": "Explain the function of the salt bridge.",
+          "marks": 2,
+          "memo": [
+            "It permits ion movement, maintains electrical neutrality and completes the circuit without mixing the half-cell solutions directly."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "3.7",
+          "question": "State how the cell potential changes as Zn2+ concentration increases and Cu2+ concentration decreases while the cell discharges.",
+          "marks": 2,
+          "memo": [
+            "The cell potential decreases and approaches zero at equilibrium."
+          ],
+          "source_reference": "SOURCE 3"
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Question 1: Internal resistance",
+      "marks": 18,
+      "descriptor": "Concepts, variables, data relationship and circuit calculations."
+    },
+    {
+      "criterion": "Question 2: Photoelectric effect",
+      "marks": 15,
+      "descriptor": "Definitions, quantitative reasoning and photon model."
+    },
+    {
+      "criterion": "Question 3: Galvanic cells",
+      "marks": 17,
+      "descriptor": "Cell interpretation, redox equations, emf and ion movement."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify all formulae, substitutions, signs and units.",
+    "Confirm Grade 12 Term 3 CAPS scope.",
+    "Check every diagram label and data value.",
+    "Approve the paper and memorandum before classroom use."
+  ],
+  "generation_backend": "hymark_physical_sciences_constructed_source_first"
+}

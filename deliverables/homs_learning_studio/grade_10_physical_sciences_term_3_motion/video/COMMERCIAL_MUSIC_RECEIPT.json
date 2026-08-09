@@ -1,0 +1,106 @@
+{
+  "schema": "nichefoundry.commercial_music_selection.v1",
+  "created_at": "2026-08-08T21:41:54.099Z",
+  "episode": "homs-learning-grade10-motion-one-dimension",
+  "topic": "education marking workflow warm supportive",
+  "studio": "practical_open_source",
+  "rights_policy": "CC0, Public Domain Mark, or CC BY only; commercial use and adaptation required.",
+  "discovery_provider": "openverse",
+  "selected": {
+    "rank": 1,
+    "provider": "openverse",
+    "provider_label": "Openverse / wikimedia_audio",
+    "id": "d5c9420c-4c5f-4dc2-aeae-88a16884e02c",
+    "title": "Warm Sunset by MusicLFiles",
+    "artist": "MusicLFiles",
+    "album": null,
+    "duration_seconds": 224.296,
+    "preview_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Warm_Sunset_by_MusicLFiles.ogg",
+    "page_url": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Warm_Sunset_by_MusicLFiles.ogg",
+    "download_allowed": true,
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+    "licence_name": "BY 4.0",
+    "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+    "tags": [],
+    "theme_match_reason": "Matched Practical Open Source through open-licence audio search.",
+    "popularity": 0,
+    "source": "wikimedia_audio",
+    "filetype": "ogg",
+    "rights": {
+      "passed": true,
+      "licence_key": "by",
+      "commercial_use": true,
+      "adaptation_allowed": true,
+      "attribution_required": true,
+      "issues": []
+    },
+    "local_path": "imports/music_choices/01-musiclfiles-warm-sunset-by-musiclfiles.ogg",
+    "sha256": "4a673c90254008ae96abc0b2f4147a94712e6452d025dd150fa981dbd0611d03",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vorbis",
+          "sample_rate": "44100",
+          "channels": 2
+        }
+      ],
+      "format": {
+        "duration": "224.296803"
+      }
+    },
+    "promoted_path": "imports/music_bed.ogg"
+  },
+  "candidates": [
+    {
+      "rank": 1,
+      "provider": "openverse",
+      "provider_label": "Openverse / wikimedia_audio",
+      "id": "d5c9420c-4c5f-4dc2-aeae-88a16884e02c",
+      "title": "Warm Sunset by MusicLFiles",
+      "artist": "MusicLFiles",
+      "album": null,
+      "duration_seconds": 224.296,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Warm_Sunset_by_MusicLFiles.ogg",
+      "page_url": "https://commons.wikimedia.org/w/index.php?curid=123925186",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Warm_Sunset_by_MusicLFiles.ogg",
+      "download_allowed": true,
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "licence_name": "BY 4.0",
+      "attribution": "\"Warm Sunset by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+      "tags": [],
+      "theme_match_reason": "Matched Practical Open Source through open-licence audio search.",
+      "popularity": 0,
+      "source": "wikimedia_audio",
+      "filetype": "ogg",
+      "rights": {
+        "passed": true,
+        "licence_key": "by",
+        "commercial_use": true,
+        "adaptation_allowed": true,
+        "attribution_required": true,
+        "issues": []
+      },
+      "local_path": "imports/music_choices/01-musiclfiles-warm-sunset-by-musiclfiles.ogg",
+      "sha256": "4a673c90254008ae96abc0b2f4147a94712e6452d025dd150fa981dbd0611d03",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "224.296803"
+        }
+      }
+    }
+  ],
+  "human_music_review_required": true,
+  "attribution_must_ship_with_publication": true
+}

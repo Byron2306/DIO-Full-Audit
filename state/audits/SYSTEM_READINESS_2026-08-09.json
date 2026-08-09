@@ -1,0 +1,449 @@
+{
+  "schema": "dio.system_readiness_result.v1",
+  "assessed_at": "2026-08-09",
+  "scoring": {
+    "functional_proof": 0.25,
+    "safety_governance": 0.2,
+    "reliability_automation": 0.15,
+    "observability": 0.1,
+    "external_validation": 0.2,
+    "maintainability_operations": 0.1
+  },
+  "overall_score": 68.6,
+  "controlled_pilot_score": 80.5,
+  "external_validation_score": 21.1,
+  "systems": [
+    {
+      "id": "dio_core",
+      "name": "DIO Core and Control Deck",
+      "scores": [
+        90,
+        92,
+        82,
+        88,
+        35,
+        65
+      ],
+      "evidence": "Local control service, policy gates, actionable queues, hash-linked event ledger and passing UI checks.",
+      "next_gate": "Reduce operator backlog and add durable deployment/change recovery.",
+      "dimensions": {
+        "functional_proof": 90,
+        "safety_governance": 92,
+        "reliability_automation": 82,
+        "observability": 88,
+        "external_validation": 35,
+        "maintainability_operations": 65
+      },
+      "score": 75.5,
+      "controlled_pilot_score": 85.6
+    },
+    {
+      "id": "edge_intake",
+      "name": "Cloudflare Edge and Public Intake",
+      "scores": [
+        88,
+        90,
+        82,
+        80,
+        45,
+        72
+      ],
+      "evidence": "Live Worker/D1 intake, deterministic IDs, public form validation and local reconciliation are proven.",
+      "next_gate": "Run repeated external submissions and recovery tests under realistic interruption.",
+      "dimensions": {
+        "functional_proof": 88,
+        "safety_governance": 90,
+        "reliability_automation": 82,
+        "observability": 80,
+        "external_validation": 45,
+        "maintainability_operations": 72
+      },
+      "score": 76.5,
+      "controlled_pilot_score": 84.4
+    },
+    {
+      "id": "outlook",
+      "name": "Outlook, Graph and Triage",
+      "scores": [
+        88,
+        90,
+        80,
+        82,
+        45,
+        72
+      ],
+      "evidence": "Webhook ingress, message capture, drafts, one-time send leases and receipts are connected.",
+      "next_gate": "Add attachment scanning/trust promotion and prove a complete real customer conversation.",
+      "dimensions": {
+        "functional_proof": 88,
+        "safety_governance": 90,
+        "reliability_automation": 80,
+        "observability": 82,
+        "external_validation": 45,
+        "maintainability_operations": 72
+      },
+      "score": 76.4,
+      "controlled_pilot_score": 84.2
+    },
+    {
+      "id": "commerce",
+      "name": "Commerce and PayPal",
+      "scores": [
+        86,
+        94,
+        78,
+        84,
+        40,
+        72
+      ],
+      "evidence": "Sandbox and live signed webhooks are verified; browser returns do not grant payment authority.",
+      "next_gate": "Join a real customer payment to fulfilment, acknowledgement, revision and margin telemetry.",
+      "dimensions": {
+        "functional_proof": 86,
+        "safety_governance": 94,
+        "reliability_automation": 78,
+        "observability": 84,
+        "external_validation": 40,
+        "maintainability_operations": 72
+      },
+      "score": 75.6,
+      "controlled_pilot_score": 84.5
+    },
+    {
+      "id": "triune",
+      "name": "Commercial Transaction and Triune Governance",
+      "scores": [
+        82,
+        94,
+        80,
+        86,
+        20,
+        70
+      ],
+      "evidence": "Canonical transaction, Metatron belief, Michael actions, Loki dissent and harmonic state are active.",
+      "next_gate": "Standardise product runner, delivery closeout and verified outcome learning.",
+      "dimensions": {
+        "functional_proof": 82,
+        "safety_governance": 94,
+        "reliability_automation": 80,
+        "observability": 86,
+        "external_validation": 20,
+        "maintainability_operations": 70
+      },
+      "score": 70.9,
+      "controlled_pilot_score": 83.6
+    },
+    {
+      "id": "evidex",
+      "name": "Evidex",
+      "scores": [
+        92,
+        90,
+        78,
+        86,
+        30,
+        72
+      ],
+      "evidence": "Golden controlled transaction and reviewed evidence pack are complete.",
+      "next_gate": "One external paid evidence pack with acknowledgement, revisions and effective hourly return.",
+      "dimensions": {
+        "functional_proof": 92,
+        "safety_governance": 90,
+        "reliability_automation": 78,
+        "observability": 86,
+        "external_validation": 30,
+        "maintainability_operations": 72
+      },
+      "score": 74.5,
+      "controlled_pilot_score": 85.6
+    },
+    {
+      "id": "homs_marking",
+      "name": "HOMS Marking Relief",
+      "scores": [
+        85,
+        90,
+        70,
+        75,
+        20,
+        68
+      ],
+      "evidence": "Three-submission NIM batch produced marks, criterion feedback and review pack.",
+      "next_gate": "One redacted real educator batch with a retained correction ledger.",
+      "dimensions": {
+        "functional_proof": 85,
+        "safety_governance": 90,
+        "reliability_automation": 70,
+        "observability": 75,
+        "external_validation": 20,
+        "maintainability_operations": 68
+      },
+      "score": 68.0,
+      "controlled_pilot_score": 80.1
+    },
+    {
+      "id": "homs_exam",
+      "name": "HOMS Exam Studio",
+      "scores": [
+        88,
+        85,
+        70,
+        76,
+        15,
+        68
+      ],
+      "evidence": "Grade 12 Term 3 tight-eight release passed structural and rendering checks.",
+      "next_gate": "External subject-expert approval and controlled expansion by subject, term and grade.",
+      "dimensions": {
+        "functional_proof": 88,
+        "safety_governance": 85,
+        "reliability_automation": 70,
+        "observability": 76,
+        "external_validation": 15,
+        "maintainability_operations": 68
+      },
+      "score": 66.9,
+      "controlled_pilot_score": 79.9
+    },
+    {
+      "id": "homs_learning",
+      "name": "HOMS Learning Studio",
+      "scores": [
+        78,
+        82,
+        65,
+        68,
+        10,
+        65
+      ],
+      "evidence": "One Physical Sciences companion pack and video lesson exist.",
+      "next_gate": "Subject-expert review and one paid topic-level pilot.",
+      "dimensions": {
+        "functional_proof": 78,
+        "safety_governance": 82,
+        "reliability_automation": 65,
+        "observability": 68,
+        "external_validation": 10,
+        "maintainability_operations": 65
+      },
+      "score": 61.0,
+      "controlled_pilot_score": 73.7
+    },
+    {
+      "id": "sophia",
+      "name": "Sophia Academic Review",
+      "scores": [
+        84,
+        90,
+        72,
+        76,
+        15,
+        70
+      ],
+      "evidence": "Consented Gemini-backed review, grounding, approval and delivery draft are proven.",
+      "next_gate": "External postgraduate or researcher pilot with revision telemetry.",
+      "dimensions": {
+        "functional_proof": 84,
+        "safety_governance": 90,
+        "reliability_automation": 72,
+        "observability": 76,
+        "external_validation": 15,
+        "maintainability_operations": 70
+      },
+      "score": 67.4,
+      "controlled_pilot_score": 80.5
+    },
+    {
+      "id": "vamp",
+      "name": "VAMP",
+      "scores": [
+        82,
+        92,
+        70,
+        78,
+        15,
+        68
+      ],
+      "evidence": "NWU and institution-neutral profiles produce approved evidence snapshots.",
+      "next_gate": "External organisation onboarding, privacy review and measured profile economics.",
+      "dimensions": {
+        "functional_proof": 82,
+        "safety_governance": 92,
+        "reliability_automation": 70,
+        "observability": 78,
+        "external_validation": 15,
+        "maintainability_operations": 68
+      },
+      "score": 67.0,
+      "controlled_pilot_score": 80.0
+    },
+    {
+      "id": "lingua",
+      "name": "Lingua, Document Studio and BEAST",
+      "scores": [
+        84,
+        92,
+        72,
+        82,
+        15,
+        68
+      ],
+      "evidence": "Four language lanes, practitioner approvals, deterministic QA and BEAST crystallisation are proven in controlled packs.",
+      "next_gate": "Independent language review and paid authorised-document pilot.",
+      "dimensions": {
+        "functional_proof": 84,
+        "safety_governance": 92,
+        "reliability_automation": 72,
+        "observability": 82,
+        "external_validation": 15,
+        "maintainability_operations": 68
+      },
+      "score": 68.2,
+      "controlled_pilot_score": 81.5
+    },
+    {
+      "id": "market_command",
+      "name": "Market Command",
+      "scores": [
+        86,
+        92,
+        76,
+        84,
+        10,
+        72
+      ],
+      "evidence": "Campaign authority, content gates, read adapters, attribution, creative factory and procurement controls are implemented.",
+      "next_gate": "Produce real impressions, enquiries, qualified leads, paid orders and settlement evidence.",
+      "dimensions": {
+        "functional_proof": 86,
+        "safety_governance": 92,
+        "reliability_automation": 76,
+        "observability": 84,
+        "external_validation": 10,
+        "maintainability_operations": 72
+      },
+      "score": 68.9,
+      "controlled_pilot_score": 83.6
+    },
+    {
+      "id": "hivenance",
+      "name": "Hivenance Market Intelligence",
+      "scores": [
+        80,
+        84,
+        70,
+        75,
+        5,
+        65
+      ],
+      "evidence": "Web and YouTube observations feed strategist, oracle and dissent reasoning into bounded hypotheses.",
+      "next_gate": "Calibrate recommendations against repeated real campaign outcomes rather than research signals.",
+      "dimensions": {
+        "functional_proof": 80,
+        "safety_governance": 84,
+        "reliability_automation": 70,
+        "observability": 75,
+        "external_validation": 5,
+        "maintainability_operations": 65
+      },
+      "score": 62.3,
+      "controlled_pilot_score": 76.6
+    },
+    {
+      "id": "nichefoundry",
+      "name": "NicheFoundry Media Layer",
+      "scores": [
+        88,
+        82,
+        76,
+        78,
+        15,
+        70
+      ],
+      "evidence": "Gamma assets, posters, channel copy, shorts, long-form video, music rights and YouTube OAuth exist.",
+      "next_gate": "Editorially approve and publish a repeatable proof-led content series, then bind its outcomes.",
+      "dimensions": {
+        "functional_proof": 88,
+        "safety_governance": 82,
+        "reliability_automation": 76,
+        "observability": 78,
+        "external_validation": 15,
+        "maintainability_operations": 70
+      },
+      "score": 67.6,
+      "controlled_pilot_score": 80.8
+    },
+    {
+      "id": "agency_procurement",
+      "name": "South African Agency Procurement",
+      "scores": [
+        75,
+        94,
+        65,
+        72,
+        0,
+        70
+      ],
+      "evidence": "Verified registry, RFQ, Outlook draft, quote, spend and provider-report gates are implemented; one draft is prepared.",
+      "next_gate": "Receive and compare real quotes, then run at most one capped pilot.",
+      "dimensions": {
+        "functional_proof": 75,
+        "safety_governance": 94,
+        "reliability_automation": 65,
+        "observability": 72,
+        "external_validation": 0,
+        "maintainability_operations": 70
+      },
+      "score": 61.5,
+      "controlled_pilot_score": 76.9
+    },
+    {
+      "id": "security",
+      "name": "Security and Privacy",
+      "scores": [
+        75,
+        90,
+        65,
+        80,
+        20,
+        55
+      ],
+      "evidence": "Least-authority gates, signed payment verification, secret separation and attachment quarantine are present.",
+      "next_gate": "Malware scanning, backup/restore proof, dependency scanning and formal data-retention policy.",
+      "dimensions": {
+        "functional_proof": 75,
+        "safety_governance": 90,
+        "reliability_automation": 65,
+        "observability": 80,
+        "external_validation": 20,
+        "maintainability_operations": 55
+      },
+      "score": 64.0,
+      "controlled_pilot_score": 75.0
+    },
+    {
+      "id": "operations",
+      "name": "Operations and Change Management",
+      "scores": [
+        78,
+        80,
+        72,
+        72,
+        25,
+        45
+      ],
+      "evidence": "Core services and recurring timers are active with zero failed user services.",
+      "next_gate": "Initialise Git safely, add backups/runbooks, reduce disk pressure and test disaster recovery.",
+      "dimensions": {
+        "functional_proof": 78,
+        "safety_governance": 80,
+        "reliability_automation": 72,
+        "observability": 72,
+        "external_validation": 25,
+        "maintainability_operations": 45
+      },
+      "score": 63.0,
+      "controlled_pilot_score": 72.5
+    }
+  ]
+}

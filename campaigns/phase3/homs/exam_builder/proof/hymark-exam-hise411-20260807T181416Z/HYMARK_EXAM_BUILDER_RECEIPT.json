@@ -1,0 +1,85 @@
+{
+  "schema": "knowedge.hymark_exam_builder_receipt.v1",
+  "created_at": "2026-08-07T18:21:14+00:00",
+  "job_id": "hymark-exam-hise411-20260807T181416Z",
+  "status": "completed",
+  "request": {
+    "module_code": "HISE411",
+    "module_name": "HISTORY SNR & FET 4A",
+    "topics": [
+      "The Cuban Missile Crisis (1962)",
+      "The Division of Germany (1945-1949)"
+    ],
+    "methodology_topic": "The Berlin Airlift",
+    "essay_topic": "The role of media in shaping public opinion during the Vietnam War",
+    "total_marks": 125,
+    "duration_hours": 3,
+    "additional_instructions": "Controlled demo generation. Human subject expert must verify all historical sources before classroom use."
+  },
+  "assessor": {
+    "name": "HyMark Exam Builder",
+    "backend_path": "/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py",
+    "function_sources": [
+      "generate_exam_sources",
+      "generate_source_questions",
+      "generate_methodology_question",
+      "generate_essay_question",
+      "create_exam_docx",
+      "create_memorandum_docx"
+    ]
+  },
+  "provider": {
+    "selected_provider": "nvidia_nim",
+    "selected_model": "nvidia/nemotron-3-super-120b-a12b",
+    "selected_key_name": "NVIDIA_API_KEY",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "values_redacted": true
+  },
+  "duration_seconds": 418.187,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z",
+    "request": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/exam_builder_request.json",
+    "exam_set": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/exam_set.json",
+    "summary": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/HYMARK_EXAM_REVIEW_SUMMARY.md",
+    "review_zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/HYMARK_EXAM_BUILDER_PACK.zip",
+    "first_exam": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/HISE411_Exam_1stOpp_20260807T181716Z.docx",
+    "first_memo": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/HISE411_Memo_1stOpp_20260807T181716Z.docx",
+    "second_exam": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/HISE411_Exam_2ndOpp_20260807T182114Z.docx",
+    "second_memo": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/proof/hymark-exam-hise411-20260807T181416Z/HISE411_Memo_2ndOpp_20260807T182114Z.docx"
+  }
+}

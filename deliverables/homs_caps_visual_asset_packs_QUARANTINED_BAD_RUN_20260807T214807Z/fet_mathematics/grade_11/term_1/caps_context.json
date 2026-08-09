@@ -1,0 +1,114 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T21:45:19+00:00",
+  "enabled": true,
+  "subject_id": "mathematics",
+  "subject": "Mathematics",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "preferred_language": "English",
+  "candidate_count": 4,
+  "candidates": [
+    {
+      "score": 190,
+      "document_id": "fileticket_uxlzcia67re",
+      "title": "Mathematics",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematics_gr_10-12_web_1133.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=uXLZcIa67rE%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20MATHEMATICS%20_%20GR%2010-12%20_%20Web_1133.pdf?ver=2015-01-27-154314-253",
+      "sha256": "042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5",
+      "bytes": 2966422
+    },
+    {
+      "score": 150,
+      "document_id": "fileticket_yukp5y8po0e",
+      "title": "Wiskunde (Mathematics)",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_afrikaans_wiskunde_gr_10-12_web.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=YuKP5y8Po0E%3d&tabid=570&portalid=0&mid=1559",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20%20AFRIKAANS%20%20WISKUNDE%20GR%2010-12%20%20WEB.pdf?ver=2015-01-27-154828-653",
+      "sha256": "b4758d7d908a2aa435c8e399221bcce492af20da41b7bb9991d2a50afeba933b",
+      "bytes": 1483105
+    },
+    {
+      "score": 110,
+      "document_id": "fileticket_baoy_t3zgsa",
+      "title": "Technical Mathematics",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_maths_tech_final_bleed_and_crops.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=baoY_t3ZgsA%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20Maths%20Tech%20Final%20Bleed%20and%20crops.pdf?ver=2015-06-22-125124-000",
+      "sha256": "89a9c9bc207ef6e929a0d203837ab11b7797bc4e2b412677bf679d82cd84e869",
+      "bytes": 3031153
+    },
+    {
+      "score": 50,
+      "document_id": "fileticket_hv8s-irwnui",
+      "title": "Tegniese Wiskunde",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/tegniese_wiskunde.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=HV8S-IrWnUI%3d&tabid=570&portalid=0&mid=1559",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/TEGNIESE%20WISKUNDE.pdf?ver=2016-05-20-100931-397",
+      "sha256": "ac279deaca6b3cade032ce5d0b3df1e5b5ea53055cb5b1e80a1b0fd092e67967",
+      "bytes": 3114126
+    }
+  ],
+  "selected": {
+    "score": 190,
+    "document_id": "fileticket_uxlzcia67re",
+    "title": "Mathematics",
+    "phase": "fet_grade_10_12",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_mathematics_gr_10-12_web_1133.pdf",
+    "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=uXLZcIa67rE%3d&tabid=570&portalid=0&mid=1558",
+    "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20MATHEMATICS%20_%20GR%2010-12%20_%20Web_1133.pdf?ver=2015-01-27-154314-253",
+    "sha256": "042257c73d2ffcc843393e0d6b60aeca6a5cb9f2e81d255fc4e4db2ce56d3ad5",
+    "bytes": 2966422
+  },
+  "assessment_ontology_profile": {
+    "profile_id": "fet.mathematics",
+    "subject": "Mathematics",
+    "phase": "fet_grade_10_12",
+    "assessment_family": "calculation_problem_solving"
+  },
+  "assessment_design_profile": {
+    "profile_id": "fet.mathematics",
+    "subject": "Mathematics",
+    "phase": "fet_grade_10_12",
+    "phase_group": "fet",
+    "assessment_family": "calculation_problem_solving",
+    "render_shell": "question_paper",
+    "confidence": "medium",
+    "assessment_forms": [],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "calculation_and_procedure": 55,
+      "problem_solving": 30,
+      "reasoning_or_representation": 15
+    },
+    "marking_instruments": [
+      "memorandum",
+      "rubric"
+    ],
+    "generation_constraints": [
+      "Show memo steps and mark allocations for methods.",
+      "Avoid essay-style rubrics unless requested by a human educator."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      ".......................................................51 4.2. Informal or Daily Assessment. .....................................................................................................................51 4.3. Formal Assessment.......................................................................................................................................52 4.4. Programme of Assessment. .........................................................................................................................53 4.5. Recording and reporting...............................................................................................................................55 4.6. Moderation of Assessment...........................................................................................................................56 4.7. General..........................................",
+      "..................................................51 4.3. Formal Assessment.......................................................................................................................................52 4.4. Programme of Assessment. .........................................................................................................................53 4.5. Recording and reporting...............................................................................................................................55 4.6. Moderation of Assessment...........................................................................................................................56 4.7. General............................................................................................................................................................56 2 CURRICULUM AND ASSESSMENT POLICY STATEME",
+      "umn in the annual teaching plan which follows are by no means a complete representation of all the material to be covered in the curriculum. They only serve as an indication of some questions on the topic at different cognitive levels. Text books and other resources should be consulted for a complete treatment of all the material. \u2022 The order of topics is not prescriptive, but ensure that part of trigonometry is taught in the first term and more than six topics are covered / taught in the first two terms so that assessment is balanced between paper 1 and 2. 16 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS) MATHEMATICS GRADES 10-12 3.2.1 Allocation of Teaching Time Time allocation for Mathematics: 4 hours and 30 minutes, e.g. six forty five-minutes periods, per week in grades 10, 11 and 12. Terms Grade 10 Grade 11 Grade 12 No. of No. of No. of weeks weeks weeks Algebraic",
+      "portant as these allow learners to learn from and reflect on their own performance. Results of the informal daily assessment activities are not formally recorded, unless the teacher wishes to do so. The results of daily assessment tasks are not taken into account for promotion and/or certification purposes. 4.3 Formal Assessment All assessment tasks that make up a formal programme of assessment for the year are regarded as Formal Assessment. Formal assessment tasks are marked and formally recorded by the teacher for progress and certification purposes. All Formal Assessment tasks are subject to moderation for the purpose of quality assurance. Formal assessments provide teachers with a systematic way of evaluating how well learners are progressing in a grade and/or in a particular subject. Examples of formal assessments include tests, examinations, practical tasks, projects, oral prese"
+    ]
+  },
+  "extracted_excerpt": "National Curriculum Statement (NCS)\n\n                                 Curriculum and Assessment\n                                       Policy Statement\nMATHEMATICS\n\n                       Further Education and Training Phase\n                                  Grades 10-12\n\n      \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n      \u0013\u0012\u0011\u001e\u0010\u0016\u000f\u0012\u0014\u0016\u000e\n      \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u001b\u001e\u0016\u001c\u0015\u0014\n      \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0017\u0014\u0016\u001c\u0013\u0012\u0017\u0011\u0015\u001f\u0019\u0018\u0011\n\f   Curriculum and Assessment Policy Statement\n                  GRADES 10-12\n\n                  MATHEMATICS\n\nCAPS\n\fMATHEMATICS GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0573-9\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n                     CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n\f                          AGRICULTURAL MANAGEMENT PRACTICES GRADES 10-12\n                                               MATHEMATICS\nFOREWORD by thE ministER\n\n                                 Our national curriculum is the culmination of our efforts over a period of seventeen\n                                 years to transform the curriculum bequeathed to us by apartheid. From the start of\n                                 democracy we have built our curriculum on the values that inspired our Constitution\n                                 (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n                                 Constitution are to:\n\n                                 \u2022     heal the divisions of the past and establish a society based on democratic\n                                       values, social justice and fundamental human rights;\n\n                                 \u2022     improve the quality of life of all citizens and free the potential of each person;\n\n                                 \u2022     lay the foundations for a democratic and open society in which government is\n                                       based on the will of the people and every citizen is equally protected by law;\n                                       and\n\n\u2022     build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n      nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nin 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experience\nof implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National Curriculum\nStatement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) to produce this document.\n\nFrom 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document\nand will simply be known as the National Curriculum Statement Grades R-12. the National Curriculum Statement for\nGrades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification of what\nis to be taught and learnt on a term-by-term basis.\n\nthe National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme\n",
+  "extraction_error": null
+}

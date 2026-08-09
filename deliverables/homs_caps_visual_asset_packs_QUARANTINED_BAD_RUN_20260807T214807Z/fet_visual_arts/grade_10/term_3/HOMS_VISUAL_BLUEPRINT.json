@@ -1,0 +1,79 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Visual Arts",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Visual Arts",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_visual_arts_gr_10-12_web_a758.pdf",
+    "sha256": "db20934536eebcb5d75ba5519c7c0adf09889ee4fa25994a91257a2862ce874d"
+  },
+  "canonical_profile_id": "fet.visual_arts",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "make practical and aesthetic decisions in the development of a coherent body of work.",
+    "Grade 10-12 Visual Arts learners aim to:",
+    "explore, develop and realise creative ideas in response to both externally set and self-generated projects,",
+    "Grade 12",
+    "TERM FORMAL ASSESSMENT TASKS ACTIVITIES",
+    "1 1 (practical) Practical Assessment Task (PAT) 1",
+    "2 3 (practical) Practical Assessment Task (PAT) 2",
+    "3 5 (practical) Preliminary Examination:",
+    "6 (theory) Practical (beginning of Term 3)",
+    "4 7 (practical + theory) Final Examination (external):",
+    "Paper 2 Practical",
+    "3 5 (practical) Practical Assessment Task (PAT) 3",
+    "4 7 (practical + theory) Final Examination (internal):",
+    "clearer specification of what is to be taught and learnt on a term-by-term basis."
+  ],
+  "assessment_content_focus": [
+    "make practical and aesthetic decisions in the development of a coherent body of work.",
+    "Grade 10-12 Visual Arts learners aim to:",
+    "make practical and aesthetic decisions in the development of a coherent body of work.",
+    "Grade 10-12 Visual Arts learners aim to:"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: aesthetic, coherent, decisions, development, learners, practical."
+  ],
+  "required_visuals": [
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

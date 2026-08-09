@@ -1,0 +1,967 @@
+{
+  "schema": "dio.notification_feed.v1",
+  "notifications": [
+    {
+      "notification_id": "EVT-629E705595140E48",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Payment Recorded\ncommerce_order 2",
+      "event": "payment.recorded",
+      "entity_type": "commerce_order",
+      "entity_id": "2",
+      "occurred_at": "2026-08-08T22:36:05+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-1F9153A5CC5F879F",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 2",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "2",
+      "occurred_at": "2026-08-08T22:36:03+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2B45AAC931C02835",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Campaign Approved\ncampaign sophia",
+      "event": "campaign.approved",
+      "entity_type": "campaign",
+      "entity_id": "sophia",
+      "occurred_at": "2026-08-08T22:14:38+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-B7044F8E09334470",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Campaign Approved\ncampaign vamp",
+      "event": "campaign.approved",
+      "entity_type": "campaign",
+      "entity_id": "vamp",
+      "occurred_at": "2026-08-08T22:14:34+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-D772ABF18BB29E3C",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Campaign Approved\ncampaign outlook_triage",
+      "event": "campaign.approved",
+      "entity_type": "campaign",
+      "entity_id": "outlook_triage",
+      "occurred_at": "2026-08-08T22:14:31+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-90A98798BDACA04A",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T22:14:09+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-1EB660A54443EE81",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T22:14:08+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-388D331DE5911970",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T22:14:05+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-64CA6C0149915395",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Outlook_Draft_Created\nmail_intent MAIL-459E215F830F782B",
+      "event": "mail.outlook_draft_created",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-459E215F830F782B",
+      "occurred_at": "2026-08-08T21:02:15+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-7B08D2680C1737EB",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Vamp Delivery_Prepared\nvamp_job VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "event": "vamp.delivery_prepared",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "occurred_at": "2026-08-08T21:02:04+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-6237E567838ACACA",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Draft_Ready\nmail_intent MAIL-459E215F830F782B",
+      "event": "mail.draft_ready",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-459E215F830F782B",
+      "occurred_at": "2026-08-08T21:02:04+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-8EF2E92CB08329F4",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Outlook_Draft_Created\nmail_intent MAIL-AA5B0A2568B8D6B3",
+      "event": "mail.outlook_draft_created",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-AA5B0A2568B8D6B3",
+      "occurred_at": "2026-08-08T21:01:18+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-67B2BB9044415C44",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Outlook_Draft_Created\nmail_intent MAIL-42CC88C671D056AA",
+      "event": "mail.outlook_draft_created",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-42CC88C671D056AA",
+      "occurred_at": "2026-08-08T21:01:05+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-35A58847FA24F8FF",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Evidex Notification_Prepared\nproduct_job evidex-b0a30dd37214755b47d9",
+      "event": "evidex.notification_prepared",
+      "entity_type": "product_job",
+      "entity_id": "evidex-b0a30dd37214755b47d9",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-924D0483FBAF74D9",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Draft_Ready\nmail_intent MAIL-AA5B0A2568B8D6B3",
+      "event": "mail.draft_ready",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-AA5B0A2568B8D6B3",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-BE595D072AFAE883",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Evidex Output_Approved\nproduct_job evidex-b0a30dd37214755b47d9",
+      "event": "evidex.output_approved",
+      "entity_type": "product_job",
+      "entity_id": "evidex-b0a30dd37214755b47d9",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-4A2A4EE2894D9C9D",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Evidex Intake_Approved\nproduct_job evidex-b0a30dd37214755b47d9",
+      "event": "evidex.intake_approved",
+      "entity_type": "product_job",
+      "entity_id": "evidex-b0a30dd37214755b47d9",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-B0BF16F6FB545B07",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Homs Notification_Prepared\nproduct_job homs-09d7b6a2e7463661bc81",
+      "event": "homs.notification_prepared",
+      "entity_type": "product_job",
+      "entity_id": "homs-09d7b6a2e7463661bc81",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-72CCE905B4C5EBCE",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Draft_Ready\nmail_intent MAIL-42CC88C671D056AA",
+      "event": "mail.draft_ready",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-42CC88C671D056AA",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-807683B536EDF17C",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Homs Intake_Approved\nproduct_job homs-09d7b6a2e7463661bc81",
+      "event": "homs.intake_approved",
+      "entity_type": "product_job",
+      "entity_id": "homs-09d7b6a2e7463661bc81",
+      "occurred_at": "2026-08-08T21:00:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2D267F4B0B7CC924",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Vamp Snapshot_Approved\nvamp_job VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "event": "vamp.snapshot_approved",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "occurred_at": "2026-08-08T21:00:02+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-32085D1071EE7DF1",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Vamp Snapshot_Ready\nvamp_job VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "event": "vamp.snapshot_ready",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "occurred_at": "2026-08-08T20:53:22+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-9EA2DE79B7231E2D",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Vamp Intake_Received\nvamp_job VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "event": "vamp.intake_received",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+      "occurred_at": "2026-08-08T20:53:12+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-A739B2575D4CCF20",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Outlook_Draft_Created\nmail_intent MAIL-BFE6DABCFDBADDBA",
+      "event": "mail.outlook_draft_created",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-BFE6DABCFDBADDBA",
+      "occurred_at": "2026-08-08T20:50:07+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-9CEE1BE31A77F087",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Vamp Delivery_Prepared\nvamp_job VAMP-COMMERCIAL-PRIVATE-001",
+      "event": "vamp.delivery_prepared",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-COMMERCIAL-PRIVATE-001",
+      "occurred_at": "2026-08-08T20:49:57+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-105BE6CFEAC5A543",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Draft_Ready\nmail_intent MAIL-BFE6DABCFDBADDBA",
+      "event": "mail.draft_ready",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-BFE6DABCFDBADDBA",
+      "occurred_at": "2026-08-08T20:49:57+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-4F9C01B03BBC76D3",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Vamp Snapshot_Approved\nvamp_job VAMP-COMMERCIAL-PRIVATE-001",
+      "event": "vamp.snapshot_approved",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-COMMERCIAL-PRIVATE-001",
+      "occurred_at": "2026-08-08T20:49:54+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-552A6D288AF7D714",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Vamp Snapshot_Ready\nvamp_job VAMP-COMMERCIAL-PRIVATE-001",
+      "event": "vamp.snapshot_ready",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-COMMERCIAL-PRIVATE-001",
+      "occurred_at": "2026-08-08T20:45:59+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2A670838AAB43E66",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Vamp Intake_Received\nvamp_job VAMP-COMMERCIAL-PRIVATE-001",
+      "event": "vamp.intake_received",
+      "entity_type": "vamp_job",
+      "entity_id": "VAMP-COMMERCIAL-PRIVATE-001",
+      "occurred_at": "2026-08-08T20:45:52+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-73924A8CD0AD45B8",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 1",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "1",
+      "occurred_at": "2026-08-08T20:17:21+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-C4B78E5A519781DB",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Payment Succeeded\ncommerce_order DIO-PAYPAL-LIVE-USD-001",
+      "event": "payment.succeeded",
+      "entity_type": "commerce_order",
+      "entity_id": "DIO-PAYPAL-LIVE-USD-001",
+      "occurred_at": "2026-08-08T20:17:21+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-32BE77A803718D7A",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-F244FCBC314DDE5B",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-F244FCBC314DDE5B",
+      "occurred_at": "2026-08-08T20:06:21+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-C4B755545AD102EA",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 12",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "12",
+      "occurred_at": "2026-08-08T20:06:18+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-B854A57CC3E9E87E",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Outlook_Draft_Created\nmail_intent MAIL-635D8E3B87F0BCA8",
+      "event": "mail.outlook_draft_created",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-635D8E3B87F0BCA8",
+      "occurred_at": "2026-08-08T19:44:55+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-D20A43E9CA726071",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Sophia Delivery_Prepared\nsophia_job SOPHIA-COMMERCIAL-DEMO-001",
+      "event": "sophia.delivery_prepared",
+      "entity_type": "sophia_job",
+      "entity_id": "SOPHIA-COMMERCIAL-DEMO-001",
+      "occurred_at": "2026-08-08T19:44:47+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-DC9547DDA4333D3F",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Draft_Ready\nmail_intent MAIL-635D8E3B87F0BCA8",
+      "event": "mail.draft_ready",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-635D8E3B87F0BCA8",
+      "occurred_at": "2026-08-08T19:44:47+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-45FE45E030F15BCE",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Sophia Review_Approved\nsophia_job SOPHIA-COMMERCIAL-DEMO-001",
+      "event": "sophia.review_approved",
+      "entity_type": "sophia_job",
+      "entity_id": "SOPHIA-COMMERCIAL-DEMO-001",
+      "occurred_at": "2026-08-08T19:44:46+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-F4A99365FB68B74D",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Sophia Review_Ready\nsophia_job SOPHIA-COMMERCIAL-DEMO-001",
+      "event": "sophia.review_ready",
+      "entity_type": "sophia_job",
+      "entity_id": "SOPHIA-COMMERCIAL-DEMO-001",
+      "occurred_at": "2026-08-08T19:44:18+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2BD9E78CF47AF4F3",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Sophia Intake_Received\nsophia_job SOPHIA-COMMERCIAL-DEMO-001",
+      "event": "sophia.intake_received",
+      "entity_type": "sophia_job",
+      "entity_id": "SOPHIA-COMMERCIAL-DEMO-001",
+      "occurred_at": "2026-08-08T19:43:50+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-E01ECCCE05A20E5E",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T19:35:15+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-7FC85C4305783D07",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T19:29:07+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-703437D240EB1444",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T19:29:01+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-87FEEB97ADCAF946",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 11",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "11",
+      "occurred_at": "2026-08-08T18:49:47+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-D4F2FE82A1AB1F2C",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Payment Succeeded\ncommerce_order DIO-PAYPAL-SANDBOX-USD-001",
+      "event": "payment.succeeded",
+      "entity_type": "commerce_order",
+      "entity_id": "DIO-PAYPAL-SANDBOX-USD-001",
+      "occurred_at": "2026-08-08T18:49:47+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2ABA6F45A73AD8C0",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-8F365C94A6C545E3",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-8F365C94A6C545E3",
+      "occurred_at": "2026-08-08T18:15:58+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-DEDC3CD9383A4989",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 10",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "10",
+      "occurred_at": "2026-08-08T18:15:55+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-F9A6BAA4EBABF1F1",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-0726C225D841995E",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-0726C225D841995E",
+      "occurred_at": "2026-08-08T17:52:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-15D94F99DDB9E774",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 9",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "9",
+      "occurred_at": "2026-08-08T17:52:39+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-F642F450C0D25819",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-106172A5FCAAA2D2",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-106172A5FCAAA2D2",
+      "occurred_at": "2026-08-08T17:52:13+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-3A0582BFDCD2D0B9",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 8",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "8",
+      "occurred_at": "2026-08-08T17:52:12+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-B601C49015ED65AD",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-5EC2BA248B8C1DB8",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-5EC2BA248B8C1DB8",
+      "occurred_at": "2026-08-08T17:51:46+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-70E8D3E5D3B9FCCE",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 7",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "7",
+      "occurred_at": "2026-08-08T17:51:46+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-462C6F29606B6E5F",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-E8FFC9DAAE1F9D4D",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-E8FFC9DAAE1F9D4D",
+      "occurred_at": "2026-08-08T17:51:16+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-F8898AAC2A00C8B2",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 6",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "6",
+      "occurred_at": "2026-08-08T17:51:14+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-96075DE0738978F7",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-A5D30F6505BD30A4",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-A5D30F6505BD30A4",
+      "occurred_at": "2026-08-08T17:47:07+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-C5CF02E4E340CF43",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 5",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "5",
+      "occurred_at": "2026-08-08T17:47:06+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-3000704B9496EFEE",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-8692673203379EF7",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-8692673203379EF7",
+      "occurred_at": "2026-08-08T17:46:10+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-5B3CED842A0FF2DA",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 4",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "4",
+      "occurred_at": "2026-08-08T17:46:09+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-79CC5336AE0AE743",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-7747389E5637CD4A",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-7747389E5637CD4A",
+      "occurred_at": "2026-08-08T17:45:02+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-55F6E29C3BC6AAAF",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 3",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "3",
+      "occurred_at": "2026-08-08T17:45:00+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-BCEC7550F8B4A0A9",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-14585AC8F12FD480",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-14585AC8F12FD480",
+      "occurred_at": "2026-08-08T17:29:11+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-E8D1E9F3978173E6",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-A09B9D99FE747729",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-A09B9D99FE747729",
+      "occurred_at": "2026-08-08T17:29:11+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-617C37E44DF59351",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-FDDFB6978517FC8C",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-FDDFB6978517FC8C",
+      "occurred_at": "2026-08-08T17:29:11+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-FCEAA12B6AFA9C60",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Edge Events_Reconciled\nedge_batch 1",
+      "event": "edge.events_reconciled",
+      "entity_type": "edge_batch",
+      "entity_id": "1",
+      "occurred_at": "2026-08-08T17:26:25+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-73671E934BBC712A",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Outlook_Draft_Created\nmail_intent MAIL-D66DC2169E28F108",
+      "event": "mail.outlook_draft_created",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-D66DC2169E28F108",
+      "occurred_at": "2026-08-08T17:02:51+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-7EC1D3F71932FC88",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Mail Draft_Ready\nmail_intent MAIL-D66DC2169E28F108",
+      "event": "mail.draft_ready",
+      "entity_type": "mail_intent",
+      "entity_id": "MAIL-D66DC2169E28F108",
+      "occurred_at": "2026-08-08T17:02:44+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2D918D53D39764A5",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-6904475DB86CC14C",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-6904475DB86CC14C",
+      "occurred_at": "2026-08-08T17:00:03+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-149C52685BFEFC4B",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-862A2BF1E825F350",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-862A2BF1E825F350",
+      "occurred_at": "2026-08-08T17:00:03+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-4E8C0DCCB428D0C2",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-4183100B4A6329FB",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-4183100B4A6329FB",
+      "occurred_at": "2026-08-08T17:00:03+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-7D52F85796B66C1D",
+      "severity": "info",
+      "title": "DIO INFO",
+      "body": "Mail Received\nmail_ingress INGRESS-D17C839A0E0DF3CF",
+      "event": "mail.received",
+      "entity_type": "mail_ingress",
+      "entity_id": "INGRESS-D17C839A0E0DF3CF",
+      "occurred_at": "2026-08-08T17:00:03+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-E1C8A8D88FB6155F",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T16:35:45+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-05395B547DF1E00B",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T16:35:45+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-2AFAF5EF6CAEF9E6",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T16:28:13+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    },
+    {
+      "notification_id": "EVT-AC926D5798CC5EA7",
+      "severity": "action",
+      "title": "DIO ACTION",
+      "body": "Control Policy_Changed\ncontrol_policy DIO-CONTROL",
+      "event": "control.policy_changed",
+      "entity_type": "control_policy",
+      "entity_id": "DIO-CONTROL",
+      "occurred_at": "2026-08-08T16:28:13+00:00",
+      "routes": [
+        "dashboard"
+      ]
+    }
+  ]
+}

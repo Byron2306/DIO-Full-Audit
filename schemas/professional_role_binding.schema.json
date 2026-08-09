@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Professional Role Binding",
+  "type": "object",
+  "required": ["organisation", "product_line_id", "role_title", "source"],
+  "properties": {
+    "schema": {"const": "dio.professional_role_binding.v1"},
+    "prospect_id": {"type": ["string", "null"]},
+    "organisation": {"type": "string", "minLength": 1},
+    "product_line_id": {"type": "string", "minLength": 1},
+    "buyer_unit": {"type": ["string", "null"]},
+    "role_title": {"type": "string", "minLength": 1},
+    "person_name": {"type": ["string", "null"]},
+    "profile_url": {"type": ["string", "null"]},
+    "location": {"type": ["string", "null"]},
+    "source": {"enum": ["linkedin", "apollo", "public_website", "manual", "other"]},
+    "source_ref": {"type": ["string", "null"]},
+    "verified_at": {"type": ["string", "null"]},
+    "confidence": {"enum": ["unverified", "low", "medium", "high"]},
+    "outreach_permission": {"enum": ["not_recorded", "consented", "existing_customer", "withheld", "do_not_contact"]},
+    "notes": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

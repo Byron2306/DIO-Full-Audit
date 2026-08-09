@@ -1,0 +1,663 @@
+{
+  "schema": "knowedge.hymark_exam_builder_receipt.v1",
+  "created_at": "2026-08-07T21:13:53+00:00",
+  "job_id": "hymark-exam-dance_studies-grade10-dances-20260807T211247Z",
+  "status": "completed",
+  "request": {
+    "module_code": "DANCES",
+    "module_name": "Dance Studies Grade 10",
+    "topics": [
+      "Dance Studies CAPS core knowledge and skills",
+      "Dance Studies applied task or assessment evidence"
+    ],
+    "methodology_topic": "Dance Studies applied assessment task",
+    "essay_topic": "Dance Studies extended or practical synthesis task",
+    "total_marks": 50,
+    "duration_hours": 2,
+    "additional_instructions": "Controlled CAPS-aligned demo generation. A qualified educator must verify topic scope, mark allocation, and assessment form before classroom use.\n\nSubject profile: Dance Studies. Grade profile: Grade 10 (fet); learner level advanced_school; Bloom targets understand, apply, analyze, evaluate; ZPD light scaffold; question style source_based_question, data_response, structured_essay, case_analysis; reading load high; writing load high. Question families: recall, apply, explain, investigate, design_or_perform, justify. Memo expectations: reconcile total marks with section marks and rubric marks, credit grade-appropriate equivalent responses, separate learner-facing instructions from educator-facing memo, tie every mark to observable evidence or answer points. Grade memo style: credit accurate content, source use, and defended explanation. Human review checks: verify CAPS topic scope; check mark allocation; confirm assessment form matches subject and phase; approve final pack before classroom use. Do not use blocked modes: unverified official quotation; internal uncertainty in learner-facing pack; unreconciled marks. CAPS CONTROL: Align this assessment draft to the official DBE CAPS source 'Dance Studies' for Dance Studies, Grade 10 / fet. CAPS SHA-256: 9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada. CAPS assessment blueprint: practical_performance_or_portfolio. Assessment format signals: source-based, essay/extended response, data/diagram, practical investigation, project/SBA, oral/performance.  Canonical ontology profile: fet.dance_studies / Dance Studies. Allowed modes: performance_or_product, portfolio, reflection, technique_vocabulary, rubric_levels. Default-off modes: calculation_heavy_questions, generic_case_study, formal_source_essay. Distribution guide: performance_or_product=50%, technique_and_process=25%, reflection_or_context=25%. Generation constraints: Use observable criteria and clear rubric levels.; Preserve space for educator judgement and local resources.. Treat document keyword signals as supporting evidence, not the final assessment authority.  CAPS assessment design profile: render_shell=performance_task_sheet; assessment_forms=theory_test, practical_test, practical_exam, theory_exam, research_assignment, performance_assessment_task; annual_weightings=sba=25%, performance_assessment_tasks=25%, final_examinations=50%; cognitive_or_skill_distribution=lower_order_knowledge=30%, middle_order_application=50%, higher_order_analysis_evaluation_creativity=20%; marking_instruments=performance_rubric, teacher_observation_record, moderation_evidence, memorandum_for_theory_only; design_constraints=For PATs and practical exams, render an assessment instrument with task brief, conditions, observable criteria, and rubric. ; Do not present physical performance requirements as answer-line questions. ; Use written question-paper structure only for Dance theory papers. ; Film or retain evidence where the educator requires moderation support.. Do not force source-based sections or essay matrices unless the canonical ontology profile and requested brief justify them. Bloom targets: understand, apply, analyze, evaluate. Question styles: source_based_question, data_response, structured_essay, case_analysis. Memo style: credit accurate content, source use, and defended explanation. CAPS excerpt: National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nDANCE STUDIES\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n DANCE STUDIES\n\nCAPS\n DANCE STUDIES GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0592-0\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES\n DANCE STUDIES GRADES 10-12\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022",
+    "grade": 10,
+    "subject_profile": {
+      "schema": "knowedge.homs_subject_profile.v1",
+      "subject_id": "dance_studies",
+      "display_name": "Dance Studies",
+      "default_level": "caps_school",
+      "assessment_modes": [
+        "caps_shell_assessment",
+        "structured_task",
+        "memo",
+        "marking_relief"
+      ],
+      "source_types": [
+        "caps_stimulus",
+        "diagram",
+        "table",
+        "scenario",
+        "task_brief"
+      ],
+      "question_families": [
+        "recall",
+        "apply",
+        "explain",
+        "investigate",
+        "design_or_perform",
+        "justify"
+      ],
+      "cognitive_targets": [
+        "remember",
+        "understand",
+        "apply",
+        "analyze",
+        "evaluate",
+        "create"
+      ],
+      "rubric_dimensions": [
+        "content_accuracy",
+        "skill_demonstration",
+        "reasoning",
+        "communication",
+        "caps_alignment"
+      ],
+      "memo_expectations": [
+        "reconcile total marks with section marks and rubric marks",
+        "credit grade-appropriate equivalent responses",
+        "separate learner-facing instructions from educator-facing memo",
+        "tie every mark to observable evidence or answer points"
+      ],
+      "retrieval_queries": [
+        "Dance Studies CAPS assessment requirements"
+      ],
+      "human_review_checks": [
+        "verify CAPS topic scope",
+        "check mark allocation",
+        "confirm assessment form matches subject and phase",
+        "approve final pack before classroom use"
+      ],
+      "blocked_claims_or_modes": [
+        "unverified official quotation",
+        "internal uncertainty in learner-facing pack",
+        "unreconciled marks"
+      ]
+    },
+    "subject_profile_path": "synthesized_from_subject_name",
+    "grade_profile": {
+      "grade": 10,
+      "phase": "fet",
+      "learner_level": "advanced_school",
+      "bloom_targets": [
+        "understand",
+        "apply",
+        "analyze",
+        "evaluate"
+      ],
+      "zpd_level": "light scaffold",
+      "question_style": [
+        "source_based_question",
+        "data_response",
+        "structured_essay",
+        "case_analysis"
+      ],
+      "reading_load": "high",
+      "writing_load": "high",
+      "memo_style": "credit accurate content, source use, and defended explanation",
+      "review_checks": [
+        "subject assessment guidelines",
+        "content depth",
+        "fair command verbs"
+      ]
+    },
+    "grade_ladder_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_grade_ladder.json",
+    "caps_context": {
+      "schema": "knowedge.homs_caps_context.v1",
+      "created_at": "2026-08-07T21:12:47+00:00",
+      "enabled": true,
+      "manifest": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/caps_corpus_manifest.json",
+      "subject_id": "dance_studies",
+      "subject": "Dance Studies",
+      "grade": 10,
+      "phase": "fet_grade_10_12",
+      "preferred_language": "English",
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "score": 190,
+          "document_id": "fileticket_ckcnqp3xkv0",
+          "title": "Dance Studies",
+          "phase": "fet_grade_10_12",
+          "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+          "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CkCNqp3xKV0%3d&tabid=570&portalid=0&mid=1558",
+          "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20DANCE%20STUDIES%20_%20GR%2010-12%20_%20Web_6466.pdf?ver=2015-01-27-154018-110",
+          "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada",
+          "bytes": 1612259
+        }
+      ],
+      "selected": {
+        "score": 190,
+        "document_id": "fileticket_ckcnqp3xkv0",
+        "title": "Dance Studies",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+        "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CkCNqp3xKV0%3d&tabid=570&portalid=0&mid=1558",
+        "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20DANCE%20STUDIES%20_%20GR%2010-12%20_%20Web_6466.pdf?ver=2015-01-27-154018-110",
+        "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada",
+        "bytes": 1612259
+      },
+      "assessment_matrix_row": {
+        "recommended_blueprint": "practical_performance_or_portfolio",
+        "subject_family": "arts",
+        "language_guess": "Unknown",
+        "assessment_flags": {
+          "source_based": true,
+          "essay": true,
+          "case_study": false,
+          "data_graph_diagram": true,
+          "practical_investigation": true,
+          "project_assignment": true,
+          "oral_performance": true,
+          "calculation_problem": false,
+          "test_exam": true
+        },
+        "assessment_keyword_counts": {
+          "source_based": 2,
+          "essay": 2,
+          "case_study": 0,
+          "data_graph_diagram": 115,
+          "practical_investigation": 86,
+          "project_assignment": 38,
+          "oral_performance": 83,
+          "calculation_problem": 1,
+          "test_exam": 153
+        },
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": false,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": false,
+        "signals_formal_test_or_exam": true
+      },
+      "assessment_ontology_profile": {
+        "profile_id": "fet.dance_studies",
+        "subject": "Dance Studies",
+        "phase": "fet_grade_10_12",
+        "phase_group": "fet",
+        "grades": [
+          10,
+          11,
+          12
+        ],
+        "subject_family": "arts",
+        "assessment_family": "practical_performance_or_portfolio",
+        "allowed": [
+          "performance_or_product",
+          "portfolio",
+          "reflection",
+          "technique_vocabulary",
+          "rubric_levels"
+        ],
+        "default_off": [
+          "calculation_heavy_questions",
+          "generic_case_study",
+          "formal_source_essay"
+        ],
+        "required_distribution": {
+          "performance_or_product": 50,
+          "technique_and_process": 25,
+          "reflection_or_context": 25
+        },
+        "generation_constraints": [
+          "Use observable criteria and clear rubric levels.",
+          "Preserve space for educator judgement and local resources."
+        ],
+        "validation_rules": [
+          "Generated packs must declare this profile_id and assessment_family.",
+          "Generated packs may not use default_off modes unless the human request explicitly overrides them.",
+          "Generated packs must cite at least one supporting CAPS evidence document.",
+          "Teacher memo, mark allocation, and learner instructions must be present.",
+          "Educator approval remains a required terminal gate before delivery or classroom use."
+        ],
+        "evidence_summary": {
+          "document_count": 1,
+          "languages": {
+            "Unknown": 1
+          },
+          "document_blueprints": {
+            "practical_performance_or_portfolio": 1
+          },
+          "signal_counts": {
+            "signals_source_based": 1,
+            "signals_essay_or_extended_response": 1,
+            "signals_case_study": 0,
+            "signals_data_graph_diagram": 1,
+            "signals_practical_investigation": 1,
+            "signals_project_or_sba": 1,
+            "signals_oral_or_performance": 1,
+            "signals_calculation_problem": 0,
+            "signals_formal_test_or_exam": 1
+          },
+          "noisy_document_count": 1
+        }
+      },
+      "assessment_design_profile": {
+        "profile_id": "fet.dance_studies",
+        "subject": "Dance Studies",
+        "assessment_family": "practical_performance_or_portfolio",
+        "render_shell": "performance_task_sheet",
+        "confidence": "high",
+        "assessment_forms": [
+          "theory_test",
+          "practical_test",
+          "practical_exam",
+          "theory_exam",
+          "research_assignment",
+          "performance_assessment_task"
+        ],
+        "annual_weightings": {
+          "sba": 25,
+          "performance_assessment_tasks": 25,
+          "final_examinations": 50
+        },
+        "task_requirements": [
+          {
+            "name": "Grade 10 PAT 1",
+            "type": "composition_sequence",
+            "term": 2,
+            "marks": 50
+          },
+          {
+            "name": "Grade 10 PAT 2",
+            "type": "indigenous_or_cross_cultural_dance",
+            "term": 3,
+            "marks": 50
+          },
+          {
+            "name": "Grade 10/11 practical exam",
+            "type": "practical_performance",
+            "marks": 100
+          },
+          {
+            "name": "Grade 10/11 theory exam",
+            "type": "written_theory",
+            "marks": 100
+          }
+        ],
+        "paper_structure": [
+          {
+            "name": "Theory Paper 1",
+            "marks": 100,
+            "time": "3 hours"
+          },
+          {
+            "name": "Safe dance practice and health care",
+            "marks": 40
+          },
+          {
+            "name": "Dance history and literacy",
+            "marks": 60
+          },
+          {
+            "name": "Practical instrument",
+            "components": [
+              {
+                "set_class": 50
+              },
+              {
+                "solo": 30
+              },
+              {
+                "improvisation": 20
+              }
+            ],
+            "marks": 100
+          }
+        ],
+        "cognitive_distribution": {
+          "lower_order_knowledge": 30,
+          "middle_order_application": 50,
+          "higher_order_analysis_evaluation_creativity": 20
+        },
+        "marking_instruments": [
+          "performance_rubric",
+          "teacher_observation_record",
+          "moderation_evidence",
+          "memorandum_for_theory_only"
+        ],
+        "generation_constraints": [
+          "For PATs and practical exams, render an assessment instrument with task brief, conditions, observable criteria, and rubric.",
+          "Do not present physical performance requirements as answer-line questions.",
+          "Use written question-paper structure only for Dance theory papers.",
+          "Film or retain evidence where the educator requires moderation support."
+        ],
+        "validation_rules": [
+          "Choose the render shell from assessment design before rendering learner-facing material.",
+          "Do not render practical performance tasks as written answer-question papers.",
+          "Marks in the learner pack must reconcile with the assessment instrument.",
+          "Keep educator approval as the final gate."
+        ]
+      },
+      "extracted_excerpt": "National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nDANCE STUDIES\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n DANCE STUDIES\n\nCAPS\n DANCE STUDIES GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0592-0\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES\n DANCE STUDIES GRADES 10-12\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 heal the divisions of the past and establish a society based on democratic\n values, social justice and fundamental human rights;\n\n \u2022 improve the quality of life of all citizens and free the potential of each person;\n\n \u2022 lay the foundations for a democratic and open society in which government is\n based on the will of the people and every citizen is equally protected by law;\n and\n\n\u2022 build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nin 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experience\nof implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National Curriculum\nStatement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) to produce this document.\n\nFrom 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document\nand will simply be known as the National Curriculum Statement Grades R-12. the National Curriculum Statement for\nGrades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification of what\nis to be taught and learnt on a term-by-term basis.\n\nthe National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme\nGuidelines and subject Assessment Guidelines with the\n\n(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document;\n\n(b) National policy pertaining to the programme and promotion requirements of the National Curriculum Statement\n Grades R-12; and\n\n(c) National Protocol for Assessment Grades R-12.\n\nMRS ANGIE MOTSHEKGA, MP\nMINISTER OF BASIC EDUCATION\n\nCAPS\n DANCE STUDIES GRADES 10-12\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n DANCE STUDIES GRADES 10-12\nCONTENTS\n\nSection 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3\n\n1.1 Background...........................................................................................................",
+      "extraction_error": null
+    },
+    "caps_generation_note": "CAPS CONTROL: Align this assessment draft to the official DBE CAPS source 'Dance Studies' for Dance Studies, Grade 10 / fet. CAPS SHA-256: 9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada. CAPS assessment blueprint: practical_performance_or_portfolio. Assessment format signals: source-based, essay/extended response, data/diagram, practical investigation, project/SBA, oral/performance.  Canonical ontology profile: fet.dance_studies / Dance Studies. Allowed modes: performance_or_product, portfolio, reflection, technique_vocabulary, rubric_levels. Default-off modes: calculation_heavy_questions, generic_case_study, formal_source_essay. Distribution guide: performance_or_product=50%, technique_and_process=25%, reflection_or_context=25%. Generation constraints: Use observable criteria and clear rubric levels.; Preserve space for educator judgement and local resources.. Treat document keyword signals as supporting evidence, not the final assessment authority.  CAPS assessment design profile: render_shell=performance_task_sheet; assessment_forms=theory_test, practical_test, practical_exam, theory_exam, research_assignment, performance_assessment_task; annual_weightings=sba=25%, performance_assessment_tasks=25%, final_examinations=50%; cognitive_or_skill_distribution=lower_order_knowledge=30%, middle_order_application=50%, higher_order_analysis_evaluation_creativity=20%; marking_instruments=performance_rubric, teacher_observation_record, moderation_evidence, memorandum_for_theory_only; design_constraints=For PATs and practical exams, render an assessment instrument with task brief, conditions, observable criteria, and rubric. ; Do not present physical performance requirements as answer-line questions. ; Use written question-paper structure only for Dance theory papers. ; Film or retain evidence where the educator requires moderation support.. Do not force source-based sections or essay matrices unless the canonical ontology profile and requested brief justify them. Bloom targets: understand, apply, analyze, evaluate. Question styles: source_based_question, data_response, structured_essay, case_analysis. Memo style: credit accurate content, source use, and defended explanation. CAPS excerpt: National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nDANCE STUDIES\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n DANCE STUDIES\n\nCAPS\n DANCE STUDIES GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0592-0\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES\n DANCE STUDIES GRADES 10-12\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 "
+  },
+  "subject_profile": {
+    "subject_id": "dance_studies",
+    "display_name": "Dance Studies",
+    "profile_path": "synthesized_from_subject_name"
+  },
+  "grade_profile": {
+    "grade": 10,
+    "phase": "fet",
+    "learner_level": "advanced_school",
+    "bloom_targets": [
+      "understand",
+      "apply",
+      "analyze",
+      "evaluate"
+    ],
+    "ladder_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/config/homs_grade_ladder.json"
+  },
+  "caps_context": {
+    "schema": "knowedge.homs_caps_context.v1",
+    "created_at": "2026-08-07T21:12:47+00:00",
+    "enabled": true,
+    "manifest": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/caps_corpus_manifest.json",
+    "subject_id": "dance_studies",
+    "subject": "Dance Studies",
+    "grade": 10,
+    "phase": "fet_grade_10_12",
+    "preferred_language": "English",
+    "candidate_count": 1,
+    "candidates": [
+      {
+        "score": 190,
+        "document_id": "fileticket_ckcnqp3xkv0",
+        "title": "Dance Studies",
+        "phase": "fet_grade_10_12",
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+        "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CkCNqp3xKV0%3d&tabid=570&portalid=0&mid=1558",
+        "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20DANCE%20STUDIES%20_%20GR%2010-12%20_%20Web_6466.pdf?ver=2015-01-27-154018-110",
+        "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada",
+        "bytes": 1612259
+      }
+    ],
+    "selected": {
+      "score": 190,
+      "document_id": "fileticket_ckcnqp3xkv0",
+      "title": "Dance Studies",
+      "phase": "fet_grade_10_12",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+      "source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=CkCNqp3xKV0%3d&tabid=570&portalid=0&mid=1558",
+      "final_url": "https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20DANCE%20STUDIES%20_%20GR%2010-12%20_%20Web_6466.pdf?ver=2015-01-27-154018-110",
+      "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada",
+      "bytes": 1612259
+    },
+    "assessment_matrix_row": {
+      "recommended_blueprint": "practical_performance_or_portfolio",
+      "subject_family": "arts",
+      "language_guess": "Unknown",
+      "assessment_flags": {
+        "source_based": true,
+        "essay": true,
+        "case_study": false,
+        "data_graph_diagram": true,
+        "practical_investigation": true,
+        "project_assignment": true,
+        "oral_performance": true,
+        "calculation_problem": false,
+        "test_exam": true
+      },
+      "assessment_keyword_counts": {
+        "source_based": 2,
+        "essay": 2,
+        "case_study": 0,
+        "data_graph_diagram": 115,
+        "practical_investigation": 86,
+        "project_assignment": 38,
+        "oral_performance": 83,
+        "calculation_problem": 1,
+        "test_exam": 153
+      },
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": false,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": false,
+      "signals_formal_test_or_exam": true
+    },
+    "assessment_ontology_profile": {
+      "profile_id": "fet.dance_studies",
+      "subject": "Dance Studies",
+      "phase": "fet_grade_10_12",
+      "phase_group": "fet",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "subject_family": "arts",
+      "assessment_family": "practical_performance_or_portfolio",
+      "allowed": [
+        "performance_or_product",
+        "portfolio",
+        "reflection",
+        "technique_vocabulary",
+        "rubric_levels"
+      ],
+      "default_off": [
+        "calculation_heavy_questions",
+        "generic_case_study",
+        "formal_source_essay"
+      ],
+      "required_distribution": {
+        "performance_or_product": 50,
+        "technique_and_process": 25,
+        "reflection_or_context": 25
+      },
+      "generation_constraints": [
+        "Use observable criteria and clear rubric levels.",
+        "Preserve space for educator judgement and local resources."
+      ],
+      "validation_rules": [
+        "Generated packs must declare this profile_id and assessment_family.",
+        "Generated packs may not use default_off modes unless the human request explicitly overrides them.",
+        "Generated packs must cite at least one supporting CAPS evidence document.",
+        "Teacher memo, mark allocation, and learner instructions must be present.",
+        "Educator approval remains a required terminal gate before delivery or classroom use."
+      ],
+      "evidence_summary": {
+        "document_count": 1,
+        "languages": {
+          "Unknown": 1
+        },
+        "document_blueprints": {
+          "practical_performance_or_portfolio": 1
+        },
+        "signal_counts": {
+          "signals_source_based": 1,
+          "signals_essay_or_extended_response": 1,
+          "signals_case_study": 0,
+          "signals_data_graph_diagram": 1,
+          "signals_practical_investigation": 1,
+          "signals_project_or_sba": 1,
+          "signals_oral_or_performance": 1,
+          "signals_calculation_problem": 0,
+          "signals_formal_test_or_exam": 1
+        },
+        "noisy_document_count": 1
+      }
+    },
+    "assessment_design_profile": {
+      "profile_id": "fet.dance_studies",
+      "subject": "Dance Studies",
+      "assessment_family": "practical_performance_or_portfolio",
+      "render_shell": "performance_task_sheet",
+      "confidence": "high",
+      "assessment_forms": [
+        "theory_test",
+        "practical_test",
+        "practical_exam",
+        "theory_exam",
+        "research_assignment",
+        "performance_assessment_task"
+      ],
+      "annual_weightings": {
+        "sba": 25,
+        "performance_assessment_tasks": 25,
+        "final_examinations": 50
+      },
+      "task_requirements": [
+        {
+          "name": "Grade 10 PAT 1",
+          "type": "composition_sequence",
+          "term": 2,
+          "marks": 50
+        },
+        {
+          "name": "Grade 10 PAT 2",
+          "type": "indigenous_or_cross_cultural_dance",
+          "term": 3,
+          "marks": 50
+        },
+        {
+          "name": "Grade 10/11 practical exam",
+          "type": "practical_performance",
+          "marks": 100
+        },
+        {
+          "name": "Grade 10/11 theory exam",
+          "type": "written_theory",
+          "marks": 100
+        }
+      ],
+      "paper_structure": [
+        {
+          "name": "Theory Paper 1",
+          "marks": 100,
+          "time": "3 hours"
+        },
+        {
+          "name": "Safe dance practice and health care",
+          "marks": 40
+        },
+        {
+          "name": "Dance history and literacy",
+          "marks": 60
+        },
+        {
+          "name": "Practical instrument",
+          "components": [
+            {
+              "set_class": 50
+            },
+            {
+              "solo": 30
+            },
+            {
+              "improvisation": 20
+            }
+          ],
+          "marks": 100
+        }
+      ],
+      "cognitive_distribution": {
+        "lower_order_knowledge": 30,
+        "middle_order_application": 50,
+        "higher_order_analysis_evaluation_creativity": 20
+      },
+      "marking_instruments": [
+        "performance_rubric",
+        "teacher_observation_record",
+        "moderation_evidence",
+        "memorandum_for_theory_only"
+      ],
+      "generation_constraints": [
+        "For PATs and practical exams, render an assessment instrument with task brief, conditions, observable criteria, and rubric.",
+        "Do not present physical performance requirements as answer-line questions.",
+        "Use written question-paper structure only for Dance theory papers.",
+        "Film or retain evidence where the educator requires moderation support."
+      ],
+      "validation_rules": [
+        "Choose the render shell from assessment design before rendering learner-facing material.",
+        "Do not render practical performance tasks as written answer-question papers.",
+        "Marks in the learner pack must reconcile with the assessment instrument.",
+        "Keep educator approval as the final gate."
+      ]
+    },
+    "extracted_excerpt": "National Curriculum Statement (NCS)\n\n Curriculum and Assessment\n Policy Statement\nDANCE STUDIES\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n Curriculum and Assessment Policy Statement\n GRADES 10-12\n\n DANCE STUDIES\n\nCAPS\n DANCE STUDIES GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0592-0\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n AGRICULTURAL MANAGEMENT PRACTICES\n DANCE STUDIES GRADES 10-12\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 heal the divisions of the past and establish a society based on democratic\n values, social justice and fundamental human rights;\n\n \u2022 improve the quality of life of all citizens and free the potential of each person;\n\n \u2022 lay the foundations for a democratic and open society in which government is\n based on the will of the people and every citizen is equally protected by law;\n and\n\n\u2022 build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nin 1997 we introduced outcomes-based education to overcome the curricular divisions of the past, but the experience\nof implementation prompted a review in 2000. This led to the first curriculum revision: the Revised National Curriculum\nStatement Grades R-9 and the National Curriculum Statement Grades 10-12 (2002).\n\nOngoing implementation challenges resulted in another review in 2009 and we revised the Revised National\nCurriculum Statement (2002) to produce this document.\n\nFrom 2012 the two 2002 curricula, for Grades R-9 and Grades 10-12 respectively, are combined in a single document\nand will simply be known as the National Curriculum Statement Grades R-12. the National Curriculum Statement for\nGrades R-12 builds on the previous curriculum but also updates it and aims to provide clearer specification of what\nis to be taught and learnt on a term-by-term basis.\n\nthe National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme\nGuidelines and subject Assessment Guidelines with the\n\n(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document;\n\n(b) National policy pertaining to the programme and promotion requirements of the National Curriculum Statement\n Grades R-12; and\n\n(c) National Protocol for Assessment Grades R-12.\n\nMRS ANGIE MOTSHEKGA, MP\nMINISTER OF BASIC EDUCATION\n\nCAPS\n DANCE STUDIES GRADES 10-12\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n DANCE STUDIES GRADES 10-12\nCONTENTS\n\nSection 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3\n\n1.1 Background...........................................................................................................",
+    "extraction_error": null
+  },
+  "assessor": {
+    "name": "HyMark Exam Builder",
+    "backend_path": "/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py",
+    "generation_backend": "caps_shell",
+    "function_sources": [
+      "model_shell_pack",
+      "validate_assessment_pack",
+      "apply_design_law",
+      "create_shell_memo_docx"
+    ]
+  },
+  "provider": {
+    "selected_provider": "nvidia_nim",
+    "selected_model": "nvidia/nemotron-3-super-120b-a12b",
+    "selected_key_name": "NVIDIA_API_KEY",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "available_secret_names": [
+      "BEAST_IMPORTED_SECRET_01",
+      "BEAST_IMPORTED_SECRET_02",
+      "BEAST_IMPORTED_SECRET_03",
+      "BEAST_IMPORTED_SECRET_04",
+      "BEAST_IMPORTED_SECRET_05",
+      "BEAST_IMPORTED_SECRET_06",
+      "BEAST_IMPORTED_SECRET_07",
+      "BEAST_IMPORTED_SECRET_08",
+      "CEREBRAS_API_KEY",
+      "COHERE_API_KEY",
+      "DEEPINFRA_API_KEY",
+      "FAL_KEY",
+      "FEATHERLESS_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "HF_TOKEN",
+      "HYPERBOLIC_API_KEY",
+      "MISTRAL_API_KEY",
+      "NOVITA_API_KEY",
+      "NSCALE_API_KEY",
+      "NVIDIA_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_API_KEY_2",
+      "OPENAI_API_KEY_3",
+      "OPENROUTER_API_KEY",
+      "OVHCLOUD_API_KEY",
+      "OVHCLOUD_API_KEY_2",
+      "OVHCLOUD_API_KEY_3",
+      "OVHCLOUD_APP_KEY",
+      "OVHCLOUD_APP_SECRET",
+      "OVHCLOUD_CONSUMER_KEY",
+      "REPLICATE_API_TOKEN",
+      "XAI_API_KEY"
+    ],
+    "values_redacted": true
+  },
+  "duration_seconds": 66.544,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z",
+    "request": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/exam_builder_request.json",
+    "exam_set": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/exam_set.json",
+    "summary": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/HYMARK_EXAM_REVIEW_SUMMARY.md",
+    "review_zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/HYMARK_EXAM_BUILDER_PACK.zip",
+    "first_exam": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/DANCES_Assessment_1stOpp_20260807T211247Z.docx",
+    "first_memo": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/DANCES_Memo_1stOpp_20260807T211247Z.docx",
+    "second_exam": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/DANCES_Assessment_2ndOpp_20260807T211337Z.docx",
+    "second_memo": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/DANCES_Memo_2ndOpp_20260807T211337Z.docx",
+    "first_formatted_review_pack": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/1stOpp/ASSESSMENT_PACK_FORMATTED.docx",
+    "first_formatted_review_zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/1stOpp/HOMS_FORMATTED_ASSESSMENT_PACK.zip",
+    "second_formatted_review_pack": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/2ndOpp/ASSESSMENT_PACK_FORMATTED.docx",
+    "second_formatted_review_zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/subject_aware_proof/hymark-exam-dance_studies-grade10-dances-20260807T211247Z/2ndOpp/HOMS_FORMATTED_ASSESSMENT_PACK.zip"
+  }
+}

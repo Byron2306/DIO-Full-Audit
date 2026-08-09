@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "grade": 10,
+  "total_marks": 50,
+  "duration": "2 hours",
+  "teacher_review_checklist": [
+    "Verify CAPS scope",
+    "Check marks",
+    "Approve before use"
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy and subject knowledge",
+      "marks": 15,
+      "descriptor": "Correct, relevant subject knowledge."
+    },
+    {
+      "criterion": "Evidence and reasoning",
+      "marks": 15,
+      "descriptor": "Uses evidence to justify answers."
+    },
+    {
+      "criterion": "Communication",
+      "marks": 10,
+      "descriptor": "Clear presentation."
+    },
+    {
+      "criterion": "Process evidence",
+      "marks": 10,
+      "descriptor": "Shows planning, method or reflection."
+    }
+  ],
+  "subject": "Life Sciences",
+  "assessment_title": "Grade 10 Life Sciences Practical Investigation: Photosynthesis",
+  "blueprint": "data_diagram_practical_investigation",
+  "sections": [
+    {
+      "title": "Practical investigation",
+      "mode": "investigation_task_sheet",
+      "stimulus": "Learners investigate how light intensity affects bubbles released by an aquatic plant.",
+      "questions": [
+        {
+          "number": "1.1",
+          "marks": 5,
+          "question": "State the independent and dependent variables."
+        },
+        {
+          "number": "1.2",
+          "marks": 8,
+          "question": "Record results and draw a conclusion from the data."
+        }
+      ]
+    }
+  ],
+  "canonical_profile_id": "visual.proof.investigation"
+}

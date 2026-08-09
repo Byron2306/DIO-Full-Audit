@@ -1,0 +1,33 @@
+{
+  "schema": "dio.mail_intent.v1",
+  "mail_intent_id": "MAIL-635D8E3B87F0BCA8",
+  "direction": "outbound",
+  "purpose": "delivery",
+  "lead_id": null,
+  "order_id": null,
+  "job_id": "SOPHIA-COMMERCIAL-DEMO-001",
+  "campaign_id": null,
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQACRoREDUdr5AtHRBi5GPi70=",
+  "source_message_id": null,
+  "recipient": "byron.bunt@nwu.ac.za",
+  "subject": "Your Sophia academic review pack is ready (SOPHIA-COMMERCIAL-DEMO-001)",
+  "body": "Hello Controlled Sophia Customer,\n\nYour human-reviewed Sophia diagnostic pack is attached. It contains reviewer commentary, a technical reference audit, literature discovery leads and a claim-to-source ledger.\n\nThe pack is diagnostic support, not a rewritten submission. Please verify every retained source against the full publication and keep all final wording and academic decisions your own.\n\nJob reference: SOPHIA-COMMERCIAL-DEMO-001\n",
+  "body_path": null,
+  "attachments": [
+    "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/sophia_academic_reviews/SOPHIA-COMMERCIAL-DEMO-001/SOPHIA-COMMERCIAL-DEMO-001_SOPHIA_REVIEW_PACK.zip"
+  ],
+  "risk": "moderate",
+  "approval": {
+    "required": true,
+    "state": "consumed",
+    "approved_at": "2026-08-08T22:48:40+00:00",
+    "expires_at": null,
+    "token_sha256": null
+  },
+  "send_state": "sent",
+  "created_at": "2026-08-08T19:44:47+00:00",
+  "updated_at": "2026-08-08T22:48:46+00:00",
+  "provider": "microsoft_graph",
+  "provider_draft_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAAEXBwAA",
+  "sent_at": "2026-08-08T22:48:46+00:00"
+}

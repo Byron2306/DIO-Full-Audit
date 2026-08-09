@@ -1,0 +1,437 @@
+{
+  "schema": "knowedge.homs_exam_source_contracts.v1",
+  "generated_at": "2026-08-07T22:48:31+00:00",
+  "source_matrix": "deliverables/exam_source_catalogue_fet_2024_november/exam_source_matrix.json",
+  "subject": "FET",
+  "phase": "fet_grade_10_12",
+  "grade": 12,
+  "contracts": {
+    "P1:climate_weather_geomorphology_and_mapwork": {
+      "paper": "P1",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "paper_count": 15,
+      "source_type_counts": {
+        "data_table": 78,
+        "unclassified_stimulus": 73,
+        "text_extract": 46,
+        "diagram_or_model": 22,
+        "graph_or_chart": 25,
+        "map_extract": 6,
+        "photograph_or_image": 6,
+        "cartoon": 5
+      },
+      "required_repeated_source_types": [
+        {
+          "source_type": "data_table",
+          "hits": 78,
+          "coverage_ratio": 5.2
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "hits": 73,
+          "coverage_ratio": 4.87
+        },
+        {
+          "source_type": "text_extract",
+          "hits": 46,
+          "coverage_ratio": 3.07
+        },
+        {
+          "source_type": "graph_or_chart",
+          "hits": 25,
+          "coverage_ratio": 1.67
+        },
+        {
+          "source_type": "diagram_or_model",
+          "hits": 22,
+          "coverage_ratio": 1.47
+        }
+      ],
+      "supporting_papers": [
+        {
+          "title": "Accounting P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/accounting/2024/november/accounting_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=LPWTS_eR8NI%3D&mid=13703&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 3,
+            "unclassified_stimulus": 3,
+            "text_extract": 4
+          }
+        },
+        {
+          "title": "Agricultural Sciences P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/agricultural_sciences/2024/november/agricultural_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=fS2uU1NiSaU%3D&mid=13705&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "diagram_or_model": 2,
+            "data_table": 4,
+            "graph_or_chart": 1,
+            "unclassified_stimulus": 1
+          }
+        },
+        {
+          "title": "Business Studies P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/business_studies/2024/november/business_studies_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=VGv_B_A4kxA%3D&mid=13707&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 1
+          }
+        },
+        {
+          "title": "Computer Applications Technology P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/computer_applications_technology/2024/november/computer_applications_technology_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=p5EqqIZnago%3D&mid=13709&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 19,
+            "text_extract": 2,
+            "unclassified_stimulus": 2,
+            "map_extract": 1,
+            "photograph_or_image": 1
+          }
+        },
+        {
+          "title": "Consumer Studies November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/consumer_studies/2024/november/consumer_studies_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Lyp_k8RVqGs%3D&mid=13710&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "text_extract": 7,
+            "unclassified_stimulus": 6,
+            "data_table": 1,
+            "graph_or_chart": 1,
+            "photograph_or_image": 1
+          }
+        },
+        {
+          "title": "Economics P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=gZ8YszYxrcI%3D&mid=13714&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 3,
+            "text_extract": 3,
+            "graph_or_chart": 2,
+            "cartoon": 1
+          }
+        },
+        {
+          "title": "English First Additional Language P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ZJZsyNpCu9Y%3D&mid=13691&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "unclassified_stimulus": 21,
+            "data_table": 2,
+            "text_extract": 5,
+            "cartoon": 1
+          }
+        },
+        {
+          "title": "English Home Language P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=de2qPWCUDzw%3D&mid=13691&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 1,
+            "text_extract": 3,
+            "unclassified_stimulus": 9,
+            "cartoon": 2
+          }
+        },
+        {
+          "title": "History P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=qM73YgRemdM%3D&mid=13718&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "text_extract": 11,
+            "cartoon": 1,
+            "photograph_or_image": 2,
+            "data_table": 2
+          }
+        },
+        {
+          "title": "Life Sciences P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=UH53U88PRPE%3D&mid=13722&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "graph_or_chart": 1,
+            "diagram_or_model": 3,
+            "data_table": 2,
+            "unclassified_stimulus": 2
+          }
+        },
+        {
+          "title": "Marine Sciences P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/marine_sciences/2024/november/marine_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=O9hcI5lWDMQ%3D&mid=13725&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "graph_or_chart": 3,
+            "text_extract": 8,
+            "unclassified_stimulus": 8,
+            "diagram_or_model": 3,
+            "data_table": 8,
+            "map_extract": 1
+          }
+        },
+        {
+          "title": "Mathematical Literacy P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematical_literacy/2024/november/mathematical_literacy_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=r3H6xWQUYXg%3D&mid=13723&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "unclassified_stimulus": 10,
+            "graph_or_chart": 8,
+            "data_table": 25
+          }
+        },
+        {
+          "title": "Mathematics P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=8W2dAxBUTQA%3D&mid=13724&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "diagram_or_model": 4,
+            "graph_or_chart": 4
+          }
+        },
+        {
+          "title": "Physical Sciences Physics P1 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=jKqWYBbucS4%3D&mid=13728&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "graph_or_chart": 5,
+            "diagram_or_model": 10,
+            "data_table": 5
+          }
+        },
+        {
+          "title": "Tourism November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/tourism/2024/november/tourism_2024_november_p1_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=KAEKU9bLIrA%3D&mid=13732&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "map_extract": 4,
+            "photograph_or_image": 2,
+            "data_table": 2,
+            "text_extract": 3,
+            "unclassified_stimulus": 11
+          }
+        }
+      ]
+    },
+    "P2:settlement_economic_geography_and_mapwork": {
+      "paper": "P2",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "paper_count": 9,
+      "source_type_counts": {
+        "unclassified_stimulus": 80,
+        "data_table": 34,
+        "text_extract": 27,
+        "graph_or_chart": 12,
+        "cartoon": 1,
+        "photograph_or_image": 10,
+        "diagram_or_model": 21,
+        "map_extract": 3
+      },
+      "required_repeated_source_types": [
+        {
+          "source_type": "unclassified_stimulus",
+          "hits": 80,
+          "coverage_ratio": 8.89
+        },
+        {
+          "source_type": "data_table",
+          "hits": 34,
+          "coverage_ratio": 3.78
+        },
+        {
+          "source_type": "text_extract",
+          "hits": 27,
+          "coverage_ratio": 3.0
+        },
+        {
+          "source_type": "diagram_or_model",
+          "hits": 21,
+          "coverage_ratio": 2.33
+        },
+        {
+          "source_type": "graph_or_chart",
+          "hits": 12,
+          "coverage_ratio": 1.33
+        },
+        {
+          "source_type": "photograph_or_image",
+          "hits": 10,
+          "coverage_ratio": 1.11
+        }
+      ],
+      "supporting_papers": [
+        {
+          "title": "Business Studies P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/business_studies/2024/november/business_studies_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1_eNM5ajC0g%3D&mid=13707&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "unclassified_stimulus": 2,
+            "data_table": 1
+          }
+        },
+        {
+          "title": "Economics P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=bFm9Gw3zowg%3D&mid=13714&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "text_extract": 3,
+            "unclassified_stimulus": 3,
+            "graph_or_chart": 2,
+            "cartoon": 1,
+            "photograph_or_image": 2
+          }
+        },
+        {
+          "title": "English Home Language P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=22HdBbdLTxU%3D&mid=13691&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 2,
+            "text_extract": 7,
+            "unclassified_stimulus": 50,
+            "photograph_or_image": 2
+          }
+        },
+        {
+          "title": "History P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1FNRebZ9qcw%3D&mid=13718&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "text_extract": 6,
+            "photograph_or_image": 4
+          }
+        },
+        {
+          "title": "Life Sciences P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=B-Ss2iShxUE%3D&mid=13722&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "graph_or_chart": 2,
+            "data_table": 5,
+            "text_extract": 1,
+            "diagram_or_model": 2,
+            "unclassified_stimulus": 1
+          }
+        },
+        {
+          "title": "Marine Sciences P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/marine_sciences/2024/november/marine_sciences_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=aBYIP3_Ar_U%3D&mid=13725&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "graph_or_chart": 3,
+            "text_extract": 6,
+            "data_table": 5,
+            "unclassified_stimulus": 3,
+            "diagram_or_model": 2
+          }
+        },
+        {
+          "title": "Mathematical Literacy P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematical_literacy/2024/november/mathematical_literacy_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=1EZXhzf3-sI%3D&mid=13723&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "unclassified_stimulus": 18,
+            "text_extract": 4,
+            "data_table": 6,
+            "diagram_or_model": 5,
+            "map_extract": 2,
+            "photograph_or_image": 2
+          }
+        },
+        {
+          "title": "Mathematics P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ycHWvBVvV2M%3D&mid=13724&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "data_table": 6,
+            "map_extract": 1,
+            "diagram_or_model": 9,
+            "graph_or_chart": 3,
+            "unclassified_stimulus": 2
+          }
+        },
+        {
+          "title": "Physical Sciences Chemistry P2 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p2_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=ZxN41kEGHhI%3D&mid=13728&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "unclassified_stimulus": 1,
+            "diagram_or_model": 3,
+            "data_table": 9,
+            "graph_or_chart": 2
+          }
+        }
+      ]
+    },
+    "P3:unknown": {
+      "paper": "P3",
+      "paper_theme": "unknown",
+      "paper_count": 1,
+      "source_type_counts": {
+        "map_extract": 1,
+        "graph_or_chart": 1,
+        "diagram_or_model": 1,
+        "text_extract": 1
+      },
+      "required_repeated_source_types": [
+        {
+          "source_type": "map_extract",
+          "hits": 1,
+          "coverage_ratio": 1.0
+        },
+        {
+          "source_type": "graph_or_chart",
+          "hits": 1,
+          "coverage_ratio": 1.0
+        },
+        {
+          "source_type": "diagram_or_model",
+          "hits": 1,
+          "coverage_ratio": 1.0
+        },
+        {
+          "source_type": "text_extract",
+          "hits": 1,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "supporting_papers": [
+        {
+          "title": "English First Additional Language P3 November 2024",
+          "path": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p3_question_paper.pdf",
+          "source_url": "https://www.education.gov.za/Curriculum/NationalSeniorCertificate%28NSC%29Examinations/2024NSCNovemberpastpapers.aspx",
+          "pdf_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=Gb_3vgw3pg8%3D&mid=13691&portalid=0&tabid=5193",
+          "unique_source_object_type_counts": {
+            "map_extract": 1,
+            "graph_or_chart": 1,
+            "diagram_or_model": 1,
+            "text_extract": 1
+          }
+        }
+      ]
+    }
+  }
+}

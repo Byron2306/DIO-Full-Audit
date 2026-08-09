@@ -1,0 +1,30 @@
+{
+  "evidence_policy": "stimulus_required",
+  "evidence_label": "scenario/case evidence set",
+  "source_families": [
+    "constructed_case_study",
+    "decision_table",
+    "policy_or_rights_extract",
+    "reflection_prompt"
+  ],
+  "minimum_sources": 2,
+  "allowed_question_moves": [
+    "identify issue",
+    "analyse consequence",
+    "recommend action",
+    "justify decision",
+    "reflect safely",
+    "build action plan"
+  ],
+  "global_rules": [
+    "CAPS subject, grade, term and theme are the authority.",
+    "Decide whether the assessment needs source material, stimulus material, or no external source before writing questions.",
+    "When evidence/stimulus is required, build it before questions.",
+    "Every evidence-dependent question must cite a source label, figure label, data table, map, diagram or scenario supplied in the evidence set.",
+    "Do not use instruction pages, contents pages, question menus or mark-allocation snippets as source material.",
+    "If the material is constructed rather than extracted from an official source, label it as constructed classroom evidence.",
+    "Do not fabricate exact official quotations. Use paraphrased extracts, adapted classroom accounts, data, maps, diagrams or visual briefs unless the exact source text is supplied.",
+    "Each evidence card must expose usable evidence: dates, actors, places, values, labels, features, claims, perspectives, variables, language features or scenario facts that questions can assess.",
+    "Evidence sets must be review-ready but still require educator approval before classroom use."
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Geography",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "1",
+  "caps_source": {
+    "title": "Geography",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+    "sha256": "5c6f0278c55f95316db7df300d3dd2e428af7b4d7185f4ccfcda44a59663c1aa"
+  },
+  "canonical_profile_id": "fet.geography",
+  "assessment_family": "source_based_plus_extended_response",
+  "render_shell": "source_response_paper",
+  "caps_theme_candidates": [
+    "Topic: Time: Additional Resources:",
+    "The atmosphere \u00b1 36 hours",
+    "GEOGRAPHICAL KNOWLEDGE",
+    "The Earth\u2019s Energy Balance [4 hours]",
+    "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+    "significance of Earth\u2019s axis and revolution around the Sun",
+    "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+    "Africa\u2019s Weather and Climate [8 hours]",
+    "Africa\u2019s climate regions",
+    "the role of oceans in climate control in Africa",
+    "El Ni\u00f1o and La Ni\u00f1a processes and their effects on Africa\u2019s climate",
+    "reading and interpreting synoptic weather maps."
+  ],
+  "assessment_content_focus": [
+    "Africa\u2019s Weather and Climate [8 hours]",
+    "The atmosphere \u00b1 36 hours",
+    "The Earth\u2019s Energy Balance [4 hours]",
+    "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+    "significance of Earth\u2019s axis and revolution around the Sun",
+    "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+    "Africa\u2019s climate regions",
+    "the role of oceans in climate control in Africa",
+    "Africa\u2019s Weather and Climate [8 hours]",
+    "the role of oceans in climate control in Africa"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: africa, around, atmosphere, balance, circulation, climate."
+  ],
+  "required_visuals": [
+    {
+      "id": "geo_map_extract",
+      "title": "Map extract with legend, scale, north arrow and labelled features",
+      "role": "stimulus",
+      "visual_kind": "map_extract",
+      "must_show": [
+        "map frame",
+        "legend",
+        "scale",
+        "north arrow",
+        "labelled physical or human features"
+      ],
+      "assessment_use": "Learners identify spatial patterns and cite map evidence."
+    },
+    {
+      "id": "geo_data_table_or_graph",
+      "title": "Geography data table or graph",
+      "role": "stimulus",
+      "visual_kind": "data_table",
+      "must_show": [
+        "units",
+        "years/categories",
+        "clear trend",
+        "source label"
+      ],
+      "assessment_use": "Learners compare data with the map/source before explaining."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "The atmosphere \u00b1 36 hours",
+      "The Earth\u2019s Energy Balance [4 hours]",
+      "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+      "significance of Earth\u2019s axis and revolution around the Sun",
+      "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+      "Africa\u2019s Weather and Climate [8 hours]",
+      "Africa\u2019s climate regions",
+      "the role of oceans in climate control in Africa"
+    ],
+    "admin_lines": [
+      "Topic: Time: Additional Resources:",
+      "GEOGRAPHICAL KNOWLEDGE"
+    ],
+    "content_terms": [
+      "atmosphere",
+      "climate",
+      "earth",
+      "earthquake",
+      "economic geography",
+      "faulting",
+      "folding",
+      "geomorphology",
+      "gis",
+      "map",
+      "plate",
+      "population",
+      "river",
+      "rock",
+      "rural",
+      "settlement",
+      "synoptic",
+      "tectonic",
+      "urban",
+      "volcano"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.phase3.storyboard.v1",
+  "episode_id": "outlook-triage-48726b7beecc9bff",
+  "studio_id": "practical_open_source",
+  "product_layer": "outlook_triage",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "target_runtime_seconds": 66,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 8,
+      "narration": "Your inbox is not a to-do list. It is an intake system waiting to be routed.",
+      "visual": "Show emails becoming product jobs and approval cards as the opening transformation.",
+      "screen_text": "KnowEdge Inbox Desk"
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 12,
+      "narration": "The inbox hides work, risk, deadlines, and evidence inside an endless message list.",
+      "visual": "Show the messy input state: emails, folders, files, forms, rubrics, or drafts.",
+      "screen_text": "The messy input"
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "workflow",
+      "duration_seconds": 14,
+      "narration": "KnowEdge Inbox Desk routes the work through a controlled pipeline instead of pretending AI can decide everything.",
+      "visual": "Show route card, evidence card, approval gate, and output folder.",
+      "screen_text": "Route -> Review -> Pack"
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "promise",
+      "duration_seconds": 14,
+      "narration": "Urgency/risk routing, reply drafts, evidence notes, and job creation for downstream workflows.",
+      "visual": "Show the finished review-ready pack with checklist and receipt.",
+      "screen_text": "Review-ready output"
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 10,
+      "narration": "Draft-only. No automatic sending, deleting, moving, or calendar creation.",
+      "visual": "Show human approval as an explicit final gate.",
+      "screen_text": "Human approval stays"
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "narration": "Export a small inbox sample and see what routes into useful work.",
+      "visual": "Show a simple intake action and pilot label.",
+      "screen_text": "Inbox Control Setup"
+    }
+  ],
+  "approval_required": true
+}

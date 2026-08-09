@@ -1,0 +1,319 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Afrikaans Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Graad 12 Afrikaans Eerste Addisionele Taal Kwartaal 1 Gekontroleerde Toets",
+  "canonical_profile_id": "fet.afrikaans_language",
+  "blueprint": "CAPS-belynde kwartaal 1 gekontroleerde toets wat begripstoets, opsomming, taalredigering en transaksionele skryfwerk dek.",
+  "render_shell": "question_paper",
+  "duration": "2 uur",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Afrikaans Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "1",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "canonical_profile_id": null,
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "begripstoets, taal in konteks en visuele geletterdheid",
+      "toon, teikengroep, doel, afleiding en bewyse uit 'n gegewe teks",
+      "opsommingsbeplanning en noukeurige taalredigering",
+      "transaksionele skryfwerk met register, struktuur en teikengroepbeheer"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Afdeling A: Begripstoets",
+      "mode": "begripstoets",
+      "instructions": "Lees die onderstaande teks (Teks A) noukeurig deur en beantwoord die vrae wat volg. Gebruik die 'language_response_planner' se 'text panel' en 'main idea' afdelings om jou gedagtes te struktureer.",
+      "stimulus": "Teks A: Die Digitale Huistaal: Hoe die Jeug Afrikaans Herontwerp\n\nParagraaf 1: Die opkoms van sosiale media soos TikTok en Instagram het 'n nuwe era vir Afrikaans ingelui. Jongmense skep daagliks nuwe kuber-Afrikaanse woorde wat tradisionele woordeboeke laat sidder.\n\nParagraaf 2: Hierdie tegnologiese evolusie is egter nie 'n bedreiging nie. Dit wys dat die taal leef en aanpas by die digitale era. Die skrywer beskou hierdie kreatiwiteit as 'n bewys van taalvitaliteit.\n\nParagraaf 3: 'Yo, check hierdie nuwe meme!' is dalk nie die Afrikaans van jou ouma nie, maar dit praat die taal van die teikengroep. Die toon is informeel, energiek en inklusief, wat jongmense laat voel hulle besit die taal.\n\nParagraaf 4: Die artikel poog om ouers en opvoeders gerus te stel dat die jeug nie die taal vernietig nie, maar bloot herontwerp vir hul eie unieke behoeftes.\n\nParagraaf 5: Sosiale media dien as 'n taal-smeltkroes waar Engels, Afrikaans en selfs emoticons saamsmelt om 'n nuwe, ryk uitdrukkingsvorm te vorm.\n\nParagraaf 6: Sommige taalkundiges argumenteer dat kuber-Afrikaans die formele taalre\u00ebls verryk eerder as vernietig, aangesien dit nuwe metafore en idiome skep.\n\nParagraaf 7: Alhoewel 80% van die jeug erken dat hulle gereeld Engelse leenwoorde gebruik, toon die data dat 95% steeds trots is om hulself as Afrikaanssprekend te identifiseer.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Noem twee platforms wat in paragraaf 1 genoem word waar jongmense Afrikaans aktief herontwerp.",
+          "marks": 2,
+          "memo": [
+            "TikTok",
+            "Instagram"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Waarom kan ons aflei dat die skrywer positief is oor die invloed van tegnologie op Afrikaans? Gee 'n rede uit paragraaf 2 om jou antwoord te ondersteun.",
+          "marks": 2,
+          "memo": [
+            "Die skrywer noem dat dit nie 'n bedreiging is nie en dat dit wys die taal leef en pas aan (taalvitaliteit)."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Identifiseer die toon van paragraaf 3 en verduidelik hoe dit by die teikengroep (die jeug) pas.",
+          "marks": 2,
+          "memo": [
+            "Die toon is informeel/energiek/inklusief.",
+            "Dit pas by die jeug omdat dit hul alledaagse spreektaal weerspie\u00ebl en hulle laat voel hulle besit die taal."
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Wat is die hoofdoel van hierdie teks? Verwys na die titel in jou antwoord.",
+          "marks": 2,
+          "memo": [
+            "Die doel is om te wys hoe die jeug Afrikaans herontwerp vir die digitale era en om lesers gerus te stel dat dit 'n natuurlike evolusie is."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Vir watter spesifieke gehoor is hierdie artikel geskryf? Motiveer jou antwoord met 'n bewys uit paragraaf 4.",
+          "marks": 2,
+          "memo": [
+            "Ouers en opvoeders.",
+            "Bewys: 'Die artikel poog om ouers en opvoeders gerus te stel...'"
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Verduidelik die metafoor 'taal-smeltkroes' in die konteks van paragraaf 5.",
+          "marks": 2,
+          "memo": [
+            "Dit verwys na die vermenging van verskillende elemente (Engels, Afrikaans en emoticons) om 'n nuwe, unieke taalvorm te skep, net soos verskillende metale in 'n smeltkroes saamsmelt."
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "Stem jy saam met die stelling in paragraaf 6 dat 'kuber-Afrikaans die formele taalre\u00ebls verryk eerder as vernietig'? Motiveer jou antwoord deur na die teks te verwys.",
+          "marks": 3,
+          "memo": [
+            "Ja, want dit skep nuwe metafore en idiome wat die taal lewendig hou (of alternatiewe negatiewe motivering mits dit logies uit die teks beredeneer word)."
+          ]
+        },
+        {
+          "number": "1.8",
+          "question": "Kyk na die 'language_response_planner' se 'text panel' en 'main idea' afdelings. Hoe help die strukturering van die hoofgedagte ('main idea') 'n leser om die kernboodskap van Teks A vinnig te ontsluit?",
+          "marks": 2,
+          "memo": [
+            "Dit dwing die leser om die belangrikste inligting te skei van die ondersteunende besonderhede.",
+            "Dit bied 'n visuele opsomming van die skrywer se sentrale argument."
+          ]
+        },
+        {
+          "number": "1.9",
+          "question": "Skryf die volgende sin uit die teks in die passiewe vorm (lydende vorm): 'Die jeug skep nuwe woorde.'",
+          "marks": 2,
+          "memo": [
+            "Nuwe woorde word deur die jeug geskep."
+          ]
+        },
+        {
+          "number": "1.10",
+          "question": "Gee 'n sinoniem vir die woord 'kreatiwiteit' soos gebruik in paragraaf 2.",
+          "marks": 2,
+          "memo": [
+            "Oorspronklikheid / vindingrykheid / skeppingskrag."
+          ]
+        },
+        {
+          "number": "1.11",
+          "question": "Wat impliseer die skrywer met die frase 'die pen is deur die sleutelbord vervang'?",
+          "marks": 2,
+          "memo": [
+            "Dit impliseer dat tradisionele maniere van skryf en kommunikeer plek gemaak het vir digitale kommunikasie en tegnologie."
+          ]
+        },
+        {
+          "number": "1.12",
+          "question": "Evalueer die geloofwaardigheid van die bron deur na die feite en menings in paragraaf 7 te kyk.",
+          "marks": 3,
+          "memo": [
+            "Die bron is geloofwaardig omdat dit statistieke (80% en 95%) gebruik om die bewerings te staaf, wat wys dat daar navorsing of data agter die stellings is."
+          ]
+        },
+        {
+          "number": "1.13",
+          "question": "Hoe verskil die formele register van die skrywer van die informele voorbeelde van jeugtaal wat in die teks aangehaal word? Verwys na spesifieke voorbeelde uit paragraaf 3.",
+          "marks": 4,
+          "memo": [
+            "Die skrywer gebruik korrekte sinsbou en formele woordeskat (bv. 'tegnologiese evolusie', 'taalvitaliteit').",
+            "Die jeugtaal gebruik sleng, Engelse woorde en uitroepe (bv. 'Yo, check hierdie nuwe meme!')."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling B: Opsomming en Taalredigering",
+      "mode": "opsomming",
+      "instructions": "Beantwoord Vraag 2 (Opsomming) en Vraag 3 (Taalredigering).",
+      "stimulus": "Teks B: Wenke vir 'n Suksesvolle Digitale Detoks\n\n1. Skakel alle kennisgewings op jou foon af om onnodige afleidings te verminder.\n2. Stel spesifieke tye vas gedurende die dag wanneer jy jou e-posse en sosiale media mag nagaan.\n3. Skep skermvrye sones in jou huis, veral in die slaapkamer en by die eettafel.\n4. Vervang skermtyd met fisiese aktiwiteite soos stap, lees of sport.\n5. Gebruik 'n tradisionele wekker in plaas van jou foon om te verhoed dat jy eerste ding in die oggend begin blaai.\n6. Vertel jou vriende en familie dat jy 'n detoks doen sodat hulle nie onmiddellike antwoorde verwag nie.\n7. Reflekteer daagliks oor hoe jy voel sonder die konstante digitale geraas.\n\nTeks C: Tegnologie-verslawing is 'n ernstige probleem onder ons jeug. Baie leerders spandeer te veel tyd op hul fone, wat hul skoolwerk beinvloed. 'Ek kan nie sonder my foon leef nie,' s\u00ea 'n bekommerde leerder. Ons moet dadelik optree om hierdie tegnologiesse krisis op te los, omdat dit ons sosiale interaksie beskadig. Die hoog bome in die skooltuin herinner ons aan die natuur wat ons miskyk.",
+      "questions": [
+        {
+          "number": "2",
+          "question": "Som die sewe wenke vir 'n digitale detoks uit Teks B in jou eie woorde op. Gebruik die 'language_response_planner' se 'plan', 'draft' en 'edit' afdelings om jou beplanning te wys voordat jy die finale opsomming van hoogstens 90 woorde skryf. Dui die korrekte woordtelling aan die einde van jou opsomming aan.",
+          "marks": 10,
+          "memo": [
+            "Punt 1: Skakel foonkennisgewings af.",
+            "Punt 2: Beperk sosiale media-tyd tot spesifieke tye.",
+            "Punt 3: Rig skermvrye areas in jou huis in.",
+            "Punt 4: Doen fisiese aktiwiteite in plaas van skermtyd.",
+            "Punt 5: Gebruik 'n gewone wekker.",
+            "Punt 6: Lig ander in oor jou digitale detoks.",
+            "Punt 7: Dink na oor jou ervaring sonder tegnologie.",
+            "Sien rubriek vir taal- en struktuurpunte (7 punte vir feite, 3 punte vir taal)."
+          ]
+        },
+        {
+          "number": "3.1",
+          "question": "Korrigeer die spelfout in die woord 'tegnologiesse' uit Teks C.",
+          "marks": 1,
+          "memo": [
+            "tegnologiese"
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Verbind die volgende twee sinne uit Teks C met die voegwoord 'omdat': 'Ons moet dadelik optree. Dit beskadig ons sosiale interaksie.'",
+          "marks": 2,
+          "memo": [
+            "Ons moet dadelik optree omdat dit ons sosiale interaksie beskadig."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Skryf die volgende sin uit Teks C in die ontkennende vorm (negatief): 'Baie leerders spandeer te veel tyd op hul fone.'",
+          "marks": 2,
+          "memo": [
+            "Baie leerders spandeer nie te veel tyd op hul fone nie."
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Gee die korrekte vorm van die verboge adjektief tussen hakies: 'Die (hoog) bome in die skooltuin...'",
+          "marks": 1,
+          "memo": [
+            "ho\u00eb"
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Identifiseer en korrigeer die deeltekenfout in die woord 'beinvloed' uit Teks C.",
+          "marks": 1,
+          "memo": [
+            "be\u00efnvloed"
+          ]
+        },
+        {
+          "number": "3.6",
+          "question": "Skryf die volgende sin uit Teks C in die indirekte rede: 'Ek kan nie sonder my foon leef nie,' s\u00ea 'n bekommerde leerder.",
+          "marks": 3,
+          "memo": [
+            "'n Bekommerde leerder s\u00ea dat hy/sy nie sonder sy/haar foon kan leef nie."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling C: Transaksionele Skryfwerk",
+      "mode": "transaksionele_skryfwerk",
+      "instructions": "Kies EEN van die volgende transaksionele take en skryf 120-150 woorde. Gebruik die 'language_response_planner' se 'plan', 'draft' en 'edit' afdelings om jou skryfstuk te beplan en te redigeer.",
+      "stimulus": "Opsie 1: Formele E-pos\nSkryf 'n formele e-pos aan jou skoolhoof waarin jy voorstel dat die skool 'n 'Geen-Skerm-Dag' instel om leerders te help om digitaal te detoks.\n\nOpsie 2: Informele Brief\nSkryf 'n brief aan 'n vriend waarin jy vertel van jou ervarings en uitdagings gedurende 'n 48-uur digitale detoks.",
+      "questions": [
+        {
+          "number": "4",
+          "question": "Skryf jou gekose transaksionele teks (Opsie 1 of Opsie 2). Let op die korrekte register, struktuur en teikengroepbeheer.",
+          "marks": 20,
+          "memo": [
+            "Formele E-pos: Moet korrekte e-posformaat h\u00ea (Aan, Van, Onderwerp), formele aanspreekvorm en register, logiese paragrawe en formele afsluiting.",
+            "Informele Brief: Moet adres van sender, datum, informele aanhef, lewendige en persoonlike inhoud oor die detoks, en informele afsluiting h\u00ea.",
+            "Sien transaksionele rubriek vir die verspreiding van die 20 punte."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Afdeling A: Begripstoets (Inhoud en Interpretasie)",
+      "marks": 30,
+      "descriptor": "Assessering van letterlike begrip, afleidings, toon, teikengroep, doel en kritiese evaluering gebaseer op Teks A."
+    },
+    {
+      "criterion": "Afdeling B: Opsomming (Feite en Taalgebruik)",
+      "marks": 10,
+      "descriptor": "7 punte vir die korrekte identifikasie van die sewe wenke uit Teks B. 3 punte vir taalakkuraatheid, eie woorde en korrekte formaat."
+    },
+    {
+      "criterion": "Afdeling B: Taalredigering (Toepassing van Taalre\u00ebls)",
+      "marks": 10,
+      "descriptor": "Assessering van spelling, voegwoorde, ontkennende vorm, adjektiewe, deeltekengebruik en indirekte rede in Teks C."
+    },
+    {
+      "criterion": "Afdeling C: Transaksionele Skryfwerk (Inhoud, Register en Beplanning)",
+      "marks": 20,
+      "descriptor": "Inhoud en beplanning (12 punte): Toepaslikheid van inhoud, register, teikengroep en gebruik van die beplanningsraamwerk. Taal en struktuur (8 punte): Korrekte formaat, sinsbou, spelling en punktuasie."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Is die totale punte presies 70?",
+    "Is die tydsduur van 2 uur voldoende vir die leeslading en skryflading?",
+    "Is die 'language_response_planner' effektief ge\u00efntegreer in die beplanningsvrae?",
+    "Voldoen die taalvlak aan die vereistes vir Graad 12 Eerste Addisionele Taal?",
+    "Is die memorandum buigsaam genoeg om alternatiewe, logiese antwoorde te aanvaar?"
+  ],
+  "language_of_assessment": "Afrikaans",
+  "opportunity": 2,
+  "generation_backend": "gemini_contextual_knowledge_packet",
+  "knowledge_packet_schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "validation_errors": []
+}

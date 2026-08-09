@@ -1,0 +1,37 @@
+{
+  "schema": "dio.market_observation.v1",
+  "observation_id": "OBS-A70CFEB1405E",
+  "observed_at": "2026-08-08",
+  "recorded_at": "2026-08-08T22:11:08+00:00",
+  "source": {
+    "kind": "prospect_registry_wave",
+    "wave": "wave4",
+    "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/DIO_Prospect_Intelligence_Wave4.zip",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a",
+    "registry_hypothesis_id": "W4-HYP-0003",
+    "target_id": "W4-TGT-0136",
+    "source_reference": "https://publishsa.co.za/contact-us/"
+  },
+  "product_line_id": "SOPHIA_LEARN",
+  "market": {
+    "organisation": "Publishers Association of South Africa (PASA)",
+    "segment": "Publishing ecosystem",
+    "province_or_reach": "National",
+    "buyer_unit": "Education Publishing; Digital Products; Partnerships; Rights/Content Operations"
+  },
+  "signals": {
+    "attack_score": 94.3,
+    "route_state": "PARTNERSHIP_ROUTE_AVAILABLE",
+    "route_mode": "operator_reviewed_partnership_request",
+    "proof_readiness_score": 4.5,
+    "timing_score": 5.0,
+    "seasonal_urgency": "HIGH",
+    "seasonal_trigger": "2026 public-school Term 3 is active (21 Jul\u201323 Sep); Term 4 starts 6 Oct. Use as a market-timing reference only; verify each independent school's calendar."
+  },
+  "controls": {
+    "outreach_state": "Research only",
+    "consent_status": "Not recorded",
+    "do_not_contact": "No",
+    "high_score_is_permission": false
+  }
+}

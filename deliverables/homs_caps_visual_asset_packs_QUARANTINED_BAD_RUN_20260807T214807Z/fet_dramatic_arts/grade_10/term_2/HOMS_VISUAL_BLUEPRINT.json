@@ -1,0 +1,79 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Dramatic Arts",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Dramatic Arts",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dramatic_arts_gr_10-12_web_ea5e.pdf",
+    "sha256": "cc17139684ab6c8c7681b62eda43d33e1e1666e9b81bc64be178378ac404636a"
+  },
+  "canonical_profile_id": "fet.dramatic_arts",
+  "assessment_family": "practical_performance_or_portfolio",
+  "render_shell": "performance_task_sheet",
+  "caps_theme_candidates": [
+    "Grade 10 - 12 Dramatic Arts learners aim to:",
+    "Assessment:",
+    "Task 3: Performance Assessment Task 50 marks",
+    "DRAMATIC ARTS GRADES 10-12",
+    "Phase : FET Term 2 : Grade 10",
+    "2 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "INTRODUCTION TO THE Curriculum and Assessment Policy StatementS for DRAMATIC",
+    "ARTS gradeS 10-12",
+    "The National Curriculum Statement Grades R-12 (NCS) stipulates policy on curr",
+    "clearer specification of what is to be taught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in South",
+    "(a) Curriculum and Assessment Policy Statements (CAPS) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12."
+  ],
+  "assessment_content_focus": [
+    "Grade 10 - 12 Dramatic Arts learners aim to:",
+    "Assessment:",
+    "Grade 10 - 12 Dramatic Arts learners aim to:",
+    "Assessment:"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: dramatic, learners."
+  ],
+  "required_visuals": [
+    {
+      "id": "performance_space_map",
+      "title": "Performance space or portfolio evidence map",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "performance_map",
+      "must_show": [
+        "space/stage orientation",
+        "sequence/process labels",
+        "observable evidence fields"
+      ],
+      "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+    },
+    {
+      "id": "observation_instrument",
+      "title": "Teacher observation instrument",
+      "role": "marking_evidence",
+      "visual_kind": "rubric_observation_table",
+      "must_show": [
+        "criterion",
+        "marks",
+        "evidence seen",
+        "concern",
+        "score"
+      ],
+      "assessment_use": "Educator records live observable evidence against the rubric."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Life Sciences",
+  "grade": 11,
+  "phase": "fet_grade_10_12",
+  "term": "4",
+  "caps_source": {
+    "title": "Life Sciences",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+    "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455"
+  },
+  "canonical_profile_id": "fet.life_sciences",
+  "assessment_family": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "caps_theme_candidates": [
+    "LIFE SCIENCES GRADES 10-12",
+    "formal, recorded class test. One practical task",
+    "Assessment for learning (informal) using a variety of",
+    "strategies and appropriate forms of assessment in Refer to the range of skills specified under Specific Aim 2.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "Note that knowledge and understanding of investigations",
+    "and practical work should also be assessed in written",
+    "investigations.",
+    "clearer specification of what is to be taught and learnt on a term-by-term basis.",
+    "the National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in south",
+    "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CONTENTS"
+  ],
+  "assessment_content_focus": [
+    "LIFE SCIENCES GRADES 10-12",
+    "formal, recorded class test. One practical task",
+    "LIFE SCIENCES GRADES 10-12",
+    "formal, recorded class test. One practical task"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: class, formal, grades, practical, recorded, sciences."
+  ],
+  "required_visuals": [
+    {
+      "id": "investigation_method_data",
+      "title": "Investigation method and data sheet",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "investigation_sheet",
+      "must_show": [
+        "aim",
+        "variables",
+        "method",
+        "data table",
+        "conclusion line"
+      ],
+      "assessment_use": "Learners record observations and draw a supported conclusion."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

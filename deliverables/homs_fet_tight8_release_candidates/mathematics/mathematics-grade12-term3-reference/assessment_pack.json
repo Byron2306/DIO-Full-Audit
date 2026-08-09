@@ -1,0 +1,256 @@
+{
+  "assessment_title": "Mathematics Grade 12 Term 3 Controlled Test",
+  "subject": "Mathematics",
+  "grade": 12,
+  "phase": "FET",
+  "canonical_profile_id": "fet.mathematics",
+  "blueprint": "calculation_proof_data_assessment",
+  "render_shell": "question_paper",
+  "language_of_assessment": "English",
+  "duration": "1.5 hours",
+  "total_marks": 50,
+  "source_assets": [
+    {
+      "title": "Similar triangles",
+      "source_type": "euclidean_geometry_diagram",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/mathematics/mathematics-grade12-term3-reference/source_material/source_1_similar_triangles.png",
+      "asset_status": "constructed_release_candidate"
+    },
+    {
+      "title": "Regression and correlation dataset",
+      "source_type": "scatterplot_and_regression_line",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/mathematics/mathematics-grade12-term3-reference/source_material/source_2_regression.png",
+      "asset_status": "constructed_release_candidate"
+    },
+    {
+      "title": "Quality-control probability tree",
+      "source_type": "probability_tree",
+      "png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_fet_tight8_release_candidates/mathematics/mathematics-grade12-term3-reference/source_material/source_3_probability_tree.png",
+      "asset_status": "constructed_release_candidate"
+    }
+  ],
+  "source_embedding": {
+    "generated_visual_policy": "suppress_generated_visuals_when_source_assets_present"
+  },
+  "visual_blueprint": {
+    "required_visuals": [
+      {
+        "visual_kind": "axis_diagram"
+      },
+      {
+        "visual_kind": "data_table"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "QUESTION 1: EUCLIDEAN GEOMETRY",
+      "instructions": "Use Source 1. Give reasons for all geometrical statements.",
+      "stimulus": "Refer to SOURCE 1.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Prove that triangle ADE is similar to triangle ABC.",
+          "marks": 4,
+          "memo": [
+            "Angle ADE = angle ABC and angle AED = angle ACB (corresponding angles, DE || BC).",
+            "Angle A is common.",
+            "Therefore triangle ADE is similar to triangle ABC (AAA)."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 4
+        },
+        {
+          "number": "1.2",
+          "question": "Hence prove that AD/DB = AE/EC.",
+          "marks": 5,
+          "memo": [
+            "From similarity, AD/AB = AE/AC.",
+            "AB = AD + DB and AC = AE + EC.",
+            "AD/(AD+DB) = AE/(AE+EC).",
+            "Cross-multiply and cancel AD.AE to obtain AD.EC = AE.DB.",
+            "Therefore AD/DB = AE/EC."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 5
+        },
+        {
+          "number": "1.3",
+          "question": "Calculate x, the length of EC.",
+          "marks": 3,
+          "memo": [
+            "6/3 = 8/x; 6x = 24; x = 4 units."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 3
+        },
+        {
+          "number": "1.4",
+          "question": "Calculate the length of DE.",
+          "marks": 3,
+          "memo": [
+            "DE/BC = AD/AB = 6/9 = 2/3.",
+            "DE = (2/3)(12) = 8 units."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 3
+        },
+        {
+          "number": "1.5",
+          "question": "F is the midpoint of AB. A line through F parallel to BC meets AC at G. Prove that G is the midpoint of AC.",
+          "marks": 5,
+          "memo": [
+            "AF/FB = 1 because F is the midpoint.",
+            "By the proportionality theorem, AF/FB = AG/GC.",
+            "Therefore AG/GC = 1, so AG = GC and G is the midpoint of AC."
+          ],
+          "source_reference": "SOURCE 1",
+          "answer_lines": 5
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 2: REGRESSION AND CORRELATION",
+      "instructions": "Use Source 2. Round numerical answers to one decimal place where necessary.",
+      "stimulus": "Refer to SOURCE 2.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Identify the dependent variable.",
+          "marks": 1,
+          "memo": [
+            "Test result y (%)."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "2.2",
+          "question": "Describe the direction and strength of the correlation.",
+          "marks": 2,
+          "memo": [
+            "Strong positive correlation."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "2.3",
+          "question": "Use the regression line to estimate the result for 6.5 hours of study.",
+          "marks": 2,
+          "memo": [
+            "y = 6.66(6.5) + 34.7 = 78.0%."
+          ],
+          "source_reference": "SOURCE 2",
+          "answer_lines": 2
+        },
+        {
+          "number": "2.4",
+          "question": "Is the estimate in Question 2.3 an interpolation or an extrapolation? Give a reason.",
+          "marks": 2,
+          "memo": [
+            "Interpolation, because 6.5 lies within the observed range 2 to 7 hours."
+          ],
+          "source_reference": "SOURCE 2"
+        },
+        {
+          "number": "2.5",
+          "question": "Explain why the strong correlation does not by itself prove that extra study time causes higher marks.",
+          "marks": 3,
+          "memo": [
+            "Correlation does not prove causation.",
+            "Other variables such as prior knowledge, teaching or sleep may influence both variables.",
+            "A controlled design or further evidence is needed."
+          ],
+          "source_reference": "SOURCE 2"
+        }
+      ]
+    },
+    {
+      "title": "QUESTION 3: COUNTING AND PROBABILITY",
+      "instructions": "Use Source 3 where indicated. Show all probability calculations.",
+      "stimulus": "Refer to SOURCE 3 for Questions 3.1 to 3.4.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Verify that the probabilities on each pair of branches sum to 1.",
+          "marks": 2,
+          "memo": [
+            "0.60 + 0.40 = 1 and 0.04 + 0.96 = 1; 0.07 + 0.93 = 1."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "3.2",
+          "question": "Calculate the probability that a randomly selected component is defective.",
+          "marks": 4,
+          "memo": [
+            "P(D) = (0.60)(0.04) + (0.40)(0.07) = 0.024 + 0.028 = 0.052."
+          ],
+          "source_reference": "SOURCE 3",
+          "answer_lines": 3
+        },
+        {
+          "number": "3.3",
+          "question": "Given that a component is defective, calculate the probability that it came from Line B.",
+          "marks": 4,
+          "memo": [
+            "P(B|D) = P(B and D)/P(D) = 0.028/0.052 = 0.5385 (approximately)."
+          ],
+          "source_reference": "SOURCE 3",
+          "answer_lines": 3
+        },
+        {
+          "number": "3.4",
+          "question": "Determine whether the events 'Line B' and 'defective' are independent. Justify your answer.",
+          "marks": 3,
+          "memo": [
+            "P(D|B) = 0.07 while P(D) = 0.052.",
+            "They are not equal, so the events are not independent."
+          ],
+          "source_reference": "SOURCE 3"
+        },
+        {
+          "number": "3.5",
+          "question": "A batch code contains two different letters followed by three digits. Repetition of digits is allowed. How many different codes are possible?",
+          "marks": 4,
+          "memo": [
+            "26 x 25 x 10 x 10 x 10 = 650 000 codes."
+          ],
+          "answer_lines": 3
+        },
+        {
+          "number": "3.6",
+          "question": "Three components are selected independently from a process with defect probability 0.052. Calculate the probability that at least one is defective.",
+          "marks": 3,
+          "memo": [
+            "1 - P(none defective) = 1 - (0.948)^3 = 0.1480 (approximately)."
+          ],
+          "answer_lines": 3
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Question 1: Euclidean geometry",
+      "marks": 20,
+      "descriptor": "Similarity proof, proportionality and geometric calculation."
+    },
+    {
+      "criterion": "Question 2: Statistics",
+      "marks": 10,
+      "descriptor": "Regression, interpolation and interpretation."
+    },
+    {
+      "criterion": "Question 3: Probability",
+      "marks": 20,
+      "descriptor": "Tree probability, conditional probability and counting."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify all calculations and accepted equivalent proof sequences.",
+    "Confirm the 20:10:20 Term 3 topic balance.",
+    "Check diagrams and notation for legibility.",
+    "Approve the paper and memorandum before classroom use."
+  ],
+  "generation_backend": "hymark_mathematics_constructed_problem_first"
+}

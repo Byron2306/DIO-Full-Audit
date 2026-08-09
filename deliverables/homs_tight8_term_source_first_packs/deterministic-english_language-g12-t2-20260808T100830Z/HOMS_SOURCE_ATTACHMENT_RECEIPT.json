@@ -1,0 +1,224 @@
+{
+  "schema": "knowedge.homs_source_attachment_receipt.v1",
+  "created_at": "2026-08-08T10:08:30+00:00",
+  "status": "attached",
+  "job_dir": "deliverables/homs_tight8_term_source_first_packs/deterministic-english_language-g12-t2-20260808T100830Z",
+  "bank": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+  "subject_id": "english_language",
+  "requested_source_types": [
+    "text_extract",
+    "cartoon",
+    "data_table",
+    "photograph_or_image"
+  ],
+  "attached_count": 3,
+  "missing_requested_source_types": [],
+  "source_assets": [
+    {
+      "id": "source_01_text_extract",
+      "title": "Official-paper exemplar: Text Extract",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "English First Additional Language P1 November 2024",
+      "page": 6,
+      "object_id": "Q1:source_1",
+      "snippet": "1. 2. A source of information",
+      "bank_png": "deliverables/homs_core_source_bank/english_language/text_extract/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/english_language/text_extract/margin_trim/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/english_language/text_extract/object_candidate/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/english_language/text_extract/object_candidate/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          750,
+          1124
+        ],
+        "content_bbox": [
+          47,
+          23,
+          797,
+          1147
+        ],
+        "crop_ratio": 0.8712,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/english_language/text_extract/object_candidate/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          750,
+          579
+        ],
+        "object_candidate_bbox": [
+          47,
+          392,
+          797,
+          971
+        ],
+        "object_candidate_crop_ratio": 0.4488,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_02_cartoon",
+      "title": "Official-paper exemplar: Cartoon",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "text_extract",
+        "unclassified_stimulus"
+      ],
+      "paper": "English First Additional Language P1 November 2024",
+      "page": 10,
+      "object_id": "Q4:cartoon_4",
+      "snippet": "QUESTION 4: ANALYSING A CARTOON Read the cartoon (TEXT E) below and answer the set questions. TEXT E DENNIS THE MENACE by Hank Ketcham",
+      "bank_png": "deliverables/homs_core_source_bank/english_language/cartoon/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/english_language/cartoon/margin_trim/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/english_language/cartoon/object_candidate/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/english_language/cartoon/object_candidate/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "multi_source_page",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          732,
+          1124
+        ],
+        "content_bbox": [
+          38,
+          23,
+          770,
+          1147
+        ],
+        "crop_ratio": 0.8503,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/english_language/cartoon/object_candidate/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          716,
+          644
+        ],
+        "object_candidate_bbox": [
+          38,
+          85,
+          754,
+          729
+        ],
+        "object_candidate_crop_ratio": 0.4765,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "id": "source_03_data_table",
+      "title": "Official-paper exemplar: Data Table",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "English First Additional Language P1 November 2024",
+      "page": 3,
+      "object_id": "Q1:data_table:3:28",
+      "snippet": "involves training a computer program on a large amount of data so it can learn to identify patterns and make predictions based on that data. AI is also used in 10 industries to help automate1 tasks and improve efficiency.",
+      "bank_png": "deliverables/homs_core_source_bank/english_language/data_table/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "curated_png": "deliverables/homs_core_source_bank_curated/english_language/data_table/margin_trim/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "object_candidate_png": "deliverables/homs_core_source_bank_curated/english_language/data_table/object_candidate/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "preferred_png": "deliverables/homs_core_source_bank_curated/english_language/data_table/object_candidate/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "asset_status": "official_page_exemplar",
+      "quality_flags": [
+        "auto_margin_trim",
+        "page_level_source_not_object_crop",
+        "release_blocked_auto_crop_needs_human_review",
+        "release_blocked_object_crop_needs_human_review",
+        "snippet_anchored_object_candidate"
+      ],
+      "source_quality_level": "smoke_ready_not_release_ready",
+      "release_gate": "blocked_until_human_source_review",
+      "curation": {
+        "curation_status": "auto_margin_trimmed_needs_review",
+        "original_size": [
+          827,
+          1170
+        ],
+        "curated_size": [
+          734,
+          1124
+        ],
+        "content_bbox": [
+          38,
+          23,
+          772,
+          1147
+        ],
+        "crop_ratio": 0.8527,
+        "curation_flags": [
+          "auto_margin_trim",
+          "page_level_source_not_object_crop",
+          "release_blocked_auto_crop_needs_human_review"
+        ],
+        "object_candidate_png": "deliverables/homs_core_source_bank_curated/english_language/data_table/object_candidate/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+        "object_candidate_status": "snippet_anchored_candidate_needs_review",
+        "object_candidate_size": [
+          734,
+          620
+        ],
+        "object_candidate_bbox": [
+          38,
+          456,
+          772,
+          1076
+        ],
+        "object_candidate_crop_ratio": 0.4703,
+        "object_candidate_flags": [
+          "snippet_anchored_object_candidate",
+          "release_blocked_object_crop_needs_human_review"
+        ]
+      },
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ],
+  "missing_source_bank": false,
+  "educator_approval_required": true
+}

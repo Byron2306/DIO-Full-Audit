@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"DIO External Media Buy",
+  "type":"object",
+  "required":["schema","media_buy_id","vendor_id","product_line_id","placement","state","approval_state"],
+  "properties":{
+    "schema":{"const":"dio.media_buy.v1"},
+    "media_buy_id":{"type":"string"},
+    "vendor_id":{"type":"string"},
+    "product_line_id":{"type":"string"},
+    "placement":{"type":"string"},
+    "quote_minor":{"type":"integer","minimum":0},
+    "approved_cap_minor":{"type":"integer","minimum":0},
+    "state":{"type":"string"},
+    "approval_state":{"enum":["pending","approved","rejected"]}
+  },
+  "additionalProperties":true
+}

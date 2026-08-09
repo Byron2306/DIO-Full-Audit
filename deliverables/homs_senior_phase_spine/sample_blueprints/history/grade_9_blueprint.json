@@ -1,0 +1,87 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "history",
+  "display_name": "Social Sciences: History",
+  "senior_subject": "Social Sciences",
+  "grade": 9,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "source_based_plus_essay",
+  "marks": 70,
+  "duration_minutes": 90,
+  "bloom_distribution": {
+    "remember": 10,
+    "understand": 20,
+    "apply": 30,
+    "analyse": 25,
+    "evaluate": 10,
+    "create": 5,
+    "stance": "transition to FET, multi-step reasoning, short controlled extended responses"
+  },
+  "source_grammar": [
+    "text_extract",
+    "photograph_or_image",
+    "cartoon",
+    "timeline"
+  ],
+  "caps_focus": "FET bridge: reliability, usefulness, comparison and controlled extended paragraph response",
+  "sections": [
+    {
+      "title": "source_extraction",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "source_extraction",
+          "bloom_level": "understand",
+          "prompt_shape": "Describe or explain the meaning of evidence in a Grade 9 Social Sciences: History stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "source_comparison",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "source_comparison",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 9 Social Sciences: History task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "short_paragraph_response",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "short_paragraph_response",
+          "bloom_level": "evaluate",
+          "prompt_shape": "Justify a short conclusion using evidence from a Grade 9 Social Sciences: History stimulus or task.",
+          "scaffold": [
+            "two linked sources or multi-step task",
+            "learner chooses relevant evidence",
+            "short justified conclusion",
+            "educator-approved rubric required"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

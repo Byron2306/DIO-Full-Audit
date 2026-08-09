@@ -1,0 +1,67 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "German Language",
+  "grade": 5,
+  "phase": "intermediate_grade_4_6",
+  "term": "1",
+  "caps_source": {
+    "title": "German",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/intermediate_grade_4_6/caps_german_sal_ip_final.pdf",
+    "sha256": "0a0779d9c34bba24576acb5ae19c61884b690f2d41af2eea056a441d6aefc803"
+  },
+  "canonical_profile_id": "intermediate.german_language",
+  "assessment_family": "language_integrated_assessment",
+  "render_shell": "language_integrated_task",
+  "caps_theme_candidates": [
+    "3.2 SPREAD OF TEXTS ACROSS GRADES 4-6",
+    "CURRICULUM AND ASSESSMENT",
+    "GRADES 4 - 6",
+    "CONTENTS",
+    "express, orally and in writing, and emotions in order to become comfortable in the language",
+    "use language as a means for expressing information on familiar topics",
+    "ASSESSMENT POLICY STATEMENT",
+    "The National Curriculum Statement Grades R-12 (NCS) stipulates policy on curriculum and assessment in the",
+    "effect in January 2012. A single comprehensive Curriculum and Assessment Policy document was developed for",
+    "each subject to replace Subject Statements, Learning Programme Guidelines and Subject Assessment",
+    "Guidelines in Grades R-12.",
+    "(a) The National Curriculum Statement Grades R-12 (January 2012) represents a policy statement for learning",
+    "(i) Curriculum and Assessment Policy Statements for each approved school subject"
+  ],
+  "assessment_content_focus": [
+    "3.2 SPREAD OF TEXTS ACROSS GRADES 4-6",
+    "CURRICULUM AND ASSESSMENT",
+    "3.2 SPREAD OF TEXTS ACROSS GRADES 4-6",
+    "CURRICULUM AND ASSESSMENT"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: across, curriculum, grades, spread, texts."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

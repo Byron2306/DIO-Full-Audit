@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Business Event",
+  "type": "object",
+  "required": ["schema", "event_id", "event", "occurred_at", "severity", "entity_type", "entity_id", "source"],
+  "properties": {
+    "schema": {"const": "dio.event.v1"},
+    "event_id": {"type": "string", "pattern": "^EVT-[A-Z0-9]+$"},
+    "event": {"type": "string", "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "severity": {"enum": ["info", "action", "critical"]},
+    "entity_type": {"type": "string", "minLength": 1},
+    "entity_id": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "correlation_id": {"type": ["string", "null"]},
+    "data": {"type": "object"},
+    "previous_event_sha256": {"type": ["string", "null"]},
+    "event_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

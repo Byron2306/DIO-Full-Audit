@@ -1,0 +1,30 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:a2721c5e0ec509480338b6a46d5499ad85b5c8469feb7adb94f16af9ff0f4089",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 20,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.9,
+    "evidence_packet_id": "risk:Setswana:sha256:d55efca1d84a8",
+    "impact_fingerprint_hash": "sha256:18eaae902cd50f46d15c0d693d84926c2f2e59a0991f732bbc5c92e7c72e39b0",
+    "metadata": {
+      "asserts_translation_truth": false,
+      "authority": "conservative_machine_risk_escalation",
+      "domain": "Water-quality operations",
+      "issue": "The translation of 'sampler initials' as 'dit\u0161hupiso tsa motlhatlheledi' may not be precise; consider 'dit\u0161hupiso tsa yo o tsayang sampole' for clarity.",
+      "severity": "medium",
+      "target_language": "Setswana"
+    },
+    "policy_version": "dio_lingua_conservative_risk_learning_v1",
+    "repo_fingerprint": "sha256:18eaae902cd50f46d15c0d693d84926c2f2e59a0991f732bbc5c92e7c72e39b0",
+    "task_class": "dio_lingua_risk_pattern",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

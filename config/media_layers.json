@@ -1,0 +1,41 @@
+{
+  "schema": "knowedge.shared_media_layers.v1",
+  "layers": [
+    {
+      "id": "nichefoundry_media",
+      "name": "NicheFoundry Media Layer",
+      "commercial_role": "shared_infrastructure_not_standalone_offer",
+      "purpose": "Turn approved product proof and curriculum content into faceless explainers, campaign shorts, thumbnails, ad visuals, and optional video lessons.",
+      "inputs": [
+        "approved product proof",
+        "source and rights ledger",
+        "operator-approved script",
+        "product claim boundaries",
+        "channel and audience brief"
+      ],
+      "outputs": [
+        "campaign key art",
+        "faceless proof short",
+        "thumbnail",
+        "captioned explainer",
+        "curriculum-linked video lesson"
+      ],
+      "release_gates": [
+        "proof approved",
+        "script and claims approved",
+        "visual and music rights recorded",
+        "voice and audio mix reviewed",
+        "render quality checked",
+        "publication explicitly released"
+      ],
+      "product_routes": {
+        "homs": ["marking proof", "exam-studio proof", "educator workflow explainer"],
+        "homs_learning": ["topic explainer", "extra-class lesson", "worksheet companion video"],
+        "evidex": ["golden-case proof", "evidence workflow explainer"],
+        "sophia": ["academic-integrity explainer", "review workflow proof"],
+        "vamp": ["performance evidence proof", "objective-mapping explainer"],
+        "document_studio": ["technical editing proof", "multilingual semantic-QA explainer"]
+      }
+    }
+  ]
+}

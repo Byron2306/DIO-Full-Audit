@@ -1,0 +1,95 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "English Language",
+  "grade": 1,
+  "phase": "foundation_grade_r_3",
+  "term": "1",
+  "caps_source": {
+    "title": "English",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/foundation_grade_r_3/caps_english_fal_gr_1-3_fs.pdf",
+    "sha256": "db09b7292552ef6b374a76ff473eb719eee367f3bb3c8eb788f21bae2ad1ad5e"
+  },
+  "canonical_profile_id": "foundation.english_language",
+  "assessment_family": "foundation_activity_assessment",
+  "render_shell": "activity_sheet",
+  "caps_theme_candidates": [
+    "organised in the Curriculum and Assessment Policy Statement (CAPS), per term, using these headings. The",
+    "content, concepts and skills to be taught per term",
+    "requirements for the Formal Assessment Activities and suggestions for informal assessment",
+    "lists of recommended resources per grade",
+    "words. Learning to read and write in Grade 1 builds on this foundation of oral language. Therefore, it is easier to learn",
+    "When children start to learn an additional language in Grade 1, they need to build a strong oral foundation. They",
+    "GRADE 1 GRADE 2 GRADE 3",
+    "ENGLISH FIRST ADDITIONAL LANGUAGE GRADES 1-3",
+    "2.5 ASSESSMENT",
+    "The CAPS document provides suggestions for each of the Formal Assessment Activities in the Foundation Phase",
+    "GRADE SUBJECT TERM 1 TERM 2 TERM 3 TERM 4 TOTAL",
+    "aught and learnt on a term-by-term basis.",
+    "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme",
+    "Guidelines and Subject Assessment Guidelines with the"
+  ],
+  "assessment_content_focus": [
+    "content, concepts and skills to be taught per term",
+    "lists of recommended resources per grade",
+    "content, concepts and skills to be taught per term",
+    "lists of recommended resources per grade"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: concepts, content, lists, recommended, resources, skills."
+  ],
+  "required_visuals": [
+    {
+      "id": "language_response_planner",
+      "title": "Text response and language planner",
+      "role": "learner_workspace",
+      "visual_kind": "language_planner",
+      "must_show": [
+        "text panel",
+        "main idea",
+        "evidence",
+        "plan",
+        "draft",
+        "edit"
+      ],
+      "assessment_use": "Learners plan reading/viewing and writing responses."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "low",
+    "render_allowed": false,
+    "content_lines": [],
+    "admin_lines": [
+      "organised in the Curriculum and Assessment Policy Statement (CAPS), per term, using these headings. The",
+      "requirements for the Formal Assessment Activities and suggestions for informal assessment",
+      "2.5 ASSESSMENT",
+      "The CAPS document provides suggestions for each of the Formal Assessment Activities in the Foundation Phase",
+      "Guidelines and Subject Assessment Guidelines with the"
+    ],
+    "content_terms": [
+      "comprehension",
+      "language structures",
+      "listening",
+      "presenting",
+      "reading",
+      "speaking",
+      "viewing",
+      "writing"
+    ]
+  },
+  "render_gate": {
+    "status": "blocked",
+    "reason": "CAPS term/theme extraction did not produce a confident content theme.",
+    "action": "Curate or improve the CAPS term map before rendering subject visuals."
+  }
+}

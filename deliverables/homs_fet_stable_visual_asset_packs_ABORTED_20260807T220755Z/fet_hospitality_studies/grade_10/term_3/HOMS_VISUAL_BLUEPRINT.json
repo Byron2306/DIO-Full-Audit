@@ -1,0 +1,100 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Hospitality Studies",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "3",
+  "caps_source": {
+    "title": "Hospitality Studies",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_hospitality_studies_gr_10-12_web_2ea7.pdf",
+    "sha256": "190fc1a22ff550a85901383ef12afa8e278dd7ba3e9a983e98be6737f8183fde"
+  },
+  "canonical_profile_id": "fet.hospitality_studies",
+  "assessment_family": "case_study_structured_questions",
+  "render_shell": "structured_case_paper",
+  "caps_theme_candidates": [
+    "Cost for practical tasks for SBA",
+    "12 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "HOSPITALITY STUDIES GRADES 10-12",
+    "3.1 Overview of topics per term",
+    "Grade 10 Grade 11 Grade 12",
+    "above 50% in the Grade 12 examination of the previous year, may obtain written permission from the subject",
+    "Practical work for each commodity is compulsory. Suggested products may be replaced with similar or more",
+    "Grade 10 Term 1 Formal assessment term 1:",
+    "informal assessment such as written work, marking homework, Project 25%",
+    "practical tasks, or prepare",
+    "is to be taught and learnt on a term-by-term basis.",
+    "the National Curriculum Statement Grades R-12 accordingly replaces the subject statements, Learning Programme",
+    "Guidelines and subject Assessment Guidelines with the",
+    "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document"
+  ],
+  "assessment_content_focus": [
+    "Cost for practical tasks for SBA",
+    "Practical work for each commodity is compulsory. Suggested products may be replaced with similar or more",
+    "practical tasks, or prepare",
+    "Cost for practical tasks for SBA",
+    "practical tasks, or prepare"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: commodity, compulsory, practical, prepare, products, replaced."
+  ],
+  "required_visuals": [
+    {
+      "id": "case_decision_table",
+      "title": "Case facts and decision table",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "case_table",
+      "must_show": [
+        "scenario facts",
+        "stakeholder",
+        "problem",
+        "evidence",
+        "recommendation"
+      ],
+      "assessment_use": "Learners justify decisions from case evidence."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "Cost for practical tasks for SBA",
+      "Practical work for each commodity is compulsory. Suggested products may be replaced with similar or more",
+      "practical tasks, or prepare"
+    ],
+    "admin_lines": [
+      "12 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "HOSPITALITY STUDIES GRADES 10-12",
+      "3.1 Overview of topics per term",
+      "Grade 10 Term 1 Formal assessment term 1:",
+      "informal assessment such as written work, marking homework, Project 25%",
+      "Guidelines and subject Assessment Guidelines with the",
+      "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document"
+    ],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

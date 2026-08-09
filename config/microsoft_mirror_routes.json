@@ -1,0 +1,35 @@
+{
+  "schema": "knowedge.microsoft_mirror_routes.v1",
+  "created_at": "2026-08-07",
+  "purpose": "Outlook-first fulfilment paths backed by a OneDrive/SharePoint local mirror.",
+  "local_mirror_root": "/home/byron/KnowEdge_Microsoft_Mirror",
+  "products": {
+    "evidex": {
+      "route": "Outlook lead/reply -> OneDrive upload folder -> local mirror -> Evidex watcher -> Outlook delivery",
+      "local_root": "/home/byron/KnowEdge_Microsoft_Mirror/EVIDEX",
+      "folders": [
+        "incoming",
+        "processing",
+        "done",
+        "failed",
+        "deliveries"
+      ],
+      "intake_marker": "EVIDEX PILOT PACK REQUEST",
+      "job_ready_rule": "Process when intake.yaml exists and uploads/ contains at least one source file."
+    },
+    "homs": {
+      "route": "Outlook lead/reply -> OneDrive upload folder -> local mirror -> HOMS batch runner -> educator review pack -> Outlook delivery",
+      "local_root": "/home/byron/KnowEdge_Microsoft_Mirror/HOMS",
+      "folders": [
+        "incoming",
+        "processing",
+        "done",
+        "failed",
+        "deliveries"
+      ],
+      "intake_marker": "HOMS MARKING RELIEF REQUEST",
+      "job_ready_rule": "Process only fake, redacted, or non-sensitive batches with a rubric/memo and explicit educator-review boundary."
+    }
+  },
+  "sync_note": "On Windows, point OneDrive sync at the matching EVIDEX/HOMS folder tree. On Linux, mount/sync with rclone or another OneDrive client, then set the watcher root to the local_root."
+}

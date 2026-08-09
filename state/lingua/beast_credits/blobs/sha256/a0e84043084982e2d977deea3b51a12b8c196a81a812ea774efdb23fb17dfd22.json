@@ -1,0 +1,30 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:a0e84043084982e2d977deea3b51a12b8c196a81a812ea774efdb23fb17dfd22",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 20,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.9,
+    "evidence_packet_id": "risk:Setswana:sha256:fd8d55f6172b7",
+    "impact_fingerprint_hash": "sha256:12cd2598de798bdf039b5ab69d35d001f4c1074703e5563a642c587a0b662702",
+    "metadata": {
+      "asserts_translation_truth": false,
+      "authority": "conservative_machine_risk_escalation",
+      "domain": "Water-quality operations",
+      "issue": "The translation of 'authorised official' as 'lekgetho le le letleletsweng' may be ambiguous; consider 'modiri yo o letleletsweng' or 'ofisiri e e letleletsweng' for clarity.",
+      "severity": "medium",
+      "target_language": "Setswana"
+    },
+    "policy_version": "dio_lingua_conservative_risk_learning_v1",
+    "repo_fingerprint": "sha256:12cd2598de798bdf039b5ab69d35d001f4c1074703e5563a642c587a0b662702",
+    "task_class": "dio_lingua_risk_pattern",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

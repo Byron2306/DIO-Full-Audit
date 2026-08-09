@@ -1,0 +1,86 @@
+{
+  "schema": "knowedge.homs_senior_phase_assessment_blueprint.v1",
+  "subject_id": "life_sciences",
+  "display_name": "Natural Sciences: Life And Living Strand",
+  "senior_subject": "Natural Sciences",
+  "grade": 7,
+  "phase": "senior_grade_7_9",
+  "assessment_family": "data_diagram_practical_investigation",
+  "marks": 50,
+  "duration_minutes": 60,
+  "bloom_distribution": {
+    "remember": 20,
+    "understand": 30,
+    "apply": 30,
+    "analyse": 15,
+    "evaluate": 5,
+    "create": 0,
+    "stance": "high scaffold, short sources, explicit steps, limited open-ended judgement"
+  },
+  "source_grammar": [
+    "diagram_or_model",
+    "data_table",
+    "graph_or_chart",
+    "investigation_sheet"
+  ],
+  "caps_focus": "classification, ecosystems, body systems and guided diagram interpretation",
+  "sections": [
+    {
+      "title": "concepts",
+      "questions": [
+        {
+          "number": "1.1",
+          "section": "concepts",
+          "bloom_level": "remember",
+          "prompt_shape": "Identify or name key facts from a Grade 7 Natural Sciences: Life And Living Strand stimulus or task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "diagram_or_data",
+      "questions": [
+        {
+          "number": "2.1",
+          "section": "diagram_or_data",
+          "bloom_level": "apply",
+          "prompt_shape": "Use supplied values, evidence or concepts to complete a Grade 7 Natural Sciences: Life And Living Strand task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 6
+        }
+      ]
+    },
+    {
+      "title": "practical_investigation",
+      "questions": [
+        {
+          "number": "3.1",
+          "section": "practical_investigation",
+          "bloom_level": "analyse",
+          "prompt_shape": "Compare, sort or interpret parts of a Grade 7 Natural Sciences: Life And Living Strand stimulus or task.",
+          "scaffold": [
+            "single source or short task",
+            "keywords supplied",
+            "answer frame or labelled steps"
+          ],
+          "marks": 8
+        }
+      ]
+    }
+  ],
+  "generation_constraints": [
+    "Use Senior Phase reading load and vocabulary, not FET wording.",
+    "Keep each task answerable from the supplied stimulus, worked values or classroom content.",
+    "Use Bloom distribution as a hard planning gate before generation.",
+    "Require educator approval before learner use."
+  ]
+}

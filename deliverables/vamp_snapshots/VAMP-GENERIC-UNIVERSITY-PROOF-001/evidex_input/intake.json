@@ -1,0 +1,75 @@
+{
+  "client": {
+    "organization": "Institution-neutral university profile",
+    "contact_name": "Private controlled validation",
+    "contact_email": null
+  },
+  "pack": {
+    "purpose": "Performance evidence readiness and review preparation",
+    "donor": null,
+    "project_name": "VAMP evidence snapshot VAMP-GENERIC-UNIVERSITY-PROOF-001",
+    "grant_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+    "reporting_period": {
+      "start": "2026-01",
+      "end": "2026-02"
+    },
+    "tone": "conservative, evidence-led, human-reviewed",
+    "include_appendix": false
+  },
+  "kpis": [
+    {
+      "name": "GEN-LEAD-001",
+      "target": 1,
+      "actual": 1,
+      "measurement": "Faculty committee participation - accepted, provenance-registered evidence mappings"
+    },
+    {
+      "name": "GEN-RES-001",
+      "target": 1,
+      "actual": 1,
+      "measurement": "Journal manuscript submission - accepted, provenance-registered evidence mappings"
+    },
+    {
+      "name": "GEN-TEACH-001",
+      "target": 1,
+      "actual": 1,
+      "measurement": "ABCD101 assessment moderation - accepted, provenance-registered evidence mappings"
+    },
+    {
+      "name": "GEN-DEV-001",
+      "target": 1,
+      "actual": 0,
+      "measurement": "Professional development completion - accepted, provenance-registered evidence mappings"
+    },
+    {
+      "name": "GEN-ENG-001",
+      "target": 1,
+      "actual": 0,
+      "measurement": "Community workshop delivery - accepted, provenance-registered evidence mappings"
+    },
+    {
+      "name": "GEN-TEACH-002",
+      "target": 1,
+      "actual": 0,
+      "measurement": "Student consultation report - accepted, provenance-registered evidence mappings"
+    }
+  ],
+  "constraints": {
+    "avoid_claims": [
+      "Do not interpret evidence coverage as an employee rating.",
+      "Do not treat candidate mappings as accepted evidence without human review.",
+      "Do not make disciplinary, promotion, remuneration, or employment decisions from this pack."
+    ],
+    "known_gaps": [
+      "Professional development completion",
+      "Community workshop delivery",
+      "Student consultation report"
+    ]
+  },
+  "billing": {
+    "client_type": "performance_evidence",
+    "quantity": 1,
+    "currency": "USD",
+    "service_name": "VAMP Performance Evidence Snapshot"
+  }
+}

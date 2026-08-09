@@ -1,0 +1,37 @@
+{
+  "schema": "dio.vamp_service.v1",
+  "product_code": "VAMP_EVIDENCE_SNAPSHOT",
+  "public_name": "VAMP Performance Evidence Snapshot",
+  "status": "controlled_commercial_pilot_ready",
+  "price": {
+    "amount_minor": 7900,
+    "currency": "USD",
+    "display": "$79 launch pilot"
+  },
+  "limits": {
+    "maximum_review_months": 6,
+    "maximum_evidence_items": 250,
+    "included_revision_rounds": 1,
+    "target_turnaround_working_days": 3
+  },
+  "deliverables": [
+    "evidence-backed objective coverage",
+    "candidate and accepted mapping ledger",
+    "duplicate and provenance audit",
+    "evidence gap register",
+    "Evidex-compatible evidence pack",
+    "human approval receipt"
+  ],
+  "required_consents": [
+    "evidence_owner_authorized",
+    "performance_data_processing_approved",
+    "human_review_terms_accepted"
+  ],
+  "release_policy": {
+    "payment_before_processing": true,
+    "human_review_before_delivery": true,
+    "automatic_email": false,
+    "automatic_rating": false,
+    "raw_employment_evidence_in_public_demo": false
+  }
+}

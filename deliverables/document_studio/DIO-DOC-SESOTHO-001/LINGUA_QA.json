@@ -1,0 +1,26 @@
+{
+  "schema": "dio.lingua.qa.v1",
+  "target_language": "Sesotho",
+  "source_anchor_coverage_percent": 100,
+  "numerals": "PASS",
+  "protected_tokens": "PASS",
+  "approved_terminology_reused": 0,
+  "approved_units_reused": 0,
+  "critic_model": "deepseek-ai/deepseek-v4-flash-0731",
+  "critic_changes": 0,
+  "uncertainty_flags": 3,
+  "material_review_flags": 3,
+  "linguistic_quality_approved": true,
+  "review_required": false,
+  "release_readiness": "semantic_approved",
+  "claim_boundary": "Integrity metrics do not measure fluency or certify semantic equivalence.",
+  "semantic_authority": "human_approved_crystallized",
+  "reviewer": "Byron Bunt",
+  "reviewer_role": "Language practitioner",
+  "approved_at": "2026-08-09T11:40:48+00:00",
+  "flag_dispositions": {
+    "accepted_as_is": 2,
+    "corrected": 1,
+    "not_applicable": 0
+  }
+}

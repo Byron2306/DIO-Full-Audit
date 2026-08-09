@@ -1,0 +1,162 @@
+{
+  "schema": "homs.learning_pack.manifest.v1",
+  "pack_id": "HOMS-LEARN-G10-PS-T3-MOTION-001",
+  "generated_at": "2026-08-09T01:21:14+00:00",
+  "request": {
+    "schema": "homs.learning_pack.request.v1",
+    "pack_id": "HOMS-LEARN-G10-PS-T3-MOTION-001",
+    "subject": "Physical Sciences",
+    "grade": 10,
+    "phase": "FET",
+    "term": 3,
+    "topic_id": "motion_in_one_dimension",
+    "topic": "Motion in One Dimension",
+    "language": "English",
+    "curriculum": "South African CAPS",
+    "learner_audience": "Grade 10 learners consolidating Term 3 mechanics",
+    "buyer_audience": "Schools, tutors, parents and extra-class providers",
+    "include_video_lesson": true,
+    "educator_approval_required": true
+  },
+  "status": "educator_review_required",
+  "curriculum_evidence": {
+    "source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/text/fet_grade_10_12/caps_fet_physical_science_web.txt",
+    "source_sha256": "7911611cb00422566415453ffa4130bc739d03c67e122d48cd58aad8a9e24752",
+    "evidence": [
+      "CAPS identifies Grade 10 Physics (Mechanics) Term 3.",
+      "The term includes vectors and scalars, motion in one dimension, position, displacement, distance, speed, velocity and acceleration.",
+      "Learners must describe motion using words, diagrams, graphs and equations.",
+      "CAPS prescribes position-time and velocity-time graph interpretation and practical motion measurement."
+    ]
+  },
+  "learning_sequence": [
+    "concept_guide",
+    "practical_activity",
+    "scaffolded_worksheet",
+    "mini_assessment",
+    "memoranda",
+    "optional_video_lesson"
+  ],
+  "visual_assets": [
+    {
+      "id": "reference_frame",
+      "path": "assets/reference_frame_and_sign_convention.png",
+      "sha256": "72955b23c938e3c5c5bdb372b455697298b0efaa25c67a245102aa1c1c726ebd",
+      "meaningful_content": true
+    },
+    {
+      "id": "distance_displacement",
+      "path": "assets/distance_and_displacement_worked_example.png",
+      "sha256": "258e6629c4c3dfedef81cdadd4d9a1aa3a13eee6a225326e094233316fcc16a8",
+      "meaningful_content": true
+    },
+    {
+      "id": "acceleration_example",
+      "path": "assets/velocity_and_acceleration_worked_example.png",
+      "sha256": "de808945fe5997f859f89db0bd408c11eb1f1c9d9267c38946315a367925d9d1",
+      "meaningful_content": true
+    },
+    {
+      "id": "position_graph",
+      "path": "assets/position_time_graph.png",
+      "sha256": "18555d17b273580d0e6dbf031ff377c0f04c8fcd1c3c54f78b3875c7f6861fc4",
+      "meaningful_content": true
+    },
+    {
+      "id": "velocity_graph",
+      "path": "assets/velocity_time_graph.png",
+      "sha256": "1b81fa5315cbd7969b950171820a4b2b19d5b1b1265ca097057f702d9b310a0e",
+      "meaningful_content": true
+    },
+    {
+      "id": "investigation",
+      "path": "assets/motion_investigation_setup.png",
+      "sha256": "0c0ca580e98aabf856211efd0e460fcdf8b6bfdcac1892dd9e70b2759571f43c",
+      "meaningful_content": true
+    },
+    {
+      "id": "graph_template",
+      "path": "assets/position_time_graph_template.png",
+      "sha256": "d21842e61b651430855ae0cf3e26290948a8183bc581346c35ee6e09f8cf9280",
+      "meaningful_content": true
+    },
+    {
+      "id": "video_thumbnail",
+      "path": "assets/homs_motion_video_thumbnail.png",
+      "sha256": "75848a9d15f350349911194930d79c9003abf0fd4f1635d7f1beed4ad010531d",
+      "meaningful_content": true
+    }
+  ],
+  "documents": [
+    {
+      "path": "documents/HOMS_G10_T3_MOTION_LEARNER_GUIDE.docx",
+      "sha256": "10a5400e236fa97bea78002f015bdb9f1e6b62c7aaa0c82ff1488b0b06af9445"
+    },
+    {
+      "path": "documents/HOMS_G10_T3_MOTION_PRACTICAL_ACTIVITY.docx",
+      "sha256": "d5f06e4e85bf1dedaee553c4005329209a9c15460e9dc5593256f19335d845c9"
+    },
+    {
+      "path": "documents/HOMS_G10_T3_MOTION_WORKSHEET.docx",
+      "sha256": "599c7512a674464a2c181e6d0b0a8f2d3ebbe12f83ef8c0943b9c03ad05caf59"
+    },
+    {
+      "path": "documents/HOMS_G10_T3_MOTION_WORKSHEET_MEMO.docx",
+      "sha256": "3b77b4ab0bda2edc04949fb15f2854c68be6dd6fd12fc895d34e5e7be5d904ee"
+    },
+    {
+      "path": "documents/HOMS_G10_T3_MOTION_MINI_ASSESSMENT.docx",
+      "sha256": "99109f11bed3f28d4b2cb6a4bcdbd068027ae2cd51e0e653293418e1cfab9bb2"
+    },
+    {
+      "path": "documents/HOMS_G10_T3_MOTION_MINI_ASSESSMENT_MEMO.docx",
+      "sha256": "105e7132c7f6a2428792aafc9591196d6f2794cb3e2ba40953161be9356bb44b"
+    },
+    {
+      "path": "pdf/HOMS_G10_T3_MOTION_LEARNER_GUIDE.pdf",
+      "sha256": "d5a5f633b3ba20d223f62b2ea68b0b92354d4d82ded9e097f6dfa2241ee25713"
+    },
+    {
+      "path": "pdf/HOMS_G10_T3_MOTION_PRACTICAL_ACTIVITY.pdf",
+      "sha256": "99536cb1aee504535f1cc2a5069e43a0b28f9afd07c099a9ee22c10f82117711"
+    },
+    {
+      "path": "pdf/HOMS_G10_T3_MOTION_WORKSHEET.pdf",
+      "sha256": "e9a2275a74e08fadeeeb4fc34044f473b73383b2f5a380c3ebb60c055497fdf9"
+    },
+    {
+      "path": "pdf/HOMS_G10_T3_MOTION_WORKSHEET_MEMO.pdf",
+      "sha256": "a0a9063131c8fddd0b2f1bcc1c2cb6a03fdafc340fe59b79ac969407147eb2fe"
+    },
+    {
+      "path": "pdf/HOMS_G10_T3_MOTION_MINI_ASSESSMENT.pdf",
+      "sha256": "33fa5c4bcbc16a4b665fc08b2b94d85f9735548074ed5736dc485258da01395d"
+    },
+    {
+      "path": "pdf/HOMS_G10_T3_MOTION_MINI_ASSESSMENT_MEMO.pdf",
+      "sha256": "7369426a729af9dec1a9da715d15dbbf3a32109f18e19122319e577a25e2a8c5"
+    }
+  ],
+  "marks": {
+    "worksheet": 40,
+    "mini_assessment": 30
+  },
+  "authority": {
+    "generation": "completed",
+    "educator_approval": "required",
+    "classroom_release": "blocked_pending_approval",
+    "video_publication": "blocked_pending_review"
+  },
+  "video_lesson": {
+    "status": "educator_review_required",
+    "path": "video/HOMS_G10_T3_MOTION_VIDEO_LESSON.mp4",
+    "sha256": "9d3712019d168f693238f348f5a27cf83fe5d67c0efc804c8ecda56c649a0060",
+    "captions": "video/captions.srt",
+    "thumbnail": "video/thumbnail.png",
+    "duration_seconds": 126.021,
+    "resolution": "1920x1080",
+    "narration_provider": "reused",
+    "music_rights": "CC BY 4.0 attribution included",
+    "publication": "blocked_pending_educator_approval"
+  }
+}

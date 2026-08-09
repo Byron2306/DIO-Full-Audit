@@ -1,0 +1,158 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Life Sciences",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+    "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455"
+  },
+  "canonical_profile_id": "fet.life_sciences",
+  "assessment_family": "data_diagram_practical_investigation",
+  "render_shell": "investigation_task_sheet",
+  "source_type_contract": {
+    "schema": "knowedge.homs_source_type_contract.v1",
+    "source_types": [
+      "data_table",
+      "diagram",
+      "investigation_sheet",
+      "calculation_workspace"
+    ],
+    "source_type_reasons": [
+      "FET old-paper catalogue: data_table observed in Life Sciences (18 source/stimulus object(s) across 2 paper(s)).",
+      "FET old-paper catalogue: diagram_or_model observed in Life Sciences (18 source/stimulus object(s) across 2 paper(s)).",
+      "CAPS/source matrix signals practical investigation or experiment evidence.",
+      "CAPS/source matrix signals calculation/problem-solving evidence."
+    ],
+    "matrix_signals_used": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": true,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": true,
+      "signals_formal_test_or_exam": true
+    },
+    "old_paper_contract_used": null,
+    "exam_source_catalogue_used": {
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+      "subject": "Life Sciences",
+      "paper_count": 2,
+      "observed_contract": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus",
+        "text_extract",
+        "image_rendered_or_scanned_pages"
+      ]
+    }
+  },
+  "caps_theme_candidates": [
+    "LIFE SCIENCES GRADES 10-12",
+    "One practical task.",
+    "Assessment for learning (informal) using a variety",
+    "of strategies and appropriate forms of assessment Aim 2.",
+    "of investigations and practical work should also be",
+    "understanding of investigations.",
+    "clearer specification of what is to be taught and learnt on a term-by-term basis.",
+    "the National Curriculum Statement Grades R-12 represents a policy statement for learning and teaching in south",
+    "(a) Curriculum and Assessment Policy statements (CAPs) for all approved subjects listed in this document",
+    "Grades R-12",
+    "(c) National Protocol for Assessment Grades R-12.",
+    "CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "CONTENTS",
+    "Section 1: INTRODUCTION TO THE CURRICULUM AND ASSESSMENT POLICY STATEMENTS. . 3"
+  ],
+  "assessment_content_focus": [
+    "reproduction, homeostasis and response to the environment",
+    "human endocrine control, nervous coordination and reproductive strategies",
+    "diagram interpretation, feedback loops and investigation design",
+    "data-based explanation of biological regulation and reproduction"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: investigation, strategies."
+  ],
+  "required_visuals": [
+    {
+      "id": "working_grid",
+      "title": "Working grid with method mark space",
+      "role": "learner_workspace",
+      "visual_kind": "working_grid",
+      "must_show": [
+        "question number",
+        "marks",
+        "working area",
+        "final answer cue"
+      ],
+      "assessment_use": "Learners show method before final answer."
+    },
+    {
+      "id": "axis_or_diagram",
+      "title": "Axis, diagram or table required by the topic",
+      "role": "stimulus_or_workspace",
+      "visual_kind": "axis_diagram",
+      "must_show": [
+        "labelled axes or diagram labels",
+        "units where needed",
+        "plot/table space"
+      ],
+      "assessment_use": "Learners interpret or construct visual mathematical evidence."
+    },
+    {
+      "id": "science_diagram",
+      "title": "Science labelled diagram stimulus",
+      "role": "stimulus",
+      "visual_kind": "axis_diagram",
+      "must_show": [
+        "clear structure/process labels",
+        "visible arrows or stages where needed",
+        "caption",
+        "label key"
+      ],
+      "assessment_use": "Learners identify, label, compare, and explain using the diagram."
+    },
+    {
+      "id": "science_data_or_graph",
+      "title": "Science data table or graph stimulus",
+      "role": "stimulus",
+      "visual_kind": "data_table",
+      "must_show": [
+        "variables",
+        "units",
+        "readable values",
+        "trend or comparison"
+      ],
+      "assessment_use": "Learners calculate, compare, interpret trends, and support conclusions from data."
+    },
+    {
+      "id": "investigation_method_data",
+      "title": "Investigation method and data sheet",
+      "role": "stimulus_and_workspace",
+      "visual_kind": "investigation_sheet",
+      "must_show": [
+        "aim",
+        "variables",
+        "method",
+        "data table",
+        "conclusion line"
+      ],
+      "assessment_use": "Learners record observations and draw a supported conclusion."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ]
+}

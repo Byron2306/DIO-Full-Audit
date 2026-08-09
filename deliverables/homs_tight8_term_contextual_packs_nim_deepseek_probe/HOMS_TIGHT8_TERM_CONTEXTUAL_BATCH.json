@@ -1,0 +1,103 @@
+{
+  "schema": "knowedge.homs_tight8_term_contextual_batch.v1",
+  "created_at": "2026-08-08T08:50:09+00:00",
+  "status": "partial",
+  "provider": "nvidia_nim",
+  "model": "deepseek-ai/deepseek-v4-flash-0731",
+  "grade": 12,
+  "subjects": [
+    "english_language"
+  ],
+  "terms": [
+    "3"
+  ],
+  "planned_count": 1,
+  "completed_count": 1,
+  "passed_count": 0,
+  "failed_validation_count": 1,
+  "exception_count": 0,
+  "elapsed_seconds": 99.5,
+  "receipts": [
+    {
+      "schema": "knowedge.homs_contextual_assessment_receipt.v1",
+      "created_at": "2026-08-08T08:50:09+00:00",
+      "status": "failed_validation",
+      "subject": "English Language",
+      "grade": 12,
+      "term": "3",
+      "focus": "integrated comprehension, summary and language structures; cartoon, advertisement or infographic analysis; editing for grammar, diction, register and punctuation; formal transactional writing and controlled response planning",
+      "provider": {
+        "selected_provider": "nvidia_nim",
+        "selected_model": "deepseek-ai/deepseek-v4-flash-0731",
+        "selected_key_name": "NVIDIA_API_KEY",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "available_secret_names": [
+          "BEAST_IMPORTED_SECRET_01",
+          "BEAST_IMPORTED_SECRET_02",
+          "BEAST_IMPORTED_SECRET_03",
+          "BEAST_IMPORTED_SECRET_04",
+          "BEAST_IMPORTED_SECRET_05",
+          "BEAST_IMPORTED_SECRET_06",
+          "BEAST_IMPORTED_SECRET_07",
+          "BEAST_IMPORTED_SECRET_08",
+          "CEREBRAS_API_KEY",
+          "COHERE_API_KEY",
+          "DEEPINFRA_API_KEY",
+          "FAL_KEY",
+          "FEATHERLESS_API_KEY",
+          "GEMINI_API_KEY",
+          "GROQ_API_KEY",
+          "HF_TOKEN",
+          "HYPERBOLIC_API_KEY",
+          "MISTRAL_API_KEY",
+          "NOVITA_API_KEY",
+          "NSCALE_API_KEY",
+          "NVIDIA_API_KEY",
+          "OPENAI_API_KEY",
+          "OPENAI_API_KEY_2",
+          "OPENAI_API_KEY_3",
+          "OPENROUTER_API_KEY",
+          "OVHCLOUD_API_KEY",
+          "OVHCLOUD_API_KEY_2",
+          "OVHCLOUD_API_KEY_3",
+          "OVHCLOUD_APP_KEY",
+          "OVHCLOUD_APP_SECRET",
+          "OVHCLOUD_CONSUMER_KEY",
+          "REPLICATE_API_TOKEN",
+          "XAI_API_KEY"
+        ],
+        "values_redacted": true
+      },
+      "question_count": 16,
+      "question_marks": 54,
+      "rubric_marks": 54,
+      "validation_errors": [
+        "question marks sum to 54, expected 70",
+        "rubric marks sum to 54, expected 70"
+      ],
+      "attempts": [
+        {
+          "attempt": 1,
+          "errors": [
+            "question marks sum to 54, expected 70",
+            "rubric marks sum to 54, expected 70"
+          ],
+          "question_count": 16
+        }
+      ],
+      "elapsed_seconds": 99.5,
+      "paths": {
+        "job_dir": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z",
+        "assessment_pack": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/assessment_pack.json",
+        "knowledge_packet": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/HOMS_CONTEXTUAL_KNOWLEDGE_PACKET.json",
+        "visual_blueprint": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/HOMS_VISUAL_BLUEPRINT.json",
+        "formatted_review_docx": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/ASSESSMENT_PACK_FORMATTED.docx",
+        "learner_docx": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/ASSESSMENT_LEARNER.docx",
+        "learner_pdf": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/pdf_check/ASSESSMENT_LEARNER.pdf",
+        "review_pdf": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/pdf_check/ASSESSMENT_PACK_FORMATTED.pdf",
+        "zip": "deliverables/homs_tight8_term_contextual_packs_nim_deepseek_probe/nvidia_nim-context-english_language-g12-t3-20260808T084830Z/HOMS_CONTEXTUAL_ASSESSMENT_PACK.zip"
+      }
+    }
+  ],
+  "failures": []
+}

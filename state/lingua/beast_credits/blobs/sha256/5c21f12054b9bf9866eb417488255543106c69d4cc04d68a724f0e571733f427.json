@@ -1,0 +1,30 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:5c21f12054b9bf9866eb417488255543106c69d4cc04d68a724f0e571733f427",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 20,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.9,
+    "evidence_packet_id": "risk:isiZulu:sha256:35dd4b7a50ea3",
+    "impact_fingerprint_hash": "sha256:faba18fde7677e11418b1ee28432e990c97845c9857e185e04852f0f37d9bd95",
+    "metadata": {
+      "asserts_translation_truth": false,
+      "authority": "conservative_machine_risk_escalation",
+      "domain": "Water-quality operations",
+      "issue": "The term 'Chain of Custody Form' is translated descriptively; confirm if a standard isiZulu term is used by the municipality.",
+      "severity": "medium",
+      "target_language": "isiZulu"
+    },
+    "policy_version": "dio_lingua_conservative_risk_learning_v1",
+    "repo_fingerprint": "sha256:faba18fde7677e11418b1ee28432e990c97845c9857e185e04852f0f37d9bd95",
+    "task_class": "dio_lingua_risk_pattern",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

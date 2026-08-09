@@ -1,0 +1,101 @@
+{
+  "schema": "knowedge.homs_visual_blueprint.v1",
+  "subject": "Engineering Graphics And Design",
+  "grade": 10,
+  "phase": "fet_grade_10_12",
+  "term": "2",
+  "caps_source": {
+    "title": "Engineering Graphics and Design",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_engineering_grapichs_design_gr_10-12_web_8899.pdf",
+    "sha256": "f5f1251d07edd0ed7ff05c1d78b28e6632a04b7653475db6c742b5ee30d08dc3"
+  },
+  "canonical_profile_id": "fet.engineering_graphics_and_design",
+  "assessment_family": "practical_project_design_task",
+  "render_shell": "project_task_sheet",
+  "caps_theme_candidates": [
+    "Graphic illustrator",
+    "10 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+    "ENGINEERING GRAPHICS AND DESIGN GRADES 10-12",
+    "3 hrs 11 PAT (Practical",
+    "Assessment Task)",
+    "Conducting research and generating graphical ideas/concepts",
+    "FORMAL ASSESSMENT FOR GRADE 10 TERM 1",
+    "Assessment Tasks",
+    "Suggested contribution for the term",
+    "These are the minimum requirements for the term.",
+    "2.1 The main topics of EGD. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8",
+    "SECTION 3: OVERVIEW OF TOPICS PER TERM AND ANNUAL TEACHING PLANS. . . . . . . . . . . . 12",
+    "3.1 Examinable content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12",
+    "3.2 Practical Assesment Task content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14"
+  ],
+  "assessment_content_focus": [
+    "3 hrs 11 PAT (Practical",
+    "3.2 Practical Assesment Task content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14",
+    "2.1 The main topics of EGD. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8",
+    "3.1 Examinable content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12",
+    "Graphic illustrator",
+    "3 hrs 11 PAT (Practical",
+    "Graphic illustrator"
+  ],
+  "content_alignment_notes": [
+    "Requested focus shares CAPS term/theme signals: assesment, content, examinable, graphic, illustrator, practical."
+  ],
+  "required_visuals": [
+    {
+      "id": "design_test_log",
+      "title": "Design, build, test and improve log",
+      "role": "learner_workspace",
+      "visual_kind": "design_log",
+      "must_show": [
+        "problem",
+        "constraints",
+        "diagram",
+        "test result",
+        "improvement"
+      ],
+      "assessment_use": "Learners retain process evidence for marking."
+    }
+  ],
+  "generation_constraints": [
+    "Plan visual evidence before writing questions.",
+    "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+    "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+    "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+  ],
+  "validation_rules": [
+    "No learner-facing question may refer to a missing visual.",
+    "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+    "Visuals must match subject, phase, term/content focus, and assessment family."
+  ],
+  "theme_quality": {
+    "confidence": "high",
+    "render_allowed": true,
+    "content_lines": [
+      "3 hrs 11 PAT (Practical",
+      "2.1 The main topics of EGD. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8",
+      "3.1 Examinable content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12",
+      "3.2 Practical Assesment Task content. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14"
+    ],
+    "admin_lines": [
+      "10 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "Assessment Task)",
+      "FORMAL ASSESSMENT FOR GRADE 10 TERM 1",
+      "Assessment Tasks",
+      "SECTION 3: OVERVIEW OF TOPICS PER TERM AND ANNUAL TEACHING PLANS. . . . . . . . . . . . 12"
+    ],
+    "content_terms": [
+      "case",
+      "content",
+      "data",
+      "practical",
+      "project",
+      "skills",
+      "source",
+      "topic"
+    ]
+  },
+  "render_gate": {
+    "status": "passed",
+    "reason": "CAPS term/theme extraction produced content-bearing theme lines."
+  }
+}

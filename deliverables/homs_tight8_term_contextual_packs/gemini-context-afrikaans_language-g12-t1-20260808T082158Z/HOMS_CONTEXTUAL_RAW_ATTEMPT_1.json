@@ -1,0 +1,290 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Afrikaans Language",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Graad 12 Afrikaans Gekontroleerde Toets - Kwartaal 1",
+  "canonical_profile_id": "fet.afrikaans_language",
+  "blueprint": "Hierdie assessering evalueer leerders se vermo\u00eb om komplekse tekste te ontleed, visuele beplanningsinstrumente te interpreteer, inligting bondig op te som, taalstrukture in konteks te redigeer, en 'n transaksionele skryfstuk met streng register- en struktuurbeheer te skryf.",
+  "render_shell": "question_paper",
+  "duration": "2 uur",
+  "total_marks": 70,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Afrikaans Language",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "1",
+    "caps_source": {
+      "title": null,
+      "path": null,
+      "sha256": null
+    },
+    "assessment_family": "structured_test_or_task",
+    "render_shell": "question_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "structured_prompt"
+      ],
+      "source_type_reasons": [
+        "No specific source type resolved; use structured prompt only after educator approval."
+      ],
+      "matrix_signals_used": {},
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [],
+    "assessment_content_focus": [
+      "begripstoets, taal in konteks en visuele geletterdheid",
+      "toon, teikengroep, doel, afleiding en bewyse uit 'n gegewe teks",
+      "opsommingsbeplanning en noukeurige taalredigering",
+      "transaksionele skryfwerk met register, struktuur en teikengroepbeheer"
+    ],
+    "content_alignment_notes": [
+      "CAPS term/content alignment requires educator confirmation."
+    ],
+    "required_visuals": [
+      {
+        "id": "language_response_planner",
+        "title": "Text response and language planner",
+        "role": "learner_workspace",
+        "visual_kind": "language_planner",
+        "must_show": [
+          "text panel",
+          "main idea",
+          "evidence",
+          "plan",
+          "draft",
+          "edit"
+        ],
+        "assessment_use": "Learners plan reading/viewing and writing responses."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Afdeling A: Begripstoets en Visuele Geletterdheid",
+      "mode": "begripstoets",
+      "instructions": "Beantwoord AL die vrae wat volg gebaseer op Teks A (Leesstuk) en Teks B (Visuele Teks).",
+      "stimulus": "TEKS A: LEESSTUK\n\nDie Toekoms van Afrikaans in die Digitale Era\n\n[Paragraaf 1] Die vinnige opkoms van kunsmatige intelligensie (KI) en outomatiese skryfwerktuie het 'n rimpeleffek deur die w\u00eareld van die geskrewe woord gestuur. Baie tradisionele skrywers vrees dat hierdie tegnologie menslike kreatiwiteit sal versmoor en dat die unieke stem van die skrywer verlore sal gaan. Tog is daar diegene wat glo dat KI bloot 'n nuwe pen is wat ons in staat stel om vinniger en doeltreffender te skryf. Die vrees is egter nie ongegrond nie, aangesien algoritmes nou reeds gedigte en kortverhale kan genereer wat moeilik van menslike skeppings onderskei kan word.\n\n[Paragraaf 2] Die prim\u00eare teikengroep van hierdie nuwe tegnologiese hulpmiddels is hoofsaaklik jong skrywers, joernaliste en inhoudskeppers wat onder konstante druk verkeer om vinnig nuwe materiaal te produseer. Die doel van hierdie platforms is nie om die menslike skrywer te vervang nie, maar om as 'n digitale assistent op te tree. Deur die roetinetake van skryfwerk te outomatiseer, kan skrywers meer tyd bestee aan die dieper, kreatiewe aspekte van storievertelling. Dit vereis egter 'n kritiese benadering om te verseker dat die eiesoortige kultuur en idioom van Afrikaans nie in die proses verwater nie.\n\n[Paragraaf 3] Alhoewel die aanvanklike reaksie teenoor KI-skryfwerk dikwels skepties is, is die toon van die debat besig om te verskuif na een van versigtige optimisme. As ons hierdie tegnologie met die nodige omsigtigheid inspan, kan dit as 'n kragtige katalisator vir die uitbreiding van Afrikaanse digitale inhoud dien. Ons moenie die pen in die sand steek en hoop die tegnologie verdwyn nie; ons moet dit eerder tem en tot ons voordeel aanwend.\n\n--------------------------------------------------\n\nTEKS B: VISUELE TEKS (language_response_planner)\n\nBestudeer die struktuur van die 'Text response and language planner' (language_response_planner) wat leerders help om hul lees- en skryfprosesse te struktureer. Hierdie visuele beplanner bestaan uit ses opeenvolgende interaktiewe blokke:\n1. 'text panel' (waar die bronteks ontleed word)\n2. 'main idea' (waar die kernboodskap geformuleer word)\n3. 'evidence' (waar direkte aanhalings en bewyse versamel word)\n4. 'plan' (waar die argumente logies gerangskik word)\n5. 'draft' (waar die eerste weergawe geskryf word)\n6. 'edit' (waar die finale taalredigering en afronding plaasvind)",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Noem die hoofvrees wat tradisionele skrywers volgens Paragraaf 1 koester rakende die opkoms van kunsmatige intelligensie.",
+          "marks": 2,
+          "memo": [
+            "Skrywers vrees dat KI menslike kreatiwiteit sal versmoor.",
+            "Hulle vrees dat die unieke stem van die skrywer verlore sal gaan."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Watter afleiding kan gemaak word oor die rede waarom jong skrywers en joernaliste die prim\u00eare teikengroep vir KI-skryfwerktuie is? Verwys na Paragraaf 2.",
+          "marks": 2,
+          "memo": [
+            "Hulle verkeer onder konstante druk om vinnig nuwe materiaal te produseer, en KI help om hierdie proses te versnel."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Identifiseer die toon wat in Paragraaf 3 geopenbaar word en haal 'n frase uit die teks aan om jou antwoord te staaf.",
+          "marks": 3,
+          "memo": [
+            "Toon: Versigtige optimisme / hoopvol.",
+            "Bewys: '...die toon van die debat besig om te verskuif na een van versigtige optimisme' OF '...kan dit as 'n kragtige katalisator vir die uitbreiding van Afrikaanse digitale inhoud dien.'"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Verduidelik die skrywer se spesifieke doel met die skryf van hierdie artikel.",
+          "marks": 3,
+          "memo": [
+            "Die doel is om lesers bewus te maak van die impak van KI op Afrikaanse skryfwerk en om hulle aan te moedig om die tegnologie versigtig maar positief te benut sonder om die taal se unieke idioom te verloor."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Stem jy saam met die skrywer se siening dat KI nie die menslike skrywer heeltemal kan vervang nie? Motiveer jou antwoord deur na die teks te verwys.",
+          "marks": 3,
+          "memo": [
+            "Ja, want die teks noem dat KI as 'n digitale assistent moet optree sodat die menslike skrywer op die dieper, kreatiewe aspekte van storievertelling kan fokus wat emosie en kultuur vereis.",
+            "Nee, want die teks wys daarop dat algoritmes reeds gedigte en kortverhale kan genereer wat moeilik van menslike skeppings onderskei kan word, wat beteken dat die behoefte aan menslike skrywers kan afneem."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "Verduidelik die figuurlike betekenis van die uitdrukking 'die pen in die sand steek' soos dit in Paragraaf 3 gebruik word.",
+          "marks": 2,
+          "memo": [
+            "Dit beteken om die werklikheid of nuwe tegnologiese ontwikkelings te ignoreer (soos 'n volstruis wat sy kop in die sand steek) in die hoop dat die probleem vanself sal weggaan."
+          ]
+        },
+        {
+          "number": "1.7",
+          "question": "Evalueer hoe die titel van die artikel, 'Die Toekoms van Afrikaans in die Digitale Era', skakel met die algemene boodskap van die teks. Verwys na die uitdagings en geleenthede wat genoem word.",
+          "marks": 5,
+          "memo": [
+            "Die titel skakel direk met die boodskap aangesien dit die fokus plaas op hoe Afrikaans moet aanpas om te oorleef.",
+            "Die uitdaging is die moontlike verwatering van die Afrikaanse kultuur en idioom as gevolg van outomatiese werktuie.",
+            "Die geleentheid is dat KI as 'n katalisator kan dien om meer Afrikaanse digitale inhoud te skep.",
+            "Die titel is dus gepas omdat dit beide die vrese (toekomsbedreiging) en die optimisme (digitale geleenthede) wat in die teks bespreek word, saamvat."
+          ]
+        },
+        {
+          "number": "1.8",
+          "question": "Verwys na Teks B (language_response_planner). Waarom is dit belangrik om eers die 'main idea'-blok te voltooi voordat daar na die 'evidence'-blok oorgegaan word?",
+          "marks": 2,
+          "memo": [
+            "Dit verseker dat die leerder eers die kernboodskap of tesis verstaan, sodat die bewyse wat daarna versamel word, direk relevant is tot daardie hoofgedagte."
+          ]
+        },
+        {
+          "number": "1.9",
+          "question": "Veronderstel 'n leerder voltooi die 'draft'-blok op die beplanner, maar laat die 'edit'-blok heeltemal leeg. Watter kritiese stap in die skryfproses is oorgeslaan, en wat is die moontlike gevolg daarvan op die finale produk?",
+          "marks": 3,
+          "memo": [
+            "Die stap van hersiening, redigering en proeflees is oorgeslaan.",
+            "Die gevolg is dat die finale teks moontlik vol spelfoute, grammatikale foute en swak sinstrukture sal wees, wat die algehele kwaliteit en punte sal verlaag."
+          ]
+        },
+        {
+          "number": "1.10",
+          "question": "Ontleed die visuele vloei van die beplanner vanaf die 'text panel' na die 'plan'-blok. Hoe help hierdie spesifieke opeenvolging die leerder om logiese struktuur in hul eie skryfwerk te behou?",
+          "marks": 3,
+          "memo": [
+            "Die vloei dwing die leerder om eers die bronteks te ontleed ('text panel'), dan die kern te formuleer ('main idea'), bewyse te vind ('evidence'), en eers daarna die argumente te struktureer ('plan').",
+            "Dit voorkom dat die leerder begin skryf sonder 'n duidelike rigting of sonder om die bronteks korrek te interpreteer."
+          ]
+        },
+        {
+          "number": "1.11",
+          "question": "Gee 'n geskikte Afrikaanse sinoniem vir die Engelse term 'draft' soos dit in hierdie taalbeplanner gebruik word.",
+          "marks": 2,
+          "memo": [
+            "Konsep",
+            "Kladwerk / Eerste weergawe"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling B: Opsomming en Taalredigering",
+      "mode": "opsomming",
+      "instructions": "Beantwoord AL die vrae in hierdie afdeling. Afdeling B bestaan uit 'n Opsommingstaak (Vraag 2) en Taalredigering (Vraag 3).",
+      "stimulus": "TEKS C: OPSOMMING\n\nWenke vir Effektiewe Digitale Kommunikasie\n\nIn die moderne w\u00eareld is digitale kommunikasie onontbeerlik. Om te verseker dat jou boodskappe professioneel en duidelik oorkom, is daar 'n paar goue re\u00ebls wat jy moet volg. Eerstens is dit noodsaaklik om altyd 'n duidelike en bondige onderwerpre\u00ebl in jou e-posse te gebruik sodat die ontvanger dadelik weet waaroor die korrespondensie gaan. Tweedens moet jy seker maak dat jou toon altyd beleefd en professioneel bly, selfs wanneer jy ongeduldig of kwaad is. \n\nVerder moet jy die gebruik van slegs hoofletters in jou boodskappe vermy, aangesien dit kan voorkom asof jy op die ontvanger skree. Dit is ook uiters belangrik om jou spelling en grammatika deeglik te kontroleer voordat jy op 'stuur' klik om misverstande te voorkom. Hou jou paragrawe kort en gefokus op slegs een hoofgedagte per paragraaf vir maklike leesbaarheid op skerms. Moet ook nooit sensitiewe of hoogs vertroulike inligting via algemene digitale platforms deel nie, aangesien dit sekuriteitsrisiko's inhou. Laastens, probeer om boodskappe binne 'n redelike tydperk te beantwoord om goeie professionele verhoudings in stand te hou.\n\n--------------------------------------------------\n\nTEKS D: TAALREDIGERING\n\nLees die volgende paragraaf wat doelbewuste foute bevat en beantwoord die vrae.\n\nDie nuwe tegnologie beinvloed (a) almal van ons. As jy nie blitsvinnig aanpas nie, sal jy agterbly. Gister het die onderwyser vir ons ges\u00ea dat ons moet (b) ons fone in die klas afskakel. Dit is die mees belangrikste (c) re\u00ebl. Die leerders wat hulself (d) nie hieraan steur nie, sal gestraf word. Almal wil tog suksesvol wees in die lewe.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Lees TEKS C. Skryf 'n opsomming van die SEWE belangrikste wenke vir effektiewe digitale kommunikasie neer. Skryf die punte puntsgewys onder mekaar neer. Nommer jou punte van 1 tot 7. Jou opsomming mag nie langer as 90 woorde wees nie. Dui die korrekte woordetal aan die einde van jou opsomming aan.",
+          "marks": 10,
+          "memo": [
+            "Punt 1: Gebruik 'n duidelike en bondige onderwerpre\u00ebl in e-posse.",
+            "Punt 2: Handhaaf altyd 'n beleefde en professionele toon.",
+            "Punt 3: Vermy die gebruik van slegs hoofletters in boodskappe.",
+            "Punt 4: Kontroleer jou spelling en grammatika voordat jy boodskappe stuur.",
+            "Punt 5: Hou paragrawe kort en gefokus op een hoofgedagte.",
+            "Punt 6: Moenie sensitiewe of vertroulike inligting op algemene platforms deel nie.",
+            "Punt 7: Beantwoord boodskappe binne 'n redelike tydperk.",
+            "Puntetoekenning: 7 punte vir die korrekte feite (een punt per feit) en 3 punte vir taalgebruik/styl en nakoming van die woordlimiet."
+          ]
+        },
+        {
+          "number": "3.1",
+          "question": "Skryf die woord 'beinvloed' (a) in TEKS D oor en voeg die korrekte skryfteken by.",
+          "marks": 1,
+          "memo": [
+            "be\u00efnvloed (deelteken op die i)"
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Herstel die woordorde-fout in die volgende sinsdeel uit TEKS D: '...ges\u00ea dat ons moet (b) ons fone in die klas afskakel.'",
+          "marks": 2,
+          "memo": [
+            "...ges\u00ea dat ons ons fone in die klas moet afskakel."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Korrigeer die foutiewe graad van vergelyking in die frase: 'mees belangrikste' (c).",
+          "marks": 1,
+          "memo": [
+            "belangrikste OF mees belangrike"
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Vervang die foutiewe voornaamwoord 'hulself' (d) in TEKS D met die korrekte vorm wat in hierdie konteks pas.",
+          "marks": 1,
+          "memo": [
+            "hulle"
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Skryf die volgende sin oor in die passiewe (lydende) vorm: 'Die skoolhoof straf die ongehoorsame leerders.'",
+          "marks": 2,
+          "memo": [
+            "Die ongehoorsame leerders word deur die skoolhoof gestraf."
+          ]
+        },
+        {
+          "number": "3.6",
+          "question": "Verbind die volgende twee sinne met die voegwoord 'aangesien': 'Die leerders studeer hard. Hulle wil goeie punte behaal.'",
+          "marks": 2,
+          "memo": [
+            "Die leerders studeer hard, aangesien hulle goeie punte wil behaal. (Die werkwoord 'wil' skuif na die einde van die sin)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Afdeling C: Transaksionele Skryfwerk",
+      "mode": "transaksionele_skryfwerk",
+      "instructions": "Kies EEN van die volgende transaksionele take en skryf 'n teks van 120 tot 150 woorde. Let op die korrekte register, struktuur en teikengroepbeheer.",
+      "stimulus": "OPSIE 1: FORMELE BRIEF\nSkryf 'n formele brief aan die redakteur van 'n plaaslike koerant waarin jy jou kommer uitspreek oor die impak van sosiale media op die konsentrasievermo\u00eb van graad 12-leerders gedurende die eksamenperiode. Gebruik die beplanningsbeginsels van die 'language_response_planner' om jou argumente logies te struktureer.\n\nOF\n\nOPSIE 2: FORMELE E-POS\nSkryf 'n formele e-pos aan jou skoolhoof waarin jy voorstel dat die skool 'n weeklikse 'digitale detoks'-uur instel waar geen tegnologie gebruik word nie. Verduidelik die voordele hiervan vir die leerders se geestesgesondheid en akademiese prestasie.",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "Skryf jou gekose transaksionele teks (Opsie 1 of Opsie 2) van 120-150 woorde. Maak seker dat jou beplanning duidelik sigbaar is.",
+          "marks": 20,
+          "memo": [
+            "Inhoud, beplanning en konteks (12 punte): Die leerder moet die korrekte formaat van 'n formele brief of e-pos gebruik. Die toon moet formeel en beleefd wees. Die argumente moet logies gestruktureer wees.",
+            "Taal, styl en redigering (8 punte): Korrekte spelling, grammatika, gepaste woordeskat en sinskonstruksies. Bewyse van redigering moet sigbaar wees."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Inhoud, beplanning en konteks (Transaksioneel)",
+      "marks": 12,
+      "descriptor": "Uitstekende begrip van die genre, korrekte formaat (brief/e-pos), formele register konsekwent toegepas, teikengroep en doel is duidelik gedefinieer, logiese struktuur en beplanning is duidelik sigbaar."
+    },
+    {
+      "criterion": "Taal, styl en redigering (Transaksioneel)",
+      "marks": 8,
+      "descriptor": "Foutlose of byna foutlose taalgebruik, gepaste styl en woordeskat vir 'n formele konteks, duidelike bewyse van redigering en afronding."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Is die vraestel se totale punte presies 70?",
+    "Is al die instruksies en vrae in korrekte en toeganklike Afrikaans geformuleer?",
+    "Verwys die visuele vrae spesifiek na die 'language_response_planner' en sy ses komponente?",
+    "Is die memorandum gedetailleerd genoeg om alternatiewe maar korrekte antwoorde te akkommodeer?",
+    "Is die transaksionele skryftoekenning in lyn met die CAPS-rubriekvereistes vir EAT/HT?"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "dio.mail_intent.v1",
+  "mail_intent_id": "MAIL-D66DC2169E28F108",
+  "direction": "outbound",
+  "purpose": "other",
+  "lead_id": null,
+  "order_id": null,
+  "job_id": "dio-graph-connection-proof",
+  "campaign_id": null,
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAOe2JR3d4zNEjOxbLhw6wus=",
+  "source_message_id": null,
+  "recipient": "dio_workflows@outlook.com",
+  "subject": "DIO Mail Core connection proof - draft only",
+  "body": "This governed draft proves that DIO can create an Outlook draft through Microsoft Graph. It has not been sent, and outbound Graph sending remains disabled.",
+  "body_path": null,
+  "attachments": [],
+  "risk": "routine",
+  "approval": {
+    "required": true,
+    "state": "consumed",
+    "approved_at": "2026-08-08T22:48:36+00:00",
+    "expires_at": null,
+    "token_sha256": null
+  },
+  "send_state": "sent",
+  "created_at": "2026-08-08T17:02:44+00:00",
+  "updated_at": "2026-08-08T22:48:42+00:00",
+  "provider": "microsoft_graph",
+  "provider_draft_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAABAUwAA",
+  "sent_at": "2026-08-08T22:48:42+00:00"
+}

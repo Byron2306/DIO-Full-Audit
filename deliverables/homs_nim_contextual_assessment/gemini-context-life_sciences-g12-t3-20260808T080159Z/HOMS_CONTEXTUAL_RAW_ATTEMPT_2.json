@@ -1,0 +1,368 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 Life Sciences: Evolution and Human Origins Assessment",
+  "canonical_profile_id": "fet.life_sciences",
+  "blueprint": "This assessment targets the FET exit-level understanding of evolutionary biology. Section A focuses on natural selection and speciation using the classic Galapagos finch model, testing data interpretation and evolutionary mechanisms. Section B evaluates scientific investigation design through a simulated natural selection model. Section C assesses human evolution using comparative anatomical evidence of skulls and pelvises, alongside genetic and fossil data.",
+  "render_shell": "investigation_task_sheet",
+  "duration": "1.5 hours",
+  "total_marks": 75,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Sciences",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Life Sciences",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+      "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455"
+    },
+    "canonical_profile_id": "fet.life_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "diagram",
+        "investigation_sheet",
+        "calculation_workspace"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: data_table observed in Life Sciences.",
+        "FET old-paper catalogue: diagram_or_model observed in Life Sciences.",
+        "CAPS/source matrix signals practical investigation or experiment evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "Life Sciences",
+        "paper_count": 2,
+        "observed_contract": [
+          "data_table",
+          "diagram_or_model",
+          "graph_or_chart",
+          "unclassified_stimulus",
+          "text_extract",
+          "image_rendered_or_scanned_pages"
+        ]
+      }
+    },
+    "caps_theme_candidates": [
+      "LIFE SCIENCES GRADES 10-12",
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation"
+    ],
+    "assessment_content_focus": [
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation",
+      "Scientific investigation design for natural selection",
+      "Using data and anatomical evidence to support evolutionary explanations"
+    ],
+    "content_alignment_notes": [
+      "Focuses on natural selection, speciation, and hominin evolution using concrete data and anatomical diagrams."
+    ],
+    "required_visuals": [
+      {
+        "id": "Figure_1",
+        "title": "Finch Beak Depth Distribution and Rainfall Data",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "beak depth (mm)",
+          "number of finches",
+          "pre-drought and post-drought curves",
+          "rainfall levels (mm)",
+          "seed abundance and hardness index"
+        ],
+        "assessment_use": "Learners interpret the shift in beak depth distribution in response to rainfall and seed changes."
+      },
+      {
+        "id": "Figure_2",
+        "title": "Anatomical Comparison of Skulls and Pelvises",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "Homo sapiens skull and pelvis",
+          "Australopithecus africanus skull and pelvis",
+          "Pan troglodytes skull and pelvis",
+          "foramen magnum position",
+          "cranial shape",
+          "pelvis width and shape"
+        ],
+        "assessment_use": "Learners compare anatomical structures to identify evolutionary trends related to bipedalism and diet."
+      },
+      {
+        "id": "Figure_3",
+        "title": "Hominin Cranial Capacity Data Table",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "Species name",
+          "Approximate age (million years ago)",
+          "Mean cranial capacity (cm\u00b3)"
+        ],
+        "assessment_use": "Learners analyze trends in brain size evolution over time."
+      }
+    ],
+    "generation_constraints": [
+      "All questions must refer directly to the provided figures and data.",
+      "No fabricated biological concepts or ungrounded scenarios are permitted."
+    ],
+    "validation_rules": [
+      "Ensure total marks equal exactly 75.",
+      "Ensure all questions are learner-facing and free of meta-commentary."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Evolution by Natural Selection and Speciation",
+      "mode": "structured_exam",
+      "instructions": "Answer all questions. Refer to Figure 1 and the provided data to answer Questions 1.1 to 1.6.",
+      "stimulus": "Figure 1 shows the distribution of beak depth in a population of medium ground finches (Geospiza fortis) on an island before and after a severe drought. The drought resulted in a drastic reduction in rainfall (from 130 mm to 24 mm). Consequently, small, soft seeds became scarce, leaving mostly large, hard-shelled seeds available as a food source.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Define the term 'natural selection' as understood in evolutionary biology.",
+          "marks": 2,
+          "memo": [
+            "It is the process whereby organisms with inheritable characteristics/alleles that are better suited to their environment survive, reproduce, and pass on these favorable traits to their offspring. (2)"
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Using the information in Figure 1, describe the relationship between rainfall, seed availability, and the survival of finches with different beak depths during the drought.",
+          "marks": 4,
+          "memo": [
+            "Low rainfall/drought caused a decrease in the abundance of small, soft seeds. (1)",
+            "Only large, hard-shelled seeds remained available. (1)",
+            "Finches with smaller beak depths could not crack the hard seeds and died of starvation. (1)",
+            "Finches with larger/deeper beaks were able to feed on the hard seeds and survived. (1)"
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Explain how natural selection led to the change in the average beak depth of the finch population after the drought.",
+          "marks": 6,
+          "memo": [
+            "There was variation in beak depth within the finch population before the drought. (1)",
+            "The drought acted as an environmental selective pressure. (1)",
+            "Finches with larger/deeper beaks had a favorable adaptation for cracking hard seeds. (1)",
+            "These finches survived the drought (survival of the fittest). (1)",
+            "The surviving finches reproduced and passed on the allele/gene for larger beak depth to their offspring. (1)",
+            "Over generations, the frequency of the allele for larger beak depth increased, shifting the average beak depth of the population to a higher value. (1)"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Describe how geographic isolation could lead to the speciation of these finches if a sub-population was carried to a neighboring island with different environmental conditions.",
+          "marks": 8,
+          "memo": [
+            "A population of finches becomes split/separated by a geographical barrier (e.g., ocean between islands). (1)",
+            "The population is divided into two sub-populations, preventing gene flow between them. (1)",
+            "The environmental conditions (selective pressures) on the neighboring island are different (e.g., different food sources/seeds). (1)",
+            "Natural selection occurs independently in each sub-population. (1)",
+            "In each population, individuals with characteristics best suited to their specific environment survive and reproduce. (1)",
+            "The two populations also undergo independent mutations. (1)",
+            "Over time, the two populations become genotypically and phenotypically different from each other. (1)",
+            "Even if they are brought together again, they cannot interbreed to produce fertile offspring, indicating that speciation has occurred. (1)"
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Identify the independent and dependent variables in the investigation represented by Figure 1.",
+          "marks": 2,
+          "memo": [
+            "Independent variable: Environmental condition / Rainfall level / Time (before vs. after drought) (1)",
+            "Dependent variable: Beak depth / Distribution of beak sizes in the finch population (1)"
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "State three ways in which researchers could increase the reliability of the data collected in this finch study.",
+          "marks": 3,
+          "memo": [
+            "Increase the sample size of finches measured. (1)",
+            "Repeat the measurements over multiple drought cycles/years. (1)",
+            "Use standardized, calibrated calipers to measure beak depth to minimize human error. (1)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Scientific Investigation Design for Natural Selection",
+      "mode": "practical_investigation_memo",
+      "instructions": "Answer all questions based on the experimental design described below.",
+      "stimulus": "A group of Grade 12 learners designed an investigation to simulate how natural selection affects a population of birds with different beak shapes. They used three different tools to represent beak phenotypes: forceps (thin beak), a spoon (scoop beak), and pliers (heavy beak). \n\nThey placed 100 small, soft seeds and 100 large, hard seeds on a tray. Three learners, each using one of the tools, were given 30 seconds to collect as many seeds as possible. The investigation was repeated 5 times.",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Formulate a suitable hypothesis for this investigation.",
+          "marks": 2,
+          "memo": [
+            "Pliers (heavy beaks) will be more successful at collecting large, hard seeds than forceps (thin beaks) or spoons (scoop beaks). (2) OR",
+            "There is a relationship between the type of tool (beak shape) and the number/type of seeds collected. (2)"
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Identify two variables that must be kept constant (controlled) to ensure the validity of this investigation.",
+          "marks": 2,
+          "memo": [
+            "The time allowed for collecting seeds (30 seconds). (1)",
+            "The total number/starting ratio of seeds on the tray (100 of each type). (1)",
+            "The surface area/type of tray used. (Any two) (1 + 1)"
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "The table below shows the average number of seeds collected over the 5 trials:\n\n- Forceps: 45 small seeds, 2 hard seeds\n- Spoon: 38 small seeds, 5 hard seeds\n- Pliers: 12 small seeds, 58 hard seeds\n\nCalculate the percentage of the total available hard seeds (100) collected by the learner using pliers. Show all working.",
+          "marks": 4,
+          "memo": [
+            "Formula: (Number of hard seeds collected by pliers / Total available hard seeds) x 100 (1)",
+            "Calculation: (58 / 100) x 100 (1)",
+            "Answer: 58% (1)",
+            "Correct unit (%) included. (1)"
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Draw a bar graph to compare the average number of small seeds and hard seeds collected by each of the three tools.",
+          "marks": 6,
+          "memo": [
+            "Type of graph: Double/Grouped Bar Graph (1)",
+            "X-axis: Correctly labeled with units/categories (Tools/Beak types) (1)",
+            "Y-axis: Correctly labeled with units (Average number of seeds collected) (1)",
+            "Scale: Appropriate, even scale on Y-axis (1)",
+            "Plotting: All bars plotted correctly with a key to distinguish small and hard seeds (2)"
+          ]
+        },
+        {
+          "number": "2.5",
+          "question": "Explain why variation in beak shape is essential for the long-term survival of a bird species if the island's vegetation changes permanently.",
+          "marks": 6,
+          "memo": [
+            "If all birds had the same beak shape, they would all feed on the same food source. (1)",
+            "If that specific food source disappeared due to environmental change, the entire species would die out/go extinct. (1)",
+            "Variation ensures that some individuals have beak shapes adapted to alternative food sources. (1)",
+            "These adapted individuals will survive when the primary food source disappears. (1)",
+            "They will reproduce and pass on the favorable traits, ensuring the survival of the species. (1)",
+            "This prevents extinction by maintaining ecological resilience. (1)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Human Evolution Evidence and Interpretation",
+      "mode": "diagram_interpretation",
+      "instructions": "Answer all questions. Refer to Figure 2 and Figure 3 to answer Questions 3.1 to 3.6.",
+      "stimulus": "Figure 2 illustrates the lateral and ventral views of the skulls, and the anterior views of the pelvises of Homo sapiens, Australopithecus africanus, and Pan troglodytes (chimpanzee). Figure 3 provides data on the average cranial capacity of these species.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Tabulate three anatomical differences between the skulls of Homo sapiens and Pan troglodytes that are visible in Figure 2.",
+          "marks": 7,
+          "memo": [
+            "Table structure: Table with headings, borders, and aligned comparison points. (1)",
+            "Difference 1: Homo sapiens has a flat face/orthognathous skull, whereas Pan troglodytes has a projecting face/prognathous skull. (2)",
+            "Difference 2: Homo sapiens has no brow ridges (or very reduced), whereas Pan troglodytes has prominent brow ridges. (2)",
+            "Difference 3: Homo sapiens has a highly rounded/domed cranium, whereas Pan troglodytes has a low, sloping cranium/sagittal crest. (2)"
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Explain the significance of the position of the foramen magnum in Homo sapiens compared to Pan troglodytes.",
+          "marks": 4,
+          "memo": [
+            "In Homo sapiens, the foramen magnum is located anteriorly/at the base of the skull. (1)",
+            "This allows the skull to balance vertically on top of the vertebral column, which is an adaptation for bipedalism. (1)",
+            "In Pan troglodytes, the foramen magnum is located posteriorly/at the back of the skull. (1)",
+            "This is an adaptation for quadrupedal locomotion, keeping the head forward while walking on four limbs. (1)"
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Describe how the shape of the pelvis in Australopithecus africanus supports the transition to bipedalism when compared to Pan troglodytes.",
+          "marks": 4,
+          "memo": [
+            "The pelvis of Australopithecus africanus is shorter and wider/bowl-shaped compared to the long, narrow pelvis of Pan troglodytes. (1)",
+            "This bowl shape supports the weight of the upper body during upright standing. (1)",
+            "It provides a wider area for the attachment of large gluteal muscles. (1)",
+            "This stabilizes the body and allows for efficient weight transfer during bipedal walking. (1)"
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Define the term 'hominin'.",
+          "marks": 2,
+          "memo": [
+            "A group consisting of modern humans, extinct human species, and all their immediate ancestors (including members of the genera Homo, Australopithecus, and Paranthropus) that are characterized by bipedalism. (2)"
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Explain how genetic evidence, specifically mitochondrial DNA (mtDNA), supports the 'Out of Africa' hypothesis of human origins.",
+          "marks": 6,
+          "memo": [
+            "Mitochondrial DNA (mtDNA) is inherited solely from the mother. (1)",
+            "It mutates at a relatively constant rate without undergoing recombination. (1)",
+            "By analyzing mtDNA mutations, scientists can trace maternal lineages back to a common ancestor. (1)",
+            "The greatest genetic variation/diversity in mtDNA is found in modern African populations. (1)",
+            "This indicates that humans have lived in Africa the longest, allowing more time for mutations to accumulate. (1)",
+            "This supports the hypothesis that modern humans originated in Africa and migrated to other parts of the world. (1)"
+          ]
+        },
+        {
+          "number": "3.6",
+          "question": "Analyze the cranial capacity data in Figure 3. Explain the evolutionary trend in brain size from Australopithecus to Homo sapiens, and suggest how this trend correlates with changes in diet and tool use.",
+          "marks": 7,
+          "memo": [
+            "Trend: There is a significant increase in average cranial capacity from Australopithecus (approx. 400-500 cm\u00b3) to Homo sapiens (approx. 1350-1400 cm\u00b3). (1)",
+            "This indicates an evolutionary trend towards encephalization / larger brain size over time. (1)",
+            "Correlation with diet: Early hominins had a high-fiber, plant-based diet requiring large chewing muscles. (1)",
+            "The transition to a high-energy, nutrient-dense diet (including cooked meat) provided the energy required to sustain a larger, metabolically expensive brain. (2)",
+            "Correlation with tool use: Larger brains allowed for advanced cognitive abilities, leading to the development of complex stone tools. (1)",
+            "These tools made hunting and processing food more efficient, further supporting the dietary shift. (1)"
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Evolution by Natural Selection and Speciation",
+      "marks": 25,
+      "descriptor": "Measures understanding of natural selection mechanisms, speciation, and data interpretation of finch populations."
+    },
+    {
+      "criterion": "Section B: Scientific Investigation Design for Natural Selection",
+      "marks": 20,
+      "descriptor": "Measures ability to formulate hypotheses, identify variables, perform calculations, construct graphs, and explain variation."
+    },
+    {
+      "criterion": "Section C: Human Evolution Evidence and Interpretation",
+      "marks": 30,
+      "descriptor": "Measures comparative anatomical analysis of hominin fossils, understanding of bipedalism, genetic evidence, and evolutionary trends."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that all questions directly reference the provided figures (Figure 1, Figure 2, Figure 3).",
+    "Confirm that the mark allocation sums to exactly 75 marks.",
+    "Ensure that the memo accepts scientifically equivalent wording and provides clear, structured marking points.",
+    "Check that no medical advice or diagnostic claims are made in the assessment."
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "dio.format_core.receipt.v1",
+  "object_id": "DIO-FORMAT-GOLDEN-001",
+  "source_version": "1.0.0",
+  "rendered_at": "2026-08-09T16:02:47+00:00",
+  "status": "rendered_review_candidate",
+  "style_profile": "caps_educator",
+  "style_profile_hash": "13b25360762b1d3451a637dc45fee3b33a650d92472bf22511105fe17e046d59",
+  "delivery_profile": "classroom_bundle",
+  "delivery_profile_hash": "a86f683ed26f3ff0248a64e33b177001f15d41040d5c20904b91fdbf59e10ef4",
+  "language": {
+    "language": "English",
+    "lane": "source",
+    "status": "canonical",
+    "stale_units": []
+  },
+  "release_mode": false,
+  "semantic_source_hash": "acf5a22a9f67b3b6b5c247a7b764442433a3d301967a369dcb8bf81ebed2fbd4",
+  "semantic_blocks": 17,
+  "translation_expansion_ratio": 1.0,
+  "templates": {},
+  "qa": {
+    "passed": true,
+    "errors": [],
+    "warnings": [],
+    "semantic_completeness": {
+      "docx": {
+        "expected_strings": 40,
+        "missing_count": 0,
+        "missing": []
+      },
+      "pptx": {
+        "expected_strings": 40,
+        "missing_count": 0,
+        "missing": []
+      },
+      "html": {
+        "expected_strings": 40,
+        "missing_count": 0,
+        "missing": []
+      }
+    }
+  },
+  "claim_boundary": "Format Core rebuilds typed semantic content through controlled profiles; it does not claim pixel-identical reconstruction of arbitrary source files.",
+  "outputs": [
+    {
+      "channel": "docx",
+      "path": "dio-format-golden-001-english.docx",
+      "sha256": "c770e9187bc30072f2d500311646b973890a4c2d2234da7f0c906fdf8881c85d",
+      "bytes": 67006
+    },
+    {
+      "channel": "html",
+      "path": "dio-format-golden-001-english.html",
+      "sha256": "2baf3dee5aff66153c79c75b3947e88f2c2c84c5b5d74f1f63100e79a6c4e400",
+      "bytes": 4867
+    },
+    {
+      "channel": "pdf",
+      "path": "dio-format-golden-001-english.pdf",
+      "sha256": "00c75c4afc957f38b3764130a391ce7d96e9641752a73c4865df65b7323a2da8",
+      "bytes": 122242
+    },
+    {
+      "channel": "pptx",
+      "path": "dio-format-golden-001-english.pptx",
+      "sha256": "b5cadeadef25a51f0b703fb6b93eb7440b11aba162911ab822954931c4bfb7a0",
+      "bytes": 75207
+    },
+    {
+      "channel": "vtt",
+      "path": "dio-format-golden-001-english.vtt",
+      "sha256": "d5c000241a3e260bb5abfaadd74a8bd1e5f112f5bd8541e6bf354ec061ee4c8e",
+      "bytes": 126
+    }
+  ]
+}

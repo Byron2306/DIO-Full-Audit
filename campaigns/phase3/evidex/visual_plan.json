@@ -1,0 +1,77 @@
+{
+  "schema": "knowedge.phase3.visual_plan.v1",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "studio_id": "practical_open_source",
+  "visual_identity": {
+    "motif": "operator desk",
+    "texture": "clean workflow grid",
+    "palette": {
+      "background": "#f7f7f4",
+      "surface": "#ffffff",
+      "primary": "#202124",
+      "muted": "#5d625f",
+      "accent": "#225c7a",
+      "success": "#1f6b3a",
+      "warning": "#7a5200"
+    },
+    "typography": {
+      "display": "Inter, system-ui, sans-serif",
+      "body": "Inter, system-ui, sans-serif",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+    }
+  },
+  "thumbnail": {
+    "headline": "Evidex Evidence Pack",
+    "subline": "Messy input -> review-ready pack",
+    "composition": "left messy input, right clean output pack",
+    "avoid": [
+      "fake revenue numbers",
+      "before/after claims without proof",
+      "private client data"
+    ]
+  },
+  "scene_visuals": [
+    {
+      "scene_id": "scene_01",
+      "composition": "workflow_card",
+      "objective": "Show messy files becoming a clean evidence table and ZIP as the opening transformation.",
+      "evidence_overlay": "Evidex Evidence Pack",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_02",
+      "composition": "workflow_card",
+      "objective": "Show the messy input state: emails, folders, files, forms, rubrics, or drafts.",
+      "evidence_overlay": "The messy input",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_03",
+      "composition": "workflow_card",
+      "objective": "Show route card, evidence card, approval gate, and output folder.",
+      "evidence_overlay": "Route -> Review -> Pack",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_04",
+      "composition": "workflow_card",
+      "objective": "Show the finished review-ready pack with checklist and receipt.",
+      "evidence_overlay": "Review-ready output",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_05",
+      "composition": "workflow_card",
+      "objective": "Show human approval as an explicit final gate.",
+      "evidence_overlay": "Human approval stays",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_06",
+      "composition": "workflow_card",
+      "objective": "Show a simple intake action and pilot label.",
+      "evidence_overlay": "Pilot Pack",
+      "safe_area": "caption-safe lower third"
+    }
+  ]
+}

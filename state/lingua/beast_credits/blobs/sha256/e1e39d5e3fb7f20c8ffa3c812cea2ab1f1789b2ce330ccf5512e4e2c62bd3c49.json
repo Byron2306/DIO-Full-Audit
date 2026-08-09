@@ -1,0 +1,29 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:e1e39d5e3fb7f20c8ffa3c812cea2ab1f1789b2ce330ccf5512e4e2c62bd3c49",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 12,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 1.0,
+    "evidence_packet_id": "guard:source_hash_staleness",
+    "impact_fingerprint_hash": "sha256:22e753a1af89bdac62c4adf473e995362f16da8a95f61498309c82511ccd21d5",
+    "metadata": {
+      "authority": "deterministic_validator",
+      "domain": "*",
+      "guard": "source_hash_staleness",
+      "rule": "A changed source-unit hash makes every previously aligned target unit stale.",
+      "target_language": "Setswana"
+    },
+    "policy_version": "dio_lingua_deterministic_learning_v1",
+    "repo_fingerprint": "sha256:22e753a1af89bdac62c4adf473e995362f16da8a95f61498309c82511ccd21d5",
+    "task_class": "dio_lingua_deterministic_guard",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

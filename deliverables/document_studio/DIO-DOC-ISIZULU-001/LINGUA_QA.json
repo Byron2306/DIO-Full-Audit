@@ -1,0 +1,26 @@
+{
+  "schema": "dio.lingua.qa.v1",
+  "target_language": "isiZulu",
+  "source_anchor_coverage_percent": 100,
+  "numerals": "PASS",
+  "protected_tokens": "PASS",
+  "approved_terminology_reused": 0,
+  "approved_units_reused": 0,
+  "critic_model": "deepseek-ai/deepseek-v4-flash-0731",
+  "critic_changes": 0,
+  "uncertainty_flags": 5,
+  "material_review_flags": 5,
+  "linguistic_quality_approved": true,
+  "review_required": false,
+  "release_readiness": "semantic_approved",
+  "claim_boundary": "Integrity metrics do not measure fluency or certify semantic equivalence.",
+  "semantic_authority": "human_approved_crystallized",
+  "reviewer": "Byron Bunt",
+  "reviewer_role": "Language practitioner",
+  "approved_at": "2026-08-09T11:42:27+00:00",
+  "flag_dispositions": {
+    "accepted_as_is": 5,
+    "corrected": 0,
+    "not_applicable": 0
+  }
+}

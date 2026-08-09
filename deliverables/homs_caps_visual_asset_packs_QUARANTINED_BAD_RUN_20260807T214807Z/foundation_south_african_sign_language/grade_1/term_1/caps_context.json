@@ -1,0 +1,57 @@
+{
+  "schema": "knowedge.homs_caps_context.v1",
+  "created_at": "2026-08-07T21:47:14+00:00",
+  "enabled": true,
+  "subject_id": "south_african_sign",
+  "subject": "South African Sign Language",
+  "grade": 1,
+  "phase": "foundation_grade_r_3",
+  "preferred_language": "English",
+  "candidate_count": 0,
+  "candidates": [],
+  "selected": null,
+  "assessment_ontology_profile": {
+    "profile_id": "foundation.south_african_sign_language",
+    "subject": "South African Sign Language",
+    "phase": "foundation_grade_r_3",
+    "assessment_family": "foundation_activity_assessment"
+  },
+  "assessment_design_profile": {
+    "profile_id": "foundation.south_african_sign_language",
+    "subject": "South African Sign Language",
+    "phase": "foundation_grade_r_3",
+    "phase_group": "foundation",
+    "assessment_family": "foundation_activity_assessment",
+    "render_shell": "activity_sheet",
+    "confidence": "medium",
+    "assessment_forms": [],
+    "annual_weightings": {},
+    "task_requirements": [],
+    "paper_structure": [],
+    "cognitive_distribution": {
+      "observable_activity": 50,
+      "oral_or_practical_response": 30,
+      "short_recorded_response": 20
+    },
+    "marking_instruments": [
+      "memorandum",
+      "rubric"
+    ],
+    "generation_constraints": [
+      "Use teacher-facing prompts and observable learner actions.",
+      "Keep reading load minimal and grade appropriate.",
+      "Do not create a long written paper unless the educator explicitly asks for it."
+    ],
+    "validation_rules": [
+      "Choose the render shell from assessment design before rendering learner-facing material.",
+      "Do not render practical performance tasks as written answer-question papers.",
+      "Marks in the learner pack must reconcile with the assessment instrument.",
+      "Keep educator approval as the final gate."
+    ],
+    "supporting_evidence": [
+      "rovides teachers with: \u2022 an introduction containing guidelines on how to use the Foundation Phase document \u2022 content, concepts and skills to be taught per term \u2022 guidelines for time allocation \u2022 requirements for the Formal Assessment Activities and suggestions for informal assessment \u2022 lists of recommended resources per grade. 2.2 AN INTEGRATED APPROACH The Languages programme is integrated into all other subject areas. Language is used across the curriculum. Many of the Observing and Signing Language skills will be developed within Mathematics and Life Skills, which is made up of many subjects such as Creative Arts and Beginning Knowledge including Personal and Social Well-being, Natural Sciences and Technology and the Social Sciences. Themes and topics can be selected from these subject areas to provide contexts for the teaching of language skills. 2.3 INTRODUCING SOUTH AFRICAN"
+    ]
+  },
+  "extracted_excerpt": "",
+  "extraction_error": null
+}

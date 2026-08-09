@@ -1,0 +1,223 @@
+{
+  "assessment_title": "Grade 12 Life Orientation: Evidence-First CAPS Assessment",
+  "subject": "Life Orientation",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "canonical_profile_id": "fet.life_orientation",
+  "blueprint": "case_study_structured_questions",
+  "render_shell": "structured_case_paper",
+  "language_of_assessment": "English",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Orientation",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Life Orientation",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_orientation_gr_10-12_web_e6b3.pdf",
+      "sha256": "29478a3420addef1239e0836c69b9862ff903fabc01b581c1c65ca044eca69c3"
+    },
+    "canonical_profile_id": "fet.life_orientation",
+    "assessment_family": "case_study_structured_questions",
+    "render_shell": "structured_case_paper",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table"
+      ],
+      "source_type_reasons": [
+        "CAPS/source matrix or subject profile supports source-based assessment.",
+        "Learners must cite, compare, or reason from source evidence.",
+        "CAPS/source matrix signals data, graph, or diagram assessment."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": null
+    },
+    "caps_theme_candidates": [
+      "6) expose learners to various study methods and skills pertaining to assessment processes and",
+      "teaching of Life Orientation in Grades 10 and 11, and 56 hours in Grade 12. The content is grouped in Section 3 of",
+      "Physical Education on the school timetable.",
+      "2.4 Weighting of topics",
+      "Topic Grade 10 Grade 11 Grade 12",
+      "Physical Education 4 hours Textbook, resources on various types of games",
+      "Formal assessment: It is compulsory to cover the given topics in the term indicated.",
+      "The sequence of the topics within the term is however, not",
+      "14 CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)",
+      "LIFE ORIENTATION GRADES 10-12",
+      "TOPIC TERM 3 GRADE 10",
+      "WEEKS 1 - 5 Recommended resources",
+      "is to be taught and learnt on a term-by-term basis.",
+      "The National Curriculum Statement Grades R-12 accordingly replaces the Subject Statements, Learning Programme"
+    ],
+    "assessment_content_focus": [
+      "Life Orientation CAPS core knowledge and skills",
+      "Life Orientation applied task or assessment evidence",
+      "Life Orientation applied assessment task",
+      "Life Orientation extended or practical synthesis task"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: orientation, skills."
+    ],
+    "required_visuals": [
+      {
+        "id": "life_orientation_case_facts",
+        "title": "Scenario facts and decision table",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "case_table",
+        "must_show": [
+          "scenario facts",
+          "choices",
+          "consequences",
+          "support options"
+        ],
+        "assessment_use": "Learners analyse scenario evidence and justify safe, responsible decisions."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "duration": "2 hours",
+  "total_marks": 50,
+  "evidence_cards": [
+    {
+      "label": "Scenario A",
+      "type": "constructed classroom evidence",
+      "title": "Community Health Campaign Dilemma",
+      "provenance": "Constructed CAPS-aligned classroom stimulus for educator review",
+      "date": "Not applicable",
+      "content": "In a rural community in KwaZulu-Natal, a group of Grade 12 learners from Siyabonga Secondary School launched a health awareness campaign to address rising rates of teenage pregnancy and HIV/AIDS. The campaign, titled 'Know Your Status, Protect Your Future', included peer education workshops, distribution of informational pamphlets, and partnerships with the local clinic. However, after three months, the school governing body raised concerns that some parents felt the campaign promoted sexual activity among minors, despite the learners' emphasis on abstinence and safe sex education. The learners now face a decision: continue the campaign as is, modify it to focus solely on abstinence, or discontinue it due to community pushback.",
+      "context": "This scenario reflects real-world tensions in Life Orientation education between promoting comprehensive sexual health education and navigating cultural or religious community values, particularly in rural South African contexts. It aligns with CAPS Grade 12 Term 2 focus on 'Social and environmental responsibility' and 'Democracy and human rights'.",
+      "usable_evidence": [
+        "Campaign name: 'Know Your Status, Protect Your Future'",
+        "Location: Rural community in KwaZulu-Natal",
+        "School: Siyabonga Secondary School",
+        "Target issues: Teenage pregnancy and HIV/AIDS",
+        "Activities: Peer education workshops, pamphlet distribution, local clinic partnership",
+        "Duration: Three months",
+        "Concern raised by: School governing body",
+        "Parent concern: Perception that campaign promotes sexual activity among minors",
+        "Learners' stated emphasis: Abstinence and safe sex education",
+        "Decision options: Continue as is, modify to abstinence-only, or discontinue"
+      ],
+      "allowed_question_moves": [
+        "identify issue",
+        "analyse consequence",
+        "recommend action",
+        "justify decision",
+        "reflect safely",
+        "build action plan"
+      ]
+    },
+    {
+      "label": "Decision Tool B",
+      "type": "constructed classroom evidence",
+      "title": "Ethical Decision-Making Framework for Health Campaigns",
+      "provenance": "Constructed CAPS-aligned classroom stimulus for educator review",
+      "date": "Not applicable",
+      "content": "When facing community opposition to health initiatives, learners should use this structured approach: (1) Identify the core values at stake (e.g., health, autonomy, cultural respect); (2) Gather accurate data from trusted sources (e.g., clinic statistics, national health policies); (3) Consult stakeholders respectfully (learners, parents, teachers, health workers); (4) Evaluate options against constitutional rights (Section 27: access to healthcare; Section 10: human dignity); (5) Choose an action that promotes health equity while minimizing harm; (6) Reflect on outcomes and be prepared to adapt. This tool is adapted from the Life Orientation CAPS emphasis on applying democratic values and human rights to real-life contexts.",
+      "context": "This decision tool supports learners in applying constitutional values and ethical reasoning to community health dilemmas, directly supporting CAPS Grade 12 topics on 'Citizenship education', 'Human rights', and 'Social responsibility'. It provides a scaffold for analysing Scenario A.",
+      "usable_evidence": [
+        "Six-step ethical decision-making process",
+        "Step 1: Identify core values at stake (health, autonomy, cultural respect)",
+        "Step 2: Gather accurate data from trusted sources (clinic stats, national health policies)",
+        "Step 3: Consult stakeholders respectfully (learners, parents, teachers, health workers)",
+        "Step 4: Evaluate options against constitutional rights (Section 27: healthcare; Section 10: dignity)",
+        "Step 5: Choose action promoting health equity while minimizing harm",
+        "Step 6: Reflect on outcomes and adapt",
+        "Source: Adapted from Life Orientation CAPS application of democratic values and human rights"
+      ],
+      "allowed_question_moves": [
+        "identify issue",
+        "analyse consequence",
+        "recommend action",
+        "justify decision",
+        "reflect safely",
+        "build action plan"
+      ]
+    }
+  ],
+  "evidence_policy": "stimulus_required",
+  "sections": [
+    {
+      "title": "Section A: Evidence-Based Response",
+      "mode": "structured_case_paper",
+      "instructions": "Read Scenario A and Decision Tool B carefully before answering.",
+      "stimulus": "Use only the details in Scenario A, Decision Tool B and Decision Tool B as evidence.",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Identify the main issue, idea or message in Scenario A and support your answer with one detail from the evidence.",
+          "marks": 25,
+          "memo": [
+            "Credit a valid point supported by evidence from Scenario A."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Explain how a detail in Decision Tool B affects the meaning, decision or viewpoint.",
+          "marks": 12,
+          "memo": [
+            "Credit accurate interpretation of Decision Tool B and a clear explanation."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Write a structured response that uses Scenario A and Decision Tool B to justify a conclusion or recommendation.",
+          "marks": 13,
+          "memo": [
+            "Credit a coherent response that uses evidence from Scenario A and Decision Tool B."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Scenario comprehension and evidence use",
+      "marks": 25,
+      "descriptor": "Uses supplied evidence accurately."
+    },
+    {
+      "criterion": "Interpretation and explanation",
+      "marks": 12,
+      "descriptor": "Explains meaning, consequence or viewpoint clearly."
+    },
+    {
+      "criterion": "Structured response",
+      "marks": 13,
+      "descriptor": "Uses evidence to support a coherent conclusion or recommendation."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Confirm CAPS topic scope and grade level.",
+    "Confirm the evidence/stimulus cards are suitable and school-safe.",
+    "Confirm every evidence-dependent question cites a supplied label.",
+    "Approve memo and mark allocation before classroom use."
+  ],
+  "fallback_reason": "question marks sum to 20, expected 50; rubric marks sum to 0, expected 50; rubric is missing",
+  "generation_backend": "hymark_evidence_first_deterministic_fallback",
+  "validation_errors": []
+}

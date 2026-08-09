@@ -1,0 +1,183 @@
+{
+  "schema": "dio.lingua.beast_resolution.v1",
+  "status": "resolved",
+  "approved_units": [],
+  "approved_terms": [],
+  "risk_patterns": [
+    {
+      "issue": "The phrase 'sampler initials' is translated descriptively; confirm if a shorter standard term exists.",
+      "severity": "medium",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_758d3bf1ae0ab6b4"
+    },
+    {
+      "issue": "The acronym 'PBT' is not expanded in the source and its meaning is unclear; a human reviewer must confirm the intended term (e.g., personal protective equipment) and its isiZulu equivalent.",
+      "severity": "high",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_9b76a6a4bd7ce30f"
+    },
+    {
+      "issue": "The term 'probe' is transliterated as 'iphrobu'; confirm if a more standard term is used in the field.",
+      "severity": "medium",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_5aec73996a4759c4"
+    },
+    {
+      "issue": "The term 'treatment outlets' is translated descriptively; confirm if a standard isiZulu term exists in municipal water operations.",
+      "severity": "medium",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_a19bbb0d54c00704"
+    },
+    {
+      "issue": "The term 'Chain of Custody Form' is translated descriptively; confirm if a standard isiZulu term is used by the municipality.",
+      "severity": "medium",
+      "action": "retain uncertainty and require proficient review",
+      "observation_type": null,
+      "credit_id": "scc_58d5c693439b6055"
+    }
+  ],
+  "deterministic_guards": [
+    {
+      "guard": "protected_token_preservation",
+      "rule": "Every configured protected token must remain exact in the target unit.",
+      "credit_id": "scc_4f26e6aa75d21d19"
+    },
+    {
+      "guard": "numeral_preservation",
+      "rule": "Every operational numeral present in a source unit must remain present in its target unit.",
+      "credit_id": "scc_4c95978b0fcb30a0"
+    },
+    {
+      "guard": "source_hash_staleness",
+      "rule": "A changed source-unit hash makes every previously aligned target unit stale.",
+      "credit_id": "scc_755436f9079e4ba1"
+    },
+    {
+      "guard": "anchor_completeness",
+      "rule": "Every source unit must have exactly one aligned target unit.",
+      "credit_id": "scc_2522db2b83916693"
+    }
+  ],
+  "active_negative_capabilities": [],
+  "reuse_state": "miss",
+  "provider_call_displaced": false,
+  "crystal_chain": {
+    "beast_object_type": "crystal_chain_verification",
+    "version": "1.0",
+    "valid": true,
+    "block_count": 33,
+    "head_hash": "sha256:37b9e6549085a294be2e8591f1835aa1af5e15c67063ddbb408061c0112fcc51",
+    "errors": [],
+    "consensus": "local_hash_chain_no_distributed_consensus"
+  },
+  "memory_residue": {
+    "beast_object_type": "memory_hull_write_receipt",
+    "version": "2.0",
+    "residue_id": "residue_4f984b4d87329f96b780",
+    "section": "decisions",
+    "markdown_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_4f984b4d87329f96b780.md",
+    "sidecar_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/decisions/residue_4f984b4d87329f96b780.residue.json",
+    "residue_seal": {
+      "beast_object_type": "beast_residue_seal",
+      "version": "2.0",
+      "purpose": "memory_hull_decisions",
+      "algorithm": "Ed25519",
+      "provider": "cryptography",
+      "created_at": "2026-08-09T11:38:05.336947+00:00",
+      "payload_sha256": "sha256:78936ed39459154f5e302a3dc386718f311469e264186bdfc99e3e02952bd006",
+      "message_sha256": "sha256:ade2d3a2459985b7c1c754fa7336dbbb5ec43b1c1408866fe10946ac669b667e",
+      "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+      "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+      "signature_b64": "l4UYfu5Uj2PXzx5v0fbuvIBMcifUVPoS4CYknEvEIXiFpt2VHRBRiwzm968j5I7WNWURTPJcHwH8nPTckXtDDw==",
+      "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation"
+    },
+    "verified": true,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json"
+  },
+  "prec_lifecycle": {
+    "beast_object_type": "prec_lifecycle",
+    "version": "1.0",
+    "lifecycle_id": "prec_8116c1e3d92930564a",
+    "kind": "dio_lingua",
+    "objective": "Lingua resolve for isiZulu",
+    "scope": "Water-quality operations",
+    "status": "completed",
+    "current_phase": "crystallize",
+    "task_id": "",
+    "provider": "BEAST",
+    "summary": "Lingua resolve lifecycle completed",
+    "metadata": {
+      "operation": "resolve",
+      "target_language": "isiZulu"
+    },
+    "artifact_refs": {
+      "crystallize": {
+        "receipt_digest": {
+          "value": "sha256:4bd4b087cb2f1ce99f4ffdb1c8ceecf8cf16bf0923e49a1ab25e1d868b73a79b"
+        }
+      },
+      "economize": {},
+      "perceive": {},
+      "reason": {
+        "result_status": {
+          "value": "resolved"
+        }
+      }
+    },
+    "created_at": "2026-08-09T11:38:05.340509+00:00",
+    "updated_at": "2026-08-09T11:38:05.353959+00:00",
+    "completed_at": "2026-08-09T11:38:05.353959+00:00",
+    "phase_events": [
+      {
+        "phase": "perceive",
+        "status": "completed",
+        "summary": "Captured source identity, language, domain, flags, and existing crystal state.",
+        "artifacts": {},
+        "signals": [
+          "resolve"
+        ],
+        "created_at": "2026-08-09T11:38:05.342269+00:00"
+      },
+      {
+        "phase": "reason",
+        "status": "completed",
+        "summary": "Applied evidence scoring, semantic applicability, and negative-capability evidence.",
+        "artifacts": {
+          "result_status": "resolved"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.345377+00:00"
+      },
+      {
+        "phase": "economize",
+        "status": "completed",
+        "summary": "Reused exact approved credits and retained provider fallback only where authority was absent.",
+        "artifacts": {
+          "provider_call_displaced": false
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.348646+00:00"
+      },
+      {
+        "phase": "crystallize",
+        "status": "completed",
+        "summary": "Recorded governed capability lifecycle and tamper-evident receipts.",
+        "artifacts": {
+          "receipt_digest": "sha256:4bd4b087cb2f1ce99f4ffdb1c8ceecf8cf16bf0923e49a1ab25e1d868b73a79b"
+        },
+        "signals": [],
+        "created_at": "2026-08-09T11:38:05.351696+00:00"
+      }
+    ],
+    "phase_status": {
+      "perceive": "completed",
+      "reason": "completed",
+      "economize": "completed",
+      "crystallize": "completed"
+    }
+  }
+}

@@ -1,0 +1,1113 @@
+{
+  "schema": "knowedge.homs_subject_route_registry.v1",
+  "created_at": "2026-08-08T06:09:45+00:00",
+  "source_catalogue": "deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+  "assessment_design": "deliverables/caps_assessment_design/caps_assessment_design.json",
+  "route_count": 18,
+  "status_counts": {
+    "ready_to_generate": 13,
+    "blocked_until_profiled": 1,
+    "curation_required": 4
+  },
+  "assessment_family_counts": {
+    "case_study_structured_questions": 5,
+    "data_diagram_practical_investigation": 4,
+    "unmapped": 1,
+    "language_integrated_assessment": 3,
+    "source_based_plus_extended_response": 1,
+    "source_based_plus_essay": 1,
+    "calculation_problem_solving": 2,
+    "practical_performance_or_portfolio": 1
+  },
+  "routes": [
+    {
+      "subject": "Accounting",
+      "subject_id": "accounting",
+      "assessment_design_subject_id": "accounting",
+      "core_target": false,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.accounting",
+      "assessment_family": "case_study_structured_questions",
+      "render_shell": "structured_case_paper",
+      "route": "caps_case_study_structured_route",
+      "paper_count": 1,
+      "source_object_count": 9,
+      "embedded_image_count": 7,
+      "source_matrix": null,
+      "observed_source_types": [
+        "text_extract",
+        "data_table",
+        "unclassified_stimulus"
+      ],
+      "required_visual_kinds": [
+        "text_source_extract",
+        "data_table",
+        "scenario_or_mixed_stimulus"
+      ],
+      "minimum_sections": [
+        "short_concepts",
+        "case_stimulus",
+        "applied_questions",
+        "recommendation_or_evaluation"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [],
+      "exemplar_refs": [
+        {
+          "source_type": "text_extract",
+          "paper": "Accounting P1 November 2024",
+          "page": 5,
+          "snippet": "The following extract of the vehicle sold was taken from the Fixed Asset Register: Cost price: R240 000 Date purchased: 1 July 2021 Rate of depreciation: 20% p.a. on the diminishing-balance method"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "Accounting P1 November 2024",
+          "page": 3,
+          "snippet": "9. Use the information in the table below as a guide when answering the question paper. Try NOT to deviate from it."
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Accounting P1 November 2024",
+          "page": 4,
+          "snippet": "1.1 Refer to Information B (i) for fixed assets: Calculate the following: 1.1.1 Depreciation on equipment on 29 February 2024 (2) 1.1.2 Cost price of vehicles on 29 February 2024 (4)"
+        }
+      ]
+    },
+    {
+      "subject": "Agricultural Sciences",
+      "subject_id": "agricultural_sciences",
+      "assessment_design_subject_id": "agricultural_sciences",
+      "core_target": false,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.agricultural_sciences",
+      "assessment_family": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "route": "caps_science_data_diagram_route",
+      "paper_count": 1,
+      "source_object_count": 8,
+      "embedded_image_count": 14,
+      "source_matrix": null,
+      "observed_source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "labelled_diagram",
+        "graph",
+        "scenario_or_mixed_stimulus"
+      ],
+      "minimum_sections": [
+        "concepts",
+        "diagram_interpretation",
+        "data_response",
+        "investigation_or_method"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [],
+      "exemplar_refs": [
+        {
+          "source_type": "data_table",
+          "paper": "Agricultural Sciences P1 November 2024",
+          "page": 8,
+          "snippet": "2.4.2 Justify the classification of FEED B in QUESTION 2.4.1, based on the data provided above. (1) 2.4.3 Name the farm animal that is unable to digest FEED A. (1)"
+        },
+        {
+          "source_type": "diagram_or_model",
+          "paper": "Agricultural Sciences P1 November 2024",
+          "page": 7,
+          "snippet": "2.1 The diagram below represents the alimentary canal of a farm animal."
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Agricultural Sciences P1 November 2024",
+          "page": 12,
+          "snippet": "Draw a combined bar graph showing the body temperatures and the number of heartbeats of the different farm animals. (6) 3.5 Name a method that is used to administer the types of medication listed"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Agricultural Sciences P1 November 2024",
+          "page": 13,
+          "snippet": "3.7.3 Classify parasite B based on the number of hosts to complete the life cycle. (1) 3.7.4 Name TWO costs associated with the control of the parasites"
+        }
+      ]
+    },
+    {
+      "subject": "Business Studies",
+      "subject_id": "business_studies",
+      "assessment_design_subject_id": "business_studies",
+      "core_target": false,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.business_studies",
+      "assessment_family": "case_study_structured_questions",
+      "render_shell": "structured_case_paper",
+      "route": "caps_case_study_structured_route",
+      "paper_count": 2,
+      "source_object_count": 4,
+      "embedded_image_count": 8,
+      "source_matrix": null,
+      "observed_source_types": [
+        "data_table",
+        "unclassified_stimulus"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "scenario_or_mixed_stimulus"
+      ],
+      "minimum_sections": [
+        "short_concepts",
+        "case_stimulus",
+        "applied_questions",
+        "recommendation_or_evaluation"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [],
+      "exemplar_refs": [
+        {
+          "source_type": "data_table",
+          "paper": "Business Studies P1 November 2024",
+          "page": 8,
+          "snippet": "Use the table below as a GUIDE to answer QUESTION 4.6. COMPONENTS OF A JOB ANALYSIS MOTIVATIONS 1. 2. (6)"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Business Studies P2 November 2024",
+          "page": 5,
+          "snippet": "1.3.5 Expert D based on the principle of indemnity E can be bought back at the option of the issuing company"
+        }
+      ]
+    },
+    {
+      "subject": "Computer Applications Technology",
+      "subject_id": "computer_applications_technology",
+      "assessment_design_subject_id": "computer_applications_technology",
+      "core_target": false,
+      "status": "blocked_until_profiled",
+      "canonical_profile_id": null,
+      "assessment_family": null,
+      "render_shell": null,
+      "route": null,
+      "paper_count": 1,
+      "source_object_count": 21,
+      "embedded_image_count": 313,
+      "source_matrix": null,
+      "observed_source_types": [
+        "data_table",
+        "text_extract",
+        "unclassified_stimulus",
+        "map_extract",
+        "photograph_or_image",
+        "image_rendered_or_scanned_pages"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "text_source_extract",
+        "scenario_or_mixed_stimulus",
+        "map_or_spatial_extract",
+        "photo_or_real_world_image",
+        "source_page_image"
+      ],
+      "minimum_sections": [],
+      "has_hand_authored_subject_profile": false,
+      "blockers": [
+        "missing_caps_assessment_design_profile",
+        "high_touch_source_assets:image_rendered_or_scanned_pages,map_extract,photograph_or_image"
+      ],
+      "next_steps": [
+        "Create or map the canonical CAPS assessment profile before generation.",
+        "Use extracted official-paper exemplars to curate the first visual/source pack.",
+        "Promote this subject into config/homs_subject_profiles once the first pack passes review."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "data_table",
+          "paper": "Computer Applications Technology P1 November 2024",
+          "page": 2,
+          "snippet": "2. If you are working on the network, or the data files have been preloaded on your system, you must follow the instructions provided by the invigilator/ educator."
+        },
+        {
+          "source_type": "text_extract",
+          "paper": "Computer Applications Technology P1 November 2024",
+          "page": 3,
+          "snippet": "CAT P1 Nov 2024 DATA.exe \uf0b7 Click on the 'Extract' button. \uf0b7 Click the 'Show Password' check box. \uf0b7 Enter the following password: N#24@"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Computer Applications Technology P1 November 2024",
+          "page": 9,
+          "snippet": "4.4 Insert a function in cell C10 to determine the session for Pieterse, B. Use the show time and the Session worksheet. (4) 4.5 Insert a formula in cell D12 to determine the number of days from the current"
+        },
+        {
+          "source_type": "map_extract",
+          "paper": "Computer Applications Technology P1 November 2024",
+          "page": 17,
+          "snippet": "<font face=\"Times New Table Tags Sets font type Roman\"></font> Tag Description Links Tags <table></table> Creates a table"
+        }
+      ]
+    },
+    {
+      "subject": "Consumer Studies",
+      "subject_id": "consumer_studies",
+      "assessment_design_subject_id": "consumer_studies",
+      "core_target": false,
+      "status": "curation_required",
+      "canonical_profile_id": "fet.consumer_studies",
+      "assessment_family": "case_study_structured_questions",
+      "render_shell": "structured_case_paper",
+      "route": "caps_case_study_structured_route",
+      "paper_count": 1,
+      "source_object_count": 15,
+      "embedded_image_count": 20,
+      "source_matrix": null,
+      "observed_source_types": [
+        "text_extract",
+        "unclassified_stimulus",
+        "data_table",
+        "graph_or_chart",
+        "photograph_or_image"
+      ],
+      "required_visual_kinds": [
+        "text_source_extract",
+        "scenario_or_mixed_stimulus",
+        "data_table",
+        "graph",
+        "photo_or_real_world_image"
+      ],
+      "minimum_sections": [
+        "short_concepts",
+        "case_stimulus",
+        "applied_questions",
+        "recommendation_or_evaluation"
+      ],
+      "has_hand_authored_subject_profile": false,
+      "blockers": [
+        "high_touch_source_assets:photograph_or_image"
+      ],
+      "next_steps": [
+        "Use extracted official-paper exemplars to curate the first visual/source pack.",
+        "Promote this subject into config/homs_subject_profiles once the first pack passes review."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "text_extract",
+          "paper": "Consumer Studies November 2024",
+          "page": 5,
+          "snippet": "[Source: Farfetch] Yellow, pleated long skirt"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Consumer Studies November 2024",
+          "page": 5,
+          "snippet": "1.1.13 Study the pictures of the clothing items below and answer the question that follows. Yellow, pleated maxi dress"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "Consumer Studies November 2024",
+          "page": 10,
+          "snippet": "2.8 Read the extract below and answer the question that follows. 'The water is pitch black, smelly and foamy with unacceptable levels of pollution.' Barker's description of the Klip River sums up the state of many rivers"
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Consumer Studies November 2024",
+          "page": 13,
+          "snippet": "4.3 Study the graph of the fashion cycles below and answer the questions that follow."
+        }
+      ]
+    },
+    {
+      "subject": "Economics",
+      "subject_id": "economics",
+      "assessment_design_subject_id": "economics",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "senior.economics",
+      "assessment_family": "case_study_structured_questions",
+      "render_shell": "structured_case_paper",
+      "route": "caps_case_study_structured_route",
+      "paper_count": 2,
+      "source_object_count": 17,
+      "embedded_image_count": 57,
+      "source_matrix": null,
+      "observed_source_types": [
+        "text_extract",
+        "graph_or_chart",
+        "data_table",
+        "unclassified_stimulus",
+        "cartoon",
+        "photograph_or_image"
+      ],
+      "required_visual_kinds": [
+        "text_source_extract",
+        "graph",
+        "data_table",
+        "scenario_or_mixed_stimulus",
+        "cartoon_or_visual_text",
+        "photo_or_real_world_image"
+      ],
+      "minimum_sections": [
+        "short_concepts",
+        "case_stimulus",
+        "applied_questions",
+        "recommendation_or_evaluation"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: cartoon, photograph_or_image."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "text_extract",
+          "paper": "Economics P1 November 2024",
+          "page": 6,
+          "snippet": "2.2 Study the extract below and answer the questions that follow. PUBLIC SECTOR FAILURE"
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Economics P1 November 2024",
+          "page": 7,
+          "snippet": "2.3 Study the graph below and answer the questions that follow. MULTIPLIER EFFECT IN A TWO-SECTOR ECONOMY"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "Economics P1 November 2024",
+          "page": 4,
+          "snippet": "fluctuations in time series data H the process of the movement of people from rural areas to cities and towns"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Economics P2 November 2024",
+          "page": 6,
+          "snippet": "In any city, many restaurants compete based on the quality of their food and prices. The basic concept of providing hospitality services differs when restaurants change their strategies."
+        }
+      ]
+    },
+    {
+      "subject": "English First Additional Language",
+      "subject_id": "english_first_additional_language",
+      "assessment_design_subject_id": "english_language",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "senior.english_language",
+      "assessment_family": "language_integrated_assessment",
+      "render_shell": "language_integrated_task",
+      "route": "caps_language_integrated_route",
+      "paper_count": 2,
+      "source_object_count": 29,
+      "embedded_image_count": 16,
+      "source_matrix": null,
+      "observed_source_types": [
+        "unclassified_stimulus",
+        "text_extract",
+        "data_table",
+        "cartoon",
+        "map_extract",
+        "graph_or_chart",
+        "diagram_or_model"
+      ],
+      "required_visual_kinds": [
+        "scenario_or_mixed_stimulus",
+        "text_source_extract",
+        "data_table",
+        "cartoon_or_visual_text",
+        "map_or_spatial_extract",
+        "graph",
+        "labelled_diagram"
+      ],
+      "minimum_sections": [
+        "reading_viewing",
+        "language_structures",
+        "writing_presenting"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: cartoon, map_extract."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "English First Additional Language P1 November 2024",
+          "page": 2,
+          "snippet": "9. Use the following time frame as a guideline: SECTION A: 50 minutes SECTION B: 20 minutes"
+        },
+        {
+          "source_type": "text_extract",
+          "paper": "English First Additional Language P1 November 2024",
+          "page": 6,
+          "snippet": "1. 2. A source of information"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "English First Additional Language P1 November 2024",
+          "page": 3,
+          "snippet": "involves training a computer program on a large amount of data so it can learn to identify patterns and make predictions based on that data. AI is also used in 10 industries to help automate1 tasks and improve efficiency."
+        },
+        {
+          "source_type": "cartoon",
+          "paper": "English First Additional Language P1 November 2024",
+          "page": 10,
+          "snippet": "QUESTION 4: ANALYSING A CARTOON Read the cartoon (TEXT E) below and answer the set questions. TEXT E DENNIS THE MENACE by Hank Ketcham"
+        }
+      ]
+    },
+    {
+      "subject": "English Home Language",
+      "subject_id": "english_home_language",
+      "assessment_design_subject_id": "english_language",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "senior.english_language",
+      "assessment_family": "language_integrated_assessment",
+      "render_shell": "language_integrated_task",
+      "route": "caps_language_integrated_route",
+      "paper_count": 2,
+      "source_object_count": 73,
+      "embedded_image_count": 48,
+      "source_matrix": null,
+      "observed_source_types": [
+        "unclassified_stimulus",
+        "text_extract",
+        "data_table",
+        "cartoon",
+        "photograph_or_image"
+      ],
+      "required_visual_kinds": [
+        "scenario_or_mixed_stimulus",
+        "text_source_extract",
+        "data_table",
+        "cartoon_or_visual_text",
+        "photo_or_real_world_image"
+      ],
+      "minimum_sections": [
+        "reading_viewing",
+        "language_structures",
+        "writing_presenting"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: cartoon, photograph_or_image."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "English Home Language P1 November 2024",
+          "page": 5,
+          "snippet": "1.2 Refer to the opening sentence of paragraph 1: 'The youngest of \u2026, you name it \u2026'"
+        },
+        {
+          "source_type": "text_extract",
+          "paper": "English Home Language P1 November 2024",
+          "page": 5,
+          "snippet": "[Source: madisonjournal.com] Glossary: CAB (FRAME 4): Americanism for taxi"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "English Home Language P1 November 2024",
+          "page": 3,
+          "snippet": "phone-on-the-table syndrome and technological dependency. However, the 25 most significant deficit is the lack of social genuineness. What should be explained about our current society are the reasons why this society has produced these results."
+        },
+        {
+          "source_type": "cartoon",
+          "paper": "English Home Language P1 November 2024",
+          "page": 6,
+          "snippet": "1.11 In the context of the cartoon, suggest why the driver's facial expression remains unchanged. (2) 1.12 With close reference to FRAME 4, comment on the satirical message"
+        }
+      ]
+    },
+    {
+      "subject": "Geography",
+      "subject_id": "geography",
+      "assessment_design_subject_id": "geography",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.geography",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "route": "caps_source_based_extended_route",
+      "paper_count": 12,
+      "source_object_count": 467,
+      "embedded_image_count": null,
+      "source_matrix": "deliverables/exam_source_matrix/exam_source_matrix.json",
+      "observed_source_types": [
+        "data_table",
+        "graph_or_chart",
+        "text_extract",
+        "diagram_or_model",
+        "photograph_or_image",
+        "map_extract",
+        "synoptic_weather_map",
+        "unclassified_stimulus",
+        "topographic_map_and_orthophoto",
+        "cartoon"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "graph",
+        "text_source_extract",
+        "labelled_diagram",
+        "photo_or_real_world_image",
+        "map_or_spatial_extract",
+        "custom_source",
+        "scenario_or_mixed_stimulus",
+        "cartoon_or_visual_text"
+      ],
+      "minimum_sections": [
+        "source_analysis",
+        "source_comparison",
+        "extended_response"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: cartoon, map_extract, photograph_or_image."
+      ],
+      "exemplar_refs": []
+    },
+    {
+      "subject": "History",
+      "subject_id": "history",
+      "assessment_design_subject_id": "history",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.history",
+      "assessment_family": "source_based_plus_essay",
+      "render_shell": "source_essay_paper",
+      "route": "caps_source_based_history_route",
+      "paper_count": 2,
+      "source_object_count": 20,
+      "embedded_image_count": 2,
+      "source_matrix": null,
+      "observed_source_types": [
+        "text_extract",
+        "photograph_or_image",
+        "data_table",
+        "cartoon"
+      ],
+      "required_visual_kinds": [
+        "text_source_extract",
+        "photo_or_real_world_image",
+        "data_table",
+        "cartoon_or_visual_text"
+      ],
+      "minimum_sections": [
+        "source_analysis",
+        "source_comparison",
+        "extended_response_or_essay"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: cartoon, photograph_or_image."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "text_extract",
+          "paper": "History P1 November 2024",
+          "page": 2,
+          "snippet": "QUESTION 2: INDEPENDENT AFRICA: CASE STUDY \u2013 ANGOLA QUESTION 3: CIVIL SOCIETY PROTESTS FROM THE 1950s TO THE 1970s: THE US CIVIL RIGHTS MOVEMENT"
+        },
+        {
+          "source_type": "photograph_or_image",
+          "paper": "History P1 November 2024",
+          "page": 5,
+          "snippet": "2.3.1 Explain why you think this photograph was taken. (1 x 2) (2) 2.3.2 What do you think was the significance of the presence of the United Nations' Secretary General during the signing of the"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "History P1 November 2024",
+          "page": 5,
+          "snippet": "Study Sources 2A, 2B, 2C and 2D and answer the questions that follow. 2.1 Read Source 2A."
+        },
+        {
+          "source_type": "cartoon",
+          "paper": "History P1 November 2024",
+          "page": 4,
+          "snippet": "to be an appropriate caption for the cartoon. (1 x 2) (2) 1.5.2 Comment on the implication of the message on the signpost on the Western Sector side, '\u2026 DEFECTORS WELCOME'. (1 x 2) (2)"
+        }
+      ]
+    },
+    {
+      "subject": "Life Sciences",
+      "subject_id": "life_sciences",
+      "assessment_design_subject_id": "life_sciences",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.life_sciences",
+      "assessment_family": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "route": "caps_science_data_diagram_route",
+      "paper_count": 2,
+      "source_object_count": 18,
+      "embedded_image_count": 220,
+      "source_matrix": null,
+      "observed_source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus",
+        "text_extract",
+        "image_rendered_or_scanned_pages"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "labelled_diagram",
+        "graph",
+        "scenario_or_mixed_stimulus",
+        "text_source_extract",
+        "source_page_image"
+      ],
+      "minimum_sections": [
+        "concepts",
+        "diagram_interpretation",
+        "data_response",
+        "investigation_or_method"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: image_rendered_or_scanned_pages."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "data_table",
+          "paper": "Life Sciences P1 November 2024",
+          "page": 10,
+          "snippet": "2.2 The table below shows the levels of two hormones during the menstrual cycle of a healthy human female. DAY OF OESTROGEN PROGESTERONE"
+        },
+        {
+          "source_type": "diagram_or_model",
+          "paper": "Life Sciences P1 November 2024",
+          "page": 4,
+          "snippet": "1.1.6 The diagram below represents a part of the human eye."
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Life Sciences P1 November 2024",
+          "page": 2,
+          "snippet": "9. Do NOT use graph paper. 10. You must use a non-programmable calculator, protractor and a compass, where necessary."
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Life Sciences P1 November 2024",
+          "page": 12,
+          "snippet": "2.5.4 Use the letters A, B and C to indicate the direction in which an impulse moves through the neuron. (2) 2.5.5 Name the disorder associated with degeneration of the myelin"
+        }
+      ]
+    },
+    {
+      "subject": "Marine Sciences",
+      "subject_id": "marine_sciences",
+      "assessment_design_subject_id": "marine_sciences",
+      "core_target": false,
+      "status": "curation_required",
+      "canonical_profile_id": "fet.marine_sciences",
+      "assessment_family": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "route": "caps_science_data_diagram_route",
+      "paper_count": 2,
+      "source_object_count": 43,
+      "embedded_image_count": 60,
+      "source_matrix": null,
+      "observed_source_types": [
+        "text_extract",
+        "data_table",
+        "unclassified_stimulus",
+        "graph_or_chart",
+        "diagram_or_model",
+        "map_extract"
+      ],
+      "required_visual_kinds": [
+        "text_source_extract",
+        "data_table",
+        "scenario_or_mixed_stimulus",
+        "graph",
+        "labelled_diagram",
+        "map_or_spatial_extract"
+      ],
+      "minimum_sections": [
+        "concepts",
+        "diagram_interpretation",
+        "data_response",
+        "investigation_or_method"
+      ],
+      "has_hand_authored_subject_profile": false,
+      "blockers": [
+        "high_touch_source_assets:map_extract"
+      ],
+      "next_steps": [
+        "Use extracted official-paper exemplars to curate the first visual/source pack.",
+        "Promote this subject into config/homs_subject_profiles once the first pack passes review."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "text_extract",
+          "paper": "Marine Sciences P1 November 2024",
+          "page": 3,
+          "snippet": "[Source: Examiner] Where along the South African coastline is this type of fish trap used today?"
+        },
+        {
+          "source_type": "data_table",
+          "paper": "Marine Sciences P1 November 2024",
+          "page": 7,
+          "snippet": "The data collected on deep-water trawl bycatch are shown in the table below. TABLE 2.1: Mass (tons) of bycatch landed from the KwaZulu-Natal crustacean trawl fishery for the 2021 fishing season"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Marine Sciences P1 November 2024",
+          "page": 4,
+          "snippet": "1.1.6 The phrases below refer to common factors contributing to climate change in the past. (i) Increase in the volume of greenhouse gases"
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Marine Sciences P1 November 2024",
+          "page": 2,
+          "snippet": "9. Do NOT use graph paper. 10. You must use a non-programmable calculator, protractor and a compass, where necessary."
+        }
+      ]
+    },
+    {
+      "subject": "Mathematical Literacy",
+      "subject_id": "mathematical_literacy",
+      "assessment_design_subject_id": "mathematical_literacy",
+      "core_target": false,
+      "status": "curation_required",
+      "canonical_profile_id": "fet.mathematical_literacy",
+      "assessment_family": "calculation_problem_solving",
+      "render_shell": "question_paper",
+      "route": "caps_calculation_problem_route",
+      "paper_count": 2,
+      "source_object_count": 71,
+      "embedded_image_count": 413,
+      "source_matrix": null,
+      "observed_source_types": [
+        "data_table",
+        "unclassified_stimulus",
+        "graph_or_chart",
+        "diagram_or_model",
+        "text_extract",
+        "map_extract",
+        "photograph_or_image",
+        "image_rendered_or_scanned_pages"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "scenario_or_mixed_stimulus",
+        "graph",
+        "labelled_diagram",
+        "text_source_extract",
+        "map_or_spatial_extract",
+        "photo_or_real_world_image",
+        "source_page_image"
+      ],
+      "minimum_sections": [
+        "procedural_items",
+        "word_problems",
+        "data_or_formula_interpretation",
+        "worked_memo"
+      ],
+      "has_hand_authored_subject_profile": false,
+      "blockers": [
+        "needs_subject_curves_for_calculation_problem_solving",
+        "high_touch_source_assets:image_rendered_or_scanned_pages,map_extract,photograph_or_image"
+      ],
+      "next_steps": [
+        "Create a curated visual/source template for this assessment family.",
+        "Use extracted official-paper exemplars to curate the first visual/source pack.",
+        "Promote this subject into config/homs_subject_profiles once the first pack passes review."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "data_table",
+          "paper": "Mathematical Literacy P1 November 2024",
+          "page": 4,
+          "snippet": "TABLE 1 below shows the average comparative food prices for May 2022 and May 2023 needed for some of the lunch items. TABLE 1: COMPARATIVE FOOD PRICES FOR SOME LUNCH ITEMS PERCENTAGE"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Mathematical Literacy P1 November 2024",
+          "page": 2,
+          "snippet": "2. 2.1. Use the ANNEXURES in the ADDENDUM to answer the following questions: ANNEXURE A for QUESTION 2.3 ANNEXURE B for QUESTION 3.1"
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Mathematical Literacy P1 November 2024",
+          "page": 3,
+          "snippet": "school governing body (SGB). The graph below shows the number of voters voting during different time slots at School X and School Y. ~ NUMBER OF VOTERS PER TIME SLOT AT SCHOOL X AND SCHOOL Y 35 \u2014\u2014"
+        },
+        {
+          "source_type": "diagram_or_model",
+          "paper": "Mathematical Literacy P2 November 2024",
+          "page": 4,
+          "snippet": "1.3 The fold-up chair is a beach chair that folds into itself. A 3D sketch, a side view, a material list, the assembled chair and a folded-up chair are shown below. 3D SKETCH OF FOLD-UP CHAIR | SIDE VIEW OF FOLD-UP CHAIR Crosspiece"
+        }
+      ]
+    },
+    {
+      "subject": "Mathematics",
+      "subject_id": "mathematics",
+      "assessment_design_subject_id": "mathematics",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "senior.mathematics",
+      "assessment_family": "calculation_problem_solving",
+      "render_shell": "question_paper",
+      "route": "caps_calculation_problem_route",
+      "paper_count": 2,
+      "source_object_count": 24,
+      "embedded_image_count": 447,
+      "source_matrix": null,
+      "observed_source_types": [
+        "diagram_or_model",
+        "graph_or_chart",
+        "data_table",
+        "unclassified_stimulus",
+        "map_extract",
+        "image_rendered_or_scanned_pages"
+      ],
+      "required_visual_kinds": [
+        "labelled_diagram",
+        "graph",
+        "data_table",
+        "scenario_or_mixed_stimulus",
+        "map_or_spatial_extract",
+        "source_page_image"
+      ],
+      "minimum_sections": [
+        "procedural_items",
+        "word_problems",
+        "data_or_formula_interpretation",
+        "worked_memo"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: image_rendered_or_scanned_pages, map_extract."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "diagram_or_model",
+          "paper": "Mathematics P1 November 2024",
+          "page": 4,
+          "snippet": "circle internally, as shown in the diagram. A third, smaller circle is drawn through the centre of the second circle and touches the second circle internally. The process of drawing circles"
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Mathematics P1 November 2024",
+          "page": 4,
+          "snippet": "43 Sketch the graph of f Clearly show the intercepts with the axes and asymptotes, if any. (3) . . . . 19 44 It is further given that C isapointon f at y="
+        },
+        {
+          "source_type": "data_table",
+          "paper": "Mathematics P2 November 2024",
+          "page": 3,
+          "snippet": "11 Determine the equation of the least squares regression line for the data. (3) 1.2 Write down the correlation coefficient. (69) 13 The coach uses the least squares regression line to set the target for the minimum number of push-ups by each team member according to their weight. Predict the"
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Mathematics P2 November 2024",
+          "page": 8,
+          "snippet": "6.1.1 Use the compound angle identity given above to derive a formula for cos(x + y). (2) 6.1.2 Hence, or otherwise, show that: jo in(\u2014 o"
+        }
+      ]
+    },
+    {
+      "subject": "Physical Sciences",
+      "subject_id": "physical_sciences",
+      "assessment_design_subject_id": "physical_sciences",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "fet.physical_sciences",
+      "assessment_family": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "route": "caps_science_data_diagram_route",
+      "paper_count": 2,
+      "source_object_count": 32,
+      "embedded_image_count": 429,
+      "source_matrix": null,
+      "observed_source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "unclassified_stimulus",
+        "image_rendered_or_scanned_pages"
+      ],
+      "required_visual_kinds": [
+        "data_table",
+        "labelled_diagram",
+        "graph",
+        "scenario_or_mixed_stimulus",
+        "source_page_image"
+      ],
+      "minimum_sections": [
+        "concepts",
+        "diagram_interpretation",
+        "data_response",
+        "investigation_or_method"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Prefer extracted official-paper exemplars for high-touch assets: image_rendered_or_scanned_pages."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "data_table",
+          "paper": "Physical Sciences Physics P1 November 2024",
+          "page": 8,
+          "snippet": "2.3.2 Magnitude of the acceleration represented by Y on the graph if the coefficient of kinetic friction between the crate and the table is 0,40 (5) 2.4 A 5 kg block is now placed inside the crate and the experiment is repeated."
+        },
+        {
+          "source_type": "diagram_or_model",
+          "paper": "Physical Sciences Physics P1 November 2024",
+          "page": 6,
+          "snippet": "are r metres apart, as shown in the diagram below. Ignore ALL frictional effects. +Q"
+        },
+        {
+          "source_type": "graph_or_chart",
+          "paper": "Physical Sciences Physics P1 November 2024",
+          "page": 3,
+          "snippet": "t seconds to strike the ground. Consider the acceleration-time graph below for the motion of the stone. The effects of air friction are ignored."
+        },
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Physical Sciences Chemistry P2 November 2024",
+          "page": 3,
+          "snippet": "1.3 Study the reactions below. H2SO4 Reaction 1: CH3CH2CHOHCH3 conc. Compound P (major product) + H2O"
+        }
+      ]
+    },
+    {
+      "subject": "Tourism",
+      "subject_id": "tourism",
+      "assessment_design_subject_id": "tourism",
+      "core_target": false,
+      "status": "curation_required",
+      "canonical_profile_id": "fet.tourism",
+      "assessment_family": "case_study_structured_questions",
+      "render_shell": "structured_case_paper",
+      "route": "caps_case_study_structured_route",
+      "paper_count": 1,
+      "source_object_count": 22,
+      "embedded_image_count": 40,
+      "source_matrix": null,
+      "observed_source_types": [
+        "unclassified_stimulus",
+        "map_extract",
+        "text_extract",
+        "photograph_or_image",
+        "data_table"
+      ],
+      "required_visual_kinds": [
+        "scenario_or_mixed_stimulus",
+        "map_or_spatial_extract",
+        "text_source_extract",
+        "photo_or_real_world_image",
+        "data_table"
+      ],
+      "minimum_sections": [
+        "short_concepts",
+        "case_stimulus",
+        "applied_questions",
+        "recommendation_or_evaluation"
+      ],
+      "has_hand_authored_subject_profile": false,
+      "blockers": [
+        "high_touch_source_assets:map_extract,photograph_or_image"
+      ],
+      "next_steps": [
+        "Use extracted official-paper exemplars to curate the first visual/source pack.",
+        "Promote this subject into config/homs_subject_profiles once the first pack passes review."
+      ],
+      "exemplar_refs": [
+        {
+          "source_type": "unclassified_stimulus",
+          "paper": "Tourism November 2024",
+          "page": 9,
+          "snippet": "1.5 Study the information below and answer the questions that follow. APPEARANCE SAYS IT ALL First impressions last! By the time the guest checks in, several judgements"
+        },
+        {
+          "source_type": "map_extract",
+          "paper": "Tourism November 2024",
+          "page": 2,
+          "snippet": "B Map Work and Tour Planning; Foreign Exchange 50 50 Tourist Attractions; Culture and Heritage C 50 50"
+        },
+        {
+          "source_type": "text_extract",
+          "paper": "Tourism November 2024",
+          "page": 7,
+          "snippet": "[Source: www.statssa.gov.za] A Holiday B Shopping"
+        },
+        {
+          "source_type": "photograph_or_image",
+          "paper": "Tourism November 2024",
+          "page": 4,
+          "snippet": "1.1.7 The photo below, taken in the Black Forest, is associated with this country:"
+        }
+      ]
+    },
+    {
+      "subject": "Afrikaans Language",
+      "subject_id": "afrikaans_language",
+      "assessment_design_subject_id": "afrikaans_language",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "senior.afrikaans_language",
+      "assessment_family": "language_integrated_assessment",
+      "render_shell": "language_integrated_task",
+      "route": "caps_language_integrated_route",
+      "paper_count": 0,
+      "source_object_count": 0,
+      "embedded_image_count": 0,
+      "source_matrix": null,
+      "observed_source_types": [],
+      "required_visual_kinds": [],
+      "minimum_sections": [
+        "reading_viewing",
+        "language_structures",
+        "writing_presenting"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Add official-paper/source exemplars when available; route can still produce supervised school-based tasks."
+      ],
+      "exemplar_refs": []
+    },
+    {
+      "subject": "Life Orientation",
+      "subject_id": "life_orientation",
+      "assessment_design_subject_id": "life_orientation",
+      "core_target": true,
+      "status": "ready_to_generate",
+      "canonical_profile_id": "senior.life_orientation",
+      "assessment_family": "practical_performance_or_portfolio",
+      "render_shell": "performance_task_sheet",
+      "route": "caps_practical_performance_route",
+      "paper_count": 0,
+      "source_object_count": 0,
+      "embedded_image_count": 0,
+      "source_matrix": null,
+      "observed_source_types": [],
+      "required_visual_kinds": [],
+      "minimum_sections": [
+        "performance_brief",
+        "observable_criteria",
+        "rubric",
+        "educator_record"
+      ],
+      "has_hand_authored_subject_profile": true,
+      "blockers": [],
+      "next_steps": [
+        "Add official-paper/source exemplars when available; route can still produce supervised school-based tasks."
+      ],
+      "exemplar_refs": []
+    }
+  ]
+}

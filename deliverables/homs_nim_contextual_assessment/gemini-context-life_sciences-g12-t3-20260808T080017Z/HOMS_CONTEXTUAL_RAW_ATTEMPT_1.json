@@ -1,0 +1,413 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "subject": "Life Sciences",
+  "grade": 12,
+  "phase": "fet_grade_10_12",
+  "assessment_title": "Grade 12 Life Sciences Paper 2: Evolution and Speciation Assessment",
+  "canonical_profile_id": "fet.life_sciences",
+  "blueprint": "This assessment targets the FET exit-level requirements for Life Sciences, focusing on Evolution by Natural Selection, Speciation, Human Evolution, and Scientific Investigation Design. It balances conceptual understanding (33.3%), data and diagram interpretation (33.3%), and practical investigation design with application reasoning (33.3%).",
+  "render_shell": "structured_exam",
+  "duration": "1.5 hours",
+  "total_marks": 75,
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Life Sciences",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "3",
+    "caps_source": {
+      "title": "Life Sciences",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_life_sciences_gr_10-12_web_2636.pdf",
+      "sha256": "dfb42793e6a1bd6969e358eed3943042dee2e0de620efdfc23107d2ac431a455"
+    },
+    "canonical_profile_id": "fet.life_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "diagram",
+        "investigation_sheet",
+        "calculation_workspace"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: data_table observed in Life Sciences (18 source/stimulus object(s) across 2 paper(s)).",
+        "FET old-paper catalogue: diagram_or_model observed in Life Sciences (18 source/stimulus object(s) across 2 paper(s)).",
+        "CAPS/source matrix signals practical investigation or experiment evidence.",
+        "CAPS/source matrix signals calculation/problem-solving evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": true,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "Life Sciences",
+        "paper_count": 2,
+        "observed_contract": [
+          "data_table",
+          "diagram_or_model",
+          "graph_or_chart",
+          "unclassified_stimulus",
+          "text_extract",
+          "image_rendered_or_scanned_pages"
+        ]
+      }
+    },
+    "caps_theme_candidates": [
+      "LIFE SCIENCES GRADES 10-12",
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation",
+      "Scientific investigation design for natural selection"
+    ],
+    "assessment_content_focus": [
+      "Evolution by natural selection and speciation",
+      "Human evolution evidence and interpretation",
+      "Scientific investigation design for natural selection",
+      "Using data and anatomical evidence to support evolutionary explanations"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: investigation."
+    ],
+    "required_visuals": [
+      {
+        "id": "working_grid",
+        "title": "Working grid with method mark space",
+        "role": "learner_workspace",
+        "visual_kind": "working_grid",
+        "must_show": [
+          "question number",
+          "marks",
+          "working area",
+          "final answer cue"
+        ],
+        "assessment_use": "Learners show method before final answer."
+      },
+      {
+        "id": "axis_or_diagram",
+        "title": "Axis, diagram or table required by the topic",
+        "role": "stimulus_or_workspace",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "labelled axes or diagram labels",
+          "units where needed",
+          "plot/table space"
+        ],
+        "assessment_use": "Learners interpret or construct visual mathematical evidence."
+      },
+      {
+        "id": "science_diagram",
+        "title": "Science labelled diagram stimulus",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "clear structure/process labels",
+          "visible arrows or stages where needed",
+          "caption",
+          "label key"
+        ],
+        "assessment_use": "Learners identify, label, compare, and explain using the diagram."
+      },
+      {
+        "id": "science_data_or_graph",
+        "title": "Science data table or graph stimulus",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "variables",
+          "units",
+          "readable values",
+          "trend or comparison"
+        ],
+        "assessment_use": "Learners calculate, compare, interpret trends, and support conclusions from data."
+      },
+      {
+        "id": "investigation_method_data",
+        "title": "Investigation method and data sheet",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "investigation_sheet",
+        "must_show": [
+          "aim",
+          "variables",
+          "method",
+          "data table",
+          "conclusion line"
+        ],
+        "assessment_use": "Learners record observations and draw a supported conclusion."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "sections": [
+    {
+      "title": "Section A: Evolution by Natural Selection and Speciation",
+      "mode": "structured_exam",
+      "instructions": "Answer all questions. Refer to the provided stimuli where indicated.",
+      "stimulus": "Figure 1 shows the geographic isolation of a beetle population (Platynus montanus) due to the formation of a canyon over geological time, resulting in two distinct populations, A and B. Table 1 shows the percentage of dark-shelled and light-shelled beetles in Population A (west of the canyon) and Population B (east of the canyon) observed over a 50-year period.\n\nTable 1: Percentage of beetle phenotypes in Populations A and B\nYear | Population A (West) % Dark | Population A (West) % Light | Population B (East) % Dark | Population B (East) % Light\n1975 | 50% | 50% | 50% | 50%\n1995 | 72% | 28% | 31% | 69%\n2015 | 88% | 12% | 15% | 85%\n2025 | 95% | 5% | 8% | 92%",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "Define the term 'speciation' as understood in evolutionary biology.",
+          "marks": 2,
+          "memo": [
+            "The evolutionary process by which new, distinct species are formed (1 mark) from a pre-existing ancestral species (1 mark)."
+          ]
+        },
+        {
+          "number": "1.2",
+          "question": "Using Figure 1 and the principles of geographic speciation, explain how the ancestral population of Platynus montanus split into two distinct species.",
+          "marks": 6,
+          "memo": [
+            "The ancestral population of Platynus montanus was split into two populations (A and B) by a geographical barrier, which is the canyon (1 mark).",
+            "There was no gene flow between the two isolated populations (1 mark).",
+            "The environmental conditions (such as vegetation, predators, or climate) on either side of the canyon were different (1 mark).",
+            "Natural selection occurred independently in each population, where individuals with characteristics best suited to their specific environment survived and reproduced (1 mark).",
+            "The advantageous alleles/genes were passed on to the offspring, leading to different genotypic and phenotypic changes over time (1 mark).",
+            "The two populations became so different genetically and morphologically that they could no longer interbreed to produce fertile offspring, indicating they had become two distinct species (1 mark)."
+          ]
+        },
+        {
+          "number": "1.3",
+          "question": "Refer to Table 1. Calculate the percentage change in the dark-shelled phenotype of Population A from 1975 to 2025. Show all working.",
+          "marks": 4,
+          "memo": [
+            "Formula: ((Value in 2025 - Value in 1975) / Value in 1975) x 100 (1 mark)",
+            "Substitution: ((95 - 50) / 50) x 100 (1 mark)",
+            "Calculation: (45 / 50) x 100 = 0.9 x 100 (1 mark)",
+            "Final Answer: 90% increase (1 mark)"
+          ]
+        },
+        {
+          "number": "1.4",
+          "question": "Explain the role of natural selection in the changing phenotypic frequencies of Population A (West) as shown in Table 1.",
+          "marks": 5,
+          "memo": [
+            "There is variation in the shell color of the beetles (dark-shelled and light-shelled) (1 mark).",
+            "The environment on the western side of the canyon favored the dark-shelled phenotype (e.g., darker soil or rocks providing better camouflage against predators) (1 mark).",
+            "Beetles with the light-shelled phenotype were more visible to predators and were selectively preyed upon/died out (1 mark).",
+            "Dark-shelled beetles survived, reproduced, and passed on the allele for dark shell color to their offspring (1 mark).",
+            "Over generations, the frequency of the dark-shelled allele increased, leading to the phenotypic shift from 50% in 1975 to 95% in 2025 (1 mark)."
+          ]
+        },
+        {
+          "number": "1.5",
+          "question": "Describe a biological test or observation that scientists could perform to confirm whether Population A and Population B have indeed become separate species.",
+          "marks": 4,
+          "memo": [
+            "Bring individuals from Population A and Population B together in a controlled environment/laboratory (1 mark).",
+            "Observe if they attempt to mate/court each other (1 mark).",
+            "If they do mate, check if they produce viable offspring (offspring that survive) (1 mark).",
+            "Determine if these offspring are fertile (able to reproduce themselves). If they cannot produce fertile offspring, they are confirmed to be separate species (1 mark)."
+          ]
+        },
+        {
+          "number": "1.6",
+          "question": "State two differences between Lamarckism and Darwinism regarding how phenotypic variation arises and is passed on to offspring.",
+          "marks": 4,
+          "memo": [
+            "Lamarckism states that variation arises due to the internal drive/needs of the organism or the use/disuse of organs during its lifetime (1 mark), whereas Darwinism states that variation is pre-existing/randomly present in the population before environmental changes occur (1 mark).",
+            "Lamarckism proposes that acquired characteristics are passed on to offspring (1 mark), whereas Darwinism proposes that only genetic/inherited characteristics that favor survival are passed on to offspring (1 mark)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section B: Scientific Investigation Design for Natural Selection",
+      "mode": "practical_investigation_memo",
+      "instructions": "Read the experimental description below and answer the questions that follow.",
+      "stimulus": "Investigation Sheet 1: A group of Grade 12 learners investigated the development of antibiotic resistance in Escherichia coli bacteria. They prepared nutrient agar plates containing different concentrations of the antibiotic Streptomycin: 0 mcg/mL (Control), 5 mcg/mL, 10 mcg/mL, and 20 mcg/mL. They inoculated each plate with a sample of E. coli from a wild-type culture and incubated them at 37\u00b0C for 24 hours. They then counted the number of surviving bacterial colonies on each plate. The experiment was repeated three times to ensure reliability.\n\nTable 2: Number of surviving E. coli colonies at different Streptomycin concentrations\nStreptomycin Concentration (mcg/mL) | Trial 1 (Colonies) | Trial 2 (Colonies) | Trial 3 (Colonies) | Average Number of Colonies\n0 (Control) | 450 | 462 | 444 | 452\n5 | 120 | 115 | 125 | 120\n10 | 35 | 38 | 32 | 35\n20 | 4 | 6 | 5 | 5",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "Formulate a suitable hypothesis for this investigation.",
+          "marks": 2,
+          "memo": [
+            "An increase in the concentration of Streptomycin will lead to a decrease in the number of surviving E. coli bacterial colonies (2 marks).",
+            "Accept: There is a relationship between Streptomycin concentration and bacterial survival (1 mark only if direction is not specified)."
+          ]
+        },
+        {
+          "number": "2.2",
+          "question": "Identify the independent and dependent variables in this investigation.",
+          "marks": 2,
+          "memo": [
+            "Independent variable: Streptomycin concentration (1 mark).",
+            "Dependent variable: Number of surviving bacterial colonies / bacterial survival rate (1 mark)."
+          ]
+        },
+        {
+          "number": "2.3",
+          "question": "State three variables that must be kept constant (controlled variables) during this investigation to ensure validity.",
+          "marks": 3,
+          "memo": [
+            "The temperature of incubation (must be kept at 37\u00b0C) (1 mark).",
+            "The duration of incubation (must be kept at 24 hours) (1 mark).",
+            "The volume/type of nutrient agar used in each plate (1 mark).",
+            "The initial concentration/volume of the bacterial culture inoculated (1 mark). (Any three)"
+          ]
+        },
+        {
+          "number": "2.4",
+          "question": "Explain why the learners repeated the experiment three times and calculated an average.",
+          "marks": 2,
+          "memo": [
+            "To increase the reliability of the results (1 mark).",
+            "To minimize the effect of experimental errors or anomalies (1 mark)."
+          ]
+        },
+        {
+          "number": "2.5",
+          "question": "Plot a line graph to represent the average number of surviving E. coli colonies against the concentration of Streptomycin.",
+          "marks": 6,
+          "memo": [
+            "Type of graph: Line graph plotted (1 mark).",
+            "Title of graph: Graph showing the average number of surviving E. coli colonies at different Streptomycin concentrations (1 mark).",
+            "X-axis: Correctly labelled 'Streptomycin Concentration (mcg/mL)' with appropriate scale (1 mark).",
+            "Y-axis: Correctly labelled 'Average Number of Colonies' with appropriate scale (1 mark).",
+            "Plotting: All points plotted correctly according to Table 2 averages (1 mark).",
+            "Line: Points joined with a neat, continuous line (1 mark)."
+          ]
+        },
+        {
+          "number": "2.6",
+          "question": "Explain how the survival of a few bacterial colonies at 20 mcg/mL Streptomycin supports Darwin's theory of evolution by natural selection.",
+          "marks": 6,
+          "memo": [
+            "There was pre-existing genetic variation within the wild-type E. coli population (some bacteria had a mutation making them resistant to Streptomycin, while most were susceptible) (1 mark).",
+            "The introduction of Streptomycin acted as a selective pressure/environmental change (1 mark).",
+            "The susceptible bacteria (non-resistant) were killed by the high concentration of antibiotic (1 mark).",
+            "The resistant bacteria had a survival advantage in this environment and survived (1 mark).",
+            "These surviving resistant bacteria reproduced asexually/divided (1 mark).",
+            "They passed on the allele/gene for resistance to their offspring, leading to a population dominated by resistant bacteria over time (1 mark)."
+          ]
+        },
+        {
+          "number": "2.7",
+          "question": "State one safety precaution that must be taken when handling bacterial cultures in a school laboratory.",
+          "marks": 1,
+          "memo": [
+            "Wear protective gloves/lab coats/safety goggles (1 mark).",
+            "Disinfect work surfaces before and after the experiment with alcohol/bleach (1 mark).",
+            "Autoclave/sterilize all agar plates before disposal to prevent environmental contamination (1 mark). (Any one)"
+          ]
+        },
+        {
+          "number": "2.8",
+          "question": "Identify a limitation of this investigation design and suggest how it could be improved.",
+          "marks": 3,
+          "memo": [
+            "Limitation: The concentration intervals are unequal (0, 5, 10, 20 mcg/mL), which makes it difficult to determine the exact minimum inhibitory concentration (1 mark).",
+            "Improvement: Use equal concentration intervals (e.g., 0, 5, 10, 15, 20 mcg/mL) (1 mark).",
+            "OR Limitation: Only one type of antibiotic was tested, so the results cannot be generalized to all antibiotics (1 mark).",
+            "Improvement: Test other antibiotics (e.g., Ampicillin, Tetracycline) under the same conditions (1 mark). (Accept any other logical limitation and corresponding improvement for 3 marks total)."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Section C: Human Evolution Evidence and Interpretation",
+      "mode": "diagram_interpretation",
+      "instructions": "Answer all questions. Refer to Figure 2, which shows comparative anatomical diagrams of the skulls and pelvises of Homo sapiens, Australopithecus africanus, and Pan troglodytes (Chimpanzee).",
+      "stimulus": "Figure 2: Comparative anatomical structures of hominids.\nDiagram A: Ventral view of the skull showing the position of the foramen magnum.\nDiagram B: Lateral view of the skull showing the jaw, brow ridge, and cranial capacity.\nDiagram C: Anterior view of the pelvis.",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "Identify two anatomical features visible in Diagram A (ventral view of the skull) that indicate adaptation to bipedalism.",
+          "marks": 2,
+          "memo": [
+            "The foramen magnum is positioned anteriorly/forward/at the base of the skull in bipedal organisms (1 mark).",
+            "The dental arcade is parabolic/U-shaped rather than rectangular/parallel (1 mark)."
+          ]
+        },
+        {
+          "number": "3.2",
+          "question": "Tabulate three structural differences between the skulls of Homo sapiens and Pan troglodytes as visible in Diagram B.",
+          "marks": 7,
+          "memo": [
+            "Table format with correct headings: Feature, Homo sapiens, Pan troglodytes (1 mark).",
+            "Difference 1: Brow ridge is reduced/absent in Homo sapiens (1 mark) vs. prominent/heavy brow ridge in Pan troglodytes (1 mark).",
+            "Difference 2: Cranial capacity is large/rounded forehead in Homo sapiens (1 mark) vs. small/sloping forehead in Pan troglodytes (1 mark).",
+            "Difference 3: Prognathism is absent/flat face in Homo sapiens (1 mark) vs. pronounced prognathism/protruding jaw in Pan troglodytes (1 mark).",
+            "Difference 4: Canine teeth are small/no diastema in Homo sapiens (1 mark) vs. large canines/diastema present in Pan troglodytes (1 mark). (Any three comparisons for 6 marks + 1 mark for table format)."
+          ]
+        },
+        {
+          "number": "3.3",
+          "question": "Explain the significance of the change in the shape of the pelvis from Pan troglodytes to Homo sapiens as shown in Diagram C.",
+          "marks": 4,
+          "memo": [
+            "The pelvis of Homo sapiens is shorter and wider/bowl-shaped compared to the long, narrow pelvis of Pan troglodytes (1 mark).",
+            "This bowl-shaped pelvis supports the weight of the upper body/internal organs when standing upright (1 mark).",
+            "It allows for the attachment of large gluteal muscles needed to maintain balance during bipedal walking (1 mark).",
+            "It positions the femur at an angle (carrying angle) to bring the knees directly under the center of gravity (1 mark)."
+          ]
+        },
+        {
+          "number": "3.4",
+          "question": "Discuss the 'Out of Africa' hypothesis, citing both genetic and fossil evidence that supports this model of human origins.",
+          "marks": 8,
+          "memo": [
+            "The 'Out of Africa' hypothesis states that modern Homo sapiens evolved in Africa around 200,000 years ago (1 mark) and then migrated to other parts of the world, replacing other hominid species (1 mark).",
+            "Fossil Evidence: The oldest fossils of modern Homo sapiens (e.g., Kibish/Omo in Ethiopia, Florisbad in South Africa) have been found in Africa (1 mark), dating back to approximately 195,000 to 300,000 years ago (1 mark). Fossils found in Europe and Asia are progressively younger (1 mark).",
+            "Genetic Evidence (Mitochondrial DNA): mtDNA is inherited solely from the mother and mutates at a steady rate (1 mark). Analysis of mtDNA shows that the greatest genetic diversity is found in African populations (1 mark), indicating they have had the longest time to accumulate mutations, pointing to an African origin (1 mark).",
+            "Genetic Evidence (Y-chromosome): Y-chromosome analysis (inherited from father to son) also shows African populations have the oldest genetic lineages (1 mark). (Max 8 marks)."
+          ]
+        },
+        {
+          "number": "3.5",
+          "question": "Explain how the discovery of transitional fossils like Australopithecus sediba in South Africa contributes to our understanding of human evolution.",
+          "marks": 4,
+          "memo": [
+            "Australopithecus sediba exhibits a mosaic of both primitive (ape-like) and derived (human-like) characteristics (1 mark).",
+            "It has ape-like features such as long arms adapted for climbing and a small cranial capacity (1 mark).",
+            "It has human-like features such as smaller teeth, a pelvis adapted for bipedalism, and hand structure capable of precision gripping (1 mark).",
+            "This provides physical evidence of a transitional stage/link between early hominins (Australopithecines) and the genus Homo, supporting a gradual evolutionary pathway (1 mark)."
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": [
+    {
+      "criterion": "Section A: Evolution and Speciation",
+      "marks": 25,
+      "descriptor": "Assesses understanding of speciation mechanisms, natural selection phenotypic shifts, and comparative evolutionary theories."
+    },
+    {
+      "criterion": "Section B: Scientific Investigation Design",
+      "marks": 25,
+      "descriptor": "Assesses ability to formulate hypotheses, identify variables, design controlled experiments, plot scientific graphs, and interpret experimental data in the context of natural selection."
+    },
+    {
+      "criterion": "Section C: Human Evolution Evidence",
+      "marks": 25,
+      "descriptor": "Assesses anatomical comparison skills, understanding of bipedal adaptations, interpretation of fossil/genetic evidence, and the 'Out of Africa' hypothesis."
+    }
+  ],
+  "teacher_review_checklist": [
+    "Verify that the total marks sum exactly to 75.",
+    "Confirm that the duration of 1.5 hours is appropriate for a 75-mark Grade 12 Life Sciences paper.",
+    "Ensure all diagrams and tables referenced in the questions are fully described in the stimuli.",
+    "Check that the marking guidelines (memos) contain specific biological terminology and clear mark breakdowns.",
+    "Confirm that no medical advice or diagnostic claims are made in the bacterial resistance scenario."
+  ]
+}

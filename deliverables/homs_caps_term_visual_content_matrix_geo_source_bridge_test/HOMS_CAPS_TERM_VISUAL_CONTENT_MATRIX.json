@@ -1,0 +1,3570 @@
+{
+  "schema": "knowedge.homs_caps_term_visual_content_matrix.v1",
+  "created_at": "2026-08-07T22:11:55+00:00",
+  "row_count": 12,
+  "skipped_count": 0,
+  "status_counts": {
+    "content_ready": 12
+  },
+  "assessment_family_counts": {
+    "source_based_plus_extended_response": 12
+  },
+  "theme_confidence_counts": {
+    "high": 10,
+    "medium": 2
+  },
+  "rows": [
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 10,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "The Atmosphere \u00b1 36 hours",
+        "as well as formal and informal http://www.weathersa.co.za",
+        "weather measuring instruments",
+        "synoptic weather maps and satellite",
+        "weather reports from the media",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "Composition and Structure of the Atmosphere [5 hours]",
+        "importance of the atmosphere",
+        "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+        "Heating of the Atmosphere [8 hours]",
+        "processes associated with the heating of the atmosphere: insolation, reflection, scattering, absorption, radiation,",
+        "the impact of climate and climate change on Africa\u2019s environment and people \u2013 deserts, droughts, floods and rising sea",
+        "Moisture in the Atmosphere [8 hours]"
+      ],
+      "content_lines": [
+        "The Atmosphere \u00b1 36 hours",
+        "weather measuring instruments",
+        "synoptic weather maps and satellite",
+        "weather reports from the media",
+        "Composition and Structure of the Atmosphere [5 hours]",
+        "importance of the atmosphere",
+        "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+        "Heating of the Atmosphere [8 hours]"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "as well as formal and informal http://www.weathersa.co.za",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "synoptic weather maps and satellite",
+        "The Atmosphere \u00b1 36 hours",
+        "weather measuring instruments",
+        "weather reports from the media",
+        "Composition and Structure of the Atmosphere [5 hours]",
+        "importance of the atmosphere",
+        "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+        "Heating of the Atmosphere [8 hours]"
+      ],
+      "topic_scores": [
+        {
+          "line": "synoptic weather maps and satellite",
+          "score": 33
+        },
+        {
+          "line": "The Atmosphere \u00b1 36 hours",
+          "score": 3
+        },
+        {
+          "line": "weather measuring instruments",
+          "score": 3
+        },
+        {
+          "line": "weather reports from the media",
+          "score": 3
+        },
+        {
+          "line": "Composition and Structure of the Atmosphere [5 hours]",
+          "score": 3
+        },
+        {
+          "line": "importance of the atmosphere",
+          "score": 3
+        },
+        {
+          "line": "the composition and structure of the atmosphere: troposphere, stratosphere, mesosphere and thermosphere",
+          "score": 3
+        },
+        {
+          "line": "Heating of the Atmosphere [8 hours]",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 10,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Geomorphology \u00b1 36 hours atlases",
+        "as well as formal and informal bigmap/index.phtml",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "The Structure of the Earth [6 hours]",
+        "the internal structure of the Earth",
+        "Plate Tectonics [6 hours]",
+        "plate tectonics \u2013 an explanation for the movement of continents",
+        "the mechanics of plate movements",
+        "processes and landforms associated with different kinds of plate boundaries",
+        "the world\u2019s volcanic and earthquake zones.",
+        "the process of rock folding \u2013 link to plate movement",
+        "the process of faulting \u2013 link to plate movement",
+        "Earthquakes [4 hours]"
+      ],
+      "content_lines": [
+        "Geomorphology \u00b1 36 hours atlases",
+        "The Structure of the Earth [6 hours]",
+        "the internal structure of the Earth",
+        "Plate Tectonics [6 hours]",
+        "plate tectonics \u2013 an explanation for the movement of continents",
+        "the mechanics of plate movements",
+        "processes and landforms associated with different kinds of plate boundaries",
+        "the world\u2019s volcanic and earthquake zones."
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "as well as formal and informal bigmap/index.phtml",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "Plate Tectonics [6 hours]",
+        "plate tectonics \u2013 an explanation for the movement of continents",
+        "the world\u2019s volcanic and earthquake zones.",
+        "Geomorphology \u00b1 36 hours atlases",
+        "The Structure of the Earth [6 hours]",
+        "the internal structure of the Earth",
+        "the mechanics of plate movements",
+        "processes and landforms associated with different kinds of plate boundaries"
+      ],
+      "topic_scores": [
+        {
+          "line": "Plate Tectonics [6 hours]",
+          "score": 6
+        },
+        {
+          "line": "plate tectonics \u2013 an explanation for the movement of continents",
+          "score": 6
+        },
+        {
+          "line": "the world\u2019s volcanic and earthquake zones.",
+          "score": 6
+        },
+        {
+          "line": "Geomorphology \u00b1 36 hours atlases",
+          "score": 3
+        },
+        {
+          "line": "The Structure of the Earth [6 hours]",
+          "score": 3
+        },
+        {
+          "line": "the internal structure of the Earth",
+          "score": 3
+        },
+        {
+          "line": "the mechanics of plate movements",
+          "score": 3
+        },
+        {
+          "line": "processes and landforms associated with different kinds of plate boundaries",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 10,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Population \u00b1 36 hours",
+        "demographic statistics",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "Population Distribution and Density [4 hours]",
+        "meaning of population distribution and population density",
+        "world population density and distribution",
+        "factors that affect distribution and density of the world\u2019s population.",
+        "Population Structure [4 hours]",
+        "population indicators: birth rates, death rates, life expectancy, fertility rate and natural increase",
+        "factors that influence population indicators",
+        "population structure: age and sex, represented as population pyramids.",
+        "Population Growth (Using case studies from around the world is essential) [6 hours]",
+        "world population growth over time"
+      ],
+      "content_lines": [
+        "Population \u00b1 36 hours",
+        "Population Distribution and Density [4 hours]",
+        "meaning of population distribution and population density",
+        "world population density and distribution",
+        "factors that affect distribution and density of the world\u2019s population.",
+        "Population Structure [4 hours]",
+        "population indicators: birth rates, death rates, life expectancy, fertility rate and natural increase",
+        "factors that influence population indicators"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "Population \u00b1 36 hours",
+        "Population Distribution and Density [4 hours]",
+        "meaning of population distribution and population density",
+        "world population density and distribution",
+        "factors that affect distribution and density of the world\u2019s population.",
+        "Population Structure [4 hours]",
+        "population indicators: birth rates, death rates, life expectancy, fertility rate and natural increase",
+        "factors that influence population indicators"
+      ],
+      "topic_scores": [
+        {
+          "line": "Population \u00b1 36 hours",
+          "score": 3
+        },
+        {
+          "line": "Population Distribution and Density [4 hours]",
+          "score": 3
+        },
+        {
+          "line": "meaning of population distribution and population density",
+          "score": 3
+        },
+        {
+          "line": "world population density and distribution",
+          "score": 3
+        },
+        {
+          "line": "factors that affect distribution and density of the world\u2019s population.",
+          "score": 3
+        },
+        {
+          "line": "Population Structure [4 hours]",
+          "score": 3
+        },
+        {
+          "line": "population indicators: birth rates, death rates, life expectancy, fertility rate and natural increase",
+          "score": 3
+        },
+        {
+          "line": "factors that influence population indicators",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 10,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Water Resources \u00b1 24 hours",
+        "websites: world water at http://www.",
+        "worldwater.org/data.html",
+        "Department of Water Affairs http://",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "Water in the World [2 hours]",
+        "different forms of water in the world: liquid, solid and gas",
+        "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "oceans as sources of oxygen, food and energy",
+        "Water Management in South Africa [5 hours]",
+        "factors influencing the availability of water in South Africa",
+        "challenges of providing free basic water to rural and urban communities in South Africa",
+        "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+      ],
+      "content_lines": [
+        "Water Resources \u00b1 24 hours",
+        "Water in the World [2 hours]",
+        "different forms of water in the world: liquid, solid and gas",
+        "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "Water Management in South Africa [5 hours]",
+        "factors influencing the availability of water in South Africa",
+        "challenges of providing free basic water to rural and urban communities in South Africa",
+        "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "websites: world water at http://www.",
+        "worldwater.org/data.html",
+        "Department of Water Affairs http://",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "Water Resources \u00b1 24 hours",
+        "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "challenges of providing free basic water to rural and urban communities in South Africa",
+        "Water in the World [2 hours]",
+        "different forms of water in the world: liquid, solid and gas",
+        "Water Management in South Africa [5 hours]",
+        "factors influencing the availability of water in South Africa",
+        "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+      ],
+      "topic_scores": [
+        {
+          "line": "Water Resources \u00b1 24 hours",
+          "score": 11
+        },
+        {
+          "line": "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+          "score": 9
+        },
+        {
+          "line": "challenges of providing free basic water to rural and urban communities in South Africa",
+          "score": 9
+        },
+        {
+          "line": "Water in the World [2 hours]",
+          "score": 3
+        },
+        {
+          "line": "different forms of water in the world: liquid, solid and gas",
+          "score": 3
+        },
+        {
+          "line": "Water Management in South Africa [5 hours]",
+          "score": 3
+        },
+        {
+          "line": "factors influencing the availability of water in South Africa",
+          "score": 3
+        },
+        {
+          "line": "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 11,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "The atmosphere \u00b1 36 hours",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "The Earth\u2019s Energy Balance [4 hours]",
+        "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+        "significance of Earth\u2019s axis and revolution around the Sun",
+        "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+        "Africa\u2019s Weather and Climate [8 hours]",
+        "Africa\u2019s climate regions",
+        "the role of oceans in climate control in Africa",
+        "El Ni\u00f1o and La Ni\u00f1a processes and their effects on Africa\u2019s climate",
+        "reading and interpreting synoptic weather maps."
+      ],
+      "content_lines": [
+        "The atmosphere \u00b1 36 hours",
+        "The Earth\u2019s Energy Balance [4 hours]",
+        "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+        "significance of Earth\u2019s axis and revolution around the Sun",
+        "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+        "Africa\u2019s Weather and Climate [8 hours]",
+        "Africa\u2019s climate regions",
+        "the role of oceans in climate control in Africa"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "Africa\u2019s Weather and Climate [8 hours]",
+        "The atmosphere \u00b1 36 hours",
+        "The Earth\u2019s Energy Balance [4 hours]",
+        "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+        "significance of Earth\u2019s axis and revolution around the Sun",
+        "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+        "Africa\u2019s climate regions",
+        "the role of oceans in climate control in Africa"
+      ],
+      "topic_scores": [
+        {
+          "line": "Africa\u2019s Weather and Climate [8 hours]",
+          "score": 6
+        },
+        {
+          "line": "The atmosphere \u00b1 36 hours",
+          "score": 3
+        },
+        {
+          "line": "The Earth\u2019s Energy Balance [4 hours]",
+          "score": 3
+        },
+        {
+          "line": "the unequal heating of the atmosphere \u2013 latitudinal and seasonal",
+          "score": 3
+        },
+        {
+          "line": "significance of Earth\u2019s axis and revolution around the Sun",
+          "score": 3
+        },
+        {
+          "line": "global air circulation \u2013 a response to the unequal heating of the atmosphere",
+          "score": 3
+        },
+        {
+          "line": "Africa\u2019s climate regions",
+          "score": 3
+        },
+        {
+          "line": "the role of oceans in climate control in Africa",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 11,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Geomorphology \u00b1 36 hours atlases",
+        "as well as formal and informal bigmap/index.phtml",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "The Structure of the Earth [6 hours]",
+        "the internal structure of the Earth",
+        "Plate Tectonics [6 hours]",
+        "plate tectonics \u2013 an explanation for the movement of continents",
+        "the mechanics of plate movements",
+        "processes and landforms associated with different kinds of plate boundaries",
+        "the world\u2019s volcanic and earthquake zones.",
+        "the process of rock folding \u2013 link to plate movement",
+        "the process of faulting \u2013 link to plate movement",
+        "Earthquakes [4 hours]"
+      ],
+      "content_lines": [
+        "Geomorphology \u00b1 36 hours atlases",
+        "The Structure of the Earth [6 hours]",
+        "the internal structure of the Earth",
+        "Plate Tectonics [6 hours]",
+        "plate tectonics \u2013 an explanation for the movement of continents",
+        "the mechanics of plate movements",
+        "processes and landforms associated with different kinds of plate boundaries",
+        "the world\u2019s volcanic and earthquake zones."
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "as well as formal and informal bigmap/index.phtml",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "Plate Tectonics [6 hours]",
+        "plate tectonics \u2013 an explanation for the movement of continents",
+        "the world\u2019s volcanic and earthquake zones.",
+        "Geomorphology \u00b1 36 hours atlases",
+        "The Structure of the Earth [6 hours]",
+        "the internal structure of the Earth",
+        "the mechanics of plate movements",
+        "processes and landforms associated with different kinds of plate boundaries"
+      ],
+      "topic_scores": [
+        {
+          "line": "Plate Tectonics [6 hours]",
+          "score": 6
+        },
+        {
+          "line": "plate tectonics \u2013 an explanation for the movement of continents",
+          "score": 6
+        },
+        {
+          "line": "the world\u2019s volcanic and earthquake zones.",
+          "score": 6
+        },
+        {
+          "line": "Geomorphology \u00b1 36 hours atlases",
+          "score": 3
+        },
+        {
+          "line": "The Structure of the Earth [6 hours]",
+          "score": 3
+        },
+        {
+          "line": "the internal structure of the Earth",
+          "score": 3
+        },
+        {
+          "line": "the mechanics of plate movements",
+          "score": 3
+        },
+        {
+          "line": "processes and landforms associated with different kinds of plate boundaries",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 11,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Development geography \u00b1 36 hours",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "economic, social and demographic indicators of development: GNP, GDP, HDI Gini-coefficient, life expectancy and infant",
+        "factors that affect development, including: access to resources, energy, history, trade imbalances, population growth,",
+        "education and training, natural resource limitations and environmental degradation (note: learners need to explore the"
+      ],
+      "content_lines": [
+        "factors that affect development, including: access to resources, energy, history, trade imbalances, population growth,"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "medium",
+      "topic_focus": [
+        "factors that affect development, including: access to resources, energy, history, trade imbalances, population growth,",
+        "Development geography \u00b1 36 hours"
+      ],
+      "topic_scores": [
+        {
+          "line": "factors that affect development, including: access to resources, energy, history, trade imbalances, population growth,",
+          "score": 11
+        },
+        {
+          "line": "Development geography \u00b1 36 hours",
+          "score": 9
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 11,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Resources and sustainability \u00b1 24 hours",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "Using Resources [3 hours]",
+        "the relationship between resources and economic development",
+        "exploitation and depletion of resources",
+        "concepts of sustainability and sustainable use of resources.",
+        "soil as a resource",
+        "Conventional Energy Sources and their Impact on the Environment [5 hours]",
+        "maps and graphs to show thermal, hydro, and nuclear energy production in South Africa",
+        "South Africa\u2019s potential to meet long-term energy needs using conventional sources.",
+        "Non-conventional Energy Sources [4 hours]"
+      ],
+      "content_lines": [
+        "maps and graphs to show thermal, hydro, and nuclear energy production in South Africa"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "medium",
+      "topic_focus": [
+        "maps and graphs to show thermal, hydro, and nuclear energy production in South Africa",
+        "Resources and sustainability \u00b1 24 hours"
+      ],
+      "topic_scores": [
+        {
+          "line": "maps and graphs to show thermal, hydro, and nuclear energy production in South Africa",
+          "score": 19
+        },
+        {
+          "line": "Resources and sustainability \u00b1 24 hours",
+          "score": 8
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 12,
+      "term": 1,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Climate and weather \u00b1 14 + 5 hours",
+        "(regional and local weather systems) (includes consolidation, mapwork and",
+        "http://www.weathersa.co.za for",
+        "weather prediction, satellite images",
+        "and synoptic weather charts",
+        "http://www.weathersa.co.za",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "stages of development and related weather conditions",
+        "weather patterns associated with cold, warm, and occluded fronts",
+        "reading and interpreting satellite images and synoptic weather maps.",
+        "associated weather patterns",
+        "reading and interpreting satellite images and synoptic weather maps",
+        "Subtropical Anticyclones and Associated Weather Conditions [3 hours]"
+      ],
+      "content_lines": [
+        "Climate and weather \u00b1 14 + 5 hours",
+        "(regional and local weather systems) (includes consolidation, mapwork and",
+        "weather prediction, satellite images",
+        "and synoptic weather charts",
+        "stages of development and related weather conditions",
+        "weather patterns associated with cold, warm, and occluded fronts",
+        "reading and interpreting satellite images and synoptic weather maps.",
+        "associated weather patterns"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "http://www.weathersa.co.za for",
+        "http://www.weathersa.co.za",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "reading and interpreting satellite images and synoptic weather maps.",
+        "(regional and local weather systems) (includes consolidation, mapwork and",
+        "and synoptic weather charts",
+        "Climate and weather \u00b1 14 + 5 hours",
+        "weather prediction, satellite images",
+        "stages of development and related weather conditions",
+        "weather patterns associated with cold, warm, and occluded fronts",
+        "associated weather patterns"
+      ],
+      "topic_scores": [
+        {
+          "line": "reading and interpreting satellite images and synoptic weather maps.",
+          "score": 41
+        },
+        {
+          "line": "(regional and local weather systems) (includes consolidation, mapwork and",
+          "score": 14
+        },
+        {
+          "line": "and synoptic weather charts",
+          "score": 14
+        },
+        {
+          "line": "Climate and weather \u00b1 14 + 5 hours",
+          "score": 6
+        },
+        {
+          "line": "weather prediction, satellite images",
+          "score": 3
+        },
+        {
+          "line": "stages of development and related weather conditions",
+          "score": 3
+        },
+        {
+          "line": "weather patterns associated with cold, warm, and occluded fronts",
+          "score": 3
+        },
+        {
+          "line": "associated weather patterns",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 12,
+      "term": 2,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Rural Settlement and Urban \u00b1 36 hours",
+        "Settlement",
+        "(includes mapwork, consolidation and",
+        "topographic and orthophoto maps",
+        "vertical photographs or satellite",
+        "images (such as Google Earth)",
+        "economic activities in a settlement.",
+        "Study of Settlements [3 hours]",
+        "concept of settlement",
+        "rural and urban settlements",
+        "settlement classification according to size, complexity, pattern and function.",
+        "Rural Settlements [5 hours]",
+        "how site and situation affect the location of rural settlements"
+      ],
+      "content_lines": [
+        "Rural Settlement and Urban \u00b1 36 hours",
+        "Settlement",
+        "(includes mapwork, consolidation and",
+        "topographic and orthophoto maps",
+        "images (such as Google Earth)",
+        "economic activities in a settlement.",
+        "Study of Settlements [3 hours]",
+        "concept of settlement"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "topographic and orthophoto maps",
+        "(includes mapwork, consolidation and",
+        "Rural Settlement and Urban \u00b1 36 hours",
+        "Settlement",
+        "images (such as Google Earth)",
+        "economic activities in a settlement.",
+        "Study of Settlements [3 hours]",
+        "concept of settlement"
+      ],
+      "topic_scores": [
+        {
+          "line": "topographic and orthophoto maps",
+          "score": 19
+        },
+        {
+          "line": "(includes mapwork, consolidation and",
+          "score": 11
+        },
+        {
+          "line": "Rural Settlement and Urban \u00b1 36 hours",
+          "score": 9
+        },
+        {
+          "line": "Settlement",
+          "score": 3
+        },
+        {
+          "line": "images (such as Google Earth)",
+          "score": 3
+        },
+        {
+          "line": "economic activities in a settlement.",
+          "score": 3
+        },
+        {
+          "line": "Study of Settlements [3 hours]",
+          "score": 3
+        },
+        {
+          "line": "concept of settlement",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract",
+          "visual_source"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence.",
+          "Term/theme content references visual source material."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract",
+        "visual_source"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 12,
+      "term": 3,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Economic Geography of South \u00b1 36 hours",
+        "atlases, topographic maps, aerial",
+        "(includes map work, consolidation and",
+        "information on Maputo Corridor:",
+        "Structure of the Economy [3 hours]",
+        "use of statistical and graphical information.",
+        "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"
+      ],
+      "content_lines": [
+        "Economic Geography of South \u00b1 36 hours",
+        "atlases, topographic maps, aerial",
+        "(includes map work, consolidation and",
+        "information on Maputo Corridor:",
+        "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "atlases, topographic maps, aerial",
+        "Economic Geography of South \u00b1 36 hours",
+        "(includes map work, consolidation and",
+        "information on Maputo Corridor:",
+        "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade"
+      ],
+      "topic_scores": [
+        {
+          "line": "atlases, topographic maps, aerial",
+          "score": 19
+        },
+        {
+          "line": "Economic Geography of South \u00b1 36 hours",
+          "score": 12
+        },
+        {
+          "line": "(includes map work, consolidation and",
+          "score": 11
+        },
+        {
+          "line": "information on Maputo Corridor:",
+          "score": 11
+        },
+        {
+          "line": "factors that favour and hinder agriculture in South Africa, such as climate, soil, land ownership and trade",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    },
+    {
+      "profile_id": "fet.geography",
+      "subject": "Geography",
+      "subject_id": "geography",
+      "grade": 12,
+      "term": 4,
+      "phase": "fet_grade_10_12",
+      "assessment_family": "source_based_plus_extended_response",
+      "render_shell": "source_response_paper",
+      "status": "content_ready",
+      "render_eligible": true,
+      "candidate_count": 2,
+      "caps_source": "Geography",
+      "caps_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_geography_gr_10-12_web_c9a9.pdf",
+      "extraction_error": null,
+      "content_terms_used": [
+        "atmosphere",
+        "climate",
+        "earth",
+        "earthquake",
+        "economic geography",
+        "faulting",
+        "folding",
+        "geomorphology",
+        "gis",
+        "map",
+        "plate",
+        "population",
+        "river",
+        "rock",
+        "rural",
+        "settlement",
+        "synoptic",
+        "tectonic",
+        "urban",
+        "volcano",
+        "water",
+        "weather"
+      ],
+      "caps_theme_candidates": [
+        "Topic: Time: Additional Resources:",
+        "Water Resources \u00b1 24 hours",
+        "websites: world water at http://www.",
+        "worldwater.org/data.html",
+        "Department of Water Affairs http://",
+        "GEOGRAPHICAL KNOWLEDGE",
+        "Water in the World [2 hours]",
+        "different forms of water in the world: liquid, solid and gas",
+        "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "oceans as sources of oxygen, food and energy",
+        "Water Management in South Africa [5 hours]",
+        "factors influencing the availability of water in South Africa",
+        "challenges of providing free basic water to rural and urban communities in South Africa",
+        "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+      ],
+      "content_lines": [
+        "Water Resources \u00b1 24 hours",
+        "Water in the World [2 hours]",
+        "different forms of water in the world: liquid, solid and gas",
+        "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "Water Management in South Africa [5 hours]",
+        "factors influencing the availability of water in South Africa",
+        "challenges of providing free basic water to rural and urban communities in South Africa",
+        "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+      ],
+      "admin_or_noise_lines": [
+        "Topic: Time: Additional Resources:",
+        "websites: world water at http://www.",
+        "worldwater.org/data.html",
+        "Department of Water Affairs http://",
+        "GEOGRAPHICAL KNOWLEDGE"
+      ],
+      "theme_confidence": "high",
+      "topic_focus": [
+        "Water Resources \u00b1 24 hours",
+        "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+        "challenges of providing free basic water to rural and urban communities in South Africa",
+        "Water in the World [2 hours]",
+        "different forms of water in the world: liquid, solid and gas",
+        "Water Management in South Africa [5 hours]",
+        "factors influencing the availability of water in South Africa",
+        "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams"
+      ],
+      "topic_scores": [
+        {
+          "line": "Water Resources \u00b1 24 hours",
+          "score": 11
+        },
+        {
+          "line": "occurrence of salt water and fresh water: oceans, rivers, lakes, ground water and atmosphere",
+          "score": 9
+        },
+        {
+          "line": "challenges of providing free basic water to rural and urban communities in South Africa",
+          "score": 9
+        },
+        {
+          "line": "Water in the World [2 hours]",
+          "score": 3
+        },
+        {
+          "line": "different forms of water in the world: liquid, solid and gas",
+          "score": 3
+        },
+        {
+          "line": "Water Management in South Africa [5 hours]",
+          "score": 3
+        },
+        {
+          "line": "factors influencing the availability of water in South Africa",
+          "score": 3
+        },
+        {
+          "line": "the role of government \u2013 initiatives towards securing water: inter-basin transfers and building dams",
+          "score": 3
+        }
+      ],
+      "required_visuals": [
+        {
+          "id": "geo_map_extract",
+          "title": "Map extract with legend, scale, north arrow and labelled features",
+          "role": "stimulus",
+          "visual_kind": "map_extract",
+          "must_show": [
+            "map frame",
+            "legend",
+            "scale",
+            "north arrow",
+            "labelled physical or human features"
+          ],
+          "assessment_use": "Learners identify spatial patterns and cite map evidence."
+        },
+        {
+          "id": "geo_data_table_or_graph",
+          "title": "Geography data table or graph",
+          "role": "stimulus",
+          "visual_kind": "data_table",
+          "must_show": [
+            "units",
+            "years/categories",
+            "clear trend",
+            "source label"
+          ],
+          "assessment_use": "Learners compare data with the map/source before explaining."
+        },
+        {
+          "id": "source_provenance_panel",
+          "title": "Source provenance panel",
+          "role": "stimulus",
+          "visual_kind": "source_extract",
+          "must_show": [
+            "author/origin",
+            "date/context",
+            "caption",
+            "extract or visual description"
+          ],
+          "assessment_use": "Learners evaluate usefulness, reliability and perspective."
+        },
+        {
+          "id": "claim_evidence_reasoning_table",
+          "title": "Claim-evidence-reasoning table",
+          "role": "learner_workspace",
+          "visual_kind": "evidence_table",
+          "must_show": [
+            "claim column",
+            "evidence column",
+            "reasoning/inference column"
+          ],
+          "assessment_use": "Learners connect source evidence to answers."
+        },
+        {
+          "id": "working_grid",
+          "title": "Working grid with method mark space",
+          "role": "learner_workspace",
+          "visual_kind": "working_grid",
+          "must_show": [
+            "question number",
+            "marks",
+            "working area",
+            "final answer cue"
+          ],
+          "assessment_use": "Learners show method before final answer."
+        },
+        {
+          "id": "axis_or_diagram",
+          "title": "Axis, diagram or table required by the topic",
+          "role": "stimulus_or_workspace",
+          "visual_kind": "axis_diagram",
+          "must_show": [
+            "labelled axes or diagram labels",
+            "units where needed",
+            "plot/table space"
+          ],
+          "assessment_use": "Learners interpret or construct visual mathematical evidence."
+        },
+        {
+          "id": "investigation_method_data",
+          "title": "Investigation method and data sheet",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "investigation_sheet",
+          "must_show": [
+            "aim",
+            "variables",
+            "method",
+            "data table",
+            "conclusion line"
+          ],
+          "assessment_use": "Learners record observations and draw a supported conclusion."
+        },
+        {
+          "id": "case_decision_table",
+          "title": "Case facts and decision table",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "case_table",
+          "must_show": [
+            "scenario facts",
+            "stakeholder",
+            "problem",
+            "evidence",
+            "recommendation"
+          ],
+          "assessment_use": "Learners justify decisions from case evidence."
+        },
+        {
+          "id": "performance_space_map",
+          "title": "Performance space or portfolio evidence map",
+          "role": "stimulus_and_workspace",
+          "visual_kind": "performance_map",
+          "must_show": [
+            "space/stage orientation",
+            "sequence/process labels",
+            "observable evidence fields"
+          ],
+          "assessment_use": "Learners plan performance evidence; educators retain it for moderation."
+        },
+        {
+          "id": "observation_instrument",
+          "title": "Teacher observation instrument",
+          "role": "marking_evidence",
+          "visual_kind": "rubric_observation_table",
+          "must_show": [
+            "criterion",
+            "marks",
+            "evidence seen",
+            "concern",
+            "score"
+          ],
+          "assessment_use": "Educator records live observable evidence against the rubric."
+        }
+      ],
+      "visual_kinds": [
+        "map_extract",
+        "data_table",
+        "source_extract",
+        "evidence_table",
+        "working_grid",
+        "axis_diagram",
+        "investigation_sheet",
+        "case_table",
+        "performance_map",
+        "rubric_observation_table"
+      ],
+      "source_type_contract": {
+        "schema": "knowedge.homs_source_type_contract.v1",
+        "source_types": [
+          "source_extract",
+          "evidence_table",
+          "data_table",
+          "investigation_sheet",
+          "case_file",
+          "calculation_workspace",
+          "performance_observation",
+          "map_extract"
+        ],
+        "source_type_reasons": [
+          "CAPS/source matrix or subject profile supports source-based assessment.",
+          "Learners must cite, compare, or reason from source evidence.",
+          "CAPS/source matrix signals data, graph, or diagram assessment.",
+          "CAPS/source matrix signals practical investigation or experiment evidence.",
+          "CAPS/source matrix signals case/scenario assessment.",
+          "CAPS/source matrix signals calculation/problem-solving evidence.",
+          "CAPS/source matrix signals oral/performance evidence.",
+          "Geography term/theme content requires spatial evidence."
+        ],
+        "matrix_signals_used": {
+          "signals_source_based": true,
+          "signals_essay_or_extended_response": true,
+          "signals_case_study": true,
+          "signals_data_graph_diagram": true,
+          "signals_practical_investigation": true,
+          "signals_project_or_sba": true,
+          "signals_oral_or_performance": true,
+          "signals_calculation_problem": true,
+          "signals_formal_test_or_exam": true
+        }
+      },
+      "source_types": [
+        "source_extract",
+        "evidence_table",
+        "data_table",
+        "investigation_sheet",
+        "case_file",
+        "calculation_workspace",
+        "performance_observation",
+        "map_extract"
+      ]
+    }
+  ],
+  "skipped": [],
+  "asset_pack_out": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_caps_visual_asset_packs"
+}

@@ -1,0 +1,13 @@
+[Unit]
+Description=DIO weekly read-only market intelligence and Hivenance reasoning
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/refresh_all_market_intelligence.py
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

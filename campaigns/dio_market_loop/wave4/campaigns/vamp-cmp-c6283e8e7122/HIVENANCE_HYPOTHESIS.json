@@ -1,0 +1,55 @@
+{
+  "schema": "dio.hivenance.marketing_hypothesis.v1",
+  "hypothesis_id": "W4-HYP-0075",
+  "campaign_id": "CMP-C6283E8E7122",
+  "registered_at": "2026-08-08T22:11:08+00:00",
+  "registered_by": "dio_registry_hivenance_bridge",
+  "immutable": true,
+  "source": {
+    "registry_wave": "wave4",
+    "registry_hypothesis_id": "W4-HYP-0075",
+    "target_id": "W4-TGT-0139",
+    "observation_id": "OBS-67BAA9D1A863",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a"
+  },
+  "product": {
+    "product_line_id": "VAMP_ACADEMIC",
+    "product_layer": "vamp",
+    "public_name": "VAMP Performance Evidence Desk",
+    "offer_id": "VAMP-EVIDENCE-SNAPSHOT-PILOT"
+  },
+  "audience": {
+    "public_segment": "Academic staff, HR administrators, department heads and performance coordinators",
+    "internal_research_organisation": "Institute of People Management (IPM)",
+    "internal_buyer_unit": "Executive HR/HR Director; Performance Management; HR Business Partners; Organisational Development",
+    "personalisation_allowed": false
+  },
+  "hypothesis": "If Institute of People Management (IPM) is shown 'Fake staff annual-review case: agreement + approved Outlook/file evidence -> KPA/task mapping -> gaps -> human-reviewed performance snapshot.', then the HR/performance-management decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+  "experiment": {
+    "mode": "public_proof_content_only",
+    "channel": "Verify current role inbox/form; use proof-led partnership/pilot approach",
+    "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+    "proof_summary": "A controlled private proof mapped 190 evidence records to performance objectives, retained review candidates and exposed evidence gaps without making a rating decision.",
+    "public_hook": "Performance review panic starts when evidence was never collected as evidence.",
+    "cta": "Request one task-agreement and evidence snapshot pilot.",
+    "success_event": "qualified_pilot_conversation",
+    "kill_condition": "No qualified engagement after two permission-safe attempts or channel test; re-evaluate message/fit before any further approach.",
+    "window_days": 14,
+    "budget_cap_minor": 0,
+    "currency": "ZAR"
+  },
+  "gates": {
+    "content_generation": "allowed",
+    "publication": "operator_approval_required",
+    "personalised_outreach": "blocked",
+    "electronic_sales_outreach": "blocked",
+    "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH",
+    "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+  },
+  "settlement": {
+    "state": "unstarted",
+    "decision": "pending",
+    "measurement_path": "measurement.json",
+    "decision_path": "HIVENANCE_SETTLEMENT.json"
+  }
+}

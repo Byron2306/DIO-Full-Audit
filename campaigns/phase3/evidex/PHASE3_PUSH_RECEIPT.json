@@ -1,0 +1,137 @@
+{
+  "schema": "knowedge.phase3.push_receipt.v1",
+  "product_layer": "evidex",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "status": "outlook_first_intake_ready",
+  "nichefoundry_root": "/home/byron/Downloads/NicheFoundry_Phase11",
+  "files": [
+    "CAMPAIGN_PACK.md",
+    "editorial_review.json",
+    "foundry_opportunity.json",
+    "metadata_package.json",
+    "storyboard.json",
+    "visual_plan.json"
+  ],
+  "next_gate": "send Outlook-first outreach, triage replies, then use Google/Drive/paygate only for structured upload and paid delivery",
+  "approval": {
+    "state": "approved",
+    "reviewer": "codex",
+    "reviewed_at": "2026-08-07T15:03:47+00:00",
+    "approval_path": "campaigns/phase3/evidex/PHASE3_APPROVAL.json"
+  },
+  "episode": {
+    "episode_dir": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6",
+    "episode_id": "evidex-9ef42c22313238c4",
+    "packaged_at": "2026-08-07T15:03:50+00:00",
+    "files": [
+      "script_manifest.json",
+      "render_manifest.json",
+      "visual_manifest.json",
+      "narration_manifest.json",
+      "audio_manifest.json",
+      "metadata_package.json",
+      "script.md",
+      "gamma_input.md",
+      "approval_checklist.md"
+    ]
+  },
+  "foundry_build": {
+    "status": "passed",
+    "built_at": "2026-08-07T15:04:00+00:00",
+    "commands": [
+      "node scripts/build_cards.js <episode-dir>",
+      "node scripts/prepare_imports.js <episode-dir>"
+    ],
+    "outputs": [
+      "cards/*.svg",
+      "imports/canva_storyboard.html",
+      "imports/adobe_storyboard.html",
+      "imports/canva_export_list.csv",
+      "imports/adobe_export_list.csv",
+      "imports/elevenlabs_lines.csv",
+      "imports/import_manifest.json"
+    ]
+  },
+  "free_media_preview": {
+    "status": "passed_with_visual_replacements",
+    "built_at": "2026-08-07T15:32:02+00:00",
+    "provider": "edge",
+    "offline_fallback": "espeak",
+    "music_mode": "procedural_placeholder",
+    "audio_measurement": {
+      "music_scene_01_mean_db": -21.8,
+      "music_scene_01_max_db": -14.4,
+      "final_mix_mean_db": -26.8,
+      "final_mix_max_db": -7.7,
+      "previous_music_scene_01_mean_db": -59.3,
+      "previous_music_scene_01_after_first_fix_mean_db": -32.8
+    },
+    "transition": {
+      "type": "scene_audio_video_fade",
+      "requested_seconds": 0.55,
+      "applied_seconds": 0.275
+    },
+    "visual_motion": {
+      "type": "slow_pan_crop",
+      "scale": "1366x768 cropped to 1280x720",
+      "note": "Adds subtle camera movement to reduce static slide-deck feel."
+    },
+    "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/free_preview.mp4",
+    "receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/FREE_MEDIA_RECEIPT.json",
+    "duration_seconds": 66.021,
+    "size_bytes": 1732534,
+    "visual_source_mode": "imports/visuals override before generated cards",
+    "updated_at": "2026-08-07T15:50:11+00:00"
+  },
+  "updated_at": "2026-08-07T15:59:33+00:00",
+  "visual_assets": {
+    "status": "passed",
+    "built_at": "2026-08-07T15:50:11+00:00",
+    "mode": "local_svg_cinematic_visuals_plus_gamma_handoff",
+    "visual_dir": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals",
+    "thumbnail": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/thumbnail.png",
+    "receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/VISUAL_ASSET_RECEIPT.json",
+    "gamma_handoff": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/gamma/gamma_visual_request.json"
+  },
+  "landing_page": {
+    "status": "ready",
+    "built_at": "2026-08-07T15:50:11+00:00",
+    "path": "sites/evidex/index.html",
+    "assets": [
+      "sites/evidex/assets/evidex-thumbnail.png",
+      "sites/evidex/assets/evidex-hero.png",
+      "sites/evidex/assets/evidex-output.png",
+      "sites/evidex/assets/free_preview.mp4"
+    ],
+    "intake_mode": "outlook_first_reply_or_static_form_downloads_json"
+  },
+  "commercial_ops": {
+    "status": "outlook_first_ready",
+    "built_at": "2026-08-07T15:59:33+00:00",
+    "receipt": "campaigns/phase3/evidex/commercial_ops/COMMERCIAL_OPS_RECEIPT.json",
+    "bridge_doc": "campaigns/phase3/evidex/commercial_ops/COMMERCIAL_OPS_BRIDGE.md",
+    "linked_ads": "campaigns/phase3/evidex/commercial_ops/linked_ad_rotation.json",
+    "outlook_first": {
+      "status": "verified",
+      "receipt": "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_RECEIPT.json",
+      "guide": "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_INTAKE.md",
+      "ad": "campaigns/phase3/evidex/commercial_ops/outlook_first/OUTLOOK_FIRST_AD.md",
+      "dry_run": "runs/evidex_outlook_first_dry_run",
+      "deliverable": "deliverables/evidex_outlook_first_dry_run/evidex/evidex-5b0d667788d69e7b8008",
+      "bot_output": "campaigns/phase3/evidex/commercial_ops/outlook_first/outlook_bot_output",
+      "bot_csv_dry_run": "runs/evidex_outlook_bot_csv_dry_run",
+      "bot_csv_deliverable": "deliverables/evidex_outlook_bot_csv_dry_run/evidex/evidex-b0a30dd37214755b47d9"
+    },
+    "transaction_loop": {
+      "status": "controlled_complete",
+      "proof_doc": "docs/EVIDEX_TRANSACTION_LOOP_PROOF.md",
+      "closeout": "deliverables/evidex_golden_transaction_loop/evidex/evidex-488c40b13ce3498ed076/CLOSEOUT_RECEIPT.json",
+      "golden_case": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "golden_case_site": "sites/evidex/golden-case/index.html",
+      "telemetry": "telemetry/business_loop.csv",
+      "note": "Payment and delivery are controlled simulated/manual markers, not a live external payment transaction."
+    },
+    "google_form_linked_to_site": true,
+    "payment_gate": "Outlook qualifies and routes leads quickly; Evidex Form/Drive scripts remain the structured upload, invoice metadata, payment link, and PAID.txt delivery gate."
+  }
+}

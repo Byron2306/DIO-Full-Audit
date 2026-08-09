@@ -1,0 +1,56 @@
+{
+  "schema": "knowedge.homs_assessment_pack.v1",
+  "grade": 10,
+  "total_marks": 50,
+  "duration": "2 hours",
+  "teacher_review_checklist": [
+    "Verify CAPS scope",
+    "Check marks",
+    "Approve before use"
+  ],
+  "rubric": [
+    {
+      "criterion": "Accuracy and subject knowledge",
+      "marks": 15,
+      "descriptor": "Correct, relevant subject knowledge."
+    },
+    {
+      "criterion": "Evidence and reasoning",
+      "marks": 15,
+      "descriptor": "Uses evidence to justify answers."
+    },
+    {
+      "criterion": "Communication",
+      "marks": 10,
+      "descriptor": "Clear presentation."
+    },
+    {
+      "criterion": "Process evidence",
+      "marks": 10,
+      "descriptor": "Shows planning, method or reflection."
+    }
+  ],
+  "subject": "Mathematics",
+  "assessment_title": "Grade 8 Mathematics Test: Number Patterns",
+  "blueprint": "calculation_problem_solving",
+  "sections": [
+    {
+      "title": "Number patterns",
+      "mode": "question_paper",
+      "stimulus": "Study the number pattern and complete the table.",
+      "questions": [
+        {
+          "number": "1.1",
+          "marks": 4,
+          "question": "Find the next three terms in 3, 7, 11, 15 and explain the rule."
+        },
+        {
+          "number": "1.2",
+          "marks": 6,
+          "question": "Use the rule to calculate the 20th term and show all working."
+        }
+      ]
+    }
+  ],
+  "canonical_profile_id": "visual.proof.calculation"
+}

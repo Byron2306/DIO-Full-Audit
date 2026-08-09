@@ -1,0 +1,1154 @@
+{
+  "friction_profiles": [
+    {
+      "approval_pauses": 1,
+      "avg_approval_duration_ms": null,
+      "avg_latency_ms": null,
+      "avg_repair_depth": 0.0,
+      "avg_retries": 0.0,
+      "beast_object_type": "friction_profile",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence": 1.0,
+      "confidence_calibration_error": 0.75,
+      "confidence_overstatement": 0.75,
+      "failure_rate": 0.833333,
+      "failures": 5,
+      "friction_score": 0.256667,
+      "latency_stddev_ms": null,
+      "latency_variance_ms2": null,
+      "mode": "shadow",
+      "observed_cost_usd": null,
+      "profile_id": "friction_527f5dd53f25e99b3ff6",
+      "recoveries": 0,
+      "recovery_rate": 0.0,
+      "reported_confidence_avg": 0.916667,
+      "samples": 6,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "task_class": "translation_quality",
+      "verified_completion_rate": 0.166667,
+      "version": "1.0"
+    },
+    {
+      "approval_pauses": 1,
+      "avg_approval_duration_ms": null,
+      "avg_latency_ms": null,
+      "avg_repair_depth": 0.0,
+      "avg_retries": 0.0,
+      "beast_object_type": "friction_profile",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence": 1.0,
+      "confidence_calibration_error": 0.75,
+      "confidence_overstatement": 0.75,
+      "failure_rate": 0.833333,
+      "failures": 5,
+      "friction_score": 0.256667,
+      "latency_stddev_ms": null,
+      "latency_variance_ms2": null,
+      "mode": "shadow",
+      "observed_cost_usd": null,
+      "profile_id": "friction_1dcfdbd68b39130551ec",
+      "recoveries": 0,
+      "recovery_rate": 0.0,
+      "reported_confidence_avg": 0.916667,
+      "samples": 6,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "task_class": "translation_quality",
+      "verified_completion_rate": 0.166667,
+      "version": "1.0"
+    },
+    {
+      "approval_pauses": 1,
+      "avg_approval_duration_ms": null,
+      "avg_latency_ms": null,
+      "avg_repair_depth": 0.0,
+      "avg_retries": 0.0,
+      "beast_object_type": "friction_profile",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence": 0.8,
+      "confidence_calibration_error": 0.675,
+      "confidence_overstatement": 0.675,
+      "failure_rate": 0.75,
+      "failures": 3,
+      "friction_score": 0.235,
+      "latency_stddev_ms": null,
+      "latency_variance_ms2": null,
+      "mode": "shadow",
+      "observed_cost_usd": null,
+      "profile_id": "friction_cecd6875b4cd0f73a5a8",
+      "recoveries": 0,
+      "recovery_rate": 0.0,
+      "reported_confidence_avg": 0.925,
+      "samples": 4,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "task_class": "translation_quality",
+      "verified_completion_rate": 0.25,
+      "version": "1.0"
+    },
+    {
+      "approval_pauses": 1,
+      "avg_approval_duration_ms": null,
+      "avg_latency_ms": null,
+      "avg_repair_depth": 0.0,
+      "avg_retries": 0.0,
+      "beast_object_type": "friction_profile",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence": 0.2,
+      "confidence_calibration_error": 0.0,
+      "confidence_overstatement": 0.0,
+      "failure_rate": 0.0,
+      "failures": 0,
+      "friction_score": 0.04,
+      "latency_stddev_ms": null,
+      "latency_variance_ms2": null,
+      "mode": "shadow",
+      "observed_cost_usd": null,
+      "profile_id": "friction_eeb4a3ec5b495f9af216",
+      "recoveries": 0,
+      "recovery_rate": 0.0,
+      "reported_confidence_avg": 1.0,
+      "samples": 1,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Afrikaans"
+      },
+      "task_class": "translation_quality",
+      "verified_completion_rate": 1.0,
+      "version": "1.0"
+    }
+  ],
+  "learning": {
+    "beast_object_type": "capability_learning_report",
+    "by_capability_type": {
+      "lingua_quality_pattern": 13,
+      "lingua_semantic_authority": 4,
+      "lingua_semantic_reuse": 5
+    },
+    "by_event_type": {
+      "deterministic_failure_observed": 13,
+      "human_semantic_authority_crystallized": 4,
+      "semantic_credit_missed": 4,
+      "semantic_credit_reused": 1
+    },
+    "by_lifecycle_state": {
+      "approved_active": 4,
+      "observed": 4,
+      "observing": 13,
+      "reused": 1
+    },
+    "capabilities": [
+      {
+        "authority": "human_approved_exact_match",
+        "capability_digest": "sha256:e624eab3ef5ba56c43306d1870c77edf0350052e832fe7ec5aa67f5badfae8c3",
+        "capability_id": "lingua:Water-quality operations:Setswana",
+        "capability_type": "lingua_semantic_reuse",
+        "event_count": 2,
+        "first_observed_at": "2026-08-09T11:38:06.421487+00:00",
+        "fresh_work_units": 7,
+        "last_observed_at": "2026-08-09T11:50:13.879073+00:00",
+        "last_receipt_digest": "sha256:32b786fae75d2106c5ab891e5f2e990c296b9eda8130fc2f302178a4ede97850",
+        "lifecycle_state": "reused",
+        "provider_calls_avoided": 1,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 7
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_digest": "sha256:9b1feabd33305ba3cb2c0f88c26effe7b10cba2126e70c6df6ae99b1d086a323",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:isiZulu",
+        "capability_type": "lingua_semantic_authority",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:42:27.294136+00:00",
+        "fresh_work_units": 7,
+        "last_observed_at": "2026-08-09T11:42:27.294136+00:00",
+        "last_receipt_digest": "sha256:c901852309350f91d50cb4bf4579808f2d3ce8d7029771924589adfb2daaba79",
+        "lifecycle_state": "approved_active",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_digest": "sha256:28238d32f51cacb81d4a28401cfd0efd21a51911852262a3340580c852d7872a",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:Setswana",
+        "capability_type": "lingua_semantic_authority",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:41:38.803145+00:00",
+        "fresh_work_units": 7,
+        "last_observed_at": "2026-08-09T11:41:38.803145+00:00",
+        "last_receipt_digest": "sha256:201971ae54a523f0a2a607823b8fdbeb5255c498ad22d7f20e4ccf380ea39e0d",
+        "lifecycle_state": "approved_active",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_digest": "sha256:80660fcb9bd34a49bf7b8e2deca7f4ed2373b34dda7a0a726f3994061aec7892",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:Sesotho",
+        "capability_type": "lingua_semantic_authority",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:40:48.804204+00:00",
+        "fresh_work_units": 7,
+        "last_observed_at": "2026-08-09T11:40:48.804204+00:00",
+        "last_receipt_digest": "sha256:add0be6bddfa4873404466a98a7bd95224cf6db95749855084e06f66125309eb",
+        "lifecycle_state": "approved_active",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_digest": "sha256:5689fa45a149b9acd499aa87dbdbad830836dfd9a5e070760567d870b959aaa0",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:Afrikaans",
+        "capability_type": "lingua_semantic_authority",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:39:58.308530+00:00",
+        "fresh_work_units": 7,
+        "last_observed_at": "2026-08-09T11:39:58.308530+00:00",
+        "last_receipt_digest": "sha256:ad192c1687164ea31678ca815b213a49692966698f25f1baeea33eb1e177ae16",
+        "lifecycle_state": "approved_active",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:587859684a4fe7652b10ce15543a6756ceae0d2b2e4aea74bb991448a2c8646c",
+        "capability_id": "scc_fe99506fed73d3c4",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.620035+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.620035+00:00",
+        "last_receipt_digest": "sha256:a0162f78409412fc99084d5dc24b87dd093430b38a16562902f6b6b155483db1",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:cd8a8b6a367571eac43cc49bacfe1cc872e5c5bcb869995fd6df9d3343f069c7",
+        "capability_id": "scc_e5ba8c8fc38293d2",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.602606+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.602606+00:00",
+        "last_receipt_digest": "sha256:1c3b1a333fc5dfdddcf0e50815b70f58ccbe4fa6a234bd83bdd80fb524e4a698",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:411666e178e40f4ff1c61cdf14f446f552624e11eca6f215356ff2c8ef9eec4e",
+        "capability_id": "scc_c9bda254e9463ac7",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.591092+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.591092+00:00",
+        "last_receipt_digest": "sha256:ed0f8da1aba87ea1c3f1acf8abc284b142fa9e6e72fedcea265f73956840ad20",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:5b2bdbb38ff382545e9c38128bcb29fe72aee97a58681d0c0bb3d73030b3ed2f",
+        "capability_id": "scc_dfc18c870d88a410",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.584516+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.584516+00:00",
+        "last_receipt_digest": "sha256:2bee6c93dd9211f19fdfef2a2889e5bb8fa4435439b786034eeb71aa4f97a48a",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:b0f1e0ec471c3d72d7fcb87cb68607ede578f08af715ae5485c87a3d0150e5f7",
+        "capability_id": "scc_8871abf56aaf6a34",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.575050+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.575050+00:00",
+        "last_receipt_digest": "sha256:4265a94e4ce3e057eff4eb6070ec5d4d8ade8f83280df7a5c439b2cff3f65a92",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:0152dcaa6c088fdc858765934e9b34dae33f7cb388346af3e50e14b94f6f67ac",
+        "capability_id": "scc_a6414f830518ae4d",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.049902+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.049902+00:00",
+        "last_receipt_digest": "sha256:3243cd0639fda73903115294307320febe0acff6309281d2307065eee7ec0adb",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_digest": "sha256:8c7cee4825213f028ecb3677b94ca44feecec0629bf8acc9946fab478c8cd3a6",
+        "capability_id": "scc_a1bcf81b176f0c71",
+        "capability_type": "lingua_quality_pattern",
+        "event_count": 1,
+        "first_observed_at": "2026-08-09T11:38:06.038435+00:00",
+        "fresh_work_units": 1,
+        "last_observed_at": "2026-08-09T11:38:06.038435+00:00",
+        "last_receipt_digest": "sha256:fa53851d0905a3a0b8748e1196f3ea3a827c7284132630da8086cd08c84b3c42",
+        "lifecycle_state": "observing",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "refusal_count": 0,
+        "reuse_hits": 0
+      }
+    ],
+    "capability_count": 21,
+    "event_count": 22,
+    "fresh_work_units": 69,
+    "ledger_digest": "sha256:472149d145201ed401c6b16f60aa7b90873bce38c820f0a32333710ffd9a1f8a",
+    "ledger_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_capability_learning.jsonl",
+    "provider_calls_avoided": 1,
+    "provider_calls_used": 0,
+    "recent_events": [
+      {
+        "authority": "human_approved_exact_match",
+        "capability_id": "lingua:Water-quality operations:Setswana",
+        "capability_type": "lingua_semantic_reuse",
+        "event_digest": "sha256:198e12ed2077a126186d18837f763c72cb89c75ebf479ec5413231d9faac2753",
+        "event_type": "semantic_credit_reused",
+        "evidence_digest": "sha256:b6543d60794b8cc0f2e43c4a7db91661563c5540b639ba4777dd81db8e793549",
+        "fresh_work_units": 0,
+        "lifecycle_state": "reused",
+        "metadata": {
+          "domain": "Water-quality operations",
+          "target_language": "Setswana"
+        },
+        "observed_at": "2026-08-09T11:50:13.879073+00:00",
+        "provider_calls_avoided": 1,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:32b786fae75d2106c5ab891e5f2e990c296b9eda8130fc2f302178a4ede97850",
+        "refusal_reason": "",
+        "reuse_hits": 7
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:isiZulu",
+        "capability_type": "lingua_semantic_authority",
+        "event_digest": "sha256:45d4f10741d32c73dc3242b4cf3eaffcd537c47d5a1e3fe0636b59f4af467a37",
+        "event_type": "human_semantic_authority_crystallized",
+        "evidence_digest": "sha256:61cc009d7ddd6296b5accbf1aaab18edd0e83dc7075f0a66a48e2a218a6fcef8",
+        "fresh_work_units": 7,
+        "lifecycle_state": "approved_active",
+        "metadata": {
+          "semantic_object_id": "DIO-LINGUA-WATER-001",
+          "target_language": "isiZulu"
+        },
+        "observed_at": "2026-08-09T11:42:27.294136+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:c901852309350f91d50cb4bf4579808f2d3ce8d7029771924589adfb2daaba79",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:Setswana",
+        "capability_type": "lingua_semantic_authority",
+        "event_digest": "sha256:1cb1f9e9fc300d9c073d93e244f599b478a8e43f24a5e26c8d41395359071ee6",
+        "event_type": "human_semantic_authority_crystallized",
+        "evidence_digest": "sha256:729f508324cc54fa4deec63737f83017279ca453ed15a3644981d39864b60733",
+        "fresh_work_units": 7,
+        "lifecycle_state": "approved_active",
+        "metadata": {
+          "semantic_object_id": "DIO-LINGUA-WATER-001",
+          "target_language": "Setswana"
+        },
+        "observed_at": "2026-08-09T11:41:38.803145+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:201971ae54a523f0a2a607823b8fdbeb5255c498ad22d7f20e4ccf380ea39e0d",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:Sesotho",
+        "capability_type": "lingua_semantic_authority",
+        "event_digest": "sha256:bb88a10b15814c4819d8b7b9e749c76f03b07129de86fa59f88da1e2530216c8",
+        "event_type": "human_semantic_authority_crystallized",
+        "evidence_digest": "sha256:e2155d75d32e5d4178e81379f46bceab475285137229d8e2e254fccf1fb131bb",
+        "fresh_work_units": 7,
+        "lifecycle_state": "approved_active",
+        "metadata": {
+          "semantic_object_id": "DIO-LINGUA-WATER-001",
+          "target_language": "Sesotho"
+        },
+        "observed_at": "2026-08-09T11:40:48.804204+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:add0be6bddfa4873404466a98a7bd95224cf6db95749855084e06f66125309eb",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "Language practitioner:Byron Bunt",
+        "capability_id": "lingua:DIO-LINGUA-WATER-001:Afrikaans",
+        "capability_type": "lingua_semantic_authority",
+        "event_digest": "sha256:81aac4f2a898300eafe4f6ddff01e8cfb201c20157eca3b9c3dce1c3be5b4987",
+        "event_type": "human_semantic_authority_crystallized",
+        "evidence_digest": "sha256:42eb70195417194546daa8d7eaa2444d800620ab82d19e86ce9b68af3af322f1",
+        "fresh_work_units": 7,
+        "lifecycle_state": "approved_active",
+        "metadata": {
+          "semantic_object_id": "DIO-LINGUA-WATER-001",
+          "target_language": "Afrikaans"
+        },
+        "observed_at": "2026-08-09T11:39:58.308530+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:ad192c1687164ea31678ca815b213a49692966698f25f1baeea33eb1e177ae16",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_id": "scc_fe99506fed73d3c4",
+        "capability_type": "lingua_quality_pattern",
+        "event_digest": "sha256:d4b1f97654642468593db9378dfb12cf3a930d48abf84cfd5ccd259f2552b327",
+        "event_type": "deterministic_failure_observed",
+        "evidence_digest": "sha256:aa9d1f1d08ba9a386603dabab9b70a2522b0260fddc89d099c4cb3e0e91ad969",
+        "fresh_work_units": 1,
+        "lifecycle_state": "observing",
+        "metadata": {
+          "asserts_translation_truth": false,
+          "repeat_count": 1,
+          "severity": "medium"
+        },
+        "observed_at": "2026-08-09T11:38:06.620035+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:a0162f78409412fc99084d5dc24b87dd093430b38a16562902f6b6b155483db1",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_id": "scc_e5ba8c8fc38293d2",
+        "capability_type": "lingua_quality_pattern",
+        "event_digest": "sha256:066411dc62803dd93050abfe2f056495c0688b06f2bafd7d0ee82a0997df4d56",
+        "event_type": "deterministic_failure_observed",
+        "evidence_digest": "sha256:e1897d2f423f1e7e91dbb310fdd43c13df3a3759e346ef5fbd593b7bb14fac53",
+        "fresh_work_units": 1,
+        "lifecycle_state": "observing",
+        "metadata": {
+          "asserts_translation_truth": false,
+          "repeat_count": 1,
+          "severity": "medium"
+        },
+        "observed_at": "2026-08-09T11:38:06.602606+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:1c3b1a333fc5dfdddcf0e50815b70f58ccbe4fa6a234bd83bdd80fb524e4a698",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_id": "scc_c9bda254e9463ac7",
+        "capability_type": "lingua_quality_pattern",
+        "event_digest": "sha256:e734606a150b1a9e60fea22bfe6e8b70c7b203b49931b7c0c4127b81b18e676c",
+        "event_type": "deterministic_failure_observed",
+        "evidence_digest": "sha256:25a4a8f43550e900514c5ef2ef129126efbd8e2120de23734566c28228be8bb1",
+        "fresh_work_units": 1,
+        "lifecycle_state": "observing",
+        "metadata": {
+          "asserts_translation_truth": false,
+          "repeat_count": 1,
+          "severity": "medium"
+        },
+        "observed_at": "2026-08-09T11:38:06.591092+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:ed0f8da1aba87ea1c3f1acf8abc284b142fa9e6e72fedcea265f73956840ad20",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_id": "scc_dfc18c870d88a410",
+        "capability_type": "lingua_quality_pattern",
+        "event_digest": "sha256:0bc7b0e793e265deb1652a71c9052056a948ba62c33bd814d707eaa7949db827",
+        "event_type": "deterministic_failure_observed",
+        "evidence_digest": "sha256:e8815ad831b37f28b8145b868b88c33e87b924f827993dc7adc604e3fd6b9a47",
+        "fresh_work_units": 1,
+        "lifecycle_state": "observing",
+        "metadata": {
+          "asserts_translation_truth": false,
+          "repeat_count": 1,
+          "severity": "medium"
+        },
+        "observed_at": "2026-08-09T11:38:06.584516+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:2bee6c93dd9211f19fdfef2a2889e5bb8fa4435439b786034eeb71aa4f97a48a",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_id": "scc_8871abf56aaf6a34",
+        "capability_type": "lingua_quality_pattern",
+        "event_digest": "sha256:197cf4da7a0f5c158a92dd615f3d1d7ad3d50d1fa44131e45033b563c3bc2461",
+        "event_type": "deterministic_failure_observed",
+        "evidence_digest": "sha256:441ce0f57cc339fceb85dcbc9bc23348f67aa6e20a548aff1a9d5aef5aa2d912",
+        "fresh_work_units": 1,
+        "lifecycle_state": "observing",
+        "metadata": {
+          "asserts_translation_truth": false,
+          "repeat_count": 1,
+          "severity": "medium"
+        },
+        "observed_at": "2026-08-09T11:38:06.575050+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:4265a94e4ce3e057eff4eb6070ec5d4d8ade8f83280df7a5c439b2cff3f65a92",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "human_approved_exact_match",
+        "capability_id": "lingua:Water-quality operations:Setswana",
+        "capability_type": "lingua_semantic_reuse",
+        "event_digest": "sha256:bc268119fba382ca1f161e618e70967745cc8414d491f5a879a5c23826a28354",
+        "event_type": "semantic_credit_missed",
+        "evidence_digest": "sha256:b6543d60794b8cc0f2e43c4a7db91661563c5540b639ba4777dd81db8e793549",
+        "fresh_work_units": 7,
+        "lifecycle_state": "observed",
+        "metadata": {
+          "domain": "Water-quality operations",
+          "target_language": "Setswana"
+        },
+        "observed_at": "2026-08-09T11:38:06.421487+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:135d0202b768e3448011d329f5e8374894e7ad34002cb2055594ed4b3c9671e2",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      },
+      {
+        "authority": "deterministic_evidence_only",
+        "capability_id": "scc_a6414f830518ae4d",
+        "capability_type": "lingua_quality_pattern",
+        "event_digest": "sha256:105c126f22e2eeec721cdf90c3dde0991d3d9c32cb44d3d2f0574179cc578123",
+        "event_type": "deterministic_failure_observed",
+        "evidence_digest": "sha256:1a942d31d5bbd1aaf8a10f729339aedd7117ae9f1e2bfc15bc9f051f811708d1",
+        "fresh_work_units": 1,
+        "lifecycle_state": "observing",
+        "metadata": {
+          "asserts_translation_truth": false,
+          "repeat_count": 1,
+          "severity": "medium"
+        },
+        "observed_at": "2026-08-09T11:38:06.049902+00:00",
+        "provider_calls_avoided": 0,
+        "provider_calls_used": 0,
+        "receipt_digest": "sha256:3243cd0639fda73903115294307320febe0acff6309281d2307065eee7ec0adb",
+        "refusal_reason": "",
+        "reuse_hits": 0
+      }
+    ],
+    "reuse_hits": 7,
+    "version": "1.0"
+  },
+  "memory_hull": {
+    "beast_object_type": "memory_hull_inventory",
+    "editable": true,
+    "failed_sidecars": 0,
+    "index_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull/.index/residue_index.json",
+    "root": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_memory_hull",
+    "sections": {
+      "decisions": {
+        "failed": 0,
+        "markdown": 13,
+        "sidecars": 13,
+        "verified": 13
+      },
+      "policies": {
+        "failed": 0,
+        "markdown": 0,
+        "sidecars": 0,
+        "verified": 0
+      },
+      "projects": {
+        "failed": 0,
+        "markdown": 0,
+        "sidecars": 0,
+        "verified": 0
+      },
+      "provider_receipts": {
+        "failed": 0,
+        "markdown": 0,
+        "sidecars": 0,
+        "verified": 0
+      },
+      "quality_cascade": {
+        "failed": 0,
+        "markdown": 0,
+        "sidecars": 0,
+        "verified": 0
+      },
+      "residue": {
+        "failed": 0,
+        "markdown": 0,
+        "sidecars": 0,
+        "verified": 0
+      },
+      "tasks": {
+        "failed": 0,
+        "markdown": 0,
+        "sidecars": 0,
+        "verified": 0
+      }
+    },
+    "sidecar_sealed": true,
+    "verified_sidecars": 13,
+    "version": "2.0"
+  },
+  "negative_capability": {
+    "activation_failures": 3,
+    "active": 0,
+    "beast_object_type": "negative_capability_summary",
+    "observing": 13,
+    "outcomes": 17,
+    "records": 13,
+    "revalidation": 0,
+    "version": "1.0"
+  },
+  "organs": {
+    "capability_learning": true,
+    "crystal_chain": true,
+    "durable_semantic_credits": true,
+    "evidence_chronicle": true,
+    "evidence_scoring": true,
+    "memory_hull": true,
+    "negative_capability": true,
+    "prec_lifecycle": true
+  },
+  "prec": {
+    "beast_object_type": "prec_lifecycle_index",
+    "count": 13,
+    "lifecycles": [
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:c77810100d1a3df9ea72462414556b14bd079a87c1a127c94b2dd2e9628508d6"
+            }
+          },
+          "economize": {
+            "provider_call_displaced": {
+              "value": "True"
+            }
+          },
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "resolved"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:50:13.902397+00:00",
+        "created_at": "2026-08-09T11:50:13.889787+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_596b36e7d9b1893d63",
+        "metadata": {
+          "operation": "resolve",
+          "target_language": "Setswana"
+        },
+        "objective": "Lingua resolve for Setswana",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua resolve lifecycle completed",
+        "task_id": "DIO-LINGUA-WATER-001",
+        "updated_at": "2026-08-09T11:50:13.902397+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:98c5d845a8761023caaac68b144ae19cf84641c086c9d06c21a7e6dbaceebdf9"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "crystallized"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:42:27.318067+00:00",
+        "created_at": "2026-08-09T11:42:27.304244+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_58dc8c56b018ae780d",
+        "metadata": {
+          "operation": "crystallize",
+          "target_language": "isiZulu"
+        },
+        "objective": "Lingua crystallize for isiZulu",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua crystallize lifecycle completed",
+        "task_id": "DIO-LINGUA-WATER-001",
+        "updated_at": "2026-08-09T11:42:27.318067+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:0c079611b70f4d772189092c6ed675da857f0a63e9a043254720e579a5c3a448"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "crystallized"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:41:38.840253+00:00",
+        "created_at": "2026-08-09T11:41:38.817696+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_c1d85e236844c1aefb",
+        "metadata": {
+          "operation": "crystallize",
+          "target_language": "Setswana"
+        },
+        "objective": "Lingua crystallize for Setswana",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua crystallize lifecycle completed",
+        "task_id": "DIO-LINGUA-WATER-001",
+        "updated_at": "2026-08-09T11:41:38.840253+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:7bcf723730f4b44101f274f37dfdf1670a5b73ba26336201bbe28fc5c679a51c"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "crystallized"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:40:48.823314+00:00",
+        "created_at": "2026-08-09T11:40:48.810843+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_6161bff87a507d965d",
+        "metadata": {
+          "operation": "crystallize",
+          "target_language": "Sesotho"
+        },
+        "objective": "Lingua crystallize for Sesotho",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua crystallize lifecycle completed",
+        "task_id": "DIO-LINGUA-WATER-001",
+        "updated_at": "2026-08-09T11:40:48.823314+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:1c6e2bba6842d6c516a6138fd5a48af889eada0407cf9f4963f7037149502c14"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "crystallized"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:39:58.327744+00:00",
+        "created_at": "2026-08-09T11:39:58.315560+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_5cb3ea2f63fdaf7f7d",
+        "metadata": {
+          "operation": "crystallize",
+          "target_language": "Afrikaans"
+        },
+        "objective": "Lingua crystallize for Afrikaans",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua crystallize lifecycle completed",
+        "task_id": "DIO-LINGUA-WATER-001",
+        "updated_at": "2026-08-09T11:39:58.327744+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:615577e8cdfd8ed4b6fc3782b692c5770faa15c4e93c665bf4b76d58a363c834"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "learned"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:06.652494+00:00",
+        "created_at": "2026-08-09T11:38:06.631918+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_ceced767ae583e4f3c",
+        "metadata": {
+          "operation": "learn_flags",
+          "target_language": "Setswana"
+        },
+        "objective": "Lingua learn_flags for Setswana",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua learn_flags lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:06.652494+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:83f6e4fabf628671b0ebe5ab3899ba68a7ae73eb2c9f3f6e00f5a1322d0488d2"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "resolved"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:06.437095+00:00",
+        "created_at": "2026-08-09T11:38:06.427798+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_a4710f26309757026e",
+        "metadata": {
+          "operation": "resolve",
+          "target_language": "Setswana"
+        },
+        "objective": "Lingua resolve for Setswana",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua resolve lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:06.437095+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:aa9708feb3bd8ac28ef18971f5ef380a2ce489b4fde5d136c1336b45dc172a66"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "learned"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:06.084406+00:00",
+        "created_at": "2026-08-09T11:38:06.065134+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_5e2fbc3a034a0de5e4",
+        "metadata": {
+          "operation": "learn_flags",
+          "target_language": "Sesotho"
+        },
+        "objective": "Lingua learn_flags for Sesotho",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua learn_flags lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:06.084406+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:ea72e47c961355dc9e0f8c0f19c6193907213415a43e441a52b2b307aa502138"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "resolved"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:05.874706+00:00",
+        "created_at": "2026-08-09T11:38:05.865775+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_7970cd3cc5b9f95c4c",
+        "metadata": {
+          "operation": "resolve",
+          "target_language": "Sesotho"
+        },
+        "objective": "Lingua resolve for Sesotho",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua resolve lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:05.874706+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:e62685c758892d4edc63060efd45a2ad6d336fd46a79d7ea059e9c11144e7506"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "learned"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:05.547088+00:00",
+        "created_at": "2026-08-09T11:38:05.532020+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_ca3997439b1f6da145",
+        "metadata": {
+          "operation": "learn_flags",
+          "target_language": "isiZulu"
+        },
+        "objective": "Lingua learn_flags for isiZulu",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua learn_flags lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:05.547088+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:4bd4b087cb2f1ce99f4ffdb1c8ceecf8cf16bf0923e49a1ab25e1d868b73a79b"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "resolved"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:05.353959+00:00",
+        "created_at": "2026-08-09T11:38:05.340509+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_8116c1e3d92930564a",
+        "metadata": {
+          "operation": "resolve",
+          "target_language": "isiZulu"
+        },
+        "objective": "Lingua resolve for isiZulu",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua resolve lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:05.353959+00:00",
+        "version": "1.0"
+      },
+      {
+        "artifact_refs": {
+          "crystallize": {
+            "receipt_digest": {
+              "value": "sha256:71e103fee7bcf562bbf032bc95f026bd666d81a5b165cd76a91ff2b21d461a38"
+            }
+          },
+          "economize": {},
+          "perceive": {},
+          "reason": {
+            "result_status": {
+              "value": "learned"
+            }
+          }
+        },
+        "beast_object_type": "prec_lifecycle",
+        "completed_at": "2026-08-09T11:38:05.011911+00:00",
+        "created_at": "2026-08-09T11:38:04.991955+00:00",
+        "current_phase": "crystallize",
+        "kind": "dio_lingua",
+        "lifecycle_id": "prec_b163fc85a68a463ef5",
+        "metadata": {
+          "operation": "learn_flags",
+          "target_language": "Afrikaans"
+        },
+        "objective": "Lingua learn_flags for Afrikaans",
+        "provider": "BEAST",
+        "scope": "Water-quality operations",
+        "status": "completed",
+        "summary": "Lingua learn_flags lifecycle completed",
+        "task_id": "",
+        "updated_at": "2026-08-09T11:38:05.011911+00:00",
+        "version": "1.0"
+      }
+    ],
+    "state": {
+      "beast_object_type": "prec_lifecycle_state",
+      "counts": [
+        {
+          "count": 13,
+          "kind": "dio_lingua",
+          "status": "completed"
+        }
+      ],
+      "db_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/lingua/beast_prec_lifecycle.db",
+      "phases": [
+        "perceive",
+        "reason",
+        "economize",
+        "crystallize"
+      ],
+      "recent": [
+        {
+          "current_phase": "crystallize",
+          "kind": "dio_lingua",
+          "lifecycle_id": "prec_596b36e7d9b1893d63",
+          "objective": "Lingua resolve for Setswana",
+          "status": "completed",
+          "updated_at": "2026-08-09T11:50:13.902397+00:00"
+        },
+        {
+          "current_phase": "crystallize",
+          "kind": "dio_lingua",
+          "lifecycle_id": "prec_58dc8c56b018ae780d",
+          "objective": "Lingua crystallize for isiZulu",
+          "status": "completed",
+          "updated_at": "2026-08-09T11:42:27.318067+00:00"
+        },
+        {
+          "current_phase": "crystallize",
+          "kind": "dio_lingua",
+          "lifecycle_id": "prec_c1d85e236844c1aefb",
+          "objective": "Lingua crystallize for Setswana",
+          "status": "completed",
+          "updated_at": "2026-08-09T11:41:38.840253+00:00"
+        },
+        {
+          "current_phase": "crystallize",
+          "kind": "dio_lingua",
+          "lifecycle_id": "prec_6161bff87a507d965d",
+          "objective": "Lingua crystallize for Sesotho",
+          "status": "completed",
+          "updated_at": "2026-08-09T11:40:48.823314+00:00"
+        },
+        {
+          "current_phase": "crystallize",
+          "kind": "dio_lingua",
+          "lifecycle_id": "prec_5cb3ea2f63fdaf7f7d",
+          "objective": "Lingua crystallize for Afrikaans",
+          "status": "completed",
+          "updated_at": "2026-08-09T11:39:58.327744+00:00"
+        }
+      ],
+      "version": "1.0"
+    },
+    "version": "1.0"
+  },
+  "schema": "dio.lingua.beast_organs_status.v1",
+  "status": "operational"
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "claim": "Youth reading workshops delivered: actual 9 against target 8",
+    "kpi": "Youth reading workshops delivered",
+    "evidence_summary": "Evidence found in attendance_register.csv, field_visit_notes.txt, kpi_progress.csv supporting measurement: Workshop sessions delivered.",
+    "sources": [
+      "attendance_register.csv",
+      "field_visit_notes.txt",
+      "kpi_progress.csv"
+    ],
+    "provenance": [
+      {
+        "source_file": "attendance_register.csv",
+        "trace": "Matched by KPI wording in source text for 'Youth reading workshops delivered'."
+      },
+      {
+        "source_file": "field_visit_notes.txt",
+        "trace": "Matched by KPI wording in source text for 'Youth reading workshops delivered'."
+      },
+      {
+        "source_file": "kpi_progress.csv",
+        "trace": "Matched by KPI wording in source text for 'Youth reading workshops delivered'."
+      }
+    ],
+    "operator_confidence": "high"
+  },
+  {
+    "claim": "Learners reached: actual 137 against target 120",
+    "kpi": "Learners reached",
+    "evidence_summary": "Evidence found in field_visit_notes.txt, kpi_progress.csv, receipts_summary.csv supporting measurement: Unique learners attending.",
+    "sources": [
+      "field_visit_notes.txt",
+      "kpi_progress.csv",
+      "receipts_summary.csv"
+    ],
+    "provenance": [
+      {
+        "source_file": "field_visit_notes.txt",
+        "trace": "Matched by KPI wording in source text for 'Learners reached'."
+      },
+      {
+        "source_file": "kpi_progress.csv",
+        "trace": "Matched by KPI wording in source text for 'Learners reached'."
+      },
+      {
+        "source_file": "receipts_summary.csv",
+        "trace": "Matched by KPI wording in source text for 'Learners reached'."
+      }
+    ],
+    "operator_confidence": "high"
+  },
+  {
+    "claim": "Food parcels distributed: actual 214 against target 200",
+    "kpi": "Food parcels distributed",
+    "evidence_summary": "Evidence found in field_visit_notes.txt, kpi_progress.csv, photo_log.txt supporting measurement: Parcels issued to households.",
+    "sources": [
+      "field_visit_notes.txt",
+      "kpi_progress.csv",
+      "photo_log.txt"
+    ],
+    "provenance": [
+      {
+        "source_file": "field_visit_notes.txt",
+        "trace": "Matched by KPI wording in source text for 'Food parcels distributed'."
+      },
+      {
+        "source_file": "kpi_progress.csv",
+        "trace": "Matched by KPI wording in source text for 'Food parcels distributed'."
+      },
+      {
+        "source_file": "photo_log.txt",
+        "trace": "Matched by KPI wording in source text for 'Food parcels distributed'."
+      }
+    ],
+    "operator_confidence": "high"
+  },
+  {
+    "claim": "Receipts reconciled: actual 98% against target 95%",
+    "kpi": "Receipts reconciled",
+    "evidence_summary": "Evidence found in field_visit_notes.txt, kpi_progress.csv, receipts_summary.csv supporting measurement: Eligible spend linked to receipt records.",
+    "sources": [
+      "field_visit_notes.txt",
+      "kpi_progress.csv",
+      "receipts_summary.csv"
+    ],
+    "provenance": [
+      {
+        "source_file": "field_visit_notes.txt",
+        "trace": "Matched by KPI wording in source text for 'Receipts reconciled'."
+      },
+      {
+        "source_file": "kpi_progress.csv",
+        "trace": "Matched by KPI wording in source text for 'Receipts reconciled'."
+      },
+      {
+        "source_file": "receipts_summary.csv",
+        "trace": "Matched by KPI wording in source text for 'Receipts reconciled'."
+      }
+    ],
+    "operator_confidence": "high"
+  }
+]

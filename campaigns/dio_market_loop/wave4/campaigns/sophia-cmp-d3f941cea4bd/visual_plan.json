@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.phase3.visual_plan.v1",
+  "campaign_id": "CMP-D3F941CEA4BD",
+  "episode_id": "sophia-cmp-d3f941cea4bd",
+  "studio_id": "dio_proof_led_services",
+  "visual_identity": {
+    "motif": "real proof under inspection",
+    "palette": {
+      "paper": "#F7F8F6",
+      "ink": "#18212B",
+      "blue": "#225C7A",
+      "green": "#1F6B3A",
+      "gold": "#D4A23A"
+    },
+    "rules": [
+      "Use actual proof artifacts or faithful close-ups.",
+      "Keep text legible at phone size.",
+      "Do not use generic AI imagery or slide-template decoration.",
+      "Do not expose prospect names, contact details or private data."
+    ]
+  },
+  "thumbnail": {
+    "headline": "Sophia Academic Review Desk",
+    "subline": "Proof before promises",
+    "composition": "one striking real artifact with a clear before-to-after signal"
+  },
+  "scene_visuals": [
+    {
+      "scene_id": "scene_01",
+      "objective": "Open on the real finished proof, not an abstract AI graphic.",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_02",
+      "objective": "Show the source mess or assessment-production burden with realistic work objects.",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_03",
+      "objective": "Move through legible excerpts from the existing proof asset.",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_04",
+      "objective": "Show the controlled workflow and its receipts.",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_05",
+      "objective": "Show the explicit operator or educator approval gate.",
+      "safe_area": "caption-safe lower third"
+    },
+    {
+      "scene_id": "scene_06",
+      "objective": "End on one bounded action and the proof landing page.",
+      "safe_area": "caption-safe lower third"
+    }
+  ]
+}

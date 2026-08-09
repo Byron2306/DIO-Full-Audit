@@ -1,0 +1,32 @@
+{
+  "schema": "dio.mail_intent.v1",
+  "mail_intent_id": "MAIL-98FC64B82BA270A3",
+  "direction": "outbound",
+  "purpose": "lead_acknowledgement",
+  "lead_id": "EVIDEX-20260808-36BC59BF0F",
+  "order_id": null,
+  "job_id": null,
+  "campaign_id": null,
+  "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAIKADJ9rZ6RKqlBEOwqeOtc=",
+  "source_message_id": null,
+  "recipient": "dio_workflows@outlook.com",
+  "subject": "Thanks for your EVIDEX request [EVIDEX-20260808-36BC59BF0F]",
+  "body": "Thanks for your EVIDEX request.\n\nReference: EVIDEX-20260808-36BC59BF0F\nOffer: controlled bridge verification\n\nWe have received:\nScope: Verify public website intake to local lead and governed acknowledgement draft. No client data.\n\nDIO will review the scope before requesting private files or payment. Reply to this email if anything needs changing.\n\nA human retains approval authority over scope, processing, payment release and delivery.",
+  "body_html": null,
+  "body_path": null,
+  "attachments": [],
+  "risk": "routine",
+  "approval": {
+    "required": true,
+    "state": "consumed",
+    "approved_at": "2026-08-08T22:47:41+00:00",
+    "expires_at": null,
+    "token_sha256": null
+  },
+  "send_state": "sent",
+  "created_at": "2026-08-08T22:38:07+00:00",
+  "updated_at": "2026-08-08T22:47:51+00:00",
+  "provider": "microsoft_graph",
+  "provider_draft_id": "AAkALgAAAAAAHYQDEapmEc2byACqAC-EWg0AS-Nfv-xTpk_NFkt1dggTpwAAAAEmwwAA",
+  "sent_at": "2026-08-08T22:47:51+00:00"
+}

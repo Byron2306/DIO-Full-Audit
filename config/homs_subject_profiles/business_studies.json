@@ -1,0 +1,65 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "business_studies",
+  "display_name": "Business Studies",
+  "default_level": "senior_school_or_first_year",
+  "assessment_modes": [
+    "case_study_exam",
+    "scenario_response",
+    "essay_exam",
+    "short_answer_memo",
+    "marking_relief"
+  ],
+  "source_types": [
+    "case_study",
+    "financial_snapshot",
+    "policy_extract",
+    "organisational_scenario",
+    "market_context"
+  ],
+  "question_families": [
+    "identify_concept",
+    "apply_theory_to_case",
+    "compare_options",
+    "recommend_action",
+    "evaluate_business_decision",
+    "structured_essay"
+  ],
+  "cognitive_targets": [
+    "recall",
+    "application",
+    "analysis",
+    "evaluation",
+    "justified_recommendation"
+  ],
+  "rubric_dimensions": [
+    "concept_accuracy",
+    "case_application",
+    "justification",
+    "business_vocabulary",
+    "risk_awareness",
+    "recommendation_quality"
+  ],
+  "memo_expectations": [
+    "credit alternative justified recommendations",
+    "tie marks to case facts",
+    "distinguish generic theory from applied answer",
+    "flag calculations that need supplied numbers"
+  ],
+  "retrieval_queries": [
+    "business studies case study assessment rubric",
+    "business education scenario based assessment memo",
+    "entrepreneurship education applied case assessment"
+  ],
+  "human_review_checks": [
+    "verify local curriculum terminology",
+    "check that case facts support memo answers",
+    "confirm financial calculations use supplied numbers only",
+    "confirm recommendations are educational and not financial advice"
+  ],
+  "blocked_claims_or_modes": [
+    "financial advice presented as professional recommendation",
+    "invented company data",
+    "memo that rewards generic theory without case application"
+  ]
+}

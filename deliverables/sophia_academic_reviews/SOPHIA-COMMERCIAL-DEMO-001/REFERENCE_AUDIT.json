@@ -1,0 +1,100 @@
+{
+  "schema": "dio.sophia_reference_audit.v1",
+  "citation_style": "APA 7 diagnostic",
+  "in_text_citations": [
+    {
+      "key": "boud:2013",
+      "author": "Boud",
+      "year": "2013",
+      "form": "narrative"
+    },
+    {
+      "key": "inouye:2019",
+      "author": "Inouye",
+      "year": "2019",
+      "form": "narrative"
+    },
+    {
+      "key": "mekheimer:2025",
+      "author": "Mekheimer",
+      "year": "2025",
+      "form": "parenthetical"
+    }
+  ],
+  "reference_entries": [
+    {
+      "index": 1,
+      "key": "inouye:2019",
+      "entry": "Inouye, K., & McAlpine, L. (2019). Developing academic identity: A review of the literature on doctoral writing and feedback. International Journal of Doctoral Studies, 14, 1-31. https://doi.org/10.28945/4168",
+      "doi": "10.28945/4168",
+      "style_check": {
+        "compliance_score": 100.0,
+        "errors": [],
+        "warnings": [],
+        "pass_count": 5,
+        "fail_count": 0
+      },
+      "issues": []
+    },
+    {
+      "index": 2,
+      "key": "boud:2013",
+      "entry": "Boud, D., & Molloy, E. (2013). Rethinking models of feedback for learning: The challenge of design. Assessment & Evaluation in Higher Education, 38(6), 698-712. https://doi.org/10.1080/02602938.2012.691462",
+      "doi": "10.1080/02602938.2012.691462",
+      "style_check": {
+        "compliance_score": 100.0,
+        "errors": [],
+        "warnings": [],
+        "pass_count": 5,
+        "fail_count": 0
+      },
+      "issues": []
+    },
+    {
+      "index": 3,
+      "key": "carless:2018",
+      "entry": "Carless, D., & Boud, D. (2018). The development of student feedback literacy: Enabling uptake of feedback. Assessment & Evaluation in Higher Education, 43(8), 1315-1325. https://doi.org/10.1080/02602938.2018.1463354",
+      "doi": "10.1080/02602938.2018.1463354",
+      "style_check": {
+        "compliance_score": 100.0,
+        "errors": [],
+        "warnings": [],
+        "pass_count": 5,
+        "fail_count": 0
+      },
+      "issues": []
+    }
+  ],
+  "missing_from_reference_list": [
+    {
+      "key": "mekheimer:2025",
+      "author": "Mekheimer",
+      "year": "2025",
+      "form": "parenthetical"
+    }
+  ],
+  "reference_list_entries_not_cited": [
+    {
+      "index": 3,
+      "key": "carless:2018",
+      "entry": "Carless, D., & Boud, D. (2018). The development of student feedback literacy: Enabling uptake of feedback. Assessment & Evaluation in Higher Education, 43(8), 1315-1325. https://doi.org/10.1080/02602938.2018.1463354",
+      "doi": "10.1080/02602938.2018.1463354",
+      "style_check": {
+        "compliance_score": 100.0,
+        "errors": [],
+        "warnings": [],
+        "pass_count": 5,
+        "fail_count": 0
+      },
+      "issues": []
+    }
+  ],
+  "duplicate_entries": [],
+  "duplicate_dois": [],
+  "actionable_issue_count": 2,
+  "status": "needs_revision",
+  "limits": [
+    "This is a deterministic technical audit, not a complete style-editor judgment.",
+    "DOI and bibliographic metadata remain verification leads until checked against the publisher or scholarly index."
+  ]
+}

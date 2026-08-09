@@ -1,0 +1,48 @@
+{
+  "beast_object_type": "memory_hull_sidecar",
+  "markdown_sha256": "sha256:6e9cf09d26931290708757b3336fbbdc82ab9e8e920fda99669b4d4dfcf5cc83",
+  "payload": {
+    "beast_object_type": "memory_hull_residue",
+    "beast_systems": {
+      "chronicle_compatible": true,
+      "residue_sealed": true,
+      "vault_editable": true
+    },
+    "caller": "spiffe://dio.local/lingua",
+    "correlation_id": "",
+    "cost_saved": "",
+    "created_at": "2026-08-09T11:41:38.805868+00:00",
+    "decision": "Accepted proficient reviewer authority from Byron Bunt (Language practitioner).",
+    "evidence": {
+      "approval_state": "approved",
+      "credit_count": 7
+    },
+    "files_touched": [],
+    "markdown_sha256": "sha256:6e9cf09d26931290708757b3336fbbdc82ab9e8e920fda99669b4d4dfcf5cc83",
+    "policy_tags": [
+      "lingua",
+      "human-approved",
+      "semantic-authority"
+    ],
+    "provider": "BEAST",
+    "residue_id": "residue_276843210efbc7645425",
+    "section": "decisions",
+    "task": "Crystallize DIO-LINGUA-WATER-001 in Setswana",
+    "version": "2.0"
+  },
+  "residue_seal": {
+    "algorithm": "Ed25519",
+    "beast_object_type": "beast_residue_seal",
+    "created_at": "2026-08-09T11:41:38.809862+00:00",
+    "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation",
+    "message_sha256": "sha256:f258b1ff3bfbfcd85cad2c0830857934dead6ed0814557dcb3f6d8cb317c88d8",
+    "payload_sha256": "sha256:859e20caf74fcf136e0c87f171db6fd69f911eeb09878ae202eaab2e18e1b6c8",
+    "provider": "cryptography",
+    "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+    "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+    "purpose": "memory_hull_decisions",
+    "signature_b64": "R1vdsO35pGK8wlx301WEBHBJ8dIsqM0HtzVwPUuW9H/3OJp+azEDIlvh8GjRhBMVKKMxEepFJVI6YWf9koiDDg==",
+    "version": "2.0"
+  },
+  "version": "2.0"
+}

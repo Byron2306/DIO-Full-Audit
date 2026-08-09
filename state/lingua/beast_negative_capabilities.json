@@ -1,0 +1,847 @@
+{
+  "beast_object_type": "negative_capability_store",
+  "outcomes": {
+    "outcome_12bcd3a1b8c0712b52fbfae8": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_12bcd3a1b8c0712b52fbfae8",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:5bf50dd368478d39bd5921b8803396df405610d7525b1c9386333376de0a139d",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:05.493522+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_1dca0645c9859f3f7ac9b201": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_1dca0645c9859f3f7ac9b201",
+      "failure_category": "language_uncertainty",
+      "failure_code": "high",
+      "failure_fingerprint": "sha256:eebcb8229ce28c3391622dddaa0b789ac4b850e8839cc8217337419d924659bc",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.021912+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_24a911287266f2dc1197a81f": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_24a911287266f2dc1197a81f",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:6466440d0c6bb2d4fb2457014c4fc525c3de8cf99f8126a269c7486c8307a4e9",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.031351+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_2dd05573472ddc5938038b1c": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_2dd05573472ddc5938038b1c",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:e51d68fe770210d30e2bb52b5910988353e471e0634c21ee68e2c56105d908f5",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.584868+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_3d773dc8b5a01fc8f8e5afb8": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_3d773dc8b5a01fc8f8e5afb8",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:d47dc315095aa8a88b1a8c3ada7288fe3b18441c7d2dabbef8eff52af886c19a",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.591381+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_5db101d9476fcd7d1431f32e": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_5db101d9476fcd7d1431f32e",
+      "failure_category": "language_uncertainty",
+      "failure_code": "high",
+      "failure_fingerprint": "sha256:41094d9f79b557ba452af9f50be89aa431fe2b62eae0f4c25b0c04e57c50ae58",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:05.467967+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_82d5b416102893534876bbd8": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_82d5b416102893534876bbd8",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:5adf326e94d11c3e856728ea12e9716f177828ddeba102bd29bbac5908345e9c",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.575442+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_95322ca0e9429d02b45e1816": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_95322ca0e9429d02b45e1816",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:d8b96ac9460a2cf4efe301a347ebd9aa0101be97004af4f1a3878b4bec697ca5",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.603344+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_a15630e806a6674d02c67904": {
+      "approval_duration_ms": null,
+      "approval_pauses": 1,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": 1.0,
+      "confidence_before": null,
+      "cost_usd": null,
+      "evidence_id": "outcome_a15630e806a6674d02c67904",
+      "failure_category": "",
+      "failure_code": "",
+      "failure_fingerprint": "",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:41:38.797810+00:00",
+      "outcome": "success",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "selected_capabilities": [
+        "human_semantic_approval",
+        "beast_crystallization"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_b677c176189ed06f319df7de": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_b677c176189ed06f319df7de",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:0485146af5b6dbc961c2f02fe795244cbcc2ba32ca072bf9f690a43329ba9c80",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:05.504972+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_cdd62d2f14ae07f6704ea71d": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_cdd62d2f14ae07f6704ea71d",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:811c8d7da5bf3b7c42572cc25961bf9a3de02d4c154b0367f8f4a1acea41fafb",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:05.474605+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_d03b050f68563a9d00ec295e": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_d03b050f68563a9d00ec295e",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:918bc18d887b63282a56180f2b90ac3109064827b0fca5bae3a4594067336860",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.038726+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_ed7c26368aec1b0dc981d9f5": {
+      "approval_duration_ms": null,
+      "approval_pauses": 1,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": 1.0,
+      "confidence_before": null,
+      "cost_usd": null,
+      "evidence_id": "outcome_ed7c26368aec1b0dc981d9f5",
+      "failure_category": "",
+      "failure_code": "",
+      "failure_fingerprint": "",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:39:58.304014+00:00",
+      "outcome": "success",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Afrikaans"
+      },
+      "selected_capabilities": [
+        "human_semantic_approval",
+        "beast_crystallization"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_f158bd1eab798fa0c13f60e7": {
+      "approval_duration_ms": null,
+      "approval_pauses": 1,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": 1.0,
+      "confidence_before": null,
+      "cost_usd": null,
+      "evidence_id": "outcome_f158bd1eab798fa0c13f60e7",
+      "failure_category": "",
+      "failure_code": "",
+      "failure_fingerprint": "",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:42:27.289556+00:00",
+      "outcome": "success",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "selected_capabilities": [
+        "human_semantic_approval",
+        "beast_crystallization"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_f4adc5bef4965696ff020692": {
+      "approval_duration_ms": null,
+      "approval_pauses": 1,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": 1.0,
+      "confidence_before": null,
+      "cost_usd": null,
+      "evidence_id": "outcome_f4adc5bef4965696ff020692",
+      "failure_category": "",
+      "failure_code": "",
+      "failure_fingerprint": "",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:40:48.799954+00:00",
+      "outcome": "success",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "selected_capabilities": [
+        "human_semantic_approval",
+        "beast_crystallization"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_faff4dc2d21bb018fb555650": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_faff4dc2d21bb018fb555650",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:829a99bfa4506bc621017089208f0eb14146978fc52a766dd958344fd89104c2",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:05.484385+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    },
+    "outcome_ffe801e739aa95c1f0e69322": {
+      "approval_duration_ms": null,
+      "approval_pauses": 0,
+      "beast_object_type": "outcome_evidence",
+      "capability_id": "dio_lingua_translation_validator",
+      "confidence_after": null,
+      "confidence_before": 0.9,
+      "cost_usd": null,
+      "evidence_id": "outcome_ffe801e739aa95c1f0e69322",
+      "failure_category": "language_uncertainty",
+      "failure_code": "medium",
+      "failure_fingerprint": "sha256:a0607da43e7662387c4aa4b74ea2471137959b86a8aaf2a678c67052e80f578c",
+      "input_tokens": 0,
+      "latency_ms": null,
+      "observed_at": "2026-08-09T11:38:06.564082+00:00",
+      "outcome": "failure",
+      "output_tokens": 0,
+      "rejected_capabilities": [],
+      "repair_depth": 0,
+      "retries": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "selected_capabilities": [
+        "deterministic_validation",
+        "proficient_review_routing"
+      ],
+      "task_class": "translation_quality",
+      "version": "1.0"
+    }
+  },
+  "records": {
+    "negative_2ddabb1cae4c2f68c24a08c0": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:05.484385+00:00",
+      "evidence_ids": [
+        "outcome_faff4dc2d21bb018fb555650"
+      ],
+      "expires_at": "2026-08-23T11:38:05.484616+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:829a99bfa4506bc621017089208f0eb14146978fc52a766dd958344fd89104c2",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_2ddabb1cae4c2f68c24a08c0",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:42:27.289556+00:00"
+    },
+    "negative_4561b044721084b62f1defc4": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.021912+00:00",
+      "evidence_ids": [
+        "outcome_1dca0645c9859f3f7ac9b201"
+      ],
+      "expires_at": "2026-08-23T11:38:06.022160+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:eebcb8229ce28c3391622dddaa0b789ac4b850e8839cc8217337419d924659bc",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_4561b044721084b62f1defc4",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:40:48.799954+00:00"
+    },
+    "negative_4e095064684881b6b59729f2": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:05.493522+00:00",
+      "evidence_ids": [
+        "outcome_12bcd3a1b8c0712b52fbfae8"
+      ],
+      "expires_at": "2026-08-23T11:38:05.493789+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:5bf50dd368478d39bd5921b8803396df405610d7525b1c9386333376de0a139d",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_4e095064684881b6b59729f2",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:42:27.289556+00:00"
+    },
+    "negative_58af5d43358f57f03b0225af": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.564082+00:00",
+      "evidence_ids": [
+        "outcome_ffe801e739aa95c1f0e69322"
+      ],
+      "expires_at": "2026-08-23T11:38:06.564753+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:a0607da43e7662387c4aa4b74ea2471137959b86a8aaf2a678c67052e80f578c",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_58af5d43358f57f03b0225af",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:41:38.797810+00:00"
+    },
+    "negative_7beb772c4ae3c617510a5fe8": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:05.504972+00:00",
+      "evidence_ids": [
+        "outcome_b677c176189ed06f319df7de"
+      ],
+      "expires_at": "2026-08-23T11:38:05.505189+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:0485146af5b6dbc961c2f02fe795244cbcc2ba32ca072bf9f690a43329ba9c80",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_7beb772c4ae3c617510a5fe8",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:42:27.289556+00:00"
+    },
+    "negative_87a8ce92221974095c399e68": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.591381+00:00",
+      "evidence_ids": [
+        "outcome_3d773dc8b5a01fc8f8e5afb8"
+      ],
+      "expires_at": "2026-08-23T11:38:06.591494+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:d47dc315095aa8a88b1a8c3ada7288fe3b18441c7d2dabbef8eff52af886c19a",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_87a8ce92221974095c399e68",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:41:38.797810+00:00"
+    },
+    "negative_9a82de0bff9ecda1adc72fc3": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.031351+00:00",
+      "evidence_ids": [
+        "outcome_24a911287266f2dc1197a81f"
+      ],
+      "expires_at": "2026-08-23T11:38:06.031566+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:6466440d0c6bb2d4fb2457014c4fc525c3de8cf99f8126a269c7486c8307a4e9",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_9a82de0bff9ecda1adc72fc3",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:40:48.799954+00:00"
+    },
+    "negative_9ab64a4d33f31d235502239e": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.603344+00:00",
+      "evidence_ids": [
+        "outcome_95322ca0e9429d02b45e1816"
+      ],
+      "expires_at": "2026-08-23T11:38:06.603642+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:d8b96ac9460a2cf4efe301a347ebd9aa0101be97004af4f1a3878b4bec697ca5",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_9ab64a4d33f31d235502239e",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:41:38.797810+00:00"
+    },
+    "negative_a200a3f9fa74e4e6393b6507": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:05.474605+00:00",
+      "evidence_ids": [
+        "outcome_cdd62d2f14ae07f6704ea71d"
+      ],
+      "expires_at": "2026-08-23T11:38:05.474736+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:811c8d7da5bf3b7c42572cc25961bf9a3de02d4c154b0367f8f4a1acea41fafb",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_a200a3f9fa74e4e6393b6507",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:42:27.289556+00:00"
+    },
+    "negative_a8099819f28f166fa1b8b05d": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.038726+00:00",
+      "evidence_ids": [
+        "outcome_d03b050f68563a9d00ec295e"
+      ],
+      "expires_at": "2026-08-23T11:38:06.038840+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:918bc18d887b63282a56180f2b90ac3109064827b0fca5bae3a4594067336860",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_a8099819f28f166fa1b8b05d",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Sesotho"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:40:48.799954+00:00"
+    },
+    "negative_adbebd52c79eefcf6a17dbaf": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.575442+00:00",
+      "evidence_ids": [
+        "outcome_82d5b416102893534876bbd8"
+      ],
+      "expires_at": "2026-08-23T11:38:06.575602+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:5adf326e94d11c3e856728ea12e9716f177828ddeba102bd29bbac5908345e9c",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_adbebd52c79eefcf6a17dbaf",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:41:38.797810+00:00"
+    },
+    "negative_ce7c84a8f95e5d9d8dce80ac": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:05.467967+00:00",
+      "evidence_ids": [
+        "outcome_5db101d9476fcd7d1431f32e"
+      ],
+      "expires_at": "2026-08-23T11:38:05.468328+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:41094d9f79b557ba452af9f50be89aa431fe2b62eae0f4c25b0c04e57c50ae58",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_ce7c84a8f95e5d9d8dce80ac",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "isiZulu"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:42:27.289556+00:00"
+    },
+    "negative_d4ba57f6e0017e435f3cc9bb": {
+      "capability_id": "dio_lingua_translation_validator",
+      "clean_success_count": 1,
+      "confidence": 0.333333,
+      "created_at": "2026-08-09T11:38:06.584868+00:00",
+      "evidence_ids": [
+        "outcome_2dd05573472ddc5938038b1c"
+      ],
+      "expires_at": "2026-08-23T11:38:06.585005+00:00",
+      "failure_count": 1,
+      "failure_fingerprint": "sha256:e51d68fe770210d30e2bb52b5910988353e471e0634c21ee68e2c56105d908f5",
+      "operator_by": "",
+      "operator_reason": "",
+      "operator_state": "",
+      "record_id": "negative_d4ba57f6e0017e435f3cc9bb",
+      "recovered_count": 0,
+      "scope": {
+        "route": "Water-quality operations",
+        "transform_type": "Setswana"
+      },
+      "state": "observing",
+      "task_class": "translation_quality",
+      "updated_at": "2026-08-09T11:41:38.797810+00:00"
+    }
+  },
+  "version": "1.0"
+}

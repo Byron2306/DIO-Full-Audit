@@ -1,0 +1,405 @@
+{
+  "schema": "knowedge.homs_contextual_knowledge_packet.v1",
+  "created_at": "2026-08-08T08:24:05+00:00",
+  "purpose": "Prevent generic no-context questions by grounding provider generation in CAPS, old-paper source contracts, visual facts, subject profile and hard bans.",
+  "subject_profile": {
+    "schema": "knowedge.homs_subject_profile.v1",
+    "subject_id": "physical_sciences",
+    "display_name": "Physical Sciences",
+    "default_level": "senior_school",
+    "assessment_modes": [
+      "structured_exam",
+      "calculation_problem",
+      "diagram_interpretation",
+      "graph_response",
+      "practical_investigation_memo",
+      "worked_memo"
+    ],
+    "source_types": [
+      "circuit_or_apparatus_diagram",
+      "force_or_motion_diagram",
+      "chemical_equation",
+      "data_table",
+      "graph",
+      "experimental_description",
+      "formula_sheet_reference"
+    ],
+    "question_families": [
+      "define_law_or_concept",
+      "calculate_with_formula",
+      "interpret_graph",
+      "analyse_apparatus",
+      "balance_or_interpret_equation",
+      "evaluate_investigation",
+      "explain_relationship"
+    ],
+    "cognitive_targets": [
+      "knowledge",
+      "routine_calculation",
+      "application",
+      "analysis",
+      "scientific_reasoning"
+    ],
+    "rubric_dimensions": [
+      "concept_accuracy",
+      "formula_selection",
+      "substitution_and_units",
+      "calculation_accuracy",
+      "diagram_reference",
+      "experimental_reasoning"
+    ],
+    "memo_expectations": [
+      "award formula, substitution and final-answer marks separately",
+      "credit correct units and signs",
+      "state accepted significant-figure or rounding range",
+      "separate observations from explanations"
+    ],
+    "retrieval_queries": [
+      "Physical Sciences CAPS calculation memo formula substitution units",
+      "Physical Sciences practical investigation graph response assessment",
+      "physics chemistry diagram interpretation assessment"
+    ],
+    "human_review_checks": [
+      "verify numerical answers and unit conversions",
+      "check all constants/formulae required are supplied or allowed",
+      "confirm diagrams are scientifically coherent",
+      "confirm practical contexts are safe and classroom-appropriate"
+    ],
+    "blocked_claims_or_modes": [
+      "unsafe experimental instructions",
+      "invented data presented as real experimental results",
+      "calculation answer not derivable from supplied values",
+      "diagram labels that are not visible or supplied"
+    ]
+  },
+  "grade_profile": {
+    "grade": 12,
+    "phase": "fet_exit",
+    "learner_level": "advanced_school_exit",
+    "bloom_targets": [
+      "apply",
+      "analyze",
+      "evaluate",
+      "create"
+    ],
+    "zpd_level": "expert challenge",
+    "question_style": [
+      "exam_source_set",
+      "extended_case_response",
+      "argumentative_essay",
+      "synthesis_question"
+    ],
+    "reading_load": "high",
+    "writing_load": "high",
+    "memo_style": "credit mature synthesis, defensible argument, and curriculum-aligned alternatives",
+    "review_checks": [
+      "exit-level standard",
+      "moderation readiness",
+      "equivalent second opportunity",
+      "no undergraduate-only assumptions"
+    ]
+  },
+  "language_of_assessment": "English",
+  "focus": "electric circuits, electrodynamics and waves; Ohm's law, power, internal resistance, generators and motors; circuit interpretation, graph reading and calculation working; apparatus/data task with controlled variables and conclusion",
+  "visual_blueprint": {
+    "schema": "knowedge.homs_visual_blueprint.v1",
+    "subject": "Physical Sciences",
+    "grade": 12,
+    "phase": "fet_grade_10_12",
+    "term": "2",
+    "caps_source": {
+      "title": "Physical Sciences",
+      "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_physical_science_web.pdf",
+      "sha256": "8b7b20f350a46fc077c4e9b2fcf4ecfd7b63e7f6cd56d7d6ea94de75dbcd209f"
+    },
+    "canonical_profile_id": "fet.physical_sciences",
+    "assessment_family": "data_diagram_practical_investigation",
+    "render_shell": "investigation_task_sheet",
+    "source_type_contract": {
+      "schema": "knowedge.homs_source_type_contract.v1",
+      "source_types": [
+        "data_table",
+        "diagram",
+        "investigation_sheet",
+        "calculation_workspace"
+      ],
+      "source_type_reasons": [
+        "FET old-paper catalogue: data_table observed in Physical Sciences (32 source/stimulus object(s) across 2 paper(s)).",
+        "FET old-paper catalogue: diagram_or_model observed in Physical Sciences (32 source/stimulus object(s) across 2 paper(s)).",
+        "CAPS/source matrix signals practical investigation or experiment evidence.",
+        "CAPS/source matrix signals calculation/problem-solving evidence."
+      ],
+      "matrix_signals_used": {
+        "signals_source_based": true,
+        "signals_essay_or_extended_response": true,
+        "signals_case_study": false,
+        "signals_data_graph_diagram": true,
+        "signals_practical_investigation": true,
+        "signals_project_or_sba": true,
+        "signals_oral_or_performance": true,
+        "signals_calculation_problem": true,
+        "signals_formal_test_or_exam": true
+      },
+      "old_paper_contract_used": null,
+      "exam_source_catalogue_used": {
+        "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/FET_EXAM_SOURCE_CATALOGUE.json",
+        "subject": "Physical Sciences",
+        "paper_count": 2,
+        "observed_contract": [
+          "data_table",
+          "diagram_or_model",
+          "graph_or_chart",
+          "unclassified_stimulus",
+          "image_rendered_or_scanned_pages"
+        ]
+      }
+    },
+    "caps_theme_candidates": [
+      "Experiment (physics) Investigation (Physics):",
+      "Determine the internal resistance of a and voltmeters across each resistor, branch",
+      "Term 3 Part 2 and external circuit. Use this circuit to",
+      "resistor. Determine the equivalent resistance OR",
+      "2.6 WEIGHTING OF TOPICS [40 WEEK PROGRAMME]",
+      "GRADE 10 GRADE 11 GRADE 12",
+      "assessment across grades 10 to 12.",
+      "PHYSICAL SCIENCES GRADES 10-12",
+      "Prescribed Practical Activities Recommended Practical Activities",
+      "Grade Term",
+      "Formal Assessment Informal Assessment",
+      "Experiment 1 (Chemistry): Practical Demonstration (Physics)",
+      "Experiment 2 (Physics): Electric circuits with Investigation (Physics)",
+      "specification of what is to be taught and learnt on a term-by-term basis."
+    ],
+    "assessment_content_focus": [
+      "electric circuits, electrodynamics and waves",
+      "Ohm's law, power, internal resistance, generators and motors",
+      "circuit interpretation, graph reading and calculation working",
+      "apparatus/data task with controlled variables and conclusion"
+    ],
+    "content_alignment_notes": [
+      "Requested focus shares CAPS term/theme signals: circuit, circuits, electric, internal, resistance."
+    ],
+    "required_visuals": [
+      {
+        "id": "working_grid",
+        "title": "Working grid with method mark space",
+        "role": "learner_workspace",
+        "visual_kind": "working_grid",
+        "must_show": [
+          "question number",
+          "marks",
+          "working area",
+          "final answer cue"
+        ],
+        "assessment_use": "Learners show method before final answer."
+      },
+      {
+        "id": "axis_or_diagram",
+        "title": "Axis, diagram or table required by the topic",
+        "role": "stimulus_or_workspace",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "labelled axes or diagram labels",
+          "units where needed",
+          "plot/table space"
+        ],
+        "assessment_use": "Learners interpret or construct visual mathematical evidence."
+      },
+      {
+        "id": "science_diagram",
+        "title": "Science labelled diagram stimulus",
+        "role": "stimulus",
+        "visual_kind": "axis_diagram",
+        "must_show": [
+          "clear structure/process labels",
+          "visible arrows or stages where needed",
+          "caption",
+          "label key"
+        ],
+        "assessment_use": "Learners identify, label, compare, and explain using the diagram."
+      },
+      {
+        "id": "science_data_or_graph",
+        "title": "Science data table or graph stimulus",
+        "role": "stimulus",
+        "visual_kind": "data_table",
+        "must_show": [
+          "variables",
+          "units",
+          "readable values",
+          "trend or comparison"
+        ],
+        "assessment_use": "Learners calculate, compare, interpret trends, and support conclusions from data."
+      },
+      {
+        "id": "investigation_method_data",
+        "title": "Investigation method and data sheet",
+        "role": "stimulus_and_workspace",
+        "visual_kind": "investigation_sheet",
+        "must_show": [
+          "aim",
+          "variables",
+          "method",
+          "data table",
+          "conclusion line"
+        ],
+        "assessment_use": "Learners record observations and draw a supported conclusion."
+      }
+    ],
+    "generation_constraints": [
+      "Plan visual evidence before writing questions.",
+      "If a question references a map, graph, table, diagram, source, performance space, or practical setup, the matching visual must be present in required_visuals.",
+      "Do not create blank source placeholders unless the task explicitly requires the educator to insert an external source.",
+      "Use the visual as assessable evidence: questions must ask learners to read, complete, compare, cite, label, calculate from, or reflect on it."
+    ],
+    "validation_rules": [
+      "No learner-facing question may refer to a missing visual.",
+      "Every required visual must have a clear assessment role: stimulus, learner workspace, marking evidence, or moderation evidence.",
+      "Visuals must match subject, phase, term/content focus, and assessment family."
+    ]
+  },
+  "renderable_visual_facts": {
+    "generic_policy": {
+      "facts": [
+        "Use only visuals named in the visual blueprint.",
+        "Every visual-referenced question must contain concrete observable details, values, labels, or source facts."
+      ]
+    }
+  },
+  "caps": {
+    "selected_title": "Physical Sciences",
+    "selected_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_physical_science_web.pdf",
+    "selected_sha256": "8b7b20f350a46fc077c4e9b2fcf4ecfd7b63e7f6cd56d7d6ea94de75dbcd209f",
+    "phase": "fet_grade_10_12",
+    "preferred_language": "English",
+    "excerpt": "National Curriculum Statement (NCS)\n\n Curriculum and Assessment\nPHYSICAL SCIENCES\n\n Policy Statement\n\n Further Education and Training Phase\n Grades 10-12\n\n \n \n \n \n CURRICULUM AND ASSESSMENT POLICY STATEMENT\n GRADES 10-12\n\n PHYSICAL SCIENCES\n PHYSICAL SCIENCES GRADES 10-12\n\nDepartment of Basic Education\n\n222 Struben Street\nPrivate Bag X895\nPretoria 0001\nSouth Africa\nTel: +27 12 357 3000\nFax: +27 12 323 0601\n\n120 Plein Street Private Bag X9023\nCape Town 8000\nSouth Africa\nTel: +27 21 465 1701\nFax: +27 21 461 8110\nWebsite: http://www.education.gov.za\n\n\u00a9 2011 Department of Basic Education\n\nIsbn: 978-1-4315-0579-1\n\nDesign and Layout by: Ndabase Printing Solution\n\nPrinted by: Government Printing Works\n\n CURRICULUM AND ASSESSMENT POLICY STATEMENT (CAPS)\n PHYSICAL SCIENCES GRADES 10-12\nFOREWORD by thE ministER\n\n Our national curriculum is the culmination of our efforts over a period of seventeen\n years to transform the curriculum bequeathed to us by apartheid. From the start of\n democracy we have built our curriculum on the values that inspired our Constitution\n (Act 108 of 1996). the Preamble to the Constitution states that the aims of the\n Constitution are to:\n\n \u2022 heal the divisions of the past and establish a society based on democratic\n values, social justice and fundamental human rights;\n\n \u2022 improve the quality of life of all citizens and free the potential of each person;\n\n \u2022 lay the foundations for a democratic and open society in which government is\n based on the will of the people and every citizen is equally protected by law;\n and\n\n\u2022 build a united and democratic South Africa able to take its rightful place as a sovereign state in the family of\n nations.\n\nEducation and the curriculum have an important role to play in realising these aims.\n\nin 1997 we introduced outcome",
+    "ontology": {
+      "profile_id": "fet.physical_sciences",
+      "subject": "Physical Sciences",
+      "phase": "fet_grade_10_12",
+      "phase_group": "fet",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "subject_family": "science",
+      "assessment_family": "data_diagram_practical_investigation",
+      "allowed": [
+        "structured_concepts",
+        "data_or_diagram_interpretation",
+        "practical_investigation",
+        "application_questions"
+      ],
+      "default_off": [
+        "essay_as_default",
+        "business_case_study",
+        "creative_portfolio_only"
+      ],
+      "required_distribution": {
+        "conceptual_understanding": 30,
+        "data_diagram_work": 25,
+        "practical_investigation": 25,
+        "application_reasoning": 20
+      },
+      "generation_constraints": [
+        "Use diagrams, data, observations, or investigation contexts where appropriate.",
+        "Keep practical tasks safe and feasible for the grade band."
+      ],
+      "validation_rules": [
+        "Generated packs must declare this profile_id and assessment_family.",
+        "Generated packs may not use default_off modes unless the human request explicitly overrides them.",
+        "Generated packs must cite at least one supporting CAPS evidence document.",
+        "Teacher memo, mark allocation, and learner instructions must be present.",
+        "Educator approval remains a required terminal gate before delivery or classroom use."
+      ],
+      "evidence_summary": {
+        "document_count": 2,
+        "languages": {
+          "Afrikaans": 1,
+          "Unknown": 1
+        },
+        "document_blueprints": {
+          "language_integrated_assessment": 1,
+          "data_diagram_practical_investigation": 1
+        },
+        "signal_counts": {
+          "signals_source_based": 1,
+          "signals_essay_or_extended_response": 1,
+          "signals_case_study": 0,
+          "signals_data_graph_diagram": 2,
+          "signals_practical_investigation": 2,
+          "signals_project_or_sba": 2,
+          "signals_oral_or_performance": 1,
+          "signals_calculation_problem": 1,
+          "signals_formal_test_or_exam": 2
+        },
+        "noisy_document_count": 1
+      }
+    },
+    "assessment_design": {
+      "profile_id": "fet.physical_sciences",
+      "subject": "Physical Sciences",
+      "assessment_family": "data_diagram_practical_investigation",
+      "render_shell": "investigation_task_sheet",
+      "confidence": "medium",
+      "assessment_forms": [],
+      "annual_weightings": {},
+      "task_requirements": [],
+      "paper_structure": [],
+      "cognitive_distribution": {
+        "conceptual_understanding": 30,
+        "data_diagram_work": 25,
+        "practical_investigation": 25,
+        "application_reasoning": 20
+      },
+      "marking_instruments": [
+        "memorandum",
+        "rubric"
+      ],
+      "generation_constraints": [
+        "Use diagrams, data, observations, or investigation contexts where appropriate.",
+        "Keep practical tasks safe and feasible for the grade band."
+      ],
+      "validation_rules": [
+        "Choose the render shell from assessment design before rendering learner-facing material.",
+        "Do not render practical performance tasks as written answer-question papers.",
+        "Marks in the learner pack must reconcile with the assessment instrument.",
+        "Keep educator approval as the final gate."
+      ]
+    }
+  },
+  "official_paper_source_contract": {
+    "schema": "knowedge.homs_exam_source_contract.v1",
+    "source_matrix": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/exam_source_matrix.json",
+    "subject": "Physical Sciences",
+    "paper_count": 0,
+    "source_type_counts": {},
+    "paper_shapes": [],
+    "evidence_snippets": []
+  },
+  "knowledge_bank_registry_summary": {
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_knowledge_bank/HOMS_KNOWLEDGE_BANK_REGISTRY.json",
+    "nvidia_nim_ready": true,
+    "caps_documents": 282,
+    "official_paper_catalogue_papers": 9
+  },
+  "hard_bans": [
+    "answer the first",
+    "complete the applied",
+    "using the stimulus",
+    "use the provided stimulus",
+    "controlled classroom stimulus supplied by the educator",
+    "structured task using the stimulus",
+    "credit accurate subject knowledge",
+    "evidence-based reasoning",
+    "identify one important feature of the",
+    "strongest assessment question",
+    "do not ask learners to evaluate whether the generated pack is ready",
+    "do not ask learners why official-paper exemplars are stronger than generated visuals",
+    "do not include source-quality, pipeline, route, smoke-test, design-law or product-QA questions",
+    "do not refer to a figure, table, map, graph or diagram unless concrete figure facts are supplied in this packet",
+    "do not invent new figure organisms, labels, datasets, years, diagram panels, tables, maps, chemicals or source facts",
+    "do not replace supplied renderable visual facts with a different scenario"
+  ]
+}

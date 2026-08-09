@@ -1,0 +1,55 @@
+{
+  "schema": "dio.hivenance.marketing_hypothesis.v1",
+  "hypothesis_id": "W4-HYP-0011",
+  "campaign_id": "CMP-E96BD8B1464A",
+  "registered_at": "2026-08-08T15:52:42+00:00",
+  "registered_by": "dio_registry_hivenance_bridge",
+  "immutable": true,
+  "source": {
+    "registry_wave": "wave4",
+    "registry_hypothesis_id": "W4-HYP-0011",
+    "target_id": "W4-TGT-0141",
+    "observation_id": "OBS-CA5604D16952",
+    "archive_sha256": "1c7a07c502bd1db1341500baef36b20e50838ba49f2d748aad69779becf4af7a"
+  },
+  "product": {
+    "product_line_id": "EVIDEX_PACK",
+    "product_layer": "evidex",
+    "public_name": "Evidex Evidence Pack",
+    "offer_id": "EVIDEX-PILOT-PACK"
+  },
+  "audience": {
+    "public_segment": "South African NGO, NPO, M&E, grant and programme teams",
+    "internal_research_organisation": "NASCEE",
+    "internal_buyer_unit": "M&E/Impact; Grants/Donor Reporting; Programme Director/COO; Finance/Compliance; Knowledge Management",
+    "personalisation_allowed": false
+  },
+  "hypothesis": "If NASCEE is shown 'Golden Evidex transaction: source intake -> evidence pack -> human approval -> payment/delivery receipt with provenance.', then the M&E/grants/compliance decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+  "experiment": {
+    "mode": "public_proof_content_only",
+    "channel": "Current organisational route + LinkedIn thought-leadership/proof case + permission-safe pilot invitation",
+    "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+    "proof_summary": "A controlled messy-input-to-evidence-pack case with mapped claims, provenance, human review, delivery state and business telemetry.",
+    "public_hook": "Your funder wants proof. The proof is spread across folders, spreadsheets and email. Evidex turns that evidence mess into a review-ready pack.",
+    "cta": "Review the golden case and nominate one bounded evidence-pack pilot.",
+    "success_event": "qualified_pilot_conversation",
+    "kill_condition": "No qualified engagement after two permission-safe attempts or channel test; re-evaluate message/fit before any further approach.",
+    "window_days": 14,
+    "budget_cap_minor": 0,
+    "currency": "ZAR"
+  },
+  "gates": {
+    "content_generation": "allowed",
+    "publication": "operator_approval_required",
+    "personalised_outreach": "blocked",
+    "electronic_sales_outreach": "blocked",
+    "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH",
+    "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+  },
+  "settlement": {
+    "state": "unstarted",
+    "decision": "pending",
+    "measurement_path": "measurement.json",
+    "decision_path": "HIVENANCE_SETTLEMENT.json"
+  }
+}

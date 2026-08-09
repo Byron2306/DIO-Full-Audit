@@ -1,0 +1,1732 @@
+{
+  "schema": "knowedge.homs_core_source_bank.v1",
+  "created_at": "2026-08-08T07:12:33+00:00",
+  "asset_count": 82,
+  "subjects": {
+    "afrikaans_language": 10,
+    "economics": 8,
+    "english_language": 8,
+    "geography": 23,
+    "history": 6,
+    "life_orientation": 5,
+    "life_sciences": 10,
+    "mathematics": 6,
+    "physical_sciences": 6
+  },
+  "source_types": {
+    "cartoon": 9,
+    "data_table": 15,
+    "diagram_or_model": 10,
+    "graph_or_chart": 11,
+    "map_extract": 7,
+    "photograph_or_image": 10,
+    "synoptic_weather_map": 3,
+    "text_extract": 17
+  },
+  "missing_core_subjects": [],
+  "assets": [
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p1_question_paper.pdf",
+      "page": 12,
+      "object_id": "Q4:strokiesprent_4",
+      "snippet": "VRAAG 4: STROKIESPRENT \u2022 Die taalvrae wat volg, is op die strokiesprent (TEKS E) hieronder gebaseer. \u2022 Die nommering in die strokiesprent verwys na die nommer van die vraag wat",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p12_cartoon_q4_strokiesprent_4-12.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/cartoon/01_afrikaans_fal_p1_november_2025_p12_q4_strokiesprent_4.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "text_extract"
+      ],
+      "paper": "Afrikaans HL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_home_language/2025/november/afrikaans_home_language_2025_november_p1_question_paper.pdf",
+      "page": 10,
+      "object_id": "Q4:strokiesprent_4",
+      "snippet": "VRAAG 4: STROKIESPRENT Bestudeer die strokiesprent (TEKS E) en beantwoord die vrae wat volg.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p1_november_2025/p10_cartoon_q4_strokiesprent_4-10.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/cartoon/02_afrikaans_hl_p1_november_2025_p10_q4_strokiesprent_4.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:teks_1",
+      "snippet": "Lees die artikel hieronder en beantwoord die vrae wat volg. TEKS A: ARTIKEL",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p03_graph_or_chart_q1_teks_1-03.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/graph_or_chart/01_afrikaans_fal_p1_november_2025_p03_q1_teks_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "text_extract"
+      ],
+      "paper": "Afrikaans HL P2 November 2025",
+      "paper_theme": "literature_contextual_and_essay",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_home_language/2025/november/afrikaans_home_language_2025_november_p2_question_paper.pdf",
+      "page": 25,
+      "object_id": "Q15:map_15",
+      "snippet": "VRAAG 15: KRISMIS VAN MAP JACOBS \u2013 KONTEKSTUELE VRAAG Lees die uittreksels hieronder aandagtig deur en beantwoord die vrae wat volg.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_hl_p2_november_2025/p25_map_extract_q15_map_15-25.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/map_extract/01_afrikaans_hl_p2_november_2025_p25_q15_map_15.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p1_question_paper.pdf",
+      "page": 14,
+      "object_id": "Q5:prent_5",
+      "snippet": "VRAAG 5: ARTIKEL EN PRENT \u2022 Die taalvrae wat volg, is op die artikel (TEKS F) en prent (TEKS G) hieronder gebaseer.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p14_photograph_or_image_q5_prent_5-14.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/photograph_or_image/01_afrikaans_fal_p1_november_2025_p14_q5_prent_5.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p1_question_paper.pdf",
+      "page": 14,
+      "object_id": "Q5:teks_5",
+      "snippet": "\u2022 Die taalvrae wat volg, is op die artikel (TEKS F) en prent (TEKS G) hieronder gebaseer. \u2022 Die nommering in die artikel verwys na die nommer van die vraag wat beantwoord moet word.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p14_photograph_or_image_q5_teks_5-14.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/photograph_or_image/02_afrikaans_fal_p1_november_2025_p14_q5_teks_5.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image"
+      ],
+      "paper": "Afrikaans FAL P3 November 2025",
+      "paper_theme": "writing_transactional_and_visual_prompt",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p3_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:prent_1",
+      "snippet": "LET WEL: Jou opstel moet met die prent verband hou. 1.6",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p3_november_2025/p03_photograph_or_image_q1_prent_1-3.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/photograph_or_image/03_afrikaans_fal_p3_november_2025_p03_q1_prent_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract",
+        "photograph_or_image"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q1:foto_1",
+      "snippet": "1.16 Hoe ondersteun die eerste foto in die teks die inhoud in paragraaf 2? (1)",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p06_text_extract_q1_foto_1-06.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/text_extract/01_afrikaans_fal_p1_november_2025_p06_q1_foto_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P1 November 2025",
+      "paper_theme": "language_context_comprehension_summary_visual_literacy",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p1_question_paper.pdf",
+      "page": 9,
+      "object_id": "Q2:teks_2",
+      "snippet": "TEKS C MAAK JOU EKSAMENSESSIES MAKLIK!",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p1_november_2025/p09_text_extract_q2_teks_2-09.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/text_extract/02_afrikaans_fal_p1_november_2025_p09_q2_teks_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "afrikaans_language",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Afrikaans FAL P2 November 2025",
+      "paper_theme": "literature_contextual_and_essay",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/afrikaans_first_additional_language/2025/november/afrikaans_first_additional_language_2025_november_p2_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q1:teks_1",
+      "snippet": "TEKS A ''Kate ... is dit een van jou uitgedinkte bosstories di\u00e9, soos die een oor die kastige bosmannetjies wat op die olifante ry?''",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/afrikaans_fal_p2_november_2025/p05_text_extract_q1_teks_1-05.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/afrikaans_language/text_extract/03_afrikaans_fal_p2_november_2025_p05_q1_teks_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon"
+      ],
+      "paper": "Economics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p1_question_paper.pdf",
+      "page": 11,
+      "object_id": "Q4:cartoon_4",
+      "snippet": "4.3 Study the cartoon below and answer the questions that follow. INTERNATIONAL TRADE RESTRICTIONS",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p1_november_2024/p11_cartoon_q4_cartoon_4-11.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/cartoon/01_economics_p1_november_2024_p11_q4_cartoon_4.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon"
+      ],
+      "paper": "Economics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p2_question_paper.pdf",
+      "page": 8,
+      "object_id": "Q3:cartoon_3",
+      "snippet": "3.2 Study the cartoon below and answer the questions that follow. IMPACT OF INFLATION ON THE CONSUMER",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p2_november_2024/p08_cartoon_q3_cartoon_3-08.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/cartoon/02_economics_p2_november_2024_p08_q3_cartoon_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Economics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p1_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q1:data_table:4:47",
+      "snippet": "fluctuations in time series data H the process of the movement of people from rural areas to cities and towns",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p1_november_2024/p04_data_table_q1_data_table_4_47-04.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/data_table/01_economics_p1_november_2024_p04_q1_data_table_4_47.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Economics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p1_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q2:graph_2",
+      "snippet": "2.3 Study the graph below and answer the questions that follow. MULTIPLIER EFFECT IN A TWO-SECTOR ECONOMY",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p1_november_2024/p07_graph_or_chart_q2_graph_2-07.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/graph_or_chart/01_economics_p1_november_2024_p07_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Economics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p2_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q2:graph_2",
+      "snippet": "2.3 Study the graph below and answer the questions that follow. POSITIVE EXTERNALITIES OF EDUCATION",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p2_november_2024/p07_graph_or_chart_q2_graph_2-07.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/graph_or_chart/02_economics_p2_november_2024_p07_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image"
+      ],
+      "paper": "Economics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p2_question_paper.pdf",
+      "page": 11,
+      "object_id": "Q4:image_4",
+      "snippet": "4.3 Study the images below and answer the questions that follow. SOUTH AFRICAN TOURISM IMAGE A IMAGE B",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p2_november_2024/p11_photograph_or_image_q4_image_4-11.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/photograph_or_image/01_economics_p2_november_2024_p11_q4_image_4.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Economics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q2:extract_2",
+      "snippet": "2.2 Study the extract below and answer the questions that follow. PUBLIC SECTOR FAILURE",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p1_november_2024/p06_text_extract_q2_extract_2-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/text_extract/01_economics_p1_november_2024_p06_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "economics",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Economics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/economics/2024/november/economics_2024_november_p2_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q2:extract_2",
+      "snippet": "2.2 Study the extract below and answer the questions that follow. MONOPOLISTIC COMPETITION",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/economics_p2_november_2024/p06_text_extract_q2_extract_2-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/economics/text_extract/02_economics_p2_november_2024_p06_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "text_extract",
+        "unclassified_stimulus"
+      ],
+      "paper": "English First Additional Language P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p1_question_paper.pdf",
+      "page": 10,
+      "object_id": "Q4:cartoon_4",
+      "snippet": "QUESTION 4: ANALYSING A CARTOON Read the cartoon (TEXT E) below and answer the set questions. TEXT E DENNIS THE MENACE by Hank Ketcham",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_first_additional_language_p1_november_2024/p10_cartoon_q4_cartoon_4-10.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/cartoon/01_english_first_additional_language_p1_november_2024_p10_q4_cartoon_4.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon"
+      ],
+      "paper": "English Home Language P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q1:cartoon_1",
+      "snippet": "1.11 In the context of the cartoon, suggest why the driver's facial expression remains unchanged. (2) 1.12 With close reference to FRAME 4, comment on the satirical message",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_home_language_p1_november_2024/p06_cartoon_q1_cartoon_1-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/cartoon/02_english_home_language_p1_november_2024_p06_q1_cartoon_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "English First Additional Language P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:data_table:3:28",
+      "snippet": "involves training a computer program on a large amount of data so it can learn to identify patterns and make predictions based on that data. AI is also used in 10 industries to help automate1 tasks and improve efficiency.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_first_additional_language_p1_november_2024/p03_data_table_q1_data_table_3_28-03.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/data_table/01_english_first_additional_language_p1_november_2024_p03_q1_data_table_3_28.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "English Home Language P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:table_1",
+      "snippet": "phone-on-the-table syndrome and technological dependency. However, the 25 most significant deficit is the lack of social genuineness. What should be explained about our current society are the reasons why this society has produced these results.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_home_language_p1_november_2024/p03_data_table_q1_table_1-03.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/data_table/02_english_home_language_p1_november_2024_p03_q1_table_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "unclassified_stimulus"
+      ],
+      "paper": "English Home Language P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p2_question_paper.pdf",
+      "page": 9,
+      "object_id": "Q3:figure_3",
+      "snippet": "3.3 Refer to line 13: 'And who sacrifice their lives like the poor man his last garment'. 3.3.1 Identify the figure of speech in this line. (1)",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_home_language_p2_november_2024/p09_photograph_or_image_q3_figure_3-09.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/photograph_or_image/01_english_home_language_p2_november_2024_p09_q3_figure_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "English First Additional Language P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q1:source_1",
+      "snippet": "1. 2. A source of information",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_first_additional_language_p1_november_2024/p06_text_extract_q1_source_1-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/text_extract/01_english_first_additional_language_p1_november_2024_p06_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "English First Additional Language P3 November 2024",
+      "paper_theme": "unknown",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_first_additional_language/2024/november/english_first_additional_language_2024_november_p3_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:source_1",
+      "snippet": "[Source: www.google.com] [50] Copyright reserved Please turn over",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_first_additional_language_p3_november_2024/p03_text_extract_q1_source_1-3.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/text_extract/02_english_first_additional_language_p3_november_2024_p03_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "english_language",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "English Home Language P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/english_home_language/2024/november/english_home_language_2024_november_p1_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q1:source_1",
+      "snippet": "[Source: madisonjournal.com] Glossary: CAB (FRAME 4): Americanism for taxi",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/english_home_language_p1_november_2024/p05_text_extract_q1_source_1-05.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/english_language/text_extract/03_english_home_language_p1_november_2024_p05_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "graph_or_chart",
+        "text_extract"
+      ],
+      "paper": "Geography P2 May June 2025",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p2_question_paper.pdf",
+      "page": 12,
+      "object_id": "Q2:extract_2",
+      "snippet": "2.3 Refer to the extract and the graph below on beef production in South Africa. BEEF PRODUCTION IN SOUTH AFRICA",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p2_may_june_2025/p12_cartoon_q2_extract_2-12.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/cartoon/01_geography_p2_may_june_2025_p12_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon",
+        "diagram_or_model",
+        "graph_or_chart",
+        "photograph_or_image",
+        "text_extract"
+      ],
+      "paper": "Geography P2 November 2025",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/november/geography_2025_november_p2_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:source_1",
+      "snippet": "[Source: Examiner's own sketch] 1.1.6 The sketch below depicts a \u2026 settlement. Y wet-point Z dry-point KEY",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p2_november_2025/p03_cartoon_q1_source_1-03.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/cartoon/02_geography_p2_november_2025_p03_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "map_extract",
+        "photograph_or_image",
+        "topographic_map_and_orthophoto"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 2,
+      "object_id": "Q3:topographic_orthophoto_mapwork",
+      "snippet": "14. A 1 : 50 000 topographical map 2828CB CLARENS and a 1 : 10 000 orthophoto map 2828 CB 7 MAGDALENAS RUST are provided. 15. The area demarcated in RED/BLACK on the topographical map represents the",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p02_data_table_q3_topographic_orthophoto_mapwork-02.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/data_table/01_geography_p1_may_june_2024_p02_q3_topographic_orthophoto_mapwork.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "map_extract",
+        "photograph_or_image",
+        "topographic_map_and_orthophoto"
+      ],
+      "paper": "Geography P1 May June 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+      "page": 2,
+      "object_id": "Q3:topographic_orthophoto_mapwork",
+      "snippet": "14. A 1 : 50 000 topographical map 2929BB ESTCOURT and a 1 : 10 000 orthophoto map 2929 BB 3 ESTCOURT are provided. 15. The area demarcated in RED/BLACK on the topographical map represents",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2025/p02_data_table_q3_topographic_orthophoto_mapwork-02.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/data_table/02_geography_p1_may_june_2025_p02_q3_topographic_orthophoto_mapwork.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "diagram_or_model",
+        "graph_or_chart",
+        "map_extract",
+        "photograph_or_image",
+        "text_extract",
+        "topographic_map_and_orthophoto"
+      ],
+      "paper": "Geography P1 November 2022",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+      "page": 2,
+      "object_id": "Q3:topographic_orthophoto_mapwork",
+      "snippet": "14. A 1 : 50 000 topographic map 2930CA MERRIVALE and a 1 : 10 000 orthophoto map 2930 CA 5 MERRIVALE are provided. 15. The area demarcated in RED/BLACK on the topographic map represents the",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2022/p02_data_table_q3_topographic_orthophoto_mapwork-02.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/data_table/03_geography_p1_november_2022_p02_q3_topographic_orthophoto_mapwork.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model",
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q1:source_1",
+      "snippet": "[Source: Examiner\u02b9s own sketch] 1.2.6 Main factor contributing to the heat island Y multiple effect in the sketch below reflections Z height of",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p05_diagram_or_model_q1_source_1-05.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/diagram_or_model/01_geography_p1_may_june_2024_p05_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model",
+        "map_extract"
+      ],
+      "paper": "Geography P1 May June 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:sketch_1",
+      "snippet": "Refer to the sketch map below to answer QUESTIONS 1.1.1 to 1.1.5.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2025/p03_diagram_or_model_q1_sketch_1-03.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/diagram_or_model/02_geography_p1_may_june_2025_p03_q1_sketch_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Geography P1 November 2022",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+      "page": 13,
+      "object_id": "Q2:diagram_or_model:13:20",
+      "snippet": "2.3.4 Refer to C. (a) Which ONE of the cross-sections Y or Z represents the river at point C? (1 x 2) (2)",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2022/p13_diagram_or_model_q2_diagram_or_model_13_20-13.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/geography/diagram_or_model/03_geography_p1_november_2022_p13_q2_diagram_or_model_13_20.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "photograph_or_image"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 18,
+      "object_id": "Q3:photograph_3",
+      "snippet": "3.2.3 At what time (morning or afternoon) was the photograph taken? (1 x 1) (1) 3.2.4 Give a reason for your answer to QUESTION 3.2.3. (1 x 2) (2)",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p18_graph_or_chart_q3_photograph_3-18.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/graph_or_chart/01_geography_p1_may_june_2024_p18_q3_photograph_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "photograph_or_image"
+      ],
+      "paper": "Geography P1 May June 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+      "page": 9,
+      "object_id": "Q1:infographic_1",
+      "snippet": "1.5 Refer to the infographic below on the South African berg wind. THE SOUTH AFRICAN BERG WIND",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2025/p09_graph_or_chart_q1_infographic_1-09.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/graph_or_chart/02_geography_p1_may_june_2025_p09_q1_infographic_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Geography P1 November 2022",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q1:graph_1",
+      "snippet": "1.2.7 Temperature graph \u2026 represents Y the change in temperature from the urban areas (S) to the rural areas (T).",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2022/p06_graph_or_chart_q1_graph_1-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/geography/graph_or_chart/03_geography_p1_november_2022_p06_q1_graph_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "synoptic_weather_map",
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q1:extract_1",
+      "snippet": "1.4 Refer to the extract and map below on Tropical Cyclone Freddy. IMPACT OF TROPICAL CYCLONE FREDDY According to the Australian Bureau of Meteorology and the US Joint Typhoon Warning",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p07_map_extract_q1_extract_1-07.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/map_extract/01_geography_p1_may_june_2024_p07_q1_extract_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "synoptic_weather_map",
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q1:map_1",
+      "snippet": "1.3 Refer to the weather map below showing the cold front of the mid-latitude cyclone.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2025/p07_map_extract_q1_map_1-07.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/map_extract/02_geography_p1_may_june_2025_p07_q1_map_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "synoptic_weather_map"
+      ],
+      "paper": "Geography P1 November 2022",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:map_1",
+      "snippet": "1.1.1 Lines that join places of equal atmospheric pressure on a synoptic weather map are known as \u2026 A isolines.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2022/p03_map_extract_q1_map_1-03.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/map_extract/03_geography_p1_november_2022_p03_q1_map_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "synoptic_weather_map"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q1:image_1",
+      "snippet": "1.3 Refer to the satellite image below on mid-latitude cyclones.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p06_photograph_or_image_q1_image_1-06.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/photograph_or_image/01_geography_p1_may_june_2024_p06_q1_image_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "synoptic_weather_map"
+      ],
+      "paper": "Geography P1 May June 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+      "page": 8,
+      "object_id": "Q1:image_1",
+      "snippet": "1.4 Refer to the satellite image below of a tropical cyclone.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2025/p08_photograph_or_image_q1_image_1-08.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/photograph_or_image/02_geography_p1_may_june_2025_p08_q1_image_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "synoptic_weather_map"
+      ],
+      "paper": "Geography P1 November 2023",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2023/november/geography_2023_november_p1_question_paper.pdf",
+      "page": 8,
+      "object_id": "Q1:image_1",
+      "snippet": "1.4 Refer to the satellite image of a tropical cyclone in the mature stage below.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2023/p08_photograph_or_image_q1_image_1-08.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/photograph_or_image/03_geography_p1_november_2023_p08_q1_image_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "synoptic_weather_map",
+      "source_types": [
+        "synoptic_weather_map",
+        "map_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:map_1",
+      "snippet": "1.1 The questions below refer to the synoptic weather map. Various options are provided as possible answers to the questions. Choose the answer and write only the letter (A\u2013D) next to the question numbers (1.1.1 to 1.1.7) in the ANSWER BOOK, e.g. 1.1.8 D.",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p03_synoptic_weather_map_q1_map_1-03.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/synoptic_weather_map/01_geography_p1_may_june_2024_p03_q1_map_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "synoptic_weather_map",
+      "source_types": [
+        "synoptic_weather_map",
+        "diagram_or_model"
+      ],
+      "paper": "Geography P1 November 2022",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q1:synoptic_weather_map_diagram_or_model:7:40",
+      "snippet": "Refer to the cold front occlusion C and the cross-sections. 1.3.6 (a) Which ONE of the cross-sections Y or Z represents the cold front occlusion at C? (1 x 2) (2)",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2022/p07_synoptic_weather_map_q1_synoptic_weather_map_diagram_or_model_7_40-07.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/synoptic_weather_map/02_geography_p1_november_2022_p07_q1_synoptic_weather_map_diagram_or_model_7_40.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "synoptic_weather_map",
+      "source_types": [
+        "synoptic_weather_map",
+        "text_extract"
+      ],
+      "paper": "Geography P1 November 2023",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2023/november/geography_2023_november_p1_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q1:extract_1",
+      "snippet": "1.3.1 The mid-latitude cyclone mentioned in the extract is in the (initial/mature) stage. (1 x 1) (1) 1.3.2 Give a reason for your answer to QUESTION 1.3.1. (1 x 2) (2)",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2023/p07_synoptic_weather_map_q1_extract_1-07.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/geography/synoptic_weather_map/03_geography_p1_november_2023_p07_q1_extract_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2024/may_june/geography_2024_may_june_p1_question_paper.pdf",
+      "page": 15,
+      "object_id": "Q2:extract_2",
+      "snippet": "2.5 Refer to the extract below on catchment and river management. HAMMANSKRAAL WATER CRISIS EXPOSES YEARS OF NEGLECT",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2024/p15_text_extract_q2_extract_2-15.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/geography/text_extract/01_geography_p1_may_june_2024_p15_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Geography P1 May June 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2025/may_june/geography_2025_may_june_p1_question_paper.pdf",
+      "page": 9,
+      "object_id": "Q1:extract_1",
+      "snippet": "1.5.3 According to the extract, why does the temperature of the air increase as it blows from Johannesburg to Durban? (1 x 1) (1) 1.5.4 Determine the expected air temperature at Durban due to the",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_may_june_2025/p09_text_extract_q1_extract_1-09.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/geography/text_extract/02_geography_p1_may_june_2025_p09_q1_extract_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "geography",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Geography P1 November 2022",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/exam_papers/dbe/fet_grade_12/geography/2022/november/geography_2022_november_p1_question_paper.pdf",
+      "page": 15,
+      "object_id": "Q2:extract_2",
+      "snippet": "[Adapted from a case study by S Barnard, A Venter and CE van Ginkel] 2.5.1 What does the abbreviation DWA in the extract stand for? (1 x 1) (1)",
+      "source_manifest": "deliverables/exam_source_matrix/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix/source_page_exemplars/geography_p1_november_2022/p15_text_extract_q2_extract_2-15.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/geography/text_extract/03_geography_p1_november_2022_p15_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "history",
+      "source_type": "cartoon",
+      "source_types": [
+        "cartoon"
+      ],
+      "paper": "History P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p1_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q1:cartoon_1",
+      "snippet": "to be an appropriate caption for the cartoon. (1 x 2) (2) 1.5.2 Comment on the implication of the message on the signpost on the Western Sector side, '\u2026 DEFECTORS WELCOME'. (1 x 2) (2)",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/history_p1_november_2024/p04_cartoon_q1_cartoon_1-4.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/history/cartoon/01_history_p1_november_2024_p04_q1_cartoon_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "history",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "photograph_or_image",
+        "text_extract"
+      ],
+      "paper": "History P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p1_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q2:source_2",
+      "snippet": "Study Sources 2A, 2B, 2C and 2D and answer the questions that follow. 2.1 Read Source 2A.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/history_p1_november_2024/p05_data_table_q2_source_2-5.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/history/data_table/01_history_p1_november_2024_p05_q2_source_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "history",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image"
+      ],
+      "paper": "History P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p1_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q2:photograph_2",
+      "snippet": "2.3.1 Explain why you think this photograph was taken. (1 x 2) (2) 2.3.2 What do you think was the significance of the presence of the United Nations' Secretary General during the signing of the",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/history_p1_november_2024/p05_photograph_or_image_q2_photograph_2-5.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/history/photograph_or_image/01_history_p1_november_2024_p05_q2_photograph_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "history",
+      "source_type": "photograph_or_image",
+      "source_types": [
+        "photograph_or_image",
+        "text_extract"
+      ],
+      "paper": "History P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p2_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q2:source_2",
+      "snippet": "Study Sources 2A, 2B, 2C and 2D and answer the questions that follow. 2.1 Refer to Source 2A.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/history_p2_november_2024/p05_photograph_or_image_q2_source_2-5.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/history/photograph_or_image/02_history_p2_november_2024_p05_q2_source_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "history",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "History P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p1_question_paper.pdf",
+      "page": 2,
+      "object_id": "Q2:text_extract:2:15",
+      "snippet": "QUESTION 2: INDEPENDENT AFRICA: CASE STUDY \u2013 ANGOLA QUESTION 3: CIVIL SOCIETY PROTESTS FROM THE 1950s TO THE 1970s: THE US CIVIL RIGHTS MOVEMENT",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/history_p1_november_2024/p02_text_extract_q2_text_extract_2_15-2.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/history/text_extract/01_history_p1_november_2024_p02_q2_text_extract_2_15.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "history",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "History P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/history/2024/november/history_2024_november_p2_question_paper.pdf",
+      "page": 2,
+      "object_id": "Q6:source_6",
+      "snippet": "2. SECTION A consists of THREE source-based questions. Source material that is required to answer these questions can be found in the ADDENDUM. 3. SECTION B consists of THREE essay questions.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/history_p2_november_2024/p02_text_extract_q6_source_6-2.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/history/text_extract/02_history_p2_november_2024_p02_q6_source_6.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_orientation",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "paper_theme": "life_orientation_cat_scenario_and_reflection",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_orientation/2025/september/life_orientation_2025_september_p1_question_paper.pdf",
+      "page": 10,
+      "object_id": "Q6:data_table:10:13",
+      "snippet": "Current recruitment processes are driven by technology and data analytics, with a strong focus on a candidate's work experience. Therefore, choosing the right references to list in your curriculum vitae (CV) and researching a company's mission statement may be to your benefit when you are considered for a job.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_afrikaans_september_2025/p10_data_table_q6_data_table_10_13-10.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/data_table/01_life_orientation_paper_1_afrikaans_september_2025_p10_q6_data_table_10_13.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_orientation",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Orientation Paper 1 English September 2025",
+      "paper_theme": "life_orientation_cat_scenario_and_reflection",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_orientation/2025/september/life_orientation_2025_september_p1_question_paper.pdf",
+      "page": 10,
+      "object_id": "Q6:data_table:10:13",
+      "snippet": "Current recruitment processes are driven by technology and data analytics, with a strong focus on a candidate's work experience. Therefore, choosing the right references to list in your curriculum vitae (CV) and researching a company's mission statement may be to your benefit when you are considered for a job.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_english_september_2025/p10_data_table_q6_data_table_10_13-10.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/data_table/02_life_orientation_paper_1_english_september_2025_p10_q6_data_table_10_13.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_orientation",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "paper_theme": "life_orientation_cat_scenario_and_reflection",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_orientation/2025/september/life_orientation_2025_september_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q2:extract_2",
+      "snippet": "Read the extract below and answer the questions that follow. HUMAN RIGHTS VIOLATIONS Safe and healthy living",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_afrikaans_september_2025/p06_text_extract_q2_extract_2-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/text_extract/01_life_orientation_paper_1_afrikaans_september_2025_p06_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_orientation",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Life Orientation Paper 1 Afrikaans September 2025",
+      "paper_theme": "life_orientation_cat_scenario_and_reflection",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_orientation/2025/september/life_orientation_2025_september_p1_question_paper.pdf",
+      "page": 7,
+      "object_id": "Q3:extract_3",
+      "snippet": "Read the extract below and answer the questions that follow. HUMAN FACTORS CAUSING ILL HEALTH Smoking in adolescents",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_afrikaans_september_2025/p07_text_extract_q3_extract_3-07.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/text_extract/02_life_orientation_paper_1_afrikaans_september_2025_p07_q3_extract_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_orientation",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Life Orientation Paper 1 English September 2025",
+      "paper_theme": "life_orientation_cat_scenario_and_reflection",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_orientation/2025/september/life_orientation_2025_september_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q2:extract_2",
+      "snippet": "Read the extract below and answer the questions that follow. HUMAN RIGHTS VIOLATIONS Safe and healthy living",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_orientation_paper_1_english_september_2025/p06_text_extract_q2_extract_2-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_orientation/text_extract/03_life_orientation_paper_1_english_september_2025_p06_q2_extract_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Sciences P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p1_question_paper.pdf",
+      "page": 10,
+      "object_id": "Q2:table_2",
+      "snippet": "2.2 The table below shows the levels of two hormones during the menstrual cycle of a healthy human female. DAY OF OESTROGEN PROGESTERONE",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/life_sciences_p1_november_2024/p10_data_table_q2_table_2-10.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/data_table/01_life_sciences_p1_november_2024_p10_q2_table_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Life Sciences P1 November 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:table_1",
+      "snippet": "1.1.3 The table below shows the reaction time of four learners to a stimulus. NAME OF REACTION TIME",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p03_data_table_q1_table_1-03.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/data_table/02_life_sciences_p1_november_2025_p03_q1_table_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "text_extract"
+      ],
+      "paper": "Life Sciences P1 November 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p1_question_paper.pdf",
+      "page": 9,
+      "object_id": "Q2:source_2",
+      "snippet": "2.1 In bird eggs, the yolk is the main source of energy for the developing embryo. The table below provides information about the eggs of some bird types.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p09_data_table_q2_source_2-09.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/data_table/03_life_sciences_p1_november_2025_p09_q2_source_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Life Sciences P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p1_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q1:diagram_1",
+      "snippet": "1.1.6 The diagram below represents a part of the human eye.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/life_sciences_p1_november_2024/p04_diagram_or_model_q1_diagram_1-04.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/diagram_or_model/01_life_sciences_p1_november_2024_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Life Sciences P1 November 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p1_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q1:diagram_1",
+      "snippet": "QUESTIONS 1.1.5 AND 1.1.6 ARE BASED ON THE DIAGRAM OF THE FEMALE REPRODUCTIVE SYSTEM. P",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p04_diagram_or_model_q1_diagram_1-04.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/diagram_or_model/02_life_sciences_p1_november_2025_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Life Sciences P1 November 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p1_question_paper.pdf",
+      "page": 9,
+      "object_id": "Q2:diagram_2",
+      "snippet": "2.2 The diagram below shows a part of the male reproductive system. A",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p09_diagram_or_model_q2_diagram_2-09.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/diagram_or_model/03_life_sciences_p1_november_2025_p09_q2_diagram_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "data_table"
+      ],
+      "paper": "Life Sciences P1 November 2025",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p1_question_paper.pdf",
+      "page": 10,
+      "object_id": "Q2:graph_2",
+      "snippet": "2.3.4 Draw a bar graph to show the results in the table. (6) (14)",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p1_november_2025/p10_graph_or_chart_q2_graph_2-10.png",
+      "quality_flags": [
+        "question_asks_learner_to_draw_graph",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/graph_or_chart/01_life_sciences_p1_november_2025_p10_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "graph_or_chart"
+      ],
+      "paper": "Life Sciences P2 November 2025",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p2_question_paper.pdf",
+      "page": 12,
+      "object_id": "Q2:graph_2",
+      "snippet": "2.4 The graph below shows the distribution of blood groups for two ethnic groups (1 and 2) in a certain country during 2021.",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p12_map_extract_q2_graph_2-12.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/map_extract/01_life_sciences_p2_november_2025_p12_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract"
+      ],
+      "paper": "Life Sciences P2 November 2025",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_tight8_2025/fet_grade_12/life_sciences/2025/november/life_sciences_2025_november_p2_question_paper.pdf",
+      "page": 15,
+      "object_id": "Q3:map_3",
+      "snippet": "3.3.1 The ratites shown in the map are classified as different biological species. (a) State what is meant by a biological species. (2)",
+      "source_manifest": "deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_matrix_tight8_2025/source_page_exemplars/life_sciences_p2_november_2025/p15_map_extract_q3_map_3-15.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/map_extract/02_life_sciences_p2_november_2025_p15_q3_map_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "life_sciences",
+      "source_type": "text_extract",
+      "source_types": [
+        "text_extract"
+      ],
+      "paper": "Life Sciences P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/life_sciences/2024/november/life_sciences_2024_november_p2_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q1:source_1",
+      "snippet": "1.3.1 A source of variation in populations A: Random fertilisation B: Random mating 1.3.2 Discovery of the structure of the A: Franklin and Wilkins DNA molecule B: Lamarck and Darwin",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/life_sciences_p2_november_2024/p05_text_extract_q1_source_1-05.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/life_sciences/text_extract/01_life_sciences_p2_november_2024_p05_q1_source_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "mathematics",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Mathematics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p2_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:data_table:3:27",
+      "snippet": "11 Determine the equation of the least squares regression line for the data. (3) 1.2 Write down the correlation coefficient. (69) 13 The coach uses the least squares regression line to set the target for the minimum number of push-ups by each team member according to their weight. Predict the",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/mathematics_p2_november_2024/p03_data_table_q1_data_table_3_27-03.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/mathematics/data_table/01_mathematics_p2_november_2024_p03_q1_data_table_3_27.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "mathematics",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Mathematics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p1_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q3:diagram_3",
+      "snippet": "circle internally, as shown in the diagram. A third, smaller circle is drawn through the centre of the second circle and touches the second circle internally. The process of drawing circles",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/mathematics_p1_november_2024/p04_diagram_or_model_q3_diagram_3-04.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/mathematics/diagram_or_model/01_mathematics_p1_november_2024_p04_q3_diagram_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "mathematics",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Mathematics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p2_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q3:diagram_3",
+      "snippet": "In the diagram below, AACD has vertices A, D(3 ;-9) and C(-9; 0), where A isa point in the second quadrant. B(-1 ; 4) lies on side DC. y A",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/mathematics_p2_november_2024/p05_diagram_or_model_q3_diagram_3-05.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/mathematics/diagram_or_model/02_mathematics_p2_november_2024_p05_q3_diagram_3.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "mathematics",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart",
+        "diagram_or_model"
+      ],
+      "paper": "Mathematics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p1_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q4:sketch_4",
+      "snippet": "43 Sketch the graph of f Clearly show the intercepts with the axes and asymptotes, if any. (3) . . . . 19 44 It is further given that C isapointon f at y=",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/mathematics_p1_november_2024/p04_graph_or_chart_q4_sketch_4-04.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/mathematics/graph_or_chart/01_mathematics_p1_november_2024_p04_q4_sketch_4.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "mathematics",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Mathematics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p2_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q2:graph_2",
+      "snippet": "The cumulative frequency graph (ogive) shows the time taken (in minutes) for 60 employees to travel to work each morning. Ogive 65",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/mathematics_p2_november_2024/p04_graph_or_chart_q2_graph_2-04.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/mathematics/graph_or_chart/02_mathematics_p2_november_2024_p04_q2_graph_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "mathematics",
+      "source_type": "map_extract",
+      "source_types": [
+        "map_extract",
+        "data_table",
+        "diagram_or_model"
+      ],
+      "paper": "Mathematics P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/mathematics/2024/november/mathematics_2024_november_p2_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q2:diagram_2",
+      "snippet": "and whisker diagram to indicate the distribution of the data as represented in the ogive above. (2) 2.5 The company manager decided that all employees who travel for an hour or more will be allowed to work from home for part of the day. What percentage of the employees",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/mathematics_p2_november_2024/p04_map_extract_q2_diagram_2-04.png",
+      "quality_flags": [
+        "object_id_source_type_mismatch",
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/mathematics/map_extract/01_mathematics_p2_november_2024_p04_q2_diagram_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "physical_sciences",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table"
+      ],
+      "paper": "Physical Sciences Chemistry P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p2_question_paper.pdf",
+      "page": 5,
+      "object_id": "Q1:table_1",
+      "snippet": "1.7 The table below shows the ionisation constants, Ka, for two acids at 25 \u00b0C. ACID Ka Butanoic acid 1,5 x 10-5",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/physical_sciences_chemistry_p2_november_2024/p05_data_table_q1_table_1-05.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/data_table/01_physical_sciences_chemistry_p2_november_2024_p05_q1_table_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "physical_sciences",
+      "source_type": "data_table",
+      "source_types": [
+        "data_table",
+        "diagram_or_model"
+      ],
+      "paper": "Physical Sciences Physics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p1_question_paper.pdf",
+      "page": 8,
+      "object_id": "Q2:table_2",
+      "snippet": "In an experiment, a crate of mass 8,5 kg, lying stationary on a rough horizontal table, is connected to a mass hanger by means of a light inextensible string passing over a frictionless pulley, as shown in the diagram below. Mass pieces are added to the mass hanger and the acceleration of the crate is measured. The experiment is repeated",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/physical_sciences_physics_p1_november_2024/p08_data_table_q2_table_2-08.png",
+      "quality_flags": [
+        "multi_source_page"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/data_table/02_physical_sciences_physics_p1_november_2024_p08_q2_table_2.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "physical_sciences",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Physical Sciences Chemistry P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p2_question_paper.pdf",
+      "page": 4,
+      "object_id": "Q1:diagram_1",
+      "snippet": "1.4 The potential energy diagram below is for the following hypothetical chemical reaction: X + Y \u21cc Z",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/physical_sciences_chemistry_p2_november_2024/p04_diagram_or_model_q1_diagram_1-04.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/diagram_or_model/01_physical_sciences_chemistry_p2_november_2024_p04_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "physical_sciences",
+      "source_type": "diagram_or_model",
+      "source_types": [
+        "diagram_or_model"
+      ],
+      "paper": "Physical Sciences Physics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p1_question_paper.pdf",
+      "page": 6,
+      "object_id": "Q1:diagram_1",
+      "snippet": "are r metres apart, as shown in the diagram below. Ignore ALL frictional effects. +Q",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/physical_sciences_physics_p1_november_2024/p06_diagram_or_model_q1_diagram_1-06.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/diagram_or_model/02_physical_sciences_physics_p1_november_2024_p06_q1_diagram_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "physical_sciences",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Physical Sciences Chemistry P2 November 2024",
+      "paper_theme": "settlement_economic_geography_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p2_question_paper.pdf",
+      "page": 11,
+      "object_id": "Q5:graph_5",
+      "snippet": "The graph of volume H2(g) versus time for this experiment, not drawn to scale, is shown below. Volume H2 (dm3)",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/physical_sciences_chemistry_p2_november_2024/p11_graph_or_chart_q5_graph_5-11.png",
+      "quality_flags": [
+        "not_drawn_to_scale"
+      ],
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/graph_or_chart/01_physical_sciences_chemistry_p2_november_2024_p11_q5_graph_5.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    },
+    {
+      "subject_id": "physical_sciences",
+      "source_type": "graph_or_chart",
+      "source_types": [
+        "graph_or_chart"
+      ],
+      "paper": "Physical Sciences Physics P1 November 2024",
+      "paper_theme": "climate_weather_geomorphology_and_mapwork",
+      "pdf": "corpora/exam_papers/dbe_fet_2024_november/fet_grade_12/physical_sciences/2024/november/physical_sciences_2024_november_p1_question_paper.pdf",
+      "page": 3,
+      "object_id": "Q1:graph_1",
+      "snippet": "t seconds to strike the ground. Consider the acceleration-time graph below for the motion of the stone. The effects of air friction are ignored.",
+      "source_manifest": "deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/SOURCE_PAGE_EXEMPLARS.json",
+      "source_png": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/exam_source_catalogue_fet_2024_november/source_page_exemplars/physical_sciences_physics_p1_november_2024/p03_graph_or_chart_q1_graph_1-03.png",
+      "quality_flags": [],
+      "bank_png": "deliverables/homs_core_source_bank/physical_sciences/graph_or_chart/02_physical_sciences_physics_p1_november_2024_p03_q1_graph_1.png",
+      "asset_status": "official_page_exemplar",
+      "embedding_policy": "May be embedded as an official-paper source exemplar. Review copyright/licensing and crop/readability before client delivery."
+    }
+  ]
+}

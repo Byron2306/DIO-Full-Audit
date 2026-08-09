@@ -1,0 +1,116 @@
+{
+  "schema": "knowedge.dio_marketing_integration.v1",
+  "active_registry_wave": "wave4",
+  "active_registry_archive": "DIO_Prospect_Intelligence_Wave4.zip",
+  "output_root": "campaigns/dio_market_loop/wave4",
+  "hivenance_root": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation",
+  "nichefoundry_root": "/home/byron/Downloads/NicheFoundry_Phase11",
+  "nichefoundry_studio": "dio_proof_led_services",
+  "nichefoundry_studio_pack": "config/nichefoundry_studios/dio_proof_led_services.json",
+  "default_experiment_window_days": 14,
+  "default_paid_budget_cap_minor": 0,
+  "currency": "ZAR",
+  "active_product_lines": [
+    "HOMS_ASSESS",
+    "EVIDEX_PACK",
+    "HOMS_LEARN",
+    "SOPHIA_REVIEW",
+    "VAMP_ACADEMIC"
+  ],
+  "route_priority": {
+    "SELF_SERVE_AVAILABLE": 5,
+    "CHANNEL_SUBMISSION_AVAILABLE": 5,
+    "PARTNERSHIP_ROUTE_AVAILABLE": 4,
+    "INSTITUTIONAL_ROUTE_AVAILABLE": 3,
+    "PUBLIC_ROUTE_PRESENT_REVERIFY_ROLE": 1,
+    "RESEARCH_ONLY": 0
+  },
+  "product_lines": {
+    "HOMS_ASSESS": {
+      "product_layer": "homs",
+      "public_name": "HOMS Assessment Desk",
+      "generic_audience": "South African independent-school academic leaders, assessment coordinators and educators",
+      "offer_id": "HOMS-ASSESSMENT-PILOT",
+      "landing_page": "/homs/assessment-pilot",
+      "proof_pointer": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "proof_summary": "Eight Grade 12 Term 3 subject packs with separate memoranda, source-grounded papers, embedded media and educator approval boundaries.",
+      "public_hook": "One curriculum spine should not produce eight identical-looking papers. Watch HOMS change the assessment architecture with the subject.",
+      "public_cta": "Review the tight-eight proof and request one subject-and-grade pilot.",
+      "preferred_route_states": [
+        "CHANNEL_SUBMISSION_AVAILABLE",
+        "PARTNERSHIP_ROUTE_AVAILABLE"
+      ]
+    },
+    "EVIDEX_PACK": {
+      "product_layer": "evidex",
+      "public_name": "Evidex Evidence Pack",
+      "generic_audience": "South African NGO, NPO, M&E, grant and programme teams",
+      "offer_id": "EVIDEX-PILOT-PACK",
+      "landing_page": "/evidex/golden-case",
+      "proof_pointer": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "proof_summary": "A controlled messy-input-to-evidence-pack case with mapped claims, provenance, human review, delivery state and business telemetry.",
+      "public_hook": "Your funder wants proof. The proof is spread across folders, spreadsheets and email. Evidex turns that evidence mess into a review-ready pack.",
+      "public_cta": "Review the golden case and nominate one bounded evidence-pack pilot.",
+      "preferred_route_states": []
+    },
+    "HOMS_LEARN": {
+      "registry_product_line_id": "SOPHIA_LEARN",
+      "registry_lineage_note": "Wave 4 used SOPHIA_LEARN for the combined guided-learning hypothesis; DIO now projects that evidence into canonical HOMS_LEARN.",
+      "product_layer": "homs_learning",
+      "public_name": "HOMS Learning Studio",
+      "generic_audience": "South African schools, tutors, extra-class providers and education publishers",
+      "offer_id": "HOMS-ONE-TOPIC-COMPANION-PILOT",
+      "landing_page": "/homs/learning-studio",
+      "proof_pointer": "deliverables/homs_learning_studio/grade_10_physical_sciences_term_3_motion",
+      "proof_summary": "A Grade 10 Physical Sciences Term 3 Motion companion now connects a guide, practical, worksheet, mini-assessment, memoranda, eight meaningful visuals, captions and a 2:06 lesson. Subject-expert approval remains the commercial release gate.",
+      "public_hook": "One curriculum spine should drive the explanation, activity, worksheet, assessment, memo and optional video lesson.",
+      "public_cta": "Nominate one subject, grade, term and topic for a controlled companion-pack pilot.",
+      "preferred_route_states": [
+        "PARTNERSHIP_ROUTE_AVAILABLE",
+        "CHANNEL_SUBMISSION_AVAILABLE"
+      ]
+    },
+    "SOPHIA_REVIEW": {
+      "product_layer": "sophia",
+      "public_name": "Sophia Academic Review Desk",
+      "generic_audience": "Postgraduate students, supervisors, writing centres and research groups",
+      "offer_id": "SOPHIA-SECTION-REVIEW-PILOT",
+      "landing_page": "/sophia/section-review",
+      "proof_pointer": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "proof_summary": "Grounded Gemini reviewer commentary, technical citation audit and claim-to-source ledger with human approval and academic-integrity boundaries.",
+      "public_hook": "Academic AI should show an author what to strengthen, not write the work for them.",
+      "public_cta": "Request one bounded manuscript-section review.",
+      "preferred_route_states": [
+        "CHANNEL_SUBMISSION_AVAILABLE",
+        "PARTNERSHIP_ROUTE_AVAILABLE"
+      ]
+    },
+    "VAMP_ACADEMIC": {
+      "product_layer": "vamp",
+      "public_name": "VAMP Performance Evidence Desk",
+      "generic_audience": "Academic staff, HR administrators, department heads and performance coordinators",
+      "offer_id": "VAMP-EVIDENCE-SNAPSHOT-PILOT",
+      "landing_page": "/vamp/performance-evidence-snapshot",
+      "proof_pointer": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "proof_summary": "A controlled private proof mapped 190 evidence records to performance objectives, retained review candidates and exposed evidence gaps without making a rating decision.",
+      "public_hook": "Performance review panic starts when evidence was never collected as evidence.",
+      "public_cta": "Request one task-agreement and evidence snapshot pilot.",
+      "preferred_route_states": [
+        "INSTITUTIONAL_ROUTE_AVAILABLE",
+        "PARTNERSHIP_ROUTE_AVAILABLE"
+      ]
+    }
+  },
+  "governance": {
+    "electronic_outreach_allowed_states": [
+      "Consented",
+      "Existing customer"
+    ],
+    "content_generation_allowed_campaign_states": [
+      "DESIGN_ONLY"
+    ],
+    "publication_requires_human_approval": true,
+    "personalisation_requires_outreach_permission": true,
+    "never_export_contact_details_to_nichefoundry": true
+  }
+}

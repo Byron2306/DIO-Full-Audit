@@ -1,0 +1,59 @@
+{
+  "schema": "knowedge.phase3.storyboard.v1",
+  "episode_id": "homs-c32b49867157b9ad",
+  "studio_id": "practical_open_source",
+  "product_layer": "homs",
+  "created_at": "2026-08-07T14:55:49+00:00",
+  "target_runtime_seconds": 66,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 8,
+      "narration": "What if the first pass of your marking backlog arrived already organized?",
+      "visual": "Show assignment ZIP and rubric becoming a lecturer review desk as the opening transformation.",
+      "screen_text": "HOMS Marking Relief Pack"
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 12,
+      "narration": "Marking backlogs drain time, consistency, and useful feedback quality.",
+      "visual": "Show the messy input state: emails, folders, files, forms, rubrics, or drafts.",
+      "screen_text": "The messy input"
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "workflow",
+      "duration_seconds": 14,
+      "narration": "HOMS Marking Relief Pack routes the work through a controlled pipeline instead of pretending AI can decide everything.",
+      "visual": "Show route card, evidence card, approval gate, and output folder.",
+      "screen_text": "Route -> Review -> Pack"
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "promise",
+      "duration_seconds": 14,
+      "narration": "Draft feedback, annotated files where possible, rubric documents, marks CSV, and lecturer review summary.",
+      "visual": "Show the finished review-ready pack with checklist and receipt.",
+      "screen_text": "Review-ready output"
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 10,
+      "narration": "Educator approves final marks and feedback. AI never becomes the final assessor.",
+      "visual": "Show human approval as an explicit final gate.",
+      "screen_text": "Human approval stays"
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "narration": "Send one fake or non-sensitive batch to prove the workflow.",
+      "visual": "Show a simple intake action and pilot label.",
+      "screen_text": "Marking Relief Pilot"
+    }
+  ],
+  "approval_required": true
+}

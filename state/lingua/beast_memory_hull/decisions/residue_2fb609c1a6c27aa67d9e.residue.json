@@ -1,0 +1,48 @@
+{
+  "beast_object_type": "memory_hull_sidecar",
+  "markdown_sha256": "sha256:a6d9839ea21112ae6e53758b1b5ec647ddba679b2552f433ac2fa6aef13b5e7b",
+  "payload": {
+    "beast_object_type": "memory_hull_residue",
+    "beast_systems": {
+      "chronicle_compatible": true,
+      "residue_sealed": true,
+      "vault_editable": true
+    },
+    "caller": "spiffe://dio.local/lingua",
+    "correlation_id": "",
+    "cost_saved": "",
+    "created_at": "2026-08-09T11:38:06.421963+00:00",
+    "decision": "Reused 0 approved units and 0 approved terms.",
+    "evidence": {
+      "active_negative_count": 0,
+      "reuse_state": "miss"
+    },
+    "files_touched": [],
+    "markdown_sha256": "sha256:a6d9839ea21112ae6e53758b1b5ec647ddba679b2552f433ac2fa6aef13b5e7b",
+    "policy_tags": [
+      "lingua",
+      "semantic-reuse",
+      "human-authority"
+    ],
+    "provider": "BEAST",
+    "residue_id": "residue_2fb609c1a6c27aa67d9e",
+    "section": "decisions",
+    "task": "Resolve Lingua knowledge for Water-quality operations",
+    "version": "2.0"
+  },
+  "residue_seal": {
+    "algorithm": "Ed25519",
+    "beast_object_type": "beast_residue_seal",
+    "created_at": "2026-08-09T11:38:06.422839+00:00",
+    "key_boundary": "purpose_specific_residue_key_not_mtls_not_federation",
+    "message_sha256": "sha256:f2abaf03650ebbc3dcb9563efce5fc1b9d97d20f1e3abc0803db4106ff86677c",
+    "payload_sha256": "sha256:863ebac118d51b2db461a92941c3760fc76164b364e8501c835bd0729161ce06",
+    "provider": "cryptography",
+    "public_key_hash": "sha256:f13a4e072338d550ace71920c068094772cdca22b79fb88afac4d62acb21c72a",
+    "public_key_pem_b64": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUNvd0JRWURLMlZ3QXlFQW5kOGpOOEdBVmhUd3d6VHpNRjExNmtkd2NWaksrUlpuTjVidHI4djI2Wk09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=",
+    "purpose": "memory_hull_decisions",
+    "signature_b64": "hc1fD3oLKibsiYvcyeuhH2BS/ygng4fd+YTf6gg3QEJg2f+Fofn2cCMX2qYGDX3QZ9b58CKPhvkQP3GGrTlfCw==",
+    "version": "2.0"
+  },
+  "version": "2.0"
+}

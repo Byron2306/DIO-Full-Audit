@@ -1,0 +1,30 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:0bd15decb4ad5f5cb90153ed487e87b363f32255ee7ba9c35772e7d7fdcf6c18",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 20,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.9,
+    "evidence_packet_id": "risk:Sesotho:sha256:21a85ec8872f6",
+    "impact_fingerprint_hash": "sha256:f6e60fbdb443b480dd2643d291bb9e3bcb0b771d4c49acd7f59973c643694f8a",
+    "metadata": {
+      "asserts_translation_truth": false,
+      "authority": "conservative_machine_risk_escalation",
+      "domain": "Water-quality operations",
+      "issue": "PBT is not expanded; technicians may not know what it stands for. Consider adding a definition or using a local term for personal protective equipment.",
+      "severity": "high",
+      "target_language": "Sesotho"
+    },
+    "policy_version": "dio_lingua_conservative_risk_learning_v1",
+    "repo_fingerprint": "sha256:f6e60fbdb443b480dd2643d291bb9e3bcb0b771d4c49acd7f59973c643694f8a",
+    "task_class": "dio_lingua_risk_pattern",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "dio.vamp_snapshot_receipt.v1",
+  "job_id": "VAMP-GENERIC-UNIVERSITY-PROOF-001",
+  "created_at": "2026-08-08T20:53:22+00:00",
+  "status": "ready_for_human_review",
+  "archive": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/vamp_snapshots/VAMP-GENERIC-UNIVERSITY-PROOF-001/VAMP-GENERIC-UNIVERSITY-PROOF-001_VAMP_EVIDENCE_SNAPSHOT.zip",
+  "archive_sha256": "6f67b8af5c5f93a0693cac2cea39b83e4d24a607349b1f87afb0f61f4cd6da92",
+  "metrics": {
+    "evidence_records": 5,
+    "unique_hashes": 5,
+    "objectives_total": 6,
+    "objectives_evidence_backed": 3,
+    "objectives_partial": 0,
+    "objectives_declared_no_evidence": 1,
+    "objectives_gap": 2,
+    "evidence_backed_pct": 50.0,
+    "accepted_mappings": 3,
+    "candidate_mappings": 1,
+    "duplicates_suppressed": 0,
+    "unmapped_evidence": 1
+  },
+  "profile_id": "university_generic_v1"
+}

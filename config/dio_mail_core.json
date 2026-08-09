@@ -1,0 +1,23 @@
+{
+  "schema": "dio.mail_core.config.v1",
+  "mail_intent_dir": "state/mail_intents",
+  "mail_ingress_dir": "state/mail_ingress",
+  "event_log": "telemetry/dio_events.jsonl",
+  "outbound_mail_default": "off",
+  "approval_token_ttl_minutes": 10,
+  "providers": {
+    "primary": "microsoft_graph",
+    "fallback": "outlook_browser_agent"
+  },
+  "authority": {
+    "read": "automatic",
+    "classify": "automatic",
+    "route": "automatic",
+    "extract_attachments": "automatic",
+    "create_draft": "automatic",
+    "send": "one_time_approval_required",
+    "first_time_marketing": "registry_permission_and_operator_approval_required",
+    "refund_or_cancel": "human_required"
+  },
+  "legacy_google_mailer_mode": "disabled_in_dio_mode"
+}

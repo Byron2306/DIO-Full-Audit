@@ -1,0 +1,58 @@
+{
+  "schema": "knowedge.caps_assessment_demo_receipt.v1",
+  "created_at": "2026-08-07T20:31:09+00:00",
+  "status": "generated",
+  "job_id": "fet_senior_dance_studies_grade10_20260807T203109Z",
+  "proof_group": "fet_senior",
+  "selected_grade": 10,
+  "caps": {
+    "title": "Dance Studies",
+    "phase": "fet_grade_10_12",
+    "path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/corpora/caps/pdf/fet_grade_10_12/caps_fet_dance_studies_gr_10-12_web_6466.pdf",
+    "sha256": "9b7901748f4f625e8f0ad6ec724e4c98493856f878c8229107e6da7be8410ada",
+    "recommended_blueprint": "practical_performance_or_portfolio",
+    "source_document_title": "Dance Studies",
+    "signals": {
+      "signals_source_based": true,
+      "signals_essay_or_extended_response": true,
+      "signals_case_study": false,
+      "signals_data_graph_diagram": true,
+      "signals_practical_investigation": true,
+      "signals_project_or_sba": true,
+      "signals_oral_or_performance": true,
+      "signals_calculation_problem": false,
+      "signals_formal_test_or_exam": true
+    }
+  },
+  "canonical_profile": {
+    "profile_id": "fet.dance_studies",
+    "subject": "Dance Studies",
+    "subject_family": "arts",
+    "assessment_family": "practical_performance_or_portfolio",
+    "allowed": [
+      "performance_or_product",
+      "portfolio",
+      "reflection",
+      "technique_vocabulary",
+      "rubric_levels"
+    ],
+    "default_off": [
+      "calculation_heavy_questions",
+      "generic_case_study",
+      "formal_source_essay"
+    ],
+    "required_distribution": {
+      "performance_or_product": 50,
+      "technique_and_process": 25,
+      "reflection_or_context": 25
+    }
+  },
+  "duration_seconds": 34.359,
+  "outputs": {
+    "job_dir": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/fet_senior_dance_studies_grade10_20260807T203109Z",
+    "json": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/fet_senior_dance_studies_grade10_20260807T203109Z/assessment_pack.json",
+    "markdown": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/fet_senior_dance_studies_grade10_20260807T203109Z/ASSESSMENT_PACK.md",
+    "docx": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/fet_senior_dance_studies_grade10_20260807T203109Z/ASSESSMENT_PACK.docx",
+    "zip": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/exam_builder/caps_closing_proofs/caps_closing_seed_1873619227/fet_senior_dance_studies_grade10_20260807T203109Z/CAPS_ASSESSMENT_DEMO_PACK.zip"
+  }
+}

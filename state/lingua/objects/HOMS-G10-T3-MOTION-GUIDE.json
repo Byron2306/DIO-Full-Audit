@@ -1,0 +1,891 @@
+{
+  "schema": "dio.lingua.semantic_object.v1",
+  "object_id": "HOMS-G10-T3-MOTION-GUIDE",
+  "domain": "Education",
+  "subject": "Physical Sciences",
+  "grade": "10",
+  "curriculum_concept": "Motion in One Dimension",
+  "origin": {
+    "product": "homs",
+    "artifact_type": "learner_guide",
+    "artifact_id": "HOMS-G10-T3-MOTION-LEARNER-GUIDE",
+    "source_path": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_learning_studio/grade_10_physical_sciences_term_3_motion/documents/HOMS_G10_T3_MOTION_LEARNER_GUIDE.docx",
+    "extraction_method": "docx_xml",
+    "audience": "Grade 10 learners and educators",
+    "channel": "docx",
+    "profile": "",
+    "privacy_domain": "institutional"
+  },
+  "source": {
+    "language": "English",
+    "version": "1.0.0",
+    "document_hash": "sha256:12678597a9cd6653f568bc6d5f1776840631a20f73d7ee9f59c8c82eb9e31e76",
+    "units": [
+      {
+        "unit_id": "P1",
+        "unit_type": "title",
+        "source_text": "HOMS",
+        "source_hash": "sha256:8d8d1fd68e5b07b06fe3d44387f38e714447a715c8537fb6853f32813b217382",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P2",
+        "unit_type": "body",
+        "source_text": "Learner Concept Guide",
+        "source_hash": "sha256:de9be6819d708fecfddc141ab0cfd2a1c531bbd4afa76bad76b7f1078fda06fc",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P3",
+        "unit_type": "body",
+        "source_text": "Motion in One Dimension",
+        "source_hash": "sha256:f68e5a7212481bb1ab71a495e5a6d2258341715ce0719d5054aa8dc33a87f941",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P4",
+        "unit_type": "body",
+        "source_text": "Physical Sciences | Grade 10 | Term 3",
+        "source_hash": "sha256:ba592c6eb785e482fe76de6ac91019fcff8a669bfcc04b58e9ba4cacd218871b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P5",
+        "unit_type": "body",
+        "source_text": "Understand the motion story, then calculate it with confidence.",
+        "source_hash": "sha256:370dbd1217bade0509ad04249767d2b6acb9f86216deabf6ec27d951ad20979d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P6",
+        "unit_type": "body",
+        "source_text": "Learner name",
+        "source_hash": "sha256:cd7af8b9cc4f86ee2b8877f8dace0b64dc189b7c881b05c61bca39ecb921e90b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P7",
+        "unit_type": "body",
+        "source_text": "Date",
+        "source_hash": "sha256:99c40ab405926cb5ad1def9cff4d7ce624f8f8abfff4e85f655347fcb949d08e",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P8",
+        "unit_type": "instruction",
+        "source_text": "CAPS-aligned draft. Educator or subject-expert approval is required before classroom use.",
+        "source_hash": "sha256:d99030fcd26f1ca927db55987ac2197f6828306606bf1ad07b3c447671feacd8",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P9",
+        "unit_type": "body",
+        "source_text": "How To Use This Guide",
+        "source_hash": "sha256:d113c02e66af44499b68968974751f8ee1736a606553b095ff15104623fe8150",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P10",
+        "unit_type": "body",
+        "source_text": "Read the concept explanation before attempting the worked example.",
+        "source_hash": "sha256:98540d434ab7d2672dec71cfc952adf8286be361321bd226b9bfb3717f0c9d47",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P11",
+        "unit_type": "body",
+        "source_text": "Choose a positive direction and keep signs consistent.",
+        "source_hash": "sha256:a361bec9f96675dbcae94897488dc3d04fd817fea63ee0e02dd845969588cdb7",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P12",
+        "unit_type": "body",
+        "source_text": "Draw a small motion sketch before substituting into an equation.",
+        "source_hash": "sha256:85a65664ffb34c087954816a92dc757a5484bf08bc955a7501fb1556f1af1d0c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P13",
+        "unit_type": "body",
+        "source_text": "Complete the activity and worksheet before the mini-assessment.",
+        "source_hash": "sha256:cb1f7cde9be9ffd535fe894a777e5ded2413f63b16e05986f50a7dfd09a07742",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P14",
+        "unit_type": "body",
+        "source_text": "Use the memorandum only after making a serious attempt.",
+        "source_hash": "sha256:afbb9e985fb067fefa58f8f8362ba86198677a8681505d727ff7197e3c205f92",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P15",
+        "unit_type": "body",
+        "source_text": "Learning Outcomes",
+        "source_hash": "sha256:df64538d4cb15406638d33bc10a903267ba4734561a217a8afa4572652ca4c41",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P16",
+        "unit_type": "body",
+        "source_text": "Describe motion relative to a reference frame.",
+        "source_hash": "sha256:0af678133646d3bb71de29acf1542fca580ab64f479f2c5ccb1b25557348ae2b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P17",
+        "unit_type": "body",
+        "source_text": "Distinguish distance from displacement and speed from velocity.",
+        "source_hash": "sha256:16e4014373905c1ebe4798d99b0be7cd34614ba4c63aaafb93044ab370eeb3d1",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P18",
+        "unit_type": "body",
+        "source_text": "Calculate average speed, average velocity and acceleration.",
+        "source_hash": "sha256:dd70b1e48cdddb56547112034344419e672ca1a23ce2e759f8249e4d316f64ca",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P19",
+        "unit_type": "body",
+        "source_text": "Interpret position-time and velocity-time graphs.",
+        "source_hash": "sha256:4c7eb27e91be35057173fddc873a966cc626fbda3f1d2098473c588ffdbbfcb2",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P20",
+        "unit_type": "body",
+        "source_text": "Apply the equations of uniformly accelerated motion.",
+        "source_hash": "sha256:89142dbfcd735748024ea1d5aee230a7106bb7a2c49eec55204845f3533eecf2",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P21",
+        "unit_type": "body",
+        "source_text": "Evaluate whether an answer is physically sensible and correctly signed.",
+        "source_hash": "sha256:5ee284ae2c98f14e376ba36e5ae15dd717a69d1acc80e10c2209a67a3174a649",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P22",
+        "unit_type": "body",
+        "source_text": "1. Reference Frames And Position",
+        "source_hash": "sha256:c2be4773814a7675c924e62d962b4ec3dbd6aa5d8ab7eec7dcf1f782a234063e",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P23",
+        "unit_type": "body",
+        "source_text": "Motion is always described relative to a chosen reference frame. A reference frame has an origin and a positive direction. Once the direction is chosen, positions and vector quantities may be positive or negative.",
+        "source_hash": "sha256:b03bfe48cb98a57c23833076e5f53efe52555486dbaa722b398b2be384bcfe67",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P24",
+        "unit_type": "labelled_instruction",
+        "source_text": "Sign discipline: A negative velocity does not mean that an object is slowing down. It means the object is moving in the chosen negative direction.",
+        "source_hash": "sha256:2dcb86776ac10936d564643cdc85e3a76e3c539aaca074ebe0a0ae55d9bfa87d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P25",
+        "unit_type": "body",
+        "source_text": "2. Distance And Displacement",
+        "source_hash": "sha256:5b0c4187f2b2418af8ae83a2f43e90306cdb2a7026ace7f00abab54b981fada1",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P26",
+        "unit_type": "body",
+        "source_text": "Distance is the total path length travelled. It is a scalar and cannot be negative. Displacement is the change in position from the start to the finish. It is a vector and includes direction.",
+        "source_hash": "sha256:aa70e97c62caafcf4024f18736d580c92324400bcc33fea50fb7b68c15024084",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P27",
+        "unit_type": "body",
+        "source_text": "Worked Example 1",
+        "source_hash": "sha256:267f7116b09822b56c2decd7a56f2fa8eec4dcfb6c4558bf8592670ef40c68cd",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P28",
+        "unit_type": "body",
+        "source_text": "A learner walks 20 m east and then 5 m west in 10 s. Take east as positive.",
+        "source_hash": "sha256:c61f5956259333d884d5733066d9a99117cec9785234531335769d190a8a9223",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P29",
+        "unit_type": "body",
+        "source_text": "Distance",
+        "source_hash": "sha256:b7bdf7a2d6e73e58d69a667ad9b63f706dd96bbbc4a8187914fc34646a1e003b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P30",
+        "unit_type": "body",
+        "source_text": "20 + 5 = 25 m",
+        "source_hash": "sha256:dbb2a2fa4be90d8780f08dd9f1f4554401416faa68511a402804606c0b900e2c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P31",
+        "unit_type": "body",
+        "source_text": "Displacement",
+        "source_hash": "sha256:f348fb4839ffa800f075c903cd2a24cb79a3a0de3380fde5c8bb05ce5d5f29de",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P32",
+        "unit_type": "body",
+        "source_text": "+20 - 5 = +15 m (east)",
+        "source_hash": "sha256:9c7cf2438d11119e41d37ed512160c6f40d59af02394cb141d64583364f895cd",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P33",
+        "unit_type": "body",
+        "source_text": "Average speed",
+        "source_hash": "sha256:746b221dc8c9a3058e2a9dee89554b24a21f977fd79fe4ca68404693d5da3091",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P34",
+        "unit_type": "body",
+        "source_text": "25 / 10 = 2.5 m.s^-1",
+        "source_hash": "sha256:a69924ac56e673577a9c6ce291ad9ac0c03a13b0539457081eca922c7ae3de71",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P35",
+        "unit_type": "body",
+        "source_text": "Average velocity",
+        "source_hash": "sha256:adc6fe129d77329698b5b83e3412aa2a523235ef6a829fd8b5a77f946845110d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P36",
+        "unit_type": "body",
+        "source_text": "+15 / 10 = +1.5 m.s^-1 (east)",
+        "source_hash": "sha256:9423beef01c25e563de6fb01795425b33bf7a607093536b172a23dc669d67a74",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P37",
+        "unit_type": "body",
+        "source_text": "3. Velocity And Acceleration",
+        "source_hash": "sha256:ab29cca0df6166a3b1edc7f398040e77a357341d0fe20d728e77b078f6945e57",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P38",
+        "unit_type": "body",
+        "source_text": "Velocity describes how quickly position changes and in which direction. Acceleration describes how quickly velocity changes. An object can accelerate by speeding up, slowing down, or changing direction.",
+        "source_hash": "sha256:747db2e088d5302a811a3ade69de9041bbdf033de49a1140907c8f43d544c330",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P39",
+        "unit_type": "body",
+        "source_text": "Quantity",
+        "source_hash": "sha256:822bab8d41bca8d7976cd69963d93a335ee21fa46160c4b866e0df7ea4b33196",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P40",
+        "unit_type": "body",
+        "source_text": "Relationship",
+        "source_hash": "sha256:25490a10d071aef70f7a5d4fba0b8f17c9629da0453f89aab0f9dcd5fd0e0a21",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P41",
+        "unit_type": "body",
+        "source_text": "SI unit",
+        "source_hash": "sha256:27453b78c058de136030b2994defc65d31f7564aed621100d51d8d446b0ede9f",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P42",
+        "unit_type": "body",
+        "source_text": "Displacement",
+        "source_hash": "sha256:f348fb4839ffa800f075c903cd2a24cb79a3a0de3380fde5c8bb05ce5d5f29de",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P43",
+        "unit_type": "body",
+        "source_text": "delta x = x final - x initial",
+        "source_hash": "sha256:864c0b6e9192f54c2dcc231adde663a41051a70a92ac21c1ae3b834010e8160b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P44",
+        "unit_type": "body",
+        "source_text": "m",
+        "source_hash": "sha256:62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P45",
+        "unit_type": "body",
+        "source_text": "Average speed",
+        "source_hash": "sha256:746b221dc8c9a3058e2a9dee89554b24a21f977fd79fe4ca68404693d5da3091",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P46",
+        "unit_type": "body",
+        "source_text": "total distance / total time",
+        "source_hash": "sha256:16adc145daf1c689cec6fdee65aad56f183affdcb0e24fb961e8e761e42c921c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P47",
+        "unit_type": "body",
+        "source_text": "m.s^-1",
+        "source_hash": "sha256:16ecf8d1b1d3b99c56fad9d296ac604b52e1d00f3d3b43fe9cf02ed4f6ca40c1",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P48",
+        "unit_type": "body",
+        "source_text": "Average velocity",
+        "source_hash": "sha256:adc6fe129d77329698b5b83e3412aa2a523235ef6a829fd8b5a77f946845110d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P49",
+        "unit_type": "body",
+        "source_text": "displacement / time interval",
+        "source_hash": "sha256:417c9e8445b78b026bd4f96649ef2d4a4c4c67d2b59293a3506a8b9b0fd6178e",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P50",
+        "unit_type": "body",
+        "source_text": "m.s^-1",
+        "source_hash": "sha256:16ecf8d1b1d3b99c56fad9d296ac604b52e1d00f3d3b43fe9cf02ed4f6ca40c1",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P51",
+        "unit_type": "body",
+        "source_text": "Acceleration",
+        "source_hash": "sha256:91663a8e5fa01cd7f12af537c0807f85c27e38769f5053c839bb02541d927bc2",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P52",
+        "unit_type": "body",
+        "source_text": "a = delta v / delta t",
+        "source_hash": "sha256:909bb3c4ad0dd26c3afb4e4af793e4ba24afd2924fed967ebcb845374bd4d43e",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P53",
+        "unit_type": "body",
+        "source_text": "m.s^-2",
+        "source_hash": "sha256:39299273a51d52c8a763519d0e88a7838b3ebd34d5bf4fb2c90d839dabc9cbd4",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P54",
+        "unit_type": "body",
+        "source_text": "Uniform acceleration",
+        "source_hash": "sha256:e64b2e85dac2421dbc7df16126ee570b8bed9e589b462c74e1a2b26f058fc42a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P55",
+        "unit_type": "body",
+        "source_text": "v final = v initial + a delta t",
+        "source_hash": "sha256:01b092bfe5e8e7e5b24877500620b96027e33e37854b557a4608e4c8a3aa494c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P56",
+        "unit_type": "body",
+        "source_text": "m.s^-1",
+        "source_hash": "sha256:16ecf8d1b1d3b99c56fad9d296ac604b52e1d00f3d3b43fe9cf02ed4f6ca40c1",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P57",
+        "unit_type": "body",
+        "source_text": "Uniform acceleration",
+        "source_hash": "sha256:e64b2e85dac2421dbc7df16126ee570b8bed9e589b462c74e1a2b26f058fc42a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P58",
+        "unit_type": "body",
+        "source_text": "delta x = v initial delta t + 0.5 a(delta t)^2",
+        "source_hash": "sha256:d539ef270513c540ffe6151f4f2e5d1001bdf18154432601e938915d97ffbcda",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P59",
+        "unit_type": "body",
+        "source_text": "m",
+        "source_hash": "sha256:62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P60",
+        "unit_type": "body",
+        "source_text": "Uniform acceleration",
+        "source_hash": "sha256:e64b2e85dac2421dbc7df16126ee570b8bed9e589b462c74e1a2b26f058fc42a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P61",
+        "unit_type": "body",
+        "source_text": "v final^2 = v initial^2 + 2a delta x",
+        "source_hash": "sha256:de6fcedb874ee762f0553032eeb059eebc5c2d487f38e73a1d7433ecb567b184",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P62",
+        "unit_type": "body",
+        "source_text": "m^2.s^-2",
+        "source_hash": "sha256:a32cdec519277cbfc79ffb828ac0f75af903e669254456cbe6bd3ab6ed68d41c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P63",
+        "unit_type": "body",
+        "source_text": "Uniform acceleration",
+        "source_hash": "sha256:e64b2e85dac2421dbc7df16126ee570b8bed9e589b462c74e1a2b26f058fc42a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P64",
+        "unit_type": "body",
+        "source_text": "delta x = 0.5(v initial + v final)delta t",
+        "source_hash": "sha256:82ace92091e6542e8bbd6246bb024b2eeb327ab2d97aef1ed89676db3df5b745",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P65",
+        "unit_type": "body",
+        "source_text": "m",
+        "source_hash": "sha256:62c66a7a5dd70c3146618063c344e531e6d4b59e379808443ce962b3abd63c5a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P66",
+        "unit_type": "body",
+        "source_text": "Worked Example 2",
+        "source_hash": "sha256:25ae4298b6caa702ce258e35b7c745756ae8393735749bc2258d5ffeb577e8ef",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P67",
+        "unit_type": "body",
+        "source_text": "A trolley moves east at 2 m.s^-1 and accelerates uniformly east at 3 m.s^-2 for 4 s.",
+        "source_hash": "sha256:75a6e7a1086f4b5daa6ae16e2423bd376a5b46a6496c78902cdbe2c22288d0ba",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P68",
+        "unit_type": "labelled_instruction",
+        "source_text": "Choose east as positive: v initial = +2 m.s^-1, a = +3 m.s^-2, delta t = 4 s.",
+        "source_hash": "sha256:17ecca550ec6d46ce83731890cbd2c4a2346c6ecef71f52cbe286f6a7f98026b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P69",
+        "unit_type": "labelled_instruction",
+        "source_text": "Final velocity: v final = 2 + (3)(4) = 14 m.s^-1 east.",
+        "source_hash": "sha256:5c660cd81d2a7300ce6c1d2e0ae58a9ca7a64d2ea1c5cc24507470d060e4e1f6",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P70",
+        "unit_type": "labelled_instruction",
+        "source_text": "Displacement: delta x = (2)(4) + 0.5(3)(4^2) = 8 + 24 = 32 m east.",
+        "source_hash": "sha256:5e2839af39f47ed586a4fbfea9f5bb4bacba11a412ab3a91097ed9c4e26c118c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P71",
+        "unit_type": "labelled_instruction",
+        "source_text": "Check: the trolley speeds up in the positive direction, so positive displacement is sensible.",
+        "source_hash": "sha256:e87660844a8ec387c2336ebce345ad86ae1d67f570ab411ba4e5729de463f130",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P72",
+        "unit_type": "body",
+        "source_text": "4. Reading Motion Graphs",
+        "source_hash": "sha256:479504f795fb7dbb555b64285d4c764d0265e4feb2088a326d066b5b86c7822d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P73",
+        "unit_type": "body",
+        "source_text": "A steeper position-time gradient means a greater speed.",
+        "source_hash": "sha256:fdf77823d21e69b58eb21349e666120d1cac0df5942fd658deaa8d216611fe8b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P74",
+        "unit_type": "body",
+        "source_text": "A horizontal position-time section means the object is at rest.",
+        "source_hash": "sha256:f9ba2c08b6bf102b714d088a120981c498ebb1c1cf7199a6a7c4019ad7c26fbf",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P75",
+        "unit_type": "body",
+        "source_text": "A negative position-time gradient means motion in the negative direction.",
+        "source_hash": "sha256:375d854d164769ef8ce92ffd90a885be61aa3a2e5531039f4480ff0dff48a23f",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P76",
+        "unit_type": "body",
+        "source_text": "The gradient of a velocity-time graph is acceleration.",
+        "source_hash": "sha256:a1176f73275257c3dce45f5e1fb4ad3ec4ced183f7da84d88ac6111dcfc755f6",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P77",
+        "unit_type": "body",
+        "source_text": "The signed area between a velocity-time graph and the time axis is displacement.",
+        "source_hash": "sha256:7a3d29d76fa43adc725b7450e70ecb2235c7dca2470d612e06439afdd43507e9",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P78",
+        "unit_type": "body",
+        "source_text": "5. A Reliable Problem-Solving Routine",
+        "source_hash": "sha256:63cd2f0cafb53249e342c8fc849a9e3c6346ce8d0ca30f9d49114c24e03824b5",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P79",
+        "unit_type": "body",
+        "source_text": "Step",
+        "source_hash": "sha256:8e6a6cca7aae1d1e781d3ee04849d6b00f7aaf48f7c642f35105e4bf990a8cb4",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P80",
+        "unit_type": "body",
+        "source_text": "Action",
+        "source_hash": "sha256:64cff1319d2fd2cbb7a1e84ccecf22c1cc07b24435cdb522f8c0aa525d6002a6",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P81",
+        "unit_type": "body",
+        "source_text": "What to do",
+        "source_hash": "sha256:f47f1edc44ed92664871471b0cf8f463813788468c23680c12f52a36c2827e26",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P82",
+        "unit_type": "body",
+        "source_text": "1",
+        "source_hash": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P83",
+        "unit_type": "body",
+        "source_text": "Sketch",
+        "source_hash": "sha256:0f9b002dd25fed1b628aeb3f38b64df71f0d7a8d586a6aec527895e23ef7b425",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P84",
+        "unit_type": "body",
+        "source_text": "Draw the direction of motion and label the known values.",
+        "source_hash": "sha256:2f88db95c58d173c5068088ef6ad25cefa3dcbf57873427b12410137188cf3d2",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P85",
+        "unit_type": "body",
+        "source_text": "2",
+        "source_hash": "sha256:d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P86",
+        "unit_type": "body",
+        "source_text": "Choose",
+        "source_hash": "sha256:c7f937836f5d82d53bc507752075f87e25009ec11bc9fd4e282f0b645e47af7c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P87",
+        "unit_type": "body",
+        "source_text": "State the positive direction before assigning signs.",
+        "source_hash": "sha256:1dbb48dac5f498144ca703ae9ff5af4d5c2347355041bf9efeaa01fe52ec54f7",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P88",
+        "unit_type": "body",
+        "source_text": "3",
+        "source_hash": "sha256:4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P89",
+        "unit_type": "body",
+        "source_text": "List",
+        "source_hash": "sha256:6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P90",
+        "unit_type": "body",
+        "source_text": "Write each known value with its unit.",
+        "source_hash": "sha256:234408dc2bd8c2a5f3f8e3ba3743204ad8cdac1bcafacf2298aec9abfbe0d361",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P91",
+        "unit_type": "body",
+        "source_text": "4",
+        "source_hash": "sha256:4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P92",
+        "unit_type": "body",
+        "source_text": "Select",
+        "source_hash": "sha256:2a78025de6aae5e7ff88e5a951bb3a78ddd67388913529cf9e2dd9653e62b02d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P93",
+        "unit_type": "body",
+        "source_text": "Choose an equation containing the unknown and the available data.",
+        "source_hash": "sha256:dcac819c2d122058a5e812e9a1b62f648ab5232cf6b997d755ce66a80d0fcd26",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P94",
+        "unit_type": "body",
+        "source_text": "5",
+        "source_hash": "sha256:ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P95",
+        "unit_type": "body",
+        "source_text": "Substitute",
+        "source_hash": "sha256:f9e11be9ec0f13cc6aeaa1d05b1c9db472bba8e3575d4bb747c821aa18a4a2a9",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P96",
+        "unit_type": "body",
+        "source_text": "Substitute with signs, then calculate.",
+        "source_hash": "sha256:7fef1a693866eb5c09715b41afe3c838a6353f7dfd315e00ade15b6a47e5217c",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P97",
+        "unit_type": "body",
+        "source_text": "6",
+        "source_hash": "sha256:e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P98",
+        "unit_type": "body",
+        "source_text": "Interpret",
+        "source_hash": "sha256:a29bc2cb7da71518ee2e8158f2ee583c1da5d93918468646f72edbdc994debf5",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P99",
+        "unit_type": "body",
+        "source_text": "Give the unit, direction and a physical reasonableness check.",
+        "source_hash": "sha256:70ead80002e66ead4c4ef9786e00dc8e7c643f426bff771928af6eb5d5c5fa8a",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P100",
+        "unit_type": "body",
+        "source_text": "Common Errors",
+        "source_hash": "sha256:7d1fb601d38a1ccdfe21f680c1c56b2a5878781632e60a6b5122279951d610f3",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P101",
+        "unit_type": "body",
+        "source_text": "Using distance when average velocity requires displacement.",
+        "source_hash": "sha256:7dd50a8b9ae4b53c56a06b5c7fb752194b2a5baeea8bcf560b742e03ada7b22d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P102",
+        "unit_type": "body",
+        "source_text": "Changing the positive direction halfway through a calculation.",
+        "source_hash": "sha256:d05e3527ac1ff6b589d4f394eb3dd95a54dd079882eb0281cf7654b3e342b28d",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P103",
+        "unit_type": "body",
+        "source_text": "Treating a negative answer as automatically wrong.",
+        "source_hash": "sha256:e0a2a45369ba80c403b485f04f2214d012f8f78f7d0803015686e402cc04d315",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P104",
+        "unit_type": "body",
+        "source_text": "Using the area under a position-time graph instead of its gradient.",
+        "source_hash": "sha256:698eaa6d5dca3739cc1074b5c789750dad6ecfac199db15c33eb7e79c4068324",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P105",
+        "unit_type": "body",
+        "source_text": "Mixing kilometres per hour with metres per second without converting.",
+        "source_hash": "sha256:598acf07639786e43eb0386b30473ef93b17cc1e91b98f5b09ecd1f65c7dc2b1",
+        "changed_from_previous": false
+      },
+      {
+        "unit_id": "P106",
+        "unit_type": "body",
+        "source_text": "Reporting a number without its unit and direction.",
+        "source_hash": "sha256:72846b2915dddf4ba972c765c85674e4969bde1a7c7edf79278c5ef0467b6888",
+        "changed_from_previous": false
+      }
+    ]
+  },
+  "source_versions": [
+    {
+      "version": "1.0.0",
+      "document_hash": "sha256:12678597a9cd6653f568bc6d5f1776840631a20f73d7ee9f59c8c82eb9e31e76",
+      "changed_units": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8",
+        "P9",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "P16",
+        "P17",
+        "P18",
+        "P19",
+        "P20",
+        "P21",
+        "P22",
+        "P23",
+        "P24",
+        "P25",
+        "P26",
+        "P27",
+        "P28",
+        "P29",
+        "P30",
+        "P31",
+        "P32",
+        "P33",
+        "P34",
+        "P35",
+        "P36",
+        "P37",
+        "P38",
+        "P39",
+        "P40",
+        "P41",
+        "P42",
+        "P43",
+        "P44",
+        "P45",
+        "P46",
+        "P47",
+        "P48",
+        "P49",
+        "P50",
+        "P51",
+        "P52",
+        "P53",
+        "P54",
+        "P55",
+        "P56",
+        "P57",
+        "P58",
+        "P59",
+        "P60",
+        "P61",
+        "P62",
+        "P63",
+        "P64",
+        "P65",
+        "P66",
+        "P67",
+        "P68",
+        "P69",
+        "P70",
+        "P71",
+        "P72",
+        "P73",
+        "P74",
+        "P75",
+        "P76",
+        "P77",
+        "P78",
+        "P79",
+        "P80",
+        "P81",
+        "P82",
+        "P83",
+        "P84",
+        "P85",
+        "P86",
+        "P87",
+        "P88",
+        "P89",
+        "P90",
+        "P91",
+        "P92",
+        "P93",
+        "P94",
+        "P95",
+        "P96",
+        "P97",
+        "P98",
+        "P99",
+        "P100",
+        "P101",
+        "P102",
+        "P103",
+        "P104",
+        "P105",
+        "P106"
+      ],
+      "removed_units": [],
+      "recorded_at": "2026-08-09T11:26:48+00:00"
+    }
+  ],
+  "translations": {},
+  "authority": {
+    "machine_drafts_reusable": false,
+    "human_approval_required": true,
+    "crystallization_authority": "BEAST"
+  },
+  "updated_at": "2026-08-09T11:26:48+00:00"
+}

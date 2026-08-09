@@ -1,0 +1,68 @@
+{
+  "schema": "knowedge.homs_subject_profile.v1",
+  "subject_id": "mathematics",
+  "display_name": "Mathematics",
+  "default_level": "senior_school",
+  "assessment_modes": [
+    "structured_exam",
+    "calculation_problem_solving",
+    "proof_or_reasoning",
+    "graph_interpretation",
+    "geometry_diagram_response",
+    "worked_memo"
+  ],
+  "source_types": [
+    "equation_set",
+    "function_graph",
+    "geometry_diagram",
+    "data_table",
+    "probability_context",
+    "calculation_workspace"
+  ],
+  "question_families": [
+    "solve_equation",
+    "simplify_expression",
+    "interpret_function",
+    "prove_geometry_statement",
+    "calculate_measure",
+    "analyse_data",
+    "show_working"
+  ],
+  "cognitive_targets": [
+    "routine_procedure",
+    "complex_procedure",
+    "problem_solving",
+    "reasoning",
+    "proof"
+  ],
+  "rubric_dimensions": [
+    "method_accuracy",
+    "final_answer_accuracy",
+    "mathematical_notation",
+    "diagram_use",
+    "logical_reasoning",
+    "unit_or_rounding_accuracy"
+  ],
+  "memo_expectations": [
+    "award method marks before final-answer marks",
+    "show alternate valid solution paths where likely",
+    "keep diagrams and given data sufficient for each answer",
+    "flag calculator and rounding assumptions"
+  ],
+  "retrieval_queries": [
+    "CAPS mathematics assessment cognitive levels memo method marks",
+    "mathematics geometry diagram assessment memorandum",
+    "mathematics graph interpretation exam questions"
+  ],
+  "human_review_checks": [
+    "verify every answer independently",
+    "check diagrams are to scale only if stated",
+    "confirm all required values are supplied",
+    "confirm mark allocations match working complexity"
+  ],
+  "blocked_claims_or_modes": [
+    "answer cannot be derived from supplied information",
+    "diagram-dependent question without supplied diagram",
+    "single method required when alternate valid methods exist"
+  ]
+}
