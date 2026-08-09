@@ -1,7 +1,15 @@
 """Canonical DIO commerce orchestration primitives."""
 
+from .expression import (
+    ACT_CONTRACTS,
+    CommunicativeAct,
+    expression_contract,
+    plan_expression,
+    render_expression,
+)
 from .nichefoundry_bridge import commercial_semantic_object_from_nichefoundry
 from .orchestrator import CommercialOrchestrator, CommercialStore
+from .prospect_bridge import commercial_semantic_object_from_prospect_target
 from .semantic import (
     SCHEMA as COMMERCIAL_SEMANTIC_OBJECT_SCHEMA,
     assert_valid_commercial_semantic_object,
@@ -14,13 +22,19 @@ from .semantic import (
 )
 
 __all__ = [
+    "ACT_CONTRACTS",
     "CommercialOrchestrator",
     "CommercialStore",
     "COMMERCIAL_SEMANTIC_OBJECT_SCHEMA",
+    "CommunicativeAct",
     "assert_valid_commercial_semantic_object",
     "commercial_semantic_object_from_lead",
     "commercial_semantic_object_from_nichefoundry",
+    "commercial_semantic_object_from_prospect_target",
+    "expression_contract",
     "market_signal",
+    "plan_expression",
+    "render_expression",
     "semantic_claim",
     "semantic_value",
     "stable_semantic_object_id",
