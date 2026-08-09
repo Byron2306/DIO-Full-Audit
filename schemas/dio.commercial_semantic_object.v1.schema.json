@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio.commercial_semantic_object.v1.schema.json",
+  "title": "DIO Commercial Semantic Object v1",
+  "description": "Canonical evidence-governed commercial meaning object. Meaning is explicit, epistemic status is preserved, and unknowns are first-class rather than fabricated defaults.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "object_id",
+    "created_at",
+    "updated_at",
+    "lineage",
+    "subject",
+    "truth",
+    "need",
+    "commercial",
+    "proof",
+    "strategy",
+    "authority",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial_semantic_object.v1"},
+    "object_id": {"type": "string", "pattern": "^CSO-[A-F0-9]{20}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lead_id", "conversation_id", "transaction_id", "prospect_id"],
+      "properties": {
+        "lead_id": {"type": ["string", "null"]},
+        "conversation_id": {"type": ["string", "null"]},
+        "transaction_id": {"type": ["string", "null"]},
+        "prospect_id": {"type": ["string", "null"]}
+      },
+      "anyOf": [
+        {"properties": {"lead_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"conversation_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"transaction_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"prospect_id": {"type": "string", "minLength": 1}}}
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organisation", "buyer_role", "organisation_type", "relationship_state", "consent_state"],
+      "properties": {
+        "organisation": {"$ref": "#/$defs/semantic_value"},
+        "buyer_role": {"$ref": "#/$defs/semantic_value"},
+        "organisation_type": {"$ref": "#/$defs/semantic_value"},
+        "relationship_state": {"$ref": "#/$defs/semantic_value"},
+        "consent_state": {"$ref": "#/$defs/semantic_value"}
+      }
+    },
+    "truth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verified_facts", "inferred_hypotheses", "unknowns"],
+      "properties": {
+        "verified_facts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/verified_claim"}
+        },
+        "inferred_hypotheses": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/inferred_claim"}
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/unknown_record"}
+        }
+      }
+    },
+    "need": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["job_to_be_done", "workflow_pain", "trigger", "why_now"],
+      "properties": {
+        "job_to_be_done": {"$ref": "#/$defs/semantic_value"},
+        "workflow_pain": {"$ref": "#/$defs/semantic_value"},
+        "trigger": {"$ref": "#/$defs/semantic_value"},
+        "why_now": {"$ref": "#/$defs/semantic_value"}
+      }
+    },
+    "commercial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product", "offer", "scope"],
+      "properties": {
+        "product": {"$ref": "#/$defs/semantic_value"},
+        "offer": {"$ref": "#/$defs/semantic_value"},
+        "scope": {"$ref": "#/$defs/semantic_value"}
+      }
+    },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relevant_proof", "permitted_claims", "prohibited_claims"],
+      "properties": {
+        "relevant_proof": {"type": "array", "items": {"type": ["string", "object"]}},
+        "permitted_claims": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "prohibited_claims": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      }
+    },
+    "strategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["desired_next_action", "channel", "communicative_act", "tone", "length", "rhetorical_strategy"],
+      "properties": {
+        "desired_next_action": {"$ref": "#/$defs/semantic_value"},
+        "channel": {"$ref": "#/$defs/semantic_value"},
+        "communicative_act": {"$ref": "#/$defs/semantic_value"},
+        "tone": {"$ref": "#/$defs/semantic_value"},
+        "length": {"$ref": "#/$defs/semantic_value"},
+        "rhetorical_strategy": {"$ref": "#/$defs/semantic_value"}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_state", "evidence_refs", "attribution"],
+      "properties": {
+        "authority_state": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "attribution": {"type": "object"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter", "adapter_version", "source_schema", "source_ref"],
+      "properties": {
+        "adapter": {"type": "string", "minLength": 1},
+        "adapter_version": {"type": "integer", "minimum": 1},
+        "source_schema": {"type": "string", "minLength": 1},
+        "source_ref": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "$defs": {
+    "source_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "semantic_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "status", "source_refs"],
+      "properties": {
+        "value": {},
+        "status": {"enum": ["verified", "inferred", "unknown"]},
+        "source_refs": {"$ref": "#/$defs/source_refs"},
+        "authority": {"type": "string", "minLength": 1},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "method": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "unknown"}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "value": {"type": "null"},
+              "source_refs": {"$ref": "#/$defs/source_refs"}
+            },
+            "not": {"required": ["confidence"]}
+          }
+        },
+        {
+          "if": {"properties": {"status": {"enum": ["verified", "inferred"]}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "value": {"not": {"type": "null"}},
+              "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+            }
+          }
+        }
+      ]
+    },
+    "claim_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "status", "source_refs"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "status": {"enum": ["verified", "inferred"]},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "authority": {"type": "string", "minLength": 1},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "method": {"type": "string", "minLength": 1}
+      }
+    },
+    "verified_claim": {
+      "allOf": [
+        {"$ref": "#/$defs/claim_base"},
+        {"properties": {"status": {"const": "verified"}}}
+      ]
+    },
+    "inferred_claim": {
+      "allOf": [
+        {"$ref": "#/$defs/claim_base"},
+        {"properties": {"status": {"const": "inferred"}}}
+      ]
+    },
+    "unknown_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "reason", "status", "source_refs"],
+      "properties": {
+        "field": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "status": {"const": "unknown"},
+        "source_refs": {"$ref": "#/$defs/source_refs"}
+      }
+    }
+  }
+}
