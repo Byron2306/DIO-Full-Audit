@@ -34,6 +34,7 @@ class ConversationReconciliationTests(unittest.TestCase):
             self.write(root / "state/mail_ingress/IN-1.json", {
                 "schema": "dio.mail_ingress.v1",
                 "mail_ingress_id": "IN-1",
+                "provider_message_id": "GRAPH-IN-1",
                 "conversation_id": "THREAD-1",
                 "received_at": "2026-08-09T10:00:00+00:00",
                 "body_preview": "Could you confirm the next step?",
@@ -78,7 +79,7 @@ class ConversationReconciliationTests(unittest.TestCase):
             self.assertEqual("awaiting_dio_response", context["thread"]["state"])
             self.assertIn("prepare an Evidex evidence pack", context["observations"]["last_requested_action"]["text"])
 
-    def test_reply_preparer_consumes_exact_thread_context_but_stops_at_review_gate(self) -> None:
+    def test_reply_preparer_consumes_exact_thread_context_and_adds_triune_judgement(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             lead_id = "LEAD-C4-REPLY"
@@ -98,7 +99,10 @@ class ConversationReconciliationTests(unittest.TestCase):
             self.write(root / "state/mail_ingress/IN-REPLY.json", {
                 "schema": "dio.mail_ingress.v1",
                 "mail_ingress_id": "IN-REPLY",
+                "provider": "microsoft_graph",
+                "provider_message_id": "GRAPH-REPLY-SOURCE-1",
                 "conversation_id": "THREAD-REPLY-1",
+                "subject": "Evidence pack question",
                 "received_at": "2026-08-09T12:00:00+00:00",
                 "body_preview": "Could you please explain what you need from us next?",
             })
@@ -108,13 +112,21 @@ class ConversationReconciliationTests(unittest.TestCase):
             self.assertEqual("draft", intent["send_state"])
             self.assertEqual("pending", intent["approval"]["state"])
             self.assertEqual("inbound_reply", intent["communicative_act"])
+            self.assertEqual("GRAPH-REPLY-SOURCE-1", intent["source_message_id"])
             self.assertEqual("expression_only", intent["semantic_binding"]["conversation_context_authority"])
             self.assertIn("latest message", intent["body"])
             self.assertIn("explain what you need from us next", intent["body"])
+            self.assertIn(intent["semantic_judgement"]["verdict"], {"ALLOW", "ALLOW_WITH_OBLIGATIONS"})
+            judgement_path = root / intent["semantic_judgement"]["path"]
+            self.assertTrue(judgement_path.is_file())
+            judgement = json.loads(judgement_path.read_text(encoding="utf-8"))
+            self.assertFalse(judgement["execution_authority_granted"])
+
             receipt_path = root / "state/conversation_replies" / f"{intent['mail_intent_id']}.json"
             receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
             self.assertFalse(receipt["authority"]["mail_send_authorized"])
             self.assertTrue(receipt["authority"]["operator_approval_required"])
+            self.assertFalse(receipt["authority"]["semantic_judgement_grants_execution_authority"])
 
     def test_vesper_is_public_name_and_lilith_remains_legacy_alias(self) -> None:
         profile = load_public_profile(ROOT)

@@ -101,6 +101,17 @@ def intent_path(intent_dir: Path, intent_id: str) -> Path:
 
 
 def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_log: Path) -> dict[str, Any]:
+    communicative_act = source.get("communicative_act")
+    semantic_binding = source.get("semantic_binding")
+    if communicative_act and not semantic_binding:
+        raise ValueError(
+            "SEMANTIC_BINDING_REQUIRED: mail declaring a C3 communicative act must carry a Commercial Semantic Object binding."
+        )
+    if semantic_binding and not communicative_act:
+        raise ValueError(
+            "COMMUNICATIVE_ACT_REQUIRED: semantically bound mail must declare the communicative act being governed."
+        )
+
     created = now()
     intent_id = source.get("mail_intent_id") or f"MAIL-{secrets.token_hex(8).upper()}"
     intent = {
@@ -108,6 +119,8 @@ def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_l
         "mail_intent_id": intent_id,
         "direction": "outbound",
         "purpose": source.get("purpose", "other"),
+        "communicative_act": communicative_act,
+        "semantic_binding": semantic_binding,
         "lead_id": source.get("lead_id"),
         "order_id": source.get("order_id"),
         "job_id": source.get("job_id"),
@@ -127,7 +140,20 @@ def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_l
         "updated_at": timestamp(created),
     }
     write_json(intent_path(intent_dir, intent_id), intent, exclusive=True)
-    emit_event(event_log, "mail.draft_ready", "action", "mail_intent", intent_id, {"purpose": intent["purpose"], "risk": intent["risk"]}, intent.get("job_id"))
+    emit_event(
+        event_log,
+        "mail.draft_ready",
+        "action",
+        "mail_intent",
+        intent_id,
+        {
+            "purpose": intent["purpose"],
+            "risk": intent["risk"],
+            "communicative_act": intent.get("communicative_act"),
+            "semantic_binding": bool(intent.get("semantic_binding")),
+        },
+        intent.get("job_id"),
+    )
     return intent
 
 
