@@ -50,13 +50,25 @@ def _mail_copy(campaign: dict[str, Any], partner: dict[str, Any], placement: str
 
 
 def _find_campaign_source(root: Path, campaign_id: str) -> list[Path]:
-    """Bind the judgement to concrete campaign state when a durable campaign file exists."""
+    """Bind judgement to concrete campaign state when a durable campaign file exists."""
     candidates = [
         root / "state" / "market_command" / "campaigns" / f"{campaign_id}.json",
         root / "campaigns" / "dio_market_loop" / "wave4" / "campaigns" / campaign_id / "HIVENANCE_HYPOTHESIS.json",
     ]
-    found = [path for path in candidates if path.is_file()]
-    return found
+    return [path for path in candidates if path.is_file()]
+
+
+def _rfq_source_paths(root: Path, campaign_id: str, brief_path: Path) -> list[Path]:
+    """Evidence sources that earn the vendor-route and campaign authority used by the RFQ."""
+    mandatory = [
+        brief_path,
+        root / "config" / "agency_partner_registry.json",
+        root / "config" / "market_command.json",
+    ]
+    missing = [path for path in mandatory if not path.is_file()]
+    if missing:
+        raise FileNotFoundError(f"Agency RFQ governance source is missing: {missing[0]}")
+    return [*mandatory, *_find_campaign_source(root, campaign_id)]
 
 
 def prepare_agency_rfq(
@@ -127,15 +139,12 @@ def prepare_agency_rfq(
             root / "state" / "mail_intents",
             root / "telemetry" / "dio_events.jsonl",
         )
-        source_paths = [brief_path, *_find_campaign_source(root, campaign_id)]
-        if not source_paths:
-            raise ValueError("Agency RFQ cannot be judged without durable campaign/brief evidence.")
         judgement, judgement_path = judge_mail_intent(
             root,
             bundle["cso"],
             bundle["expression"],
             intent,
-            source_paths=source_paths,
+            source_paths=_rfq_source_paths(root, campaign_id, brief_path),
         )
         if judgement["verdict"] == "BLOCK":
             raise ValueError(f"Agency RFQ blocked by Triune semantic judgement {judgement['judgement_id']}.")
