@@ -15,8 +15,10 @@ on:
       - "scripts/prospect_outreach_copy.py"
       - "scripts/manage_product_workflow.py"
       - "scripts/product_notification_copy.py"
+      - "scripts/prepare_conversation_reply.py"
       - "scripts/reconcile_conversation_context.py"
       - "scripts/run_commercial_orchestrator.py"
+      - "scripts/serve_presence_bridge.py"
       - "market_command/agency.py"
       - "market_command/agency_copy.py"
       - "tests/test_commercial_semantic_object.py"
@@ -56,8 +58,10 @@ jobs:
             presence_core/persona.py \
             presence_core/router.py \
             presence_core/llm.py \
+            scripts/prepare_conversation_reply.py \
             scripts/reconcile_conversation_context.py \
             scripts/run_commercial_orchestrator.py \
+            scripts/serve_presence_bridge.py \
             scripts/prospect_outreach_copy.py \
             scripts/product_notification_copy.py \
             market_command/agency_copy.py
