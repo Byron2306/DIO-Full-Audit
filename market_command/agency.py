@@ -4,11 +4,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from market_command.agency_copy import mail_copy as c3_mail_copy
 from market_command.catalog import load_catalogs
 from market_command.core import MarketStore, utc_now
 from market_command.events import emit_event
 from market_command.procurement import build_media_brief
-from scripts.dio_mail_branding import MAIN_SITE, branded_email
 from scripts.manage_mail_intent import create_intent_from_payload, write_json
 
 
@@ -43,30 +43,8 @@ def list_agency_outreach(root: Path) -> list[dict[str, Any]]:
 
 
 def _mail_copy(campaign: dict[str, Any], partner: dict[str, Any], placement: str) -> tuple[str, str, str]:
-    subject = f"RFQ: bounded South African pilot for {campaign['name']}"
-    placement_text = placement or "the most suitable measurable placement for this audience"
-    return (
-        subject,
-        *branded_email(
-            product="dio",
-            eyebrow="MEDIA PILOT RFQ",
-            headline="Request for a measurable South African campaign pilot.",
-            greeting=f"Hello {partner['name']} team,",
-            intro="DIO Workflows is preparing a small, controlled campaign pilot and would like a clear quotation before any spend is authorised.",
-            body=[
-                f"Product: {campaign['name']}",
-                f"Audience: {campaign['audience']}",
-                f"Objective: {campaign['objective']}",
-                f"Placement interest: {placement_text}",
-                "Please propose your minimum viable pilot, with agency fees, media spend and third-party costs separated. The attached brief lists the measurement, attribution and commercial fields we need to compare options.",
-                "This is a request for quotation only. It is not a booking, insertion order or spend authorisation.",
-            ],
-            reference=str(campaign.get("campaign_id") or campaign.get("id") or ""),
-            cta_label="View DIO Workflows",
-            cta_url=MAIN_SITE,
-            bullets=["Measured pilots", "Human spend approval", "Attribution before scale"],
-        ),
-    )
+    """Compatibility entry point routed through the C3 RFQ communicative act."""
+    return c3_mail_copy(campaign, partner, placement)
 
 
 def prepare_agency_rfq(
@@ -142,6 +120,7 @@ def prepare_agency_rfq(
         "brief_dir": brief["output_dir"],
         "mail_intent_id": mail_intent_id,
         "provider_draft_id": None,
+        "communicative_act": "request_for_quotation",
         "state": "mail_intent_ready" if mail_intent_id else "public_form_package_ready",
         "created_at": utc_now(),
         "updated_at": utc_now(),
@@ -153,7 +132,7 @@ def prepare_agency_rfq(
         "action",
         "media_buy",
         buy["media_buy_id"],
-        {"agency_id": agency_id, "campaign_id": campaign_id, "mail_intent_id": mail_intent_id, "route_mode": inquiry.get("mode")},
+        {"agency_id": agency_id, "campaign_id": campaign_id, "mail_intent_id": mail_intent_id, "route_mode": inquiry.get("mode"), "communicative_act": "request_for_quotation"},
         campaign_id,
     )
     return state

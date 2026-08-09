@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio.commercial_expression.v1.schema.json",
+  "title": "DIO Commercial Expression v1",
+  "description": "Act-specific expression candidate derived from a Commercial Semantic Object. The expression may paraphrase meaning but may not create facts or authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "semantic_object_id",
+    "communicative_act",
+    "channel",
+    "format",
+    "subject",
+    "greeting",
+    "intro",
+    "paragraphs",
+    "bullets",
+    "cta",
+    "secondary_cta",
+    "caution",
+    "body",
+    "word_count",
+    "claim_sources",
+    "prohibited_claims",
+    "human_approval_required",
+    "plan"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial_expression.v1"},
+    "semantic_object_id": {"type": "string", "pattern": "^CSO-[A-F0-9]{20}$"},
+    "communicative_act": {
+      "enum": [
+        "cold_permission_request",
+        "inbound_reply",
+        "qualified_lead_reply",
+        "pilot_invitation",
+        "follow_up",
+        "proposal",
+        "quote",
+        "invoice_notice",
+        "intake_request",
+        "delivery",
+        "request_for_quotation",
+        "linkedin_post",
+        "classified_listing",
+        "paid_ad",
+        "video_cta"
+      ]
+    },
+    "channel": {"type": "string", "minLength": 1},
+    "format": {"type": "string", "minLength": 1},
+    "subject": {"type": ["string", "null"]},
+    "greeting": {"type": ["string", "null"]},
+    "intro": {"type": "string"},
+    "paragraphs": {"type": "array", "items": {"type": "string"}},
+    "bullets": {"type": "array", "items": {"type": "string"}},
+    "cta": {"type": "string", "minLength": 1},
+    "secondary_cta": {"type": ["string", "null"]},
+    "caution": {"type": ["string", "null"]},
+    "body": {"type": "string", "minLength": 1},
+    "word_count": {"type": "integer", "minimum": 1},
+    "claim_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "status", "source_refs"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "status": {"enum": ["verified", "inferred"]},
+          "source_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "prohibited_claims": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "human_approval_required": {"const": true},
+    "plan": {
+      "type": "object",
+      "required": ["schema", "semantic_object_id", "communicative_act", "contract", "generation_policy"],
+      "properties": {
+        "schema": {"const": "dio.commercial_expression_plan.v1"},
+        "semantic_object_id": {"type": "string"},
+        "communicative_act": {"type": "string"},
+        "contract": {
+          "type": "object",
+          "required": ["channel", "objective", "relationship_mode", "max_words", "assumption_budget", "proof_mode", "cta_mode", "human_approval_required", "personalisation"]
+        },
+        "generation_policy": {
+          "type": "object",
+          "required": ["may_paraphrase", "may_add_facts", "may_promote_inference_to_fact", "may_fill_unknowns", "must_preserve_claim_status", "must_preserve_source_refs", "human_approval_required"],
+          "properties": {
+            "may_paraphrase": {"const": true},
+            "may_add_facts": {"const": false},
+            "may_promote_inference_to_fact": {"const": false},
+            "may_fill_unknowns": {"const": false},
+            "must_preserve_claim_status": {"const": true},
+            "must_preserve_source_refs": {"const": true},
+            "human_approval_required": {"const": true}
+          }
+        }
+      }
+    }
+  }
+}
