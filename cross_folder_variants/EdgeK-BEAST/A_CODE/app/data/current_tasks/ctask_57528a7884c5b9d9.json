@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-16T12:45:47.028557+00:00",
+  "objective": "Help me plan this coding task. First inspect the relevant workspace context; do not make changes yet.Task: Look at the economiser.py file, I want suggestions for improvement.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:57528a7884c5b9d94bb7d2fd5ad76342171ba92c4c0a2abbb99a06f1ed6d5d4d",
+  "task_markup_id": "ctask_57528a7884c5b9d9"
+}

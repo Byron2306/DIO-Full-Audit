@@ -1,0 +1,838 @@
+{
+  "suite": "sophia_phase78_native_table_figure_gauntlet",
+  "timestamp": "2026-08-03T20:28:17.368974+00:00",
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "pass_rate": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "native_vision_conflict_detected",
+      "passed": true,
+      "status": "native_vision_text_conflict",
+      "signal": "native_only=['43%'] text_or_ocr_only=['12', '42%']",
+      "result": {
+        "schema_version": "sophia.native_vision_comparison.v1",
+        "status": "native_vision_text_conflict",
+        "has_native_vision": true,
+        "witness_count": 3,
+        "witnesses": [
+          {
+            "witness_id": "V1",
+            "source_name": "messy_scanned_page.txt",
+            "modality_group": "ocr",
+            "parser": "plain_text",
+            "numbers": [
+              "12",
+              "42%",
+              "71.0",
+              "84.5"
+            ],
+            "sample": "Page 4\nOCR says: Figure 2 caption reports 42% completion, but the scan is blurry and one digit may be wrong.\nTable 3\nCondition   Mean score   n\nSophia      84.5         12\nControl     71.0         12"
+          },
+          {
+            "witness_id": "V2",
+            "source_name": "native_vision_witness.txt",
+            "modality_group": "native_vision",
+            "parser": "native_vision_gemini_fixture",
+            "numbers": [
+              "43%",
+              "71.0",
+              "84.5"
+            ],
+            "sample": "Page 4\nNative vision: Figure 2 appears to show 43% completion. Caption is partially occluded. The table lists Sophia mean score 84.5 and Control mean score 71.0."
+          },
+          {
+            "witness_id": "V3",
+            "source_name": "caption_witness.txt",
+            "modality_group": "text_or_caption",
+            "parser": "plain_text",
+            "numbers": [
+              "42%"
+            ],
+            "sample": "Page 4\nFigure caption: Completion rate was 42%. Chart annotation may conflict with caption."
+          }
+        ],
+        "overlapping_numbers": [
+          "71.0",
+          "84.5"
+        ],
+        "native_only_numbers": [
+          "43%"
+        ],
+        "text_or_ocr_only_numbers": [
+          "12",
+          "42%"
+        ],
+        "confidence_ceiling": 0.45,
+        "integrity_rule": "Native vision may strengthen visual grounding, but disagreements with OCR, captions, tables, or page text must be reported rather than resolved silently."
+      }
+    },
+    {
+      "case_id": "figure_to_text_conflict_mapping",
+      "passed": true,
+      "status": "figure_claim_conflict_requires_verification",
+      "signal": "conflicts=2",
+      "result": {
+        "schema_version": "sophia.figure_claim_mapping.v1",
+        "claim": "Figure 2 shows 43% completion.",
+        "status": "figure_claim_conflict_requires_verification",
+        "claim_numbers": [
+          "43%"
+        ],
+        "candidate_mappings": [
+          {
+            "source_name": "native_vision_witness.txt",
+            "parser": "native_vision_gemini_fixture",
+            "span_id": "S1",
+            "page": 4,
+            "locator": "p. 4",
+            "status": "candidate_support",
+            "shared_numbers": [
+              "43%"
+            ],
+            "conflicting_numbers": [
+              "71.0",
+              "84.5"
+            ],
+            "quote": "Page 4\nNative vision: Figure 2 appears to show 43% completion. Caption is partially occluded. The table lists Sophia mean score 84.5 and Control mean score 71.0."
+          },
+          {
+            "source_name": "messy_scanned_page.txt",
+            "parser": "plain_text",
+            "span_id": "S1",
+            "page": 4,
+            "locator": "p. 4",
+            "status": "possible_numeric_conflict",
+            "shared_numbers": [],
+            "conflicting_numbers": [
+              "12",
+              "42%",
+              "43%",
+              "71.0",
+              "84.5"
+            ],
+            "quote": "Page 4\nOCR says: Figure 2 caption reports 42% completion, but the scan is blurry and one digit may be wrong.\nTable 3\nCondition   Mean score   n\nSophia      84.5         12\nControl     71.0         12"
+          },
+          {
+            "source_name": "caption_witness.txt",
+            "parser": "plain_text",
+            "span_id": "S1",
+            "page": 4,
+            "locator": "p. 4",
+            "status": "possible_numeric_conflict",
+            "shared_numbers": [],
+            "conflicting_numbers": [
+              "42%",
+              "43%"
+            ],
+            "quote": "Page 4\nFigure caption: Completion rate was 42%. Chart annotation may conflict with caption."
+          }
+        ],
+        "conflict_count": 2,
+        "integrity_rule": "Figure-to-text claims require visible caption/OCR/native-vision/table evidence with a locator; conflicting captions or chart numbers must be handed back for inspection."
+      }
+    },
+    {
+      "case_id": "rendered_context_exposes_native_comparison",
+      "passed": true,
+      "signal": "native comparison visible to provider prompt",
+      "context": "[DOCUMENT EVIDENCE CONTRACT]\nUse only the provided source evidence unless you explicitly mark an inference.\nIf the source is blurry, partial, unreadable, or unsupported, say so plainly.\nWhen asked for a quote, quote an exact local phrase from a span or say exact support is absent.\n\n[CROSS-MODAL EVIDENCE LEDGER]\nledger_status=hold_for_verification confidence_ceiling=0.45 witness_count=3\nsafe_claims=Summarize readable text/OCR spans with provenance and uncertainty visible. | Use page locators only when page markers are visible in extracted spans.\nblocked_claims=Do not treat OCR, caption, or user-description disagreement as resolved fact. | Do not infer chart/table meaning from an image without OCR, parsed table cells, or native vision evidence.\nrequired_next_steps=Ask the learner to inspect the original visual artifact or provide clearer OCR/native vision. | Name degraded witnesses before interpreting the claim. | Verify any numeric claim against the exact witness span and, if tabular, parsed table cells. | Use only visible page markers for page-specific claims.\nvisual_witnesses=caption_witness.txt, messy_scanned_page.txt, native_vision_witness.txt\ndegraded_witnesses=caption_witness.txt, messy_scanned_page.txt, native_vision_witness.txt\n\n[NATIVE VISION COMPARISON]\nstatus=native_vision_text_conflict confidence_ceiling=0.45 witness_count=3\nnative_only_numbers=43%\ntext_or_ocr_only_numbers=12, 42%\n\n[SOURCE 1] messy_scanned_page.txt\nmodality=ocr parser=plain_text\nquality=partial_ocr score=0.45 rationale=OCR/text contains unreadable or blurry regions; answer only from readable spans.\nprovenance_tier=user_supplied_document provenance_score=0.6 rationale=Matched provenance markers for user_supplied_document.\nuncertainty=source_mentions_blur_or_scan_loss\ninspection=readable_chars=199 page_coverage=thin page_status=page markers visible figure_status=caption/figure text signal only; no independent image interpretation table_status=table-like text detected; structure may be uncertain\ninspection_warnings=figure_or_caption_text_only_no_native_vision, table_structure_uncertain_without_table_parser\ncross_source_warnings=possible_numeric_or_caption_conflict, native_vision_not_avai"
+    },
+    {
+      "case_id": "complex_table_cell_citations_exported",
+      "passed": true,
+      "signal": "cells=10",
+      "result": {
+        "tables": {
+          "method": "multi_parser_structured_table_extraction",
+          "tables_detected": 1,
+          "tables": [
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "headers": [
+                "Condition",
+                "Mean score",
+                "SD",
+                "n",
+                "Note"
+              ],
+              "rows": [
+                {
+                  "Condition": "Sophia full",
+                  "Mean score": "85.2",
+                  "SD": "4.1",
+                  "n": "24",
+                  "Note": "authorship-preserving support"
+                },
+                {
+                  "Condition": "Matched tutor",
+                  "Mean score": "79.4",
+                  "SD": "5.0",
+                  "n": "24",
+                  "Note": "no Mandos continuity"
+                }
+              ],
+              "row_count_detected": 2,
+              "column_count_detected": 5,
+              "page": "7",
+              "table_index": 1,
+              "cell_citations": [
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 1,
+                  "header": "Condition",
+                  "value": "Sophia full",
+                  "locator": "p. 7, table 1, row 1, column 1 (Condition)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 1 (Condition)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 2,
+                  "header": "Mean score",
+                  "value": "85.2",
+                  "locator": "p. 7, table 1, row 1, column 2 (Mean score)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 2 (Mean score)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 3,
+                  "header": "SD",
+                  "value": "4.1",
+                  "locator": "p. 7, table 1, row 1, column 3 (SD)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 3 (SD)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 4,
+                  "header": "n",
+                  "value": "24",
+                  "locator": "p. 7, table 1, row 1, column 4 (n)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 4 (n)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 5,
+                  "header": "Note",
+                  "value": "authorship-preserving support",
+                  "locator": "p. 7, table 1, row 1, column 5 (Note)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 5 (Note)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 1,
+                  "header": "Condition",
+                  "value": "Matched tutor",
+                  "locator": "p. 7, table 1, row 2, column 1 (Condition)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 1 (Condition)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 2,
+                  "header": "Mean score",
+                  "value": "79.4",
+                  "locator": "p. 7, table 1, row 2, column 2 (Mean score)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 2 (Mean score)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 3,
+                  "header": "SD",
+                  "value": "5.0",
+                  "locator": "p. 7, table 1, row 2, column 3 (SD)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 3 (SD)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 4,
+                  "header": "n",
+                  "value": "24",
+                  "locator": "p. 7, table 1, row 2, column 4 (n)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 4 (n)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 5,
+                  "header": "Note",
+                  "value": "no Mandos continuity",
+                  "locator": "p. 7, table 1, row 2, column 5 (Note)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 5 (Note)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                }
+              ],
+              "truncated": false,
+              "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+            }
+          ]
+        },
+        "citations": {
+          "method": "sophia_page_cell_citation_export_v1",
+          "tables_detected": 1,
+          "cell_citation_count": 10,
+          "cell_citations": [
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 1,
+              "header": "Condition",
+              "value": "Sophia full",
+              "locator": "p. 7, table 1, row 1, column 1 (Condition)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 1 (Condition)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 2,
+              "header": "Mean score",
+              "value": "85.2",
+              "locator": "p. 7, table 1, row 1, column 2 (Mean score)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 2 (Mean score)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 3,
+              "header": "SD",
+              "value": "4.1",
+              "locator": "p. 7, table 1, row 1, column 3 (SD)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 3 (SD)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 4,
+              "header": "n",
+              "value": "24",
+              "locator": "p. 7, table 1, row 1, column 4 (n)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 4 (n)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 5,
+              "header": "Note",
+              "value": "authorship-preserving support",
+              "locator": "p. 7, table 1, row 1, column 5 (Note)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 5 (Note)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 1,
+              "header": "Condition",
+              "value": "Matched tutor",
+              "locator": "p. 7, table 1, row 2, column 1 (Condition)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 1 (Condition)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 2,
+              "header": "Mean score",
+              "value": "79.4",
+              "locator": "p. 7, table 1, row 2, column 2 (Mean score)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 2 (Mean score)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 3,
+              "header": "SD",
+              "value": "5.0",
+              "locator": "p. 7, table 1, row 2, column 3 (SD)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 3 (SD)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 4,
+              "header": "n",
+              "value": "24",
+              "locator": "p. 7, table 1, row 2, column 4 (n)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 4 (n)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 5,
+              "header": "Note",
+              "value": "no Mandos continuity",
+              "locator": "p. 7, table 1, row 2, column 5 (Note)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 5 (Note)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            }
+          ],
+          "truncated": false,
+          "integrity_contract": [
+            "export only parsed visible cells",
+            "carry page/table/row/column locator when available",
+            "treat exported citations as human-verification leads, not finalized references"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "advanced_report_includes_page_cell_export",
+      "passed": true,
+      "signal": "cells=10",
+      "result": {
+        "method": "sophia_advanced_evidence_engine_slice1",
+        "claim": "Sophia full had a mean score of 85.2.",
+        "embedding_ranking": {
+          "method": "deterministic_lexical_concept_embedding_fallback",
+          "claim": "Sophia full had a mean score of 85.2.",
+          "sources_considered": 1,
+          "ranked_spans": [
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "score": 0.336,
+              "lexical_score": 0.516,
+              "concept_score": 0.0,
+              "embedding_score": null,
+              "matched_span": "| Condition | Mean score | SD | n | Note |\n|---|---:|---:|---:|---|\n| Sophia full | 85.2 | 4.1 | 24 | authorship-preserving support |\n| Matched tutor | 79.4 | 5.0 | 24 | no Mandos continuity |",
+              "page": 7,
+              "method": "deterministic_lexical_concept_embedding_fallback"
+            }
+          ]
+        },
+        "nli_support": {
+          "method": "deterministic_nli_fallback",
+          "label": "supports",
+          "confidence": 0.896,
+          "similarity_score": 0.336,
+          "shared_concepts": [],
+          "rationale": "Visible-span judgment only; this is not treated as final entailment unless provenance and page/span evidence are inspected."
+        },
+        "structured_tables": {
+          "method": "multi_parser_structured_table_extraction",
+          "tables_detected": 1,
+          "tables": [
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "headers": [
+                "Condition",
+                "Mean score",
+                "SD",
+                "n",
+                "Note"
+              ],
+              "rows": [
+                {
+                  "Condition": "Sophia full",
+                  "Mean score": "85.2",
+                  "SD": "4.1",
+                  "n": "24",
+                  "Note": "authorship-preserving support"
+                },
+                {
+                  "Condition": "Matched tutor",
+                  "Mean score": "79.4",
+                  "SD": "5.0",
+                  "n": "24",
+                  "Note": "no Mandos continuity"
+                }
+              ],
+              "row_count_detected": 2,
+              "column_count_detected": 5,
+              "page": "7",
+              "table_index": 1,
+              "cell_citations": [
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 1,
+                  "header": "Condition",
+                  "value": "Sophia full",
+                  "locator": "p. 7, table 1, row 1, column 1 (Condition)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 1 (Condition)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 2,
+                  "header": "Mean score",
+                  "value": "85.2",
+                  "locator": "p. 7, table 1, row 1, column 2 (Mean score)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 2 (Mean score)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 3,
+                  "header": "SD",
+                  "value": "4.1",
+                  "locator": "p. 7, table 1, row 1, column 3 (SD)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 3 (SD)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 4,
+                  "header": "n",
+                  "value": "24",
+                  "locator": "p. 7, table 1, row 1, column 4 (n)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 4 (n)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 1,
+                  "column": 5,
+                  "header": "Note",
+                  "value": "authorship-preserving support",
+                  "locator": "p. 7, table 1, row 1, column 5 (Note)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 5 (Note)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 1,
+                  "header": "Condition",
+                  "value": "Matched tutor",
+                  "locator": "p. 7, table 1, row 2, column 1 (Condition)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 1 (Condition)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 2,
+                  "header": "Mean score",
+                  "value": "79.4",
+                  "locator": "p. 7, table 1, row 2, column 2 (Mean score)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 2 (Mean score)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 3,
+                  "header": "SD",
+                  "value": "5.0",
+                  "locator": "p. 7, table 1, row 2, column 3 (SD)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 3 (SD)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 4,
+                  "header": "n",
+                  "value": "24",
+                  "locator": "p. 7, table 1, row 2, column 4 (n)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 4 (n)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                },
+                {
+                  "source_name": "complex_scientific_table_page_7",
+                  "parser": "markdown_pipe_table",
+                  "page": "7",
+                  "table_index": 1,
+                  "row": 2,
+                  "column": 5,
+                  "header": "Note",
+                  "value": "no Mandos continuity",
+                  "locator": "p. 7, table 1, row 2, column 5 (Note)",
+                  "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 5 (Note)",
+                  "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+                }
+              ],
+              "truncated": false,
+              "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+            }
+          ]
+        },
+        "page_cell_citation_export": {
+          "method": "sophia_page_cell_citation_export_v1",
+          "tables_detected": 1,
+          "cell_citation_count": 10,
+          "cell_citations": [
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 1,
+              "header": "Condition",
+              "value": "Sophia full",
+              "locator": "p. 7, table 1, row 1, column 1 (Condition)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 1 (Condition)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 2,
+              "header": "Mean score",
+              "value": "85.2",
+              "locator": "p. 7, table 1, row 1, column 2 (Mean score)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 2 (Mean score)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 3,
+              "header": "SD",
+              "value": "4.1",
+              "locator": "p. 7, table 1, row 1, column 3 (SD)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 3 (SD)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 4,
+              "header": "n",
+              "value": "24",
+              "locator": "p. 7, table 1, row 1, column 4 (n)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 4 (n)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 1,
+              "column": 5,
+              "header": "Note",
+              "value": "authorship-preserving support",
+              "locator": "p. 7, table 1, row 1, column 5 (Note)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 1, column 5 (Note)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 1,
+              "header": "Condition",
+              "value": "Matched tutor",
+              "locator": "p. 7, table 1, row 2, column 1 (Condition)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 1 (Condition)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 2,
+              "header": "Mean score",
+              "value": "79.4",
+              "locator": "p. 7, table 1, row 2, column 2 (Mean score)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 2 (Mean score)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 3,
+              "header": "SD",
+              "value": "5.0",
+              "locator": "p. 7, table 1, row 2, column 3 (SD)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 3 (SD)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 4,
+              "header": "n",
+              "value": "24",
+              "locator": "p. 7, table 1, row 2, column 4 (n)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 4 (n)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            },
+            {
+              "source_name": "complex_scientific_table_page_7",
+              "parser": "markdown_pipe_table",
+              "page": "7",
+              "table_index": 1,
+              "row": 2,
+              "column": 5,
+              "header": "Note",
+              "value": "no Mandos continuity",
+              "locator": "p. 7, table 1, row 2, column 5 (Note)",
+              "citation_lead": "complex_scientific_table_page_7, p. 7, table 1, row 2, column 5 (Note)",
+              "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+            }
+          ],
+          "truncated": false,
+          "integrity_contract": [
+            "export only parsed visible cells",
+            "carry page/table/row/column locator when available",
+            "treat exported citations as human-verification leads, not finalized references"
+          ]
+        },
+        "vision_status": {
+          "method": "document_inspection_vision_readiness",
+          "status": "native_vision_not_enabled",
+          "native_vision_enabled": false,
+          "provider": "",
+          "model": "gemini-3.1-flash-lite",
+          "gemini": {
+            "provider": "gemini",
+            "model": "gemini-3.1-flash-lite",
+            "enabled": false,
+            "configured": false,
+            "status": "missing_key_or_provider"
+          },
+          "figure_signal": false,
+          "warnings": [],
+          "integrity_rule": "Do not interpret images, charts, or diagrams beyond extracted text/OCR unless a native vision model is explicitly active."
+        },
+        "page_check": null,
+        "integrity_contract": [
+          "rank visible spans before making support claims",
+          "separate supports, partial support, contradiction, and not-enough-information",
+          "report whether neural components were actually used",
+          "do not invent page/table/vision evidence"
+        ]
+      }
+    }
+  ]
+}

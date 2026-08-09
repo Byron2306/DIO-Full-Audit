@@ -1,0 +1,19 @@
+{
+  "arda_observed_run_timestamp": "20260428_142529",
+  "bundle_checked": "metatron_evidence_bundle_20260428T221619Z_fulltelemetry.tar.gz",
+  "bundle_contains_actual_pcaps": true,
+  "classification_report": "artifacts/undeniable_pipeline/20260428T231223Z/metatron_honest_tvr_classification.json",
+  "falco_dedup_summary": "artifacts/evidence/falco/falco_dedup_summary_20260428T155428.json",
+  "generated_at": "2026-04-28T23:16:47.141100+00:00",
+  "notes": [
+    "Observed K0 is separated from deductive K2 support.",
+    "Sigma matches are ATT&CK tag coverage records, not live event-stream detections.",
+    "ClamAV confirms scan enumeration only when infected_count is zero.",
+    "Arkime forensic replay requires packaged PCAP files."
+  ],
+  "public_summary": "artifacts/undeniable_pipeline/20260428T231223Z/metatron_public_claim_summary.json",
+  "schema": "metatron_sigma_run_manifest.v1",
+  "sigma_mapping_summary": "sigma_mapping_summary.json",
+  "sigma_matches_dir": "artifacts/undeniable_pipeline/20260428T231223Z/sigma_matches_snapshot",
+  "sigma_rules_dir": "artifacts/undeniable_pipeline/20260428T231223Z/sigma_rules_snapshot"
+}

@@ -1,0 +1,28 @@
+{
+  "assessments": [
+    {
+      "student_id": "student_001",
+      "status": "error",
+      "error": "Ran out of input"
+    }
+  ],
+  "moderations": [
+    {
+      "student_id": "student_001",
+      "action": "review_required",
+      "flags": [
+        "assessment_error"
+      ]
+    }
+  ],
+  "insights": {
+    "most_common_failed_checks": []
+  },
+  "statistics": {
+    "total": 1,
+    "success": 0,
+    "mean": 0.0,
+    "std": 0.0
+  },
+  "generated_at": "2026-01-30T13:25:42"
+}

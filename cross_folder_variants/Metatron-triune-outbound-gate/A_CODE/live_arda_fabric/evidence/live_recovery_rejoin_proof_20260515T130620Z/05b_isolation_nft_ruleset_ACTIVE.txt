@@ -1,0 +1,30 @@
+table ip nat {
+	chain DOCKER_OUTPUT {
+		ip daddr 127.0.0.11 tcp dport 53 counter packets 0 bytes 0 # Warning: table ip nat is managed by iptables-nft, do not touch!
+dnat to 127.0.0.11:45505
+		ip daddr 127.0.0.11 udp dport 53 counter packets 0 bytes 0 dnat to 127.0.0.11:38148
+	}
+
+	chain OUTPUT {
+		type nat hook output priority -100; policy accept;
+		ip daddr 127.0.0.11 counter packets 0 bytes 0 jump DOCKER_OUTPUT
+	}
+
+	chain DOCKER_POSTROUTING {
+		ip saddr 127.0.0.11 tcp sport 45505 counter packets 0 bytes 0 snat to :53
+		ip saddr 127.0.0.11 udp sport 38148 counter packets 0 bytes 0 snat to :53
+	}
+
+	chain POSTROUTING {
+		type nat hook postrouting priority srcnat; policy accept;
+		ip daddr 127.0.0.11 counter packets 0 bytes 0 jump DOCKER_POSTROUTING
+	}
+}
+table inet seraph_quarantine {
+	chain node_a_isolation {
+		type filter hook output priority filter; policy drop;
+		ip daddr 10.77.20.10 tcp dport 8080 accept
+		ip daddr 10.77.0.2 tcp dport 8080 accept
+		ct state established,related accept
+	}
+}

@@ -1,0 +1,58 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:ae631e9e06adb16fd4dd41d6841799aed3bb259c06b62d12b262a61831cae368",
+    "ref": "blobs/sha256/ae631e9e06adb16fd4dd41d6841799aed3bb259c06b62d12b262a61831cae368.json"
+  },
+  "artifact_type": "kv_prefill",
+  "avoided_tokens_estimate": 800,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.7,
+  "created_at": "2026-08-09T11:39:01.904256+00:00",
+  "credit_id": "prefill_1bb2bb08c32ff81c",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "inference_artifact_identity": {
+      "attention_backend": "unknown",
+      "beast_object_type": "inference_artifact_identity",
+      "engine": "unknown",
+      "engine_version": "unknown",
+      "identity_hash": "sha256:1bb2bb08c32ff81c3cab74d15e5305366953cc902828810bbd7da63d70d07d71",
+      "model": "llama-3",
+      "model_revision": "unknown",
+      "policy_fingerprint": "unknown",
+      "precision": "unknown",
+      "prompt_prefix_hash": "sha256:cc709d0efd6b3071f3b0d02b6e67f0dcc9a5ec5be0df1d9365316395ee2ac61e",
+      "quantization": "unknown",
+      "repository_fingerprint": "unknown",
+      "rope_config_hash": "unknown",
+      "skill_tree_fingerprint": "unknown",
+      "system_prompt_hash": "sha256:58d0189aa8572b25a2e4ba09928df2c3d924d07f53de9aeb94ffe7f6f2a1de2b",
+      "tenant_privacy_class": "local_private",
+      "tensor_parallel_size": 1,
+      "tokenizer": "tiktoken",
+      "tokenizer_revision": "unknown",
+      "tool_schema_fingerprint": "unknown",
+      "version": "1.0"
+    },
+    "inference_artifact_identity_hash": "sha256:1bb2bb08c32ff81c3cab74d15e5305366953cc902828810bbd7da63d70d07d71",
+    "kv_cache_metadata": {
+      "blocks": 12,
+      "estimated_tokens_saved": 800
+    },
+    "model": "llama-3",
+    "prompt_prefix_hash": "cc709d0efd6b3071f3b0d02b6e67f0dcc9a5ec5be0df1d9365316395ee2ac61e",
+    "system_prompt_hash": "58d0189aa8572b25a2e4ba09928df2c3d924d07f53de9aeb94ffe7f6f2a1de2b",
+    "tokenizer": "tiktoken"
+  },
+  "policy_version": "engine_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "prefill_preparation",
+  "verified_tests": [],
+  "version": "1.0"
+}

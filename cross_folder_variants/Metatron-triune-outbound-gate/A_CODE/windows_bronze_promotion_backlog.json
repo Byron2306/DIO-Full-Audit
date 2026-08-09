@@ -1,0 +1,2231 @@
+{
+  "generated_at": "2026-04-19",
+  "summary": {
+    "total_windows_bronze": 228,
+    "with_soar_archive": 128,
+    "without_soar_archive": 100,
+    "current_windows_gold": 8,
+    "current_windows_platinum": 0,
+    "wave1_promoted_to_gold": [
+      "T1047",
+      "T1053.005",
+      "T1059.001",
+      "T1059.003",
+      "T1070.001",
+      "T1106",
+      "T1112",
+      "T1127"
+    ],
+    "remaining_windows_bronze": 228
+  },
+  "section_a_fastest_to_gold": [
+    {
+      "rank": 1,
+      "technique_id": "T1059.005",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 2,
+      "technique_id": "T1059.007",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 3,
+      "technique_id": "T1059.010",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 4,
+      "technique_id": "T1072",
+      "tactics": [
+        "execution",
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 5,
+      "technique_id": "T1129",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 6,
+      "technique_id": "T1204.002",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 7,
+      "technique_id": "T1559.002",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 8,
+      "technique_id": "T1037.001",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 9,
+      "technique_id": "T1055.001",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 10,
+      "technique_id": "T1055.002",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 11,
+      "technique_id": "T1055.003",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 12,
+      "technique_id": "T1055.004",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 13,
+      "technique_id": "T1055.011",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 14,
+      "technique_id": "T1055.012",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 15,
+      "technique_id": "T1055.015",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 16,
+      "technique_id": "T1133",
+      "tactics": [
+        "persistence",
+        "initial-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 17,
+      "technique_id": "T1134.001",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 18,
+      "technique_id": "T1134.002",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 19,
+      "technique_id": "T1134.004",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 20,
+      "technique_id": "T1134.005",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 21,
+      "technique_id": "T1137",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 22,
+      "technique_id": "T1137.001",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 23,
+      "technique_id": "T1137.002",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 24,
+      "technique_id": "T1137.004",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 25,
+      "technique_id": "T1137.006",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 26,
+      "technique_id": "T1197",
+      "tactics": [
+        "defense-evasion",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 27,
+      "technique_id": "T1484.001",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 28,
+      "technique_id": "T1505.002",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 29,
+      "technique_id": "T1505.003",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 30,
+      "technique_id": "T1505.004",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 31,
+      "technique_id": "T1505.005",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 32,
+      "technique_id": "T1543.003",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 33,
+      "technique_id": "T1546.001",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 34,
+      "technique_id": "T1546.002",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 35,
+      "technique_id": "T1546.003",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 36,
+      "technique_id": "T1546.007",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 37,
+      "technique_id": "T1546.008",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 38,
+      "technique_id": "T1546.009",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 39,
+      "technique_id": "T1546.010",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 40,
+      "technique_id": "T1546.011",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 41,
+      "technique_id": "T1546.012",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 42,
+      "technique_id": "T1546.013",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 43,
+      "technique_id": "T1546.015",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 44,
+      "technique_id": "T1547.001",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 45,
+      "technique_id": "T1547.002",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 46,
+      "technique_id": "T1547.003",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 47,
+      "technique_id": "T1547.004",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 48,
+      "technique_id": "T1547.005",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 49,
+      "technique_id": "T1547.008",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 50,
+      "technique_id": "T1547.009",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 51,
+      "technique_id": "T1547.010",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 52,
+      "technique_id": "T1547.012",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 53,
+      "technique_id": "T1547.014",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 54,
+      "technique_id": "T1548.002",
+      "tactics": [
+        "privilege-escalation",
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 55,
+      "technique_id": "T1003.001",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 56,
+      "technique_id": "T1003.002",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 57,
+      "technique_id": "T1003.003",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 58,
+      "technique_id": "T1003.004",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 59,
+      "technique_id": "T1003.005",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 60,
+      "technique_id": "T1003.006",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 61,
+      "technique_id": "T1021.001",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 62,
+      "technique_id": "T1021.002",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 63,
+      "technique_id": "T1021.003",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 64,
+      "technique_id": "T1021.006",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 65,
+      "technique_id": "T1056.002",
+      "tactics": [
+        "collection",
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 66,
+      "technique_id": "T1056.004",
+      "tactics": [
+        "collection",
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 67,
+      "technique_id": "T1091",
+      "tactics": [
+        "lateral-movement",
+        "initial-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 68,
+      "technique_id": "T1110.002",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 69,
+      "technique_id": "T1187",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 70,
+      "technique_id": "T1539",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 71,
+      "technique_id": "T1550.002",
+      "tactics": [
+        "defense-evasion",
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 72,
+      "technique_id": "T1550.003",
+      "tactics": [
+        "defense-evasion",
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 73,
+      "technique_id": "T1555.004",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 74,
+      "technique_id": "T1558.001",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 75,
+      "technique_id": "T1558.002",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 76,
+      "technique_id": "T1558.003",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 77,
+      "technique_id": "T1558.004",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 78,
+      "technique_id": "T1563.002",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 79,
+      "technique_id": "T1570",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 80,
+      "technique_id": "T1649",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 81,
+      "technique_id": "T1006",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 82,
+      "technique_id": "T1036.007",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 83,
+      "technique_id": "T1070.005",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 84,
+      "technique_id": "T1127.001",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 85,
+      "technique_id": "T1202",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 86,
+      "technique_id": "T1207",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 87,
+      "technique_id": "T1216",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 88,
+      "technique_id": "T1216.001",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 89,
+      "technique_id": "T1218",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 90,
+      "technique_id": "T1218.001",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 91,
+      "technique_id": "T1218.002",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 92,
+      "technique_id": "T1218.003",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 93,
+      "technique_id": "T1218.004",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 94,
+      "technique_id": "T1218.005",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 95,
+      "technique_id": "T1218.007",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 96,
+      "technique_id": "T1218.008",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 97,
+      "technique_id": "T1218.009",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 98,
+      "technique_id": "T1218.010",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 99,
+      "technique_id": "T1218.011",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 100,
+      "technique_id": "T1220",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 101,
+      "technique_id": "T1221",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 102,
+      "technique_id": "T1222.001",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 103,
+      "technique_id": "T1564.002",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 104,
+      "technique_id": "T1564.003",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 105,
+      "technique_id": "T1564.004",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 106,
+      "technique_id": "T1564.006",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 107,
+      "technique_id": "T1566.001",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 108,
+      "technique_id": "T1566.002",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 109,
+      "technique_id": "T1620",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 110,
+      "technique_id": "T1622",
+      "tactics": [
+        "defense-evasion",
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 111,
+      "technique_id": "T1010",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 112,
+      "technique_id": "T1012",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 113,
+      "technique_id": "T1120",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 114,
+      "technique_id": "T1482",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 115,
+      "technique_id": "T1615",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 116,
+      "technique_id": "T1654",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 117,
+      "technique_id": "T1020",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 118,
+      "technique_id": "T1025",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 119,
+      "technique_id": "T1039",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 120,
+      "technique_id": "T1041",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 121,
+      "technique_id": "T1114.001",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 122,
+      "technique_id": "T1119",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 123,
+      "technique_id": "T1123",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 124,
+      "technique_id": "T1125",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 125,
+      "technique_id": "T1567.003",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 126,
+      "technique_id": "T1095",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 127,
+      "technique_id": "T1219",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    },
+    {
+      "rank": 128,
+      "technique_id": "T1490",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": true,
+      "estimated_effort": "low \u2014 SOAR side exists, need 2 more runs for S5"
+    }
+  ],
+  "section_b_soar_expansion": [
+    {
+      "rank": 1,
+      "technique_id": "T1059.011",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 2,
+      "technique_id": "T1204",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 3,
+      "technique_id": "T1204.001",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 4,
+      "technique_id": "T1204.004",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 5,
+      "technique_id": "T1204.005",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 6,
+      "technique_id": "T1674",
+      "tactics": [
+        "execution"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 7,
+      "technique_id": "T1037.003",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 8,
+      "technique_id": "T1055.005",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 9,
+      "technique_id": "T1055.013",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 10,
+      "technique_id": "T1134",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 11,
+      "technique_id": "T1134.003",
+      "tactics": [
+        "defense-evasion",
+        "privilege-escalation"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 12,
+      "technique_id": "T1137.003",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 13,
+      "technique_id": "T1137.005",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 14,
+      "technique_id": "T1176.001",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 15,
+      "technique_id": "T1176.002",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 16,
+      "technique_id": "T1505",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 17,
+      "technique_id": "T1505.001",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 18,
+      "technique_id": "T1546.016",
+      "tactics": [
+        "privilege-escalation",
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": true,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 19,
+      "technique_id": "T1653",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 20,
+      "technique_id": "T1668",
+      "tactics": [
+        "persistence"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 21,
+      "technique_id": "T1021",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 22,
+      "technique_id": "T1021.005",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 23,
+      "technique_id": "T1056.003",
+      "tactics": [
+        "collection",
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 24,
+      "technique_id": "T1111",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 25,
+      "technique_id": "T1212",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 26,
+      "technique_id": "T1550",
+      "tactics": [
+        "defense-evasion",
+        "lateral-movement"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 27,
+      "technique_id": "T1555.005",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 28,
+      "technique_id": "T1558",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 29,
+      "technique_id": "T1563",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 30,
+      "technique_id": "T1606.001",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 31,
+      "technique_id": "T1621",
+      "tactics": [
+        "credential-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 32,
+      "technique_id": "T1036.001",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 33,
+      "technique_id": "T1036.002",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 34,
+      "technique_id": "T1036.008",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 35,
+      "technique_id": "T1036.010",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 36,
+      "technique_id": "T1036.012",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 37,
+      "technique_id": "T1070.007",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 38,
+      "technique_id": "T1070.009",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 39,
+      "technique_id": "T1070.010",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 40,
+      "technique_id": "T1127.002",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 41,
+      "technique_id": "T1127.003",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 42,
+      "technique_id": "T1195.001",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 43,
+      "technique_id": "T1195.003",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 44,
+      "technique_id": "T1211",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 45,
+      "technique_id": "T1216.002",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 46,
+      "technique_id": "T1218.012",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": true,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 47,
+      "technique_id": "T1218.013",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": true,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 48,
+      "technique_id": "T1218.014",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": true,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 49,
+      "technique_id": "T1218.015",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": true,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 50,
+      "technique_id": "T1480",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 51,
+      "technique_id": "T1480.001",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 52,
+      "technique_id": "T1480.002",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 53,
+      "technique_id": "T1497.002",
+      "tactics": [
+        "defense-evasion",
+        "discovery"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 54,
+      "technique_id": "T1564.005",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 55,
+      "technique_id": "T1564.007",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 56,
+      "technique_id": "T1564.010",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 57,
+      "technique_id": "T1564.011",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 58,
+      "technique_id": "T1564.012",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 59,
+      "technique_id": "T1566",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 60,
+      "technique_id": "T1566.003",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 61,
+      "technique_id": "T1566.004",
+      "tactics": [
+        "initial-access"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 62,
+      "technique_id": "T1672",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 63,
+      "technique_id": "T1678",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 64,
+      "technique_id": "T1679",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 65,
+      "technique_id": "T1087.003",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 66,
+      "technique_id": "T1518.002",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 67,
+      "technique_id": "T1673",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 68,
+      "technique_id": "T1680",
+      "tactics": [
+        "discovery"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 69,
+      "technique_id": "T1011",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 70,
+      "technique_id": "T1011.001",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 71,
+      "technique_id": "T1029",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 72,
+      "technique_id": "T1052",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 73,
+      "technique_id": "T1052.001",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 74,
+      "technique_id": "T1074.002",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 75,
+      "technique_id": "T1213",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 76,
+      "technique_id": "T1213.002",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 77,
+      "technique_id": "T1213.006",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 78,
+      "technique_id": "T1560.003",
+      "tactics": [
+        "collection"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 79,
+      "technique_id": "T1567.001",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 80,
+      "technique_id": "T1567.004",
+      "tactics": [
+        "exfiltration"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 81,
+      "technique_id": "T1001.001",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 82,
+      "technique_id": "T1008",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 83,
+      "technique_id": "T1071.002",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 84,
+      "technique_id": "T1071.003",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 85,
+      "technique_id": "T1071.005",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 86,
+      "technique_id": "T1090.002",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 87,
+      "technique_id": "T1104",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 88,
+      "technique_id": "T1132.002",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 89,
+      "technique_id": "T1219.001",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 90,
+      "technique_id": "T1219.002",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 91,
+      "technique_id": "T1219.003",
+      "tactics": [
+        "command-and-control"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 92,
+      "technique_id": "T1498",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 93,
+      "technique_id": "T1498.001",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 94,
+      "technique_id": "T1498.002",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 95,
+      "technique_id": "T1499",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 96,
+      "technique_id": "T1499.001",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 97,
+      "technique_id": "T1499.002",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 98,
+      "technique_id": "T1499.003",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 99,
+      "technique_id": "T1499.004",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    },
+    {
+      "rank": 100,
+      "technique_id": "T1667",
+      "tactics": [
+        "impact"
+      ],
+      "has_soar": false,
+      "high_value": false,
+      "estimated_effort": "medium \u2014 needs SOAR mapping + atomic run"
+    }
+  ]
+}

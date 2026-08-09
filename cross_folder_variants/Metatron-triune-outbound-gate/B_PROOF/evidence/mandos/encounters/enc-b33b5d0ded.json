@@ -1,0 +1,64 @@
+{
+  "record": {
+    "record_id": "mem-005f592a60",
+    "principal_identity_hash": "1d920632d84cd454bba86b9304372b91ad9095e4d12ef647f5bed185b31acbc4",
+    "memory_class": "encounter",
+    "retention_class": "amendable",
+    "created_at": "2026-07-30 09:43:08.833876+00:00",
+    "consent_basis": "covenant",
+    "content_hash": "e03a85f2b0722468b6c31dfad1dfe452a3589943cbd663702c17d5fd02b027a6",
+    "parent_hash": null,
+    "inspectable": true,
+    "revocable": true,
+    "content_ref": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/mandos/encounters/enc-b33b5d0ded.json"
+  },
+  "payload": {
+    "encounter_id": "enc-b33b5d0ded",
+    "principal_identity_hash": "1d920632d84cd454bba86b9304372b91ad9095e4d12ef647f5bed185b31acbc4",
+    "topic": "Hi there. How are you",
+    "principal_goal": null,
+    "machine_role": "maieuticus",
+    "summary": "Hello! I'm Byron John Bunt, a professor at North-West University specializing in self-directed learning and game-based education. I enjoy exploring the intersection of technology and education. What brings you to this session?",
+    "what_deepened": [
+      "continuity_reentry_mediation",
+      "reflective_handback_release_mediation",
+      "pedagogical_scaffold_mediation"
+    ],
+    "what_confused": [],
+    "unresolved_threads": [],
+    "officer_sequence": [
+      "maieuticus"
+    ],
+    "zpd_estimate": 0.5,
+    "created_at": "2026-07-30 09:43:08.830712+00:00",
+    "conditioning_delta": 0.0,
+    "reinforcement_type": null,
+    "modelled_behavior": null,
+    "habit_mediated": null,
+    "mediation_success_score": 0.0,
+    "heutagogic_shift": false,
+    "tangential_bridge_taken": null,
+    "challenge_type": "CASUAL_CONTINUATION",
+    "struggle_index": 0.0,
+    "release_decision": "",
+    "handback_reason": null,
+    "dominant_cluster": "continuity_reentry",
+    "speech_act": "resume",
+    "workspace_schema": [
+      "continuity_reentry_workspace"
+    ],
+    "expression_schema": [
+      "continuity_reentry_surface"
+    ],
+    "verification_schema": [
+      "constitutional_boundary_verification",
+      "epistemic_honesty_verification"
+    ],
+    "memory_class": "encounter",
+    "retention_class": "amendable"
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

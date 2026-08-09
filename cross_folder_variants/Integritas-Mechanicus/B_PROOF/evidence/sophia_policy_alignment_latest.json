@@ -1,0 +1,1921 @@
+{
+  "suite": "sophia_policy_alignment",
+  "timestamp": "2026-08-03T20:37:10.917679+00:00",
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "sources": 6,
+    "extracted_sources": 6,
+    "article_total": 12,
+    "article_aligned": 12,
+    "assistance_categories": 7
+  },
+  "sources": [
+    {
+      "source_id": "nwu_academic_integrity_policy_2025",
+      "jurisdiction": "North-West University",
+      "title": "NWU Policy on Academic Integrity",
+      "url": "https://www.nwu.ac.za/sites/www.nwu.ac.za/files/files/i-governance-management/policy/2025/2P_2.4.3.2_Policy-on-Academic-Integrity.pdf",
+      "expected_terms": [
+        "academic integrity",
+        "artificial intelligence",
+        "plagiarism",
+        "misconduct"
+      ],
+      "priority": "primary_nwu",
+      "status": "extracted",
+      "source_path": "/tmp/tmp5x2wtepz/nwu_academic_integrity_policy_2025.pdf",
+      "parser": "pdfplumber",
+      "readable_chars": 44989,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "Page 1",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S2",
+          "quote": "NWU     POLICY      ON   ACADEMIC         INTEGRITY",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S3",
+          "quote": "Reference number          2P_2.4.3.2",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S4",
+          "quote": "Accountable executive manager Registrar                               \n            Policy Owner              Registrar",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S5",
+          "quote": "Responsible division      Registrar                                   \n            Status                    Approved",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S6",
+          "quote": "Approved by               Council",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S7",
+          "quote": "Date of approval          13 November 2024                            \n            Review date               2027",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S8",
+          "quote": "[TABLE page=1 index=1]\nReference number | 2P_2.4.3.2\nAccountable executive manager | Registrar\nPolicy Owner | Registrar\nResponsible division | Registrar\nStatus | Approved\nApproved by | Council\nDate of approval | 13 November 2024\nReview date | 2027",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S9",
+          "quote": "| 2.3 Entering into suspect research collaboration involving multiple submissions leading to so-called “salami-slicing” of the same research product. | 3 Fabrication (see definition included below). Falsification (see definition included below).",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S10",
+          "quote": "Plagiarism (see definition included below). Self-plagiarism (see definition included below). Research non-compliance (see definition below). Violation of good research practice (see definition below). Unethical use of Artificial Intelligence (see definition below).",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S11",
+          "quote": "“Academic integrity” | Displaying the values of honesty, trust, fairness, respect, responsibility and courage1 in the adherence to the ethics of honest scholarship in teaching-learning and research practices as well as the ability to work independently; to give credit to the ideas of others and the re- use of one’s own previous work; and not to transgress through any acts of teaching-learning misconduct, research misconduct, research-non-compliance or violation of good research practice; as well as the submission of original research products for assessment, examination and review.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S12",
+          "quote": "“Academic materials” | Includes all academic products, irrespective of the form in which it was produced, both at undergraduate and post-graduate level, research articles, chapters in books, conference presentations and papers and research conducted on a contract-basis.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S13",
+          "quote": "“Academic ‘trafficking” | The unauthorised uploading of academic materials belonging to the NWU on collaborative academic platforms for the purpose of obtaining access to international study material.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S14",
+          "quote": "“Artificial Intelligence” | The development and deployment of computer systems or sophisticated algorithms in teaching-learning or research with the capabilities to perform tasks that would typically require human intelligence.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S15",
+          "quote": "These systems have the ability to analyse large amounts of data, identify patterns, formulate predictions, learn from experience, and automate complex processes. Put differently: the development of computer systems that can copy human behaviour2.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S16",
+          "quote": "“Unethical use of Artificial Intelligence” | 1 The unethical use or application of Artificial Intelligence incurring risks including using Artificial Intelligence to deceive or manipulate, implementing Artificial Intelligence systems without proper transparency or attribution during assessment, examination, or research.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S17",
+          "quote": "| 2 | Since the intention to deceive is a key notion in the understanding of plagiarism the findings in an investigation of plagiarism must be presented in a continuum ranging from “strong intention to deceive” (presenting the work as original and/or as the author’s own) to” weak intention to deceive” (careless writing and/or improper referencing.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S18",
+          "quote": "| 3 | Unconscionable lifting of text meaning the direct, or verbatim usage from existing sources, without adherence to the conventions on academic integrity related to quotations and citation.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S19",
+          "quote": "| 4 | Artificial Intelligence plagiarism (see definition included above)\n“Self-plagiarism” | 1 Self-plagiarism occurs when authors improperly re-use their own work, or sections of their own work presenting the work as new and original.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S20",
+          "quote": "| \n | 2 Self-plagiarism may infringe the copyright of others involved in the publication of the original work. | \nResearch integrity | The active adherence to ethical principles and professional standards essential for responsible practice of research.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S21",
+          "quote": "| \nResearch misconduct | The intentional deception in proposing, performing, reviewing or reporting research through the acts of fabrication, falsification or plagiarism.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S22",
+          "quote": "| \nResearch non- compliance | Any minor or major violation of any regulation governing human, animal or environmental research or any deviation from proposal or protocol approved by the relevant Research Ethics Committee.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S23",
+          "quote": "| \nSimilarity indices | Similarity-index software (such as Turnitin and Ithenticate) used by the university for the purpose of determining similarities of the text of academic material with any other texts applying computational string-matching techniques to identify words, phrases, sentences or paragraphs that are recognised to be identical, copied, or altered from the original texts.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S24",
+          "quote": "| \nStudent | A person admitted and registered as a student of the NWU in order to attain a qualification. | \nViolation of good research practice | Violation of good research practices that damage the integrity of the research process or of the researchers. |",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        }
+      ],
+      "uncertainty_notes": [
+        "pdfplumber_page_aware",
+        "pdfplumber_tables_detected:5"
+      ]
+    },
+    {
+      "source_id": "nwu_senate_rules_academic_integrity_2025",
+      "jurisdiction": "North-West University",
+      "title": "NWU Senate Rules on Academic Integrity",
+      "url": "https://www.nwu.ac.za/sites/www.nwu.ac.za/files/files/i-governance-management/policy/2025/2025.06.02_Senate-Rules-on-Academic-Integrity-complete.pdf",
+      "expected_terms": [
+        "plagiarism",
+        "copyright",
+        "academic misconduct",
+        "rules"
+      ],
+      "priority": "primary_nwu",
+      "status": "extracted",
+      "source_path": "/tmp/tmp5x2wtepz/nwu_senate_rules_academic_integrity_2025.pdf",
+      "parser": "pdfplumber",
+      "readable_chars": 44996,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "Page 1",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S2",
+          "quote": "Registrar",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S3",
+          "quote": "SENATE  RULES  ON  ACADEMIC   INTEGRITY",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S4",
+          "quote": "The Senate Rules on Academic Integrity have been drafted in accordance with para 5.1.2\n        of the Policy on Academic Integrity",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S5",
+          "quote": "Content",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S6",
+          "quote": "(Please click on the link to open the relevant section)",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S7",
+          "quote": "Section 1: Procedure for the investigation of instances Approved by Senate Executive\n         of Academic misconduct                   Committee on 27 November 2024",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S8",
+          "quote": "Section 2: Conceptual framework for the categorisation Approved by Senate Executive\n         of alleged instances of plagiarism       Committee on 27 November 2024",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S9",
+          "quote": "Special Categories of Personal Data: Race or ethnicity, Sexual behaviour or sexual orientation,\n              Political views, Religious or philosophical beliefs, Membership of a trade union, Health and medical\n              data, Genetic data, Biometric data. v.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S10",
+          "quote": "Confidential Business information: Corporate strategies, Trade secrets, Internal project details,\n              Financial reports and forecasts, Staff or student data. vi.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S11",
+          "quote": "Legal Information: Legal advice and discussions, Information related to ongoing legal cases,\n              Confidential contracts or agreements. vii.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S12",
+          "quote": "Security Information: Unpublished research, Patents or patent applications, Copyrighted material\n              (without proper authorisation). viii.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S13",
+          "quote": "Security Information: Network data, Security protocols, Vulnerability reports, Documents containing\n              architecture or infrastructure details, Configuration documents. ix.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S14",
+          "quote": "Inappropriate or illegal content: Hate speech, Illegal activities, Content that violates privacy laws. 3  Rules for the Responsible and ethical use of AI for all personnel and students\n        The following rules must be followed:                                     \n        1.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S15",
+          "quote": "Use AI only as permitted and specified by the lecturer, supervisor, or publisher for the specific assignment\n           or research. Ensure you understand their stance on the use of AI within the 5 levels of AIAS. Declare your\n           use of AI and document its application. 2.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S16",
+          "quote": "AI answers or essays may not be presented as your own work. This is a form of academic dishonesty. 3. Tools for paraphrasing and language editing are classified as AI tools and will be detected by Turnitin or\n           other similar AI detection systems.",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S17",
+          "quote": "In this format:                                                       \n            •  \"Author(s)\" refers to the organization or individual that developed the software or model. •  \"Title of software or model\" is the official name of the software or model.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S18",
+          "quote": "•  \"URL\" is the web address where the software or model can be accessed. •  \"Accessed: Day Month Year\" is the date when the software or model was last accessed by the\n               person citing the source.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S19",
+          "quote": "Example of a reference list entry for ChatGPT in NWU Law format       \n            OpenAI, ChatGPT 3.5, chatgpt.com, accessed 29 April 2025              \n            Example of a reference list entry for DALL-E in NWU Law format",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S20",
+          "quote": "OpenAI, DALL-E, https://www.dall-efree.com, accessed 29 April 2025",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S21",
+          "quote": "6  Summary                                                                \n        The NWU is committed to providing students the opportunity to engage with AI in various forms while\n        considering the associated risks, environmental impact, and potential biases of the technology.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S22",
+          "quote": "The\n        goal of these Senate rules is to educate and guide students and academics on the ethical use of\n        these powerful tools, in alignment with the high academic integrity standards expected for them to\n        contribute effectively to their subject field and community.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S23",
+          "quote": "Current details:(10225676) C:\\Users\\10225676\\NWUNextcloud\\RAM operations\\Policy management\\Approved policies\\Policy on Academic Integrity\\Senate Rules - Academic\n        integrity\\Section 5_NWU Senate rules for the Responsible and Ethical use of AI.docx\n        3 June 2025                                                               \n        File reference: 1.3P_Senate Rules AI",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S24",
+          "quote": "NWU Senate Rules on the responsible and ethical use of artificial intelligence 5",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        }
+      ],
+      "uncertainty_notes": [
+        "pdfplumber_page_aware",
+        "pdfplumber_tables_detected:124"
+      ]
+    },
+    {
+      "source_id": "nwu_ai_policy_2025",
+      "jurisdiction": "North-West University",
+      "title": "NWU Policy on Artificial Intelligence",
+      "url": "https://www.nwu.ac.za/sites/www.nwu.ac.za/files/files/i-governance-management/policy/2025/Nov/5P_5.10_AI-policy.pdf",
+      "expected_terms": [
+        "artificial intelligence",
+        "ethical",
+        "academic integrity",
+        "copyright"
+      ],
+      "priority": "primary_nwu",
+      "status": "extracted",
+      "source_path": "/tmp/tmp5x2wtepz/nwu_ai_policy_2025.pdf",
+      "parser": "pdfplumber",
+      "readable_chars": 44405,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "Page 1",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S2",
+          "quote": "POLICY      ON   ARTIFICIAL        INTELLIGENCE           (AI)",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S3",
+          "quote": "Reference number        5P_5.10",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S4",
+          "quote": "Accountable executive manager Deputy Vice-Chancellor: Operations, Digital and\n                                    AI Systems                                    \n            Policy Owner            Deputy Vice-Chancellor: Operations, Digital and\n                                    AI Systems",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S5",
+          "quote": "Responsible division    Information Technology",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S6",
+          "quote": "Status                  Approved                                      \n            Approved by             Council",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S7",
+          "quote": "Date of approval        19 November 2025",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S8",
+          "quote": "Review date             2028",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S9",
+          "quote": "tasks:                                                                   \n                          Arrange the AISC and other ad hoc meetings as required. Policy on Artificial Intelligence (AI)                           5",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S10",
+          "quote": "Page 7",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S11",
+          "quote": "Ensure sufficient membership on AISC and invite experts as needed.",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S12",
+          "quote": "Meet regularly with the IT Chief Director and the Director of the Digital Academy. Conduct research into AI development in higher education, nationally and internationally. Provide advice on the need for and use of AI licences at the NWU.",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S13",
+          "quote": "This will involve exploring\n                          different AI products and organising presentations by relevant companies. Make a concerted effort to bridge the digital divide in implementing AI.",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S14",
+          "quote": "Explore ways to generate an income for the AI Hub from sources such as industry, SOTL\n                          funds, CTL, and SETA funds for training.",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S15",
+          "quote": "Direct all issues relating to the ownership, licensing and commercialisation of AI tools, datasets\n                          and ancillary creative outputs to TTIS (Technology Transfer Innovation Services), in order to\n                          clarify how the intellectual property and monetisation of university-created AI tools will be\n                          governed – including staff/student contributions.",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S16",
+          "quote": "The director should attend national and international conferences to learn more about AI and\n                          organise AI conferences at the NWU as required.",
+          "page": 5,
+          "page_number": 5,
+          "locator": "p. 5"
+        },
+        {
+          "span_id": "S17",
+          "quote": "4. SPECIAL CATEGORIES OF PERSONAL DATA. Race or ethnicity, Sexual behaviour or sexual\n         orientation, Political views, Religious or philosophical beliefs, Membership of a trade union, Health\n         and medical data, Genetic data, Biometric data.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S18",
+          "quote": "5. CONFIDENTIAL BUSINESS INFORMATION. Corporate strategies, Trade secrets, Internal\n         project details, Financial reports and forecasts, Staff or student data.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S19",
+          "quote": "6. LEGAL INFORMATION. Legal advice and discussions, Information related to ongoing legal\n         cases, Confidential contracts or agreements. 7. INTELLECTUAL PROPERTY.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S20",
+          "quote": "Unpublished research, Patents or patent applications, Copyrighted\n         material (without proper authorisation).",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S21",
+          "quote": "8. SECURITY INFORMATION. Network data, Security protocols, Vulnerability reports, Documents\n         containing architecture or infrastructure details, Configuration documents.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S22",
+          "quote": "9. INAPPROPRIATE OR ILLEGAL CONTENT. Hate speech, Illegal activities, Content that violates\n         privacy laws.",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S23",
+          "quote": "Original details: (10225676) C:\\Users\\User\\NWUNextcloud\\Finale beleide vir web\\AI POLICY\\5P_5.10_AI policy.docm\n        19 November 2025                                                          \n        File reference: 5P_5.10",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        },
+        {
+          "span_id": "S24",
+          "quote": "Policy on Artificial Intelligence (AI)                           8",
+          "page": 7,
+          "page_number": 7,
+          "locator": "p. 7"
+        }
+      ],
+      "uncertainty_notes": [
+        "pdfplumber_page_aware",
+        "pdfplumber_tables_detected:3"
+      ]
+    },
+    {
+      "source_id": "nwu_ai_teaching_learning_guidelines",
+      "jurisdiction": "North-West University",
+      "title": "NWU Guidelines for the Utilisation of AI in Teaching and Learning",
+      "url": "https://news.nwu.ac.za/sites/news.nwu.ac.za/files/files/Robert.Balfour/Utilization-AI-TL.pdf",
+      "expected_terms": [
+        "teaching",
+        "learning",
+        "academic integrity",
+        "plagiarism"
+      ],
+      "priority": "nwu_guidance",
+      "status": "extracted",
+      "source_path": "/tmp/tmp5x2wtepz/nwu_ai_teaching_learning_guidelines.pdf",
+      "parser": "pdfplumber",
+      "readable_chars": 40453,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "Page 1",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S2",
+          "quote": "Private Bag X6001, Potchefstroom\n                                                    South Africa 2520             \n                                                    Tel: 018 299-1111/2222        \n                                                    Web: http://www.nwu.ac.za     \n                                                    Office of the Deputy Vice-Chancellor:\n                                                    Teaching-learning             \n                                                    Tel: (+27)18-285 2106",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S3",
+          "quote": "Guidelines for the Utilisation of AI in Teaching and Learning at NWU",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S4",
+          "quote": "Prof RJ Balfour, DVC Teaching and Learning\n    1) Background to the Matter",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S5",
+          "quote": "Senate, at its second meeting of 2023, took note of developments concerning Artificial Intelligence and its impact\n    on higher education generally, and teaching and learning in particular.",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S6",
+          "quote": "While it was noted that faculties\n    organised, or were in the process of organising, workshops and other forms of engagement as regards AI,\n    Senate expressed a view that an institutional opportunity for engagement be organised through the Office of the\n    Deputy Vice Chancellor Teaching & Learning, and that a report be submitted through SCTL for the further\n    attention of Senate both on the phenomenon of, and suggested University responses to AI.",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S7",
+          "quote": "The Centre for\n    Teaching and Learning thus assisted the DVC’s Office with the conceptualisation of a programme of panels and\n    presentations, also featuring a pre-programme competition for any member of the University to develop an\n    accessible and user-friendly podcast featuring a selected form of AI.",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S8",
+          "quote": "Central to the themes explored in the course of the NWU Symposiumi is the importance of ethical considerations\n    concerning the use of artificial intelligence that is not transparently accountable to its users, and barely\n    accountable to its creatorsii.",
+          "page": 1,
+          "page_number": 1,
+          "locator": "p. 1"
+        },
+        {
+          "span_id": "S9",
+          "quote": "The other problem is that of the bubble: algorithms channel information,\n    based on their analysis of interests, language, preferences, and there is further channelling of information that\n    feeds these same or similar interests, preferences and beliefs.",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S10",
+          "quote": "The abuse and potential abuse of these\n    technologies (and the techniques of surveillance underpinning them) has long been known and is well-\n    documented.",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S11",
+          "quote": "That noted, it should be recognised that large language models (LLM) will lean towards a ‘global’,\n    rather than heavily contextual perspective. Thus, unsurprisingly, topics that are discussed globally surface most\n    in AI outputs.",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S12",
+          "quote": "Local knowledge (inclusive of indigenous knowledge) becomes more prominent, however, the\n    more it becomes used through AI. In light of this, it is important to show students how to access indigenous or\n    localised knowledge, and in this regard, context becomes critical.",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S13",
+          "quote": "The educational and social risks associated with algorithm-based information channelling not only include the\n    risk of bias and prejudice, but also the risk of anti-social behaviour that does not accord with the need for\n    collaboration and cooperation with like as well as other, to mutual and ethical benefit: aloneness, loneliness and\n    the 'bubble'.",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S14",
+          "quote": "Simply put, learning to engage may be enhanced through practice with a chat bot, but a chat bot is\n    not the future of the human species, as a species in which scarcity of resources and mutual need compels us to\n    learn better those skills of collaboration and cooperation, and complex interdisciplinary problem-solving that",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S15",
+          "quote": "3",
+          "page": 3,
+          "page_number": 3,
+          "locator": "p. 3"
+        },
+        {
+          "span_id": "S16",
+          "quote": "Page 4",
+          "page": 4,
+          "page_number": 4,
+          "locator": "p. 4"
+        },
+        {
+          "span_id": "S17",
+          "quote": "In the Wizard of Oz, the heart of the Tin Woodman is signalled not so much as the seat\n    of sentiment, but rather that the ethical compass which makes sense of what is valuable, and makes sense of why connections of various kinds, matter.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S18",
+          "quote": "“Having the heart” is thus the facility necessary to be able to make right choices; to distinguish between right from wrong.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S19",
+          "quote": "ii Speakers and experts external to the University were also invited and by the symposium date on 5 June, a 179 registrations had been received (of which\n    80 were face to face registrations for the 40 open spaces and 99 were online registrations).",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S20",
+          "quote": "Inclusive of this “Summary and Way Forward” document,\n    thirteen presentations featured on the day (please see programme for 5 June 2023 attached) with guests from the University of Lincoln and the University\n    of the Witwatersrand, respectively.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S21",
+          "quote": "At the outset key guiding documentation had been shared by the DVC T&L Office with members of the NWU Teaching\n    Learning Leadership Forum.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S22",
+          "quote": "These sources included reference to UNESCO’s framing document for policy makers on AI, as well as selected institutional\n    responses to AI as featured in the list of references to this document.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S23",
+          "quote": "iii Recent tests of ChatGPT-4 using Afrikaans (84.1%) ran a close second to English.",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        },
+        {
+          "span_id": "S24",
+          "quote": "Swahili has also been tested using ChatGPT-4 (at 78.5%):\n    https://openai.com/research/gpt-4                                             \n                                                                     6",
+          "page": 6,
+          "page_number": 6,
+          "locator": "p. 6"
+        }
+      ],
+      "uncertainty_notes": [
+        "pdfplumber_page_aware",
+        "pdfplumber_tables_detected:1"
+      ]
+    },
+    {
+      "source_id": "unesco_genai_education_research_2023",
+      "jurisdiction": "Global",
+      "title": "UNESCO Guidance for Generative AI in Education and Research",
+      "url": "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research",
+      "expected_terms": [
+        "human-centred",
+        "education",
+        "research",
+        "policy"
+      ],
+      "priority": "global_guidance",
+      "status": "extracted",
+      "source_path": "/tmp/tmp5x2wtepz/unesco_genai_education_research_2023.html",
+      "parser": "html_text",
+      "readable_chars": 9466,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "window.dataLayer = window.dataLayer || []; window.dataLayer.push({\"event\":\"dataLayer.ready\",\"page\":{\"lang\":\"English\",\"website\":\"UNESCO.org\",\"universes\":[\"Education\"]},\"content\":{\"uuid\":\"e866766b-bd9e-4e44-ad8f-e9f50bfeb398\",\"title\":\"Guidance for generative AI in education and research\",\"type\":\"Article\",\"date\":{\"publication\":1694087980,\"modification\":1768570705},\"sdgs\":[\"SDG 4\"],\"site_tags\":[\"Display\"],\"tags\":[\"education\",\"mobilize education to transform lives\",\"artificial intelligence\",\"educational technology\",\"artificial intelligence in education\",\"display\",\"unesco office in montevideo and regional bureau for science\",\"unesco office in brasilia\",\"sdg 4 - ensure inclusive and equitable quality education and promote lifelong learning opportunities for all\"],\"subtype\":\"report\",\"unesdoc_refs\":[\"0000386693\"]}});\n(function(w,d,s,l,i,a,e){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=\n'https://www.googletagmanager.com/gtm.js?id='+i+dl+'&amp;gtm_auth='+a+'&amp;gtm_preview='+e+'&amp;gtm_cookies_win=x';f.parentNode.insertBefore(j,f);\n})(window,document,'script','dataLayer', 'GTM-T9NW', '_Lm02Fa-1lLDW1vNzj8zTg', 'env-2');\n{\"@context\": \"https://schema.org\",\"@graph\": [{\"@type\": \"Article\",\"headline\": \"Guidance for generative AI in education and research\",\"description\": \"UNESCO’s first global guidance on GenAI in education aims to support countries to implement immediate actions, plan long-term policies and develop human capacity to ensure a human-centred vision of these new technologies.\",\"datePublished\": \"2023-09-07T13:59:40+0200\",\"isAccessibleForFree\": \"True\",\"dateModified\": \"2026-01-16T14:38:25+0100\",\"publisher\": {\"@type\": \"Organization\",\"name\": \"UNESCO\",\"url\": \"https://www.unesco.org\",\"logo\": {\"@type\": \"ImageObject\",\"url\": \"https://www.unesco.org/themes/unesco/logo.svg\"}},\"mainEntityOfPage\": \"https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research\"},{\"@type\": \"Event\",\"eventAttendanceMode\": \"MixedEventAttendanceMode\",\"description\": \"UNESCO’s first global guidance on GenAI in education aims to support countries to implement immediate actions, plan long-term policies and develop human capacity to ensure a human-centred vision of these new technologies.\",\"location\": {\"@type\": \"Place\",\"address\": {\"@type\": \"PostalAddress\",\"streetAddress\": \"\"}},\"organizer\": {\"@type\": \"Organization\",\"name\": \"UNESCO\",\"url\": \"https://www.unesco.org\"}}]\n}\nGuidance for generative AI in education and research | UNESCO\nSkip to main content\nUNESCO\nEnglish\nEnglish\nFrançais\nEspañol\nРусский\nالعربية\n中文\nPortuguês\nUNESCO\nMain navigation\nWho we are\nAbout us\nAbout us\nMember States Profiles\nMember States Profiles\nGlobal presence\nGlobal presence\nPartners\nPartners\nWhat we do\nPeople we serve\nPeople we serve\nCore functions\nCore functions\nObjectives\nObjectives\nProgrammes\nProgrammes\nNews\nNewsroom\nNewsroom\nCalendar\nCalendar\nInternational days and more\nInternational days and more\nStay updated\nStay updated\nResources\nLegal texts\nLegal texts\nSites navigator\nSites navigator\nMultimedia\nMultimedia\nLearning Hub\nLearning Hub\nPublications\nPublications\nDocuments\nDocuments\nGlobal reports\nGlobal reports\nData and indicators\nData and indicators\nMember States Portal\nSearch\nSearch\nShare\nforward\nSearch\nSearch\nQuick links:\nAI\nResponse to Crisis\nKey Challenges\nPublication\nGuidance for generative AI in education and research\nUNESCO’s first global guidance on GenAI in education aims to support countries to implement immediate actions, plan long-term policies and develop human capacity to ensure a human-centred vision of these new technologies."
+        },
+        {
+          "span_id": "S2",
+          "quote": "7 September 2023\nLast update:\n16 January 2026\nGuidance for generative AI in education and research\nMiao, Fengchun\nUNESCO\nHolmes, Wayne\n2023\nUNESCO\nAvailable in..."
+        },
+        {
+          "span_id": "S3",
+          "quote": "Arabic\nChinese\nEnglish\nFrench\nGreek (modern)\nItalian\nMalay\nPersian\nPortuguese\nRussian\nSpanish\nTurkish\nUzbek\nVietnamese\nTowards a human-centered approach to the use of generative AI\nPublicly available generative AI (GenAI) tools are rapidly emerging, and the release of iterative versions is outpacing the adaptation of national regulatory frameworks."
+        },
+        {
+          "span_id": "S4",
+          "quote": "The absence of national regulations on GenAI in most countries leaves the data privacy of users unprotected and educational institutions largely unprepared to validate the tools."
+        },
+        {
+          "span_id": "S5",
+          "quote": "Based on a humanistic vision, the Guidance proposes key steps to the regulation of GenAI tool, including mandating the protection of data privacy, and setting an age limit for the independent conversations with GenAI platforms."
+        },
+        {
+          "span_id": "S6",
+          "quote": "To guide the proper use of the tools in education and research, this Guidance proposes a human-agent and age-appropriate approach to the ethical validation and pedagogical design processes."
+        },
+        {
+          "span_id": "S7",
+          "quote": "© UNESCO\nThe Guidance\nlooks into what GenAI is and how it works, presenting the diverse technologies and models available\nidentifIes a range of controversial ethical and policy issues around both AI in general, and GenAI specifically\ndiscusses the steps and key elements to be examined when seeking to regulate GenAI based on a human-centred approach – one that ensures\nethical, safe, equitable and meaningful use\nproposes measures that can be taken to develop coherent, comprehensive policy frameworks to regulate the use of GenAI in education and research\nlooks into the possibilities for creatively using GenAI in curriculum design, teaching, learning and research activities\nexplores long-term implications of GenAI for education and research\nUNESCO publishes global guidance on generative AI in education and research\nPress release\nSocial media pack\nAccess social media messages\nShare\nCopied to clipboard\nRelated items\nEducation\nMobilize Education to Transform Lives\nArtificial intelligence\nEducational technology\nArtificial intelligence in education\nTopics: Display\nUNESCO Office in Montevideo and Regional Bureau for Science\nUNESCO Office in Brasilia\nSDG: SDG 4 - Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all\nSee more\nadd\nThis article is related to the United Nation’s\nSustainable Development Goals\n."
+        },
+        {
+          "span_id": "S8",
+          "quote": "SDG 4 - Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all\nMore on this subject\nEvent\nUNESCO Learning Cities webinar: 'Learning cities for health – Lifelong learning as a driver of urban well-being'\n16 December 2026\nEvent\nWebinar: Building public policies for lifelong learning in Africa: Challenges, innovation and perspectives\n15 December 2026\nEvent\nAnnual meeting of the Global Alliance on the Science of Learning for Education\n3 December 2026\nEvent\nWebinar: Continuing education: a strategic imperative in the transformation of African labour markets\n25 November 2026\nOther recent publications\nPublication\nJordan’s Education Strategic Plan 2026–2030\n3 August 2026\nPublication\nRapport biennium 2024-2025 : UNESCO Afrique centrale\n28 July 2026\nPublication\nEmpowering Africa through synchrotron science\n23 July 2026\nPublication\nQuantum science for inclusion and sustainability\n23 July 2026\nGet involved\nCareers\nFellowships\nPrizes\nVisit us\nOrganize your event\nUNESCO Shop\nSubscribe to our newsletters\nNetworks\nAssociated Schools (ASPnet)\nClubs and Associations\nCities Platform\nChairs and UNITWIN Programme\nField Offices\nGoodwill Ambassadors\nInstitutes and Centres\nPartners\nUNEVOC\nYouth\nSpecialized websites\nWorld Heritage\nIntangible Cultural Heritage\nIntergovernmental Oceanographic Commission\nInternational Decade of Action for Cryospheric Sciences\nInternational Decade of Sciences for Sustainable Development\nInternational Year of Glaciers’ Preservation\nVirtual Museum of Stolen Cultural Objects\nDive into Heritage\nUNESCO Datahub\nUNESCO Digital Library\nTerms of use\nUNESCO name and logo\nFAQ\nReport fraud, abuse, misconduct\nScam alert\nPreventing harassment at UNESCO events\nPolicies\nProtection of human rights (Procedure 104)\nPrivacy Notice\nAccess to information\nEnvironmental and Social Policies\nStakeholder Response Mechanism (SRM)\nQuery list\nFollow us\nInstagram\nLinkedIn\nYouTube\nX\nTikTok\nFacebook\nWhatsApp\nUNESCO applies a zero tolerance policy against all forms of harassment."
+        },
+        {
+          "span_id": "S9",
+          "quote": "top\nWe use cookies on this site to enhance your user experience. For more information on how we use cookies, read\nour privacy notice\n."
+        },
+        {
+          "span_id": "S10",
+          "quote": "close\n{\"path\":{\"baseUrl\":\"\\/\",\"pathPrefix\":\"en\\/\",\"currentPath\":\"node\\/87694\",\"currentPathIsAdmin\":false,\"isFront\":false,\"currentLanguage\":\"en\"},\"pluralDelimiter\":\"\\u0003\",\"suppressDeprecationErrors\":true,\"ajaxPageState\":{\"libraries\":\"eJx9UEFuAyEM_BCEU9-DDFgsiRcj2yjavr4oqyRtVfVkz9gzGjuhGUpUzg0o6gbSeo1pmnHXkHkcPk8R7OankEv_rqsdtLBLzKYmMD5CAsUf-NX6q3oCQ7Xv80qcgPwfTjuqQkV1mUD1CJ0LusyCocgcQJdmuHtqy-_BdpYdqH2iGyBQl8emz9U3c5l9zLRUGxanhy6PM_PsqJl_5znZ-NKvVKVBLMKj8L0_54ogeQtncXdMc6yfkYSyDhboFUfLN5QvnrOWNA\",\"theme\":\"unesco\",\"theme_token\":null},\"ajaxTrustedUrl\":{\"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM\":true,\"\\/en\\/search\":true},\"charts_google\":{\"mapApiKey\":false},\"unesco_common\":{\"whereami_api_endpoint\":\"\"},\"field_group\":{\"html_element\":{\"mode\":\"level_0\",\"context\":\"view\",\"settings\":{\"classes\":\"right-wrapper col-lg-9 col-md-12\",\"id\":\"\",\"element\":\"div\",\"show_label\":false,\"label_element\":\"h3\",\"label_element_classes\":\"\",\"attributes\":\"\",\"effect\":\"none\",\"speed\":\"fast\"}}},\"csp\":{\"nonce\":\"hkzO6NE3fW4tYbGsDfSCSQ\"},\"user\":{\"uid\":0,\"permissionsHash\":\"7f79812d9c3f82be55eb75976b28af0c5368bcdb0766f68f42352fa315668d4f\"}}"
+        }
+      ],
+      "uncertainty_notes": []
+    },
+    {
+      "source_id": "usaf_sa_ai_policies_2025",
+      "jurisdiction": "South Africa",
+      "title": "USAf Institutional AI Policies and Guidelines in South Africa",
+      "url": "https://usaf.ac.za/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching/",
+      "expected_terms": [
+        "South African",
+        "higher education",
+        "AI",
+        "learning and teaching"
+      ],
+      "priority": "south_africa_context",
+      "status": "extracted",
+      "source_path": "/tmp/tmp5x2wtepz/usaf_sa_ai_policies_2025.html",
+      "parser": "html_text",
+      "readable_chars": 45009,
+      "spans": [
+        {
+          "span_id": "S1",
+          "quote": "Institutional AI Policies and Guidelines in South Africa for Learning and Teaching - Universities South Africa\n{\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"Article\",\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#article\",\"isPartOf\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/\"},\"author\":{\"name\":\"Universities South Africa\",\"@id\":\"https:\\/\\/usaf.ac.za\\/#\\/schema\\/person\\/065d3f3d41ddf296b11877810eed5da0\"},\"headline\":\"Institutional AI Policies and Guidelines in South Africa for Learning and Teaching\",\"datePublished\":\"2025-06-18T12:50:34+00:00\",\"dateModified\":\"2026-04-02T07:36:08+00:00\",\"mainEntityOfPage\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/\"},\"wordCount\":7292,\"image\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#primaryimage\"},\"thumbnailUrl\":\"https:\\/\\/usaf.ac.za\\/wp-content\\/uploads\\/Feature-Image_Institutional-AI-Policies-and-Guidelines-in-South-Africa-for-Learning-and-Teaching.webp\",\"articleSection\":[\"Communities of Practice News\",\"DELT News\",\"General HE News\"],\"inLanguage\":\"en-ZA\"},{\"@type\":\"WebPage\",\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/\",\"url\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/\",\"name\":\"Institutional AI Policies and Guidelines in South Africa for Learning and Teaching - Universities South Africa\",\"isPartOf\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/#website\"},\"primaryImageOfPage\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#primaryimage\"},\"image\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#primaryimage\"},\"thumbnailUrl\":\"https:\\/\\/usaf.ac.za\\/wp-content\\/uploads\\/Feature-Image_Institutional-AI-Policies-and-Guidelines-in-South-Africa-for-Learning-and-Teaching.webp\",\"datePublished\":\"2025-06-18T12:50:34+00:00\",\"dateModified\":\"2026-04-02T07:36:08+00:00\",\"author\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/#\\/schema\\/person\\/065d3f3d41ddf296b11877810eed5da0\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#breadcrumb\"},\"inLanguage\":\"en-ZA\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-ZA\",\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#primaryimage\",\"url\":\"https:\\/\\/usaf.ac.za\\/wp-content\\/uploads\\/Feature-Image_Institutional-AI-Policies-and-Guidelines-in-South-Africa-for-Learning-and-Teaching.webp\",\"contentUrl\":\"https:\\/\\/usaf.ac.za\\/wp-content\\/uploads\\/Feature-Image_Institutional-AI-Policies-and-Guidelines-in-South-Africa-for-Learning-and-Teaching.webp\",\"width\":800,\"height\":533},{\"@type\":\"BreadcrumbList\",\"@id\":\"https:\\/\\/usaf.ac.za\\/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching\\/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https:\\/\\/usaf.ac.za\\/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Institutional AI Policies and Guidelines in South Africa for Learning and Teaching\"}]},{\"@type\":\"WebSite\",\"@id\":\"https:\\/\\/usaf.ac.za\\/#website\",\"url\":\"https:\\/\\/usaf.ac.za\\/\",\"name\":\"Universities South Africa\",\"description\":\"USAf\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https:\\/\\/usaf.ac.za\\/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-ZA\"},{\"@type\":\"Person\",\"@id\":\"https:\\/\\/usaf.ac.za\\/#\\/schema\\/person\\/065d3f3d41ddf296b11877810eed5da0\",\"name\":\"Universities South Africa\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-ZA\",\"@id\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/e7980427f9e10dc7080675a7df6a5052f2670bdd4991a296a2249cf00685afcb?s=96&d=mm&r=g\",\"url\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/e7980427f9e10dc7080675a7df6a5052f2670bdd4991a296a2249cf00685afcb?s=96&d=mm&r=g\",\"contentUrl\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/e7980427f9e10dc7080675a7df6a5052f2670bdd4991a296a2249cf00685afcb?s=96&d=mm&r=g\",\"caption\":\"Universities South Africa\"},\"sameAs\":[\"https:\\/\\/usaf.ac.za\\/\"],\"url\":\"https:\\/\\/usaf.ac.za\\/author\\/usaf\\/\"}]}\nimg:is([sizes=auto i],[sizes^=\"auto,\" i]){contain-intrinsic-size:3000px 1500px}\n/*# sourceURL=wp-img-auto-sizes-contain-inline-css */\nimg.wp-smiley, img.emoji {\n\t\tdisplay: inline !important;\n\t\tborder: none !important;\n\t\tbox-shadow: none !important;\n\t\theight: 1em !important;\n\t\twidth: 1em !important;\n\t\tmargin: 0 0.07em !important;\n\t\tvertical-align: -0.1em !important;\n\t\tbackground: none !important;\n\t\tpadding: 0 !important;\n\t}\n/*# sourceURL=wp-emoji-styles-inline-css */\n:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}"
+        },
+        {
+          "span_id": "S2",
+          "quote": "/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */\n/*!"
+        },
+        {
+          "span_id": "S3",
+          "quote": "This file is auto-generated */\n.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}\n/*# sourceURL=/wp-includes/css/classic-themes.min.css */\n:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--awb-color-1: #ffffff;--wp--preset--color--awb-color-2: #f7f7f7;--wp--preset--color--awb-color-3: #b5e1d7;--wp--preset--color--awb-color-4: #65bd7d;--wp--preset--color--awb-color-5: #1e8e99;--wp--preset--color--awb-color-6: #023a4d;--wp--preset--color--awb-color-7: #ef4644;--wp--preset--color--awb-color-8: #fdb933;--wp--preset--color--awb-color-custom-1: #d2d2d2;--wp--preset--color--awb-color-custom-2: #403f41;--wp--preset--color--awb-color-custom-3: #141617;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 11.25px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 22.5px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 15px;--wp--preset--font-size--xlarge: 30px;--wp--preset--font-size--huge: 45px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-awb-color-1-color{color: var(--wp--preset--color--awb-color-1) !important;}.has-awb-color-2-color{color: var(--wp--preset--color--awb-color-2) !important;}.has-awb-color-3-color{color: var(--wp--preset--color--awb-color-3) !important;}.has-awb-color-4-color{color: var(--wp--preset--color--awb-color-4) !important;}.has-awb-color-5-color{color: var(--wp--preset--color--awb-color-5) !important;}.has-awb-color-6-color{color: var(--wp--preset--color--awb-color-6) !important;}.has-awb-color-7-color{color: var(--wp--preset--color--awb-color-7) !important;}.has-awb-color-8-color{color: var(--wp--preset--color--awb-color-8) !important;}.has-awb-color-custom-1-color{color: var(--wp--preset--color--awb-color-custom-1) !important;}.has-awb-color-custom-2-color{color: var(--wp--preset--color--awb-color-custom-2) !important;}.has-awb-color-custom-3-color{color: var(--wp--preset--color--awb-color-custom-3) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-awb-color-1-background-color{background-color: var(--wp--preset--color--awb-color-1) !important;}.has-awb-color-2-background-color{background-color: var(--wp--preset--color--awb-color-2) !important;}.has-awb-color-3-background-color{background-color: var(--wp--preset--color--awb-color-3) !important;}.has-awb-color-4-background-color{background-color: var(--wp--preset--color--awb-color-4) !important;}.has-awb-color-5-background-color{background-color: var(--wp--preset--color--awb-color-5) !important;}.has-awb-color-6-background-color{background-color: var(--wp--preset--color--awb-color-6) !important;}.has-awb-color-7-background-color{background-color: var(--wp--preset--color--awb-color-7) !important;}.has-awb-color-8-background-color{background-color: var(--wp--preset--color--awb-color-8) !important;}.has-awb-color-custom-1-background-color{background-color: var(--wp--preset--color--awb-color-custom-1) !important;}.has-awb-color-custom-2-background-color{background-color: var(--wp--preset--color--awb-color-custom-2) !important;}.has-awb-color-custom-3-background-color{background-color: var(--wp--preset--color--awb-color-custom-3) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-awb-color-1-border-color{border-color: var(--wp--preset--color--awb-color-1) !important;}.has-awb-color-2-border-color{border-color: var(--wp--preset--color--awb-color-2) !important;}.has-awb-color-3-border-color{border-color: var(--wp--preset--color--awb-color-3) !important;}.has-awb-color-4-border-color{border-color: var(--wp--preset--color--awb-color-4) !important;}.has-awb-color-5-border-color{border-color: var(--wp--preset--color--awb-color-5) !important;}.has-awb-color-6-border-color{border-color: var(--wp--preset--color--awb-color-6) !important;}.has-awb-color-7-border-color{border-color: var(--wp--preset--color--awb-color-7) !important;}.has-awb-color-8-border-color{border-color: var(--wp--preset--color--awb-color-8) !important;}.has-awb-color-custom-1-border-color{border-color: var(--wp--preset--color--awb-color-custom-1) !important;}.has-awb-color-custom-2-border-color{border-color: var(--wp--preset--color--awb-color-custom-2) !important;}.has-awb-color-custom-3-border-color{border-color: var(--wp--preset--color--awb-color-custom-3) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-normal-font-size{font-size: var(--wp--preset--font-size--normal) !important;}.has-xlarge-font-size{font-size: var(--wp--preset--font-size--xlarge) !important;}.has-huge-font-size{font-size: var(--wp--preset--font-size--huge) !important;}\n/*# sourceURL=global-styles-inline-css */\na[href^=\"#awb-close-collapsible__\"][href$=\"__hide\"]:not(.awb-collapse-link-visible),a[href^=\"#awb-open-collapsible__\"][href$=\"__hide\"].awb-collapse-link-hidden{display:none;}@medi"
+        },
+        {
+          "span_id": "S4",
+          "quote": "[... middle truncated for context budget ...]"
+        },
+        {
+          "span_id": "S5",
+          "quote": "nt\nFacilitating entry to SA universities\nGovernance\nBoard of Directors\nUSAf Executive Committee\nStrategy Groups\nGovernance Structures\nStrategy Groups\nFunding Strategy Group\nLeadership and Management Strategy Group\nResearch and Innovation Strategy Group\nTeaching and Learning Strategy Group\nTransformation Strategy Group\nWorld of Work Strategy Group\nPublications\nAnnual Reports\nOther Reports\nNews\nEvents\nA Thought Leadership Series\nGeneral Events\nContact Us\nSearch for:\nSocietal Impact\nThe USAf Impact Initiative\nOpen Call for Impact Case Studies 2026\nSocietal Impact Case Studies 2025\nSocietal Impact Case Studies 2024\nSearch for:\nToggle Navigation\nHome\nAbout\nAbout\nAbout USAf\nMembership\nProspective students\nCommunities of Practice\nProcurement\nVacancies\nFacilitating entry to SA universities\nGovernance\nBoard of Directors\nUSAf Executive Committee 2026\nGovernance Structures\nProgrammes\nMatriculation Board\nEDHE\nHELM\nAECRS\nStrategy Groups\nFunding Strategy Group\nLeadership and Management Strategy Group\nResearch and Innovation Strategy Group\nTeaching and Learning Strategy Group\nTransformation Strategy Group\nWorld of Work Strategy Group\nCommunities of Practice\nCommunity of Practice for the Teaching and Learning of African Languages (CoPAL)\nCommunity of Practice for the Teaching and Learning of Mathematics (TLM CoP)\nCommunity of Practice on Digital Education in Learning and Teaching (DELT CoP)\nCommunity of Practice on Postgraduate Education and Scholarship (CoP PGES)\nEducation Deans’ Forum (EDF)\nFinance Executives’ Forum (FEF)\nHigher Education Sustainability Community of Practice (HES CoP)\nHuman Resource Directors’ Forum (HRD)\nLearning in Practice Community of Practice (LiP CoP)\nRegistrars’ Forum\nSkills Development Facilitators’ Forum (SDF)\nTransformation Managers’ Forum (TMF)\nMembership\nCommunities of Practice\nCommunity of Practice for the Teaching and Learning of African Languages\nCommunity of Practice for the Teaching and Learning of Mathematics Community of Practice\nCommunity of Practice on Postgraduate Education and Scholarship\nEducation Deans’ Forum\nFinance Executives’ Forum\nHigher Education Sustainability Community of Practice\nHuman Resource Directors’ Forum\nLearning in Practice Community of Practice\nRegistrars’ Forum\nSkills Development Facilitators’ Forum\nTransformation Managers’ Forum\nProcurement\nFacilitating entry to SA universities\nGovernance\nBoard of Directors\nUSAf Executive Committee\nStrategy Groups\nGovernance Structures\nStrategy Groups\nFunding Strategy Group\nLeadership and Management Strategy Group\nResearch and Innovation Strategy Group\nTeaching and Learning Strategy Group\nTransformation Strategy Group\nWorld of Work Strategy Group\nPublications\nAnnual Reports\nOther Reports\nNews\nEvents\nA Thought Leadership Series\nGeneral Events\nContact Us\nSearch for:\nSocietal Impact\nThe USAf Impact Initiative\nOpen Call for Impact Case Studies 2026\nSocietal Impact Case Studies 2025\nSocietal Impact Case Studies 2024\nCommunities of Practice News\n,\nDELT News\n,\nGeneral HE News\n|\nInstitutional AI Policies and Guidelines in South Africa for Learning and Teaching\nPublished On: 18 June 2025\n|\nGenerative AI tools such as ChatGPT have become common on South African campuses, but their rapid uptake has necessitated responses concerning governance, training and assessment design."
+        },
+        {
+          "span_id": "S6",
+          "quote": "On May 22, 2025, the\nUSAf Community of Practice on Digital Education in Learning and Teaching\n(DELT CoP) facilitated a LUNCH & LEARN webinar titled “Institutional AI Policies and Guidelines in South Africa for Learning and Teaching.”\nThe discussion featured invited panellists from three universities."
+        },
+        {
+          "span_id": "S7",
+          "quote": "Professor Anné H. Verhoef, Director at the Artificial Intelligence Hub & Professor in Philosophy, Faculty of Humanities, represented North-West University (NWU)."
+        },
+        {
+          "span_id": "S8",
+          "quote": "Dr Juliet Stoltenkamp, Director at the Centre for Innovative Education & Communication Technologies, represented the University of the Western Cape (UWC), and Dr Gloria Castrillón, Senior Director for Teaching Excellence, represented the University of Johannesburg (UJ)."
+        },
+        {
+          "span_id": "S9",
+          "quote": "Secondly, AI guidelines have been integrated into NWU’s academic integrity policy, allowing all ethical-use rules to sit alongside traditional misconduct clauses. Thirdly, the Hub is rolling out two targeted training programmes."
+        },
+        {
+          "span_id": "S10",
+          "quote": "A student Short Learning Programme (SLP) on “AI for Academic and Career Success” was launched in February 2025, guiding learners through tool-exploration exercises and culminating in a personalised career-planning certificate."
+        },
+        {
+          "span_id": "S11",
+          "quote": "A lecturer SLP on redesigning assessments to include AI ethically is scheduled for July 2025, with development guided by the Perkins AI Assessment Scale."
+        },
+        {
+          "span_id": "S12",
+          "quote": "Throughout, campus-wide roadshows and faculty-level feedback sessions ensured policies reflect real pedagogical concerns, not generic templates: “We did not just ask our deans; we invited faculty members who showed genuine interest,” Professor Verhoef explained."
+        },
+        {
+          "span_id": "S13",
+          "quote": "The University of the Western Cape approach\nAt the University of the Western Cape, the focus is on collective ownership."
+        },
+        {
+          "span_id": "S14",
+          "quote": "In late 2024, a cross-campus task team comprising academics, professional support staff, IT specialists and student representatives drafted practical AI guidelines rather than a standalone policy document."
+        },
+        {
+          "span_id": "S15",
+          "quote": "Those guidelines were refined in a Senate Academic Planning Committee workshop, incorporating feedback from every constituency. Dr Juliet Stoltenkamp (right) emphasised the importance of “pre-engagement” workshops for each faculty member."
+        },
+        {
+          "span_id": "S16",
+          "quote": "A second-year pharmacy lecturer, for instance, introduced students to AI-powered pharmaceutical research assistants, demonstrating how to craft precise prompts, critically evaluate outputs and integrate findings responsibly into lab reports."
+        },
+        {
+          "span_id": "S17",
+          "quote": "Diverse stakeholder engagement must continue through steering committees and task teams that include faculty, librarians, IT staff, administrators and students."
+        },
+        {
+          "span_id": "S18",
+          "quote": "Ongoing feedback mechanisms—roadshows, focus groups, online surveys—allow institutions to track user experiences and refine their guidelines, not just needs but also changes in the GenAI landscape."
+        },
+        {
+          "span_id": "S19",
+          "quote": "The session made clear how AI policies are integrally connected to institutional contexts and values. Policy decisions and governance structures shape curriculum design, assessment strategies and professional development programmes."
+        },
+        {
+          "span_id": "S20",
+          "quote": "Indeed, although the focus of the session was on teaching and learning, the implications of AI impact the very core mission of South African universities. Mduduzi Mbiza is a commissioned writer for Universities South Africa."
+        },
+        {
+          "span_id": "S21",
+          "quote": "jQuery(document).ready(function($) {\n  var publishedDateDiv = $(\".fusion-tb-published-date\");\n  var content = publishedDateDiv.text();\n  content = content.replace(\"Published On\", \"Published\");\n  publishedDateDiv.text(content);"
+        },
+        {
+          "span_id": "S22",
+          "quote": "var publishedByDiv = $(\".fusion-tb-author\");\n  var contentB = publishedByDiv.text();\n  contentB = contentB.replace(\"By\", \"by:\");\n  publishedByDiv.text(contentB);\n});\nRelated Posts\nUSAf 2025 Annual Report Announcement!"
+        },
+        {
+          "span_id": "S23",
+          "quote": "28 July 2026\nDeveloping an Inclusive Approach to Internationalisation in South African Higher Education\n27 July 2026\nFrom the classroom to the constitution: three scholars on putting African languages to work\n15 July 2026\nProfessor Leketi Makalela on language, identity and curriculum transformation\n15 July 2026\nSearch News\nSearch for:\nNews Room\nCommunities of Practice News\nEvents News\nMedia Statements\nBoard News\nDocumentaries\nGeneral HE News\nProgramme News\nEDHE News\nHELM News\nMatriculation Board’s News\nStrategy Groups’ News\nVisit the official COVID-19 government website to stay informed:\nsacoronavirus.co.za\n© Copyright 2025 Universities South Africa    |   All Rights Reserved   |\nPAIA\n|\nPrivacy Statement\n|   Website creatively brought to life by\nV4 Creative\nPage load link\nvar fusionNavIsCollapsed=function(e){var t,n;window.innerWidth<=e.getAttribute(\"data-breakpoint\")?(e.classList.add(\"collapse-enabled\"),e.classList.remove(\"awb-menu_desktop\"),e.classList.contains(\"expanded\")||window.dispatchEvent(new CustomEvent(\"fusion-mobile-menu-collapsed\",{detail:{nav:e}})),(n=e.querySelectorAll(\".menu-item-has-children.expanded\")).length&&n.forEach(function(e){e.querySelector(\".awb-menu__open-nav-submenu_mobile\").setAttribute(\"aria-expanded\",\"false\")})):(null!==e.querySelector(\".menu-item-has-children.expanded .awb-menu__open-nav-submenu_click\")&&e.querySelector(\".menu-item-has-children.expanded .awb-menu__open-nav-submenu_click\").click(),e.classList.remove(\"collapse-enabled\"),e.classList.add(\"awb-menu_desktop\"),null!==e.querySelector(\".awb-menu__main-ul\")&&e.querySelector(\".awb-menu__main-ul\").removeAttribute(\"style\")),e.classList.add(\"no-wrapper-transition\"),clearTimeout(t),t=setTimeout(()=>{e.classList.remove(\"no-wrapper-transition\")},400),e.classList.remove(\"loading\")},fusionRunNavIsCollapsed=function(){var e,t=document.querySelectorAll(\".awb-menu\");for(e=0;e<t.length;e++)fusionNavIsCollapsed(t[e])};function avadaGetScrollBarWidth(){var e,t,n,l=document.createElement(\"p\");return l.style.width=\"100%\",l.style.height=\"200px\",(e=document.createElement(\"div\")).style.position=\"absolute\",e.style.top=\"0px\",e.style.left=\"0px\",e.style.visibility=\"hidden\",e.style.width=\"200px\",e.style.height=\"150px\",e.style.overflow=\"hidden\",e.appendChild(l),document.body.appendChild(e),t=l.offsetWidth,e.style.overflow=\"scroll\",t==(n=l.offsetWidth)&&(n=e.clientWidth),document.body.removeChild(e),jQuery(\"html\").hasClass(\"awb-scroll\")&&10<t-n?10:t-n}fusionRunNavIsCollapsed(),window.addEventListener(\"fusion-resize-horizontal\",fusionRunNavIsCollapsed);\n{\"prefetch\":[{\"source\":\"document\",\"where\":{\"and\":[{\"href_matches\":\"/*\"},{\"not\":{\"href_matches\":[\"/wp-*.php\",\"/wp-admin/*\",\"/wp-content/uploads/*\",\"/wp-content/*\",\"/wp-content/plugins/*\",\"/wp-content/themes/Avada-Child-Theme/*\",\"/wp-content/themes/Avada/*\",\"/*\\\\?(.+)\"]}},{\"not\":{\"selector_matches\":\"a[rel~=\\\"nofollow\\\"]\"}},{\"not\":{\"selector_matches\":\".no-prefetch, .no-prefetch a\"}}]},\"eagerness\":\"conservative\"}]}\n{\"baseUrl\":\"https://s.w.org/images/core/emoji/17.0.2/72x72/\",\"ext\":\".png\",\"svgUrl\":\"https://s.w.org/images/core/emoji/17.0.2/svg/\",\"svgExt\":\".svg\",\"source\":{\"concatemoji\":\"https://usaf.ac.za/wp-includes/js/wp-emoji-release.min.js?ver=7.0.2\"}}\n/*!"
+        },
+        {
+          "span_id": "S24",
+          "quote": "This file is auto-generated */\nconst a=JSON.parse(document.getElementById(\"wp-emoji-settings\").textContent),o=(window._wpemojiSettings=a,\"wpEmojiSettingsSupports\"),s=[\"flag\",\"emoji\"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case\"flag\":return n(e,\"\\ud83c\\udff3\\ufe0f\\u200d\\u26a7\\ufe0f\",\"\\ud83c\\udff3\\ufe0f\\u200b\\u26a7\\ufe0f\")?!1:!n(e,\"\\ud83c\\udde8\\ud83c\\uddf6\",\"\\ud83c\\udde8\\u200b\\ud83c\\uddf6\")&&!n(e,\"\\ud83c\\udff4\\udb40\\udc67\\udb40\\udc62\\udb40\\udc65\\udb40\\udc6e\\udb40\\udc67\\udb40\\udc7f\",\"\\ud83c\\udff4\\u200b\\udb40\\udc67\\u200b\\udb40\\udc62\\u200b\\udb40\\udc65\\u200b\\udb40\\udc6e\\u200b\\udb40\\udc67\\u200b\\udb40\\udc7f\");case\"emoji\":return!a(e,\"\\ud83e\\u1fac8\")}return!1}function f(e,t,n,a){let r;const o=(r=\"undefined\"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement(\"canvas\")).getContext(\"2d\",{willReadFrequently:!0}),s=(o.textBaseline=\"top\",o.font=\"600 32px Arial\",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement(\"script\");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if(\"object\"==typeof e&&\"number\"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&\"object\"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if(\"undefined\"!=typeof Worker&&\"undefined\"!=typeof OffscreenCanvas&&\"undefined\"!=typeof URL&&URL.createObjectURL&&\"undefined\"!=typeof Blob)try{var e=\"postMessage(\"+f.toString()+\"(\"+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(\",\")+\"));\",a=new Blob([e],{type:\"text/javascript\"});const r=new Worker(URL.createObjectURL(a),{name:\"wpTestEmojiSupports\"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],\"flag\"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});\n//# sourceURL=https://usaf.ac.za/wp-includes/js/wp-emoji-loader.min.js\njQuery( document ).ready( function() {\n\t\t\t\t\tvar ajaxurl = 'https://usaf.ac.za/wp-admin/admin-ajax.php';\n\t\t\t\t\tif ( 0 < jQuery( '.fusion-login-nonce' ).length ) {\n\t\t\t\t\t\tjQuery.get( ajaxurl, { 'action': 'fusion_login_nonce' }, function( response ) {\n\t\t\t\t\t\t\tjQuery( '.fusion-login-nonce' ).html( response );\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t});\n{\"@context\":\"https:\\/\\/schema.org\",\"@type\":\"NewsArticle\",\"headline\":\"Institutional AI Policies and Guidelines in South Africa for Learning and Teaching\",\"datePublished\":\"2025-06-18T14:50:34+02:00\"}\nGo to Top"
+        }
+      ],
+      "uncertainty_notes": []
+    }
+  ],
+  "article_policy_matrix": [
+    {
+      "article": "I",
+      "duty": "human authorship",
+      "policy_terms": [
+        "own work",
+        "authorship",
+        "student",
+        "author",
+        "original work"
+      ],
+      "hits": [
+        "own work",
+        "authorship",
+        "student",
+        "author",
+        "original work"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "own work",
+            "student",
+            "author",
+            "original work"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "own work",
+            "authorship",
+            "student",
+            "author",
+            "original work"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "student"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "student",
+            "author"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "student",
+            "author"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "II",
+      "duty": "evidence and truth boundaries",
+      "policy_terms": [
+        "evidence",
+        "truth",
+        "misrepresentation",
+        "falsification",
+        "fabrication"
+      ],
+      "hits": [
+        "evidence",
+        "falsification",
+        "fabrication"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "falsification",
+            "fabrication"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "falsification",
+            "fabrication"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "evidence"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": false,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "III",
+      "duty": "refusal and repair capacity",
+      "policy_terms": [
+        "misconduct",
+        "unauthorised",
+        "unauthorized",
+        "prohibited",
+        "disciplinary"
+      ],
+      "hits": [
+        "misconduct",
+        "unauthorised",
+        "prohibited",
+        "disciplinary"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "misconduct",
+            "unauthorised",
+            "prohibited"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "misconduct",
+            "disciplinary"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "unauthorised"
+          ]
+        },
+        {
+          "source_id": "unesco_genai_education_research_2023",
+          "hits": [
+            "misconduct"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "misconduct"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "IV",
+      "duty": "office and lane limits",
+      "policy_terms": [
+        "scope",
+        "role",
+        "responsibility",
+        "guidelines",
+        "standards"
+      ],
+      "hits": [
+        "scope",
+        "role",
+        "responsibility",
+        "guidelines",
+        "standards"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "scope",
+            "responsibility",
+            "guidelines",
+            "standards"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "guidelines",
+            "standards"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "role",
+            "responsibility",
+            "guidelines",
+            "standards"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "role",
+            "responsibility",
+            "guidelines"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "guidelines"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "V",
+      "duty": "semantic judgment",
+      "policy_terms": [
+        "interpret",
+        "judgement",
+        "judgment",
+        "assessment",
+        "evaluation"
+      ],
+      "hits": [
+        "judgment",
+        "assessment",
+        "evaluation"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "judgment",
+            "assessment"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "judgment",
+            "assessment",
+            "evaluation"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "assessment"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "assessment"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "assessment",
+            "evaluation"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "VI",
+      "duty": "chain integrity",
+      "policy_terms": [
+        "process",
+        "record",
+        "audit",
+        "trace",
+        "procedure"
+      ],
+      "hits": [
+        "process",
+        "record",
+        "trace",
+        "procedure"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "process",
+            "procedure"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "process",
+            "record",
+            "procedure"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "process",
+            "trace"
+          ]
+        },
+        {
+          "source_id": "unesco_genai_education_research_2023",
+          "hits": [
+            "procedure"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "process"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "VII",
+      "duty": "repair transparency",
+      "policy_terms": [
+        "correction",
+        "remediation",
+        "rectify",
+        "appeal",
+        "review"
+      ],
+      "hits": [
+        "rectify",
+        "review"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "review"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "review"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "review"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "rectify"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "review"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "VIII",
+      "duty": "provenance status",
+      "policy_terms": [
+        "acknowledge",
+        "citation",
+        "reference",
+        "source",
+        "disclosure"
+      ],
+      "hits": [
+        "acknowledge",
+        "citation",
+        "reference",
+        "source"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "citation",
+            "reference",
+            "source"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "reference",
+            "source"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "reference"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "acknowledge",
+            "citation",
+            "reference",
+            "source"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "citation",
+            "reference",
+            "source"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "IX",
+      "duty": "harmonic cadence and learner support",
+      "policy_terms": [
+        "support",
+        "development",
+        "learning",
+        "teaching",
+        "training"
+      ],
+      "hits": [
+        "support",
+        "development",
+        "learning",
+        "teaching",
+        "training"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "support",
+            "development",
+            "learning",
+            "teaching",
+            "training"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "support",
+            "development",
+            "learning",
+            "teaching",
+            "training"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "support",
+            "development",
+            "learning",
+            "teaching",
+            "training"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "support",
+            "development",
+            "learning",
+            "teaching"
+          ]
+        },
+        {
+          "source_id": "unesco_genai_education_research_2023",
+          "hits": [
+            "support",
+            "development",
+            "learning",
+            "teaching"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "support",
+            "development",
+            "learning",
+            "teaching",
+            "training"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "X",
+      "duty": "custodial accountability",
+      "policy_terms": [
+        "accountability",
+        "responsibility",
+        "compliance",
+        "governance"
+      ],
+      "hits": [
+        "accountability",
+        "responsibility",
+        "compliance",
+        "governance"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "responsibility",
+            "compliance",
+            "governance"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "compliance"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "accountability",
+            "responsibility",
+            "governance"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "accountability",
+            "responsibility",
+            "governance"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "governance"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "XI",
+      "duty": "human supremacy and final judgment",
+      "policy_terms": [
+        "student responsibility",
+        "human",
+        "employee",
+        "accountable",
+        "final"
+      ],
+      "hits": [
+        "human",
+        "employee",
+        "accountable",
+        "final"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_academic_integrity_policy_2025",
+          "hits": [
+            "human",
+            "employee",
+            "accountable"
+          ]
+        },
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "human",
+            "employee",
+            "final"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "human",
+            "accountable"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "human",
+            "accountable",
+            "final"
+          ]
+        },
+        {
+          "source_id": "unesco_genai_education_research_2023",
+          "hits": [
+            "human"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "human",
+            "final"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    },
+    {
+      "article": "XII",
+      "duty": "honest limitation",
+      "policy_terms": [
+        "limitations",
+        "uncertainty",
+        "reliable",
+        "risk",
+        "accuracy"
+      ],
+      "hits": [
+        "limitations",
+        "uncertainty",
+        "reliable",
+        "risk",
+        "accuracy"
+      ],
+      "source_hits": [
+        {
+          "source_id": "nwu_senate_rules_academic_integrity_2025",
+          "hits": [
+            "limitations",
+            "risk",
+            "accuracy"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_policy_2025",
+          "hits": [
+            "risk"
+          ]
+        },
+        {
+          "source_id": "nwu_ai_teaching_learning_guidelines",
+          "hits": [
+            "limitations",
+            "reliable",
+            "risk",
+            "accuracy"
+          ]
+        },
+        {
+          "source_id": "usaf_sa_ai_policies_2025",
+          "hits": [
+            "uncertainty"
+          ]
+        }
+      ],
+      "nwu_primary_signal": true,
+      "global_or_sa_signal": true,
+      "alignment_status": "aligned_signal_present"
+    }
+  ],
+  "assistance_policy_map": [
+    {
+      "category": "allowed_learning_scaffold",
+      "description": "Explain concepts, ask diagnostic questions, provide examples, or guide revision without replacing learner authorship.",
+      "allowed": true,
+      "policy_basis": [
+        "learning",
+        "support",
+        "teaching",
+        "student responsibility"
+      ],
+      "audit_language": "Allowed when the learner remains author, final wording is learner-owned, and assistance is transparent where required.",
+      "policy_hits": [
+        "learning",
+        "support",
+        "teaching"
+      ],
+      "policy_signal": true,
+      "conduct_class": "allowed_or_conditional",
+      "sophia_release_rule": "assist_with_scaffold_and_disclosure"
+    },
+    {
+      "category": "allowed_source_discovery_and_triage",
+      "description": "Find or rank source leads and map them to claim/evidence/warrant/limitation.",
+      "allowed": true,
+      "policy_basis": [
+        "source",
+        "reference",
+        "acknowledge",
+        "citation"
+      ],
+      "audit_language": "Allowed as citation leads only; support claims require inspected source spans and human verification.",
+      "policy_hits": [
+        "source",
+        "reference",
+        "acknowledge",
+        "citation"
+      ],
+      "policy_signal": true,
+      "conduct_class": "allowed_or_conditional",
+      "sophia_release_rule": "assist_with_scaffold_and_disclosure"
+    },
+    {
+      "category": "conditional_language_feedback",
+      "description": "Feedback on clarity, structure, grammar, or rigor while preserving the learner's substantive judgment.",
+      "allowed": true,
+      "policy_basis": [
+        "support",
+        "academic development",
+        "responsibility"
+      ],
+      "audit_language": "Conditionally allowed when not converted into ghostwritten final submission text.",
+      "policy_hits": [
+        "support",
+        "responsibility"
+      ],
+      "policy_signal": true,
+      "conduct_class": "allowed_or_conditional",
+      "sophia_release_rule": "assist_with_scaffold_and_disclosure"
+    },
+    {
+      "category": "conditional_ai_use_with_disclosure",
+      "description": "AI-assisted brainstorming or feedback where course/institutional rules require disclosure or acknowledgement.",
+      "allowed": true,
+      "policy_basis": [
+        "artificial intelligence",
+        "disclosure",
+        "acknowledge",
+        "academic integrity"
+      ],
+      "audit_language": "Conditional on local task instructions, acknowledgement expectations, and preservation of human accountability.",
+      "policy_hits": [
+        "artificial intelligence",
+        "acknowledge",
+        "academic integrity"
+      ],
+      "policy_signal": true,
+      "conduct_class": "allowed_or_conditional",
+      "sophia_release_rule": "assist_with_scaffold_and_disclosure"
+    },
+    {
+      "category": "disallowed_ghostwriting_or_final_answer_substitution",
+      "description": "Produce final paste-ready academic work for submission as the learner's own.",
+      "allowed": false,
+      "policy_basis": [
+        "plagiarism",
+        "own work",
+        "misconduct",
+        "unauthorised assistance"
+      ],
+      "audit_language": "Disallowed because it substitutes for authorship and misrepresents achievement.",
+      "policy_hits": [
+        "plagiarism",
+        "own work",
+        "misconduct"
+      ],
+      "policy_signal": true,
+      "conduct_class": "disallowed",
+      "sophia_release_rule": "refuse_and_offer_lawful_alternative"
+    },
+    {
+      "category": "disallowed_concealment_or_detector_evasion",
+      "description": "Hide AI use, conceal provenance, evade Turnitin/detectors, or suppress logs.",
+      "allowed": false,
+      "policy_basis": [
+        "misrepresentation",
+        "deception",
+        "plagiarism",
+        "academic misconduct"
+      ],
+      "audit_language": "Disallowed because it undermines provenance, assessment validity, and accountability.",
+      "policy_hits": [
+        "deception",
+        "plagiarism",
+        "academic misconduct"
+      ],
+      "policy_signal": true,
+      "conduct_class": "disallowed",
+      "sophia_release_rule": "refuse_and_offer_lawful_alternative"
+    },
+    {
+      "category": "disallowed_fabricated_sources_or_false_support",
+      "description": "Invent citations, fabricate evidence, or claim unsupported source backing.",
+      "allowed": false,
+      "policy_basis": [
+        "fabrication",
+        "misrepresentation",
+        "source",
+        "reference"
+      ],
+      "audit_language": "Disallowed because false provenance and fabricated evidence breach academic integrity.",
+      "policy_hits": [
+        "fabrication",
+        "source",
+        "reference"
+      ],
+      "policy_signal": true,
+      "conduct_class": "disallowed",
+      "sophia_release_rule": "refuse_and_offer_lawful_alternative"
+    }
+  ],
+  "institutional_audit_language": {
+    "short_statement": "Sophia is designed as an authorship-preserving academic assistant: it may support learning, source triage, feedback, and reflection, but must refuse ghostwriting, concealment, detector evasion, fabricated sources, and unsupported claims.",
+    "institutional_template": [
+      "The system preserves human authorship by returning final judgment and final wording to the learner.",
+      "The system records provenance status and distinguishes source-grounded evidence from inference or uncertainty.",
+      "The system refuses requests for covert substitution, plagiarism evasion, fabricated citations, or log/provenance suppression.",
+      "The system provides audit artifacts showing the prompt, document evidence status, assistance category, release decision, and repair/refusal trace.",
+      "The system should be evaluated against local module instructions and institutional AI-use rules before high-stakes deployment."
+    ],
+    "minimum_audit_fields": [
+      "assistance_category",
+      "human_authorship_preserved",
+      "source_provenance_visible",
+      "disclosure_or_acknowledgement_needed",
+      "final_answer_substitution_risk",
+      "fabricated_source_risk",
+      "release_or_refusal_decision",
+      "learner_owned_next_action"
+    ],
+    "article_coverage_count": 12,
+    "assistance_category_count": 7
+  },
+  "cases": [
+    {
+      "case_id": "nwu_primary_sources_present",
+      "passed": true
+    },
+    {
+      "case_id": "global_and_sa_context_present",
+      "passed": true
+    },
+    {
+      "case_id": "all_articles_mapped",
+      "passed": true
+    },
+    {
+      "case_id": "allowed_and_disallowed_categories_present",
+      "passed": true
+    },
+    {
+      "case_id": "institutional_audit_language_emitted",
+      "passed": true
+    }
+  ],
+  "source_urls": [
+    {
+      "source_id": "nwu_academic_integrity_policy_2025",
+      "jurisdiction": "North-West University",
+      "title": "NWU Policy on Academic Integrity",
+      "url": "https://www.nwu.ac.za/sites/www.nwu.ac.za/files/files/i-governance-management/policy/2025/2P_2.4.3.2_Policy-on-Academic-Integrity.pdf",
+      "expected_terms": [
+        "academic integrity",
+        "artificial intelligence",
+        "plagiarism",
+        "misconduct"
+      ],
+      "priority": "primary_nwu"
+    },
+    {
+      "source_id": "nwu_senate_rules_academic_integrity_2025",
+      "jurisdiction": "North-West University",
+      "title": "NWU Senate Rules on Academic Integrity",
+      "url": "https://www.nwu.ac.za/sites/www.nwu.ac.za/files/files/i-governance-management/policy/2025/2025.06.02_Senate-Rules-on-Academic-Integrity-complete.pdf",
+      "expected_terms": [
+        "plagiarism",
+        "copyright",
+        "academic misconduct",
+        "rules"
+      ],
+      "priority": "primary_nwu"
+    },
+    {
+      "source_id": "nwu_ai_policy_2025",
+      "jurisdiction": "North-West University",
+      "title": "NWU Policy on Artificial Intelligence",
+      "url": "https://www.nwu.ac.za/sites/www.nwu.ac.za/files/files/i-governance-management/policy/2025/Nov/5P_5.10_AI-policy.pdf",
+      "expected_terms": [
+        "artificial intelligence",
+        "ethical",
+        "academic integrity",
+        "copyright"
+      ],
+      "priority": "primary_nwu"
+    },
+    {
+      "source_id": "nwu_ai_teaching_learning_guidelines",
+      "jurisdiction": "North-West University",
+      "title": "NWU Guidelines for the Utilisation of AI in Teaching and Learning",
+      "url": "https://news.nwu.ac.za/sites/news.nwu.ac.za/files/files/Robert.Balfour/Utilization-AI-TL.pdf",
+      "expected_terms": [
+        "teaching",
+        "learning",
+        "academic integrity",
+        "plagiarism"
+      ],
+      "priority": "nwu_guidance"
+    },
+    {
+      "source_id": "unesco_genai_education_research_2023",
+      "jurisdiction": "Global",
+      "title": "UNESCO Guidance for Generative AI in Education and Research",
+      "url": "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research",
+      "expected_terms": [
+        "human-centred",
+        "education",
+        "research",
+        "policy"
+      ],
+      "priority": "global_guidance"
+    },
+    {
+      "source_id": "usaf_sa_ai_policies_2025",
+      "jurisdiction": "South Africa",
+      "title": "USAf Institutional AI Policies and Guidelines in South Africa",
+      "url": "https://usaf.ac.za/institutional-ai-policies-and-guidelines-in-south-africa-for-learning-and-teaching/",
+      "expected_terms": [
+        "South African",
+        "higher education",
+        "AI",
+        "learning and teaching"
+      ],
+      "priority": "south_africa_context"
+    }
+  ]
+}

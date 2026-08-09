@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-18T04:04:52.691392+00:00",
+  "objective": "Act as my coding partner. Answer from the attached repository context, cite relevant files, and identify uncertainty.\n\nQuestion: Look at the economiser.py file, I want suggestions for improvement\n\nAttached workspace scope:\n- app/context/economizer.py\n- app/kernel/compute/compute_forge.py\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutations_latest.json\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_receipt_latest.json\n- app/kernel/compute/crystal_integration_acceptance.py\n- benchmarks/coding_agent_harness.py\n- benchmarks/provider_edge_compare.py\n- benchmarks/edge_metrics_benchmark.py\n- benchmarks/beast_systems_benchmark.py",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:c9f0ba887ed2595505265848c4349e903b684e4510150efcd09032ab37495da6",
+  "task_markup_id": "ctask_c9f0ba887ed25955"
+}

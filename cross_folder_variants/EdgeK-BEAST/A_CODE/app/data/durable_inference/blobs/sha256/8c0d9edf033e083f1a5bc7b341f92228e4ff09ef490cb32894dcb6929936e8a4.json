@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8c0d9edf033e083f1a5bc7b341f92228e4ff09ef490cb32894dcb6929936e8a4",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "gemini-2.5-flash",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:0b02d2284e5d1832af3feeb446b289345ca58ebd9eac3c09d9ab8134f454d831",
+      "response_blob_digest": "sha256:bd1e2a3f3043eb2576d6b4b2cece7dd5dd3ba3fa54db31afc54e84e7ec27da16",
+      "response_blob_ref": "blobs/sha256/bd1e2a3f3043eb2576d6b4b2cece7dd5dd3ba3fa54db31afc54e84e7ec27da16.json",
+      "response_chars": 892,
+      "response_preview": "{\n  \"kind\": \"beast.action_intent.v1\",\n  \"provider_handoff_hash\": \"sha256:ecfaec88523e5586075aa0d2dafad985e13909e0c6f5678c315bd205bef1d744\",\n  \"objective\": \"Refactor the module docstring for clarity by removing the informal 'First-pass' prefix.\",\n  \"actions\": [\n    {\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/capability_registry.py\",\n        \"anchor_ref\": \"A1\"\n      },\n      \"old\": \"\\\"\\\"\\\"\\nBEAST capability registry.\\n\\nFirst-pass governed inventory fo",
+      "response_ref": "cache_5f79ef3a4d7e546c.answer.json",
+      "response_sha256": "sha256:bbb4732d665e82c668d65214d258ac60c3af9a0de79cbd1707f4d8039f464c6c"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

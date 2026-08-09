@@ -1,0 +1,29 @@
+title: HTML Smuggling Payload File Creation
+id: 9g3d4e2f-0b5c-5d8e-9f2g-3c6b7d0e4f5g
+status: experimental
+description: Detects creation of files that may be HTML smuggling payloads, often containing embedded scripts or executables
+references:
+  - https://attack.mitre.org/techniques/T1027/006/
+  - https://www.mdsec.co.uk/2020/08/exploiting-arbitrary-file-writes-with-html-smuggling/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains|all:
+      - '<script'
+      - 'ActiveXObject'
+    TargetFilename|endswith:
+      - '.html'
+      - '.htm'
+  condition: selection
+falsepositives:
+  - Legitimate web development
+  - HTML files created by web browsers
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.006

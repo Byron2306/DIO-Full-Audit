@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:e2003bbe6442143c3a452cc4b06a5dd20d6e5ae2ad6e3cf45a73ff5f6467c99d",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:eda356b6a91eb6eac38cb3b5e1d6488d355ab01c64748f4968bdf3556ddeda70",
+      "response_blob_digest": "sha256:5040430d8d34b963ca6dd7fd1d7bf1d95b8dbe2a79da6efaabdaeb8355f94401",
+      "response_blob_ref": "blobs/sha256/5040430d8d34b963ca6dd7fd1d7bf1d95b8dbe2a79da6efaabdaeb8355f94401.json",
+      "response_chars": 7146,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Implement Crystal Integration Acceptance Probe and related scripts\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/crystal_integration_acceptance.py\"},\"old\":\"class CrystalIntegrationAcceptanceProbe:\",\"new\":\"class CrystalIntegrationAcceptanceProbe:\\n def __init__(self, *, live_receipts: Optional[Dict[str, Dict[str, Any]]] = None, compression_pipeline: Optional[CompressionPipeline] = None) -> None:\",\"intent\":\"Add compression pi",
+      "response_ref": "cache_05686504385fe439.answer.json",
+      "response_sha256": "sha256:ab5b493bbfb693d8cc8a02757310c35ac120a1a25efbad1644d42bca4724a572"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

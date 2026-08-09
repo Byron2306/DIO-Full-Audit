@@ -1,0 +1,76 @@
+title: Modify Authentication via Pluggable Authentication Modules
+id: 5a9x0y8z-6v1w-1x4y-5z8a-9w2v3x6y1z2a
+status: experimental
+description: Detects modification of PAM modules for authentication tampering
+references:
+  - https://attack.mitre.org/techniques/T1556/003/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains:
+      - '/lib/security'
+      - 'pam_'
+  condition: selection
+falsepositives:
+  - System updates
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1556.003
+---
+title: Modify Authentication via Credential Provider DLL
+id: 6b0y1z9a-7w2x-2y5z-6a9b-0x3w4y7z2a3b
+status: experimental
+description: Detects installation of malicious credential provider DLLs
+references:
+  - https://attack.mitre.org/techniques/T1556/007/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.dll'
+    TargetFilename|contains:
+      - 'credential'
+      - 'provider'
+  condition: selection
+falsepositives:
+  - Legitimate credential providers
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1556.007
+---
+title: Modify Authentication via Network Provider DLL
+id: 7c1z2a0b-8x3y-3z6a-7b0c-1y4x5z8a3b4c
+status: experimental
+description: Detects installation of malicious network provider DLLs
+references:
+  - https://attack.mitre.org/techniques/T1556/008/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.dll'
+    TargetFilename|contains:
+      - 'network'
+      - 'provider'
+  condition: selection
+falsepositives:
+  - Legitimate network providers
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1556.008

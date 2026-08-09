@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:b84953305cd6b816bc84b444c4565684540a0bbf6d4958744604ef3e5b3cf1b5",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve Compute Forge Node\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines.\", \"new\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance and security.\", \"intent\": \"Improve performance and security of Compute Forge Node\"}], \"verify\": [\"app/kernel/compute/compute_forge.py\"]}",
+    "response_sha256": "sha256:1c7d47d3cf4fdec82394ca335e15106c6ca23c1669586685dd17c9d25e83d656",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

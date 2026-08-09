@@ -1,0 +1,92 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:4d2423ca6309de490fbde40ac48df15a29400766cdc7f2e20ca8952bb8580cca",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 37,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.88,
+    "evidence_packet_id": "",
+    "impact_fingerprint_hash": "sha256:88e823a4df5988050e9001ad88b647f743d31506f0f03067cbd8dbff12911b7c",
+    "metadata": {
+      "answer_credit_id": "cache_c74e03d218c92deb",
+      "evidence": {
+        "latency_ms": 0,
+        "provider_result_id": "provider_result_d6e3324e662edcbd0b43",
+        "trace_id": "trace_21fffe747f566269a1a2",
+        "usage": {
+          "output_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 37
+        },
+        "verification": {
+          "beast_object_type": "beast_provider_result_verification",
+          "model": "nvidia/nemotron-3-super-120b-a12b",
+          "provider": "nvidia_nim",
+          "reason": "non_empty_provider_response",
+          "response_sha256": "sha256:917311209e5999fd539001850933d6d01a9dde6a58a5dd48136f6585be4c4e0e",
+          "verified": true,
+          "version": "1.0"
+        }
+      },
+      "local_eval_gate": {
+        "beast_object_type": "local_eval_gate_result",
+        "checks": [
+          {
+            "passed": true,
+            "rule": {
+              "type": "max_length",
+              "value": 200000
+            }
+          },
+          {
+            "passed": true,
+            "rule": {
+              "type": "no_secret_patterns"
+            }
+          }
+        ],
+        "passed": true,
+        "promotion_allowed": true,
+        "version": "1.0"
+      },
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "provider": "nvidia_nim",
+      "request": {
+        "beast_object_type": "crystal_reuse_request",
+        "metadata": {
+          "context_files": [
+            "README.md"
+          ],
+          "history_count": 3,
+          "source": "beast_tui_live_turn",
+          "streaming": true
+        },
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "parameters": {},
+        "policy_version": "crystal_reuse_v1",
+        "preferred_engine": null,
+        "prompt_hash": "sha256:9a988f03408067bde931e9c0315251b7b0f431c628a49da454dee85f908c0e36",
+        "prompt_prefix": "",
+        "prompt_preview": "read the readme and give me an assessment of this system",
+        "provider": "nvidia_nim",
+        "repo_fingerprint": null,
+        "system_prompt": "",
+        "task_class": "chat_completion",
+        "tokenizer": "",
+        "version": "1.0"
+      },
+      "source": "provider_response_crystallized"
+    },
+    "policy_version": "crystal_reuse_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

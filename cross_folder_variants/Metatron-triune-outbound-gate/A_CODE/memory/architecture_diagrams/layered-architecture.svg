@@ -1,0 +1,327 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1700" viewBox="0 0 2000 1700">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .section { stroke: #334155; stroke-width: 1.5; rx: 12; ry: 12; }
+      .sectionTitle { font: 700 17px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .node { stroke: #64748b; stroke-width: 1.1; rx: 7; ry: 7; }
+      .nodeTitle { font: 700 12px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .tiny { font: 11px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .micro { font: 10px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .badge { stroke: #0f766e; stroke-width: 1.4; rx: 18; ry: 18; fill: #ccfbf1; }
+      .badgeText { font: 700 11px 'Segoe UI', Arial, sans-serif; fill: #134e4a; }
+      .conn { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+      .conn2 { stroke: #0f766e; stroke-width: 1.8; fill: none; marker-end: url(#arrowTeal); }
+      .lane { stroke: #94a3b8; stroke-width: 1.8; stroke-dasharray: 6 6; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#64748b" />
+    </marker>
+    <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="2000" height="1700" />
+
+  <text x="28" y="48" class="title">Metatron / Seraph AI Defense - Breadth and Modularity Architecture Map</text>
+  <text x="28" y="73" class="subtitle">Broad implementation view with compact capability blocks, selective flow links, and updated differentiators (2026-03-06)</text>
+
+  <!-- Differentiator badges -->
+  <rect class="badge" x="32" y="90" width="220" height="30" />
+  <text x="46" y="110" class="badgeText">DIFFERENTIATOR: BREADTH</text>
+  <rect class="badge" x="264" y="90" width="280" height="30" />
+  <text x="278" y="110" class="badgeText">DIFFERENTIATOR: FLEXIBLE / MODULAR</text>
+  <rect class="badge" x="556" y="90" width="260" height="30" />
+  <text x="570" y="110" class="badgeText">DIFFERENTIATOR: GOVERNED AUTONOMY</text>
+
+  <!-- Local/Remote lane -->
+  <line x1="1000" y1="132" x2="1000" y2="1665" class="lane" />
+  <text x="36" y="145" class="micro">LOCAL / ON-PREM EXECUTION</text>
+  <text x="1020" y="145" class="micro">REMOTE / DISTRIBUTED EXECUTION</text>
+
+  <!-- SECTION A: EXPERIENCE -->
+  <rect class="section" x="24" y="160" width="952" height="330" fill="#e0f2fe" />
+  <text x="42" y="187" class="sectionTitle">A) Operator and UX Plane</text>
+
+  <rect class="node" x="42" y="205" width="220" height="72" fill="#ffffff" />
+  <text x="54" y="226" class="nodeTitle">🧭 Entry Channels</text>
+  <text x="54" y="245" class="tiny">localhost UI + scripts</text>
+  <text x="54" y="261" class="tiny">HTTPS analyst access</text>
+
+  <rect class="node" x="274" y="205" width="220" height="72" fill="#ffffff" />
+  <text x="286" y="226" class="nodeTitle">🧱 React App Shell</text>
+  <text x="286" y="245" class="tiny">frontend/src/App.js</text>
+  <text x="286" y="261" class="tiny">AuthContext + protected layout</text>
+
+  <rect class="node" x="506" y="205" width="220" height="72" fill="#ffffff" />
+  <text x="518" y="226" class="nodeTitle">📊 SOC Workflows</text>
+  <text x="518" y="245" class="tiny">Dashboard, Threats, Alerts</text>
+  <text x="518" y="261" class="tiny">Hunting, Correlation, Timeline</text>
+
+  <rect class="node" x="738" y="205" width="220" height="72" fill="#ffffff" />
+  <text x="750" y="226" class="nodeTitle">⚡ Response Workflows</text>
+  <text x="750" y="245" class="tiny">SOAR, Response, Quarantine</text>
+  <text x="750" y="261" class="tiny">Ransomware, Deception</text>
+
+  <rect class="node" x="42" y="290" width="220" height="72" fill="#ffffff" />
+  <text x="54" y="311" class="nodeTitle">🛰️ Endpoint Ops Pages</text>
+  <text x="54" y="330" class="tiny">UnifiedAgent, Swarm</text>
+  <text x="54" y="346" class="tiny">CommandCenter, Network</text>
+
+  <rect class="node" x="274" y="290" width="220" height="72" fill="#ffffff" />
+  <text x="286" y="311" class="nodeTitle">🛡️ Platform Security Pages</text>
+  <text x="286" y="330" class="tiny">ZeroTrust, CSPM, Identity</text>
+  <text x="286" y="346" class="tiny">AttackPaths, SecureBoot, Kernel</text>
+
+  <rect class="node" x="506" y="290" width="220" height="72" fill="#ffffff" />
+  <text x="518" y="311" class="nodeTitle">🧠 Advanced Services Pages</text>
+  <text x="518" y="330" class="tiny">AI Threats, VNS, Kibana</text>
+  <text x="518" y="346" class="tiny">Browser extension visibility</text>
+
+  <rect class="node" x="738" y="290" width="220" height="72" fill="#ffffff" />
+  <text x="750" y="311" class="nodeTitle">🌍 Remote Analyst UX</text>
+  <text x="750" y="330" class="tiny">same SPA over reverse proxy</text>
+  <text x="750" y="346" class="tiny">role-aware API control paths</text>
+
+  <rect class="node" x="42" y="376" width="916" height="96" fill="#ffffff" />
+  <text x="54" y="398" class="nodeTitle">Route Breadth Snapshot (47 route entries)</text>
+  <text x="54" y="416" class="tiny">Core app plane: Dashboard | CommandCenter | UnifiedAgent | Reports | Settings | Login | Setup</text>
+  <text x="54" y="434" class="tiny">Security plane: Threats | Alerts | Hunting | Correlation | Timeline | Response | SOAR | Quarantine | Ransomware | Deception</text>
+  <text x="54" y="452" class="tiny">Platform plane: ZeroTrust | CSPM | Identity | AttackPaths | SecureBoot | KernelSensors | VPN | Containers | Sandbox | Browser</text>
+
+  <!-- SECTION B: API DOMAIN MESH -->
+  <rect class="section" x="24" y="510" width="1952" height="310" fill="#f0fdf4" />
+  <text x="42" y="537" class="sectionTitle">B) API Domain Mesh (FastAPI Router Breadth)</text>
+
+  <!-- Core row -->
+  <rect class="node" x="40" y="552" width="88" height="32" fill="#ffffff" /><text x="50" y="572" class="micro">auth</text>
+  <rect class="node" x="134" y="552" width="88" height="32" fill="#ffffff" /><text x="144" y="572" class="micro">users</text>
+  <rect class="node" x="228" y="552" width="92" height="32" fill="#ffffff" /><text x="238" y="572" class="micro">settings</text>
+  <rect class="node" x="326" y="552" width="98" height="32" fill="#ffffff" /><text x="336" y="572" class="micro">dashboard</text>
+  <rect class="node" x="430" y="552" width="88" height="32" fill="#ffffff" /><text x="440" y="572" class="micro">reports</text>
+  <rect class="node" x="524" y="552" width="104" height="32" fill="#ffffff" /><text x="534" y="572" class="micro">websocket</text>
+  <rect class="node" x="634" y="552" width="132" height="32" fill="#ffffff" /><text x="644" y="572" class="micro">dependencies</text>
+
+  <!-- SOC row -->
+  <rect class="node" x="40" y="592" width="88" height="32" fill="#ffffff" /><text x="50" y="612" class="micro">threats</text>
+  <rect class="node" x="134" y="592" width="88" height="32" fill="#ffffff" /><text x="144" y="612" class="micro">alerts</text>
+  <rect class="node" x="228" y="592" width="96" height="32" fill="#ffffff" /><text x="238" y="612" class="micro">hunting</text>
+  <rect class="node" x="330" y="592" width="110" height="32" fill="#ffffff" /><text x="340" y="612" class="micro">threat_intel</text>
+  <rect class="node" x="446" y="592" width="106" height="32" fill="#ffffff" /><text x="456" y="612" class="micro">correlation</text>
+  <rect class="node" x="558" y="592" width="90" height="32" fill="#ffffff" /><text x="568" y="612" class="micro">timeline</text>
+  <rect class="node" x="654" y="592" width="88" height="32" fill="#ffffff" /><text x="664" y="612" class="micro">audit</text>
+
+  <!-- Response row -->
+  <rect class="node" x="40" y="632" width="96" height="32" fill="#ffffff" /><text x="50" y="652" class="micro">response</text>
+  <rect class="node" x="142" y="632" width="106" height="32" fill="#ffffff" /><text x="152" y="652" class="micro">quarantine</text>
+  <rect class="node" x="254" y="632" width="88" height="32" fill="#ffffff" /><text x="264" y="652" class="micro">soar</text>
+  <rect class="node" x="348" y="632" width="112" height="32" fill="#ffffff" /><text x="358" y="652" class="micro">ransomware</text>
+  <rect class="node" x="466" y="632" width="112" height="32" fill="#ffffff" /><text x="476" y="652" class="micro">deception</text>
+  <rect class="node" x="584" y="632" width="118" height="32" fill="#ffffff" /><text x="594" y="652" class="micro">honeypots</text>
+  <rect class="node" x="708" y="632" width="132" height="32" fill="#ffffff" /><text x="718" y="652" class="micro">honey_tokens</text>
+
+  <!-- Endpoint + enterprise row -->
+  <rect class="node" x="860" y="552" width="126" height="32" fill="#ffffff" /><text x="870" y="572" class="micro">unified_agent</text>
+  <rect class="node" x="992" y="552" width="94" height="32" fill="#ffffff" /><text x="1002" y="572" class="micro">swarm</text>
+  <rect class="node" x="1092" y="552" width="92" height="32" fill="#ffffff" /><text x="1102" y="572" class="micro">agents</text>
+  <rect class="node" x="1190" y="552" width="134" height="32" fill="#ffffff" /><text x="1200" y="572" class="micro">agent_commands</text>
+  <rect class="node" x="1330" y="552" width="100" height="32" fill="#ffffff" /><text x="1340" y="572" class="micro">extension</text>
+  <rect class="node" x="1436" y="552" width="116" height="32" fill="#ffffff" /><text x="1446" y="572" class="micro">enterprise</text>
+  <rect class="node" x="1558" y="552" width="110" height="32" fill="#ffffff" /><text x="1568" y="572" class="micro">zero_trust</text>
+  <rect class="node" x="1674" y="552" width="124" height="32" fill="#ffffff" /><text x="1684" y="572" class="micro">multi_tenant</text>
+  <rect class="node" x="1804" y="552" width="96" height="32" fill="#ffffff" /><text x="1814" y="572" class="micro">identity</text>
+
+  <!-- Advanced + tier1 row -->
+  <rect class="node" x="860" y="592" width="106" height="32" fill="#ffffff" /><text x="870" y="612" class="micro">advanced</text>
+  <rect class="node" x="972" y="592" width="112" height="32" fill="#ffffff" /><text x="982" y="612" class="micro">ai_analysis</text>
+  <rect class="node" x="1090" y="592" width="106" height="32" fill="#ffffff" /><text x="1100" y="612" class="micro">ai_threats</text>
+  <rect class="node" x="1202" y="592" width="120" height="32" fill="#ffffff" /><text x="1212" y="612" class="micro">ml_prediction</text>
+  <rect class="node" x="1328" y="592" width="94" height="32" fill="#ffffff" /><text x="1338" y="612" class="micro">sandbox</text>
+  <rect class="node" x="1428" y="592" width="104" height="32" fill="#ffffff" /><text x="1438" y="612" class="micro">containers</text>
+  <rect class="node" x="1538" y="592" width="84" height="32" fill="#ffffff" /><text x="1548" y="612" class="micro">vpn</text>
+  <rect class="node" x="1628" y="592" width="92" height="32" fill="#ffffff" /><text x="1638" y="612" class="micro">cspm</text>
+  <rect class="node" x="1726" y="592" width="112" height="32" fill="#ffffff" /><text x="1736" y="612" class="micro">attack_paths</text>
+  <rect class="node" x="1844" y="592" width="112" height="32" fill="#ffffff" /><text x="1854" y="612" class="micro">secure_boot</text>
+
+  <rect class="node" x="860" y="632" width="124" height="32" fill="#ffffff" /><text x="870" y="652" class="micro">kernel_sensors</text>
+  <rect class="node" x="990" y="632" width="104" height="32" fill="#ffffff" /><text x="1000" y="652" class="micro">openclaw</text>
+  <rect class="node" x="1100" y="632" width="104" height="32" fill="#ffffff" /><text x="1110" y="652" class="micro">kibana</text>
+
+  <rect class="node" x="40" y="680" width="1916" height="122" fill="#ffffff" />
+  <text x="52" y="702" class="nodeTitle">Differentiator signal: Breadth without monolithic lock-in</text>
+  <text x="52" y="721" class="tiny">Dense domain coverage is implemented as modular routers + services, enabling incremental upgrades per branch (identity, CSPM, EDM, deception, timeline, deployment).</text>
+  <text x="52" y="739" class="tiny">New represented changes: identity v1 compatibility routes, secure boot adapter compatibility, improved deployment realism, network discovery container fallback, timeline enterprise tabs, EDM rollout governance.</text>
+  <text x="52" y="757" class="tiny">Connector density intentionally low to preserve readability while still showing control loops and modular coupling points.</text>
+
+  <!-- SECTION C: ENGINE + SERVICE BREADTH -->
+  <rect class="section" x="24" y="838" width="952" height="470" fill="#fef9c3" />
+  <text x="42" y="865" class="sectionTitle">C) Engine and Service Breadth (Composable Modules)</text>
+
+  <rect class="node" x="42" y="882" width="220" height="92" fill="#ffffff" />
+  <text x="54" y="904" class="nodeTitle">🔍 Threat Core</text>
+  <text x="54" y="922" class="tiny">threat_response</text>
+  <text x="54" y="938" class="tiny">threat_correlation</text>
+  <text x="54" y="954" class="tiny">threat_timeline + intel</text>
+
+  <rect class="node" x="274" y="882" width="220" height="92" fill="#ffffff" />
+  <text x="286" y="904" class="nodeTitle">🧪 Detection Core</text>
+  <text x="286" y="922" class="tiny">ml_threat_prediction</text>
+  <text x="286" y="938" class="tiny">sandbox_analysis</text>
+  <text x="286" y="954" class="tiny">container_security</text>
+
+  <rect class="node" x="506" y="882" width="220" height="92" fill="#ffffff" />
+  <text x="518" y="904" class="nodeTitle">🧭 Control and Trust</text>
+  <text x="518" y="922" class="tiny">policy_engine</text>
+  <text x="518" y="938" class="tiny">token_broker</text>
+  <text x="518" y="954" class="tiny">tool_gateway + identity</text>
+
+  <rect class="node" x="738" y="882" width="220" height="92" fill="#ffffff" />
+  <text x="750" y="904" class="nodeTitle">🎭 Deception and Containment</text>
+  <text x="750" y="922" class="tiny">deception_engine</text>
+  <text x="750" y="938" class="tiny">honey_tokens + honeypots</text>
+  <text x="750" y="954" class="tiny">ransomware_protection</text>
+
+  <rect class="node" x="42" y="986" width="220" height="92" fill="#ffffff" />
+  <text x="54" y="1008" class="nodeTitle">☁️ Cloud and Identity</text>
+  <text x="54" y="1026" class="tiny">cspm_engine + scanners</text>
+  <text x="54" y="1042" class="tiny">identity_protection</text>
+  <text x="54" y="1058" class="tiny">zero_trust</text>
+
+  <rect class="node" x="274" y="986" width="220" height="92" fill="#ffffff" />
+  <text x="286" y="1008" class="nodeTitle">🧠 AI and Cognition</text>
+  <text x="286" y="1026" class="tiny">aatl + aatr</text>
+  <text x="286" y="1042" class="tiny">cognition_engine</text>
+  <text x="286" y="1058" class="tiny">ai_reasoning + cce_worker</text>
+
+  <rect class="node" x="506" y="986" width="220" height="92" fill="#ffffff" />
+  <text x="518" y="1008" class="nodeTitle">📡 Telemetry Mesh</text>
+  <text x="518" y="1026" class="tiny">mcp_server</text>
+  <text x="518" y="1042" class="tiny">telemetry_chain</text>
+  <text x="518" y="1058" class="tiny">vector_memory + vns</text>
+
+  <rect class="node" x="738" y="986" width="220" height="92" fill="#ffffff" />
+  <text x="750" y="1008" class="nodeTitle">🚀 Deployment and Ops</text>
+  <text x="750" y="1026" class="tiny">agent_deployment (SSH/WinRM)</text>
+  <text x="750" y="1042" class="tiny">network_discovery</text>
+  <text x="750" y="1058" class="tiny">siem integrations</text>
+
+  <rect class="node" x="42" y="1090" width="916" height="202" fill="#ffffff" />
+  <text x="54" y="1112" class="nodeTitle">Modular Flexibility Narrative</text>
+  <text x="54" y="1131" class="tiny">Each capability domain can iterate independently: adding identity routes does not require CSPM changes; EDM rollout logic evolves without rewriting threat correlation.</text>
+  <text x="54" y="1149" class="tiny">Compatibility adapters (secure boot, identity v1, route aliases) preserve client continuity while backend internals evolve.</text>
+  <text x="54" y="1167" class="tiny">This architecture favors branch-level upgrades over all-or-nothing refactors, which is the practical differentiator for breadth + agility.</text>
+  <text x="54" y="1185" class="tiny">New represented pieces: EDM staged rollout + auto rollback loop, stricter CORS/JWT posture in strict/prod mode, improved deployment diagnostics, expanded timeline workflow planes.</text>
+
+  <!-- SECTION D: ENDPOINT + EDM DIFFERENTIATOR -->
+  <rect class="section" x="1000" y="838" width="976" height="470" fill="#ecfeff" />
+  <text x="1018" y="865" class="sectionTitle">D) Endpoint Fabric and EDM Differentiator</text>
+
+  <rect class="node" x="1018" y="882" width="234" height="92" fill="#ffffff" />
+  <text x="1030" y="904" class="nodeTitle">🖥️ Unified Agent Core</text>
+  <text x="1030" y="922" class="tiny">29-monitor mesh</text>
+  <text x="1030" y="938" class="tiny">endpoint local detections</text>
+  <text x="1030" y="954" class="tiny">command execution contract</text>
+
+  <rect class="node" x="1264" y="882" width="234" height="92" fill="#ffffff" />
+  <text x="1276" y="904" class="nodeTitle">🧩 EDM Engine (Agent)</text>
+  <text x="1276" y="922" class="tiny">fingerprint matching</text>
+  <text x="1276" y="938" class="tiny">Bloom precheck acceleration</text>
+  <text x="1276" y="954" class="tiny">hit buffering for heartbeat</text>
+
+  <rect class="node" x="1510" y="882" width="234" height="92" fill="#ffffff" />
+  <text x="1522" y="904" class="nodeTitle">📦 EDM Governance (Backend)</text>
+  <text x="1522" y="922" class="tiny">version + signing metadata</text>
+  <text x="1522" y="938" class="tiny">dataset source of truth</text>
+  <text x="1522" y="954" class="tiny">cohort targeting controls</text>
+
+  <rect class="node" x="1756" y="882" width="202" height="92" fill="#ffffff" />
+  <text x="1768" y="904" class="nodeTitle">📉 Readiness and Rollback</text>
+  <text x="1768" y="922" class="tiny">5/25/100 staged release</text>
+  <text x="1768" y="938" class="tiny">anomaly threshold checks</text>
+  <text x="1768" y="954" class="tiny">auto + manual rollback</text>
+
+  <rect class="node" x="1018" y="986" width="940" height="120" fill="#ffffff" />
+  <text x="1030" y="1008" class="nodeTitle">Differentiator: Governed Data Protection Loop (Breadth + Flexibility)</text>
+  <text x="1030" y="1026" class="tiny">publish dataset -> validate trust/version -> staged rollout by cohort/platform/group -> endpoint detection telemetry -> readiness scoring -> rollback decision</text>
+  <text x="1030" y="1044" class="tiny">this loop is modular: policy thresholds, rollout strategy, and matching fidelity can evolve independently while preserving control-plane contracts</text>
+  <text x="1030" y="1062" class="tiny">compared to rigid stacks, this design supports rapid experimentation with bounded blast radius</text>
+
+  <rect class="node" x="1018" y="1118" width="476" height="174" fill="#ffffff" />
+  <text x="1030" y="1140" class="nodeTitle">Endpoint and Remote Deployment Reality</text>
+  <text x="1030" y="1158" class="tiny">- Real deployment tasks via SSH/WinRM with clearer preflight errors</text>
+  <text x="1030" y="1176" class="tiny">- Network discovery fallback for containerized /16 environments</text>
+  <text x="1030" y="1194" class="tiny">- Unified agent page compatibility for ip/ip_address variants</text>
+  <text x="1030" y="1212" class="tiny">- VPN startup behavior avoids implicit kill-switch self-lock scenarios</text>
+  <text x="1030" y="1230" class="tiny">- Timeline UI expanded to visual/correlation/report/evidence planes</text>
+
+  <rect class="node" x="1506" y="1118" width="452" height="174" fill="#ffffff" />
+  <text x="1518" y="1140" class="nodeTitle">API Hardening and Compatibility Changes</text>
+  <text x="1518" y="1158" class="tiny">- CORS origin resolver with strict/prod explicit origin enforcement</text>
+  <text x="1518" y="1176" class="tiny">- Optional router import fail-open for incompatible modules</text>
+  <text x="1518" y="1194" class="tiny">- Identity router added for /api/v1 compatibility</text>
+  <text x="1518" y="1212" class="tiny">- Secure boot verifier adapter preserves legacy router expectations</text>
+  <text x="1518" y="1230" class="tiny">- Deception and CSPM page UX improved for operational feedback</text>
+
+  <!-- SECTION E: DATA + INFRA + INTEGRATIONS -->
+  <rect class="section" x="24" y="1326" width="1952" height="350" fill="#ede9fe" />
+  <text x="42" y="1353" class="sectionTitle">E) Data, Runtime Infrastructure, and External Integration Breadth</text>
+
+  <rect class="node" x="40" y="1370" width="300" height="94" fill="#ffffff" />
+  <text x="52" y="1392" class="nodeTitle">🗄️ Primary State</text>
+  <text x="52" y="1410" class="tiny">MongoDB (seraph_ai_defense)</text>
+  <text x="52" y="1426" class="tiny">control state + telemetry + commands</text>
+  <text x="52" y="1442" class="tiny">EDM metadata + rollout state</text>
+
+  <rect class="node" x="352" y="1370" width="300" height="94" fill="#ffffff" />
+  <text x="364" y="1392" class="nodeTitle">📈 Search and Observability</text>
+  <text x="364" y="1410" class="tiny">Elasticsearch + Kibana</text>
+  <text x="364" y="1426" class="tiny">alerts, timelines, operational views</text>
+  <text x="364" y="1442" class="tiny">SIEM bridge options</text>
+
+  <rect class="node" x="664" y="1370" width="300" height="94" fill="#ffffff" />
+  <text x="676" y="1392" class="nodeTitle">🔐 Secure Transport Layer</text>
+  <text x="676" y="1410" class="tiny">WireGuard + HTTPS ingress</text>
+  <text x="676" y="1426" class="tiny">websocket channels</text>
+  <text x="676" y="1442" class="tiny">remote endpoint control loops</text>
+
+  <rect class="node" x="976" y="1370" width="300" height="94" fill="#ffffff" />
+  <text x="988" y="1392" class="nodeTitle">🧰 Runtime Service Profiles</text>
+  <text x="988" y="1410" class="tiny">backend + frontend + db baseline</text>
+  <text x="988" y="1426" class="tiny">optional: ollama/trivy/falco/suricata/cuckoo</text>
+  <text x="988" y="1442" class="tiny">profile-driven activation</text>
+
+  <rect class="node" x="1288" y="1370" width="300" height="94" fill="#ffffff" />
+  <text x="1300" y="1392" class="nodeTitle">☁️ External Integrations</text>
+  <text x="1300" y="1410" class="tiny">cloud provider APIs</text>
+  <text x="1300" y="1426" class="tiny">threat feeds + notification channels</text>
+  <text x="1300" y="1442" class="tiny">SIEM endpoints and connectors</text>
+
+  <rect class="node" x="1600" y="1370" width="360" height="94" fill="#ffffff" />
+  <text x="1612" y="1392" class="nodeTitle">📦 Deployment Topology Advantage</text>
+  <text x="1612" y="1410" class="tiny">localhost bind defaults reduce accidental exposure</text>
+  <text x="1612" y="1426" class="tiny">remote mode still supports distributed SOC operation</text>
+  <text x="1612" y="1442" class="tiny">same modules, different deployment posture</text>
+
+  <rect class="node" x="40" y="1478" width="1920" height="182" fill="#ffffff" />
+  <text x="52" y="1500" class="nodeTitle">Why this Architecture Wins on Breadth + Flexibility</text>
+  <text x="52" y="1519" class="tiny">1) Breadth: many capability domains are first-class modules (EDR, SOAR, deception, CSPM, identity, timeline, deployment, AI reasoning, governance).</text>
+  <text x="52" y="1537" class="tiny">2) Flexibility: module-level evolution with compatibility adapters avoids whole-platform rewrites.</text>
+  <text x="52" y="1555" class="tiny">3) Governance: high-risk automation is wrapped by policy, readiness, and rollback controls.</text>
+  <text x="52" y="1573" class="tiny">4) Operational realism: local and remote execution paths coexist with profile-aware infrastructure.</text>
+  <text x="52" y="1591" class="tiny">5) Differentiator: dense implementation map with composable branches enables faster product iteration without sacrificing enterprise trajectory.</text>
+
+  <!-- minimal connector set -->
+  <path class="conn" d="M 720 472 C 760 510, 790 535, 860 560" />
+  <path class="conn" d="M 880 772 C 900 820, 900 860, 880 900" />
+  <path class="conn" d="M 1240 772 C 1280 810, 1310 860, 1330 905" />
+  <path class="conn2" d="M 1498 925 C 1510 965, 1520 1000, 1515 1030" />
+  <path class="conn2" d="M 1752 925 C 1800 945, 1825 980, 1848 1018" />
+  <path class="conn" d="M 1130 1290 C 1100 1350, 1080 1390, 1060 1420" />
+  <path class="conn" d="M 680 1260 C 620 1320, 560 1360, 500 1400" />
+  <path class="conn" d="M 1700 1290 C 1730 1330, 1760 1360, 1780 1390" />
+
+  <text x="26" y="1692" class="subtitle">Design note: intentionally low arrow density to preserve broad readability while still expressing core dependency loops and modular branch evolution.</text>
+</svg>

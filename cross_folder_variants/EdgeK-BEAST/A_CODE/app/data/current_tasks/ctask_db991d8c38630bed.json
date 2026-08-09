@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-09T15:32:48.260381+00:00",
+  "objective": "Say hi in 3 words",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:db991d8c38630bed52400f8d3f18e96e221b0f2486d5c0652d506c778e65e9ac",
+  "task_markup_id": "ctask_db991d8c38630bed"
+}

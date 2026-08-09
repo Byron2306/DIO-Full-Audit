@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:6daac42d184e064c4bc3caf5aae1f2e375ba857cd4ce90fcf038270a6982d6eb",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:9c2f5542ed1e1115553b8deb7a8b3297a36c21e1a3a31e8beb5ecad9e1fd5ad8",
+      "response_blob_digest": "sha256:a2850c57883421ef1b33bcd86360d51b39673a09d1378750257cff8c47d1606f",
+      "response_blob_ref": "blobs/sha256/a2850c57883421ef1b33bcd86360d51b39673a09d1378750257cff8c47d1606f.json",
+      "response_chars": 1780,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"provider_handoff_hash\": \"sha256:4bbcf0f277c9a3712c7ac7ed8d7cb0ecce8ab7c573add65edd28fafd02d6ff46\", \"objective\": \"Refactor the MetaToolCandidate class for clarity without changing behavior\", \"actions\": [ { \"id\": \"a1\", \"type\": \"replace_exact\", \"target\": { \"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\" }, \"old\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence D",
+      "response_ref": "cache_6d5a1ba660057156.answer.json",
+      "response_sha256": "sha256:61f6ddefcde81f93c3cc4e341cac05062f56ea1515ef02f8873e7c0e9cd1116d"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:b5a19f1452a127897cb3e21b8b31133e9159ce31fd95d3f5c92d67a62cb4c75e",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:6e8d58884986401bf75e6274fe3e28988b4e6e5b3d1a38140292a2ec410f8532",
+      "response_blob_digest": "sha256:0754c3fd7926a560ec286cf2f88db936667dc9725d674c42e1d6022ddaa60f18",
+      "response_blob_ref": "blobs/sha256/0754c3fd7926a560ec286cf2f88db936667dc9725d674c42e1d6022ddaa60f18.json",
+      "response_chars": 568,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ComputeForgeNode for clarity\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/compute_forge.py\",\"anchor_ref\":\"A1\"},\"new\":\"input_schema = {\\\"objective\\\": \\\"string\\\", \\\"repo_fingerprint\\\": \\\"sha256\\\", \\\"allowed_context\\\": \\\"local_redacted_evidence\\\", \\\"provider_handoff_hash\\\": \\\"sha256:43b8d801d7a625dc9e6756e0b62c2825352d27bf2c9af5f74dd24e10cc3c1e61\\\"}\",\"intent\":\"Add provider_handoff_hash to input schema\"}],\"verify\":[\"C",
+      "response_ref": "cache_f35747cc1b6f87c8.answer.json",
+      "response_sha256": "sha256:587ddbaa30a43ec71010a1d3760e0dce2bdd0a798ca5e87e1537afa4783b0bab"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

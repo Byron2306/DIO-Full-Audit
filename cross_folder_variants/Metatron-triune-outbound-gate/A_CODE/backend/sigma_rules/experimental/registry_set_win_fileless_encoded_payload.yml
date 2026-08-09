@@ -1,0 +1,29 @@
+title: Registry Fileless Encoded Payload Storage
+id: 1i5f6g4h-2d7e-7f0g-1h4i-5e8d9f2g7h8i
+status: experimental
+description: Detects storage of encoded payloads in registry for fileless execution
+references:
+  - https://attack.mitre.org/techniques/T1027/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: registry_set
+  product: windows
+detection:
+  selection:
+    EventType: SetValue
+    TargetObject|contains:
+      - '\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+      - '\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce'
+    Details|contains|all:
+      - 'powershell'
+      - '-e'
+      - 'FromBase64String'
+  condition: selection
+falsepositives:
+  - Legitimate registry entries for software installation
+  - System administration scripts
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1027.011

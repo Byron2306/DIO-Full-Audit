@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card homs-card">
+    <div class="card-body">
+      <h3>Assessment Result — {{ result.student_id }}</h3>
+      {% if result.status == 'success' %}
+        <p><strong>Final score:</strong> {{ result.final_score }}%</p>
+        <h5>Annotations</h5>
+        <table class="table table-sm">
+          <thead><tr><th>Annotation</th><th>Satisfied</th><th>Value</th></tr></thead>
+          <tbody>
+            {% for k,v in result.annotations.items() %}
+              <tr>
+                <td>{{ k }}</td>
+                <td>{{ v.satisfied }}</td>
+                <td>{{ v.value }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="alert alert-danger">Assessment error: {{ result.error }}</div>
+      {% endif %}
+      <a class="btn btn-secondary" role="button" href="/">Back</a>
+    </div>
+  </div>
+{% endblock %}

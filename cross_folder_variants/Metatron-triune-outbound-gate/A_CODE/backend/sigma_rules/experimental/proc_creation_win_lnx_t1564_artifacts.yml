@@ -1,0 +1,68 @@
+title: Hide Artifacts via Hidden Files
+id: 6r0o1p9q-7m2n-2o5p-6q9r-0n3m4o7p2q3r
+status: experimental
+description: Detects creation of hidden files to conceal artifacts
+references:
+  - https://attack.mitre.org/techniques/T1564/008/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|startswith: '.'
+  condition: selection
+falsepositives:
+  - Legitimate hidden files
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1564.008
+---
+title: Hide Artifacts via NTFS Alternate Data Stream
+id: 7s1p2q0r-8n3o-3p6q-7r0s-1o4n5p8q3r4s
+status: experimental
+description: Detects use of NTFS Alternate Data Streams to hide artifacts
+references:
+  - https://attack.mitre.org/techniques/T1564/009/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains: ':'
+  condition: selection
+falsepositives:
+  - Legitimate ADS usage
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1564.009
+---
+title: Hide Artifacts via Linux Hidden Files
+id: 8t2q3r1s-9o4p-4q7r-8s1t-2p5o6q9r4s5t
+status: experimental
+description: Detects creation of hidden files on Linux systems
+references:
+  - https://attack.mitre.org/techniques/T1564/012/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|startswith: '.'
+  condition: selection
+falsepositives:
+  - System configuration files
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1564.012

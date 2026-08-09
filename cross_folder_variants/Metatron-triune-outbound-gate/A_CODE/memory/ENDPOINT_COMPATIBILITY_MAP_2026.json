@@ -1,0 +1,72 @@
+{
+  "generated": "2026-03-04",
+  "scope": "Legacy script endpoint compatibility mapping for Seraph/Metatron backend",
+  "notes": [
+    "Use canonical /api/swarm and /api/unified routes for new implementations.",
+    "Entries marked 'manual' need call-site-specific payload migration.",
+    "Legacy endpoints should be considered deprecated and removed after migration telemetry indicates no active callers.",
+    "Alias routes emit deprecation headers and write usage telemetry to api_deprecation_hits for sunset planning."
+  ],
+  "mappings": [
+    {
+      "legacy": "/api/zero-trust/overview",
+      "status": "replaced",
+      "replacement": "/api/zero-trust/stats",
+      "reason": "Active zero-trust router exposes stats/devices/policies/access-logs; deployment validator now uses stats endpoint."
+    },
+    {
+      "legacy": "/api/agent/download/linux",
+      "status": "aliased",
+      "replacement": "/api/swarm/agent/download/linux",
+      "reason": "Legacy alias redirects to canonical swarm platform download endpoint."
+    },
+    {
+      "legacy": "/api/agent/download/windows",
+      "status": "aliased",
+      "replacement": "/api/swarm/agent/download/windows",
+      "reason": "Legacy alias redirects to canonical swarm platform download endpoint."
+    },
+    {
+      "legacy": "/api/agent/download/macos",
+      "status": "aliased",
+      "replacement": "/api/swarm/agent/download/macos",
+      "reason": "Legacy alias redirects to canonical swarm platform download endpoint."
+    },
+    {
+      "legacy": "/api/agent/download",
+      "status": "aliased",
+      "replacement": "/api/unified/agent/download",
+      "reason": "Legacy alias redirects to canonical unified bundle endpoint."
+    },
+    {
+      "legacy": "/api/agent/install",
+      "status": "aliased",
+      "replacement": "/api/unified/agent/install-script",
+      "reason": "Legacy alias redirects to canonical unified install script endpoint."
+    },
+    {
+      "legacy": "/api/agent/install-script",
+      "status": "aliased",
+      "replacement": "/api/unified/agent/install-script",
+      "reason": "Legacy alias redirects to canonical unified install script endpoint."
+    },
+    {
+      "legacy": "/api/agent/install-windows",
+      "status": "aliased",
+      "replacement": "/api/unified/agent/install-windows",
+      "reason": "Legacy alias redirects to canonical unified windows install endpoint."
+    },
+    {
+      "legacy": "/agent/event",
+      "status": "supported",
+      "replacement": "/api/agent/event",
+      "reason": "Active agents router supports this ingestion path shape for legacy agent payloads."
+    },
+    {
+      "legacy": "/agent/{agent_id}/commands",
+      "status": "manual",
+      "replacement": "/api/swarm/agents/{agent_id}/commands OR /api/unified/agents/{agent_id}/command",
+      "reason": "Choose swarm pull-command path for lightweight agents or unified command route for unified control-plane."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "record": {
+    "record_id": "mem-355cdcb344",
+    "principal_identity_hash": "0e204f201b1a90b8f630d46cd01ee5b187277625413f3423ed390756b05f6620",
+    "memory_class": "encounter",
+    "retention_class": "amendable",
+    "created_at": "2026-08-08 19:19:54.390294+00:00",
+    "consent_basis": "covenant",
+    "content_hash": "a47917c7e06a1485a61ddeec8e632516aa8efc1966498df652aa657f78be47ad",
+    "parent_hash": null,
+    "inspectable": true,
+    "revocable": true,
+    "content_ref": "/home/byron/Integritas-Mechanicus/evidence/mandos/encounters/enc-cf9a20cb2e.json"
+  },
+  "payload": {
+    "encounter_id": "enc-cf9a20cb2e",
+    "principal_identity_hash": "0e204f201b1a90b8f630d46cd01ee5b187277625413f3423ed390756b05f6620",
+    "topic": "Sophia DIO product review. Evaluate only the attached manuscript and the local audit dossier below.\nGive diagnostic reviewer commentary; do not rewrite manuscri",
+    "principal_goal": null,
+    "machine_role": "speculum",
+    "summary": "I can help with feedback on your draft so you can keep your ideas and revise it in your own words.\n\nLet's work through this rather than jump to a finished answer.\n\nThis matters because seeing the warrant is part of the answer.\n\nThe broader pattern here is to separate the claim, the evidence, and the next test.\n\nI cannot determine more than the visible warrant supports, so the safe move is to reaso",
+    "what_deepened": [
+      "qualify_then_retrieve_mediation",
+      "scaffolded_reasoning_release_mediation",
+      "pedagogical_scaffold_mediation"
+    ],
+    "what_confused": [],
+    "unresolved_threads": [],
+    "officer_sequence": [
+      "speculum"
+    ],
+    "zpd_estimate": 0.5,
+    "created_at": "2026-08-08 19:19:54.390067+00:00",
+    "conditioning_delta": -0.15,
+    "reinforcement_type": null,
+    "modelled_behavior": null,
+    "habit_mediated": null,
+    "mediation_success_score": 0.0,
+    "heutagogic_shift": true,
+    "tangential_bridge_taken": null,
+    "challenge_type": "KNOWLEDGE_GAP",
+    "struggle_index": 0.619,
+    "release_decision": "",
+    "handback_reason": null,
+    "dominant_cluster": "knowledge_boundary",
+    "speech_act": "qualified_answer",
+    "workspace_schema": [
+      "knowledge_gap_workspace",
+      "retrieval_candidate_workspace",
+      "retrieval_candidate_workspace"
+    ],
+    "expression_schema": [
+      "qualified_answer_surface",
+      "definition_first_surface"
+    ],
+    "verification_schema": [
+      "constitutional_boundary_verification",
+      "epistemic_honesty_verification",
+      "provenance_verification"
+    ],
+    "memory_class": "encounter",
+    "retention_class": "amendable"
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

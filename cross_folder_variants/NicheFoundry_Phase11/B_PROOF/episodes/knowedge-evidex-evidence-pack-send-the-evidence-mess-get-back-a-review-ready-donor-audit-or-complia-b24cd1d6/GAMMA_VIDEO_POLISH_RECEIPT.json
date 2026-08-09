@@ -1,0 +1,70 @@
+{
+  "schema": "knowedge.gamma_video_polish.v1",
+  "created_at": "2026-08-08T23:44:29+00:00",
+  "product_id": "evidex",
+  "episode": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6",
+  "status": "visual_review_required",
+  "policy": "Gamma supplies illustrative context; controlled local artifacts supply proof; no synthetic frame is represented as a client case.",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/raw/evidex_hero.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "proof",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals_polished/01_hook.png",
+      "sha256": "6f438b83ef011f472ec308f3859d6adc7870e8d65f202d5bf47d0461b7891e53"
+    },
+    {
+      "scene_id": "scene_02",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/raw/evidex_mapping_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "proof",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals_polished/02_pain.png",
+      "sha256": "ff2e6f4d3853f7f1bb3f4852f86e6df63ee936d13b4f010355e72c13efe69657"
+    },
+    {
+      "scene_id": "scene_03",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/raw/evidex_mapping_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "evidence_table",
+      "synthetic_context": true,
+      "proof_overlay": true,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals_polished/03_workflow.png",
+      "sha256": "d95bcab25cde15df5711c50f5a316c03fe114ba835d032f0a1d2d87e0079ce00"
+    },
+    {
+      "scene_id": "scene_04",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/raw/evidex_delivery_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "delivery",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals_polished/04_promise.png",
+      "sha256": "fa5816ec0f281818f30bdc054639a0a470eaaffe64c6657f9d25ea28729c36df"
+    },
+    {
+      "scene_id": "scene_05",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/raw/evidex_delivery_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "boundary",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals_polished/05_boundary.png",
+      "sha256": "044c67d330d21b5b57c8f8b9a3eb64aa185dad6ea46c2418616430dd53e9fe87"
+    },
+    {
+      "scene_id": "scene_06",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/raw/evidex_hero.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/evidex/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "cta",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/visuals_polished/06_cta.png",
+      "sha256": "18fe3e9668b9a4445eb4632dd14db7cfe4bf2815e35ae7c84d8e04153cd868bf"
+    }
+  ]
+}

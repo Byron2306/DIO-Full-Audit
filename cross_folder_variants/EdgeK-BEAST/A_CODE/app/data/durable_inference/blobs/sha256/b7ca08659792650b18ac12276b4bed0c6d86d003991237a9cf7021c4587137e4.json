@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:b7ca08659792650b18ac12276b4bed0c6d86d003991237a9cf7021c4587137e4",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "fa0fbfaa8b3bb3438ff39b57767e7c0de5d6732fd7dacb54aaa12720f53f2a77",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 8000,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:6f458d5dfdba9fae2e76a04f3585d5b2879522cb3923356005dd13cd2140aa40",
+      "response_blob_digest": "sha256:1e2a5deae39176fd382cfc6094540d827730272832af98a4b2ef3c8524ae739d",
+      "response_blob_ref": "blobs/sha256/1e2a5deae39176fd382cfc6094540d827730272832af98a4b2ef3c8524ae739d.json",
+      "response_chars": 118,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Explain the active file and identify its key dependencies\",\"actions\":[]}",
+      "response_ref": "cache_e52cf350eaeaf15e.answer.json",
+      "response_sha256": "sha256:3993f9df31d448c9691e97c4435b2a9005901447163f323396b3978d9f4bb3a5"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

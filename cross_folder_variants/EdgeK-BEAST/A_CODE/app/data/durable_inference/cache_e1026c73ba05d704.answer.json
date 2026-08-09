@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:8a72269e421fe5bb0024d7b4f8b2132eb5484a570979d157742d44444f3d363b",
+    "ref": "blobs/sha256/8a72269e421fe5bb0024d7b4f8b2132eb5484a570979d157742d44444f3d363b.json"
+  },
+  "credit_id": "cache_e1026c73ba05d704",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Review desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py for correctness, typing, invariants, edge cases, and testability. Findings: 1. WorkItem.fingerprint() must safely encode fields to bytes before hashing (e.g., handling None or non-string types). 2. WorkQueue.complete() needs explicit behavior (e.",
+  "response_sha256": "sha256:7ef070ea3f5e5c9d4752920436426b9e3559ba2363d1f45da0a3df7103aa7e8c",
+  "version": "1.0"
+}

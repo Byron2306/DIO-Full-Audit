@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T19:00:30.779435+00:00",
+  "objective": "Return BEAST Action IR JSON only. Do not include markdown, prose, or explanation.\n\nObjective: Act as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal.\n\nTask: add in improvements to this file\n\nAllowed files:\n- app/context/economizer.py\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}]}\nUse only attached files, copy old snippets exactly, make the smallest safe change, and do not include markdown or prose outside the JSON.\nAllowed files:\n- app/context/economizer.py\n\nSchema:\n{\"kind\": \"beast.action_intent.v1\", \"objective\": \"...\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"relative/file.py\"}, \"old\": \"exact old snippet\", \"new\": \"replacement\"}]}\n\nRules:\n1. Use only allowed files.\n2. Use exact old snippets that exist in the file today.\n3. Emit the smallest valid set of replace_exact actions.\n4. Return one JSON object and nothing else.\n\nPrevious answer to convert:\n{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve context economizer by adding a new strategy for trimming recent messages\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"def _force_trim_recent(self, messages: List[Dict[str, Any]], target_tokens: int, preserve_system: bool) -> List[Dict[str, Any]]:\", \"new\": \"def _force_trim_recent(self, messages: List[Dict[str, Any]], target_tokens: int, preserve_system: bool, strategy: str = 'aggressive') -> List[Dict[str, Any]]:\", \"intent\": \"Add a new strategy parameter to the _force_trim_recent method to allow for different trimming approaches\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"if self._estimate_tokens(trimmed) > target_tokens and iterations < 100:\", \"new\": \"if self._estimate_tokens(trimmed) > target_tokens and iterations < 100 and strategy == 'aggressive':\", \"intent\": \"Modify the _force_trim_recent method to use the new strategy parameter to determine the trimming approach\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"message[\\\"content\\\"] = (content[:80] + \\\"\\\\n\\\\n[EdgeK context economy: aggressively trimmed to fit budget]\\\\n\\\")\", \"new\": \"if strategy == 'conservative': message[\\\"content\\\"] = (content[:120] + \\\"\\\\n\\\\n[EdgeK context economy: conservatively trimmed to fit budget]\\\\n\\\")\", \"intent\": \"Add a new conservative trimming approach that trims messages to 120 characters instead of 80\"}]}",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:894e1b9d43ea18e5f87ef4b79b18c9b909b8932cdeff43dbb3f1d091b3362e1b",
+  "task_markup_id": "ctask_894e1b9d43ea18e5"
+}

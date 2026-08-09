@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:afc5fec722ed6c4e2ea5db2e5d2b8e29ca95da3da8d2832461f10568b29b0725",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:aaaa8742972bfc8aa1480c2ce37d462f7e9782cce7b9dfe2863798fc21f0e141",
+      "response_blob_digest": "sha256:47f2898b23015491972e6b90aed71591efd939d1541aa804384a31d401f72f0f",
+      "response_blob_ref": "blobs/sha256/47f2898b23015491972e6b90aed71591efd939d1541aa804384a31d401f72f0f.json",
+      "response_chars": 2362,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Enhance KV Cache Transport with new features and improvements\", \"provider_handoff_hash\": \"sha256:6d0a06176ef7d4fa55453beda0aaaaae448b2b999911a1115d04b20610abe025\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/kv_cache_transport.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\"Phase 7: Cross-Engine KV Cache Transport \u2014 computed attention state as a transportable compute asset. This implements the LMCache-style layer described in ",
+      "response_ref": "cache_c21faf29fa787f38.answer.json",
+      "response_sha256": "sha256:f6b2ddaa8bee501992bc4ee49bcc012b6b2e00a4480dcbfa705314996ba01c6f"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

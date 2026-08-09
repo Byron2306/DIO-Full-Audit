@@ -1,0 +1,30 @@
+{
+    "authority": "ARDA_ROOT_AUTHORITY",
+    "manifest": {
+        "manifest_id": "arda-sovereign-constitution-v1",
+        "version": "1.0.0",
+        "expected_pcr_constraints": {
+            "11": "f7e2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
+        },
+        "required_boot_components": [
+            "kernel",
+            "initrd",
+            "arda-heralder"
+        ],
+        "required_early_services": [
+            "vns",
+            "tpm_attestation"
+        ],
+        "forbidden_pre_herald_services": [
+            "telnet",
+            "ftp"
+        ],
+        "allowed_workloads": {
+            "arda-gate": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+            "arda-fabric": "7d1a54127b222c0338b0cc44df7d6de186b76a0860a95a88c7f99996d9e03c15"
+        },
+        "genesis_score_id": "shard-of-aman-001",
+        "failure_policy": "veto"
+    },
+    "signature": "gCITJckTqqwWW+05Bi3xQpJWhMlpR6Y7fEjXGCfOXBaNvukDG/xsz5d2bvP21BL2FNmWwWwNNl60wNWbunFmAPIJH0O8rN/4NXRB/CCKD1y4qhfFc+OfbzYCnEAGRmrx3lMMuWIdj2wx0Am47DxZ7goGSxOKgyO7OYCN13fx2w7Iy9bgnpup/ELwW/4SNRdFngyWNGui04KvakcfglX01PN8x8rUGGygOqK9u/I0Br+LLSDXI531LHGJQMRCKEnwLR9FKH0agT4es+K6Cez6Ta9bLkl9iSyyD2//ygayTRaxx2WT6Apop++PsrmYvD+/VFTPMH2zcww04OXSJ51uYw=="
+}

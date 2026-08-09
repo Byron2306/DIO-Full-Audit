@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:6d6f2d6c3f58673af62f78007fc66547a2f1b8d4a3da1b89d9c1414109a90620",
+    "ref": "blobs/sha256/6d6f2d6c3f58673af62f78007fc66547a2f1b8d4a3da1b89d9c1414109a90620.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-19T04:29:23.405639+00:00",
+  "credit_id": "cache_b9fa8d66023c80d5",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:f7cbf81bccfb546b6157c6f02e254bd9b8f46e001bec292a5c81e23501490c4f",
+    "response_blob_digest": "sha256:203d04faf38e3c971313a721cc677ad5a647d61cb60b6c77328cb638e1100d0d",
+    "response_blob_ref": "blobs/sha256/203d04faf38e3c971313a721cc677ad5a647d61cb60b6c77328cb638e1100d0d.json",
+    "response_chars": 519,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n    def __init__(self, **kwargs):\\n        super().__init__(**kwargs)\\n        self._validate_tags()\", \"intent\": \"add missing validation for tags attribute\"}], \"verify\": [\"python -m pytest tests/test_capabil",
+    "response_ref": "cache_b9fa8d66023c80d5.answer.json",
+    "response_sha256": "sha256:5adef9bd2f672760d73307a13e54f2aef454f34ffa1fb359a82fd94d91033cdb"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

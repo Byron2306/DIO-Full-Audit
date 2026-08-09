@@ -1,0 +1,34 @@
+{
+  "schema": "knowedge.voice_auditions.v1",
+  "created_at": "2026-08-08T21:39:18+00:00",
+  "episode": "knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6",
+  "provider": "Microsoft Edge TTS",
+  "text": "Your donor report is not missing effort. It is missing an evidence pipeline. Reporting evidence is scattered across emails, attachments, spreadsheets, and old folders. Send one non-sensitive evidence folder for a pilot pack.",
+  "samples": [
+    {
+      "voice": "en-US-GuyNeural",
+      "description": "Current narrator; energetic US news/novel delivery",
+      "path": "imports/voice_auditions/en-US-GuyNeural.mp3",
+      "duration_seconds": 15.744,
+      "sha256": "1214ccc1feaa8eb29d65c37442d3b6ae19ff8d20ca064cdc119d3c2152c12ae0",
+      "mastering": "48 kHz stereo MP3, 160 kbps, -18 LUFS target, -1.5 dBTP target"
+    },
+    {
+      "voice": "en-ZA-LukeNeural",
+      "description": "South African English; friendly male delivery",
+      "path": "imports/voice_auditions/en-ZA-LukeNeural.mp3",
+      "duration_seconds": 14.52,
+      "sha256": "580e3017cf597c161f98a5cd5c95aa1ecc5ed0228f002d47b75a2cbbe488b20f",
+      "mastering": "48 kHz stereo MP3, 160 kbps, -18 LUFS target, -1.5 dBTP target"
+    },
+    {
+      "voice": "en-ZA-LeahNeural",
+      "description": "South African English; friendly female delivery",
+      "path": "imports/voice_auditions/en-ZA-LeahNeural.mp3",
+      "duration_seconds": 17.544,
+      "sha256": "f28bbb8195c3a256dc8f21adf5894a15414392c6976fe7ed9c4f6539edd06765",
+      "mastering": "48 kHz stereo MP3, 160 kbps, -18 LUFS target, -1.5 dBTP target"
+    }
+  ],
+  "decision": "human_listen_required"
+}

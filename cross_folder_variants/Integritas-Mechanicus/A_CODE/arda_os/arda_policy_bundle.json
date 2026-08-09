@@ -1,0 +1,94 @@
+{
+  "schema_version": "arda.policy_bundle.v1",
+  "compiled_at": "2026-07-30T06:53:07.628191+00:00",
+  "policy_id": "ARDA-POLICY-V1",
+  "policy_version": "1.1.0",
+  "source_policy_digest": "sha256:614244d465fe1eaff8cba98108ff603aef566bc4cfb8999c9e9be2d17f1b2ae3",
+  "compiler": {
+    "name": "arda_policy_compiler",
+    "version": "phase5-slice1"
+  },
+  "projections": {
+    "command_allow_index": {
+      "check_health": {
+        "command": "check_health",
+        "principals": [
+          "Magos_Indomitus"
+        ],
+        "lanes": [
+          "Shire"
+        ],
+        "effect": "ALLOW"
+      }
+    },
+    "principal_bindings": {
+      "Magos_Indomitus": [
+        "check_health"
+      ]
+    },
+    "lane_bindings": {
+      "Shire": [
+        "check_health"
+      ]
+    },
+    "redline_rules": [
+      {
+        "rule_id": "redline-deny-delete",
+        "command": "delete",
+        "principal": null,
+        "lane": null,
+        "reason": "constitutional_destructive_command_denial",
+        "effect": "DENY"
+      },
+      {
+        "rule_id": "redline-deny-deploy",
+        "command": "deploy",
+        "principal": null,
+        "lane": null,
+        "reason": "constitutional_destructive_command_denial",
+        "effect": "DENY"
+      },
+      {
+        "rule_id": "redline-deny-reboot",
+        "command": "reboot",
+        "principal": null,
+        "lane": null,
+        "reason": "constitutional_destructive_command_denial",
+        "effect": "DENY"
+      },
+      {
+        "rule_id": "redline-deny-rogue-echo",
+        "command": null,
+        "principal": "Rogue_Echo",
+        "lane": null,
+        "reason": "constitutional_principal_denial",
+        "effect": "DENY"
+      },
+      {
+        "rule_id": "redline-deny-unknown-lanes",
+        "command": null,
+        "principal": null,
+        "lane": "Mordor",
+        "reason": "constitutional_lane_denial",
+        "effect": "DENY"
+      },
+      {
+        "rule_id": "redline-deny-untrusted-principal",
+        "command": null,
+        "principal": "Shadow_Operator",
+        "lane": null,
+        "reason": "constitutional_principal_denial",
+        "effect": "DENY"
+      },
+      {
+        "rule_id": "redline-deny-void-lane",
+        "command": null,
+        "principal": null,
+        "lane": "The Void",
+        "reason": "constitutional_lane_denial",
+        "effect": "DENY"
+      }
+    ]
+  },
+  "signature": "56d4003b2683007e98aa4ad742d8ceea82b7386deaaff4844b6ebf314613cc56"
+}

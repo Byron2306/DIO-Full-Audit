@@ -1,0 +1,45 @@
+{
+  "staff_id": "test_persist_001",
+  "name": "Persist Test User",
+  "position": "Senior Lecturer",
+  "cycle_year": 2024,
+  "faculty": "Test Faculty",
+  "school": "",
+  "subject_group": "",
+  "research_entity": "",
+  "campus": "",
+  "director": "",
+  "subject_group_leader": "",
+  "executive_dean": "",
+  "research_dean": "",
+  "school_admin": "",
+  "modules_context": "",
+  "line_manager": "",
+  "kpas": [
+    {
+      "code": "KPA1",
+      "name": "Teaching and Learning",
+      "weight": 80.0,
+      "hours": 1400.0,
+      "kpis": [
+        {
+          "kpi_id": "KPI1_1",
+          "description": "Deliver quality teaching",
+          "outputs": "Lectures and materials",
+          "outcomes": "",
+          "measure": "",
+          "target": "",
+          "due": "",
+          "evidence_types": [],
+          "generated_by_ai": false,
+          "weight": null,
+          "hours": null,
+          "active": true
+        }
+      ],
+      "context": {},
+      "ta_context": {}
+    }
+  ],
+  "flags": []
+}

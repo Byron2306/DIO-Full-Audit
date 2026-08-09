@@ -1,0 +1,223 @@
+{
+  "schema": "knowedge.free_media_preview.v1",
+  "created_at": "2026-08-08T21:45:53+00:00",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "provider_requested": "edge",
+  "provider_selected": "reused",
+  "voice_profile": {
+    "provider": "Microsoft Edge TTS",
+    "voice": "en-US-GuyNeural",
+    "rate": "default",
+    "pitch": "default",
+    "reused_from_original_preview": true
+  },
+  "music_mode": "imported",
+  "transition": {
+    "type": "scene_audio_video_fade",
+    "requested_seconds": 0.55,
+    "applied_seconds": 0.275
+  },
+  "visual_motion": {
+    "type": "slow_pan_crop",
+    "scale": "2048x1152 cropped to 1920x1080",
+    "note": "Adds subtle camera movement to reduce static slide-deck feel."
+  },
+  "mastering": {
+    "resolution": "1920x1080",
+    "video_crf": 20,
+    "audio": "AAC 192k stereo, -16 LUFS target, -1.5 dBTP target",
+    "visual_subdir": "visuals_polished"
+  },
+  "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/polished_preview.mp4",
+  "duration_seconds": 66.021,
+  "scene_count": 6,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "card_id": "01_hook",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 8.0,
+      "fade_in_seconds": 0,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_right",
+        "crop_x": "(iw-ow)*min(max(n/240,0),1)",
+        "crop_y": "(ih-oh)*0.28"
+      },
+      "visual_source": "imports/visuals_polished/01_hook.png",
+      "frame": "polished_media_preview/frames/00_scene_01.png",
+      "voice": "polished_media_preview/voice/00_scene_01.wav",
+      "music": "polished_media_preview/music/00_scene_01.wav",
+      "segment": "polished_media_preview/segments/00_scene_01.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+        "title": "Soft Corporate by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+        "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 0
+      }
+    },
+    {
+      "scene_id": "scene_02",
+      "card_id": "02_pain",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 12.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_left",
+        "crop_x": "(iw-ow)*(1-min(max(n/360,0),1))",
+        "crop_y": "(ih-oh)*0.34"
+      },
+      "visual_source": "imports/visuals_polished/02_pain.png",
+      "frame": "polished_media_preview/frames/01_scene_02.png",
+      "voice": "polished_media_preview/voice/01_scene_02.wav",
+      "music": "polished_media_preview/music/01_scene_02.wav",
+      "segment": "polished_media_preview/segments/01_scene_02.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+        "title": "Soft Corporate by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+        "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 8.0
+      }
+    },
+    {
+      "scene_id": "scene_03",
+      "card_id": "03_workflow",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 14.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_down",
+        "crop_x": "(iw-ow)*0.44",
+        "crop_y": "(ih-oh)*min(max(n/420,0),1)"
+      },
+      "visual_source": "imports/visuals_polished/03_workflow.png",
+      "frame": "polished_media_preview/frames/02_scene_03.png",
+      "voice": "polished_media_preview/voice/02_scene_03.wav",
+      "music": "polished_media_preview/music/02_scene_03.wav",
+      "segment": "polished_media_preview/segments/02_scene_03.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+        "title": "Soft Corporate by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+        "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 20.0
+      }
+    },
+    {
+      "scene_id": "scene_04",
+      "card_id": "04_promise",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 14.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_up",
+        "crop_x": "(iw-ow)*0.56",
+        "crop_y": "(ih-oh)*(1-min(max(n/420,0),1))"
+      },
+      "visual_source": "imports/visuals_polished/04_promise.png",
+      "frame": "polished_media_preview/frames/03_scene_04.png",
+      "voice": "polished_media_preview/voice/03_scene_04.wav",
+      "music": "polished_media_preview/music/03_scene_04.wav",
+      "segment": "polished_media_preview/segments/03_scene_04.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+        "title": "Soft Corporate by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+        "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 34.0
+      }
+    },
+    {
+      "scene_id": "scene_05",
+      "card_id": "05_boundary",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 10.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_right",
+        "crop_x": "(iw-ow)*min(max(n/300,0),1)",
+        "crop_y": "(ih-oh)*0.28"
+      },
+      "visual_source": "imports/visuals_polished/05_boundary.png",
+      "frame": "polished_media_preview/frames/04_scene_05.png",
+      "voice": "polished_media_preview/voice/04_scene_05.wav",
+      "music": "polished_media_preview/music/04_scene_05.wav",
+      "segment": "polished_media_preview/segments/04_scene_05.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+        "title": "Soft Corporate by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+        "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 48.0
+      }
+    },
+    {
+      "scene_id": "scene_06",
+      "card_id": "06_cta",
+      "provider": "reused-edge-tts",
+      "duration_seconds": 8.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0,
+      "visual_motion": {
+        "type": "slow_pan_left",
+        "crop_x": "(iw-ow)*(1-min(max(n/240,0),1))",
+        "crop_y": "(ih-oh)*0.34"
+      },
+      "visual_source": "imports/visuals_polished/06_cta.png",
+      "frame": "polished_media_preview/frames/05_scene_06.png",
+      "voice": "polished_media_preview/voice/05_scene_06.wav",
+      "music": "polished_media_preview/music/05_scene_06.wav",
+      "segment": "polished_media_preview/segments/05_scene_06.mp4",
+      "music_source": {
+        "provider": "openverse",
+        "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+        "title": "Soft Corporate by MusicLFiles",
+        "artist": "MusicLFiles",
+        "licence": "BY 4.0",
+        "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+        "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+        "rights_status": "commercial_reuse_passed",
+        "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+        "timeline_offset_seconds": 58.0
+      }
+    }
+  ],
+  "note": "Free preview output for editorial review. Replace voice and music with approved assets before public release if needed."
+}

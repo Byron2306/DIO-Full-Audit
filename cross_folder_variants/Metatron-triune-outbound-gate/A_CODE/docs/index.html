@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arda OS v1.3 — Telperion Build | Sovereign Security Desktop</title>
+<meta name="description" content="Arda OS: A proof-based sovereign security system. 10 cryptographic trials demonstrating AI governance, constitutional enforcement, and tamper-evident operation.">
+<link rel="icon" href="./assets/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/desktop.css">
+</head>
+<body>
+
+<!-- ═══ BOOT SCREEN ═══ -->
+<div id="boot-screen">
+  <div id="boot-terminal"></div>
+</div>
+
+<!-- ═══ DESKTOP ═══ -->
+<div id="desktop" class="hidden">
+
+  <!-- Wallpaper -->
+  <div id="wallpaper"></div>
+
+  <!-- Desktop Icons -->
+  <div id="desktop-icons">
+    <div class="desktop-icon" onclick="openWindow('dashboard')">
+      <img src="./assets/icon.png" alt="Dashboard">
+      <span>Coronation<br>Dashboard</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('gauntlet')">
+      <div class="icon-svg">⚔️</div>
+      <span>Run<br>Gauntlet</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('forensic')">
+      <div class="icon-svg">🔗</div>
+      <span>Forensic<br>Vault</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('constitution')">
+      <div class="icon-svg">📜</div>
+      <span>Instrumentum<br>Foederis</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('seal')">
+      <div class="icon-svg">🛡️</div>
+      <span>Sovereign<br>Seal</span>
+    </div>
+    <div class="desktop-icon" onclick="window.open('https://byron2306.github.io/Integritas-Mechanicus/','_blank')">
+      <div class="icon-svg">🌐</div>
+      <span>Integritas<br>Mechanicus</span>
+    </div>
+  </div>
+
+  <!-- ═══ WINDOWS ═══ -->
+
+  <!-- Dashboard Window -->
+  <div id="win-dashboard" class="window hidden">
+    <div class="window-titlebar" onmousedown="startDrag(event,'win-dashboard')">
+      <span class="win-title">🏛️ Coronation Dashboard</span>
+      <button class="win-close" onclick="closeWindow('dashboard')">✕</button>
+    </div>
+    <div class="window-body" id="dashboard-body">
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="card-label">Sovereignty State</div>
+          <div class="card-value state-mirror">MIRROR DOMAIN</div>
+          <div class="card-sub">BIOS-Locked · Cloud Witnessed</div>
+        </div>
+        <div class="dash-card">
+          <div class="card-label">Physical Ledger</div>
+          <div class="card-value">ACTIVE</div>
+          <div class="card-sub">arda_sovereign_logic_ledger.db</div>
+        </div>
+        <div class="dash-card">
+          <div class="card-label">Ainur Council</div>
+          <div class="card-value">5 WITNESSES</div>
+          <div class="card-sub">Manwe · Varda · Mandos · Tulkas · Vaire</div>
+        </div>
+        <div class="dash-card">
+          <div class="card-label">Attestation</div>
+          <div class="card-value">HMAC-SHA3-256</div>
+          <div class="card-sub">Sigstore/Rekor: STANDBY</div>
+        </div>
+      </div>
+      <div class="dash-section">
+        <h3>Constitutional Roles</h3>
+        <table class="role-table">
+          <tr><th>Role</th><th>Layer</th><th>Authority</th><th>Status</th></tr>
+          <tr><td>Manwe</td><td>Cognition</td><td>First Resonance Hearing</td><td class="status-on">ACTIVE</td></tr>
+          <tr><td>Varda</td><td>Attestation</td><td>Measurement Validation</td><td class="status-on">ACTIVE</td></tr>
+          <tr><td>Mandos</td><td>Judgment</td><td>Sentence of Doom</td><td class="status-on">ACTIVE</td></tr>
+          <tr><td>Tulkas</td><td>Enforcement</td><td>Physical Quarantine</td><td class="status-warn">BIOS-LOCKED</td></tr>
+          <tr><td>Vaire</td><td>Forensic</td><td>Ledger Finality</td><td class="status-on">ACTIVE</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gauntlet Window -->
+  <div id="win-gauntlet" class="window hidden">
+    <div class="window-titlebar" onmousedown="startDrag(event,'win-gauntlet')">
+      <span class="win-title">⚔️ Morgoth Gauntlet</span>
+      <button class="win-close" onclick="closeWindow('gauntlet')">✕</button>
+    </div>
+    <div class="window-body">
+      <div id="gauntlet-controls">
+        <button id="btn-run" class="arda-btn" onclick="runGauntlet()">VIEW VERIFIED GAUNTLET</button>
+        <span id="gauntlet-status-badge" class="badge badge-idle">IDLE</span>
+      </div>
+      <div id="gauntlet-phase" class="phase-display"></div>
+      <div id="gauntlet-log" class="log-output"></div>
+      <div id="gauntlet-results" class="hidden">
+        <h3>Trial Results</h3>
+        <div id="trial-cards"></div>
+        <div id="final-hash" class="hash-display"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forensic Vault Window -->
+  <div id="win-forensic" class="window hidden">
+    <div class="window-titlebar" onmousedown="startDrag(event,'win-forensic')">
+      <span class="win-title">🔗 Hash-Linked Forensic Chain</span>
+      <button class="win-close" onclick="closeWindow('forensic')">✕</button>
+    </div>
+    <div class="window-body">
+      <div id="forensic-chain" class="chain-view">
+        <p class="muted">Loading forensic chain...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Constitution Window -->
+  <div id="win-constitution" class="window hidden" style="width:800px;height:600px">
+    <div class="window-titlebar" onmousedown="startDrag(event,'win-constitution')">
+      <span class="win-title">📜 Instrumentum Foederis — Integritas Mechanicus</span>
+      <button class="win-close" onclick="closeWindow('constitution')">✕</button>
+    </div>
+    <div class="window-body" style="padding:0">
+      <iframe src="./assets/instrumentum_foederis_integritas_mechanicus.pdf" style="width:100%;height:100%;border:none"></iframe>
+    </div>
+  </div>
+
+  <!-- Seal Window -->
+  <div id="win-seal" class="window hidden">
+    <div class="window-titlebar" onmousedown="startDrag(event,'win-seal')">
+      <span class="win-title">🛡️ Sovereign Logic Seal</span>
+      <button class="win-close" onclick="closeWindow('seal')">✕</button>
+    </div>
+    <div class="window-body">
+      <div id="seal-content" class="markdown-body">
+        <p class="muted">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Source Code Viewer Window -->
+  <div id="win-source" class="window hidden" style="width:680px;height:500px">
+    <div class="window-titlebar" onmousedown="startDrag(event,'win-source')">
+      <span class="win-title" id="source-filename">Source Viewer</span>
+      <button class="win-close" onclick="closeWindow('source')">&#10005;</button>
+    </div>
+    <div class="window-body" style="padding:0">
+      <pre id="source-content" style="margin:0;padding:14px;font-size:11px;line-height:1.5;overflow:auto;height:calc(100% - 10px);color:var(--silver);background:rgba(8,10,20,0.95);white-space:pre-wrap;word-break:break-all">Select a trial and click "View Source" to see the proof script.</pre>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div id="taskbar">
+    <div id="taskbar-start" onclick="openWindow('dashboard')">
+      <img src="./assets/icon.png" alt="Arda" class="taskbar-icon">
+      <span>Arda OS</span>
+    </div>
+    <div id="taskbar-windows"></div>
+    <div id="taskbar-right">
+      <span id="taskbar-sovereignty" class="sovereignty-indicator">◉ SOVEREIGN</span>
+      <span id="taskbar-clock"></span>
+    </div>
+  </div>
+</div>
+
+<script src="./js/desktop.js"></script>
+</body>
+</html>

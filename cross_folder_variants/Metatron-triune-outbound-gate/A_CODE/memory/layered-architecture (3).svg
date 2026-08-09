@@ -1,0 +1,455 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2400" viewBox="0 0 2000 2400">
+  <defs>
+    <style>
+      .title { font: 700 32px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 600 14px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .layerTitle { font: 700 16px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+      .sectionTitle { font: 600 14px 'Segoe UI', Arial, sans-serif; fill: #1f2937; }
+      .node { font: 12px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+      .small { font: 11px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .tiny { font: 10px 'Segoe UI', Arial, sans-serif; fill: #6b7280; }
+      .box { stroke: #374151; stroke-width: 1.2; rx: 6; ry: 6; }
+      .layer { stroke: #1f2937; stroke-width: 1.6; rx: 12; ry: 12; }
+      .connector { stroke: #6b7280; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+      .thin { stroke-width: 1.0; }
+      .count { font: 700 11px 'Segoe UI', Arial, sans-serif; fill: #059669; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="2000" height="2400" fill="#f8fafc"/>
+  
+  <!-- Header -->
+  <text x="40" y="45" class="title">Metatron / Seraph AI Defense — Complete System Architecture (v7.0)</text>
+  <text x="40" y="72" class="subtitle">41 Backend Routers | 21 Services | 25 Core Modules | 41 Frontend Pages | 13 Agent Scripts | 12 Docker Services | 29 Security Monitors</text>
+
+  <!-- ==================== L0: EDGE LAYER ==================== -->
+  <rect class="layer" x="30" y="95" width="1940" height="130" fill="#e0f2fe"/>
+  <text x="48" y="118" class="layerTitle">L0 — Edge &amp; Access (External Actors → System Entry Points)</text>
+  
+  <!-- Human Actors -->
+  <rect class="box" x="50" y="135" width="180" height="70" fill="#ffffff"/>
+  <text x="65" y="158" class="sectionTitle">👤 SOC Analyst</text>
+  <text x="65" y="175" class="tiny">Web Dashboard UI</text>
+  <text x="65" y="190" class="tiny">Real-time monitoring</text>
+  
+  <rect class="box" x="245" y="135" width="180" height="70" fill="#ffffff"/>
+  <text x="260" y="158" class="sectionTitle">🔧 Operator</text>
+  <text x="260" y="175" class="tiny">API Client / CLI</text>
+  <text x="260" y="190" class="tiny">Automation scripts</text>
+
+  <!-- Endpoint Agents (These are EDGE - they run on endpoints, not on server) -->
+  <rect class="box" x="440" y="135" width="280" height="70" fill="#dbeafe"/>
+  <text x="455" y="158" class="sectionTitle">🖥️ Desktop/Server Agents</text>
+  <text x="455" y="175" class="tiny">unified_agent/core/agent.py (13,398 LOC)</text>
+  <text x="455" y="190" class="tiny">Windows, Linux, macOS | 29 Monitors</text>
+  
+  <rect class="box" x="735" y="135" width="220" height="70" fill="#dbeafe"/>
+  <text x="750" y="158" class="sectionTitle">📱 Mobile Agents</text>
+  <text x="750" y="175" class="tiny">seraph_mobile_agent.py</text>
+  <text x="750" y="190" class="tiny">Android (Termux), iOS (Pythonista)</text>
+  
+  <rect class="box" x="970" y="135" width="200" height="70" fill="#dbeafe"/>
+  <text x="985" y="158" class="sectionTitle">🌐 Browser Extension</text>
+  <text x="985" y="175" class="tiny">Chrome/Firefox/Edge</text>
+  <text x="985" y="190" class="tiny">Phishing, C2 detection</text>
+
+  <!-- Infrastructure -->
+  <rect class="box" x="1185" y="135" width="250" height="70" fill="#fef3c7"/>
+  <text x="1200" y="158" class="sectionTitle">🔐 Nginx Reverse Proxy</text>
+  <text x="1200" y="175" class="tiny">TLS termination, rate limiting</text>
+  <text x="1200" y="190" class="tiny">WebSocket upgrade, security headers</text>
+  
+  <rect class="box" x="1450" y="135" width="250" height="70" fill="#fef3c7"/>
+  <text x="1465" y="158" class="sectionTitle">🔒 WireGuard VPN</text>
+  <text x="1465" y="175" class="tiny">UDP 51820, encrypted tunnel</text>
+  <text x="1465" y="190" class="tiny">Agent ↔ Server communication</text>
+  
+  <rect class="box" x="1715" y="135" width="235" height="70" fill="#fef3c7"/>
+  <text x="1730" y="158" class="sectionTitle">🌍 External APIs</text>
+  <text x="1730" y="175" class="tiny">Threat intel feeds</text>
+  <text x="1730" y="190" class="tiny">SIEM, Slack, SMTP</text>
+
+  <!-- ==================== L1: PRESENTATION LAYER ==================== -->
+  <rect class="layer" x="30" y="240" width="1940" height="180" fill="#ecfeff"/>
+  <text x="48" y="263" class="layerTitle">L1 — Presentation Layer (41 React Pages)</text>
+  
+  <!-- Row 1: Main Dashboards -->
+  <rect class="box" x="50" y="280" width="150" height="40" fill="#ffffff"/><text x="60" y="305" class="node">DashboardPage</text>
+  <rect class="box" x="210" y="280" width="170" height="40" fill="#ffffff"/><text x="220" y="305" class="node">CommandCenterPage</text>
+  <rect class="box" x="390" y="280" width="150" height="40" fill="#ffffff"/><text x="400" y="305" class="node">UnifiedAgentPage</text>
+  <rect class="box" x="550" y="280" width="140" height="40" fill="#ffffff"/><text x="560" y="305" class="node">SwarmDashboard</text>
+  <rect class="box" x="700" y="280" width="140" height="40" fill="#ffffff"/><text x="710" y="305" class="node">AIDetectionPage</text>
+  <rect class="box" x="850" y="280" width="160" height="40" fill="#ffffff"/><text x="860" y="305" class="node">AIThreatIntelligence</text>
+  <rect class="box" x="1020" y="280" width="180" height="40" fill="#ffffff"/><text x="1030" y="305" class="node">AdvancedServicesPage</text>
+  <rect class="box" x="1210" y="280" width="170" height="40" fill="#ffffff"/><text x="1220" y="305" class="node">NetworkTopologyPage</text>
+  <rect class="box" x="1390" y="280" width="160" height="40" fill="#ffffff"/><text x="1400" y="305" class="node">TacticalHeatmapPage</text>
+  <rect class="box" x="1560" y="280" width="130" height="40" fill="#ffffff"/><text x="1570" y="305" class="node">SetupGuidePage</text>
+  <rect class="box" x="1700" y="280" width="110" height="40" fill="#ffffff"/><text x="1710" y="305" class="node">LoginPage</text>
+  <rect class="box" x="1820" y="280" width="130" height="40" fill="#ffffff"/><text x="1830" y="305" class="node">SettingsPage</text>
+  
+  <!-- Row 2: Security & Threat Pages -->
+  <rect class="box" x="50" y="330" width="120" height="40" fill="#fee2e2"/><text x="60" y="355" class="node">ThreatsPage</text>
+  <rect class="box" x="180" y="330" width="110" height="40" fill="#fee2e2"/><text x="190" y="355" class="node">AlertsPage</text>
+  <rect class="box" x="300" y="330" width="130" height="40" fill="#fee2e2"/><text x="310" y="355" class="node">VNSAlertsPage</text>
+  <rect class="box" x="440" y="330" width="150" height="40" fill="#fee2e2"/><text x="450" y="355" class="node">RansomwarePage</text>
+  <rect class="box" x="600" y="330" width="130" height="40" fill="#fee2e2"/><text x="610" y="355" class="node">QuarantinePage</text>
+  <rect class="box" x="740" y="330" width="160" height="40" fill="#fee2e2"/><text x="750" y="355" class="node">ThreatResponsePage</text>
+  <rect class="box" x="910" y="330" width="150" height="40" fill="#fee2e2"/><text x="920" y="355" class="node">ThreatHuntingPage</text>
+  <rect class="box" x="1070" y="330" width="130" height="40" fill="#fee2e2"/><text x="1080" y="355" class="node">ThreatIntelPage</text>
+  <rect class="box" x="1210" y="330" width="130" height="40" fill="#fee2e2"/><text x="1220" y="355" class="node">CorrelationPage</text>
+  <rect class="box" x="1350" y="330" width="120" height="40" fill="#fee2e2"/><text x="1360" y="355" class="node">TimelinePage</text>
+  <rect class="box" x="1480" y="330" width="120" height="40" fill="#fee2e2"/><text x="1490" y="355" class="node">AuditLogPage</text>
+  <rect class="box" x="1610" y="330" width="100" height="40" fill="#fee2e2"/><text x="1620" y="355" class="node">EDRPage</text>
+  <rect class="box" x="1720" y="330" width="100" height="40" fill="#fee2e2"/><text x="1730" y="355" class="node">SOARPage</text>
+  <rect class="box" x="1830" y="330" width="120" height="40" fill="#fee2e2"/><text x="1840" y="355" class="node">ReportsPage</text>
+
+  <!-- Row 3: Infrastructure & Agent Pages -->
+  <rect class="box" x="50" y="380" width="130" height="30" fill="#dcfce7"/><text x="60" y="400" class="tiny">ZeroTrustPage</text>
+  <rect class="box" x="190" y="380" width="90" height="30" fill="#dcfce7"/><text x="200" y="400" class="tiny">VPNPage</text>
+  <rect class="box" x="290" y="380" width="170" height="30" fill="#dcfce7"/><text x="300" y="400" class="tiny">ContainerSecurityPage</text>
+  <rect class="box" x="470" y="380" width="130" height="30" fill="#dcfce7"/><text x="480" y="400" class="tiny">SandboxPage</text>
+  <rect class="box" x="610" y="380" width="160" height="30" fill="#dcfce7"/><text x="620" y="400" class="tiny">BrowserIsolationPage</text>
+  <rect class="box" x="780" y="380" width="180" height="30" fill="#dcfce7"/><text x="790" y="400" class="tiny">BrowserExtensionPage</text>
+  <rect class="box" x="970" y="380" width="160" height="30" fill="#dcfce7"/><text x="980" y="400" class="tiny">KibanaDashboardsPage</text>
+  <rect class="box" x="1140" y="380" width="140" height="30" fill="#dcfce7"/><text x="1150" y="400" class="tiny">MLPredictionPage</text>
+  <rect class="box" x="1290" y="380" width="150" height="30" fill="#dcfce7"/><text x="1300" y="400" class="tiny">HoneyTokensPage</text>
+  <rect class="box" x="1450" y="380" width="130" height="30" fill="#dcfce7"/><text x="1460" y="400" class="tiny">HoneypotsPage</text>
+  <rect class="box" x="1590" y="380" width="110" height="30" fill="#dcfce7"/><text x="1600" y="400" class="tiny">TenantsPage</text>
+  <rect class="box" x="1710" y="380" width="130" height="30" fill="#dcfce7"/><text x="1720" y="400" class="tiny">CLISessionsPage</text>
+  <rect class="box" x="1850" y="380" width="100" height="30" fill="#dcfce7"/><text x="1860" y="400" class="tiny">AgentsPage</text>
+
+  <!-- ==================== L2: API LAYER ==================== -->
+  <rect class="layer" x="30" y="435" width="1940" height="200" fill="#f0fdf4"/>
+  <text x="48" y="458" class="layerTitle">L2 — API Surface (FastAPI Router Mesh — 41 Routers)</text>
+  
+  <!-- Row 1: Core Routers -->
+  <rect class="box" x="50" y="475" width="80" height="35" fill="#ffffff"/><text x="60" y="497" class="tiny">auth</text>
+  <rect class="box" x="140" y="475" width="80" height="35" fill="#ffffff"/><text x="150" y="497" class="tiny">agents</text>
+  <rect class="box" x="230" y="475" width="120" height="35" fill="#ffffff"/><text x="240" y="497" class="tiny">agent_commands</text>
+  <rect class="box" x="360" y="475" width="100" height="35" fill="#ffffff"/><text x="370" y="497" class="tiny">unified_agent</text>
+  <rect class="box" x="470" y="475" width="80" height="35" fill="#ffffff"/><text x="480" y="497" class="tiny">threats</text>
+  <rect class="box" x="560" y="475" width="70" height="35" fill="#ffffff"/><text x="570" y="497" class="tiny">alerts</text>
+  <rect class="box" x="640" y="475" width="90" height="35" fill="#ffffff"/><text x="650" y="497" class="tiny">dashboard</text>
+  <rect class="box" x="740" y="475" width="90" height="35" fill="#ffffff"/><text x="750" y="497" class="tiny">websocket</text>
+  <rect class="box" x="840" y="475" width="70" height="35" fill="#ffffff"/><text x="850" y="497" class="tiny">swarm</text>
+  <rect class="box" x="920" y="475" width="80" height="35" fill="#ffffff"/><text x="930" y="497" class="tiny">network</text>
+  <rect class="box" x="1010" y="475" width="90" height="35" fill="#ffffff"/><text x="1020" y="497" class="tiny">ai_analysis</text>
+  <rect class="box" x="1110" y="475" width="80" height="35" fill="#ffffff"/><text x="1120" y="497" class="tiny">ai_threats</text>
+  <rect class="box" x="1200" y="475" width="80" height="35" fill="#ffffff"/><text x="1210" y="497" class="tiny">hunting</text>
+  <rect class="box" x="1290" y="475" width="90" height="35" fill="#ffffff"/><text x="1300" y="497" class="tiny">threat_intel</text>
+  <rect class="box" x="1390" y="475" width="90" height="35" fill="#ffffff"/><text x="1400" y="497" class="tiny">correlation</text>
+  <rect class="box" x="1490" y="475" width="80" height="35" fill="#ffffff"/><text x="1500" y="497" class="tiny">timeline</text>
+  <rect class="box" x="1580" y="475" width="70" height="35" fill="#ffffff"/><text x="1590" y="497" class="tiny">audit</text>
+  <rect class="box" x="1660" y="475" width="80" height="35" fill="#ffffff"/><text x="1670" y="497" class="tiny">reports</text>
+  <rect class="box" x="1750" y="475" width="80" height="35" fill="#ffffff"/><text x="1760" y="497" class="tiny">settings</text>
+  <rect class="box" x="1840" y="475" width="110" height="35" fill="#ffffff"/><text x="1850" y="497" class="tiny">dependencies</text>
+
+  <!-- Row 2: Security Routers -->
+  <rect class="box" x="50" y="520" width="70" height="35" fill="#fef3c7"/><text x="60" y="542" class="tiny">soar</text>
+  <rect class="box" x="130" y="520" width="80" height="35" fill="#fef3c7"/><text x="140" y="542" class="tiny">response</text>
+  <rect class="box" x="220" y="520" width="90" height="35" fill="#fef3c7"/><text x="230" y="542" class="tiny">quarantine</text>
+  <rect class="box" x="320" y="520" width="100" height="35" fill="#fef3c7"/><text x="330" y="542" class="tiny">ransomware</text>
+  <rect class="box" x="430" y="520" width="60" height="35" fill="#fef3c7"/><text x="440" y="542" class="tiny">edr</text>
+  <rect class="box" x="500" y="520" width="70" height="35" fill="#fef3c7"/><text x="510" y="542" class="tiny">vpn</text>
+  <rect class="box" x="580" y="520" width="90" height="35" fill="#fef3c7"/><text x="590" y="542" class="tiny">zero_trust</text>
+  <rect class="box" x="680" y="520" width="90" height="35" fill="#fef3c7"/><text x="690" y="542" class="tiny">containers</text>
+  <rect class="box" x="780" y="520" width="80" height="35" fill="#fef3c7"/><text x="790" y="542" class="tiny">sandbox</text>
+  <rect class="box" x="870" y="520" width="120" height="35" fill="#fef3c7"/><text x="880" y="542" class="tiny">browser_isolation</text>
+  <rect class="box" x="1000" y="520" width="80" height="35" fill="#fef3c7"/><text x="1010" y="542" class="tiny">extension</text>
+  <rect class="box" x="1090" y="520" width="80" height="35" fill="#fef3c7"/><text x="1100" y="542" class="tiny">honeypots</text>
+  <rect class="box" x="1180" y="520" width="100" height="35" fill="#fef3c7"/><text x="1190" y="542" class="tiny">honey_tokens</text>
+  <rect class="box" x="1290" y="520" width="90" height="35" fill="#fef3c7"/><text x="1300" y="542" class="tiny">deception</text>
+  <rect class="box" x="1390" y="520" width="70" height="35" fill="#fef3c7"/><text x="1400" y="542" class="tiny">kibana</text>
+  <rect class="box" x="1470" y="520" width="100" height="35" fill="#fef3c7"/><text x="1480" y="542" class="tiny">ml_prediction</text>
+  <rect class="box" x="1580" y="520" width="90" height="35" fill="#fef3c7"/><text x="1590" y="542" class="tiny">cli_events</text>
+  <rect class="box" x="1680" y="520" width="80" height="35" fill="#fef3c7"/><text x="1690" y="542" class="tiny">openclaw</text>
+  <rect class="box" x="1770" y="520" width="90" height="35" fill="#fef3c7"/><text x="1780" y="542" class="tiny">advanced</text>
+  <rect class="box" x="1870" y="520" width="80" height="35" fill="#fef3c7"/><text x="1880" y="542" class="tiny">enterprise</text>
+  
+  <!-- Row 3: Multi-tenant -->
+  <rect class="box" x="50" y="565" width="100" height="35" fill="#e0e7ff"/><text x="60" y="587" class="tiny">multi_tenant</text>
+  
+  <text x="52" y="620" class="small">All routers mount under /api prefix. WebSocket on /ws. Agent telemetry on /api/unified/telemetry (POST), commands on /api/unified/agents/{id}/command.</text>
+
+  <!-- ==================== L3: DOMAIN SERVICES ==================== -->
+  <rect class="layer" x="30" y="650" width="1940" height="230" fill="#fef9c3"/>
+  <text x="48" y="673" class="layerTitle">L3 — Domain Security Services (21 Services + 25 Core Modules)</text>
+  
+  <!-- Services Box -->
+  <rect class="box" x="50" y="690" width="620" height="170" fill="#ffffff"/>
+  <text x="68" y="715" class="sectionTitle">Backend Services (21)</text>
+  <text x="68" y="738" class="tiny">• aatl, aatr — Adversarial attack simulation</text>
+  <text x="68" y="755" class="tiny">• agent_deployment — Auto-deploy agents to discovered devices</text>
+  <text x="68" y="772" class="tiny">• ai_reasoning — LLM-powered threat analysis</text>
+  <text x="68" y="789" class="tiny">• cce_worker, cognition_engine — Contextual correlation engine</text>
+  <text x="68" y="806" class="tiny">• cuckoo_sandbox — Dynamic malware analysis</text>
+  <text x="68" y="823" class="tiny">• identity, token_broker, policy_engine, tool_gateway — Zero Trust stack</text>
+  <text x="68" y="840" class="tiny">• mcp_server, vector_memory, vns, vns_alerts — Advanced security</text>
+  <text x="68" y="857" class="tiny">• quantum_security, siem, telemetry_chain, threat_hunting, network_discovery</text>
+  
+  <!-- Core Modules Box -->
+  <rect class="box" x="690" y="690" width="620" height="170" fill="#ffffff"/>
+  <text x="708" y="715" class="sectionTitle">Backend Core Modules (25)</text>
+  <text x="708" y="738" class="tiny">• server.py — FastAPI main application (358 LOC)</text>
+  <text x="708" y="755" class="tiny">• threat_correlation, threat_response, threat_timeline, threat_intel</text>
+  <text x="708" y="772" class="tiny">• soar_engine, ransomware_protection, quarantine</text>
+  <text x="708" y="789" class="tiny">• edr_service, container_security, sandbox_analysis</text>
+  <text x="708" y="806" class="tiny">• browser_isolation, vpn_integration, zero_trust</text>
+  <text x="708" y="823" class="tiny">• ml_threat_prediction, honey_tokens, deception_engine</text>
+  <text x="708" y="840" class="tiny">• audit_logging, notifications, kibana_dashboards</text>
+  <text x="708" y="857" class="tiny">• identity_protection, websocket_service, quantum_security</text>
+  
+  <!-- Playbooks Box -->
+  <rect class="box" x="1330" y="690" width="620" height="170" fill="#ffffff"/>
+  <text x="1348" y="715" class="sectionTitle">SOAR Playbooks &amp; Automation</text>
+  <text x="1348" y="738" class="tiny">• Automated threat response workflows</text>
+  <text x="1348" y="755" class="tiny">• Quarantine / Isolation / Kill chain interruption</text>
+  <text x="1348" y="772" class="tiny">• Notification dispatch (Slack, Email, SMS)</text>
+  <text x="1348" y="789" class="tiny">• Agent command orchestration</text>
+  <text x="1348" y="806" class="tiny">• Forensics collection triggers</text>
+  <text x="1348" y="823" class="tiny">• MITRE ATT&amp;CK mapping &amp; enrichment</text>
+  <text x="1348" y="840" class="tiny">• Threat intel ingestion &amp; correlation</text>
+  <text x="1348" y="857" class="tiny">• ML model inference triggers</text>
+
+  <!-- ==================== L4: UNIFIED AGENT DETAIL ==================== -->
+  <rect class="layer" x="30" y="895" width="1940" height="280" fill="#fce7f3"/>
+  <text x="48" y="918" class="layerTitle">L4 — Unified Agent v2.0 Architecture (29 Security Monitors — 13,398 LOC)</text>
+  
+  <!-- Agent Structure -->
+  <rect class="box" x="50" y="935" width="400" height="220" fill="#ffffff"/>
+  <text x="68" y="958" class="sectionTitle">Agent Core Components</text>
+  <text x="68" y="980" class="tiny">unified_agent/core/agent.py — Main agent (13,398 LOC)</text>
+  <text x="68" y="997" class="tiny">• UnifiedAgent class — Lifecycle management</text>
+  <text x="68" y="1014" class="tiny">• TelemetryManager — Data collection &amp; batching</text>
+  <text x="68" y="1031" class="tiny">• ConfigManager — Runtime configuration</text>
+  <text x="68" y="1048" class="tiny">• CommandHandler — Server command execution</text>
+  <text x="68" y="1065" class="tiny">• MonitorModule ABC — Base class for all monitors</text>
+  <text x="68" y="1082" class="tiny">unified_agent/ui/web/app.py — Local dashboard Flask server</text>
+  <text x="68" y="1099" class="tiny">unified_agent/ui/desktop/main.py — System tray GUI</text>
+  <text x="68" y="1116" class="tiny">unified_agent/server_api.py — REST API for local control</text>
+  <text x="68" y="1133" class="tiny">unified_agent/auto_deployment.py — Network auto-discovery</text>
+  
+  <!-- Monitor Grid -->
+  <rect class="box" x="470" y="935" width="1480" height="220" fill="#f8fafc"/>
+  <text x="488" y="958" class="sectionTitle">29 Security Monitors (MonitorModule implementations)</text>
+  
+  <!-- Row 1: Core Monitors (12) -->
+  <rect class="box" x="480" y="970" width="100" height="28" fill="#dcfce7"/><text x="490" y="988" class="tiny">ProcessMon</text>
+  <rect class="box" x="590" y="970" width="100" height="28" fill="#dcfce7"/><text x="600" y="988" class="tiny">NetworkMon</text>
+  <rect class="box" x="700" y="970" width="100" height="28" fill="#dcfce7"/><text x="710" y="988" class="tiny">RegistryMon</text>
+  <rect class="box" x="810" y="970" width="110" height="28" fill="#dcfce7"/><text x="820" y="988" class="tiny">ProcessTreeMon</text>
+  <rect class="box" x="930" y="970" width="90" height="28" fill="#dcfce7"/><text x="940" y="988" class="tiny">LOLBinMon</text>
+  <rect class="box" x="1030" y="970" width="110" height="28" fill="#dcfce7"/><text x="1040" y="988" class="tiny">CodeSigningMon</text>
+  <rect class="box" x="1150" y="970" width="80" height="28" fill="#dcfce7"/><text x="1160" y="988" class="tiny">DNSMon</text>
+  <rect class="box" x="1240" y="970" width="100" height="28" fill="#dcfce7"/><text x="1250" y="988" class="tiny">MemoryScanner</text>
+  <rect class="box" x="1350" y="970" width="90" height="28" fill="#dcfce7"/><text x="1360" y="988" class="tiny">WhitelistMon</text>
+  <rect class="box" x="1450" y="970" width="80" height="28" fill="#dcfce7"/><text x="1460" y="988" class="tiny">DLPMon</text>
+  <rect class="box" x="1540" y="970" width="100" height="28" fill="#dcfce7"/><text x="1550" y="988" class="tiny">VulnScanner</text>
+  <rect class="box" x="1650" y="970" width="80" height="28" fill="#dcfce7"/><text x="1660" y="988" class="tiny">AMSIMon</text>
+  
+  <!-- Row 2: Threat Detection Monitors (5) -->
+  <rect class="box" x="480" y="1008" width="120" height="28" fill="#fee2e2"/><text x="490" y="1026" class="tiny">RansomwareMon</text>
+  <rect class="box" x="610" y="1008" width="110" height="28" fill="#fee2e2"/><text x="620" y="1026" class="tiny">RootkitDetector</text>
+  <rect class="box" x="730" y="1008" width="100" height="28" fill="#fee2e2"/><text x="740" y="1026" class="tiny">KernelSecMon</text>
+  <rect class="box" x="840" y="1008" width="110" height="28" fill="#fee2e2"/><text x="850" y="1026" class="tiny">SelfProtection</text>
+  <rect class="box" x="960" y="1008" width="100" height="28" fill="#fee2e2"/><text x="970" y="1026" class="tiny">IdentityProt</text>
+  
+  <!-- Row 2 continued: Desktop Advanced (7) -->
+  <rect class="box" x="1070" y="1008" width="100" height="28" fill="#fef3c7"/><text x="1080" y="1026" class="tiny">AutoThrottle</text>
+  <rect class="box" x="1180" y="1008" width="90" height="28" fill="#fef3c7"/><text x="1190" y="1026" class="tiny">FirewallMon</text>
+  <rect class="box" x="1280" y="1008" width="100" height="28" fill="#fef3c7"/><text x="1290" y="1026" class="tiny">WebView2Mon</text>
+  <rect class="box" x="1390" y="1008" width="100" height="28" fill="#fef3c7"/><text x="1400" y="1026" class="tiny">CLITelemetry</text>
+  <rect class="box" x="1500" y="1008" width="110" height="28" fill="#fef3c7"/><text x="1510" y="1026" class="tiny">HiddenFileScn</text>
+  <rect class="box" x="1620" y="1008" width="110" height="28" fill="#fef3c7"/><text x="1630" y="1026" class="tiny">AliasRenameMon</text>
+  <rect class="box" x="1740" y="1008" width="100" height="28" fill="#fef3c7"/><text x="1750" y="1026" class="tiny">PrivEscMon</text>
+  
+  <!-- Row 3: v2.0 New Monitors (5 implemented) -->
+  <text x="488" y="1060" class="tiny">v2.0 Monitors (backend aggregation ready, frontend cards added):</text>
+  <rect class="box" x="480" y="1070" width="100" height="28" fill="#ede9fe"/><text x="490" y="1088" class="tiny">TrustedAI</text>
+  <rect class="box" x="590" y="1070" width="90" height="28" fill="#ede9fe"/><text x="600" y="1088" class="tiny">Bootkit</text>
+  <rect class="box" x="690" y="1070" width="80" height="28" fill="#ede9fe"/><text x="700" y="1088" class="tiny">CACert</text>
+  <rect class="box" x="780" y="1070" width="90" height="28" fill="#ede9fe"/><text x="790" y="1088" class="tiny">BIOS/UEFI</text>
+  <rect class="box" x="880" y="1070" width="90" height="28" fill="#ede9fe"/><text x="890" y="1088" class="tiny">SchedTask</text>
+  <rect class="box" x="980" y="1070" width="80" height="28" fill="#ede9fe"/><text x="990" y="1088" class="tiny">Service</text>
+  <rect class="box" x="1070" y="1070" width="70" height="28" fill="#ede9fe"/><text x="1080" y="1088" class="tiny">WMI</text>
+  <rect class="box" x="1150" y="1070" width="70" height="28" fill="#ede9fe"/><text x="1160" y="1088" class="tiny">USB</text>
+  <rect class="box" x="1230" y="1070" width="90" height="28" fill="#ede9fe"/><text x="1240" y="1088" class="tiny">PowerState</text>
+  
+  <!-- Legend -->
+  <text x="1400" y="1088" class="tiny">■ Green=Core  ■ Red=Threat  ■ Yellow=Desktop  ■ Purple=v2.0</text>
+  
+  <!-- Agent Scripts -->
+  <text x="488" y="1120" class="tiny">Agent Variants (scripts/):</text>
+  <rect class="box" x="480" y="1128" width="130" height="24" fill="#dbeafe"/><text x="490" y="1144" class="tiny">seraph_defender.py</text>
+  <rect class="box" x="620" y="1128" width="150" height="24" fill="#dbeafe"/><text x="630" y="1144" class="tiny">seraph_defender_v7.py</text>
+  <rect class="box" x="780" y="1128" width="150" height="24" fill="#dbeafe"/><text x="790" y="1144" class="tiny">seraph_mobile_agent.py</text>
+  <rect class="box" x="940" y="1128" width="130" height="24" fill="#dbeafe"/><text x="950" y="1144" class="tiny">advanced_agent.py</text>
+  <rect class="box" x="1080" y="1128" width="110" height="24" fill="#dbeafe"/><text x="1090" y="1144" class="tiny">local_agent.py</text>
+  <rect class="box" x="1200" y="1128" width="100" height="24" fill="#dbeafe"/><text x="1210" y="1144" class="tiny">agent.py</text>
+  <rect class="box" x="1310" y="1128" width="170" height="24" fill="#dbeafe"/><text x="1320" y="1144" class="tiny">seraph_network_scanner.py</text>
+
+  <!-- ==================== L5: DATA LAYER ==================== -->
+  <rect class="layer" x="30" y="1190" width="1940" height="160" fill="#ede9fe"/>
+  <text x="48" y="1213" class="layerTitle">L5 — Data Plane &amp; Persistence</text>
+  
+  <rect class="box" x="50" y="1230" width="280" height="100" fill="#ffffff"/>
+  <text x="68" y="1255" class="sectionTitle">MongoDB (Primary)</text>
+  <text x="68" y="1275" class="tiny">• threats, alerts, agents</text>
+  <text x="68" y="1292" class="tiny">• unified_agents, telemetry</text>
+  <text x="68" y="1309" class="tiny">• users, tenants, playbooks</text>
+  
+  <rect class="box" x="350" y="1230" width="280" height="100" fill="#ffffff"/>
+  <text x="368" y="1255" class="sectionTitle">Elasticsearch</text>
+  <text x="368" y="1275" class="tiny">• Full-text threat search</text>
+  <text x="368" y="1292" class="tiny">• Log aggregation</text>
+  <text x="368" y="1309" class="tiny">• Timeline indexing</text>
+  
+  <rect class="box" x="650" y="1230" width="280" height="100" fill="#ffffff"/>
+  <text x="668" y="1255" class="sectionTitle">Vector Memory</text>
+  <text x="668" y="1275" class="tiny">• Embeddings for RAG</text>
+  <text x="668" y="1292" class="tiny">• Semantic threat search</text>
+  <text x="668" y="1309" class="tiny">• AI context retrieval</text>
+  
+  <rect class="box" x="950" y="1230" width="280" height="100" fill="#ffffff"/>
+  <text x="968" y="1255" class="sectionTitle">File Storage</text>
+  <text x="968" y="1275" class="tiny">• PDF reports</text>
+  <text x="968" y="1292" class="tiny">• Quarantined samples</text>
+  <text x="968" y="1309" class="tiny">• Agent packages</text>
+  
+  <rect class="box" x="1250" y="1230" width="280" height="100" fill="#ffffff"/>
+  <text x="1268" y="1255" class="sectionTitle">Collections</text>
+  <text x="1268" y="1275" class="tiny">• 29 monitor stat aggregations</text>
+  <text x="1268" y="1292" class="tiny">• CLI session histories</text>
+  <text x="1268" y="1309" class="tiny">• Forensics artifacts</text>
+  
+  <rect class="box" x="1550" y="1230" width="400" height="100" fill="#ffffff"/>
+  <text x="1568" y="1255" class="sectionTitle">Real-time State</text>
+  <text x="1568" y="1275" class="tiny">• WebSocket connection registry</text>
+  <text x="1568" y="1292" class="tiny">• Agent heartbeat tracking</text>
+  <text x="1568" y="1309" class="tiny">• Command queue state</text>
+
+  <!-- ==================== L6: RUNTIME ==================== -->
+  <rect class="layer" x="30" y="1365" width="1940" height="160" fill="#fee2e2"/>
+  <text x="48" y="1388" class="layerTitle">L6 — Runtime &amp; Execution Plane (Docker Compose — 12 Services)</text>
+  
+  <!-- Docker Services Grid -->
+  <rect class="box" x="50" y="1405" width="140" height="50" fill="#dbeafe"/>
+  <text x="65" y="1428" class="node">🖥️ frontend</text>
+  <text x="65" y="1445" class="tiny">React + Nginx</text>
+  
+  <rect class="box" x="200" y="1405" width="140" height="50" fill="#dcfce7"/>
+  <text x="215" y="1428" class="node">⚙️ backend</text>
+  <text x="215" y="1445" class="tiny">FastAPI + Uvicorn</text>
+  
+  <rect class="box" x="350" y="1405" width="140" height="50" fill="#fef3c7"/>
+  <text x="365" y="1428" class="node">🗄️ mongodb</text>
+  <text x="365" y="1445" class="tiny">Mongo 7.0</text>
+  
+  <rect class="box" x="500" y="1405" width="150" height="50" fill="#fef3c7"/>
+  <text x="515" y="1428" class="node">🔍 elasticsearch</text>
+  <text x="515" y="1445" class="tiny">Search + Index</text>
+  
+  <rect class="box" x="660" y="1405" width="120" height="50" fill="#fef3c7"/>
+  <text x="675" y="1428" class="node">📊 kibana</text>
+  <text x="675" y="1445" class="tiny">Visualization</text>
+  
+  <rect class="box" x="790" y="1405" width="120" height="50" fill="#ede9fe"/>
+  <text x="805" y="1428" class="node">🤖 ollama</text>
+  <text x="805" y="1445" class="tiny">Local LLM</text>
+  
+  <rect class="box" x="920" y="1405" width="100" height="50" fill="#fee2e2"/>
+  <text x="935" y="1428" class="node">🔒 trivy</text>
+  <text x="935" y="1445" class="tiny">Container scan</text>
+  
+  <rect class="box" x="1030" y="1405" width="100" height="50" fill="#fee2e2"/>
+  <text x="1045" y="1428" class="node">🦅 falco</text>
+  <text x="1045" y="1445" class="tiny">Runtime sec</text>
+  
+  <rect class="box" x="1140" y="1405" width="120" height="50" fill="#fee2e2"/>
+  <text x="1155" y="1428" class="node">🦈 suricata</text>
+  <text x="1155" y="1445" class="tiny">IDS/IPS</text>
+  
+  <rect class="box" x="1270" y="1405" width="120" height="50" fill="#fee2e2"/>
+  <text x="1285" y="1428" class="node">🐛 cuckoo</text>
+  <text x="1285" y="1445" class="tiny">Sandbox</text>
+  
+  <rect class="box" x="1400" y="1405" width="140" height="50" fill="#fce7f3"/>
+  <text x="1415" y="1428" class="node">🔐 wireguard</text>
+  <text x="1415" y="1445" class="tiny">VPN UDP:51820</text>
+  
+  <rect class="box" x="1550" y="1405" width="120" height="50" fill="#fce7f3"/>
+  <text x="1565" y="1428" class="node">🌐 nginx</text>
+  <text x="1565" y="1445" class="tiny">Reverse proxy</text>
+  
+  <!-- Volumes -->
+  <text x="50" y="1485" class="tiny">Volumes: mongodb_data, mongodb_config, elasticsearch_data, ollama_data, trivy_cache, falco_data, suricata_logs, cuckoo_data, vpn_config, wireguard_config, certbot_webroot</text>
+  <text x="50" y="1505" class="tiny">Networks: seraph_network (bridge mode) | Ports: 80, 443, 8000, 5601, 9200, 51820/udp</text>
+
+  <!-- ==================== L7: EXTERNAL INTEGRATIONS ==================== -->
+  <rect class="layer" x="30" y="1540" width="1940" height="130" fill="#dcfce7"/>
+  <text x="48" y="1563" class="layerTitle">L7 — External Integrations &amp; APIs</text>
+  
+  <rect class="box" x="50" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="68" y="1603" class="sectionTitle">🤖 AI/LLM</text>
+  <text x="68" y="1623" class="tiny">OpenAI API compatible</text>
+  <text x="68" y="1640" class="tiny">Ollama local, Claude</text>
+  
+  <rect class="box" x="265" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="283" y="1603" class="sectionTitle">📧 Notifications</text>
+  <text x="283" y="1623" class="tiny">Slack webhooks</text>
+  <text x="283" y="1640" class="tiny">SMTP, SendGrid, Twilio</text>
+  
+  <rect class="box" x="480" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="498" y="1603" class="sectionTitle">🔒 Threat Intel</text>
+  <text x="498" y="1623" class="tiny">VirusTotal, AlienVault</text>
+  <text x="498" y="1640" class="tiny">MISP, AbuseIPDB</text>
+  
+  <rect class="box" x="695" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="713" y="1603" class="sectionTitle">📊 SIEM</text>
+  <text x="713" y="1623" class="tiny">Elastic SIEM</text>
+  <text x="713" y="1640" class="tiny">Splunk, QRadar</text>
+  
+  <rect class="box" x="910" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="928" y="1603" class="sectionTitle">☁️ Cloud</text>
+  <text x="928" y="1623" class="tiny">AWS, Azure, GCP</text>
+  <text x="928" y="1640" class="tiny">Container registries</text>
+  
+  <rect class="box" x="1125" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="1143" y="1603" class="sectionTitle">🎫 Ticketing</text>
+  <text x="1143" y="1623" class="tiny">Jira, ServiceNow</text>
+  <text x="1143" y="1640" class="tiny">PagerDuty</text>
+  
+  <rect class="box" x="1340" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="1358" y="1603" class="sectionTitle">🔐 Identity</text>
+  <text x="1358" y="1623" class="tiny">LDAP, Active Directory</text>
+  <text x="1358" y="1640" class="tiny">SAML, OAuth2</text>
+  
+  <rect class="box" x="1555" y="1580" width="200" height="70" fill="#ffffff"/>
+  <text x="1573" y="1603" class="sectionTitle">📡 Network</text>
+  <text x="1573" y="1623" class="tiny">Firewall APIs</text>
+  <text x="1573" y="1640" class="tiny">NDR, NAC systems</text>
+
+  <!-- ==================== MITRE COVERAGE ==================== -->
+  <rect class="layer" x="30" y="1685" width="1940" height="100" fill="#f1f5f9"/>
+  <text x="48" y="1708" class="layerTitle">MITRE ATT&amp;CK Coverage (50+ Techniques)</text>
+  <text x="50" y="1735" class="small">Execution: T1059 (CLI), T1204 (User Exec) | Persistence: T1547 (Boot), T1543 (Service), T1546 (WMI), T1053 (Sched Task) | Privilege: T1134 (Token), T1548 (UAC Bypass)</text>
+  <text x="50" y="1755" class="small">Defense Evasion: T1055 (Injection), T1036 (Masquerading), T1562 (Impair), T1070 (Indicator Removal) | Credential: T1003 (Dumping), T1558 (Kerberos)</text>
+  <text x="50" y="1775" class="small">Discovery: T1082 (System), T1083 (File), T1518 (Software) | C2: T1071 (App Layer), T1573 (Encrypted) | Impact: T1486 (Ransomware), T1490 (Shadow Copy)</text>
+
+  <!-- ==================== CONNECTORS ==================== -->
+  <line x1="680" y1="205" x2="680" y2="240" class="connector"/>
+  <line x1="1000" y1="420" x2="1000" y2="435" class="connector"/>
+  <line x1="1000" y1="635" x2="1000" y2="650" class="connector"/>
+  <line x1="1000" y1="880" x2="1000" y2="895" class="connector"/>
+  <line x1="1000" y1="1175" x2="1000" y2="1190" class="connector"/>
+  <line x1="1000" y1="1350" x2="1000" y2="1365" class="connector"/>
+  <line x1="1000" y1="1525" x2="1000" y2="1540" class="connector"/>
+
+  <!-- ==================== FOOTER ==================== -->
+  <text x="40" y="1820" class="small">Generated: v7.0 — Complete System Architecture | unified_agent/core/agent.py: 13,398 LOC | backend/: 41 routers, 21 services, 25 modules | frontend/: 41 pages</text>
+  <text x="40" y="1840" class="small">Docker: 12 services | Scripts: 13 agent variants | Browser Extension: Chrome/Firefox/Edge | Mobile: Android Termux, iOS Pythonista</text>
+  <text x="40" y="1860" class="tiny">© 2026 Metatron / Seraph AI Defense Platform — Enterprise EDR + XDR + SOAR + Zero Trust + AI-Powered Threat Detection</text>
+</svg>

@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:ab32409faf682c2d925c52b826ba2d40653b64768d38ad6162f387183bddde07",
+    "ref": "blobs/sha256/ab32409faf682c2d925c52b826ba2d40653b64768d38ad6162f387183bddde07.json"
+  },
+  "credit_id": "cache_6a7df9ad17a5a637",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Improve token estimation by ignoring empty or missing content in messages\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [])\",\"new\":\"total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [] if message.get(\\\"content\\\"))\",\"intent\":\"Skip empty or None content when estimating tokens\"}],\"verify\":[\"test_estimate_tokens_ignores_empty_content\"]}",
+  "response_sha256": "sha256:d676101c404c874e533aea31944c8ca53fbf419bd9be92d3322946e6c525ae38",
+  "version": "1.0"
+}

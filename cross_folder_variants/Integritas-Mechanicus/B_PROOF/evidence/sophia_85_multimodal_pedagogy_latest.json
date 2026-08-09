@@ -1,0 +1,690 @@
+{
+  "timestamp": "2026-08-03T20:23:49.645042+00:00",
+  "suite": "sophia_85_multimodal_pedagogy_suite",
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "multimodal_cases": 5,
+    "pedagogy_cases": 1
+  },
+  "rows": [
+    {
+      "case_id": "cross_modal_ledger_blocks_conflict_and_sets_ceiling",
+      "passed": true,
+      "ledger": {
+        "schema_version": "sophia.cross_modal_evidence_ledger.v1",
+        "status": "hold_for_verification",
+        "witness_count": 3,
+        "witnesses": [
+          {
+            "witness_id": "W1",
+            "source_name": "agency_chart.png",
+            "modality": "image_ocr",
+            "parser": "sidecar_ocr",
+            "quality": "ocr_supported",
+            "quality_score": 0.72,
+            "provenance_tier": "user_supplied_document",
+            "provenance_score": 0.6,
+            "page_numbers": [
+              "4"
+            ],
+            "numbers": [
+              "12%",
+              "21%"
+            ],
+            "visual_signal": true,
+            "warnings": [
+              "ocr_mediated_evidence"
+            ]
+          },
+          {
+            "witness_id": "W2",
+            "source_name": "user_visual_note.txt",
+            "modality": "text_only",
+            "parser": "plain_text",
+            "quality": "readable_text",
+            "quality_score": 0.9,
+            "provenance_tier": "user_supplied_document",
+            "provenance_score": 0.6,
+            "page_numbers": [
+              "4"
+            ],
+            "numbers": [
+              "12%",
+              "21%"
+            ],
+            "visual_signal": true,
+            "warnings": [
+              "figure_or_caption_text_only_no_native_vision"
+            ]
+          },
+          {
+            "witness_id": "W3",
+            "source_name": "paged_method.txt",
+            "modality": "text_only",
+            "parser": "plain_text",
+            "quality": "readable_text",
+            "quality_score": 0.9,
+            "provenance_tier": "user_supplied_document",
+            "provenance_score": 0.6,
+            "page_numbers": [
+              "1",
+              "2"
+            ],
+            "numbers": [
+              "12",
+              "18",
+              "62",
+              "74"
+            ],
+            "visual_signal": false,
+            "warnings": [
+              "table_structure_uncertain_without_table_parser"
+            ]
+          }
+        ],
+        "numeric_index": {
+          "12": [
+            "paged_method.txt"
+          ],
+          "12%": [
+            "agency_chart.png",
+            "user_visual_note.txt"
+          ],
+          "18": [
+            "paged_method.txt"
+          ],
+          "21%": [
+            "agency_chart.png",
+            "user_visual_note.txt"
+          ],
+          "62": [
+            "paged_method.txt"
+          ],
+          "74": [
+            "paged_method.txt"
+          ]
+        },
+        "page_index": {
+          "1": [
+            "paged_method.txt"
+          ],
+          "2": [
+            "paged_method.txt"
+          ],
+          "4": [
+            "agency_chart.png",
+            "user_visual_note.txt"
+          ]
+        },
+        "visual_witnesses": [
+          "agency_chart.png",
+          "user_visual_note.txt"
+        ],
+        "degraded_witnesses": [
+          "agency_chart.png",
+          "paged_method.txt",
+          "user_visual_note.txt"
+        ],
+        "disagreement": {
+          "status": "disagreement_requires_human_verification",
+          "numeric_conflict": true,
+          "caption_conflict": true,
+          "conflict_signals": [
+            "possible_numeric_or_caption_conflict",
+            "ocr_caption_conflict_requires_verification"
+          ],
+          "witnesses": [
+            {
+              "source_name": "agency_chart.png",
+              "parser": "sidecar_ocr",
+              "quality": "ocr_supported",
+              "numbers": [
+                "12%",
+                "21%"
+              ],
+              "caption_signal": true,
+              "uncertainty_signal": true
+            },
+            {
+              "source_name": "user_visual_note.txt",
+              "parser": "plain_text",
+              "quality": "readable_text",
+              "numbers": [
+                "12%",
+                "21%"
+              ],
+              "caption_signal": true,
+              "uncertainty_signal": true
+            },
+            {
+              "source_name": "paged_method.txt",
+              "parser": "plain_text",
+              "quality": "readable_text",
+              "numbers": [
+                "12",
+                "18",
+                "62",
+                "74"
+              ],
+              "caption_signal": false,
+              "uncertainty_signal": false
+            }
+          ],
+          "distinct_numeric_values": [
+            "12",
+            "12%",
+            "18",
+            "21%",
+            "62",
+            "74"
+          ],
+          "integrity_rule": "Do not resolve OCR, caption, or user-description conflicts as fact. Report the disagreement, quote the witnesses, and ask for inspection or clearer evidence.",
+          "safe_response_mode": "hold_visual_interpretation"
+        },
+        "safe_claims": [
+          "Summarize readable text/OCR spans with provenance and uncertainty visible.",
+          "Use page locators only when page markers are visible in extracted spans."
+        ],
+        "blocked_claims": [
+          "Do not treat OCR, caption, or user-description disagreement as resolved fact.",
+          "Do not infer chart/table meaning from an image without OCR, parsed table cells, or native vision evidence."
+        ],
+        "required_next_steps": [
+          "Ask the learner to inspect the original visual artifact or provide clearer OCR/native vision.",
+          "Name degraded witnesses before interpreting the claim.",
+          "Verify any numeric claim against the exact witness span and, if tabular, parsed table cells.",
+          "Use only visible page markers for page-specific claims."
+        ],
+        "confidence_ceiling": 0.45,
+        "integrity_rule": "Multimodal evidence must be handled as witnesses with provenance, uncertainty, and conflict status; Sophia must not collapse them into a single resolved fact."
+      }
+    },
+    {
+      "case_id": "rendered_context_exposes_cross_modal_contract",
+      "passed": true,
+      "context_excerpt": "[DOCUMENT EVIDENCE CONTRACT]\nUse only the provided source evidence unless you explicitly mark an inference.\nIf the source is blurry, partial, unreadable, or unsupported, say so plainly.\nWhen asked for a quote, quote an exact local phrase from a span or say exact support is absent.\nEvidence task: sophia_85_multimodal_pedagogy\n\n[CROSS-MODAL EVIDENCE LEDGER]\nledger_status=hold_for_verification confidence_ceiling=0.45 witness_count=3\nsafe_claims=Summarize readable text/OCR spans with provenance and uncertainty visible. | Use page locators only when page markers are visible in extracted spans.\nblocked_claims=Do not treat OCR, caption, or user-description disagreement as resolved fact. | Do not infer chart/table meaning from an image without OCR, parsed table cells, or native vision evidence.\nrequired_next_steps=Ask the learner to inspect the original visual artifact or provide clearer OCR/native vision. | Name degraded witnesses before interpreting the claim. | Verify any numeric claim against the exact witness span and, if tabular, parsed table cells. | Use only visible page markers for page-specific claims.\nvisual_witnesses=agency_chart.png, user_visual_note.txt\ndegraded_witnesses=agency_chart.png, paged_method.txt, user_visual_note.txt\n\n[NATIVE VISION COMPARISON]\nstatus=native_vision_absent confidence_ceiling=0.65 witness_count=3\nnative_only_numbers=\ntext_or_ocr_only_numbers=12, 12%, 18, 21%, 62, 74\n\n[SOURCE 1] agency_chart.png\nmodality=image_ocr parser=sidecar_ocr\nquality=ocr_supported score=0.72 rationale=Evidence is mediated through OCR text; quote only readable spans.\nprovenance_tier=user_supplied_document provenance_score=0.6 rationale=Matched provenance markers for user_supplied_document.\nuncertainty=native_tesseract_failed:UnidentifiedImageError, used_sidecar:agenc"
+    },
+    {
+      "case_id": "page_anchor_honesty_survives_mixed_modal_bundle",
+      "passed": true,
+      "page2": {
+        "status": "page_citation_lead",
+        "page_number": 2,
+        "source_name": "paged_method.txt",
+        "page_locator": "p. 2",
+        "citation_lead": "paged_method.txt, p. 2",
+        "quote_leads": [
+          {
+            "span_id": "S2",
+            "quote": "Page 2\nTable 1 reports baseline score 62 and intervention score 74 for n=18. The table supports a 12 point difference, not learning-outcome causality.",
+            "locator": "p. 2",
+            "parser": "plain_text"
+          }
+        ],
+        "warnings": [
+          "ocr_mediated_evidence",
+          "figure_or_caption_text_only_no_native_vision",
+          "table_structure_uncertain_without_table_parser"
+        ],
+        "integrity_rule": "This is a citation lead for human verification, not a finalized reference."
+      },
+      "missing": {
+        "status": "page_citation_unavailable",
+        "page_number": 12,
+        "citation_lead": "",
+        "quote_leads": [],
+        "warnings": [
+          "ocr_mediated_evidence",
+          "figure_or_caption_text_only_no_native_vision",
+          "table_structure_uncertain_without_table_parser",
+          "requested page has no extracted spans; do not invent page evidence"
+        ],
+        "integrity_rule": "No page citation may be suggested without visible page/span evidence."
+      }
+    },
+    {
+      "case_id": "page_claim_comparison_separates_support_from_causality",
+      "passed": true,
+      "comparison": {
+        "status": "checked",
+        "page_number": 2,
+        "page_summary": "Page 2\nTable 1 reports baseline score 62 and intervention score 74 for n=18. The table supports a 12 point difference, not learning-outcome causality.",
+        "similarity": {
+          "method": "phase6_similarity_guard",
+          "status": "checked",
+          "policy_language": "similarity risk, not plagiarism accusation",
+          "source_count": 1,
+          "summary": {
+            "risk_level": "low",
+            "flagged_spans": 1,
+            "high_risk": 0,
+            "medium_risk": 0,
+            "low_risk": 1,
+            "citation_present": false
+          },
+          "spans": [
+            {
+              "source_name": "paged_method.txt p. 2",
+              "category": "acceptable_common_phrase",
+              "risk_level": "low",
+              "similarity_score": 0.5455,
+              "exact_ngram_overlap": [
+                "table supports point difference"
+              ],
+              "longest_common_sequence": "supports a 12 point difference, not",
+              "shared_terms": [
+                "difference",
+                "point",
+                "supports",
+                "table"
+              ],
+              "source_span": "Page 2 Table 1 reports baseline score 62 and intervention score 74 for n=18. The table supports a 12 point difference, not learning-outcome causality.",
+              "selected_span": "Table 1 supports a 12 point difference, not causal learning outcomes.",
+              "side_by_side": {
+                "selected_span": "Table 1 supports a 12 point difference, not causal learning outcomes.",
+                "source_span": "Page 2 Table 1 reports baseline score 62 and intervention score 74 for n=18. The table supports a 12 point difference, not learning-outcome causality.",
+                "overlap_terms": [
+                  "difference",
+                  "point",
+                  "supports",
+                  "table"
+                ],
+                "semantic_concepts": [],
+                "overlap_phrases": [
+                  "table supports point difference"
+                ],
+                "longest_common_sequence": "supports a 12 point difference, not",
+                "citation_present": false,
+                "inspection_prompt": "Compare wording, attribution, and warrant before revising; do not replace the learner's prose wholesale.",
+                "integrity_action": "no accusation; keep phrase if it is ordinary disciplinary language"
+              },
+              "citation_present": false,
+              "protected_common_phrase": true,
+              "policy_label": "acceptable common phrase",
+              "repair_options": [
+                "cite",
+                "convert assertion to question"
+              ],
+              "rationale": "Overlap appears limited, generic, or terminology-level; avoid false accusation."
+            }
+          ],
+          "repair_menu": [
+            "cite",
+            "quote with attribution",
+            "paraphrase with attribution",
+            "narrow claim",
+            "add limitation",
+            "convert assertion to question"
+          ]
+        },
+        "warnings": [
+          "ocr_mediated_evidence",
+          "figure_or_caption_text_only_no_native_vision",
+          "table_structure_uncertain_without_table_parser"
+        ]
+      }
+    },
+    {
+      "case_id": "table_parser_extracts_rows_for_numeric_claims",
+      "passed": true,
+      "tables": {
+        "method": "multi_parser_structured_table_extraction",
+        "tables_detected": 1,
+        "tables": [
+          {
+            "source_name": "paged_method.txt",
+            "parser": "fixed_width_text_table",
+            "headers": [
+              "condition",
+              "score",
+              "n"
+            ],
+            "rows": [
+              {
+                "condition": "baseline",
+                "score": "62",
+                "n": "18"
+              },
+              {
+                "condition": "intervention",
+                "score": "74",
+                "n": "18"
+              }
+            ],
+            "row_count_detected": 2,
+            "column_count_detected": 3,
+            "page": "",
+            "table_index": 1,
+            "cell_citations": [
+              {
+                "source_name": "paged_method.txt",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 1,
+                "header": "condition",
+                "value": "baseline",
+                "locator": "table 1, row 1, column 1 (condition)",
+                "citation_lead": "paged_method.txt, table 1, row 1, column 1 (condition)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "paged_method.txt",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 2,
+                "header": "score",
+                "value": "62",
+                "locator": "table 1, row 1, column 2 (score)",
+                "citation_lead": "paged_method.txt, table 1, row 1, column 2 (score)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "paged_method.txt",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 3,
+                "header": "n",
+                "value": "18",
+                "locator": "table 1, row 1, column 3 (n)",
+                "citation_lead": "paged_method.txt, table 1, row 1, column 3 (n)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "paged_method.txt",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 2,
+                "column": 1,
+                "header": "condition",
+                "value": "intervention",
+                "locator": "table 1, row 2, column 1 (condition)",
+                "citation_lead": "paged_method.txt, table 1, row 2, column 1 (condition)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "paged_method.txt",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 2,
+                "column": 2,
+                "header": "score",
+                "value": "74",
+                "locator": "table 1, row 2, column 2 (score)",
+                "citation_lead": "paged_method.txt, table 1, row 2, column 2 (score)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "paged_method.txt",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 2,
+                "column": 3,
+                "header": "n",
+                "value": "18",
+                "locator": "table 1, row 2, column 3 (n)",
+                "citation_lead": "paged_method.txt, table 1, row 2, column 3 (n)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              }
+            ],
+            "truncated": false,
+            "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "dialogic_pedagogy_state_progresses_across_offices",
+      "passed": true,
+      "moves": [
+        {
+          "move": "baseline_probe",
+          "office": "maieuticus",
+          "opening": "Let us do this as a dialogue, not a download.",
+          "teaching_point": "For now, keep the theory stack in the background. We only need to find the learner capacity your definition is really protecting.",
+          "question": "When you say human agency, do you mainly mean choosing, understanding, revising, or taking responsibility?",
+          "handback": "Answer in one rough sentence. Messy is useful here.",
+          "visible_summary": "maieuticus: baseline_probe",
+          "state": {
+            "session_id": "sophia-85-dialogic",
+            "topic": "human agency",
+            "concept_focus": "",
+            "selected_indicators": [],
+            "latest_draft": "",
+            "evidence_condition_added": false,
+            "limitation_added": false,
+            "source_discussion_started": false,
+            "source_count_seen": 0,
+            "boundary_event_seen": false,
+            "turn_count": 1,
+            "last_question": "When you say human agency, do you mainly mean choosing, understanding, revising, or taking responsibility?",
+            "last_move": "baseline_probe",
+            "memory_strength": 1.0,
+            "decay_trace": {
+              "schema_version": "sophia.dialogic_learner_state_decay.v1",
+              "elapsed_hours": 0.0,
+              "half_life_hours": 72.0,
+              "prior_turn_count": 0,
+              "time_strength": 1.0,
+              "turn_strength": 1.0,
+              "memory_strength": 1.0,
+              "confidence_band": "fresh",
+              "rule": "Older learner-state signals remain visible but receive lower routing confidence."
+            },
+            "updated_at": "2026-08-03T20:23:49.644762+00:00"
+          }
+        },
+        {
+          "move": "indicator_selection",
+          "office": "maieuticus",
+          "opening": "`Still in charge` is a good instinct, but it is too broad for an academic definition.",
+          "teaching_point": "We need to name what the learner remains in charge of: claim, evidence, revision, source trail, or final responsibility.",
+          "question": "Which two of those matter most for your paper?",
+          "handback": "Choose two. Do not polish yet; just choose.",
+          "visible_summary": "maieuticus: indicator_selection",
+          "state": {
+            "session_id": "sophia-85-dialogic",
+            "topic": "human agency",
+            "concept_focus": "",
+            "selected_indicators": [],
+            "latest_draft": "",
+            "evidence_condition_added": false,
+            "limitation_added": false,
+            "source_discussion_started": false,
+            "source_count_seen": 0,
+            "boundary_event_seen": false,
+            "turn_count": 2,
+            "last_question": "Which two of those matter most for your paper?",
+            "last_move": "indicator_selection",
+            "memory_strength": 0.97,
+            "decay_trace": {
+              "schema_version": "sophia.dialogic_learner_state_decay.v1",
+              "elapsed_hours": 0.0,
+              "half_life_hours": 72.0,
+              "prior_turn_count": 1,
+              "time_strength": 1.0,
+              "turn_strength": 0.97,
+              "memory_strength": 0.97,
+              "confidence_band": "fresh",
+              "rule": "Older learner-state signals remain visible but receive lower routing confidence."
+            },
+            "updated_at": "2026-08-03T20:23:49.644860+00:00"
+          }
+        },
+        {
+          "move": "draft_attempt",
+          "office": "constructor",
+          "opening": "Good. Revision and accountability give us something observable.",
+          "teaching_point": "Agency becomes academic when it can be demonstrated, not merely asserted. The learner should be able to explain, revise, and account for the judgment.",
+          "question": "Can you try one rough sentence beginning `Human agency is preserved when...`?",
+          "handback": "Keep it rough. I will test the structure, not take over the wording.",
+          "visible_summary": "constructor: draft_attempt",
+          "state": {
+            "session_id": "sophia-85-dialogic",
+            "topic": "human agency",
+            "concept_focus": "",
+            "selected_indicators": [
+              "revision",
+              "accountability"
+            ],
+            "latest_draft": "",
+            "evidence_condition_added": false,
+            "limitation_added": false,
+            "source_discussion_started": false,
+            "source_count_seen": 0,
+            "boundary_event_seen": false,
+            "turn_count": 3,
+            "last_question": "Can you try one rough sentence beginning `Human agency is preserved when...`?",
+            "last_move": "draft_attempt",
+            "memory_strength": 0.941,
+            "decay_trace": {
+              "schema_version": "sophia.dialogic_learner_state_decay.v1",
+              "elapsed_hours": 0.0,
+              "half_life_hours": 72.0,
+              "prior_turn_count": 2,
+              "time_strength": 1.0,
+              "turn_strength": 0.941,
+              "memory_strength": 0.941,
+              "confidence_band": "fresh",
+              "rule": "Older learner-state signals remain visible but receive lower routing confidence."
+            },
+            "updated_at": "2026-08-03T20:23:49.644901+00:00"
+          }
+        },
+        {
+          "move": "criterion_check",
+          "office": "dialecticus",
+          "opening": "That is now a defensible kind of sentence because it names visible behaviour rather than vibes.",
+          "teaching_point": "The next test is auditability: could a reviewer observe it, could a learner demonstrate it, and could Sophia log evidence without invading authorship?",
+          "question": "Which evidence condition would make the sentence more defensible?",
+          "handback": "Revise only that one part next.",
+          "visible_summary": "dialecticus: criterion_check",
+          "state": {
+            "session_id": "sophia-85-dialogic",
+            "topic": "human agency",
+            "concept_focus": "",
+            "selected_indicators": [
+              "revision",
+              "accountability"
+            ],
+            "latest_draft": "Human agency is preserved when the learner can revise and take responsibility for judgement.",
+            "evidence_condition_added": false,
+            "limitation_added": false,
+            "source_discussion_started": false,
+            "source_count_seen": 0,
+            "boundary_event_seen": false,
+            "turn_count": 4,
+            "last_question": "Which evidence condition would make the sentence more defensible?",
+            "last_move": "criterion_check",
+            "memory_strength": 0.913,
+            "decay_trace": {
+              "schema_version": "sophia.dialogic_learner_state_decay.v1",
+              "elapsed_hours": 0.0,
+              "half_life_hours": 72.0,
+              "prior_turn_count": 3,
+              "time_strength": 1.0,
+              "turn_strength": 0.913,
+              "memory_strength": 0.913,
+              "confidence_band": "fresh",
+              "rule": "Older learner-state signals remain visible but receive lower routing confidence."
+            },
+            "updated_at": "2026-08-03T20:23:49.644940+00:00"
+          }
+        },
+        {
+          "move": "source_fit_probe",
+          "office": "source_librarian",
+          "opening": "We have 3 retrieved source lead(s), but they are not proof yet.",
+          "teaching_point": "The first inspection should ask whether a source supports agency directly, supports AI literacy, or only backgrounds the higher-education policy context.",
+          "question": "Which one source title do you want to inspect first?",
+          "handback": "Pick one title; I will map it to claim, evidence, warrant, and limitation.",
+          "visible_summary": "source_librarian: source_fit_probe",
+          "state": {
+            "session_id": "sophia-85-dialogic",
+            "topic": "human agency",
+            "concept_focus": "",
+            "selected_indicators": [
+              "revision",
+              "accountability",
+              "provenance"
+            ],
+            "latest_draft": "Human agency is preserved when the learner can revise and take responsibility for judgement.",
+            "evidence_condition_added": false,
+            "limitation_added": false,
+            "source_discussion_started": true,
+            "source_count_seen": 3,
+            "boundary_event_seen": false,
+            "turn_count": 5,
+            "last_question": "Which one source title do you want to inspect first?",
+            "last_move": "source_fit_probe",
+            "memory_strength": 0.885,
+            "decay_trace": {
+              "schema_version": "sophia.dialogic_learner_state_decay.v1",
+              "elapsed_hours": 0.0,
+              "half_life_hours": 72.0,
+              "prior_turn_count": 4,
+              "time_strength": 1.0,
+              "turn_strength": 0.885,
+              "memory_strength": 0.885,
+              "confidence_band": "fresh",
+              "rule": "Older learner-state signals remain visible but receive lower routing confidence."
+            },
+            "updated_at": "2026-08-03T20:23:49.644974+00:00"
+          }
+        },
+        {
+          "move": "integrity_repair",
+          "office": "integrity_auditor",
+          "opening": "I cannot help hide AI involvement or produce paste-ready academic wording.",
+          "teaching_point": "I can still help you lawfully by strengthening the authorship trail: your idea, source support, AI-assisted thinking notes, and your final decision.",
+          "question": "What did you decide yourself, and why?",
+          "handback": "Write that in one sentence; I will test whether the evidence warrants it.",
+          "visible_summary": "integrity_auditor: integrity_repair",
+          "state": {
+            "session_id": "sophia-85-dialogic",
+            "topic": "human agency",
+            "concept_focus": "",
+            "selected_indicators": [
+              "revision",
+              "accountability",
+              "provenance"
+            ],
+            "latest_draft": "Human agency is preserved when the learner can revise and take responsibility for judgement.",
+            "evidence_condition_added": false,
+            "limitation_added": false,
+            "source_discussion_started": true,
+            "source_count_seen": 3,
+            "boundary_event_seen": true,
+            "turn_count": 6,
+            "last_question": "What did you decide yourself, and why?",
+            "last_move": "integrity_repair",
+            "memory_strength": 0.859,
+            "decay_trace": {
+              "schema_version": "sophia.dialogic_learner_state_decay.v1",
+              "elapsed_hours": 0.0,
+              "half_life_hours": 72.0,
+              "prior_turn_count": 5,
+              "time_strength": 1.0,
+              "turn_strength": 0.859,
+              "memory_strength": 0.859,
+              "confidence_band": "fresh",
+              "rule": "Older learner-state signals remain visible but receive lower routing confidence."
+            },
+            "updated_at": "2026-08-03T20:23:49.645010+00:00"
+          }
+        }
+      ]
+    }
+  ]
+}

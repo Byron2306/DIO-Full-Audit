@@ -1,0 +1,67 @@
+{
+  "base_distribution": {
+    "architecture": "amd64",
+    "family": "debian",
+    "series": "trixie"
+  },
+  "distribution_id": "arda-valinor",
+  "first_boot_contract": {
+    "os_grade_prefers_signed_verdict": true,
+    "remote_verifier_must_be_off_box": true,
+    "remote_verifier_required": true,
+    "secure_boot_expected": true,
+    "tpm_expected": true
+  },
+  "generated_at": "2026-07-30T06:41:42.901930+00:00",
+  "identity_assets": [
+    "usr/share/arda/identity/arda-wallpaper.png",
+    "usr/share/arda/identity/arda-emblem.png",
+    "boot/grub/themes/arda-sovereign"
+  ],
+  "installer_mode": "debian-preseeded-arda",
+  "partition_recipe": {
+    "esp": {
+      "filesystem": "fat32",
+      "mountpoint": "/boot/efi",
+      "size_mb": 512
+    },
+    "root": {
+      "filesystem": "ext4",
+      "min_size_gb": 12,
+      "mountpoint": "/"
+    }
+  },
+  "post_install_steps": [
+    "install Valinor kernel artifacts",
+    "install ARDA overlay",
+    "configure attested-host remote verifier environment",
+    "enable postboot systemd service",
+    "stage active policy bundle and projection plan",
+    "rebuild initramfs and grub configuration",
+    "capture first-boot attestation"
+  ],
+  "required_packages": [
+    "bash",
+    "coreutils",
+    "curl",
+    "dbus",
+    "efibootmgr",
+    "fastapi",
+    "grub-efi-amd64",
+    "mokutil",
+    "python3",
+    "python3-cryptography",
+    "python3-fastapi",
+    "python3-uvicorn",
+    "shim-signed",
+    "sbsigntool",
+    "systemd",
+    "tpm2-tools"
+  ],
+  "required_units": [
+    "arda-phase4-remote-verifier.service",
+    "arda-valinor-postboot.service",
+    "arda-bombadil-valinor.service"
+  ],
+  "schema_version": "arda.distribution.installer_recipe.v1"
+}

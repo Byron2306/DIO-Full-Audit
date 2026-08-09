@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-21T22:45:45.519035+00:00",
+  "objective": "You are BEAST's implementation planner. Use the supplied read-only Code Cortex observations and the exact selected source context to produce one reviewable source edit plan. Return ONE JSON object only, with this contract:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"id\":\"a1\",\"type\":\"replace_exact\",\"target\":{\"path\":\"selected/file.py\",\"anchor_ref\":\"A1\"},\"old\":\"exact current source (optional only when anchor_ref is supplied)\",\"new\":\"complete replacement source\",\"intent\":\"...\"},{\"id\":\"v1\",\"type\":\"run_verifier\",\"intent\":\"run focused checks\",\"parameters\":{\"command\":\"python -m pytest path/to/test.py -q\"}}],\"verify\":[\"python -m pytest path/to/test.py -q\"]}\nEvery source-edit action MUST include a non-empty `new`; it must include non-empty `old` unless it uses one of the supplied anchor_ref values. Never emit an intent-only action. Use at most one source edit per file. You MAY include non-mutating `run_verifier` or `ask_for_context` actions when they are needed for the next governed loop; those requests cannot edit files and run only after operator approval. Do not emit markdown, prose, a diff, placeholders, or multiple sequential edits.\n\nObjective: Add a focused regression test ensuring the Ollama provider registry uses the native base URL without a /v1 suffix. Return a single BEAST Action IR source-edit proposal only; do not apply changes.\n\nRead-only Code Cortex observations (not edit authority):\n{}\n\nResolvable anchors for selected files (use these exact IDs when useful):\ntests/test_deployment_manager.py:\n[A1] \"providers\": {\n            \"openai\": {\n                \"enabled\": True,\n                \"base_url\": \"https://api.openai.com/v1\",\n                \"default_model\": \"gpt-4o-mini\",\n                \"rate_limit_rpm\": 60,\n                \"rate_limit_tpm\": 90000,\n            },\n            \"google\": {\n                \"enabled\": True,\n                \"base_url\": \"https://generativelanguage.googleapis.com\",\n                \"default_model\": \"gemini-2.5-flash\",\n[A2] \"openai\": {\n                \"enabled\": True,\n                \"base_url\": \"https://api.openai.com/v1\",\n                \"default_model\": \"gpt-4o-mini\",\n                \"rate_limit_rpm\": 60,\n                \"rate_limit_tpm\": 90000,\n            },\n[A3] \"google\": {\n                \"enabled\": True,\n                \"base_url\": \"https://generativelanguage.googleapis.com\",\n                \"default_model\": \"gemini-2.5-flash\",\n                \"rate_limit_rpm\": 15,\n            },\n[A4] \"openrouter\": {\n                \"enabled\": True,\n                \"backend\": \"litellm\",\n                \"default_model\": \"openrouter/meta-llama/llama-3.1-8b-instruct\",\n                \"env\": \"OPENROUTER_API_KEY\",\n            },\n[A5] \"ollama\": {\n                \"enabled\": True,\n                \"backend\": \"ollama\",\n                \"base_url\": \"http://127.0.0.1:11434\",\n                \"default_model\": \"llama3.2:3b\",\n            },\n[A6] import pytest\n[A7] from httpx import ASGITransport, AsyncClient\n[A8] from app.kernel.deployment.deployment import DeploymentManager\n\nSelected source context follows in the system attachment.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:93974aa88811ce81e1176ee8d412d68ee7e9a9a437df56cd72530fe435404a5a",
+  "task_markup_id": "ctask_93974aa88811ce81"
+}

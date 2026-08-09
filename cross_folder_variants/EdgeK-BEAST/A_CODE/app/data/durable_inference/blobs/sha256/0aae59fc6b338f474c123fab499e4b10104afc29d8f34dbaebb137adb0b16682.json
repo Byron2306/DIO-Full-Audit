@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:0aae59fc6b338f474c123fab499e4b10104afc29d8f34dbaebb137adb0b16682",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 4096,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:26891822cc6364e656bbe47de0899bbd2c458605779b588638aa54723870cebc",
+      "response_blob_digest": "sha256:b195ed9319b50691cfb42c8892f3b9b7eb2086da0113b72177003f1a10616418",
+      "response_blob_ref": "blobs/sha256/b195ed9319b50691cfb42c8892f3b9b7eb2086da0113b72177003f1a10616418.json",
+      "response_chars": 1658,
+      "response_preview": "```json\n{\n  \"kind\": \"beast.action_intent.v1\",\n  \"objective\": \"Refactor the MetaToolCandidate class for clarity without changing behavior\",\n  \"actions\": [\n    {\n      \"id\": \"a1\",\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/meta_tool_generator.py\",\n        \"anchor_ref\": \"A1\"\n      },\n      \"old\": \"Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system.\",\n      \"new\": \"Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools sys",
+      "response_ref": "cache_56befa2e78aec559.answer.json",
+      "response_sha256": "sha256:1bcaa136a11a8ddba6eea926c1ea30074747c34359e85ca1126b9bd1fd524166"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:d5f4ab5d3b4d44dfccc8813bc19f9bf5e74cfaaea2b506589fb5f9aa7378dcb7",
+    "ref": "blobs/sha256/d5f4ab5d3b4d44dfccc8813bc19f9bf5e74cfaaea2b506589fb5f9aa7378dcb7.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-08-02T14:44:56.823366+00:00",
+  "credit_id": "cache_9f50de72381fb886",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": "2026-08-02T15:10:34.304443+00:00",
+  "metadata": {
+    "cost_usd": null,
+    "model": "gemini-2.5-flash",
+    "parameter_hash": "91f1a5a30af1e71bcc9d2dfdba42e0d2c389860e09af5d65c1f6dc7979d799c0",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 3072,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:c21bddc228e555c4c4043ddf80b72a441829c96b6aea63cbca227b620acddf98",
+    "response_blob_digest": "sha256:7438eafcccea7baebfb8f36215dd1b1bb7666236028d4f9d92b2808b881cb883",
+    "response_blob_ref": "blobs/sha256/7438eafcccea7baebfb8f36215dd1b1bb7666236028d4f9d92b2808b881cb883.json",
+    "response_chars": 3132,
+    "response_preview": "Hey partner! I'd be glad to help you break down the active file. \n\n### \u26a0\ufe0f Key Uncertainty First\nBefore we dive in, I want to call out a major point of uncertainty: **I do not have direct access to the actual source code of `app/kernel/capability/capability_registry.py`** in our current session. \n\nBecause of this, the explanation below is based on **standard architectural patterns** for a \"Capability Registry\" in kernel/agent-based systems (such as Semantic Kernel, LangChain, or custom LLM orches",
+    "response_ref": "cache_9f50de72381fb886.answer.json",
+    "response_sha256": "sha256:a0b599fec74eeddc887d97af312a01b1a537517a42a273b69d9d216ab2065e78"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 1,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

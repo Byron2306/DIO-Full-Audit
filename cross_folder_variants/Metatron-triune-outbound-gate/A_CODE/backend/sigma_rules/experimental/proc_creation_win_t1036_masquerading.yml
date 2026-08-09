@@ -1,0 +1,104 @@
+title: Masquerading via Invalid File Extension
+id: 3e7b8c6d-4z9a-9b2c-3d6e-7a0z1b4c9d0e
+status: experimental
+description: Detects files with mismatched extensions, often used for masquerading
+references:
+  - https://attack.mitre.org/techniques/T1036/009/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains:
+      - '.exe.txt'
+      - '.dll.jpg'
+      - '.scr.png'
+  condition: selection
+falsepositives:
+  - Legitimate file renaming
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1036.009
+---
+title: Masquerading via Right-to-Left Override
+id: 4f8c9d7e-5a0b-0c3d-4e7f-8b1a2c5d0e1f
+status: experimental
+description: Detects use of Right-to-Left Override character for filename masquerading
+references:
+  - https://attack.mitre.org/techniques/T1036/010/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains: '\u202E'
+  condition: selection
+falsepositives:
+  - Files with legitimate RTL characters
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1036.010
+---
+title: Masquerading via Double File Extension
+id: 5g9d0e8f-6b1c-1d4e-5f8g-9c2b3d6e1f2g
+status: experimental
+description: Detects files with double extensions used for masquerading
+references:
+  - https://attack.mitre.org/techniques/T1036/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains:
+      - '.exe.pdf'
+      - '.scr.doc'
+      - '.pif.txt'
+  condition: selection
+falsepositives:
+  - Legitimate compound file extensions
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1036.011
+---
+title: Masquerading via Rename to Common Extension
+id: 6h0e1f9g-7c2d-2e5f-6g9h-0d3c4e7f2g3h
+status: experimental
+description: Detects renaming executables to common file extensions
+references:
+  - https://attack.mitre.org/techniques/T1036/012/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Rename
+    TargetFilename|endswith:
+      - '.txt'
+      - '.jpg'
+      - '.png'
+      - '.pdf'
+    TargetFilename|contains:
+      - 'cmd'
+      - 'powershell'
+  condition: selection
+falsepositives:
+  - Legitimate file operations
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1036.012

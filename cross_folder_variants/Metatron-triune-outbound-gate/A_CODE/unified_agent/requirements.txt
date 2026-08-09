@@ -1,0 +1,86 @@
+# Metatron Unified Agent Requirements
+# Python dependencies for the unified security agent system
+
+# Core dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+requests==2.31.0
+python-multipart==0.0.6
+websockets==12.0
+
+# GUI frameworks
+# tkinter  # Usually comes with Python on Windows
+Pillow  # For image handling in Tkinter apps
+
+# Build tools
+pyinstaller
+
+# Networking and system monitoring
+psutil==5.9.6
+scapy==2.5.0
+netifaces==0.11.0
+websocket-client==1.6.4
+
+# Data processing
+json5==0.9.14
+pyyaml==6.0.1
+
+# Security and cryptography
+cryptography==41.0.7
+# hashlib  # Built-in
+# secrets  # Built-in
+
+# Logging and debugging
+# logging  # Built-in
+colorama==0.4.6  # For colored console output
+
+# Development and testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Optional: Web dashboard dependencies
+jinja2==3.1.2
+aiofiles==23.2.1
+flask==2.3.3
+
+# Database support (for MongoDB Atlas)
+motor==3.3.2
+pymongo==4.6.0
+
+# Platform-specific (install as needed)
+# Windows
+# pywin32==306 ; sys_platform == 'win32'
+
+# Linux
+# pygobject==3.46.0 ; sys_platform == 'linux'
+
+# macOS
+# pyobjc-framework-Cocoa==9.2 ; sys_platform == 'darwin'
+
+# Android (for development)
+# buildozer==1.5.0
+
+# iOS (for development)
+# kivy-ios==1.0.0
+
+# Auto-deployment dependencies
+paramiko==3.3.1  # SSH for remote deployment
+fabric==3.2.2    # High-level SSH operations
+# nmap==0.0.1      # Network scanning (optional) - install separately if needed
+
+# Monitoring and alerting
+apscheduler==3.10.4  # Task scheduling
+sentry-sdk==1.38.0   # Error tracking (optional)
+
+# API documentation
+python-jose[cryptography]==3.3.0  # JWT support (optional)
+
+# Development tools
+black==23.11.0       # Code formatting
+flake8==6.1.0        # Linting
+mypy==1.7.1          # Type checking
+
+# Testing utilities
+faker==20.1.0        # Fake data generation
+responses==0.24.1    # Mock HTTP responses

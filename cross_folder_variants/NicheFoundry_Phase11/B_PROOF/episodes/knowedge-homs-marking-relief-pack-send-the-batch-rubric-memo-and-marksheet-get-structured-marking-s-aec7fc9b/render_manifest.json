@@ -1,0 +1,79 @@
+{
+  "output": {
+    "video": "final.mp4",
+    "captions": "captions.srt",
+    "thumbnail": "thumbnail.png"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "countdown_seconds": 0,
+  "slides": [
+    {
+      "card_id": "01_hook",
+      "type": "cover",
+      "asset_path": "cards/00_01_hook.png"
+    },
+    {
+      "card_id": "02_pain",
+      "type": "mission_brief",
+      "asset_path": "cards/01_02_pain.png"
+    },
+    {
+      "card_id": "03_workflow",
+      "type": "mission_brief",
+      "asset_path": "cards/02_03_workflow.png"
+    },
+    {
+      "card_id": "04_promise",
+      "type": "question_card",
+      "asset_path": "cards/03_04_promise.png"
+    },
+    {
+      "card_id": "05_boundary",
+      "type": "question_card",
+      "asset_path": "cards/04_05_boundary.png"
+    },
+    {
+      "card_id": "06_cta",
+      "type": "answer_card",
+      "asset_path": "cards/05_06_cta.png"
+    }
+  ],
+  "narration_order": [
+    {
+      "scene_id": "scene_01",
+      "card_id": "01_hook",
+      "duration_seconds": 8
+    },
+    {
+      "scene_id": "scene_02",
+      "card_id": "02_pain",
+      "duration_seconds": 12
+    },
+    {
+      "scene_id": "scene_03",
+      "card_id": "03_workflow",
+      "duration_seconds": 14
+    },
+    {
+      "scene_id": "scene_04",
+      "card_id": "04_promise",
+      "duration_seconds": 14
+    },
+    {
+      "scene_id": "scene_05",
+      "card_id": "05_boundary",
+      "duration_seconds": 10
+    },
+    {
+      "scene_id": "scene_06",
+      "card_id": "06_cta",
+      "duration_seconds": 8
+    }
+  ]
+}

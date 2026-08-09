@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:be1bb6e3ec53cd4fe411e9e5154d6ad98f4aeed4075c808564c1aaa1de15dcc0",
+    "ref": "blobs/sha256/be1bb6e3ec53cd4fe411e9e5154d6ad98f4aeed4075c808564c1aaa1de15dcc0.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T14:05:58.556408+00:00",
+  "credit_id": "cache_4175eccfed8b502d",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:a36e0e4ca7a109213ead102cdc05faf24ad6a69c9f3366cb984b7f2316a06a9e",
+    "response_blob_digest": "sha256:e6cf38b55e90fdd51cfd73c4384b7f1d66042e016acad6a97c424395dd325a8c",
+    "response_blob_ref": "blobs/sha256/e6cf38b55e90fdd51cfd73c4384b7f1d66042e016acad6a97c424395dd325a8c.json",
+    "response_chars": 2280,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. A Jetson, RTX box, or CPU-only Ollama node participates as a Compute Forge Node: idle machine \u2192 watches repo \u2192 builds fingerprint",
+    "response_ref": "cache_4175eccfed8b502d.answer.json",
+    "response_sha256": "sha256:39ff7abd0d4002a3d29ebf535fd2b2ab6ada5268b3cb9ca23d9e5ebbb88abb1d"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

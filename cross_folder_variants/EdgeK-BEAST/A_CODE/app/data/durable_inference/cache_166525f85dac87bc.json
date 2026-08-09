@@ -1,0 +1,39 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:5c24f8d21e4d2b26890a4994228b89861f6a848ce0200d7a13cf9245af65d3a6",
+    "ref": "blobs/sha256/5c24f8d21e4d2b26890a4994228b89861f6a848ce0200d7a13cf9245af65d3a6.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-08-09T11:39:01.877653+00:00",
+  "credit_id": "cache_166525f85dac87bc",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": 0.001,
+    "model": "gpt-4",
+    "parameter_hash": "a9636e1ad83fa94ab18777a9f8313c8d4c0638de56ded723343a0f922d867cc0",
+    "parameters": {
+      "temperature": 0.0
+    },
+    "prompt_hash": "sha256:prompt1",
+    "response_blob_digest": "sha256:4e05a9e708543c716db24cb64d55a2ba26e2e503c4fc5c81449695dd359b4ee6",
+    "response_blob_ref": "blobs/sha256/4e05a9e708543c716db24cb64d55a2ba26e2e503c4fc5c81449695dd359b4ee6.json",
+    "response_chars": 11,
+    "response_preview": "Hello world",
+    "response_ref": "cache_166525f85dac87bc.answer.json",
+    "response_sha256": "sha256:64ec88ca00b268e5ba1a35678a1b5316d212f4f366b2477232534a8aeca37f3c"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

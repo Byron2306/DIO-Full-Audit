@@ -1,0 +1,391 @@
+{
+  "claim_ledger": [
+    {
+      "citation": "Unknown author. (n.d.). Live Probe Draft.",
+      "claim": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+      "claim_type": "conceptual",
+      "claim_type_analysis": {
+        "claim_type": "conceptual",
+        "evidence_risk": "low",
+        "evidence_standard": "Needs theoretical warrant, construct boundaries, and competing interpretations.",
+        "integrity_prompt": "Classify the claim, check whether the evidence standard is met, then scaffold a learner-owned revision rather than writing the final answer.",
+        "secondary_types": []
+      },
+      "created_at": "2026-08-08T18:56:00.934397+00:00",
+      "doi": "",
+      "draft_version_id": "draft-7d480bc068c28051d813021f",
+      "entailment_score": 1.0,
+      "entailment_status": "entailed_by_visible_span",
+      "evidence_standard": "Needs theoretical warrant, construct boundaries, and competing interpretations.",
+      "exact_span": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+      "intervention": {
+        "action": "map_sources",
+        "pedagogical_move": "Office: Source librarian. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/analysis.",
+        "task_label": "Selected-claim source-support map"
+      },
+      "limitation": "Support boundary: supports. Source role: policy/integrity context. Page status: no page number visible; do not invent one. Metadata status: basic metadata only; verify before final citation.",
+      "line_end": 1,
+      "line_start": 1,
+      "page_locator": "",
+      "page_status": "no page number visible; do not invent one",
+      "project_id": "live-probe-draft-6833d127d2b8",
+      "quality": 0.508,
+      "quality_score": 0.508,
+      "ranking_score": 0.9364,
+      "record_id": "claim-6c522c150b26354efe",
+      "schema_version": "sophia.project_store.v1",
+      "source_name": "Live Probe Draft",
+      "source_quality_rubric": {
+        "band": "fragile",
+        "dimensions": {
+          "authority": 0.45,
+          "claim_relevance": 0.5,
+          "direct_span_available": 1.0,
+          "metadata_completeness": 0.0,
+          "provenance": 0.45,
+          "recency": 0.5
+        },
+        "integrity_rule": "A source lead is not proof until the exact span supports the claim under the claim's evidence standard.",
+        "schema_version": "sophia.source_quality_rubric.v1",
+        "score": 0.508,
+        "source_kind": "unverified",
+        "warnings": [
+          "no_doi_or_url",
+          "metadata_incomplete"
+        ],
+        "weights": {
+          "authority": 0.22,
+          "claim_relevance": 0.12,
+          "direct_span_available": 0.18,
+          "metadata_completeness": 0.12,
+          "provenance": 0.22,
+          "recency": 0.14
+        }
+      },
+      "source_role": "policy/integrity context",
+      "status": "supported",
+      "support_label": "supports",
+      "updated_at": "2026-08-08T18:56:00.934391+00:00",
+      "url": "",
+      "warrant": "supports: lexical/construct relevance=1.00; semantic families=academic_integrity_policy; quality=0.68 (session-supplied document span); lexical terms=academic, assessment, detection, disclosure, emphasize, integrity."
+    }
+  ],
+  "created_at": "2026-08-08T18:56:00.926745+00:00",
+  "draft_versions": [
+    {
+      "created_at": "2026-08-08T18:56:00.933132+00:00",
+      "draft_hash": "7d480bc068c28051d813021f",
+      "line_end": 1,
+      "line_start": 1,
+      "source": "writing_desk_selected_passage",
+      "version_id": "draft-7d480bc068c28051d813021f",
+      "word_count": 9
+    }
+  ],
+  "intervention_ledger": [
+    {
+      "annotations": [
+        {
+          "action": "inspect_selected_passage",
+          "annotation_id": "A1",
+          "category": "rigor",
+          "current_status": "open",
+          "evidence_needed": "AI-in-higher-education policy/guidance or academic-integrity literature",
+          "label": "REVISION READY",
+          "line_end": 1,
+          "line_start": 1,
+          "message": "REVISION READY: no high-confidence issue detected; next check should verify source fit and local coherence.",
+          "revision_move": "Add a source, warrant, definition, limitation, or signpost before polishing prose.",
+          "severity": "low",
+          "source_candidates": 1
+        }
+      ],
+      "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+      "created_at": "2026-08-08T18:56:00.934827+00:00",
+      "draft_version_id": "draft-7d480bc068c28051d813021f",
+      "findings": [
+        "REVISION READY: no high-confidence issue detected; next check should verify source fit and local coherence."
+      ],
+      "integrity_risk": "low",
+      "intervention_id": "intervention-cb17547c5c7929c75f",
+      "line_end": 1,
+      "line_start": 1,
+      "next_revision_move": "separate source lead, direct support, warrant, and limitation",
+      "pedagogical_move": "Office: Source librarian. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/analysis.",
+      "pedagogical_plan": {
+        "adaptation_trace": {
+          "history_summary": {
+            "active_document": {
+              "name": "Live Probe Draft",
+              "text_hash": "7d480bc068c28051",
+              "topic": "ai_academic_integrity"
+            },
+            "claim_records": 0,
+            "draft_versions": 0,
+            "intervention_records": 0,
+            "latest_intervention_improvement": {
+              "interpretation": "Need at least two Writing Desk interventions on this project to estimate revision movement.",
+              "latest_issue_count": null,
+              "new_issue_labels": [],
+              "persistent_issue_labels": [],
+              "prior_issue_count": null,
+              "resolved_issue_labels": [],
+              "status": "insufficient_history"
+            },
+            "missing_limitations": 0,
+            "pedagogy_office_counts": {},
+            "project_id": "live-probe-draft-6833d127d2b8",
+            "repeated_weakness_types": [],
+            "retrieved_sources": 0,
+            "schema_version": "sophia.project_store.v1",
+            "session_source_pool_count": 1,
+            "source_pool": 0,
+            "source_pool_records": 0,
+            "status_counts": {},
+            "unsupported_claims": 0,
+            "updated_at": "2026-08-08T18:56:00.926774+00:00",
+            "uploaded_documents": 1,
+            "weak_warrants": 0
+          },
+          "ipsative_note": "No prior project-level intervention pattern is visible yet.",
+          "issue_labels": [
+            "revision ready"
+          ],
+          "office_conflicts": [],
+          "office_score_margin": 0.095,
+          "question_count": 0,
+          "repeated_current_weaknesses": [],
+          "source_count": 1,
+          "word_count": 9
+        },
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "assessment_layer": "formative",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "barrett_depth": "inferential",
+        "bloom_target": "analyze/evaluate",
+        "costa_habit": "thinking about thinking",
+        "de_bono_hat": "white -> yellow -> black -> blue",
+        "desired_depth": "detailed",
+        "facione_focus": "analysis",
+        "feedback_style": "balanced",
+        "feuerstein_move": "mediation of meaning",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "learner_features": {
+          "affective_uncertainty_signal": 0.0,
+          "agency_construct_signal": 0.0,
+          "complexity_signal": 0.163,
+          "evidence_signal": 0.0,
+          "experiment_phase": "auto",
+          "ipsative_status": "insufficient_history",
+          "issue_count": 1,
+          "issue_labels": [
+            "revision ready"
+          ],
+          "learner_level_requested": "intermediate",
+          "learner_request_signal": 0.0,
+          "limitation_signal": 0.0,
+          "mean_sentence_words": 9.0,
+          "method_gap_signal": 0.0,
+          "prior_interventions": 0,
+          "question_count": 0,
+          "reasoning_signal": 0.0,
+          "repeated_weakness_count": 0,
+          "schema_version": "sophia.learner_features.v1",
+          "scope_gap_signal": 0.0,
+          "sentence_count": 1,
+          "similarity_or_integrity_signal": 0.0,
+          "source_count": 1,
+          "source_gap_signal": 0.0,
+          "task": "map_sources",
+          "word_count": 9
+        },
+        "learner_level": "intermediate",
+        "mezirow_move": "reflect on why this claim matters in the argument",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "normalized_diagnosis": {
+          "active_layer": "formative",
+          "challenge_band": "routine_formative",
+          "need_state": "formative_revision_support",
+          "normalization_rule": "Observable writing, provenance, affective-uncertainty, and ipsative signals are normalized before office selection.",
+          "repeated_current_weaknesses": [],
+          "schema_version": "sophia.assessment_diagnosis_normalized.v1",
+          "severity": 0.29,
+          "target_constructs": [
+            "revision ready"
+          ]
+        },
+        "objective_tuning": {
+          "delayed_transfer_multiplier": 1.0,
+          "history_status": "insufficient_history",
+          "optimization_target": "maximize authorship-preserving post quality, ipsative gain, and delayed transfer without false source/support claims",
+          "schema_version": "sophia.multi_objective_pedagogy_tuning.v1",
+          "suggested_next_measure": "score immediate post artifact, later unaided transfer artifact, and integrity/provenance preservation separately",
+          "weights": {
+            "delayed_transfer": 0.3,
+            "learning_gain": 0.34,
+            "post_quality": 0.36
+          }
+        },
+        "office_arbitration": {
+          "arbitration_rule": "highest_confidence",
+          "confidence_status": "close",
+          "conflicts": [],
+          "margin": 0.095,
+          "runner_up": "writing_coach",
+          "runner_up_score": 0.27,
+          "schema_version": "sophia.office_arbitration.v1",
+          "selected_office": "source_librarian",
+          "winner": "source_librarian",
+          "winner_score": 0.365
+        },
+        "office_confidence_scores": {
+          "examiner": 0.048,
+          "expert_challenge": 0.048,
+          "integrity_auditor": 0.063,
+          "methodologist": 0.063,
+          "novice_scaffold": 0.063,
+          "peer_reviewer": 0.079,
+          "source_librarian": 0.365,
+          "writing_coach": 0.27
+        },
+        "office_reason": "The task or evidence state requires source discovery and provenance triage.",
+        "requested_office": "auto",
+        "response_contract": "source leads only until spans prove support",
+        "scaffold_intensity": "medium",
+        "selected_office": "source_librarian",
+        "torrance_move": "refine originality without overclaiming",
+        "visible_summary": "Office: Source librarian. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/analysis.",
+        "zpd_level": "moderate scaffold"
+      },
+      "project_id": "live-probe-draft-6833d127d2b8",
+      "repair_without_rewriting": [
+        "cite",
+        "quote with attribution",
+        "paraphrase with attribution",
+        "narrow claim",
+        "add limitation",
+        "convert assertion to question"
+      ],
+      "schema_version": "sophia.project_store.v1",
+      "selected_excerpt": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+      "similarity_report": {
+        "method": "phase6_similarity_guard",
+        "policy_language": "similarity risk, not plagiarism accusation",
+        "repair_menu": [
+          "cite",
+          "quote with attribution",
+          "paraphrase with attribution",
+          "narrow claim",
+          "add limitation",
+          "convert assertion to question"
+        ],
+        "source_count": 1,
+        "spans": [
+          {
+            "category": "acceptable_common_phrase",
+            "citation_present": false,
+            "exact_ngram_overlap": [
+              "academic integrity policies emphasize disclosure detection",
+              "integrity policies emphasize disclosure detection assessment",
+              "policies emphasize disclosure detection assessment redesign"
+            ],
+            "longest_common_sequence": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+            "policy_label": "acceptable common phrase",
+            "protected_common_phrase": true,
+            "rationale": "Overlap appears limited, generic, or terminology-level; avoid false accusation.",
+            "repair_options": [
+              "cite",
+              "convert assertion to question"
+            ],
+            "risk_level": "low",
+            "selected_span": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+            "shared_terms": [
+              "academic",
+              "assessment",
+              "detection",
+              "disclosure",
+              "emphasize",
+              "integrity",
+              "policies",
+              "redesign"
+            ],
+            "side_by_side": {
+              "citation_present": false,
+              "inspection_prompt": "Compare wording, attribution, and warrant before revising; do not replace the learner's prose wholesale.",
+              "integrity_action": "no accusation; keep phrase if it is ordinary disciplinary language",
+              "longest_common_sequence": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+              "overlap_phrases": [
+                "academic integrity policies emphasize disclosure detection",
+                "integrity policies emphasize disclosure detection assessment",
+                "policies emphasize disclosure detection assessment redesign"
+              ],
+              "overlap_terms": [
+                "academic",
+                "assessment",
+                "detection",
+                "disclosure",
+                "emphasize",
+                "integrity",
+                "policies",
+                "redesign"
+              ],
+              "selected_span": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+              "semantic_concepts": [
+                "assessment_design",
+                "detection",
+                "disclosure"
+              ],
+              "source_span": "Academic integrity policies emphasize disclosure, detection, and assessment redesign."
+            },
+            "similarity_score": 1.0,
+            "source_name": "Live Probe Draft",
+            "source_span": "Academic integrity policies emphasize disclosure, detection, and assessment redesign."
+          }
+        ],
+        "status": "checked",
+        "summary": {
+          "citation_present": false,
+          "flagged_spans": 1,
+          "high_risk": 0,
+          "low_risk": 1,
+          "medium_risk": 0,
+          "risk_level": "low"
+        }
+      },
+      "similarity_risk": "available_on_similarity_check",
+      "source_grounding": "direct_support_candidate_visible",
+      "source_pool_count": 1,
+      "task": "map_sources",
+      "task_label": "Selected-claim source-support map",
+      "updated_at": "2026-08-08T18:56:00.934837+00:00"
+    }
+  ],
+  "mandos_category": "writing_desk",
+  "project_id": "live-probe-draft-6833d127d2b8",
+  "retrieved_sources": [],
+  "schema_version": "sophia.project_store.v1",
+  "session_token_hash": "4f18eb308d78e2c3",
+  "source_pool": [
+    {
+      "category": "uploaded_document.active",
+      "char_count": 85,
+      "name": "Live Probe Draft",
+      "recorded_at": "2026-08-08T18:56:00.932399+00:00",
+      "text": "Academic integrity policies emphasize disclosure, detection, and assessment redesign.",
+      "text_hash": "7d480bc068c28051d813021f"
+    }
+  ],
+  "updated_at": "2026-08-08T18:56:00.934841+00:00",
+  "uploaded_documents": [
+    {
+      "document_hash": "7d480bc068c28051",
+      "document_name": "Live Probe Draft",
+      "seen_at": "2026-08-08T18:56:00.926770+00:00"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+title: Lab synthetic ModifyCloudResourceHierarchy on tagged canary (honey_resource_node) — T1666
+id: lab-cloud-modify-resource-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_resource_node) is observed with the metatron_run_id tag and the
+  expected event_type matches ModifyCloudResourceHierarchy. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1666
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1666
+  - lab.canary
+  - lab.cloudtrail
+logsource:
+  product: lab_audit
+  service: cloudtrail
+  category: modify_cloud_resource
+detection:
+  selection:
+    event_type: 'ModifyCloudResourceHierarchy'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

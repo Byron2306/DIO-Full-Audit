@@ -1,0 +1,19 @@
+{
+  "description": "Retrospective evidence (n=26 settled, non-abstain forecasts) shows a barely positive second-half chronological mean (+2.10 bps) and FAILS the promotion gate on insufficient evidence volume (< 100 settled forecasts). This hypothesis is frozen now so that only forecasts created strictly after registered_at can count as genuine prospective confirmation.",
+  "directions": [
+    "DOWN"
+  ],
+  "entry_rule_summary": "Model-generated DOWN forecast on AVAX/USD (non-abstain), same entry logic as the live candidate_finrl_conservative_policy_proxy_v1 / candidate_freqai_transparent_linear_v1 signal generators.",
+  "exit_rule_summary": "Standard horizon-based settlement exit used by hypothesis_outcomes (net_return_bps at horizon_seconds).",
+  "hypothesis_id": "avax_usd_freqai_down_prospective_v1",
+  "predicted_edge_bps": 2.1,
+  "predicted_edge_rationale": "Second-half (most recent) retrospective mean net_return_bps = 2.10 across 13 rows; first-half mean was 40.29 (likely decaying/noisy). This margin is thin enough that it would very likely fail the 1.5x cost-stress gate even with more data -- weakest of the two AVAX candidates.",
+  "registered_at": 1786037270.935571,
+  "registered_by": "candidate_promotion_gate_investigation_2026-08-06",
+  "schema": "hivenance_hypothesis_pre_registration_v1",
+  "spec_sha256": "85b9678a6d3291d359cdb5cc5b379c99cd0b1209dfdc3f6ba82a9ed741e8a680",
+  "symbols": [
+    "AVAX/USD"
+  ],
+  "title": "AVAX/USD DOWN via FreqAI transparent linear proxy -- prospective confirmation freeze"
+}

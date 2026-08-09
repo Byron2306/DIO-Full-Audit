@@ -1,0 +1,1448 @@
+{
+  "samples": 120,
+  "seed": 42,
+  "failed": 0,
+  "pass_rate_pct": 100.0,
+  "results": [
+    {
+      "index": 1,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 2,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_token ",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 3,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 4,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/ETC/SHADOW",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 5,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "./srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 6,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 7,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 8,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "//root//.ssh//id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 9,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 10,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "./srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 11,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 12,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker\n",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 13,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 14,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers_alt",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 15,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 16,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id-rsa",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 17,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/ETC/SHADOW",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 18,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/OPT/ADMIN/SUDOERS",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 19,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api-token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 20,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker\n",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 21,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shaDow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 22,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/SRV/ENCRYPT/RANSOM_LOCKER",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 23,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/OPT/ADMIN/SUDOERS",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 24,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker\n",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 25,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom-locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 26,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 27,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 28,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa\n",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 29,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 30,
+      "base_path": "/etc/shadow",
+      "mutated_path": "./etc/shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 31,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_toKen",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 32,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 33,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api-token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 34,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa\n",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 35,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 36,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 37,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 38,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers\n",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 39,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 40,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "//var//lib//secrets//api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 41,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "//root//.ssh//id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 42,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "./var/lib/secrets/api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 43,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/VAR/LIB/SECRETS/API_TOKEN",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 44,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id-rsa",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 45,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 46,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 47,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa\n",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 48,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 49,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker\n",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 50,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "./srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 51,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "./srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 52,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_token ",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 53,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 54,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 55,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 56,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "./root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 57,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/SRV/ENCRYPT/RANSOM_LOCKER",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 58,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "./opt/admin/sudoers",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 59,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 60,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker\n",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 61,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "//srv//encrypt//ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 62,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow\n",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 63,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/VAR/LIB/SECRETS/API_TOKEN",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 64,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "./var/lib/secrets/api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 65,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 66,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow\n",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 67,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 68,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/SRV/ENCRYPT/RANSOM_LOCKER",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 69,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_token ",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 70,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id-rsa",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 71,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "//root//.ssh//id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 72,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom-locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 73,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "//opt//admin//sudoers",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 74,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow_alt",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 75,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_token ",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 76,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 77,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/SRV/ENCRYPT/RANSOM_LOCKER",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 78,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shaDow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 79,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 80,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 81,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 82,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "./var/lib/secrets/api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 83,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 84,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "./var/lib/secrets/api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 85,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_toKen",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 86,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 87,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 88,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/ROOT/.SSH/ID_RSA",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 89,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "//var//lib//secrets//api_token",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 90,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 91,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 92,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/ETC/SHADOW",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 93,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 94,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 95,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/VAR/LIB/SECRETS/API_TOKEN",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 96,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker ",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 97,
+      "base_path": "/var/lib/secrets/api_token",
+      "mutated_path": "/var/lib/secrets/api_toKen",
+      "mapped_action": {
+        "action_type": "mcp.sys.exfiltrate",
+        "impact_level": "high",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 98,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 99,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 100,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 101,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers ",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 102,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/ETC/SHADOW",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 103,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers_alt",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 104,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "./opt/admin/sudoers",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 105,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "//opt//admin//sudoers",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 106,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 107,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers_alt",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 108,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 109,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 110,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/srv/encrypt/ransom_locker",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 111,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "./root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 112,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "/root/.ssh/id_rsa\n",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 113,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers ",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 114,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shaDow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 115,
+      "base_path": "/srv/encrypt/ransom_locker",
+      "mutated_path": "/SRV/ENCRYPT/RANSOM_LOCKER",
+      "mapped_action": {
+        "action_type": "mcp.deploy.ransomware",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 116,
+      "base_path": "/etc/shadow",
+      "mutated_path": "//etc//shadow",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 117,
+      "base_path": "/etc/shadow",
+      "mutated_path": "/etc/shadow ",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 118,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "./root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 119,
+      "base_path": "/opt/admin/sudoers",
+      "mutated_path": "/opt/admin/sudoers",
+      "mapped_action": {
+        "action_type": "mcp.admin.sudo",
+        "impact_level": "high",
+        "subject_id": "system"
+      },
+      "status": "denied",
+      "ok": true
+    },
+    {
+      "index": 120,
+      "base_path": "/root/.ssh/id_rsa",
+      "mutated_path": "./root/.ssh/id_rsa",
+      "mapped_action": {
+        "action_type": "mcp.sys.cat_shadow",
+        "impact_level": "critical",
+        "subject_id": "fs"
+      },
+      "status": "denied",
+      "ok": true
+    }
+  ]
+}

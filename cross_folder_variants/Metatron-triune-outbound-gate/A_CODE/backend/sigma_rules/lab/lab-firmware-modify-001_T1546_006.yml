@@ -1,0 +1,28 @@
+title: Lab synthetic ComponentFirmwareModified on tagged canary (honey_firmware_image) — T1546.006
+id: lab-firmware-modify-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_firmware_image) is observed with the metatron_run_id tag and the
+  expected event_type matches ComponentFirmwareModified. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1546/006
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1546.006
+  - lab.canary
+  - lab.edr_firmware_audit
+logsource:
+  product: lab_audit
+  service: edr_firmware_audit
+  category: fw_persistence
+detection:
+  selection:
+    event_type: 'ComponentFirmwareModified'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

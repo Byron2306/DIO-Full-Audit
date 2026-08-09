@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:ddb4f8931ede2a19877011acbd1a7644df5f3577259e50a9d5cbffce273b173d",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n def __init__(self, **kwargs):\\n super().__init__(**kwargs)\\n self._validate_tags()\", \"intent\": \"add missing validation for tags attribute\"}], \"verify\": [\"python -m pytest tests/test_capability_impact.py -q\"], \"provider_handoff_hash\": \"sha256:c63a54f647b6e48a1b81ffed8474039ad7dfd45b99cbe0f5158f4b5b98c5de85\"}",
+    "response_sha256": "sha256:f76e07b917a067bf0bd711032a3846328e010042e133950dfae3da74e4ed1864",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

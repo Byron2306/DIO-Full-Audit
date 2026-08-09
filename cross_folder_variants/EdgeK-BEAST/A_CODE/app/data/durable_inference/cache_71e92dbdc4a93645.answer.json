@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:ae091fe8894cbdf3d2d41d6018649bdf443adb18d1fe58538175e785d8b6f04c",
+    "ref": "blobs/sha256/ae091fe8894cbdf3d2d41d6018649bdf443adb18d1fe58538175e785d8b6f04c.json"
+  },
+  "credit_id": "cache_71e92dbdc4a93645",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Increase the minimum frequency threshold for considering a sequence\", \"provider_handoff_hash\": \"sha256:b31d327833115b763452fd8e5f4167dc238430c09420e03fce50adc4483a0eb2\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"confidence_score: float = 0.0\", \"new\": \"confidence_score: float = 0.5\", \"intent\": \"Increase the minimum confidence score threshold for considering a sequence\"}], \"verify\": [\"tests/test_capability_impact.py\"]}",
+  "response_sha256": "sha256:09417404873839498597fa0dd26b35425a567482e2c922caf5a75dd73df1c47c",
+  "version": "1.0"
+}

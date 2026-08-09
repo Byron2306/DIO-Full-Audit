@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1200" viewBox="0 0 1900 1200">
+  <defs>
+    <style>
+      .title { font: 700 28px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 600 16px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .laneTitle { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+      .txt { font: 13px 'Segoe UI', Arial, sans-serif; fill: #111827; }
+      .small { font: 12px 'Segoe UI', Arial, sans-serif; fill: #4b5563; }
+      .lane { stroke: #cbd5e1; stroke-width: 1.4; }
+      .event { stroke: #334155; stroke-width: 1.2; rx: 8; ry: 8; }
+      .arrow { stroke: #475569; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect width="1900" height="1200" fill="#f8fafc"/>
+  <text x="40" y="45" class="title">Metatron / Seraph — End-to-End Operational Security Flow</text>
+  <text x="40" y="74" class="subtitle">Detection → Enrichment → Policy Decision → Automated/Approved Response → Evidence &amp; Reporting</text>
+
+  <!-- Lanes -->
+  <rect x="30" y="100" width="1840" height="980" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" rx="12"/>
+
+  <rect class="lane" x="40" y="130" width="220" height="930" fill="#eef2ff"/>
+  <text x="66" y="160" class="laneTitle">Agent / Endpoint</text>
+
+  <rect class="lane" x="275" y="130" width="220" height="930" fill="#ecfeff"/>
+  <text x="307" y="160" class="laneTitle">Frontend SOC UI</text>
+
+  <rect class="lane" x="510" y="130" width="260" height="930" fill="#f0fdf4"/>
+  <text x="548" y="160" class="laneTitle">API Orchestration</text>
+
+  <rect class="lane" x="785" y="130" width="260" height="930" fill="#fef9c3"/>
+  <text x="816" y="160" class="laneTitle">Enterprise Control</text>
+
+  <rect class="lane" x="1060" y="130" width="270" height="930" fill="#fee2e2"/>
+  <text x="1096" y="160" class="laneTitle">Advanced Security</text>
+
+  <rect class="lane" x="1345" y="130" width="260" height="930" fill="#ede9fe"/>
+  <text x="1383" y="160" class="laneTitle">Data Plane</text>
+
+  <rect class="lane" x="1620" y="130" width="240" height="930" fill="#dcfce7"/>
+  <text x="1652" y="160" class="laneTitle">External Systems</text>
+
+  <!-- Events -->
+  <!-- Row 1 -->
+  <rect class="event" x="55" y="200" width="190" height="58" fill="#ffffff"/>
+  <text x="68" y="225" class="txt">1. Telemetry emitted</text>
+  <text x="68" y="244" class="small">proc/net/USB/scanner</text>
+
+  <rect class="event" x="525" y="200" width="230" height="58" fill="#ffffff"/>
+  <text x="538" y="225" class="txt">2. Ingest + normalize event</text>
+  <text x="538" y="244" class="small">router validation + context</text>
+
+  <rect class="event" x="800" y="200" width="230" height="58" fill="#ffffff"/>
+  <text x="813" y="225" class="txt">3. Identity + policy gate</text>
+  <text x="813" y="244" class="small">attestation/token scope</text>
+
+  <!-- Row 2 -->
+  <rect class="event" x="1075" y="305" width="240" height="64" fill="#ffffff"/>
+  <text x="1088" y="332" class="txt">4. AATL/AATR enrichment</text>
+  <text x="1088" y="352" class="small">MITRE mapping + scoring</text>
+
+  <rect class="event" x="1360" y="305" width="230" height="64" fill="#ffffff"/>
+  <text x="1373" y="332" class="txt">5. Persist threat state</text>
+  <text x="1373" y="352" class="small">alerts/timeline/audit</text>
+
+  <rect class="event" x="525" y="305" width="230" height="64" fill="#ffffff"/>
+  <text x="538" y="332" class="txt">6. Correlate + prioritize</text>
+  <text x="538" y="352" class="small">domain service orchestration</text>
+
+  <!-- Row 3 -->
+  <rect class="event" x="525" y="430" width="230" height="64" fill="#ffffff"/>
+  <text x="538" y="457" class="txt">7. Trigger SOAR decision</text>
+  <text x="538" y="477" class="small">playbook/manual/auto mode</text>
+
+  <rect class="event" x="800" y="430" width="230" height="64" fill="#ffffff"/>
+  <text x="813" y="457" class="txt">8. Policy action filter</text>
+  <text x="813" y="477" class="small">allow/deny/remediation scope</text>
+
+  <rect class="event" x="290" y="430" width="190" height="64" fill="#ffffff"/>
+  <text x="303" y="457" class="txt">9. If approval needed:</text>
+  <text x="303" y="477" class="small">SOC analyst confirms</text>
+
+  <!-- Row 4 -->
+  <rect class="event" x="55" y="555" width="190" height="64" fill="#ffffff"/>
+  <text x="68" y="582" class="txt">10. Execute action</text>
+  <text x="68" y="602" class="small">kill/isolate/scan/block</text>
+
+  <rect class="event" x="525" y="555" width="230" height="64" fill="#ffffff"/>
+  <text x="538" y="582" class="txt">11. Capture result</text>
+  <text x="538" y="602" class="small">status + evidence bundle</text>
+
+  <rect class="event" x="1360" y="555" width="230" height="64" fill="#ffffff"/>
+  <text x="1373" y="582" class="txt">12. Write audit/timeline</text>
+  <text x="1373" y="602" class="small">immutable trail context</text>
+
+  <!-- Row 5 -->
+  <rect class="event" x="1635" y="680" width="210" height="64" fill="#ffffff"/>
+  <text x="1648" y="707" class="txt">13. Notify / export</text>
+  <text x="1648" y="727" class="small">Slack/Email/SIEM</text>
+
+  <rect class="event" x="290" y="680" width="190" height="64" fill="#ffffff"/>
+  <text x="303" y="707" class="txt">14. SOC view updates</text>
+  <text x="303" y="727" class="small">live dashboards + queues</text>
+
+  <rect class="event" x="1075" y="680" width="240" height="64" fill="#ffffff"/>
+  <text x="1088" y="707" class="txt">15. Learning feedback</text>
+  <text x="1088" y="727" class="small">reasoning + threat registry</text>
+
+  <!-- Row 6 -->
+  <rect class="event" x="1360" y="805" width="230" height="64" fill="#ffffff"/>
+  <text x="1373" y="832" class="txt">16. KPI aggregation</text>
+  <text x="1373" y="852" class="small">tenant/agent/deploy stats</text>
+
+  <rect class="event" x="290" y="805" width="190" height="64" fill="#ffffff"/>
+  <text x="303" y="832" class="txt">17. Reporting</text>
+  <text x="303" y="852" class="small">PDF + stress/health views</text>
+
+  <rect class="event" x="525" y="805" width="230" height="64" fill="#ffffff"/>
+  <text x="538" y="832" class="txt">18. Next action queue</text>
+  <text x="538" y="852" class="small">swarm + command center</text>
+
+  <!-- arrows -->
+  <line x1="245" y1="229" x2="525" y2="229" class="arrow"/>
+  <line x1="755" y1="229" x2="800" y2="229" class="arrow"/>
+  <line x1="1030" y1="258" x2="1075" y2="305" class="arrow"/>
+  <line x1="1075" y1="337" x2="755" y2="337" class="arrow"/>
+  <line x1="755" y1="337" x2="755" y2="462" class="arrow"/>
+  <line x1="755" y1="462" x2="800" y2="462" class="arrow"/>
+  <line x1="800" y1="462" x2="480" y2="462" class="arrow"/>
+  <line x1="385" y1="494" x2="385" y2="680" class="arrow"/>
+  <line x1="800" y1="494" x2="150" y2="555" class="arrow"/>
+  <line x1="245" y1="587" x2="525" y2="587" class="arrow"/>
+  <line x1="755" y1="587" x2="1360" y2="587" class="arrow"/>
+  <line x1="1590" y1="587" x2="1635" y2="680" class="arrow"/>
+  <line x1="1590" y1="587" x2="1200" y2="680" class="arrow"/>
+  <line x1="1360" y1="837" x2="480" y2="837" class="arrow"/>
+  <line x1="480" y1="837" x2="525" y2="837" class="arrow"/>
+
+  <text x="40" y="1135" class="small">Flow intent: secure autonomous defense with policy-governed response, complete evidence chain, and operational observability.</text>
+</svg>

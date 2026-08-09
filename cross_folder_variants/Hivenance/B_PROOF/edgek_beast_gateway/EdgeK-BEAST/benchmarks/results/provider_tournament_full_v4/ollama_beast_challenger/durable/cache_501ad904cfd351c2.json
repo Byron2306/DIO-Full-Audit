@@ -1,0 +1,40 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:3661d8d40ed67690e7e77df1ed20a1f65be1b3ba2e094ece887271ca86fd2f9a",
+    "ref": "blobs/sha256/3661d8d40ed67690e7e77df1ed20a1f65be1b3ba2e094ece887271ca86fd2f9a.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-06-29T15:18:59.380020+00:00",
+  "credit_id": "cache_501ad904cfd351c2",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": 0.0,
+    "model": "qwen2.5:0.5b",
+    "parameter_hash": "d6aebf0a3d28b7bbcad363da515def6bf931bc6885e7d3e81781e6fd3c843593",
+    "parameters": {
+      "max_tokens": 1200,
+      "temperature": 0
+    },
+    "prompt_hash": "sha256:53eda012ae32f0c005bc1664c5eb8b425232d298aa9d85d44e135c92a9e025f1",
+    "response_blob_digest": "sha256:e6582552391a862ba391bb851e54cce11f9ce85bcdc3eb18fde1c2470e46dffa",
+    "response_blob_ref": "blobs/sha256/e6582552391a862ba391bb851e54cce11f9ce85bcdc3eb18fde1c2470e46dffa.json",
+    "response_chars": 2626,
+    "response_preview": "{\"beast_object_type\": \"FINAL_BOSS_MULTIFILE_PATCH_RECIPE\", \"invariants\": [\"normalize provider aliases across case, spaces, and hyphens\", \"redact nested secret material while preserving api_key_present\", \"preserve empty streaming chunks and terminate only on None\", \"resolve beast-auto after provider normalization\"], \"normalization_reason\": \"live_teacher_receipt_recorded_patch_plan_normalized_to_verifier_approved_recipe\", \"patches\": [{\"content\": \"ALIASES = {'nvidia_nim': 'nvidia_nim', 'openai': 'o",
+    "response_ref": "cache_501ad904cfd351c2.answer.json",
+    "response_sha256": "sha256:f3f8ef02dda95d5da381bcdc0d40a6173fe6ad8a077f3b571ca1892b649ea78d"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:e2db4e4de0f808bee1d7c008a74280e01bff1474fe13fa8d9dc13f1e506ec988",
+    "ref": "blobs/sha256/e2db4e4de0f808bee1d7c008a74280e01bff1474fe13fa8d9dc13f1e506ec988.json"
+  },
+  "credit_id": "cache_f5b60d3aef51246a",
+  "response": "BEAST integration harness executed the governed provider boundary.\n\nProvider: google\nRoute: gemini\nModel: gemini-2.5-flash\nPrompt: Act as my coding partner. Answer from the attached repository context, cite relevant files, and identify uncertainty.\n\nQuestion: Explain the active file and identify its key dependencies.\n\nAttached workspace scope:\n- app/kernel/capability/capability_registry.py",
+  "response_sha256": "sha256:4e5085ae72f800bf91e7cfd384e196e7fdf8a00306db8bd7f010f87ec55d06c7",
+  "version": "1.0"
+}

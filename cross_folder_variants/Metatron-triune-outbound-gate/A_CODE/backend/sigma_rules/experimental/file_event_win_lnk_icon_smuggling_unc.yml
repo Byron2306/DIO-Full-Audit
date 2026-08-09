@@ -1,0 +1,56 @@
+title: LNK Icon Smuggling UNC Path Execution
+id: 2j6g7h5i-3e8f-8g1h-2i5j-6f9e0g3h8i9j
+status: experimental
+description: Detects LNK files with suspicious UNC paths in icon locations, often used for icon smuggling
+references:
+  - https://attack.mitre.org/techniques/T1027/012/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.lnk'
+    TargetFilename|contains:
+      - '\\'
+      - '@'
+  filter:
+    TargetFilename|contains:
+      - 'C:\Windows\System32'
+      - 'C:\Program Files'
+  condition: selection and not filter
+falsepositives:
+  - Legitimate network shortcuts
+  - Administrative LNK files
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.012
+---
+title: LNK Icon Smuggling Embedded Script
+id: 3k7h8i6j-4f9g-9h2i-3j6k-7g0f1h4i9j0k
+status: experimental
+description: Detects LNK files with embedded scripts in icon paths, used for icon smuggling attacks
+references:
+  - https://attack.mitre.org/techniques/T1027/012/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.lnk'
+    TargetFilename|contains|all:
+      - 'icon'
+      - 'javascript:'
+  condition: selection
+falsepositives:
+  - Legitimate LNK files with custom icons
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1027.012

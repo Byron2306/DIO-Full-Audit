@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:46f624a4c9e0de06fc378c29908f380de09f9f3d76fea522f476f47ebeb25999",
+    "ref": "blobs/sha256/46f624a4c9e0de06fc378c29908f380de09f9f3d76fea522f476f47ebeb25999.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T13:15:26.936037+00:00",
+  "credit_id": "cache_8e51df900a9e0fa5",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:94697fa32913bf92ef21cece09f2512ea16b3e2147e75142204585629d51146b",
+    "response_blob_digest": "sha256:8c1befd01a95fa206431c6da5d1c3c5227ac5aadca9f667923a239cc9bdef255",
+    "response_blob_ref": "blobs/sha256/8c1befd01a95fa206431c6da5d1c3c5227ac5aadca9f667923a239cc9bdef255.json",
+    "response_chars": 1307,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines. A Jetson, RTX box, or CPU-only Ollama node participates as a Compute Forge Node: idle machine \u2192 watches repo \u2192 builds fingerprints self.profile.last_activity_at = datetim",
+    "response_ref": "cache_8e51df900a9e0fa5.answer.json",
+    "response_sha256": "sha256:d2fe4be706964ae6c650326b305b2a6bb4ebbcdef01ae5a066259a65389fa57e"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

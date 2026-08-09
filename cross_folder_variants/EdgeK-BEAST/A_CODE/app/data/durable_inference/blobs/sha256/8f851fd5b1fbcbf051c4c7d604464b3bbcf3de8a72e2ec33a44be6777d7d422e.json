@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8f851fd5b1fbcbf051c4c7d604464b3bbcf3de8a72e2ec33a44be6777d7d422e",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"i need larger patch upgrades\", \"provider_handoff_hash\": \"sha256:69f57ef211e084b6a5c604bc16db71913233a9451220a831c4ee74ea1ca34343\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candidates. \"\"\", \"new\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candidates. It now supports larger patch upgrades. \"\"\", \"intent\": \"i need larger patch upgrades\"}], \"verify\": [\"tests/test_capability_impact.py\"]}",
+    "response_sha256": "sha256:fa9652f453ce8caaebe2c13c254d7b6a419c768b77b9753ba27c6631fcfe5577",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

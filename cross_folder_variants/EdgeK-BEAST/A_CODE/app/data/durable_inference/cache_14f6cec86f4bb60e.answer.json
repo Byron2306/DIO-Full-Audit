@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:b4bb3191ff7c3d30de887deeeab5507328595e4d9a545f71a80bb9ae0ad44b00",
+    "ref": "blobs/sha256/b4bb3191ff7c3d30de887deeeab5507328595e4d9a545f71a80bb9ae0ad44b00.json"
+  },
+  "credit_id": "cache_14f6cec86f4bb60e",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve context economizer by adding a new strategy for trimming recent messages\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"def _force_trim_recent(self, messages: List[Dict[str, Any]], target_tokens: int, preserve_system: bool) -> List[Dict[str, Any]]:\", \"new\": \"def _force_trim_recent(self, messages: List[Dict[str, Any]], target_tokens: int, preserve_system: bool, strategy: str = 'aggressive') -> List[Dict[str, Any]]:\", \"intent\": \"Add a new strategy parameter to the _force_trim_recent method to allow for different trimming approaches\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"if self._estimate_tokens(trimmed) > target_tokens and iterations < 100:\", \"new\": \"if self._estimate_tokens(trimmed) > target_tokens and iterations < 100 and strategy == 'aggressive':\", \"intent\": \"Modify the _force_trim_recent method to use the new strategy parameter to determine the trimming approach\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"message[\\\"content\\\"] = (content[:80] + \\\"\\\\n\\\\n[EdgeK context economy: aggressively trimmed to fit budget]\\\\n\\\")\", \"new\": \"if strategy == 'conservative': message[\\\"content\\\"] = (content[:120] + \\\"\\\\n\\\\n[EdgeK context economy: conservatively trimmed to fit budget]\\\\n\\\")\", \"intent\": \"Add a new conservative trimming approach that trims messages to 120 characters instead of 80\"}]}",
+  "response_sha256": "sha256:b70833e83f74de47e199a5d037b7ae7ec559375855a7acacdac973087e66901a",
+  "version": "1.0"
+}

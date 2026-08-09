@@ -1,0 +1,34 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:9bfec6c002d5bdddd57a2d046c8a9627c4b6816aa1006b613246283afa630f5c",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-8b-instruct",
+      "parameter_hash": "ca7d3a24a1c82c765a44965689c5b1dedacfe52e63cfa75df48b3538ae71784a",
+      "parameters": {
+        "max_tokens": 8
+      },
+      "prompt_hash": "sha256:a9220c42e6c12c8b12f4a4f2f136617c3632c117d96a1e2c507b9d0ad4418c0b",
+      "response_blob_digest": "sha256:994ce0ef4e7f0dab36b1ad9d312c4184a8f0e38bb62f98fa1996659f6c460925",
+      "response_blob_ref": "blobs/sha256/994ce0ef4e7f0dab36b1ad9d312c4184a8f0e38bb62f98fa1996659f6c460925.json",
+      "response_chars": 17,
+      "response_preview": "BEAST_NIM_LIVE_OK",
+      "response_ref": "cache_eca5e0fab79be2e4.answer.json",
+      "response_sha256": "sha256:e034c10d79d8ca4f264349cda11328246fb9e015391602a4cab55bdc43780f62"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "stdout": "{\"warnings\": [\"liboqs version (major, minor) 0.15.0 differs from liboqs-python version 0.14.1\"], \"versions\": {\"oqs_module\": \"oqs\"}}",
+  "stderr": "",
+  "oqs_mismatch_detected": true,
+  "status": "fail",
+  "parsed": {
+    "warnings": [
+      "liboqs version (major, minor) 0.15.0 differs from liboqs-python version 0.14.1"
+    ],
+    "versions": {
+      "oqs_module": "oqs"
+    }
+  }
+}

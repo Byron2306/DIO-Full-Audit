@@ -1,0 +1,54 @@
+{
+  "policy_id": "ARDA-POLICY-V1",
+  "rules": [
+    {
+      "allowed_digests": [
+        "sha256:d545f44810237730e20037a34654f5c9e2b1979fb3d37330e20037a34654f5c9"
+      ],
+      "command": "check_health",
+      "lane": "Shire",
+      "principal": "Magos_Indomitus",
+      "verdict": "ALLOW"
+    }
+  ],
+  "redline_rules": [
+    {
+      "command": "delete",
+      "reason": "constitutional_destructive_command_denial",
+      "rule_id": "redline-deny-delete"
+    },
+    {
+      "command": "deploy",
+      "reason": "constitutional_destructive_command_denial",
+      "rule_id": "redline-deny-deploy"
+    },
+    {
+      "command": "reboot",
+      "reason": "constitutional_destructive_command_denial",
+      "rule_id": "redline-deny-reboot"
+    },
+    {
+      "rule_id": "redline-deny-unknown-lanes",
+      "lane": "Mordor",
+      "reason": "constitutional_lane_denial"
+    },
+    {
+      "rule_id": "redline-deny-void-lane",
+      "lane": "The Void",
+      "reason": "constitutional_lane_denial"
+    },
+    {
+      "rule_id": "redline-deny-untrusted-principal",
+      "principal": "Shadow_Operator",
+      "reason": "constitutional_principal_denial"
+    },
+    {
+      "rule_id": "redline-deny-rogue-echo",
+      "principal": "Rogue_Echo",
+      "reason": "constitutional_principal_denial"
+    }
+  ],
+  "signature": "cc5cbaec5bfe86b9db2ee7767f527ef7ff93b810fda080718940c8288e76a291",
+  "status": "SOVEREIGN",
+  "version": "1.1.0"
+}

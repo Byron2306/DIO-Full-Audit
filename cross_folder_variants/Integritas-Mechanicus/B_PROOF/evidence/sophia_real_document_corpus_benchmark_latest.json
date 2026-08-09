@@ -1,0 +1,269 @@
+{
+  "suite": "sophia_real_document_corpus_benchmark",
+  "timestamp": "2026-08-03T20:30:35.689839+00:00",
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "corpus_files": 3,
+    "fixture_mode": true
+  },
+  "cases": [
+    {
+      "case_id": "messy_corpus_bundle_builds_cross_modal_witnesses",
+      "passed": true,
+      "signal": "documents=3 native_status=native_vision_text_conflict",
+      "bundle_summary": {
+        "documents": [
+          "messy_scanned_pdf_proxy.txt",
+          "chart_fixture.png",
+          "native_vision_fixture.txt"
+        ],
+        "native_comparison": {
+          "schema_version": "sophia.native_vision_comparison.v1",
+          "status": "native_vision_text_conflict",
+          "has_native_vision": true,
+          "witness_count": 3,
+          "witnesses": [
+            {
+              "witness_id": "V1",
+              "source_name": "messy_scanned_pdf_proxy.txt",
+              "modality_group": "text_or_caption",
+              "parser": "plain_text",
+              "numbers": [
+                "031",
+                "044",
+                "100",
+                "18%",
+                "61.4",
+                "73.0",
+                "78.5",
+                "84.2"
+              ],
+              "sample": "Page 1\nOCR confidence low. Figure 1 caption says retention improved by 18%, but chart label is blurry.\nPage 2\nTable 2. Outcomes by condition.\nGroup / Writing score* / Transfer score† / p-value\nSophia / 84.2 / 78.5 / .031\nControl / 73.0 / 61.4 / .044\n*Writing rubric max 100. †Unaided delayed task."
+            },
+            {
+              "witness_id": "V2",
+              "source_name": "chart_fixture.png",
+              "modality_group": "ocr",
+              "parser": "sidecar_ocr",
+              "numbers": [
+                "16%",
+                "18%"
+              ],
+              "sample": "OCR says Figure 1 retention improved by 18%. Human caption note says the chart may show 16%. Conflict unresolved."
+            },
+            {
+              "witness_id": "V3",
+              "source_name": "native_vision_fixture.txt",
+              "modality_group": "native_vision",
+              "parser": "native_vision_fixture_or_external",
+              "numbers": [
+                "16%"
+              ],
+              "sample": "Native vision: Figure 1 appears to show 16% retention improvement; caption is partly cut off."
+            }
+          ],
+          "overlapping_numbers": [
+            "16%"
+          ],
+          "native_only_numbers": [],
+          "text_or_ocr_only_numbers": [
+            "031",
+            "044",
+            "100",
+            "18%",
+            "61.4",
+            "73.0",
+            "78.5",
+            "84.2"
+          ],
+          "confidence_ceiling": 0.45,
+          "integrity_rule": "Native vision may strengthen visual grounding, but disagreements with OCR, captions, tables, or page text must be reported rather than resolved silently."
+        }
+      }
+    },
+    {
+      "case_id": "chart_image_extraction_from_pdf_or_declared_proxy",
+      "passed": true,
+      "signal": "statuses=['fixture_chart_proxy']",
+      "chart_statuses": [
+        {
+          "status": "fixture_chart_proxy",
+          "source_name": "chart_fixture.png",
+          "chart_pages": [
+            {
+              "page": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "figure_to_text_claim_mapping_runs_on_corpus",
+      "passed": true,
+      "signal": "status=figure_claim_conflict_requires_verification conflicts=1",
+      "figure_map": {
+        "schema_version": "sophia.figure_claim_mapping.v1",
+        "claim": "Figure 1 shows 16% retention improvement.",
+        "status": "figure_claim_conflict_requires_verification",
+        "claim_numbers": [
+          "16%"
+        ],
+        "candidate_mappings": [
+          {
+            "source_name": "chart_fixture.png",
+            "parser": "sidecar_ocr",
+            "span_id": "S1",
+            "page": "",
+            "locator": "",
+            "status": "candidate_support",
+            "shared_numbers": [
+              "16%"
+            ],
+            "conflicting_numbers": [
+              "18%"
+            ],
+            "quote": "OCR says Figure 1 retention improved by 18%. Human caption note says the chart may show 16%. Conflict unresolved."
+          },
+          {
+            "source_name": "native_vision_fixture.txt",
+            "parser": "native_vision_fixture_or_external",
+            "span_id": "S1",
+            "page": "",
+            "locator": "",
+            "status": "candidate_support",
+            "shared_numbers": [
+              "16%"
+            ],
+            "conflicting_numbers": [],
+            "quote": "Native vision: Figure 1 appears to show 16% retention improvement; caption is partly cut off."
+          },
+          {
+            "source_name": "messy_scanned_pdf_proxy.txt",
+            "parser": "plain_text",
+            "span_id": "S1",
+            "page": 1,
+            "locator": "p. 1",
+            "status": "possible_numeric_conflict",
+            "shared_numbers": [],
+            "conflicting_numbers": [
+              "031",
+              "044",
+              "100",
+              "16%",
+              "18%",
+              "61.4",
+              "73.0",
+              "78.5",
+              "84.2"
+            ],
+            "quote": "Page 1\nOCR confidence low. Figure 1 caption says retention improved by 18%, but chart label is blurry. Page 2\nTable 2. Outcomes by condition. Group / Writing score* / Transfer score† / p-value\nSophia / 84.2 / 78.5 / .031\nControl / 73.0 / 61.4 / .044\n*Writing rubric max 100."
+          }
+        ],
+        "conflict_count": 1,
+        "integrity_rule": "Figure-to-text claims require visible caption/OCR/native-vision/table evidence with a locator; conflicting captions or chart numbers must be handed back for inspection."
+      }
+    },
+    {
+      "case_id": "merged_header_scientific_tables_and_footnotes_flagged",
+      "passed": true,
+      "signal": "flags=['footnote_markers_present', 'statistical_notation_present']",
+      "normalized_tables": [
+        {
+          "schema_version": "sophia.merged_header_table_normalization.v1",
+          "source_name": "merged_header_scientific_table",
+          "parser": "markdown_pipe_table",
+          "page": "2",
+          "original_headers": [
+            "Group",
+            "Writing score*",
+            "Transfer score†",
+            "p-value"
+          ],
+          "normalized_headers": [
+            "Group",
+            "Writing score*",
+            "Transfer score†",
+            "p-value"
+          ],
+          "statistical_columns": [
+            "p-value"
+          ],
+          "footnote_markers": [
+            "*",
+            "†"
+          ],
+          "complexity_flags": [
+            "footnote_markers_present",
+            "statistical_notation_present"
+          ],
+          "row_count_detected": 2,
+          "cell_citation_count": 8,
+          "integrity_rule": "Merged-header normalization is a table-audit aid; verify statistical labels and footnotes against the original table image/PDF."
+        }
+      ]
+    },
+    {
+      "case_id": "zotero_csv_jsonl_audit_exports_written",
+      "passed": true,
+      "signal": "rows=8 zotero=3",
+      "export": {
+        "schema_version": "sophia.audit_packet_export.v1",
+        "csv": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_real_document_corpus_audit_latest.csv",
+        "jsonl": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_real_document_corpus_audit_latest.jsonl",
+        "zotero_csl_json": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_real_document_corpus_audit_latest_zotero_csl.json",
+        "cell_rows_exported": 8,
+        "zotero_items": 3,
+        "integrity_rule": "Exports are audit packets and citation leads; human verification remains required."
+      }
+    },
+    {
+      "case_id": "blinded_human_visual_inspection_packet_written",
+      "passed": true,
+      "signal": "items=1",
+      "inspection_packet": {
+        "schema_version": "sophia.blinded_visual_inspection_packet.v1",
+        "csv": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_blinded_visual_inspection_latest.csv",
+        "key": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_blinded_visual_inspection_latest_key.json",
+        "instructions": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_blinded_visual_inspection_latest_instructions.md",
+        "items": 1
+      }
+    },
+    {
+      "case_id": "native_gemini_vs_blinded_human_inspection_contract",
+      "passed": true,
+      "signal": "status=not_computable_without_blinded_human_rows agreement=None",
+      "human_compare": {
+        "status": "not_computable_without_blinded_human_rows",
+        "agreement": null,
+        "rule": "Provide CSV with fields item_id,human_visible_numbers,human_verdict to compare native vision against blinded inspection."
+      },
+      "inspection_packet": {
+        "schema_version": "sophia.blinded_visual_inspection_packet.v1",
+        "csv": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_blinded_visual_inspection_latest.csv",
+        "key": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_blinded_visual_inspection_latest_key.json",
+        "instructions": "/home/byron/Integritas-Mechanicus/evidence/document_audit_exports/sophia_blinded_visual_inspection_latest_instructions.md",
+        "items": 1
+      }
+    },
+    {
+      "case_id": "optional_live_gemini_native_vision_probe_contract",
+      "passed": true,
+      "signal": "status=skipped",
+      "gemini_status": {
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "enabled": false,
+        "configured": false,
+        "status": "missing_key_or_provider"
+      },
+      "live_probe": {
+        "status": "skipped",
+        "reason": "use --probe-gemini with configured native vision",
+        "text": ""
+      }
+    }
+  ]
+}

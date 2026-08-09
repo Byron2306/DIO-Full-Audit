@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-08-02T14:11:03.582562+00:00",
+  "objective": "You are BEAST's implementation planner. Use the supplied read-only Code Cortex observations and the exact selected source context to produce one reviewable source edit plan. Return ONE JSON object only, with this contract:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"id\":\"a1\",\"type\":\"replace_exact\",\"target\":{\"path\":\"selected/file.py\",\"anchor_ref\":\"A1\"},\"old\":\"exact current source (optional only when anchor_ref is supplied)\",\"new\":\"complete replacement source\",\"intent\":\"...\"},{\"id\":\"v1\",\"type\":\"run_verifier\",\"intent\":\"run focused checks\",\"parameters\":{\"command\":\"python -m pytest path/to/test.py -q\"}}],\"verify\":[\"python -m pytest path/to/test.py -q\"]}\nEvery source-edit action MUST include a non-empty `new`; it must include non-empty `old` unless it uses one of the supplied anchor_ref values. Never emit an intent-only action. Use at most one source edit per file. You MAY include non-mutating `run_verifier` or `ask_for_context` actions when they are needed for the next governed loop; those requests cannot edit files and run only after operator approval. Do not emit markdown, prose, a diff, placeholders, or multiple sequential edits.\n\nObjective: Review desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py for correctness, typing, invariants, edge cases, and testability. Do not edit; report prioritized findings and concrete tests.\n\nRead-only Code Cortex observations (not edit authority):\n{\"tool\":\"code_cortex\",\"selected_files\":[{\"path\":\"desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py\",\"ok\":true,\"language\":\"python\",\"symbols\":[{\"name\":\"WorkItem\",\"kind\":\"class\",\"line\":12,\"end_line\":23},{\"name\":\"fingerprint\",\"kind\":\"function\",\"line\":21,\"end_line\":23},{\"name\":\"WorkQueue\",\"kind\":\"class\",\"line\":26,\"end_line\":57},{\"name\":\"__init__\",\"kind\":\"function\",\"line\":29,\"end_line\":30},{\"name\":\"add\",\"kind\":\"function\",\"line\":32,\"end_line\":37},{\"name\":\"complete\",\"kind\":\"function\",\"line\":39,\"end_line\":44},{\"name\":\"pending\",\"kind\":\"function\",\"line\":46,\"end_line\":51},{\"name\":\"summary\",\"kind\":\"function\",\"line\":53,\"end_line\":57},{\"name\":\"build_demo_queue\",\"kind\":\"function\",\"line\":60,\"end_line\":65}],\"imports\":[\"__future__\",\"dataclasses\",\"datetime\",\"hashlib\",\"typing\"],\"routes\":[]}],\"direct_dependents\":{\"desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py\":[]}}\n\nResolvable anchors for selected files (use these exact IDs when useful):\ndesktop-ide/tests/fixtures/gemini_pair_programmer_medium.py:\n[A1] \"\"\"Medium-sized fixture for governed Pair Programmer provider tests.\"\"\"\n[A2] from __future__ import annotations\n[A3] from dataclasses import dataclass, field\n[A4] from datetime import datetime, timezone\n[A5] from hashlib import sha256\n[A6] from typing import Iterable, Mapping\n[A7] @dataclass\n[A8] class WorkItem:\n\nSelected source context follows in the system attachment.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:65ec4ef2a0885140d6154b7dc967ccb4e50ba4f796089ebe77407f61a12b7808",
+  "task_markup_id": "ctask_65ec4ef2a0885140"
+}

@@ -1,0 +1,29 @@
+{
+  "audit": {
+    "command_count": 1,
+    "requested_path_count": 6,
+    "usable_path_count": 6
+  },
+  "bundle_digest": "sha256:49c4cf0a2d3977886cc646daefc1b295edd8bf0a316df132b2c76e02adc6409a",
+  "policy_id": "ARDA-POLICY-V1",
+  "policy_version": "1.1.0",
+  "schema_version": "arda.policy_projection_plan.v1",
+  "source_policy_digest": "sha256:a33ee4c72976693ec6503a03dd1dd02d8712b584ab29a5e6545a813f630e7cc8",
+  "targets": {
+    "constitutional_state": {
+      "policy_generation": "ARDA-POLICY-V1@1.1.0",
+      "redline_rule_count": 0
+    },
+    "enforcement_mode": "legacy_inode",
+    "harmony_allow_paths": [
+      "/usr/bin/bash",
+      "/usr/bin/cat",
+      "/usr/bin/ls",
+      "/usr/bin/python3",
+      "/usr/bin/sudo",
+      "/usr/bin/systemctl"
+    ],
+    "phase3_generation_required": false,
+    "redline_rules": []
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "distribution_id": "arda-valinor",
+  "generated_at": "2026-07-30T06:46:25.892540+00:00",
+  "installation_modes": [
+    "live_iso",
+    "installer_iso",
+    "raw_disk_image"
+  ],
+  "partitioning": {
+    "efi": {
+      "filesystem": "vfat",
+      "size_mb": 512
+    },
+    "root": {
+      "filesystem": "ext4",
+      "mount": "/",
+      "verity_ready": true
+    },
+    "state": {
+      "filesystem": "ext4",
+      "mount": "/var/lib/arda",
+      "persistent": true
+    }
+  },
+  "post_install_actions": [
+    "install_valinor_kernel",
+    "install_arda_overlay",
+    "enable_phase4_remote_verifier",
+    "enable_valinor_postboot",
+    "install_policy_bundle",
+    "configure_identity_assets"
+  ],
+  "schema_version": "arda.distribution.installer_profile.v1",
+  "secure_boot": {
+    "kernel_signing_required": true,
+    "required": true,
+    "shim_signed_required": true
+  }
+}

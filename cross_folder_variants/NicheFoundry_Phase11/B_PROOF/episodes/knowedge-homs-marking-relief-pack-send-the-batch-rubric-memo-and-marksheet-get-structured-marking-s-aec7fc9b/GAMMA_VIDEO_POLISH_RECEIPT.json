@@ -1,0 +1,70 @@
+{
+  "schema": "knowedge.gamma_video_polish.v1",
+  "created_at": "2026-08-08T23:44:33+00:00",
+  "product_id": "homs",
+  "episode": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b",
+  "status": "visual_review_required",
+  "policy": "Gamma supplies illustrative context; controlled local artifacts supply proof; no synthetic frame is represented as a client case.",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/raw/homs_hero.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "proof",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/visuals_polished/01_hook.png",
+      "sha256": "0fd756457936cd8b01ccf733350fb4af2d7a5dc1579dc21e66c5bd54b9ed5f41"
+    },
+    {
+      "scene_id": "scene_02",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/raw/homs_marking_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "proof",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/visuals_polished/02_pain.png",
+      "sha256": "f977ca533c4aa2e1a166859bc36b3de8fed7d4b23c1075b91d752d84796b73f0"
+    },
+    {
+      "scene_id": "scene_03",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/raw/homs_marking_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "marks_table",
+      "synthetic_context": true,
+      "proof_overlay": true,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/visuals_polished/03_workflow.png",
+      "sha256": "c78fc6b7b299814cade246965656b35b3453803f918650bc238add69ca3886fc"
+    },
+    {
+      "scene_id": "scene_04",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/raw/homs_hero.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "delivery",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/visuals_polished/04_promise.png",
+      "sha256": "64e9dd7b3e90244318322ced887d78a9758099d4ad83c1a593af2a5cfd293b76"
+    },
+    {
+      "scene_id": "scene_05",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/raw/homs_hero.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "boundary",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/visuals_polished/05_boundary.png",
+      "sha256": "f1cd8344fa73fff79061d1ee52bf4d9eb85559e8d8004124e361366f5524d075"
+    },
+    {
+      "scene_id": "scene_06",
+      "gamma_source": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/raw/homs_marking_proof.png",
+      "gamma_receipt": "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/campaigns/phase3/homs/campaign_v2/gamma/GAMMA_RECEIPT.json",
+      "treatment": "cta",
+      "synthetic_context": true,
+      "proof_overlay": false,
+      "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/visuals_polished/06_cta.png",
+      "sha256": "f496d27b4aa63293fbd55785aa77877e1a63b5553da0dee3e2447d3756156dae"
+    }
+  ]
+}

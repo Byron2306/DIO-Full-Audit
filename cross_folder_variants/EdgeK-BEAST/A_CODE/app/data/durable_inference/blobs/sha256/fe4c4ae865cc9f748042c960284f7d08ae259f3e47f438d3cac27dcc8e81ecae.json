@@ -1,0 +1,67 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:fe4c4ae865cc9f748042c960284f7d08ae259f3e47f438d3cac27dcc8e81ecae",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 123,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.88,
+    "evidence_packet_id": "",
+    "impact_fingerprint_hash": "sha256:ed39e0c253b81c3d1ee2fa42b1ac3fe7a8fdf9e0722ec894c3f6600543c6a1f7",
+    "metadata": {
+      "answer_credit_id": "cache_269ca1cdbf567d59",
+      "evidence": {},
+      "local_eval_gate": {
+        "beast_object_type": "local_eval_gate_result",
+        "checks": [
+          {
+            "passed": true,
+            "rule": {
+              "type": "max_length",
+              "value": 200000
+            }
+          },
+          {
+            "passed": true,
+            "rule": {
+              "type": "no_secret_patterns"
+            }
+          }
+        ],
+        "passed": true,
+        "promotion_allowed": true,
+        "version": "1.0"
+      },
+      "model": "local-test",
+      "provider": "",
+      "request": {
+        "beast_object_type": "crystal_reuse_request",
+        "metadata": {},
+        "model": "local-test",
+        "parameters": {},
+        "policy_version": "crystal_reuse_v1",
+        "preferred_engine": null,
+        "prompt_hash": "sha256:1f2a8568d5bba7ff22ff1ae3b7c87fb4434e8a3c30d8ad82c5eb22383ee4f3f3",
+        "prompt_prefix": "",
+        "prompt_preview": "mammoth gauntlet reusable compute",
+        "provider": "",
+        "repo_fingerprint": null,
+        "system_prompt": "",
+        "task_class": "chat_completion",
+        "tokenizer": "",
+        "version": "1.0"
+      },
+      "source": "provider_response_crystallized"
+    },
+    "policy_version": "crystal_reuse_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

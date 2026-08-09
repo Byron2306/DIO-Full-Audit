@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:40f75662a18a46402ddad7dccf0eacbe19f7164c657fd67e5b53ac4c6d246400",
+    "ref": "blobs/sha256/40f75662a18a46402ddad7dccf0eacbe19f7164c657fd67e5b53ac4c6d246400.json"
+  },
+  "credit_id": "cache_b23b196ed96a868e",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ContextEconomizer for clarity without changing behavior\",\"actions\":[{\"id\":\"a1\",\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"\\\"\\\"\\\" EdgeK BEAST Gateway - Context Economizer Reduces oversized request context before governance and provider execution. \\\"\\\"\\\"\",\"new\":\"\\\"\\\"\\\"EdgeK BEAST Gateway - Context Economizer\\n\\nReduces oversized request context before governance and provider execution.\\\"\\\"\\\"\",\"intent\":\"Improve docstring formatting\"}],\"verify\":[\"python -m pytest tests/test_context_economizer.py -q\"]}",
+  "response_sha256": "sha256:92c23407eed46af97ec2a17d042865c53f37f4a0877eec495e4b129adb4e71a6",
+  "version": "1.0"
+}

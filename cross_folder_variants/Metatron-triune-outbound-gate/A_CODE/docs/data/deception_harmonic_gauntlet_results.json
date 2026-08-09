@@ -1,0 +1,177 @@
+{
+  "all_passed": true,
+  "gauntlet_id": "deception_harmonic_effectiveness_gauntlet",
+  "generated_at": "2026-08-01T17:51:25.004744+00:00",
+  "passed": 7,
+  "results": [
+    {
+      "details": {
+        "allowed": false,
+        "mode": "observe",
+        "reasons": [
+          "trusted_principal_blocked",
+          "behavior_flag:trusted_agent",
+          "header:x-seraph-trusted",
+          "session_prefix:trusted"
+        ]
+      },
+      "name": "trusted_principal_block",
+      "passed": true
+    },
+    {
+      "details": {
+        "allowed": false,
+        "harmonic_band": "low_confidence_review",
+        "mode": "observe",
+        "reasons": [
+          "governance_veto",
+          "harmonic_band:low_confidence_review",
+          "harmonic_discord_critical",
+          "harmonic_confidence_too_low",
+          "harmonic_low_confidence_blocks_aggressive_synthetic_content"
+        ]
+      },
+      "name": "harmonic_veto_blocks_aggressive_deception",
+      "passed": true
+    },
+    {
+      "details": {
+        "allowed": false,
+        "corroboration": {
+          "missing_sources": [
+            "cce",
+            "vns",
+            "identity_trust",
+            "governance_evidence"
+          ],
+          "reasons": [
+            "anti_feedback_loop_guard_triggered",
+            "independent_corroboration_required_for_high_impact_deception",
+            "missing_independent_corroboration:cce",
+            "missing_independent_corroboration:vns",
+            "missing_independent_corroboration:identity_trust",
+            "missing_independent_corroboration:governance_evidence"
+          ],
+          "required": true,
+          "satisfied": false,
+          "sources": [
+            "aatl"
+          ]
+        },
+        "downgraded_mode": "disinformation",
+        "reasons": [
+          "anti_feedback_loop_guard_triggered",
+          "independent_corroboration_required_for_high_impact_deception",
+          "missing_independent_corroboration:cce",
+          "missing_independent_corroboration:vns",
+          "missing_independent_corroboration:identity_trust",
+          "missing_independent_corroboration:governance_evidence"
+        ]
+      },
+      "name": "anti_feedback_loop_requires_independent_corroboration",
+      "passed": true
+    },
+    {
+      "details": {
+        "resulting_mode": "friction",
+        "safe_allowed": true,
+        "toxic_allowed": false,
+        "toxic_collisions": [
+          "secret_pattern:AKIA[0-9A-Z]{16}",
+          "path_pattern:/etc/(?:passwd|shadow|ssh|kubernetes)\\b"
+        ]
+      },
+      "name": "synthetic_payload_purity_guard",
+      "passed": true
+    },
+    {
+      "details": {
+        "provenance": {
+          "approved_mode": "disinformation",
+          "deception_case_id": "deception-gauntlet-001",
+          "governance_epoch": "epoch_20260801175124_1673a287",
+          "harmonic_band": "insufficient_baseline_review",
+          "harmonic_confidence": 0.05018,
+          "harmonic_discord": 0.648212,
+          "harmonic_enforcement": {
+            "additional_approval_required": true,
+            "auto_privilege_allowed": false,
+            "corroboration_required": true,
+            "deception_preferred_routing": false,
+            "elevated_scrutiny": false,
+            "release_not_before": "2026-08-01T17:51:27.088058+00:00",
+            "review_required": true,
+            "sandbox_required": false,
+            "stronger_audit_required": true,
+            "token_narrowing_required": true
+          },
+          "harmonic_obligations": [
+            "manual_review_insufficient_baseline",
+            "corroborate_with_vns_or_identity",
+            "no_auto_privilege"
+          ],
+          "harmonic_shape_reasons": [
+            "moderate_discord_caps_deception_below_mirror_world"
+          ],
+          "harmonic_shaped_requested_mode": "disinformation",
+          "independent_corroboration": {
+            "missing_sources": [],
+            "reasons": [],
+            "required": true,
+            "satisfied": true,
+            "sources": [
+              "aatl",
+              "vns",
+              "governance_evidence"
+            ]
+          },
+          "manifold_signature_valid": true,
+          "notation_token_id": "nt_gauntlet",
+          "outbound_gate_link_required": true,
+          "requested_mode": "mirror_world",
+          "revocation_conditions": [
+            "world_state_hash_drift",
+            "notation_token_revoked",
+            "corroboration_degraded",
+            "manifold_signature_invalid"
+          ],
+          "triune_decision_link_required": true,
+          "world_state_hash": "840eb7aa2a9935de63366bacbe9d97e978a859e93dc792a0334de60ed52f8e99"
+        },
+        "queue_status": "queued"
+      },
+      "name": "outbound_gate_binds_revocable_deception_provenance",
+      "passed": true
+    },
+    {
+      "details": {
+        "controls": {
+          "effective_strictness_level": "critical",
+          "enforcement_profile": {
+            "enforce_required_companions": true,
+            "enforce_sequence_slot": true
+          },
+          "notation_entry_window_ms": [
+            0,
+            60000
+          ],
+          "notation_maximum_uses": 1,
+          "triune_required_by_harmonic": true
+        },
+        "queue_status": "queued"
+      },
+      "name": "harmonic_pressure_tightens_release_controls",
+      "passed": true
+    },
+    {
+      "details": {
+        "deception_case_id": "deception-51d537ea6571",
+        "persisted": true
+      },
+      "name": "deception_case_persistence_and_replayability",
+      "passed": true
+    }
+  ],
+  "score": 1.0,
+  "total": 7
+}

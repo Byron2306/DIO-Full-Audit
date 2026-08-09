@@ -1,0 +1,25 @@
+title: PowerShell Encoded File Decode to Disk
+id: 0h4e5f3g-1c6d-6e9f-0g3h-4d7c8e1f5g6h
+status: experimental
+description: Detects PowerShell decoding encoded content to disk, often used for defense evasion
+references:
+  - https://attack.mitre.org/techniques/T1027/013/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains|all:
+      - '[System.Text.Encoding]::Unicode.GetString('
+      - '[System.IO.File]::WriteAllBytes('
+  condition: selection
+falsepositives:
+  - Legitimate PowerShell scripts that decode and write files
+  - Administrative automation
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.013

@@ -1,0 +1,116 @@
+{
+  "blockers": [],
+  "bundle": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/active_bundle.json",
+  "enforcement_mode": "legacy_inode",
+  "generated_at": "2026-07-28T20:24:13.023849+00:00",
+  "next_safe_commands": [
+    "sudo install -d -m 0755 /etc/arda/policy",
+    "sudo install -m 0644 /home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/active_bundle.json /etc/arda/policy/active_bundle.json",
+    "sudo install -m 0644 /home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/projection-legacy_inode.json /etc/arda/policy/active_projection_plan.json",
+    "sudo ARDA_SOVEREIGN_MODE=1 ./arda_os/bin/arda policy show --json"
+  ],
+  "ok": true,
+  "output_dir": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2",
+  "policy": "/home/byron/Integritas-Mechanicus/arda_os/arda_policy.json",
+  "projection_plan": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/projection-legacy_inode.json",
+  "schema_version": "arda.phase2_controlled_enforcement.v1",
+  "seed_paths": [
+    "/usr/bin/python3",
+    "/usr/bin/sudo",
+    "/usr/bin/bash",
+    "/usr/bin/systemctl",
+    "/usr/bin/ls",
+    "/usr/bin/cat"
+  ],
+  "steps": [
+    {
+      "ok": true,
+      "payload": {
+        "bundle": {
+          "compiled_at": "2026-07-28T20:24:12.956238+00:00",
+          "compiler": {
+            "name": "arda_policy_compiler",
+            "version": "phase5-slice1"
+          },
+          "policy_id": "ARDA-POLICY-V1",
+          "policy_version": "1.1.0",
+          "projections": {
+            "command_allow_index": {
+              "check_health": {
+                "command": "check_health",
+                "effect": "ALLOW",
+                "lanes": [
+                  "Shire"
+                ],
+                "principals": [
+                  "Magos_Indomitus"
+                ]
+              }
+            },
+            "lane_bindings": {
+              "Shire": [
+                "check_health"
+              ]
+            },
+            "principal_bindings": {
+              "Magos_Indomitus": [
+                "check_health"
+              ]
+            },
+            "redline_rules": []
+          },
+          "schema_version": "arda.policy_bundle.v1",
+          "signature": "cfbb410ea8fde025fea1f1c9225e19e8e8f6116185ef975e6abafb01c7ad662b",
+          "source_policy_digest": "sha256:a33ee4c72976693ec6503a03dd1dd02d8712b584ab29a5e6545a813f630e7cc8"
+        },
+        "cwd": "/home/byron/Integritas-Mechanicus/arda_os",
+        "output_path": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/active_bundle.json",
+        "policy_path": "/home/byron/Integritas-Mechanicus/arda_os/arda_policy.json",
+        "verified": true
+      },
+      "raw": "{\n  \"bundle\": {\n    \"compiled_at\": \"2026-07-28T20:24:12.956238+00:00\",\n    \"compiler\": {\n      \"name\": \"arda_policy_compiler\",\n      \"version\": \"phase5-slice1\"\n    },\n    \"policy_id\": \"ARDA-POLICY-V1\",\n    \"policy_version\": \"1.1.0\",\n    \"projections\": {\n      \"command_allow_index\": {\n        \"check_health\": {\n          \"command\": \"check_health\",\n          \"effect\": \"ALLOW\",\n          \"lanes\": [\n            \"Shire\"\n          ],\n          \"principals\": [\n            \"Magos_Indomitus\"\n          ]\n        }\n      },\n      \"lane_bindings\": {\n        \"Shire\": [\n          \"check_health\"\n        ]\n      },\n      \"principal_bindings\": {\n        \"Magos_Indomitus\": [\n          \"check_health\"\n        ]\n      },\n      \"redline_rules\": []\n    },\n    \"schema_version\": \"arda.policy_bundle.v1\",\n    \"signature\": \"cfbb410ea8fde025fea1f1c9225e19e8e8f6116185ef975e6abafb01c7ad662b\",\n    \"source_policy_digest\": \"sha256:a33ee4c72976693ec6503a03dd1dd02d8712b584ab29a5e6545a813f630e7cc8\"\n  },\n  \"cwd\": \"/home/byron/Integritas-Mechanicus/arda_os\",\n  \"output_path\": \"/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/active_bundle.json\",\n  \"policy_path\": \"/home/byron/Integritas-Mechanicus/arda_os/arda_policy.json\",\n  \"verified\": true\n}",
+      "returncode": 0,
+      "step": "compile_signed_policy_bundle"
+    },
+    {
+      "ok": true,
+      "payload": {
+        "bundle_path": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/active_bundle.json",
+        "cwd": "/home/byron/Integritas-Mechanicus/arda_os",
+        "output_path": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/projection-legacy_inode.json",
+        "plan": {
+          "audit": {
+            "command_count": 1,
+            "requested_path_count": 6,
+            "usable_path_count": 6
+          },
+          "bundle_digest": "sha256:49c4cf0a2d3977886cc646daefc1b295edd8bf0a316df132b2c76e02adc6409a",
+          "policy_id": "ARDA-POLICY-V1",
+          "policy_version": "1.1.0",
+          "schema_version": "arda.policy_projection_plan.v1",
+          "source_policy_digest": "sha256:a33ee4c72976693ec6503a03dd1dd02d8712b584ab29a5e6545a813f630e7cc8",
+          "targets": {
+            "constitutional_state": {
+              "policy_generation": "ARDA-POLICY-V1@1.1.0",
+              "redline_rule_count": 0
+            },
+            "enforcement_mode": "legacy_inode",
+            "harmony_allow_paths": [
+              "/usr/bin/bash",
+              "/usr/bin/cat",
+              "/usr/bin/ls",
+              "/usr/bin/python3",
+              "/usr/bin/sudo",
+              "/usr/bin/systemctl"
+            ],
+            "phase3_generation_required": false,
+            "redline_rules": []
+          }
+        }
+      },
+      "raw": "{\n  \"bundle_path\": \"/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/active_bundle.json\",\n  \"cwd\": \"/home/byron/Integritas-Mechanicus/arda_os\",\n  \"output_path\": \"/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/phase2/projection-legacy_inode.json\",\n  \"plan\": {\n    \"audit\": {\n      \"command_count\": 1,\n      \"requested_path_count\": 6,\n      \"usable_path_count\": 6\n    },\n    \"bundle_digest\": \"sha256:49c4cf0a2d3977886cc646daefc1b295edd8bf0a316df132b2c76e02adc6409a\",\n    \"policy_id\": \"ARDA-POLICY-V1\",\n    \"policy_version\": \"1.1.0\",\n    \"schema_version\": \"arda.policy_projection_plan.v1\",\n    \"source_policy_digest\": \"sha256:a33ee4c72976693ec6503a03dd1dd02d8712b584ab29a5e6545a813f630e7cc8\",\n    \"targets\": {\n      \"constitutional_state\": {\n        \"policy_generation\": \"ARDA-POLICY-V1@1.1.0\",\n        \"redline_rule_count\": 0\n      },\n      \"enforcement_mode\": \"legacy_inode\",\n      \"harmony_allow_paths\": [\n        \"/usr/bin/bash\",\n        \"/usr/bin/cat\",\n        \"/usr/bin/ls\",\n        \"/usr/bin/python3\",\n        \"/usr/bin/sudo\",\n        \"/usr/bin/systemctl\"\n      ],\n      \"phase3_generation_required\": false,\n      \"redline_rules\": []\n    }\n  }\n}",
+      "returncode": 0,
+      "step": "compile_projection_plan"
+    }
+  ]
+}

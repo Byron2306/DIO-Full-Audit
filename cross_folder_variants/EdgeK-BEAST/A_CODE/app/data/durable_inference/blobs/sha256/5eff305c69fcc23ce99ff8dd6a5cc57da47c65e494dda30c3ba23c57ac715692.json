@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:5eff305c69fcc23ce99ff8dd6a5cc57da47c65e494dda30c3ba23c57ac715692",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:221a7c386b6523896268092e9b451f4dcca159f7754ed58f8c0cde624ece2468",
+      "response_blob_digest": "sha256:d50ab1c124e93550812b7486be110e862de397645ccbba75990ab221cf0862b0",
+      "response_blob_ref": "blobs/sha256/d50ab1c124e93550812b7486be110e862de397645ccbba75990ab221cf0862b0.json",
+      "response_chars": 2264,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Act as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal. Task: Refactor the selected code for clarity without changing behavior. Allowed files: - app/kernel/compute/compute_forge.py - app/context/economizer.py Return BEAST Action IR JSON only after inspecting the attached files. Use this exact shape: {\\\"kind\\\":",
+      "response_ref": "cache_5148b17db37793e6.answer.json",
+      "response_sha256": "sha256:9229aaf043552c4822ae7389a3181fcb70436c97d10896f54a0d202b92966ae3"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

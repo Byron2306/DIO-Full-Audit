@@ -1,0 +1,28 @@
+title: Lab synthetic InputRedirectionToCanary on tagged canary (honey_input_channel) — T1677
+id: lab-input-redirect-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_input_channel) is observed with the metatron_run_id tag and the
+  expected event_type matches InputRedirectionToCanary. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1677
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1677
+  - lab.canary
+  - lab.edr_input_audit
+logsource:
+  product: lab_audit
+  service: edr_input_audit
+  category: input_redirect
+detection:
+  selection:
+    event_type: 'InputRedirectionToCanary'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

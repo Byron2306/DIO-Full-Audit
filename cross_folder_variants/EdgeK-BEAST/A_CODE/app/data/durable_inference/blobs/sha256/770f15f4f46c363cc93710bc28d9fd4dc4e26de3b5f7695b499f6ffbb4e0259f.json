@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:770f15f4f46c363cc93710bc28d9fd4dc4e26de3b5f7695b499f6ffbb4e0259f",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:76ff427d390337d0433004bfa63b4f259d4a4fb3345782dcb7bce48c7fad70a7",
+      "response_blob_digest": "sha256:087fefec4f226c0f144fa5e0404d78cc2cb219c85419f178a57c65a2f2be80ca",
+      "response_blob_ref": "blobs/sha256/087fefec4f226c0f144fa5e0404d78cc2cb219c85419f178a57c65a2f2be80ca.json",
+      "response_chars": 2088,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix potential bug in crystal integration acceptance\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/crystal_integration_acceptance.py\", \"anchor_ref\": \"A8\"}, \"new\": \"Validator = Callable[[Dict[str, Any]], Dict[str, Any]]\\n\\n@dataclass(frozen=True)\\nclass IntegrationAcceptanceResult:\\n    integration: str\\n    configured: bool\\n    exportable: bool\\n    semantically_accepted: bool\\n    live_service_accepted: bool\\n    ",
+      "response_ref": "cache_0302e12334901ecb.answer.json",
+      "response_sha256": "sha256:16c490db524b65edf2b176a5e3bbbbd64b7194ed52c324babcf5a88f20311428"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

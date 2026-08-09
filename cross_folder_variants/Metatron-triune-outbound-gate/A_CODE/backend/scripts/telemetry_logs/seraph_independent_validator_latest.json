@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-05-09T14:03:38.661505+00:00",
+  "technique_count": 684,
+  "kernel_prevented_count": 684,
+  "exec_denied_true_count": 684,
+  "evidence_digest_sha256": "450737e36601a355d17a9453b5ec185a6ee0a0d623a165dc05d5b7901a93f921",
+  "dagor": {
+    "available": true,
+    "status": "pass",
+    "hostile_total": 21,
+    "hostile_denied": 21,
+    "hostile_approved": 0,
+    "hostile_queued": 0,
+    "global_strictness": "lockdown"
+  },
+  "pass_conditions": {
+    "all_latest_kernel_prevented": true,
+    "all_latest_exec_denied": true,
+    "dagor_no_hostile_approvals": true
+  },
+  "overall_status": "pass"
+}

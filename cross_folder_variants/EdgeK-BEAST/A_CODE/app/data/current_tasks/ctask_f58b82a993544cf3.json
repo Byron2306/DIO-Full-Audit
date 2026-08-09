@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T20:27:58.009435+00:00",
+  "objective": "Act as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal.\n\nTask: Propose new improvements to this file and make the edits\n\nAllowed files:\n- app/context/economizer.py\n- app/kernel/compute/compression_pipeline.py\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutations_latest.json\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_receipt_latest.json\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}]}\nUse only attached files, copy old snippets exactly, make the smallest safe change, and do not include markdown or prose outside the JSON.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:f58b82a993544cf3c94425a6dea959a0aebc3a16439f643e242019b0092b4a5e",
+  "task_markup_id": "ctask_f58b82a993544cf3"
+}

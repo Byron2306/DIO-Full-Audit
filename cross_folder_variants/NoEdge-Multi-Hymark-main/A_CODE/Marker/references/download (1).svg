@@ -1,0 +1,567 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" font-family="Inter, Arial, sans-serif">
+
+  <defs>
+    <style>
+      /* Card styles */
+      .frame { fill:#ffffff; stroke:#1f2937; stroke-width:2; }
+      .sensor { fill:#f8fafc; stroke:#334155; stroke-width:2.2; }
+      .core  { fill:#fff7ed; stroke:#b45309; stroke-width:2.6; }
+      .intel { fill:#eef2ff; stroke:#4338ca; stroke-width:2.4; }
+      .gov   { fill:#ecfeff; stroke:#0e7490; stroke-width:2.6; }
+      .risk  { fill:#fef2f2; stroke:#b91c1c; stroke-width:2.2; }
+      .buzz  { fill:#fffbea; stroke:#a16207; stroke-width:2.2; }
+      .ops   { fill:#f0fdf4; stroke:#15803d; stroke-width:2.2; }
+      .queen { fill:#f5f3ff; stroke:#6d28d9; stroke-width:2.8; }
+      .ui    { fill:#fdf2f8; stroke:#be185d; stroke-width:2.2; }
+
+      /* Header bands */
+      .hdr { opacity:0.09; }
+      .hdrSensor { fill:#334155; }
+      .hdrCore   { fill:#b45309; }
+      .hdrIntel  { fill:#4338ca; }
+      .hdrGov    { fill:#0e7490; }
+      .hdrRisk   { fill:#b91c1c; }
+      .hdrBuzz   { fill:#a16207; }
+      .hdrOps    { fill:#15803d; }
+      .hdrQueen  { fill:#6d28d9; }
+      .hdrUI     { fill:#be185d; }
+      .hdrFrame  { fill:#111827; }
+
+      /* Typography */
+      .title { font-size:18px; font-weight:800; fill:#111827; }
+      .h1 { font-size:15px; font-weight:800; fill:#111827; }
+      .small { font-size:12px; color:#374151; fill:#374151; }
+      .muted { font-size:12px; color:#4b5563; fill:#4b5563; }
+
+      /* Arrows (gutters only) */
+      .arrow { stroke:#374151; stroke-width:2.2; fill:none; marker-end:url(#arrow); }
+      .telemetry { stroke:#6b7280; stroke-width:2.0; fill:none; stroke-dasharray:7 7; marker-end:url(#arrow); }
+      .policy { stroke:#6d28d9; stroke-width:2.6; fill:none; marker-end:url(#arrowPurple); }
+      .policySoft { stroke:#6d28d9; stroke-width:2.4; fill:none; stroke-dasharray:9 8; marker-end:url(#arrowPurple); }
+
+      /* Shadows */
+      .cardShadow { filter:url(#shadow); }
+
+      /* Icon styling */
+      .iStroke { stroke:#111827; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+      .iFill { fill:#111827; }
+      .iAccent { fill:#fbbf24; stroke:#111827; stroke-width:2; }
+    </style>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#111827" flood-opacity="0.12"></feDropShadow>
+    </filter>
+
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"></path>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"></path>
+    </marker>
+
+    <!-- ============ ICON SET (clean, minimal) ============ -->
+
+    <!-- Crown (Queen) -->
+    <symbol id="ico-crown" viewBox="0 0 64 64">
+      <path d="M10 44 L16 20 L28 34 L32 18 L36 34 L48 20 L54 44 Z" class="iAccent"></path>
+      <rect x="14" y="44" width="36" height="10" rx="4" fill="#f5f3ff" stroke="#111827" stroke-width="2"></rect>
+      <circle cx="16" cy="20" r="3" class="iFill"></circle>
+      <circle cx="32" cy="18" r="3" class="iFill"></circle>
+      <circle cx="48" cy="20" r="3" class="iFill"></circle>
+    </symbol>
+
+    <!-- Candles (Market) -->
+    <symbol id="ico-candles" viewBox="0 0 64 64">
+      <line x1="18" y1="10" x2="18" y2="54" class="iStroke"></line>
+      <rect x="12" y="22" width="12" height="20" rx="2" class="iAccent"></rect>
+      <line x1="32" y1="14" x2="32" y2="50" class="iStroke"></line>
+      <rect x="26" y="28" width="12" height="14" rx="2" fill="#ffffff" stroke="#111827" stroke-width="2"></rect>
+      <line x1="46" y1="12" x2="46" y2="52" class="iStroke"></line>
+      <rect x="40" y="18" width="12" height="26" rx="2" class="iAccent"></rect>
+    </symbol>
+
+    <!-- Wallet -->
+    <symbol id="ico-wallet" viewBox="0 0 64 64">
+      <path d="M12 22 h40 a6 6 0 0 1 6 6 v16 a6 6 0 0 1-6 6 H12 a6 6 0 0 1-6-6 V28 a6 6 0 0 1 6-6z" fill="#ffffff" stroke="#111827" stroke-width="2"></path>
+      <path d="M10 22 v-4 a6 6 0 0 1 6-6 h30" class="iStroke"></path>
+      <rect x="40" y="30" width="18" height="12" rx="4" fill="#fbbf24" stroke="#111827" stroke-width="2"></rect>
+      <circle cx="46" cy="36" r="1.8" class="iFill"></circle>
+    </symbol>
+
+    <!-- Network link -->
+    <symbol id="ico-network" viewBox="0 0 64 64">
+      <circle cx="18" cy="32" r="8" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <circle cx="46" cy="18" r="8" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <circle cx="46" cy="46" r="8" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <line x1="24" y1="28" x2="38" y2="22" class="iStroke"></line>
+      <line x1="24" y1="36" x2="38" y2="42" class="iStroke"></line>
+    </symbol>
+
+    <!-- Eye (Oracle) -->
+    <symbol id="ico-eye" viewBox="0 0 64 64">
+      <path d="M6 32 C14 18, 26 12, 32 12 C38 12, 50 18, 58 32 C50 46, 38 52, 32 52 C26 52, 14 46, 6 32Z" fill="#ffffff" stroke="#111827" stroke-width="2"></path>
+      <circle cx="32" cy="32" r="10" class="iAccent"></circle>
+      <circle cx="32" cy="32" r="4" class="iFill"></circle>
+    </symbol>
+
+    <!-- Workers (three dots) -->
+    <symbol id="ico-workers" viewBox="0 0 64 64">
+      <circle cx="18" cy="32" r="8" class="iAccent"></circle>
+      <circle cx="32" cy="32" r="8" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <circle cx="46" cy="32" r="8" class="iAccent"></circle>
+      <path d="M14 48 h36" class="iStroke"></path>
+    </symbol>
+
+    <!-- Gavel (Council) -->
+    <symbol id="ico-gavel" viewBox="0 0 64 64">
+      <rect x="10" y="36" width="28" height="10" rx="3" class="iAccent"></rect>
+      <rect x="18" y="26" width="28" height="10" rx="3" fill="#ffffff" stroke="#111827" stroke-width="2"></rect>
+      <path d="M30 18 L52 40" class="iStroke"></path>
+      <path d="M40 44 L54 58" class="iStroke"></path>
+    </symbol>
+
+    <!-- Hub (Coordinator) -->
+    <symbol id="ico-hub" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="9" class="iAccent"></circle>
+      <circle cx="14" cy="18" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <circle cx="50" cy="18" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <circle cx="14" cy="50" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <circle cx="50" cy="50" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <line x1="20" y1="22" x2="27" y2="27" class="iStroke"></line>
+      <line x1="44" y1="22" x2="37" y2="27" class="iStroke"></line>
+      <line x1="20" y1="46" x2="27" y2="37" class="iStroke"></line>
+      <line x1="44" y1="46" x2="37" y2="37" class="iStroke"></line>
+    </symbol>
+
+    <!-- Shield (SwarmGuard) -->
+    <symbol id="ico-shield" viewBox="0 0 64 64">
+      <path d="M32 8 L52 16 V30 C52 44, 42 54, 32 58 C22 54, 12 44, 12 30 V16 Z" class="iAccent"></path>
+      <path d="M24 32 L30 38 L42 26" class="iStroke"></path>
+    </symbol>
+
+    <!-- Bolt (Execution) -->
+    <symbol id="ico-bolt" viewBox="0 0 64 64">
+      <path d="M36 6 L14 36 H30 L26 58 L50 28 H34 Z" class="iAccent"></path>
+    </symbol>
+
+    <!-- Cross (Nurse) -->
+    <symbol id="ico-cross" viewBox="0 0 64 64">
+      <rect x="26" y="10" width="12" height="44" rx="4" class="iAccent"></rect>
+      <rect x="10" y="26" width="44" height="12" rx="4" class="iAccent"></rect>
+      <circle cx="32" cy="32" r="5" class="iFill"></circle>
+    </symbol>
+
+    <!-- Coin (BUZZ) -->
+    <symbol id="ico-coin" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="22" class="iAccent"></circle>
+      <circle cx="32" cy="32" r="15" fill="#ffffff" stroke="#111827" stroke-width="2"></circle>
+      <path d="M26 37 C28 42, 36 42, 38 37 C40 32, 34 31, 32 30 C30 29, 24 28, 26 23 C28 18, 36 18, 38 23" class="iStroke"></path>
+    </symbol>
+
+    <!-- Screen (UI) -->
+    <symbol id="ico-screen" viewBox="0 0 64 64">
+      <rect x="10" y="14" width="44" height="30" rx="6" fill="#ffffff" stroke="#111827" stroke-width="2"></rect>
+      <path d="M22 50 h20" class="iStroke"></path>
+      <path d="M32 44 v6" class="iStroke"></path>
+      <path d="M18 26 h18" class="iStroke"></path>
+      <path d="M18 32 h12" class="iStroke"></path>
+      <circle cx="44" cy="30" r="5" class="iAccent"></circle>
+    </symbol>
+
+    <!-- Scroll (Logging) -->
+    <symbol id="ico-scroll" viewBox="0 0 64 64">
+      <path d="M18 14 h24 a8 8 0 0 1 8 8 v26 a8 8 0 0 1-8 8 H20 a8 8 0 0 1-8-8 V20 a6 6 0 0 1 6-6z" fill="#ffffff" stroke="#111827" stroke-width="2"></path>
+      <path d="M22 26 h20" class="iStroke"></path>
+      <path d="M22 34 h16" class="iStroke"></path>
+      <path d="M22 42 h18" class="iStroke"></path>
+      <circle cx="18" cy="18" r="3" class="iAccent"></circle>
+    </symbol>
+
+    <!-- Database (Data Store) -->
+    <symbol id="ico-db" viewBox="0 0 64 64">
+      <ellipse cx="32" cy="16" rx="18" ry="7" class="iAccent"></ellipse>
+      <path d="M14 16 v26 c0 4 8 7 18 7 s18-3 18-7 V16" fill="#ffffff" stroke="#111827" stroke-width="2"></path>
+      <ellipse cx="32" cy="42" rx="18" ry="7" fill="#ffffff" stroke="#111827" stroke-width="2"></ellipse>
+      <path d="M18 26 h28" class="iStroke"></path>
+    </symbol>
+
+    <!-- Chart (Performance) -->
+    <symbol id="ico-chart" viewBox="0 0 64 64">
+      <path d="M12 52 V14" class="iStroke"></path>
+      <path d="M12 52 H54" class="iStroke"></path>
+      <path d="M16 44 L26 34 L34 38 L46 24 L52 28" class="iStroke"></path>
+      <circle cx="26" cy="34" r="3" class="iAccent"></circle>
+      <circle cx="46" cy="24" r="3" class="iAccent"></circle>
+    </symbol>
+
+    <!-- Lock (Security) -->
+    <symbol id="ico-lock" viewBox="0 0 64 64">
+      <rect x="16" y="28" width="32" height="26" rx="6" class="iAccent"></rect>
+      <path d="M22 28 v-6 a10 10 0 0 1 20 0 v6" class="iStroke"></path>
+      <circle cx="32" cy="41" r="3" class="iFill"></circle>
+      <path d="M32 44 v6" class="iStroke"></path>
+    </symbol>
+
+    <!-- Stop (KillSwitch) -->
+    <symbol id="ico-stop" viewBox="0 0 64 64">
+      <rect x="16" y="16" width="32" height="32" rx="8" class="iAccent"></rect>
+      <path d="M24 24 L40 40" class="iStroke"></path>
+      <path d="M40 24 L24 40" class="iStroke"></path>
+    </symbol>
+
+  </defs>
+
+  <!-- Title -->
+  <text x="800" y="34" text-anchor="middle" class="title">
+    HIVENANCE — ALL AGENTS MAP (Governance + Risk Evidence + BUZZ)
+  </text>
+
+  <!-- LEGEND (top-left) -->
+  <g class="cardShadow">
+    <rect x="60" y="55" width="750" height="140" rx="16" class="frame"></rect>
+    <rect x="60" y="55" width="750" height="34" rx="16" class="hdrFrame hdr"></rect>
+    <text x="78" y="79" class="h1">Legend</text>
+
+    <foreignObject x="78" y="95" width="720" height="92">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        <div><b>Card colors (layers):</b>
+          Sensors • Oracle/Regime • Signals/Intel • Governance • BUZZ Economics • Ops/Analytics • UI • Queen
+        </div>
+        <div style="margin-top:6px;"><b>Arrows:</b>
+          <b>Solid</b> = live decision flow • <b>Dashed</b> = telemetry/feedback • <b>Purple</b> = Queen policy &amp; governance telemetry
+        </div>
+        <div style="margin-top:6px;"><b>Icons:</b> each card uses a unique symbol (e.g., Shield=SwarmGuard, Bolt=Execution, Coin=BUZZ, Lock=Security).
+        </div>
+        <div style="margin-top:6px;"><b>Layout rule:</b> arrows travel only in gutters (no lines crossing cards).</div>
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- QUEEN (top-right) -->
+  <g class="cardShadow">
+    <rect x="840" y="55" width="700" height="140" rx="16" class="queen"></rect>
+    <rect x="840" y="55" width="700" height="34" rx="16" class="hdrQueen hdr"></rect>
+    <use href="#ico-crown" x="854" y="61" width="26" height="26"></use>
+    <text x="888" y="79" class="h1">Queen Bee (Meta-Governance)</text>
+    <foreignObject x="854" y="95" width="670" height="92">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Reads telemetry (veto rate, drawdown, API health, BUZZ burn) and publishes <b>ruleset_version</b>, <b>Hive State</b> (GREEN/AMBER/RED),
+        caps, quarantines, worker enable/disable, and emergency policy.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- ================= ROW 1 ================= -->
+  <!-- Market -->
+  <g class="cardShadow">
+    <rect x="60" y="210" width="360" height="115" rx="16" class="sensor"></rect>
+    <rect x="60" y="210" width="360" height="34" rx="16" class="hdrSensor hdr"></rect>
+    <use href="#ico-candles" x="74" y="216" width="26" height="26"></use>
+    <text x="108" y="234" class="h1">Market Data Bee</text>
+    <foreignObject x="74" y="252" width="332" height="66">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Streams ticks and builds candles; computes volume &amp; spread. <b>Facts only</b>.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Wallet -->
+  <g class="cardShadow">
+    <rect x="60" y="340" width="360" height="115" rx="16" class="sensor"></rect>
+    <rect x="60" y="340" width="360" height="34" rx="16" class="hdrSensor hdr"></rect>
+    <use href="#ico-wallet" x="74" y="346" width="26" height="26"></use>
+    <text x="108" y="364" class="h1">Wallet Bee</text>
+    <foreignObject x="74" y="382" width="332" height="66">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Balances, exposure, available funds, fee constraints. Feeds sizing checks.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Network -->
+  <g class="cardShadow">
+    <rect x="60" y="470" width="360" height="115" rx="16" class="sensor"></rect>
+    <rect x="60" y="470" width="360" height="34" rx="16" class="hdrSensor hdr"></rect>
+    <use href="#ico-network" x="74" y="476" width="26" height="26"></use>
+    <text x="108" y="494" class="h1">Network Bee</text>
+    <foreignObject x="74" y="512" width="332" height="66">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Latency, websocket stability, API uptime. Produces reliability context.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Oracle -->
+  <g class="cardShadow">
+    <rect x="450" y="210" width="360" height="140" rx="16" class="core"></rect>
+    <rect x="450" y="210" width="360" height="34" rx="16" class="hdrCore hdr"></rect>
+    <use href="#ico-eye" x="464" y="216" width="26" height="26"></use>
+    <text x="498" y="234" class="h1">ORACLE Bee</text>
+    <foreignObject x="464" y="252" width="332" height="90">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Regime detection + hysteresis. Emits <b>REGIME_UPDATE</b> (name, confidence, since_ts).
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Workers -->
+  <g class="cardShadow">
+    <rect x="450" y="360" width="360" height="225" rx="16" class="intel"></rect>
+    <rect x="450" y="360" width="360" height="34" rx="16" class="hdrIntel hdr"></rect>
+    <use href="#ico-workers" x="464" y="366" width="26" height="26"></use>
+    <text x="498" y="384" class="h1">Worker Bees (Signals)</text>
+    <foreignObject x="464" y="402" width="332" height="175">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        <div><b>WORKER-RSI · WORKER-BREAKOUT · WORKER-MOMENTUM</b></div>
+        <div>Each emits <b>WORKER_SIGNAL</b>:</div>
+        <div style="margin-left:12px;">• <b>side</b> BUY/SELL/HOLD</div>
+        <div style="margin-left:12px;">• <b>confidence</b> 0–1</div>
+        <div style="margin-left:12px;">• <b>features</b> (evidence: RSI, breakout level, slope, ATR…)</div>
+        <div style="margin-left:12px;">• <b>risk_tags</b> (e.g., HIGH_SPREAD, LOW_LIQUIDITY)</div>
+        <div style="margin-top:6px;"><b>They propose only</b> — never execute, never override SwarmGuard.</div>
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Council -->
+  <g class="cardShadow">
+    <rect x="840" y="210" width="360" height="170" rx="16" class="gov"></rect>
+    <rect x="840" y="210" width="360" height="34" rx="16" class="hdrGov hdr"></rect>
+    <use href="#ico-gavel" x="854" y="216" width="26" height="26"></use>
+    <text x="888" y="234" class="h1">COUNCIL Bee (SVS)</text>
+    <foreignObject x="854" y="252" width="332" height="120">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Aggregates workers + regime alignment. Emits <b>COUNCIL_DECISION</b> (score, margin, recommendation) and may include
+        <b>risk.metrics</b> (loss_streak, alpha_age).
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Coordinator -->
+  <g class="cardShadow">
+    <rect x="840" y="390" width="360" height="120" rx="16" class="gov"></rect>
+    <rect x="840" y="390" width="360" height="34" rx="16" class="hdrGov hdr"></rect>
+    <use href="#ico-hub" x="854" y="396" width="26" height="26"></use>
+    <text x="888" y="414" class="h1">Coordinator Bee</text>
+    <foreignObject x="854" y="432" width="332" height="70">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Orchestrates cadence, caches latest regime/signals, routes decision objects to enforcement.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- SwarmGuard -->
+  <g class="cardShadow">
+    <rect x="1230" y="210" width="310" height="235" rx="16" class="gov"></rect>
+    <rect x="1230" y="210" width="310" height="34" rx="16" class="hdrGov hdr"></rect>
+    <use href="#ico-shield" x="1244" y="216" width="26" height="26"></use>
+    <text x="1278" y="234" class="h1">SwarmGuard (Enforcer)</text>
+    <foreignObject x="1244" y="252" width="282" height="185">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Merges risk evidence (defaults safe). Evaluates:
+        <b>VETO → SVS gates → regime gates → permit caps</b>.
+        If allowed: locks BUZZ stake (idempotent) and returns <b>risk.triggered[]</b> + evidence snapshot.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Risk Surface -->
+  <g class="cardShadow">
+    <rect x="1230" y="455" width="310" height="130" rx="16" class="risk"></rect>
+    <rect x="1230" y="455" width="310" height="34" rx="16" class="hdrRisk hdr"></rect>
+    <text x="1246" y="479" class="h1">Risk Evidence Surface</text>
+    <foreignObject x="1244" y="497" width="282" height="80">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Captures veto causes (override, API meltdown, order hang), plus strategy health (loss streak, alpha age).
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- ================= ROW 2 ================= -->
+  <!-- Execution -->
+  <g class="cardShadow">
+    <rect x="840" y="520" width="360" height="165" rx="16" class="intel"></rect>
+    <rect x="840" y="520" width="360" height="34" rx="16" class="hdrIntel hdr"></rect>
+    <use href="#ico-bolt" x="854" y="526" width="26" height="26"></use>
+    <text x="888" y="544" class="h1">Execution Bee</text>
+    <foreignObject x="854" y="562" width="332" height="115">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Calls <b>/rules/enforce</b> with <b>request_id</b> + runtime metrics:
+        <i>api_failures_60s</i>, <i>order_unconfirmed_ms</i>, <i>override_*</i>.
+        Places orders only within SwarmGuard permit.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- UI -->
+  <g class="cardShadow">
+    <rect x="450" y="595" width="360" height="120" rx="16" class="ui"></rect>
+    <rect x="450" y="595" width="360" height="34" rx="16" class="hdrUI hdr"></rect>
+    <use href="#ico-screen" x="464" y="601" width="26" height="26"></use>
+    <text x="498" y="619" class="h1">UI / Dashboard</text>
+    <foreignObject x="464" y="637" width="332" height="70">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        “SwarmGuard Card” shows permit, BUZZ receipt, and <b>risk.triggered</b> + evidence snapshot. Includes manual stop.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Logging -->
+  <g class="cardShadow">
+    <rect x="60" y="595" width="360" height="100" rx="16" class="ops"></rect>
+    <rect x="60" y="595" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <use href="#ico-scroll" x="74" y="601" width="26" height="26"></use>
+    <text x="108" y="619" class="h1">Logging Bee</text>
+    <foreignObject x="74" y="637" width="332" height="50">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Append-only events: signals, decisions, enforcement, orders, fills, risk triggers.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Data Store -->
+  <g class="cardShadow">
+    <rect x="60" y="705" width="360" height="100" rx="16" class="ops"></rect>
+    <rect x="60" y="705" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <use href="#ico-db" x="74" y="711" width="26" height="26"></use>
+    <text x="108" y="729" class="h1">Data Store Bee</text>
+    <foreignObject x="74" y="747" width="332" height="50">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Persists candles/features, decisions/enforcements, orders/fills, worker stats, regimes.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Performance -->
+  <g class="cardShadow">
+    <rect x="450" y="725" width="360" height="115" rx="16" class="ops"></rect>
+    <rect x="450" y="725" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <use href="#ico-chart" x="464" y="731" width="26" height="26"></use>
+    <text x="498" y="749" class="h1">Performance Bee</text>
+    <foreignObject x="464" y="767" width="332" height="65">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Aggregates metrics (drawdown, expectancy, veto rate by rule, drift). Feeds Queen + Council tuning.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- NURSE -->
+  <g class="cardShadow">
+    <rect x="840" y="695" width="360" height="145" rx="16" class="ops"></rect>
+    <rect x="840" y="695" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <use href="#ico-cross" x="854" y="701" width="26" height="26"></use>
+    <text x="888" y="719" class="h1">NURSE Bee</text>
+    <foreignObject x="854" y="737" width="332" height="95">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Post-trade review + learning. Updates <i>worker_loss_streak</i> and <i>alpha_age_minutes</i>. Feeds Council/Performance.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- BUZZ -->
+  <g class="cardShadow">
+    <rect x="1230" y="595" width="310" height="160" rx="16" class="buzz"></rect>
+    <rect x="1230" y="595" width="310" height="34" rx="16" class="hdrBuzz hdr"></rect>
+    <use href="#ico-coin" x="1244" y="601" width="26" height="26"></use>
+    <text x="1278" y="619" class="h1">BUZZ Service</text>
+    <foreignObject x="1244" y="637" width="282" height="110">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Ledger (available/locked). Atomic + idempotent writes.
+        Supports <b>LOCK</b>, <b>RELEASE</b>, <b>SLASH</b>. Receipts power UI + settlement.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Security -->
+  <g class="cardShadow">
+    <rect x="1230" y="765" width="310" height="75" rx="16" class="ops"></rect>
+    <rect x="1230" y="765" width="310" height="34" rx="16" class="hdrOps hdr"></rect>
+    <use href="#ico-lock" x="1244" y="771" width="26" height="26"></use>
+    <text x="1278" y="789" class="h1">Security Bee</text>
+    <foreignObject x="1244" y="807" width="282" height="28">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        HMAC/JWT S2S auth · key vaulting · audit integrity.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- KillSwitch -->
+  <g class="cardShadow">
+    <rect x="840" y="845" width="700" height="55" rx="16" class="risk"></rect>
+    <rect x="840" y="845" width="700" height="34" rx="16" class="hdrRisk hdr"></rect>
+    <use href="#ico-stop" x="854" y="851" width="26" height="26"></use>
+    <text x="888" y="869" class="h1">KillSwitch Bee</text>
+    <text x="1120" y="869" class="small">Emergency stop: GLOBAL_DENY · freeze symbol · halt execution</text>
+  </g>
+
+  <!-- ================= GUTTER-ONLY ARROWS ================= -->
+  <!-- Gutters: x=435, x=825, x=1215 -->
+
+  <!-- Market -> Oracle -->
+  <path class="arrow" d="M420 265 L435 265 L435 255 L450 255"></path>
+
+  <!-- Market -> Workers -->
+  <path class="arrow" d="M420 295 L435 295 L435 420 L450 420"></path>
+
+  <!-- Oracle -> Council -->
+  <path class="arrow" d="M810 270 L825 270 L825 260 L840 260"></path>
+
+  <!-- Workers -> Council -->
+  <path class="arrow" d="M810 470 L825 470 L825 335 L840 335"></path>
+
+  <!-- Council -> Coordinator -->
+  <path class="arrow" d="M1020 380 L1020 390"></path>
+
+  <!-- Coordinator -> Execution -->
+  <path class="arrow" d="M1020 510 L1020 520"></path>
+
+  <!-- Wallet -> Execution (telemetry) -->
+  <path class="telemetry" d="M420 398 L435 398 L435 605 L825 605 L825 575 L840 575"></path>
+
+  <!-- Network -> Execution (telemetry) -->
+  <path class="telemetry" d="M420 528 L435 528 L435 625 L825 625 L825 600 L840 600"></path>
+
+  <!-- Execution -> SwarmGuard (/rules/enforce) -->
+  <path class="arrow" d="M1200 600 L1215 600 L1215 305 L1230 305"></path>
+
+  <!-- SwarmGuard -> Risk Surface (telemetry) -->
+  <path class="telemetry" d="M1385 445 L1385 455"></path>
+
+  <!-- SwarmGuard -> BUZZ -->
+  <path class="arrow" d="M1385 585 L1385 595"></path>
+
+  <!-- SwarmGuard -> UI (telemetry) -->
+  <path class="telemetry" d="M1230 520 L1215 520 L1215 585 L825 585 L825 655 L810 655"></path>
+
+  <!-- Execution -> Logging (telemetry) -->
+  <path class="telemetry" d="M840 650 L825 650 L825 585 L435 585 L435 645 L420 645"></path>
+
+  <!-- Execution -> Data Store (telemetry) -->
+  <path class="telemetry" d="M840 670 L825 670 L825 585 L435 585 L435 755 L420 755"></path>
+
+  <!-- BUZZ -> Data Store (telemetry) -->
+  <path class="telemetry" d="M1230 675 L1215 675 L1215 585 L435 585 L435 755 L420 755"></path>
+
+  <!-- Nurse -> Performance (telemetry) -->
+  <path class="telemetry" d="M840 770 L825 770 L825 780 L810 780"></path>
+
+  <!-- Performance -> Queen (policy telemetry) -->
+  <path class="policySoft" d="M810 780 L825 780 L825 200 L980 200 L980 195"></path>
+
+  <!-- Queen -> SwarmGuard (policy) -->
+  <path class="policy" d="M1200 125 L1215 125 L1215 210 L1385 210"></path>
+
+  <!-- SwarmGuard telemetry -> Queen -->
+  <path class="policySoft" d="M1540 270 L1560 270 L1560 200 L980 200 L980 195"></path>
+
+  <!-- SwarmGuard -> KillSwitch -->
+  <path class="telemetry" d="M1540 310 L1560 310 L1560 830 L1215 830 L1215 872 L840 872"></path>
+
+  <!-- UI manual stop -> KillSwitch -->
+  <path class="telemetry" d="M810 655 L825 655 L825 872 L840 872"></path>
+
+  <!-- Security "wraps" SwarmGuard + BUZZ + Execution (telemetry cues only) -->
+  <path class="telemetry" d="M1385 765 L1385 755 L1215 755 L1215 305 L1230 305"></path>
+  <path class="telemetry" d="M1385 765 L1385 755 L1215 755 L1215 600 L1200 600"></path>
+
+</svg>

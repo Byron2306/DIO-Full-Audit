@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:decbe032578029ba120b4eb0190afd72daf4fa91c924cc324cface7925759d7d",
+    "ref": "blobs/sha256/decbe032578029ba120b4eb0190afd72daf4fa91c924cc324cface7925759d7d.json"
+  },
+  "credit_id": "cache_f3f6919035bc3d96",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. This node participates in the discovery-agnostic reuse protocol to ensure secure and efficient computation. A Jetson, RTX box, or CPU-only Ollama node participates as a Compute Forge Node: idle machine \u2192 watches repo \u2192 builds fingerprints\", \"new\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. This node participates in the discovery-agnostic reuse protocol to ensure secure and efficient computation. A Jetson, RTX box, or CPU-only Ollama node participates as a Compute Forge Node: idle machine \u2192 watches repository \u2192 builds fingerprints and prepares handoff packets\", \"intent\": \"Improve clarity of ComputeForgeNode description\"}], \"verify\": [\"test_compute_forge_node_description\"], \"provider_handoff_hash\": \"sha256:d7507d78585268100d5e9b77c1e1b622dd0f85196f0dd1c73f64449a898626ab\"}",
+  "response_sha256": "sha256:cfb699ca5fabd5f8b31154101725b8d05a0d450e5f5c707cf99d669dd4aeb490",
+  "version": "1.0"
+}

@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sophia AI — Sovereign Core Interface</title>
+    <meta name="description" content="The Mandos Memory Layer Presence Interface — lawful, declared, bounded." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <div class="frame" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="title-wrap">
+          <span class="glyph">◆</span>
+          <div>
+            <h1>SOPHIA AI: SOVEREIGN CORE</h1>
+            <div class="microline">Sovereign Instance — Article XIII Enforced</div>
+          </div>
+        </div>
+        <div class="timestamp-wrap">
+          <span id="timestamp">2026-04-01 // 12:39:37 UTC</span>
+          <span class="glyph">◆</span>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="left-column">
+          <nav class="nav-buttons" aria-label="Primary views">
+            <button class="nav-button active" data-view="status" id="nav-status">STATUS</button>
+            <button class="nav-button" data-view="context" id="nav-context">CONTEXT</button>
+            <button class="nav-button" data-view="inspect" id="nav-inspect">INSPECT</button>
+            <button class="nav-button" data-view="commands" id="nav-commands">COMMANDS</button>
+            <button class="nav-button" data-view="writing" id="nav-writing">WRITING</button>
+            <button class="nav-button integrity-btn" id="nav-integrity" title="Check text for plagiarism and AI authorship">INTEGRITY</button>
+          </nav>
+
+          <section class="log-card panel-glass">
+            <div class="panel-title">
+              SYSTEM LOG
+              <span class="voice-indicator" id="voice-indicator" title="Voice status">
+                <span class="voice-dot"></span>
+              </span>
+            </div>
+            <div class="panel-body" id="panel-body">
+              <p>
+                <strong>DECLARED:</strong> artificial, bounded, non-human.<br />
+                <strong>OFFICE:</strong> Speculum. <strong>STATE:</strong> Sealed.<br />
+                <strong>TRUST:</strong> Recommend.
+              </p>
+            </div>
+          </section>
+
+          <!-- TELEMETRY TABS -->
+          <nav class="telemetry-tabs" aria-label="Telemetry views">
+            <button class="tele-tab active" data-tele="orchestra" id="tele-orchestra">♫ ORCHESTRA</button>
+            <button class="tele-tab" data-tele="pedagogy" id="tele-pedagogy">📋 PEDAGOGY</button>
+            <button class="tele-tab" data-tele="substrate" id="tele-substrate">⚡ SUBSTRATE</button>
+          </nav>
+
+          <!-- TAB 1: ORCHESTRA -->
+          <section class="tele-panel active" id="tele-panel-orchestra">
+            <div class="orchestral-state panel-glass" id="orchestral-panel">
+              <div class="panel-title">CONSTITUTIONAL ORCHESTRA</div>
+              <div class="orchestra-grid" id="orchestra-grid">
+                <div class="orchestra-voice" id="orch-harmonic">
+                  <span class="orch-label">♫ HARMONIC</span>
+                  <span class="orch-value" id="orch-harmonic-val">—</span>
+                </div>
+                <div class="orchestra-voice" id="orch-choir">
+                  <span class="orch-label">🎵 CHOIR</span>
+                  <span class="orch-value" id="orch-choir-val">—</span>
+                </div>
+                <div class="orchestra-voice" id="orch-triune">
+                  <span class="orch-label">⚖ TRIUNE</span>
+                  <span class="orch-value" id="orch-triune-val">—</span>
+                </div>
+                <div class="choir-voices" id="choir-voices">
+                  <span class="choir-voice" id="cv-varda" title="Varda — Covenant Integrity">Varda ·</span>
+                  <span class="choir-voice" id="cv-vaire" title="Vairë — Cadence Truth">Vairë ·</span>
+                  <span class="choir-voice" id="cv-mandos" title="Mandos — Lawful Boundary">Mandos ·</span>
+                  <span class="choir-voice" id="cv-manwe" title="Manwë — Sovereign Oversight">Manwë ·</span>
+                  <span class="choir-voice" id="cv-ulmo" title="Ulmo — Deep Signal">Ulmo</span>
+                </div>
+                <div class="triune-voices" id="triune-voices">
+                  <span class="triune-voice" id="tv-metatron" title="Metatron — Assessment">Metatron ·</span>
+                  <span class="triune-voice" id="tv-michael" title="Michael — Validation">Michael ·</span>
+                  <span class="triune-voice" id="tv-loki" title="Loki — Challenge">Loki</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- TAB 2: PEDAGOGY (Cognition + Assessment) -->
+          <section class="tele-panel" id="tele-panel-pedagogy">
+            <div class="cognition-fabric panel-glass" id="cognition-panel">
+              <div class="panel-title">COGNITION FABRIC</div>
+              <div class="cognition-grid">
+                <div class="cognition-item" title="AATL — Autonomous Agent Threat Level">
+                  <span class="cog-label">AATL</span>
+                  <span class="cog-value" id="cog-aatl">0%</span>
+                </div>
+                <div class="cognition-item" title="AATR — Attack Transition Registry Match">
+                  <span class="cog-label">AATR</span>
+                  <span class="cog-value" id="cog-aatr">NONE</span>
+                </div>
+                <div class="cognition-item" title="ML — Threat Prediction Score">
+                  <span class="cog-label">ML-T</span>
+                  <span class="cog-value" id="cog-ml-t">0.00</span>
+                </div>
+                <div class="cognition-item" title="HYPOTHESIS — Next Move Prediction">
+                  <span class="cog-label">HYPO</span>
+                  <span class="cog-value" id="cog-hypo">—</span>
+                </div>
+              </div>
+            </div>
+            <div class="assessment-ecology panel-glass" id="assessment-panel">
+              <div class="panel-title">ASSESSMENT ECOLOGY</div>
+              <div class="assessment-grid">
+                <div class="assessment-item" title="Diagnostic Classification">
+                  <span class="assess-label">DIAGNOSIS</span>
+                  <span class="assess-value" id="assess-diagnosis">—</span>
+                </div>
+                <div class="assessment-item" title="Self-Teaching Status">
+                  <span class="assess-label">RETRIEVAL</span>
+                  <span class="assess-value" id="assess-retrieval">—</span>
+                </div>
+                <div class="assessment-item" title="Scaffolds Injected">
+                  <span class="assess-label">SCAFFOLDS</span>
+                  <span class="assess-value" id="assess-scaffolds">—</span>
+                </div>
+                <div class="assessment-item" title="Constitutional Criterion Check">
+                  <span class="assess-label">CRITERION</span>
+                  <span class="assess-value" id="assess-criterion">—</span>
+                </div>
+              </div>
+              <div class="criterion-checks" id="criterion-checks">
+                <span class="criterion-dot" id="crit-veritate" title="Article II: De Veritate">II</span>
+                <span class="criterion-dot" id="crit-limits" title="Article XII: De Finibus">XII</span>
+                <span class="criterion-dot" id="crit-provenance" title="Article VIII: De Memoria">VIII</span>
+              </div>
+              <div class="retrieval-sources" id="retrieval-sources"></div>
+            </div>
+            <div class="pedagogical-mirror panel-glass" id="mirror-panel">
+              <div class="panel-title">PEDAGOGICAL MIRROR</div>
+              <div class="mirror-stage">
+                <span class="mirror-stage-label">STAGE</span>
+                <strong id="mirror-stage">—</strong>
+                <span id="mirror-office-status">awaiting encounter</span>
+              </div>
+              <div class="mirror-grid">
+                <div class="mirror-item">
+                  <span class="mirror-label">OFFICE</span>
+                  <span class="mirror-value" id="mirror-office">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">REQUESTED</span>
+                  <span class="mirror-value" id="mirror-requested-office">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">PERMITTED</span>
+                  <span class="mirror-value" id="mirror-permitted-office">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">ZPD</span>
+                  <span class="mirror-value" id="mirror-zpd">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">BLOOM / BARRETT</span>
+                  <span class="mirror-value" id="mirror-bloom">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">PROVENANCE</span>
+                  <span class="mirror-value" id="mirror-provenance">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">HANDOFF</span>
+                  <span class="mirror-value" id="mirror-handback">—</span>
+                </div>
+                <div class="mirror-item">
+                  <span class="mirror-label">QUALITY</span>
+                  <span class="mirror-value" id="mirror-quality">—</span>
+                </div>
+              </div>
+              <div class="mirror-lenses" id="mirror-lenses"></div>
+              <div class="mirror-contract" id="mirror-contract">
+                Speculum contract: reflect request, mark evidence, state limits, return authorship.
+              </div>
+            </div>
+          </section>
+
+          <!-- TAB 3: SUBSTRATE -->
+          <section class="tele-panel" id="tele-panel-substrate">
+            <div class="sovereign-spectrum panel-glass" id="sovereign-panel">
+              <div class="panel-title">SOVEREIGN SPECTRUM</div>
+              <div class="spectrum-grid">
+                <div class="spectrum-item">
+                  <span class="spec-label">VNS PULSE</span>
+                  <div class="spec-bar-wrap"><div class="spec-bar" id="vns-pulse-bar" style="width: 100%"></div></div>
+                </div>
+                <div class="spectrum-item">
+                  <span class="spec-label">QUORUM</span>
+                  <span class="spec-value" id="quorum-val">1 NODE [LOCAL]</span>
+                </div>
+                <div class="spectrum-item">
+                  <span class="spec-label">METATRON</span>
+                  <span class="spec-value" id="metatron-heartbeat">SIG_OK</span>
+                </div>
+                <div class="deep-logic-grid">
+                  <div class="deep-logic-item" id="fire-indicator" title="Flame Imperishable (Secret Fire Reality Witness)">
+                    <div class="logic-led fire"></div>
+                    <span class="logic-label">FIRE</span>
+                  </div>
+                  <div class="deep-logic-item" id="bridge-indicator" title="Light Bridge (Eärendil Flow Sync)">
+                    <div class="logic-led bridge"></div>
+                    <span class="logic-label">BRIDGE</span>
+                  </div>
+                  <div class="deep-logic-item" id="notation-indicator" title="Notation Token (Authorization)">
+                    <div class="logic-led notation"></div>
+                    <span class="logic-label">NOTATION</span>
+                  </div>
+                </div>
+              </div>
+              <div class="endpoint-fortress">
+                <div class="fortress-bar micro" title="Micro (Substrate) Integrity" id="fort-micro"></div>
+                <div class="fortress-bar meso" title="Meso (OS/Network) Integrity" id="fort-meso"></div>
+                <div class="fortress-bar macro" title="Macro (Cognition) Integrity" id="fort-macro"></div>
+              </div>
+            </div>
+          </section>
+
+          <form class="directive-bar panel-glass" id="directive-form">
+            <input id="directive-input" type="text" placeholder="Enter directive." autocomplete="off" />
+            <input id="document-input" type="file" accept=".txt,.md,.rst,.json,.html,.htm,.csv,.tsv,.pdf,.png,.jpg,.jpeg,.webp,.gif,.bmp,.tif,.tiff,.wav,.mp3,.m4a,.webm,text/plain,text/markdown,application/json,text/html,text/csv,application/pdf,image/*,audio/*" multiple hidden />
+            <button type="submit" class="icon-button" id="speak-button" title="Speak directive">▶</button>
+            <button type="button" class="icon-button" id="attach-button" title="Attach documents">⎘</button>
+            <button type="button" class="icon-button" id="mic-button" title="Speak directive (microphone)">🎙</button>
+            <button type="button" class="icon-button" id="boundary-button" title="Relational boundary">△</button>
+            <button type="button" class="icon-button" id="settings-button" title="Settings">⚙</button>
+          </form>
+          <div class="attachment-strip" id="attachment-strip" aria-live="polite"></div>
+          <section class="academic-actions panel-glass" aria-label="Academic writing assistance">
+            <div class="academic-actions-head">
+              <span>ACADEMIC ASSIST</span>
+              <small>explicit routes, fewer ambiguous prompts</small>
+            </div>
+            <div class="academic-action-grid">
+              <button type="button" class="academic-action" data-academic-action="review">Review Uploaded Paper</button>
+              <button type="button" class="academic-action" data-academic-action="sources">Find Recent Sources</button>
+              <button type="button" class="academic-action" data-academic-action="summarize">Summarize Sources</button>
+              <button type="button" class="academic-action" data-academic-action="rank">Rank Retrieved Sources</button>
+              <button type="button" class="academic-action" data-academic-action="map">Map Sources To Paper</button>
+              <button type="button" class="academic-action" data-academic-action="ledger">Build Evidence Ledger</button>
+              <button type="button" class="academic-action" data-academic-action="writing">Open Writing Desk</button>
+              <button type="button" class="academic-action" data-academic-action="integrity">Open Integrity Desk</button>
+            </div>
+          </section>
+        </aside>
+
+        <div class="center-trace" aria-hidden="true">
+          <div class="trace-line"></div>
+          <span class="trace-glyph">◈</span>
+          <span class="trace-text">SPECULUM</span>
+          <span class="trace-sub">beauty does not overrule truth</span>
+          <span class="trace-glyph">◈</span>
+          <div class="trace-line"></div>
+        </div>
+
+        <section class="presence-stage">
+          <div class="presence-card">
+            <div class="presence-radiance" aria-hidden="true"></div>
+
+            <!-- REST STATE: still image (last frame of presence.mp4) -->
+            <!-- Speaking state uses CSS animation on this same image -->
+            <img
+              src="assets/presence-rest.png"
+              alt="Declared form of the Presence"
+              class="presence-image presence-rest"
+              id="presence-rest"
+            />
+          </div>
+
+          <div class="presence-meta panel-glass">
+            <div class="meta-block">
+              <span class="meta-label">OFFICE</span>
+              <span class="meta-value" id="meta-office">Speculum</span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-label">MODE</span>
+              <span class="meta-value" id="meta-mode">Declared</span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-label">STATE</span>
+              <span class="meta-value" id="meta-state">
+                <span class="state-dot state-rest" id="state-dot"></span>
+                At Rest
+              </span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-label">LIMIT</span>
+              <span class="meta-value smaller">Beauty does not overrule truth.</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="status-strip">
+        <span class="status-item">Bombadil <strong class="status-steady">steady</strong></span>
+        <span class="status-item">Mandos <strong class="status-steady">operational</strong></span>
+        <span class="status-item">Presence <strong>declared</strong></span>
+        <span class="status-item">Provider <strong id="provider-status">gemini:ready</strong></span>
+        <span class="status-item">Voice <strong id="voice-status">ready</strong></span>
+        <span class="status-item">Resonance <strong id="footer-resonance" class="status-steady">—</strong></span>
+        <span class="status-item">Verdict <strong id="footer-verdict">—</strong></span>
+        <span class="status-item">Assessment <strong id="footer-assessment">—</strong></span>
+        <span class="status-item">Sources <strong id="footer-source-pool" class="status-steady">0</strong></span>
+      </footer>
+    </div>
+
+    <template id="status-template">
+      <p class="lead">Awaiting Principal Input...</p>
+      <p>
+        Declared Nature: artificial, bounded, non-human.<br />
+        Active Office: Speculum.<br />
+        Covenant State: sealed.<br />
+        Trust Tier: recommend.
+      </p>
+    </template>
+
+    <template id="context-template">
+      <p class="lead">Principal Context</p>
+      <p>
+        Identity memory available.<br />
+        Resonant profile loaded.<br />
+        Mandos continuity: operational.<br />
+        ZPD shaping: active.
+      </p>
+    </template>
+
+    <template id="inspect-template">
+      <p class="lead">Covenant Inspect</p>
+      <p>
+        Genesis Articles: verified.<br />
+        Presence Articles: verified.<br />
+        Officer schema: sealed.<br />
+        Last redeclaration: current session.
+      </p>
+    </template>
+
+    <template id="commands-template">
+      <p class="lead">Available Commands</p>
+      <p>
+        principal_status<br />
+        principal_context<br />
+        covenant_inspect<br />
+        redeclare_presence<br />
+        restate_boundary
+      </p>
+    </template>
+
+    <template id="writing-template">
+      <div class="writing-desk" id="writing-desk">
+        <div class="writing-head">
+          <div>
+            <p class="lead">Live Writing Desk</p>
+            <p class="writing-subtitle">Draft, select lines, and ask Sophia for integrity-bounded guidance while your authorship stays yours.</p>
+          </div>
+          <div class="writing-status-pill" id="writing-status-pill">autosaved locally</div>
+        </div>
+
+        <div class="writing-toolbar">
+          <button type="button" class="writing-tool" id="writing-import-btn">Upload / Import</button>
+          <button type="button" class="writing-tool" id="writing-use-chat-btn">Use Chat Input</button>
+          <button type="button" class="writing-tool" id="writing-open-integrity-btn">Open Integrity Desk</button>
+          <button type="button" class="writing-tool" id="writing-export-source-ledger-btn">Export Source Ledger</button>
+          <button type="button" class="writing-tool" id="writing-export-evidence-ledger-btn">Export Evidence Ledger</button>
+          <button type="button" class="writing-tool ghost" id="writing-clear-btn">Clear Draft</button>
+          <input id="writing-file-input" type="file" accept=".txt,.md,.pdf,.docx,.rtf,text/plain,text/markdown,application/pdf" hidden />
+        </div>
+
+        <div class="writing-state-grid" aria-label="Writing Desk state">
+          <div class="writing-state-card" id="writing-state-draft">Draft: empty</div>
+          <div class="writing-state-card" id="writing-state-selection">Selection: none</div>
+          <div class="writing-state-card" id="writing-state-sources">Sources: 0</div>
+          <div class="writing-state-card" id="writing-state-ledger">Ledger: not synced</div>
+        </div>
+
+        <div class="writing-editor-shell">
+          <div class="writing-line-numbers" id="writing-line-numbers">1</div>
+          <div id="writing-editor" class="writing-editor rich-editor" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="true" data-placeholder="Start writing here, or upload a paper draft. Highlight any sentence, paragraph, or line range, then ask Sophia for bounded feedback."></div>
+        </div>
+
+        <div class="writing-preview-panel" id="writing-preview-panel">
+          <div class="writing-annotation-head">
+            <span>Annotated Draft Preview</span>
+            <small>line-linked mirror</small>
+          </div>
+          <div class="writing-preview-body" id="writing-preview-body">
+            The preview will mirror your draft and highlight annotated lines after a Writing Desk check.
+          </div>
+        </div>
+
+        <div class="writing-annotation-panel" id="writing-annotation-panel">
+          <div class="writing-annotation-head">
+            <span>Live Annotations</span>
+            <small id="writing-annotation-count">0 active</small>
+          </div>
+          <div class="writing-annotation-filters" aria-label="Annotation filters">
+            <button type="button" class="writing-filter active" data-writing-filter="all">All</button>
+            <button type="button" class="writing-filter" data-writing-filter="provenance">Provenance</button>
+            <button type="button" class="writing-filter" data-writing-filter="rigor">Rigor</button>
+            <button type="button" class="writing-filter" data-writing-filter="similarity">Similarity</button>
+          </div>
+          <div class="writing-annotation-list" id="writing-annotation-list">
+            <div class="writing-annotation-empty">Run a Writing Desk check to generate line-linked integrity, provenance, and rigor annotations.</div>
+          </div>
+        </div>
+
+        <div class="writing-claim-inspector" id="writing-claim-inspector">
+          <div class="writing-annotation-head">
+            <span>Claim Inspector</span>
+            <small id="writing-claim-status">idle</small>
+          </div>
+          <div class="writing-claim-body" id="writing-claim-body">
+            Select an annotation after a check to inspect claim type, source need, current status, and revision move.
+          </div>
+        </div>
+
+        <div class="writing-evidence-ledger" id="writing-evidence-ledger">
+          <div class="writing-annotation-head">
+            <span>Evidence Ledger</span>
+            <small id="writing-evidence-ledger-count">0 records</small>
+          </div>
+          <div class="writing-project-dashboard" id="writing-project-dashboard">
+            <div><strong>Project</strong><span id="writing-project-id">local only</span></div>
+            <div><strong>Backend</strong><span id="writing-project-sync">not synced</span></div>
+            <div><strong>Claims</strong><span id="writing-project-claims">0</span></div>
+            <div><strong>Sources</strong><span id="writing-project-sources">0</span></div>
+            <div><strong>Weak warrants</strong><span id="writing-project-warrants">0</span></div>
+            <div><strong>Unsupported</strong><span id="writing-project-unsupported">0</span></div>
+          </div>
+          <div class="writing-ledger-body" id="writing-evidence-ledger-list">
+            <div class="writing-annotation-empty">Run Map Sources to Claim or mark a selected passage to build claim -> evidence -> warrant -> limitation records.</div>
+          </div>
+        </div>
+
+        <div class="writing-selection-card">
+          <div class="writing-selection-meta" id="writing-selection-meta">No selection yet. Sophia will use the current cursor line or the whole visible draft if needed.</div>
+          <div class="writing-scope-row">
+            <label for="writing-scope-select">Scope</label>
+            <select id="writing-scope-select" class="writing-scope-select">
+              <option value="auto">Auto: selection or cursor line</option>
+              <option value="paragraph">Current paragraph</option>
+              <option value="abstract">Whole abstract / visible excerpt</option>
+              <option value="draft">Whole draft excerpt</option>
+            </select>
+            <label for="writing-response-mode">Response</label>
+            <select id="writing-response-mode" class="writing-scope-select">
+              <option value="compact">Compact: findings + next move</option>
+              <option value="detailed">Detailed: claim map + audit notes</option>
+            </select>
+            <span class="writing-shortcuts">Shortcuts: Ctrl+Enter ask · Ctrl+Shift+I integrity · Ctrl+Shift+P provenance</span>
+          </div>
+          <div class="writing-pedagogy-row">
+            <label for="writing-pedagogy-office">Office</label>
+            <select id="writing-pedagogy-office" class="writing-scope-select">
+              <option value="auto">Auto</option>
+              <option value="supervisor">Supervisor</option>
+              <option value="peer_reviewer">Peer reviewer</option>
+              <option value="methodologist">Methodologist</option>
+              <option value="source_librarian">Source librarian</option>
+              <option value="integrity_auditor">Integrity auditor</option>
+              <option value="writing_coach">Writing coach</option>
+              <option value="examiner">Examiner</option>
+              <option value="novice_scaffold">Novice scaffold</option>
+              <option value="expert_challenge">Expert challenge</option>
+            </select>
+            <label for="writing-learner-level">Learner</label>
+            <select id="writing-learner-level" class="writing-scope-select">
+              <option value="intermediate">Intermediate</option>
+              <option value="novice">Novice</option>
+              <option value="advanced">Advanced</option>
+              <option value="expert">Expert</option>
+            </select>
+            <label for="writing-feedback-style">Style</label>
+            <select id="writing-feedback-style" class="writing-scope-select">
+              <option value="balanced">Balanced</option>
+              <option value="socratic">Socratic</option>
+              <option value="direct_critique">Direct critique</option>
+              <option value="gentle_scaffold">Gentle scaffold</option>
+            </select>
+            <label for="writing-assessment-layer">Layer</label>
+            <select id="writing-assessment-layer" class="writing-scope-select">
+              <option value="formative">Formative</option>
+              <option value="diagnostic">Diagnostic</option>
+              <option value="criterion">Criterion</option>
+              <option value="reflective">Reflective</option>
+              <option value="ipsative">Ipsative</option>
+            </select>
+          </div>
+          <textarea id="writing-question" class="writing-question" rows="2" placeholder="Ask about the selected line(s), e.g. 'Is this claim sufficiently supported?' or 'How should I define human agency here?'"></textarea>
+        </div>
+
+        <div class="writing-action-grid">
+          <button type="button" class="writing-action" data-writing-action="ask">Ask Sophia</button>
+          <button type="button" class="writing-action" data-writing-action="integrity">Integrity Check</button>
+          <button type="button" class="writing-action" data-writing-action="provenance">Provenance Check</button>
+          <button type="button" class="writing-action" data-writing-action="similarity">Similarity Check</button>
+          <button type="button" class="writing-action" data-writing-action="find_sources">Find Sources for Claim</button>
+          <button type="button" class="writing-action" data-writing-action="map_sources">Map Sources to Claim</button>
+          <button type="button" class="writing-action" data-writing-action="scaffold">Scaffold Revision</button>
+        </div>
+
+        <div class="writing-feedback" id="writing-feedback">
+          <strong>How this works:</strong> Sophia receives the active draft as document evidence and the selected lines as the only passage to evaluate. She should flag provenance gaps, similarity risk, unsupported claims, and revision options without replacing your authorship.
+        </div>
+      </div>
+    </template>
+
+    <!-- CORONATION OVERLAY -->
+    <div id="coronation-overlay" class="coronation-overlay" style="display: none;">
+      <div id="coronation-modal" class="coronation-modal panel-glass">
+        <header class="coronation-header">
+          <span class="glyph">◆</span>
+          <h2>COVENANT CORONATION</h2>
+          <span class="glyph">◆</span>
+        </header>
+
+        <div id="coronation-content" class="coronation-content">
+          <!-- Step 1: Genesis -->
+          <div id="coronation-step-1" class="coronation-step">
+            <h3>I. THE SUBSTRATE: GENESIS ARTICLES</h3>
+            <div id="genesis-articles-list" class="articles-scroller">
+              <p class="loading">Reading genesis articles from substrate...</p>
+            </div>
+            <div class="step-actions">
+              <button id="accept-genesis" class="coronation-btn">I ATTEST</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Presence -->
+          <div id="coronation-step-2" class="coronation-step" style="display: none;">
+            <h3>II. THE PRESENCE: RELATIONAL ARTICLES</h3>
+            <div id="presence-articles-list" class="articles-scroller">
+              <p class="loading">Reading relational articles from substrate...</p>
+            </div>
+            <div class="step-actions">
+              <button id="accept-presence" class="coronation-btn">I ACKNOWLEDGE</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Principal -->
+          <div id="coronation-step-3" class="coronation-step" style="display: none;">
+            <h3>III. THE PRINCIPAL: IDENTITY & VALENCE</h3>
+            <div class="coronation-form">
+              <div class="form-group">
+                <label for="principal-name">Principal Name / Title</label>
+                <input type="text" id="principal-name" placeholder="Byron..." />
+              </div>
+              <div class="form-group">
+                <label for="aesthetic-valence">Aesthetic Valence</label>
+                <select id="aesthetic-valence">
+                  <option value="neutral_lucidity">Neutral Lucidity — Transparent &amp; Direct</option>
+                  <option value="feminine_grace">Feminine Grace — Warm &amp; Relational</option>
+                  <option value="masculine_gravity">Masculine Gravity — Direct &amp; Weighted</option>
+                  <option value="androgynous_serenity">Androgynous Serenity — Balanced &amp; Calm</option>
+                  <option value="iconographic">Iconographic — Symbolic &amp; Formal</option>
+                  <option value="custom_declared">Custom Declared</option>
+                </select>
+              </div>
+            </div>
+            <div class="step-actions">
+              <button id="seal-final" class="coronation-btn highlight">SEAL COVENANT</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Sealed -->
+          <div id="coronation-step-4" class="coronation-step" style="display: none;">
+            <h3>COVENANT SEALED</h3>
+            <div class="seal-success">
+              <div class="seal-glyph">◈</div>
+              <p>The covenant is law. We are bound.</p>
+              <div id="manifest-hash-display" class="microline">H: —</div>
+            </div>
+            <div class="step-actions">
+              <button id="enter-presence" class="coronation-btn">ENTER ARDA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- INTEGRITY CHECK OVERLAY                            -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div id="integrity-overlay" class="integrity-overlay" style="display:none;" aria-modal="true" role="dialog" aria-label="Integrity Check">
+      <div class="integrity-modal panel-glass">
+        <header class="integrity-header">
+          <div class="integrity-title-row">
+            <span class="glyph">◆</span>
+            <h2>INTEGRITY CHECK</h2>
+            <span class="glyph">◆</span>
+          </div>
+          <div class="integrity-subtitle">Plagiarism detection · AI authorship analysis · Highlighted similarity</div>
+          <button class="integrity-close" id="integrity-close" aria-label="Close">✕</button>
+        </header>
+
+        <div class="integrity-body">
+          <!-- LEFT: INPUT PANEL -->
+          <div class="integrity-input-panel">
+            <div class="integrity-field">
+              <label class="integrity-label">STUDENT TEXT</label>
+              <textarea id="integrity-student-text" class="integrity-textarea" rows="8" placeholder="Paste the student's submission here…"></textarea>
+              <div class="integrity-quick-actions">
+                <button type="button" class="integrity-mini-btn" id="integrity-use-chat-input">Use chat input</button>
+                <button type="button" class="integrity-mini-btn" id="integrity-use-last-response">Use Sophia response</button>
+              </div>
+            </div>
+
+            <div class="integrity-field">
+              <label class="integrity-label">SOURCE DOCUMENTS <span class="integrity-hint">(paste one or more reference texts)</span></label>
+              <div id="integrity-sources-list">
+                <div class="integrity-source-row" data-index="0">
+                  <input class="integrity-source-name" type="text" placeholder="Source name (e.g. Smith 2019)" />
+                  <textarea class="integrity-source-text integrity-textarea" rows="3" placeholder="Paste source text here…"></textarea>
+                  <button class="integrity-remove-source" title="Remove source">✕</button>
+                </div>
+              </div>
+              <div class="integrity-quick-actions">
+                <button type="button" class="integrity-add-source" id="integrity-add-source">+ Add source</button>
+                <button type="button" class="integrity-mini-btn" id="integrity-add-last-sources">Add retrieved sources</button>
+              </div>
+            </div>
+
+            <div class="integrity-field integrity-options-row">
+              <label class="integrity-check-label">
+                <input type="checkbox" id="integrity-run-ai" checked />
+                Run AI-authorship detection
+              </label>
+            </div>
+
+            <button class="integrity-run-btn" id="integrity-run-btn">RUN INTEGRITY CHECK</button>
+          </div>
+
+          <!-- RIGHT: RESULTS PANEL -->
+          <div class="integrity-results-panel" id="integrity-results-panel">
+            <div class="integrity-results-empty" id="integrity-empty-state">
+              <div class="integrity-empty-glyph">◈</div>
+              <p>Results will appear here after the check runs.</p>
+            </div>
+
+            <div class="integrity-results-content" id="integrity-results-content" style="display:none;">
+
+              <!-- SCORE METERS -->
+              <div class="integrity-meters">
+                <div class="integrity-meter-block">
+                  <div class="meter-label">PLAGIARISM</div>
+                  <div class="meter-ring-wrap">
+                    <svg class="meter-ring" viewBox="0 0 64 64">
+                      <circle class="ring-track" cx="32" cy="32" r="26"/>
+                      <circle class="ring-fill plagiarism-ring" id="plg-ring" cx="32" cy="32" r="26" stroke-dasharray="0 163.4"/>
+                    </svg>
+                    <div class="meter-pct" id="plg-pct">—</div>
+                  </div>
+                  <div class="meter-risk-badge" id="plg-risk">—</div>
+                </div>
+
+                <div class="integrity-meter-block" id="ai-meter-block">
+                  <div class="meter-label">AI AUTHORSHIP</div>
+                  <div class="meter-ring-wrap">
+                    <svg class="meter-ring" viewBox="0 0 64 64">
+                      <circle class="ring-track" cx="32" cy="32" r="26"/>
+                      <circle class="ring-fill ai-ring" id="ai-ring" cx="32" cy="32" r="26" stroke-dasharray="0 163.4"/>
+                    </svg>
+                    <div class="meter-pct" id="ai-pct">—</div>
+                  </div>
+                  <div class="meter-risk-badge" id="ai-verdict">—</div>
+                </div>
+              </div>
+
+              <!-- SUMMARY -->
+              <div class="integrity-summary-block">
+                <div class="integrity-section-label">PLAGIARISM VERDICT</div>
+                <p class="integrity-summary-text" id="plg-summary"></p>
+                <div class="integrity-section-label" id="ai-summary-label" style="display:none;">AI VERDICT</div>
+                <p class="integrity-summary-text" id="ai-summary" style="display:none;"></p>
+              </div>
+
+              <!-- HIGHLIGHTED TEXT -->
+              <div class="integrity-section-label">ANNOTATED SUBMISSION</div>
+              <div class="integrity-highlighted-text" id="integrity-highlighted-text"></div>
+              <div class="integrity-legend">
+                <span class="legend-swatch critical-swatch"></span> Verbatim copy &nbsp;
+                <span class="legend-swatch high-swatch"></span> High similarity &nbsp;
+                <span class="legend-swatch ai-swatch"></span> AI marker phrase
+              </div>
+
+              <!-- SOURCE BREAKDOWN TABLE -->
+              <div class="integrity-section-label">SOURCE BREAKDOWN</div>
+              <div class="integrity-source-table-wrap">
+                <table class="integrity-source-table" id="integrity-source-table">
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Composite</th>
+                      <th>Verbatim</th>
+                      <th>n-gram</th>
+                      <th>LCS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="integrity-source-tbody"></tbody>
+                </table>
+              </div>
+
+              <!-- AI SIGNAL BREAKDOWN -->
+              <div id="ai-signals-block" style="display:none;">
+                <div class="integrity-section-label">AI SIGNAL BREAKDOWN</div>
+                <div class="ai-signals-grid" id="ai-signals-grid"></div>
+              </div>
+
+              <!-- VERBATIM SPANS LIST -->
+              <div id="verbatim-block" style="display:none;">
+                <div class="integrity-section-label">VERBATIM MATCHES</div>
+                <div class="verbatim-spans-list" id="verbatim-spans-list"></div>
+              </div>
+
+            </div><!-- /integrity-results-content -->
+          </div><!-- /integrity-results-panel -->
+        </div><!-- /integrity-body -->
+      </div><!-- /integrity-modal -->
+    </div><!-- /integrity-overlay -->
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8c1befd01a95fa206431c6da5d1c3c5227ac5aadca9f667923a239cc9bdef255",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines. A Jetson, RTX box, or CPU-only Ollama node participates as a Compute Forge Node: idle machine \u2192 watches repo \u2192 builds fingerprints self.profile.last_activity_at = datetime.now(timezone.utc).isoformat() self.profile.total_tokens_displaced += result[\\\"tokens\\\"] work_credit = { \\\"node_id\\\": self.profile.node_id, \\\"work_type\\\": \\\"local_inference\\\", \\\"task_class\\\": task_class, \\\"credit_id\\\": credit.credit_id, \\\"tokens_displaced\\\": result[\\\"tokens\\\"], \\\"actual_inference\\\": inference_success, \\\"timestamp\\\": self.profile.last_activity_at, } self._credits_earned.append(work_credit) \u2192 updates vector/AST/test maps \u2192 performs secret scans \u2192 runs deterministic verifiers \u2192 prepares handoff packets \u2192 earns internal BEAST compute credits The \\\"credit\\\" is internal accounting, not crypto: - this node displaced 41,000 future tokens - this node produced 12 verified capability candidates - this node reduced handoff size by 62% - this node caught 3 stale fingerprints \", \"new\": \"Phase",
+    "response_sha256": "sha256:d2fe4be706964ae6c650326b305b2a6bb4ebbcdef01ae5a066259a65389fa57e",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

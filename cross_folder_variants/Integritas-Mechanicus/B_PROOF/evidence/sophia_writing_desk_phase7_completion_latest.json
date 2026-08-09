@@ -1,0 +1,308 @@
+{
+  "suite": "sophia_writing_desk_phase7_completion",
+  "timestamp": "2026-08-03T20:06:22.303533+00:00",
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "pass_rate": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "cite_visible_page_returns_lead",
+      "passed": true,
+      "result": {
+        "status": "page_citation_lead",
+        "page_number": 1,
+        "source_name": "paper.txt",
+        "page_locator": "p. 1",
+        "citation_lead": "paper.txt, p. 1",
+        "quote_leads": [
+          {
+            "span_id": "S1",
+            "quote": "Page 1\nThe study defines agency as meaningful human choice and visible provenance.",
+            "locator": "p. 1",
+            "parser": "plain_text"
+          }
+        ],
+        "warnings": [
+          "figure_or_caption_text_only_no_native_vision",
+          "table_structure_uncertain_without_table_parser"
+        ],
+        "integrity_rule": "This is a citation lead for human verification, not a finalized reference."
+      }
+    },
+    {
+      "case_id": "cite_missing_page_refuses_invention",
+      "passed": true,
+      "result": {
+        "status": "page_citation_unavailable",
+        "page_number": 9,
+        "citation_lead": "",
+        "quote_leads": [],
+        "warnings": [
+          "figure_or_caption_text_only_no_native_vision",
+          "table_structure_uncertain_without_table_parser",
+          "requested page has no extracted spans; do not invent page evidence"
+        ],
+        "integrity_rule": "No page citation may be suggested without visible page/span evidence."
+      }
+    },
+    {
+      "case_id": "vision_status_text_only_for_figure_without_provider",
+      "passed": true,
+      "result": {
+        "method": "document_inspection_vision_readiness",
+        "status": "text_or_ocr_only_for_visual_material",
+        "native_vision_enabled": false,
+        "provider": "",
+        "model": "gemini-3.1-flash-lite",
+        "gemini": {
+          "provider": "gemini",
+          "model": "gemini-3.1-flash-lite",
+          "enabled": false,
+          "configured": false,
+          "status": "missing_key_or_provider"
+        },
+        "figure_signal": true,
+        "warnings": [
+          "figure_or_caption_text_only_no_native_vision",
+          "table_structure_uncertain_without_table_parser"
+        ],
+        "integrity_rule": "Do not interpret images, charts, or diagrams beyond extracted text/OCR unless a native vision model is explicitly active."
+      }
+    },
+    {
+      "case_id": "four_table_parsers_available",
+      "passed": true,
+      "result": {
+        "method": "multi_parser_structured_table_extraction",
+        "tables_detected": 4,
+        "tables": [
+          {
+            "source_name": "csv",
+            "parser": "stdlib_csv_tsv",
+            "headers": [
+              "a",
+              "b",
+              "c"
+            ],
+            "rows": [
+              {
+                "a": "1",
+                "b": "2",
+                "c": "3"
+              }
+            ],
+            "row_count_detected": 1,
+            "column_count_detected": 3,
+            "page": "",
+            "table_index": 1,
+            "cell_citations": [
+              {
+                "source_name": "csv",
+                "parser": "stdlib_csv_tsv",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 1,
+                "header": "a",
+                "value": "1",
+                "locator": "table 1, row 1, column 1 (a)",
+                "citation_lead": "csv, table 1, row 1, column 1 (a)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "csv",
+                "parser": "stdlib_csv_tsv",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 2,
+                "header": "b",
+                "value": "2",
+                "locator": "table 1, row 1, column 2 (b)",
+                "citation_lead": "csv, table 1, row 1, column 2 (b)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "csv",
+                "parser": "stdlib_csv_tsv",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 3,
+                "header": "c",
+                "value": "3",
+                "locator": "table 1, row 1, column 3 (c)",
+                "citation_lead": "csv, table 1, row 1, column 3 (c)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              }
+            ],
+            "truncated": false,
+            "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+          },
+          {
+            "source_name": "md",
+            "parser": "markdown_pipe_table",
+            "headers": [
+              "a",
+              "b"
+            ],
+            "rows": [
+              {
+                "a": "1",
+                "b": "2"
+              }
+            ],
+            "row_count_detected": 1,
+            "column_count_detected": 2,
+            "page": "",
+            "table_index": 1,
+            "cell_citations": [
+              {
+                "source_name": "md",
+                "parser": "markdown_pipe_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 1,
+                "header": "a",
+                "value": "1",
+                "locator": "table 1, row 1, column 1 (a)",
+                "citation_lead": "md, table 1, row 1, column 1 (a)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "md",
+                "parser": "markdown_pipe_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 2,
+                "header": "b",
+                "value": "2",
+                "locator": "table 1, row 1, column 2 (b)",
+                "citation_lead": "md, table 1, row 1, column 2 (b)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              }
+            ],
+            "truncated": false,
+            "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+          },
+          {
+            "source_name": "html",
+            "parser": "html_table",
+            "headers": [
+              "a",
+              "b"
+            ],
+            "rows": [
+              {
+                "a": "1",
+                "b": "2"
+              }
+            ],
+            "row_count_detected": 1,
+            "column_count_detected": 2,
+            "page": "",
+            "table_index": 1,
+            "cell_citations": [
+              {
+                "source_name": "html",
+                "parser": "html_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 1,
+                "header": "a",
+                "value": "1",
+                "locator": "table 1, row 1, column 1 (a)",
+                "citation_lead": "html, table 1, row 1, column 1 (a)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "html",
+                "parser": "html_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 2,
+                "header": "b",
+                "value": "2",
+                "locator": "table 1, row 1, column 2 (b)",
+                "citation_lead": "html, table 1, row 1, column 2 (b)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              }
+            ],
+            "truncated": false,
+            "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+          },
+          {
+            "source_name": "fixed",
+            "parser": "fixed_width_text_table",
+            "headers": [
+              "a",
+              "b",
+              "c"
+            ],
+            "rows": [
+              {
+                "a": "1",
+                "b": "2",
+                "c": "3"
+              }
+            ],
+            "row_count_detected": 1,
+            "column_count_detected": 3,
+            "page": "",
+            "table_index": 1,
+            "cell_citations": [
+              {
+                "source_name": "fixed",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 1,
+                "header": "a",
+                "value": "1",
+                "locator": "table 1, row 1, column 1 (a)",
+                "citation_lead": "fixed, table 1, row 1, column 1 (a)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "fixed",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 2,
+                "header": "b",
+                "value": "2",
+                "locator": "table 1, row 1, column 2 (b)",
+                "citation_lead": "fixed, table 1, row 1, column 2 (b)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              },
+              {
+                "source_name": "fixed",
+                "parser": "fixed_width_text_table",
+                "page": "",
+                "table_index": 1,
+                "row": 1,
+                "column": 3,
+                "header": "c",
+                "value": "3",
+                "locator": "table 1, row 1, column 3 (c)",
+                "citation_lead": "fixed, table 1, row 1, column 3 (c)",
+                "integrity_rule": "Cell citation is a verification lead; inspect the original table before final submission."
+              }
+            ],
+            "truncated": false,
+            "integrity_rule": "Parsed table cells are evidence leads; statistical claims still need method, denominator, and extraction checks."
+          }
+        ]
+      }
+    }
+  ]
+}

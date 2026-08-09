@@ -1,0 +1,78 @@
+{
+  "arda_observed_run_timestamp": "20260428_142529",
+  "arkime": {
+    "claim": "Arkime JSON enumerates PCAP filenames, sizes, and packet stats. Do not claim forensic replay for this tarball unless actual PCAP files are included.",
+    "compressed_bytes_max": 191361530,
+    "forensic_replay_ready": false,
+    "json_records": 12,
+    "packaged_pcap_count": 0,
+    "packet_stats_total_packets_max": 1200000,
+    "referenced_packaged_pcap_count": 0,
+    "referenced_pcap_count": 97
+  },
+  "artifacts": {
+    "arda_observed_run_timestamp": "20260428_142529",
+    "bundle_checked": "metatron_evidence_bundle_20260428T155428.tar.gz",
+    "bundle_contains_actual_pcaps": false,
+    "classification_report": "metatron_honest_tvr_classification_20260428T155428.json",
+    "falco_dedup_summary": "artifacts/evidence/falco/falco_dedup_summary_20260428T155428.json",
+    "generated_at": "2026-04-28T22:37:08.075328+00:00",
+    "notes": [
+      "Observed K0 is separated from deductive K2 support.",
+      "Sigma matches are ATT&CK tag coverage records, not live event-stream detections.",
+      "ClamAV confirms scan enumeration only when infected_count is zero.",
+      "Arkime forensic replay requires packaged PCAP files."
+    ],
+    "public_summary": "metatron_public_claim_summary_20260428T155428.json",
+    "schema": "metatron_sigma_run_manifest.v1",
+    "sigma_mapping_summary": "sigma_mapping_summary.json",
+    "sigma_matches_dir": "sigma_matches",
+    "sigma_rules_dir": "sigma_rules"
+  },
+  "clamav": {
+    "can_certify_maliciousness": false,
+    "claim": "ClamAV confirms scan enumeration. It found no malware signatures in these payload files and is not evidence of maliciousness.",
+    "files_scanned": 516,
+    "infected_count": 0,
+    "records": 516
+  },
+  "classification_technique_count": 695,
+  "deductive_k2_support_count": 11,
+  "falco": {
+    "authoritative_alerts": 1616,
+    "authoritative_deduplicated_groups": 257,
+    "claim": "Use run_records as the file-enumeration count and the latest harvester summary's groups_found/mapped_alerts as the authoritative deduplicated alert counts.",
+    "raw_alerts_reparsed_from_available_json": 35373,
+    "run_records": 916,
+    "secondary_reparse_groups": 609
+  },
+  "generated_at": "2026-04-28T22:37:08.070213+00:00",
+  "legacy_technique_count": 691,
+  "missing_in_legacy_but_observed_k0": [
+    "T1547.011",
+    "T1562.005",
+    "T1574.002",
+    "T1574.003"
+  ],
+  "observed_k0_count": 654,
+  "public_claim_centerpiece": "654 observed K0 kernel denials in the 20260428_142529 ARDA run",
+  "schema": "metatron_honest_classification_summary.v2",
+  "sigma": {
+    "generated_at": "2026-04-28T22:37:08.066467+00:00",
+    "match_semantics": "coverage_by_attack_tag_not_live_event_match",
+    "matches_out": "sigma_matches",
+    "observed_k0_techniques": 654,
+    "rules_out": "sigma_rules",
+    "schema": "metatron_sigma_mapping_summary.v1",
+    "sigma_rule_files_packaged": 3098,
+    "sigma_rule_technique_records": 4155,
+    "sigma_source_dir": "backend/sigma_rules",
+    "techniques_with_sigma_coverage": 517,
+    "techniques_without_sigma_coverage": 137
+  },
+  "tier_distribution": {
+    "platinum": 654,
+    "support_only": 40,
+    "unclassified": 1
+  }
+}

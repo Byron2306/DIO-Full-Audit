@@ -1,0 +1,17 @@
+{
+  "node_is_isolated": true,
+  "protected_asset_blocked_during_isolation": true,
+  "remediation_endpoint_allowed_during_isolation": true,
+  "bad_quorum_vote_rejected": true,
+  "bad_recovery_witness_rejected": true,
+  "lawful_witness_accepted": true,
+  "node_re_admitted": true,
+  "quorum_returns_lawful": true,
+  "recovery_recorded_in_ledger": true,
+  "wireguard_allowedips_restricted_during_isolation": true,
+  "wireguard_allowedips_restored_after_recovery": true,
+  "network_routes_restored_after_recovery": true,
+  "metatron_heartbeat_continuous": true,
+  "quorum_metrics_show_strain_then_lawful": true,
+  "pcap_has_payload_packets": true
+}

@@ -1,0 +1,162 @@
+{
+  "schema": "knowedge.free_media_preview.v1",
+  "created_at": "2026-08-07T16:37:24+00:00",
+  "episode_id": "homs-c32b49867157b9ad",
+  "provider_requested": "edge",
+  "provider_selected": "edge",
+  "music_mode": "procedural_placeholder",
+  "transition": {
+    "type": "scene_audio_video_fade",
+    "requested_seconds": 0.55,
+    "applied_seconds": 0.275
+  },
+  "visual_motion": {
+    "type": "slow_pan_crop",
+    "scale": "1366x768 cropped to 1280x720",
+    "note": "Adds subtle camera movement to reduce static slide-deck feel."
+  },
+  "output": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/free_preview.mp4",
+  "duration_seconds": 66.021,
+  "scene_count": 6,
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "card_id": "01_hook",
+      "provider": "edge-tts",
+      "duration_seconds": 8.0,
+      "fade_in_seconds": 0,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_right",
+        "crop_x": "(iw-ow)*min(max(n/240,0),1)",
+        "crop_y": "(ih-oh)*0.28"
+      },
+      "visual_source": "imports/visuals/01_hook.png",
+      "frame": "free_media_preview/frames/00_scene_01.png",
+      "voice": "free_media_preview/voice/00_scene_01.wav",
+      "music": "free_media_preview/music/00_scene_01.wav",
+      "segment": "free_media_preview/segments/00_scene_01.mp4",
+      "music_source": {
+        "provider": "procedural_ffmpeg",
+        "source": "generated_rhythmic_tech_bed",
+        "rights_status": "project_owned_placeholder"
+      }
+    },
+    {
+      "scene_id": "scene_02",
+      "card_id": "02_pain",
+      "provider": "edge-tts",
+      "duration_seconds": 12.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_left",
+        "crop_x": "(iw-ow)*(1-min(max(n/360,0),1))",
+        "crop_y": "(ih-oh)*0.34"
+      },
+      "visual_source": "imports/visuals/02_pain.png",
+      "frame": "free_media_preview/frames/01_scene_02.png",
+      "voice": "free_media_preview/voice/01_scene_02.wav",
+      "music": "free_media_preview/music/01_scene_02.wav",
+      "segment": "free_media_preview/segments/01_scene_02.mp4",
+      "music_source": {
+        "provider": "procedural_ffmpeg",
+        "source": "generated_rhythmic_tech_bed",
+        "rights_status": "project_owned_placeholder"
+      }
+    },
+    {
+      "scene_id": "scene_03",
+      "card_id": "03_workflow",
+      "provider": "edge-tts",
+      "duration_seconds": 14.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_down",
+        "crop_x": "(iw-ow)*0.44",
+        "crop_y": "(ih-oh)*min(max(n/420,0),1)"
+      },
+      "visual_source": "imports/visuals/03_workflow.png",
+      "frame": "free_media_preview/frames/02_scene_03.png",
+      "voice": "free_media_preview/voice/02_scene_03.wav",
+      "music": "free_media_preview/music/02_scene_03.wav",
+      "segment": "free_media_preview/segments/02_scene_03.mp4",
+      "music_source": {
+        "provider": "procedural_ffmpeg",
+        "source": "generated_rhythmic_tech_bed",
+        "rights_status": "project_owned_placeholder"
+      }
+    },
+    {
+      "scene_id": "scene_04",
+      "card_id": "04_promise",
+      "provider": "edge-tts",
+      "duration_seconds": 14.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_up",
+        "crop_x": "(iw-ow)*0.56",
+        "crop_y": "(ih-oh)*(1-min(max(n/420,0),1))"
+      },
+      "visual_source": "imports/visuals/04_promise.png",
+      "frame": "free_media_preview/frames/03_scene_04.png",
+      "voice": "free_media_preview/voice/03_scene_04.wav",
+      "music": "free_media_preview/music/03_scene_04.wav",
+      "segment": "free_media_preview/segments/03_scene_04.mp4",
+      "music_source": {
+        "provider": "procedural_ffmpeg",
+        "source": "generated_rhythmic_tech_bed",
+        "rights_status": "project_owned_placeholder"
+      }
+    },
+    {
+      "scene_id": "scene_05",
+      "card_id": "05_boundary",
+      "provider": "edge-tts",
+      "duration_seconds": 10.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0.275,
+      "visual_motion": {
+        "type": "slow_pan_right",
+        "crop_x": "(iw-ow)*min(max(n/300,0),1)",
+        "crop_y": "(ih-oh)*0.28"
+      },
+      "visual_source": "imports/visuals/05_boundary.png",
+      "frame": "free_media_preview/frames/04_scene_05.png",
+      "voice": "free_media_preview/voice/04_scene_05.wav",
+      "music": "free_media_preview/music/04_scene_05.wav",
+      "segment": "free_media_preview/segments/04_scene_05.mp4",
+      "music_source": {
+        "provider": "procedural_ffmpeg",
+        "source": "generated_rhythmic_tech_bed",
+        "rights_status": "project_owned_placeholder"
+      }
+    },
+    {
+      "scene_id": "scene_06",
+      "card_id": "06_cta",
+      "provider": "edge-tts",
+      "duration_seconds": 8.0,
+      "fade_in_seconds": 0.275,
+      "fade_out_seconds": 0,
+      "visual_motion": {
+        "type": "slow_pan_left",
+        "crop_x": "(iw-ow)*(1-min(max(n/240,0),1))",
+        "crop_y": "(ih-oh)*0.34"
+      },
+      "visual_source": "imports/visuals/06_cta.png",
+      "frame": "free_media_preview/frames/05_scene_06.png",
+      "voice": "free_media_preview/voice/05_scene_06.wav",
+      "music": "free_media_preview/music/05_scene_06.wav",
+      "segment": "free_media_preview/segments/05_scene_06.mp4",
+      "music_source": {
+        "provider": "procedural_ffmpeg",
+        "source": "generated_rhythmic_tech_bed",
+        "rights_status": "project_owned_placeholder"
+      }
+    }
+  ],
+  "note": "Free preview output for editorial review. Replace voice and music with approved assets before public release if needed."
+}

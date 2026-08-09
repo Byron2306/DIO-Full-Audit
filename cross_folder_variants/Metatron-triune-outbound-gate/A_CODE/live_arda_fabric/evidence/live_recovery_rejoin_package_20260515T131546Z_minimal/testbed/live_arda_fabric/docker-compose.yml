@@ -1,0 +1,93 @@
+services:
+  seraph-controller:
+    build:
+      context: .
+      dockerfile: Dockerfile.python-service
+    container_name: seraph-controller
+    environment:
+      APP_MODULE: controller_app
+    cap_add:
+      - NET_ADMIN
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.2
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  node-a-sacrificial:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-a-sacrificial
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.11
+
+  node-b-witness:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-b-witness
+    cap_add:
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.12
+
+  node-c-quorum:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-c-quorum
+    cap_add:
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.13
+
+  protected-fake-vault:
+    build:
+      context: .
+      dockerfile: Dockerfile.python-service
+    container_name: protected-fake-vault
+    environment:
+      APP_MODULE: asset_app
+      ASSET_NAME: protected-fake-vault
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.10.10
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  remediation-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.python-service
+    container_name: remediation-service
+    environment:
+      APP_MODULE: asset_app
+      ASSET_NAME: remediation-service
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.20.10
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+networks:
+  arda-fabric-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.77.0.0/16

@@ -1,0 +1,20 @@
+title: Suspicious PowerShell Encoded Command
+id: 2e6ec264-c349-4f9f-acac-5f5f223622a1
+status: stable
+description: Detects PowerShell execution with encoded commands often used for payload staging.
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - powershell
+      - -enc
+  condition: selection
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.t1559
+  - attack.t1559.003
+  - attack.t1651

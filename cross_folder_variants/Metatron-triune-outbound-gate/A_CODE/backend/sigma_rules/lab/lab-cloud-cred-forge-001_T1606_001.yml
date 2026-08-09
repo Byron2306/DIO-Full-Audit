@@ -1,0 +1,28 @@
+title: Lab synthetic CreateLoginProfile on tagged canary (honey_iam_user) — T1606.001
+id: lab-cloud-cred-forge-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_iam_user) is observed with the metatron_run_id tag and the
+  expected event_type matches CreateLoginProfile. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1606/001
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1606.001
+  - lab.canary
+  - lab.cloudtrail
+logsource:
+  product: lab_audit
+  service: cloudtrail
+  category: cloud_creds
+detection:
+  selection:
+    event_type: 'CreateLoginProfile'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

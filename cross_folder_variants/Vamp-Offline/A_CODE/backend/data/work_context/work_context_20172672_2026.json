@@ -1,0 +1,335 @@
+{
+  "committees": [
+    {
+      "active_months": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aliases": [
+        "SMC",
+        "school management committee",
+        "school management"
+      ],
+      "evidence_types": [
+        "calendar attendance",
+        "agenda",
+        "minutes",
+        "action email"
+      ],
+      "name": "School Management Committee",
+      "status": "active"
+    },
+    {
+      "active_months": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aliases": [
+        "SG",
+        "sg meeting",
+        "subject group",
+        "subject group meeting",
+        "History Education"
+      ],
+      "evidence_types": [
+        "calendar attendance",
+        "agenda",
+        "minutes",
+        "action email"
+      ],
+      "name": "Subject Group meetings",
+      "status": "active"
+    },
+    {
+      "active_months": [
+        3,
+        7,
+        9
+      ],
+      "aliases": [
+        "faculty forum",
+        "forum",
+        "faculty meeting"
+      ],
+      "evidence_types": [
+        "calendar attendance",
+        "agenda",
+        "minutes"
+      ],
+      "name": "Faculty Forums",
+      "status": "active_if_attended"
+    },
+    {
+      "active_months": [
+        3,
+        7,
+        9
+      ],
+      "aliases": [
+        "mentorship",
+        "OER mentorship"
+      ],
+      "evidence_types": [
+        "calendar attendance",
+        "meeting email",
+        "mentorship notes"
+      ],
+      "name": "Mentorship meetings",
+      "status": "active_if_attended"
+    }
+  ],
+  "interview_notes": [
+    "Seeded by VAMP from Byron discussion on contextual expectations. Staff should confirm/edit in UI before locking expectations."
+  ],
+  "projects": [
+    {
+      "active_months": [
+        1,
+        2,
+        3
+      ],
+      "aliases": [
+        "AI GBL",
+        "AI and GBL",
+        "GBL",
+        "game-based learning",
+        "game based learning",
+        "gamification",
+        "gamified learning",
+        "play-based learning",
+        "playful learning",
+        "serious games",
+        "VAMP",
+        "SERAPH",
+        "agentic AI",
+        "AI system",
+        "software prototype",
+        "invention disclosure",
+        "technology disclosure",
+        "IP disclosure",
+        "D2026",
+        "D2026-164",
+        "tech transfer",
+        "commercialisation"
+      ],
+      "collaborators": [
+        "Prof. Martha Matashu",
+        "Prof. Josef de Beer",
+        "Prof. Deon van Tonder"
+      ],
+      "evidence_types": [
+        "prototype logs",
+        "system screenshots",
+        "disclosure documents",
+        "technology transfer correspondence",
+        "ethics or intervention planning",
+        "publication planning email"
+      ],
+      "name": "AI and GBL project",
+      "notes": "Includes VAMP and SERAPH/agentic AI systems as AI/GBL-adjacent research and innovation evidence.",
+      "phase_by_month": {
+        "1": "prototyping and system development",
+        "2": "prototype/disclosure and project planning",
+        "3": "disclosure, ethics/publication planning and refinement"
+      },
+      "status": "active"
+    },
+    {
+      "active_months": [
+        1,
+        2,
+        3
+      ],
+      "aliases": [
+        "Citesaga",
+        "CiteSaga",
+        "cite saga",
+        "citation game",
+        "AOSIS",
+        "InfoEd"
+      ],
+      "collaborators": [
+        "Gordon Matthew"
+      ],
+      "evidence_types": [
+        "publication correspondence",
+        "book chapter email",
+        "InfoEd status",
+        "draft or submission email"
+      ],
+      "name": "Citesaga project",
+      "phase_by_month": {
+        "1": "publication planning/status",
+        "2": "book chapter and InfoEd follow-up",
+        "3": "publication/status follow-up"
+      },
+      "status": "active"
+    },
+    {
+      "active_months": [
+        1,
+        2,
+        3
+      ],
+      "aliases": [
+        "WorkReady",
+        "work ready",
+        "work-readiness",
+        "work readiness"
+      ],
+      "collaborators": [
+        "Lance Bunt",
+        "Hannes Malan",
+        "Nomasomi Morule",
+        "Khethiwe Bhiyo"
+      ],
+      "evidence_types": [
+        "planning email",
+        "ethics status",
+        "intervention status",
+        "publication planning",
+        "project status"
+      ],
+      "name": "WorkReady Project",
+      "phase_by_month": {
+        "1": "planning and intervention/ethics status",
+        "2": "planning/status and publication preparation",
+        "3": "publication/status follow-up"
+      },
+      "status": "active_pending_evidence"
+    }
+  ],
+  "publications": [
+    {
+      "active_months": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        11
+      ],
+      "aliases": [
+        "AI GBL",
+        "game-based learning",
+        "gamification",
+        "VAMP",
+        "SERAPH",
+        "D2026-164",
+        "invention disclosure",
+        "technology disclosure"
+      ],
+      "evidence_types": [
+        "draft",
+        "prototype evidence",
+        "disclosure",
+        "submission correspondence"
+      ],
+      "name": "Article on AI GBL",
+      "phase_by_month": {
+        "1": "concept and prototype evidence",
+        "2": "disclosure/prototype evidence",
+        "3": "drafting/planning evidence"
+      },
+      "status": "active"
+    },
+    {
+      "active_months": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        11
+      ],
+      "aliases": [
+        "Citesaga",
+        "CiteSaga",
+        "cite saga",
+        "citation game",
+        "AOSIS"
+      ],
+      "evidence_types": [
+        "draft",
+        "chapter correspondence",
+        "InfoEd",
+        "submission correspondence"
+      ],
+      "name": "Article on Citesaga project",
+      "phase_by_month": {
+        "1": "publication planning",
+        "2": "book chapter/status follow-up",
+        "3": "drafting/status"
+      },
+      "status": "active"
+    },
+    {
+      "active_months": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        11
+      ],
+      "aliases": [
+        "WorkReady",
+        "work ready",
+        "work-readiness",
+        "work readiness"
+      ],
+      "evidence_types": [
+        "planning email",
+        "ethics/intervention status",
+        "draft",
+        "submission correspondence"
+      ],
+      "name": "Article on WorkReady project",
+      "phase_by_month": {
+        "1": "planning/status",
+        "2": "planning/status",
+        "3": "drafting/status"
+      },
+      "status": "active_pending_evidence"
+    }
+  ],
+  "staff_id": "20172672",
+  "status": "staff_confirmed_context",
+  "supervision": {
+    "active_months": [
+      3,
+      6,
+      9,
+      12
+    ],
+    "evidence_types": [
+      "calendar attendance",
+      "supervision email",
+      "resume supervision request",
+      "application status",
+      "progress note",
+      "proposal/dissertation feedback"
+    ],
+    "notes": "Do not assume January supervision unless Outlook/calendar evidence exists.",
+    "status": "active_from_march",
+    "students": []
+  },
+  "year": 2026,
+  "updated_at": "2026-06-05T15:33:22.290Z"
+}

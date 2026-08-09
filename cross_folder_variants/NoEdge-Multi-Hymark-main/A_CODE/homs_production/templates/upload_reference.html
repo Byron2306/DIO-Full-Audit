@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card homs-card-sm">
+    <div class="card-body">
+      <h3>Upload Reference</h3>
+      <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Reference name (optional)</label>
+          <input name="ref_name" class="form-control" placeholder="friendly name">
+        </div>
+        <div class="mb-3">
+          <label for="reference_file" class="form-label">Reference file (.pkl)</label>
+          <input id="reference_file" type="file" name="reference" title="Reference file (.pkl)" aria-label="Reference file" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <a href="/" class="btn btn-link">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

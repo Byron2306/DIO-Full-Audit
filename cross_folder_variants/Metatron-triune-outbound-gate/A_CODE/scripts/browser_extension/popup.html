@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seraph Shield</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #0c1020, #121833);
+      color: #fff;
+    }
+    .header {
+      background: linear-gradient(135deg, rgba(253, 230, 138, 0.1), rgba(56, 189, 248, 0.1));
+      padding: 20px;
+      border-bottom: 1px solid rgba(253, 230, 138, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #FDE68A, #F59E0B);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .header-text h1 {
+      font-size: 18px;
+      color: #FDE68A;
+    }
+    .header-text p {
+      font-size: 12px;
+      color: #A5F3FC;
+      margin-top: 2px;
+    }
+    .status {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      background: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #10B981;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .status-text {
+      font-weight: 600;
+      color: #10B981;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 16px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .stat-card.danger { border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1); }
+    .stat-card.warning { border-color: rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.1); }
+    .stat-card.success { border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1); }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+    .stat-card.danger .stat-value { color: #ef4444; }
+    .stat-card.warning .stat-value { color: #fbbf24; }
+    .stat-card.success .stat-value { color: #10b981; }
+    .stat-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .section-title {
+      font-size: 12px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .protection-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .protection-item span { color: #e2e8f0; font-size: 13px; }
+    .toggle {
+      width: 40px;
+      height: 22px;
+      background: #334155;
+      border-radius: 11px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle.active { background: #10B981; }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s;
+    }
+    .toggle.active::after { transform: translateX(18px); }
+    .settings-btn {
+      width: 100%;
+      padding: 12px;
+      background: rgba(253, 230, 138, 0.1);
+      border: 1px solid rgba(253, 230, 138, 0.3);
+      color: #FDE68A;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .settings-btn:hover {
+      background: rgba(253, 230, 138, 0.2);
+    }
+    .footer {
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 11px;
+      color: #64748b;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-icon">🛡️</div>
+    <div class="header-text">
+      <h1>Seraph Shield</h1>
+      <p>Browser Protection Active</p>
+    </div>
+  </div>
+  
+  <div class="status">
+    <div class="status-dot"></div>
+    <span class="status-text">Protected</span>
+  </div>
+  
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-value" id="pagesScanned">0</div>
+      <div class="stat-label">Pages Scanned</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="stat-value" id="threatsBlocked">0</div>
+      <div class="stat-label">Threats Blocked</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="stat-value" id="phishingBlocked">0</div>
+      <div class="stat-label">Phishing Blocked</div>
+    </div>
+    <div class="stat-card success">
+      <div class="stat-value" id="malwareBlocked">0</div>
+      <div class="stat-label">Malware Blocked</div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="section-title">Protection Features</div>
+    <div class="protection-item">
+      <span>🔒 Phishing Protection</span>
+      <div class="toggle active" data-feature="phishing"></div>
+    </div>
+    <div class="protection-item">
+      <span>🦠 Malware Blocking</span>
+      <div class="toggle active" data-feature="malware"></div>
+    </div>
+    <div class="protection-item">
+      <span>💻 XSS Detection</span>
+      <div class="toggle active" data-feature="xss"></div>
+    </div>
+    <div class="protection-item">
+      <span>⛏️ Cryptojacking Block</span>
+      <div class="toggle active" data-feature="crypto"></div>
+    </div>
+    <div class="protection-item">
+      <span>🔑 Keylogger Detection</span>
+      <div class="toggle active" data-feature="keylogger"></div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <button class="settings-btn" id="openSettings">⚙️ Advanced Settings</button>
+  </div>
+  
+  <div class="footer">
+    Seraph AI Browser Shield v1.0.0
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

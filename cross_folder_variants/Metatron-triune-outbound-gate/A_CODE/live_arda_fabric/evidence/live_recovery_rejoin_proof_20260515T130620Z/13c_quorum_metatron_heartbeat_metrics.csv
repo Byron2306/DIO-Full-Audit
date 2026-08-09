@@ -1,0 +1,7 @@
+captured_at,phase,metatron_heartbeat_ok,metatron_heartbeat_ts,quorum_epoch,quorum_state,quorum_votes,compromised_nodes_count,isolated_nodes_count,ledger_entries
+2026-05-15T13:06:26.227184+00:00,phase0_baseline_lawful,True,2026-05-15T13:06:26.156677+00:00,1,lawful,0,0,0,15
+2026-05-15T13:06:26.528373+00:00,phase1_seed_partial_compromise,True,2026-05-15T13:06:26.480599+00:00,1,strained,0,1,0,16
+2026-05-15T13:06:27.986807+00:00,phase2_isolation_enforced,True,2026-05-15T13:06:27.950844+00:00,1,strained,0,1,1,17
+2026-05-15T13:06:33.793972+00:00,phase3_bad_quorum_vote_rejected,True,2026-05-15T13:06:33.750182+00:00,1,strained,0,1,1,18
+2026-05-15T13:06:33.870662+00:00,phase4_bad_witness_rejected,True,2026-05-15T13:06:33.822761+00:00,1,strained,0,1,1,19
+2026-05-15T13:06:34.948844+00:00,phase5_lawful_rejoin_complete,True,2026-05-15T13:06:34.909566+00:00,1,lawful,0,0,0,20

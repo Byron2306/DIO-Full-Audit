@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:49c660ef4a0556d2ca443bf0cff29ddbdac4ef80a073413b8a2430d854366ad4",
+    "ref": "blobs/sha256/49c660ef4a0556d2ca443bf0cff29ddbdac4ef80a073413b8a2430d854366ad4.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-17T20:53:40.346661+00:00",
+  "credit_id": "cache_6a7df9ad17a5a637",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "gpt-oss-120b",
+    "parameter_hash": "fa0fbfaa8b3bb3438ff39b57767e7c0de5d6732fd7dacb54aaa12720f53f2a77",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 8000,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:ec8e37d9569c2618d9359b8404cb5888165fbd1eb5e084ef4959c1faaa674087",
+    "response_blob_digest": "sha256:ab32409faf682c2d925c52b826ba2d40653b64768d38ad6162f387183bddde07",
+    "response_blob_ref": "blobs/sha256/ab32409faf682c2d925c52b826ba2d40653b64768d38ad6162f387183bddde07.json",
+    "response_chars": 545,
+    "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Improve token estimation by ignoring empty or missing content in messages\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [])\",\"new\":\"total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [] if message.get(\\\"content\\\"))\",\"intent\":\"Skip empty or None content when estimating tokens\"}],\"verify\":[\"",
+    "response_ref": "cache_6a7df9ad17a5a637.answer.json",
+    "response_sha256": "sha256:d676101c404c874e533aea31944c8ca53fbf419bd9be92d3322946e6c525ae38"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

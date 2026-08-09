@@ -1,0 +1,107 @@
+{
+  "artifacts": [
+    {
+      "boot_mode": "uefi",
+      "filename": "arda-valinor-trixie-amd64.img",
+      "filesystem": "ext4",
+      "id": "raw_disk",
+      "partition_table": "gpt"
+    },
+    {
+      "boot_mode": "uefi",
+      "builder": "xorriso",
+      "filename": "arda-valinor-live-trixie-amd64.iso",
+      "id": "live_iso",
+      "image_type": "iso-hybrid"
+    },
+    {
+      "boot_mode": "uefi",
+      "builder": "debian-installer + xorriso",
+      "filename": "arda-valinor-installer-trixie-amd64.iso",
+      "id": "installer_iso",
+      "image_type": "iso-hybrid"
+    }
+  ],
+  "boot_contract": {
+    "os_grade_prefers_signed_verdict": true,
+    "remote_verifier_must_be_off_box": true,
+    "remote_verifier_required": true,
+    "secure_boot_expected": true,
+    "tpm_expected": true
+  },
+  "distribution_id": "arda-valinor",
+  "distribution_name": "ARDA Valinor",
+  "generated_at": "2026-07-30T06:46:25.255898+00:00",
+  "plans": {
+    "distribution_manifest": "/home/byron/Integritas-Mechanicus/arda_os/distribution/releases/distribution-manifest.json",
+    "image_artifact_plan": "/home/byron/Integritas-Mechanicus/arda_os/distribution/releases/image-artifact-plan.json",
+    "installer_recipe": "/home/byron/Integritas-Mechanicus/arda_os/distribution/releases/installer-recipe.json",
+    "remote_verifier_profile": "/home/byron/Integritas-Mechanicus/arda_os/distribution/releases/remote-verifier-profile.json"
+  },
+  "release_channels": [
+    "raw-image",
+    "live-iso",
+    "installer-iso"
+  ],
+  "schema_version": "arda.distribution.release_bundle.v1",
+  "shipping_guarantees": [
+    "valinor kernel required",
+    "secure boot aware boot path",
+    "off-box verifier topology defined",
+    "measured identity and policy assets staged",
+    "verifier-led rollout lanes available"
+  ],
+  "trust_topology": {
+    "attested_host_profile": {
+      "boot_contract": [
+        "post-boot gate submits fresh evidence to the remote verifier",
+        "os-grade requires a fresh signed positive verdict",
+        "local fallback remains disabled in the off-box trust model"
+      ],
+      "environment_template_source": "/home/byron/Integritas-Mechanicus/arda_os/deploy/etc/arda-attested-host.env.example",
+      "required_env": {
+        "ARDA_PCR_BASELINE_PATH": "/var/lib/arda/attestation/baselines/approved-pcr-baseline.json",
+        "ARDA_POSTBOOT_ALLOW_LOCAL_FALLBACK": "0",
+        "ARDA_POSTBOOT_REQUIRE_VERIFIER": "1",
+        "ARDA_VERIFIER_ID": "arda-phase4-remote-verifier",
+        "ARDA_VERIFIER_KEY_ID": "arda-phase4-verifier",
+        "ARDA_VERIFIER_PUBLIC_KEY": "/etc/arda/verifier/verifier-key.pub.pem",
+        "ARDA_VERIFIER_URL": "http://verifier.example.internal:8094/verify/phase4"
+      },
+      "required_files": [
+        "/etc/arda/attested-host.env",
+        "/etc/arda/verifier/verifier-key.pub.pem",
+        "/var/lib/arda/attestation/baselines/approved-pcr-baseline.json"
+      ]
+    },
+    "distribution_id": "arda-valinor",
+    "generated_at": "2026-07-30T06:41:42.979077+00:00",
+    "schema_version": "arda.distribution.remote_verifier_profile.v1",
+    "verifier_host_profile": {
+      "default_listen_host": "0.0.0.0",
+      "default_listen_port": 8094,
+      "environment_template_source": "/home/byron/Integritas-Mechanicus/arda_os/deploy/etc/arda-verifier.env.example",
+      "listen_host_env": "ARDA_VERIFIER_HOST",
+      "listen_port_env": "ARDA_VERIFIER_PORT",
+      "network_contract": {
+        "health_endpoint": "/api/health",
+        "private_key_must_remain_off_attested_host": true,
+        "tls_recommended": true,
+        "verify_endpoint": "/verify/phase4"
+      },
+      "required_files": [
+        "/etc/arda/arda-verifier.env",
+        "/etc/arda/verifier/verifier-key.pem",
+        "/etc/arda/verifier/verifier-key.pub.pem"
+      ],
+      "required_packages": [
+        "python3",
+        "python3-cryptography",
+        "python3-fastapi",
+        "python3-uvicorn"
+      ],
+      "service_name": "arda-phase4-remote-verifier.service",
+      "systemd_unit_source": "/home/byron/Integritas-Mechanicus/arda_os/deploy/systemd/arda-phase4-remote-verifier.service"
+    }
+  }
+}

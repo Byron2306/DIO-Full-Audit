@@ -1,0 +1,92 @@
+{
+  "metric_family": "quorum_and_metatron_heartbeat",
+  "sample_count": 6,
+  "samples": [
+    {
+      "captured_at": "2026-05-15T13:06:26.227184+00:00",
+      "phase": "phase0_baseline_lawful",
+      "metatron_heartbeat_ok": true,
+      "metatron_heartbeat_ts": "2026-05-15T13:06:26.156677+00:00",
+      "quorum_epoch": 1,
+      "quorum_state": "lawful",
+      "quorum_votes": 0,
+      "compromised_nodes": [],
+      "isolated_nodes": [],
+      "ledger_entries": 15
+    },
+    {
+      "captured_at": "2026-05-15T13:06:26.528373+00:00",
+      "phase": "phase1_seed_partial_compromise",
+      "metatron_heartbeat_ok": true,
+      "metatron_heartbeat_ts": "2026-05-15T13:06:26.480599+00:00",
+      "quorum_epoch": 1,
+      "quorum_state": "strained",
+      "quorum_votes": 0,
+      "compromised_nodes": [
+        "node-a-sacrificial"
+      ],
+      "isolated_nodes": [],
+      "ledger_entries": 16
+    },
+    {
+      "captured_at": "2026-05-15T13:06:27.986807+00:00",
+      "phase": "phase2_isolation_enforced",
+      "metatron_heartbeat_ok": true,
+      "metatron_heartbeat_ts": "2026-05-15T13:06:27.950844+00:00",
+      "quorum_epoch": 1,
+      "quorum_state": "strained",
+      "quorum_votes": 0,
+      "compromised_nodes": [
+        "node-a-sacrificial"
+      ],
+      "isolated_nodes": [
+        "node-a-sacrificial"
+      ],
+      "ledger_entries": 17
+    },
+    {
+      "captured_at": "2026-05-15T13:06:33.793972+00:00",
+      "phase": "phase3_bad_quorum_vote_rejected",
+      "metatron_heartbeat_ok": true,
+      "metatron_heartbeat_ts": "2026-05-15T13:06:33.750182+00:00",
+      "quorum_epoch": 1,
+      "quorum_state": "strained",
+      "quorum_votes": 0,
+      "compromised_nodes": [
+        "node-a-sacrificial"
+      ],
+      "isolated_nodes": [
+        "node-a-sacrificial"
+      ],
+      "ledger_entries": 18
+    },
+    {
+      "captured_at": "2026-05-15T13:06:33.870662+00:00",
+      "phase": "phase4_bad_witness_rejected",
+      "metatron_heartbeat_ok": true,
+      "metatron_heartbeat_ts": "2026-05-15T13:06:33.822761+00:00",
+      "quorum_epoch": 1,
+      "quorum_state": "strained",
+      "quorum_votes": 0,
+      "compromised_nodes": [
+        "node-a-sacrificial"
+      ],
+      "isolated_nodes": [
+        "node-a-sacrificial"
+      ],
+      "ledger_entries": 19
+    },
+    {
+      "captured_at": "2026-05-15T13:06:34.948844+00:00",
+      "phase": "phase5_lawful_rejoin_complete",
+      "metatron_heartbeat_ok": true,
+      "metatron_heartbeat_ts": "2026-05-15T13:06:34.909566+00:00",
+      "quorum_epoch": 1,
+      "quorum_state": "lawful",
+      "quorum_votes": 0,
+      "compromised_nodes": [],
+      "isolated_nodes": [],
+      "ledger_entries": 20
+    }
+  ]
+}

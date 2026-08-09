@@ -1,0 +1,61 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    networks:
+      - metatron_seraph_v9_default
+
+  mongodb:
+    image: mongo:6
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    # Port mapping removed to avoid host port conflicts when running alongside the main compose stack.
+    networks:
+      - metatron_seraph_v9_default
+
+  web:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    command: uvicorn backend.server:app --host 0.0.0.0 --port 8001
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=metatron
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    ports:
+      - '8001:8001'
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - metatron_seraph_v9_default
+
+  celery_worker:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    command: celery -A backend.celery_app.celery_app worker --loglevel=info --concurrency=2
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=metatron
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - mongodb
+    networks:
+      - metatron_seraph_v9_default
+
+volumes:
+  mongo_data:
+
+networks:
+  metatron_seraph_v9_default:
+    external: true
+    name: metatron-seraph-v9_default

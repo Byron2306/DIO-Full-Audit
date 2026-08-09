@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-06-30T04:15:05.068744+00:00",
+  "objective": "Live BEAST session started. Provider=litellm. PREC=prec_a974d98650024a0248. Type a prompt below.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:ef5ae5d5a5b1533139036c6fa706ff8119c2e279491e34f821a7c182c202b799",
+  "task_markup_id": "ctask_ef5ae5d5a5b15331"
+}

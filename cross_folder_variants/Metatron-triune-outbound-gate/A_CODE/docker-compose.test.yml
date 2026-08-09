@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  cuckoo-mongo:
+    image: mongo:5.0
+    container_name: seraph-test-cuckoo-mongodb
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
+    volumes:
+      - test_mongodb_data:/data/db
+    networks:
+      - seraph-test-network
+
+  cuckoo:
+    build:
+      context: ./tools/cuckoo-fix
+      dockerfile: Dockerfile
+    container_name: seraph-test-cuckoo
+    privileged: true
+    command: ["api"]
+    environment:
+      - CUCKOO_API_HOST=0.0.0.0
+      - MONGO_HOST=cuckoo-mongo
+      - MONGO_TCP_PORT=27017
+    ports:
+      - "18090:8090"
+    depends_on:
+      - cuckoo-mongo
+    networks:
+      - seraph-test-network
+
+  cuckoo-web:
+    image: blacktop/cuckoo:latest
+    container_name: seraph-test-cuckoo-web
+    command: web
+    ports:
+      - "18080:8080"
+    environment:
+      - CUCKOO_API=http://cuckoo:8090
+      - MONGO_HOST=cuckoo-mongo
+      - MONGO_TCP_PORT=27017
+    depends_on:
+      - cuckoo
+      - cuckoo-mongo
+    networks:
+      - seraph-test-network
+
+  zeek:
+    image: blacktop/zeek:latest
+    container_name: seraph-test-zeek
+    restart: "no"
+    network_mode: bridge
+    entrypoint: ["/bin/sh","-lc"]
+    command: "zeek -i ${ZEEK_INTERFACE:-eth0} || zeek -i any || echo 'Zeek failed to bind interface'; sleep 3600"
+    volumes:
+      - zeek_test_logs:/usr/local/zeek/logs
+    # no networks declared because network_mode is set
+
+networks:
+  seraph-test-network:
+    driver: bridge
+
+volumes:
+  test_mongodb_data:
+  zeek_test_logs:

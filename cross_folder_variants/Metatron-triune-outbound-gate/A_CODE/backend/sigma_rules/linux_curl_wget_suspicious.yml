@@ -1,0 +1,24 @@
+title: Suspicious Curl or Wget Download and Execute Pattern
+id: 26ff4ec0-aeb2-4614-9a39-8ab16b89707e
+status: test
+description: Detects shell command patterns that download and immediately execute payloads.
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_cmd:
+    CommandLine|contains:
+      - curl
+      - wget
+  selection_exec:
+    CommandLine|contains:
+      - sh
+      - bash
+      - chmod +x
+  condition: selection_cmd and selection_exec
+level: high
+tags:
+  - attack.command_and_control
+  - attack.execution
+  - attack.t1059.004
+  - attack.t1105

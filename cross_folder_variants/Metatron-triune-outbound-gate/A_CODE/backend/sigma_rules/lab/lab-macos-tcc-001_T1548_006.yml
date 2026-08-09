@@ -1,0 +1,28 @@
+title: Lab synthetic TccDatabaseModified on tagged canary (honey_tcc_db) — T1548.006
+id: lab-macos-tcc-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_tcc_db) is observed with the metatron_run_id tag and the
+  expected event_type matches TccDatabaseModified. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1548/006
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1548.006
+  - lab.canary
+  - lab.edr_macos_audit
+logsource:
+  product: lab_audit
+  service: edr_macos_audit
+  category: privesc_tcc
+detection:
+  selection:
+    event_type: 'TccDatabaseModified'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

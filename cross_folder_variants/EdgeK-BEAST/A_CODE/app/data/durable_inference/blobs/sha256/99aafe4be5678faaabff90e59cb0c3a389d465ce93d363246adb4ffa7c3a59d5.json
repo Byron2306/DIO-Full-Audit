@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:99aafe4be5678faaabff90e59cb0c3a389d465ce93d363246adb4ffa7c3a59d5",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"fix context economizer bug\",\"actions\":[{\"id\":\"a1\",\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"class ContextEconomizer:\",\"new\":\"class ContextEconomizer:\\n    def __init__(self, policies: Optional[Dict[str, Any]] = None):\\n        self.policies = policies or {}\\n        self.max_input = int(self.policies.get('max_input_tokens_per_request', 8000))\",\"intent\":\"fix max_input initialization\"}],\"verify\":[\"python -m pytest app/context/test_economizer.py -q\"]}",
+    "response_sha256": "sha256:ecf4612348da8f68042b770aa4df2dd4cb6aa29c76166fdea3ebff7b11bd3556",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

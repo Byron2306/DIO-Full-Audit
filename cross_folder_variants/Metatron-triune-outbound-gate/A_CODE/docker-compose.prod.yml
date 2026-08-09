@@ -1,0 +1,35 @@
+# Seraph AI - Production Docker Compose Override
+# ===============================================
+# Use with: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# This override:
+# - Enables Nginx reverse proxy with SSL
+# - Disables direct frontend/backend port exposure
+# - Configures production settings
+
+version: '3.8'
+
+services:
+  # Disable direct frontend port exposure (use Nginx instead)
+  frontend:
+    ports: []
+    expose:
+      - "80"
+
+  # Disable direct backend port exposure (use Nginx instead)  
+  backend:
+    ports: []
+    expose:
+      - "8001"
+    environment:
+      - ENVIRONMENT=production
+
+  # Enable Nginx with SSL
+  nginx:
+    profiles: []  # Remove profile restriction to enable
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

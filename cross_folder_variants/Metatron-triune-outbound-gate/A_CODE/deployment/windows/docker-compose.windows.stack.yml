@@ -1,0 +1,97 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: seraph-mongodb
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    environment:
+      MONGO_INITDB_DATABASE: seraph_ai_defense
+    networks:
+      - seraph-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: seraph-backend
+    restart: unless-stopped
+    working_dir: /app/backend
+    command: ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8001"]
+    ports:
+      - "127.0.0.1:8001:8001"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=seraph_ai_defense
+      - PYTHONPATH=/app/backend:/app
+      - INTEGRATION_API_KEY=${INTEGRATION_API_KEY:-dev-integration-key-change-me}
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      - REMOTE_ADMIN_ONLY=true
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+      - VPN_ENABLED=false
+      - SERAPH_KERNEL_ENABLED=false
+      - SERAPH_SECURE_BOOT_ENABLED=false
+      - SERAPH_DATA_DIR=/var/lib/seraph-ai/artifacts
+      - ATOMIC_VALIDATION_RESULTS_DIR=/var/lib/seraph-ai/artifacts/atomic-validation
+      - EVIDENCE_BUNDLE_ROOT=/var/lib/seraph-ai/evidence-bundle
+      - OSQUERY_RESULTS_LOG=/var/lib/seraph-ai/artifacts/telemetry/osquery/osqueryd.results.log
+      - SIGMA_SOAR_EXECUTION_ARCHIVE_PATH=/var/lib/seraph-ai/artifacts/soar_executions_archive.json
+      - MITRE_ARCHIVED_SOAR_EXECUTION_PATH=/var/lib/seraph-ai/artifacts/soar_executions_archive.json
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ../../artifacts:/var/lib/seraph-ai/artifacts
+      - ../../evidence-bundle:/var/lib/seraph-ai/evidence-bundle
+      - ../../backend:/app/backend:ro
+      - ../../scripts:/app/scripts:ro
+      - ../../backend/playbooks:/app/playbooks:ro
+      - ../../unified_agent:/app/unified_agent:ro
+      - ../../config:/app/config:ro
+    networks:
+      - seraph-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+      start_period: 45s
+
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_BACKEND_URL=http://localhost:8001
+    container_name: seraph-frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - seraph-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+
+networks:
+  seraph-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+

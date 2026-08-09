@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-18T12:40:21.874498+00:00",
+  "objective": "Reply with exactly: BEAST startup stream ok",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:62b4448da0745bfaa07ca8c919854d45a9f64f635f705c3bc38e41adb14ebd52",
+  "task_markup_id": "ctask_62b4448da0745bfa"
+}

@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:f8329ff3edfccad0d6fd219e2d19aa1345ec9a10dae74fb1fb7af487582edadd",
+    "ref": "blobs/sha256/f8329ff3edfccad0d6fd219e2d19aa1345ec9a10dae74fb1fb7af487582edadd.json"
+  },
+  "credit_id": "cache_3af112d89b76650e",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor ContextEconomizer to improve clarity and performance\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"def economize(self, ir: EdgeKIR) -> ContextEconomyResult:\", \"new\": \"def economize(self, ir: EdgeKIR) -> ContextEconomyResult:\\n    # ... (rest of the function remains the same)\", \"intent\": \"Refactor ContextEconomizer to improve clarity and performance\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\"}, \"old\": \"def run_local_inference(self, task_class: str, prompt: str, model: str = None) -> Dict[str, Any]:\", \"new\": \"def run_local_inference(self, task_class: str, prompt: str, model: str = None) -> Dict[str, Any]:\\n    # ... (rest of the function remains the same)\", \"intent\": \"Refactor ComputeForgeNode to improve clarity and performance\"}], \"verify\": [\"tests/test_context_economizer.py\", \"tests/test_compute_forge.py\"]}",
+  "response_sha256": "sha256:b901dab91c7bbc87c24f4d661ef3112d83140d6f952a47edfff2df03fced0fac",
+  "version": "1.0"
+}

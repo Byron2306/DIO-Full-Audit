@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:349feb9a4828d71b564423cd1ca2853edd978a76b4625876630801f0aacc906a",
+    "ref": "blobs/sha256/349feb9a4828d71b564423cd1ca2853edd978a76b4625876630801f0aacc906a.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-19T04:38:28.880610+00:00",
+  "credit_id": "cache_ea372be974821355",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:c5fb7376041b2a4aa70a95bd6eee72c2d51f8d9f96c6d34b8b361452bc4e06be",
+    "response_blob_digest": "sha256:62e5fbe24f9f0683bce3bbb2632a0e0d2665422c138ffd5bba855ae04d67c438",
+    "response_blob_ref": "blobs/sha256/62e5fbe24f9f0683bce3bbb2632a0e0d2665422c138ffd5bba855ae04d67c438.json",
+    "response_chars": 2480,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor the MetaToolCandidate class for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\"class MetaToolCandidate: \\\"\\\"\\\"Represents a candidate meta-tool generated from frequent sequences. The Phase 7 model now stores candidates as governed ``CapabilityRecord`` assets, but older SkillTree code and CLI surfaces still use the fl",
+    "response_ref": "cache_ea372be974821355.answer.json",
+    "response_sha256": "sha256:98e15e58ed4d187e80245156b861450eba842f47d0d8af8a9e86cd1f0bd561d3"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

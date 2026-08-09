@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:b195ed9319b50691cfb42c8892f3b9b7eb2086da0113b72177003f1a10616418",
+    "ref": "blobs/sha256/b195ed9319b50691cfb42c8892f3b9b7eb2086da0113b72177003f1a10616418.json"
+  },
+  "credit_id": "cache_56befa2e78aec559",
+  "response": "```json\n{\n  \"kind\": \"beast.action_intent.v1\",\n  \"objective\": \"Refactor the MetaToolCandidate class for clarity without changing behavior\",\n  \"actions\": [\n    {\n      \"id\": \"a1\",\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/meta_tool_generator.py\",\n        \"anchor_ref\": \"A1\"\n      },\n      \"old\": \"Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system.\",\n      \"new\": \"Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system.\\n\\nThis class represents a candidate meta-tool generated from frequent sequences.\",\n      \"intent\": \"Improve docstring clarity\"\n    },\n    {\n      \"id\": \"a2\",\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/meta_tool_generator.py\",\n        \"anchor_ref\": \"A5\"\n      },\n      \"old\": \"import json\",\n      \"new\": \"import json\\nimport dataclasses\\nfrom typing import List, Dict, Any, Optional, Tuple\",\n      \"intent\": \"Consolidate imports\"\n    },\n    {\n      \"id\": \"a3\",\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/meta_tool_generator.py\",\n        \"anchor_ref\": \"A8\"\n      },\n      \"old\": \"from typing import List, Dict, Any, Optional, Tuple\",\n      \"new\": \"\",\n      \"intent\": \"Remove duplicate import\"\n    },\n    {\n      \"id\": \"a4\",\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/meta_tool_generator.py\",\n        \"anchor_ref\": \"A20\"\n      },\n      \"old\": \"@dataclass\",\n      \"new\": \"@dataclasses.dataclass\",\n      \"intent\": \"Use dataclasses.dataclass for consistency\"\n    }\n  ],\n  \"verify\": [\"tests/test_capability_impact.py\"]\n}\n```",
+  "response_sha256": "sha256:1bcaa136a11a8ddba6eea926c1ea30074747c34359e85ca1126b9bd1fd524166",
+  "version": "1.0"
+}

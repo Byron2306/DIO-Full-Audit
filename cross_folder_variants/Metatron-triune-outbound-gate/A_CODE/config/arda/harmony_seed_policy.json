@@ -1,0 +1,24 @@
+{
+  "max_seed": 12000,
+  "min_seed_for_enforce": 64,
+  "seed_running_processes": true,
+  "seed_user_home_bins": true,
+  "seed_paths": [
+    "/opt/pwsh/pwsh"
+  ],
+  "seed_exec_dirs": [
+    "/host/bin",
+    "/host/sbin",
+    "/host/usr/bin",
+    "/host/usr/sbin",
+    "/host/usr/local/bin",
+    "/host/usr/local/sbin",
+    "/host/snap/bin",
+    "/host/usr/lib/snapd"
+  ],
+  "seed_exec_dirs_recursive": [
+    "/host/usr/lib/jvm",
+    "/host/usr/lib/python3",
+    "/host/usr/lib/nodejs"
+  ]
+}

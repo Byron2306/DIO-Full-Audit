@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8bdda6fd95fb03c512361e2a2e56446fa7f77451cbdf9b789c0e3d293fd307f3",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve maintainability of gemini_pair_programmer_medium.py by expanding the module docstring to document its purpose and structures.\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\\\"\\\"\\\"Medium-sized fixture for governed Pair Programmer provider tests.\\\"\\\"\\\"\", \"new\": \"\\\"\\\"\\\"Medium-sized fixture for governed Pair Programmer provider tests.\\n\\nThis module defines WorkItem and related structures used for testing the\\ngoverned Pair Programmer provider.\\n\\\"\\\"\\\"\"}]}",
+    "response_sha256": "sha256:d6ac5722cc32b87391eafa620b87c70d5b5e350c6a0645ca1e11d2a62da0bba7",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

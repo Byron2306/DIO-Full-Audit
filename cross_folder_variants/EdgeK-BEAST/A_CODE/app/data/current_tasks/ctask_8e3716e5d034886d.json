@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-16T08:47:42.606688+00:00",
+  "objective": "Return BEAST Action IR JSON only. Do not include markdown, prose, or explanation.\n\nObjective: Reply stream-ready.\nAllowed files:\n- _test_cfg.py\n\nSchema:\n{\"kind\": \"beast.action_intent.v1\", \"objective\": \"...\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"relative/file.py\"}, \"old\": \"exact old snippet\", \"new\": \"replacement\"}]}\n\nRules:\n1. Use only allowed files.\n2. Use exact old snippets that exist in the file today.\n3. Emit the smallest valid set of replace_exact actions.\n4. Return one JSON object and nothing else.\n\nPrevious answer to convert:\nBEAST integration harness executed the governed provider boundary.\n\nProvider: nvidia_nim\nRoute: openai_compatible\nModel: nvidia/nemotron-3-super-120b-a12b\nPrompt: read the readme and give me an assessment of this system",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:8e3716e5d034886d8ef8baec30fdd2b3b01927de1e0d317648b5a6d3ca19ecc8",
+  "task_markup_id": "ctask_8e3716e5d034886d"
+}

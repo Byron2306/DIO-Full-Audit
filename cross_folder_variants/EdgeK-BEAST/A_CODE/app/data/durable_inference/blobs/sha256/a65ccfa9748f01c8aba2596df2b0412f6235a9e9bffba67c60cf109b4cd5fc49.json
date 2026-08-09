@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:a65ccfa9748f01c8aba2596df2b0412f6235a9e9bffba67c60cf109b4cd5fc49",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:f4e4488aed730c6ae504f629025a098048938ca6ced256aae63fb2c198269e2e",
+      "response_blob_digest": "sha256:355a83a2b0c1f79073c11f4a6e109938e0dbe87db167d894f685b20f772fec72",
+      "response_blob_ref": "blobs/sha256/355a83a2b0c1f79073c11f4a6e109938e0dbe87db167d894f685b20f772fec72.json",
+      "response_chars": 3368,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Improve context economizer by adding a new strategy and enhancing existing logic\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"if original_tokens > max_input: target_tokens = min(target_tokens, int(max_input * 0.9))\",\"new\":\"if original_tokens > max_input: target_tokens = min(target_tokens, int(max_input * 0.8))\",\"intent\":\"Reduce the target tokens when the original tokens exceed the maximum input to prevent e",
+      "response_ref": "cache_132d356f24b05652.answer.json",
+      "response_sha256": "sha256:00e7238f23ed4900fe0cfae1a13d24c600f1306554230a39be15627c39c1701f"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

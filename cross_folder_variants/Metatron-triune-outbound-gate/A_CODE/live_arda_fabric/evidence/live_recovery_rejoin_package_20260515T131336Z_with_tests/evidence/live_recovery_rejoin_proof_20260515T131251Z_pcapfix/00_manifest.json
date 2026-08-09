@@ -1,0 +1,34 @@
+{
+  "label": "live_recovery_rejoin_proof",
+  "session_id": "live-recovery-rejoin-20260515T131251Z",
+  "generated_at": "2026-05-15T13:12:55Z",
+  "topology": {
+    "controller": "10.77.0.2",
+    "node_a_sacrificial": "10.77.0.11",
+    "node_b_witness": "10.77.0.12",
+    "node_c_quorum": "10.77.0.13",
+    "protected_fake_vault": "10.77.10.10",
+    "remediation_service": "10.77.20.10"
+  },
+  "assertions": {
+    "node_is_isolated": true,
+    "protected_asset_blocked_during_isolation": true,
+    "remediation_endpoint_allowed_during_isolation": true,
+    "bad_quorum_vote_rejected": true,
+    "bad_recovery_witness_rejected": true,
+    "lawful_witness_accepted": true,
+    "node_re_admitted": true,
+    "quorum_returns_lawful": true,
+    "recovery_recorded_in_ledger": true,
+    "wireguard_allowedips_restricted_during_isolation": true,
+    "wireguard_allowedips_restored_after_recovery": true,
+    "network_routes_restored_after_recovery": true,
+    "metatron_heartbeat_continuous": true,
+    "quorum_metrics_show_strain_then_lawful": true,
+    "pcap_has_payload_packets": true
+  },
+  "metric_artifacts": [
+    "13b_quorum_metatron_heartbeat_metrics.json",
+    "13c_quorum_metatron_heartbeat_metrics.csv"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:74f33c640ae9912bac29aa7d1b9a585e6e08f88f786b252f5ee33283c91a198d",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n def __init__(self, **kwargs):\\n super().__init__(**kwargs)\\n self._validate_tags()\\n self._validate_frequency()\\n self._validate_confidence_score()\", \"intent\": \"add missing validation for tags, frequency, and confidence score attributes\"}], \"verify\": [\"python -m pytest tests/test_capability_impact.py -q\"]}",
+    "response_sha256": "sha256:11e9b6feee3e7d06d08a3dc29318b1fdbeebe8bab947e073a2df5ffc980423e7",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

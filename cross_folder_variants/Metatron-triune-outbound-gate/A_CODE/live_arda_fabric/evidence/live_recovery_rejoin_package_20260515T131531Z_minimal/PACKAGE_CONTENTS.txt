@@ -1,0 +1,12 @@
+Package type: minimal single-test package
+Test included: live_arda_fabric/run_live_recovery_rejoin.sh
+Evidence source: live_arda_fabric/evidence/live_recovery_rejoin_proof_20260515T131251Z_pcapfix
+
+Included harness files:
+- live_arda_fabric/run_live_recovery_rejoin.sh
+- live_arda_fabric/docker-compose.yml
+- live_arda_fabric/Dockerfile.python-service
+- live_arda_fabric/Dockerfile.node
+- live_arda_fabric/controller_app.py
+- live_arda_fabric/asset_app.py
+- live_arda_fabric/README.md

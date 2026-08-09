@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:728afd8615d52813591763a6d1bf8bbe78487b436d25fef116e7b24d289a16b0",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:1449f32b0cfd5e5a87ffd920af546a1413f4dadf287237ffd093dfca9e47028e",
+      "response_blob_digest": "sha256:568183eb4db7d9dabf45c72832c1c5cdb078e7e85d0bb2f40b1cdf2e9d072764",
+      "response_blob_ref": "blobs/sha256/568183eb4db7d9dabf45c72832c1c5cdb078e7e85d0bb2f40b1cdf2e9d072764.json",
+      "response_chars": 686,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"provide more suggestions to make this file more effective\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\", \"anchor_ref\": \"A8\"}, \"old\": \"from app.kernel.compute.perceive import EdgeKIR\", \"new\": \"from app.kernel.compute.perceive import EdgeKIR, EdgeKIRBuilder\", \"intent\": \"Import EdgeKIRBuilder to potentially improve context economizer performance\"}], \"fallback\": \"\", \"handoff_hash\": \"sha256:504f3cc8d35594a83be98",
+      "response_ref": "cache_bce9a943d913a359.answer.json",
+      "response_sha256": "sha256:0c6520e11e2a448972ca606028326ad9ead6265abb697d2e61da46211871216c"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

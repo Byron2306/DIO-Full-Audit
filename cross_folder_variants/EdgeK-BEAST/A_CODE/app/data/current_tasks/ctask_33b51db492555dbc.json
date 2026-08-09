@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-09T09:11:54.085147+00:00",
+  "objective": "Explain this selection and suggest a governed BEAST SourcePlan-safe improvement for app/cli/ui.py:1-2243.\n\nSelected range: app/cli/ui.py:1-2243\nSelection size: 100000 chars across 2243 lines.\nBEAST Desktop did not inline this selection because it exceeds the safe prompt context limit.\nDo not infer missing code from a preview or truncation marker. If a replacement is required, ask for a narrower selection or return a scoped SourcePlan/Action IR plan against explicit anchors.\nBEAST Desktop edit contract:\n- Prefer symbol-scoped patches over whole-file replacement.\n- Return BEAST Action IR JSON when you can make an exact edit; otherwise return a short plan and ask for the missing file/range/context.\n- Do not guess hidden code. Do not fabricate line ranges. Do not return prose inside a replacement block.\n- Current selection anchor: app/cli/ui.py:1-2243",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:33b51db492555dbc8b2d822bb32c8e2fd4ef40bc1bc8e22297690829ccec6ce1",
+  "task_markup_id": "ctask_33b51db492555dbc"
+}

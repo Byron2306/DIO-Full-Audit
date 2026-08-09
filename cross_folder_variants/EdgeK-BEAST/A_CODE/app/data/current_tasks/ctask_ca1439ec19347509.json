@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-06-30T04:20:45.362732+00:00",
+  "objective": "Handoff prepare: current_task_markup_present",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:ca1439ec19347509a0b1fff08810e35d4d1d4d7387b939bf581f793db4ce96e5",
+  "task_markup_id": "ctask_ca1439ec19347509"
+}

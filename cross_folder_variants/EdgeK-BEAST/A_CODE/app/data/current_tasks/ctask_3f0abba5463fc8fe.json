@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T21:36:58.438021+00:00",
+  "objective": "Act as my coding partner. Answer from the attached repository context, cite relevant files, and identify uncertainty.\n\nQuestion: Explain the active file and identify its key dependencies.\n\nAttached workspace scope:\n- crystal_bus.py",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:3f0abba5463fc8fef2a65954c89f50015e5aee8d6b23e1ae363d423fd2ec25f5",
+  "task_markup_id": "ctask_3f0abba5463fc8fe"
+}

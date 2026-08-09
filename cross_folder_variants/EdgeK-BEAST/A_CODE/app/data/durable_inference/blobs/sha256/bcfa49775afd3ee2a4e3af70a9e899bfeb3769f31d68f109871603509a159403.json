@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:bcfa49775afd3ee2a4e3af70a9e899bfeb3769f31d68f109871603509a159403",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "The active file is `app/kernel/compute/crystal_integration_acceptance.py`. This file contains a class `CrystalIntegrationAcceptanceProbe` that validates adapter payload semantics without pretending services are live.\n\nThe key dependencies of this file are:\n\n1. `dataclasses` module: This module is used to define data classes such as `IntegrationAcceptanceResult`.\n2. `hashlib` module: This module is used to generate a SHA-256 hash for the receipt.\n3. `json` module: This module is used to dump the receipt to a JSON string.\n\nThere are no direct dependencies on other files in the attached workspace scope. However, the file's functionality is related to the `crystal_integration` concept, which is also mentioned in the `adapter_candidate_mutations_latest.json` and `adapter_candidate_receipt_latest.json` files.\n\nUncertainty:\n\n* The purpose of the `claim_boundary` attribute in the `IntegrationAcceptanceResult` class is not clear. It seems to be a string that provides additional context, but its exact meaning is uncertain.\n* The relationship between the `CrystalIntegrationAcceptanceProbe` class and the other files in the workspace scope is not clear. For example, how does this class interact with the `DiscoveryAgnosticCorpusRunner` class in `scripts/run_discovery_agnostic_receiver.py`?",
+    "response_sha256": "sha256:9e54fb34b0d359e13ce6b575c75da01fa40048f1d09c12bcd366e9801a934fe1",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

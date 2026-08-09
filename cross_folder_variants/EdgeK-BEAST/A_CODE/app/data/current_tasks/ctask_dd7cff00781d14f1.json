@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-06-30T15:39:40.671479+00:00",
+  "objective": "Patch diff preview: diff ready for 6 operation(s); 6 selected",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:dd7cff00781d14f1afb7abf21d294753ec6324afcf0dccf718678714f32fc0e0",
+  "task_markup_id": "ctask_dd7cff00781d14f1"
+}

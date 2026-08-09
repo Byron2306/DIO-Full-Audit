@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:73e5bbe5f6bf8e92f3683f886770d6007a73f40549d5dbf9108b41aaf4ef9711",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Add completed_items method to WorkQueue to return completed items, optionally filtered by owner\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py\"}, \"old\": \"    def pending(self, owner: str | None = None) -> list[WorkItem]:\\n        return [\\n            item\\n            for item in self._items\\n            if not item.completed and (owner is None or item.owner == owner)\\n        ]\\n\\n    def summary(self) -> Mapping[str, int]:\", \"new\": \"    def pending(self, owner: str | None = None) -> list[WorkItem]:\\n        return [\\n            item\\n            for item in self._items\\n            if not item.completed and (owner is None or item.owner == owner)\\n        ]\\n\\n    def completed_items(self, owner: str | None = None) -> list[WorkItem]:\\n        return [\\n            item\\n            for item in self._items\\n            if item.completed and (owner is None or item.owner == owner)\\n        ]\\n\\n    def summary(self) -> Mapping[str, int]:\"}]}",
+    "response_sha256": "sha256:0a468f2dc556903501ee7a7a29e1ac2761e3463a38fef09dbec1ba43b8642964",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

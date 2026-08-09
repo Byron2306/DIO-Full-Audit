@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-08T20:37:29.963037+00:00",
+  "objective": "provider completed: no \u00b7 streaming: yes \u00b7 recovered: yes \u00b7 handoff: ready \u00b7 error: provider reached max output tokens before a natural stop",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:d4c6c80536d306d2b0d89496dabf902f7c4ba1d452e0ae331ff1564caa174cec",
+  "task_markup_id": "ctask_d4c6c80536d306d2"
+}

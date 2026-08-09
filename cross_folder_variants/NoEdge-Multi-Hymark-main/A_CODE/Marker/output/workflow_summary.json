@@ -1,0 +1,44 @@
+{
+  "workflow_id": "workflow_20260130_095349",
+  "start_time": "2026-01-30T09:53:49.223195",
+  "steps": [
+    {
+      "step": "git_branch",
+      "status": "success"
+    },
+    {
+      "step": "assessment",
+      "status": "success",
+      "count": 1
+    },
+    {
+      "step": "moderation",
+      "status": "success",
+      "flagged": 1,
+      "plagiarism_cases": 0
+    },
+    {
+      "step": "learning",
+      "status": "success"
+    },
+    {
+      "step": "reporting",
+      "status": "success",
+      "reports": {
+        "summary": "C:\\Users\\User\\Desktop\\Marker\\output\\summary_report.html",
+        "detailed": "C:\\Users\\User\\Desktop\\Marker\\output\\detailed_report.json",
+        "csv": "C:\\Users\\User\\Desktop\\Marker\\output\\results.csv"
+      }
+    },
+    {
+      "step": "data_save",
+      "status": "success"
+    },
+    {
+      "step": "git_commit",
+      "status": "success"
+    }
+  ],
+  "end_time": "2026-01-30T09:54:06.671850",
+  "status": "success"
+}

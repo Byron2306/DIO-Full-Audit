@@ -1,0 +1,457 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/specification/main/schema/mcp.schema.json",
+  "name": "metatron-seraph",
+  "displayName": "Metatron Seraph Security Platform",
+  "description": "Enterprise security platform with AI-powered threat detection, unified agent management, and automated response capabilities",
+  "version": "2.0.0",
+  "publisher": "Metatron Security",
+  "homepage": "https://github.com/Byron2306/Metatron",
+  
+  "servers": {
+    "seraph-mcp": {
+      "command": "python",
+      "args": ["-m", "backend.services.mcp_server"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "MCP_SIGNING_KEY": "${env:MCP_SIGNING_KEY}",
+        "MONGODB_URI": "${env:MONGODB_URI}",
+        "JWT_SECRET": "${env:JWT_SECRET}"
+      },
+      "transport": {
+        "type": "http",
+        "url": "http://localhost:8000/api/advanced/mcp"
+      }
+    },
+    "openclaw-agent": {
+      "command": "python",
+      "args": ["unified_agent/core/agent.py", "--mcp-mode"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "SERAPH_SERVER": "${env:SERAPH_SERVER:-http://localhost:8000}",
+        "AGENT_NAME": "${env:AGENT_NAME:-openclaw-agent}"
+      },
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  },
+  
+  "tools": {
+    "scan_network": {
+      "description": "Discover devices on the local network using ARP/nmap scanning",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "subnet": {
+            "type": "string",
+            "description": "Target subnet in CIDR notation (e.g., 192.168.1.0/24)"
+          },
+          "scan_type": {
+            "type": "string",
+            "enum": ["quick", "full", "stealth"],
+            "default": "quick"
+          }
+        }
+      }
+    },
+    "deploy_agent": {
+      "description": "Deploy unified security agent to a target device",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target_ip": {
+            "type": "string",
+            "description": "IP address of target device"
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["windows", "linux", "macos", "android"],
+            "description": "Target platform"
+          },
+          "credentials": {
+            "type": "object",
+            "properties": {
+              "username": { "type": "string" },
+              "password": { "type": "string" },
+              "ssh_key": { "type": "string" }
+            }
+          }
+        },
+        "required": ["target_ip", "platform"]
+      }
+    },
+    "execute_command": {
+      "description": "Execute a security command on connected agents",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "description": "Target agent ID (use 'all' for broadcast)"
+          },
+          "command": {
+            "type": "string",
+            "enum": ["scan", "network_scan", "wifi_scan", "bluetooth_scan", "threat_hunt", "collect_forensics", "update_config", "quarantine_file", "block_ip", "kill_process", "throttle_cli", "inject_latency", "deploy_decoy", "engage_tarpit", "capture_triage", "capture_memory", "kill_tree", "tag_session", "rotate_credentials", "assess_ai_threat"],
+            "description": "Command to execute"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Command-specific parameters"
+          }
+        },
+        "required": ["agent_id", "command"]
+      }
+    },
+    "get_agent_status": {
+      "description": "Get real-time status of connected security agents",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "description": "Specific agent ID or 'all' for all agents"
+          }
+        }
+      }
+    },
+    "threat_intel_lookup": {
+      "description": "Query threat intelligence for IOCs (IPs, hashes, domains)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ioc_type": {
+            "type": "string",
+            "enum": ["ip", "hash", "domain", "url"]
+          },
+          "ioc_value": {
+            "type": "string"
+          }
+        },
+        "required": ["ioc_type", "ioc_value"]
+      }
+    },
+    "run_playbook": {
+      "description": "Execute a SOAR automation playbook",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "playbook_id": {
+            "type": "string",
+            "description": "Playbook identifier"
+          },
+          "target": {
+            "type": "string",
+            "description": "Target asset or incident ID"
+          },
+          "dry_run": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": ["playbook_id"]
+      }
+    },
+    "vpn_status": {
+      "description": "Get WireGuard VPN status for agents",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generate_installer": {
+      "description": "Generate platform-specific agent installer",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["windows", "linux", "macos", "android", "ios"]
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "server_url": { "type": "string" },
+              "auto_vpn": { "type": "boolean", "default": true },
+              "auto_scan": { "type": "boolean", "default": true }
+            }
+          }
+        },
+        "required": ["platform"]
+      }
+    },
+    "engage_tarpit": {
+      "description": "Engage adaptive tarpit to slow down AI threats with progressive delays",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session_id": { "type": "string", "description": "Session ID to tarpit" },
+          "mode": { "type": "string", "enum": ["standard", "adaptive", "aggressive"], "default": "standard" },
+          "host_id": { "type": "string", "description": "Target host ID" }
+        },
+        "required": ["session_id"]
+      }
+    },
+    "deploy_decoy": {
+      "description": "Deploy dynamic decoys targeting AI attackers (credentials, files, endpoints)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "decoy_type": { "type": "string", "enum": ["credentials", "files", "endpoints", "data"] },
+          "host_id": { "type": "string", "description": "Target host for decoy placement" },
+          "decoys": { "type": "array", "items": { "type": "string" }, "description": "Decoy values to deploy" },
+          "placement": { "type": "string", "enum": ["standard", "targeted", "aggressive"], "default": "standard" }
+        },
+        "required": ["decoy_type"]
+      }
+    },
+    "assess_ai_threat": {
+      "description": "Assess if activity is from AI/automated agent and determine threat level",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session_id": { "type": "string" },
+          "host_id": { "type": "string" },
+          "activity_data": { "type": "object", "description": "Activity patterns to analyze" }
+        },
+        "required": ["session_id"]
+      }
+    },
+    "escalate_defense": {
+      "description": "Execute graduated defense escalation (OBSERVE→DEGRADE→DECEIVE→CONTAIN→ISOLATE→ERADICATE)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session_id": { "type": "string" },
+          "target_level": { "type": "string", "enum": ["observe", "degrade", "deceive", "contain", "isolate", "eradicate"] },
+          "threat_assessment": { "type": "object", "description": "AI threat assessment data" }
+        },
+        "required": ["session_id", "target_level"]
+      }
+    },
+    "quarantine_pipeline": {
+      "description": "Manage quarantine pipeline (advance stage, add scan results, get status)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "entry_id": { "type": "string", "description": "Quarantine entry ID" },
+          "action": { "type": "string", "enum": ["advance", "add_scan", "get_status"] },
+          "target_stage": { "type": "string", "enum": ["quarantined", "scanning", "sandboxed", "analyzed", "stored"] },
+          "scan_result": { "type": "object", "description": "Scan result data (for add_scan action)" }
+        },
+        "required": ["entry_id", "action"]
+      }
+    },
+    "track_campaign": {
+      "description": "Pebbles: Correlate attacks via behavioral fingerprints across sessions, IPs, and time windows",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": { "type": "string", "description": "Source IP address" },
+          "headers": { "type": "object", "description": "Request headers for fingerprinting" },
+          "timing_data": { "type": "object", "description": "Command timing intervals" },
+          "session_id": { "type": "string" }
+        },
+        "required": ["ip"]
+      }
+    },
+    "mystique_adapt": {
+      "description": "Mystique: Self-adjust deception parameters (friction, tarpit, thresholds) based on attacker behavior",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "campaign_id": { "type": "string", "description": "Campaign to adapt" },
+          "force_adapt": { "type": "boolean", "default": false }
+        },
+        "required": ["campaign_id"]
+      }
+    },
+    "stonewall_escalate": {
+      "description": "Stonewall: Apply progressive blocking escalation (warn→throttle→soft_ban→hard_ban→blocklist)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": { "type": "string" },
+          "campaign_id": { "type": "string" },
+          "target_level": { "type": "string", "enum": ["warned", "throttled", "soft_banned", "hard_banned", "blocklisted"] }
+        },
+        "required": ["ip"]
+      }
+    },
+    "assess_deception_risk": {
+      "description": "Comprehensive risk scoring with routing decision (pass/friction/trap_sink/honeypot)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": { "type": "string" },
+          "path": { "type": "string" },
+          "headers": { "type": "object" },
+          "behavior_flags": { "type": "object", "description": "Flags: decoy_touched, ai_behavior, repeated_failures" }
+        },
+        "required": ["ip"]
+      }
+    },
+    "record_decoy_touch": {
+      "description": "Record attacker interaction with decoy/honey token for campaign correlation and escalation",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ip": { "type": "string" },
+          "decoy_type": { "type": "string", "enum": ["honey_token", "canary_file", "fake_endpoint", "credential_trap"] },
+          "decoy_id": { "type": "string" },
+          "session_id": { "type": "string" }
+        },
+        "required": ["ip", "decoy_type", "decoy_id"]
+      }
+    }
+  },
+  
+  "resources": {
+    "agents": {
+      "uri": "seraph://agents",
+      "description": "List of connected security agents",
+      "mimeType": "application/json"
+    },
+    "threats": {
+      "uri": "seraph://threats",
+      "description": "Current threat alerts and detections",
+      "mimeType": "application/json"
+    },
+    "network_map": {
+      "uri": "seraph://network",
+      "description": "Discovered network topology",
+      "mimeType": "application/json"
+    },
+    "ai_threats": {
+      "uri": "seraph://ai-threats",
+      "description": "Active AI/automated threat sessions and their assessed threat levels",
+      "mimeType": "application/json"
+    },
+    "quarantine_pipeline": {
+      "uri": "seraph://quarantine",
+      "description": "Quarantine pipeline entries and their processing status",
+      "mimeType": "application/json"
+    },
+    "active_decoys": {
+      "uri": "seraph://decoys",
+      "description": "Deployed decoys and honeypots with interaction tracking",
+      "mimeType": "application/json"
+    },
+    "campaigns": {
+      "uri": "seraph://deception/campaigns",
+      "description": "Active attack campaigns tracked via Pebbles behavioral fingerprinting",
+      "mimeType": "application/json"
+    },
+    "deception_events": {
+      "uri": "seraph://deception/events",
+      "description": "Recent deception system events (trap triggers, decoy touches, escalations)",
+      "mimeType": "application/json"
+    },
+    "blocklist": {
+      "uri": "seraph://deception/blocklist",
+      "description": "IP blocklist and allowlist managed by Stonewall",
+      "mimeType": "application/json"
+    },
+    "fingerprints": {
+      "uri": "seraph://deception/fingerprints",
+      "description": "Behavioral fingerprints for attack correlation",
+      "mimeType": "application/json"
+    }
+  },
+  
+  "prompts": {
+    "threat_analysis": {
+      "description": "Analyze a potential security threat",
+      "arguments": [
+        {
+          "name": "threat_data",
+          "description": "JSON data about the suspicious activity",
+          "required": true
+        }
+      ]
+    },
+    "incident_response": {
+      "description": "Generate incident response plan",
+      "arguments": [
+        {
+          "name": "incident_type",
+          "description": "Type of security incident",
+          "required": true
+        },
+        {
+          "name": "severity",
+          "description": "Incident severity (low, medium, high, critical)",
+          "required": true
+        }
+      ]
+    },
+    "ai_threat_assessment": {
+      "description": "Assess potential AI/automated attack and recommend defense escalation level",
+      "arguments": [
+        {
+          "name": "session_id",
+          "description": "Session ID to assess",
+          "required": true
+        },
+        {
+          "name": "behavior_patterns",
+          "description": "Observed behavioral patterns indicating automation",
+          "required": false
+        }
+      ]
+    },
+    "defense_playbook": {
+      "description": "Generate AI defense playbook for graduated response",
+      "arguments": [
+        {
+          "name": "threat_type",
+          "description": "Type of AI threat (credential_stuffing, reconnaissance, data_exfil, lateral_movement)",
+          "required": true
+        },
+        {
+          "name": "current_escalation",
+          "description": "Current escalation level (observe, degrade, deceive, contain, isolate, eradicate)",
+          "required": true
+        }
+      ]
+    },
+    "campaign_analysis": {
+      "description": "Analyze attack campaign from Pebbles tracking data and recommend Mystique/Stonewall actions",
+      "arguments": [
+        {
+          "name": "campaign_id",
+          "description": "Campaign ID from Pebbles tracking",
+          "required": true
+        },
+        {
+          "name": "include_fingerprints",
+          "description": "Include behavioral fingerprint analysis",
+          "required": false
+        }
+      ]
+    },
+    "deception_strategy": {
+      "description": "Generate deception strategy for a specific threat actor or campaign",
+      "arguments": [
+        {
+          "name": "threat_profile",
+          "description": "Profile of threat actor (automated, human, ai_augmented)",
+          "required": true
+        },
+        {
+          "name": "attack_vector",
+          "description": "Primary attack vector (credential_spray, enumeration, exfiltration, ransomware)",
+          "required": true
+        },
+        {
+          "name": "current_campaign_data",
+          "description": "Existing campaign tracking data if available",
+          "required": false
+        }
+      ]
+    }
+  }
+}

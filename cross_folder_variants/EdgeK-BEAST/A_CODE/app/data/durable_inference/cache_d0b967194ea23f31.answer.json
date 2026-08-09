@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:68617b533d04e24cbc1d41194ff577b947c6de5992c4b8440eccc409224f1a20",
+    "ref": "blobs/sha256/68617b533d04e24cbc1d41194ff577b947c6de5992c4b8440eccc409224f1a20.json"
+  },
+  "credit_id": "cache_d0b967194ea23f31",
+  "response": "{\"actions\":[{\"id\":\"a1\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"def _estimate_tokens(self, messages: List[Dict[str, Any]]) -> int:\\n    total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [])\\n    return max(1, total_chars // 4)\",\"target\":{\"anchor_ref\":\"A19\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"}],\"fallback\":\"\",\"handoff_hash\":\"sha256:b5aced91ee82449a204ddcb91e4fd81f2a7d5f4cc84cb3fe1d20d725b3150caf\",\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor the selected code for clarity without changing behavior.\",\"provider_handoff_hash\":\"sha256:b5aced91ee82449a204ddcb91e4fd81f2a7d5f4cc84cb3fe1d20d725b3150caf\",\"verify\":[\"python -m pytest tests -q\"]}",
+  "response_sha256": "sha256:11bdbda9e43c11eda6347dc0ffaf079550cfcb6ac06623ef4779e41c22965302",
+  "version": "1.0"
+}

@@ -1,0 +1,448 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" font-family="Inter, Arial, sans-serif">
+
+  <defs>
+    <style>
+      /* Card styles */
+      .frame { fill:#ffffff; stroke:#1f2937; stroke-width:2; }
+      .sensor { fill:#f8fafc; stroke:#334155; stroke-width:2.2; }
+      .core  { fill:#fff7ed; stroke:#b45309; stroke-width:2.6; }
+      .intel { fill:#eef2ff; stroke:#4338ca; stroke-width:2.4; }
+      .gov   { fill:#ecfeff; stroke:#0e7490; stroke-width:2.6; }
+      .risk  { fill:#fef2f2; stroke:#b91c1c; stroke-width:2.2; }
+      .buzz  { fill:#fffbea; stroke:#a16207; stroke-width:2.2; }
+      .ops   { fill:#f0fdf4; stroke:#15803d; stroke-width:2.2; }
+      .queen { fill:#f5f3ff; stroke:#6d28d9; stroke-width:2.8; }
+      .ui    { fill:#fdf2f8; stroke:#be185d; stroke-width:2.2; }
+
+      /* Header bands */
+      .hdr { opacity:0.085; }
+      .hdrSensor { fill:#334155; }
+      .hdrCore   { fill:#b45309; }
+      .hdrIntel  { fill:#4338ca; }
+      .hdrGov    { fill:#0e7490; }
+      .hdrRisk   { fill:#b91c1c; }
+      .hdrBuzz   { fill:#a16207; }
+      .hdrOps    { fill:#15803d; }
+      .hdrQueen  { fill:#6d28d9; }
+      .hdrUI     { fill:#be185d; }
+      .hdrFrame  { fill:#111827; }
+
+      /* Typography */
+      .title { font-size:18px; font-weight:800; fill:#111827; }
+      .h1 { font-size:15px; font-weight:800; fill:#111827; }
+      .small { font-size:12px; color:#374151; fill:#374151; }
+      .muted { font-size:12px; color:#4b5563; fill:#4b5563; }
+
+      /* Arrows (gutters only) */
+      .arrow { stroke:#374151; stroke-width:2.2; fill:none; marker-end:url(#arrow); }
+      .telemetry { stroke:#6b7280; stroke-width:2.0; fill:none; stroke-dasharray:7 7; marker-end:url(#arrow); }
+      .policy { stroke:#6d28d9; stroke-width:2.6; fill:none; marker-end:url(#arrowPurple); }
+      .policySoft { stroke:#6d28d9; stroke-width:2.4; fill:none; stroke-dasharray:9 8; marker-end:url(#arrowPurple); }
+
+      /* Shadows */
+      .cardShadow { filter:url(#shadow); }
+    </style>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#111827" flood-opacity="0.12"></feDropShadow>
+    </filter>
+
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"></path>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"></path>
+    </marker>
+
+    <!-- Minimal bee icon -->
+    <symbol id="bee" viewBox="0 0 64 64">
+      <ellipse cx="20" cy="24" rx="12" ry="8" fill="#e5e7eb" stroke="#111827" stroke-width="2"></ellipse>
+      <ellipse cx="44" cy="24" rx="12" ry="8" fill="#e5e7eb" stroke="#111827" stroke-width="2"></ellipse>
+      <ellipse cx="32" cy="38" rx="16" ry="12" fill="#fbbf24" stroke="#111827" stroke-width="2"></ellipse>
+      <path d="M18 38 H46" stroke="#111827" stroke-width="4"></path>
+      <path d="M20 44 H44" stroke="#111827" stroke-width="4"></path>
+      <circle cx="32" cy="28" r="7" fill="#111827"></circle>
+      <circle cx="30" cy="26.5" r="1.2" fill="#ffffff"></circle>
+      <circle cx="35" cy="26.5" r="1.2" fill="#ffffff"></circle>
+      <path d="M28 20 C22 14,18 14,16 16" stroke="#111827" stroke-width="2" fill="none"></path>
+      <path d="M36 20 C42 14,46 14,48 16" stroke="#111827" stroke-width="2" fill="none"></path>
+    </symbol>
+
+    <!-- Crown icon -->
+    <symbol id="crown" viewBox="0 0 64 64">
+      <path d="M10 44 L16 20 L28 34 L32 18 L36 34 L48 20 L54 44 Z" fill="#fbbf24" stroke="#6d28d9" stroke-width="3"></path>
+      <rect x="14" y="44" width="36" height="10" rx="4" fill="#f5f3ff" stroke="#6d28d9" stroke-width="3"></rect>
+      <circle cx="16" cy="20" r="3" fill="#6d28d9"></circle>
+      <circle cx="32" cy="18" r="3" fill="#6d28d9"></circle>
+      <circle cx="48" cy="20" r="3" fill="#6d28d9"></circle>
+    </symbol>
+  </defs>
+
+  <!-- Global title -->
+  <text x="800" y="34" text-anchor="middle" class="title">
+    HIVENANCE — ALL AGENTS MAP (Governance + Risk Evidence + BUZZ)
+  </text>
+
+  <!-- GRID / GUTTERS (reference):
+       Col1 x=60..420 (w=360)
+       Gutter1 x=420..450
+       Col2 x=450..810 (w=360)
+       Gutter2 x=810..840
+       Col3 x=840..1200 (w=360)
+       Gutter3 x=1200..1230
+       Col4 x=1230..1540 (w=310)
+       Outer margin right 60 (1540..1600)
+  -->
+
+  <!-- LEGEND (top-left) -->
+  <g class="cardShadow">
+    <rect x="60" y="55" width="750" height="120" rx="16" class="frame"></rect>
+    <rect x="60" y="55" width="750" height="34" rx="16" class="hdrFrame hdr"></rect>
+    <text x="78" y="79" class="h1">Legend</text>
+    <foreignObject x="78" y="95" width="720" height="78">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        <div><b>Card colors:</b>
+          <span style="background:#f8fafc;border:1px solid #334155;padding:2px 6px;border-radius:6px;margin-left:6px;">Sensors</span>
+          <span style="background:#fff7ed;border:1px solid #b45309;padding:2px 6px;border-radius:6px;margin-left:6px;">Oracle</span>
+          <span style="background:#eef2ff;border:1px solid #4338ca;padding:2px 6px;border-radius:6px;margin-left:6px;">Signals/Intel</span>
+          <span style="background:#ecfeff;border:1px solid #0e7490;padding:2px 6px;border-radius:6px;margin-left:6px;">Governance</span>
+          <span style="background:#fffbea;border:1px solid #a16207;padding:2px 6px;border-radius:6px;margin-left:6px;">BUZZ Economics</span>
+          <span style="background:#f0fdf4;border:1px solid #15803d;padding:2px 6px;border-radius:6px;margin-left:6px;">Ops/Analytics</span>
+          <span style="background:#fdf2f8;border:1px solid #be185d;padding:2px 6px;border-radius:6px;margin-left:6px;">UI</span>
+          <span style="background:#f5f3ff;border:1px solid #6d28d9;padding:2px 6px;border-radius:6px;margin-left:6px;">Queen</span>
+        </div>
+        <div style="margin-top:6px;"><b>Arrows:</b> <b>Solid</b> = live data/decision flow • <b>Dashed</b> = telemetry/feedback • <b>Purple</b> = Queen policy updates &amp; governance telemetry</div>
+        <div><b>Routing rule:</b> all arrows run only in gutters (no crossing through cards).</div>
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- QUEEN (top-right) -->
+  <g class="cardShadow">
+    <rect x="840" y="55" width="700" height="120" rx="16" class="queen"></rect>
+    <rect x="840" y="55" width="700" height="34" rx="16" class="hdrQueen hdr"></rect>
+    <use href="#crown" x="854" y="61" width="26" height="26"></use>
+    <text x="888" y="79" class="h1">Queen Bee (Meta-Governance)</text>
+    <foreignObject x="854" y="95" width="670" height="78">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Reads system telemetry (veto rate, drawdown, API health, BUZZ burn) and publishes <b>ruleset_version</b>, <b>Hive State</b> (GREEN/AMBER/RED),
+        caps, quarantines, worker enable/disable, and emergency policy.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- ========== ROW 1 (Sensors + Oracle/Workers + Council/Coordinator + SwarmGuard) ========== -->
+  <!-- Market -->
+  <g class="cardShadow">
+    <rect x="60" y="200" width="360" height="115" rx="16" class="sensor"></rect>
+    <rect x="60" y="200" width="360" height="34" rx="16" class="hdrSensor hdr"></rect>
+    <use href="#bee" x="74" y="206" width="26" height="26"></use>
+    <text x="108" y="224" class="h1">Market Data Bee</text>
+    <foreignObject x="74" y="242" width="332" height="66">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Streams ticks and builds candles; computes volume &amp; spread. <b>Facts only</b>.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Wallet -->
+  <g class="cardShadow">
+    <rect x="60" y="330" width="360" height="115" rx="16" class="sensor"></rect>
+    <rect x="60" y="330" width="360" height="34" rx="16" class="hdrSensor hdr"></rect>
+    <use href="#bee" x="74" y="336" width="26" height="26"></use>
+    <text x="108" y="354" class="h1">Wallet Bee</text>
+    <foreignObject x="74" y="372" width="332" height="66">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Balances, exposure, available funds, fee constraints. Feeds sizing checks.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Network -->
+  <g class="cardShadow">
+    <rect x="60" y="460" width="360" height="115" rx="16" class="sensor"></rect>
+    <rect x="60" y="460" width="360" height="34" rx="16" class="hdrSensor hdr"></rect>
+    <use href="#bee" x="74" y="466" width="26" height="26"></use>
+    <text x="108" y="484" class="h1">Network Bee</text>
+    <foreignObject x="74" y="502" width="332" height="66">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Latency, websocket stability, API uptime. Produces reliability context.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Oracle -->
+  <g class="cardShadow">
+    <rect x="450" y="200" width="360" height="140" rx="16" class="core"></rect>
+    <rect x="450" y="200" width="360" height="34" rx="16" class="hdrCore hdr"></rect>
+    <use href="#bee" x="464" y="206" width="26" height="26"></use>
+    <text x="498" y="224" class="h1">ORACLE Bee</text>
+    <foreignObject x="464" y="242" width="332" height="90">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Regime detection + hysteresis. Emits <b>REGIME_UPDATE</b> (name, confidence, since_ts).
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Workers -->
+  <g class="cardShadow">
+    <rect x="450" y="350" width="360" height="225" rx="16" class="intel"></rect>
+    <rect x="450" y="350" width="360" height="34" rx="16" class="hdrIntel hdr"></rect>
+    <use href="#bee" x="464" y="356" width="26" height="26"></use>
+    <text x="498" y="374" class="h1">Worker Bees (Signals)</text>
+    <foreignObject x="464" y="392" width="332" height="175">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        <div><b>WORKER-RSI · WORKER-BREAKOUT · WORKER-MOMENTUM</b></div>
+        <div>Each emits <b>WORKER_SIGNAL</b> (side, confidence, features, risk_tags).</div>
+        <div style="margin-top:6px;">Workers never execute trades and never bypass governance—<b>they propose</b>.</div>
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Council -->
+  <g class="cardShadow">
+    <rect x="840" y="200" width="360" height="170" rx="16" class="gov"></rect>
+    <rect x="840" y="200" width="360" height="34" rx="16" class="hdrGov hdr"></rect>
+    <use href="#bee" x="854" y="206" width="26" height="26"></use>
+    <text x="888" y="224" class="h1">COUNCIL Bee (SVS)</text>
+    <foreignObject x="854" y="242" width="332" height="120">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Aggregates workers + regime alignment. Emits <b>COUNCIL_DECISION</b> (score, margin, recommendation) and may include
+        <b>risk.metrics</b> (loss_streak, alpha_age).
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Coordinator -->
+  <g class="cardShadow">
+    <rect x="840" y="380" width="360" height="120" rx="16" class="gov"></rect>
+    <rect x="840" y="380" width="360" height="34" rx="16" class="hdrGov hdr"></rect>
+    <use href="#bee" x="854" y="386" width="26" height="26"></use>
+    <text x="888" y="404" class="h1">Coordinator Bee</text>
+    <foreignObject x="854" y="422" width="332" height="70">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Orchestrates timing (poll cadence), caches latest regime/signals, and routes decision objects to enforcement.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- SwarmGuard -->
+  <g class="cardShadow">
+    <rect x="1230" y="200" width="310" height="235" rx="16" class="gov"></rect>
+    <rect x="1230" y="200" width="310" height="34" rx="16" class="hdrGov hdr"></rect>
+    <use href="#bee" x="1244" y="206" width="26" height="26"></use>
+    <text x="1278" y="224" class="h1">SwarmGuard (Enforcer)</text>
+    <foreignObject x="1244" y="242" width="282" height="185">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Merges risk evidence (defaults safe). Evaluates:
+        <b>VETO → SVS gates → regime gates → permit caps</b>.
+        If allowed: locks BUZZ stake (idempotent) and returns <b>risk.triggered[]</b> + evidence snapshot.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Risk Surface -->
+  <g class="cardShadow">
+    <rect x="1230" y="445" width="310" height="130" rx="16" class="risk"></rect>
+    <rect x="1230" y="445" width="310" height="34" rx="16" class="hdrRisk hdr"></rect>
+    <text x="1246" y="469" class="h1">Risk Evidence Surface</text>
+    <foreignObject x="1244" y="487" width="282" height="80">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Captures veto causes (override, API meltdown, order hang), plus strategy health (loss streak, alpha age).
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- ========== ROW 2 (Execution + Nurse + BUZZ + UI + Ops) ========== -->
+  <!-- Execution -->
+  <g class="cardShadow">
+    <rect x="840" y="510" width="360" height="165" rx="16" class="intel"></rect>
+    <rect x="840" y="510" width="360" height="34" rx="16" class="hdrIntel hdr"></rect>
+    <use href="#bee" x="854" y="516" width="26" height="26"></use>
+    <text x="888" y="534" class="h1">Execution Bee</text>
+    <foreignObject x="854" y="552" width="332" height="115">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Calls <b>/rules/enforce</b> with <b>request_id</b> + runtime metrics:
+        <i>api_failures_60s</i>, <i>order_unconfirmed_ms</i>, <i>override_*</i>.
+        Places orders only within SwarmGuard permit.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Nurse -->
+  <g class="cardShadow">
+    <rect x="840" y="685" width="360" height="145" rx="16" class="ops"></rect>
+    <rect x="840" y="685" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <use href="#bee" x="854" y="691" width="26" height="26"></use>
+    <text x="888" y="709" class="h1">NURSE Bee</text>
+    <foreignObject x="854" y="727" width="332" height="95">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Post-trade review + learning. Updates <i>worker_loss_streak</i> and <i>alpha_age_minutes</i>. Feeds Council/Performance.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- BUZZ -->
+  <g class="cardShadow">
+    <rect x="1230" y="585" width="310" height="160" rx="16" class="buzz"></rect>
+    <rect x="1230" y="585" width="310" height="34" rx="16" class="hdrBuzz hdr"></rect>
+    <text x="1246" y="609" class="h1">BUZZ Service</text>
+    <foreignObject x="1244" y="627" width="282" height="110">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Ledger (available/locked). Atomic + idempotent writes.
+        Supports <b>LOCK</b>, <b>RELEASE</b>, <b>SLASH</b>. Receipts power UI + settlement.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- UI -->
+  <g class="cardShadow">
+    <rect x="450" y="585" width="360" height="120" rx="16" class="ui"></rect>
+    <rect x="450" y="585" width="360" height="34" rx="16" class="hdrUI hdr"></rect>
+    <use href="#bee" x="464" y="591" width="26" height="26"></use>
+    <text x="498" y="609" class="h1">UI / Dashboard</text>
+    <foreignObject x="464" y="627" width="332" height="70">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        “SwarmGuard Card” shows permit, BUZZ receipt, and <b>risk.triggered</b> with evidence snapshot. Includes manual stop.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- OPS STRIP (all in Col1+Col2 bottom) -->
+  <!-- Logging -->
+  <g class="cardShadow">
+    <rect x="60" y="585" width="360" height="100" rx="16" class="ops"></rect>
+    <rect x="60" y="585" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <text x="76" y="609" class="h1">Logging Bee</text>
+    <foreignObject x="74" y="627" width="332" height="50">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Append-only events: signals, decisions, enforcement, orders, fills, risk triggers.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Data Store -->
+  <g class="cardShadow">
+    <rect x="60" y="695" width="360" height="100" rx="16" class="ops"></rect>
+    <rect x="60" y="695" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <text x="76" y="719" class="h1">Data Store Bee</text>
+    <foreignObject x="74" y="737" width="332" height="50">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Persists candles/features, decisions/enforcements, orders/fills, worker stats, regimes.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Performance -->
+  <g class="cardShadow">
+    <rect x="450" y="715" width="360" height="115" rx="16" class="ops"></rect>
+    <rect x="450" y="715" width="360" height="34" rx="16" class="hdrOps hdr"></rect>
+    <text x="466" y="739" class="h1">Performance Bee</text>
+    <foreignObject x="464" y="757" width="332" height="65">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        Aggregates metrics (drawdown, expectancy, veto rate by rule, drift). Feeds Queen + Council tuning.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- Security -->
+  <g class="cardShadow">
+    <rect x="1230" y="755" width="310" height="75" rx="16" class="ops"></rect>
+    <rect x="1230" y="755" width="310" height="34" rx="16" class="hdrOps hdr"></rect>
+    <text x="1246" y="779" class="h1">Security Bee</text>
+    <foreignObject x="1244" y="797" width="282" height="28">
+      <xhtml:div style="font-size:12px;color:#374151;line-height:1.45;">
+        HMAC/JWT S2S auth · key vaulting · audit integrity.
+      </xhtml:div>
+    </foreignObject>
+  </g>
+
+  <!-- KillSwitch -->
+  <g class="cardShadow">
+    <rect x="840" y="835" width="700" height="55" rx="16" class="risk"></rect>
+    <rect x="840" y="835" width="700" height="34" rx="16" class="hdrRisk hdr"></rect>
+    <text x="856" y="859" class="h1">KillSwitch Bee</text>
+    <text x="1120" y="859" class="small">Emergency stop: GLOBAL_DENY · freeze symbol · halt execution</text>
+  </g>
+
+  <!-- =========================
+       GUTTER-ONLY ARROWS
+       =========================
+       Gutters:
+        G1 vertical line around x=435
+        G2 vertical line around x=825
+        G3 vertical line around x=1215
+       Horizontal gutter lanes:
+        y=185 (under top row)
+        y=305 (between Market and Oracle)
+        y=575 (between main row and lower row)
+  -->
+
+  <!-- Market -> Oracle (route: G1 then into Oracle top edge) -->
+  <path class="arrow" d="M420 255 L435 255 L435 245 L450 245"></path>
+
+  <!-- Market -> Workers (route: G1 down, then into Workers) -->
+  <path class="arrow" d="M420 285 L435 285 L435 405 L450 405"></path>
+
+  <!-- Wallet -> Execution (telemetry, route: G1 to G2 then into Execution) -->
+  <path class="telemetry" d="M420 388 L435 388 L435 595 L825 595 L825 565 L840 565"></path>
+
+  <!-- Network -> Execution (telemetry, route: G1 to G2 then into Execution) -->
+  <path class="telemetry" d="M420 518 L435 518 L435 615 L825 615 L825 590 L840 590"></path>
+
+  <!-- Oracle -> Council (route: G2 up lane) -->
+  <path class="arrow" d="M810 270 L825 270 L825 260 L840 260"></path>
+
+  <!-- Workers -> Council (route: G2 vertical then into Council) -->
+  <path class="arrow" d="M810 460 L825 460 L825 330 L840 330"></path>
+
+  <!-- Council -> Coordinator (straight in col3, no crossing text: use gutter inside col3 edge) -->
+  <path class="arrow" d="M1020 370 L1020 380"></path>
+
+  <!-- Coordinator -> Execution (route down inside col3 edge) -->
+  <path class="arrow" d="M1020 500 L1020 510"></path>
+
+  <!-- Execution -> SwarmGuard (/rules/enforce) (route: to G3, up, then into SwarmGuard) -->
+  <path class="arrow" d="M1200 590 L1215 590 L1215 300 L1230 300"></path>
+
+  <!-- SwarmGuard -> Risk Surface (local, vertical within col4) -->
+  <path class="telemetry" d="M1385 435 L1385 445"></path>
+
+  <!-- SwarmGuard -> BUZZ (vertical) -->
+  <path class="arrow" d="M1385 575 L1385 585"></path>
+
+  <!-- SwarmGuard -> UI (telemetry: via G3 to G2 to UI) -->
+  <path class="telemetry" d="M1230 510 L1215 510 L1215 575 L825 575 L825 645 L810 645"></path>
+
+  <!-- Execution -> Logging (telemetry: via G2 to col1 ops) -->
+  <path class="telemetry" d="M840 640 L825 640 L825 575 L435 575 L435 635 L420 635"></path>
+
+  <!-- Execution -> Data Store (telemetry: via G2 then to col1 lower) -->
+  <path class="telemetry" d="M840 660 L825 660 L825 575 L435 575 L435 745 L420 745"></path>
+
+  <!-- BUZZ -> Data Store (telemetry: via G3, then across to col1 lower) -->
+  <path class="telemetry" d="M1230 665 L1215 665 L1215 575 L435 575 L435 745 L420 745"></path>
+
+  <!-- Nurse -> Performance (telemetry: route via G2 to col2 bottom) -->
+  <path class="telemetry" d="M840 760 L825 760 L825 770 L810 770"></path>
+
+  <!-- Performance -> Queen (policySoft telemetry) -->
+  <path class="policySoft" d="M810 770 L825 770 L825 185 L980 185 L980 175"></path>
+
+  <!-- Queen -> SwarmGuard (policy: via G3 down) -->
+  <path class="policy" d="M1200 115 L1215 115 L1215 200 L1385 200 L1385 200"></path>
+
+  <!-- Queen telemetry back from SwarmGuard (policySoft: up via G3 then left) -->
+  <path class="policySoft" d="M1540 260 L1560 260 L1560 185 L980 185 L980 175"></path>
+
+  <!-- SwarmGuard -> KillSwitch (telemetry to bottom bar; via G3 down) -->
+  <path class="telemetry" d="M1540 300 L1560 300 L1560 820 L1215 820 L1215 862 L840 862"></path>
+
+  <!-- UI manual stop -> KillSwitch (telemetry via G2 then down) -->
+  <path class="telemetry" d="M810 645 L825 645 L825 862 L840 862"></path>
+
+  <!-- Security "wraps" critical services (telemetry cues only; all in gutters) -->
+  <path class="telemetry" d="M1385 755 L1385 745 L1215 745 L1215 300 L1230 300"></path>
+  <path class="telemetry" d="M1385 755 L1385 745 L1215 745 L1215 590 L1200 590"></path>
+
+</svg>

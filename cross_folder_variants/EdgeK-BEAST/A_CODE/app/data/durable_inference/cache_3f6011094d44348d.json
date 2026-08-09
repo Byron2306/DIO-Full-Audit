@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:1c2ee9d4d367750b61109ed93c51ca8747f7d2c7fead061d85e8fd46cba56fac",
+    "ref": "blobs/sha256/1c2ee9d4d367750b61109ed93c51ca8747f7d2c7fead061d85e8fd46cba56fac.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-19T04:44:22.887880+00:00",
+  "credit_id": "cache_3f6011094d44348d",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:f32ed596bd1898605f5287e0e4bb1572f0771ca0b5e7b9165f5a61c77b02ff4b",
+    "response_blob_digest": "sha256:706107e1fffc0a063145067e07c04fa66edbf156e69096f5da66b53d22b50e9e",
+    "response_blob_ref": "blobs/sha256/706107e1fffc0a063145067e07c04fa66edbf156e69096f5da66b53d22b50e9e.json",
+    "response_chars": 3603,
+    "response_preview": "```json\n{\n  \"kind\": \"beast.action_intent.v1\",\n  \"objective\": \"Refactor the MetaToolCandidate class for clarity without changing behavior\",\n  \"actions\": [\n    {\n      \"id\": \"a1\",\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/meta_tool_generator.py\",\n        \"anchor_ref\": \"A1\"\n      },\n      \"old\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candi",
+    "response_ref": "cache_3f6011094d44348d.answer.json",
+    "response_sha256": "sha256:8c50ccd2b8c8bf100e99a2582ebbdf12e47611097de82fc05f5891c9e5ea1c93"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

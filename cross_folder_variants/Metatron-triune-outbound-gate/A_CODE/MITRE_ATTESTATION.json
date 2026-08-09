@@ -1,0 +1,428 @@
+{
+  "attestation_type": "mitre_attack_full_coverage",
+  "schema_version": "1.0.0",
+  "generated_at": "2026-04-19T09:16:16.685554+00:00",
+  "system": "Seraph AI Security Platform / Metatron-triune-outbound-gate",
+  "operator": "Byron Bunt",
+  "claim": {
+    "coverage": "100%",
+    "technique_count": 691,
+    "tier": "S5 Platinum",
+    "framework": "MITRE ATT&CK Enterprise",
+    "all_techniques_platinum": true,
+    "all_techniques_reviewed": true,
+    "all_techniques_reproducible": true
+  },
+  "integrity": {
+    "technique_index_sha256": "0e2b9170864678a3023f322dcb6ccc296327e8ed06daed0ff39f589cbe87ae36",
+    "coverage_summary_sha256": "d6c71d67b72ac0c426d9d6ba5e63cf4e04928d74cbfadb9104a2cb4a6dfe6eab",
+    "report_sha256": "1b357818fbf9201e2c7aec31749d9865a99c784fcddd3a3cbf0853b0ff83daf5"
+  },
+  "spot_check_sample": {
+    "T1610": {
+      "tvr_sha256": "ca2c545726b5806ec0cd6fb92b248d840e681d2d593f0f84bef00ba12800549e",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-container-lab",
+      "sigma_matched": 4
+    },
+    "T1057": {
+      "tvr_sha256": "34b97bc6f852f1c3dcec78d173a8484a9f2b1533bdbb5d5f8d19bfcc65e68f23",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1018": {
+      "tvr_sha256": "24026ada82b4cd6e6944d55cd93dc26e1cecc74ba78e5b314a25aef2db35fb17",
+      "tier": "S5",
+      "run_count": 5,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1218.003": {
+      "tvr_sha256": "caf6b14bc48dd98fa70902ab355aeb32d2e53af19cf3e3d59b6cfd19e5a1b73e",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1200": {
+      "tvr_sha256": "21fac6396d56184b5c91fcf7108f2b920f9f5e54dbfb78abdb8994e1b75b3989",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1136.003": {
+      "tvr_sha256": "c076164dc80641a908dea56b3bc0bd94c9083f190a300370cd3d03fe40d01034",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-cloud-sim",
+      "sigma_matched": 4
+    },
+    "T1070.008": {
+      "tvr_sha256": "7865f5297cc5e5e8f052589091bf62a6987c2a20f96fd544244d6f4f1c321565",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1055.011": {
+      "tvr_sha256": "e281d9075b938ff8cf76ae00d80f66757e7a928d5f73c2dded2786ffb86034d1",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1584": {
+      "tvr_sha256": "fb4b994b11dcccb40f2c70ab696eb0598763e2c3e84ecac04b0df0540de9d28b",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1052.001": {
+      "tvr_sha256": "a512b5520a430c872a6456345cb2ba02fa00797f43bb9c97a7b93fc11565c7a4",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1592": {
+      "tvr_sha256": "9c88a1ed67f811400193d0d70a6177428da8b7063758055113cfdb2373fb7b18",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1555.001": {
+      "tvr_sha256": "4fd94067df0136ae0ebaa544554eef44bed3dadd895abd7978a2b8bfc3c8971d",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1021.004": {
+      "tvr_sha256": "a8ed3a6708c3c28704504ba69d56637f5bdbe0c204b9fa2b50a2afe02abc9ba4",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1021.002": {
+      "tvr_sha256": "f9325254277877713f5f680898d07e7392458b0d862ea73f402ef2ef051d9e56",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1053.007": {
+      "tvr_sha256": "54995debdb2b8a706432f23c451c7642ce3a514e7234d9acbb76fc14c23ca208",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-container-lab",
+      "sigma_matched": 4
+    },
+    "T1134.005": {
+      "tvr_sha256": "290261d7b8851a4cc84ef382bcfe5443c4d87bc6e80b9f392b8f0cb915a3f8fa",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1176.001": {
+      "tvr_sha256": "077b42d03e4591044b1098c178f0c3e556da5e131c8246acfbacfc46bbdc2892",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1568.002": {
+      "tvr_sha256": "1ed79e01e6f81a376cc8b60952d35767e767ffa293636e8e07296f8804cd96fc",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1595.002": {
+      "tvr_sha256": "193a512eb81cbf7404f5eb0fa18a2ef94de6dfdec23559920e29b45113f3bdc4",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1020.001": {
+      "tvr_sha256": "b7c30e6711f66a8bd0017f26bc381c38d94eb6a21c03fb042e327eb9feb34fd1",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-cloud-sim",
+      "sigma_matched": 4
+    },
+    "T1586.003": {
+      "tvr_sha256": "1d5b4f4d9ced1e375294f726495877b4a8d6a313d3e7f2ff67bcb833bcf4b7b7",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1115": {
+      "tvr_sha256": "ee55d44c371a2c5348112478e9cf5c8a469ad581d3f067725d420036a87042f0",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1647": {
+      "tvr_sha256": "4ce36c64efac301586b8eef8be5768ab0380fcaddc3c2962d06f3e1e72caa42b",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1553.006": {
+      "tvr_sha256": "518a740985d1a65d2e78d17b11d50ab20df1097a4817c1916015da455f39d179",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1136": {
+      "tvr_sha256": "0576fdd6216633c1cfe3b19a4554592e9cce35f351a8630c343e95baea38d889",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1559": {
+      "tvr_sha256": "1a81c62a1c034cd36b0e941abb9a264c1b71a4d24b3c3aaa1d3ebc6a6d2d7730",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1591.004": {
+      "tvr_sha256": "153b6814e494cfc0c0bd6e35910e16c08db8307462244c2ebe8367984347ef26",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1218.007": {
+      "tvr_sha256": "a5dd684a05aba7634540e6851284868a013c16cb092d52e8f588f738400c593d",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1003.002": {
+      "tvr_sha256": "8601f172a3a1d17c91debf0be94c1655cbd57750f6f9e6490ada1984ae7d8556",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1087": {
+      "tvr_sha256": "ee2b595d338cbb2b3fd4fa13c1813f04dae3cb3b2b8f1006bcfd4feee10e7e72",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1529": {
+      "tvr_sha256": "7b697423240ed748d65f697efe77070ba389ca8457a0817374a1e3a46ee712e0",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1078.004": {
+      "tvr_sha256": "d5303eb3098b94178bd24669325e0e50701653ae7002ddebaf3b74887cd43a49",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-cloud-sim",
+      "sigma_matched": 4
+    },
+    "T1134.002": {
+      "tvr_sha256": "ef6fbb643e0d421cf3027401ebc20508cffab94ffc71c3144235f3c6866c92d8",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1518.002": {
+      "tvr_sha256": "8fd78179f2b9fba36fed8e68de9e898d9672840c72444edfd38691f21484f8d7",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1053.006": {
+      "tvr_sha256": "6a0d9485c0fc419956efa02602637cf142aad7898dabb306b5ec8d20b3d1d75f",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1547.002": {
+      "tvr_sha256": "ff776d24863c9a62455020f1a06975f3f4760efe89a8641a4d78706a49b70dcb",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1055.003": {
+      "tvr_sha256": "7ec25f157436cdb814c6199d9bf0fcee39202368f84fd7eb014af98d735ba424",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1543.005": {
+      "tvr_sha256": "df34f8f9ba00d0452f1449c3a81bb072a70e80c2ec2e7fd9d7dd97e3c9b454e3",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-container-lab",
+      "sigma_matched": 4
+    },
+    "T1535": {
+      "tvr_sha256": "10826e1bdbc5d5d4c1c5f5d51c1f52a46bddff8dc54dc1d6e6c8dfbbec7e09fb",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-cloud-sim",
+      "sigma_matched": 4
+    },
+    "T1596": {
+      "tvr_sha256": "090e8c6d4f9f042d91ee9e1cac5a06d30837383137b4773d8e814eca471bd482",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1213.003": {
+      "tvr_sha256": "24feae367bb9564f86a0ab3b07d71c51d4071d26de4f597ccd60b3694bfdafa3",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-cloud-sim",
+      "sigma_matched": 4
+    },
+    "T1027.006": {
+      "tvr_sha256": "aa378ee54f1782821ef1801d84c09501573fe000c657ce0a2659036d334fb6cd",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1562": {
+      "tvr_sha256": "dbdb5a1036089baa88a2b2eaefa42af6f80421112ea5ee6e0d5e0b146a1d5388",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1583": {
+      "tvr_sha256": "ad4776eb482a98999d3bb0bbe1b37d0d90d9e2a1c8478a3e7de140912ef67717",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1059.012": {
+      "tvr_sha256": "c7e92742abd00c001ab12b7a6edd338f3391bdcf7a03be9cda74bfd6394566e0",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "esxi-lab-01",
+      "sigma_matched": 4
+    },
+    "T1547": {
+      "tvr_sha256": "140fe1a2720d6ab13e1858ca369296a0b42692327751e2e84cbcc98e746ef887",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    },
+    "T1041": {
+      "tvr_sha256": "f9b38569d5fe7d33f6001f9629413d84284c5e2329983c755a0f19daf66890b9",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1584.007": {
+      "tvr_sha256": "5049c5d4752bbaa5bd4da00d8c6e34eddb96d1b4311fd4fab24fc583d313e5a6",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "seraph-osint-node",
+      "sigma_matched": 4
+    },
+    "T1222.001": {
+      "tvr_sha256": "c5a9c1f5cb10b61f33edaed9ba0f1cd55d8514a1f02fecde8b617c0159f46ee2",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "windows-lab-01",
+      "sigma_matched": 4
+    },
+    "T1606": {
+      "tvr_sha256": "5b9a238d97cd297b8043ca876ccfae2adbda74185911de6a084b6c81b2b09ab6",
+      "tier": "S5",
+      "run_count": 3,
+      "exit_code": 0,
+      "hostname": "debian-node-01",
+      "sigma_matched": 4
+    }
+  },
+  "verification_commands": {
+    "count_platinum": "python3 -c \"import json; idx=json.load(open('evidence-bundle/technique_index.json')); print(sum(1 for v in idx['techniques'].values() if v['tier']=='platinum'), '/', len(idx['techniques']))\"",
+    "verify_index_hash": "sha256sum evidence-bundle/technique_index.json",
+    "verify_random_tvr": "python3 -c \"import json,os,random; BASE='evidence-bundle'; idx=json.load(open(f'{BASE}/technique_index.json')); tid=random.choice(list(idx['techniques'])); p=f'{BASE}/techniques/{tid}/TVR-{tid}-2026-04-19-001/tvr.json'; d=json.load(open(p)); print(tid, d['promotion']['tier'], 'runs='+str(d['execution']['run_count']))\""
+  }
+}

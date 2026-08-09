@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:985cdad45b7616e8487c8b33a954b1ec9863fe2afafca8e277e56572313e2ba3",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve Compute Forge Node performance and security\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance and security.\", \"new\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency.\", \"intent\": \"Update Compute Forge Node description to include efficiency\"}], \"verify\": [\"scripts/run_discovery_agnostic_receiver.py\", \"scripts/verify_discovery_agnostic_receipt.py\", \"scripts/crystal_proof.py\"]}",
+    "response_sha256": "sha256:f492bf8cebd9fdfcad70c4d2e3ef6c938dc188f30fcf6b5d4ff1f8289ba629c9",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

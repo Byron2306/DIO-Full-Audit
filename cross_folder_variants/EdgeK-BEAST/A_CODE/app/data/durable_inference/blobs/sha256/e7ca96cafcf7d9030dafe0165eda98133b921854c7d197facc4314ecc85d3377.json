@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:e7ca96cafcf7d9030dafe0165eda98133b921854c7d197facc4314ecc85d3377",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "b1e76e31920b5ccbe0aebf69378c9351adb232a6c898c6c960b57d9852692aa0",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 4000,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:037727846225371a6799118a073c8f3f038d4daac6ccc6a3c81e4d308d751034",
+      "response_blob_digest": "sha256:679d5bde332400c722c59855ca9cac00704feee6ddf4452f91277566cf5fc3b2",
+      "response_blob_ref": "blobs/sha256/679d5bde332400c722c59855ca9cac00704feee6ddf4452f91277566cf5fc3b2.json",
+      "response_chars": 19991,
+      "response_preview": "### app/context/economizer.py\n\nThe `ContextEconomizer` class in `app/context/economizer.py` is responsible for reducing oversized request context before governance and provider execution. Here are some potential improvements:\n\n1. **Refactor the `economize` method**: The `economize` method is quite long and complex. Consider breaking it down into smaller, more manageable functions, each with a specific responsibility (e.g., `compress_messages`, `trim_recent_messages`, etc.).\n2. **Improve the `com",
+      "response_ref": "cache_da7c91776ba9ec32.answer.json",
+      "response_sha256": "sha256:70265f72dd13737200651a8a90f23829331d5c7c2c743dbb8ce59195893159f6"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,52 @@
+title: Linux Shared Memory Fileless Execution
+id: 8p2m3n1o-9k4l-4m7n-8o1p-2l5k6m9n4o5p
+status: experimental
+description: Detects fileless execution using Linux shared memory segments
+references:
+  - https://attack.mitre.org/techniques/T1027/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|startswith: '/dev/shm/'
+    TargetFilename|contains:
+      - 'memfd'
+      - 'shm_'
+  condition: selection
+falsepositives:
+  - Legitimate shared memory usage
+  - System processes
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.011
+---
+title: Linux Shared Memory Payload Creation
+id: 9q3n4o2p-0l5m-5n8o-9p2q-3m6l7n0o5p6q
+status: experimental
+description: Detects creation of executable payloads in Linux shared memory
+references:
+  - https://attack.mitre.org/techniques/T1027/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains|all:
+      - '/dev/shm'
+      - 'exec'
+      - 'memfd_create'
+  condition: selection
+falsepositives:
+  - System administration scripts
+  - Development tools
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1027.011

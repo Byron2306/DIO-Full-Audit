@@ -1,0 +1,28 @@
+title: Lab synthetic SudoCachingAbuse on tagged canary (honey_sudoers) — T1548.003
+id: lab-sudo-cache-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_sudoers) is observed with the metatron_run_id tag and the
+  expected event_type matches SudoCachingAbuse. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1548/003
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1548.003
+  - lab.canary
+  - lab.edr_command_audit
+logsource:
+  product: lab_audit
+  service: edr_command_audit
+  category: privesc_sudo
+detection:
+  selection:
+    event_type: 'SudoCachingAbuse'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

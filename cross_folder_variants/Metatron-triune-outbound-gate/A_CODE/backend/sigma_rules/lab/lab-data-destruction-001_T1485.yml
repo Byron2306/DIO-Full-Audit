@@ -1,0 +1,28 @@
+title: Lab synthetic BulkDeleteCanary on tagged canary (honey_canary_files) — T1485
+id: lab-data-destruction-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_canary_files) is observed with the metatron_run_id tag and the
+  expected event_type matches BulkDeleteCanary. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1485
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1485
+  - lab.canary
+  - lab.edr_filesystem_audit
+logsource:
+  product: lab_audit
+  service: edr_filesystem_audit
+  category: data_destruction
+detection:
+  selection:
+    event_type: 'BulkDeleteCanary'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

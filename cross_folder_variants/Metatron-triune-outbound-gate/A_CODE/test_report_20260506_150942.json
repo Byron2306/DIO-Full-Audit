@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-05-06T15:09:42.021157",
+  "execution_time_seconds": 0.1454334259033203,
+  "results": {
+    "unit": [
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/unit/test_agenticity.py -v --tb=short"
+      },
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/unit/test_maze.py -v --tb=short"
+      },
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/unit/test_honey_tokens.py -v --tb=short"
+      },
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/unit/test_deception_router.py -v --tb=short"
+      },
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/integration/test_service_integration.py -v --tb=short"
+      }
+    ],
+    "integration": [
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/integration/test_service_integration.py -v --tb=short"
+      }
+    ],
+    "api": [
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/api/test_deception_api.py -v --tb=short"
+      }
+    ],
+    "e2e": [
+      {
+        "success": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "/home/byron/Downloads/Metatron-triune-outbound-gate/.venv/bin/python: No module named pytest\n",
+        "command": "python -m pytest tests/e2e/test_complete_workflow.py -v --tb=short"
+      }
+    ]
+  },
+  "summary": {
+    "total_tests": 8,
+    "passed": 0,
+    "failed": 8,
+    "success_rate": 0.0
+  }
+}

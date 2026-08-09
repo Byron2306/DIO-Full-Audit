@@ -1,0 +1,320 @@
+{
+  "schema": "nichefoundry.release_approval_bundle.v1",
+  "episode_id": "homs-c32b49867157b9ad",
+  "video_id": "vdKPHe6Jg4Q",
+  "files": [
+    {
+      "relative_path": "final.mp4",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 4135662,
+      "sha256": "07c72e08a2cb19190dd16e139e1fef8987f47bc5d14f88850b949231a1982e42"
+    },
+    {
+      "relative_path": "captions.srt",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 708,
+      "sha256": "3344e52488bfcca794b55022b0ac5e738821e7cc3038348aa132c40f6e27423e"
+    },
+    {
+      "relative_path": "thumbnail.png",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1421338,
+      "sha256": "d7c19aa5de454c25f3b31998eda38099f7590ee346d0e36db05bbf21616fce8f"
+    },
+    {
+      "relative_path": "final_signoff_bundle.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 404,
+      "sha256": "85e280ef78bbcc99cfc79d0b1d095357bcf6354a2ec48781951e2278f1626e9c"
+    },
+    {
+      "relative_path": "publishing_package.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1136,
+      "sha256": "5301996d03d0a1ab9f4345805a8b2d53747a88b5bc41f72c8a6ee699064b0e75"
+    },
+    {
+      "relative_path": "metadata_package.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1917,
+      "sha256": "e38ee247392a84315904123f5fe62b845b975abd5120f4eb601b8cf3a96403e9"
+    },
+    {
+      "relative_path": "compliance_report.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 2183,
+      "sha256": "ef6bb605b3621d72125aec86cf1227500732cc01e034cb9a695353c71b76af08"
+    },
+    {
+      "relative_path": "publishing_verification.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 777,
+      "sha256": "a0884d81b8b2deb4a79c2c5d0139615b420575e9828b33b9f7961087c98a306e"
+    }
+  ],
+  "remote": {
+    "processing": {
+      "status": "processed",
+      "attempts": 10,
+      "history": [
+        {
+          "attempt": 1,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:37.009Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 2,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:40.239Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 3,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:43.493Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 4,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:46.712Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 5,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:49.957Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 6,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:53.187Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 7,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:56.487Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 8,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:59.724Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 9,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:06:02.940Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 10,
+          "upload_status": "processed",
+          "checked_at": "2026-08-09T00:06:06.198Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        }
+      ],
+      "video": {
+        "kind": "youtube#video",
+        "etag": "udDOE0s2x-8jXE_yBalzaebpPEU",
+        "id": "vdKPHe6Jg4Q",
+        "snippet": {
+          "publishedAt": "2026-08-09T00:05:26Z",
+          "channelId": "UCc916iuoPLseg05t5J5leaQ",
+          "title": "HOMS Marking Relief: Turn a Marking Batch into a Review Pack",
+          "description": "A marking batch is waiting. HOMS prepares the first structured pass so an educator can review the work instead of rebuilding the workflow from scratch.\n\nThe controlled pilot accepts learner scripts, a rubric or memo, and a marksheet. It prepares draft marks, feedback and review files with an explicit educator approval gate. The educator remains the final assessor.\n\nStart with one fake, redacted or otherwise non-sensitive batch.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled HOMS three-script demonstration and educator review outputs.\n- This video contains illustrative synthetic media; no real learner identity is represented.\n\nMusic: \"Warm Sunset by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/",
+          "thumbnails": {
+            "default": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/default.jpg?sqp=CKyI39MG&rs=AOn4CLBWklcqk1Oacx5O_CuZkJ2HwBpWcQ",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/mqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLClwCuOfGesrcMVB9G3r6sQ16EODg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/hqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLBsrXDldCZ_jdCdsy4mb3_5YIco9g",
+              "width": 480,
+              "height": 360
+            },
+            "standard": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/sddefault.jpg?sqp=CKyI39MG&rs=AOn4CLD03oL11y90AyKk3yytWR2H02PrTQ",
+              "width": 640,
+              "height": 480
+            }
+          },
+          "channelTitle": "DIO workflows",
+          "categoryId": "27",
+          "liveBroadcastContent": "none",
+          "defaultLanguage": "en",
+          "localized": {
+            "title": "HOMS Marking Relief: Turn a Marking Batch into a Review Pack",
+            "description": "A marking batch is waiting. HOMS prepares the first structured pass so an educator can review the work instead of rebuilding the workflow from scratch.\n\nThe controlled pilot accepts learner scripts, a rubric or memo, and a marksheet. It prepares draft marks, feedback and review files with an explicit educator approval gate. The educator remains the final assessor.\n\nStart with one fake, redacted or otherwise non-sensitive batch.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled HOMS three-script demonstration and educator review outputs.\n- This video contains illustrative synthetic media; no real learner identity is represented.\n\nMusic: \"Warm Sunset by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/"
+          }
+        },
+        "contentDetails": {
+          "duration": "PT1M7S",
+          "dimension": "2d",
+          "definition": "hd",
+          "caption": "false",
+          "licensedContent": false,
+          "contentRating": {},
+          "projection": "rectangular",
+          "hasCustomThumbnail": false
+        },
+        "status": {
+          "uploadStatus": "processed",
+          "privacyStatus": "private",
+          "license": "youtube",
+          "embeddable": true,
+          "publicStatsViewable": true,
+          "madeForKids": false,
+          "selfDeclaredMadeForKids": false
+        },
+        "processingDetails": {
+          "processingStatus": "succeeded",
+          "fileDetailsAvailability": "available",
+          "processingIssuesAvailability": "available",
+          "tagSuggestionsAvailability": "inProgress",
+          "editorSuggestionsAvailability": "inProgress",
+          "thumbnailsAvailability": "available"
+        },
+        "paidProductPlacementDetails": {
+          "hasPaidProductPlacement": false
+        }
+      },
+      "checked_at": "2026-08-09T00:06:06.198Z"
+    },
+    "assets": {
+      "thumbnail": "attached",
+      "captions": "attached"
+    },
+    "verification": {
+      "passed": true,
+      "issues": [],
+      "privacy_state": "private",
+      "upload_status": "processed",
+      "thumbnails_available": "available",
+      "has_custom_thumbnail": true,
+      "checked_at": "2026-08-09T00:06:14.474Z",
+      "video_id": "vdKPHe6Jg4Q",
+      "remote": {
+        "kind": "youtube#video",
+        "etag": "0kt04iawsYvYHu8cW6aTEpUlmoo",
+        "id": "vdKPHe6Jg4Q",
+        "snippet": {
+          "publishedAt": "2026-08-09T00:05:26Z",
+          "channelId": "UCc916iuoPLseg05t5J5leaQ",
+          "title": "HOMS Marking Relief: Turn a Marking Batch into a Review Pack",
+          "description": "A marking batch is waiting. HOMS prepares the first structured pass so an educator can review the work instead of rebuilding the workflow from scratch.\n\nThe controlled pilot accepts learner scripts, a rubric or memo, and a marksheet. It prepares draft marks, feedback and review files with an explicit educator approval gate. The educator remains the final assessor.\n\nStart with one fake, redacted or otherwise non-sensitive batch.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled HOMS three-script demonstration and educator review outputs.\n- This video contains illustrative synthetic media; no real learner identity is represented.\n\nMusic: \"Warm Sunset by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/",
+          "thumbnails": {
+            "default": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/default.jpg?sqp=CKyI39MG&rs=AOn4CLBWklcqk1Oacx5O_CuZkJ2HwBpWcQ",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/mqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLClwCuOfGesrcMVB9G3r6sQ16EODg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/hqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLBsrXDldCZ_jdCdsy4mb3_5YIco9g",
+              "width": 480,
+              "height": 360
+            },
+            "standard": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/sddefault.jpg?sqp=CKyI39MG&rs=AOn4CLD03oL11y90AyKk3yytWR2H02PrTQ",
+              "width": 640,
+              "height": 480
+            },
+            "maxres": {
+              "url": "https://i9.ytimg.com/vi/vdKPHe6Jg4Q/maxresdefault.jpg?sqp=CKyI39MG&rs=AOn4CLAO1TxeRyUVJpXccHdB69eh5HWPzQ",
+              "width": 1280,
+              "height": 720
+            }
+          },
+          "channelTitle": "DIO workflows",
+          "tags": [
+            "DIO Workflows",
+            "HOMS",
+            "South Africa",
+            "assessment",
+            "educator workflow",
+            "feedback",
+            "marking support",
+            "rubric"
+          ],
+          "categoryId": "27",
+          "liveBroadcastContent": "none",
+          "defaultLanguage": "en",
+          "localized": {
+            "title": "HOMS Marking Relief: Turn a Marking Batch into a Review Pack",
+            "description": "A marking batch is waiting. HOMS prepares the first structured pass so an educator can review the work instead of rebuilding the workflow from scratch.\n\nThe controlled pilot accepts learner scripts, a rubric or memo, and a marksheet. It prepares draft marks, feedback and review files with an explicit educator approval gate. The educator remains the final assessor.\n\nStart with one fake, redacted or otherwise non-sensitive batch.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled HOMS three-script demonstration and educator review outputs.\n- This video contains illustrative synthetic media; no real learner identity is represented.\n\nMusic: \"Warm Sunset by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/"
+          }
+        },
+        "contentDetails": {
+          "duration": "PT1M7S",
+          "dimension": "2d",
+          "definition": "hd",
+          "caption": "false",
+          "licensedContent": false,
+          "contentRating": {},
+          "projection": "rectangular",
+          "hasCustomThumbnail": true
+        },
+        "status": {
+          "uploadStatus": "processed",
+          "privacyStatus": "private",
+          "license": "youtube",
+          "embeddable": true,
+          "publicStatsViewable": true,
+          "madeForKids": false,
+          "selfDeclaredMadeForKids": false
+        },
+        "processingDetails": {
+          "processingStatus": "succeeded",
+          "fileDetailsAvailability": "available",
+          "processingIssuesAvailability": "available",
+          "tagSuggestionsAvailability": "inProgress",
+          "editorSuggestionsAvailability": "inProgress",
+          "thumbnailsAvailability": "available"
+        },
+        "paidProductPlacementDetails": {
+          "hasPaidProductPlacement": false
+        }
+      }
+    },
+    "schedule": {
+      "status": "not_scheduled",
+      "publish_at": null
+    }
+  },
+  "complete": true,
+  "generated_at": "2026-08-09T00:06:14.561Z",
+  "bundle_hash": "da664e9b805ace4e58a85888f29f875e5aac0cb1161b32e61f094b09adc54978"
+}

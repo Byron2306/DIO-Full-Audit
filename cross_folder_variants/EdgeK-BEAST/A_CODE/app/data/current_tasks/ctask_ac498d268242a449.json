@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T18:38:41.739493+00:00",
+  "objective": "Act as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal.\n\nTask: did you add in the edits\n\nAllowed files:\n- app/context/economizer.py\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}]}\nUse only attached files, copy old snippets exactly, make the smallest safe change, and do not include markdown or prose outside the JSON.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:ac498d268242a44995e831d3c03431921a706b864043fbae36b9661946cd3b6d",
+  "task_markup_id": "ctask_ac498d268242a449"
+}

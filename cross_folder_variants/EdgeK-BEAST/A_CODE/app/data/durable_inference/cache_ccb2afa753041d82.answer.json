@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:3a4d0bb5d5efbc7d0efe675bde5400c6233002fd4dac5ebfc1a0cd910adead75",
+    "ref": "blobs/sha256/3a4d0bb5d5efbc7d0efe675bde5400c6233002fd4dac5ebfc1a0cd910adead75.json"
+  },
+  "credit_id": "cache_ccb2afa753041d82",
+  "response": "{\"actions\":[{\"id\":\"a1\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"self.profile.last_activity_at = datetime.now(timezone.utc).isoformat()\\nself.profile.total_tokens_displaced += result[\\\"tokens\\\"]\\nwork_credit = {\\n    \\\"node_id\\\": self.profile.node_id,\\n    \\\"work_type\\\": \\\"local_inference\\\",\\n    \\\"task_class\\\": task_class,\\n    \\\"credit_id\\\": credit.credit_id,\\n    \\\"tokens_displaced\\\": result[\\\"tokens\\\"],\\n    \\\"actual_inference\\\": inference_success,\\n    \\\"timestamp\\\": self.profile.last_activity_at,\\n}\\nself._credits_earned.append(work_credit)\",\"target\":{\"anchor_ref\":\"A15\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"}],\"fallback\":\"\",\"handoff_hash\":\"sha256:9ec99353d97b5ff733f8277f6ad3a493dc1f3bfb41f20ea020d36afbab5ad20a\",\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor the selected code for clarity without changing behavior.\",\"provider_handoff_hash\":\"sha256:9ec99353d97b5ff733f8277f6ad3a493dc1f3bfb41f20ea020d36afbab5ad20a\",\"verify\":[\"python -m pytest tests -q\"]}",
+  "response_sha256": "sha256:40aad2b291d37467d8db3cd4e677e483931833f3fd92d9c3c4b8b56998a8e2f2",
+  "version": "1.0"
+}

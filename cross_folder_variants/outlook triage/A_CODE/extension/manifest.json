@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Outlook Agent Connector",
+  "version": "1.0.0",
+  "description": "Connects your Outlook browser tab to the Outlook Browser Agent for AI-powered email automation.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "https://outlook.live.com/*",
+    "https://outlook.office.com/*",
+    "https://outlook.office365.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://outlook.live.com/*",
+        "https://outlook.office.com/*",
+        "https://outlook.office365.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

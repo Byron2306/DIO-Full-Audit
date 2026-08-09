@@ -1,0 +1,38 @@
+{
+  "schema": "nichefoundry.publishing_verification.v1",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "video_id": "oBrUwEno_eA",
+  "checks": [
+    {
+      "id": "local_compliance",
+      "passed": true
+    },
+    {
+      "id": "video_uploaded",
+      "passed": true
+    },
+    {
+      "id": "platform_processed",
+      "passed": true
+    },
+    {
+      "id": "thumbnail_attached",
+      "passed": true
+    },
+    {
+      "id": "captions_attached",
+      "passed": true
+    },
+    {
+      "id": "remote_metadata_verified",
+      "passed": true
+    },
+    {
+      "id": "private_or_scheduled",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "verified_at": "2026-08-09T00:06:18.587Z",
+  "verification_hash": "d2ef3719662ccc8b9506e477c373cc527c8062630e0a8573dcb8c38ffcddf252"
+}

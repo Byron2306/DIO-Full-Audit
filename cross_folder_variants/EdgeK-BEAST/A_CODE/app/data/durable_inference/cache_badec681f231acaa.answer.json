@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:cc9d407e43a74e0fbee8363803d20007aa369e7bcad41a5a11f9bbb48e6cce2d",
+    "ref": "blobs/sha256/cc9d407e43a74e0fbee8363803d20007aa369e7bcad41a5a11f9bbb48e6cce2d.json"
+  },
+  "credit_id": "cache_badec681f231acaa",
+  "response": "\"\n  ]\n}\n```\nWait, what is the verification command?\nLet's check the direct dependents or tests:\n`tests/test_capability_impact.py` or `tests/test_verified_reuse.py`.\nWe can run `python -m pytest tests/test_capability_impact.py` or just `python -c \"import app",
+  "response_sha256": "sha256:212c7786a3d5a9927d44f06a2a44d7fa4dcd38592dacfdb7ca1ebdee92ad38f0",
+  "version": "1.0"
+}

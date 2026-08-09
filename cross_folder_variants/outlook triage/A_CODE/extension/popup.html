@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+    }
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h1 .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.connected { background: #22c55e; }
+    .dot.disconnected { background: #ef4444; }
+    .subtitle {
+      font-size: 11px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .status {
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .status.ok { background: #052e16; color: #4ade80; }
+    .status.err { background: #450a0a; color: #fca5a5; }
+    label {
+      display: block;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 6px;
+      transition: background 0.15s;
+    }
+    .btn-connect {
+      background: #2563eb;
+      color: white;
+    }
+    .btn-connect:hover { background: #1d4ed8; }
+    .btn-disconnect {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+    .btn-disconnect:hover { background: #334155; }
+    .help {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #1e293b;
+      font-size: 10px;
+      color: #475569;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    <span class="dot disconnected" id="dot"></span>
+    Outlook Agent
+  </h1>
+  <p class="subtitle">Connect your Outlook tab to the agent</p>
+
+  <div class="status err" id="status">Not connected</div>
+
+  <label>Agent Server URL</label>
+  <input id="url" type="text" value="ws://localhost:3000/ext" />
+
+  <button class="btn-connect" id="connect">Connect</button>
+  <button class="btn-disconnect" id="disconnect">Disconnect</button>
+
+  <div class="help">
+    Make sure the agent server is running (<code>npm run dev</code>)
+    and you have Outlook open in a tab.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

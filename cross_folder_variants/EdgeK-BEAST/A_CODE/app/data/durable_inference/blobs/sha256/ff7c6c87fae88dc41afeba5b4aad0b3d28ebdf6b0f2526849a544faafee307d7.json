@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:ff7c6c87fae88dc41afeba5b4aad0b3d28ebdf6b0f2526849a544faafee307d7",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:d34a175e78fe2f47dd1cce79cee8da44ee0e3e17a7f2c3faca668738199268ec",
+      "response_blob_digest": "sha256:8d38c744f8ffc4a2accb52ead5d9a6eb6f7cba1d64ecb3f8da13c56146c24029",
+      "response_blob_ref": "blobs/sha256/8d38c744f8ffc4a2accb52ead5d9a6eb6f7cba1d64ecb3f8da13c56146c24029.json",
+      "response_chars": 3290,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"fix potential bug in context economizer\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"\",\"new\":\"from dataclasses import dataclass\\nfrom typing import Any, Dict, List, Optional, Tuple\\nimport copy\\nimport logging\\n\\nlogger = logging.getLogger(__name__)\\n\\n@dataclass\\nclass ContextEconomyResult:\\n \\\"\\\"\\\"Result of context economy processing.\\\"\\\"\\\"\\n ir: EdgeKIR\\n changed: bool\\n original_tokens",
+      "response_ref": "cache_3048e187536763db.answer.json",
+      "response_sha256": "sha256:fe05e878b716ef1d5a69329498bc8535ad319261193a6aebaa2e3bb4a1ab7c99"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

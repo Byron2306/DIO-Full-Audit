@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T23:11:06.187996+00:00",
+  "objective": "Act as my coding partner. Answer from the attached repository context, cite relevant files, and identify uncertainty.\n\nQuestion: suggest improvements\n\nAttached workspace scope:\n- app/kernel/compute/crystal_integration_acceptance.py\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutations_latest.json\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_receipt_latest.json\n- scripts/run_discovery_agnostic_receiver.py\n- scripts/verify_discovery_agnostic_receipt.py\n- scripts/crystal_proof.py\n- scripts/admit_reviewed_file_build_crystal.py\n- scripts/prove_crystallized_compute.py\n- scripts/run_sensorium_file_build_crystal_experiment.py\n- scripts/run_sensorium_disk_cleanup_experiment.py\n- scripts/run_full_spectrum_crystallization_gauntlet.py\n- scripts/run_milestone11_cross_runtime.py\n- app/context/economizer.py\n- app/kernel/compute/compression_pipeline.py",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:e874868fbbe948b40d005e151d38b50268abe182df24b64d3b78ec14fd915d08",
+  "task_markup_id": "ctask_e874868fbbe948b4"
+}

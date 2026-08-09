@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:cbb3e1121ec27097bf04db6a9c0b4577bf7ff3c80f8a1601376947fa78547ba2",
+    "ref": "blobs/sha256/cbb3e1121ec27097bf04db6a9c0b4577bf7ff3c80f8a1601376947fa78547ba2.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-19T12:31:10.500792+00:00",
+  "credit_id": "cache_058672002797c359",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:ce57f029f8e9120f0f0e2ca09b80b7fe045a5f74aa3e6e771a0f56cd6e6d0f24",
+    "response_blob_digest": "sha256:3f8671876c4e67369da1d2a075ea0abd96b511f0c923b49f8d09906275e80a13",
+    "response_blob_ref": "blobs/sha256/3f8671876c4e67369da1d2a075ea0abd96b511f0c923b49f8d09906275e80a13.json",
+    "response_chars": 3411,
+    "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"fix potential bug in context economizer\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"\",\"new\":\"from dataclasses import dataclass\\nfrom typing import Any, Dict, List, Optional, Tuple\\nimport copy\\nimport logging\\n\\nlogger = logging.getLogger(__name__)\\n\\n@dataclass\\nclass ContextEconomyResult:\\n \\\"\\\"\\\"Result of context economy processing.\\\"\\\"\\\"\\n ir: EdgeKIR\\n changed: bool\\n original_tokens",
+    "response_ref": "cache_058672002797c359.answer.json",
+    "response_sha256": "sha256:4c9dfaf01e17c5739b4846499eecb72288b8e2f02c927297ab197b2a3fefa64a"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

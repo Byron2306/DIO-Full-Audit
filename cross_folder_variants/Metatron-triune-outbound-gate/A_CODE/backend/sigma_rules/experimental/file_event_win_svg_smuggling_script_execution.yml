@@ -1,0 +1,53 @@
+title: SVG Smuggling Script Execution
+id: 4l8i9j7k-5g0h-0i3j-4k7l-8h1g2i5j0k1l
+status: experimental
+description: Detects execution of scripts embedded in SVG files, used for SVG smuggling attacks
+references:
+  - https://attack.mitre.org/techniques/T1027/017/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.svg'
+    TargetFilename|contains|all:
+      - '<script'
+      - 'eval('
+  condition: selection
+falsepositives:
+  - Legitimate SVG files with embedded scripts
+  - Web development
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.017
+---
+title: SVG Smuggling External Resource Load
+id: 5m9j0k8l-6h1i-1j4k-5l8m-9i2h3j6k1l2m
+status: experimental
+description: Detects SVG files loading external resources, potentially for smuggling payloads
+references:
+  - https://attack.mitre.org/techniques/T1027/017/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.svg'
+    TargetFilename|contains|all:
+      - '<image'
+      - 'xlink:href="data:'
+  condition: selection
+falsepositives:
+  - Legitimate SVG images with embedded data
+  - Graphic design files
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.017

@@ -1,0 +1,87 @@
+{
+  "assessments": [
+    {
+      "student_id": "student_001",
+      "timestamp": "2026-01-30T09:53:49.231871",
+      "status": "success",
+      "reference_used": "fib_ref",
+      "annotations": {
+        "test_0": {
+          "satisfied": true,
+          "value": null
+        },
+        "test_1": {
+          "satisfied": true,
+          "value": "1"
+        },
+        "test_6": {
+          "satisfied": true,
+          "value": "8"
+        }
+      },
+      "total_annotations": 3,
+      "passed_annotations": 3,
+      "basic_score": 100.0,
+      "rubric_score": 0.0,
+      "final_score": 0.0,
+      "submission_path": "C:\\Users\\User\\Desktop\\Marker\\submissions\\student_001.py"
+    }
+  ],
+  "moderations": [
+    {
+      "student_id": "student_001",
+      "timestamp": "2026-01-30T09:54:06.542899",
+      "moderation_status": "completed",
+      "action": "review_required",
+      "flags": [
+        "low_score"
+      ],
+      "recommendations": [
+        "Consider manual review - score below threshold"
+      ],
+      "original_score": 0.0,
+      "requires_human_review": true
+    }
+  ],
+  "plagiarism": [],
+  "insights": {
+    "timestamp": "2026-01-30T09:54:06.546996",
+    "most_difficult_annotations": [
+      {
+        "annotation": "test_0",
+        "difficulty": 0.0,
+        "pass_rate": 1.0
+      },
+      {
+        "annotation": "test_1",
+        "difficulty": 0.0,
+        "pass_rate": 1.0
+      },
+      {
+        "annotation": "test_6",
+        "difficulty": 0.0,
+        "pass_rate": 1.0
+      }
+    ],
+    "most_common_errors": [],
+    "recommendations": []
+  },
+  "statistics": {
+    "total_assessments": 1,
+    "successful": 1,
+    "failed": 0,
+    "mean_score": 0.0,
+    "median_score": 0.0,
+    "std_score": 0.0,
+    "min_score": 0.0,
+    "max_score": 0.0
+  },
+  "moderation_report": {
+    "total_moderated": 1,
+    "flagged_for_review": 1,
+    "approval_rate": 0.0,
+    "flag_breakdown": {
+      "low_score": 1
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:2c10307c669cd4435db03e6f1d113102ddd72f454457b09a581d1f1d6e653d66",
+    "ref": "blobs/sha256/2c10307c669cd4435db03e6f1d113102ddd72f454457b09a581d1f1d6e653d66.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T00:54:46.809985+00:00",
+  "credit_id": "cache_5b295865f979ecf4",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "qwen2.5-coder:1.5b",
+    "parameter_hash": "073d02a039167d16bd36bdf9988f28bb79bd025a54b24754bbc2d7694eb16a35",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 1024,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:d7a722267d387402181a4815eb88cfc9adc0e741880f9853b91df321ed95ba12",
+    "response_blob_digest": "sha256:3002a32a88765f5569f88c6724b9af25bc9b127bdb91e1c21e4c4177ca710908",
+    "response_blob_ref": "blobs/sha256/3002a32a88765f5569f88c6724b9af25bc9b127bdb91e1c21e4c4177ca710908.json",
+    "response_chars": 620,
+    "response_preview": "```json\n{\n  \"kind\": ACTION_IR_KIND,\n  \"action\": {\n    \"replace_exact\": {\n      \"path\": \"_pair_programmer_limits\",\n      \"line\": 10,\n      \"column\": 20,\n      \"new_value\": \"def _pair_programmer_limits(provider: str, model: str, requested_tokens: int, requested_context_chars: int) -> tuple[int, int, int]:\\n    # Keep local CPU coding turns responsive instead of swapping for minutes.\\n\\n    provider_id = str(provider or \"\").strip().lower().replace('-', '_')\\n    model_id = str(model or '').strip().",
+    "response_ref": "cache_5b295865f979ecf4.answer.json",
+    "response_sha256": "sha256:f67ef1ce7893b5810a02f9d8c36b19bd9110daa77e7914d5d7b8c867d40bc9cf"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:128bcfebf9463e1a6b00465ced454f3d0175c8ffb8d335213abd17dc0a97ef97",
+    "ref": "blobs/sha256/128bcfebf9463e1a6b00465ced454f3d0175c8ffb8d335213abd17dc0a97ef97.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-19T12:44:50.873874+00:00",
+  "credit_id": "cache_14b9444d12229389",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:3132f7267ca3c82fc7e8c7d5aae990f997a9dd5e2de75dfde3698dd79055d759",
+    "response_blob_digest": "sha256:593c601f1d1a48c33de9bb252853787d1a08b1c44f838248da211dda3e85e8bf",
+    "response_blob_ref": "blobs/sha256/593c601f1d1a48c33de9bb252853787d1a08b1c44f838248da211dda3e85e8bf.json",
+    "response_chars": 6823,
+    "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ContextEconomizer for clarity without changing behavior\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"class ContextEconomizer:\\n    \\\"\\\"\\\"Policy-driven context compression for EdgeK IR messages.\\\"\\\"\\\"\\n\\n    def __init__(self, policies: Optional[Dict[str, Any]] = None):\\n        self.policies = policies or {}\\n\\n    def economize(self, ir: EdgeKIR) -> ContextEconomyResult:\\n       ",
+    "response_ref": "cache_14b9444d12229389.answer.json",
+    "response_sha256": "sha256:5adf8bd4cb44f546cc11b7b80437941cb9b1acfda7ae817bf9fc74aa5820f0ed"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

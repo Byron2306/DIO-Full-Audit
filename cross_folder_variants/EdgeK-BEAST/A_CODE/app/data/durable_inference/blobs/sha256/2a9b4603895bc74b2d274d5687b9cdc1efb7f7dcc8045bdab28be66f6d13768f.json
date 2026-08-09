@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:2a9b4603895bc74b2d274d5687b9cdc1efb7f7dcc8045bdab28be66f6d13768f",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix timezone offset bug in ComputeForgeNode\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A7\"}, \"old\": \"self.profile.last_activity_at = datetime.now(timezone.utc).isoformat()\", \"new\": \"self.profile.last_activity_at = datetime.now(timezone.utc).isoformat(); self.profile.last_activity_at = self.profile.last_activity_at[:-6]\", \"intent\": \"fix timezone offset bug\"}], \"verify\": [\"test_compute_forge_node_last_activity_at\"], \"provider_handoff_hash\": \"sha256:295eb19de022a4262e4af30b5d1678cf615fdfcef8adf45654df93ee5e74a78b\"}",
+    "response_sha256": "sha256:62552d528cd169a5f023c5ac42c0fada5a458346c70ba5240ac6e958934bfdf4",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

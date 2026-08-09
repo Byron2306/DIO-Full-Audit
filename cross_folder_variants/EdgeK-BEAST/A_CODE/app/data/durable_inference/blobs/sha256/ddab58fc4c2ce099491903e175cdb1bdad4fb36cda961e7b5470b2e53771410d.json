@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:ddab58fc4c2ce099491903e175cdb1bdad4fb36cda961e7b5470b2e53771410d",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:74ed762666e570599f60bf4cbf167482080242ec5648db9cf070f30801f3cc95",
+      "response_blob_digest": "sha256:9c461df0345518894d0b8670440468ca60324a3bb3596f0363a0105b76427cdc",
+      "response_blob_ref": "blobs/sha256/9c461df0345518894d0b8670440468ca60324a3bb3596f0363a0105b76427cdc.json",
+      "response_chars": 1886,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Enhance and improve the MetaToolCandidate class\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\"class MetaToolCandidate: \\\"\\\"\\\"Represents a candidate meta-tool generated from frequent sequences. The Phase 7 model now stores candidates as governed ``CapabilityRecord`` assets, but older SkillTree code and CLI surfaces still use the flat candidate fields. Keep b",
+      "response_ref": "cache_94ff0e4a4f7b9c15.answer.json",
+      "response_sha256": "sha256:bf9139a0cce7e69ca496e727aff649b2ca2a63ecf65ec3095c6b2a49a9c75d1f"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

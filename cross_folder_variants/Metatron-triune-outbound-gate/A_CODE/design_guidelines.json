@@ -1,0 +1,179 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "E1 - Anti-AI Defense System",
+      "tone": "Tactical, High-Tech, Serious, Alert, Sophisticated",
+      "archetype": "Electric & Neon (Grounded)",
+      "principles": [
+        "Fusion over Imitation: Mix Cyberpunk aesthetics with Military-grade precision.",
+        "Emotion First: Evoke a sense of 'Control' and 'Vigilance'.",
+        "Content is King: Data is the hero. Visualization must be instant and actionable.",
+        "Negative Space: Use deep blacks to make neon data pop.",
+        "Contrast: High contrast for critical alerts, subtle for background context."
+      ]
+    },
+    "typography": {
+      "headings": {
+        "font_family": "JetBrains Mono, monospace",
+        "weight": "700",
+        "tracking": "tight",
+        "usage": "All section headers, KPI values, and critical alerts."
+      },
+      "body": {
+        "font_family": "IBM Plex Sans, sans-serif",
+        "weight": "400",
+        "usage": "General text, descriptions, and reports."
+      },
+      "mono": {
+        "font_family": "JetBrains Mono, monospace",
+        "usage": "Code snippets, IP addresses, logs, and raw data."
+      }
+    },
+    "colors": {
+      "theme": "dark",
+      "palette": {
+        "background": {
+          "default": "#020617",
+          "paper": "#0F172A",
+          "subtle": "#1E293B"
+        },
+        "primary": {
+          "main": "#3B82F6",
+          "glow": "0 0 20px rgba(59, 130, 246, 0.5)"
+        },
+        "secondary": {
+          "main": "#6366F1",
+          "glow": "0 0 20px rgba(99, 102, 241, 0.5)"
+        },
+        "accent": {
+          "neon_green": "#10B981",
+          "neon_red": "#EF4444",
+          "neon_amber": "#F59E0B",
+          "cyan": "#06B6D4"
+        },
+        "text": {
+          "primary": "#F8FAFC",
+          "secondary": "#94A3B8",
+          "muted": "#64748B"
+        },
+        "border": {
+          "default": "#1E293B",
+          "active": "#3B82F6"
+        }
+      },
+      "gradients": {
+        "threat_level": "linear-gradient(90deg, #10B981 0%, #F59E0B 50%, #EF4444 100%)",
+        "glass": "linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.3) 100%)"
+      }
+    },
+    "layout": {
+      "spacing_scale": "Generous (2x standard)",
+      "grid_system": {
+        "dashboard": "Bento Grid Mode B (High Density)",
+        "marketing": "Tetris Grid Mode A"
+      },
+      "container_padding": "p-6 md:p-8 lg:p-12",
+      "border_radius": {
+        "default": "0px",
+        "cards": "4px",
+        "buttons": "2px"
+      }
+    },
+    "components": {
+      "buttons": {
+        "style": "Sharp edges, 'Tactical' look.",
+        "variants": {
+          "primary": "bg-primary text-white hover:bg-primary/90 shadow-[0_0_15px_rgba(59,130,246,0.4)]",
+          "destructive": "bg-destructive text-white hover:bg-destructive/90 shadow-[0_0_15px_rgba(239,68,68,0.4)]",
+          "outline": "border border-primary/50 text-primary hover:bg-primary/10"
+        }
+      },
+      "cards": {
+        "style": "Glassmorphism or Solid Dark Slate.",
+        "classes": "bg-slate-900/50 backdrop-blur-md border border-slate-800 hover:border-primary/50 transition-colors duration-300"
+      },
+      "inputs": {
+        "style": "Minimalist, bottom border or flat.",
+        "classes": "bg-slate-950 border-slate-800 focus:border-primary focus:ring-1 focus:ring-primary"
+      }
+    },
+    "visual_enhancers": {
+      "glassmorphism": {
+        "enabled": true,
+        "classes": "backdrop-blur-xl bg-slate-950/70 border border-white/10"
+      },
+      "glow_effects": {
+        "enabled": true,
+        "description": "Use box-shadow to create 'neon' glow on active elements."
+      },
+      "textures": {
+        "enabled": true,
+        "type": "Subtle noise overlay on background to reduce banding."
+      }
+    },
+    "motion": {
+      "enabled": true,
+      "library": "framer-motion",
+      "types": {
+        "hover": "scale-105 transition-transform",
+        "entrance": "fade-in-up staggered",
+        "micro_interactions": "pulse on alert"
+      }
+    }
+  },
+  "assets": {
+    "images": {
+      "login_background": {
+        "url": "https://images.unsplash.com/photo-1680992046626-418f7e910589?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tJTIwZGFyayUyMGJsdWUlMjBsaWdodHN8ZW58MHx8fHwxNzcwNjQ0NjkxfDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Dark Server Room",
+        "usage": "Login page background with overlay"
+      },
+      "dashboard_hero": {
+        "url": "https://images.unsplash.com/photo-1603347729548-6844517490c7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGN5YmVyc2VjdXJpdHklMjBuZXR3b3JrJTIwZGF0YSUyMHZpc3VhbGl6YXRpb24lMjBkYXJrfGVufDB8fHx8MTc3MDY0NDY4N3ww&ixlib=rb-4.1.0&q=85",
+        "alt": "Abstract Data Flow",
+        "usage": "Hero section or header background"
+      },
+      "threat_viz": {
+        "url": "https://images.unsplash.com/photo-1744070018851-5b2f5a3d1d81?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGN5YmVyc2VjdXJpdHklMjBuZXR3b3JrJTIwZGF0YSUyMHZpc3VhbGl6YXRpb24lMjBkYXJrfGVufDB8fHx8MTc3MDY0NDY4N3ww&ixlib=rb-4.1.0&q=85",
+        "alt": "Chaotic Network",
+        "usage": "AI Detection Engine 'Threat Found' state"
+      },
+      "security_icon": {
+        "url": "https://images.unsplash.com/photo-1696013910376-c56f76dd8178?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA6MTJ8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwc2hpZWxkJTIwc2VjdXJpdHklMjBsb2NrJTIwYWJzdHJhY3R8ZW58MHx8fHwxNzcwNjQ0Njk2fDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Digital Lock",
+        "usage": "Security status indicator or empty state"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "Stroke width 1.5px, sharp or rounded depending on context."
+    }
+  },
+  "implementation_instructions": {
+    "packages_to_install": [
+      "framer-motion",
+      "recharts",
+      "clsx",
+      "tailwind-merge",
+      "lucide-react",
+      "tsparticles",
+      "@tsparticles/react",
+      "@tsparticles/slim"
+    ],
+    "steps": [
+      "1. Install required packages.",
+      "2. Update tailwind.config.js with the defined color palette and fonts.",
+      "3. Create a 'Layout' component that enforces the dark theme and background texture.",
+      "4. Build the 'Dashboard' using the Bento Grid strategy.",
+      "5. Implement 'AI Detection Engine' with real-time charts (Recharts).",
+      "6. Use 'framer-motion' for smooth transitions between states."
+    ],
+    "universal_guidelines": [
+      "DO NOT use gradients for text unless it's a very large headline.",
+      "Ensure all text has sufficient contrast (APCA standards).",
+      "Use 'data-testid' for all interactive elements.",
+      "Avoid 'AI Slop' - no generic centered layouts. Use asymmetry.",
+      "Use 'sonner' for notifications."
+    ]
+  }
+}

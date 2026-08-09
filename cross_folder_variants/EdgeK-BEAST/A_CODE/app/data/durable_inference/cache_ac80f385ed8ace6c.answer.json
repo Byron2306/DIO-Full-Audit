@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:e9fde296581b420d5c7337be36c83c2310fed6d549dd5e071900d4bc95aae688",
+    "ref": "blobs/sha256/e9fde296581b420d5c7337be36c83c2310fed6d549dd5e071900d4bc95aae688.json"
+  },
+  "credit_id": "cache_ac80f385ed8ace6c",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ComputeForgeNode for clarity without changing behavior\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/compute_forge.py\"},\"old\":\"self.profile = ForgeNodeProfile(node_id=node_id, node_type=node_type, capabilities=[\\\"fingerprint\\\", \\\"local_inference\\\", \\\"secret_scan\\\", \\\"verifier\\\", \\\"handoff_prep\\\"], last_activity_at=datetime.now(timezone.utc).isoformat())\",\"new\":\"self.profile = ForgeNodeProfile(node_id=node_id, node_type=node_type, capabilities=self._default_capabilities, last_activity_at=datetime.now(timezone.utc).isoformat())\",\"intent\":\"Extract default capabilities into a separate attribute for clarity\"}],\"verify\":[\"app/kernel/compute/compute_forge.py:ComputeForgeNode.__init__\"]}",
+  "response_sha256": "sha256:f441ffe79f371e9e6f97c09bac8be58fe65f25b8891627bc2d11f742821dce55",
+  "version": "1.0"
+}

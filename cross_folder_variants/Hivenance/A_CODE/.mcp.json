@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "edgek-beast": {
+      "command": "/home/byron/EdgeK-BEAST/bin/beast",
+      "args": [
+        "mcp",
+        "--workspace",
+        "/home/byron/Hivenance"
+      ],
+      "env": {
+        "BEAST_WORKSPACE": "/home/byron/Hivenance"
+      }
+    }
+  }
+}

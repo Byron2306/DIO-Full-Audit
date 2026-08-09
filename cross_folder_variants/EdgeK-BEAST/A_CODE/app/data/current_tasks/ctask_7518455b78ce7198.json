@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T21:07:43.263337+00:00",
+  "objective": "Act as my coding partner. Answer from the attached repository context, cite relevant files, and identify uncertainty.\n\nQuestion: improve this file with new edits\n\nAttached workspace scope:\n- app/context/economizer.py\n- benchmarks/coding_agent_harness.py\n- benchmarks/provider_edge_compare.py\n- benchmarks/edge_metrics_benchmark.py\n- benchmarks/beast_systems_benchmark.py\n- tests/test_context_economizer.py\n- benchmarks/compute_governor_phase3_live_false_reuse.py\n- benchmarks/beast_definitive_mega_test.py\n- benchmarks/compute_governor_phase1_xai_live.py\n- benchmarks/tiny_llama_opus_case_study_gauntlet.py\n- benchmarks/tiny_llama_live_e2e_execution_test.py\n- benchmarks/compute_governor_phase2_live_displacement.py",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:7518455b78ce7198066538e543dd077f2c3e3d7dcda88f31b2ba2bb9765859af",
+  "task_markup_id": "ctask_7518455b78ce7198"
+}

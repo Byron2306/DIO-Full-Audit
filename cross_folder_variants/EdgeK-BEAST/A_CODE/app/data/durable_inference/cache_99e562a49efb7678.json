@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:35e0a2de12b546b11153f0601d989972450200e72367490eac867e935fe9283e",
+    "ref": "blobs/sha256/35e0a2de12b546b11153f0601d989972450200e72367490eac867e935fe9283e.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-17T23:14:28.790474+00:00",
+  "credit_id": "cache_99e562a49efb7678",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "b1e76e31920b5ccbe0aebf69378c9351adb232a6c898c6c960b57d9852692aa0",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4000,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:27206cb9a1347db5528dd64ee7d5fa5d277e741ef0f47299e2cba06fd0a4fd40",
+    "response_blob_digest": "sha256:9671fc358f62ca4d4e059de7941999b3ffd732eb27f173da2712ba1a9bb26851",
+    "response_blob_ref": "blobs/sha256/9671fc358f62ca4d4e059de7941999b3ffd732eb27f173da2712ba1a9bb26851.json",
+    "response_chars": 2448,
+    "response_preview": "Based on the provided workspace scope, here are some suggested improvements:\n\n1. **Error Handling**: In `scripts/run_discovery_agnostic_receiver.py`, the `verify` function does not handle errors that may occur during the execution of the local verifier command. Consider adding try-except blocks to handle potential errors.\n\n2. **Type Hints**: In `app/kernel/compute/crystal_integration_acceptance.py`, some function parameters and return types are not annotated with type hints. Adding type hints ca",
+    "response_ref": "cache_99e562a49efb7678.answer.json",
+    "response_sha256": "sha256:8135402602446b840726a590c157c06870cabf103864a4a032cfe031c71a7a5d"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "nichefoundry.publishing_compliance.v1",
+  "episode_id": "homs-c32b49867157b9ad",
+  "checks": [
+    {
+      "id": "render_qa",
+      "passed": true,
+      "detail": "Final render QA must pass."
+    },
+    {
+      "id": "video",
+      "passed": true,
+      "detail": "4135662 bytes, SHA-256 07c72e08a2cb19190dd16e139e1fef8987f47bc5d14f88850b949231a1982e42"
+    },
+    {
+      "id": "captions",
+      "passed": true,
+      "detail": "708 bytes, SHA-256 3344e52488bfcca794b55022b0ac5e738821e7cc3038348aa132c40f6e27423e"
+    },
+    {
+      "id": "thumbnail",
+      "passed": true,
+      "detail": "1421338 bytes, SHA-256 d7c19aa5de454c25f3b31998eda38099f7590ee346d0e36db05bbf21616fce8f"
+    },
+    {
+      "id": "metadata",
+      "passed": true,
+      "detail": "Metadata declarations and limits passed."
+    },
+    {
+      "id": "private_default",
+      "passed": true,
+      "detail": "The upload defaults to private."
+    },
+    {
+      "id": "audience_declaration",
+      "passed": true,
+      "detail": "selfDeclaredMadeForKids=false"
+    },
+    {
+      "id": "synthetic_declaration",
+      "passed": true,
+      "detail": "containsSyntheticMedia=true"
+    },
+    {
+      "id": "paid_placement_declaration",
+      "passed": true,
+      "detail": "hasPaidProductPlacement=false"
+    }
+  ],
+  "issues": [],
+  "warnings": [],
+  "delivery": {
+    "video": {
+      "relative_path": "final.mp4",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 4135662,
+      "sha256": "07c72e08a2cb19190dd16e139e1fef8987f47bc5d14f88850b949231a1982e42"
+    },
+    "captions": {
+      "relative_path": "captions.srt",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 708,
+      "sha256": "3344e52488bfcca794b55022b0ac5e738821e7cc3038348aa132c40f6e27423e"
+    },
+    "thumbnail": {
+      "relative_path": "thumbnail.png",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1421338,
+      "sha256": "d7c19aa5de454c25f3b31998eda38099f7590ee346d0e36db05bbf21616fce8f"
+    }
+  },
+  "preflight_passed": true,
+  "passed": true,
+  "checked_at": "2026-08-09T00:06:14.474Z",
+  "report_hash": "04963168bbe0e6ada33e176bd732ac209ef939a69e3ee109e97105d538192511"
+}

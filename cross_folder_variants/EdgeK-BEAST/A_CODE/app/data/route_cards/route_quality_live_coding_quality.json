@@ -1,0 +1,29 @@
+{
+  "avoid": [
+    "cloud_reasoning_before_local_evidence",
+    "full_repo_upload",
+    "destructive_action_without_approval"
+  ],
+  "beast_object_type": "route_card",
+  "cache_policy": {
+    "log_scan": "per cascade run"
+  },
+  "context": "Run available local checks for a task before model escalation.",
+  "created_at": "2026-07-08T20:27:39.997778Z",
+  "name": "Generic quality cascade route",
+  "preferred_order": [
+    "log_scan"
+  ],
+  "promotion_status": "draft",
+  "provider": "litellm",
+  "route_id": "route_quality_live_coding_quality",
+  "route_quality_score": 0.5,
+  "safety": {
+    "external_write_requires_approval": true,
+    "local_only": true,
+    "redact_secrets": true,
+    "task_id": "tsk_baf0dab92578"
+  },
+  "task_class": "live_coding_quality",
+  "version": "1.0"
+}

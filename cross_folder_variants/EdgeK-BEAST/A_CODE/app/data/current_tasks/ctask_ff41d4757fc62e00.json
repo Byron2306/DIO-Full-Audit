@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-19T21:25:00.658958+00:00",
+  "objective": "Help me plan this coding task. First inspect the relevant workspace context; do not make changes yet.Task: Look at the ast_compressor.py file, I want suggestions for improvement",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:ff41d4757fc62e002622b58568589c0a0c8d6697d0d04b065f040baf2bd36d83",
+  "task_markup_id": "ctask_ff41d4757fc62e00"
+}

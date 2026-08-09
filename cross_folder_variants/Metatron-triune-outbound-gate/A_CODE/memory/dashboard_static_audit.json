@@ -1,0 +1,47 @@
+{
+  "backend_routes_total": 397,
+  "frontend_callsites_total": 66,
+  "matched_callsites": 65,
+  "unmatched_callsites": 1,
+  "unmatched_details": [
+    {
+      "file": "frontend/src/pages/MLPredictionPage.jsx",
+      "line": 66,
+      "kind": "fetch",
+      "expr": "${API_URL}/api/ml/predict/${type}",
+      "path": "/api/ml/predict/X",
+      "classification": "dynamic-type-path"
+    }
+  ],
+  "buttons_without_clear_action_count": 7,
+  "buttons_without_clear_action": [
+    {
+      "file": "frontend/src/pages/HoneypotsPage.jsx",
+      "line": 276
+    },
+    {
+      "file": "frontend/src/pages/AgentsPage.jsx",
+      "line": 230
+    },
+    {
+      "file": "frontend/src/pages/UnifiedAgentPage.jsx",
+      "line": 369
+    },
+    {
+      "file": "frontend/src/pages/UnifiedAgentPage.jsx",
+      "line": 373
+    },
+    {
+      "file": "frontend/src/pages/UnifiedAgentPage.jsx",
+      "line": 377
+    },
+    {
+      "file": "frontend/src/pages/UnifiedAgentPage.jsx",
+      "line": 381
+    },
+    {
+      "file": "frontend/src/pages/ThreatsPage.jsx",
+      "line": 272
+    }
+  ]
+}

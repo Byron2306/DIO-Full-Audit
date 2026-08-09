@@ -1,0 +1,73 @@
+title: Indicator Removal via Clear Command History
+id: 7i1f2g0h-8d3e-3f6g-7h0i-1e4d5f8g3h4i
+status: experimental
+description: Detects clearing of command history files
+references:
+  - https://attack.mitre.org/techniques/T1070/007/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains:
+      - 'history -c'
+      - 'rm ~/.bash_history'
+      - 'unset HISTFILE'
+  condition: selection
+falsepositives:
+  - System cleanup scripts
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.007
+---
+title: Indicator Removal via File Deletion
+id: 8j2g3h1i-9e4f-4g7h-8i1j-2f5e6g9h4i5j
+status: experimental
+description: Detects deletion of log files and evidence
+references:
+  - https://attack.mitre.org/techniques/T1070/008/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'rm'
+      - '/var/log'
+  condition: selection
+falsepositives:
+  - Log rotation
+  - System maintenance
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1070.008
+---
+title: Indicator Removal via Network Share Disconnect
+id: 9k3h4i2j-0f5g-5h8i-9j2k-3g6f7h0i5j6k
+status: experimental
+description: Detects disconnection from network shares to remove indicators
+references:
+  - https://attack.mitre.org/techniques/T1070/009/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'net use /delete'
+      - 'umount'
+  condition: selection
+falsepositives:
+  - Legitimate network disconnection
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1070.009

@@ -1,0 +1,28 @@
+title: Lab synthetic MaliciousCopyPaste on tagged canary (honey_clipboard) — T1204.005
+id: lab-user-execution-paste-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_clipboard) is observed with the metatron_run_id tag and the
+  expected event_type matches MaliciousCopyPaste. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1204/005
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1204.005
+  - lab.canary
+  - lab.edr_command_audit
+logsource:
+  product: lab_audit
+  service: edr_command_audit
+  category: user_execution
+detection:
+  selection:
+    event_type: 'MaliciousCopyPaste'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

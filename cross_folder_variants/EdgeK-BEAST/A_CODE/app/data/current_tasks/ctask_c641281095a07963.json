@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-16T08:58:49.122911+00:00",
+  "objective": "Return BEAST Action IR JSON only. Do not include markdown, prose, or explanation.\n\nObjective: Reply with exactly READY.\nAllowed files:\n- _test_cfg.py\n\nSchema:\n{\"kind\": \"beast.action_intent.v1\", \"objective\": \"...\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"relative/file.py\"}, \"old\": \"exact old snippet\", \"new\": \"replacement\"}]}\n\nRules:\n1. Use only allowed files.\n2. Use exact old snippets that exist in the file today.\n3. Emit the smallest valid set of replace_exact actions.\n4. Return one JSON object and nothing else.\n\nPrevious answer to convert:\nREADY",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:c641281095a07963b6881eaf4298a2e760d00d15f1f1eb7d800882e18813d69d",
+  "task_markup_id": "ctask_c641281095a07963"
+}

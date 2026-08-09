@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:9aeb425d3cd47185c7043bef5574375a698f3c14a0d67d49884942a25f5296a7",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:e5089f5ef9af438ff8030a03d7de39035978f2b703cd26780b5c37f9155f750e",
+      "response_blob_digest": "sha256:f2da29929efe77ce191ecad74c1d58721ffe443354daaead4bb74a06fee05a6e",
+      "response_blob_ref": "blobs/sha256/f2da29929efe77ce191ecad74c1d58721ffe443354daaead4bb74a06fee05a6e.json",
+      "response_chars": 1804,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Improve crystal integration acceptance checks and adapter candidate mutations\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/crystal_integration_acceptance.py\",\"anchor_ref\":\"A8\"},\"old\":\"Validator = Callable[[Dict[str, Any]], Dict[str, Any]]\",\"new\":\"Validator = Callable[[Dict[str, Any]], Dict[str, Any]]\\n\\n    def __init__(self, *, live_receipts: Optional[Dict[str, Dict[str, Any]]] = None, strict_mode: bool = False) -> None:\"",
+      "response_ref": "cache_96abda630e4c1110.answer.json",
+      "response_sha256": "sha256:99171bb9c44fbe5b8aff19906a983e46221633ed1f4f2da9a2902cf421eaac82"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-08-02T14:11:32.034285+00:00",
+  "objective": "Return exactly one BEAST Action IR JSON object and nothing else. Make one real replace_exact edit in the single attached file. Use an exact old snippet from that file and a complete replacement.\n\nReturn BEAST Action IR JSON only. Do not include markdown, prose, or explanation.\n\nObjective: Review desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py for correctness, typing, invariants, edge cases, and testability. Do not edit; report prioritized findings and concrete tests.\nAllowed files:\n- desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py\n\nSchema:\n{\"kind\": \"beast.action_intent.v1\", \"objective\": \"...\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"relative/file.py\", \"anchor_ref\": \"A1\"}, \"old\": \"exact old snippet\", \"new\": \"replacement for the complete anchor\"}]}\n\nRules:\n1. Use only allowed files.\n2. Every source-edit action must include resolvable old/new snippets.\n3. Copy old exactly from the current file, or use one supplied target.anchor_ref and make new replace that complete anchor.\n4. If a short old snippet appears more than once, use one of the supplied target.anchor_ref values; never guess which duplicate occurrence to change.\n5. Emit the complete valid set of replace_exact actions required by the objective, including directly affected tests, callers, and configuration when they are in scope. Do not omit a required edit merely to keep the patch small.\n6. Emit at most one source-edit action per file. If a file needs several changes, use one complete anchor replacement that incorporates all of them; sequential edits to the same file are not accepted.\n7. Never return advice, markdown, placeholders, ellipses, or \"rest unchanged\" text.\n8. Return one JSON object and nothing else.\n9. Correct every validation diagnostic below without expanding scope.\n\nValidation diagnostics from the proposed files:\nAgent output did not contain BEAST Action IR JSON. BEAST will ask the model for exact anchored old/new snippets; if one exact editor selection and one replacement code block are present, it can compile a selection-bounded patch automatically.\nWhich exact file path and symbol/range should be edited?\nWhat exact old snippet or anchor should be replaced?\nShould BEAST draft a SourcePlan from the current editor selection instead?\n\nExact snippets available in the allowed files. Prefer these snippets as old anchors:\ndesktop-ide/tests/fixtures/gemini_pair_programmer_medium.py:\n[A1] \"\"\"Medium-sized fixture for governed Pair Programmer provider tests.\"\"\"\n[A2] from __future__ import annotations\n[A3] from dataclasses import dataclass, field\n[A4] from datetime import datetime, timezone\n[A5] from hashlib import sha256\n[A6] from typing import Iterable, Mapping\n[A7] @dataclass\n[A8] class WorkItem:\n\nPrevious answer to convert:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Review desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py for correctness, typing, invariants, edge cases, and testability. Findings: 1. WorkItem.fingerprint() must safely encode fields to bytes before hashing (e.g., handling None or non-string types). 2. WorkQueue.complete() needs explicit behavior (e.\n\nThis repair remains bound to the original provider contract. Set top-level provider_handoff_hash to exactly: sha256:0badf96756411f5a51fe1f956652bba9e344fbb5925efe666f0eb125d7482deb",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:1fb8fb866a8f51bc780fc69a1fb7470025d6d10b80dc5141a7bd19140a7e56a7",
+  "task_markup_id": "ctask_1fb8fb866a8f51bc"
+}

@@ -1,0 +1,28 @@
+title: Lab synthetic BluetoothConnect on tagged canary (honey_bt_peer) — T1011.001
+id: lab-net-bluetooth-egress-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_bt_peer) is observed with the metatron_run_id tag and the
+  expected event_type matches BluetoothConnect. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1011/001
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1011.001
+  - lab.canary
+  - lab.network_device_audit
+logsource:
+  product: lab_audit
+  service: network_device_audit
+  category: network_egress
+detection:
+  selection:
+    event_type: 'BluetoothConnect'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:9470fccb259535f708bdd9618233e11610ba5bd235d191436fb6b69e43cb1f8b",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "llama3.2:1b",
+      "parameter_hash": "ff75ac232d5da3d267872eec0c724cb0b81535b8482cd63863072508a64653da",
+      "parameters": {
+        "bridge_version": "1.0",
+        "persona_version": "lilith-natural-v3993-beast-v1",
+        "temperature": 0.7
+      },
+      "prompt_hash": "sha256:2dcd5621928f5f01cd868bf734562ffacb6662031775eb598508eb9f383d0e33",
+      "response_blob_digest": "sha256:b576f24f1152154b67d0f042852ab1efe37c6321def8e83a67a8c61b144dfcca",
+      "response_blob_ref": "blobs/sha256/b576f24f1152154b67d0f042852ab1efe37c6321def8e83a67a8c61b144dfcca.json",
+      "response_chars": 597,
+      "response_preview": "When it comes to being genuinely magnetic in conversation, I'd say it's a combination of several things. Here are some key factors that can make you stand out and leave a lasting impression:\n\n1. **: People are drawn to those who are true to themselves. Be honest, transparent, and authentic in your words and actions. Avoid pretending to be someone you're not or using manipulative tactics.\n2. **: Show genuine interest and excitement about the topics you discuss. When you're passionate about someth",
+      "response_ref": "cache_16b1ea8c0ac759cc.answer.json",
+      "response_sha256": "sha256:4bad1f046a579f993034ea697bbd594404df3e79c0fe7bb044a1b05f9363b59f"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,108 @@
+layers:
+  - id: layer_1_research_registry
+    name: Research Architecture Registry
+    status: complete
+    purpose: Track external research engines, evidence gates, and integration readiness.
+    systems:
+      - freqtrade
+      - hummingbot
+      - jesse
+      - nautilus_trader
+      - hftbacktest
+    gates:
+      - dry_run_required
+      - backtest_metrics_required
+      - queen_review_required
+
+  - id: layer_2_event_config_spine
+    name: Event + Config Spine
+    status: complete
+    purpose: Move hot configuration and critical events behind typed services.
+    systems:
+      - config_agent
+      - redis_streams
+      - error_monitor
+    gates:
+      - schema_validation
+      - rollback_snapshot
+      - operator_audit
+
+  - id: layer_3_backtest_evidence_loop
+    name: Backtest Evidence Loop
+    status: complete
+    purpose: Normalize public bot and Hivenance backtest evidence before promotion.
+    systems:
+      - freqtrade
+      - jesse
+      - hummingbot
+      - hftbacktest
+    gates:
+      - walk_forward
+      - max_drawdown
+      - minimum_trades
+      - paper_promotion
+
+  - id: layer_4_ml_research_lab
+    name: ML Research Lab
+    status: complete
+    purpose: Add FreqAI/FinRL-style model training as offline candidates only.
+    systems:
+      - freqai
+      - finrl_crypto
+      - macrohft
+      - webcryptoagent
+    gates:
+      - layer3_evidence
+      - walk_forward
+      - pbo_check
+      - leakage_check
+      - negative_case_replay
+      - offline_only
+      - risk_sensitive_eval
+
+  - id: layer_5_execution_parity
+    name: Execution Parity
+    status: complete
+    purpose: Model latency, queue position, slippage, and order state parity.
+    systems:
+      - nautilus_trader
+      - hftbacktest
+      - hummingbot
+      - execution_parity
+    gates:
+      - latency_budget
+      - slippage_budget
+      - queue_position
+      - fill_model_audit
+
+  - id: layer_6_signal_marketplace
+    name: Signal Marketplace
+    status: complete
+    purpose: Sandbox Bittensor-style miner/validator signal scoring.
+    systems:
+      - vanta_network
+      - candles_tao
+      - time_series_subnet
+      - signal_marketplace
+    gates:
+      - signed_submissions
+      - plagiarism_check
+      - drawdown_elimination
+      - realized_outcome_scoring
+      - reward_simulation
+      - sandbox_only
+
+evidence_policy:
+  profit_claims: untrusted_until_reproduced
+  live_promotion: requires_dry_run_then_paper_then_tiny_live
+  minimum_gates:
+    - walk_forward_or_retraining_backtest
+    - slippage_and_fee_model
+    - drawdown_limit
+    - queen_review
+    - swarmguard_pass
+
+next_actions:
+  - Continue replacing remaining execution-parity proxy fields as deeper venue data becomes available
+  - Tune Layer 6 validator weights against realized outcomes over longer market regimes
+  - Keep marketplace rewards simulated until explicitly enabled by operator policy

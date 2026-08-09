@@ -1,0 +1,69 @@
+default_runner_profile: linux-sandbox
+
+runner_profiles:
+  - profile_id: linux-sandbox
+    type: docker
+    enabled: true
+    description: Linux sibling container with no network and dropped capabilities
+    platforms:
+      - linux
+      - containers
+    runner: pwsh
+    module_path: /opt/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1
+    atomic_root: /opt/atomic-red-team/atomics
+    sandbox_image: seraph-sandbox-tools:latest
+    sandbox_atomic_host_path: /home/byron/Downloads/Metatron-triune-outbound-gate/atomic-red-team
+    sandbox_invoke_host_path: /home/byron/Downloads/Metatron-triune-outbound-gate/tools/invoke-atomicredteam
+    sandbox_validation_volume: metatron-triune-outbound-gate_atomic_validation_reports
+
+  - profile_id: windows-lab-winrm
+    type: winrm
+    enabled: false
+    description: Remote Windows validation host reached over WinRM from the backend
+    platforms:
+      - windows
+    runner: /usr/bin/pwsh
+    remote_host: windows-lab.local
+    remote_user: Administrator
+    password_env: ATOMIC_WINDOWS_LAB_PASSWORD
+    module_path: C:/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1
+    atomic_root: C:/AtomicRedTeam/atomics
+
+  - profile_id: macos-lab-ssh
+    type: ssh
+    enabled: false
+    description: Remote macOS validation host reached over SSH
+    platforms:
+      - macos
+    remote_host: macos-lab.local
+    remote_user: byron
+    remote_port: 22
+    remote_shell: pwsh
+    module_path: /Users/byron/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1
+    atomic_root: /Users/byron/AtomicRedTeam/atomics
+
+jobs:
+  - job_id: windows-defense-evasion-live
+    name: Windows Defense Evasion Live Validation
+    description: Run Windows-only defense evasion atomics on the dedicated Windows lab host.
+    runner_profile: windows-lab-winrm
+    techniques:
+      - T1055
+      - T1070
+      - T1218
+      - T1562.002
+    default_test_guids: []
+    priority: critical
+    frequency: weekly
+
+  - job_id: macos-persistence-live
+    name: macOS Persistence Live Validation
+    description: Run macOS persistence atomics on the SSH-connected macOS validation host.
+    runner_profile: macos-lab-ssh
+    techniques:
+      - T1543.001
+      - T1547.007
+      - T1176
+    default_test_guids: []
+    priority: high
+    frequency: weekly

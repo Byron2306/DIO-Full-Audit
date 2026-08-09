@@ -1,0 +1,75 @@
+title: Resource Hijacking via CPU Overload
+id: 0l4i5j3k-1g6h-6i9j-0k3l-4h7g8i1j6k7l
+status: experimental
+description: Detects processes causing excessive CPU usage for resource hijacking
+references:
+  - https://attack.mitre.org/techniques/T1496/001/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains:
+      - 'dd if=/dev/zero'
+      - 'stress'
+      - 'cpu'
+  condition: selection
+falsepositives:
+  - Benchmarking tools
+  - System testing
+level: medium
+tags:
+  - attack.impact
+  - attack.t1496.001
+---
+title: Resource Hijacking via Storage Exhaustion
+id: 1m5j6k4l-2h7i-7j0k-1l4m-5i8h9j2k7l8m
+status: experimental
+description: Detects attempts to exhaust storage resources
+references:
+  - https://attack.mitre.org/techniques/T1496/002/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains:
+      - 'dd if=/dev/zero of='
+      - 'fallocate'
+      - 'fill disk'
+  condition: selection
+falsepositives:
+  - Disk testing utilities
+level: medium
+tags:
+  - attack.impact
+  - attack.t1496.002
+---
+title: Resource Hijacking via Memory Exhaustion
+id: 2n6k7l5m-3i8j-8k1l-2m5n-6j9i0k3l8m9n
+status: experimental
+description: Detects attempts to exhaust memory resources
+references:
+  - https://attack.mitre.org/techniques/T1496/003/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains:
+      - 'malloc'
+      - 'memory stress'
+      - ':(){ :|:& };:'  # fork bomb
+  condition: selection
+falsepositives:
+  - Memory testing tools
+level: high
+tags:
+  - attack.impact
+  - attack.t1496.003

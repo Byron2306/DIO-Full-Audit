@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:426ea94b4d4713295b5d0815f0a09fd5bedf859b1b8d0a5687a34f830fbe6260",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "gemini-3.5-flash",
+      "parameter_hash": "2eb5e62f4855c42d8538e34e53b1f94482ed89a11243578526a108dcfb5b6a22",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 1800,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:442efcb323f30b77a6daa4d532a5aa599ffadd162ac5a78e9a79f44152a8dda9",
+      "response_blob_digest": "sha256:8a72269e421fe5bb0024d7b4f8b2132eb5484a570979d157742d44444f3d363b",
+      "response_blob_ref": "blobs/sha256/8a72269e421fe5bb0024d7b4f8b2132eb5484a570979d157742d44444f3d363b.json",
+      "response_chars": 359,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Review desktop-ide/tests/fixtures/gemini_pair_programmer_medium.py for correctness, typing, invariants, edge cases, and testability. Findings: 1. WorkItem.fingerprint() must safely encode fields to bytes before hashing (e.g., handling None or non-string types). 2. WorkQueue.complete() needs explicit behavior (e.",
+      "response_ref": "cache_e1026c73ba05d704.answer.json",
+      "response_sha256": "sha256:7ef070ea3f5e5c9d4752920436426b9e3559ba2363d1f45da0a3df7103aa7e8c"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

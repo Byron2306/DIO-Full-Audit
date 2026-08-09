@@ -1,0 +1,44 @@
+{
+  "avoid": [
+    "full_repo_upload",
+    "blind_provider_retries",
+    "secret_value_capture",
+    "cloud_reasoning_before_local_evidence",
+    "production_provider_account_change"
+  ],
+  "beast_object_type": "route_card",
+  "cache_policy": {
+    "credentials": "do not cache secret values; cache presence only",
+    "log_scan": "per diagnostic run",
+    "provider_policy": "until policy file changes",
+    "recent_attempts": "30 seconds",
+    "runtime_circuit": "live"
+  },
+  "context": "Diagnose provider call failures using local policy, credential, runtime, attempt, and log evidence before model escalation.",
+  "created_at": "2026-06-29T14:50:24.002188Z",
+  "name": "Provider diagnostic route",
+  "preferred_order": [
+    "provider_policy",
+    "credentials",
+    "runtime_circuit",
+    "recent_attempts",
+    "log_scan",
+    "failure_category",
+    "recommendations",
+    "chronicle"
+  ],
+  "promotion_status": "candidate",
+  "provider": "xai",
+  "route_id": "route_provider_diagnostic_xai",
+  "route_quality_score": 0.78,
+  "safety": {
+    "external_write_requires_approval": true,
+    "local_only": true,
+    "max_log_tail_bytes": 12000,
+    "provider_account_change_requires_approval": true,
+    "redact_secrets": true,
+    "task_id": "tsk_d5e97e053369"
+  },
+  "task_class": "provider_debugging",
+  "version": "1.0"
+}

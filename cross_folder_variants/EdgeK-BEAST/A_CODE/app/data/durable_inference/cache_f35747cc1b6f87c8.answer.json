@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:0754c3fd7926a560ec286cf2f88db936667dc9725d674c42e1d6022ddaa60f18",
+    "ref": "blobs/sha256/0754c3fd7926a560ec286cf2f88db936667dc9725d674c42e1d6022ddaa60f18.json"
+  },
+  "credit_id": "cache_f35747cc1b6f87c8",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ComputeForgeNode for clarity\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/compute_forge.py\",\"anchor_ref\":\"A1\"},\"new\":\"input_schema = {\\\"objective\\\": \\\"string\\\", \\\"repo_fingerprint\\\": \\\"sha256\\\", \\\"allowed_context\\\": \\\"local_redacted_evidence\\\", \\\"provider_handoff_hash\\\": \\\"sha256:43b8d801d7a625dc9e6756e0b62c2825352d27bf2c9af5f74dd24e10cc3c1e61\\\"}\",\"intent\":\"Add provider_handoff_hash to input schema\"}],\"verify\":[\"Check that ComputeForgeNode initialization still works as expected\"]}",
+  "response_sha256": "sha256:587ddbaa30a43ec71010a1d3760e0dce2bdd0a798ca5e87e1537afa4783b0bab",
+  "version": "1.0"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:ca6171dd754eaa13048c9aae29708d75d8f515cf9641fc3e9a6ca6fbb9b0a68d",
+    "ref": "blobs/sha256/ca6171dd754eaa13048c9aae29708d75d8f515cf9641fc3e9a6ca6fbb9b0a68d.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T19:31:30.124477+00:00",
+  "credit_id": "cache_ee5d041ec6ca60ce",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:f5b3a6a7f8c1ae861be0f3d9d94264dd5a9f7eb603f6d9a7dfbcdc1ac335d8ad",
+    "response_blob_digest": "sha256:98673ac5bc20f533aa4032c1ed098a403b4b9076f35f8dc8e5bf8456da0be089",
+    "response_blob_ref": "blobs/sha256/98673ac5bc20f533aa4032c1ed098a403b4b9076f35f8dc8e5bf8456da0be089.json",
+    "response_chars": 987,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"i need larger patch upgrades\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candidates. \"\"\", \"new\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences fr",
+    "response_ref": "cache_ee5d041ec6ca60ce.answer.json",
+    "response_sha256": "sha256:785afe98d398a5bdb94efe3e34ebca7130907101d0576d3899eb0ca36d9acdc8"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

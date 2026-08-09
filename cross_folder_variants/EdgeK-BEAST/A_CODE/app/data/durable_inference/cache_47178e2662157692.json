@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:eeebf83542de2bdb40c01da1c23fe0286b595dcbca121dffd4e074f7b57442ef",
+    "ref": "blobs/sha256/eeebf83542de2bdb40c01da1c23fe0286b595dcbca121dffd4e074f7b57442ef.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T04:52:33.225916+00:00",
+  "credit_id": "cache_47178e2662157692",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "fde597796fe6c92abd9c6c5b4b6d282ecc6c16ef9a9cc9ac6361c306fdb48d81",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 16000,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:cfdfa20e2164c43716da00edfe49eec16cc778cc327fe4373b7d51a0afea935d",
+    "response_blob_digest": "sha256:7e5d1c10e833695b75217d832facf09c8beb62524658b89e1083d74ddf2478ab",
+    "response_blob_ref": "blobs/sha256/7e5d1c10e833695b75217d832facf09c8beb62524658b89e1083d74ddf2478ab.json",
+    "response_chars": 5744,
+    "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ContextEconomizer for clarity without changing behavior\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"def _compress_messages(self, messages: List[Dict[str, Any]], target_tokens: int, min_recent_messages: int, max_message_chars: int, preserve_system: bool) -> Tuple[List[Dict[str, Any]], int, int, List[str]]:\",\"new\":\"def _compress_messages(self, messages: List[Dict[str, Any]], target_tokens: int, min_",
+    "response_ref": "cache_47178e2662157692.answer.json",
+    "response_sha256": "sha256:26f196d274e6910ba95aa785d6f10231770c29975ca10630836020f25859d961"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

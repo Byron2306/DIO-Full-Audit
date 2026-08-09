@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:3c7a5d6db9c0f7e1353c6ddc274809d7ab8c5d2a8bf9490e349856e72208fd85",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:24602ce189620b7a902fca7aaa81754dbf558aa82a4579d67961d1b5025f46a4",
+      "response_blob_digest": "sha256:a9d9cc67081d6fc7d72f0dcc0c5d4f037b5dac23f5a461eeb953b616eef4a6b6",
+      "response_blob_ref": "blobs/sha256/a9d9cc67081d6fc7d72f0dcc0c5d4f037b5dac23f5a461eeb953b616eef4a6b6.json",
+      "response_chars": 3515,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor the MetaToolCandidate class for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A2\"}, \"old\": \"\"\"Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candidates.\"\"\", \"new\": \"\"\"Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-T",
+      "response_ref": "cache_a16199a72eef2b50.answer.json",
+      "response_sha256": "sha256:59903b9709a08b2b2c29f00b85bd8cc781bf0c97ce93dc64f2de30f3e593f1a5"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

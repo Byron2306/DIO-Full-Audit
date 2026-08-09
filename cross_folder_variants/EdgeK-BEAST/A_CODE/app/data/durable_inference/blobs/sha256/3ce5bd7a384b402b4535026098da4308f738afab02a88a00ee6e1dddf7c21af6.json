@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:3ce5bd7a384b402b4535026098da4308f738afab02a88a00ee6e1dddf7c21af6",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Improve the context economizer by adding a check for empty messages before estimating tokens\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [])\",\"new\":\"total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [] if message.get(\\\"content\\\") != \\\"\\\")\",\"intent\":\"Prevent counting empty messages as tokens\"}]}",
+    "response_sha256": "sha256:2dd52430d471ab2d751d3c76620f8bfdc350d428657155eab0ede066fc5d0c61",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

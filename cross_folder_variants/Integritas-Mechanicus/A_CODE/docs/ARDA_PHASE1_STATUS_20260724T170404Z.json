@@ -1,0 +1,58 @@
+{
+  "cwd": "/home/byron/Integritas-Mechanicus/arda_os",
+  "native_denial_test": null,
+  "self_test": null,
+  "status": {
+    "arm_mode": "simulation",
+    "armed_at": null,
+    "attach_verified": false,
+    "bpf_source": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.c",
+    "fallback_last_error": "ARDA_LSM: Ring-0 Guard failed to arm: No module named 'bcc'",
+    "is_authoritative": false,
+    "is_simulation": true,
+    "last_error": "libbpf: Failed to bump RLIMIT_MEMLOCK (err = -1), you might need to do it explicitly!\nlibbpf: Error in bpf_object__probe_loading():Operation not permitted(1). Couldn't load trivial BPF program. Make sure your kernel supports BPF (CONFIG_BPF_SYSCALL=y) and/or that RLIMIT_MEMLOCK is set to big enough value.\nlibbpf: failed to load object '/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.o'\nARDA_LOADER: load failed for /home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.o",
+    "last_self_test": null,
+    "loader_attempted": true,
+    "loader_last_error": "libbpf: Failed to bump RLIMIT_MEMLOCK (err = -1), you might need to do it explicitly!\nlibbpf: Error in bpf_object__probe_loading():Operation not permitted(1). Couldn't load trivial BPF program. Make sure your kernel supports BPF (CONFIG_BPF_SYSCALL=y) and/or that RLIMIT_MEMLOCK is set to big enough value.\nlibbpf: failed to load object '/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.o'\nARDA_LOADER: load failed for /home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.o",
+    "loader_status": {
+      "canonical_bpf_object": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.o",
+      "canonical_bpf_object_exists": true,
+      "canonical_bpf_source": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.c",
+      "canonical_bpf_source_exists": true,
+      "canonical_loader_binary": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_lsm_loader",
+      "canonical_loader_binary_exists": true,
+      "canonical_loader_command": [
+        "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_lsm_loader",
+        "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_physical_lsm.o"
+      ],
+      "canonical_loader_source": "/home/byron/Integritas-Mechanicus/arda_os/backend/services/bpf/arda_lsm_loader.c",
+      "canonical_loader_source_exists": true,
+      "preferred_loader_mode": "libbpf_loader"
+    },
+    "map_name": "arda_harmony_map",
+    "pin_path": null,
+    "readiness": {
+      "blockers": [
+        "not_running_as_root",
+        "unprivileged_bpf_disabled_strict",
+        "bpf_load_operation_not_permitted",
+        "loader_memlock_failure"
+      ],
+      "context": {
+        "euid": 1000,
+        "memlock_hard": 8388608,
+        "memlock_soft": 8388608,
+        "unprivileged_bpf_disabled": "2"
+      },
+      "ready_for_authoritative_attempt": false,
+      "recommendations": [
+        "Run the authoritative loader path under a host privilege context permitted to load BPF programs",
+        "Use a privileged host context because unprivileged BPF is disabled by kernel policy",
+        "Verify kernel BPF load permissions, memlock policy, and host execution context",
+        "Run the loader where RLIMIT_MEMLOCK can be raised or is already sufficient"
+      ]
+    },
+    "sovereign_mode": false
+  },
+  "timestamp": "2026-07-24T17:04:05.253154Z"
+}

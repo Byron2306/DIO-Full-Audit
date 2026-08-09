@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-18T12:44:50.437668+00:00",
+  "objective": "Help me plan this coding task. First inspect the relevant workspace context; do not make changes yet.Task: Look at the compute_forge.py file, I want suggestions for improvement",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:9be6e6eab8021cb82d3ed9e0b041af22df320095aba53278cfe952c59d1a6d00",
+  "task_markup_id": "ctask_9be6e6eab8021cb8"
+}

@@ -1,0 +1,82 @@
+{
+  "actions": [
+    {
+      "action": "prune_audit_logs",
+      "results": [
+        {
+          "cutoff_ts": 1784855932.41614,
+          "delete_candidates": 0,
+          "deleted": 0,
+          "dry_run": true,
+          "ok": true,
+          "table": "raw_events"
+        },
+        {
+          "cutoff_ts": 1784855932.41614,
+          "delete_candidates": 0,
+          "deleted": 0,
+          "dry_run": true,
+          "ok": true,
+          "table": "logs"
+        },
+        {
+          "cutoff_ts": 1784855932.41614,
+          "delete_candidates": 0,
+          "deleted": 0,
+          "dry_run": true,
+          "ok": true,
+          "table": "event_envelopes"
+        },
+        {
+          "cutoff_ts": 1784855932.41614,
+          "delete_candidates": 0,
+          "deleted": 0,
+          "dry_run": true,
+          "ok": true,
+          "table": "simulated_order_events"
+        }
+      ],
+      "retention_days": 14.0
+    }
+  ],
+  "after": {
+    "database_path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/swarm_data.db",
+    "database_size_bytes": 24223547392,
+    "estimated_free_bytes": 0,
+    "freelist_count": 0,
+    "hot_store_policy": {
+      "destructive_deletes": "disabled_without_explicit_apply_flag",
+      "mode": "governed_compaction_required"
+    },
+    "page_count": 5914266,
+    "page_size": 4096,
+    "shm_size_bytes": 3768320,
+    "wal_size_bytes": 1930714432
+  },
+  "authority": "storage_maintenance_only",
+  "before": {
+    "database_path": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/swarm_data.db",
+    "database_size_bytes": 24223547392,
+    "estimated_free_bytes": 0,
+    "freelist_count": 0,
+    "hot_store_policy": {
+      "destructive_deletes": "disabled_without_explicit_apply_flag",
+      "mode": "governed_compaction_required"
+    },
+    "page_count": 5914266,
+    "page_size": 4096,
+    "shm_size_bytes": 3768320,
+    "wal_size_bytes": 1930714432
+  },
+  "created_ts": 1786065543.1111395,
+  "database": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation/data/swarm_data.db",
+  "destructive_delete_enabled": false,
+  "execution_authority": "none",
+  "schema": "hivenance_hot_store_maintenance_receipt_v1",
+  "table_counts": {
+    "crystal_registry": 42515,
+    "hypothesis_forecasts": 1038793,
+    "phase_scorecard_snapshots": 3,
+    "simulated_orders": 140845
+  }
+}

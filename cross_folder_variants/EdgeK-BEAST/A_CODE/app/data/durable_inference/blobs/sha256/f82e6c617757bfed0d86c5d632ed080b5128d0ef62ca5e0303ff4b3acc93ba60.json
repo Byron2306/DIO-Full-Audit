@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:f82e6c617757bfed0d86c5d632ed080b5128d0ef62ca5e0303ff4b3acc93ba60",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "parameter_hash": "4aa566632d943aed14933f3e0c80bcc0e9e2943211fe5d475f7b189a9c1bc8e7",
+      "parameters": {
+        "governance_level": "governed",
+        "max_tokens": 4000,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:d527ab45007e8d3086f46704ebaff7fe489fae2ccadaa33cbeb2d5f40b1024d5",
+      "response_blob_digest": "sha256:5a5358d92b5190ea90e66cd483c70e882415f039ffd20d6aab9531c46f28fa0a",
+      "response_blob_ref": "blobs/sha256/5a5358d92b5190ea90e66cd483c70e882415f039ffd20d6aab9531c46f28fa0a.json",
+      "response_chars": 5458,
+      "response_preview": "Based on the provided code snippets, here are specific improvements for each file:\n\n### app/kernel/compute/action_ir.py\n1. **Complete the incomplete `action_ir_schema` function**  \n   The function ends abruptly at `\"actions\"` without returning a complete schema. This should return a full JSON schema definition for validation.\n\n2. **Simplify parameter extraction in `ActionIntent.from_dict`**  \n   The current logic for extracting `parameters` is overly complex and error-prone:\n   ```python\n   para",
+      "response_ref": "cache_052b9d3f3f2af49f.answer.json",
+      "response_sha256": "sha256:c78b5ff7892e8464d0bb2d91633d8446a6e47f42d36151ef49e5a0cffb3b8a34"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

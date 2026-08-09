@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:debd26ac02d9f7994694799c9807bb5d10436a492232e4e63a680f3e1eba894d",
+    "ref": "blobs/sha256/debd26ac02d9f7994694799c9807bb5d10436a492232e4e63a680f3e1eba894d.json"
+  },
+  "credit_id": "cache_27e7c4cb866fe0bc",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Implement suggested edits to the script\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"if isinstance(content, str) and len(content) > max_message_chars:\",\"new\":\"if isinstance(content, str) and len(content) > max_message_chars and not content.startswith('[EdgeK context economy:')\",\"intent\":\"Prevent trimming of already trimmed messages\"}]}",
+  "response_sha256": "sha256:af5f47ed8c3613e451c74eecb7c89855b660b088710a75bb9cb019f25c799c9c",
+  "version": "1.0"
+}

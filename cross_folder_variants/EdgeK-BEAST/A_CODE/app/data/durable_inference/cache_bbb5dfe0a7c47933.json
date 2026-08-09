@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:bce4eb03fad28b1eb8cb42143900ae44db467f9f22a65af0e396b031f2d3df7c",
+    "ref": "blobs/sha256/bce4eb03fad28b1eb8cb42143900ae44db467f9f22a65af0e396b031f2d3df7c.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T04:37:38.157198+00:00",
+  "credit_id": "cache_bbb5dfe0a7c47933",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "fde597796fe6c92abd9c6c5b4b6d282ecc6c16ef9a9cc9ac6361c306fdb48d81",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 16000,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:621b3eaf7336293a5da2f14e05911b085671609238df6135195a9af03287770a",
+    "response_blob_digest": "sha256:10859066c96c035a329a7f9eb805562ef84f0cc33eba8c7442cc08736a835c5b",
+    "response_blob_ref": "blobs/sha256/10859066c96c035a329a7f9eb805562ef84f0cc33eba8c7442cc08736a835c5b.json",
+    "response_chars": 1763,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor the selected code for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"def _estimate_tokens(self, messages: List[Dict[str, Any]]) -> int:\\n    total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [])\\n    return max(1, total_chars // 4)\", \"new\": \"def _estimate_tokens(self, messages: List[Dict[str, Any]]) -> int:\\n    total_ch",
+    "response_ref": "cache_bbb5dfe0a7c47933.answer.json",
+    "response_sha256": "sha256:9ec52d8c50daf10071459cf6c5fae019650406d9177a2e2df669f48594a5afb3"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

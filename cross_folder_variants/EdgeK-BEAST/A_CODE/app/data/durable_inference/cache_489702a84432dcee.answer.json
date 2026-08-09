@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:b5fd41a18d58e27efd26b2085af6117d85f0fbef43abbb5aeda76a92236340d0",
+    "ref": "blobs/sha256/b5fd41a18d58e27efd26b2085af6117d85f0fbef43abbb5aeda76a92236340d0.json"
+  },
+  "credit_id": "cache_489702a84432dcee",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"fix potential bug in context economizer\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\"},\"old\":\"ir: EdgeKIR\",\"new\":\"ir: EdgeKIR\\n    changed: bool = False\\n    original_tokens: int = 0\\n    final_tokens: int = 0\\n    strategy: str = ''\\n    messages_removed: int = 0\\n    chars_removed: int = 0\\n    notes: List[str] = []\",\"intent\":\"initialize dataclass fields\"}],\"verify\":[\"test_context_economizer.py\"]}",
+  "response_sha256": "sha256:0d6ccd5d2c754907c6b2ef003ccc332b023119a197dd97b7aeab982d185dcba7",
+  "version": "1.0"
+}

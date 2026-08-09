@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-08-08T23:46:51+00:00",
+  "mode": "final_edge_tts_with_licensed_music",
+  "note": "Final candidate audio rendered with the selected South African English voice and the rights-cleared music recorded in FINAL_MEDIA_RECEIPT.json.",
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "role": "hook",
+      "duration_seconds": 8,
+      "source_text": "imports/prompts/elevenlabs/scene_01.txt",
+      "target_audio": "final_media/voice/00_scene_01.wav",
+      "voice": "en-ZA-LeahNeural",
+      "actual_duration_seconds": 8.0,
+      "status": "rendered_final_candidate"
+    },
+    {
+      "scene_id": "scene_02",
+      "role": "pain",
+      "duration_seconds": 12,
+      "source_text": "imports/prompts/elevenlabs/scene_02.txt",
+      "target_audio": "final_media/voice/01_scene_02.wav",
+      "voice": "en-ZA-LeahNeural",
+      "actual_duration_seconds": 12.0,
+      "status": "rendered_final_candidate"
+    },
+    {
+      "scene_id": "scene_03",
+      "role": "workflow",
+      "duration_seconds": 14,
+      "source_text": "imports/prompts/elevenlabs/scene_03.txt",
+      "target_audio": "final_media/voice/02_scene_03.wav",
+      "voice": "en-ZA-LeahNeural",
+      "actual_duration_seconds": 14.0,
+      "status": "rendered_final_candidate"
+    },
+    {
+      "scene_id": "scene_04",
+      "role": "promise",
+      "duration_seconds": 14,
+      "source_text": "imports/prompts/elevenlabs/scene_04.txt",
+      "target_audio": "final_media/voice/03_scene_04.wav",
+      "voice": "en-ZA-LeahNeural",
+      "actual_duration_seconds": 14.0,
+      "status": "rendered_final_candidate"
+    },
+    {
+      "scene_id": "scene_05",
+      "role": "boundary",
+      "duration_seconds": 10,
+      "source_text": "imports/prompts/elevenlabs/scene_05.txt",
+      "target_audio": "final_media/voice/04_scene_05.wav",
+      "voice": "en-ZA-LeahNeural",
+      "actual_duration_seconds": 10.0,
+      "status": "rendered_final_candidate"
+    },
+    {
+      "scene_id": "scene_06",
+      "role": "cta",
+      "duration_seconds": 8,
+      "source_text": "imports/prompts/elevenlabs/scene_06.txt",
+      "target_audio": "final_media/voice/05_scene_06.wav",
+      "voice": "en-ZA-LeahNeural",
+      "actual_duration_seconds": 8.0,
+      "status": "rendered_final_candidate"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "distribution_id": "arda-valinor",
+  "generated_at": "2026-07-29T18:01:13.737634+00:00",
+  "minimum_host_requirements": {
+    "architecture": "amd64",
+    "secure_boot": true,
+    "tpm2": true,
+    "uefi": true
+  },
+  "phases": [
+    {
+      "name": "overlay and manifest generation",
+      "outputs": [
+        "arda_os/distribution/build/overlay",
+        "arda_os/distribution/releases/distribution-manifest.json",
+        "arda_os/distribution/releases/installer-profile.json"
+      ],
+      "phase": 1
+    },
+    {
+      "methods": [
+        "debootstrap trixie amd64 rootfs",
+        "debian live-build customization"
+      ],
+      "name": "base rootfs construction",
+      "phase": 2
+    },
+    {
+      "name": "arda integration",
+      "phase": 3,
+      "steps": [
+        "install Valinor kernel .deb artifacts",
+        "copy ARDA overlay into rootfs",
+        "enable verifier and postboot systemd units",
+        "install policy bundle and projection plan",
+        "install wallpaper, boot theme, and identity assets"
+      ]
+    },
+    {
+      "name": "bootability and trust chain",
+      "phase": 4,
+      "steps": [
+        "sign kernel and boot artifacts",
+        "verify shim/grub path",
+        "generate initramfs and grub config",
+        "prepare installer and live boot entries"
+      ]
+    },
+    {
+      "artifacts": [
+        "arda-valinor-live-amd64.iso",
+        "arda-valinor-installer-amd64.iso",
+        "arda-valinor-amd64.img"
+      ],
+      "name": "artifact emission",
+      "phase": 5
+    }
+  ],
+  "schema_version": "arda.distribution.iso_plan.v1"
+}

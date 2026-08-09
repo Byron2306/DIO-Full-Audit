@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:241141f1344f6cb0563f8024df1c8ad401855fd5f492a5a26780adcc216d1a41",
+    "ref": "blobs/sha256/241141f1344f6cb0563f8024df1c8ad401855fd5f492a5a26780adcc216d1a41.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T14:30:29.774669+00:00",
+  "credit_id": "cache_af9426f5f95c25ea",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:c79963f4f6d1e37ac81271e803a944fe9a7f00c18e063fb2ae6dd5b774ecc54a",
+    "response_blob_digest": "sha256:53d9bdd3a3240d9f1be901c5f9641612384aa57d0f0f050fd04b93bcceefbeaf",
+    "response_blob_ref": "blobs/sha256/53d9bdd3a3240d9f1be901c5f9641612384aa57d0f0f050fd04b93bcceefbeaf.json",
+    "response_chars": 979,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve patching for Compute Forge Node by adding additional steps to the node's participation in the discovery-agnostic reuse protocol\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"\"\"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. This node participates in the discovery-agn",
+    "response_ref": "cache_af9426f5f95c25ea.answer.json",
+    "response_sha256": "sha256:3d12afc50f79dcf4f96a3dfb772b1ce88ff11e3ebeb49051770aeef6e61fc082"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

@@ -1,0 +1,11 @@
+timestamp=2026-05-15T13:06:25Z
+controller_health={"ok":true,"service":"seraph-controller","ts":"2026-05-15T13:06:25.631447+00:00"}
+nodeA_to_vault_code=200
+nodeA_to_remediation_code=200
+nodeA_to_controller_code=200
+nodeA_ping_nodeB=PING 10.77.0.12 (10.77.0.12) 56(84) bytes of data.
+64 bytes from 10.77.0.12: icmp_seq=1 ttl=64 time=0.102 ms
+
+--- 10.77.0.12 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.102/0.102/0.102/0.000 ms

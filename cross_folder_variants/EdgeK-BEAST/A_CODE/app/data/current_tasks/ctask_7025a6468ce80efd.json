@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-06-29T14:22:57.579119+00:00",
+  "objective": "proceed",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:7025a6468ce80efdadd05a2b41feefa6edfc0710e7fddda4c99ce53f73353b8c",
+  "task_markup_id": "ctask_7025a6468ce80efd"
+}

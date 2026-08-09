@@ -1,0 +1,41 @@
+{
+  "artifact_count": 4,
+  "artifact_dir": "/home/byron/kernel-src",
+  "artifacts": [
+    {
+      "name": "linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+      "path": "/home/byron/kernel-src/linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+      "sha256": "03345564a33cc65f6fe7cc4d88411402448a91cf9c32e28cbe73e3e2a46725a4",
+      "size": 9898064
+    },
+    {
+      "name": "linux-image-6.12.96-valinor-dbg_6.12.96-valinor2-1_amd64.deb",
+      "path": "/home/byron/kernel-src/linux-image-6.12.96-valinor-dbg_6.12.96-valinor2-1_amd64.deb",
+      "sha256": "7f6282da97b86be354e7f536073215bdac22a9746b0b9d63134a2f4a6d46d3ce",
+      "size": 993451252
+    },
+    {
+      "name": "linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+      "path": "/home/byron/kernel-src/linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+      "sha256": "aa32206145c2adcffd75a9c99fef759666c9b0dfb08e07228785bffe64f0fb6a",
+      "size": 109456532
+    },
+    {
+      "name": "linux-libc-dev_6.12.96-valinor2-1_amd64.deb",
+      "path": "/home/byron/kernel-src/linux-libc-dev_6.12.96-valinor2-1_amd64.deb",
+      "sha256": "02f8b7811daf8f6c7930092795fa63c6d81f91d858894c3daa678f9902f426b7",
+      "size": 1395944
+    }
+  ],
+  "config": {
+    "path": "/home/byron/kernel-src/linux-source-6.12/.config",
+    "present": true,
+    "sha256": "8b12e89412e570567b6db605c50065886768e3f143cd82fb20baf7c77198f94e"
+  },
+  "generated_at": "2026-07-28T20:02:25.114046+00:00",
+  "host": "debian",
+  "kernel_release_at_manifest": "6.12.95+deb13-rt-amd64",
+  "schema_version": "arda.valinor_kernel_release.v1",
+  "source_dir": "/home/byron/kernel-src/linux-source-6.12",
+  "source_git_head": null
+}

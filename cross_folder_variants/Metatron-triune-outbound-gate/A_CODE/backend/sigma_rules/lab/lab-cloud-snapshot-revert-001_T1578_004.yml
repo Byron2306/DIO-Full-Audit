@@ -1,0 +1,28 @@
+title: Lab synthetic RevertSnapshot on tagged canary (honey_snapshot) — T1578.004
+id: lab-cloud-snapshot-revert-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_snapshot) is observed with the metatron_run_id tag and the
+  expected event_type matches RevertSnapshot. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1578/004
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1578.004
+  - lab.canary
+  - lab.cloudtrail
+logsource:
+  product: lab_audit
+  service: cloudtrail
+  category: cloud_iaas
+detection:
+  selection:
+    event_type: 'RevertSnapshot'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

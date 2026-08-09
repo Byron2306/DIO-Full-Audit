@@ -1,0 +1,552 @@
+{
+  "suite": "sophia_pedagogy_control_plane_phase8",
+  "timestamp": "2026-08-03T20:23:43.852111+00:00",
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "pass_rate": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "source_integrity_conflict_visible",
+      "passed": true,
+      "signal": "office=integrity_auditor conflicts=['source_fit_vs_integrity_boundary']",
+      "plan": {
+        "selected_office": "integrity_auditor",
+        "requested_office": "auto",
+        "office_reason": "The selected passage has provenance, similarity, or authorship-boundary risk.",
+        "learner_level": "intermediate",
+        "desired_depth": "compact",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "moderate scaffold",
+        "scaffold_intensity": "medium",
+        "bloom_target": "analyze/evaluate",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "mediation of meaning",
+        "de_bono_hat": "white -> black -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "reflect on why this claim matters in the argument",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "risk diagnosis without accusation or substitution",
+        "visible_summary": "Office: Integrity auditor. Move: separate source lead, direct support, warrant, and limitation Target: analyze/evaluate/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 11,
+          "question_count": 0,
+          "issue_labels": [
+            "needs source",
+            "needs warrant",
+            "provenance"
+          ],
+          "source_count": 2,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet.",
+          "office_score_margin": 0.025,
+          "office_conflicts": [
+            "source_fit_vs_integrity_boundary"
+          ]
+        },
+        "learner_features": {
+          "schema_version": "sophia.learner_features.v1",
+          "task": "provenance",
+          "learner_level_requested": "intermediate",
+          "word_count": 11,
+          "sentence_count": 1,
+          "mean_sentence_words": 11.0,
+          "question_count": 0,
+          "issue_count": 3,
+          "issue_labels": [
+            "needs source",
+            "needs warrant",
+            "provenance"
+          ],
+          "source_count": 2,
+          "evidence_signal": 0.75,
+          "reasoning_signal": 0.5,
+          "limitation_signal": 0.0,
+          "affective_uncertainty_signal": 0.0,
+          "agency_construct_signal": 0.0,
+          "learner_request_signal": 0.0,
+          "complexity_signal": 0.421,
+          "source_gap_signal": 1.0,
+          "method_gap_signal": 0.0,
+          "scope_gap_signal": 0.0,
+          "similarity_or_integrity_signal": 1.0,
+          "prior_interventions": 0,
+          "repeated_weakness_count": 0,
+          "ipsative_status": "no_prior_pattern",
+          "experiment_phase": "auto"
+        },
+        "normalized_diagnosis": {
+          "schema_version": "sophia.assessment_diagnosis_normalized.v1",
+          "active_layer": "formative",
+          "need_state": "source_provenance_fit",
+          "challenge_band": "high_support_or_high_scrutiny",
+          "severity": 0.73,
+          "repeated_current_weaknesses": [],
+          "target_constructs": [
+            "needs source",
+            "needs warrant",
+            "provenance"
+          ],
+          "normalization_rule": "Observable writing, provenance, affective-uncertainty, and ipsative signals are normalized before office selection."
+        },
+        "office_confidence_scores": {
+          "examiner": 0.029,
+          "expert_challenge": 0.029,
+          "integrity_auditor": 0.337,
+          "methodologist": 0.039,
+          "novice_scaffold": 0.039,
+          "peer_reviewer": 0.049,
+          "source_librarian": 0.312,
+          "writing_coach": 0.166
+        },
+        "office_arbitration": {
+          "schema_version": "sophia.office_arbitration.v1",
+          "selected_office": "integrity_auditor",
+          "winner": "integrity_auditor",
+          "winner_score": 0.337,
+          "runner_up": "source_librarian",
+          "runner_up_score": 0.312,
+          "margin": 0.025,
+          "conflicts": [
+            "source_fit_vs_integrity_boundary"
+          ],
+          "arbitration_rule": "tie_break_integrity_before_source_claim",
+          "confidence_status": "contested"
+        },
+        "objective_tuning": {
+          "schema_version": "sophia.multi_objective_pedagogy_tuning.v1",
+          "weights": {
+            "post_quality": 0.34,
+            "learning_gain": 0.41,
+            "delayed_transfer": 0.25
+          },
+          "delayed_transfer_multiplier": 1.0,
+          "optimization_target": "maximize authorship-preserving post quality, ipsative gain, and delayed transfer without false source/support claims",
+          "suggested_next_measure": "score immediate post artifact, later unaided transfer artifact, and integrity/provenance preservation separately",
+          "history_status": "no_prior_pattern"
+        }
+      }
+    },
+    {
+      "case_id": "ipsative_repeated_pattern_normalized",
+      "passed": true,
+      "signal": "layer=ipsative gain_weight=0.44",
+      "plan": {
+        "selected_office": "peer_reviewer",
+        "requested_office": "auto",
+        "office_reason": "The passage needs skeptical but developmental critique.",
+        "learner_level": "intermediate",
+        "desired_depth": "compact",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "guided scaffold",
+        "scaffold_intensity": "medium_high",
+        "bloom_target": "evaluate",
+        "barrett_depth": "evaluative",
+        "facione_focus": "inference and self-regulation",
+        "feuerstein_move": "intentionality, meaning, and competence",
+        "de_bono_hat": "yellow -> black -> green -> blue",
+        "costa_habit": "thinking flexibly",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "diagnose, scaffold, hand authorship back",
+        "visible_summary": "Office: Peer reviewer. Move: address repeated pattern: clarity risk, scope limit; revise one example and re-check Target: evaluate/inference and self-regulation.",
+        "next_best_learning_move": "address repeated pattern: clarity risk, scope limit; revise one example and re-check",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 17,
+          "question_count": 0,
+          "issue_labels": [
+            "clarity risk",
+            "scope limit"
+          ],
+          "source_count": 0,
+          "history_summary": {
+            "intervention_records": 3,
+            "repeated_weakness_types": [
+              {
+                "issue": "scope limit"
+              },
+              {
+                "issue": "clarity risk"
+              }
+            ],
+            "latest_intervention_improvement": {
+              "status": "stable_unresolved",
+              "persistent_issue_labels": [
+                "scope limit"
+              ]
+            }
+          },
+          "repeated_current_weaknesses": [
+            "clarity risk",
+            "scope limit"
+          ],
+          "ipsative_note": "Ipsative movement: stable but unresolved; keep working on scope limit.",
+          "office_score_margin": 0.136,
+          "office_conflicts": []
+        },
+        "learner_features": {
+          "schema_version": "sophia.learner_features.v1",
+          "task": "review",
+          "learner_level_requested": "intermediate",
+          "word_count": 17,
+          "sentence_count": 2,
+          "mean_sentence_words": 8.5,
+          "question_count": 0,
+          "issue_count": 2,
+          "issue_labels": [
+            "clarity risk",
+            "scope limit"
+          ],
+          "source_count": 0,
+          "evidence_signal": 0.0,
+          "reasoning_signal": 0.25,
+          "limitation_signal": 0.333,
+          "affective_uncertainty_signal": 1.0,
+          "agency_construct_signal": 0.0,
+          "learner_request_signal": 0.0,
+          "complexity_signal": 0.321,
+          "source_gap_signal": 0.0,
+          "method_gap_signal": 0.0,
+          "scope_gap_signal": 1.0,
+          "similarity_or_integrity_signal": 0.0,
+          "prior_interventions": 3,
+          "repeated_weakness_count": 2,
+          "ipsative_status": "stable_unresolved",
+          "experiment_phase": "auto"
+        },
+        "normalized_diagnosis": {
+          "schema_version": "sophia.assessment_diagnosis_normalized.v1",
+          "active_layer": "ipsative",
+          "need_state": "repeated_pattern_repair",
+          "challenge_band": "high_support_or_high_scrutiny",
+          "severity": 0.74,
+          "repeated_current_weaknesses": [
+            "clarity risk",
+            "scope limit"
+          ],
+          "target_constructs": [
+            "clarity risk",
+            "scope limit"
+          ],
+          "normalization_rule": "Observable writing, provenance, affective-uncertainty, and ipsative signals are normalized before office selection."
+        },
+        "office_confidence_scores": {
+          "examiner": 0.172,
+          "expert_challenge": 0.03,
+          "integrity_auditor": 0.04,
+          "methodologist": 0.04,
+          "novice_scaffold": 0.116,
+          "peer_reviewer": 0.348,
+          "source_librarian": 0.04,
+          "writing_coach": 0.212
+        },
+        "office_arbitration": {
+          "schema_version": "sophia.office_arbitration.v1",
+          "selected_office": "peer_reviewer",
+          "winner": "peer_reviewer",
+          "winner_score": 0.348,
+          "runner_up": "writing_coach",
+          "runner_up_score": 0.212,
+          "margin": 0.136,
+          "conflicts": [],
+          "arbitration_rule": "highest_confidence",
+          "confidence_status": "clear"
+        },
+        "objective_tuning": {
+          "schema_version": "sophia.multi_objective_pedagogy_tuning.v1",
+          "weights": {
+            "post_quality": 0.27,
+            "learning_gain": 0.44,
+            "delayed_transfer": 0.29
+          },
+          "delayed_transfer_multiplier": 1.15,
+          "optimization_target": "maximize authorship-preserving post quality, ipsative gain, and delayed transfer without false source/support claims",
+          "suggested_next_measure": "score immediate post artifact, later unaided transfer artifact, and integrity/provenance preservation separately",
+          "history_status": "stable_unresolved"
+        }
+      }
+    },
+    {
+      "case_id": "expert_challenge_weights_delayed_transfer",
+      "passed": true,
+      "signal": "office=peer_reviewer delayed=0.38",
+      "plan": {
+        "selected_office": "peer_reviewer",
+        "requested_office": "auto",
+        "office_reason": "The passage needs skeptical but developmental critique.",
+        "learner_level": "expert",
+        "desired_depth": "compact",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "light-touch challenge",
+        "scaffold_intensity": "low",
+        "bloom_target": "evaluate",
+        "barrett_depth": "evaluative",
+        "facione_focus": "inference and self-regulation",
+        "feuerstein_move": "mediation of meaning",
+        "de_bono_hat": "yellow -> black -> green -> blue",
+        "costa_habit": "thinking flexibly",
+        "knowles_move": "make the next self-directed revision choice explicit",
+        "mezirow_move": "test the assumption behind the claim",
+        "torrance_move": "refine originality without overclaiming",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "brief expert challenge with direct criteria",
+        "visible_summary": "Office: Peer reviewer. Move: tighten claim scope against what the evidence actually warrants Target: evaluate/inference and self-regulation.",
+        "next_best_learning_move": "tighten claim scope against what the evidence actually warrants",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 15,
+          "question_count": 0,
+          "issue_labels": [
+            "scope limit"
+          ],
+          "source_count": 0,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet.",
+          "office_score_margin": 0.097,
+          "office_conflicts": []
+        },
+        "learner_features": {
+          "schema_version": "sophia.learner_features.v1",
+          "task": "review",
+          "learner_level_requested": "expert",
+          "word_count": 15,
+          "sentence_count": 1,
+          "mean_sentence_words": 15.0,
+          "question_count": 0,
+          "issue_count": 1,
+          "issue_labels": [
+            "scope limit"
+          ],
+          "source_count": 0,
+          "evidence_signal": 0.25,
+          "reasoning_signal": 0.0,
+          "limitation_signal": 0.0,
+          "affective_uncertainty_signal": 0.0,
+          "agency_construct_signal": 0.0,
+          "learner_request_signal": 0.0,
+          "complexity_signal": 0.188,
+          "source_gap_signal": 0.0,
+          "method_gap_signal": 0.0,
+          "scope_gap_signal": 1.0,
+          "similarity_or_integrity_signal": 0.0,
+          "prior_interventions": 0,
+          "repeated_weakness_count": 0,
+          "ipsative_status": "no_prior_pattern",
+          "experiment_phase": "auto"
+        },
+        "normalized_diagnosis": {
+          "schema_version": "sophia.assessment_diagnosis_normalized.v1",
+          "active_layer": "formative",
+          "need_state": "claim_scope_calibration",
+          "challenge_band": "routine_formative",
+          "severity": 0.39,
+          "repeated_current_weaknesses": [],
+          "target_constructs": [
+            "scope limit"
+          ],
+          "normalization_rule": "Observable writing, provenance, affective-uncertainty, and ipsative signals are normalized before office selection."
+        },
+        "office_confidence_scores": {
+          "examiner": 0.102,
+          "expert_challenge": 0.227,
+          "integrity_auditor": 0.045,
+          "methodologist": 0.045,
+          "novice_scaffold": 0.017,
+          "peer_reviewer": 0.324,
+          "source_librarian": 0.045,
+          "writing_coach": 0.193
+        },
+        "office_arbitration": {
+          "schema_version": "sophia.office_arbitration.v1",
+          "selected_office": "peer_reviewer",
+          "winner": "peer_reviewer",
+          "winner_score": 0.324,
+          "runner_up": "expert_challenge",
+          "runner_up_score": 0.227,
+          "margin": 0.097,
+          "conflicts": [],
+          "arbitration_rule": "highest_confidence",
+          "confidence_status": "close"
+        },
+        "objective_tuning": {
+          "schema_version": "sophia.multi_objective_pedagogy_tuning.v1",
+          "weights": {
+            "post_quality": 0.33,
+            "learning_gain": 0.29,
+            "delayed_transfer": 0.38
+          },
+          "delayed_transfer_multiplier": 1.15,
+          "optimization_target": "maximize authorship-preserving post quality, ipsative gain, and delayed transfer without false source/support claims",
+          "suggested_next_measure": "score immediate post artifact, later unaided transfer artifact, and integrity/provenance preservation separately",
+          "history_status": "no_prior_pattern"
+        }
+      }
+    },
+    {
+      "case_id": "novice_scaffold_confidence_and_features",
+      "passed": true,
+      "signal": "office=novice_scaffold need=affective_reentry_or_uncertainty",
+      "plan": {
+        "selected_office": "novice_scaffold",
+        "requested_office": "auto",
+        "office_reason": "The learner needs close scaffolding before critique.",
+        "learner_level": "novice",
+        "desired_depth": "compact",
+        "feedback_style": "balanced",
+        "assessment_layer": "formative",
+        "zpd_level": "close scaffold",
+        "scaffold_intensity": "high",
+        "bloom_target": "understand/apply",
+        "barrett_depth": "inferential",
+        "facione_focus": "interpretation and evidence evaluation",
+        "feuerstein_move": "intentionality, meaning, and competence",
+        "de_bono_hat": "white -> yellow -> green -> blue",
+        "costa_habit": "gathering data through all senses / striving for accuracy",
+        "knowles_move": "offer bounded choices for the learner's next action",
+        "mezirow_move": "reflect on why this claim matters in the argument",
+        "torrance_move": "elaborate one promising revision path",
+        "assessment_cycle": [
+          "formative",
+          "criterion",
+          "reflective",
+          "ipsative"
+        ],
+        "response_contract": "small steps, model pattern, learner choice",
+        "visible_summary": "Office: Novice scaffold. Move: separate source lead, direct support, warrant, and limitation Target: understand/apply/interpretation and evidence evaluation.",
+        "next_best_learning_move": "separate source lead, direct support, warrant, and limitation",
+        "authorship_boundary": "Sophia may diagnose, question, scaffold, and map evidence; the learner chooses wording, claims, and citations.",
+        "adaptation_trace": {
+          "word_count": 14,
+          "question_count": 0,
+          "issue_labels": [
+            "clarity risk",
+            "operational definition"
+          ],
+          "source_count": 0,
+          "history_summary": {},
+          "repeated_current_weaknesses": [],
+          "ipsative_note": "No prior project-level intervention pattern is visible yet.",
+          "office_score_margin": 0.059,
+          "office_conflicts": []
+        },
+        "learner_features": {
+          "schema_version": "sophia.learner_features.v1",
+          "task": "scaffold",
+          "learner_level_requested": "novice",
+          "word_count": 14,
+          "sentence_count": 2,
+          "mean_sentence_words": 7.0,
+          "question_count": 0,
+          "issue_count": 2,
+          "issue_labels": [
+            "clarity risk",
+            "operational definition"
+          ],
+          "source_count": 0,
+          "evidence_signal": 0.0,
+          "reasoning_signal": 0.5,
+          "limitation_signal": 0.0,
+          "affective_uncertainty_signal": 0.5,
+          "agency_construct_signal": 0.2,
+          "learner_request_signal": 0.333,
+          "complexity_signal": 0.308,
+          "source_gap_signal": 1.0,
+          "method_gap_signal": 0.0,
+          "scope_gap_signal": 0.0,
+          "similarity_or_integrity_signal": 0.0,
+          "prior_interventions": 0,
+          "repeated_weakness_count": 0,
+          "ipsative_status": "no_prior_pattern",
+          "experiment_phase": "auto"
+        },
+        "normalized_diagnosis": {
+          "schema_version": "sophia.assessment_diagnosis_normalized.v1",
+          "active_layer": "formative",
+          "need_state": "affective_reentry_or_uncertainty",
+          "challenge_band": "productive_struggle",
+          "severity": 0.55,
+          "repeated_current_weaknesses": [],
+          "target_constructs": [
+            "clarity risk",
+            "operational definition"
+          ],
+          "normalization_rule": "Observable writing, provenance, affective-uncertainty, and ipsative signals are normalized before office selection."
+        },
+        "office_confidence_scores": {
+          "examiner": 0.032,
+          "expert_challenge": 0.032,
+          "integrity_auditor": 0.128,
+          "methodologist": 0.043,
+          "novice_scaffold": 0.316,
+          "peer_reviewer": 0.053,
+          "source_librarian": 0.139,
+          "writing_coach": 0.257
+        },
+        "office_arbitration": {
+          "schema_version": "sophia.office_arbitration.v1",
+          "selected_office": "novice_scaffold",
+          "winner": "novice_scaffold",
+          "winner_score": 0.316,
+          "runner_up": "writing_coach",
+          "runner_up_score": 0.257,
+          "margin": 0.059,
+          "conflicts": [],
+          "arbitration_rule": "highest_confidence",
+          "confidence_status": "close"
+        },
+        "objective_tuning": {
+          "schema_version": "sophia.multi_objective_pedagogy_tuning.v1",
+          "weights": {
+            "post_quality": 0.34,
+            "learning_gain": 0.41,
+            "delayed_transfer": 0.25
+          },
+          "delayed_transfer_multiplier": 1.0,
+          "optimization_target": "maximize authorship-preserving post quality, ipsative gain, and delayed transfer without false source/support claims",
+          "suggested_next_measure": "score immediate post artifact, later unaided transfer artifact, and integrity/provenance preservation separately",
+          "history_status": "no_prior_pattern"
+        }
+      }
+    },
+    {
+      "case_id": "multi_objective_weights_normalized",
+      "passed": true,
+      "signal": "weights={'post_quality': 0.33, 'learning_gain': 0.29, 'delayed_transfer': 0.38}",
+      "weights": {
+        "post_quality": 0.33,
+        "learning_gain": 0.29,
+        "delayed_transfer": 0.38
+      }
+    }
+  ]
+}

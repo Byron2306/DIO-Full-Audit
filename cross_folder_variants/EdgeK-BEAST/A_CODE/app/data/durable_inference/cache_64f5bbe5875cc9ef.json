@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:721de52d26b5a016fa4154e62788d2cbf2080d25a7c8511724eaacc36af56196",
+    "ref": "blobs/sha256/721de52d26b5a016fa4154e62788d2cbf2080d25a7c8511724eaacc36af56196.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T20:20:41.712177+00:00",
+  "credit_id": "cache_64f5bbe5875cc9ef",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:c3d9e76dbbdcdbd35c4221603b3bc4f185e79895b4c331ba595a640f93f5e7cf",
+    "response_blob_digest": "sha256:5746173080b1fdef44313a0ac7d9a65c2683d8520a2a7469928de6ae6c33f461",
+    "response_blob_ref": "blobs/sha256/5746173080b1fdef44313a0ac7d9a65c2683d8520a2a7469928de6ae6c33f461.json",
+    "response_chars": 1786,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Enhance and improve the MetaToolCandidate class\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\"class MetaToolCandidate: \\\"\\\"\\\"Represents a candidate meta-tool generated from frequent sequences. The Phase 7 model now stores candidates as governed ``CapabilityRecord`` assets, but older SkillTree code and CLI surfaces still use the flat candidate fields. Keep b",
+    "response_ref": "cache_64f5bbe5875cc9ef.answer.json",
+    "response_sha256": "sha256:ab88ad16216e66495d7595fb99e23003b8107e4511c915171fe298d1ee8a6e49"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

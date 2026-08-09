@@ -1,0 +1,120 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:440f79a3a8e532533bc77b5ea69f05a2c38e090b5ba100c59e0938354e10231e",
+  "payload": {
+    "artifact_type": "verified_capability",
+    "avoided_tokens_estimate": 143,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.88,
+    "evidence_packet_id": "",
+    "impact_fingerprint_hash": "sha256:0831140c62ac31500054dcca6fa52131abb5a0865dfd54b36797347009e258ae",
+    "metadata": {
+      "answer_credit_id": "cache_501ad904cfd351c2",
+      "evidence": {
+        "actual_live_provider_call": true,
+        "actual_local_engine_call": true,
+        "evaluation_gates": {
+          "baseline_pytest_failed": true,
+          "beast_object_type": "final_boss_evaluation_gates",
+          "expected_file_list_match": true,
+          "expected_hash_precondition_match": true,
+          "far_transfer_prompt_distance": {
+            "jaccard_distance": 0.923077,
+            "jaccard_similarity": 0.076923,
+            "left_terms": 20,
+            "metric": "token_set_jaccard",
+            "right_terms": 22,
+            "shared_terms": 3
+          },
+          "far_transfer_prompt_distance_recorded": true,
+          "mutation_negative_cases_required": true,
+          "no_forbidden_path_writes": true,
+          "passed": true,
+          "patch_schema_valid": true,
+          "secret_scan_pass": "[REDACTED]",
+          "version": "1.0"
+        },
+        "files_changed": [
+          "gateway/providers.py",
+          "gateway/auth.py",
+          "gateway/streaming.py",
+          "gateway/client.py"
+        ],
+        "raw_quality": {
+          "beast_object_type": "raw_patch_plan_quality",
+          "contains_forbidden_secret": "[REDACTED]",
+          "patch_count": 0,
+          "required_concept_count": 2,
+          "required_concepts": {
+            "beast_auto_routing": false,
+            "provider_normalization": true,
+            "secret_redaction": "[REDACTED]",
+            "streaming_empty_chunks": true
+          },
+          "schema_valid": true
+        },
+        "raw_response_sha256": "sha256:1504239820020eeb6f706b6211d07368b59db8ef58ff91e7abf3a63f21dd310e",
+        "skill_contract": "gateway_integration_pytest",
+        "tool_contract": "approved_multifile_patch_tool",
+        "verification": "multi_file_patch_plan_verified_by_integration_tests"
+      },
+      "local_eval_gate": {
+        "beast_object_type": "local_eval_gate_result",
+        "checks": [
+          {
+            "passed": true,
+            "rule": {
+              "type": "max_length",
+              "value": 200000
+            }
+          },
+          {
+            "passed": true,
+            "rule": {
+              "type": "no_secret_patterns"
+            }
+          }
+        ],
+        "passed": true,
+        "promotion_allowed": true,
+        "version": "1.0"
+      },
+      "model": "qwen2.5:0.5b",
+      "provider": "ollama",
+      "request": {
+        "beast_object_type": "crystal_reuse_request",
+        "metadata": {
+          "far_transfer": false,
+          "stage": "training"
+        },
+        "model": "qwen2.5:0.5b",
+        "parameters": {
+          "max_tokens": 1200,
+          "temperature": 0
+        },
+        "policy_version": "crystal_reuse_v1",
+        "preferred_engine": null,
+        "prompt_hash": "sha256:53eda012ae32f0c005bc1664c5eb8b425232d298aa9d85d44e135c92a9e025f1",
+        "prompt_prefix": "",
+        "prompt_preview": "BEAST provider gateway architecture migration normalize providers redact secrets preserve streaming empty chunks beast-auto model routing integration pytest stage training",
+        "provider": "ollama",
+        "repo_fingerprint": "final-boss-gateway-migration",
+        "system_prompt": "",
+        "task_class": "gateway_provider_hardening",
+        "tokenizer": "",
+        "version": "1.0"
+      },
+      "source": "provider_response_crystallized"
+    },
+    "policy_version": "crystal_reuse_v1",
+    "repo_fingerprint": "final-boss-gateway-migration",
+    "task_class": "gateway_provider_hardening",
+    "verified_tests": [
+      "visible",
+      "hidden"
+    ],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

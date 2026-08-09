@@ -1,0 +1,221 @@
+                loadLogsData();
+                break;
+        }
+    }
+}
+
+// Settings management
+async function loadSettings() {
+    const settings = await fetchAPI('/api/settings');
+    if (!settings) return;
+
+    const keys = ['symbol', 'interval', 'risk_pct', 'max_notional'];
+    keys.forEach(key => {
+        const el = document.getElementById(`setting-${key}`);
+        if (el) el.value = settings[key];
+    });
+}
+
+async function saveSettings() {
+    const newSettings = {};
+    const keys = ['symbol', 'interval', 'risk_pct', 'max_notional'];
+    keys.forEach(key => {
+        const el = document.getElementById(`setting-${key}`);
+        if (el) newSettings[key] = el.value;
+    });
+
+    const result = await postAPI('/api/settings', newSettings);
+    if (result && result.ok) {
+        showNotification('Settings saved successfully', 'success');
+    } else {
+        showNotification('Failed to save settings', 'error');
+    }
+}
+
+function setupEventListeners() {
+    // Settings
+    document.getElementById('save-backend-url').addEventListener('click', async () => {
+        const newUrl = document.getElementById('backend-url').value;
+        await electronAPI.setBackendUrl(newUrl);
+        backendUrl = newUrl;
+        await checkConnection();
+        showNotification('Backend URL updated', 'success');
+    });
+
+    document.getElementById('test-connection-btn').addEventListener('click', async () => {
+        const result = await checkConnection();
+        const resultElement = document.getElementById('connection-test-result');
+        if (result) {
+            resultElement.textContent = '✓ Connected';
+            resultElement.style.color = 'var(--success)';
+        } else {
+            resultElement.textContent = '✗ Connection failed';
+            resultElement.style.color = 'var(--error)';
+        }
+    });
+
+    document.getElementById('auto-refresh').addEventListener('change', (e) => {
+        localStorage.setItem('autoRefresh', e.target.checked);
+        if (e.target.checked) {
+            startAutoRefresh();
+        } else {
+            stopAutoRefresh();
+        }
+    });
+
+    // Logs
+    document.getElementById('clear-logs-btn').addEventListener('click', () => {
+        document.getElementById('logs-container').innerHTML = '<p class="loading-text">Logs cleared</p>';
+    });
+
+    document.getElementById('refresh-logs-btn').addEventListener('click', loadLogsData);
+    const integrationRefresh = document.getElementById('integration-refresh-btn');
+    if (integrationRefresh) integrationRefresh.addEventListener('click', loadIntegrationsData);
+    const integrationPlan = document.getElementById('integration-plan-btn');
+    if (integrationPlan) integrationPlan.addEventListener('click', buildIntegrationPlan);
+    const integrationCreate = document.getElementById('integration-create-btn');
+    if (integrationCreate) integrationCreate.addEventListener('click', createIntegrationLifecycle);
+    const integrationMonitor = document.getElementById('integration-monitor-btn');
+    if (integrationMonitor) integrationMonitor.addEventListener('click', monitorIntegrationLifecycle);
+    const integrationExport = document.getElementById('integration-export-btn');
+    if (integrationExport) integrationExport.addEventListener('click', exportPublicBotBacktest);
+    const integrationApply = document.getElementById('integration-apply-btn');
+    if (integrationApply) integrationApply.addEventListener('click', applyPublicBotBacktestMetrics);
+
+    // Listen for IPC events
+    electronAPI.onShowSettings(() => {
+        showView('settings');
+        loadSettings(); // Call to load current settings
+    });
+
+    electronAPI.onShowAbout(() => {
+        alert('Hivenance Trading Agent v1.0.0\n\nA sophisticated multi-agent trading system for cryptocurrency markets.');
+    });
+}
+
+    document.getElementById('auto-refresh').addEventListener('change', (e) => {
+        localStorage.setItem('autoRefresh', e.target.checked);
+        if (e.target.checked) {
+            startAutoRefresh();
+        } else {
+            stopAutoRefresh();
+        }
+    });
+
+    // Logs
+    document.getElementById('clear-logs-btn').addEventListener('click', () => {
+        document.getElementById('logs-container').innerHTML = '<p class="loading-text">Logs cleared</p>';
+    });
+
+    document.getElementById('refresh-logs-btn').addEventListener('click', loadLogsData);
+    const integrationRefresh = document.getElementById('integration-refresh-btn');
+    if (integrationRefresh) integrationRefresh.addEventListener('click', loadIntegrationsData);
+    const integrationPlan = document.getElementById('integration-plan-btn');
+    if (integrationPlan) integrationPlan.addEventListener('click', buildIntegrationPlan);
+    const integrationCreate = document.getElementById('integration-create-btn');
+    if (integrationCreate) integrationCreate.addEventListener('click', createIntegrationLifecycle);
+    const integrationMonitor = document.getElementById('integration-monitor-btn');
+    if (integrationMonitor) integrationMonitor.addEventListener('click', monitorIntegrationLifecycle);
+    const integrationExport = document.getElementById('integration-export-btn');
+    if (integrationExport) integrationExport.addEventListener('click', exportPublicBotBacktest);
+    const integrationApply = document.getElementById('integration-apply-btn');
+    if (integrationApply) integrationApply.addEventListener('click', applyPublicBotBacktestMetrics);
+
+    // Listen for IPC events
+    electronAPI.onShowSettings(() => {
+        showView('settings');
+    });
+
+    electronAPI.onShowAbout(() => {
+        alert('Hivenance Trading Agent v1.0.0\n\nA sophisticated multi-agent trading system for cryptocurrency markets.');
+    });
+}
+
+// Auto-refresh
+function startAutoRefresh() {
+    if (autoRefreshInterval) return;
+    autoRefreshInterval = setInterval(() => {
+        const activeView = document.querySelector('.view.active');
+        if (activeView) {
+            const viewId = activeView.id.replace('-view', '');
+            if (viewId === 'dashboard') {
+                loadDashboardData();
+            } else if (viewId === 'market') {
+                loadMarketPreview();
+            } else if (viewId === 'agents') {
+                loadAgentsData();
+            } else if (viewId === 'buzzcoin') {
+                loadBuzzCoinData();
+            } else if (viewId === 'swarmguard') {
+                loadSwarmGuardData();
+            } else if (viewId === 'integrations') {
+                loadIntegrationsData();
+            }
+        }
+    }, 10000);
+}
+
+function stopAutoRefresh() {
+    if (autoRefreshInterval) {
+        clearInterval(autoRefreshInterval);
+        autoRefreshInterval = null;
+    }
+}
+
+// API calls
+async function fetchAPI(endpoint, timeoutMs = 3500) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        const response = await fetch(`${backendUrl}${endpoint}`, { signal: controller.signal });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('API fetch error:', error);
+        return null;
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
+async function checkConnection() {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2500);
+    try {
+        const response = await fetch(`${backendUrl}/api/status`, { 
+            method: 'GET',
+            signal: controller.signal
+        });
+        isConnected = response.ok;
+        updateConnectionStatus();
+        return isConnected;
+    } catch (error) {
+        isConnected = false;
+        updateConnectionStatus();
+        return false;
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
+function updateConnectionStatus() {
+    const statusBadge = document.getElementById('connection-status');
+    const statusLabel = document.getElementById('connection-label');
+    if (isConnected) {
+        statusBadge.classList.add('connected');
+        statusBadge.classList.remove('disconnected');
+        if (statusLabel) statusLabel.textContent = 'Online';
+    } else {
+        statusBadge.classList.remove('connected');
+        statusBadge.classList.add('disconnected');
+        if (statusLabel) statusLabel.textContent = 'Offline';
+    }
+}
+
+function setText(id, value) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+}
+
+function setBar(id, percent) {
+    const element = document.getElementById(id);

@@ -1,0 +1,80 @@
+title: Hijack Execution via DLL Search Order Hijacking
+id: 2x6u7v5w-3s8t-8u1v-2w5x-6t9s0u3v8w9x
+status: experimental
+description: Detects DLL search order hijacking attempts
+references:
+  - https://attack.mitre.org/techniques/T1574/006/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|endswith: '.dll'
+    TargetFilename|contains:
+      - 'system32'
+      - 'syswow64'
+  condition: selection
+falsepositives:
+  - Legitimate DLL installation
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1574.006
+---
+title: Hijack Execution via Path Interception
+id: 3y7v8w6x-4t9u-9v2w-3x6y-7u0t1v4w9x0y
+status: experimental
+description: Detects path interception for execution hijacking
+references:
+  - https://attack.mitre.org/techniques/T1574/009/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'PATH='
+      - 'path'
+  condition: selection
+falsepositives:
+  - Environment variable changes
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1574.009
+---
+title: Hijack Execution via Services Registry Permissions Weakness
+id: 4z8w9x7y-5u0v-0w3x-4y7z-8v1u2w5x0y1z
+status: experimental
+description: Detects modification of service registry for execution hijacking
+references:
+  - https://attack.mitre.org/techniques/T1574/013/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: registry_set
+  product: windows
+detection:
+  selection:
+    EventType: SetValue
+    TargetObject|contains:
+      - '\SYSTEM\CurrentControlSet\Services'
+      - 'ImagePath'
+  condition: selection
+falsepositives:
+  - Service configuration
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1574.013

@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:1e3d6d06e396239ee49a6186877f564fd809c023d1a848cd12af7d1638b13f7d",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:7596c5019052580e0d883a6db400e1ecf187d4878bed4ac74db5773339418acb",
+      "response_blob_digest": "sha256:7f1a4f0c8e680442ccd4cc159f63aae4339dbc2f66a26b63f2bb62b17a05e001",
+      "response_blob_ref": "blobs/sha256/7f1a4f0c8e680442ccd4cc159f63aae4339dbc2f66a26b63f2bb62b17a05e001.json",
+      "response_chars": 621,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n    def __init__(self, **kwargs):\\n        super().__init__(**kwargs)\\n        self._validate_tags()\\n\", \"intent\": \"add missing validation for tags attribute\"}], \"verify\": [\"python -m pytest tests/test_capab",
+      "response_ref": "cache_bb18afbd1d889d66.answer.json",
+      "response_sha256": "sha256:6ace74ef37173682cba401fab8429b4e69ad5e4cb8e37f0fea8fb8819041d357"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

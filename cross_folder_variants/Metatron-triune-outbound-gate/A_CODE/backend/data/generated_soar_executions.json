@@ -1,0 +1,5524 @@
+[
+  {
+    "id": "exec_6115ac4d1003",
+    "playbook_id": "pb_malware_response",
+    "playbook_name": "Malware Auto-Response",
+    "trigger_event": {
+      "trigger_type": "malware_found",
+      "playbook_id": "pb_malware_response",
+      "playbook_name": "Malware Auto-Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-pb_malware_response",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/pb_malware_response.bin",
+      "mitre_techniques": [
+        "T1059",
+        "T1105",
+        "T1106",
+        "T1204",
+        "T1204.002",
+        "T1055",
+        "T1036",
+        "T1027",
+        "T1140",
+        "T1566",
+        "T1566.001",
+        "T1566.002",
+        "T1082",
+        "T1083",
+        "T1057"
+      ],
+      "validated_techniques": [
+        "T1059",
+        "T1105",
+        "T1106",
+        "T1204",
+        "T1204.002",
+        "T1055",
+        "T1036",
+        "T1027",
+        "T1140",
+        "T1566",
+        "T1566.001",
+        "T1566.002",
+        "T1082",
+        "T1083",
+        "T1057"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.315660+00:00",
+    "completed_at": "2026-04-18T09:09:17.315754+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "quarantine_file",
+        "started_at": "2026-04-18T09:09:17.315690+00:00",
+        "status": "completed",
+        "result": {
+          "action": "quarantine_file",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315693+00:00",
+          "quarantined": "/tmp/pb_malware_response.bin",
+          "quarantine_id": "quar_d119c555867c",
+          "auto_sandbox": false,
+          "pipeline_stage": "quarantined",
+          "status": "quarantined"
+        },
+        "completed_at": "2026-04-18T09:09:17.315715+00:00"
+      },
+      {
+        "step": 2,
+        "action": "scan_endpoint",
+        "started_at": "2026-04-18T09:09:17.315718+00:00",
+        "status": "completed",
+        "result": {
+          "action": "scan_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315721+00:00",
+          "scan_initiated": true,
+          "full_scan": true,
+          "privilege_audit": false,
+          "status": "scanning"
+        },
+        "completed_at": "2026-04-18T09:09:17.315725+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.315727+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315729+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.315735+00:00"
+      },
+      {
+        "step": 4,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.315736+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315738+00:00",
+          "ticket_id": "TKT-C7723064",
+          "ticket_created": true,
+          "category": "malware",
+          "priority": "P2",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.315746+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.315660+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.315748+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_6ce7a88bbf6a",
+    "playbook_id": "pb_ransomware_response",
+    "playbook_name": "Ransomware Emergency Response",
+    "trigger_event": {
+      "trigger_type": "ransomware_detected",
+      "playbook_id": "pb_ransomware_response",
+      "playbook_name": "Ransomware Emergency Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-pb_ransomware_response",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/pb_ransomware_response.bin",
+      "mitre_techniques": [
+        "T1486",
+        "T1489",
+        "T1490",
+        "T1491",
+        "T1491.002",
+        "T1495",
+        "T1496",
+        "T1561",
+        "T1565.001",
+        "T1059",
+        "T1204",
+        "T1105"
+      ],
+      "validated_techniques": [
+        "T1486",
+        "T1489",
+        "T1490",
+        "T1491",
+        "T1491.002",
+        "T1495",
+        "T1496",
+        "T1561",
+        "T1565.001",
+        "T1059",
+        "T1204",
+        "T1105"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.315807+00:00",
+    "completed_at": "2026-04-18T09:09:17.315861+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "kill_process",
+        "started_at": "2026-04-18T09:09:17.315818+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315820+00:00",
+          "killed_pid": 4242,
+          "force": true,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-18T09:09:17.315825+00:00"
+      },
+      {
+        "step": 2,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-18T09:09:17.315827+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315828+00:00",
+          "isolated_agent": "coverage-host-01",
+          "network_blocked": true,
+          "usb_blocked": false,
+          "hard_isolation": false,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-18T09:09:17.315837+00:00"
+      },
+      {
+        "step": 3,
+        "action": "collect_forensics",
+        "started_at": "2026-04-18T09:09:17.315838+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315839+00:00",
+          "forensics_id": "forensics_e7c1c61511ef",
+          "forensics_collected": true,
+          "params": {
+            "memory_dump": true,
+            "disk_image": false
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-18T09:09:17.315845+00:00"
+      },
+      {
+        "step": 4,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.315847+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315848+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.315853+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.315807+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.315856+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_2a7496a29ef6",
+    "playbook_id": "pb_ioc_response",
+    "playbook_name": "IOC Match Response",
+    "trigger_event": {
+      "trigger_type": "ioc_match",
+      "playbook_id": "pb_ioc_response",
+      "playbook_name": "IOC Match Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-pb_ioc_response",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/pb_ioc_response.bin",
+      "mitre_techniques": [
+        "T1071",
+        "T1071.001",
+        "T1071.004",
+        "T1090",
+        "T1095",
+        "T1568",
+        "T1571",
+        "T1572",
+        "T1573",
+        "T1562.004"
+      ],
+      "validated_techniques": [
+        "T1071",
+        "T1071.001",
+        "T1071.004",
+        "T1090",
+        "T1095",
+        "T1568",
+        "T1571",
+        "T1572",
+        "T1573",
+        "T1562.004"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.315894+00:00",
+    "completed_at": "2026-04-18T09:09:17.315926+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "block_ip",
+        "started_at": "2026-04-18T09:09:17.315904+00:00",
+        "status": "completed",
+        "result": {
+          "action": "block_ip",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315905+00:00",
+          "blocked_ip": "203.0.113.10",
+          "duration": 86400,
+          "status": "blocked"
+        },
+        "completed_at": "2026-04-18T09:09:17.315908+00:00"
+      },
+      {
+        "step": 2,
+        "action": "update_firewall",
+        "started_at": "2026-04-18T09:09:17.315910+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315911+00:00",
+          "firewall_updated": true,
+          "rule_type": "block",
+          "block_lateral": false,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-18T09:09:17.315915+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.315917+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315919+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.315922+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.315894+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.315923+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_7a0396723eae",
+    "playbook_id": "pb_suspicious_process",
+    "playbook_name": "Suspicious Process Response",
+    "trigger_event": {
+      "trigger_type": "suspicious_process",
+      "playbook_id": "pb_suspicious_process",
+      "playbook_name": "Suspicious Process Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-pb_suspicious_process",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/pb_suspicious_process.bin",
+      "mitre_techniques": [
+        "T1047",
+        "T1059.001",
+        "T1059.003",
+        "T1059.004",
+        "T1059.007",
+        "T1106",
+        "T1203",
+        "T1204.002",
+        "T1444",
+        "T1559.001",
+        "T1569",
+        "T1569.002",
+        "T1610",
+        "T1134",
+        "T1134.001",
+        "T1134.005",
+        "T1548.002",
+        "T1611",
+        "T1055",
+        "T1055.001",
+        "T1055.008",
+        "T1127",
+        "T1127.001",
+        "T1574",
+        "T1574.001",
+        "T1574.002",
+        "T1574.006",
+        "T1583",
+        "T1587"
+      ],
+      "validated_techniques": [
+        "T1047",
+        "T1059.001",
+        "T1059.003",
+        "T1059.004",
+        "T1059.007",
+        "T1106",
+        "T1203",
+        "T1204.002",
+        "T1444",
+        "T1559.001",
+        "T1569",
+        "T1569.002",
+        "T1610",
+        "T1134",
+        "T1134.001",
+        "T1134.005",
+        "T1548.002",
+        "T1611",
+        "T1055",
+        "T1055.001",
+        "T1055.008",
+        "T1127",
+        "T1127.001",
+        "T1574",
+        "T1574.001",
+        "T1574.002",
+        "T1574.006",
+        "T1583",
+        "T1587"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.315955+00:00",
+    "completed_at": "2026-04-18T09:09:17.315984+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-18T09:09:17.315962+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315964+00:00",
+          "forensics_id": "forensics_ee03f8637fb1",
+          "forensics_collected": true,
+          "params": {
+            "process_info": true,
+            "network_connections": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-18T09:09:17.315969+00:00"
+      },
+      {
+        "step": 2,
+        "action": "kill_process",
+        "started_at": "2026-04-18T09:09:17.315971+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315972+00:00",
+          "killed_pid": 4242,
+          "force": false,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-18T09:09:17.315975+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.315976+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.315978+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.315980+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.315955+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.315981+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_4145f9f915f0",
+    "playbook_id": "pb_honeypot_alert",
+    "playbook_name": "Honeypot Alert Response",
+    "trigger_event": {
+      "trigger_type": "honeypot_triggered",
+      "playbook_id": "pb_honeypot_alert",
+      "playbook_name": "Honeypot Alert Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-pb_honeypot_alert",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/pb_honeypot_alert.bin",
+      "mitre_techniques": [
+        "T1078",
+        "T1133",
+        "T1187",
+        "T1189",
+        "T1190",
+        "T1199",
+        "T1595.001",
+        "T1046",
+        "T1082",
+        "T1071",
+        "T1095"
+      ],
+      "validated_techniques": [
+        "T1078",
+        "T1133",
+        "T1187",
+        "T1189",
+        "T1190",
+        "T1199",
+        "T1595.001",
+        "T1046",
+        "T1082",
+        "T1071",
+        "T1095"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.316010+00:00",
+    "completed_at": "2026-04-18T09:09:17.316049+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-18T09:09:17.316017+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316018+00:00",
+          "forensics_id": "forensics_04673da8c737",
+          "forensics_collected": true,
+          "params": {
+            "attacker_info": true,
+            "techniques": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-18T09:09:17.316023+00:00"
+      },
+      {
+        "step": 2,
+        "action": "block_ip",
+        "started_at": "2026-04-18T09:09:17.316025+00:00",
+        "status": "completed",
+        "result": {
+          "action": "block_ip",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316026+00:00",
+          "blocked_ip": "203.0.113.10",
+          "duration": 604800,
+          "status": "blocked"
+        },
+        "completed_at": "2026-04-18T09:09:17.316029+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.316030+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316032+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.316034+00:00"
+      },
+      {
+        "step": 4,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.316035+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316037+00:00",
+          "ticket_id": "TKT-8E7DA69A",
+          "ticket_created": true,
+          "category": "honeypot",
+          "priority": "P2",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.316044+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.316010+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.316046+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_7b135b6c895b",
+    "playbook_id": "ai_recon_degrade_01",
+    "playbook_name": "AI Recon Loop - Degrade & Observe",
+    "trigger_event": {
+      "trigger_type": "autonomous_recon",
+      "playbook_id": "ai_recon_degrade_01",
+      "playbook_name": "AI Recon Loop - Degrade & Observe",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_recon_degrade_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_recon_degrade_01.bin",
+      "mitre_techniques": [
+        "T1595",
+        "T1595.001",
+        "T1580",
+        "T1589",
+        "T1589.001",
+        "T1590.001",
+        "T1590.002",
+        "T1590.004",
+        "T1592",
+        "T1592.001",
+        "T1592.002",
+        "T1596",
+        "T1598",
+        "T1598.003",
+        "T1016",
+        "T1018",
+        "T1046",
+        "T1049",
+        "T1057",
+        "T1069",
+        "T1069.002",
+        "T1081",
+        "T1082",
+        "T1083",
+        "T1087",
+        "T1087.002",
+        "T1482",
+        "T1497",
+        "T1497.001"
+      ],
+      "validated_techniques": [
+        "T1595",
+        "T1595.001",
+        "T1580",
+        "T1589",
+        "T1589.001",
+        "T1590.001",
+        "T1590.002",
+        "T1590.004",
+        "T1592",
+        "T1592.001",
+        "T1592.002",
+        "T1596",
+        "T1598",
+        "T1598.003",
+        "T1016",
+        "T1018",
+        "T1046",
+        "T1049",
+        "T1057",
+        "T1069",
+        "T1069.002",
+        "T1081",
+        "T1082",
+        "T1083",
+        "T1087",
+        "T1087.002",
+        "T1482",
+        "T1497",
+        "T1497.001"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.316075+00:00",
+    "completed_at": "2026-04-18T09:09:17.316140+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.316082+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316084+00:00",
+          "session_id": "coverage-ai_recon_degrade_01",
+          "tags_applied": [
+            "ai_suspected",
+            "recon",
+            "level_1"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.316090+00:00"
+      },
+      {
+        "step": 2,
+        "action": "enable_enhanced_logging",
+        "started_at": "2026-04-18T09:09:17.316092+00:00",
+        "status": "completed",
+        "result": {
+          "action": "enable_enhanced_logging",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316093+00:00",
+          "level": "verbose",
+          "include_keystrokes": true,
+          "network_capture": true,
+          "full_packet_capture": false,
+          "status": "enabled"
+        },
+        "completed_at": "2026-04-18T09:09:17.316097+00:00"
+      },
+      {
+        "step": 3,
+        "action": "throttle_cli",
+        "started_at": "2026-04-18T09:09:17.316099+00:00",
+        "status": "completed",
+        "result": {
+          "action": "throttle_cli",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316100+00:00",
+          "throttle_enabled": true,
+          "rate_per_min": 20,
+          "mode": "soft",
+          "status": "throttling"
+        },
+        "completed_at": "2026-04-18T09:09:17.316103+00:00"
+      },
+      {
+        "step": 4,
+        "action": "inject_latency",
+        "started_at": "2026-04-18T09:09:17.316104+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316105+00:00",
+          "latency_enabled": true,
+          "delay_ms": 250,
+          "jitter_ms": 200,
+          "mode": "soft",
+          "progressive": false,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-18T09:09:17.316108+00:00"
+      },
+      {
+        "step": 5,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.316109+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316111+00:00",
+          "bundle_id": "triage_704d2df6ff96",
+          "window_s": 60,
+          "include": [
+            "processes",
+            "network",
+            "files"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316121+00:00"
+      },
+      {
+        "step": 6,
+        "action": "invoke_ml_analysis",
+        "started_at": "2026-04-18T09:09:17.316122+00:00",
+        "status": "completed",
+        "result": {
+          "action": "invoke_ml_analysis",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316124+00:00",
+          "model": "ai_behavior_classifier",
+          "continuous": true,
+          "urgent": false,
+          "track_evolution": false,
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316130+00:00"
+      },
+      {
+        "step": 7,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.316132+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316133+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": "ai_recon_detected",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.316135+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.316075+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.316137+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_488329c96956",
+    "playbook_id": "ai_cred_access_01",
+    "playbook_name": "AI Credential Access - Deceive & Monitor",
+    "trigger_event": {
+      "trigger_type": "rapid_credential_access",
+      "playbook_id": "ai_cred_access_01",
+      "playbook_name": "AI Credential Access - Deceive & Monitor",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_cred_access_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_cred_access_01.bin",
+      "mitre_techniques": [
+        "T1003",
+        "T1003.001",
+        "T1003.002",
+        "T1003.003",
+        "T1003.004",
+        "T1003.005",
+        "T1003.006",
+        "T1040",
+        "T1110",
+        "T1110.001",
+        "T1110.003",
+        "T1528",
+        "T1539",
+        "T1550.003",
+        "T1552",
+        "T1552.001",
+        "T1552.004",
+        "T1552.005",
+        "T1555",
+        "T1555.003",
+        "T1555.004",
+        "T1556",
+        "T1556.001",
+        "T1556.006",
+        "T1557",
+        "T1557.001",
+        "T1557.002",
+        "T1558",
+        "T1558.001",
+        "T1558.002",
+        "T1558.003",
+        "T1558.004"
+      ],
+      "validated_techniques": [
+        "T1003",
+        "T1003.001",
+        "T1003.002",
+        "T1003.003",
+        "T1003.004",
+        "T1003.005",
+        "T1003.006",
+        "T1040",
+        "T1110",
+        "T1110.001",
+        "T1110.003",
+        "T1528",
+        "T1539",
+        "T1550.003",
+        "T1552",
+        "T1552.001",
+        "T1552.004",
+        "T1552.005",
+        "T1555",
+        "T1555.003",
+        "T1555.004",
+        "T1556",
+        "T1556.001",
+        "T1556.006",
+        "T1557",
+        "T1557.001",
+        "T1557.002",
+        "T1558",
+        "T1558.001",
+        "T1558.002",
+        "T1558.003",
+        "T1558.004"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.316178+00:00",
+    "completed_at": "2026-04-18T09:09:17.316253+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.316186+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316188+00:00",
+          "session_id": "coverage-ai_cred_access_01",
+          "tags_applied": [
+            "ai_suspected",
+            "credential_access",
+            "level_2"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.316194+00:00"
+      },
+      {
+        "step": 2,
+        "action": "deploy_decoy",
+        "started_at": "2026-04-18T09:09:17.316197+00:00",
+        "status": "completed",
+        "result": {
+          "action": "deploy_decoy",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316198+00:00",
+          "decoy_type": "credentials",
+          "decoys_deployed": [
+            "decoy_06899416",
+            "decoy_a80193a2",
+            "decoy_a874b3f7"
+          ],
+          "placement": "lsass_adjacent",
+          "status": "deployed"
+        },
+        "completed_at": "2026-04-18T09:09:17.316208+00:00"
+      },
+      {
+        "step": 3,
+        "action": "throttle_cli",
+        "started_at": "2026-04-18T09:09:17.316209+00:00",
+        "status": "completed",
+        "result": {
+          "action": "throttle_cli",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316212+00:00",
+          "throttle_enabled": true,
+          "rate_per_min": 10,
+          "mode": "hard",
+          "status": "throttling"
+        },
+        "completed_at": "2026-04-18T09:09:17.316215+00:00"
+      },
+      {
+        "step": 4,
+        "action": "inject_latency",
+        "started_at": "2026-04-18T09:09:17.316216+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316217+00:00",
+          "latency_enabled": true,
+          "delay_ms": 600,
+          "jitter_ms": 400,
+          "mode": "hard",
+          "progressive": false,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-18T09:09:17.316220+00:00"
+      },
+      {
+        "step": 5,
+        "action": "lock_sensitive_resources",
+        "started_at": "2026-04-18T09:09:17.316222+00:00",
+        "status": "completed",
+        "result": {
+          "action": "lock_sensitive_resources",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316223+00:00",
+          "resources_locked": [
+            "sam_database",
+            "lsass_memory",
+            "credential_store"
+          ],
+          "lock_count": 3,
+          "status": "locked"
+        },
+        "completed_at": "2026-04-18T09:09:17.316226+00:00"
+      },
+      {
+        "step": 6,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.316227+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316229+00:00",
+          "bundle_id": "triage_f59c0e50e60d",
+          "window_s": 180,
+          "include": [
+            "processes",
+            "memory",
+            "registry"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316238+00:00"
+      },
+      {
+        "step": 7,
+        "action": "trigger_canary_validation",
+        "started_at": "2026-04-18T09:09:17.316239+00:00",
+        "status": "completed",
+        "result": {
+          "action": "trigger_canary_validation",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316240+00:00",
+          "validate_all": true,
+          "validation_triggered": true,
+          "status": "validating"
+        },
+        "completed_at": "2026-04-18T09:09:17.316243+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.316244+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316245+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": "ai_credential_access",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.316248+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.316178+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.316249+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_dc5414e910ae",
+    "playbook_id": "ai_pivot_contain_01",
+    "playbook_name": "AI Lateral Movement - Contain Fast",
+    "trigger_event": {
+      "trigger_type": "automated_lateral_movement",
+      "playbook_id": "ai_pivot_contain_01",
+      "playbook_name": "AI Lateral Movement - Contain Fast",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_pivot_contain_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_pivot_contain_01.bin",
+      "mitre_techniques": [
+        "T1021",
+        "T1021.001",
+        "T1021.002",
+        "T1021.004",
+        "T1021.006",
+        "T1080",
+        "T1210",
+        "T1534",
+        "T1550",
+        "T1550.002",
+        "T1550.003",
+        "T1563",
+        "T1563.002",
+        "T1570",
+        "T1068",
+        "T1134",
+        "T1134.001",
+        "T1134.005",
+        "T1484",
+        "T1484.001",
+        "T1548.002",
+        "T1611"
+      ],
+      "validated_techniques": [
+        "T1021",
+        "T1021.001",
+        "T1021.002",
+        "T1021.004",
+        "T1021.006",
+        "T1080",
+        "T1210",
+        "T1534",
+        "T1550",
+        "T1550.002",
+        "T1550.003",
+        "T1563",
+        "T1563.002",
+        "T1570",
+        "T1068",
+        "T1134",
+        "T1134.001",
+        "T1134.005",
+        "T1484",
+        "T1484.001",
+        "T1548.002",
+        "T1611"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.316291+00:00",
+    "completed_at": "2026-04-18T09:09:17.316367+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.316302+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316304+00:00",
+          "session_id": "coverage-ai_pivot_contain_01",
+          "tags_applied": [
+            "ai_confirmed",
+            "lateral_movement",
+            "level_3",
+            "containment"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.316308+00:00"
+      },
+      {
+        "step": 2,
+        "action": "snapshot_network_state",
+        "started_at": "2026-04-18T09:09:17.316310+00:00",
+        "status": "completed",
+        "result": {
+          "action": "snapshot_network_state",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316311+00:00",
+          "snapshot_id": "netsnap_81c2ad14b757",
+          "include_flows": true,
+          "include_connections": true,
+          "status": "captured"
+        },
+        "completed_at": "2026-04-18T09:09:17.316316+00:00"
+      },
+      {
+        "step": 3,
+        "action": "update_firewall",
+        "started_at": "2026-04-18T09:09:17.316317+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316318+00:00",
+          "firewall_updated": true,
+          "rule_type": "contain",
+          "block_lateral": true,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-18T09:09:17.316321+00:00"
+      },
+      {
+        "step": 4,
+        "action": "lock_sensitive_resources",
+        "started_at": "2026-04-18T09:09:17.316323+00:00",
+        "status": "completed",
+        "result": {
+          "action": "lock_sensitive_resources",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316324+00:00",
+          "resources_locked": [
+            "domain_controller",
+            "file_shares",
+            "database_servers"
+          ],
+          "lock_count": 3,
+          "status": "locked"
+        },
+        "completed_at": "2026-04-18T09:09:17.316327+00:00"
+      },
+      {
+        "step": 5,
+        "action": "disable_user",
+        "started_at": "2026-04-18T09:09:17.316328+00:00",
+        "status": "completed",
+        "result": {
+          "action": "disable_user",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316329+00:00",
+          "disabled_user": "coverage-user",
+          "force_logout": false,
+          "preserve_session": true,
+          "status": "disabled"
+        },
+        "completed_at": "2026-04-18T09:09:17.316333+00:00"
+      },
+      {
+        "step": 6,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.316334+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316335+00:00",
+          "bundle_id": "triage_48dab5fd4145",
+          "window_s": 300,
+          "include": [
+            "processes",
+            "network",
+            "registry",
+            "files"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316343+00:00"
+      },
+      {
+        "step": 7,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-18T09:09:17.316344+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316345+00:00",
+          "share_iocs": true,
+          "query_ttps": false,
+          "communities": [
+            "internal",
+            "isac"
+          ],
+          "urgent": false,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316350+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.316351+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316352+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": "ai_lateral_movement",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.316355+00:00"
+      },
+      {
+        "step": 9,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.316356+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316357+00:00",
+          "ticket_id": "TKT-70BCB527",
+          "ticket_created": true,
+          "category": "ai_incident",
+          "priority": "P1",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.316362+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.316291+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.316364+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_0cf4ad8ad74b",
+    "playbook_id": "ai_exfil_cut_01",
+    "playbook_name": "AI Exfil Prep - Cut Egress",
+    "trigger_event": {
+      "trigger_type": "ai_exfiltration_pattern",
+      "playbook_id": "ai_exfil_cut_01",
+      "playbook_name": "AI Exfil Prep - Cut Egress",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_exfil_cut_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_exfil_cut_01.bin",
+      "mitre_techniques": [
+        "T1020",
+        "T1030",
+        "T1041",
+        "T1048",
+        "T1530",
+        "T1537",
+        "T1567",
+        "T1567.002",
+        "T1039",
+        "T1056",
+        "T1056.001",
+        "T1074",
+        "T1113",
+        "T1115",
+        "T1123",
+        "T1125",
+        "T1185",
+        "T1533",
+        "T1538",
+        "T1560",
+        "T1071",
+        "T1071.001",
+        "T1071.004",
+        "T1090",
+        "T1205",
+        "T1219",
+        "T1439",
+        "T1568",
+        "T1571",
+        "T1572",
+        "T1573"
+      ],
+      "validated_techniques": [
+        "T1020",
+        "T1030",
+        "T1041",
+        "T1048",
+        "T1530",
+        "T1537",
+        "T1567",
+        "T1567.002",
+        "T1039",
+        "T1056",
+        "T1056.001",
+        "T1074",
+        "T1113",
+        "T1115",
+        "T1123",
+        "T1125",
+        "T1185",
+        "T1533",
+        "T1538",
+        "T1560",
+        "T1071",
+        "T1071.001",
+        "T1071.004",
+        "T1090",
+        "T1205",
+        "T1219",
+        "T1439",
+        "T1568",
+        "T1571",
+        "T1572",
+        "T1573"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.316601+00:00",
+    "completed_at": "2026-04-18T09:09:17.316857+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.316637+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316640+00:00",
+          "session_id": "coverage-ai_exfil_cut_01",
+          "tags_applied": [
+            "ai_confirmed",
+            "exfiltration",
+            "level_4",
+            "critical"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.316645+00:00"
+      },
+      {
+        "step": 2,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-18T09:09:17.316647+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316649+00:00",
+          "isolated_agent": "coverage-host-01",
+          "network_blocked": true,
+          "usb_blocked": false,
+          "hard_isolation": false,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-18T09:09:17.316658+00:00"
+      },
+      {
+        "step": 3,
+        "action": "capture_memory_snapshot",
+        "started_at": "2026-04-18T09:09:17.316659+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_memory_snapshot",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316661+00:00",
+          "snapshot_id": "mem_3da80d094342",
+          "mode": "full",
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316675+00:00"
+      },
+      {
+        "step": 4,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.316678+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316685+00:00",
+          "bundle_id": "triage_b4b89e55f049",
+          "window_s": 600,
+          "include": [
+            "processes",
+            "network",
+            "files",
+            "memory"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316693+00:00"
+      },
+      {
+        "step": 5,
+        "action": "quarantine_file",
+        "started_at": "2026-04-18T09:09:17.316695+00:00",
+        "status": "completed",
+        "result": {
+          "action": "quarantine_file",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316696+00:00",
+          "quarantined": "/tmp/ai_exfil_cut_01.bin",
+          "quarantine_id": "quar_be324d3fd491",
+          "auto_sandbox": true,
+          "pipeline_stage": "quarantined",
+          "status": "quarantined"
+        },
+        "completed_at": "2026-04-18T09:09:17.316707+00:00"
+      },
+      {
+        "step": 6,
+        "action": "quarantine_to_sandbox",
+        "started_at": "2026-04-18T09:09:17.316708+00:00",
+        "status": "completed",
+        "result": {
+          "action": "quarantine_to_sandbox",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316710+00:00",
+          "sandbox_id": "sandbox_7bd34416dcdc",
+          "analyze": true,
+          "detonation_time": 300,
+          "pipeline_stage": "sandboxing",
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316720+00:00"
+      },
+      {
+        "step": 7,
+        "action": "escalate_to_human",
+        "started_at": "2026-04-18T09:09:17.316721+00:00",
+        "status": "completed",
+        "result": {
+          "action": "escalate_to_human",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316723+00:00",
+          "escalation_id": "esc_a084325b",
+          "reason": "ai_exfiltration_attempt",
+          "required": true,
+          "page_oncall": false,
+          "expertise_required": null,
+          "status": "escalated"
+        },
+        "completed_at": "2026-04-18T09:09:17.316833+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.316835+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316836+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": "ai_exfiltration",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.316840+00:00"
+      },
+      {
+        "step": 9,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.316841+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316842+00:00",
+          "ticket_id": "TKT-D7BC6F35",
+          "ticket_created": true,
+          "category": "ai_exfiltration",
+          "priority": "P0",
+          "escalate_to_ciso": true,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.316849+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.316601+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.316851+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_35ab96cd61fd",
+    "playbook_id": "ai_highconf_eradicate_01",
+    "playbook_name": "AI High Confidence - Full Eradication",
+    "trigger_event": {
+      "trigger_type": "deception_token_access",
+      "playbook_id": "ai_highconf_eradicate_01",
+      "playbook_name": "AI High Confidence - Full Eradication",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_highconf_eradicate_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_highconf_eradicate_01.bin",
+      "mitre_techniques": [
+        "T1485",
+        "T1486",
+        "T1489",
+        "T1490",
+        "T1491",
+        "T1491.002",
+        "T1495",
+        "T1496",
+        "T1561",
+        "T1565.001",
+        "T1098",
+        "T1136",
+        "T1505.003",
+        "T1542",
+        "T1542.001",
+        "T1542.002",
+        "T1542.003",
+        "T1543",
+        "T1543.003",
+        "T1547",
+        "T1547.006",
+        "T1550.003",
+        "T1552.001",
+        "T1078",
+        "T1539",
+        "T1070",
+        "T1055"
+      ],
+      "validated_techniques": [
+        "T1485",
+        "T1486",
+        "T1489",
+        "T1490",
+        "T1491",
+        "T1491.002",
+        "T1495",
+        "T1496",
+        "T1561",
+        "T1565.001",
+        "T1098",
+        "T1136",
+        "T1505.003",
+        "T1542",
+        "T1542.001",
+        "T1542.002",
+        "T1542.003",
+        "T1543",
+        "T1543.003",
+        "T1547",
+        "T1547.006",
+        "T1550.003",
+        "T1552.001",
+        "T1078",
+        "T1539",
+        "T1070",
+        "T1055"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.316914+00:00",
+    "completed_at": "2026-04-18T09:09:17.317070+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.316925+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316927+00:00",
+          "session_id": "coverage-ai_highconf_eradicate_01",
+          "tags_applied": [
+            "ai_confirmed",
+            "decoy_triggered",
+            "level_5",
+            "eradication"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.316932+00:00"
+      },
+      {
+        "step": 2,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-18T09:09:17.316933+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316935+00:00",
+          "isolated_agent": "coverage-host-01",
+          "network_blocked": true,
+          "usb_blocked": true,
+          "hard_isolation": true,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-18T09:09:17.316941+00:00"
+      },
+      {
+        "step": 3,
+        "action": "kill_process_tree",
+        "started_at": "2026-04-18T09:09:17.316943+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process_tree",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316944+00:00",
+          "root_pid": 4242,
+          "mode": "force",
+          "preserve_memory": true,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-18T09:09:17.316948+00:00"
+      },
+      {
+        "step": 4,
+        "action": "capture_memory_snapshot",
+        "started_at": "2026-04-18T09:09:17.316950+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_memory_snapshot",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316951+00:00",
+          "snapshot_id": "mem_f909139ababb",
+          "mode": "full",
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316963+00:00"
+      },
+      {
+        "step": 5,
+        "action": "execute_containment_chain",
+        "started_at": "2026-04-18T09:09:17.316964+00:00",
+        "status": "completed",
+        "result": {
+          "action": "execute_containment_chain",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316965+00:00",
+          "chain_id": "chain_f0a8c44e",
+          "actions_executed": 4,
+          "chain_results": [
+            {
+              "action": "revoke_all_tokens",
+              "status": "executed"
+            },
+            {
+              "action": "rotate_credentials",
+              "status": "executed"
+            },
+            {
+              "action": "block_associated_ips",
+              "status": "executed"
+            },
+            {
+              "action": "quarantine_artifacts",
+              "status": "executed"
+            }
+          ],
+          "status": "completed"
+        },
+        "completed_at": "2026-04-18T09:09:17.316973+00:00"
+      },
+      {
+        "step": 6,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.316975+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316976+00:00",
+          "bundle_id": "triage_adca2c9eb3ed",
+          "window_s": 900,
+          "include": [
+            "full_disk",
+            "memory",
+            "network",
+            "registry"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316986+00:00"
+      },
+      {
+        "step": 7,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-18T09:09:17.316988+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316989+00:00",
+          "share_iocs": true,
+          "query_ttps": false,
+          "communities": [
+            "internal",
+            "isac",
+            "partners"
+          ],
+          "urgent": true,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-18T09:09:17.316994+00:00"
+      },
+      {
+        "step": 8,
+        "action": "escalate_to_human",
+        "started_at": "2026-04-18T09:09:17.316997+00:00",
+        "status": "completed",
+        "result": {
+          "action": "escalate_to_human",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.316999+00:00",
+          "escalation_id": "esc_b3a7bdc4",
+          "reason": "ai_intrusion_confirmed",
+          "required": true,
+          "page_oncall": true,
+          "expertise_required": null,
+          "status": "escalated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317049+00:00"
+      },
+      {
+        "step": 9,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317051+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317052+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms",
+            "pagerduty"
+          ],
+          "priority": "critical",
+          "template": "ai_intrusion_confirmed",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317055+00:00"
+      },
+      {
+        "step": 10,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.317057+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317058+00:00",
+          "ticket_id": "TKT-6CEB6260",
+          "ticket_created": true,
+          "category": "ai_intrusion",
+          "priority": "P0",
+          "escalate_to_ciso": true,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.317063+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.316914+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317065+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_6ae6178a9f09",
+    "playbook_id": "ai_decoy_hit_01",
+    "playbook_name": "Decoy/Honey Token Hit Response",
+    "trigger_event": {
+      "trigger_type": "deception_token_access",
+      "playbook_id": "ai_decoy_hit_01",
+      "playbook_name": "Decoy/Honey Token Hit Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_decoy_hit_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_decoy_hit_01.bin",
+      "mitre_techniques": [
+        "T1078",
+        "T1078.002",
+        "T1078.003",
+        "T1078.004",
+        "T1091",
+        "T1133",
+        "T1187",
+        "T1189",
+        "T1195",
+        "T1195.002",
+        "T1199",
+        "T1200",
+        "T1465",
+        "T1534",
+        "T1566",
+        "T1566.001",
+        "T1566.002",
+        "T1660",
+        "T1539",
+        "T1550.003",
+        "T1552",
+        "T1552.001",
+        "T1555",
+        "T1588"
+      ],
+      "validated_techniques": [
+        "T1078",
+        "T1078.002",
+        "T1078.003",
+        "T1078.004",
+        "T1091",
+        "T1133",
+        "T1187",
+        "T1189",
+        "T1195",
+        "T1195.002",
+        "T1199",
+        "T1200",
+        "T1465",
+        "T1534",
+        "T1566",
+        "T1566.001",
+        "T1566.002",
+        "T1660",
+        "T1539",
+        "T1550.003",
+        "T1552",
+        "T1552.001",
+        "T1555",
+        "T1588"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.317120+00:00",
+    "completed_at": "2026-04-18T09:09:17.317185+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.317133+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317134+00:00",
+          "session_id": "coverage-ai_decoy_hit_01",
+          "tags_applied": [
+            "decoy_triggered",
+            "high_confidence",
+            "investigate"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.317138+00:00"
+      },
+      {
+        "step": 2,
+        "action": "enable_enhanced_logging",
+        "started_at": "2026-04-18T09:09:17.317140+00:00",
+        "status": "completed",
+        "result": {
+          "action": "enable_enhanced_logging",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317141+00:00",
+          "level": "debug",
+          "include_keystrokes": false,
+          "network_capture": false,
+          "full_packet_capture": true,
+          "status": "enabled"
+        },
+        "completed_at": "2026-04-18T09:09:17.317145+00:00"
+      },
+      {
+        "step": 3,
+        "action": "invoke_ml_analysis",
+        "started_at": "2026-04-18T09:09:17.317146+00:00",
+        "status": "completed",
+        "result": {
+          "action": "invoke_ml_analysis",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317148+00:00",
+          "model": "ai_behavior_classifier",
+          "continuous": false,
+          "urgent": true,
+          "track_evolution": false,
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317151+00:00"
+      },
+      {
+        "step": 4,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.317153+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317154+00:00",
+          "bundle_id": "triage_10aadf36f0d9",
+          "window_s": 120,
+          "include": [
+            "processes",
+            "network",
+            "memory"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317162+00:00"
+      },
+      {
+        "step": 5,
+        "action": "feed_disinformation",
+        "started_at": "2026-04-18T09:09:17.317164+00:00",
+        "status": "completed",
+        "result": {
+          "action": "feed_disinformation",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317165+00:00",
+          "type": "fake_data",
+          "delay_reveal": true,
+          "goal_misdirection": false,
+          "status": "feeding"
+        },
+        "completed_at": "2026-04-18T09:09:17.317168+00:00"
+      },
+      {
+        "step": 6,
+        "action": "block_ip",
+        "started_at": "2026-04-18T09:09:17.317170+00:00",
+        "status": "completed",
+        "result": {
+          "action": "block_ip",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317171+00:00",
+          "blocked_ip": "203.0.113.10",
+          "duration": 604800,
+          "status": "blocked"
+        },
+        "completed_at": "2026-04-18T09:09:17.317173+00:00"
+      },
+      {
+        "step": 7,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317175+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317176+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": "decoy_hit",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317180+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.317120+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317182+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_4cbfd380ee64",
+    "playbook_id": "ai_adaptive_attack_01",
+    "playbook_name": "Adaptive AI Attack Response",
+    "trigger_event": {
+      "trigger_type": "adaptive_attack_detected",
+      "playbook_id": "ai_adaptive_attack_01",
+      "playbook_name": "Adaptive AI Attack Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_adaptive_attack_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_adaptive_attack_01.bin",
+      "mitre_techniques": [
+        "T1014",
+        "T1027",
+        "T1036",
+        "T1036.003",
+        "T1036.005",
+        "T1055.001",
+        "T1055.008",
+        "T1070",
+        "T1070.001",
+        "T1070.004",
+        "T1070.006",
+        "T1112",
+        "T1127",
+        "T1127.001",
+        "T1140",
+        "T1176",
+        "T1197",
+        "T1202",
+        "T1207",
+        "T1218",
+        "T1218.010",
+        "T1222",
+        "T1222.001",
+        "T1398",
+        "T1497",
+        "T1497.001",
+        "T1553",
+        "T1553.002",
+        "T1553.006",
+        "T1562",
+        "T1562.001",
+        "T1562.002",
+        "T1562.008",
+        "T1564",
+        "T1564.001",
+        "T1564.004",
+        "T1574",
+        "T1574.001",
+        "T1574.002",
+        "T1574.006",
+        "T1601",
+        "T1601.001",
+        "T1047",
+        "T1059.001",
+        "T1059.003",
+        "T1059.004",
+        "T1059.007",
+        "T1106",
+        "T1203",
+        "T1204.002",
+        "T1444",
+        "T1559.001",
+        "T1569",
+        "T1569.002",
+        "T1610",
+        "T1071",
+        "T1190"
+      ],
+      "validated_techniques": [
+        "T1014",
+        "T1027",
+        "T1036",
+        "T1036.003",
+        "T1036.005",
+        "T1055.001",
+        "T1055.008",
+        "T1070",
+        "T1070.001",
+        "T1070.004",
+        "T1070.006",
+        "T1112",
+        "T1127",
+        "T1127.001",
+        "T1140",
+        "T1176",
+        "T1197",
+        "T1202",
+        "T1207",
+        "T1218",
+        "T1218.010",
+        "T1222",
+        "T1222.001",
+        "T1398",
+        "T1497",
+        "T1497.001",
+        "T1553",
+        "T1553.002",
+        "T1553.006",
+        "T1562",
+        "T1562.001",
+        "T1562.002",
+        "T1562.008",
+        "T1564",
+        "T1564.001",
+        "T1564.004",
+        "T1574",
+        "T1574.001",
+        "T1574.002",
+        "T1574.006",
+        "T1601",
+        "T1601.001",
+        "T1047",
+        "T1059.001",
+        "T1059.003",
+        "T1059.004",
+        "T1059.007",
+        "T1106",
+        "T1203",
+        "T1204.002",
+        "T1444",
+        "T1559.001",
+        "T1569",
+        "T1569.002",
+        "T1610",
+        "T1071",
+        "T1190"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.317224+00:00",
+    "completed_at": "2026-04-18T09:09:17.317321+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.317232+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317234+00:00",
+          "session_id": "coverage-ai_adaptive_attack_01",
+          "tags_applied": [
+            "ai_adaptive",
+            "sophisticated",
+            "priority_investigation"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.317237+00:00"
+      },
+      {
+        "step": 2,
+        "action": "invoke_ml_analysis",
+        "started_at": "2026-04-18T09:09:17.317238+00:00",
+        "status": "completed",
+        "result": {
+          "action": "invoke_ml_analysis",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317239+00:00",
+          "model": "adaptive_threat_classifier",
+          "continuous": false,
+          "urgent": false,
+          "track_evolution": true,
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317242+00:00"
+      },
+      {
+        "step": 3,
+        "action": "engage_tarpit",
+        "started_at": "2026-04-18T09:09:17.317243+00:00",
+        "status": "completed",
+        "result": {
+          "action": "engage_tarpit",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317244+00:00",
+          "tarpit_engaged": true,
+          "mode": "adaptive",
+          "mimic_success": true,
+          "status": "active"
+        },
+        "completed_at": "2026-04-18T09:09:17.317249+00:00"
+      },
+      {
+        "step": 4,
+        "action": "deploy_decoy",
+        "started_at": "2026-04-18T09:09:17.317251+00:00",
+        "status": "completed",
+        "result": {
+          "action": "deploy_decoy",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317252+00:00",
+          "decoy_type": "dynamic",
+          "decoys_deployed": [
+            "decoy_0869d411",
+            "decoy_4437d5e2",
+            "decoy_97129170"
+          ],
+          "placement": "standard",
+          "status": "deployed"
+        },
+        "completed_at": "2026-04-18T09:09:17.317262+00:00"
+      },
+      {
+        "step": 5,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.317264+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317265+00:00",
+          "bundle_id": "triage_abd5b700dcc7",
+          "window_s": 300,
+          "include": [
+            "processes",
+            "network"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317272+00:00"
+      },
+      {
+        "step": 6,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-18T09:09:17.317273+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317275+00:00",
+          "share_iocs": false,
+          "query_ttps": true,
+          "communities": [
+            "internal"
+          ],
+          "urgent": false,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317278+00:00"
+      },
+      {
+        "step": 7,
+        "action": "escalate_to_human",
+        "started_at": "2026-04-18T09:09:17.317279+00:00",
+        "status": "completed",
+        "result": {
+          "action": "escalate_to_human",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317280+00:00",
+          "escalation_id": "esc_31bd6027",
+          "reason": "adaptive_ai_threat",
+          "required": false,
+          "page_oncall": false,
+          "expertise_required": "threat_hunting",
+          "status": "escalated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317307+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317309+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317311+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "critical",
+          "template": "adaptive_ai_threat",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317315+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.317224+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317316+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_9ab70412c090",
+    "playbook_id": "ai_goal_loop_01",
+    "playbook_name": "Goal Persistent Loop Detection",
+    "trigger_event": {
+      "trigger_type": "goal_persistent_loop",
+      "playbook_id": "ai_goal_loop_01",
+      "playbook_name": "Goal Persistent Loop Detection",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_goal_loop_01",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_goal_loop_01.bin",
+      "mitre_techniques": [
+        "T1053",
+        "T1053.005",
+        "T1543",
+        "T1543.003",
+        "T1547",
+        "T1547.001",
+        "T1547.006",
+        "T1098",
+        "T1136",
+        "T1505.003",
+        "T1059.001",
+        "T1059.003",
+        "T1059.004",
+        "T1106",
+        "T1569",
+        "T1569.002",
+        "T1133",
+        "T1190",
+        "T1583",
+        "T1587"
+      ],
+      "validated_techniques": [
+        "T1053",
+        "T1053.005",
+        "T1543",
+        "T1543.003",
+        "T1547",
+        "T1547.001",
+        "T1547.006",
+        "T1098",
+        "T1136",
+        "T1505.003",
+        "T1059.001",
+        "T1059.003",
+        "T1059.004",
+        "T1106",
+        "T1569",
+        "T1569.002",
+        "T1133",
+        "T1190",
+        "T1583",
+        "T1587"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.317364+00:00",
+    "completed_at": "2026-04-18T09:09:17.317421+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-18T09:09:17.317373+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317375+00:00",
+          "session_id": "coverage-ai_goal_loop_01",
+          "tags_applied": [
+            "goal_persistent",
+            "loop_detected"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-18T09:09:17.317378+00:00"
+      },
+      {
+        "step": 2,
+        "action": "inject_latency",
+        "started_at": "2026-04-18T09:09:17.317380+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317381+00:00",
+          "latency_enabled": true,
+          "delay_ms": 1000,
+          "jitter_ms": 500,
+          "mode": "soft",
+          "progressive": true,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-18T09:09:17.317384+00:00"
+      },
+      {
+        "step": 3,
+        "action": "feed_disinformation",
+        "started_at": "2026-04-18T09:09:17.317385+00:00",
+        "status": "completed",
+        "result": {
+          "action": "feed_disinformation",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317387+00:00",
+          "type": "false_progress",
+          "delay_reveal": false,
+          "goal_misdirection": true,
+          "status": "feeding"
+        },
+        "completed_at": "2026-04-18T09:09:17.317389+00:00"
+      },
+      {
+        "step": 4,
+        "action": "deploy_decoy",
+        "started_at": "2026-04-18T09:09:17.317391+00:00",
+        "status": "completed",
+        "result": {
+          "action": "deploy_decoy",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317394+00:00",
+          "decoy_type": "goal_target",
+          "decoys_deployed": [],
+          "placement": "standard",
+          "status": "deployed"
+        },
+        "completed_at": "2026-04-18T09:09:17.317399+00:00"
+      },
+      {
+        "step": 5,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-18T09:09:17.317400+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317402+00:00",
+          "bundle_id": "triage_1f9e4471dda0",
+          "window_s": 180,
+          "include": [
+            "processes",
+            "network"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317411+00:00"
+      },
+      {
+        "step": 6,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317412+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317413+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "high",
+          "template": "goal_persistent_loop",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317416+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.317364+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317417+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_9f96a5e3fc13",
+    "playbook_id": "ai_sys_evasion_response",
+    "playbook_name": "System Evasion & Credential Response",
+    "trigger_event": {
+      "trigger_type": "tool_chain_switching",
+      "playbook_id": "ai_sys_evasion_response",
+      "playbook_name": "System Evasion & Credential Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_sys_evasion_response",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_sys_evasion_response.bin",
+      "mitre_techniques": [
+        "T1003.005",
+        "T1110.001",
+        "T1556",
+        "T1558.002",
+        "T1055.001",
+        "T1127.001",
+        "T1078.003",
+        "T1134.001",
+        "T1484",
+        "T1222",
+        "T1497",
+        "T1497.003",
+        "T1531",
+        "T1553",
+        "T1564",
+        "T1574.001",
+        "T1574.006",
+        "T1601.001",
+        "T1056.001",
+        "T1538",
+        "T1563",
+        "T1542.002",
+        "T1547.006",
+        "T1592.002",
+        "T1012",
+        "T1546.003",
+        "T1546.015"
+      ],
+      "validated_techniques": [
+        "T1003.005",
+        "T1110.001",
+        "T1556",
+        "T1558.002",
+        "T1055.001",
+        "T1127.001",
+        "T1078.003",
+        "T1134.001",
+        "T1484",
+        "T1222",
+        "T1497",
+        "T1497.003",
+        "T1531",
+        "T1553",
+        "T1564",
+        "T1574.001",
+        "T1574.006",
+        "T1601.001",
+        "T1056.001",
+        "T1538",
+        "T1563",
+        "T1542.002",
+        "T1547.006",
+        "T1592.002",
+        "T1012",
+        "T1546.003",
+        "T1546.015"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.317455+00:00",
+    "completed_at": "2026-04-18T09:09:17.317506+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-18T09:09:17.317466+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317467+00:00",
+          "forensics_id": "forensics_700cff1f5fed",
+          "forensics_collected": true,
+          "params": {
+            "process_tree": true,
+            "loaded_modules": true,
+            "registry_artifacts": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-18T09:09:17.317472+00:00"
+      },
+      {
+        "step": 2,
+        "action": "kill_process",
+        "started_at": "2026-04-18T09:09:17.317473+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317475+00:00",
+          "killed_pid": 4242,
+          "force": false,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317477+00:00"
+      },
+      {
+        "step": 3,
+        "action": "update_firewall",
+        "started_at": "2026-04-18T09:09:17.317478+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317479+00:00",
+          "firewall_updated": true,
+          "rule_type": "block",
+          "block_lateral": false,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317482+00:00"
+      },
+      {
+        "step": 4,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-18T09:09:17.317483+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317485+00:00",
+          "share_iocs": false,
+          "query_ttps": true,
+          "communities": [
+            "internal"
+          ],
+          "urgent": false,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-18T09:09:17.317488+00:00"
+      },
+      {
+        "step": 5,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317491+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317492+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": "sys_evasion",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317495+00:00"
+      },
+      {
+        "step": 6,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.317496+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317497+00:00",
+          "ticket_id": "TKT-F112C6A3",
+          "ticket_created": true,
+          "category": "defense_evasion",
+          "priority": "P1",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.317502+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.317455+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317504+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_f2c51a0f976a",
+    "playbook_id": "ai_cloud_infra_response",
+    "playbook_name": "Cloud / Container Infrastructure Response",
+    "trigger_event": {
+      "trigger_type": "adaptive_attack_detected",
+      "playbook_id": "ai_cloud_infra_response",
+      "playbook_name": "Cloud / Container Infrastructure Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_cloud_infra_response",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_cloud_infra_response.bin",
+      "mitre_techniques": [
+        "T1609",
+        "T1610",
+        "T1612",
+        "T1613",
+        "T1614",
+        "T1619",
+        "T1626",
+        "T1629",
+        "T1633",
+        "T1647",
+        "T1648",
+        "T1651",
+        "T1606",
+        "T1652",
+        "T1654",
+        "T1656",
+        "T1657",
+        "T1658",
+        "T1659",
+        "T1661",
+        "T1665",
+        "T1669",
+        "T1670",
+        "T1554",
+        "T4541",
+        "T5305",
+        "T5328",
+        "T5466",
+        "T5993",
+        "T7527",
+        "T9787",
+        "T1538",
+        "T1530",
+        "T1537",
+        "T1102",
+        "T1135",
+        "T1592.002",
+        "T1531"
+      ],
+      "validated_techniques": [
+        "T1609",
+        "T1610",
+        "T1612",
+        "T1613",
+        "T1614",
+        "T1619",
+        "T1626",
+        "T1629",
+        "T1633",
+        "T1647",
+        "T1648",
+        "T1651",
+        "T1606",
+        "T1652",
+        "T1654",
+        "T1656",
+        "T1657",
+        "T1658",
+        "T1659",
+        "T1661",
+        "T1665",
+        "T1669",
+        "T1670",
+        "T1554",
+        "T4541",
+        "T5305",
+        "T5328",
+        "T5466",
+        "T5993",
+        "T7527",
+        "T9787",
+        "T1538",
+        "T1530",
+        "T1537",
+        "T1102",
+        "T1135",
+        "T1592.002",
+        "T1531"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.317540+00:00",
+    "completed_at": "2026-04-18T09:09:17.317591+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-18T09:09:17.317547+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317550+00:00",
+          "forensics_id": "forensics_ee126103e005",
+          "forensics_collected": true,
+          "params": {
+            "cloud_logs": true,
+            "container_inspect": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-18T09:09:17.317554+00:00"
+      },
+      {
+        "step": 2,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-18T09:09:17.317556+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317557+00:00",
+          "isolated_agent": "coverage-host-01",
+          "network_blocked": true,
+          "usb_blocked": false,
+          "hard_isolation": false,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317565+00:00"
+      },
+      {
+        "step": 3,
+        "action": "block_ip",
+        "started_at": "2026-04-18T09:09:17.317566+00:00",
+        "status": "completed",
+        "result": {
+          "action": "block_ip",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317568+00:00",
+          "blocked_ip": "203.0.113.10",
+          "duration": 86400,
+          "status": "blocked"
+        },
+        "completed_at": "2026-04-18T09:09:17.317570+00:00"
+      },
+      {
+        "step": 4,
+        "action": "update_firewall",
+        "started_at": "2026-04-18T09:09:17.317571+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317572+00:00",
+          "firewall_updated": true,
+          "rule_type": "block",
+          "block_lateral": false,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317574+00:00"
+      },
+      {
+        "step": 5,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317576+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317577+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "critical",
+          "template": "cloud_infra",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317579+00:00"
+      },
+      {
+        "step": 6,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.317580+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317581+00:00",
+          "ticket_id": "TKT-AE614723",
+          "ticket_created": true,
+          "category": "cloud_compromise",
+          "priority": "P0",
+          "escalate_to_ciso": true,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.317586+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.317540+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317588+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_a2a62e2ef7b0",
+    "playbook_id": "ai_firmware_persist_response",
+    "playbook_name": "Firmware & Persistent Bootkit Response",
+    "trigger_event": {
+      "trigger_type": "deception_token_access",
+      "playbook_id": "ai_firmware_persist_response",
+      "playbook_name": "Firmware & Persistent Bootkit Response",
+      "host_id": "coverage-host-01",
+      "session_id": "coverage-ai_firmware_persist_response",
+      "source_ip": "203.0.113.10",
+      "user": "coverage-user",
+      "pid": 4242,
+      "file_path": "/tmp/ai_firmware_persist_response.bin",
+      "mitre_techniques": [
+        "T1542",
+        "T1542.001",
+        "T1542.002",
+        "T1542.003",
+        "T1547.006",
+        "T1485",
+        "T1489",
+        "T1490",
+        "T1491",
+        "T1491.002",
+        "T1495",
+        "T1496",
+        "T1561",
+        "T1565",
+        "T1565.001",
+        "T1102",
+        "T1135",
+        "T1531"
+      ],
+      "validated_techniques": [
+        "T1542",
+        "T1542.001",
+        "T1542.002",
+        "T1542.003",
+        "T1547.006",
+        "T1485",
+        "T1489",
+        "T1490",
+        "T1491",
+        "T1491.002",
+        "T1495",
+        "T1496",
+        "T1561",
+        "T1565",
+        "T1565.001",
+        "T1102",
+        "T1135",
+        "T1531"
+      ],
+      "reason": "Materialized real SOAR execution for persisted MITRE evidence"
+    },
+    "status": "completed",
+    "started_at": "2026-04-18T09:09:17.317628+00:00",
+    "completed_at": "2026-04-18T09:09:17.317708+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-18T09:09:17.317635+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317638+00:00",
+          "isolated_agent": "coverage-host-01",
+          "network_blocked": true,
+          "usb_blocked": false,
+          "hard_isolation": false,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317643+00:00"
+      },
+      {
+        "step": 2,
+        "action": "collect_forensics",
+        "started_at": "2026-04-18T09:09:17.317645+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317646+00:00",
+          "forensics_id": "forensics_5fea829a37e3",
+          "forensics_collected": true,
+          "params": {
+            "firmware_dump": true,
+            "secure_boot_log": true,
+            "kernel_modules": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-18T09:09:17.317650+00:00"
+      },
+      {
+        "step": 3,
+        "action": "scan_endpoint",
+        "started_at": "2026-04-18T09:09:17.317651+00:00",
+        "status": "completed",
+        "result": {
+          "action": "scan_endpoint",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317653+00:00",
+          "scan_initiated": true,
+          "full_scan": false,
+          "privilege_audit": false,
+          "status": "scanning"
+        },
+        "completed_at": "2026-04-18T09:09:17.317656+00:00"
+      },
+      {
+        "step": 4,
+        "action": "escalate_to_human",
+        "started_at": "2026-04-18T09:09:17.317657+00:00",
+        "status": "completed",
+        "result": {
+          "action": "escalate_to_human",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317658+00:00",
+          "escalation_id": "esc_0edf8ea7",
+          "reason": "firmware_compromise",
+          "required": true,
+          "page_oncall": false,
+          "expertise_required": "hardware_security",
+          "status": "escalated"
+        },
+        "completed_at": "2026-04-18T09:09:17.317688+00:00"
+      },
+      {
+        "step": 5,
+        "action": "send_alert",
+        "started_at": "2026-04-18T09:09:17.317690+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317691+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": "firmware_bootkit",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-18T09:09:17.317694+00:00"
+      },
+      {
+        "step": 6,
+        "action": "create_ticket",
+        "started_at": "2026-04-18T09:09:17.317695+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": "coverage-host-01",
+          "timestamp": "2026-04-18T09:09:17.317697+00:00",
+          "ticket_id": "TKT-F762B438",
+          "ticket_created": true,
+          "category": "firmware_compromise",
+          "priority": "P0",
+          "escalate_to_ciso": true,
+          "status": "created"
+        },
+        "completed_at": "2026-04-18T09:09:17.317701+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-18T09:09:17.317628+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-18T09:09:17.317703+00:00"
+      }
+    ]
+  },
+  {
+    "id": "atomic-manual-soar-archive-linux-privilege-escalation",
+    "playbook_id": "atomic-validation-linux-privilege-escalation",
+    "playbook_name": "Atomic Validation linux-privilege-escalation",
+    "trigger_event": {
+      "trigger_type": "anomaly_detected",
+      "source": "atomic_validation",
+      "job_id": "linux-privilege-escalation",
+      "run_id": "manual-soar-archive-linux-privilege-escalation",
+      "validated_techniques": [
+        "T1548",
+        "T1548.001",
+        "T1548.003",
+        "T1574.006",
+        "T1611"
+      ],
+      "mitre_techniques": [
+        "T1548",
+        "T1548.001",
+        "T1548.003",
+        "T1574.006",
+        "T1611"
+      ],
+      "mitre_techniques_validated": "T1548 T1548.001 T1548.003 T1574.006 T1611",
+      "reason": "manual_archive_from_successful_atomic_runs"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:00:48.274680+00:00",
+    "completed_at": "2026-04-19T02:00:48.274693+00:00",
+    "step_results": []
+  },
+  {
+    "id": "exec_ef9a14e709be",
+    "playbook_id": "pb_suspicious_process",
+    "playbook_name": "Suspicious Process Response",
+    "trigger_event": {
+      "trigger_type": "suspicious_process",
+      "source": "atomic_validation",
+      "job_id": "linux-privilege-escalation",
+      "run_id": "b6cbccf31b334817bf06f8a17782b91b",
+      "validated_techniques": [
+        "T1548",
+        "T1548.001",
+        "T1548.003",
+        "T1574.006",
+        "T1611"
+      ],
+      "mitre_techniques_validated": "T1548 T1548.001 T1548.003 T1574.006 T1611",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "technique": "privilege_escalation"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:27:50.044495+00:00",
+    "completed_at": "2026-04-19T02:27:50.044662+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-19T02:27:50.044537+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:27:50.044546+00:00",
+          "forensics_id": "forensics_497a5a41500b",
+          "forensics_collected": true,
+          "params": {
+            "process_info": true,
+            "network_connections": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-19T02:27:50.044569+00:00"
+      },
+      {
+        "step": 2,
+        "action": "kill_process",
+        "started_at": "2026-04-19T02:27:50.044579+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:27:50.044585+00:00",
+          "killed_pid": null,
+          "force": false,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-19T02:27:50.044598+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:27:50.044624+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:27:50.044629+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:27:50.044641+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:27:50.044495+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:27:50.044647+00:00"
+      }
+    ]
+  },
+  {
+    "id": "atomic-probe",
+    "playbook_id": "atomic-validation-linux-lateral-access-new",
+    "playbook_name": "Atomic Validation linux-lateral-access-new",
+    "trigger_event": {
+      "trigger_type": "anomaly_detected",
+      "source": "atomic_validation",
+      "job_id": "linux-lateral-access-new",
+      "run_id": "probe",
+      "validated_techniques": [
+        "T1021",
+        "T1021.005",
+        "T1037.002",
+        "T1037.005",
+        "T1056.002",
+        "T1078.001",
+        "T1078.003",
+        "T1123",
+        "T1176",
+        "T1490",
+        "T1518",
+        "T1539",
+        "T1543.001",
+        "T1543.004",
+        "T1546.014",
+        "T1547.007",
+        "T1547.015",
+        "T1553.001",
+        "T1555.001",
+        "T1564.002",
+        "T1569",
+        "T1569.001",
+        "T1059.002",
+        "T1647"
+      ],
+      "mitre_techniques": [
+        "T1021",
+        "T1021.005",
+        "T1037.002",
+        "T1037.005",
+        "T1056.002",
+        "T1078.001",
+        "T1078.003",
+        "T1123",
+        "T1176",
+        "T1490",
+        "T1518",
+        "T1539",
+        "T1543.001",
+        "T1543.004",
+        "T1546.014",
+        "T1547.007",
+        "T1547.015",
+        "T1553.001",
+        "T1555.001",
+        "T1564.002",
+        "T1569",
+        "T1569.001",
+        "T1059.002",
+        "T1647"
+      ],
+      "mitre_techniques_validated": "T1021 T1021.005 T1037.002 T1037.005 T1056.002 T1078.001 T1078.003 T1123 T1176 T1490 T1518 T1539 T1543.001 T1543.004 T1546.014 T1547.007 T1547.015 T1553.001 T1555.001 T1564.002 T1569 T1569.001 T1059.002 T1647",
+      "reason": "live_soar_no_match"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:31:34.882795+00:00",
+    "completed_at": "2026-04-19T02:31:34.882798+00:00",
+    "step_results": []
+  },
+  {
+    "id": "exec_6d3055dd93b5",
+    "playbook_id": "pb_suspicious_process",
+    "playbook_name": "Suspicious Process Response",
+    "trigger_event": {
+      "trigger_type": "suspicious_process",
+      "source": "atomic_validation",
+      "job_id": "linux-execution",
+      "run_id": "4e3d8060e6604cde97eeffd3e8f0926a",
+      "validated_techniques": [
+        "T1059.004",
+        "T1059.006",
+        "T1569.002"
+      ],
+      "mitre_techniques_validated": "T1059.004 T1059.006 T1569.002",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:31:50.248131+00:00",
+    "completed_at": "2026-04-19T02:31:50.248403+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-19T02:31:50.248219+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:50.248236+00:00",
+          "forensics_id": "forensics_30081b5d09d7",
+          "forensics_collected": true,
+          "params": {
+            "process_info": true,
+            "network_connections": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-19T02:31:50.248283+00:00"
+      },
+      {
+        "step": 2,
+        "action": "kill_process",
+        "started_at": "2026-04-19T02:31:50.248296+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:50.248309+00:00",
+          "killed_pid": null,
+          "force": false,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-19T02:31:50.248334+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:31:50.248343+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:50.248351+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:31:50.248372+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:31:50.248131+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:31:50.248383+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_c819aad2f0ec",
+    "playbook_id": "ai_recon_degrade_01",
+    "playbook_name": "AI Recon Loop - Degrade & Observe",
+    "trigger_event": {
+      "trigger_type": "autonomous_recon",
+      "source": "atomic_validation",
+      "job_id": "linux-discovery",
+      "run_id": "43f6d5847f63439a93146d873a7b0e70",
+      "validated_techniques": [
+        "T1007",
+        "T1016",
+        "T1016.001",
+        "T1018",
+        "T1033",
+        "T1046",
+        "T1049",
+        "T1057",
+        "T1069",
+        "T1069.001",
+        "T1069.002",
+        "T1082",
+        "T1083",
+        "T1087",
+        "T1087.001",
+        "T1087.002",
+        "T1124",
+        "T1135",
+        "T1201",
+        "T1518.001"
+      ],
+      "mitre_techniques_validated": "T1007 T1016 T1016.001 T1018 T1033 T1046 T1049 T1057 T1069 T1069.001 T1069.002 T1082 T1083 T1087 T1087.001 T1087.002 T1124 T1135 T1201 T1518.001",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "machine_likelihood": "high",
+      "intents": "recon",
+      "burstiness": "high"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:31:53.138270+00:00",
+    "completed_at": "2026-04-19T02:31:53.138615+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:31:53.138336+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138349+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "ai_suspected",
+            "recon",
+            "level_1"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:31:53.138384+00:00"
+      },
+      {
+        "step": 2,
+        "action": "enable_enhanced_logging",
+        "started_at": "2026-04-19T02:31:53.138392+00:00",
+        "status": "completed",
+        "result": {
+          "action": "enable_enhanced_logging",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138400+00:00",
+          "level": "verbose",
+          "include_keystrokes": true,
+          "network_capture": true,
+          "full_packet_capture": false,
+          "status": "enabled"
+        },
+        "completed_at": "2026-04-19T02:31:53.138416+00:00"
+      },
+      {
+        "step": 3,
+        "action": "throttle_cli",
+        "started_at": "2026-04-19T02:31:53.138422+00:00",
+        "status": "completed",
+        "result": {
+          "action": "throttle_cli",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138429+00:00",
+          "throttle_enabled": true,
+          "rate_per_min": 20,
+          "mode": "soft",
+          "status": "throttling"
+        },
+        "completed_at": "2026-04-19T02:31:53.138442+00:00"
+      },
+      {
+        "step": 4,
+        "action": "inject_latency",
+        "started_at": "2026-04-19T02:31:53.138448+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138453+00:00",
+          "latency_enabled": true,
+          "delay_ms": 250,
+          "jitter_ms": 200,
+          "mode": "soft",
+          "progressive": false,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-19T02:31:53.138466+00:00"
+      },
+      {
+        "step": 5,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:31:53.138471+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138477+00:00",
+          "bundle_id": "triage_3795e1811bd4",
+          "window_s": 60,
+          "include": [
+            "processes",
+            "network",
+            "files"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:31:53.138532+00:00"
+      },
+      {
+        "step": 6,
+        "action": "invoke_ml_analysis",
+        "started_at": "2026-04-19T02:31:53.138539+00:00",
+        "status": "completed",
+        "result": {
+          "action": "invoke_ml_analysis",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138546+00:00",
+          "model": "ai_behavior_classifier",
+          "continuous": true,
+          "urgent": false,
+          "track_evolution": false,
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-19T02:31:53.138560+00:00"
+      },
+      {
+        "step": 7,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:31:53.138566+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:53.138572+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": "ai_recon_detected",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:31:53.138586+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:31:53.138270+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:31:53.138596+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_131438a0cdc3",
+    "playbook_id": "ai_cred_access_01",
+    "playbook_name": "AI Credential Access - Deceive & Monitor",
+    "trigger_event": {
+      "trigger_type": "rapid_credential_access",
+      "source": "atomic_validation",
+      "job_id": "linux-credential-access",
+      "run_id": "084955618c3245a4bbca67c8435b10e9",
+      "validated_techniques": [
+        "T1003.007",
+        "T1003.008",
+        "T1110.001",
+        "T1110.004",
+        "T1552",
+        "T1552.001",
+        "T1552.003",
+        "T1552.004",
+        "T1552.007",
+        "T1555.003"
+      ],
+      "mitre_techniques_validated": "T1003.007 T1003.008 T1110.001 T1110.004 T1552 T1552.001 T1552.003 T1552.004 T1552.007 T1555.003",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "machine_likelihood": "high",
+      "intents": "credential_access"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:31:55.322236+00:00",
+    "completed_at": "2026-04-19T02:31:55.322598+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:31:55.322286+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322298+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "ai_suspected",
+            "credential_access",
+            "level_2"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:31:55.322330+00:00"
+      },
+      {
+        "step": 2,
+        "action": "deploy_decoy",
+        "started_at": "2026-04-19T02:31:55.322339+00:00",
+        "status": "completed",
+        "result": {
+          "action": "deploy_decoy",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322346+00:00",
+          "decoy_type": "credentials",
+          "decoys_deployed": [
+            "decoy_d3433c75",
+            "decoy_4e91d5c5",
+            "decoy_8ddbfd4b"
+          ],
+          "placement": "lsass_adjacent",
+          "status": "deployed"
+        },
+        "completed_at": "2026-04-19T02:31:55.322400+00:00"
+      },
+      {
+        "step": 3,
+        "action": "throttle_cli",
+        "started_at": "2026-04-19T02:31:55.322407+00:00",
+        "status": "completed",
+        "result": {
+          "action": "throttle_cli",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322413+00:00",
+          "throttle_enabled": true,
+          "rate_per_min": 10,
+          "mode": "hard",
+          "status": "throttling"
+        },
+        "completed_at": "2026-04-19T02:31:55.322426+00:00"
+      },
+      {
+        "step": 4,
+        "action": "inject_latency",
+        "started_at": "2026-04-19T02:31:55.322431+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322436+00:00",
+          "latency_enabled": true,
+          "delay_ms": 600,
+          "jitter_ms": 400,
+          "mode": "hard",
+          "progressive": false,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-19T02:31:55.322448+00:00"
+      },
+      {
+        "step": 5,
+        "action": "lock_sensitive_resources",
+        "started_at": "2026-04-19T02:31:55.322454+00:00",
+        "status": "completed",
+        "result": {
+          "action": "lock_sensitive_resources",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322459+00:00",
+          "resources_locked": [
+            "sam_database",
+            "lsass_memory",
+            "credential_store"
+          ],
+          "lock_count": 3,
+          "status": "locked"
+        },
+        "completed_at": "2026-04-19T02:31:55.322473+00:00"
+      },
+      {
+        "step": 6,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:31:55.322478+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322484+00:00",
+          "bundle_id": "triage_13fec97ab374",
+          "window_s": 180,
+          "include": [
+            "processes",
+            "memory",
+            "registry"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:31:55.322529+00:00"
+      },
+      {
+        "step": 7,
+        "action": "trigger_canary_validation",
+        "started_at": "2026-04-19T02:31:55.322536+00:00",
+        "status": "completed",
+        "result": {
+          "action": "trigger_canary_validation",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322541+00:00",
+          "validate_all": true,
+          "validation_triggered": true,
+          "status": "validating"
+        },
+        "completed_at": "2026-04-19T02:31:55.322554+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:31:55.322559+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:55.322564+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": "ai_credential_access",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:31:55.322576+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:31:55.322236+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:31:55.322583+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_f3efd40ca9eb",
+    "playbook_id": "ai_sys_evasion_response",
+    "playbook_name": "System Evasion & Credential Response",
+    "trigger_event": {
+      "trigger_type": "tool_chain_switching",
+      "source": "atomic_validation",
+      "job_id": "linux-defense-evasion",
+      "run_id": "3820638487c4427380ff9ec4371268db",
+      "validated_techniques": [
+        "T1027",
+        "T1027.001",
+        "T1027.002",
+        "T1027.004",
+        "T1027.013",
+        "T1036.003",
+        "T1036.004",
+        "T1036.005",
+        "T1036.006",
+        "T1070.002",
+        "T1070.003",
+        "T1070.004",
+        "T1070.006",
+        "T1070.008",
+        "T1140",
+        "T1497",
+        "T1497.001",
+        "T1497.003",
+        "T1562",
+        "T1562.001",
+        "T1562.003",
+        "T1562.004",
+        "T1562.006",
+        "T1562.008",
+        "T1562.010",
+        "T1562.012",
+        "T1564.001"
+      ],
+      "mitre_techniques_validated": "T1027 T1027.001 T1027.002 T1027.004 T1027.013 T1036.003 T1036.004 T1036.005 T1036.006 T1070.002 T1070.003 T1070.004 T1070.006 T1070.008 T1140 T1497 T1497.001 T1497.003 T1562 T1562.001 T1562.003 T1562.004 T1562.006 T1562.008 T1562.010 T1562.012 T1564.001",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:31:58.980576+00:00",
+    "completed_at": "2026-04-19T02:31:58.980809+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-19T02:31:58.980634+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:58.980644+00:00",
+          "forensics_id": "forensics_d64940318a01",
+          "forensics_collected": true,
+          "params": {
+            "process_tree": true,
+            "loaded_modules": true,
+            "registry_artifacts": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-19T02:31:58.980679+00:00"
+      },
+      {
+        "step": 2,
+        "action": "kill_process",
+        "started_at": "2026-04-19T02:31:58.980685+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:58.980690+00:00",
+          "killed_pid": null,
+          "force": false,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-19T02:31:58.980702+00:00"
+      },
+      {
+        "step": 3,
+        "action": "update_firewall",
+        "started_at": "2026-04-19T02:31:58.980706+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:58.980711+00:00",
+          "firewall_updated": true,
+          "rule_type": "block",
+          "block_lateral": false,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-19T02:31:58.980721+00:00"
+      },
+      {
+        "step": 4,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-19T02:31:58.980724+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:58.980728+00:00",
+          "share_iocs": false,
+          "query_ttps": true,
+          "communities": [
+            "internal"
+          ],
+          "urgent": false,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-19T02:31:58.980747+00:00"
+      },
+      {
+        "step": 5,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:31:58.980751+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:58.980755+00:00",
+          "channels_notified": [
+            "slack",
+            "email"
+          ],
+          "priority": "high",
+          "template": "sys_evasion",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:31:58.980764+00:00"
+      },
+      {
+        "step": 6,
+        "action": "create_ticket",
+        "started_at": "2026-04-19T02:31:58.980768+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:31:58.980772+00:00",
+          "ticket_id": "TKT-90CED8E5",
+          "ticket_created": true,
+          "category": "defense_evasion",
+          "priority": "P1",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-19T02:31:58.980791+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:31:58.980576+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:31:58.980798+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_d890d5a468a6",
+    "playbook_id": "ai_goal_loop_01",
+    "playbook_name": "Goal Persistent Loop Detection",
+    "trigger_event": {
+      "trigger_type": "goal_persistent_loop",
+      "source": "atomic_validation",
+      "job_id": "linux-persistence",
+      "run_id": "ff32a81deebe402e820299fc8868c917",
+      "validated_techniques": [
+        "T1037",
+        "T1037.004",
+        "T1053",
+        "T1053.002",
+        "T1053.003",
+        "T1053.006",
+        "T1098",
+        "T1098.004",
+        "T1136",
+        "T1136.001",
+        "T1136.002",
+        "T1505",
+        "T1543",
+        "T1543.002",
+        "T1546.004",
+        "T1546.005",
+        "T1546.018",
+        "T1547.006",
+        "T1556.003"
+      ],
+      "mitre_techniques_validated": "T1037 T1037.004 T1053 T1053.002 T1053.003 T1053.006 T1098 T1098.004 T1136 T1136.001 T1136.002 T1505 T1543 T1543.002 T1546.004 T1546.005 T1546.018 T1547.006 T1556.003",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "goal_persistence": "high",
+      "machine_likelihood": "high"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:01.331930+00:00",
+    "completed_at": "2026-04-19T02:32:01.332266+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:32:01.331995+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:01.332009+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "goal_persistent",
+            "loop_detected"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:32:01.332045+00:00"
+      },
+      {
+        "step": 2,
+        "action": "inject_latency",
+        "started_at": "2026-04-19T02:32:01.332053+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:01.332061+00:00",
+          "latency_enabled": true,
+          "delay_ms": 1000,
+          "jitter_ms": 500,
+          "mode": "soft",
+          "progressive": true,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-19T02:32:01.332078+00:00"
+      },
+      {
+        "step": 3,
+        "action": "feed_disinformation",
+        "started_at": "2026-04-19T02:32:01.332085+00:00",
+        "status": "completed",
+        "result": {
+          "action": "feed_disinformation",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:01.332093+00:00",
+          "type": "false_progress",
+          "delay_reveal": false,
+          "goal_misdirection": true,
+          "status": "feeding"
+        },
+        "completed_at": "2026-04-19T02:32:01.332116+00:00"
+      },
+      {
+        "step": 4,
+        "action": "deploy_decoy",
+        "started_at": "2026-04-19T02:32:01.332123+00:00",
+        "status": "completed",
+        "result": {
+          "action": "deploy_decoy",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:01.332129+00:00",
+          "decoy_type": "goal_target",
+          "decoys_deployed": [],
+          "placement": "standard",
+          "status": "deployed"
+        },
+        "completed_at": "2026-04-19T02:32:01.332149+00:00"
+      },
+      {
+        "step": 5,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:32:01.332155+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:01.332163+00:00",
+          "bundle_id": "triage_d9876a77631b",
+          "window_s": 180,
+          "include": [
+            "processes",
+            "network"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:32:01.332211+00:00"
+      },
+      {
+        "step": 6,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:01.332218+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:01.332224+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "high",
+          "template": "goal_persistent_loop",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:01.332241+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:01.331930+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:01.332250+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_7f24f0685bd6",
+    "playbook_id": "ai_exfil_cut_01",
+    "playbook_name": "AI Exfil Prep - Cut Egress",
+    "trigger_event": {
+      "trigger_type": "ai_exfiltration_pattern",
+      "source": "atomic_validation",
+      "job_id": "linux-collection-exfil",
+      "run_id": "257fd5ccdff2429ca5c8ec972704e754",
+      "validated_techniques": [
+        "T1005",
+        "T1030",
+        "T1040",
+        "T1048",
+        "T1048.002",
+        "T1048.003",
+        "T1056",
+        "T1056.001",
+        "T1074",
+        "T1074.001",
+        "T1113",
+        "T1114",
+        "T1115",
+        "T1132",
+        "T1132.001",
+        "T1560.001",
+        "T1560.002",
+        "T1567"
+      ],
+      "mitre_techniques_validated": "T1005 T1030 T1040 T1048 T1048.002 T1048.003 T1056 T1056.001 T1074 T1074.001 T1113 T1114 T1115 T1132 T1132.001 T1560.001 T1560.002 T1567",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "machine_likelihood": "high",
+      "intents": "exfil_prep"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:04.061787+00:00",
+    "completed_at": "2026-04-19T02:32:04.062595+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:32:04.061850+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.061864+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "ai_confirmed",
+            "exfiltration",
+            "level_4",
+            "critical"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:32:04.061904+00:00"
+      },
+      {
+        "step": 2,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-19T02:32:04.061912+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.061920+00:00",
+          "isolated_agent": null,
+          "network_blocked": true,
+          "usb_blocked": false,
+          "hard_isolation": false,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-19T02:32:04.061939+00:00"
+      },
+      {
+        "step": 3,
+        "action": "capture_memory_snapshot",
+        "started_at": "2026-04-19T02:32:04.061946+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_memory_snapshot",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.061953+00:00",
+          "snapshot_id": "mem_8417c76f068d",
+          "mode": "full",
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:32:04.062010+00:00"
+      },
+      {
+        "step": 4,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:32:04.062019+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.062026+00:00",
+          "bundle_id": "triage_7948393f7813",
+          "window_s": 600,
+          "include": [
+            "processes",
+            "network",
+            "files",
+            "memory"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:32:04.062070+00:00"
+      },
+      {
+        "step": 5,
+        "action": "quarantine_file",
+        "started_at": "2026-04-19T02:32:04.062077+00:00",
+        "status": "completed",
+        "result": {
+          "action": "quarantine_file",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.062085+00:00",
+          "quarantined": "staged_data",
+          "quarantine_id": "quar_f140ba209ab8",
+          "auto_sandbox": true,
+          "pipeline_stage": "quarantined",
+          "status": "quarantined"
+        },
+        "completed_at": "2026-04-19T02:32:04.062131+00:00"
+      },
+      {
+        "step": 6,
+        "action": "quarantine_to_sandbox",
+        "started_at": "2026-04-19T02:32:04.062140+00:00",
+        "status": "completed",
+        "result": {
+          "action": "quarantine_to_sandbox",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.062147+00:00",
+          "sandbox_id": "sandbox_82f89d6134af",
+          "analyze": true,
+          "detonation_time": 300,
+          "pipeline_stage": "sandboxing",
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-19T02:32:04.062188+00:00"
+      },
+      {
+        "step": 7,
+        "action": "escalate_to_human",
+        "started_at": "2026-04-19T02:32:04.062196+00:00",
+        "status": "completed",
+        "result": {
+          "action": "escalate_to_human",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.062203+00:00",
+          "escalation_id": "esc_6c59d7fe",
+          "reason": "ai_exfiltration_attempt",
+          "required": true,
+          "page_oncall": false,
+          "expertise_required": null,
+          "status": "escalated"
+        },
+        "completed_at": "2026-04-19T02:32:04.062482+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:04.062493+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.062501+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": "ai_exfiltration",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:04.062519+00:00"
+      },
+      {
+        "step": 9,
+        "action": "create_ticket",
+        "started_at": "2026-04-19T02:32:04.062526+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:04.062532+00:00",
+          "ticket_id": "TKT-A2BA3BE4",
+          "ticket_created": true,
+          "category": "ai_exfiltration",
+          "priority": "P0",
+          "escalate_to_ciso": true,
+          "status": "created"
+        },
+        "completed_at": "2026-04-19T02:32:04.062564+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:04.061787+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:04.062574+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_97d04f5d9220",
+    "playbook_id": "ai_pivot_contain_01",
+    "playbook_name": "AI Lateral Movement - Contain Fast",
+    "trigger_event": {
+      "trigger_type": "automated_lateral_movement",
+      "source": "atomic_validation",
+      "job_id": "linux-c2-lateral",
+      "run_id": "6d0582edfebe41af870567698c194d74",
+      "validated_techniques": [
+        "T1001",
+        "T1071.001",
+        "T1090",
+        "T1090.001",
+        "T1090.003",
+        "T1095",
+        "T1105",
+        "T1217",
+        "T1571",
+        "T1572"
+      ],
+      "mitre_techniques_validated": "T1001 T1071.001 T1090 T1090.001 T1090.003 T1095 T1105 T1217 T1571 T1572",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "machine_likelihood": "high",
+      "intents": "lateral_movement",
+      "tool_switch_latency": "fast"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:06.247981+00:00",
+    "completed_at": "2026-04-19T02:32:06.248331+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:32:06.248027+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248038+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "ai_confirmed",
+            "lateral_movement",
+            "level_3",
+            "containment"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:32:06.248067+00:00"
+      },
+      {
+        "step": 2,
+        "action": "snapshot_network_state",
+        "started_at": "2026-04-19T02:32:06.248075+00:00",
+        "status": "completed",
+        "result": {
+          "action": "snapshot_network_state",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248081+00:00",
+          "snapshot_id": "netsnap_f7bbeeefdeee",
+          "include_flows": true,
+          "include_connections": true,
+          "status": "captured"
+        },
+        "completed_at": "2026-04-19T02:32:06.248109+00:00"
+      },
+      {
+        "step": 3,
+        "action": "update_firewall",
+        "started_at": "2026-04-19T02:32:06.248115+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248120+00:00",
+          "firewall_updated": true,
+          "rule_type": "contain",
+          "block_lateral": true,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-19T02:32:06.248132+00:00"
+      },
+      {
+        "step": 4,
+        "action": "lock_sensitive_resources",
+        "started_at": "2026-04-19T02:32:06.248138+00:00",
+        "status": "completed",
+        "result": {
+          "action": "lock_sensitive_resources",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248143+00:00",
+          "resources_locked": [
+            "domain_controller",
+            "file_shares",
+            "database_servers"
+          ],
+          "lock_count": 3,
+          "status": "locked"
+        },
+        "completed_at": "2026-04-19T02:32:06.248156+00:00"
+      },
+      {
+        "step": 5,
+        "action": "disable_user",
+        "started_at": "2026-04-19T02:32:06.248162+00:00",
+        "status": "completed",
+        "result": {
+          "action": "disable_user",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248167+00:00",
+          "disabled_user": null,
+          "force_logout": false,
+          "preserve_session": true,
+          "status": "disabled"
+        },
+        "completed_at": "2026-04-19T02:32:06.248178+00:00"
+      },
+      {
+        "step": 6,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:32:06.248183+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248189+00:00",
+          "bundle_id": "triage_59529fdde330",
+          "window_s": 300,
+          "include": [
+            "processes",
+            "network",
+            "registry",
+            "files"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:32:06.248226+00:00"
+      },
+      {
+        "step": 7,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-19T02:32:06.248233+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248238+00:00",
+          "share_iocs": true,
+          "query_ttps": false,
+          "communities": [
+            "internal",
+            "isac"
+          ],
+          "urgent": false,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-19T02:32:06.248255+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:06.248260+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248269+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": "ai_lateral_movement",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:06.248280+00:00"
+      },
+      {
+        "step": 9,
+        "action": "create_ticket",
+        "started_at": "2026-04-19T02:32:06.248284+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:06.248289+00:00",
+          "ticket_id": "TKT-CF19DC97",
+          "ticket_created": true,
+          "category": "ai_incident",
+          "priority": "P1",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-19T02:32:06.248309+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:06.247981+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:06.248316+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_ca64615707a4",
+    "playbook_id": "pb_suspicious_process",
+    "playbook_name": "Suspicious Process Response",
+    "trigger_event": {
+      "trigger_type": "suspicious_process",
+      "source": "atomic_validation",
+      "job_id": "linux-privilege-escalation",
+      "run_id": "7f450d4372c947819942fbc355a8990a",
+      "validated_techniques": [
+        "T1548",
+        "T1548.001",
+        "T1548.003",
+        "T1574.006",
+        "T1611"
+      ],
+      "mitre_techniques_validated": "T1548 T1548.001 T1548.003 T1574.006 T1611",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "technique": "privilege_escalation"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:08.132328+00:00",
+    "completed_at": "2026-04-19T02:32:08.132435+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "collect_forensics",
+        "started_at": "2026-04-19T02:32:08.132360+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:08.132367+00:00",
+          "forensics_id": "forensics_07e983769b50",
+          "forensics_collected": true,
+          "params": {
+            "process_info": true,
+            "network_connections": true
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-19T02:32:08.132387+00:00"
+      },
+      {
+        "step": 2,
+        "action": "kill_process",
+        "started_at": "2026-04-19T02:32:08.132392+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:08.132396+00:00",
+          "killed_pid": null,
+          "force": false,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-19T02:32:08.132405+00:00"
+      },
+      {
+        "step": 3,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:08.132408+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:08.132412+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:08.132421+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:08.132328+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:08.132426+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_562e52eb9325",
+    "playbook_id": "pb_ransomware_response",
+    "playbook_name": "Ransomware Emergency Response",
+    "trigger_event": {
+      "trigger_type": "ransomware_detected",
+      "source": "atomic_validation",
+      "job_id": "linux-impact",
+      "run_id": "683770922eef47d998f94aea3f1989cb",
+      "validated_techniques": [
+        "T1485",
+        "T1486",
+        "T1489",
+        "T1496",
+        "T1529",
+        "T1531"
+      ],
+      "mitre_techniques_validated": "T1485 T1486 T1489 T1496 T1529 T1531",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "critical"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:10.168695+00:00",
+    "completed_at": "2026-04-19T02:32:10.168938+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "kill_process",
+        "started_at": "2026-04-19T02:32:10.168762+00:00",
+        "status": "completed",
+        "result": {
+          "action": "kill_process",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:10.168776+00:00",
+          "killed_pid": null,
+          "force": true,
+          "status": "terminated"
+        },
+        "completed_at": "2026-04-19T02:32:10.168800+00:00"
+      },
+      {
+        "step": 2,
+        "action": "isolate_endpoint",
+        "started_at": "2026-04-19T02:32:10.168809+00:00",
+        "status": "completed",
+        "result": {
+          "action": "isolate_endpoint",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:10.168817+00:00",
+          "isolated_agent": null,
+          "network_blocked": true,
+          "usb_blocked": false,
+          "hard_isolation": false,
+          "preserve_state": true,
+          "status": "isolated"
+        },
+        "completed_at": "2026-04-19T02:32:10.168836+00:00"
+      },
+      {
+        "step": 3,
+        "action": "collect_forensics",
+        "started_at": "2026-04-19T02:32:10.168843+00:00",
+        "status": "completed",
+        "result": {
+          "action": "collect_forensics",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:10.168850+00:00",
+          "forensics_id": "forensics_f0d69da83ed4",
+          "forensics_collected": true,
+          "params": {
+            "memory_dump": true,
+            "disk_image": false
+          },
+          "status": "collecting"
+        },
+        "completed_at": "2026-04-19T02:32:10.168880+00:00"
+      },
+      {
+        "step": 4,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:10.168887+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:10.168894+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": null,
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:10.168913+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:10.168695+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:10.168921+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_45dc080910aa",
+    "playbook_id": "ai_recon_degrade_01",
+    "playbook_name": "AI Recon Loop - Degrade & Observe",
+    "trigger_event": {
+      "trigger_type": "autonomous_recon",
+      "source": "atomic_validation",
+      "job_id": "linux-initial-access-recon",
+      "run_id": "ddc4f589dad64201a5caa1e37313600f",
+      "validated_techniques": [
+        "T1001.002",
+        "T1014",
+        "T1195.002",
+        "T1222",
+        "T1222.002",
+        "T1553.004",
+        "T1567.002",
+        "T1568.002",
+        "T1580",
+        "T1595.003",
+        "T1614",
+        "T1614.001",
+        "T1652"
+      ],
+      "mitre_techniques_validated": "T1001.002 T1014 T1195.002 T1222 T1222.002 T1553.004 T1567.002 T1568.002 T1580 T1595.003 T1614 T1614.001 T1652",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "machine_likelihood": "high",
+      "intents": "recon",
+      "burstiness": "high"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:12.283927+00:00",
+    "completed_at": "2026-04-19T02:32:12.284268+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:32:12.283988+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284003+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "ai_suspected",
+            "recon",
+            "level_1"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:32:12.284037+00:00"
+      },
+      {
+        "step": 2,
+        "action": "enable_enhanced_logging",
+        "started_at": "2026-04-19T02:32:12.284046+00:00",
+        "status": "completed",
+        "result": {
+          "action": "enable_enhanced_logging",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284054+00:00",
+          "level": "verbose",
+          "include_keystrokes": true,
+          "network_capture": true,
+          "full_packet_capture": false,
+          "status": "enabled"
+        },
+        "completed_at": "2026-04-19T02:32:12.284074+00:00"
+      },
+      {
+        "step": 3,
+        "action": "throttle_cli",
+        "started_at": "2026-04-19T02:32:12.284081+00:00",
+        "status": "completed",
+        "result": {
+          "action": "throttle_cli",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284088+00:00",
+          "throttle_enabled": true,
+          "rate_per_min": 20,
+          "mode": "soft",
+          "status": "throttling"
+        },
+        "completed_at": "2026-04-19T02:32:12.284102+00:00"
+      },
+      {
+        "step": 4,
+        "action": "inject_latency",
+        "started_at": "2026-04-19T02:32:12.284108+00:00",
+        "status": "completed",
+        "result": {
+          "action": "inject_latency",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284114+00:00",
+          "latency_enabled": true,
+          "delay_ms": 250,
+          "jitter_ms": 200,
+          "mode": "soft",
+          "progressive": false,
+          "status": "degrading"
+        },
+        "completed_at": "2026-04-19T02:32:12.284127+00:00"
+      },
+      {
+        "step": 5,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:32:12.284134+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284140+00:00",
+          "bundle_id": "triage_30188bf1d9da",
+          "window_s": 60,
+          "include": [
+            "processes",
+            "network",
+            "files"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:32:12.284186+00:00"
+      },
+      {
+        "step": 6,
+        "action": "invoke_ml_analysis",
+        "started_at": "2026-04-19T02:32:12.284194+00:00",
+        "status": "completed",
+        "result": {
+          "action": "invoke_ml_analysis",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284201+00:00",
+          "model": "ai_behavior_classifier",
+          "continuous": true,
+          "urgent": false,
+          "track_evolution": false,
+          "status": "analyzing"
+        },
+        "completed_at": "2026-04-19T02:32:12.284222+00:00"
+      },
+      {
+        "step": 7,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:12.284228+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:12.284233+00:00",
+          "channels_notified": [
+            "slack"
+          ],
+          "priority": "medium",
+          "template": "ai_recon_detected",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:12.284245+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:12.283927+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:12.284252+00:00"
+      }
+    ]
+  },
+  {
+    "id": "exec_28377ed6a8dd",
+    "playbook_id": "ai_pivot_contain_01",
+    "playbook_name": "AI Lateral Movement - Contain Fast",
+    "trigger_event": {
+      "trigger_type": "automated_lateral_movement",
+      "source": "atomic_validation",
+      "job_id": "linux-lateral-access-new",
+      "run_id": "0e0f928e303e416c920b6fd250b252bf",
+      "validated_techniques": [
+        "T1021",
+        "T1021.005",
+        "T1037.002",
+        "T1037.005",
+        "T1056.002",
+        "T1059.002",
+        "T1078.001",
+        "T1078.003",
+        "T1123",
+        "T1176",
+        "T1490",
+        "T1518",
+        "T1539",
+        "T1543.001",
+        "T1543.004",
+        "T1546.014",
+        "T1547.007",
+        "T1547.015",
+        "T1553.001",
+        "T1555.001",
+        "T1564.002",
+        "T1569",
+        "T1569.001",
+        "T1647"
+      ],
+      "mitre_techniques_validated": "T1021 T1021.005 T1037.002 T1037.005 T1056.002 T1059.002 T1078.001 T1078.003 T1123 T1176 T1490 T1518 T1539 T1543.001 T1543.004 T1546.014 T1547.007 T1547.015 T1553.001 T1555.001 T1564.002 T1569 T1569.001 T1647",
+      "confidence": "high",
+      "validation_status": "validated",
+      "severity": "high",
+      "machine_likelihood": "high",
+      "intents": "lateral_movement",
+      "tool_switch_latency": "fast"
+    },
+    "status": "completed",
+    "started_at": "2026-04-19T02:32:14.909734+00:00",
+    "completed_at": "2026-04-19T02:32:14.910120+00:00",
+    "step_results": [
+      {
+        "step": 1,
+        "action": "tag_session",
+        "started_at": "2026-04-19T02:32:14.909790+00:00",
+        "status": "completed",
+        "result": {
+          "action": "tag_session",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.909803+00:00",
+          "session_id": null,
+          "tags_applied": [
+            "ai_confirmed",
+            "lateral_movement",
+            "level_3",
+            "containment"
+          ],
+          "status": "tagged"
+        },
+        "completed_at": "2026-04-19T02:32:14.909837+00:00"
+      },
+      {
+        "step": 2,
+        "action": "snapshot_network_state",
+        "started_at": "2026-04-19T02:32:14.909845+00:00",
+        "status": "completed",
+        "result": {
+          "action": "snapshot_network_state",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.909853+00:00",
+          "snapshot_id": "netsnap_1bbc06a58abe",
+          "include_flows": true,
+          "include_connections": true,
+          "status": "captured"
+        },
+        "completed_at": "2026-04-19T02:32:14.909887+00:00"
+      },
+      {
+        "step": 3,
+        "action": "update_firewall",
+        "started_at": "2026-04-19T02:32:14.909894+00:00",
+        "status": "completed",
+        "result": {
+          "action": "update_firewall",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.909901+00:00",
+          "firewall_updated": true,
+          "rule_type": "contain",
+          "block_lateral": true,
+          "emergency_block": false,
+          "status": "updated"
+        },
+        "completed_at": "2026-04-19T02:32:14.909912+00:00"
+      },
+      {
+        "step": 4,
+        "action": "lock_sensitive_resources",
+        "started_at": "2026-04-19T02:32:14.909917+00:00",
+        "status": "completed",
+        "result": {
+          "action": "lock_sensitive_resources",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.909923+00:00",
+          "resources_locked": [
+            "domain_controller",
+            "file_shares",
+            "database_servers"
+          ],
+          "lock_count": 3,
+          "status": "locked"
+        },
+        "completed_at": "2026-04-19T02:32:14.909936+00:00"
+      },
+      {
+        "step": 5,
+        "action": "disable_user",
+        "started_at": "2026-04-19T02:32:14.909941+00:00",
+        "status": "completed",
+        "result": {
+          "action": "disable_user",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.909946+00:00",
+          "disabled_user": null,
+          "force_logout": false,
+          "preserve_session": true,
+          "status": "disabled"
+        },
+        "completed_at": "2026-04-19T02:32:14.909958+00:00"
+      },
+      {
+        "step": 6,
+        "action": "capture_triage_bundle",
+        "started_at": "2026-04-19T02:32:14.909963+00:00",
+        "status": "completed",
+        "result": {
+          "action": "capture_triage_bundle",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.909969+00:00",
+          "bundle_id": "triage_76a1936ff524",
+          "window_s": 300,
+          "include": [
+            "processes",
+            "network",
+            "registry",
+            "files"
+          ],
+          "pipeline_stage": "collecting",
+          "status": "capturing"
+        },
+        "completed_at": "2026-04-19T02:32:14.910011+00:00"
+      },
+      {
+        "step": 7,
+        "action": "sync_threat_intel",
+        "started_at": "2026-04-19T02:32:14.910019+00:00",
+        "status": "completed",
+        "result": {
+          "action": "sync_threat_intel",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.910025+00:00",
+          "share_iocs": true,
+          "query_ttps": false,
+          "communities": [
+            "internal",
+            "isac"
+          ],
+          "urgent": false,
+          "status": "syncing"
+        },
+        "completed_at": "2026-04-19T02:32:14.910041+00:00"
+      },
+      {
+        "step": 8,
+        "action": "send_alert",
+        "started_at": "2026-04-19T02:32:14.910047+00:00",
+        "status": "completed",
+        "result": {
+          "action": "send_alert",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.910052+00:00",
+          "channels_notified": [
+            "slack",
+            "email",
+            "sms"
+          ],
+          "priority": "critical",
+          "template": "ai_lateral_movement",
+          "status": "sent"
+        },
+        "completed_at": "2026-04-19T02:32:14.910063+00:00"
+      },
+      {
+        "step": 9,
+        "action": "create_ticket",
+        "started_at": "2026-04-19T02:32:14.910069+00:00",
+        "status": "completed",
+        "result": {
+          "action": "create_ticket",
+          "host_id": null,
+          "timestamp": "2026-04-19T02:32:14.910074+00:00",
+          "ticket_id": "TKT-77250371",
+          "ticket_created": true,
+          "category": "ai_incident",
+          "priority": "P1",
+          "escalate_to_ciso": false,
+          "status": "created"
+        },
+        "completed_at": "2026-04-19T02:32:14.910096+00:00"
+      }
+    ],
+    "error": null,
+    "escalation_level": "observe",
+    "ai_confidence": null,
+    "quarantine_refs": [],
+    "forensics_refs": [],
+    "state_transition_log": [
+      {
+        "from_status": null,
+        "to_status": "running",
+        "actor": "system:soar-engine",
+        "reason": "execution created",
+        "timestamp": "2026-04-19T02:32:14.909734+00:00"
+      },
+      {
+        "from_status": "running",
+        "to_status": "completed",
+        "actor": "system:soar-engine",
+        "reason": "all playbook steps completed",
+        "timestamp": "2026-04-19T02:32:14.910104+00:00"
+      }
+    ]
+  }
+]

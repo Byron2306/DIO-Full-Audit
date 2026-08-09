@@ -1,0 +1,33 @@
+{
+  "schema": "nichefoundry.publishing_package.v1",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "studio_id": "dio_campaign_films",
+  "metadata_hash": "3bfd628857a2774371808264783130f8eff073762a96568d66a638520c26e2d3",
+  "compliance_hash": "e1d126e8b033e23a3791a94bb2160aeab8481348697efc9c30ea4087acb715bf",
+  "preflight_passed": true,
+  "delivery": {
+    "video": {
+      "relative_path": "final.mp4",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 4313397,
+      "sha256": "224d5f50713f1f281fe2e8174b70edd7004406d636592b5a1b92f8ec02a0bfd0"
+    },
+    "captions": {
+      "relative_path": "captions.srt",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 727,
+      "sha256": "430983cdbfc5a5d9342628a94835c65e1fc1f6d8c100cf6108d49b5f45c0fef4"
+    },
+    "thumbnail": {
+      "relative_path": "thumbnail.png",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1475935,
+      "sha256": "aac7b7660cec2f7cd3547f5e61dd43ca9af4b9ad35442865e8db564c18991e1f"
+    }
+  },
+  "package_hash": "c9536ef600238a3d96e13460784333b0e7be7883b9315c6595a904176fc6bcfc",
+  "generated_at": "2026-08-09T00:06:18.577Z"
+}

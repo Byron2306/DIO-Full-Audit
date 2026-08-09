@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:571768290910674ac7bbc7f2849846dca8bc0d9ae5e3ec03fd78c6678eb3bdc2",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor list_capabilities to resolve the syntax error and return a structured dictionary of records and their summary counts.\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/capability_registry.py\"}, \"old\": \"        grouped: Dict[str, int] = {}\\n        for item in records:\\n            grouped[item.kind] \", \"new\": \"        grouped: Dict[str, int] = {}\\n        for item in records:\\n            grouped[item.kind] = grouped.get(item.kind, 0) + 1\\n        return {\\\"records\\\": [item.to_dict() for item in records], \\\"summary\\\": grouped}\"}]}",
+    "response_sha256": "sha256:810cc87ebf0d6dcad20055432e71e29cd0cf00f070a4f229332a8b7cb53cf544",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

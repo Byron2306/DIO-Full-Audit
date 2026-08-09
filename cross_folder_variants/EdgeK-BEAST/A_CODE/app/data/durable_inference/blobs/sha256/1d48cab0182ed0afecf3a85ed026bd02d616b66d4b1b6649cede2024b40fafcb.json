@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:1d48cab0182ed0afecf3a85ed026bd02d616b66d4b1b6649cede2024b40fafcb",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "qwen2.5-coder:1.5b",
+      "parameter_hash": "6837dfecb16c512ba7815805325f43b106c0bb57d03850e0e715e281c6d3263e",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 640,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:2affd6bdf068ebf66f57bcaa7433f6a297ed305b8f0df5f9c2433f0f4fbcc342",
+      "response_blob_digest": "sha256:d056c0d35dfb5fc8a74b12a4203867472ce7acbedce37c2d8c16c58ec4ec475d",
+      "response_blob_ref": "blobs/sha256/d056c0d35dfb5fc8a74b12a4203867472ce7acbedce37c2d8c16c58ec4ec475d.json",
+      "response_chars": 143,
+      "response_preview": "[SIMULATED] EdgeK BEAST Gateway would execute request for model qwen2.5-coder:1.5b. Set OPENAI_API_KEY environment variable for real API calls.",
+      "response_ref": "cache_413fadcc4d165854.answer.json",
+      "response_sha256": "sha256:8499040870b0c0bdf1614afd0277daed0e28033579573e4bf77fa2dff955d64a"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

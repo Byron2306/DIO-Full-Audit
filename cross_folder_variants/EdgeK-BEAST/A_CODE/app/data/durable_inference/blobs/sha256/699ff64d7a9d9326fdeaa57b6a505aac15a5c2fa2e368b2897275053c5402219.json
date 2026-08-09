@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:699ff64d7a9d9326fdeaa57b6a505aac15a5c2fa2e368b2897275053c5402219",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"actions\":[{\"id\":\"a1\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"def run_local_inference(self, task_class: str, prompt: str, model: str = None) -> Dict[str, Any]:\\n    # ... (rest of the function remains the same)\",\"target\":{\"anchor_ref\":\"A9\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"},{\"id\":\"a2\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"def _estimate_tokens(self, messages: List[Dict[str, Any]]) -> int:\\n    total_chars = sum(len(str(message.get(\\\"content\\\", \\\"\\\"))) for message in messages or [])\\n    return max(1, total_chars // 4)\",\"target\":{\"anchor_ref\":\"A19\",\"file_ref\":\"F2\"},\"type\":\"replace_anchor\"}],\"fallback\":\"\",\"handoff_hash\":\"sha256:47f11f4a01f708050f671d9046d613fcf56976e2705792844996595d32041e55\",\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor the selected code for clarity without changing behavior.\",\"provider_handoff_hash\":\"sha256:47f11f4a01f708050f671d9046d613fcf56976e2705792844996595d32041e55\",\"verify\":[\"python -m pytest tests -q\"]}",
+    "response_sha256": "sha256:23f9d84dbea7636917041f223bd790cfe6675504aaf4c2cf0192be1623d5246d",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

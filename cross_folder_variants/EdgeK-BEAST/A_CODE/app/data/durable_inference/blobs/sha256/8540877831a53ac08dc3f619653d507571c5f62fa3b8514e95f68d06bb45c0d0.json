@@ -1,0 +1,52 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8540877831a53ac08dc3f619653d507571c5f62fa3b8514e95f68d06bb45c0d0",
+  "payload": {
+    "artifact_type": "kv_prefill",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.7,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "inference_artifact_identity": {
+        "attention_backend": "unknown",
+        "beast_object_type": "inference_artifact_identity",
+        "engine": "unknown",
+        "engine_version": "unknown",
+        "identity_hash": "sha256:912bdeb323f345bdf06bd37e3d9e8a6ccc8cba2822bedf3b218d7944d514ba8a",
+        "model": "local-test",
+        "model_revision": "unknown",
+        "policy_fingerprint": "unknown",
+        "precision": "unknown",
+        "prompt_prefix_hash": "sha256:33b98ff5d4f01e2df65dcecffc9a6920f6b8bdcaee52e33bec1accd98a144f09",
+        "quantization": "unknown",
+        "repository_fingerprint": "unknown",
+        "rope_config_hash": "unknown",
+        "skill_tree_fingerprint": "unknown",
+        "system_prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tenant_privacy_class": "local_private",
+        "tensor_parallel_size": 1,
+        "tokenizer": "tok",
+        "tokenizer_revision": "unknown",
+        "tool_schema_fingerprint": "unknown",
+        "version": "1.0"
+      },
+      "inference_artifact_identity_hash": "sha256:912bdeb323f345bdf06bd37e3d9e8a6ccc8cba2822bedf3b218d7944d514ba8a",
+      "kv_cache_metadata": {
+        "engine": "test"
+      },
+      "model": "local-test",
+      "prompt_prefix_hash": "33b98ff5d4f01e2df65dcecffc9a6920f6b8bdcaee52e33bec1accd98a144f09",
+      "system_prompt_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tokenizer": "tok"
+    },
+    "policy_version": "engine_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "prefill_preparation",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

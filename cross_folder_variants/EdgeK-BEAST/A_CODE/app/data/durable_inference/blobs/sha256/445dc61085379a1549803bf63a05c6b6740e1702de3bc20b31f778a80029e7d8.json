@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:445dc61085379a1549803bf63a05c6b6740e1702de3bc20b31f778a80029e7d8",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix context economizer bug\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Reduces oversized request context before governance and provider execution.\", \"new\": \"Reduces oversized request context before governance and provider execution by trimming messages and preserving system messages.\", \"intent\": \"fix context economizer bug\"}], \"verify\": [\"python -m pytest app/context/test_economizer.py -q\"]}",
+    "response_sha256": "sha256:100a3dbd8c238b24a88aa70e9809b4121004690de908d4a0f8f570d8ad405766",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:bf1ae34adb30bd5f06397625da1c00fd6b07309dbc01cd9ed68c48a5c2e205f4",
+    "ref": "blobs/sha256/bf1ae34adb30bd5f06397625da1c00fd6b07309dbc01cd9ed68c48a5c2e205f4.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T15:50:45.862056+00:00",
+  "credit_id": "cache_805941cc94ae78cc",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:4f64ff0750e3b91b9da3249e4300e0d2e911d2d4d7013f4db2c39307274011c8",
+    "response_blob_digest": "sha256:dd8675abeba0309bf49aadf057baa55272a4d344afe8ab19244e7f24385db69c",
+    "response_blob_ref": "blobs/sha256/dd8675abeba0309bf49aadf057baa55272a4d344afe8ab19244e7f24385db69c.json",
+    "response_chars": 2835,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"\"\"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. This node participates in the discovery-agnostic reuse protocol to ensure secure and efficient computation. A Jetso",
+    "response_ref": "cache_805941cc94ae78cc.answer.json",
+    "response_sha256": "sha256:436703b6cb4f98ce48feb6bac13156319fbc4eb98e8016201e282ce401c09068"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

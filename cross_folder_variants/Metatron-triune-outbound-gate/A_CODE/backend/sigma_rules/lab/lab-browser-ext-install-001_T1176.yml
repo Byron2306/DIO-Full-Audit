@@ -1,0 +1,28 @@
+title: Lab synthetic ExtensionInstalled on tagged canary (honey_browser_profile) — T1176
+id: lab-browser-ext-install-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_browser_profile) is observed with the metatron_run_id tag and the
+  expected event_type matches ExtensionInstalled. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1176
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1176
+  - lab.canary
+  - lab.browser_management
+logsource:
+  product: lab_audit
+  service: browser_management
+  category: browser_ext
+detection:
+  selection:
+    event_type: 'ExtensionInstalled'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

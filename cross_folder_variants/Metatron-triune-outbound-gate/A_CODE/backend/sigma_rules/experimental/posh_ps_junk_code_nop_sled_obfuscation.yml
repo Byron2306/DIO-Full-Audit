@@ -1,0 +1,30 @@
+title: PowerShell Junk Code NOP Sled Obfuscation
+id: 0r4o5p3q-1m6n-6o9p-0q3r-4n7m8o1p6q7r
+status: experimental
+description: Detects PowerShell scripts with NOP sled obfuscation using junk code
+references:
+  - https://attack.mitre.org/techniques/T1027/016/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains|all:
+      - ';'
+      - '$null'
+      - 'nop'
+  filter:
+    CommandLine|contains:
+      - 'Get-Help'
+      - 'Get-Command'
+  condition: selection and not filter
+falsepositives:
+  - Complex legitimate PowerShell scripts
+  - Administrative automation
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1027.016

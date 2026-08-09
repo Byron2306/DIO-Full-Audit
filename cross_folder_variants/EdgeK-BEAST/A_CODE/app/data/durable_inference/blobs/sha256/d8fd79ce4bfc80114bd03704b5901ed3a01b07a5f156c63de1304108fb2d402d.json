@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:d8fd79ce4bfc80114bd03704b5901ed3a01b07a5f156c63de1304108fb2d402d",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:331e7965ad8952d25e2b4ef67d89e63185a1c0f8241d3d51c7c61dc006d42a76",
+      "response_blob_digest": "sha256:73303389f2ad9385ae8128bfefa16a4323314bc5e3b665dc1a696da2464f83a1",
+      "response_blob_ref": "blobs/sha256/73303389f2ad9385ae8128bfefa16a4323314bc5e3b665dc1a696da2464f83a1.json",
+      "response_chars": 2046,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor KVCacheBlock and ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/kv_cache_transport.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\"Phase 7: Cross-Engine KV Cache Transport \u2014 computed attention state as a transportable compute asset. This implements the LMCache-style layer described in the roadmap: \"LMCache... stores and shares KV caches across vLLM and SGLang engin",
+      "response_ref": "cache_ae5372dfbecd066f.answer.json",
+      "response_sha256": "sha256:3bfadd59253369d2ab0437e8d6b67b64fdb2a5ac825624fa1defdc367be7358b"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

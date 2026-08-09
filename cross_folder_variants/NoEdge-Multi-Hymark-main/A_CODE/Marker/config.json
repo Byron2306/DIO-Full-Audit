@@ -1,0 +1,38 @@
+{
+  "assessment": {
+    "timeout": 30,
+    "max_memory_mb": 512
+  },
+  "moderation": {
+    "low_score_threshold": 40,
+    "high_score_threshold": 95,
+    "std_dev_multiplier": 2.0,
+    "similarity_threshold": 0.85
+  },
+  "learning": {
+    "min_samples_for_learning": 10
+  },
+  "data": {
+    "data_dir": "./data"
+  },
+  "git": {
+    "enabled": false,
+    "repo_path": "."
+  },
+  "reporting": {
+    "include_html": true,
+    "include_csv": true
+  },
+  "output_dir": "./output",
+  "rubric_path": "./Rubric-1.docx",
+  "assignment1_doc": "./Individual Assignment 1.docx",
+  "efundi": {
+    "package": true,
+    "base_url": "https://efundi.nwu.ac.za",
+    "download_zip": "C:/Users/User/Downloads/Assignment 1 - UTEW221 V 2023_20260130115026.zip",
+    "output_zip": "./output/efundi_upload.zip",
+    "feedback_dir": "./output/efundi_feedback",
+    "comments_json": "",
+    "student_id_map": {}
+  }
+}

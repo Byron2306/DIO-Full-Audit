@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:90297a4efd88080258eac73cd11002f1ddf1b0454c69b62c96d5b3f895887eed",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor KVCacheBlock and ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/kv_cache_transport.py\", \"anchor_ref\": \"A6\"}, \"old\": \"\"\"Key insight: KV caches are model-specific, tokenizer-specific, prompt-prefix-specific, precision-specific, often engine-specific, large in memory, and sensitive to tiny prompt changes. So BEAST treats verified semantic artifacts as the real durable currency, but still supports KV cache as a transportable asset when the constraints can be met.\"\"\", \"new\": \"\"\"Key insight: KV caches have several key characteristics that inform their use as transportable assets. They are model-specific, tokenizer-specific, and prompt-prefix-specific. KV caches are also precision-specific and often engine-specific. Additionally, they are large in memory and sensitive to tiny prompt changes. Given these characteristics, BEAST treats verified semantic artifacts as the primary durable currency, but still supports KV cache as a transportable asset when the constraints can be met.\"\"\", \"intent\": \"Improve readability and organization of the KVCacheBlock description\"}], \"verify\": [\"test_kv_cache_block_description\"], \"provider_handoff_hash\": \"sha256:6dea5d94277f50abd2eee23c4a0d53f89070a4d1788d0a56a5ca266eb9bf777e\"}",
+    "response_sha256": "sha256:e433e03ebc9e7b060b21b8654ac3efbb55924e4643f0061c939f19654bafc4f3",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

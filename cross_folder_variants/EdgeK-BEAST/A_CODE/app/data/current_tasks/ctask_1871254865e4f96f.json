@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T20:04:56.894737+00:00",
+  "objective": "Refactor the selected code for clarity without changing behaviorprovide edits to improve this\n\nEdit scope:\n- app/kernel/compute/compression_pipeline.py\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutations_latest.json\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_receipt_latest.json\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}]}\nUse only attached files, copy old snippets exactly, make the smallest safe change, and do not include markdown or prose outside the JSON.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:1871254865e4f96f64fab12062044ad1c5c2363b0cc1615f8e13d06877a9e6c2",
+  "task_markup_id": "ctask_1871254865e4f96f"
+}

@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-08T19:56:17.935973+00:00",
+  "objective": "Return a SourcePlan-safe replacement for app/cli/ui.Return only one fenced code block containing the replacement text for the selected range. Do not return JSON commands, tool calls, prose, markdown explanations, or whole-file rewrites. Preserve existing behavior unless the selected code clearly needs the minimal improvement.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:789ca112ed80a70ac2286303b2bb3a061f79c7e19c2513366481562d31732ead",
+  "task_markup_id": "ctask_789ca112ed80a70a"
+}

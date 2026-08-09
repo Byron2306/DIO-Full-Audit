@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>VAMP Offline</title>
+  <link rel="stylesheet" href="./vamp.css"/>
+</head>
+
+<body>
+
+<!-- ─────────────────────────────────────────────
+     TOP BAR — PRESERVED + NWU BRANDING
+───────────────────────────────────────────── -->
+<div class="topbar">
+  <div class="brand">
+    <img src="./NWU-holding-shape-digital-white.png"
+         alt="NWU"
+         class="nwu-logo"/>
+    <div>
+      <div class="title">VAMP Offline</div>
+      <div class="muted">Virtual Academic Management Partner — Dracula Gothic Edition</div>
+    </div>
+  </div>
+
+  <div class="chips" id="statusChips">
+    <span class="pill bad" id="chipProfile">Profile ❌</span>
+    <span class="pill bad" id="chipTA">TA ❌</span>
+    <span class="pill bad" id="chipExp">Expectations ❌</span>
+  </div>
+
+  <div class="right" style="margin-left:auto;">
+    <audio id="vampSound" src="./vamp.wav" preload="auto"></audio>
+    <span class="pill" id="stagePill">Stage: Awaiting enrolment</span>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────
+     VAMP AGENT — CENTRAL, ALWAYS PRESENT
+───────────────────────────────────────────── -->
+<section id="vamp-agent">
+
+    <div class="vamp-video-frame">
+      <video id="vamp-video"
+        preload="auto"
+        muted
+        playsinline
+        loop
+        style="border-radius: 18px; box-shadow: 0 0 32px rgba(108,61,145,0.18), 0 0 0 6px rgba(108,61,145,0.16); border: 3px solid var(--nwu-dark); background: transparent; max-width: 220px; margin: 0 auto; display: block; object-fit:cover;">
+        <source src="./vampire.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="vamp-glow"></div>
+    </div>
+
+  <div class="vamp-dialogue">
+
+    <div class="vamp-identity">
+      <h1 class="vamp-name">VAMP</h1>
+      <div class="vamp-role">Your Gothic Performance Steward</div>
+    </div>
+
+    <!-- Floating dialogue bubbles -->
+    <div id="vamp-bubbles" class="vamp-bubbles">
+      <div class="vamp-bubble idle">
+        Awaiting instruction…
+      </div>
+    </div>
+
+    <!-- ALWAYS AVAILABLE Ask-VAMP -->
+    <div class="ask-vamp">
+      <textarea id="ask-vamp-input"
+                placeholder="Ask VAMP for guidance, clarification, or support..."
+                rows="2"></textarea>
+      <button id="ask-vamp-btn" class="btn glow">
+        Ask VAMP
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────
+     ORIGINAL APP CONTAINER — PRESERVED VERBATIM
+───────────────────────────────────────────── -->
+<div class="container">
+
+  <div class="tabs">
+    <div class="tab active" data-tab="enrol" onclick="switchToTab('enrol')">Enrolment</div>
+    <div class="tab" data-tab="expectations" onclick="switchToTab('expectations')">Expectations</div>
+    <div class="tab" data-tab="evidence" onclick="switchToTab('evidence')">Evidence Log</div>
+    <div class="tab" data-tab="reports" onclick="switchToTab('reports')">Reports</div>
+    <div class="tab" data-tab="voice" onclick="switchToTab('voice')">Voice Settings</div>
+    <div class="tab" data-tab="logs" onclick="switchToTab('logs')">Logs</div>
+  </div>
+
+  <!-- ENROLMENT -->
+  <section class="panel active" id="tab-enrol">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Staff Enrolment</div>
+          <div class="muted">Create/load your profile. This unlocks all actions.</div>
+        </div>
+        <div class="right">
+          <span class="pill" id="profilePill">No profile loaded</span>
+        </div>
+      </div>
+
+      <div class="form grid3">
+        <div><label>Staff ID</label><input id="staffId"/></div>
+        <div><label>Cycle year</label><input id="cycleYear" value="2026"/></div>
+        <div><label>Name</label><input id="name"/></div>
+        <div><label>Position</label><input id="position"/></div>
+        <div><label>Faculty</label><input id="faculty" placeholder="Faculty of Education"/></div>
+        <div><label>Campus</label><input id="campus" placeholder="Potchefstroom / Mahikeng / Vanderbijlpark"/></div>
+        <div><label>School</label><input id="school" placeholder="School of Professional Studies in Education"/></div>
+        <div><label>Subject group</label><input id="subjectGroup" placeholder="Curriculum Studies"/></div>
+        <div><label>Research entity</label><input id="researchEntity" placeholder="SDL / Edu-HRight / other"/></div>
+        <div><label>Manager</label><input id="manager"/></div>
+        <div><label>School director</label><input id="director" placeholder="Prof. Martha Matashu"/></div>
+        <div><label>Subject group leader</label><input id="subjectGroupLeader" placeholder="Nicolaas van Deventer"/></div>
+        <div><label>Executive dean</label><input id="executiveDean" placeholder="Prof. Lloyd Conley"/></div>
+        <div><label>Dean for research</label><input id="researchDean" placeholder="Prof. Josef de Beer"/></div>
+        <div><label>Admin / Secretary</label><input id="schoolAdmin" placeholder="PA, administrator, secretary"/></div>
+        <div><label>Modules / LMS context</label><input id="modulesContext" placeholder="HISE312, HISE411, ERTP671..."/></div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <button class="btn glow" id="enrolBtn" type="button" onclick="enrolOrLoadProfile()">Enrol / Load</button>
+        <button class="btn" id="refreshStatusBtn">Refresh status</button>
+      </div>
+
+      <hr class="sep"/>
+
+      <div class="card-title">Task Agreement Import</div>
+      <div class="muted">Upload your NWU Task Agreement (.xlsx).</div>
+      <div class="row" style="margin-top:10px;">
+        <input type="file" id="taFile" accept=".xlsx"/>
+        <button class="btn glow" id="taUploadBtn">Import TA</button>
+        <span class="pill" id="taPill">No TA imported</span>
+      </div>
+
+      <div id="workContextPanel" style="display:none;margin-top:14px;padding:14px;background:var(--panel-dark);border:1px solid var(--border);border-radius:8px;">
+        <div class="card-h">
+          <div>
+            <div class="card-title">Work Context Interview</div>
+            <div class="muted">Resolve project timing, collaborators, committees, supervision, and local NWU jargon before expectations are locked.</div>
+          </div>
+          <div class="right">
+            <button class="btn" id="draftContextBtn" type="button">Draft Context</button>
+            <button class="btn glow" id="saveContextBtn" type="button">Save & Rebuild</button>
+          </div>
+        </div>
+        <div id="contextQuestionList" style="margin-top:12px;"></div>
+        <details style="margin-top:12px;">
+          <summary class="muted" style="cursor:pointer;">Edit structured context JSON</summary>
+          <textarea id="workContextJson" rows="10" style="width:100%;margin-top:8px;font-family:monospace;font-size:12px;"></textarea>
+        </details>
+      </div>
+
+      <!-- Year timeline: visual progress across months -->
+      <div id="yearTimelineContainer" style="margin-top:12px;">
+        <div class="card-title">Year Progress</div>
+        <div class="muted">Visual overview of months completed. Click a month to focus.</div>
+        <div id="yearTimeline" style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <!-- Timeline months will be injected here by app.js -->
+        </div>
+      </div>
+
+      <hr class="sep"/>
+
+      <div class="card-title">Runtime Dependencies</div>
+      <div class="muted">Outlook/eFundi automation uses Playwright Chromium. Local LLM use requires Ollama if you choose Ollama instead of Groq.</div>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn" id="dependencyCheckBtn" type="button">Check Dependencies</button>
+        <button class="btn glow" id="installPlaywrightBtn" type="button">Install Browser Automation</button>
+        <span class="pill" id="dependencyPill">Not checked</span>
+      </div>
+      <pre class="log" id="dependencyLog" style="margin-top:10px;max-height:180px;">Dependency status not checked.</pre>
+    </div>
+  </section>
+
+  <!-- EXPECTATIONS -->
+  <section class="panel" id="tab-expectations">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Monthly Expectations</div>
+          <div class="muted">Track progress month-by-month across all KPAs.</div>
+        </div>
+        <div class="right" style="display:flex;gap:8px;align-items:center;">
+          <button class="btn" id="collectOutlookBtn" title="Collect month-targeted evidence from Outlook">📬 Outlook Evidence</button>
+          <button class="btn" id="scanEvidenceBtn" title="Scan and link evidence to tasks">📎 Scan Evidence</button>
+          <button class="btn glow" id="rebuildExpBtn">Rebuild Expectations</button>
+        </div>
+      </div>
+
+      <!-- Scan Evidence Modal/Section (initially hidden) -->
+      <div id="scanEvidenceSection" style="display:none;margin-top:16px;padding:16px;background:var(--panel-dark);border-radius:8px;border:2px solid var(--purple);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h4 style="margin:0;color:var(--purple);">📎 Scan Evidence Files</h4>
+          <button class="btn-small" id="closeScanSection">✕ Close</button>
+        </div>
+        <input type="hidden" id="scanTargetTaskId" value="" />
+        <div id="scanTargetTaskLabel" class="muted" style="margin-bottom:10px;display:none;">
+          Target task: <span style="color:var(--purple);font-weight:bold;" id="scanTargetTaskText"></span>
+        </div>
+        <div class="form grid2" style="margin-bottom:12px;">
+          <div>
+            <label>Select Files (multi-select)</label>
+            <input type="file" id="scanFiles" multiple accept=".pdf,.docx,.txt,.xlsx,.pptx,.png,.jpg,.jpeg,.gif,.bmp,.tif,.tiff"/>
+          </div>
+          <div>
+            <label>Month bucket</label>
+            <input id="scanMonth" value="2025-01" placeholder="YYYY-MM"/>
+            <div class="row" style="margin-top:6px;">
+              <div class="muted">NWU Brain and Ollama are used automatically for classification.</div>
+              <div class="muted">To lock evidence to a task, select the task and you will be prompted to assert and explain the mapping.</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px;">
+          <button class="btn glow" id="scanUploadBtn">Upload & Scan Files</button>
+          <button class="btn" id="scanStopBtn">Stop</button>
+          <span class="pill" id="scanProgress" style="margin-left:10px;">—</span>
+          <span class="pill" id="scanStatus" style="margin-left:10px;">Idle</span>
+        </div>
+        <div class="box" style="margin-top:12px;">
+          <div class="box-h">Activity log</div>
+          <pre class="log" id="scanLog">Ready to scan evidence files…</pre>
+        </div>
+      </div>
+
+      <div class="form grid2">
+        <div>
+          <label>Current Month</label>
+          <select id="currentMonthSelect"></select>
+        </div>
+        <div class="row" style="align-items:flex-end;">
+          <button class="btn glow" id="checkMonthStatusBtn">Check Month Status</button>
+          <span class="pill" id="monthStatusPill">—</span>
+        </div>
+      </div>
+
+      <!-- Monthly KPA Expectations (Collapsible) -->
+      <div id="monthlyExpectationsContainer" style="margin-top:16px;">
+        <div class="muted" style="text-align:center;padding:20px;">
+          Import a Task Agreement to see monthly expectations.
+        </div>
+      </div>
+
+      <div class="box" style="margin-top:12px;">
+        <div class="box-h">AI Month Review</div>
+        <div class="evidence" id="monthReviewBox">
+          Upload evidence for the current month, then click "Check Month Status" to have VAMP assess whether you've met your expectations.
+        </div>
+        <div class="row" style="gap:8px;margin-top:12px;">
+          <button class="btn" id="lockMonthBtn" disabled title="Lock this month when all tasks are complete">🔒 Lock Month</button>
+          <span class="pill" id="monthLockPill" style="display:none;">Locked</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- EVIDENCE LOG -->
+  <section class="panel" id="tab-evidence">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Evidence Log</div>
+          <div class="muted">All scanned evidence files with task assignments and impact assessments.</div>
+        </div>
+        <div class="right">
+          <div class="row" style="gap:8px;">
+            <label>Filter Month:</label>
+            <select id="evidenceMonthFilter" style="padding:4px 8px;">
+              <option value="all">All Months</option>
+              <!-- Options will be populated dynamically based on cycle year -->
+            </select>
+            <button class="btn glow" id="evidenceReloadBtn">Reload</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Evidence Log Table -->
+      <div class="table-container" style="margin-top:16px;">
+        <table class="vamp-table" id="evidenceLogTable">
+          <thead>
+              <tr>
+                <th></th>
+                <th>Date</th>
+                <th>File Name</th>
+                <th>KPA Assigned</th>
+                <th>Month</th>
+                <th>Covers</th>
+                <th>Task</th>
+                <th>Tier</th>
+                <th>Rating</th>
+                <th>Impact Assessment</th>
+                <th>Confidence</th>
+                <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody id="evidenceLogTableBody">
+            <tr><td colspan="12" class="no-data">No evidence logged yet. Use "Scan Evidence" in the Expectations tab.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORTS -->
+  <section class="panel" id="tab-reports">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Reports & Reviews</div>
+          <div class="muted">Mid-year review, end-year review, and Performance Agreement generation.</div>
+        </div>
+      </div>
+
+      <!-- Mid-Year Review Section -->
+      <div class="box" style="margin-top:16px;border-left:3px solid var(--purple);">
+        <div class="box-h">📊 Mid-Year Review (January - May)</div>
+        <div id="midyearReviewStatus" style="padding:8px 0;">
+          <div class="muted">Loading review status...</div>
+        </div>
+        <div class="row" style="gap:8px;margin-top:12px;">
+          <button class="btn glow" id="checkMidyearBtn">Check Readiness</button>
+          <button class="btn" id="generateMidyearBtn" disabled>Generate Mid-Year Review</button>
+        </div>
+        <div id="midyearReviewContent" style="display:none;margin-top:16px;padding:12px;background:var(--panel);border-radius:4px;">
+          <!-- Mid-year review content will be rendered here -->
+        </div>
+      </div>
+
+      <!-- Month Lock Status -->
+      <div class="box" style="margin-top:16px;">
+        <div class="box-h">🔒 Month Lock Status</div>
+        <div id="monthLockGrid" style="display:grid;grid-template-columns:repeat(6, 1fr);gap:8px;margin-top:12px;">
+          <!-- Month lock indicators will be rendered here -->
+        </div>
+      </div>
+
+      <!-- PA Report Table -->
+      <div class="table-container" style="margin-top:16px;">
+        <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 style="color:var(--purple);">Performance Agreement Report</h3>
+          <button class="btn glow" id="genPABtn">Generate Final PA</button>
+        </div>
+        <table class="vamp-table" id="paExpectationsTable">
+          <thead>
+            <tr>
+              <th>KPA Name</th>
+              <th>Outputs</th>
+              <th>KPIs</th>
+              <th>Weight (%)</th>
+              <th>Hours</th>
+              <th>Outcomes</th>
+              <th>Active</th>
+            </tr>
+          </thead>
+          <tbody id="paExpectationsTableBody">
+            <tr><td colspan="7" class="no-data">Click "Generate Final PA" to create report.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box" style="margin-top:16px;">
+        <div class="box-h">PA Generation Output</div>
+        <div class="evidence" id="reportBox">Click "Generate Final PA" to create your Performance Agreement document.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE SETTINGS -->
+  <section class="panel" id="tab-voice">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">🎙️ Voice Settings</div>
+          <div class="muted">Configure the VAMP voice profile: Conversational kAImil</div>
+        </div>
+      </div>
+
+      <!-- Voice Status -->
+      <div class="box info" id="voiceStatusBox">
+        <div class="box-h">Voice Status</div>
+        <div id="voiceStatusContent">Checking voice system...</div>
+      </div>
+
+      <!-- Upload Voice Samples -->
+      <div class="box" style="margin-top:16px;">
+        <div class="box-h">📤 Upload Voice Samples</div>
+        <p style="margin-bottom:12px;color:var(--text);">
+          Upload clean voice snippets for the Romanian-accented VAMP profile.
+          Short, dry recordings with no music or room echo work best.
+        </p>
+        <input type="file" id="voiceSampleInput" accept=".wav,.mp3,.flac,.m4a,.ogg" multiple style="margin-bottom:12px;"/>
+        <button class="btn" id="uploadVoiceSampleBtn">Upload Voice Sample(s)</button>
+        <div id="voiceUploadStatus" style="margin-top:8px;"></div>
+      </div>
+
+      <!-- Train Voice -->
+      <div class="box warning" style="margin-top:16px;">
+        <div class="box-h">🎯 Train Voice Model</div>
+        <p style="margin-bottom:12px;color:var(--text);">
+          After uploading voice samples, click below to extract the local voice profile.
+          Playback currently uses the configured ElevenLabs voice.
+        </p>
+        <button class="btn glow" id="trainVoiceBtn">Train Conversational kAImil</button>
+        <div id="voiceTrainStatus" style="margin-top:8px;"></div>
+      </div>
+
+      <!-- Voice Test -->
+      <div class="box success" style="margin-top:16px;">
+        <div class="box-h">🔊 Test Voice</div>
+        <p style="margin-bottom:12px;color:var(--text);">
+          Test the cloned voice with sample text.
+        </p>
+        <textarea id="voiceTestText" rows="3" placeholder="Enter text to test voice synthesis..." style="width:100%;margin-bottom:12px;">Hello! This is VAMP, your Virtual Academic Management Partner. I'm here to help you with your performance management.</textarea>
+        <button class="btn glow" id="testVoiceBtn">Generate Test Speech</button>
+        <div id="voiceTestPlayer" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- Voice Info -->
+      <div class="box" style="margin-top:16px;">
+        <div class="box-h">ℹ️ About Voice Cloning</div>
+        <p style="color:var(--text);line-height:1.6;">
+          <strong>OpenVoice V2</strong> (MIT License) allows VAMP to speak with a natural, cloned voice.<br><br>
+          <strong>Requirements:</strong><br>
+          • 3-5 audio samples of clear speech (5-30 seconds each)<br>
+          • GPU recommended for faster processing (CPU works but is slower)<br>
+          • Training takes 1-5 minutes depending on hardware<br><br>
+          <strong>Privacy:</strong> All voice processing happens locally. Voice models never leave your system.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGS -->
+  <section class="panel" id="tab-logs">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Logs</div>
+          <div class="muted">Client-side log console.</div>
+        </div>
+      </div>
+      <pre class="log" id="appLog"></pre>
+    </div>
+  </section>
+
+</div>
+
+<!-- ─────────────────────────────────────────────
+     MODALS
+───────────────────────────────────────────── -->
+
+<!-- AI Guidance Modal -->
+<div id="aiGuidanceModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>AI Guidance</h2>
+      <button class="modal-close" onclick="closeModal('aiGuidanceModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <label>Task Context</label>
+        <div id="aiTaskContext" class="modal-info"></div>
+      </div>
+      <div class="modal-section">
+        <label>Your Question</label>
+        <textarea id="aiGuidanceInput" rows="3" placeholder="Ask VAMP for guidance on this task…"></textarea>
+      </div>
+      <div class="modal-section" id="aiGuidanceResponse" style="display:none;">
+        <label>VAMP's Guidance</label>
+        <div class="modal-response"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('aiGuidanceModal')">Cancel</button>
+      <button class="btn glow" id="submitGuidanceBtn">Ask VAMP</button>
+    </div>
+  </div>
+</div>
+
+<!-- Resolve Classification Modal -->
+<div id="resolveModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Resolve Classification</h2>
+      <button class="modal-close" onclick="closeModal('resolveModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <label>File</label>
+        <div id="resolveFileName" class="modal-info"></div>
+      </div>
+      <div class="modal-section">
+        <label>AI's Initial Classification</label>
+        <div id="resolveInitialClass" class="modal-info warning"></div>
+      </div>
+      <div class="modal-section">
+        <label>Select Correct KPA</label>
+        <select id="resolveKpaSelect" class="modal-select">
+          <option value="">-- Choose KPA --</option>
+          <option value="teaching_learning">Teaching & Learning</option>
+          <option value="research">Research</option>
+          <option value="community_engagement">Community Engagement</option>
+          <option value="innovation_impact">Innovation & Impact</option>
+          <option value="leadership_management">Leadership & Management</option>
+        </select>
+      </div>
+      <div class="modal-section">
+        <label>Explain the Link</label>
+        <textarea id="resolveExplanation" rows="4" placeholder="Describe how this evidence relates to the chosen KPA…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('resolveModal')">Cancel</button>
+      <button class="btn glow" id="submitResolveBtn">Resolve & Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- VAMP Thinking Overlay -->
+<div id="vampThinking" class="vamp-overlay" style="display:none;">
+  <div class="vamp-overlay-content">
+    <div class="vamp-spinner"></div>
+    <div class="vamp-overlay-text" id="vampThinkingText">Analysing…</div>
+  </div>
+</div>
+
+<!-- Evidence Description/Enhancement Modal -->
+<div id="evidenceEnhanceModal" class="modal" style="display:none;">
+  <div class="modal-overlay" onclick="closeEnhanceModal()"></div>
+  <div class="modal-content" style="max-width:600px;">
+    <div class="modal-header">
+      <h3>Enhance Evidence Confidence</h3>
+      <button class="modal-close" onclick="closeEnhanceModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="muted" style="margin-bottom:16px;">Help improve accuracy by describing how this evidence covers the expectation.</p>
+      
+      <div class="info-box" style="background:var(--grey-bg);padding:12px;border-radius:6px;margin-bottom:16px;">
+        <div style="margin-bottom:6px;"><strong>Evidence:</strong> <span id="modalEvidenceFile">-</span></div>
+        <div style="margin-bottom:6px;"><strong>Current KPA:</strong> <span id="modalCurrentKPA">-</span></div>
+        <div><strong>Current Confidence:</strong> <span id="modalCurrentConf">-</span></div>
+      </div>
+      
+      <label style="display:block;margin-bottom:8px;font-weight:600;">How does this evidence cover the expectation?</label>
+      <textarea id="evidenceDescriptionText" 
+                rows="5" 
+                style="width:100%;padding:10px;border:1px solid var(--grey);border-radius:4px;font-family:inherit;resize:vertical;"
+                placeholder="Example: This certificate proves I completed the mandatory fire safety training session on Feb 15th, covering evacuation procedures and extinguisher use as required for OHS compliance."></textarea>
+      
+      <div style="margin-top:12px;font-size:0.9em;color:var(--grey-dim);">
+        💡 Tip: Include specific dates, topics covered, and why this evidence matters for your KPA task.
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex;gap:10px;justify-content:flex-end;padding:16px;border-top:1px solid var(--grey);">
+      <button class="btn secondary" onclick="closeEnhanceModal()">Cancel</button>
+      <button class="btn glow" id="submitEnhanceBtn" onclick="submitEnhancement()">✨ Enhance Confidence</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lock Evidence Explanation Modal -->
+<div id="lockExplanationModal" class="modal">
+  <div class="modal-content" style="max-width:600px;">
+    <div class="modal-header">
+      <h3>🔒 Explain Locked Evidence</h3>
+      <button class="modal-close" onclick="closeLockExplanationModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="muted" style="margin-bottom:16px;">You're locking evidence to a specific task. Please explain how this evidence relates to the selected task.</p>
+      
+      <div class="info-box" style="background:var(--accent-bg);padding:12px;border-radius:6px;margin-bottom:16px;border-left:3px solid var(--accent);">
+        <div style="margin-bottom:6px;"><strong>Task:</strong> <span id="lockModalTaskTitle">-</span></div>
+        <div style="margin-bottom:6px;"><strong>Files:</strong> <span id="lockModalFileCount">-</span></div>
+        <div><strong>Month:</strong> <span id="lockModalMonth">-</span></div>
+      </div>
+      
+      <label style="display:block;margin-bottom:8px;font-weight:600;">How does this evidence relate to the task?</label>
+      <textarea id="lockExplanationText" 
+                rows="6" 
+                style="width:100%;padding:10px;border:1px solid var(--grey);border-radius:4px;font-family:inherit;resize:vertical;"
+                placeholder="Example: This lecture recording demonstrates the module preparation and eFundi setup for HISE411. It shows the planning of lesson content, upload of materials, and configuration of assessment schedules for the semester."></textarea>
+      
+      <div style="margin-top:12px;font-size:0.9em;color:var(--grey-dim);">
+        💡 <strong>Why this matters:</strong> Your explanation will be stored with the evidence and used to:
+        <ul style="margin:8px 0 0 20px;line-height:1.6;">
+          <li>Improve evidence relevance scoring</li>
+          <li>Help reviewers understand your work</li>
+          <li>Strengthen your performance assessment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex;gap:10px;justify-content:flex-end;padding:16px;border-top:1px solid var(--grey);">
+      <button class="btn secondary" onclick="closeLockExplanationModal()">Cancel Scan</button>
+      <button class="btn glow" id="submitLockExplanationBtn" onclick="submitLockExplanation()">🔒 Lock & Scan</button>
+    </div>
+  </div>
+</div>
+
+  <script src="./app.js?v=20260203"></script>
+</body>
+</html>

@@ -1,0 +1,1238 @@
+# Seraph AI Defense System - Docker Compose Setup
+# ================================================
+# Complete deployment with all services
+#
+# Quick Start:
+#   1. cp .env.example .env && nano .env
+#   2. docker-compose up -d
+#   3. Access UI at http://localhost:3000
+#
+# Default behavior starts the lightweight core stack only.
+# Optional heavy services are enabled with profiles:
+#   docker compose --profile search --profile ai --profile security --profile sandbox --profile ssl up -d
+# Individual integrations can also be started on demand, for example:
+#   docker compose --profile amass up -d amass
+#   docker compose --profile spiderfoot up -d spiderfoot
+#   docker compose --profile bloodhound up -d bloodhound neo4j
+#
+# Services:
+#   - backend: FastAPI server (port 8001)
+#   - frontend: React app (port 3000)
+#   - mongodb: Database (port 27017)
+#   - wireguard: VPN server (port 51820/udp)
+#
+# Requirements:
+#   - Docker 20.10+ & Docker Compose 2.0+
+#   - Linux kernel with WireGuard support (5.6+)
+#   - NET_ADMIN capability for VPN
+#   - 4GB+ RAM recommended
+
+services:
+  # ==========================================================================
+  # MongoDB Database
+  # ==========================================================================
+  mongodb:
+    image: mongo:7.0
+    container_name: seraph-mongodb
+    restart: unless-stopped
+    command: ["mongod", "--wiredTigerCacheSizeGB", "0.25"]
+    ports:
+      - "${BIND_MONGODB_HOST:-127.0.0.1}:27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    environment:
+      MONGO_INITDB_DATABASE: seraph_ai_defense
+    networks:
+      - seraph-network
+    mem_limit: 768m
+    mem_reservation: 256m
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+
+  # ==========================================================================
+  # Backend API Server
+  # ==========================================================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: seraph-backend
+    restart: unless-stopped
+    working_dir: /app/backend
+    command: ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8001"]
+    ports:
+      - "${BIND_BACKEND_HOST:-127.0.0.1}:8001:8001"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=seraph_ai_defense
+      - PYTHONPATH=/app/backend:/app
+      - INTEGRATION_API_KEY=${INTEGRATION_API_KEY:-dev-integration-key-change-me}
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      - REMOTE_ADMIN_ONLY=${REMOTE_ADMIN_ONLY:-false}
+      - REMOTE_ADMIN_EMAILS=${REMOTE_ADMIN_EMAILS:-}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://165.22.41.184,http://165.22.41.184:3000,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5000,http://127.0.0.1:5000}
+      - VPN_SERVER_ENDPOINT=${VPN_SERVER_ENDPOINT:-vpn.yourdomain.com}
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL:-}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-}
+      - ELASTICSEARCH_API_KEY=${ELASTICSEARCH_API_KEY:-}
+      - OLLAMA_URL=${OLLAMA_URL:-http://ollama:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-mistral}
+      - LOCAL_LLM_ENABLED=${LOCAL_LLM_ENABLED:-false}
+      - SERAPH_QUANTUM_MODE=${SERAPH_QUANTUM_MODE:-simulation}
+      - CUCKOO_API_URL=${CUCKOO_API_URL:-http://cuckoo:1337}
+      - CUCKOO_API_TOKEN=${CUCKOO_API_TOKEN:-}
+      - CUCKOO_API_VERSION=${CUCKOO_API_VERSION:-2}
+      - TRIVY_ENABLED=${TRIVY_ENABLED:-false}
+      - FALCO_ENABLED=${FALCO_ENABLED:-false}
+      - INTEGRATION_RUNTIME_MAX_CONCURRENT=${INTEGRATION_RUNTIME_MAX_CONCURRENT:-1}
+      - AMASS_TIMEOUT_MINUTES=${AMASS_TIMEOUT_MINUTES:-2}
+      - NETWORK_DISCOVERY_ENABLED=${NETWORK_DISCOVERY_ENABLED:-false}
+      - NETWORK_DISCOVERY_INTERVAL=${NETWORK_DISCOVERY_INTERVAL:-1800}
+      - VPN_ENABLED=${VPN_ENABLED:-true}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY:-}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-}
+      - EVIDENCE_BUNDLE_ROOT=/var/lib/seraph-ai/evidence-bundle
+      # Persist integration + atomic run telemetry under the writable artifacts mount
+      - SERAPH_DATA_DIR=/var/lib/seraph-ai/artifacts
+      - ATOMIC_VALIDATION_RESULTS_DIR=/var/lib/seraph-ai/artifacts/atomic-validation
+      - ATOMIC_EXTRA_RUN_DIRS=/var/lib/seraph-ai/raw-runs/atomic-validation:/var/lib/seraph-ai/evidence-sandbox-s4/atomic_runs:/var/lib/seraph-ai/atomic-validation-baseline
+      - ATOMIC_RED_TEAM_PATH=${ATOMIC_RED_TEAM_PATH:-/opt/atomic-red-team/atomics}
+      # These must be HOST-side absolute paths (used for sibling docker sandbox containers).
+      - ATOMIC_RED_TEAM_HOST_PATH=${ATOMIC_RED_TEAM_HOST_PATH:-}
+      - INVOKE_ATOMICREDTEAM_HOST_PATH=${INVOKE_ATOMICREDTEAM_HOST_PATH:-}
+      - ATOMIC_RUNNER=/opt/pwsh/pwsh
+      - PWSH_MODULE_PATH=${PWSH_MODULE_PATH:-/opt/invoke-atomicredteam/Invoke-AtomicRedTeam.psm1}
+      - ATOMIC_POWERSHELL_CONFIG=/app/config/atomic_powershell.yml
+      - ATOMIC_SANDBOX_IMAGE=${ATOMIC_SANDBOX_IMAGE:-seraph-sandbox-tools:latest}
+      - OSQUERY_RESULTS_LOG=/var/lib/seraph-ai/evidence-bundle/osqueryd.results.log
+      - FLEET_BASE_URL=${FLEET_BASE_URL:-}
+      - FLEET_API_TOKEN=${FLEET_API_TOKEN:-}
+      - OSQUERY_DEMO_MODE=${OSQUERY_DEMO_MODE:-true}
+      # macOS lab runner (ssh) - optional
+      - MACOS_LAB_HOST=${MACOS_LAB_HOST:-}
+      - MACOS_LAB_USER=${MACOS_LAB_USER:-}
+      - MACOS_LAB_PORT=${MACOS_LAB_PORT:-22}
+      - MACOS_SSH_KEY_PATH=${MACOS_SSH_KEY_PATH:-/app/secrets/ssh/id_ed25519}
+      - MACOS_ATOMIC_ROOT=${MACOS_ATOMIC_ROOT:-}
+      - MACOS_INVOKE_ATOMICREDTEAM_MODULE_PATH=${MACOS_INVOKE_ATOMICREDTEAM_MODULE_PATH:-}
+      # Persist SOAR linkage evidence for MITRE S5 gating (writeable path)
+      - SIGMA_SOAR_EXECUTION_ARCHIVE_PATH=/var/lib/seraph-ai/artifacts/soar_executions_archive.json
+      - MITRE_ARCHIVED_SOAR_EXECUTION_PATH=/var/lib/seraph-ai/artifacts/soar_executions_archive.json
+      - ARDA_ENFORCE_ON_BOOT=false
+      - ARDA_LSM_ENABLED=false
+      - SERAPH_SECURE_BOOT_ENABLED=true
+      - SERAPH_KERNEL_ENABLED=true
+      - SERAPH_TPM_OVERRIDE=true
+      - SERAPH_EFI_ROOT=/host/sys/firmware/efi
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - vpn_config:/var/lib/anti-ai-defense/vpn
+      - quarantine_data:/var/lib/anti-ai-defense/quarantine
+      - ./evidence-bundle:/var/lib/seraph-ai/evidence-bundle
+      # Baseline / historical atomic runs (read-only). New runs are written under ./artifacts.
+      - ./atomic-validation-results:/var/lib/seraph-ai/atomic-validation-baseline:ro
+      - ./raw-runs:/var/lib/seraph-ai/raw-runs:ro
+      - ./metatron-evidence-package-real-sandbox-2026-04-18/atomic_runs:/var/lib/seraph-ai/evidence-sandbox-s4/atomic_runs:ro
+      - ./metatron-evidence-package-real-sandbox-2026-04-18/evidence_bundle:/var/lib/seraph-ai/evidence-sandbox-s5:ro
+      - ./artifacts:/var/lib/seraph-ai/artifacts
+      - zeek_logs:/usr/local/zeek/logs:ro
+      - suricata_logs:/var/log/suricata:ro
+      - ./backend:/app/backend:ro
+      - ./frontend/public/downloads:/app/frontend/public/downloads:ro
+      - ./scripts:/app/scripts:ro
+      - ./backend/playbooks:/app/playbooks:ro
+      - ./unified_agent:/app/unified_agent:ro
+      - ./config:/app/config:ro
+      - ./secrets/ssh:/app/secrets/ssh:ro
+      - ./atomic-red-team:/opt/atomic-red-team:ro
+      - ./tools/invoke-atomicredteam:/opt/invoke-atomicredteam:ro
+      - ./tools/powershell:/opt/pwsh:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker:ro
+      - /sys/class/dmi:/sys/class/dmi:ro
+      - /sys/firmware/dmi:/sys/firmware/dmi:ro
+      # Allow Secure Boot / UEFI variable inspection from inside the container.
+      # `/sys` is typically not writable in containers, so mount to a non-/sys path.
+      - /sys/firmware/efi:/host/sys/firmware/efi:ro
+    # SYS_MODULE, SYS_ADMIN, BPF removed — those caps let the container load
+    # a BPF LSM hook into the host kernel, which blocked execve() system-wide.
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - seraph-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 512m
+
+  # ==========================================================================
+  # Sophia Presence Server (Presence UI + stdlib API proxy)
+  # ==========================================================================
+  presence:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.presence
+    container_name: seraph-presence
+    restart: "no"
+    ports:
+      - "${BIND_PRESENCE_HOST:-127.0.0.1}:7070:7070"
+    environment:
+      - PRESENCE_PORT=7070
+      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_MODEL=${PRESENCE_OLLAMA_MODEL:-qwen2.5:3b}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY:-}
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=seraph_ai_defense
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend:ro
+      - ./evidence:/app/evidence:ro
+      - ./unified_agent:/app/unified_agent:ro
+      - ./scripts:/app/scripts:ro
+    networks:
+      - seraph-network
+    mem_limit: 512m
+    mem_reservation: 128m
+    profiles:
+      - ai
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:7070/api/health', timeout=3).read()",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
+
+  # ==========================================================================
+  # Elasticsearch (local SIEM store)
+  # ==========================================================================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: seraph-elasticsearch
+    restart: "no"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=false
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - cluster.routing.allocation.disk.watermark.low=98%
+      - cluster.routing.allocation.disk.watermark.high=99%
+      - cluster.routing.allocation.disk.watermark.flood_stage=99%
+      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+    ports:
+      - "9201:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - seraph-network
+    profiles:
+      - search
+      - arkime
+      - integrations
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9200/_cluster/health"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ==========================================================================
+  # Kibana (local dashboards)
+  # ==========================================================================
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: seraph-kibana
+    restart: "no"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - seraph-network
+    profiles:
+      - search
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:5601/api/status"]
+      interval: 20s
+      timeout: 10s
+      retries: 20
+      start_period: 120s
+
+  # ==========================================================================
+  # Ollama (local LLM)
+  # ==========================================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: seraph-ollama
+    restart: "no"
+    ports:
+      - "${BIND_OLLAMA_HOST:-127.0.0.1}:${OLLAMA_HOST_PORT:-11435}:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - seraph-network
+    profiles:
+      - ai
+      - bootstrap
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 512m
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 8
+      start_period: 30s
+
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: seraph-ollama-pull
+    restart: "no"
+    depends_on:
+      ollama:
+        condition: service_started
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["ollama pull ${OLLAMA_MODEL:-mistral} || true"]
+    networks:
+      - seraph-network
+    profiles:
+      - bootstrap
+
+  # ==========================================================================
+  # Trivy Server (optional remote scanner service)
+  # ==========================================================================
+  trivy:
+    image: aquasec/trivy:latest
+    container_name: seraph-trivy
+    restart: "no"
+    command: ["server", "--listen", "0.0.0.0:4954"]
+    ports:
+      - "4954:4954"
+    volumes:
+      - trivy_cache:/root/.cache/trivy
+    networks:
+      - seraph-network
+    profiles:
+      - security
+      - trivy
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # Falco Runtime Security (optional)
+  # ==========================================================================
+  falco:
+    image: falcosecurity/falco:latest
+    container_name: seraph-falco
+    restart: "no"
+    privileged: true
+    pid: host
+    security_opt:
+      - seccomp=unconfined
+    environment:
+      - FALCO_DRIVER_CHOICE=modern_ebpf
+      - SKIP_DRIVER_LOADER=yes
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /proc:/host/proc:ro
+      - /boot:/host/boot:ro
+      - /lib/modules:/host/lib/modules:ro
+      - /usr/src:/usr/src:ro
+      - /sys/kernel/debug:/host/sys/kernel/debug:ro
+      - /sys/kernel/tracing:/host/sys/kernel/tracing
+      - /sys/fs/bpf:/sys/fs/bpf
+      - /usr:/host/usr:ro
+      - ./config/falco.yaml:/etc/falco/falco.yaml:ro
+      - falco_data:/var/log/falco
+    command: >
+      /usr/bin/falco
+        -o "json_output=true"
+        -o "json_include_output_property=true"
+        -o "json_include_tags_property=true"
+        -o "file_output.enabled=true"
+        -o "file_output.keep_alive=true"
+        -o "file_output.filename=/var/log/falco/falco_alerts.json"
+        -o "log_stderr=false"
+        -o "log_syslog=false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - seraph-network
+    profiles:
+      - security
+      - falco
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 256m
+  # ==========================================================================
+  # Suricata IDS (optional host sensor)
+  # ==========================================================================
+  suricata:
+    image: jasonish/suricata:latest
+    container_name: seraph-suricata
+    restart: "no"
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    entrypoint: ["/bin/sh", "-lc"]
+    command:
+      - |
+        set -e
+        echo "Updating Suricata rules via suricata-update..."
+        suricata-update --no-reload -o /var/lib/suricata/rules 2>&1 || true
+        CAPTURE_IFACE="${SURICATA_INTERFACE:-seraph-br0}"
+        if ! ip link show "$$CAPTURE_IFACE" >/dev/null 2>&1; then
+          if ip link show seraph-br0 >/dev/null 2>&1; then
+            echo "Suricata capture interface '$$CAPTURE_IFACE' does not exist; falling back to seraph-br0."
+            CAPTURE_IFACE=seraph-br0
+          else
+            echo "Suricata capture interface '$$CAPTURE_IFACE' does not exist. Set SURICATA_INTERFACE to one of:"
+            ip -o link show | awk -F': ' '{print "  " $$2}' | sed 's/@.*//'
+            exit 1
+          fi
+        fi
+        echo "Starting Suricata on interface $${CAPTURE_IFACE}..."
+        exec suricata -i "$$CAPTURE_IFACE" \
+          --set default-rule-path=/var/lib/suricata/rules \
+          --set rule-files[0]=suricata.rules \
+          -l /var/log/suricata
+    volumes:
+      - suricata_logs:/var/log/suricata
+      - ./backend:/app/backend:ro
+    profiles:
+      - security
+      - suricata
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # Arkime Network Forensics (optional bridge capture)
+  # ==========================================================================
+  arkime-capture:
+    image: ghcr.io/arkime/arkime/arkime:v5-latest
+    container_name: seraph-arkime-capture
+    restart: "no"
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    entrypoint: ["/bin/bash", "-lc"]
+    command:
+      - |
+        set -e
+        mkdir -p /opt/arkime/etc /opt/arkime/raw /opt/arkime/logs
+        CAPTURE_IFACE="${ARKIME_INTERFACE:-seraph-br0}"
+        if ! ip link show "$$CAPTURE_IFACE" >/dev/null 2>&1; then
+          if ip link show seraph-br0 >/dev/null 2>&1; then
+            echo "Arkime capture interface '$$CAPTURE_IFACE' does not exist; falling back to seraph-br0."
+            CAPTURE_IFACE=seraph-br0
+          else
+            echo "Arkime capture interface '$$CAPTURE_IFACE' does not exist. Set ARKIME_INTERFACE to one of:"
+            ip -o link show | awk -F': ' '{print "  " $$2}' | sed 's/@.*//'
+            exit 1
+          fi
+        fi
+        /opt/arkime/db/db.pl "${ARKIME_ELASTICSEARCH:-http://127.0.0.1:9201}" init --ifneeded --shards 1 --replicas 0 || true
+        exec /opt/arkime/bin/capture \
+          -c /opt/arkime/etc/config.ini \
+          -n "${ARKIME_NODE:-metatron-lab}" \
+          -o "elasticsearch=${ARKIME_ELASTICSEARCH:-http://127.0.0.1:9201}" \
+          -o "interface=$${CAPTURE_IFACE}" \
+          -o "pcapDir=/opt/arkime/raw" \
+          -o "dropUser=root" \
+          -o "dropGroup=root" \
+          -o "snapLen=65535" \
+          -o "pcapReadMethod=libpcap" \
+          -o "passwordSecret=${ARKIME_PASSWORD_SECRET:-metatron-local-lab-secret}" \
+          --host "${ARKIME_HOST:-127.0.0.1}"
+    volumes:
+      - ./config/arkime/config.ini:/opt/arkime/etc/config.ini:ro
+      - arkime_raw:/opt/arkime/raw
+      - arkime_logs:/opt/arkime/logs
+    profiles:
+      - security
+      - search
+      - arkime
+      - integrations
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # Zeek Network Security Monitor
+  # ==========================================================================
+  zeek:
+    image: blacktop/zeek:latest
+    container_name: seraph-zeek
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    entrypoint: ["/bin/sh","-lc"]
+    command:
+      - |
+        set -e
+        mkdir -p /usr/local/zeek/logs
+        cd /usr/local/zeek/logs
+        MEM_AVAIL_KB=$$(awk '/MemAvailable:/ {print $$2}' /proc/meminfo || echo 0)
+        MIN_MEM_KB=1200000
+        if [ "$${MEM_AVAIL_KB:-0}" -lt "$$MIN_MEM_KB" ]; then
+          echo "Skipping live Zeek capture (low memory: $${MEM_AVAIL_KB} KB available)"
+          exec tail -f /dev/null
+        fi
+        IFACE=$$(ip -o link show | awk -F': ' '/br-.*LOWER_UP/ {print $$2; exit}')
+        IFACE=$${IFACE:-any}
+        echo "Zeek sniffing $$IFACE"
+        if ! zeek -i "$$IFACE" -C \
+          base/protocols/conn \
+          base/protocols/dns \
+          base/protocols/http \
+          base/frameworks/notice \
+          policy/misc/scan; then
+          echo "Primary Zeek capture failed on $$IFACE, retrying with any"
+          exec zeek -i any -C base/protocols/conn base/protocols/dns base/frameworks/notice
+        fi
+    volumes:
+      - zeek_logs:/usr/local/zeek/logs
+    profiles:
+      - security
+      - zeek
+      - integrations
+  # ==========================================================================
+  # Velociraptor (optional DFIR collection helper)
+  # ==========================================================================
+  velociraptor:
+    image: wlambert/velociraptor:latest
+    container_name: seraph-velociraptor
+    restart: "no"
+    mem_limit: 256m
+    entrypoint: ["/bin/sh","-lc"]
+    command:
+      - "echo 'Velociraptor image ready (integration helper)'; while true; do sleep 3600; done"
+    networks:
+      - seraph-network
+    profiles:
+      - security
+      - velociraptor
+      - integrations
+
+  # ==========================================================================
+  # Amass OSINT Enumerator (optional, on-demand helper)
+  # ==========================================================================
+  amass:
+    image: caffix/amass:latest
+    container_name: seraph-amass
+    restart: "no"
+    entrypoint: ["/bin/sh", "-lc"]
+    command: ["echo 'Amass helper ready; use backend /api/integrations/amass/run or docker compose run --rm amass enum ...'; sleep infinity"]
+    volumes:
+      - ./artifacts/integrations/amass:/data
+    networks:
+      - seraph-network
+    profiles:
+      - amass
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+        reservations:
+          memory: 128m
+
+  # ==========================================================================
+  # SpiderFoot OSINT (optional, on-demand web helper)
+  # ==========================================================================
+  spiderfoot:
+    image: ctdc/spiderfoot:latest
+    container_name: seraph-spiderfoot
+    restart: "no"
+    ports:
+      - "${BIND_SPIDERFOOT_HOST:-127.0.0.1}:5001:5001"
+    volumes:
+      - spiderfoot_data:/home/spiderfoot/.spiderfoot
+    networks:
+      - seraph-network
+    profiles:
+      - spiderfoot
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 768m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # BloodHound / Neo4j (optional AD graph analysis)
+  # ==========================================================================
+  neo4j:
+    image: neo4j:4.4-community
+    container_name: seraph-neo4j
+    restart: "no"
+    environment:
+      - NEO4J_AUTH=${NEO4J_AUTH:-neo4j/bloodhound}
+      - NEO4J_dbms_memory_heap_initial__size=256m
+      - NEO4J_dbms_memory_heap_max__size=512m
+      - NEO4J_dbms_memory_pagecache_size=256m
+    ports:
+      - "${BIND_NEO4J_HOST:-127.0.0.1}:7474:7474"
+      - "${BIND_NEO4J_BOLT_HOST:-127.0.0.1}:7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    networks:
+      - seraph-network
+    profiles:
+      - bloodhound
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 384m
+
+  bloodhound-postgres:
+    image: postgres:16
+    container_name: seraph-bloodhound-postgres
+    restart: "no"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-bloodhound}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-bloodhoundcommunityedition}
+      - POSTGRES_DB=${POSTGRES_DB:-bloodhound}
+    volumes:
+      - bloodhound_postgres_data:/var/lib/postgresql/data
+    networks:
+      - seraph-network
+    profiles:
+      - bloodhound
+      - integrations
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-bloodhound} -d $${POSTGRES_DB:-bloodhound}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 128m
+
+  bloodhound:
+    image: specterops/bloodhound:latest
+    container_name: seraph-bloodhound
+    restart: "no"
+    ports:
+      - "${BIND_BLOODHOUND_HOST:-127.0.0.1}:8081:8080"
+    environment:
+      - bhe_database_connection=user=${POSTGRES_USER:-bloodhound} password=${POSTGRES_PASSWORD:-bloodhoundcommunityedition} dbname=${POSTGRES_DB:-bloodhound} host=bloodhound-postgres
+      - bhe_neo4j_connection=neo4j://${NEO4J_USER:-neo4j}:${NEO4J_SECRET:-bloodhound}@neo4j:7687/
+      - bhe_graph_driver=${BLOODHOUND_GRAPH_DRIVER:-neo4j}
+      - bhe_enable_cypher_mutations=${BLOODHOUND_ENABLE_CYPHER_MUTATIONS:-false}
+      - bhe_graph_query_memory_limit=${BLOODHOUND_GRAPH_QUERY_MEMORY_LIMIT:-2}
+    depends_on:
+      neo4j:
+        condition: service_started
+      bloodhound-postgres:
+        condition: service_healthy
+    networks:
+      - seraph-network
+    profiles:
+      - bloodhound
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 768m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # PurpleSharp Helper (optional Windows atomic telemetry staging)
+  # ==========================================================================
+  purplesharp:
+    image: mcr.microsoft.com/powershell:7.4-ubuntu-22.04
+    container_name: seraph-purplesharp
+    restart: "no"
+    entrypoint: ["/bin/sh", "-lc"]
+    command: ["echo 'PurpleSharp helper ready; mount scripts/artifacts and launch approved jobs through backend integrations'; sleep infinity"]
+    volumes:
+      - ./unified_agent/integrations/purplesharp:/opt/purplesharp:ro
+      - ./artifacts/integrations/purplesharp:/data
+    networks:
+      - seraph-network
+    profiles:
+      - purplesharp
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+        reservations:
+          memory: 128m
+
+  # ==========================================================================
+  # osquery / FleetDM (optional live query control plane)
+  # ==========================================================================
+  fleet-mysql:
+    image: mysql:8.0
+    container_name: seraph-fleet-mysql
+    restart: "no"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${FLEET_MYSQL_ROOT_PASSWORD:-fleet-root}
+      - MYSQL_DATABASE=fleet
+      - MYSQL_USER=fleet
+      - MYSQL_PASSWORD=${FLEET_MYSQL_PASSWORD:-fleet}
+    volumes:
+      - fleet_mysql_data:/var/lib/mysql
+    networks:
+      - seraph-network
+    profiles:
+      - fleet
+      - osquery
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 768m
+        reservations:
+          memory: 256m
+
+  fleet-redis:
+    image: redis:7-alpine
+    container_name: seraph-fleet-redis
+    restart: "no"
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    networks:
+      - seraph-network
+    profiles:
+      - fleet
+      - osquery
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+        reservations:
+          memory: 64m
+
+  fleet:
+    image: fleetdm/fleet:latest
+    container_name: seraph-fleet
+    restart: "no"
+    command: ["sh", "-lc", "fleet prepare db --no-prompt || true; exec fleet serve"]
+    environment:
+      - FLEET_MYSQL_ADDRESS=fleet-mysql:3306
+      - FLEET_MYSQL_DATABASE=fleet
+      - FLEET_MYSQL_USERNAME=fleet
+      - FLEET_MYSQL_PASSWORD=${FLEET_MYSQL_PASSWORD:-fleet}
+      - FLEET_REDIS_ADDRESS=fleet-redis:6379
+      - FLEET_SERVER_ADDRESS=0.0.0.0:8080
+      - FLEET_SERVER_TLS=false
+      - FLEET_AUTH_JWT_KEY=${FLEET_AUTH_JWT_KEY:-dev-fleet-jwt-change-me}
+    ports:
+      - "${BIND_FLEET_HOST:-127.0.0.1}:8082:8080"
+    depends_on:
+      - fleet-mysql
+      - fleet-redis
+    networks:
+      - seraph-network
+    profiles:
+      - fleet
+      - osquery
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 768m
+        reservations:
+          memory: 256m
+
+  osquery:
+    image: osquery/osquery:latest
+    container_name: seraph-osquery
+    restart: "no"
+    pid: host
+    command:
+      [
+        "osqueryd",
+        "--disable_events=false",
+        "--logger_path=/var/log/osquery",
+        "--database_path=/var/log/osquery/osquery.db",
+        "--pidfile=/var/log/osquery/osquery.pid",
+        "--disable_logging=false",
+      ]
+    volumes:
+      - /:/host:ro
+      - osquery_logs:/var/log/osquery
+    networks:
+      - seraph-network
+    profiles:
+      - osquery
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+        reservations:
+          memory: 128m
+
+  # ==========================================================================
+  # Atomic Red Team Helper (optional approved validation runner)
+  # ==========================================================================
+  atomic:
+    image: mcr.microsoft.com/powershell:7.4-ubuntu-22.04
+    container_name: seraph-atomic
+    restart: "no"
+    entrypoint: ["/bin/sh", "-lc"]
+    command: ["echo 'Atomic helper ready; use backend approval flow to execute selected atomics'; sleep infinity"]
+    volumes:
+      - ./atomic-red-team:/opt/atomic-red-team:ro
+      - ./tools/invoke-atomicredteam:/opt/invoke-atomicredteam:ro
+      - ./artifacts/atomic-validation:/data
+    networks:
+      - seraph-network
+    profiles:
+      - atomic
+      - integrations
+    deploy:
+      resources:
+        limits:
+          memory: 384m
+        reservations:
+          memory: 128m
+
+  # ==========================================================================
+  # Cuckoo Sandbox API (optional - requires VM/lab tuning)
+  # ==========================================================================
+  cuckoo:
+    build:
+      context: ./tools/cuckoo-fix
+    image: seraph-cuckoo-fixed:latest
+    container_name: seraph-cuckoo
+    restart: unless-stopped
+    privileged: true
+    command: api
+    ports:
+      - "8090:1337"
+      - "2042:2042"
+    environment:
+      - CUCKOO_API_HOST=0.0.0.0
+      - MONGO_HOST=mongodb
+      - MONGO_TCP_PORT=27017
+      - ES_HOST=elasticsearch
+      - ES_PORT=9200
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - cuckoo_data:/cuckoo
+      - /tmp:/tmp
+    networks:
+      - seraph-network
+    profiles:
+      - sandbox
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 512m
+
+  cuckoo-web:
+    build:
+      context: ./tools/cuckoo-fix
+    image: seraph-cuckoo-fixed:latest
+    container_name: seraph-cuckoo-web
+    restart: unless-stopped
+    command: web
+    ports:
+      - "8080:8080"
+    environment:
+      - CUCKOO_API=http://cuckoo:1337
+      - MONGO_HOST=mongodb
+      - MONGO_TCP_PORT=27017
+    depends_on:
+      - cuckoo
+    networks:
+      - seraph-network
+    profiles:
+      - sandbox
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # Frontend React App
+  # ==========================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL:-}
+    container_name: seraph-frontend
+    restart: unless-stopped
+    ports:
+      - "${BIND_FRONTEND_HOST:-127.0.0.1}:3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - seraph-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # WireGuard VPN Server
+  # ==========================================================================
+  wireguard:
+    image: linuxserver/wireguard:latest
+    container_name: seraph-wireguard
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - SERVERURL=${VPN_SERVER_ENDPOINT:-vpn.yourdomain.com}
+      - SERVERPORT=${WIREGUARD_SERVER_PORT:-51820}
+      - PEERS=${VPN_PEERS:-10}
+      - PEERDNS=1.1.1.1,8.8.8.8
+      - INTERNAL_SUBNET=10.200.200.0/24
+      - ALLOWEDIPS=0.0.0.0/0
+      - LOG_CONFS=true
+    volumes:
+      - wireguard_config:/config
+      - /lib/modules:/lib/modules:ro
+    ports:
+      - "${BIND_WIREGUARD_HOST:-127.0.0.1}:${WIREGUARD_HOST_PORT:-51820}:${WIREGUARD_SERVER_PORT:-51820}/udp"
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1
+    networks:
+      - seraph-network
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+        reservations:
+          memory: 128m
+
+  # ======================================================================
+  # VPN Bootstrap Helper (one-shot)
+  # ======================================================================
+  vpn-bootstrap:
+    image: alpine:3.20
+    container_name: seraph-vpn-bootstrap
+    restart: "no"
+    depends_on:
+      wireguard:
+        condition: service_started
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      [
+        "set -eu; mkdir -p /vpn/wireguard-configs; echo '[VPN Bootstrap] waiting for WireGuard server keys...'; for i in $(seq 1 30); do if [ -f /wireguard/server/publickey-server ]; then break; fi; sleep 2; done; if [ -f /wireguard/server/publickey-server ]; then cp -f /wireguard/server/publickey-server /vpn/wireguard-configs/publickey; cp -f /wireguard/server/publickey-server /vpn/wireguard-configs/publickey-server; echo '[VPN Bootstrap] copied public keys'; else echo '[VPN Bootstrap] publickey-server not found yet'; fi; find /wireguard -maxdepth 2 -type f -name '*.conf' -exec cp -f {} /vpn/wireguard-configs/ + || true; if [ -f /wireguard/wg0.conf ]; then cp -f /wireguard/wg0.conf /vpn/server-wg0.conf; cp -f /wireguard/wg0.conf /vpn/wireguard-configs/server-wg0.conf; fi; AGENT_SOURCE=''; for candidate in /vpn/wireguard-configs/peer1.conf /vpn/wireguard-configs/peer.conf /wireguard/wg0.conf; do if [ -f \"$$candidate\" ]; then AGENT_SOURCE=\"$$candidate\"; break; fi; done; if [ -n \"$$AGENT_SOURCE\" ]; then cp -f \"$$AGENT_SOURCE\" /vpn/wg0.conf; cp -f \"$$AGENT_SOURCE\" /vpn/metatron-vpn.conf; cp -f \"$$AGENT_SOURCE\" /vpn/wireguard-configs/wg0.conf; cp -f \"$$AGENT_SOURCE\" /vpn/wireguard-configs/metatron-vpn.conf; echo \"[VPN Bootstrap] published agent config from $$AGENT_SOURCE\"; fi; echo '[VPN Bootstrap] synchronized peer configs'; ls -la /vpn /vpn/wireguard-configs || true; echo '[VPN Bootstrap] completed'"
+      ]
+    volumes:
+      - wireguard_config:/config
+      - wireguard_config:/wireguard
+      - vpn_config:/vpn
+    networks:
+      - seraph-network
+
+  # ==========================================================================
+  # Nginx Reverse Proxy with SSL/TLS
+  # ==========================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: seraph-nginx
+    restart: "no"
+    ports:
+      - "${NGINX_HTTP_PORT:-8088}:80"
+      - "${NGINX_HTTPS_PORT:-8443}:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - certbot_webroot:/var/www/certbot:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - seraph-network
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    profiles:
+      - ssl
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+        reservations:
+          memory: 128m
+
+  # ==========================================================================
+  # Unified Agent Web Dashboard (port 5000)
+  # ==========================================================================
+  unified-agent:
+    build:
+      context: .
+      dockerfile: unified_agent/ui/web/Dockerfile
+    container_name: seraph-unified-agent
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    environment:
+      - BACKEND_URL=http://127.0.0.1:8001
+      - REMOTE_SERVER_URL=http://127.0.0.1:8001
+      - METATRON_BACKEND_URL=http://127.0.0.1:8001
+      - METATRON_SERVER_URL=http://127.0.0.1:8001
+      - SERAPH_LOCAL_ENROLL_ENABLED=${SERAPH_LOCAL_ENROLL_ENABLED:-true}
+      - SERAPH_PUBLIC_URL=${SERAPH_PUBLIC_URL:-https://devious-viability-linked.ngrok-free.dev}
+      - INTEGRATION_API_KEY=${INTEGRATION_API_KEY:-dev-integration-key-change-me}
+      - MONGO_URL=mongodb://127.0.0.1:27017
+      - DB_NAME=seraph_ai_defense
+      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-mistral}
+      - SERAPH_STATE_DIR=/app/state
+      - SERAPH_WIREGUARD_DIR=/var/lib/seraph-agent/wireguard-configs
+      - SERAPH_AGENT_UPDATE_INTERVAL=${SERAPH_AGENT_UPDATE_INTERVAL:-300}
+      - SERAPH_AGENT_HEARTBEAT_INTERVAL=${SERAPH_AGENT_HEARTBEAT_INTERVAL:-300}
+      - SERAPH_AGENT_MONOLITHIC_LOOP=${SERAPH_AGENT_MONOLITHIC_LOOP:-false}
+      - SERAPH_AGENT_STARTUP_DISCOVERY=${SERAPH_AGENT_STARTUP_DISCOVERY:-true}
+      - SERAPH_AGENT_INITIAL_LAN_DISCOVERY=${SERAPH_AGENT_INITIAL_LAN_DISCOVERY:-true}
+      - SERAPH_AGENT_NETWORK_SCANNING=${SERAPH_AGENT_NETWORK_SCANNING:-true}
+      - SERAPH_AGENT_WIRELESS_SCANNING=${SERAPH_AGENT_WIRELESS_SCANNING:-true}
+      - SERAPH_AGENT_BLUETOOTH_SCANNING=${SERAPH_AGENT_BLUETOOTH_SCANNING:-true}
+      - SERAPH_AGENT_USB_MONITORING=${SERAPH_AGENT_USB_MONITORING:-true}
+      - SERAPH_AGENT_AI_ANALYSIS=${SERAPH_AGENT_AI_ANALYSIS:-false}
+      - SERAPH_AGENT_VNS_SYNC=${SERAPH_AGENT_VNS_SYNC:-false}
+      - SERAPH_AGENT_THREAT_HUNTING=${SERAPH_AGENT_THREAT_HUNTING:-false}
+      - SERAPH_AGENT_AUTO_REMEDIATE=${SERAPH_AGENT_AUTO_REMEDIATE:-false}
+      - SERAPH_AGENT_VPN_AUTO_CONFIGURE=${SERAPH_AGENT_VPN_AUTO_CONFIGURE:-true}
+    depends_on:
+      backend:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./unified_agent:/app/unified_agent:ro
+      - ./evidence:/app/evidence:ro
+      - ./data/unified_agent_state:/app/state:rw
+      - vpn_config:/var/lib/seraph-agent:rw
+      - vpn_config:/etc/wireguard:rw
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/', timeout=3).read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+
+  # ==========================================================================
+  # ClamAV (optional malware scanning)
+  # ==========================================================================
+  clamav:
+    image: clamav/clamav:stable
+    container_name: seraph-clamav
+    restart: "no"
+    mem_limit: 1g
+    mem_reservation: 512m
+    networks:
+      - seraph-network
+    volumes:
+      - clamav_db:/var/lib/clamav
+      - ./artifacts/integrations/clamav:/scan:ro
+    profiles:
+      - clamav
+      - security
+      - integrations
+    healthcheck:
+      test: ["CMD", "clamscan", "--version"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # ==========================================================================
+  # YARA (optional rule-based scanning)
+  # ==========================================================================
+  yara:
+    image: alpine:3.20
+    container_name: seraph-yara
+    restart: "no"
+    mem_limit: 128m
+    mem_reservation: 32m
+    command: ["sh", "-lc", "apk add --no-cache yara >/dev/null 2>&1 && tail -f /dev/null"]
+    networks:
+      - seraph-network
+    volumes:
+      - ./yara_rules:/yara_rules:ro
+      - ./artifacts/integrations/yara:/scan:ro
+    profiles:
+      - yara
+      - security
+      - integrations
+
+# ==========================================================================
+# Networks
+# ==========================================================================
+networks:
+  seraph-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: seraph-br0
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# ==========================================================================
+# Volumes
+# ==========================================================================
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+  elasticsearch_data:
+    driver: local
+  ollama_data:
+    driver: local
+  trivy_cache:
+    driver: local
+  falco_data:
+    driver: local
+  suricata_logs:
+    driver: local
+  arkime_raw:
+    driver: local
+  arkime_logs:
+    driver: local
+  zeek_logs:
+    driver: local
+  cuckoo_data:
+    driver: local
+  vpn_config:
+    driver: local
+  quarantine_data:
+    driver: local
+  # evidence_bundle and atomic_validation replaced by bind mounts above
+  clamav_db:
+    driver: local
+  spiderfoot_data:
+    driver: local
+  neo4j_data:
+    driver: local
+  neo4j_logs:
+    driver: local
+  bloodhound_postgres_data:
+    driver: local
+  fleet_mysql_data:
+    driver: local
+  osquery_logs:
+    driver: local
+  wireguard_config:
+    driver: local
+  certbot_webroot:
+    driver: local

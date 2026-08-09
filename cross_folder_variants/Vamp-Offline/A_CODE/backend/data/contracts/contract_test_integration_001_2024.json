@@ -1,0 +1,164 @@
+{
+  "staff_id": "test_integration_001",
+  "name": "Integration Test User",
+  "position": "Lecturer",
+  "cycle_year": 2024,
+  "faculty": "Test Faculty",
+  "school": "",
+  "subject_group": "",
+  "research_entity": "",
+  "campus": "",
+  "director": "",
+  "subject_group_leader": "",
+  "executive_dean": "",
+  "research_dean": "",
+  "school_admin": "",
+  "modules_context": "",
+  "line_manager": "",
+  "kpas": [
+    {
+      "code": "KPA1",
+      "name": "Teaching and Learning",
+      "weight": null,
+      "hours": null,
+      "kpis": [],
+      "context": {},
+      "ta_context": {
+        "name": "Teaching and Learning (including supervision)",
+        "hours": 712.87,
+        "weight_pct": 49.17,
+        "norm_hours": 1728.0,
+        "teaching": [
+          "BSTE312",
+          "BSTE322",
+          "BSTE522",
+          "Premoderation of assignment BSTE312",
+          "Premoderation of assignment BSTE322",
+          "Premoderation of assignment BSTE412",
+          "Premoderation of assignment BSTE422",
+          "Premoderation of assignment BSTD512",
+          "Premoderation of assignment LABD522"
+        ],
+        "supervision": [
+          "Rensberg, MED",
+          "Choba, MED",
+          "Olivier",
+          "van Deventer",
+          "Bouwer"
+        ],
+        "teaching_practice_windows": [
+          "April",
+          "July"
+        ]
+      }
+    },
+    {
+      "code": "KPA2",
+      "name": "Occupational Health and Safety",
+      "weight": null,
+      "hours": null,
+      "kpis": [],
+      "context": {},
+      "ta_context": {
+        "name": "Occupational Health & Safety",
+        "hours": 2.0,
+        "weight_pct": 0.14,
+        "teaching_modules": [
+          {
+            "code": "HISE312",
+            "students": 100,
+            "hours": 204.6
+          },
+          {
+            "code": "HISE411",
+            "students": 85,
+            "hours": 195.27
+          },
+          {
+            "code": "ERTP 671",
+            "students": 1,
+            "hours": 25.0
+          },
+          {
+            "code": "LERP 671",
+            "students": 1,
+            "hours": 25.0
+          }
+        ],
+        "norm_hours": 1728.0,
+        "ohs": [
+          ""
+        ]
+      }
+    },
+    {
+      "code": "KPA3",
+      "name": "Research and Innovation / Creative Outputs",
+      "weight": null,
+      "hours": null,
+      "kpis": [],
+      "context": {},
+      "ta_context": {
+        "name": "Personal Research, Innovation and/or Creative Outputs",
+        "hours": 525.0,
+        "weight_pct": 36.21,
+        "norm_hours": 1728.0,
+        "research": [
+          "Article on AI GBL",
+          "Article on Citesaga project",
+          "Article on WorkReady project",
+          "Citesaga project",
+          "WorkReady Project",
+          "AI and GBL project",
+          "GBL conference",
+          "Prosper book chapter",
+          "Attendance of research colloquiums, writing schools, workshops (eg. Ethics, Integrity, Turnitin): Maximum of 60 hours",
+          "Attend graduation ceremony first semester and second semester"
+        ]
+      }
+    },
+    {
+      "code": "KPA4",
+      "name": "Academic Leadership and Management",
+      "weight": null,
+      "hours": null,
+      "kpis": [],
+      "context": {},
+      "ta_context": {
+        "name": "Academic Leadership and Administration",
+        "hours": 210.0,
+        "weight_pct": 14.48,
+        "norm_hours": 1728.0,
+        "leadership": [
+          "Research Focus Area/Entity meetings: Maximum of 10 hours",
+          "Mentorship meetings: 8 hours",
+          "School Management Committee: 24 hours",
+          "Subject Group meetings: 22 hours",
+          "School meetings and functions: 10 hours",
+          "Faculty Forums: Maximum of 6 hours",
+          "Professional development (in accordance with PDP): Maximum of 10 hours"
+        ]
+      }
+    },
+    {
+      "code": "KPA5",
+      "name": "Social Responsiveness / Community and Industry Engagement",
+      "weight": null,
+      "hours": null,
+      "kpis": [],
+      "context": {},
+      "ta_context": {
+        "name": "Social Responsiveness (Community Engagement / Industry)",
+        "hours": 40.0,
+        "weight_pct": 2.5,
+        "norm_hours": 1728.0,
+        "social": [
+          "Student Training Entrepreneurship Programme"
+        ]
+      }
+    }
+  ],
+  "flags": [
+    "TA_IMPORTED"
+  ]
+}

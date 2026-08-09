@@ -1,0 +1,18 @@
+name: vamp-offline-env
+dependencies:
+  - python=3.10
+  - flake8
+  - pip
+  - pandas
+  - pip:
+      - requests
+      - pillow
+      - pdf2image
+      - pytesseract
+      - pikepdf
+      - pdfplumber
+      - openpyxl
+      - chardet
+      - flask
+      - flask-cors
+      - pandas 

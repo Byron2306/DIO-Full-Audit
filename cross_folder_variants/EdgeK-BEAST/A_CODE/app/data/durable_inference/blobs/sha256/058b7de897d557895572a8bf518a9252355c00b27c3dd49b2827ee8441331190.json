@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:058b7de897d557895572a8bf518a9252355c00b27c3dd49b2827ee8441331190",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "07500989b1ba3ba5accb5e258cf5dfd3cd7832d6818afbf562d188f7cb47dd6c",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 2000,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:6185731ee3dd15b688496531e2735ab538123c506ae904e92ceb76b6f4877d7a",
+      "response_blob_digest": "sha256:46bf8a1a781c0d60436eec1e5ed7b002cc394b3dbe701c6a8dde1a6ae061c64e",
+      "response_blob_ref": "blobs/sha256/46bf8a1a781c0d60436eec1e5ed7b002cc394b3dbe701c6a8dde1a6ae061c64e.json",
+      "response_chars": 3000,
+      "response_preview": "This system is a context economizer for a conversational AI model, specifically designed to reduce the size of the input context before it's processed by the model. The goal is to optimize the input size while preserving the essential information, thereby improving the model's performance and reducing the computational resources required.\n\nHere's a breakdown of the system's components and functionality:\n\n**Key Components:**\n\n1. **ContextEconomizer**: This is the main class responsible for applyi",
+      "response_ref": "cache_1ac71fd2587bf985.answer.json",
+      "response_sha256": "sha256:729d5be397ae7d45f713869dad6dad7c0af653d5c15fd819d1ced13872e5e8f3"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

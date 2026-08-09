@@ -1,0 +1,72 @@
+title: Impair Defenses via Safe Mode Boot
+id: 3o7l8m6n-4j9k-9l2m-3n6o-7k0j1l4m9n0o
+status: experimental
+description: Detects attempts to boot into Safe Mode to impair defenses
+references:
+  - https://attack.mitre.org/techniques/T1562/009/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'bcdedit /set {default} safeboot'
+      - 'shutdown /r /o'
+  condition: selection
+falsepositives:
+  - System troubleshooting
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.009
+---
+title: Impair Defenses via Spoof Security Alerting
+id: 4p8m9n7o-5k0l-0m3n-4o7p-8l1k2m5n0o1p
+status: experimental
+description: Detects attempts to spoof security alerting mechanisms
+references:
+  - https://attack.mitre.org/techniques/T1562/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'wevtutil cl'
+      - 'sc stop'
+      - 'Security'
+  condition: selection
+falsepositives:
+  - System maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.011
+---
+title: Impair Defenses via Filter Driver
+id: 5q9n0o8p-6l1m-1n4o-5p8q-9m2l3n6o1p2q
+status: experimental
+description: Detects installation of filter drivers to impair defenses
+references:
+  - https://attack.mitre.org/techniques/T1562/013/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'fltmc'
+      - 'load'
+  condition: selection
+falsepositives:
+  - Legitimate filter driver installation
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.013

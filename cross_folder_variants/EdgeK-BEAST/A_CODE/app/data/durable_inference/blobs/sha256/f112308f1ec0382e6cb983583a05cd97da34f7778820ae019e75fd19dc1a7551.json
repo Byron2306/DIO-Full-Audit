@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:f112308f1ec0382e6cb983583a05cd97da34f7778820ae019e75fd19dc1a7551",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "To ensure that the Ollama routing regression test is correctly set up, the following concise assertion should be included:\n\n- Assert that a GET request to `/ollama/v1/chat/completions` returns a successful response with a JSON body containing the expected properties related to the chat completion request.",
+    "response_sha256": "sha256:79e02e67c9ad901dfc6f24bf74bf7135e404ad969fefd9cffc8d7a0d7611f8b9",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

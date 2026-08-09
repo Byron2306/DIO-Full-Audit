@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seraph AI — Device Enrollment</title>
+  <meta name="seraph-public-base-url" content="{{ public_base_url }}">
+  <meta name="seraph-invite-token" content="{{ invite_token or '' }}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .card { background: #1e293b; border: 1px solid #334155; }
+    .input-field {
+      background: #0f172a; border: 1px solid #475569; color: #e2e8f0;
+      border-radius: 6px; padding: 10px 14px; width: 100%; outline: none;
+      transition: border-color 0.15s;
+    }
+    .input-field:focus { border-color: #38bdf8; }
+    .btn-primary {
+      background: #0ea5e9; color: #fff; border: none; border-radius: 6px;
+      padding: 12px 28px; font-weight: 600; cursor: pointer; width: 100%;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #0284c7; }
+    .btn-primary:disabled { background: #334155; cursor: not-allowed; }
+    .platform-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 99px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .copy-btn {
+      background: #334155; color: #94a3b8; border: none; border-radius: 4px;
+      padding: 4px 10px; font-size: 11px; cursor: pointer; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: #475569; color: #e2e8f0; }
+    .step-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    #install-section { display: none; }
+    .spinner {
+      width: 20px; height: 20px; border: 2px solid #334155;
+      border-top-color: #38bdf8; border-radius: 50%;
+      animation: spin 0.8s linear infinite; display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start py-10 px-4">
+
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <div class="text-3xl font-bold tracking-tight mb-1">
+      <span class="text-sky-400">SERAPH</span><span class="text-slate-300"> AI</span>
+    </div>
+    <p class="text-slate-400 text-sm">Unified Agent Enrollment</p>
+  </div>
+
+  <!-- Detected platform banner -->
+  <div id="platform-banner" class="mb-6 card rounded-xl px-5 py-3 flex items-center gap-3 max-w-md w-full">
+    <div id="platform-icon" class="text-2xl">&#x1F4BB;</div>
+    <div>
+      <div class="text-xs text-slate-500 mb-0.5">Detected device</div>
+      <div id="platform-label" class="font-semibold text-sm text-slate-200">Detecting...</div>
+      <div id="platform-ua" class="text-[10px] text-slate-500 mt-0.5 truncate max-w-xs"></div>
+    </div>
+    <span id="platform-chip" class="platform-badge ml-auto bg-slate-700 text-slate-300">—</span>
+  </div>
+
+  <!-- Step 1 — Registration form -->
+  <div class="card rounded-xl p-6 max-w-md w-full mb-6" id="form-card">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="step-dot bg-sky-500 text-white">1</div>
+      <div>
+        <div class="font-semibold text-sm">Register this device</div>
+        <div class="text-[11px] text-slate-500">Takes 30 seconds</div>
+      </div>
+    </div>
+
+    <form id="enroll-form" onsubmit="submitEnroll(event)" autocomplete="on">
+      <div class="space-y-4">
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Your name</label>
+          <input id="f-name" type="text" class="input-field" placeholder="Jane Smith" required autocomplete="name">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Email address</label>
+          <input id="f-email" type="email" class="input-field" placeholder="jane@example.com" required autocomplete="email">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Device label <span class="text-slate-600">(optional)</span></label>
+          <input id="f-device" type="text" class="input-field" placeholder="e.g. Jane's iPhone, Work Laptop" autocomplete="off">
+        </div>
+      </div>
+
+      <div id="form-error" class="text-red-400 text-xs mt-3 hidden"></div>
+
+      <button type="submit" class="btn-primary mt-5" id="submit-btn">
+        Register &amp; get installer
+      </button>
+    </form>
+  </div>
+
+  <!-- Step 2 — Install instructions (shown after registration) -->
+  <div class="card rounded-xl p-6 max-w-md w-full" id="install-section">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="step-dot bg-green-500 text-white">2</div>
+      <div>
+        <div class="font-semibold text-sm">Install the agent</div>
+        <div class="text-[11px] text-slate-500" id="install-subtitle">Follow the steps for your device</div>
+      </div>
+    </div>
+
+    <div class="bg-green-900/30 border border-green-800 rounded-lg px-4 py-3 mb-5 text-xs text-green-300 flex items-start gap-2">
+      <span class="text-base leading-none mt-0.5">&#x2713;</span>
+      <span id="success-msg">Registered successfully.</span>
+    </div>
+
+    <!-- Android -->
+    <div id="install-android" class="hidden space-y-4">
+      <p class="text-sm text-slate-300">
+        For the same port-5000 dashboard as Linux, install the Android agent through Termux.
+      </p>
+      <div>
+        <div class="flex gap-2 items-start">
+          <code id="android-termux-cmd" class="text-xs bg-slate-900 text-cyan-300 rounded px-3 py-2 flex-1 overflow-x-auto break-all"></code>
+          <button class="copy-btn mt-1" onclick="copy('android-termux-cmd')">Copy</button>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500 space-y-1">
+        <p>&#x2139; Run the command in <strong class="text-slate-300">Termux from F-Droid</strong>. It installs the same Python agent and serves the canonical dashboard on <strong class="text-slate-300">http://127.0.0.1:5000</strong>.</p>
+        <p>&#x2139; Install <strong class="text-slate-300">Termux:Boot</strong> if you want the agent to auto-start after reboot.</p>
+      </div>
+      <div class="border-t border-slate-700 pt-4 space-y-3">
+        <p class="text-xs text-amber-300">The APK below is only a native preview shell and does not match the canonical Linux dashboard.</p>
+        <a id="apk-link" href="#" class="btn-primary block text-center no-underline text-sm py-3">
+          &#x2B07; Download MetatronAgent.apk (preview shell)
+        </a>
+        <div class="text-xs text-slate-500 space-y-1">
+          <p>&#x2139; You may need to allow <strong class="text-slate-300">Install unknown apps</strong> from your browser in Settings.</p>
+          <p>&#x2139; The APK remains available for testing, but it does not provide the same dashboard parity as the Termux install.</p>
+        </div>
+      </div>
+      <div class="border-t border-slate-700 pt-4">
+        <p class="text-xs text-slate-400 mb-2">Or if developer mode is on — sideload via ADB:</p>
+        <div class="flex gap-2 items-center">
+          <code id="adb-cmd" class="text-xs bg-slate-900 text-cyan-300 rounded px-3 py-2 flex-1 overflow-x-auto whitespace-nowrap"></code>
+          <button class="copy-btn" onclick="copy('adb-cmd')">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- iOS -->
+    <div id="install-ios" class="hidden space-y-3">
+      <p class="text-sm text-slate-300">iOS deployment requires an MDM profile or TestFlight invitation.</p>
+      <div class="bg-slate-800 rounded-lg px-4 py-3 text-xs text-slate-400">
+        Contact your administrator to receive an invitation link or MDM enrollment profile.
+      </div>
+    </div>
+
+    <!-- Linux -->
+    <div id="install-linux" class="hidden space-y-4">
+      <p class="text-sm text-slate-300">Run this one-liner as root — it installs dependencies, downloads the agent, and starts it as a systemd service.</p>
+      <div>
+        <div class="flex gap-2 items-start">
+          <code id="linux-cmd" class="text-xs bg-slate-900 text-cyan-300 rounded px-3 py-2 flex-1 overflow-x-auto break-all"></code>
+          <button class="copy-btn mt-1" onclick="copy('linux-cmd')">Copy</button>
+        </div>
+      </div>
+      <a id="linux-dl" href="#" class="text-xs text-sky-400 hover:underline">Or download the tarball manually</a>
+    </div>
+
+    <!-- macOS -->
+    <div id="install-macos" class="hidden space-y-4">
+      <p class="text-sm text-slate-300">Run this in Terminal — it installs the agent and registers it with launchd.</p>
+      <div class="flex gap-2 items-start">
+        <code id="macos-cmd" class="text-xs bg-slate-900 text-cyan-300 rounded px-3 py-2 flex-1 overflow-x-auto break-all"></code>
+        <button class="copy-btn mt-1" onclick="copy('macos-cmd')">Copy</button>
+      </div>
+      <a id="macos-dl" href="#" class="text-xs text-sky-400 hover:underline">Or download the tarball manually</a>
+    </div>
+
+    <!-- Windows -->
+    <div id="install-windows" class="hidden space-y-4">
+      <p class="text-sm text-slate-300">Run this in PowerShell <strong class="text-slate-200">as Administrator</strong>.</p>
+      <div class="flex gap-2 items-start">
+        <code id="windows-cmd" class="text-xs bg-slate-900 text-cyan-300 rounded px-3 py-2 flex-1 overflow-x-auto break-all"></code>
+        <button class="copy-btn mt-1" onclick="copy('windows-cmd')">Copy</button>
+      </div>
+      <a id="windows-dl" href="#" class="text-xs text-sky-400 hover:underline">Or download the ZIP manually</a>
+    </div>
+
+    <!-- Docker -->
+    <div id="install-docker" class="hidden space-y-4">
+      <p class="text-sm text-slate-300">Run the Seraph agent as a Docker container on any Linux host.</p>
+      <div class="flex gap-2 items-start">
+        <code id="docker-cmd" class="text-xs bg-slate-900 text-cyan-300 rounded px-3 py-2 flex-1 overflow-x-auto break-all"></code>
+        <button class="copy-btn mt-1" onclick="copy('docker-cmd')">Copy</button>
+      </div>
+      <div class="text-xs text-slate-500 space-y-1">
+        <p>&#x2139; The container registers itself with the Seraph server automatically on start.</p>
+        <p>&#x2139; Image: <code id="docker-image-label" class="bg-slate-800 px-1 rounded text-slate-300"></code></p>
+      </div>
+    </div>
+
+    <!-- Unknown -->
+    <div id="install-unknown" class="hidden">
+      <p class="text-sm text-slate-400">Platform not recognized. Choose your OS below:</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button onclick="showInstall('linux')" class="copy-btn px-4 py-2">Linux</button>
+        <button onclick="showInstall('macos')" class="copy-btn px-4 py-2">macOS</button>
+        <button onclick="showInstall('windows')" class="copy-btn px-4 py-2">Windows</button>
+        <button onclick="showInstall('android')" class="copy-btn px-4 py-2">Android</button>
+        <button onclick="showInstall('docker')" class="copy-btn px-4 py-2">Docker</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="text-slate-600 text-xs mt-8">Seraph AI &mdash; Metatron Security Platform</p>
+  <p class="text-slate-500 text-[10px] mt-2">Enrollment host: <span id="public-host-label" class="text-slate-300"></span></p>
+
+<script>
+// ── Platform detection ────────────────────────────────────────────────────────
+const ua = navigator.userAgent;
+const publicBaseUrl = document.querySelector('meta[name="seraph-public-base-url"]')?.content?.trim() || window.location.origin;
+const inviteToken = document.querySelector('meta[name="seraph-invite-token"]')?.content?.trim() || '';
+let detectedPlatform = 'unknown';
+let platformLabel = 'Unknown Device';
+let platformIcon = '💻';
+let platformColor = 'bg-slate-700 text-slate-300';
+
+(function detectPlatform() {
+  const u = ua.toLowerCase();
+  if (/iphone|ipad|ipod/.test(u)) {
+    detectedPlatform = 'ios';
+    platformLabel = /ipad/.test(u) ? 'iPad (iOS)' : 'iPhone (iOS)';
+    platformIcon = '📱';
+    platformColor = 'bg-slate-700 text-sky-300';
+  } else if (/android/.test(u)) {
+    detectedPlatform = 'android';
+    // Try to extract device model
+    const m = u.match(/android[^;]*;\s*([^)]+)\)/i);
+    platformLabel = 'Android' + (m ? ' — ' + m[1].trim() : '');
+    platformIcon = '📱';
+    platformColor = 'bg-green-900 text-green-300';
+  } else if (/macintosh|mac os x/.test(u) && !/iphone|ipad/.test(u)) {
+    detectedPlatform = 'macos';
+    platformLabel = 'macOS';
+    platformIcon = '🖥️';
+    platformColor = 'bg-slate-700 text-slate-200';
+  } else if (/windows/.test(u)) {
+    detectedPlatform = 'windows';
+    platformLabel = 'Windows';
+    platformIcon = '🖥️';
+    platformColor = 'bg-blue-900 text-blue-300';
+  } else if (/linux/.test(u)) {
+    detectedPlatform = 'linux';
+    platformLabel = 'Linux';
+    platformIcon = '🐧';
+    platformColor = 'bg-orange-900 text-orange-300';
+  }
+  document.getElementById('platform-label').textContent = platformLabel;
+  document.getElementById('platform-icon').textContent = platformIcon;
+  document.getElementById('platform-ua').textContent = ua.slice(0, 80);
+  const hostLabel = document.getElementById('public-host-label');
+  if (hostLabel) hostLabel.textContent = publicBaseUrl.replace(/^https?:\/\//, '');
+  const chip = document.getElementById('platform-chip');
+  chip.textContent = detectedPlatform.toUpperCase();
+  chip.className = `platform-badge ml-auto ${platformColor}`;
+})();
+
+// ── Form submission ───────────────────────────────────────────────────────────
+async function submitEnroll(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const errEl = document.getElementById('form-error');
+  errEl.classList.add('hidden');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+
+  const payload = {
+    name: document.getElementById('f-name').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    device_label: document.getElementById('f-device').value.trim() || platformLabel,
+    platform: detectedPlatform,
+  };
+
+  try {
+    const enrollUrl = new URL('/api/enroll/register', publicBaseUrl);
+    if (inviteToken) enrollUrl.searchParams.set('token', inviteToken);
+    const resp = await fetch(enrollUrl.toString(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await resp.json();
+    if (!data.success) {
+      throw new Error(data.error || 'Registration failed');
+    }
+    showSuccess(data, payload.name);
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Register & get installer';
+  }
+}
+
+function showSuccess(data, name) {
+  document.getElementById('form-card').style.display = 'none';
+  const sec = document.getElementById('install-section');
+  sec.style.display = 'block';
+  document.getElementById('success-msg').textContent =
+    `Registered! Device ID: ${data.device_id}. Welcome, ${name}.`;
+
+  const platform = data.platform || detectedPlatform;
+  const install = data.install || {};
+
+  // Fill in command strings
+  if (install.linux)   document.getElementById('linux-cmd').textContent   = install.linux.cmd;
+  if (install.linux)   document.getElementById('linux-dl').href            = install.linux.download_url;
+  if (install.macos)   document.getElementById('macos-cmd').textContent   = install.macos.cmd;
+  if (install.macos)   document.getElementById('macos-dl').href            = install.macos.download_url;
+  if (install.windows) document.getElementById('windows-cmd').textContent = install.windows.cmd;
+  if (install.windows) document.getElementById('windows-dl').href          = install.windows.download_url;
+  if (install.android) {
+    if (install.android.termux_cmd) document.getElementById('android-termux-cmd').textContent = install.android.termux_cmd;
+    document.getElementById('apk-link').href = install.android.apk_url;
+    document.getElementById('adb-cmd').textContent = `adb install MetatronAgent.apk`;
+  }
+  if (install.docker) {
+    document.getElementById('docker-cmd').textContent = install.docker.cmd;
+    document.getElementById('docker-image-label').textContent = install.docker.image;
+  }
+
+  showInstall(platform);
+}
+
+function showInstall(platform) {
+  const sections = ['android', 'ios', 'linux', 'macos', 'windows', 'docker', 'unknown'];
+  sections.forEach(s => document.getElementById('install-' + s).classList.add('hidden'));
+  const target = sections.includes(platform) ? platform : 'unknown';
+  document.getElementById('install-' + target).classList.remove('hidden');
+  document.getElementById('install-subtitle').textContent =
+    { android: 'Use the Termux installer for the canonical port-5000 dashboard',
+      ios: 'iOS MDM enrollment required',
+      linux: 'Run the one-liner in your terminal',
+      macos: 'Run the one-liner in Terminal',
+      windows: 'Run in PowerShell as Administrator',
+      docker: 'Run the Docker container on your host',
+      unknown: 'Select your OS' }[target] || 'Follow the steps for your device';
+}
+
+function copy(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const btn = el.nextElementSibling;
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy', 1500); }
+  });
+}
+</script>
+</body>
+</html>

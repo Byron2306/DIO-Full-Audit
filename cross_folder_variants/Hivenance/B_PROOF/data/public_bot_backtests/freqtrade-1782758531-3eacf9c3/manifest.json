@@ -1,0 +1,19 @@
+{
+  "created_ts": 1782758531.829425,
+  "days": 30,
+  "engine": "freqtrade",
+  "export_path": "/app/data/public_bot_backtests/freqtrade-1782758531-3eacf9c3",
+  "files": {
+    "candles_csv": "/app/data/public_bot_backtests/freqtrade-1782758531-3eacf9c3/candles.csv",
+    "manifest_json": "/app/data/public_bot_backtests/freqtrade-1782758531-3eacf9c3/manifest.json",
+    "proposals_json": "/app/data/public_bot_backtests/freqtrade-1782758531-3eacf9c3/proposals.json"
+  },
+  "ok": true,
+  "proposals": 11,
+  "rows": 0,
+  "run_id": "freqtrade-1782758531-3eacf9c3",
+  "sidecar_hint": "Import /app/data/public_bot_backtests/freqtrade-1782758531-3eacf9c3/candles.csv as OHLCV, run sidecar backtest, write metrics.json, then POST /public_bot/backtest/ingest.json.",
+  "status": "EXPORTED",
+  "symbol": "ETH/USD",
+  "updated_ts": 1782758531.8294258
+}

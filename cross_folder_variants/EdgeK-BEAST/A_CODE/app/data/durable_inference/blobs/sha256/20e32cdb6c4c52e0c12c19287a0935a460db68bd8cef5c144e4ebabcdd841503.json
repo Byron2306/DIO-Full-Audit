@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:20e32cdb6c4c52e0c12c19287a0935a460db68bd8cef5c144e4ebabcdd841503",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"fix potential bug in context economizer\",\"actions\":[{\"id\":\"a1\",\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"\",\"new\":\"from dataclasses import dataclass\\nfrom typing import Any, Dict, List, Optional, Tuple\\nimport copy\\nimport logging\\n\\nlogger = logging.getLogger(__name__)\\n\\n@dataclass\\nclass ContextEconomyResult:\\n \\\"\\\"\\\"Result of context economy processing.\\\"\\\"\\\"\\n ir",
+    "response_sha256": "sha256:e337673de61df50faea77a9c190a842b960be9e35fd2681b1336d55c90ed1780",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

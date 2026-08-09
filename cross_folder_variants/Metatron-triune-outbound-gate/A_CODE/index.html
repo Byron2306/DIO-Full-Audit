@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seraph AI Defense Platform | Interactive Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; /* Light background enforced */
+            color: #0f172a; 
+        }
+        
+        /* Strict Chart Container Requirements */
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 650px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 350px; 
+            max-height: 400px; 
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container { height: 380px; }
+        }
+
+        /* Interactive Elements */
+        .tab-btn { transition: all 0.3s ease; }
+        .tab-btn.active { 
+            background-color: #ecfeff; /* cyan-50 */
+            color: #0891b2; /* cyan-600 */
+            border-bottom: 3px solid #0891b2;
+            font-weight: 600;
+        }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .code-block { font-family: 'Fira Code', monospace; }
+        
+        /* Architecture Diagram Node Styles */
+        .arch-node {
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 10;
+        }
+        .arch-node:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .arch-arrow {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-200 selection:text-cyan-900">
+
+    <!-- Chosen Palette: Crisp Corporate Trust (Slate-50 background, Navy Blue headers, vibrant Cyan/Purple/Pink accents for data visualizations). -->
+    
+    <!-- Application Structure Plan: 
+         1. Hero/Executive Summary: High-impact metrics establishing immediate credibility (100% pass rate, 10ms latency). 
+         2. Paradigm Shift (Context): Explains the 'Why' using a comparative radar chart (Legacy vs. Seraph).
+         3. System Architecture (Deep Dive): Interactive tabbed interface exploring the 3 core RFCs (World State, Cognition, Governance) without overwhelming the user with text. Uses HTML/CSS diagrams.
+         4. Empirical Evidence (Data): Hard proof using MITRE coverage (Bar Chart) and E2E testing (Doughnut Chart).
+         5. Security & Control (Audit): Shows how high-risk actions are governed, complete with a JSON audit trail example.
+         This structure moves from "The Hook" to "The Problem", then "The Solution", "The Proof", and finally "The Governance", aligning perfectly with stakeholder discovery paths. -->
+         
+    <!-- Visualization & Content Choices: 
+         - Hero Stats: Inform -> Big Numbers -> Immediate impact of validation data.
+         - Paradigm Shift: Compare -> Radar Chart (Chart.js) -> Best for multivariable capability comparison between two distinct paradigms.
+         - Architecture: Organize -> Interactive Tabs + HTML/CSS Flow Diagrams -> Breaks down complex RFCs (World Model, Triune, GSG) interactively without SVG/Mermaid.
+         - MITRE Coverage: Compare/Change -> Grouped Bar Chart (Chart.js) -> Shows progression of security posture across Strict/Balanced/Hardened profiles.
+         - E2E Pipeline: Organize/Composition -> Doughnut Chart (Chart.js) -> Displays the distribution of passing tests across different systemic domains. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-black text-xl shadow-md">&#9878;</div>
+                <span class="text-xl font-bold tracking-tight text-slate-900">Seraph<span class="text-cyan-600 font-light">Platform</span></span>
+            </div>
+            <div class="flex gap-6 text-sm font-semibold text-slate-600">
+                <a href="#overview" class="hover:text-cyan-600 transition-colors">Overview</a>
+                <a href="#architecture" class="hover:text-cyan-600 transition-colors">Architecture</a>
+                <a href="#evidence" class="hover:text-cyan-600 transition-colors">Validation</a>
+                <a href="#governance" class="hover:text-cyan-600 transition-colors">Governance</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
+
+        <!-- Hero Section -->
+        <section id="overview" class="pt-8 pb-12">
+            <div class="text-center max-w-4xl mx-auto space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-widest mb-2">
+                    <span>&#128640;</span> Enterprise AI-Powered EDR + XDR
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                    Governed Autonomous <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Cyber Defense</span>
+                </h1>
+                <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                    Traditional EDR operates at human speeds. Seraph is purpose-built to detect, deceive, and neutralize autonomous AI-driven attacks at machine pace, secured by rigorous Triune Cognitive Governance.
+                </p>
+            </div>
+
+            <!-- Key Metrics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center text-center transform hover:-translate-y-1 transition-transform">
+                    <div class="text-4xl mb-3">&#128737;</div>
+                    <div class="text-3xl font-black text-slate-900 mb-1">100.0%</div>
+                    <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide">E2E Pass Rate (73/73)</div>
+                    <div class="text-xs text-slate-400 mt-2">Across 20 simulated domains</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center text-center transform hover:-translate-y-1 transition-transform border-b-4 border-b-cyan-500">
+                    <div class="text-4xl mb-3">&#9889;</div>
+                    <div class="text-3xl font-black text-slate-900 mb-1">10.66 ms</div>
+                    <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Avg Pipeline Latency</div>
+                    <div class="text-xs text-slate-400 mt-2">Machine-speed execution</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center text-center transform hover:-translate-y-1 transition-transform">
+                    <div class="text-4xl mb-3">&#128274;</div>
+                    <div class="text-3xl font-black text-slate-900 mb-1">71.8%</div>
+                    <div class="text-sm font-semibold text-slate-500 uppercase tracking-wide">MITRE L4 Coverage</div>
+                    <div class="text-xs text-slate-400 mt-2">Highest strictness profile</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Paradigm Shift -->
+        <section class="space-y-8 scroll-mt-24">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="text-blue-600">&#10022;</span> The Paradigm Shift
+                </h2>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    Legacy EDR fundamentally fails against AI-driven threats because it relies on static signatures and human-paced manual investigation. Seraph replaces this with a dynamic, behavior-driven autonomous cluster. This chart compares the dimensional capabilities of traditional models versus the Seraph architecture.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-lg border border-slate-200">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <div class="p-5 bg-pink-50 rounded-xl border border-pink-100">
+                            <h4 class="font-bold text-pink-700 mb-2 flex items-center gap-2">&#9888; Legacy EDR (Prior Art)</h4>
+                            <p class="text-sm text-pink-900/80 leading-relaxed">Assumes stationary threats. Relies heavily on single-point passive agents and open execution surfaces. Struggles to correlate intent across distributed attack vectors.</p>
+                        </div>
+                        <div class="p-5 bg-cyan-50 rounded-xl border border-cyan-100">
+                            <h4 class="font-bold text-cyan-700 mb-2 flex items-center gap-2">&#128640; Seraph Platform</h4>
+                            <p class="text-sm text-cyan-900/80 leading-relaxed">Utilizes Behavioral AI and AATL (Autonomous Agent Threat Layer). Deploys zero-trust execution with short-lived tokens and native, first-principle deception tactics.</p>
+                        </div>
+                    </div>
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Architecture (Interactive) -->
+        <section id="architecture" class="space-y-8 scroll-mt-24">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="text-purple-600">&#9878;</span> Triune System Architecture
+                </h2>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    Seraph's decision-making is governed by three foundational RFCs defining how the system observes reality, reasons about threats, and authorizes execution. Explore the architectural layers below.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
+                <!-- Tabs -->
+                <div class="flex flex-wrap border-b border-slate-200 bg-slate-50">
+                    <button class="tab-btn active flex-1 py-4 px-6 text-sm sm:text-base text-slate-600 hover:text-slate-900 focus:outline-none" data-target="tab-wssm">
+                        1. World State (WSSM)
+                    </button>
+                    <button class="tab-btn flex-1 py-4 px-6 text-sm sm:text-base text-slate-600 hover:text-slate-900 focus:outline-none" data-target="tab-scfp">
+                        2. Cognition Fabric
+                    </button>
+                    <button class="tab-btn flex-1 py-4 px-6 text-sm sm:text-base text-slate-600 hover:text-slate-900 focus:outline-none" data-target="tab-gsg">
+                        3. Governance Gateway
+                    </button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="p-6 md:p-10">
+                    
+                    <!-- WSSM Content -->
+                    <div id="tab-wssm" class="tab-content active space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">World State Security Model (RFC-0003)</h3>
+                            <p class="text-slate-600">The canonical representation of reality. A Single Source of Truth (SSOT) aggregating telemetry from endpoints, networks, and cloud infrastructure to enable deterministic governance decisions.</p>
+                        </div>
+                        
+                        <!-- Structural Diagram via HTML/CSS -->
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 flex flex-col items-center justify-center gap-4">
+                            <div class="arch-node w-full max-w-sm border-t-4 border-t-blue-500">
+                                <div class="font-bold text-slate-900 mb-1">Entities Layer</div>
+                                <div class="text-xs text-slate-500">Hosts &middot; Users &middot; Services</div>
+                            </div>
+                            <div class="arch-arrow">&#11015;</div>
+                            <div class="arch-node w-full max-w-sm border-t-4 border-t-cyan-500">
+                                <div class="font-bold text-slate-900 mb-1">Relationships Layer</div>
+                                <div class="text-xs text-slate-500">Trust &middot; Network Flows &middot; Privilege Chains</div>
+                            </div>
+                            <div class="arch-arrow">&#11015;</div>
+                            <div class="arch-node w-full max-w-sm border-t-4 border-t-purple-500">
+                                <div class="font-bold text-slate-900 mb-1">Behavior Layer</div>
+                                <div class="text-xs text-slate-500">Process Trees &middot; API Calls &middot; Autonomy Signals</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SCFP Content -->
+                    <div id="tab-scfp" class="tab-content space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">Cognition Fabric (RFC-0004)</h3>
+                            <p class="text-slate-600">The distributed cognitive substrate. Utilizes the "Triune" system—Metatron (Synthesis), Michael (Defense Doctrine), and Loki (Adversarial Dissent)—to process the World State and generate fused cognitive signals.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-center justify-center gap-6">
+                            <div class="arch-node flex-1 w-full border-l-4 border-l-blue-500 text-left">
+                                <div class="text-2xl mb-2">&#129488;</div>
+                                <div class="font-bold text-slate-900">Metatron</div>
+                                <div class="text-xs text-slate-500 mt-1">Synthesis & Policy generation based on current belief states.</div>
+                            </div>
+                            <div class="text-2xl text-slate-300 hidden md:block">&#10010;</div>
+                            <div class="arch-node flex-1 w-full border-l-4 border-l-cyan-500 text-left">
+                                <div class="text-2xl mb-2">&#128737;</div>
+                                <div class="font-bold text-slate-900">Michael</div>
+                                <div class="text-xs text-slate-500 mt-1">Preparation & Readiness planning. Ranked command doctrine.</div>
+                            </div>
+                            <div class="text-2xl text-slate-300 hidden md:block">&#10010;</div>
+                            <div class="arch-node flex-1 w-full border-l-4 border-l-pink-500 text-left">
+                                <div class="text-2xl mb-2">&#127922;</div>
+                                <div class="font-bold text-slate-900">Loki</div>
+                                <div class="text-xs text-slate-500 mt-1">Dissent doctrine. Surfaces uncertainty and adversarial hypothesis.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GSG Content -->
+                    <div id="tab-gsg" class="tab-content space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">Governance Sensor Gateway (RFC-0001)</h3>
+                            <p class="text-slate-600">The absolute control boundary. Reasoning systems (Cognition) cannot act directly; they only propose. The GSG validates proposals and issues short-lived, cryptographically signed Capability Tokens to endpoints.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="arch-node bg-slate-100 border-dashed">
+                                <div class="font-bold text-slate-700">Cognition Core</div>
+                                <div class="text-xs text-slate-500">Proposes Action</div>
+                            </div>
+                            <div class="arch-arrow rotate-90 md:rotate-0">&#10142;</div>
+                            <div class="arch-node bg-blue-50 border-blue-200 shadow-[0_0_15px_rgba(59,130,246,0.15)] ring-2 ring-blue-400">
+                                <div class="font-bold text-blue-800 mb-1">GSG Boundary</div>
+                                <div class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-[10px] font-mono rounded mt-1">Token(TTL=60s)</div>
+                            </div>
+                            <div class="arch-arrow rotate-90 md:rotate-0">&#10142;</div>
+                            <div class="arch-node">
+                                <div class="font-bold text-slate-900">Endpoint Agent</div>
+                                <div class="text-xs text-slate-500">PEP Validates & Executes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Empirical Validation Evidence -->
+        <section id="evidence" class="space-y-8 scroll-mt-24">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="text-cyan-600">&#128202;</span> Empirical Validation
+                </h2>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    Theoretical architecture requires empirical proof. Seraph continuously undergoes intense End-to-End (E2E) threat pipeline validation and automated MITRE ATT&CK coverage assertions.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- MITRE Bar Chart -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-1">MITRE ATT&CK Autonomous Coverage</h3>
+                    <p class="text-sm text-slate-500 mb-8">Coverage sweep across progressively aggressive policy profiles. "Hardened" demonstrates autonomous Level 4 response.</p>
+                    <div class="chart-container">
+                        <canvas id="mitreBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- E2E Doughnut Chart -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-1">E2E Threat Pipeline Stability</h3>
+                    <p class="text-sm text-slate-500 mb-8">Distribution of passing operational domains in latest tests. Total pass rate: 100.0% across 73 complex steps.</p>
+                    <div class="chart-container">
+                        <canvas id="pipelineDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Governance & Audit -->
+        <section id="governance" class="space-y-8 scroll-mt-24">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="text-pink-600">&#128269;</span> Policy Execution & Audit Trail
+                </h2>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    Accountability is built into the protocol. High-risk actions require elevated authorization, and every single policy decision generates a cryptographically verifiable JSON audit trace detailing context, blast radius, and cognition state.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                
+                <div class="md:col-span-1 space-y-4">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <h4 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                            <span class="text-red-500">&#9888;</span> High-Risk Protected Actions
+                        </h4>
+                        <ul class="space-y-3 text-sm text-slate-600">
+                            <li class="flex items-start gap-2"><span class="text-red-400 font-bold">&times;</span> `credential_revoke`</li>
+                            <li class="flex items-start gap-2"><span class="text-red-400 font-bold">&times;</span> `mass_isolate`</li>
+                            <li class="flex items-start gap-2"><span class="text-red-400 font-bold">&times;</span> `wipe` / `format`</li>
+                            <li class="flex items-start gap-2"><span class="text-red-400 font-bold">&times;</span> `agent_uninstall`</li>
+                            <li class="flex items-start gap-2"><span class="text-red-400 font-bold">&times;</span> `firewall_disable`</li>
+                            <li class="flex items-start gap-2"><span class="text-red-400 font-bold">&times;</span> `encryption_key_rotate`</li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 italic">
+                            These actions bypass standard cognitive autonomy and require explicit admin-tier approval via the GSG.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <div class="bg-[#1e293b] rounded-2xl p-6 shadow-lg overflow-x-auto border border-slate-800">
+                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-700">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">System Audit Trace Log</span>
+                            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded">VALIDATED</span>
+                        </div>
+<pre class="code-block text-sm text-slate-300 leading-relaxed">
+{
+  <span class="text-blue-400">"decision_id"</span>: <span class="text-green-400">"pdp-a1b2c3d4e5f6"</span>,
+  <span class="text-blue-400">"timestamp"</span>: <span class="text-green-400">"2026-03-16T14:32:00Z"</span>,
+  <span class="text-blue-400">"principal"</span>: <span class="text-green-400">"agent:endpoint-workstation-15"</span>,
+  <span class="text-blue-400">"action"</span>: <span class="text-green-400">"network_isolate"</span>,
+  <span class="text-blue-400">"action_category"</span>: <span class="text-green-400">"contain"</span>,
+  <span class="text-blue-400">"targets"</span>: [<span class="text-green-400">"10.0.1.50"</span>],
+  <span class="text-blue-400">"permitted"</span>: <span class="text-pink-400">true</span>,
+  <span class="text-blue-400">"approval_tier"</span>: <span class="text-green-400">"suggest"</span>,
+  <span class="text-blue-400">"rate_limit_remaining"</span>: <span class="text-orange-400">18</span>,
+  <span class="text-blue-400">"blast_radius_remaining"</span>: <span class="text-orange-400">9</span>,
+  <span class="text-blue-400">"decision_hash"</span>: <span class="text-green-400">"sha256:abc12398f7e..."</span>
+}
+</pre>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-200 py-8 mt-12 text-center">
+            <p class="text-slate-500 text-sm">Seraph AI Defense Platform &copy; 2026. Data extracted from official RFC documentation.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Tab Interaction Logic
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active from all buttons and contents
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active to clicked button and target content
+                button.classList.add('active');
+                const targetId = button.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Chart.js Setup
+        
+        // Universal Label Wrapper (Mandatory)
+        function wrapLabel(text) {
+            if (typeof text !== 'string') return text;
+            if (text.length <= 16) return text;
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (let i = 0; i < words.length; i++) {
+                let word = words[i];
+                if ((currentLine + word).length > 16) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            }
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        // Universal Tooltip Config (Mandatory)
+        const commonTooltipConfig = {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            }
+        };
+
+        // Shared styling variables based on "Crisp Corporate Trust" palette
+        const colors = {
+            blue: '#2563eb', // blue-600
+            cyan: '#0891b2', // cyan-600
+            purple: '#7c3aed', // purple-600
+            pink: '#db2777', // pink-600
+            slate: '#64748b', // slate-500
+            bgLight: '#f8fafc',
+            gridLines: '#e2e8f0' // slate-200
+        };
+
+        const globalChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { family: 'Inter', size: 12 },
+                        color: '#334155',
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)', // Dark tooltip for contrast
+                    titleFont: { family: 'Inter', size: 13 },
+                    bodyFont: { family: 'Inter', size: 13 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: commonTooltipConfig
+                }
+            }
+        };
+
+        // 1. Radar Chart: Legacy vs Seraph
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Behavioral Detection',
+                    'Autonomous Response',
+                    'Zero-Trust Execution',
+                    'Native Deception',
+                    'Network Isolation Speed'
+                ].map(wrapLabel),
+                datasets: [
+                    {
+                        label: 'Legacy EDR',
+                        data: [3, 2, 2, 2, 4],
+                        backgroundColor: 'rgba(219, 39, 119, 0.1)', // Pink
+                        borderColor: colors.pink,
+                        borderWidth: 2,
+                        pointBackgroundColor: colors.pink,
+                    },
+                    {
+                        label: 'Seraph Platform',
+                        data: [10, 9, 10, 9, 10],
+                        backgroundColor: 'rgba(8, 145, 178, 0.2)', // Cyan
+                        borderColor: colors.cyan,
+                        borderWidth: 2,
+                        pointBackgroundColor: colors.cyan,
+                    }
+                ]
+            },
+            options: {
+                ...globalChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: colors.gridLines },
+                        grid: { color: colors.gridLines },
+                        pointLabels: { 
+                            font: { family: 'Inter', size: 11, weight: '600' },
+                            color: '#475569'
+                        },
+                        ticks: { display: false, min: 0, max: 10 }
+                    }
+                }
+            }
+        });
+
+        // 2. Bar Chart: MITRE Coverage
+        const ctxBar = document.getElementById('mitreBarChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Strict Profile', 'Balanced Profile', 'Hardened Profile'].map(wrapLabel),
+                datasets: [
+                    {
+                        label: 'Coverage >= Level 3',
+                        data: [81.94, 91.67, 91.67],
+                        backgroundColor: colors.blue,
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Coverage Level 4',
+                        data: [22.69, 71.76, 71.76],
+                        backgroundColor: colors.purple,
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...globalChartOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: colors.gridLines },
+                        ticks: {
+                            color: colors.slate,
+                            font: { family: 'Inter' },
+                            callback: function(value) { return value + '%' }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: colors.slate, font: { family: 'Inter', weight: '500' } }
+                    }
+                }
+            }
+        });
+
+        // 3. Doughnut Chart: E2E Pipeline
+        const ctxDoughnut = document.getElementById('pipelineDoughnutChart').getContext('2d');
+        new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                // Summarized data from the markdown table
+                labels: [
+                    'Governance (9 tests)',
+                    'Deception (6 tests)',
+                    'Endpoint Agent (5 tests)',
+                    'AI / ML (4 tests)',
+                    'Other Domains (49 tests)'
+                ].map(wrapLabel),
+                datasets: [{
+                    data: [9, 6, 5, 4, 49],
+                    backgroundColor: [
+                        colors.blue,
+                        colors.cyan,
+                        colors.purple,
+                        colors.pink,
+                        '#cbd5e1' // slate-300 for "other"
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...globalChartOptions,
+                cutout: '65%',
+                plugins: {
+                    ...globalChartOptions.plugins,
+                    legend: {
+                        position: 'right',
+                        labels: { font: { family: 'Inter', size: 12 }, color: '#334155', usePointStyle: true }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

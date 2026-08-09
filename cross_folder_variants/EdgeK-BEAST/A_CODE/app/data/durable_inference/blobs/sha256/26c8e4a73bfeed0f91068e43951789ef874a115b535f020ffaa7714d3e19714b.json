@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:26c8e4a73bfeed0f91068e43951789ef874a115b535f020ffaa7714d3e19714b",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "8b7890ac5ff807ceb50770683d15d765b3fdf7894070ea9aa1a69fb123c6a33f",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 4096,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:f2680e6c0c3fd24af791a6a67d38eca0750a64ad3513d725ae7996af1a33b689",
+      "response_blob_digest": "sha256:e57c8815b24df63f521b229a869dfd8966ab1b0280c7d38d5fe3ea2200474c3f",
+      "response_blob_ref": "blobs/sha256/e57c8815b24df63f521b229a869dfd8966ab1b0280c7d38d5fe3ea2200474c3f.json",
+      "response_chars": 969,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix potential bug in ComputeForgeNode\", \"actions\": [{\"id\": \"a1\", \"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. A Jetson, RTX box, or CPU-only Ollama node participates as a Compute Forge Node: idle machine \u2192 watches repo \u2192 builds fingerprints\", \"new\": \"Ph",
+      "response_ref": "cache_f38eadb47490cba1.answer.json",
+      "response_sha256": "sha256:37b0c8587ec26ff2be74bc74a4870612b4de62f0dfbe1ab0c9c980da645d8683"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

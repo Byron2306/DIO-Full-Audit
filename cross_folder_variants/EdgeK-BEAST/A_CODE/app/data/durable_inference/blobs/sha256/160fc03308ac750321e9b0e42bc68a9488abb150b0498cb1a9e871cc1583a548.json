@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:160fc03308ac750321e9b0e42bc68a9488abb150b0498cb1a9e871cc1583a548",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"provider_handoff_hash\": \"sha256:255019cfbf3deaff2ee502adb76aa55e0330f51ce9e4ab7c3431e5aa3dfeabf2\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n    def __init__(self, **kwargs):\\n        super().__init__(**kwargs)\\n        self._validate_tags()\\n        self._validate_frequency()\\n        self._validate_confidence_score()\\n\\n    def _validate_tags(self):\\n        if not isinstance(self.tags, list):\\n            raise ValueError('Tags must be a list')\\n\\n    def _validate_frequency(self):\\n        if not isinstance(self.frequency, int):\\n            raise ValueError('Frequency must be an integer')\\n\\n    def _validate_confidence_score(self):\\n        if not isinstance(self.confidence_score, float):\\n            raise ValueError('Confidence score must be a float')\", \"intent\": \"add missing validation for tags, frequency, and confidence score attributes\"}], \"verify\": [\"python -m pytest tests/test_capability_impact.py -q\"]}",
+    "response_sha256": "sha256:7c1608b899d52c479d27528fc5853510fdb4bf235e34866caac5d0d18f563301",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

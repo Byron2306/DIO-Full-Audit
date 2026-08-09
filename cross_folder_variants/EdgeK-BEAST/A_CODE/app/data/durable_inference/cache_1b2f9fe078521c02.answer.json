@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:5c2f5efbe32d6cfde6eca3133dea9a8c410a7fdfca96dbb2326ffdf04404e7dd",
+    "ref": "blobs/sha256/5c2f5efbe32d6cfde6eca3133dea9a8c410a7fdfca96dbb2326ffdf04404e7dd.json"
+  },
+  "credit_id": "cache_1b2f9fe078521c02",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n def __init__(self, **kwargs):\\n super().__init__(**kwargs)\\n self._validate_tags()\\n self._validate_frequency()\\n self._validate_confidence_score()\", \"intent\": \"add missing validation for tags, frequency, and confidence score attributes\"}], \"verify\": [\"python -m pytest tests/test_capability_impact.py -q\"], \"provider_handoff_hash\": \"sha256:255019cfbf3deaff2ee502adb76aa55e0330f51ce9e4ab7c3431e5aa3dfeabf2\"}",
+  "response_sha256": "sha256:44f869c7620e1c55dc05aaa600a72c8c2253abcbd3af5bb25ef35e4b26b0417e",
+  "version": "1.0"
+}

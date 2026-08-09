@@ -1,0 +1,37 @@
+{
+  "schema_version": "arda.policy_bundle.v1",
+  "compiled_at": "2026-07-28T20:24:12.956238+00:00",
+  "policy_id": "ARDA-POLICY-V1",
+  "policy_version": "1.1.0",
+  "source_policy_digest": "sha256:a33ee4c72976693ec6503a03dd1dd02d8712b584ab29a5e6545a813f630e7cc8",
+  "compiler": {
+    "name": "arda_policy_compiler",
+    "version": "phase5-slice1"
+  },
+  "projections": {
+    "command_allow_index": {
+      "check_health": {
+        "command": "check_health",
+        "principals": [
+          "Magos_Indomitus"
+        ],
+        "lanes": [
+          "Shire"
+        ],
+        "effect": "ALLOW"
+      }
+    },
+    "principal_bindings": {
+      "Magos_Indomitus": [
+        "check_health"
+      ]
+    },
+    "lane_bindings": {
+      "Shire": [
+        "check_health"
+      ]
+    },
+    "redline_rules": []
+  },
+  "signature": "cfbb410ea8fde025fea1f1c9225e19e8e8f6116185ef975e6abafb01c7ad662b"
+}

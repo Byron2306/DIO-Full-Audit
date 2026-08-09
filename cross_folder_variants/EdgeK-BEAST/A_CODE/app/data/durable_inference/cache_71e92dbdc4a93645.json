@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:9ed7eb5069f1911c9842ff95ad0a43ae94d7319e875621cd8c70b5b40ad0804e",
+    "ref": "blobs/sha256/9ed7eb5069f1911c9842ff95ad0a43ae94d7319e875621cd8c70b5b40ad0804e.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T19:19:46.344095+00:00",
+  "credit_id": "cache_71e92dbdc4a93645",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:3bb07d914f1574f7b31ef913e7f1f17a44edbf77c8c5de870904c35e398f17b0",
+    "response_blob_digest": "sha256:ae091fe8894cbdf3d2d41d6018649bdf443adb18d1fe58538175e785d8b6f04c",
+    "response_blob_ref": "blobs/sha256/ae091fe8894cbdf3d2d41d6018649bdf443adb18d1fe58538175e785d8b6f04c.json",
+    "response_chars": 561,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Increase the minimum frequency threshold for considering a sequence\", \"provider_handoff_hash\": \"sha256:b31d327833115b763452fd8e5f4167dc238430c09420e03fce50adc4483a0eb2\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"confidence_score: float = 0.0\", \"new\": \"confidence_score: float = 0.5\", \"intent\": \"Increase the minimum confidence score threshold for considering ",
+    "response_ref": "cache_71e92dbdc4a93645.answer.json",
+    "response_sha256": "sha256:09417404873839498597fa0dd26b35425a567482e2c922caf5a75dd73df1c47c"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

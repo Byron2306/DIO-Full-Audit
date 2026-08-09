@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8d74b0a1c2c3572c0a0d282656b449b6178011ad9f508c4ed04645b591a0846c",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:baf2b26436b1f039fbe36fd74a44ca6620322a6ae384e70947a1174bda841aee",
+      "response_blob_digest": "sha256:90297a4efd88080258eac73cd11002f1ddf1b0454c69b62c96d5b3f895887eed",
+      "response_blob_ref": "blobs/sha256/90297a4efd88080258eac73cd11002f1ddf1b0454c69b62c96d5b3f895887eed.json",
+      "response_chars": 1364,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor KVCacheBlock and ComputeForgeNode for clarity without changing behavior\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/kv_cache_transport.py\", \"anchor_ref\": \"A6\"}, \"old\": \"\"\"Key insight: KV caches are model-specific, tokenizer-specific, prompt-prefix-specific, precision-specific, often engine-specific, large in memory, and sensitive to tiny prompt changes. So BEAST treats verified semantic artifacts as the ",
+      "response_ref": "cache_c5d301c8ea12bc4e.answer.json",
+      "response_sha256": "sha256:e433e03ebc9e7b060b21b8654ac3efbb55924e4643f0061c939f19654bafc4f3"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

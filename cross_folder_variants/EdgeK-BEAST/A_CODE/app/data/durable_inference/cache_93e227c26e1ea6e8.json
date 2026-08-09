@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:cd91793392bea4436eac3e9361341d29e8c34befce69a0a6ab75996383daa92a",
+    "ref": "blobs/sha256/cd91793392bea4436eac3e9361341d29e8c34befce69a0a6ab75996383daa92a.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T13:28:26.819030+00:00",
+  "credit_id": "cache_93e227c26e1ea6e8",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:de3e0f886bcf292599061b185512fe6052c2a818121d82a3f582a451043a1e83",
+    "response_blob_digest": "sha256:2a9b4603895bc74b2d274d5687b9cdc1efb7f7dcc8045bdab28be66f6d13768f",
+    "response_blob_ref": "blobs/sha256/2a9b4603895bc74b2d274d5687b9cdc1efb7f7dcc8045bdab28be66f6d13768f.json",
+    "response_chars": 636,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix timezone offset bug in ComputeForgeNode\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A7\"}, \"old\": \"self.profile.last_activity_at = datetime.now(timezone.utc).isoformat()\", \"new\": \"self.profile.last_activity_at = datetime.now(timezone.utc).isoformat(); self.profile.last_activity_at = self.profile.last_activity_at[:-6]\", \"intent\": \"fix timezone offset bug\"}], \"verify\": [\"test_co",
+    "response_ref": "cache_93e227c26e1ea6e8.answer.json",
+    "response_sha256": "sha256:62552d528cd169a5f023c5ac42c0fada5a458346c70ba5240ac6e958934bfdf4"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

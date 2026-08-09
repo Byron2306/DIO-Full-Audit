@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:9f097d355ac8390ed18bd7ddb35aafcbd8270e0d8fd4370f7208871229b06850",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:6f47a9fa9124958e2a2dcf37fa52da61be3847056187dd238f29da20371aed0c",
+      "response_blob_digest": "sha256:5c2f5efbe32d6cfde6eca3133dea9a8c410a7fdfca96dbb2326ffdf04404e7dd",
+      "response_blob_ref": "blobs/sha256/5c2f5efbe32d6cfde6eca3133dea9a8c410a7fdfca96dbb2326ffdf04404e7dd.json",
+      "response_chars": 689,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix bug in MetaToolCandidate class\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"class MetaToolCandidate:\", \"new\": \"class MetaToolCandidate:\\n def __init__(self, **kwargs):\\n super().__init__(**kwargs)\\n self._validate_tags()\\n self._validate_frequency()\\n self._validate_confidence_score()\", \"intent\": \"add missing validation for tags, frequency, and confidenc",
+      "response_ref": "cache_1b2f9fe078521c02.answer.json",
+      "response_sha256": "sha256:44f869c7620e1c55dc05aaa600a72c8c2253abcbd3af5bb25ef35e4b26b0417e"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

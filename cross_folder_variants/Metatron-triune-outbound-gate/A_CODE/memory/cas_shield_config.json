@@ -1,0 +1,21 @@
+services:
+  demo-cas:
+    build:
+      context: ./demo_upstream
+    container_name: demo-cas
+    ports:
+      - "9090:9090"
+
+  sentinel:
+    build:
+      context: .
+    container_name: cas-shield-sentinel
+    depends_on:
+      - demo-cas
+    environment:
+      - CAS_BASE_URL=http://demo-cas:9090
+      - PEBBLES_SALT=CHANGE_ME_TO_A_LONG_RANDOM_VALUE
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/app/logs

@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:bd1e2a3f3043eb2576d6b4b2cece7dd5dd3ba3fa54db31afc54e84e7ec27da16",
+    "ref": "blobs/sha256/bd1e2a3f3043eb2576d6b4b2cece7dd5dd3ba3fa54db31afc54e84e7ec27da16.json"
+  },
+  "credit_id": "cache_5f79ef3a4d7e546c",
+  "response": "{\n  \"kind\": \"beast.action_intent.v1\",\n  \"provider_handoff_hash\": \"sha256:ecfaec88523e5586075aa0d2dafad985e13909e0c6f5678c315bd205bef1d744\",\n  \"objective\": \"Refactor the module docstring for clarity by removing the informal 'First-pass' prefix.\",\n  \"actions\": [\n    {\n      \"type\": \"replace_exact\",\n      \"target\": {\n        \"path\": \"app/kernel/capability/capability_registry.py\",\n        \"anchor_ref\": \"A1\"\n      },\n      \"old\": \"\\\"\\\"\\\"\\nBEAST capability registry.\\n\\nFirst-pass governed inventory for plugins, skills, tools, workflows, routes,\\nparsers, linters, databases, providers, and CLI surfaces.\\n\\\"\\\"\\\"\",\n      \"new\": \"\\\"\\\"\\\"\\nBEAST capability registry.\\n\\nGoverned inventory for plugins, skills, tools, workflows, routes,\\nparsers, linters, databases, providers, and CLI surfaces.\\n\\\"\\\"\\\"\",\n      \"intent\": \"Improve docstring clarity by removing 'First-pass' qualifier.\"\n    }\n  ]\n}",
+  "response_sha256": "sha256:bbb4732d665e82c668d65214d258ac60c3af9a0de79cbd1707f4d8039f464c6c",
+  "version": "1.0"
+}

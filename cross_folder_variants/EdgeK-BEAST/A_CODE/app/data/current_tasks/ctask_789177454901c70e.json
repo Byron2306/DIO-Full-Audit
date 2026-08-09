@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T20:22:20.774108+00:00",
+  "objective": "Act as my coding partner. Answer from the attached repository context, cite relevant files, and identify uncertainty.\n\nQuestion: Explain the active file and identify its key dependencies.\n\nAttached workspace scope:\n- app/context/economizer.py\n- app/kernel/compute/compression_pipeline.py\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutations_latest.json\n- app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_receipt_latest.json",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:789177454901c70ec92dc4eafa525a51fb22a9b93976703452fe83f55c21f6ba",
+  "task_markup_id": "ctask_789177454901c70e"
+}

@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-16T13:11:21.961075+00:00",
+  "objective": "Act as my coding partner for app/context/economizer.py. Inspect the attached active file and the relevant workspace context. Explain the smallest safe change for this task, identify tests, and propose a unified patch. Do not write files directly; wait for my approval before applying anything.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:e0c45e27ff641235ca59ba55a3d03175f12b86d6ffa4ed6896ed61ec6ad22f09",
+  "task_markup_id": "ctask_e0c45e27ff641235"
+}

@@ -1,0 +1,121 @@
+{
+  "schema": "dio.nichefoundry.publication_candidate.v1",
+  "created_at": "2026-08-08T23:46:51+00:00",
+  "product_id": "evidex",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "channel": {
+    "id": "UCc916iuoPLseg05t5J5leaQ",
+    "title": "DIO workflows",
+    "handle": "@dioworkflows"
+  },
+  "status": "uploaded_private_verified",
+  "voice": {
+    "provider": "Microsoft Edge TTS",
+    "voice": "en-ZA-LeahNeural"
+  },
+  "visuals": {
+    "provider": "Gamma-assisted campaign assets",
+    "receipt": "GAMMA_VIDEO_POLISH_RECEIPT.json",
+    "human_review_required": true
+  },
+  "music": {
+    "provider": "openverse",
+    "source": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg",
+    "title": "Soft Corporate by MusicLFiles",
+    "artist": "MusicLFiles",
+    "licence": "BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source_page": "https://commons.wikimedia.org/w/index.php?curid=123925096",
+    "attribution": "\"Soft Corporate by MusicLFiles\" by MusicLFiles is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.",
+    "rights_status": "commercial_reuse_passed",
+    "rights_receipt": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json",
+    "timeline_offset_seconds": 0
+  },
+  "delivery": {
+    "video": {
+      "path": "final.mp4",
+      "sha256": "224d5f50713f1f281fe2e8174b70edd7004406d636592b5a1b92f8ec02a0bfd0",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "66.021333",
+          "size": "4313397",
+          "bit_rate": "522667"
+        }
+      }
+    },
+    "captions": {
+      "path": "captions.srt",
+      "sha256": "430983cdbfc5a5d9342628a94835c65e1fc1f6d8c100cf6108d49b5f45c0fef4",
+      "cue_count": 6
+    },
+    "thumbnail": {
+      "path": "thumbnail.png",
+      "sha256": "aac7b7660cec2f7cd3547f5e61dd43ca9af4b9ad35442865e8db564c18991e1f",
+      "source": "thumbnail-youtube-v2.png"
+    },
+    "metadata": {
+      "path": "metadata_package.json",
+      "sha256": "4ef9f7582f248fafd6eb2afa39f578cddc30eba53bf596323a1ae2002eeeec08",
+      "metadata_hash": "3bfd628857a2774371808264783130f8eff073762a96568d66a638520c26e2d3"
+    }
+  },
+  "gates": {
+    "private_upload_only": true,
+    "video_watch_through_approved": true,
+    "voice_approved": true,
+    "thumbnail_approved": true,
+    "metadata_approved": true,
+    "youtube_upload_authorised": true
+  },
+  "publishing": {
+    "preflight_passed": true,
+    "private_upload_ready": false,
+    "final_signoff_observed": false,
+    "compliance_report": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/compliance_report.json",
+    "publishing_package": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/publishing_package.json",
+    "release_approval_bundle": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/release_approval_bundle.json",
+    "verification_passed": false
+  },
+  "review_approval": {
+    "state": "approved",
+    "approved_at": "2026-08-09T00:04:24+00:00",
+    "approved_by": "DIO operator via control deck",
+    "attestation": "Operator watched the complete film and approved voice, thumbnail, and metadata."
+  },
+  "upload_authority": {
+    "state": "authorised",
+    "authorised_at": "2026-08-09T00:05:39+00:00",
+    "authorised_by": "DIO operator via control deck",
+    "scope": "private_upload_only"
+  },
+  "youtube": {
+    "video_id": "oBrUwEno_eA",
+    "url": "https://studio.youtube.com/video/oBrUwEno_eA/edit",
+    "watch_url": "https://www.youtube.com/watch?v=oBrUwEno_eA",
+    "privacy_status": "private",
+    "channel": {
+      "id": "UCc916iuoPLseg05t5J5leaQ",
+      "title": "DIO workflows"
+    },
+    "uploaded_at": "2026-08-09T00:06:18.598Z",
+    "verification_passed": true
+  }
+}

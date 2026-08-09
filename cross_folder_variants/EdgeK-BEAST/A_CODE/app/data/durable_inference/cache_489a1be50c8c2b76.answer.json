@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:8ce3d20ad2fa83bb6a25de508a5f2b74a935131ca0c61a11a9793031d8d56809",
+    "ref": "blobs/sha256/8ce3d20ad2fa83bb6a25de508a5f2b74a935131ca0c61a11a9793031d8d56809.json"
+  },
+  "credit_id": "cache_489a1be50c8c2b76",
+  "response": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ContextEconomizer for clarity without changing behavior\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A5\"},\"old\":\"from dataclasses import dataclass\\nfrom typing import Any, Dict, List, Optional, Tuple\\nimport copy\\nimport logging\",\"new\":\"import copy\\nimport logging\\nfrom dataclasses import dataclass\\nfrom typing import Any, Dict, List, Optional, Tuple\",\"intent\":\"Rearrange imports for clarity\"}],\"verify\":[\"python -m pytest tests/test_context_economizer.py -q\"],\"provider_handoff_hash\":\"sha256:6b9acdccdd1e2527151de5f5dad8eb347b40426edf9ebfbd86680650bbb5f666\"}",
+  "response_sha256": "sha256:c77d8af3f0b37295792c97cf8195d7dc156c7873138a1ba567895522a56e02d9",
+  "version": "1.0"
+}

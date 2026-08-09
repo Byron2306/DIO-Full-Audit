@@ -1,0 +1,20 @@
+title: Cloud CLI Account and Storage Enumeration Burst
+id: 5cf3d22f-d9d8-45db-a0c7-aafe6a8bc788
+status: experimental
+description: Detects commands commonly used for cloud account and storage discovery.
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains:
+      - aws s3 ls
+      - aws iam list-users
+      - az storage blob list
+      - gcloud storage ls
+  condition: selection
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1530
+  - attack.t1580

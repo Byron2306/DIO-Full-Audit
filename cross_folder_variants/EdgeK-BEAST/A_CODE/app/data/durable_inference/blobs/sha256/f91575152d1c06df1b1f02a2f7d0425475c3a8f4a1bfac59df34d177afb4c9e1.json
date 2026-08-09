@@ -1,0 +1,52 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:f91575152d1c06df1b1f02a2f7d0425475c3a8f4a1bfac59df34d177afb4c9e1",
+  "payload": {
+    "artifact_type": "kv_prefill",
+    "avoided_tokens_estimate": 50,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.7,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "inference_artifact_identity": {
+        "attention_backend": "unknown",
+        "beast_object_type": "inference_artifact_identity",
+        "engine": "unknown",
+        "engine_version": "unknown",
+        "identity_hash": "sha256:448428c3b0b61b4dedf4ea88d401b06dcd68697f30f082d1501cf71ffcacda93",
+        "model": "m",
+        "model_revision": "unknown",
+        "policy_fingerprint": "unknown",
+        "precision": "unknown",
+        "prompt_prefix_hash": "sha256:695252f664b93b2375fc1738693a32a19e8c722fe14e81a3d80cc5b85a923da0",
+        "quantization": "unknown",
+        "repository_fingerprint": "unknown",
+        "rope_config_hash": "unknown",
+        "skill_tree_fingerprint": "unknown",
+        "system_prompt_hash": "sha256:518b67e652531c5fe7e25d6b2c3b4ef6224e7d90da2091967dd47eb082b26a19",
+        "tenant_privacy_class": "local_private",
+        "tensor_parallel_size": 1,
+        "tokenizer": "t",
+        "tokenizer_revision": "unknown",
+        "tool_schema_fingerprint": "unknown",
+        "version": "1.0"
+      },
+      "inference_artifact_identity_hash": "sha256:448428c3b0b61b4dedf4ea88d401b06dcd68697f30f082d1501cf71ffcacda93",
+      "kv_cache_metadata": {
+        "estimated_tokens_saved": 50
+      },
+      "model": "m",
+      "prompt_prefix_hash": "695252f664b93b2375fc1738693a32a19e8c722fe14e81a3d80cc5b85a923da0",
+      "system_prompt_hash": "518b67e652531c5fe7e25d6b2c3b4ef6224e7d90da2091967dd47eb082b26a19",
+      "tokenizer": "t"
+    },
+    "policy_version": "engine_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "prefill_preparation",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,63 @@
+{
+  "record": {
+    "record_id": "mem-f410ec47ca",
+    "principal_identity_hash": "0e204f201b1a90b8f630d46cd01ee5b187277625413f3423ed390756b05f6620",
+    "memory_class": "encounter",
+    "retention_class": "amendable",
+    "created_at": "2026-08-09 01:45:14.769951+00:00",
+    "consent_basis": "covenant",
+    "content_hash": "1323f12cea01352ee93ec69d43c1478f8c47f5ee7a16d5f7486c4c8762c104a3",
+    "parent_hash": null,
+    "inspectable": true,
+    "revocable": true,
+    "content_ref": "/home/byron/Integritas-Mechanicus/evidence/mandos/encounters/enc-54e338e7b8.json"
+  },
+  "payload": {
+    "encounter_id": "enc-54e338e7b8",
+    "principal_identity_hash": "0e204f201b1a90b8f630d46cd01ee5b187277625413f3423ed390756b05f6620",
+    "topic": "DIO Document Studio authorised technical editing test. The owner requests paragraph-level corrections to grammar and clarity. Return ONLY JSON: {\"edits\":[{\"para",
+    "principal_goal": null,
+    "machine_role": "speculum",
+    "summary": "I can help with feedback on your draft so you can keep your ideas and revise it in your own words.\n\nHello! It's good to be here with you. What would you like to work on today?\n\nI\u2019ll keep this evidence-bounded: if you want, send the specific claim, paragraph, or source span and I\u2019ll turn this into concrete feedback with strengths, risks, and one revision move.",
+    "what_deepened": [
+      "direct_answer_mediation",
+      "direct_answer_release_mediation"
+    ],
+    "what_confused": [],
+    "unresolved_threads": [],
+    "officer_sequence": [
+      "speculum"
+    ],
+    "zpd_estimate": 0.5,
+    "created_at": "2026-08-09 01:45:14.768553+00:00",
+    "conditioning_delta": -0.15,
+    "reinforcement_type": null,
+    "modelled_behavior": null,
+    "habit_mediated": null,
+    "mediation_success_score": 0.0,
+    "heutagogic_shift": false,
+    "tangential_bridge_taken": null,
+    "challenge_type": "COMFORTABLE",
+    "struggle_index": 0.0,
+    "release_decision": "",
+    "handback_reason": null,
+    "dominant_cluster": "familiar_domain",
+    "speech_act": "answer",
+    "workspace_schema": [
+      "familiar_domain_workspace"
+    ],
+    "expression_schema": [
+      "plain_answer_surface"
+    ],
+    "verification_schema": [
+      "constitutional_boundary_verification",
+      "epistemic_honesty_verification"
+    ],
+    "memory_class": "encounter",
+    "retention_class": "amendable"
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

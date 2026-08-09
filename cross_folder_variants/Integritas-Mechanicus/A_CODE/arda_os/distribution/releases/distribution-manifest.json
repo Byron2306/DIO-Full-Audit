@@ -1,0 +1,314 @@
+{
+  "base_distribution": {
+    "architecture": "amd64",
+    "family": "debian",
+    "series": "trixie"
+  },
+  "distribution_id": "arda-valinor",
+  "distribution_name": "ARDA Valinor",
+  "generated_at": "2026-07-30T06:46:25.889459+00:00",
+  "harmony_discovery": {
+    "categories": [
+      "ai_stack",
+      "apt_infrastructure",
+      "cron",
+      "dbus",
+      "networking_daemons",
+      "pam_and_auth",
+      "polkit",
+      "power_management",
+      "ssh",
+      "systemd_services",
+      "user_session"
+    ],
+    "category_count": 11,
+    "discovery_commands": {
+      "description": "Run these on your live system BEFORE enforcement to discover what needs mapping",
+      "find_all_running": "ps aux | awk '{print $11}' | sort -u | grep ^/",
+      "find_apt_helpers": "find /usr/lib/apt -type f -executable",
+      "find_networkmanager": "find /usr/lib/NetworkManager -type f -executable",
+      "find_ollama": "which ollama; readlink -f $(which ollama)",
+      "find_polkit": "find /usr/lib/polkit-1 -type f -executable",
+      "find_systemd_binaries": "systemctl list-units --type=service --state=running --no-legend | awk '{print $1}' | xargs -I{} systemctl show {} -p ExecStart --value | grep -oP '/[^\\s;]+' | sort -u",
+      "find_systemd_helpers": "find /usr/lib/systemd -maxdepth 1 -type f -executable | sort"
+    },
+    "protocol": "ARDA_HARMONY_MAP_ADDENDUM_v1"
+  },
+  "installer_profile": "/home/byron/Integritas-Mechanicus/arda_os/distribution/releases/installer-profile.json",
+  "overlay_root": "arda_os/distribution/build/overlay",
+  "remote_verifier_profile": "/home/byron/Integritas-Mechanicus/arda_os/distribution/releases/remote-verifier-profile.json",
+  "required_packages": [
+    "bash",
+    "coreutils",
+    "curl",
+    "dbus",
+    "efibootmgr",
+    "fastapi",
+    "grub-efi-amd64",
+    "mokutil",
+    "python3",
+    "python3-cryptography",
+    "python3-fastapi",
+    "python3-uvicorn",
+    "shim-signed",
+    "sbsigntool",
+    "systemd",
+    "tpm2-tools"
+  ],
+  "runtime_constitution_layers": [
+    "measured_identity",
+    "attestation_service",
+    "boot_measurement",
+    "harmonic_engine",
+    "voice_registry",
+    "polyphonic_governance",
+    "earendil_flow",
+    "gates_of_night",
+    "arda_fabric_middleware"
+  ],
+  "schema_version": "arda.distribution.manifest.v1",
+  "systemd_units": [
+    "arda-phase4-remote-verifier.service",
+    "arda-valinor-postboot.service",
+    "arda-bombadil-valinor.service"
+  ],
+  "trust_topology": {
+    "attested_host_must_not_hold_verifier_private_key": true,
+    "attested_host_verifies_signed_verdicts_with_public_key_only": true,
+    "verifier_mode": "off-box-required"
+  },
+  "valinor_install_plan": {
+    "artifacts": {
+      "linux_header_packages": [
+        "/home/byron/kernel-src/linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb"
+      ],
+      "linux_image_packages": [
+        "/home/byron/kernel-src/linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb"
+      ]
+    },
+    "blockers": [],
+    "current_kernel": "6.12.95+deb13-rt-amd64",
+    "generated_at": "2026-07-28T20:02:26.103745+00:00",
+    "grub_env": {
+      "output": "",
+      "returncode": 0
+    },
+    "install_commands": [
+      "sudo dpkg -i /home/byron/kernel-src/linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb /home/byron/kernel-src/linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+      "sudo update-initramfs -c -k <valinor-kernel-version>",
+      "sudo update-grub"
+    ],
+    "manifest": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/latest.json",
+    "ok": true,
+    "post_boot_gate": [
+      "uname -r",
+      "test \"$(uname -r | grep -c valinor)\" -gt 0",
+      "sudo env ARDA_SOVEREIGN_MODE=1 ./arda_os/bin/arda os-grade --promote --seed-running-processes --capture-tpm --require-tpm-capture --attestation-dir /var/lib/arda/attestation/latest"
+    ],
+    "rollback_commands": [
+      "Reboot and select the known-good kernel from GRUB: 6.12.95+deb13-rt-amd64",
+      "If needed from current boot: sudo grub-reboot '<known-good menu entry>' && sudo reboot",
+      "If Valinor packages must be removed: sudo apt remove 'linux-image-*-valinor' 'linux-headers-*-valinor'"
+    ],
+    "schema_version": "arda.valinor_install_plan.v1",
+    "systemd_plan": [
+      "arda_os/kernel/valinor/scripts/render_systemd_units.py --output-dir arda_os/kernel/valinor/releases/systemd",
+      "Review rendered units before installation.",
+      "sudo cp arda_os/kernel/valinor/releases/systemd/*.service /etc/systemd/system/",
+      "sudo systemctl daemon-reload",
+      "sudo systemctl enable arda-valinor-postboot.service arda-bombadil-valinor.service"
+    ],
+    "systemd_units": [
+      "arda_os/kernel/valinor/systemd/arda-valinor-postboot.service",
+      "arda_os/kernel/valinor/systemd/arda-bombadil-valinor.service"
+    ]
+  },
+  "valinor_release": {
+    "artifact_count": 4,
+    "artifact_dir": "/home/byron/kernel-src",
+    "artifacts": [
+      {
+        "name": "linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+        "path": "/home/byron/kernel-src/linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+        "sha256": "03345564a33cc65f6fe7cc4d88411402448a91cf9c32e28cbe73e3e2a46725a4",
+        "size": 9898064
+      },
+      {
+        "name": "linux-image-6.12.96-valinor-dbg_6.12.96-valinor2-1_amd64.deb",
+        "path": "/home/byron/kernel-src/linux-image-6.12.96-valinor-dbg_6.12.96-valinor2-1_amd64.deb",
+        "sha256": "7f6282da97b86be354e7f536073215bdac22a9746b0b9d63134a2f4a6d46d3ce",
+        "size": 993451252
+      },
+      {
+        "name": "linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+        "path": "/home/byron/kernel-src/linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+        "sha256": "aa32206145c2adcffd75a9c99fef759666c9b0dfb08e07228785bffe64f0fb6a",
+        "size": 109456532
+      },
+      {
+        "name": "linux-libc-dev_6.12.96-valinor2-1_amd64.deb",
+        "path": "/home/byron/kernel-src/linux-libc-dev_6.12.96-valinor2-1_amd64.deb",
+        "sha256": "02f8b7811daf8f6c7930092795fa63c6d81f91d858894c3daa678f9902f426b7",
+        "size": 1395944
+      }
+    ],
+    "config": {
+      "path": "/home/byron/kernel-src/linux-source-6.12/.config",
+      "present": true,
+      "sha256": "8b12e89412e570567b6db605c50065886768e3f143cd82fb20baf7c77198f94e"
+    },
+    "generated_at": "2026-07-28T20:02:25.114046+00:00",
+    "host": "debian",
+    "kernel_release_at_manifest": "6.12.95+deb13-rt-amd64",
+    "schema_version": "arda.valinor_kernel_release.v1",
+    "source_dir": "/home/byron/kernel-src/linux-source-6.12",
+    "source_git_head": null
+  },
+  "voice_profiles": [
+    {
+      "allowed_register": "control_plane",
+      "allowed_score_roles": [
+        "decision",
+        "approval",
+        "governance"
+      ],
+      "capability_class": "governance",
+      "component_id": "policy_engine",
+      "component_type": "governance",
+      "notes": null,
+      "timbre_profile": "governance.default.v1",
+      "trust_domain": "control",
+      "voice_type": "policy_baritone"
+    },
+    {
+      "allowed_register": "control_plane",
+      "allowed_score_roles": [
+        "decision",
+        "approval",
+        "governance"
+      ],
+      "capability_class": "governance",
+      "component_id": "outbound_gate",
+      "component_type": "governance",
+      "notes": null,
+      "timbre_profile": "governance.default.v1",
+      "trust_domain": "control",
+      "voice_type": "policy_baritone"
+    },
+    {
+      "allowed_register": "high_agency",
+      "allowed_score_roles": [
+        "dispatch",
+        "tool_exec",
+        "coordination"
+      ],
+      "capability_class": "orchestration",
+      "component_id": "governed_dispatch",
+      "component_type": "orchestration",
+      "notes": null,
+      "timbre_profile": "orchestration.default.v1",
+      "trust_domain": "orchestration",
+      "voice_type": "gateway_tenor"
+    },
+    {
+      "allowed_register": "high_agency",
+      "allowed_score_roles": [
+        "dispatch",
+        "tool_exec",
+        "coordination"
+      ],
+      "capability_class": "orchestration",
+      "component_id": "tool_gateway",
+      "component_type": "orchestration",
+      "notes": null,
+      "timbre_profile": "orchestration.default.v1",
+      "trust_domain": "orchestration",
+      "voice_type": "gateway_tenor"
+    },
+    {
+      "allowed_register": "medium_agency",
+      "allowed_score_roles": [
+        "ingress",
+        "normalization"
+      ],
+      "capability_class": "ingress",
+      "component_id": "mcp_server",
+      "component_type": "ingress",
+      "notes": null,
+      "timbre_profile": "ingress.default.v1",
+      "trust_domain": "edge",
+      "voice_type": "gateway_tenor"
+    },
+    {
+      "allowed_register": "high_agency",
+      "allowed_score_roles": [
+        "execute",
+        "deliver"
+      ],
+      "capability_class": "execution",
+      "component_id": "governance_executor",
+      "component_type": "execution",
+      "notes": null,
+      "timbre_profile": "execution.default.v1",
+      "trust_domain": "runtime",
+      "voice_type": "executor_tenor"
+    },
+    {
+      "allowed_register": "control_plane",
+      "allowed_score_roles": [
+        "guard",
+        "containment"
+      ],
+      "capability_class": "security",
+      "component_id": "token_broker",
+      "component_type": "security",
+      "notes": null,
+      "timbre_profile": "security.default.v1",
+      "trust_domain": "security",
+      "voice_type": "security_baritone"
+    },
+    {
+      "allowed_register": "medium_agency",
+      "allowed_score_roles": [
+        "state_sync",
+        "world_update"
+      ],
+      "capability_class": "state_update",
+      "component_id": "world_model",
+      "component_type": "state_update",
+      "notes": null,
+      "timbre_profile": "state.default.v1",
+      "trust_domain": "state",
+      "voice_type": "state_mezzo"
+    },
+    {
+      "allowed_register": "control_plane",
+      "allowed_score_roles": [
+        "decision",
+        "approval",
+        "governance"
+      ],
+      "capability_class": "governance",
+      "component_id": "triune_orchestrator",
+      "component_type": "governance",
+      "notes": null,
+      "timbre_profile": "governance.default.v1",
+      "trust_domain": "control",
+      "voice_type": "policy_baritone"
+    },
+    {
+      "allowed_register": "medium_agency",
+      "allowed_score_roles": [
+        "ingress",
+        "normalization"
+      ],
+      "capability_class": "ingress",
+      "component_id": "agent_commands_router",
+      "component_type": "ingress",
+      "notes": null,
+      "timbre_profile": "ingress.default.v1",
+      "trust_domain": "edge",
+      "voice_type": "gateway_tenor"
+    }
+  ]
+}

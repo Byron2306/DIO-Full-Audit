@@ -1,0 +1,130 @@
+{
+  "artifact_type": "compression_result",
+  "category": "tool_bus",
+  "chronicle_type": "evidence_envelope",
+  "created_at": "2026-07-09T18:23:58.464961+00:00",
+  "evidence": {
+    "artifact_type": "compression_result",
+    "blast_radius": 0.25,
+    "capability_family": "tool_bus",
+    "confidence": 0.86,
+    "created_at": "2026-07-09T18:23:58.464961+00:00",
+    "evidence_id": "ev_a7e7abaf3707c651",
+    "evidence_schema_version": "1.0",
+    "expected_value": 0.2,
+    "failure_probability": 0.5075,
+    "freshness": 1.0,
+    "learning_status": "promotion_candidate",
+    "priority_score": 0.74694,
+    "promotion_candidate": true,
+    "provider": null,
+    "recommended_actions": [
+      "Use winning chunks and exact references for handoff instead of raw payload."
+    ],
+    "recommended_capability_id": "tool:compression_prune",
+    "relationships": [
+      {
+        "id": "payload://compression",
+        "type": "source_uri"
+      }
+    ],
+    "relevance": 0.68,
+    "repeat_count": 1,
+    "risk": 0.12,
+    "scope": "payload",
+    "score_breakdown": {
+      "expected_value_components": {
+        "blast_radius_inverse": 0.045,
+        "confidence": 0.1548,
+        "freshness": 0.1,
+        "relevance": 0.1496,
+        "repetition": 0.0,
+        "severity": 0.027,
+        "verification": 0.066
+      },
+      "expected_value_raw": 0.5424,
+      "expected_value_weights": {
+        "blast_radius_inverse": 0.06,
+        "confidence": 0.18,
+        "freshness": 0.1,
+        "relevance": 0.22,
+        "repetition": 0.14,
+        "severity": 0.18,
+        "verification": 0.12
+      },
+      "failure_probability_components": {
+        "blast_radius_penalty": -0.0125,
+        "confidence": 0.215,
+        "freshness": 0.05,
+        "relevance": 0.17,
+        "repetition": 0.0,
+        "severity": 0.03,
+        "verification": 0.055
+      },
+      "failure_probability_raw": 0.5075,
+      "failure_probability_weights": {
+        "blast_radius_penalty": -0.05,
+        "confidence": 0.25,
+        "freshness": 0.05,
+        "relevance": 0.25,
+        "repetition": 0.15,
+        "severity": 0.2,
+        "verification": 0.1
+      },
+      "local_scores": {
+        "blast_radius": 0.25,
+        "confidence": 0.86,
+        "expected_value": 0.5424,
+        "failure_probability": 0.5075,
+        "freshness": 1.0,
+        "relevance": 0.68,
+        "repetition": 0.0,
+        "severity": 0.15,
+        "verification_strength": 0.55
+      },
+      "priority_components": {
+        "blast_radius_penalty": -0.0625,
+        "confidence": 0.86,
+        "expected_value": 1.6272,
+        "relevance": 0.68,
+        "repeat_bonus": 0.08,
+        "verification": 0.55
+      },
+      "priority_raw": 3.7347,
+      "priority_weights": {
+        "blast_radius_penalty": -1.0,
+        "confidence": 1.0,
+        "expected_value": 3.0,
+        "relevance": 1.0,
+        "repeat_bonus": 1.0,
+        "verification": 1.0
+      },
+      "score_schema_version": "1.0",
+      "thresholds": {
+        "prioritize_priority_score": 0.55,
+        "promotion_expected_value": 0.55,
+        "promotion_priority_score": 0.72,
+        "promotion_repeat_count": 2,
+        "promotion_verification_strength": 0.5
+      },
+      "uncertainty": 0.26
+    },
+    "severity": "info",
+    "signals": [
+      "compression_pipeline",
+      "semantic_text_prune",
+      "context_reduced"
+    ],
+    "source_type": "compression_pipeline",
+    "source_uri": "payload://compression",
+    "summary": "Compressed payload with semantic_text_prune and produced 1 handoff chunks.",
+    "task_id": null,
+    "uncertainty": 0.26,
+    "verification_strength": 0.55
+  },
+  "provider": null,
+  "reason": "compression_pipeline",
+  "source_type": "compression_pipeline",
+  "task_id": null,
+  "version": "1.0"
+}

@@ -1,0 +1,28 @@
+title: Lab synthetic DllSideLoad on tagged canary (honey_module_path) — T1129
+id: lab-shared-module-load-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_module_path) is observed with the metatron_run_id tag and the
+  expected event_type matches DllSideLoad. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1129
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1129
+  - lab.canary
+  - lab.edr_module_audit
+logsource:
+  product: lab_audit
+  service: edr_module_audit
+  category: shared_modules
+detection:
+  selection:
+    event_type: 'DllSideLoad'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

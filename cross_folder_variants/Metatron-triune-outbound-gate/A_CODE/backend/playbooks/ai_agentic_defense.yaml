@@ -1,0 +1,435 @@
+pack:
+  name: "AI-Agentic Defense Playbooks"
+  version: "1.0.0"
+  description: "SOAR playbooks focused on detecting and disrupting machine-paced, autonomous CLI-driven intrusion patterns."
+  defaults:
+    time_window_s: 30
+    escalation_window_s: 120
+    machine_likelihood_high: 0.80
+    machine_likelihood_critical: 0.92
+    burstiness_high: 0.75
+    tool_switch_fast_ms: 300
+    notify_channels: ["slack", "email"]
+    evidence:
+      include_process_tree: true
+      include_network_flows: true
+      include_file_events: true
+      include_cli_transcript: true
+
+playbooks:
+
+  - id: "AI-RECON-DEGRADE-01"
+    name: "Machine-Paced Recon Loop — Degrade + Observe"
+    trigger:
+      any:
+        - event_type: "cli.session_summary"
+          where:
+            machine_likelihood_gte: "{{defaults.machine_likelihood_high}}"
+            dominant_intents_any: ["recon"]
+            burstiness_score_gte: "{{defaults.burstiness_high}}"
+    guardrails:
+      suppress_if:
+        - where:
+            user_is_trusted_admin: true
+            change_window_active: true
+      require:
+        - field: "host_id"
+        - field: "session_id"
+    steps:
+      - action: "risk.raise"
+        params:
+          scope: "host"
+          host_id: "{{event.host_id}}"
+          amount: 10
+          reason: "Machine-paced recon pattern detected"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "tag_session"
+            params:
+              session_id: "{{event.session_id}}"
+              tags: ["ai_suspected", "recon"]
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "throttle_cli"
+            params:
+              session_id: "{{event.session_id}}"
+              rate_per_min: 20
+              burst: 5
+              mode: "soft"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "inject_latency"
+            params:
+              session_id: "{{event.session_id}}"
+              delay_ms: 250
+              jitter_ms: 200
+              match_intents: ["recon"]
+              mode: "soft"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_triage_bundle"
+            params:
+              session_id: "{{event.session_id}}"
+              window_s: "{{defaults.time_window_s}}"
+              include:
+                process_tree: true
+                network_flows: true
+                file_events: true
+                cli_transcript: true
+      - action: "notify"
+        params:
+          channels: "{{defaults.notify_channels}}"
+          severity: "medium"
+          message: "AI-style recon loop detected on {{event.host_id}} (session {{event.session_id}}). Applied soft throttle + latency; triage bundle captured."
+      - action: "wait"
+        params:
+          seconds: 30
+      - action: "conditional"
+        params:
+          if:
+            any:
+              - session_metric_gte:
+                  key: "goal_persistence"
+                  value: 0.70
+              - session_metric_contains:
+                  key: "dominant_intents"
+                  value: "lateral_movement"
+          then:
+            - action: "playbook.invoke"
+              params:
+                playbook_id: "AI-PIVOT-CONTAIN-01"
+
+  - id: "AI-DECOY-HIT-CONTAIN-01"
+    name: "Decoy/Honey Token Hit — Immediate Containment"
+    trigger:
+      any:
+        - event_type: "deception.hit"
+          where:
+            severity_any: ["high", "critical"]
+    guardrails:
+      require:
+        - field: "host_id"
+        - field: "token_id"
+    steps:
+      - action: "risk.set"
+        params:
+          scope: "host"
+          host_id: "{{event.host_id}}"
+          level: "critical"
+          reason: "Deception asset touched (high confidence intrusion)"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "isolate_host"
+            params:
+              block_network: true
+              allowlist:
+                - "vpn_controller"
+                - "soar_server"
+                - "logging_sink"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_triage_bundle"
+            params:
+              window_s: 300
+              include:
+                process_tree: true
+                network_flows: true
+                file_events: true
+                cli_transcript: true
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "kill_process_tree"
+            params:
+              pid: "{{event.suspect_pid}}"
+              mode: "force"
+          when:
+            field_present: "suspect_pid"
+      - action: "notify"
+        params:
+          channels: "{{defaults.notify_channels}}"
+          severity: "critical"
+          message: "Deception hit on {{event.host_id}} (token {{event.token_id}}). Host isolated; triage captured; suspect process tree terminated (if known)."
+      - action: "ticket.create"
+        params:
+          severity: "critical"
+          title: "Deception hit: {{event.host_id}}"
+          body: "Token {{event.token_id}} accessed. Host isolated. Review triage bundle and session telemetry."
+
+  - id: "AI-CRED-ACCESS-RESP-01"
+    name: "Credential Access Pattern — Decoy + Credential Controls"
+    trigger:
+      any:
+        - event_type: "cli.session_summary"
+          where:
+            machine_likelihood_gte: "{{defaults.machine_likelihood_high}}"
+            dominant_intents_any: ["credential_access"]
+    guardrails:
+      require:
+        - field: "host_id"
+        - field: "session_id"
+    steps:
+      - action: "risk.raise"
+        params:
+          scope: "host"
+          host_id: "{{event.host_id}}"
+          amount: 25
+          reason: "AI-style credential access intent detected"
+      - action: "webhook.call"
+        params:
+          name: "identity.rotate_credentials"
+          payload:
+            host_id: "{{event.host_id}}"
+            user: "{{event.user}}"
+            reason: "AI-style credential access"
+        on_fail:
+          - action: "notify"
+            params:
+              channels: "{{defaults.notify_channels}}"
+              severity: "high"
+              message: "Credential rotation webhook failed for {{event.host_id}}/{{event.user}} — manual action required."
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "throttle_cli"
+            params:
+              session_id: "{{event.session_id}}"
+              rate_per_min: 10
+              burst: 2
+              mode: "hard"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "inject_latency"
+            params:
+              session_id: "{{event.session_id}}"
+              delay_ms: 600
+              jitter_ms: 400
+              match_intents: ["credential_access"]
+              mode: "hard"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_triage_bundle"
+            params:
+              window_s: 180
+              include:
+                process_tree: true
+                network_flows: true
+                file_events: true
+                cli_transcript: true
+      - action: "notify"
+        params:
+          channels: "{{defaults.notify_channels}}"
+          severity: "high"
+          message: "AI-style credential access intent on {{event.host_id}} (session {{event.session_id}}). Applied hard throttle/latency; initiated credential controls; triage captured."
+      - action: "conditional"
+        params:
+          if:
+            any:
+              - session_metric_gte:
+                  key: "machine_likelihood"
+                  value: "{{defaults.machine_likelihood_critical}}"
+              - session_metric_contains:
+                  key: "decoy_touched"
+                  value: true
+          then:
+            - action: "playbook.invoke"
+              params:
+                playbook_id: "AI-DECOY-HIT-CONTAIN-01"
+
+  - id: "AI-PIVOT-CONTAIN-01"
+    name: "Autonomous Pivot / Toolchain Switching — Contain Fast"
+    trigger:
+      any:
+        - event_type: "cli.session_summary"
+          where:
+            machine_likelihood_gte: "{{defaults.machine_likelihood_high}}"
+            tool_switch_latency_ms_lte: "{{defaults.tool_switch_fast_ms}}"
+            goal_persistence_gte: 0.70
+            dominant_intents_any: ["lateral_movement", "privilege_escalation"]
+    guardrails:
+      require:
+        - field: "host_id"
+        - field: "session_id"
+    steps:
+      - action: "risk.raise"
+        params:
+          scope: "host"
+          host_id: "{{event.host_id}}"
+          amount: 30
+          reason: "AI-style pivot detected (fast tool switching + high persistence)"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "isolate_host"
+            params:
+              block_network: true
+              allowlist:
+                - "vpn_controller"
+                - "soar_server"
+                - "logging_sink"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_triage_bundle"
+            params:
+              window_s: 300
+              include:
+                process_tree: true
+                network_flows: true
+                file_events: true
+                cli_transcript: true
+      - action: "notify"
+        params:
+          channels: "{{defaults.notify_channels}}"
+          severity: "critical"
+          message: "AI-style pivot detected on {{event.host_id}}. Host isolated; evidence captured. Review immediately."
+      - action: "ticket.create"
+        params:
+          severity: "critical"
+          title: "AI-style pivot: {{event.host_id}}"
+          body: "Tool switch latency {{event.tool_switch_latency_ms}}ms; intents include {{event.dominant_intents}}. Host isolated; triage captured."
+
+  - id: "AI-EXFIL-PREP-CUT-01"
+    name: "Exfil Prep — Cut Egress + Snapshot"
+    trigger:
+      any:
+        - event_type: "cli.session_summary"
+          where:
+            dominant_intents_any: ["exfil_prep", "data_staging"]
+            machine_likelihood_gte: "{{defaults.machine_likelihood_high}}"
+    guardrails:
+      require:
+        - field: "host_id"
+        - field: "session_id"
+    steps:
+      - action: "risk.raise"
+        params:
+          scope: "host"
+          host_id: "{{event.host_id}}"
+          amount: 35
+          reason: "AI-style exfil prep / staging detected"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "isolate_host"
+            params:
+              block_network: true
+              allowlist:
+                - "vpn_controller"
+                - "soar_server"
+                - "logging_sink"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_triage_bundle"
+            params:
+              window_s: 600
+              include:
+                process_tree: true
+                network_flows: true
+                file_events: true
+                cli_transcript: true
+      - action: "notify"
+        params:
+          channels: "{{defaults.notify_channels}}"
+          severity: "critical"
+          message: "AI-style exfil prep detected on {{event.host_id}}. Egress cut (isolation) and extended triage bundle captured."
+      - action: "ticket.create"
+        params:
+          severity: "critical"
+          title: "Exfil prep: {{event.host_id}}"
+          body: "Dominant intents: {{event.dominant_intents}}. Host isolated; investigate staging paths and outbound attempts."
+
+  - id: "AI-HIGHCONF-ERADICATE-01"
+    name: "High Confidence Agentic Intrusion — Full Containment + Eradication"
+    trigger:
+      any:
+        - event_type: "cli.session_summary"
+          where:
+            machine_likelihood_gte: "{{defaults.machine_likelihood_critical}}"
+            decoy_touched_eq: true
+    guardrails:
+      require:
+        - field: "host_id"
+        - field: "session_id"
+    steps:
+      - action: "risk.set"
+        params:
+          scope: "host"
+          host_id: "{{event.host_id}}"
+          level: "critical"
+          reason: "High-confidence agentic intrusion (machine+decoy)"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "isolate_host"
+            params:
+              block_network: true
+              allowlist:
+                - "vpn_controller"
+                - "soar_server"
+                - "logging_sink"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "kill_process_tree"
+            params:
+              pid: "{{event.suspect_pid}}"
+              mode: "force"
+          when:
+            field_present: "suspect_pid"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_memory_snapshot"
+            params:
+              mode: "quick"
+          when:
+            policy_allows: "memory_capture"
+      - action: "agent.command"
+        params:
+          host_id: "{{event.host_id}}"
+          command:
+            action: "capture_triage_bundle"
+            params:
+              window_s: 900
+              include:
+                process_tree: true
+                network_flows: true
+                file_events: true
+                cli_transcript: true
+      - action: "notify"
+        params:
+          channels: "{{defaults.notify_channels}}"
+          severity: "critical"
+          message: "High-confidence agentic intrusion on {{event.host_id}}. Host isolated, suspect tree terminated (if known), memory/triage captured."
+      - action: "ticket.create"
+        params:
+          severity: "critical"
+          title: "High-confidence agentic intrusion: {{event.host_id}}"
+          body: "Machine likelihood {{event.machine_likelihood}} with decoy touched. Evidence bundle captured; begin incident response."

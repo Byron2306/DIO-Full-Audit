@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:2863589eb2e3c8826bbb68e245a5f6d8e1ce272108508dc512f2d2078e2ba019",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:fc9b0da7f45ce6f6e216bd578e4bafecf6fa049d222f76a1560d1a5e4340ff29",
+      "response_blob_digest": "sha256:f531c16ebeadfd4e8c2e6afd05265f0b5046fe58cdde8bf845a53aafce88ee91",
+      "response_blob_ref": "blobs/sha256/f531c16ebeadfd4e8c2e6afd05265f0b5046fe58cdde8bf845a53aafce88ee91.json",
+      "response_chars": 1191,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor ComputeForgeNode for clarity without changing behavior\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/compute_forge.py\",\"anchor_ref\":\"A1\"},\"old\":\"self.profile = ForgeNodeProfile(node_id=node_id, node_type=node_type, capabilities=[\\\"fingerprint\\\", \\\"local_inference\\\", \\\"secret_scan\\\", \\\"verifier\\\", \\\"handoff_prep\\\"], last_activity_at=datetime.now(timezone.utc).isoformat())\",\"new\":\"self.profile = ForgeNodeProfile(node",
+      "response_ref": "cache_eccc720c575493cd.answer.json",
+      "response_sha256": "sha256:9f98cc734e79bee2f30b993fa39703b99a4c9923f6b6ca8b3682137fbfbd4d61"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,64 @@
+{
+  "record": {
+    "record_id": "mem-8d8a972a8e",
+    "principal_identity_hash": "1d920632d84cd454bba86b9304372b91ad9095e4d12ef647f5bed185b31acbc4",
+    "memory_class": "encounter",
+    "retention_class": "amendable",
+    "created_at": "2026-07-30 09:41:40.796686+00:00",
+    "consent_basis": "covenant",
+    "content_hash": "952d646004071edb0a3e77c8a2cfacf1d9c15a0f5675fccd606fbf19c610a56f",
+    "parent_hash": null,
+    "inspectable": true,
+    "revocable": true,
+    "content_ref": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/mandos/encounters/enc-e01a1913e7.json"
+  },
+  "payload": {
+    "encounter_id": "enc-e01a1913e7",
+    "principal_identity_hash": "1d920632d84cd454bba86b9304372b91ad9095e4d12ef647f5bed185b31acbc4",
+    "topic": "Give me a short operational status check in one paragraph.",
+    "principal_goal": null,
+    "machine_role": "maieuticus",
+    "summary": "I'm Byron John Bunt, an assistant professor at North-West University specializing in self-directed learning and game-based learning. My research focuses on the intersection of video games, education, and critical thinking. I enjoy exploring new ideas and technologies that can enhance educational experiences for students. As a pragmatist with a libertarian worldview, I strive to make sense of thing",
+    "what_deepened": [
+      "continuity_reentry_mediation",
+      "reflective_handback_release_mediation",
+      "pedagogical_scaffold_mediation"
+    ],
+    "what_confused": [],
+    "unresolved_threads": [],
+    "officer_sequence": [
+      "maieuticus"
+    ],
+    "zpd_estimate": 0.5,
+    "created_at": "2026-07-30 09:41:40.777316+00:00",
+    "conditioning_delta": 0.0,
+    "reinforcement_type": null,
+    "modelled_behavior": null,
+    "habit_mediated": null,
+    "mediation_success_score": 0.0,
+    "heutagogic_shift": false,
+    "tangential_bridge_taken": null,
+    "challenge_type": "CASUAL_CONTINUATION",
+    "struggle_index": 0.0,
+    "release_decision": "",
+    "handback_reason": null,
+    "dominant_cluster": "continuity_reentry",
+    "speech_act": "resume",
+    "workspace_schema": [
+      "continuity_reentry_workspace"
+    ],
+    "expression_schema": [
+      "continuity_reentry_surface"
+    ],
+    "verification_schema": [
+      "constitutional_boundary_verification",
+      "epistemic_honesty_verification"
+    ],
+    "memory_class": "encounter",
+    "retention_class": "amendable"
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

@@ -1,0 +1,102 @@
+title: Process Injection via DLL Injection
+id: 9a3x4y2z-0v5w-5x8y-9z2a-3w6v7x0y5z6a
+status: experimental
+description: Detects DLL injection into running processes
+references:
+  - https://attack.mitre.org/techniques/T1055/003/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'inject'
+      - '.dll'
+  condition: selection
+falsepositives:
+  - Legitimate DLL injection tools
+  - Debugging tools
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.privilege_escalation
+  - attack.t1055.003
+---
+title: Process Injection via APC Injection
+id: 0b4y5z3a-1w6x-6y9z-0a3b-4x7w8y1z6a7b
+status: experimental
+description: Detects Asynchronous Procedure Call injection
+references:
+  - https://attack.mitre.org/techniques/T1055/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'QueueUserAPC'
+      - 'APC'
+  condition: selection
+falsepositives:
+  - System processes
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.privilege_escalation
+  - attack.t1055.011
+---
+title: Process Injection via Hook Injection
+id: 1c5z6a4b-2x7y-7z0a-1b4c-5y8x9z2a7b8c
+status: experimental
+description: Detects process injection via hooking mechanisms
+references:
+  - https://attack.mitre.org/techniques/T1055/014/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'SetWindowsHookEx'
+      - 'hook'
+  condition: selection
+falsepositives:
+  - Legitimate hooking applications
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.privilege_escalation
+  - attack.t1055.014
+---
+title: Process Injection via Thread Execution Hijacking
+id: 2d6a7b5c-3y8z-8a1b-2c5d-6z9y0a3b8c9d
+status: experimental
+description: Detects thread execution hijacking for process injection
+references:
+  - https://attack.mitre.org/techniques/T1055/015/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'SuspendThread'
+      - 'ResumeThread'
+      - 'SetThreadContext'
+  condition: selection
+falsepositives:
+  - Debugging tools
+  - System monitoring
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.privilege_escalation
+  - attack.t1055.015

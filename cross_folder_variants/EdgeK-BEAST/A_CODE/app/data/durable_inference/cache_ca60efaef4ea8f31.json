@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:6bb497dc402c05fda416b3ebd25f409af3df572c02e699b30c320445d68b9a9d",
+    "ref": "blobs/sha256/6bb497dc402c05fda416b3ebd25f409af3df572c02e699b30c320445d68b9a9d.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T13:32:51.966648+00:00",
+  "credit_id": "cache_ca60efaef4ea8f31",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:e85a6f032a4de1127fc923cfdd7875840f4bb9dc6010204fdee52ec07a879f0a",
+    "response_blob_digest": "sha256:c9d48288f201a7752b5e254e24f5f7ff632a37fd5545ece45e7048baaa035fc7",
+    "response_blob_ref": "blobs/sha256/c9d48288f201a7752b5e254e24f5f7ff632a37fd5545ece45e7048baaa035fc7.json",
+    "response_chars": 741,
+    "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix stale fingerprint detection\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A8\"}, \"old\": \"\u2192 updates vector/AST/test maps \u2192 performs secret scans \u2192 runs deterministic verifiers \u2192 prepares handoff packets \u2192 earns internal BEAST compute credits\", \"new\": \"\u2192 updates vector/AST/test maps \u2192 performs secret scans \u2192 runs deterministic verifiers \u2192 prepares handoff packets \u2192 earns internal ",
+    "response_ref": "cache_ca60efaef4ea8f31.answer.json",
+    "response_sha256": "sha256:4a6309d4990edf74f519e1d7d9f9e6231d6d343b43c290b0534b1bedbf0277f5"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

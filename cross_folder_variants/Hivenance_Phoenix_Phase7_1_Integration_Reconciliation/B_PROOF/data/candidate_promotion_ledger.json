@@ -1,0 +1,663 @@
+{
+  "candidates": [
+    {
+      "direction": "DOWN",
+      "first_half_mean_bps": 21.092336071885885,
+      "model_id": "candidate_finrl_conservative_policy_proxy_v1",
+      "n_settled": 114,
+      "promotion": "REVOKED",
+      "reason": "chronological holdout mean negative",
+      "regime_by_hour": [
+        {
+          "broad_market_return_1h_bps": 4.951689287845046,
+          "depth_usd_25bps": 2320730.1091799997,
+          "hour_bucket": 495999,
+          "hour_start_iso": "2026-08-01T15:00:00+00:00",
+          "spread_bps": 1.3708958804585807,
+          "symbol_return_1h_bps": 5.486215882595839,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 1.136427905417071
+        },
+        {
+          "broad_market_return_1h_bps": -11.468908629442085,
+          "depth_usd_25bps": 2275027.26106,
+          "hour_bucket": 496000,
+          "hour_start_iso": "2026-08-01T16:00:00+00:00",
+          "spread_bps": 1.3740982480254367,
+          "symbol_return_1h_bps": -24.674434544209294,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.8744498020737479
+        },
+        {
+          "broad_market_return_1h_bps": -17.80277824980086,
+          "depth_usd_25bps": 2100165.79465,
+          "hour_bucket": 496001,
+          "hour_start_iso": "2026-08-01T17:00:00+00:00",
+          "spread_bps": 1.3771259381677499,
+          "symbol_return_1h_bps": -24.73546791260033,
+          "tags": [
+            "volatility_expansion"
+          ],
+          "volatility_expansion": 2.164028530504983
+        },
+        {
+          "broad_market_return_1h_bps": -34.28493244834191,
+          "depth_usd_25bps": 2357823.16483,
+          "hour_bucket": 496002,
+          "hour_start_iso": "2026-08-01T18:00:00+00:00",
+          "spread_bps": 1.3916916011418994,
+          "symbol_return_1h_bps": -101.94241631078786,
+          "tags": [
+            "symbol_specific_weakness"
+          ],
+          "volatility_expansion": 0.30484825089379736
+        },
+        {
+          "broad_market_return_1h_bps": -18.91759432057101,
+          "depth_usd_25bps": 2224434.16528,
+          "hour_bucket": 496003,
+          "hour_start_iso": "2026-08-01T19:00:00+00:00",
+          "spread_bps": 1.408351524541246,
+          "symbol_return_1h_bps": -114.12665274878124,
+          "tags": [
+            "symbol_specific_weakness"
+          ],
+          "volatility_expansion": 0.37076859664250367
+        },
+        {
+          "broad_market_return_1h_bps": 20.93540275841468,
+          "depth_usd_25bps": 2151206.76738,
+          "hour_bucket": 496005,
+          "hour_start_iso": "2026-08-01T21:00:00+00:00",
+          "spread_bps": 1.3990905911164906,
+          "symbol_return_1h_bps": 37.91602303047469,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.8147847303576059
+        },
+        {
+          "broad_market_return_1h_bps": 2.5813071930829072,
+          "depth_usd_25bps": 2399567.7957699997,
+          "hour_bucket": 496007,
+          "hour_start_iso": "2026-08-01T23:00:00+00:00",
+          "spread_bps": 1.3916916011418994,
+          "symbol_return_1h_bps": 11.146718684686958,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.33534020702436307
+        },
+        {
+          "broad_market_return_1h_bps": 43.17839205792551,
+          "depth_usd_25bps": 2491549.50164,
+          "hour_bucket": 496093,
+          "hour_start_iso": "2026-08-05T13:00:00+00:00",
+          "spread_bps": 1.3521736190914617,
+          "symbol_return_1h_bps": 32.56445047489754,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6613589772968691
+        },
+        {
+          "broad_market_return_1h_bps": 20.64686246981919,
+          "depth_usd_25bps": 2294271.90752,
+          "hour_bucket": 496095,
+          "hour_start_iso": "2026-08-05T15:00:00+00:00",
+          "spread_bps": 1.3529053642704616,
+          "symbol_return_1h_bps": 14.897074756229607,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 1.2748131846266133
+        },
+        {
+          "broad_market_return_1h_bps": 14.48680941952137,
+          "depth_usd_25bps": 2408366.64756,
+          "hour_bucket": 496098,
+          "hour_start_iso": "2026-08-05T18:00:00+00:00",
+          "spread_bps": 1.3425521917152319,
+          "symbol_return_1h_bps": 29.633620689655025,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.708769487500625
+        },
+        {
+          "broad_market_return_1h_bps": -8.205596463573686,
+          "depth_usd_25bps": 2394593.09038,
+          "hour_bucket": 496101,
+          "hour_start_iso": "2026-08-05T21:00:00+00:00",
+          "spread_bps": 1.345623360020306,
+          "symbol_return_1h_bps": -16.122531237404882,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.8748275658456514
+        }
+      ],
+      "second_half_mean_bps": -7.1076067223675095,
+      "status": "TEMPORAL_DECAY",
+      "symbol": "SOL/USD"
+    },
+    {
+      "direction": "DOWN",
+      "first_half_mean_bps": 17.401715397038664,
+      "model_id": "candidate_freqai_transparent_linear_v1",
+      "n_settled": 133,
+      "promotion": "REVOKED",
+      "reason": "chronological holdout mean negative",
+      "regime_by_hour": [
+        {
+          "broad_market_return_1h_bps": 4.951689287845046,
+          "depth_usd_25bps": 2320730.1091799997,
+          "hour_bucket": 495999,
+          "hour_start_iso": "2026-08-01T15:00:00+00:00",
+          "spread_bps": 1.3708958804585807,
+          "symbol_return_1h_bps": 5.486215882595839,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 1.136427905417071
+        },
+        {
+          "broad_market_return_1h_bps": -11.468908629442085,
+          "depth_usd_25bps": 2275027.26106,
+          "hour_bucket": 496000,
+          "hour_start_iso": "2026-08-01T16:00:00+00:00",
+          "spread_bps": 1.3740982480254367,
+          "symbol_return_1h_bps": -24.674434544209294,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.8744498020737479
+        },
+        {
+          "broad_market_return_1h_bps": -17.80277824980086,
+          "depth_usd_25bps": 2100165.79465,
+          "hour_bucket": 496001,
+          "hour_start_iso": "2026-08-01T17:00:00+00:00",
+          "spread_bps": 1.3771259381677499,
+          "symbol_return_1h_bps": -24.73546791260033,
+          "tags": [
+            "volatility_expansion"
+          ],
+          "volatility_expansion": 2.164028530504983
+        },
+        {
+          "broad_market_return_1h_bps": -34.28493244834191,
+          "depth_usd_25bps": 2357823.16483,
+          "hour_bucket": 496002,
+          "hour_start_iso": "2026-08-01T18:00:00+00:00",
+          "spread_bps": 1.3916916011418994,
+          "symbol_return_1h_bps": -101.94241631078786,
+          "tags": [
+            "symbol_specific_weakness"
+          ],
+          "volatility_expansion": 0.30484825089379736
+        },
+        {
+          "broad_market_return_1h_bps": -18.91759432057101,
+          "depth_usd_25bps": 2224434.16528,
+          "hour_bucket": 496003,
+          "hour_start_iso": "2026-08-01T19:00:00+00:00",
+          "spread_bps": 1.408351524541246,
+          "symbol_return_1h_bps": -114.12665274878124,
+          "tags": [
+            "symbol_specific_weakness"
+          ],
+          "volatility_expansion": 0.37076859664250367
+        },
+        {
+          "broad_market_return_1h_bps": -6.989584399631021,
+          "depth_usd_25bps": 2373456.16699,
+          "hour_bucket": 496004,
+          "hour_start_iso": "2026-08-01T20:00:00+00:00",
+          "spread_bps": 1.4043957587235312,
+          "symbol_return_1h_bps": 25.341405040122847,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": 0.5481050156633546
+        },
+        {
+          "broad_market_return_1h_bps": 20.93540275841468,
+          "depth_usd_25bps": 2151206.76738,
+          "hour_bucket": 496005,
+          "hour_start_iso": "2026-08-01T21:00:00+00:00",
+          "spread_bps": 1.3990905911164906,
+          "symbol_return_1h_bps": 37.91602303047469,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.8147847303576059
+        },
+        {
+          "broad_market_return_1h_bps": 2.5813071930829072,
+          "depth_usd_25bps": 2399567.7957699997,
+          "hour_bucket": 496007,
+          "hour_start_iso": "2026-08-01T23:00:00+00:00",
+          "spread_bps": 1.3916916011418994,
+          "symbol_return_1h_bps": 11.146718684686958,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.33534020702436307
+        },
+        {
+          "broad_market_return_1h_bps": 43.17839205792551,
+          "depth_usd_25bps": 2491549.50164,
+          "hour_bucket": 496093,
+          "hour_start_iso": "2026-08-05T13:00:00+00:00",
+          "spread_bps": 1.3521736190914617,
+          "symbol_return_1h_bps": 32.56445047489754,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6613589772968691
+        }
+      ],
+      "second_half_mean_bps": -4.756171388792363,
+      "status": "TEMPORAL_DECAY",
+      "symbol": "SOL/USD"
+    },
+    {
+      "direction": "DOWN",
+      "model_id": "candidate_finrl_conservative_policy_proxy_v1",
+      "n_settled": 22,
+      "promotion": "RESEARCH_ONLY",
+      "reason": "only 22 settled forecasts (< 100 required)",
+      "regime_by_hour": [
+        {
+          "broad_market_return_1h_bps": 9.309488419943134,
+          "depth_usd_25bps": null,
+          "hour_bucket": 496029,
+          "hour_start_iso": "2026-08-02T21:00:00+00:00",
+          "spread_bps": null,
+          "symbol_return_1h_bps": null,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": null
+        },
+        {
+          "broad_market_return_1h_bps": 3.578454864177045,
+          "depth_usd_25bps": 192279.212391,
+          "hour_bucket": 496030,
+          "hour_start_iso": "2026-08-02T22:00:00+00:00",
+          "spread_bps": 3.0134096730447184,
+          "symbol_return_1h_bps": null,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": 0.4051670126824886
+        }
+      ],
+      "status": "INSUFFICIENT_EVIDENCE",
+      "symbol": "AVAX/USD"
+    },
+    {
+      "direction": "DOWN",
+      "model_id": "candidate_freqai_transparent_linear_v1",
+      "n_settled": 26,
+      "promotion": "RESEARCH_ONLY",
+      "reason": "only 26 settled forecasts (< 100 required)",
+      "regime_by_hour": [
+        {
+          "broad_market_return_1h_bps": 9.309488419943134,
+          "depth_usd_25bps": null,
+          "hour_bucket": 496029,
+          "hour_start_iso": "2026-08-02T21:00:00+00:00",
+          "spread_bps": null,
+          "symbol_return_1h_bps": null,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": null
+        },
+        {
+          "broad_market_return_1h_bps": 3.578454864177045,
+          "depth_usd_25bps": 192279.212391,
+          "hour_bucket": 496030,
+          "hour_start_iso": "2026-08-02T22:00:00+00:00",
+          "spread_bps": 3.0134096730447184,
+          "symbol_return_1h_bps": null,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": 0.4051670126824886
+        }
+      ],
+      "status": "INSUFFICIENT_EVIDENCE",
+      "symbol": "AVAX/USD"
+    },
+    {
+      "direction": "DOWN",
+      "model_id": "candidate_finrl_conservative_policy_proxy_v1",
+      "n_settled": 87,
+      "promotion": "RESEARCH_ONLY",
+      "reason": "only 87 settled forecasts (< 100 required)",
+      "regime_by_hour": [
+        {
+          "broad_market_return_1h_bps": 4.951689287845046,
+          "depth_usd_25bps": 3568652.93921,
+          "hour_bucket": 495999,
+          "hour_start_iso": "2026-08-01T15:00:00+00:00",
+          "spread_bps": 0.05342294141368271,
+          "symbol_return_1h_bps": 22.21996155678867,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.9519157730931147
+        },
+        {
+          "broad_market_return_1h_bps": -11.468908629442085,
+          "depth_usd_25bps": 3103266.92879,
+          "hour_bucket": 496000,
+          "hour_start_iso": "2026-08-01T16:00:00+00:00",
+          "spread_bps": 0.05350211467103371,
+          "symbol_return_1h_bps": -14.691426617659628,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.23486346250277904
+        },
+        {
+          "broad_market_return_1h_bps": -17.80277824980086,
+          "depth_usd_25bps": 3869946.04311,
+          "hour_bucket": 496001,
+          "hour_start_iso": "2026-08-01T17:00:00+00:00",
+          "spread_bps": 0.05356487643917256,
+          "symbol_return_1h_bps": -14.552536260961364,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 1.1082205595831727
+        },
+        {
+          "broad_market_return_1h_bps": -34.28493244834191,
+          "depth_usd_25bps": 3131957.20441,
+          "hour_bucket": 496002,
+          "hour_start_iso": "2026-08-01T18:00:00+00:00",
+          "spread_bps": 0.05376705423868958,
+          "symbol_return_1h_bps": -34.666223739128895,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6026825852396295
+        },
+        {
+          "broad_market_return_1h_bps": -18.91759432057101,
+          "depth_usd_25bps": 4982562.303160001,
+          "hour_bucket": 496003,
+          "hour_start_iso": "2026-08-01T19:00:00+00:00",
+          "spread_bps": 0.05449665526773338,
+          "symbol_return_1h_bps": -133.34050217753742,
+          "tags": [
+            "symbol_specific_weakness"
+          ],
+          "volatility_expansion": 0.33919060488957475
+        },
+        {
+          "broad_market_return_1h_bps": -6.989584399631021,
+          "depth_usd_25bps": 3555900.31463,
+          "hour_bucket": 496004,
+          "hour_start_iso": "2026-08-01T20:00:00+00:00",
+          "spread_bps": 0.21791952232020886,
+          "symbol_return_1h_bps": 2.6701542150292035,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.5072986451800016
+        },
+        {
+          "broad_market_return_1h_bps": 20.93540275841468,
+          "depth_usd_25bps": 3704874.01186,
+          "hour_bucket": 496005,
+          "hour_start_iso": "2026-08-01T21:00:00+00:00",
+          "spread_bps": 0.05444739972825795,
+          "symbol_return_1h_bps": 5.3388828659995875,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.24294632354826065
+        },
+        {
+          "broad_market_return_1h_bps": 23.990276111787082,
+          "depth_usd_25bps": 4229690.17258,
+          "hour_bucket": 496006,
+          "hour_start_iso": "2026-08-01T22:00:00+00:00",
+          "spread_bps": 0.4338347740259175,
+          "symbol_return_1h_bps": 40.02025514954582,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6280868447222091
+        },
+        {
+          "broad_market_return_1h_bps": 2.5813071930829072,
+          "depth_usd_25bps": 3301233.1225199997,
+          "hour_bucket": 496007,
+          "hour_start_iso": "2026-08-01T23:00:00+00:00",
+          "spread_bps": 0.054173088434808954,
+          "symbol_return_1h_bps": 12.690355329948796,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.7832759895476146
+        },
+        {
+          "broad_market_return_1h_bps": 43.17839205792551,
+          "depth_usd_25bps": 3305222.81915,
+          "hour_bucket": 496093,
+          "hour_start_iso": "2026-08-05T13:00:00+00:00",
+          "spread_bps": 0.05336649171346946,
+          "symbol_return_1h_bps": 38.19574650452607,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.5418035514139061
+        },
+        {
+          "broad_market_return_1h_bps": 20.64686246981919,
+          "depth_usd_25bps": 3717225.7335900003,
+          "hour_bucket": 496095,
+          "hour_start_iso": "2026-08-05T15:00:00+00:00",
+          "spread_bps": 0.05331385600455783,
+          "symbol_return_1h_bps": -11.44975156701881,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": 0.732873234856552
+        },
+        {
+          "broad_market_return_1h_bps": 14.48680941952137,
+          "depth_usd_25bps": 3397051.71098,
+          "hour_bucket": 496098,
+          "hour_start_iso": "2026-08-05T18:00:00+00:00",
+          "spread_bps": 0.052229821661226444,
+          "symbol_return_1h_bps": 117.42448263470536,
+          "tags": [
+            "unclassified"
+          ],
+          "volatility_expansion": 0.3478053423485112
+        },
+        {
+          "broad_market_return_1h_bps": 13.59161520901742,
+          "depth_usd_25bps": 3946205.42602,
+          "hour_bucket": 496100,
+          "hour_start_iso": "2026-08-05T20:00:00+00:00",
+          "spread_bps": 0.05220773457582993,
+          "symbol_return_1h_bps": -1.4093991261724468,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6594659567277027
+        },
+        {
+          "broad_market_return_1h_bps": -8.205596463573686,
+          "depth_usd_25bps": 2883492.88147,
+          "hour_bucket": 496101,
+          "hour_start_iso": "2026-08-05T21:00:00+00:00",
+          "spread_bps": 0.3654674981930959,
+          "symbol_return_1h_bps": 0.2610366286594961,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.9700169377440535
+        }
+      ],
+      "status": "INSUFFICIENT_EVIDENCE",
+      "symbol": "ETH/USD"
+    },
+    {
+      "direction": "DOWN",
+      "first_half_mean_bps": -7.594225656137529,
+      "model_id": "candidate_freqai_transparent_linear_v1",
+      "n_settled": 108,
+      "promotion": "REFUSED",
+      "reason": "negative in both chronological halves",
+      "regime_by_hour": [
+        {
+          "broad_market_return_1h_bps": 4.951689287845046,
+          "depth_usd_25bps": 3568652.93921,
+          "hour_bucket": 495999,
+          "hour_start_iso": "2026-08-01T15:00:00+00:00",
+          "spread_bps": 0.05342294141368271,
+          "symbol_return_1h_bps": 22.21996155678867,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.9519157730931147
+        },
+        {
+          "broad_market_return_1h_bps": -11.468908629442085,
+          "depth_usd_25bps": 3103266.92879,
+          "hour_bucket": 496000,
+          "hour_start_iso": "2026-08-01T16:00:00+00:00",
+          "spread_bps": 0.05350211467103371,
+          "symbol_return_1h_bps": -14.691426617659628,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.23486346250277904
+        },
+        {
+          "broad_market_return_1h_bps": -17.80277824980086,
+          "depth_usd_25bps": 3869946.04311,
+          "hour_bucket": 496001,
+          "hour_start_iso": "2026-08-01T17:00:00+00:00",
+          "spread_bps": 0.05356487643917256,
+          "symbol_return_1h_bps": -14.552536260961364,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 1.1082205595831727
+        },
+        {
+          "broad_market_return_1h_bps": -34.28493244834191,
+          "depth_usd_25bps": 3131957.20441,
+          "hour_bucket": 496002,
+          "hour_start_iso": "2026-08-01T18:00:00+00:00",
+          "spread_bps": 0.05376705423868958,
+          "symbol_return_1h_bps": -34.666223739128895,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6026825852396295
+        },
+        {
+          "broad_market_return_1h_bps": -18.91759432057101,
+          "depth_usd_25bps": 4982562.303160001,
+          "hour_bucket": 496003,
+          "hour_start_iso": "2026-08-01T19:00:00+00:00",
+          "spread_bps": 0.05449665526773338,
+          "symbol_return_1h_bps": -133.34050217753742,
+          "tags": [
+            "symbol_specific_weakness"
+          ],
+          "volatility_expansion": 0.33919060488957475
+        },
+        {
+          "broad_market_return_1h_bps": -6.989584399631021,
+          "depth_usd_25bps": 3555900.31463,
+          "hour_bucket": 496004,
+          "hour_start_iso": "2026-08-01T20:00:00+00:00",
+          "spread_bps": 0.21791952232020886,
+          "symbol_return_1h_bps": 2.6701542150292035,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.5072986451800016
+        },
+        {
+          "broad_market_return_1h_bps": 20.93540275841468,
+          "depth_usd_25bps": 3704874.01186,
+          "hour_bucket": 496005,
+          "hour_start_iso": "2026-08-01T21:00:00+00:00",
+          "spread_bps": 0.05444739972825795,
+          "symbol_return_1h_bps": 5.3388828659995875,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.24294632354826065
+        },
+        {
+          "broad_market_return_1h_bps": 23.990276111787082,
+          "depth_usd_25bps": 4229690.17258,
+          "hour_bucket": 496006,
+          "hour_start_iso": "2026-08-01T22:00:00+00:00",
+          "spread_bps": 0.4338347740259175,
+          "symbol_return_1h_bps": 40.02025514954582,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.6280868447222091
+        },
+        {
+          "broad_market_return_1h_bps": 2.5813071930829072,
+          "depth_usd_25bps": 3301233.1225199997,
+          "hour_bucket": 496007,
+          "hour_start_iso": "2026-08-01T23:00:00+00:00",
+          "spread_bps": 0.054173088434808954,
+          "symbol_return_1h_bps": 12.690355329948796,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.7832759895476146
+        },
+        {
+          "broad_market_return_1h_bps": 43.17839205792551,
+          "depth_usd_25bps": 3305222.81915,
+          "hour_bucket": 496093,
+          "hour_start_iso": "2026-08-05T13:00:00+00:00",
+          "spread_bps": 0.05336649171346946,
+          "symbol_return_1h_bps": 38.19574650452607,
+          "tags": [
+            "trend_continuation"
+          ],
+          "volatility_expansion": 0.5418035514139061
+        }
+      ],
+      "second_half_mean_bps": -7.216791655783485,
+      "status": "NEGATIVE_CAPABILITY",
+      "symbol": "ETH/USD"
+    }
+  ],
+  "gate_params": {
+    "cost_stress_multiplier": 1.5,
+    "holdout_frac": 0.4,
+    "max_episode_share": 0.3,
+    "min_days": 3,
+    "min_hourly_buckets": 24,
+    "min_settled": 100,
+    "n_boot": 2000
+  },
+  "generated_at": "2026-08-06T17:27:59.441230+00:00",
+  "schema": "hivenance_candidate_promotion_ledger_v1"
+}

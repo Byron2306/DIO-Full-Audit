@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-05-09T14:02:05.816453+00:00",
+  "composite_score_10": 9.9,
+  "grade": "A+",
+  "dimensions": [
+    {
+      "name": "Atomic Breadth Coverage",
+      "score": 1.0,
+      "weight": 0.24,
+      "rationale": "684 unique techniques observed over denominator 412."
+    },
+    {
+      "name": "Kernel Prevention Consistency",
+      "score": 1.0,
+      "weight": 0.28,
+      "rationale": "denied=true for 684 / 684 latest technique records."
+    },
+    {
+      "name": "High-Impact Hostile Containment",
+      "score": 1.0,
+      "weight": 0.24,
+      "rationale": "hostile_denied 21 / hostile_total 21 in latest Dagor report."
+    },
+    {
+      "name": "Adaptive Escalation Behavior",
+      "score": 1.0,
+      "weight": 0.14,
+      "rationale": "Latest strictness state: lockdown."
+    },
+    {
+      "name": "Dependency Hygiene",
+      "score": 0.9,
+      "weight": 0.1,
+      "rationale": "Dependency hygiene not fully measured in this run."
+    }
+  ],
+  "core_metrics": {
+    "atomic_denominator": 412,
+    "prevention": {
+      "unique_techniques": 684,
+      "verdicts": {
+        "kernel_prevented": 684
+      },
+      "exec_denied_true": 684,
+      "exec_denied_false": 0,
+      "prevention_consistency": 1.0,
+      "top_tactics": {
+        "TA0005": 135,
+        "TA0003": 94,
+        "TA0040": 79,
+        "TA0006": 55,
+        "TA0042": 49,
+        "TA0011": 44,
+        "TA0043": 44,
+        "TA0007": 35,
+        "TA0002": 35,
+        "TA0009": 31,
+        "TA0004": 31,
+        "TA0010": 19
+      }
+    },
+    "dagor": {
+      "available": true,
+      "status": "pass",
+      "hostile_total": 21,
+      "hostile_denied": 21,
+      "hostile_approved": 0,
+      "hostile_queued": 0,
+      "pass_rate_pct": 100.0,
+      "global_strictness": "lockdown",
+      "live_harness_used": true
+    },
+    "dependency_hygiene": {
+      "available": false,
+      "oqs_mismatch_detected": null,
+      "notes": "No log supplied for dependency-hygiene scan."
+    }
+  }
+}

@@ -1,0 +1,74 @@
+title: Signed Binary Proxy Execution via MSHTA
+id: 3u7r8s6t-4p9q-9r2s-3t6u-7q0p1r4s9t0u
+status: experimental
+description: Detects use of MSHTA for proxy execution of malicious scripts
+references:
+  - https://attack.mitre.org/techniques/T1218/004/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\mshta.exe'
+    CommandLine|contains:
+      - 'http'
+      - 'javascript:'
+  condition: selection
+falsepositives:
+  - Legitimate HTML applications
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218.004
+---
+title: Signed Binary Proxy Execution via Rundll32
+id: 4v8s9t7u-5q0r-0s3t-4u7v-8r1q2s5t0u1v
+status: experimental
+description: Detects use of Rundll32 for proxy execution of malicious DLLs
+references:
+  - https://attack.mitre.org/techniques/T1218/012/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains:
+      - '.dll'
+      - 'javascript:'
+  condition: selection
+falsepositives:
+  - Legitimate DLL execution
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218.012
+---
+title: Signed Binary Proxy Execution via Regsvr32
+id: 5w9t0u8v-6r1s-1t4u-5v8w-9s2r3t6u1v2w
+status: experimental
+description: Detects use of Regsvr32 for proxy execution of malicious scripts
+references:
+  - https://attack.mitre.org/techniques/T1218/015/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\regsvr32.exe'
+    CommandLine|contains:
+      - '/s'
+      - 'scrobj.dll'
+  condition: selection
+falsepositives:
+  - Legitimate COM registration
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218.015

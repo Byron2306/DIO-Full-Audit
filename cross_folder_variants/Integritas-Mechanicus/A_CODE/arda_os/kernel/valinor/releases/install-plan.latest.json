@@ -1,0 +1,46 @@
+{
+  "artifacts": {
+    "linux_header_packages": [
+      "/home/byron/kernel-src/linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb"
+    ],
+    "linux_image_packages": [
+      "/home/byron/kernel-src/linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb"
+    ]
+  },
+  "blockers": [],
+  "current_kernel": "6.12.95+deb13-rt-amd64",
+  "generated_at": "2026-07-28T20:02:26.103745+00:00",
+  "grub_env": {
+    "output": "",
+    "returncode": 0
+  },
+  "install_commands": [
+    "sudo dpkg -i /home/byron/kernel-src/linux-headers-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb /home/byron/kernel-src/linux-image-6.12.96-valinor_6.12.96-valinor2-1_amd64.deb",
+    "sudo update-initramfs -c -k <valinor-kernel-version>",
+    "sudo update-grub"
+  ],
+  "manifest": "/home/byron/Integritas-Mechanicus/arda_os/kernel/valinor/releases/latest.json",
+  "ok": true,
+  "post_boot_gate": [
+    "uname -r",
+    "test \"$(uname -r | grep -c valinor)\" -gt 0",
+    "sudo env ARDA_SOVEREIGN_MODE=1 ./arda_os/bin/arda os-grade --promote --seed-running-processes --capture-tpm --require-tpm-capture --attestation-dir /var/lib/arda/attestation/latest"
+  ],
+  "rollback_commands": [
+    "Reboot and select the known-good kernel from GRUB: 6.12.95+deb13-rt-amd64",
+    "If needed from current boot: sudo grub-reboot '<known-good menu entry>' && sudo reboot",
+    "If Valinor packages must be removed: sudo apt remove 'linux-image-*-valinor' 'linux-headers-*-valinor'"
+  ],
+  "schema_version": "arda.valinor_install_plan.v1",
+  "systemd_plan": [
+    "arda_os/kernel/valinor/scripts/render_systemd_units.py --output-dir arda_os/kernel/valinor/releases/systemd",
+    "Review rendered units before installation.",
+    "sudo cp arda_os/kernel/valinor/releases/systemd/*.service /etc/systemd/system/",
+    "sudo systemctl daemon-reload",
+    "sudo systemctl enable arda-valinor-postboot.service arda-bombadil-valinor.service"
+  ],
+  "systemd_units": [
+    "arda_os/kernel/valinor/systemd/arda-valinor-postboot.service",
+    "arda_os/kernel/valinor/systemd/arda-bombadil-valinor.service"
+  ]
+}

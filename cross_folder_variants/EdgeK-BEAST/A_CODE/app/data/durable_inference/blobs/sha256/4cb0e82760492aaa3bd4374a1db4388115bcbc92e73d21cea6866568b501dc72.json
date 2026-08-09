@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:4cb0e82760492aaa3bd4374a1db4388115bcbc92e73d21cea6866568b501dc72",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:55ae534c3914fe5e92f00b71a4ae79d326968986d0691cae28ec065a49ca24b2",
+      "response_blob_digest": "sha256:03b233ab9095bf401aa01a9a451b168707fa80f5eaa585ca3f52f4927566b8fb",
+      "response_blob_ref": "blobs/sha256/03b233ab9095bf401aa01a9a451b168707fa80f5eaa585ca3f52f4927566b8fb.json",
+      "response_chars": 2294,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Implement and compile source plan\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/crystal_integration_acceptance.py\", \"anchor_ref\": \"A1\"}, \"new\": \"\"\"Semantic acceptance checks for crystal reuse integration export bundles.\n\nclass CrystalIntegrationAcceptanceProbe:\n    def compile_source_plan(self, bundle: Dict[str, Any]) -> Dict[str, Any]:\n        # TO DO: implement compile_source_plan method\n        pass\"\"\", \"intent\"",
+      "response_ref": "cache_e971233a35db6caf.answer.json",
+      "response_sha256": "sha256:8d1d02e5ea728188b749133212679b69d3a3081c6c075ead69c04851b32b68ca"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

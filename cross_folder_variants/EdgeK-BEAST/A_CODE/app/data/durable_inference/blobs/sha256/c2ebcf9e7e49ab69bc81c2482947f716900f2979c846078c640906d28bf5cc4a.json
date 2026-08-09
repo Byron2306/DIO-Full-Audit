@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:c2ebcf9e7e49ab69bc81c2482947f716900f2979c846078c640906d28bf5cc4a",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": " None = None) -> list[WorkItem]:\n        items = getattr(self, \"items\", getattr(self, \"queue\", []))\n        res = []\n        for item in items:\n            # Check if completed\n            completed = getattr(item, \"completed\", False)\n            if not completed:\n                status = getattr(item, \"status\", None)",
+    "response_sha256": "sha256:185f9f301cd4a6c4adb18c88e3c17cd10e94896f7693badefb3b10e8634f8b22",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

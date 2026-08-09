@@ -1,0 +1,39 @@
+# Local validation only. These bind mounts must be replaced by an HSM/Vault
+# integration before any production deployment.
+services:
+  arda-authorizer:
+    environment:
+      ARDA_CRYSTAL_AUTHORIZATION_MODE: allow-listed
+      ARDA_CRYSTAL_DECISION_PRIVATE_KEY: /run/arda-roots/arda-crystal-decision-private.pem
+    volumes:
+      - /tmp/metatron-recovery-roots-validation/arda-crystal-decision-private.pem:/run/arda-roots/arda-crystal-decision-private.pem:ro
+  seraph-controller:
+    environment:
+      SERAPH_CONTROLLER_MODE: production
+      SERAPH_CRYSTAL_AUTHORIZATION_MODE: allow-listed
+      SERAPH_CRYSTAL_DECISION_PRIVATE_KEY: /run/arda-roots/metatron-crystal-decision-private.pem
+      ARDA_RECOVERY_REQUEST_PUBLIC_KEY: /run/arda-roots/recovery-request-public.pem
+      ARDA_RECOVERY_WITNESS_PUBLIC_KEY: /run/arda-roots/recovery-witness-public.pem
+      ARDA_RECOVERY_ATTESTATION_PUBLIC_KEY: /run/arda-roots/arda-attestation-public.pem
+      ARDA_RECOVERY_CAPABILITY_PUBLIC_KEY: /run/arda-roots/beast-capability-public.pem
+      ARDA_RECOVERY_RESULT_PRIVATE_KEY: /run/arda-roots/recovery-result-private.pem
+      ARDA_RECOVERY_REQUEST_PRIVATE_KEY: /run/arda-roots/recovery-request-private.pem
+      ARDA_RECOVERY_WITNESS_PRIVATE_KEY: /run/arda-roots/recovery-witness-private.pem
+      ARDA_RECOVERY_ATTESTATION_PRIVATE_KEY: /run/arda-roots/arda-attestation-private.pem
+      ARDA_RECOVERY_CAPABILITY_PRIVATE_KEY: /run/arda-roots/beast-capability-private.pem
+      ARDA_RECOVERY_REPLAY_DATABASE: /var/lib/arda/recovery.sqlite3
+    volumes:
+      - /tmp/metatron-recovery-roots-validation/recovery-request-public.pem:/run/arda-roots/recovery-request-public.pem:ro
+      - /tmp/metatron-recovery-roots-validation/recovery-witness-public.pem:/run/arda-roots/recovery-witness-public.pem:ro
+      - /tmp/metatron-recovery-roots-validation/arda-attestation-public.pem:/run/arda-roots/arda-attestation-public.pem:ro
+      - /tmp/metatron-recovery-roots-validation/beast-capability-public.pem:/run/arda-roots/beast-capability-public.pem:ro
+      - /tmp/metatron-recovery-roots-validation/recovery-result-private.pem:/run/arda-roots/recovery-result-private.pem:ro
+      - /tmp/metatron-recovery-roots-validation/recovery-request-private.pem:/run/arda-roots/recovery-request-private.pem:ro
+      - /tmp/metatron-recovery-roots-validation/recovery-witness-private.pem:/run/arda-roots/recovery-witness-private.pem:ro
+      - /tmp/metatron-recovery-roots-validation/arda-attestation-private.pem:/run/arda-roots/arda-attestation-private.pem:ro
+      - /tmp/metatron-recovery-roots-validation/beast-capability-private.pem:/run/arda-roots/beast-capability-private.pem:ro
+      - /tmp/metatron-recovery-roots-validation/metatron-crystal-decision-private.pem:/run/arda-roots/metatron-crystal-decision-private.pem:ro
+      - arda-recovery-validation-state:/var/lib/arda
+
+volumes:
+  arda-recovery-validation-state:

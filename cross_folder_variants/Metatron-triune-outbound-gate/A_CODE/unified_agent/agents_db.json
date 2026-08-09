@@ -1,0 +1,31 @@
+{
+  "e207cbb75057ac5e": {
+    "agent_id": "e207cbb75057ac5e",
+    "platform": "windows",
+    "hostname": "DESKTOP-A0VN5FH",
+    "ip_address": "192.168.101.247",
+    "version": "1.0.0",
+    "capabilities": [
+      "system_monitoring",
+      "file_scanning",
+      "process_monitoring",
+      "port_scanning",
+      "service_monitoring",
+      "privilege_auditing",
+      "wireless_scanning",
+      "bluetooth_scanning",
+      "resource_monitoring"
+    ],
+    "status": "offline",
+    "registered_at": "2026-02-16T19:52:07.590539",
+    "last_heartbeat": "2026-02-19T07:51:50.340970",
+    "config": {
+      "heartbeat_interval": 60,
+      "monitoring_enabled": true,
+      "alert_thresholds": {}
+    },
+    "cpu_usage": 79.1,
+    "memory_usage": 74.5,
+    "network_connections": 194
+  }
+}

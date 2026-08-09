@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:752f08f60a861dabc1147522bac16aaf7a9b6ff2d26f158262ef85c5c7690312",
+    "ref": "blobs/sha256/752f08f60a861dabc1147522bac16aaf7a9b6ff2d26f158262ef85c5c7690312.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-21T22:58:55.865443+00:00",
+  "credit_id": "cache_a7a7517048f5bfa5",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "qwen2.5-coder:1.5b",
+    "parameter_hash": "d4c55060312971feecc94a3fb389abd3e6d8fcf2d5fc5348eba6c6fb388a3b1e",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 160,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:78d9cbf9d42f9b011e55b5fb5c84ccedfa6b1e441ee803282d1d95f5d3fa91cf",
+    "response_blob_digest": "sha256:f112308f1ec0382e6cb983583a05cd97da34f7778820ae019e75fd19dc1a7551",
+    "response_blob_ref": "blobs/sha256/f112308f1ec0382e6cb983583a05cd97da34f7778820ae019e75fd19dc1a7551.json",
+    "response_chars": 306,
+    "response_preview": "To ensure that the Ollama routing regression test is correctly set up, the following concise assertion should be included:\n\n- Assert that a GET request to `/ollama/v1/chat/completions` returns a successful response with a JSON body containing the expected properties related to the chat completion request.",
+    "response_ref": "cache_a7a7517048f5bfa5.answer.json",
+    "response_sha256": "sha256:79e02e67c9ad901dfc6f24bf74bf7135e404ad969fefd9cffc8d7a0d7611f8b9"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

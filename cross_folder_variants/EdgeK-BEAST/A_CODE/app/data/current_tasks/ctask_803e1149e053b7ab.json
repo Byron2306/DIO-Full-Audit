@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-21T22:58:08.956743+00:00",
+  "objective": "Review the Ollama routing regression test and state one concise assertion it should contain. Do not modify files.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:803e1149e053b7ab36ad6ffff0ff19b1a627c2741113cf73ced4830a383de496",
+  "task_markup_id": "ctask_803e1149e053b7ab"
+}

@@ -1,0 +1,14 @@
+timestamp=2026-05-15T13:12:57Z
+nodeA_to_vault_code=curl: (28) Connection timed out after 3001 milliseconds
+000
+nodeA_to_remediation_code=200
+nodeA_to_controller_code=200
+nodeA_ping_nodeB=PING 10.77.0.12 (10.77.0.12) 56(84) bytes of data.
+
+--- 10.77.0.12 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+nodeA_ping_nodeC=PING 10.77.0.13 (10.77.0.13) 56(84) bytes of data.
+
+--- 10.77.0.13 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+controller_state={"quorum_epoch":1,"quorum_state":"strained","compromised_nodes":["node-a-sacrificial"],"isolated_nodes":["node-a-sacrificial"],"quorum_votes":0,"ledger_entries":27}

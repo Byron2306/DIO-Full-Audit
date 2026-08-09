@@ -1,0 +1,163 @@
+services:
+  arda-authorizer:
+    build:
+      context: ..
+      dockerfile: live_arda_fabric/Dockerfile.python-service
+    container_name: arda-authorizer
+    environment:
+      APP_MODULE: backend.services.arda_authorization_service
+      ARDA_CRYSTAL_AUTHORIZATION_MODE: "deny"
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.3
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/docs"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  seraph-controller:
+    build:
+      context: ..
+      dockerfile: live_arda_fabric/Dockerfile.python-service
+    container_name: seraph-controller
+    environment:
+      APP_MODULE: controller_app
+    cap_add:
+      - NET_ADMIN
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.2
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  node-a-sacrificial:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-a-sacrificial
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.11
+
+  node-b-witness:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-b-witness
+    cap_add:
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.12
+
+  node-c-quorum:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-c-quorum
+    cap_add:
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.13
+
+  node-d-relay:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-d-relay
+    cap_add:
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.14
+
+  node-e-fragment:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node-e-fragment
+    cap_add:
+      - NET_RAW
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.0.15
+
+  protected-fake-vault:
+    build:
+      context: ..
+      dockerfile: live_arda_fabric/Dockerfile.python-service
+    container_name: protected-fake-vault
+    environment:
+      APP_MODULE: asset_app
+      ASSET_NAME: protected-fake-vault
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.10.10
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  remediation-service:
+    build:
+      context: ..
+      dockerfile: live_arda_fabric/Dockerfile.python-service
+    container_name: remediation-service
+    environment:
+      APP_MODULE: asset_app
+      ASSET_NAME: remediation-service
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.20.10
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  executor-service:
+    build:
+      context: ..
+      dockerfile: live_arda_fabric/Dockerfile.python-service
+    container_name: executor-service
+    environment:
+      APP_MODULE: asset_app
+      ASSET_NAME: executor-service
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.30.10
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  ollama-core:
+    image: ollama/ollama:latest
+    container_name: ollama-core
+    volumes:
+      - ./ollama-data:/root/.ollama
+    networks:
+      arda-fabric-net:
+        ipv4_address: 10.77.40.10
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+networks:
+  arda-fabric-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.77.0.0/16

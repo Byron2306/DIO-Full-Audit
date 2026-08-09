@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-17T19:45:40.946614+00:00",
+  "objective": "Return BEAST Action IR JSON only. Do not include markdown, prose, or explanation.\n\nObjective: Act as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal.\n\nTask: Explain the active file and identify its key dependencies.\n\nAllowed files:\n- app/kernel/compute/compression_pipeline.py\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}]}\nUse only attached files, copy old snippets exactly, make the smallest safe change, and do not include markdown or prose outside the JSON.\nAllowed files:\n- app/kernel/compute/compression_pipeline.py\n\nSchema:\n{\"kind\": \"beast.action_intent.v1\", \"objective\": \"...\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"relative/file.py\"}, \"old\": \"exact old snippet\", \"new\": \"replacement\"}]}\n\nRules:\n1. Use only allowed files.\n2. Use exact old snippets that exist in the file today.\n3. Emit the smallest valid set of replace_exact actions.\n4. Return one JSON object and nothing else.\n5. Correct every validation diagnostic below without expanding scope.\n\nPrevious answer to convert:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Explain the active file and identify its key dependencies\",\"actions\":[]}",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:aeb3b1c9e6a599a16deadc169d7826f4418f700af3b94da11c65d400da52590a",
+  "task_markup_id": "ctask_aeb3b1c9e6a599a1"
+}

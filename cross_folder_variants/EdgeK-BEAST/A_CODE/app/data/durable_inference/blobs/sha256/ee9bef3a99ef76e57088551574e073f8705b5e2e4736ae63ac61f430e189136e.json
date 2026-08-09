@@ -1,0 +1,32 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:ee9bef3a99ef76e57088551574e073f8705b5e2e4736ae63ac61f430e189136e",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "local-test",
+      "parameter_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "parameters": {},
+      "prompt_hash": "sha256:1f2a8568d5bba7ff22ff1ae3b7c87fb4434e8a3c30d8ad82c5eb22383ee4f3f3",
+      "response_blob_digest": "sha256:87fc587111242f7b21a8ee031f473c6ddb215403ccd9e820f2182753f855c266",
+      "response_blob_ref": "blobs/sha256/87fc587111242f7b21a8ee031f473c6ddb215403ccd9e820f2182753f855c266.json",
+      "response_chars": 15,
+      "response_preview": "gauntlet answer",
+      "response_ref": "cache_269ca1cdbf567d59.answer.json",
+      "response_sha256": "sha256:a18ba85cf7f6ef69e7119c1d572b4fb3bcf2f45a0245d328f924e396b6d17ddc"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

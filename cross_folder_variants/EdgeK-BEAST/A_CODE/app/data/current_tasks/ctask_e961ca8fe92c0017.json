@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-21T22:46:51.248122+00:00",
+  "objective": "Explain the single pytest assertion that verifies Ollama uses its native base URL instead of /v1. Keep the answer under 80 words.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:e961ca8fe92c0017872588d012496870a70904eaa321b88eaaac63d263516301",
+  "task_markup_id": "ctask_e961ca8fe92c0017"
+}

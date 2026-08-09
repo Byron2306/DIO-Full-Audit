@@ -1,0 +1,14 @@
+{
+  "beast_object_type": "public_benchmark_grading_daemon_run",
+  "created_at": "2026-07-15T00:34:43.027363+00:00",
+  "packet_dir": "/home/byron/Hivenance/benchmarks/results/full_blind_test_packet",
+  "policy": {
+    "require_blind_packet": true,
+    "require_cost_accounting": true,
+    "require_key": true
+  },
+  "ready": false,
+  "reason": "missing:blind_grading.jsonl,cost_accounting.json,blind_grading_key.json",
+  "receipt_hash": "sha256:4bbd76bccc5d7da584fb6d7b58f26e1455a41a5d6f459fa7e637ee7e284d9da8",
+  "version": "1.0"
+}

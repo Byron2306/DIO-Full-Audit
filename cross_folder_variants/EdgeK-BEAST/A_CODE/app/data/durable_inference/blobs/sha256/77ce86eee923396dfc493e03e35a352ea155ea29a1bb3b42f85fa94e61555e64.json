@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:77ce86eee923396dfc493e03e35a352ea155ea29a1bb3b42f85fa94e61555e64",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "gemini-2.5-flash",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:fdc137e77ce8eada68457e962c74b3b2712040ba8cde172438f135018eb00e71",
+      "response_blob_digest": "sha256:aa3d8f96f643017b5b91fe84cc0294dad873ce859666b603293fe72b0df1f824",
+      "response_blob_ref": "blobs/sha256/aa3d8f96f643017b5b91fe84cc0294dad873ce859666b603293fe72b0df1f824.json",
+      "response_chars": 835,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Complete the incomplete list_capabilities method in CapabilityRegistry to resolve the syntax error and return a valid dictionary with grouped counts and capability records.\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/capability/capability_registry.py\"},\"old\":\"        grouped: Dict[str, int] = {}\\n        for item in records:\\n            grouped[item.kind] \",\"new\":\"        grouped: Dict[str, int] = {}\\n        for item in records",
+      "response_ref": "cache_87b5040939d38ca8.answer.json",
+      "response_sha256": "sha256:d5a91601af88b5cb32e1cb0684fcedc2e993b98b10014c5adf5749019397d44c"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

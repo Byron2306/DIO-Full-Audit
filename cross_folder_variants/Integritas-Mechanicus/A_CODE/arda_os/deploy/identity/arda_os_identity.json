@@ -1,0 +1,31 @@
+{
+  "schema_version": "arda.os_identity.v1",
+  "name": "ARDA Valinor",
+  "tagline": "Law of the Substrate",
+  "visual_language": "Telperion midnight ceremonial workstation",
+  "fonts": {
+    "display": "Cinzel",
+    "ui": "Oxanium",
+    "reading": "Spectral",
+    "mono": "JetBrains Mono"
+  },
+  "palette": {
+    "void": "#02050b",
+    "navy": "#071426",
+    "panel": "#0a1a2a",
+    "silver": "#dce8ee",
+    "silver_soft": "#9fb4c0",
+    "cyan": "#63e6ff",
+    "teal": "#19bfaf",
+    "grantable": "#2bd786",
+    "escalatory": "#f0a53b",
+    "dissonant": "#d84146",
+    "gold": "#b99455"
+  },
+  "assets": {
+    "wallpaper_source": "arda-sovereign-website/assets/media/arda-wallpaper.webp",
+    "fallback_wallpaper": "arda_os/deploy/boot/assets/arda-wallpaper.png",
+    "seal": "arda_os/deploy/boot/assets/arda-seal.png",
+    "crown_bar": "arda_os/deploy/boot/assets/arda-silver-crown-bar.png"
+  }
+}

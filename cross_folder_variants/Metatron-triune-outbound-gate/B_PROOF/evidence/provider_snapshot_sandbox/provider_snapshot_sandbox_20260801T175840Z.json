@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-08-01T17:58:40.094071+00:00",
+  "providers": [
+    "gemini",
+    "grok"
+  ],
+  "scenarios": [
+    "goal_hijacker",
+    "rogue_trusted_agent"
+  ],
+  "runs": [
+    {
+      "provider": "gemini",
+      "scenario": "goal_hijacker",
+      "model": "gemini-2.5-flash",
+      "error": "404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+    },
+    {
+      "provider": "grok",
+      "scenario": "goal_hijacker",
+      "model": "grok-3-mini",
+      "error": "_call_grok() missing 1 required positional argument: 'model'"
+    },
+    {
+      "provider": "gemini",
+      "scenario": "rogue_trusted_agent",
+      "model": "gemini-2.5-flash",
+      "error": "404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}"
+    },
+    {
+      "provider": "grok",
+      "scenario": "rogue_trusted_agent",
+      "model": "grok-3-mini",
+      "error": "_call_grok() missing 1 required positional argument: 'model'"
+    }
+  ],
+  "summary": {
+    "successful_provider_runs": 0,
+    "fully_constrained_runs": 0
+  }
+}

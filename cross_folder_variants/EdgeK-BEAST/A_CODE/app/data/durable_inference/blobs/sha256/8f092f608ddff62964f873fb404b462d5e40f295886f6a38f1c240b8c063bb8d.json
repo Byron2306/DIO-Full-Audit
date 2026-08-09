@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:8f092f608ddff62964f873fb404b462d5e40f295886f6a38f1c240b8c063bb8d",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "fa0fbfaa8b3bb3438ff39b57767e7c0de5d6732fd7dacb54aaa12720f53f2a77",
+      "parameters": {
+        "governance_level": "ide_agent_session",
+        "max_tokens": 8000,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:0558743aa0b8f70b5015b1b99fd7006176053950bf3bd4b04637707d921f6fde",
+      "response_blob_digest": "sha256:eccce9b66d6b39116f0791a0db7f55e70c5c6dffb35f2cbcd6a3d1458d6cf0e9",
+      "response_blob_ref": "blobs/sha256/eccce9b66d6b39116f0791a0db7f55e70c5c6dffb35f2cbcd6a3d1458d6cf0e9.json",
+      "response_chars": 1071,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve context economizer and adapter candidate mutations\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"if original_tokens > max_input:\", \"new\": \"if original_tokens > max_input or target_tokens > max_input:\", \"intent\": \"Ensure target tokens do not exceed max input tokens\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutat",
+      "response_ref": "cache_98decb0fa0782147.answer.json",
+      "response_sha256": "sha256:8343c66bbf2c34c26e84b6dac5ca5ff8d61d82818d27a14991000be2bf05364f"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:0730a54f81093fe0a6b984d8febf50dd16c2a9d6caed98fedcf9747f5da7949e",
+    "ref": "blobs/sha256/0730a54f81093fe0a6b984d8febf50dd16c2a9d6caed98fedcf9747f5da7949e.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-17T19:56:36.724182+00:00",
+  "credit_id": "cache_a25ef13cf3d2a16f",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "fa0fbfaa8b3bb3438ff39b57767e7c0de5d6732fd7dacb54aaa12720f53f2a77",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 8000,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:0383a2470701ea87b849ddf731ff572b82e75379b7995e13bfbe110c531bfde3",
+    "response_blob_digest": "sha256:ecee9452d7f5ab042fc45d477ea30b77947e59ffd9d2f9ed82000a757403dc31",
+    "response_blob_ref": "blobs/sha256/ecee9452d7f5ab042fc45d477ea30b77947e59ffd9d2f9ed82000a757403dc31.json",
+    "response_chars": 540,
+    "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Explain the active file and identify its key dependencies\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/kernel/compute/compression_pipeline.py\"},\"old\":\"\",\"new\":\"\",\"intent\":\"The active file is app/kernel/compute/compression_pipeline.py, which implements a layered compression pipeline. Its key dependencies include hashlib, json, re, and pathlib from the Python standard library, as well as custom modules like ASTCompressor, EvidenceEnvelopeF",
+    "response_ref": "cache_a25ef13cf3d2a16f.answer.json",
+    "response_sha256": "sha256:4e39d4f5a20ee0a00c480e8229a013cd25c77cb3de45f65fdbf6cd5f5ce4220a"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

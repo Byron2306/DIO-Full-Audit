@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:d4278b9edcc0d7f36d2a6a72fedae66110d516051892a21a16d5f202115b3f8a",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:f3fe0b13d86773641d4cab6a2b74f20d75e582e9941bc470e75a2429760d270c",
+      "response_blob_digest": "sha256:cb00ecd67c888578b7d942dce6675f9f61aec6de08474443be7ad0dafb328bab",
+      "response_blob_ref": "blobs/sha256/cb00ecd67c888578b7d942dce6675f9f61aec6de08474443be7ad0dafb328bab.json",
+      "response_chars": 1473,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve patching for Compute Forge Node\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A4\"}, \"old\": \"Phase 7: Compute Forge Node \u2014 idle machines as inference-preparation engines, with improved performance, security, and efficiency. This node participates in the discovery-agnostic reuse protocol to ensure secure and efficient computation. A Jetson, RTX box, or CPU-only Ollama node pa",
+      "response_ref": "cache_8fbafb3f33620f6b.answer.json",
+      "response_sha256": "sha256:85130bce39caecf4d3f1080eb6e13ac632c1657c91a9f00a204f931feaf09110"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

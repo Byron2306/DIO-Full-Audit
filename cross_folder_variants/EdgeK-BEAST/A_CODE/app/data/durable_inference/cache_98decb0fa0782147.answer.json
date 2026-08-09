@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:e0cd94b98d4eed7e6f39c4beae4f3a55994ab638dfe14b97d9a248e68fa2c3c1",
+    "ref": "blobs/sha256/e0cd94b98d4eed7e6f39c4beae4f3a55994ab638dfe14b97d9a248e68fa2c3c1.json"
+  },
+  "credit_id": "cache_98decb0fa0782147",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Improve context economizer and adapter candidate mutations\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/context/economizer.py\"}, \"old\": \"if not enabled:\\n        return self._unchanged(ir, original_tokens, \\\"disabled\\\", [\\\"Context economizer disabled\\\"])\", \"new\": \"if not enabled:\\n        return self._unchanged(ir, original_tokens, \\\"disabled\\\", [\\\"Context economizer disabled\\\", \\\"Consider enabling for better performance\\\"])\", \"intent\": \"Provide additional information when context economizer is disabled\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_mutations_latest.json\"}, \"old\": \"{\\\"expected\\\": \\\"candidate_quarantined\\\", \\\"mutation\\\": \\\"source_lattice_hash_flip\\\", \\\"passed\\\": true}\", \"new\": \"{\\\"expected\\\": \\\"candidate_quarantined\\\", \\\"mutation\\\": \\\"source_lattice_hash_flip\\\", \\\"passed\\\": true, \\\"note\\\": \\\"This mutation is critical for adapter candidate validation\\\"}\", \"intent\": \"Add note to important mutation\"}, {\"type\": \"replace_exact\", \"target\": {\"path\": \"app/benchmarks/results/crystal_to_adapter_distillation/adapter_candidate_receipt_latest.json\"}, \"old\": \"\\\"authority\\\": \\\"proposal_only\\\"\", \"new\": \"\\\"authority\\\": \\\"proposal_only\\\", \\\"note\\\": \\\"Authority is set to proposal_only for this adapter candidate\\\"\", \"intent\": \"Add note to authority field\"}], \"verify\": [\"Test context economizer with disabled and enabled modes\", \"Verify adapter candidate mutations pass with new notes\"]}",
+  "response_sha256": "sha256:113719190f0caa292bc148ebdff23499f9d39ad222953c1192383db2a9c33b94",
+  "version": "1.0"
+}

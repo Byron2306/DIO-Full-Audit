@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:664921358456a6572c1b2b136f378e8efd3768ec600f560f64267e6a8437c426",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "6286d456155b93eeaa5f902709fd38e699fe29437e77ad4fa630e19ffdd3c195",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2048,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:b95d76b2e16f22ae5a4cf23a3e46f1ed9026f4af0df0785afa13020e8d9cca69",
+      "response_blob_digest": "sha256:d9dcfad0e32ca8ac6bc9abcb51c7861732daa2ca7e95d32b09b25a41722f14cf",
+      "response_blob_ref": "blobs/sha256/d9dcfad0e32ca8ac6bc9abcb51c7861732daa2ca7e95d32b09b25a41722f14cf.json",
+      "response_chars": 5281,
+      "response_preview": "{\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor the selected code for clarity without changing behavior\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"app/context/economizer.py\",\"anchor_ref\":\"A1\"},\"old\":\"class ContextEconomizer:\\n    \\\"\\\"\\\"Policy-driven context compression for EdgeK IR messages.\\\"\\\"\\\"\\n    def __init__(self, policies: Optional[Dict[str, Any]] = None):\\n        self.policies = policies or {}\\n\\n    def economize(self, ir: EdgeKIR) -> ContextEconomyResult:\\n        m",
+      "response_ref": "cache_65ca1e6a4f0e3b46.answer.json",
+      "response_sha256": "sha256:675ce391a000eaee196abc0e0d95b54aa7aea14854b66139f0dbc1f11f3cdb5f"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

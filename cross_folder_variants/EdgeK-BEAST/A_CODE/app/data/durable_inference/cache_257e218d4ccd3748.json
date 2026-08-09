@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:45d6398c341bd53e9ac8f6273b1562bff41236690396e15242ed4f5bea855beb",
+    "ref": "blobs/sha256/45d6398c341bd53e9ac8f6273b1562bff41236690396e15242ed4f5bea855beb.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T10:40:56.671013+00:00",
+  "credit_id": "cache_257e218d4ccd3748",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "local-nim-model",
+    "parameter_hash": "9c8905414ca12cff048d5d39330c7443535925395523a6a31289b6e99be36167",
+    "parameters": {
+      "governance_level": "ide_agent_session",
+      "max_tokens": 6000,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:71e5cfbf70943d2f434271d5bad9ac619862802271f599632a2f4d2323c56ad3",
+    "response_blob_digest": "sha256:96406ae2b6125172bd4106a370aad5433eb62e204d939839e9c47bb31cd89f4b",
+    "response_blob_ref": "blobs/sha256/96406ae2b6125172bd4106a370aad5433eb62e204d939839e9c47bb31cd89f4b.json",
+    "response_chars": 150,
+    "response_preview": "[SIMULATED] EdgeK BEAST would execute local_nim OpenAI-compatible request for model local-nim-model. Set provider credentials/base URL for live calls.",
+    "response_ref": "cache_257e218d4ccd3748.answer.json",
+    "response_sha256": "sha256:767500e4e6d90de398a7488390efd41c8fc8584da00b31b85ea2542a665967a4"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

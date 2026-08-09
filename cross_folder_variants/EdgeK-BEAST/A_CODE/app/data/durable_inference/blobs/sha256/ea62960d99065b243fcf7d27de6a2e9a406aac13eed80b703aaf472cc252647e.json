@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:ea62960d99065b243fcf7d27de6a2e9a406aac13eed80b703aaf472cc252647e",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"fix stale fingerprint detection\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A6\"}, \"old\": \"idle machine \u2192 watches repo\", \"new\": \"idle machine \u2192 watches repo\\nidle machine \u2192 updates vector/AST/test maps\", \"intent\": \"update stale fingerprint detection to include vector/AST/test map updates\"}], \"verify\": [\"test_stale_fingerprint_detection\"], \"provider_handoff_hash\": \"sha256:84ed9617c4dc29aa4baa684eec1da4e82edd0fca06a56980698325ec4bb8a822\"}",
+    "response_sha256": "sha256:65684688029261af1cc6acf84be52561cdb725031c34690f4b7b4daa8aa8f602",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

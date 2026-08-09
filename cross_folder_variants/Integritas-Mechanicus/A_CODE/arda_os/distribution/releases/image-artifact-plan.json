@@ -1,0 +1,95 @@
+{
+  "artifact_formats": [
+    {
+      "boot_mode": "uefi",
+      "filename": "arda-valinor-trixie-amd64.img",
+      "filesystem": "ext4",
+      "id": "raw_disk",
+      "partition_table": "gpt"
+    },
+    {
+      "boot_mode": "uefi",
+      "builder": "xorriso",
+      "filename": "arda-valinor-live-trixie-amd64.iso",
+      "id": "live_iso",
+      "image_type": "iso-hybrid"
+    },
+    {
+      "boot_mode": "uefi",
+      "builder": "debian-installer + xorriso",
+      "filename": "arda-valinor-installer-trixie-amd64.iso",
+      "id": "installer_iso",
+      "image_type": "iso-hybrid"
+    }
+  ],
+  "base_distribution": {
+    "architecture": "amd64",
+    "family": "debian",
+    "series": "trixie"
+  },
+  "build_stages": [
+    {
+      "inputs": [
+        "/home/byron/Integritas-Mechanicus/arda_os/distribution/build/rootfs-plan.json",
+        "arda_os/distribution/build/overlay/rootfs",
+        "arda_os/distribution/build/workspace/artifacts"
+      ],
+      "name": "rootfs_assembly",
+      "outputs": [
+        "arda_os/distribution/build/workspace/rootfs"
+      ]
+    },
+    {
+      "inputs": [
+        "arda_os/distribution/build/workspace/rootfs",
+        "arda_os/distribution/build/workspace/overlay-rootfs"
+      ],
+      "name": "boot_asset_staging",
+      "outputs": [
+        "arda_os/distribution/build/workspace/esp",
+        "arda_os/distribution/build/workspace/boot-staging"
+      ]
+    },
+    {
+      "inputs": [
+        "arda_os/distribution/build/workspace/rootfs",
+        "arda_os/distribution/build/workspace/esp"
+      ],
+      "name": "artifact_emission",
+      "outputs": [
+        "arda_os/distribution/releases/artifacts/arda-valinor-trixie-amd64.img",
+        "arda_os/distribution/releases/artifacts/arda-valinor-live-trixie-amd64.iso",
+        "arda_os/distribution/releases/artifacts/arda-valinor-installer-trixie-amd64.iso"
+      ]
+    }
+  ],
+  "distribution_id": "arda-valinor",
+  "generated_at": "2026-08-01T13:09:08.444764+00:00",
+  "host_tools": [
+    "debootstrap",
+    "xorriso",
+    "mtools",
+    "grub-mkstandalone",
+    "mkfs.vfat",
+    "sgdisk",
+    "qemu-img"
+  ],
+  "image_layout": {
+    "esp_size_mb": 32,
+    "rootfs_min_size_gb": 12,
+    "verity_partition_reserved": false,
+    "workspace_artifacts_mount": "/workspace-artifacts"
+  },
+  "live_build_reference": {
+    "architecture": "amd64",
+    "binary_images": [
+      "iso-hybrid"
+    ],
+    "bootappend_live": "boot=live components live-media-path=/live username=arda live-config.username=arda debug nomodeset systemd.log_level=debug rd.systemd.show_status=1 printk.time=1 systemd.debug_shell=1 systemd.unit=graphical.target console=ttyS0,115200 console=tty0",
+    "distribution": "trixie"
+  },
+  "release_root": "arda_os/distribution/releases/artifacts",
+  "rootfs_plan": "/home/byron/Integritas-Mechanicus/arda_os/distribution/build/rootfs-plan.json",
+  "schema_version": "arda.distribution.image_artifact_plan.v1",
+  "workspace_root": "arda_os/distribution/build/workspace"
+}

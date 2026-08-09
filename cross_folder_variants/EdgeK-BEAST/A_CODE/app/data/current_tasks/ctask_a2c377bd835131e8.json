@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-18T04:57:48.558056+00:00",
+  "objective": "You are completing a repository change, not suggesting a tiny example. First inspect every attached file and infer the affected implementation, caller, configuration, and test surfaces. Build the implementation plan internally before emitting output. Then return a complete BEAST Action IR patch: include every required edit in the allowed files, with one exact action per edit. A one-file patch is acceptable only when the inspected scope proves no other file needs to change. Do not satisfy an implementation request with a cosmetic comment, signature-only change, or first plausible one-line tweak; trace the behavior through attached callers, configuration, and tests and emit the complete required patch. Do not stop after the first plausible edit.\n\nAct as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal.\n\nTask: Refactor the selected code for clarity without changing behavior.\n\nAllowed files:\n- app/context/economizer.py\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}],\"verify\":[\"relevant test or check\"]}\nUse only attached files and copy old snippets exactly. Every action must make a real, complete source change: never emit an unchanged old/new pair, an ellipsis, or prose such as \"rest of the function remains the same.\" Never satisfy an implementation request with a cosmetic comment, a signature-only change, or the first plausible one-line tweak. Trace the requested behavior through every attached implementation, caller, configuration, and test surface; emit all edits that are genuinely required. A one-hunk plan is valid only when the attached scope proves the behavior is truly isolated. Keep scope controlled, but make the implementation complete. If multiple files are attached because the feature crosses UI, runtime, tests, and docs, produce a coordinated multi-file patch rather than a tiny isolated edit. Do not include markdown or prose outside the JSON.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:a2c377bd835131e84a44cf3d1c1acbd86948bcb3f01ad65866a77b90317e5554",
+  "task_markup_id": "ctask_a2c377bd835131e8"
+}

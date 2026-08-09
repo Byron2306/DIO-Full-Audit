@@ -1,0 +1,78 @@
+title: Visual Basic Script Execution
+id: 6x0u1v9w-7s2t-2u5v-6w9x-0t3s4u7v2w3x
+status: experimental
+description: Detects execution of Visual Basic scripts
+references:
+  - https://attack.mitre.org/techniques/T1059/008/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\cscript.exe'
+      - '\wscript.exe'
+    CommandLine|endswith:
+      - '.vbs'
+      - '.vbe'
+  condition: selection
+falsepositives:
+  - Legitimate VBScript usage
+  - Administrative scripts
+level: low
+tags:
+  - attack.execution
+  - attack.t1059.008
+---
+title: JavaScript Execution via Script Host
+id: 7y1v2w0x-8t3u-3v6w-7x0y-1u4t5v8w3x4y
+status: experimental
+description: Detects execution of JavaScript via Windows Script Host
+references:
+  - https://attack.mitre.org/techniques/T1059/010/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\cscript.exe'
+      - '\wscript.exe'
+    CommandLine|endswith: '.js'
+  condition: selection
+falsepositives:
+  - Legitimate JavaScript execution
+level: low
+tags:
+  - attack.execution
+  - attack.t1059.010
+---
+title: PowerShell Script Execution
+id: 8z2w3x1y-9u4v-4w7x-8y1z-2v5u6w9x4y5z
+status: experimental
+description: Detects execution of PowerShell scripts
+references:
+  - https://attack.mitre.org/techniques/T1059/011/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - '-File'
+      - '.ps1'
+  condition: selection
+falsepositives:
+  - Legitimate PowerShell scripting
+  - System administration
+level: low
+tags:
+  - attack.execution
+  - attack.t1059.011

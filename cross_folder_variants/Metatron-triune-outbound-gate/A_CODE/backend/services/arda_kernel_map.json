@@ -1,0 +1,1160 @@
+{
+  "protocol": "ARDA_HARMONY_MAP_v2",
+  "timestamp": "2026-03-31T07:37:23.508528+00:00",
+  "hostname": "debian",
+  "kernel": "6.12.74+deb12-amd64",
+  "tiers_included": [
+    "critical",
+    "operational",
+    "development"
+  ],
+  "entries": [
+    {
+      "path": "/usr/bin/bash",
+      "aliases": [
+        "/bin/bash"
+      ],
+      "inode": 27263057,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "223fe8564b60636bc738b6178d3ba9a50ef7d791266b0efae6363bb716e4c47f"
+    },
+    {
+      "path": "/usr/bin/dash",
+      "aliases": [
+        "/bin/sh",
+        "/bin/dash"
+      ],
+      "inode": 27263155,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "a6f559e00b69a4aa4d8cb607be18d9386c5aee55c509e2c075549dcf00e00fc7"
+    },
+    {
+      "path": "/usr/bin/sudo",
+      "aliases": [],
+      "inode": 27264005,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "2ed07aef6361ad85039527030f74125dac119532703bca126f751580e37d9c76"
+    },
+    {
+      "path": "/usr/bin/su",
+      "aliases": [],
+      "inode": 27264004,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "c7c418276a0acc8e543d3b7d65e00e967048e196aec5f69cbe946a528b40d8bd"
+    },
+    {
+      "path": "/usr/bin/login",
+      "aliases": [],
+      "inode": 27263593,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "7160d7e148e2804351e195c02efa01b24d38cdd0caf8afd8604baba328321192"
+    },
+    {
+      "path": "/usr/lib/systemd/systemd",
+      "aliases": [
+        "/sbin/init",
+        "/lib/systemd/systemd",
+        "/usr/lib/systemd/systemd"
+      ],
+      "inode": 27287689,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "0356ad6e453ccfcd94b0dae214200da18ac2ea52f4537477e6c7602ac6d394eb"
+    },
+    {
+      "path": "/usr/bin/systemctl",
+      "aliases": [],
+      "inode": 27264015,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "bcfe24087122c038dde6fc4b52fe8e6986cd08b23798bbb72961daa0b11a23c1"
+    },
+    {
+      "path": "/usr/lib/systemd/systemd-journald",
+      "aliases": [],
+      "inode": 27287702,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "ea94dbaccef4a82e895ea06c667ce76c46f6fddf007b6504c565651a30da694f"
+    },
+    {
+      "path": "/usr/lib/systemd/systemd-logind",
+      "aliases": [],
+      "inode": 27287704,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "fa27df3869d90cbed4a24308cdf2c266281cfca0757078bed05ce0204fdb9a94"
+    },
+    {
+      "path": "/usr/bin/udevadm",
+      "aliases": [
+        "/usr/lib/systemd/systemd-udevd"
+      ],
+      "inode": 27264090,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "5ca18ba27dd06f39926a252a4c87c3badd5b77d1acd1557f9f5d42bdd089da7b"
+    },
+    {
+      "path": "/usr/sbin/agetty",
+      "aliases": [
+        "/sbin/agetty",
+        "/sbin/getty"
+      ],
+      "inode": 27394529,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "45f2bc903e21bf5639237a3daf74017b1ef3e28a7c715b354fe09c56e4b4516e"
+    },
+    {
+      "path": "/usr/bin/mount",
+      "aliases": [
+        "/bin/mount",
+        "/sbin/mount"
+      ],
+      "inode": 27263665,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "92253cf919646b4a0242998526d35eea39204dff0363e74086290d63ccb39fed"
+    },
+    {
+      "path": "/usr/bin/umount",
+      "aliases": [
+        "/bin/umount",
+        "/sbin/umount"
+      ],
+      "inode": 27264119,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "93387d7db63410ac94824d677616a5e36567abe5a724d4e5e71727fea531ffc5"
+    },
+    {
+      "path": "/usr/sbin/fsck",
+      "aliases": [
+        "/sbin/fsck"
+      ],
+      "inode": 27394621,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "202b7bbe370054da52bc5a62de84aed5eb558ae440354eea72cc4368ef3d4f83"
+    },
+    {
+      "path": "/usr/sbin/e2fsck",
+      "aliases": [
+        "/sbin/e2fsck",
+        "/sbin/fsck.ext4"
+      ],
+      "inode": 27394599,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "a1325970ef22dfadd225aa185e2711d85194eb9762efdf408f34f9952ce56bdc"
+    },
+    {
+      "path": "/usr/local/bin/bpftool",
+      "aliases": [
+        "/usr/sbin/bpftool"
+      ],
+      "inode": 27428646,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "74bd16335aa1c40714fb50287a42766c6faa4958f969cce32fef89485ce4934c"
+    },
+    {
+      "path": "/usr/bin/python3.13",
+      "aliases": [
+        "/usr/bin/python3"
+      ],
+      "inode": 27263872,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "e59d0124ff06c248546876e01fcfb1ea3cda63534949f94a9372bfcfe3bfc3f5"
+    },
+    {
+      "path": "/usr/bin/stat",
+      "aliases": [],
+      "inode": 27263997,
+      "dev": 66306,
+      "tier": "critical",
+      "sha256": "128754b37ab743a539d889a91441c440f9b52df77f4e008b345ff221ce1daeaa"
+    },
+    {
+      "path": "/usr/bin/ls",
+      "aliases": [
+        "/bin/ls"
+      ],
+      "inode": 27263605,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "833d6f9cf3ede2225d80eaa159ef78a141c92842a691179aec37d182cc808a5c"
+    },
+    {
+      "path": "/usr/bin/cat",
+      "aliases": [
+        "/bin/cat"
+      ],
+      "inode": 27263103,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "8a5c20c3400a4058a487cd806111cc5138ef4d0fbc6714ff67c9432e38c2705a"
+    },
+    {
+      "path": "/usr/bin/cp",
+      "aliases": [
+        "/bin/cp"
+      ],
+      "inode": 27263138,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "5a3a8808bab81a67c6ac578670f5608595f1569948d4dc7d7d604c1d08d596d9"
+    },
+    {
+      "path": "/usr/bin/mv",
+      "aliases": [
+        "/bin/mv"
+      ],
+      "inode": 27263675,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "7db4661c6397fe5fd5ba6837692aa5adb7dce1efc656369d7b08dfd6ece525a0"
+    },
+    {
+      "path": "/usr/bin/rm",
+      "aliases": [
+        "/bin/rm"
+      ],
+      "inode": 27263896,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "c959a237e7b95d229eea44764b2246fcb61a95dc679a10ad0cc97ad84c2316c1"
+    },
+    {
+      "path": "/usr/bin/mkdir",
+      "aliases": [
+        "/bin/mkdir"
+      ],
+      "inode": 27263654,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "bd3d9b36a1cc1c63b8dca7967003f4e5b0bb8556c87cbb7c1916aa358bf3f053"
+    },
+    {
+      "path": "/usr/bin/rmdir",
+      "aliases": [
+        "/bin/rmdir"
+      ],
+      "inode": 27263897,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "d78acd70f897e47588f964663f26b0dd5f7787b25ce6d70a81d842563f952845"
+    },
+    {
+      "path": "/usr/bin/chmod",
+      "aliases": [
+        "/bin/chmod"
+      ],
+      "inode": 27263116,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "7e37f672db75ae783260e7565d26218d25cebbc5a6d61118284c9719d246a90e"
+    },
+    {
+      "path": "/usr/bin/chown",
+      "aliases": [
+        "/bin/chown"
+      ],
+      "inode": 27263118,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "22538ede9a6532d7c5db3c67c73bbcd68adc44a1ac99e09a2d739282aebff1ca"
+    },
+    {
+      "path": "/usr/bin/ln",
+      "aliases": [
+        "/bin/ln"
+      ],
+      "inode": 27263581,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "75bef899117adf42c64c2f15fee640755d18d4632ae0794578d268a74cc7af8b"
+    },
+    {
+      "path": "/usr/bin/touch",
+      "aliases": [
+        "/bin/touch"
+      ],
+      "inode": 27264070,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b6936efadcd64198cb2f62578bdc4dad5699fd5af8129b7606367c98767a3c4d"
+    },
+    {
+      "path": "/usr/bin/df",
+      "aliases": [
+        "/bin/df"
+      ],
+      "inode": 27263187,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b0151157177079180b1e104c8c13962cf60dee40f8a415102aca57ac61998a69"
+    },
+    {
+      "path": "/usr/bin/du",
+      "aliases": [
+        "/bin/du"
+      ],
+      "inode": 27263230,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "3c0b05db84b02f20521c548adbe76fe05012a24effa6116e0752a81dd0faa9ba"
+    },
+    {
+      "path": "/usr/bin/head",
+      "aliases": [],
+      "inode": 27263455,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "d75b123e441ed3bd503eb3dc45b716c861fcbf5c2228ac302a50bc45f6346f6b"
+    },
+    {
+      "path": "/usr/bin/tail",
+      "aliases": [],
+      "inode": 27264047,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "ca27a636110b4c30a7c5444d9334ee5d7cc434ef0cadd837404fbf01eb7a9191"
+    },
+    {
+      "path": "/usr/bin/wc",
+      "aliases": [],
+      "inode": 27264166,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "e8fe45a85ebdb0dade6dabf96f21dfd686c6414ff2a4a8980727076a5981d2af"
+    },
+    {
+      "path": "/usr/bin/sort",
+      "aliases": [],
+      "inode": 27263973,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "4bf4f14424fa481b1f40d28534b0c5c7a7d07affcb82c805b07255cc4c2034be"
+    },
+    {
+      "path": "/usr/bin/uniq",
+      "aliases": [],
+      "inode": 27264125,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "97ff5eaefce9fe14c9f6a9efff83d2d0f75484f8b04e00c687923ae045f2ba7f"
+    },
+    {
+      "path": "/usr/bin/cut",
+      "aliases": [],
+      "inode": 27263152,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "f7f5511ede2187fbb7646581470c84647d087fb87cb74836c0237b0943d3dbc2"
+    },
+    {
+      "path": "/usr/bin/tr",
+      "aliases": [],
+      "inode": 27264072,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "38ae5272952eae85558cb902d1b6b3eca5f8106aea901cd9aee3fe2dff1e2b43"
+    },
+    {
+      "path": "/usr/bin/tee",
+      "aliases": [],
+      "inode": 27264053,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "c56e1654da83434ff80c9700c179f8947dd88ce5137c866a6ea2511342925a3c"
+    },
+    {
+      "path": "/usr/bin/xargs",
+      "aliases": [],
+      "inode": 27264218,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "5f8c5f3f051d73fbeeae248e1d3e819e5feeb1b0265b903385193a2b183ab370"
+    },
+    {
+      "path": "/usr/bin/find",
+      "aliases": [],
+      "inode": 27263306,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "91b75e72c495e68dd6aab198c2fd6c458fd51a2dc361045ee31f8e657417de26"
+    },
+    {
+      "path": "/usr/bin/which.debianutils",
+      "aliases": [
+        "/usr/bin/which"
+      ],
+      "inode": 27264171,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "59e7cf8b9bd8711ae1aa6f7bbbd4132b61492409c3afe8e1505225efda1cb8f6"
+    },
+    {
+      "path": "/usr/bin/whoami",
+      "aliases": [],
+      "inode": 27264174,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "8da58088893f0af8b4a26e3cc3e10f69d1e4db0368b8432d0973139ff6ef2b81"
+    },
+    {
+      "path": "/usr/bin/id",
+      "aliases": [],
+      "inode": 27263478,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "50629fa0ab5c003b538d4ccf7de34e85d2df4e799a79eb2dd4c2f7b1e0d7ca59"
+    },
+    {
+      "path": "/usr/bin/env",
+      "aliases": [],
+      "inode": 27263254,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "eb1c64bbc9908afcdf8cb48524f17112d8dd76a249f80dee2f01da14747b3b6e"
+    },
+    {
+      "path": "/usr/bin/dirname",
+      "aliases": [],
+      "inode": 27263197,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "088e052097e35176c2714238a7cea6240c82ae3873f02ab77234b30263566768"
+    },
+    {
+      "path": "/usr/bin/basename",
+      "aliases": [],
+      "inode": 27263055,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b4f6fa4b123e1c2e77964d803e5d80837c41b03c6cc870d1619cd3560193f7e1"
+    },
+    {
+      "path": "/usr/bin/readlink",
+      "aliases": [],
+      "inode": 27263884,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "1dcaf494f4dec175292b1684b3e978d18a4c3c703c52f81606d9e8eea30eb6db"
+    },
+    {
+      "path": "/usr/bin/realpath",
+      "aliases": [],
+      "inode": 27263885,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "43708156c6862ae153685c621c4b9c601ae3f77fefa737cf2f47f3a0f5afaf24"
+    },
+    {
+      "path": "/usr/bin/date",
+      "aliases": [],
+      "inode": 27263156,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "c45e250696f9acab00814e8a0b21ce6666fe212a9e78a14f9917552546d7b389"
+    },
+    {
+      "path": "/usr/bin/sleep",
+      "aliases": [],
+      "inode": 27263969,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "0637e6d47579929cb72efa46f361861b319d62c62fe8a9d10731fd7655eb5936"
+    },
+    {
+      "path": "/usr/bin/true",
+      "aliases": [],
+      "inode": 27264076,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b381cc8c55ec524b9fa92897f0882e855357468b4a763519cec47e05994d61ff"
+    },
+    {
+      "path": "/usr/bin/false",
+      "aliases": [],
+      "inode": 27263279,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "d22a87e4d3bac34db5025ba813f9275244336880b297a5ae0bcbc19206454ddf"
+    },
+    {
+      "path": "/usr/bin/test",
+      "aliases": [],
+      "inode": 27264055,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "a5ec8b3018ac45d0f5bb9bde5e56a02f02f1b796bc0a1b4671cae5155e709279"
+    },
+    {
+      "path": "/usr/bin/expr",
+      "aliases": [],
+      "inode": 27263271,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b3a702318c52f2b29984e289cac19c4966e0dca953d7107aa73e3593feae739f"
+    },
+    {
+      "path": "/usr/bin/seq",
+      "aliases": [],
+      "inode": 27263936,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "da4db5218e28d835c510e97226665a423fafca829fa3cceabd2a600b4b433401"
+    },
+    {
+      "path": "/usr/bin/printf",
+      "aliases": [],
+      "inode": 27263831,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "e7c954d7c89a494227b35c537a0a42fe315b4ea687b90a90b3eeee06c52927dd"
+    },
+    {
+      "path": "/usr/bin/echo",
+      "aliases": [],
+      "inode": 27263233,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "416903b966ea8a2fc3b11e09b03a30e09aaf3b2e8f5a581b4c1b80899edf545f"
+    },
+    {
+      "path": "/usr/bin/yes",
+      "aliases": [],
+      "inode": 27264359,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "a9e13c3959ab1d0958a96ad49515556cb04d14e83f3e34fdbb9e6d53de7e6a0a"
+    },
+    {
+      "path": "/usr/bin/grep",
+      "aliases": [
+        "/bin/grep",
+        "/usr/bin/grep"
+      ],
+      "inode": 27263396,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "bd6686bf7a650a9717fd7e73fdb07dc63b70547a1da41bce093c56df937a66eb"
+    },
+    {
+      "path": "/usr/bin/egrep",
+      "aliases": [
+        "/bin/egrep"
+      ],
+      "inode": 27263247,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "10caa507f39367738ca977a5f2014406159064b072dbade0c0c23a40597f66da"
+    },
+    {
+      "path": "/usr/bin/fgrep",
+      "aliases": [
+        "/bin/fgrep"
+      ],
+      "inode": 27263302,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "f1bdb63da98989d55e56cef651139f70448d4c8f6ea40bb02610be439e29bf0c"
+    },
+    {
+      "path": "/usr/bin/sed",
+      "aliases": [
+        "/bin/sed",
+        "/usr/bin/sed"
+      ],
+      "inode": 27263926,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "3e6ba6b165d1491b8ec19ef5e192558b8af0bcc660530e7bb559cccd58eec722"
+    },
+    {
+      "path": "/usr/bin/mawk",
+      "aliases": [
+        "/usr/bin/awk"
+      ],
+      "inode": 27263641,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "eff9f2b711eb5bee1b58d4d33b891e8da8f6534655d3854a45bd10217dbb28e6"
+    },
+    {
+      "path": "/usr/bin/diff",
+      "aliases": [],
+      "inode": 27263191,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "ae8ef59bc4039e56ce184b6cd55e87526aceb72940e2c16a88113b2ae745613b"
+    },
+    {
+      "path": "/usr/bin/nano",
+      "aliases": [],
+      "inode": 27263677,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "6adb93b60f079f52e6b2b192a643031970fa913010870de55edee1845433160d"
+    },
+    {
+      "path": "/usr/bin/vim.tiny",
+      "aliases": [
+        "/usr/bin/vi"
+      ],
+      "inode": 27264154,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "c887683acb841e1f59eb42b96f8c0158677bab87686df813ba44a1eea8641f58"
+    },
+    {
+      "path": "/usr/bin/ps",
+      "aliases": [
+        "/bin/ps",
+        "/usr/bin/ps"
+      ],
+      "inode": 27263838,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "43b8d2d049183e9ebc409c86b89150b5a4a68fa19fe1815b16bed5561921a9c3"
+    },
+    {
+      "path": "/usr/bin/kill",
+      "aliases": [
+        "/bin/kill",
+        "/usr/bin/kill"
+      ],
+      "inode": 27263525,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "2cea42a458e6abea5c8439e1e557d3d39cae481e7cbb7e85c0232440d0845b32"
+    },
+    {
+      "path": "/usr/bin/killall",
+      "aliases": [],
+      "inode": 27263526,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "9a6d8a9de2fa091c51b81720c9595783ddb10ef8e683743389bbcf1358e8fb15"
+    },
+    {
+      "path": "/usr/bin/top",
+      "aliases": [],
+      "inode": 27264069,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "0f2f3d15092397a86fd4e53906cff0595419a3e96e4306b8ec63d26f48760e33"
+    },
+    {
+      "path": "/usr/bin/free",
+      "aliases": [],
+      "inode": 27263314,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "e2b6980e319641edfa34420519a0eb4e73a5e176614837dd98148c80da3bb9d1"
+    },
+    {
+      "path": "/usr/bin/uptime",
+      "aliases": [],
+      "inode": 27264140,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "09fee591351233b145b88d86a7bc23eeec60fe804b7b39b0d6ea29269d879e39"
+    },
+    {
+      "path": "/usr/bin/pgrep",
+      "aliases": [],
+      "inode": 27263784,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "23bb9ae1e4b5ab7e11558429d1ba2bba77b757da52cfc780382c668342b500b3"
+    },
+    {
+      "path": "/usr/bin/ping",
+      "aliases": [],
+      "inode": 27263791,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b51f3f92619a4ba05a66cb432c970ab275d0a5cf4b9b8cada543e4bcc1aa22dd"
+    },
+    {
+      "path": "/usr/bin/curl",
+      "aliases": [],
+      "inode": 27263151,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "c4174c97ad32ad3440fb0f29d469a9df361daac854c352c90aa2bb403f439cf4"
+    },
+    {
+      "path": "/usr/bin/wget",
+      "aliases": [],
+      "inode": 27263659,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "460f3fd3732130336237466fd9d3bc7f0c1c49eb6cd09d76dc472e3082d416cc"
+    },
+    {
+      "path": "/usr/bin/ssh",
+      "aliases": [],
+      "inode": 27263987,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "29efdc8bc8cff8604aa71568643b184d2ecb67c35237d60a3d42b9b5eebbdf9b"
+    },
+    {
+      "path": "/usr/bin/scp",
+      "aliases": [],
+      "inode": 27263918,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "326b58a11cd74391e692eedec8177dc5c3764ffa0138571c28288566003c565a"
+    },
+    {
+      "path": "/usr/bin/ip",
+      "aliases": [
+        "/usr/sbin/ip",
+        "/sbin/ip"
+      ],
+      "inode": 27263495,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "024784c6d16b183dc7c97d93a943a9270976f167f95f771e14d72442dc657f0c"
+    },
+    {
+      "path": "/usr/bin/ss",
+      "aliases": [],
+      "inode": 27263986,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "772cf51fcd75313f9d1f16dbe45ac456904bb79a75367f79f0fedfec04e1e5fc"
+    },
+    {
+      "path": "/usr/bin/apt",
+      "aliases": [],
+      "inode": 27263019,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "9d5c615a969d3fa27432d6d367486f6f06b8d11f83cf4c64da165387fa39cad9"
+    },
+    {
+      "path": "/usr/bin/apt-get",
+      "aliases": [],
+      "inode": 27263024,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "67072be139e90c73ed25007ac92f0525909a7c6d6829aecc2ceff86f9568f98b"
+    },
+    {
+      "path": "/usr/bin/apt-cache",
+      "aliases": [],
+      "inode": 27263020,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b8fffaf4fd662ba887bc67d63d2f77490e8c33931090770e07698ae8a4df2f52"
+    },
+    {
+      "path": "/usr/bin/dpkg",
+      "aliases": [],
+      "inode": 27263202,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "0a20f6015fbb7c011571f3ed227a138b12ce282e46b7fdfc239558bc5a7bc9e5"
+    },
+    {
+      "path": "/usr/lib/apt/methods/http",
+      "aliases": [
+        "/usr/lib/apt/methods/https"
+      ],
+      "inode": 27267069,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "b0ff8e7416fd110972d97c0ba29a831301ed853882a28451837f6600d8f4afef"
+    },
+    {
+      "path": "/usr/lib/apt/methods/store",
+      "aliases": [],
+      "inode": 27267078,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "fbc20971affe3cf26044736bdb6db68e26e0d054049576d723f8495267222abc"
+    },
+    {
+      "path": "/usr/lib/apt/methods/gpgv",
+      "aliases": [],
+      "inode": 27267068,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "0c1203e878e3d26155d135b656cc6771d9d63cd901fc303179f2039fdaaa3ec8"
+    },
+    {
+      "path": "/usr/lib/apt/methods/copy",
+      "aliases": [],
+      "inode": 27267066,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "e80414cf5bcf4a18581f5e9449ebd577f97917755d22b98f037cdd9c6ca7ce60"
+    },
+    {
+      "path": "/usr/lib/apt/methods/file",
+      "aliases": [],
+      "inode": 27267067,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "f8458f48867e8cb379933f0d7586b975c940d46a9e939214038172e311d367ca"
+    },
+    {
+      "path": "/usr/lib/apt/planners/apt",
+      "aliases": [],
+      "inode": 27267080,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "8f94bf22ca65c3844596fcf35965f1b6927bc6a74261aef0724c8cfa78be4a60"
+    },
+    {
+      "path": "/usr/lib/apt/solvers/apt",
+      "aliases": [],
+      "inode": 27267082,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "3a375ee63cf171b304448a4da40bf76c54db511df165d586651e67e27b9131e9"
+    },
+    {
+      "path": "/usr/bin/tar",
+      "aliases": [
+        "/bin/tar",
+        "/usr/bin/tar"
+      ],
+      "inode": 27264049,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "38adf50825f773d353d6bda1a7cd70c22f8877823e44821c1d2bd0a52ddc3871"
+    },
+    {
+      "path": "/usr/bin/gzip",
+      "aliases": [],
+      "inode": 27263447,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "1fdd057912e3808c8cb8fa939bb94fcb27ae9d2961e6b8abbbe7888e63fbc9cc"
+    },
+    {
+      "path": "/usr/bin/gunzip",
+      "aliases": [],
+      "inode": 27263445,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "852a4855a13856f24fb2c43be3476b45adb8d48ae5d8e9bc28e9dbd3750e6b1b"
+    },
+    {
+      "path": "/usr/bin/unzip",
+      "aliases": [],
+      "inode": 27264133,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "0e8d7c498e9143e0e2529e6a76d5785d53755ef04ee6f9286088ea645621da73"
+    },
+    {
+      "path": "/usr/bin/uname",
+      "aliases": [
+        "/bin/uname",
+        "/usr/bin/uname"
+      ],
+      "inode": 27264120,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "458ea035850a5802a46ceb931e2864f9649a9030f43342156c54768f7ffddb3e"
+    },
+    {
+      "path": "/usr/bin/lsblk",
+      "aliases": [],
+      "inode": 27263608,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "539d72603a57f0e5de505ac923c454da3d9467906d264fa4dbba266a8ee3c9dd"
+    },
+    {
+      "path": "/usr/bin/dmesg",
+      "aliases": [
+        "/bin/dmesg",
+        "/usr/bin/dmesg"
+      ],
+      "inode": 27263199,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "6aa6ab40bd40b8b152bb2375ea92dd5c2ef92b8d0fa84fa4b677bdf397e636cf"
+    },
+    {
+      "path": "/usr/bin/journalctl",
+      "aliases": [],
+      "inode": 27263510,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "7d848f5cbcff0e222cae92a655e45a09ac7dea08f222a57e413caaa8790f9573"
+    },
+    {
+      "path": "/usr/bin/sha256sum",
+      "aliases": [],
+      "inode": 27263957,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "89f8c1d1ba3c76138f3771e1a91e2796ade6180b1c1e4258c04698ff32787c97"
+    },
+    {
+      "path": "/usr/bin/md5sum",
+      "aliases": [],
+      "inode": 27263645,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "305dd38adfe01eeef8b52b885d669995b4aab2d390c28b82fb76b50fd93f4562"
+    },
+    {
+      "path": "/usr/bin/openssl",
+      "aliases": [],
+      "inode": 27263727,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "dbf7f725b99b0a296400f4992d4912f6bf123360eda21e479a350da4d18ec7ea"
+    },
+    {
+      "path": "/usr/bin/jq",
+      "aliases": [],
+      "inode": 27265392,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "5e1dcc8c21b9362013a1f30acb24c69a128cbd5238364b88803f4c60cd9376dd"
+    },
+    {
+      "path": "/usr/bin/git",
+      "aliases": [],
+      "inode": 27264499,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "2540879925a6881e3877ff7e3330746ba3027b04edf16a3a12dccd1644c4f32d"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "aliases": [
+        "/lib64/ld-linux-x86-64.so.2",
+        "/usr/lib64/ld-linux-x86-64.so.2"
+      ],
+      "inode": 27290128,
+      "dev": 66306,
+      "tier": "operational",
+      "sha256": "8c1cf687490f3f7858528ceb4e651b979f625e43396431bec65e5bb89cb63860"
+    },
+    {
+      "path": "/usr/lib/llvm-14/bin/clang",
+      "aliases": [
+        "/usr/bin/clang"
+      ],
+      "inode": 28181119,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "71b0de1b06b1ffe3a68f1b15f3bfff1f80ba3351ac679be346fb515327494157"
+    },
+    {
+      "path": "/usr/lib/llvm-14/bin/llc",
+      "aliases": [
+        "/usr/bin/llc"
+      ],
+      "inode": 28181170,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "6317717f44c9b3577a680669b62dea034b987b9ca18338e3bfa245cd70cee091"
+    },
+    {
+      "path": "/usr/lib/llvm-14/bin/llvm-objcopy",
+      "aliases": [
+        "/usr/bin/llvm-strip"
+      ],
+      "inode": 28181206,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "41f5f9b96d1026905e9ecf16c39f708366ceb40a9f64efbce0996b87f63b2f33"
+    },
+    {
+      "path": "/usr/lib/llvm-14/bin/llvm-objdump",
+      "aliases": [
+        "/usr/bin/llvm-objdump"
+      ],
+      "inode": 28181207,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "5371f8e6dfb90ff957ad26ec245a4908bee0603b6b6129361be72a6a44cd9585"
+    },
+    {
+      "path": "/usr/bin/x86_64-linux-gnu-gcc-14",
+      "aliases": [
+        "/usr/bin/gcc",
+        "/usr/bin/cc"
+      ],
+      "inode": 27264191,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f"
+    },
+    {
+      "path": "/usr/bin/make",
+      "aliases": [],
+      "inode": 27263634,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "8a229baf64671988cfb5af43ba3070c6ce7214cf32bcf96155115559d1466fa7"
+    },
+    {
+      "path": "/usr/bin/x86_64-linux-gnu-ld.bfd",
+      "aliases": [
+        "/usr/bin/ld"
+      ],
+      "inode": 27264206,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "d2766988b6a1b1d1518cdc09242e726d1f24e151e16410ada3092b11ffd9081b"
+    },
+    {
+      "path": "/usr/bin/tpm2",
+      "aliases": [
+        "/usr/bin/tpm2_getcap",
+        "/usr/bin/tpm2_pcrread",
+        "/usr/bin/tpm2_createprimary",
+        "/usr/bin/tpm2_create",
+        "/usr/bin/tpm2_load",
+        "/usr/bin/tpm2_quote",
+        "/usr/bin/tpm2_evictcontrol",
+        "/usr/bin/tpm2_readpublic",
+        "/usr/bin/tpm2_flushcontext",
+        "/usr/sbin/tpm2_getcap",
+        "/usr/sbin/tpm2_pcrread"
+      ],
+      "inode": 27265458,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "79594c9511c46dd9562254caecdddc7bf9224161fe5abb682192af5ec4238eba"
+    },
+    {
+      "path": "/usr/bin/file",
+      "aliases": [],
+      "inode": 27263303,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "879067e624a6547de9e2a8492378ca2db500e066d71a34764ad9fe0d4eac953d"
+    },
+    {
+      "path": "/usr/bin/x86_64-linux-gnu-readelf",
+      "aliases": [
+        "/usr/bin/readelf"
+      ],
+      "inode": 27264213,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "4a387d80a70e6e97ef940a666fab59d5c38e7cf19ff907192fa983cb8505a7de"
+    },
+    {
+      "path": "/usr/bin/x86_64-linux-gnu-objdump",
+      "aliases": [
+        "/usr/bin/objdump"
+      ],
+      "inode": 27264211,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "96afb8521834982d0e711b5d6e9785252bf82129fb0106b93a6bd54d83fae11f"
+    },
+    {
+      "path": "/usr/bin/ldd",
+      "aliases": [],
+      "inode": 27263542,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "296db50d7ee8401c92ef547b6afddae4a0d563d1e027ec0baa4972c194accf9c"
+    },
+    {
+      "path": "/usr/bin/xxd",
+      "aliases": [],
+      "inode": 27265393,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "2ac0b22e0747e91c3365f1725862537094722713137cba021454e8f611948f12"
+    },
+    {
+      "path": "/usr/bin/hexdump",
+      "aliases": [],
+      "inode": 27263458,
+      "dev": 66306,
+      "tier": "development",
+      "sha256": "30dca5aa6f78fdb2c5e89d4e7120d4ca673942f4fa831299438d02658fa63ca9"
+    }
+  ],
+  "not_found": [
+    {
+      "path": "/usr/bin/agetty",
+      "tier": "critical"
+    },
+    {
+      "path": "/usr/bin/gawk",
+      "tier": "operational"
+    },
+    {
+      "path": "/usr/bin/vim",
+      "tier": "operational"
+    },
+    {
+      "path": "/usr/bin/htop",
+      "tier": "operational"
+    },
+    {
+      "path": "/usr/bin/nc",
+      "tier": "operational"
+    },
+    {
+      "path": "/usr/bin/host",
+      "tier": "operational"
+    },
+    {
+      "path": "/usr/bin/dig",
+      "tier": "operational"
+    },
+    {
+      "path": "/usr/bin/clang-19",
+      "tier": "development"
+    },
+    {
+      "path": "/usr/bin/pip3",
+      "tier": "development"
+    },
+    {
+      "path": "/usr/bin/strace",
+      "tier": "development"
+    },
+    {
+      "path": "/usr/bin/ltrace",
+      "tier": "development"
+    }
+  ],
+  "stats": {
+    "total_unique_binaries": 120,
+    "total_not_found": 11,
+    "tier_breakdown": {
+      "critical": {
+        "found": 18,
+        "missing": 1
+      },
+      "operational": {
+        "found": 88,
+        "missing": 6
+      },
+      "development": {
+        "found": 14,
+        "missing": 4
+      }
+    }
+  }
+}

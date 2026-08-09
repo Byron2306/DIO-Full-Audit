@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "cached_answer_payload",
+  "content_blob": {
+    "digest": "sha256:98673ac5bc20f533aa4032c1ed098a403b4b9076f35f8dc8e5bf8456da0be089",
+    "ref": "blobs/sha256/98673ac5bc20f533aa4032c1ed098a403b4b9076f35f8dc8e5bf8456da0be089.json"
+  },
+  "credit_id": "cache_ee5d041ec6ca60ce",
+  "response": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"i need larger patch upgrades\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/capability/meta_tool_generator.py\", \"anchor_ref\": \"A1\"}, \"old\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candidates. \"\"\", \"new\": \"\"\" Meta-Tool Candidate Generator for Phase 7 Skill Tree & Meta-Tools system. Analyzes frequent sequences from the Sequence Detector to generate new skill candidates. The Phase 7 model now stores candidates as governed CapabilityRecord assets, but older SkillTree code and CLI surfaces still use the flat candidate fields. Keep both views live so mined candidates remain promotable across refactors. \"\"\", \"intent\": \"i need larger patch upgrades\"}], \"verify\": [\"tests/test_capability_impact.py\"], \"provider_handoff_hash\": \"sha256:901f2dbbdac01a5858e756fc2b5cd4414a372f28db682810961d8ca50ec54616\"}",
+  "response_sha256": "sha256:785afe98d398a5bdb94efe3e34ebca7130907101d0576d3899eb0ca36d9acdc8",
+  "version": "1.0"
+}

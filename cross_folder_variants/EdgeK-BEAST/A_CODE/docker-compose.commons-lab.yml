@@ -1,0 +1,56 @@
+services:
+  commons-node-a:
+    build:
+      context: .
+      dockerfile: Dockerfile.commons-node
+    environment:
+      BEAST_NODE_ID: commons-node-a
+      BEAST_COMMONS_NODE_ID: commons-node-a
+      BEAST_COMMONS_NODE_ROOT: /var/lib/beast/remote-commons
+      BEAST_COMMONS_NODE_SIGNING_KEY: /run/beast/node.pem
+      BEAST_COMMONS_CLIENT_TRUST_STORE: /run/beast/clients.yaml
+      BEAST_COMMONS_TRUST_EVIDENCE: /run/beast/trust-evidence.json
+    ports:
+      - "8111:8000"
+    volumes:
+      - commons_node_a:/var/lib/beast
+      - ./.beast/remote-commons-lab/commons-node-a:/run/beast:rw
+
+  commons-node-b:
+    build:
+      context: .
+      dockerfile: Dockerfile.commons-node
+    environment:
+      BEAST_NODE_ID: commons-node-b
+      BEAST_COMMONS_NODE_ID: commons-node-b
+      BEAST_COMMONS_NODE_ROOT: /var/lib/beast/remote-commons
+      BEAST_COMMONS_NODE_SIGNING_KEY: /run/beast/node.pem
+      BEAST_COMMONS_CLIENT_TRUST_STORE: /run/beast/clients.yaml
+      BEAST_COMMONS_TRUST_EVIDENCE: /run/beast/trust-evidence.json
+    ports:
+      - "8112:8000"
+    volumes:
+      - commons_node_b:/var/lib/beast
+      - ./.beast/remote-commons-lab/commons-node-b:/run/beast:rw
+
+  commons-node-c:
+    build:
+      context: .
+      dockerfile: Dockerfile.commons-node
+    environment:
+      BEAST_NODE_ID: commons-node-c
+      BEAST_COMMONS_NODE_ID: commons-node-c
+      BEAST_COMMONS_NODE_ROOT: /var/lib/beast/remote-commons
+      BEAST_COMMONS_NODE_SIGNING_KEY: /run/beast/node.pem
+      BEAST_COMMONS_CLIENT_TRUST_STORE: /run/beast/clients.yaml
+      BEAST_COMMONS_TRUST_EVIDENCE: /run/beast/trust-evidence.json
+    ports:
+      - "8113:8000"
+    volumes:
+      - commons_node_c:/var/lib/beast
+      - ./.beast/remote-commons-lab/commons-node-c:/run/beast:rw
+
+volumes:
+  commons_node_a:
+  commons_node_b:
+  commons_node_c:

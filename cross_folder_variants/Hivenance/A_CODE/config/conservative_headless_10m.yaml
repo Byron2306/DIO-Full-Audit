@@ -1,0 +1,114 @@
+# Temporary headless conservative run profile.
+# Use with: HIVENANCE_PROFILE_PATH=config/conservative_headless_10m.yaml
+
+profile_name: conservative_headless_10m
+profile_reason: ten_minute_headless_market_observation_from_current_wallet_snapshot
+
+dry_run: true
+live_mode: false
+ui_enabled: false
+network_enabled: false
+web3_rpc_url: ''
+watch_address: ''
+erc20_token_address: ''
+onchain_enabled: false
+multichain_watch_enabled: false
+
+exchange: kraken
+symbol: ETH/USD
+interval: 1m
+
+multi_symbol_enabled: true
+multi_symbols:
+- ETH/USD
+- BTC/USD
+
+coin_selection_enabled: true
+coin_selection_auto_switch: false
+coin_selection_top_n: 2
+coin_selection_max_symbols: 12
+coin_selection_min_vol_usd: 5000000
+coin_selection_spread_max: 0.005
+coin_selection_target_volatility: 0.004
+coin_selection_max_volatility: 0.015
+coin_selection_quote_assets:
+- USD
+- USDC
+- USDT
+coin_selection_include:
+- ETH/USD
+- BTC/USD
+coin_selection_exclude:
+- AERO
+- BEAM
+- BRETT
+- cbBTC
+- CBBTC
+- DEGEN
+- MAGIC
+- MORPHO
+- TOSHI
+- VIRTUAL
+- WELL
+- WLD
+- XCN
+
+core_assets:
+- ETH
+- BTC
+- USDC
+experimental_assets: []
+stable_reserve_assets:
+- USDC
+- USDT
+- USD
+capital_allocator_enabled: true
+capital_reserve_pct: 0.70
+core_allocation_pct: 0.30
+experimental_allocation_pct: 0.0
+
+quote_order_size: 1.0
+max_notional: 1.0
+min_trade_usd: 1.0
+max_trade_usd: 1.0
+risk_pct: 0.001
+max_position_base: 0.0
+wallet_safety_enabled: true
+wallet_max_daily_spend_usd: 1.0
+wallet_max_token_exposure_pct: 0.20
+wallet_approval_check_enabled: true
+
+market_bee_enabled: true
+market_bee_top_n: 2
+market_making_advisors_enabled: true
+market_making_quote_placement_enabled: false
+public_bot_integrations_enabled: true
+public_bot_metrics_auto_promote: false
+hummingbot_sidecar_live_enabled: true
+hummingbot_sidecar_command: python3 scripts/hummingbot_sidecar_runner.py --config {config_path} --dry-run=true --mode validate --compose-file docker/docker-compose.yml --service hummingbot-sidecar
+
+ml_research_lab_enabled: true
+ml_model_families_enabled:
+- freqai
+- finrl_crypto
+- macrohft
+- webcryptoagent
+orderbook_capture_enabled: true
+orderbook_capture_depth: 5
+execution_parity_max_latency_ms: 1500
+execution_parity_max_slippage_pct: 0.005
+execution_parity_min_fill_ratio: 0.99
+execution_parity_max_queue_position_risk: 0.25
+
+kill_switch_enabled: true
+kill_switch_enforce_stale: true
+security_enabled: true
+security_always_armed: true
+security_auto_pause: false
+slippage_threshold: 0.005
+spread_guard_pct: 0.01
+max_drawdown_pct: 2.0
+daily_loss_limit: 1.0
+daily_loss_throttle_pct: -0.01
+daily_loss_halt_pct: -0.02
+max_consecutive_losses: 2

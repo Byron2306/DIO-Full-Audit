@@ -1,0 +1,57 @@
+title: Stripped Payload Tools Execution Windows
+id: 6n0k1l9m-7i2j-2k5l-6m9n-0j3i4k7l2m3n
+status: experimental
+description: Detects execution of stripped binaries or tools, often used to reduce signature detection
+references:
+  - https://attack.mitre.org/techniques/T1027/008/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '.exe'
+      - '.dll'
+    CommandLine|contains:
+      - '--strip'
+      - 'strip '
+      - 'upx'
+      - 'packer'
+  condition: selection
+falsepositives:
+  - Legitimate software development tools
+  - System administration
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1027.008
+---
+title: Stripped Payload Tools Execution Linux
+id: 7o1l2m0n-8j3k-3l6m-7n0o-1k4j5l8m3n4o
+status: experimental
+description: Detects execution of stripped binaries on Linux, often used for defense evasion
+references:
+  - https://attack.mitre.org/techniques/T1027/008/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith:
+      - 'strip'
+      - 'upx'
+    CommandLine|contains:
+      - '--strip'
+      - '-s'
+  condition: selection
+falsepositives:
+  - Software compilation and packaging
+  - System administration
+level: low
+tags:
+  - attack.defense_evasion
+  - attack.t1027.008

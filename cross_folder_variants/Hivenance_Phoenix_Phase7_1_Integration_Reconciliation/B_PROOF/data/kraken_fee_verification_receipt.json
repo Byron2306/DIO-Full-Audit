@@ -1,0 +1,42 @@
+{
+  "authority": "fee_model_verification_only",
+  "configured_before": {
+    "phase3_fee_profile_source": "configured_research_profile",
+    "phase3_fee_profile_verified": false,
+    "phase3_maker_fee_bps": 10.0,
+    "phase3_taker_fee_bps": 20.0
+  },
+  "credential_source": "/home/byron/Hivenance/config/api_keys.json",
+  "execution_authority": "none",
+  "fee_source": "kraken_private_trade_volume",
+  "maker_fee_bps": 40.0,
+  "pair": "ETH/USD",
+  "raw_schedule_summary": {
+    "maker_key": "XETHZUSD",
+    "maker_schedule": {
+      "fee": "0.4000",
+      "maxfee": "0.4000",
+      "minfee": "0.0000",
+      "nextfee": "0.3000",
+      "nextfuturesvolume": "5000000.00000",
+      "nextvolume": "2500.00000",
+      "tiervolume": "0.00000"
+    },
+    "pair_key": "XETHZUSD",
+    "schedule_key": "",
+    "schedule_payload": null,
+    "taker_schedule": {
+      "fee": "0.8000",
+      "maxfee": "0.8000",
+      "minfee": "0.0500",
+      "nextfee": "0.6000",
+      "nextfuturesvolume": "5000000.00000",
+      "nextvolume": "2500.00000",
+      "tiervolume": "0.00000"
+    }
+  },
+  "schema": "hivenance_kraken_fee_verification_receipt_v1",
+  "settings_updated": true,
+  "taker_fee_bps": 80.0,
+  "verified_at": 1785966366.4900265
+}

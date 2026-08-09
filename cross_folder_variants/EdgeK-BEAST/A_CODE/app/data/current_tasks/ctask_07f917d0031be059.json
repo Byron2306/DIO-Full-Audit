@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-06-30T04:42:31.643174+00:00",
+  "objective": "go through the repo and study the system. Provide efficient and robust upgrade options",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:07f917d0031be0594748119f4b927f6d525b7338522eb674480efb18b68bac70",
+  "task_markup_id": "ctask_07f917d0031be059"
+}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card homs-card-sm">
+    <div class="card-body">
+      <h3>Upload Submission</h3>
+      <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Student ID</label>
+          <input name="student_id" class="form-control" placeholder="student_001">
+        </div>
+        <div class="mb-3">
+          <label for="submission_file" class="form-label">Submission file (.py)</label>
+          <input id="submission_file" type="file" name="submission" title="Submission file (.py)" aria-label="Submission file" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <a href="/" class="btn btn-link">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

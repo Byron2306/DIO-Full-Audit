@@ -1,0 +1,28 @@
+title: Lab synthetic AssumeRoleEscalation on tagged canary (honey_iam_role) — T1548.005
+id: lab-cloud-role-escalation-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_iam_role) is observed with the metatron_run_id tag and the
+  expected event_type matches AssumeRoleEscalation. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1548/005
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1548.005
+  - lab.canary
+  - lab.cloudtrail
+logsource:
+  product: lab_audit
+  service: cloudtrail
+  category: privesc_cloud
+detection:
+  selection:
+    event_type: 'AssumeRoleEscalation'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

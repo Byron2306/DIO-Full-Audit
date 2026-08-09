@@ -1,0 +1,108 @@
+@define-color arda_void #02050b;
+@define-color arda_navy #071426;
+@define-color arda_panel #0a1a2a;
+@define-color arda_panel_2 #0d2235;
+@define-color arda_silver #dce8ee;
+@define-color arda_silver_soft #9fb4c0;
+@define-color arda_cyan #63e6ff;
+@define-color arda_teal #19bfaf;
+@define-color arda_gold #b99455;
+@define-color arda_green #2bd786;
+@define-color arda_amber #f0a53b;
+@define-color arda_red #d84146;
+
+window,
+dialog,
+.background,
+viewport,
+scrolledwindow,
+box,
+stack,
+paned,
+notebook,
+headerbar,
+preferencespage,
+preferencesgroup {
+  background-color: alpha(@arda_void, 0.96);
+  color: @arda_silver;
+}
+
+headerbar,
+toolbar,
+.titlebar {
+  background-image: linear-gradient(to bottom, alpha(@arda_panel_2, 0.92), alpha(@arda_void, 0.94));
+  color: @arda_silver;
+  border-bottom: 1px solid alpha(@arda_cyan, 0.12);
+}
+
+entry,
+searchentry,
+spinbutton,
+combobox,
+button,
+menu,
+popover,
+dialog decoration,
+notebook > stack,
+textview,
+treeview.view,
+list,
+flowbox,
+calendar {
+  background-color: alpha(@arda_panel, 0.92);
+  color: @arda_silver;
+  border-color: alpha(@arda_cyan, 0.14);
+}
+
+button {
+  background-image: none;
+  background-color: alpha(@arda_panel_2, 0.88);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+button:hover,
+button:focus {
+  background-color: alpha(@arda_panel_2, 1.0);
+  border-color: alpha(@arda_cyan, 0.28);
+}
+
+button.suggested-action,
+button:checked,
+switch:checked slider {
+  background-color: alpha(@arda_cyan, 0.18);
+  color: @arda_silver;
+  border-color: alpha(@arda_cyan, 0.4);
+}
+
+selection,
+treeview.view:selected,
+text selection,
+row:selected,
+calendar:selected {
+  background-color: alpha(@arda_cyan, 0.24);
+  color: @arda_silver;
+}
+
+link,
+label link {
+  color: @arda_cyan;
+}
+
+progressbar progress,
+scale highlight,
+levelbar block.filled,
+trough highlight {
+  background-color: @arda_teal;
+}
+
+menuitem:hover,
+modelbutton:hover,
+row:hover {
+  background-color: alpha(@arda_cyan, 0.1);
+}
+
+decoration {
+  box-shadow: 0 18px 42px alpha(black, 0.45);
+  border-radius: 14px;
+}

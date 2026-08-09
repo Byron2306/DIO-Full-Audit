@@ -1,0 +1,51 @@
+{
+  "header": { "risk_level": "elevated", "active_campaigns": 1, "ml_confidence": 0.82 },
+  "narrative": { "campaign_id": "camp-42", "objective": "exfiltrate-data" },
+  "attack_path": { "nodes": [{ "id": "host1" }], "edges": [{ "source": "host1", "target": "db1" }] },
+  "trust": { "identity": "degraded", "device": "compromised" },
+  "hotspots": [{ "id": "host1", "risk": 0.92, "reason": "multiple suspicious processes" }],
+  "actions": [{ "suggested": "isolate:host1", "reversibility": "manual" }],
+  "hypotheses": [
+    {
+      "analysis_id": "a1",
+      "candidate": "isolate:host1",
+      "score": 0.92,
+      "components": {
+        "keyword": 0.9,
+        "risk": 0.8,
+        "recency": 0.95,
+        "ai": { "provider": "ollama", "explanation": "Isolation recommended due to high risk signals and active exfiltration indicators." }
+      }
+    }
+  ],
+  "triune_analyses": [
+    {
+      "id": "a1",
+      "created": "2026-03-11T10:01:00Z",
+      "entities": ["host1"],
+      "candidates": ["isolate:host1", "monitor:host1"],
+      "ranked": [
+        {
+          "candidate": "isolate:host1",
+          "score": 0.92,
+          "components": {
+            "keyword": 0.9,
+            "risk": 0.8,
+            "recency": 0.95,
+            "ai": { "provider": "ollama", "explanation": "Evidence of data exfiltration and high-risk behaviors; isolation minimizes blast radius to critical services." }
+          }
+        },
+        {
+          "candidate": "monitor:host1",
+          "score": 0.45,
+          "components": {
+            "keyword": 0.2,
+            "risk": 0.3,
+            "ai": { "provider": "ollama", "explanation": "Monitoring preserves evidence but risks ongoing exfiltration." }
+          }
+        }
+      ]
+    }
+  ],
+  "timeline": [{ "ts": "2026-03-11T10:00:00Z", "event": "suspicious_process_detected", "entity": "host1" }]
+}

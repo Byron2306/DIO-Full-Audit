@@ -1,0 +1,138 @@
+# Conservative wallet-aware operating profile.
+# Loaded after config/settings.yaml by main.load_config().
+#
+# Basis from latest local snapshots:
+# - Estimated equity: about 76.91 USD
+# - Spendable reserve: about 53.8 USDC
+# - Existing core exposure: ETH on Base plus watch-only ETH on Arbitrum
+# - Watch-only assets: MAGIC on Arbitrum and BEAM on BNB remain excluded from trading.
+
+profile_name: conservative_wallet_state
+profile_reason: small_wallet_capital_preservation_liquid_markets_only
+
+dry_run: true
+live_mode: false
+exchange: kraken
+symbol: ETH/USD
+interval: 1m
+
+multi_symbol_enabled: true
+multi_symbols:
+- ETH/USD
+- BTC/USD
+
+coin_selection_enabled: true
+coin_selection_auto_switch: false
+coin_selection_top_n: 2
+coin_selection_max_symbols: 12
+coin_selection_min_vol_usd: 5000000
+coin_selection_spread_max: 0.005
+coin_selection_target_volatility: 0.004
+coin_selection_max_volatility: 0.015
+coin_selection_quote_assets:
+- USD
+- USDC
+- USDT
+coin_selection_include:
+- ETH/USD
+- BTC/USD
+coin_selection_exclude:
+- AERO
+- BEAM
+- BRETT
+- cbBTC
+- CBBTC
+- DEGEN
+- MAGIC
+- MORPHO
+- TOSHI
+- VIRTUAL
+- WELL
+- WLD
+- XCN
+
+core_assets:
+- ETH
+- BTC
+- USDC
+experimental_assets: []
+stable_reserve_assets:
+- USDC
+- USDT
+- USD
+capital_allocator_enabled: true
+capital_reserve_pct: 0.70
+core_allocation_pct: 0.30
+experimental_allocation_pct: 0.0
+
+quote_order_size: 1.0
+max_notional: 1.0
+min_trade_usd: 1.0
+max_trade_usd: 1.0
+risk_pct: 0.001
+max_position_base: 0.0
+wallet_safety_enabled: true
+wallet_max_daily_spend_usd: 1.0
+wallet_max_token_exposure_pct: 0.20
+wallet_approval_check_enabled: true
+ratio_gate_enabled: true
+ratio_gate_trade_override_enabled: false
+
+onchain_enabled: true
+onchain_allowed_pairs:
+- ETH/USD
+onchain_fallback_to_cex: false
+onchain_min_output_ratio: 0.98
+onchain_slippage_bps: 25
+onchain_max_gas_usd: 0.15
+onchain_max_fee_eth: 0.0001
+dex_min_liquidity_usd: 10000000
+dex_max_price_impact_pct: 0.003
+dex_min_roundtrip_ratio: 0.995
+
+market_bee_enabled: true
+market_bee_top_n: 2
+market_making_advisors_enabled: true
+market_making_quote_placement_enabled: false
+public_bot_integrations_enabled: true
+public_bot_metrics_auto_promote: false
+hummingbot_sidecar_live_enabled: true
+hummingbot_sidecar_command: python3 scripts/hummingbot_sidecar_runner.py --config {config_path} --dry-run=true --mode validate --compose-file docker/docker-compose.yml --service hummingbot-sidecar
+
+ml_research_lab_enabled: true
+ml_model_families_enabled:
+- freqai
+- finrl_crypto
+- macrohft
+- webcryptoagent
+orderbook_capture_enabled: true
+orderbook_capture_depth: 5
+execution_parity_max_latency_ms: 1500
+execution_parity_max_slippage_pct: 0.005
+execution_parity_min_fill_ratio: 0.99
+execution_parity_max_queue_position_risk: 0.25
+
+signal_marketplace_min_originality: 0.40
+signal_marketplace_max_drawdown: 0.25
+signal_marketplace_min_stability: 0.35
+signal_marketplace_min_realized_samples: 25
+signal_marketplace_reward_scale: 100.0
+signal_marketplace_weight_strength: 0.15
+signal_marketplace_weight_realized_outcome: 0.35
+signal_marketplace_weight_originality: 0.20
+signal_marketplace_weight_stability: 0.20
+signal_marketplace_weight_win_rate: 0.15
+signal_marketplace_weight_drawdown_penalty: 0.45
+
+kill_switch_enabled: true
+kill_switch_enforce_stale: true
+security_enabled: true
+security_always_armed: true
+security_auto_pause: false
+slippage_threshold: 0.005
+spread_guard_pct: 0.01
+max_drawdown_pct: 2.0
+daily_loss_limit: 1.0
+daily_loss_throttle_pct: -0.01
+daily_loss_halt_pct: -0.02
+max_consecutive_losses: 2

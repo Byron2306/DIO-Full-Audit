@@ -1,0 +1,16 @@
+# Core test dependencies (always required)
+fastapi
+httpx
+pytest
+pytest-asyncio
+pytest-cov
+pydantic
+pyjwt
+bcrypt
+motor
+pymongo
+
+# Live AI mode (optional — only needed for run_live_aab.py / live_agent.py)
+# Install whichever provider you have an API key for:
+#   pip install openai       # for OPENAI_API_KEY (gpt-4o, gpt-4-turbo, ...)
+#   pip install anthropic    # for ANTHROPIC_API_KEY (claude-3-5-sonnet, ...)

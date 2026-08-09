@@ -1,0 +1,53 @@
+{
+  "attested_host_profile": {
+    "boot_contract": [
+      "post-boot gate submits fresh evidence to the remote verifier",
+      "os-grade requires a fresh signed positive verdict",
+      "local fallback remains disabled in the off-box trust model"
+    ],
+    "environment_template_source": "/home/byron/Integritas-Mechanicus/arda_os/deploy/etc/arda-attested-host.env.example",
+    "required_env": {
+      "ARDA_PCR_BASELINE_PATH": "/var/lib/arda/attestation/baselines/approved-pcr-baseline.json",
+      "ARDA_POSTBOOT_ALLOW_LOCAL_FALLBACK": "0",
+      "ARDA_POSTBOOT_REQUIRE_VERIFIER": "1",
+      "ARDA_VERIFIER_ID": "arda-phase4-remote-verifier",
+      "ARDA_VERIFIER_KEY_ID": "arda-phase4-verifier",
+      "ARDA_VERIFIER_PUBLIC_KEY": "/etc/arda/verifier/verifier-key.pub.pem",
+      "ARDA_VERIFIER_URL": "http://verifier.example.internal:8094/verify/phase4"
+    },
+    "required_files": [
+      "/etc/arda/attested-host.env",
+      "/etc/arda/verifier/verifier-key.pub.pem",
+      "/var/lib/arda/attestation/baselines/approved-pcr-baseline.json"
+    ]
+  },
+  "distribution_id": "arda-valinor",
+  "generated_at": "2026-07-31T06:52:13.623555+00:00",
+  "schema_version": "arda.distribution.remote_verifier_profile.v1",
+  "verifier_host_profile": {
+    "default_listen_host": "0.0.0.0",
+    "default_listen_port": 8094,
+    "environment_template_source": "/home/byron/Integritas-Mechanicus/arda_os/deploy/etc/arda-verifier.env.example",
+    "listen_host_env": "ARDA_VERIFIER_HOST",
+    "listen_port_env": "ARDA_VERIFIER_PORT",
+    "network_contract": {
+      "health_endpoint": "/api/health",
+      "private_key_must_remain_off_attested_host": true,
+      "tls_recommended": true,
+      "verify_endpoint": "/verify/phase4"
+    },
+    "required_files": [
+      "/etc/arda/arda-verifier.env",
+      "/etc/arda/verifier/verifier-key.pem",
+      "/etc/arda/verifier/verifier-key.pub.pem"
+    ],
+    "required_packages": [
+      "python3",
+      "python3-cryptography",
+      "python3-fastapi",
+      "python3-uvicorn"
+    ],
+    "service_name": "arda-phase4-remote-verifier.service",
+    "systemd_unit_source": "/home/byron/Integritas-Mechanicus/arda_os/deploy/systemd/arda-phase4-remote-verifier.service"
+  }
+}

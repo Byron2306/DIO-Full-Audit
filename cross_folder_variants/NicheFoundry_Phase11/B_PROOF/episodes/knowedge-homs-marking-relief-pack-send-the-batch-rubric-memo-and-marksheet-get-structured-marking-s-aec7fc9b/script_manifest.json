@@ -1,0 +1,71 @@
+{
+  "episode_id": "homs-c32b49867157b9ad",
+  "tone": "practical, proof-first, calm, commercial, human-approved",
+  "cast": {
+    "main_host": "Operator narrator voice",
+    "proof_host": "Evidence and boundary voice",
+    "cta_host": "Pilot offer voice"
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "card_id": "01_hook",
+      "role": "hook",
+      "objective": "Move the buyer from hook to the next decision point.",
+      "on_screen_text": "HOMS Marking Relief Pack",
+      "voiceover": "What if the first pass of your marking backlog arrived already organized?",
+      "visual_note": "Show assignment ZIP and rubric becoming a lecturer review desk as the opening transformation.",
+      "duration_seconds": 8
+    },
+    {
+      "scene_id": "scene_02",
+      "card_id": "02_pain",
+      "role": "pain",
+      "objective": "Move the buyer from pain to the next decision point.",
+      "on_screen_text": "The messy input",
+      "voiceover": "Marking backlogs drain time, consistency, and useful feedback quality.",
+      "visual_note": "Show the messy input state: emails, folders, files, forms, rubrics, or drafts.",
+      "duration_seconds": 12
+    },
+    {
+      "scene_id": "scene_03",
+      "card_id": "03_workflow",
+      "role": "workflow",
+      "objective": "Move the buyer from workflow to the next decision point.",
+      "on_screen_text": "Route -> Review -> Pack",
+      "voiceover": "HOMS Marking Relief Pack routes the work through a controlled pipeline instead of pretending AI can decide everything.",
+      "visual_note": "Show route card, evidence card, approval gate, and output folder.",
+      "duration_seconds": 14
+    },
+    {
+      "scene_id": "scene_04",
+      "card_id": "04_promise",
+      "role": "promise",
+      "objective": "Move the buyer from promise to the next decision point.",
+      "on_screen_text": "Review-ready output",
+      "voiceover": "Draft feedback, annotated files where possible, rubric documents, marks CSV, and lecturer review summary.",
+      "visual_note": "Show the finished review-ready pack with checklist and receipt.",
+      "duration_seconds": 14
+    },
+    {
+      "scene_id": "scene_05",
+      "card_id": "05_boundary",
+      "role": "boundary",
+      "objective": "Move the buyer from boundary to the next decision point.",
+      "on_screen_text": "Human approval stays",
+      "voiceover": "Educator approves final marks and feedback. AI never becomes the final assessor.",
+      "visual_note": "Show human approval as an explicit final gate.",
+      "duration_seconds": 10
+    },
+    {
+      "scene_id": "scene_06",
+      "card_id": "06_cta",
+      "role": "cta",
+      "objective": "Move the buyer from cta to the next decision point.",
+      "on_screen_text": "Marking Relief Pilot",
+      "voiceover": "Send one fake or non-sensitive batch to prove the workflow.",
+      "visual_note": "Show a simple intake action and pilot label.",
+      "duration_seconds": 8
+    }
+  ]
+}

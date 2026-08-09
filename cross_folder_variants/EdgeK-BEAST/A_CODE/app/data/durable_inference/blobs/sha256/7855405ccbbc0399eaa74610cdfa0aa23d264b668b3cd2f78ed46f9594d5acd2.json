@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:7855405ccbbc0399eaa74610cdfa0aa23d264b668b3cd2f78ed46f9594d5acd2",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "{\"actions\":[{\"id\":\"a1\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"    def run_local_inference(self, task_class: str, prompt: str, model: str = None) -> Dict[str, Any]:\",\"target\":{\"anchor_ref\":\"A9\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"},{\"id\":\"a2\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"    def update_test_impact_map(self, repo_path: str, test_paths: List[str]) -> Dict[str, Any]:\",\"target\":{\"anchor_ref\":\"A12\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"},{\"id\":\"a3\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"    def perform_secret_scan(self, repo_path: str) -> Dict[str, Any]:\",\"target\":{\"anchor_ref\":\"A11\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"},{\"id\":\"a4\",\"intent\":\"Refactor the selected code for clarity without changing behavior.\",\"new\":\"    def run_deterministic_verifier(        self, candidate_name: str, task_class: str, transform_type: str,    ) -> Dict[str, Any]:\",\"target\":{\"anchor_ref\":\"A12\",\"file_ref\":\"F1\"},\"type\":\"replace_anchor\"}],\"fallback\":\"\",\"handoff_hash\":\"sha256:47f11f4a01f708050f671d9046d613fcf56976e2705792844996595d32041e55\",\"kind\":\"beast.action_intent.v1\",\"objective\":\"Refactor the selected code for clarity without changing behavior.\",\"provider_handoff_hash\":\"sha256:47f11f4a01f708050f671d9046d613fcf56976e2705792844996595d32041e55\",\"verify\":[\"python -m pytest tests -q\"]}",
+    "response_sha256": "sha256:a0c7cadf44988b6cae553dbd638fda2f6bdd628aa0fcd2d6931eaae7097ef142",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

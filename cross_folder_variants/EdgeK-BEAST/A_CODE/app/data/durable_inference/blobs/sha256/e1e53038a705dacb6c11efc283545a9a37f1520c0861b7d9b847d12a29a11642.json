@@ -1,0 +1,36 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:e1e53038a705dacb6c11efc283545a9a37f1520c0861b7d9b847d12a29a11642",
+  "payload": {
+    "artifact_type": "cached_answer",
+    "avoided_tokens_estimate": 0,
+    "beast_object_type": "semantic_compute_artifact",
+    "chronicle_lesson_id": null,
+    "confidence": 0.5,
+    "evidence_packet_id": null,
+    "impact_fingerprint_hash": null,
+    "metadata": {
+      "cost_usd": null,
+      "model": "meta/llama-3.1-70b-instruct",
+      "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+      "parameters": {
+        "governance_level": "ide_agent_session_action_ir_repair",
+        "max_tokens": 2400,
+        "temperature": 0.2
+      },
+      "prompt_hash": "sha256:f25b377467e1ff13e00f64d23fc8c346faffcfd88841c9f3426e5909656b3fc9",
+      "response_blob_digest": "sha256:6264024ff862532934adef4879fb379c5ab8bb6d92d2eabf11626262c8549cad",
+      "response_blob_ref": "blobs/sha256/6264024ff862532934adef4879fb379c5ab8bb6d92d2eabf11626262c8549cad.json",
+      "response_chars": 3150,
+      "response_preview": "{\"kind\": \"beast.action_intent.v1\", \"objective\": \"Refactor the selected code for clarity without changing behavior.\", \"actions\": [{\"type\": \"replace_exact\", \"target\": {\"path\": \"app/kernel/compute/compute_forge.py\", \"anchor_ref\": \"A1\"}, \"old\": \"input_schema\\\": { \\\"objective\\\": \\\"string\\\", \\\"repo_fingerprint\\\": \\\"sha256\\\", \\\"allowed_context\\\": \\\"local_redacted_evidence\\\", },\", \"new\": \"input_schema\\\": { \\\"objective\\\": \\\"string\\\", \\\"repo_fingerprint\\\": \\\"sha256\\\", \\\"allowed_context\\\": \\\"local_redacted",
+      "response_ref": "cache_153d839a9ccf8a3f.answer.json",
+      "response_sha256": "sha256:bf0a37a4b8f2fadd19725644e97e3b4ceea40492a2df541ba803c9dc576b9a4e"
+    },
+    "policy_version": "cache_v1",
+    "repo_fingerprint": "n/a",
+    "task_class": "chat_completion",
+    "verified_tests": [],
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

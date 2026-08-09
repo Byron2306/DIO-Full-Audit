@@ -1,0 +1,92 @@
+# Time-boxed, tiny-size LIVE profile for a supervised 1-hour real-money test run.
+# Loaded via HIVENANCE_PROFILE_PATH after config/settings.yaml by main.load_config().
+#
+# IMPORTANT: This intentionally keeps live_mode=false while dry_run=false.
+# main.py has a branch that, when live_mode (or CRYPTSWARM_LIVE=1) is truthy,
+# FORCIBLY DISABLES the kill switch ("to avoid auto-halting during manual live
+# operation"). We do NOT want that. Setting only dry_run=false (and leaving
+# live_mode=false) puts real orders through while keeping KillSwitchAgent,
+# SwarmGuard, and the equity floor fully armed.
+#
+# Scope: Kraken spot only, ETH/USD, no on-chain/DEX execution, no hummingbot
+# sidecar, no ML research lab — smallest possible moving-parts surface.
+
+profile_name: live_safe_1h
+profile_reason: supervised_1_hour_tiny_live_test
+
+dry_run: false
+live_mode: false
+auto_trade_enabled: true
+
+exchange: kraken
+symbol: ETH/USD
+interval: 1m
+
+multi_symbol_enabled: true
+multi_symbols:
+- ETH/USD
+
+coin_selection_enabled: false
+coin_selection_auto_switch: false
+coin_selection_include:
+- ETH/USD
+
+core_assets:
+- ETH
+- USDC
+experimental_assets: []
+stable_reserve_assets:
+- USDC
+- USDT
+- USD
+capital_allocator_enabled: true
+capital_reserve_pct: 0.70
+core_allocation_pct: 0.30
+experimental_allocation_pct: 0.0
+
+quote_order_size: 2.0
+max_notional: 5.0
+min_trade_usd: 2.0
+max_trade_usd: 5.0
+risk_pct: 0.001
+max_position_base: 0.0
+wallet_safety_enabled: true
+wallet_max_daily_spend_usd: 10.0
+wallet_max_token_exposure_pct: 0.20
+wallet_approval_check_enabled: true
+ratio_gate_enabled: true
+ratio_gate_trade_override_enabled: false
+
+# No on-chain / DEX execution for this first live test — CEX (Kraken) only.
+onchain_enabled: false
+multichain_watch_enabled: false
+hummingbot_sidecar_live_enabled: false
+public_bot_integrations_enabled: false
+ml_research_lab_enabled: false
+network_enabled: false
+
+market_bee_enabled: true
+market_bee_top_n: 1
+market_making_advisors_enabled: false
+market_making_quote_placement_enabled: false
+
+kill_switch_enabled: true
+kill_switch_enforce_stale: true
+kill_switch_grace_sec: 120
+security_enabled: true
+security_always_armed: true
+security_auto_pause: false
+slippage_threshold: 0.005
+spread_guard_pct: 0.01
+max_drawdown_pct: 2.0
+killswitch_equity_floor_usd: 10.0
+daily_loss_limit: 10.0
+daily_loss_throttle_pct: -0.01
+daily_loss_halt_pct: -0.02
+max_consecutive_losses: 2
+
+swarmguard_max_trades_per_hour: 6
+swarmguard_min_trade_interval_sec: 180
+
+ui_enabled: true
+performance_enabled: true

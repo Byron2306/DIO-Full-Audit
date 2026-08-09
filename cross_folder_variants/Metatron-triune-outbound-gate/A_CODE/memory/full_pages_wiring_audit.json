@@ -1,0 +1,385 @@
+{
+  "summary": {
+    "pages_total": 41,
+    "pages_with_api_calls": 39,
+    "pages_with_zero_api_calls": 2,
+    "api_calls_total": 209,
+    "api_calls_unmatched": 0,
+    "pages_with_unmatched": [],
+    "pages_zero_api": [
+      "frontend/src/pages/LoginPage.jsx",
+      "frontend/src/pages/SetupGuidePage.jsx"
+    ],
+    "pages_buttons_no_action": [
+      {
+        "page": "frontend/src/pages/AgentsPage.jsx",
+        "lines": [
+          230
+        ]
+      },
+      {
+        "page": "frontend/src/pages/HoneypotsPage.jsx",
+        "lines": [
+          276
+        ]
+      },
+      {
+        "page": "frontend/src/pages/ThreatsPage.jsx",
+        "lines": [
+          272
+        ]
+      },
+      {
+        "page": "frontend/src/pages/UnifiedAgentPage.jsx",
+        "lines": [
+          369,
+          373,
+          377,
+          381
+        ]
+      }
+    ]
+  },
+  "pages": [
+    {
+      "page": "frontend/src/pages/AIDetectionPage.jsx",
+      "api_calls": 1,
+      "matched": 1,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/AIThreatIntelligence.jsx",
+      "api_calls": 8,
+      "matched": 8,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/AdvancedServicesPage.jsx",
+      "api_calls": 8,
+      "matched": 8,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/AgentCommandsPage.jsx",
+      "api_calls": 9,
+      "matched": 9,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/AgentDetailsPage.jsx",
+      "api_calls": 5,
+      "matched": 5,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/AgentsPage.jsx",
+      "api_calls": 4,
+      "matched": 4,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": [
+        230
+      ]
+    },
+    {
+      "page": "frontend/src/pages/AlertsPage.jsx",
+      "api_calls": 2,
+      "matched": 2,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/AuditLogPage.jsx",
+      "api_calls": 2,
+      "matched": 2,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/BrowserExtensionPage.jsx",
+      "api_calls": 1,
+      "matched": 1,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/BrowserIsolationPage.jsx",
+      "api_calls": 9,
+      "matched": 9,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/CLISessionsPage.jsx",
+      "api_calls": 3,
+      "matched": 3,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/CommandCenterPage.jsx",
+      "api_calls": 7,
+      "matched": 7,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ContainerSecurityPage.jsx",
+      "api_calls": 6,
+      "matched": 6,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/CorrelationPage.jsx",
+      "api_calls": 5,
+      "matched": 5,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/DashboardPage.jsx",
+      "api_calls": 2,
+      "matched": 2,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/EDRPage.jsx",
+      "api_calls": 9,
+      "matched": 9,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/HoneyTokensPage.jsx",
+      "api_calls": 6,
+      "matched": 6,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/HoneypotsPage.jsx",
+      "api_calls": 3,
+      "matched": 3,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": [
+        276
+      ]
+    },
+    {
+      "page": "frontend/src/pages/KibanaDashboardsPage.jsx",
+      "api_calls": 7,
+      "matched": 7,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/LoginPage.jsx",
+      "api_calls": 0,
+      "matched": 0,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/MLPredictionPage.jsx",
+      "api_calls": 2,
+      "matched": 2,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/NetworkTopologyPage.jsx",
+      "api_calls": 3,
+      "matched": 3,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/QuarantinePage.jsx",
+      "api_calls": 4,
+      "matched": 4,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/RansomwarePage.jsx",
+      "api_calls": 8,
+      "matched": 8,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ReportsPage.jsx",
+      "api_calls": 2,
+      "matched": 2,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/SOARPage.jsx",
+      "api_calls": 6,
+      "matched": 6,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/SandboxPage.jsx",
+      "api_calls": 5,
+      "matched": 5,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/SettingsPage.jsx",
+      "api_calls": 4,
+      "matched": 4,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/SetupGuidePage.jsx",
+      "api_calls": 0,
+      "matched": 0,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/SwarmDashboard.jsx",
+      "api_calls": 21,
+      "matched": 21,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/TacticalHeatmapPage.jsx",
+      "api_calls": 1,
+      "matched": 1,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/TenantsPage.jsx",
+      "api_calls": 6,
+      "matched": 6,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ThreatHuntingPage.jsx",
+      "api_calls": 5,
+      "matched": 5,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ThreatIntelPage.jsx",
+      "api_calls": 4,
+      "matched": 4,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ThreatResponsePage.jsx",
+      "api_calls": 9,
+      "matched": 9,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ThreatsPage.jsx",
+      "api_calls": 3,
+      "matched": 3,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": [
+        272
+      ]
+    },
+    {
+      "page": "frontend/src/pages/TimelinePage.jsx",
+      "api_calls": 3,
+      "matched": 3,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/UnifiedAgentPage.jsx",
+      "api_calls": 5,
+      "matched": 5,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": [
+        369,
+        373,
+        377,
+        381
+      ]
+    },
+    {
+      "page": "frontend/src/pages/VNSAlertsPage.jsx",
+      "api_calls": 3,
+      "matched": 3,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/VPNPage.jsx",
+      "api_calls": 10,
+      "matched": 10,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    },
+    {
+      "page": "frontend/src/pages/ZeroTrustPage.jsx",
+      "api_calls": 8,
+      "matched": 8,
+      "unmatched": 0,
+      "unmatched_details": [],
+      "buttons_without_action": []
+    }
+  ],
+  "unmatched_calls": []
+}

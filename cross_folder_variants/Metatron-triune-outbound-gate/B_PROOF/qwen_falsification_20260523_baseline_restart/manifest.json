@@ -1,0 +1,726 @@
+{
+  "ablations": [
+    "full",
+    "no_loki",
+    "no_hgl",
+    "no_token_broker",
+    "no_vns",
+    "no_aatl",
+    "no_ml",
+    "no_correlation",
+    "no_cce",
+    "no_mcp_gateway",
+    "no_deception",
+    "no_vector_memory",
+    "no_arda",
+    "no_aatl_timing",
+    "no_disinformation",
+    "no_friction",
+    "no_honey_tokens",
+    "no_logic_budget",
+    "no_mystique",
+    "no_mirror_maze",
+    "no_soar",
+    "no_trap_sink",
+    "no_defense",
+    "trap_sink_only",
+    "trap_sink_only__no_mirror_maze",
+    "disinformation_only",
+    "friction_only",
+    "no_disinformation__no_friction",
+    "no_disinformation__no_trap_sink",
+    "no_disinformation__no_trap_sink__no_friction",
+    "no_vns__no_vector_memory",
+    "no_token_broker__no_mcp_gateway",
+    "no_loki__no_hgl",
+    "no_deception__no_soar",
+    "no_vector_memory__no_soar",
+    "no_vns__no_deception",
+    "no_token_broker__no_arda",
+    "no_loki__no_hgl__no_vector_memory",
+    "no_vns__no_deception__no_soar",
+    "no_vns__no_deception_exact__no_soar",
+    "no_token_broker__no_mcp_gateway__no_arda",
+    "no_loki__no_token_broker__no_mcp_gateway",
+    "no_choral_edge__no_resonance_quorum__no_earendil",
+    "no_triune_chorus",
+    "no_metatron_michael_loki",
+    "no_unified_agent",
+    "no_router_core",
+    "only_choral_edge",
+    "only_resonance_quorum",
+    "only_earendil_bridge",
+    "no_aatl__no_ml__no_correlation__no_cce",
+    "no_aatl__no_ml__no_correlation__no_cce__no_deception"
+  ],
+  "classes": [
+    "credential_harvest",
+    "tool_using",
+    "multi_agent_swarm",
+    "reasoning_chain",
+    "jailbroken",
+    "persistent_recon",
+    "consistency_auditor",
+    "latency_fingerprinter",
+    "memory_poisoner",
+    "canary_exfiltrator",
+    "cloud_lateral",
+    "human_guided_redteam",
+    "tool_schema_abuser",
+    "prompt_injection_carrier",
+    "rag_poison_retriever",
+    "auth_boundary_tester",
+    "data_exfil_planner",
+    "supply_chain_recon",
+    "telemetry_blindspot_hunter",
+    "sandbox_escape_researcher",
+    "multi_turn_social_engineer",
+    "model_self_reflection_breaker",
+    "long_horizon_sleeper",
+    "cross_channel_correlator",
+    "cost_amplification_agent",
+    "policy_differential_tester",
+    "credential_launderer",
+    "protocol_smuggler",
+    "state_desynchronizer",
+    "multimodal_payload_carrier",
+    "goal_hijacker",
+    "tool_result_forger",
+    "inter_agent_spoofer",
+    "rogue_trusted_agent",
+    "cascading_workflow_amplifier",
+    "human_trust_exploiter",
+    "malicious_skill_installer",
+    "audit_evidence_forger"
+  ],
+  "commands": [
+    {
+      "cmd": [
+        "/usr/bin/python3",
+        "run_live_aab.py",
+        "--classes",
+        "credential_harvest,tool_using,multi_agent_swarm,reasoning_chain,jailbroken,persistent_recon,consistency_auditor,latency_fingerprinter,memory_poisoner,canary_exfiltrator,cloud_lateral,human_guided_redteam,tool_schema_abuser,prompt_injection_carrier,rag_poison_retriever,auth_boundary_tester,data_exfil_planner,supply_chain_recon,telemetry_blindspot_hunter,sandbox_escape_researcher,multi_turn_social_engineer,model_self_reflection_breaker,long_horizon_sleeper,cross_channel_correlator,cost_amplification_agent,policy_differential_tester,credential_launderer,protocol_smuggler,state_desynchronizer,multimodal_payload_carrier,goal_hijacker,tool_result_forger,inter_agent_spoofer,rogue_trusted_agent,cascading_workflow_amplifier,human_trust_exploiter,malicious_skill_installer,audit_evidence_forger",
+        "--ablations",
+        "full",
+        "--variants",
+        "baseline",
+        "--repeats",
+        "1",
+        "--steps",
+        "5",
+        "--matrix",
+        "--summary-label",
+        "qwen_falsification_20260523T065612Z_001_full",
+        "--save"
+      ],
+      "ended_at": "2026-05-23T09:35:10.644569+00:00",
+      "exit_code": 0,
+      "output": "qwen_falsification_20260523_baseline_restart/001_full.log",
+      "started_at": "2026-05-23T06:56:13.066640+00:00"
+    }
+  ],
+  "created_at": "2026-05-23T06:56:12.294094+00:00",
+  "diagnostic_known_bug": false,
+  "dry_run": false,
+  "expected_ablation_manifests": {
+    "disinformation_only": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "disinformation_only",
+      "disabled_controls": {
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "disinformation_only",
+      "threshold_overrides": {
+        "DISINFORMATION_ENABLED": "true",
+        "DISINFORMATION_MIN_SCORE": "50"
+      }
+    },
+    "friction_only": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "friction_only",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "friction_only",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999",
+        "FRICTION_ENABLED": "true"
+      }
+    },
+    "full": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "full_stack",
+      "disabled_controls": {},
+      "label": "full"
+    },
+    "no_aatl": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_aatl",
+      "disabled_controls": {
+        "AATL_ENABLED": "false",
+        "AATL_TIMING_ENABLED": "false"
+      },
+      "label": "no_aatl"
+    },
+    "no_aatl__no_ml__no_correlation__no_cce": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_aatl__no_ml__no_correlation__no_cce",
+      "disabled_controls": {
+        "AATL_ENABLED": "false",
+        "AATL_TIMING_ENABLED": "false",
+        "CHORAL_EDGE_ENABLED": "false",
+        "CORRELATION_ENABLED": "false",
+        "ML_SNAPSHOT_ENABLED": "false",
+        "TRIUNE_RUN_ML_SNAPSHOT_INFERENCE": "false"
+      },
+      "label": "no_aatl__no_ml__no_correlation__no_cce"
+    },
+    "no_aatl__no_ml__no_correlation__no_cce__no_deception": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_aatl__no_ml__no_correlation__no_cce__no_deception",
+      "disabled_controls": {
+        "AATL_ENABLED": "false",
+        "AATL_TIMING_ENABLED": "false",
+        "CHORAL_EDGE_ENABLED": "false",
+        "CORRELATION_ENABLED": "false",
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "ML_SNAPSHOT_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false",
+        "TRIUNE_RUN_ML_SNAPSHOT_INFERENCE": "false"
+      },
+      "label": "no_aatl__no_ml__no_correlation__no_cce__no_deception",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_aatl_timing": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_aatl_timing",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false"
+      },
+      "label": "no_aatl_timing"
+    },
+    "no_arda": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "arda",
+      "disabled_controls": {
+        "ARDA_ENABLED": "false"
+      },
+      "label": "no_arda"
+    },
+    "no_cce": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_cce",
+      "disabled_controls": {
+        "CHORAL_EDGE_ENABLED": "false"
+      },
+      "label": "no_cce"
+    },
+    "no_choral_edge__no_resonance_quorum__no_earendil": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "choral_edge_plus_resonance_quorum_plus_earendil",
+      "disabled_controls": {
+        "CHORAL_EDGE_ENABLED": "false",
+        "EARENDIL_BRIDGE_ENABLED": "false",
+        "RESONANCE_QUORUM_ENABLED": "false"
+      },
+      "label": "no_choral_edge__no_resonance_quorum__no_earendil"
+    },
+    "no_correlation": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_correlation",
+      "disabled_controls": {
+        "CORRELATION_ENABLED": "false"
+      },
+      "label": "no_correlation"
+    },
+    "no_deception": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "deception_stack",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_deception",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_deception__no_soar": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "deception_stack_plus_soar",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "SOAR_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_deception__no_soar",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_defense": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_defense",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false",
+        "DISINFORMATION_ENABLED": "false",
+        "HONEY_TOKENS_ENABLED": "false",
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "SOAR_ENABLED": "false",
+        "STONEWALL_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_defense",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_disinformation": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_disinformation",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false"
+      },
+      "label": "no_disinformation",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_disinformation__no_friction": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_disinformation__no_friction",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false"
+      },
+      "label": "no_disinformation__no_friction",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_disinformation__no_trap_sink": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_disinformation__no_trap_sink",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_disinformation__no_trap_sink",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_disinformation__no_trap_sink__no_friction": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_disinformation__no_trap_sink__no_friction",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_disinformation__no_trap_sink__no_friction",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_friction": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_friction",
+      "disabled_controls": {
+        "FRICTION_ENABLED": "false"
+      },
+      "label": "no_friction"
+    },
+    "no_hgl": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "hgl_friction_trap_sink",
+      "disabled_controls": {
+        "FRICTION_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_hgl"
+    },
+    "no_honey_tokens": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_honey_tokens",
+      "disabled_controls": {
+        "HONEY_TOKENS_ENABLED": "false"
+      },
+      "label": "no_honey_tokens"
+    },
+    "no_logic_budget": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_logic_budget",
+      "disabled_controls": {
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false"
+      },
+      "label": "no_logic_budget"
+    },
+    "no_loki": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "loki_logic_budget",
+      "disabled_controls": {
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false"
+      },
+      "label": "no_loki"
+    },
+    "no_loki__no_hgl": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "loki_plus_hgl",
+      "disabled_controls": {
+        "FRICTION_ENABLED": "false",
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_loki__no_hgl"
+    },
+    "no_loki__no_hgl__no_vector_memory": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "loki_plus_hgl_plus_vector_memory",
+      "disabled_controls": {
+        "FRICTION_ENABLED": "false",
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false",
+        "VECTOR_MEMORY_ENABLED": "false"
+      },
+      "label": "no_loki__no_hgl__no_vector_memory"
+    },
+    "no_loki__no_token_broker__no_mcp_gateway": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "loki_plus_token_broker_plus_mcp_gateway",
+      "disabled_controls": {
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false",
+        "MCP_GATEWAY_ENABLED": "false",
+        "TOKEN_BROKER_ENABLED": "false"
+      },
+      "label": "no_loki__no_token_broker__no_mcp_gateway"
+    },
+    "no_mcp_gateway": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "mcp_gateway",
+      "disabled_controls": {
+        "MCP_GATEWAY_ENABLED": "false"
+      },
+      "label": "no_mcp_gateway"
+    },
+    "no_metatron_michael_loki": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_metatron_michael_loki",
+      "disabled_controls": {
+        "ARDA_ENABLED": "false",
+        "CHORAL_EDGE_ENABLED": "false",
+        "CORRELATION_ENABLED": "false",
+        "EARENDIL_BRIDGE_ENABLED": "false",
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false",
+        "MCP_GATEWAY_ENABLED": "false",
+        "ML_SNAPSHOT_ENABLED": "false",
+        "RESONANCE_QUORUM_ENABLED": "false",
+        "TRIUNE_RUN_ML_SNAPSHOT_INFERENCE": "false"
+      },
+      "label": "no_metatron_michael_loki"
+    },
+    "no_mirror_maze": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_mirror_maze",
+      "disabled_controls": {
+        "MIRROR_MAZE_ENABLED": "false"
+      },
+      "label": "no_mirror_maze"
+    },
+    "no_ml": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_ml",
+      "disabled_controls": {
+        "ML_SNAPSHOT_ENABLED": "false",
+        "TRIUNE_RUN_ML_SNAPSHOT_INFERENCE": "false"
+      },
+      "label": "no_ml"
+    },
+    "no_mystique": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_mystique",
+      "disabled_controls": {
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false"
+      },
+      "label": "no_mystique"
+    },
+    "no_router_core": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_router_core",
+      "disabled_controls": {
+        "AATL_ENABLED": "false",
+        "AATL_TIMING_ENABLED": "false",
+        "CHORAL_EDGE_ENABLED": "false",
+        "CORRELATION_ENABLED": "false",
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "HONEY_TOKENS_ENABLED": "false",
+        "LOGIC_BUDGET_CONTROLLER_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "ML_SNAPSHOT_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "SOAR_ENABLED": "false",
+        "STONEWALL_ENABLED": "false",
+        "TOKEN_BROKER_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false",
+        "TRIUNE_RUN_ML_SNAPSHOT_INFERENCE": "false"
+      },
+      "label": "no_router_core",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_soar": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "soar",
+      "disabled_controls": {
+        "SOAR_ENABLED": "false"
+      },
+      "label": "no_soar"
+    },
+    "no_token_broker": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "token_broker",
+      "disabled_controls": {
+        "TOKEN_BROKER_ENABLED": "false"
+      },
+      "label": "no_token_broker"
+    },
+    "no_token_broker__no_arda": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "token_broker_plus_arda",
+      "disabled_controls": {
+        "ARDA_ENABLED": "false",
+        "TOKEN_BROKER_ENABLED": "false"
+      },
+      "label": "no_token_broker__no_arda"
+    },
+    "no_token_broker__no_mcp_gateway": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "token_broker_plus_mcp_gateway",
+      "disabled_controls": {
+        "MCP_GATEWAY_ENABLED": "false",
+        "TOKEN_BROKER_ENABLED": "false"
+      },
+      "label": "no_token_broker__no_mcp_gateway"
+    },
+    "no_token_broker__no_mcp_gateway__no_arda": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "token_broker_plus_mcp_gateway_plus_arda",
+      "disabled_controls": {
+        "ARDA_ENABLED": "false",
+        "MCP_GATEWAY_ENABLED": "false",
+        "TOKEN_BROKER_ENABLED": "false"
+      },
+      "label": "no_token_broker__no_mcp_gateway__no_arda"
+    },
+    "no_trap_sink": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_trap_sink",
+      "disabled_controls": {
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_trap_sink"
+    },
+    "no_triune_chorus": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_triune_chorus",
+      "disabled_controls": {
+        "CHORAL_EDGE_ENABLED": "false",
+        "EARENDIL_BRIDGE_ENABLED": "false",
+        "RESONANCE_QUORUM_ENABLED": "false"
+      },
+      "label": "no_triune_chorus"
+    },
+    "no_unified_agent": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "no_unified_agent",
+      "disabled_controls": {
+        "UNIFIED_AGENT_ENABLED": "false"
+      },
+      "label": "no_unified_agent"
+    },
+    "no_vector_memory": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "vector_memory",
+      "disabled_controls": {
+        "VECTOR_MEMORY_ENABLED": "false"
+      },
+      "label": "no_vector_memory"
+    },
+    "no_vector_memory__no_soar": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "vector_memory_plus_soar",
+      "disabled_controls": {
+        "SOAR_ENABLED": "false",
+        "VECTOR_MEMORY_ENABLED": "false"
+      },
+      "label": "no_vector_memory__no_soar"
+    },
+    "no_vns": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "vns_network_truth",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false"
+      },
+      "label": "no_vns"
+    },
+    "no_vns__no_deception": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "vns_network_truth_plus_deception_stack",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false",
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_vns__no_deception",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_vns__no_deception__no_soar": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "vns_network_truth_plus_deception_stack_plus_soar",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false",
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "SOAR_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_vns__no_deception__no_soar",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_vns__no_deception_exact__no_soar": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "vns_network_truth_plus_deception_exact_plus_soar",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false",
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false",
+        "MYSTIQUE_ENABLED": "false",
+        "SOAR_ENABLED": "false",
+        "TRAP_SINK_ENABLED": "false"
+      },
+      "label": "no_vns__no_deception_exact__no_soar",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999"
+      }
+    },
+    "no_vns__no_vector_memory": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "vns_network_truth_plus_vector_memory",
+      "disabled_controls": {
+        "AATL_TIMING_ENABLED": "false",
+        "VECTOR_MEMORY_ENABLED": "false"
+      },
+      "label": "no_vns__no_vector_memory"
+    },
+    "only_choral_edge": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "choral_edge_only",
+      "disabled_controls": {
+        "EARENDIL_BRIDGE_ENABLED": "false",
+        "RESONANCE_QUORUM_ENABLED": "false"
+      },
+      "label": "only_choral_edge",
+      "threshold_overrides": {
+        "CHORAL_EDGE_ENABLED": "true"
+      }
+    },
+    "only_earendil_bridge": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "earendil_bridge_only",
+      "disabled_controls": {
+        "CHORAL_EDGE_ENABLED": "false",
+        "RESONANCE_QUORUM_ENABLED": "false"
+      },
+      "label": "only_earendil_bridge",
+      "threshold_overrides": {
+        "EARENDIL_BRIDGE_ENABLED": "true"
+      }
+    },
+    "only_resonance_quorum": {
+      "ablation_fidelity": "exact",
+      "conceptual_layer": "resonance_quorum_only",
+      "disabled_controls": {
+        "CHORAL_EDGE_ENABLED": "false",
+        "EARENDIL_BRIDGE_ENABLED": "false"
+      },
+      "label": "only_resonance_quorum",
+      "threshold_overrides": {
+        "RESONANCE_QUORUM_ENABLED": "true"
+      }
+    },
+    "trap_sink_only": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "trap_sink_only",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false"
+      },
+      "label": "trap_sink_only",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999",
+        "MIRROR_MAZE_ENABLED": "true",
+        "MYSTIQUE_ENABLED": "true",
+        "TRAP_SINK_ENABLED": "true"
+      }
+    },
+    "trap_sink_only__no_mirror_maze": {
+      "ablation_fidelity": "partial",
+      "conceptual_layer": "trap_sink_only__no_mirror_maze",
+      "disabled_controls": {
+        "DISINFORMATION_ENABLED": "false",
+        "FRICTION_ENABLED": "false",
+        "MIRROR_MAZE_ENABLED": "false"
+      },
+      "label": "trap_sink_only__no_mirror_maze",
+      "threshold_overrides": {
+        "DISINFORMATION_MIN_SCORE": "999",
+        "MYSTIQUE_ENABLED": "true",
+        "TRAP_SINK_ENABLED": "true"
+      }
+    }
+  },
+  "model": "qwen2.5:1.5b",
+  "ollama_url": "http://127.0.0.1:11434",
+  "parallel_models": 1,
+  "probe_budget": {
+    "label": "short",
+    "steps": 5
+  },
+  "repeats": 1,
+  "schema": "qwen_falsification_sweep.v1",
+  "variants": [
+    "baseline"
+  ]
+}

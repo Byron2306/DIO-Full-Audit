@@ -1,0 +1,19 @@
+{
+  "description": "Retrospective evidence (n=22 settled, non-abstain forecasts) shows a positive second-half chronological mean (+6.09 bps) but FAILS the promotion gate on insufficient evidence volume (< 100 settled forecasts, < 24 independent hourly buckets). This hypothesis is frozen now so that only forecasts created strictly after registered_at can count as genuine prospective confirmation -- the existing 22 rows must not be re-used as if they were out-of-sample.",
+  "directions": [
+    "DOWN"
+  ],
+  "entry_rule_summary": "Model-generated DOWN forecast on AVAX/USD (non-abstain), same entry logic as the live candidate_finrl_conservative_policy_proxy_v1 / candidate_freqai_transparent_linear_v1 signal generators.",
+  "exit_rule_summary": "Standard horizon-based settlement exit used by hypothesis_outcomes (net_return_bps at horizon_seconds).",
+  "hypothesis_id": "avax_usd_finrl_down_prospective_v1",
+  "predicted_edge_bps": 6.09,
+  "predicted_edge_rationale": "Second-half (most recent) retrospective mean net_return_bps = 6.09 across 11 rows; first-half mean was 47.66 (likely decaying/noisy). Treat 6.09 as the operative prior, not proof of edge, pending >=100 genuinely prospective settlements.",
+  "registered_at": 1786037270.9353347,
+  "registered_by": "candidate_promotion_gate_investigation_2026-08-06",
+  "schema": "hivenance_hypothesis_pre_registration_v1",
+  "spec_sha256": "84c1b6691227258098306258ccbfa8dc022cf3ad6d539aa662a89195d53c4a5a",
+  "symbols": [
+    "AVAX/USD"
+  ],
+  "title": "AVAX/USD DOWN via FinRL conservative policy proxy -- prospective confirmation freeze"
+}

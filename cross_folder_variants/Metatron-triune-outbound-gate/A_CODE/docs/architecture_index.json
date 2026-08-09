@@ -1,0 +1,63 @@
+{
+  "canonical_runtime_paths": {
+    "world_state_and_governance": {
+      "owners": {
+        "world_model": "backend/services/world_model.py",
+        "world_manifold": "backend/services/world_manifold.py",
+        "governance_epoch": "backend/services/governance_epoch.py",
+        "governance_authority": "backend/services/governance_authority.py",
+        "governance_executor": "backend/services/governance_executor.py",
+        "outbound_gate": "backend/services/outbound_gate.py",
+        "notation_token": "backend/services/notation_token.py"
+      },
+      "runtime_path": "intent -> world_events.emit_world_event -> triune_orchestrator.handle_world_change -> policy/governance decision -> outbound_gate.gate_action -> governance_authority.approve/deny -> governance_executor.process_approved_decisions -> audit/world feedback"
+    },
+    "deception_and_harmonic_control": {
+      "owners": {
+        "deception_authority": "backend/services/deception_authority.py",
+        "harmonic_signal_context": "backend/services/harmonic_signal_context.py",
+        "harmonic_inference": "backend/services/harmonic_inference.py",
+        "harmonic_policy": "backend/services/harmonic_policy.py",
+        "harmonic_engine": "backend/services/harmonic_engine.py"
+      },
+      "runtime_path": "deception_authority.create_case -> harmonic shaping / corroboration guard -> outbound_gate / governance artifacts -> governance_authority transitions -> governance_executor runtime outcome -> harmonic feedback"
+    },
+    "triune_reasoning": {
+      "owners": {
+        "triune_orchestrator": "backend/services/triune_orchestrator.py",
+        "metatron": "backend/triune/metatron.py",
+        "michael": "backend/triune/michael.py",
+        "loki": "backend/triune/loki.py"
+      },
+      "runtime_path": "world event -> bounded world snapshot -> triune_orchestrator.handle_world_change -> schema route + verdict bundle -> downstream governance / response layers"
+    },
+    "mcp_and_tool_execution": {
+      "owners": {
+        "mcp_server": "backend/services/mcp_server.py",
+        "governed_dispatch": "backend/services/governed_dispatch.py",
+        "governance_executor": "backend/services/governance_executor.py",
+        "governance_context": "backend/services/governance_context.py"
+      },
+      "runtime_path": "high-impact tool intent -> outbound_gate -> governance approval -> governance_executor tool_execution -> canonical governance context enforcement -> runtime tool handler -> audit"
+    },
+    "network_truth_vns": {
+      "owners": {
+        "vns": "backend/services/vns.py",
+        "vns_alerts": "backend/services/vns_alerts.py"
+      },
+      "runtime_path": "network flow / DNS ingest -> vns record_* -> durable VNS persistence + reconciliation snapshot -> harmonic / governance / world feedback consumers"
+    }
+  },
+  "non_canonical_paths": {
+    "windows_platform_manifold_adapter": {
+      "path": "backend/arda_windows/world_manifold.py",
+      "reason": "Platform adapter for Windows providers, not the canonical backend governance/world-state manifold."
+    },
+    "legacy_and_compatibility_surfaces": [
+      {
+        "path": "backend/services/presence_server.py",
+        "reason": "Contains legacy fallbacks and compatibility behavior, not the primary hardened governance architecture. Legacy Triune evaluation is opt-in only via SOPHIA_ENABLE_LEGACY_PRESENCE_TRIUNE_FALLBACK."
+      }
+    ]
+  }
+}

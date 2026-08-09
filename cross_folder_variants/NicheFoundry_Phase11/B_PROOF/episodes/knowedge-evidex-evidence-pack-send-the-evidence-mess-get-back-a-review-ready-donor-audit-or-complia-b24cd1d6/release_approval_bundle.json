@@ -1,0 +1,297 @@
+{
+  "schema": "nichefoundry.release_approval_bundle.v1",
+  "episode_id": "evidex-9ef42c22313238c4",
+  "video_id": "oBrUwEno_eA",
+  "files": [
+    {
+      "relative_path": "final.mp4",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 4313397,
+      "sha256": "224d5f50713f1f281fe2e8174b70edd7004406d636592b5a1b92f8ec02a0bfd0"
+    },
+    {
+      "relative_path": "captions.srt",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 727,
+      "sha256": "430983cdbfc5a5d9342628a94835c65e1fc1f6d8c100cf6108d49b5f45c0fef4"
+    },
+    {
+      "relative_path": "thumbnail.png",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1475935,
+      "sha256": "aac7b7660cec2f7cd3547f5e61dd43ca9af4b9ad35442865e8db564c18991e1f"
+    },
+    {
+      "relative_path": "final_signoff_bundle.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 394,
+      "sha256": "9e9c8cebea7295933673769165ad6571f53447f224e0846b2dd9ecb138363ca0"
+    },
+    {
+      "relative_path": "publishing_package.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1138,
+      "sha256": "b8cf1cf84c7ebbdce81b1927c1e04cbe6a38c6096920b6ff842a6b264fb848de"
+    },
+    {
+      "relative_path": "metadata_package.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 1953,
+      "sha256": "ebce22c574cbd30dca540244062e04a9d82ba2fd3d98c8e504026625419977ea"
+    },
+    {
+      "relative_path": "compliance_report.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 2185,
+      "sha256": "5fc718aeb0244e306cb827f28b69d5c0f2bfae3f662cb096acadad6279edf45f"
+    },
+    {
+      "relative_path": "publishing_verification.json",
+      "exists": true,
+      "valid": true,
+      "size_bytes": 779,
+      "sha256": "bf50fa45c558c77791a1e62c49a5ff678beae018d10936d46a7a3e47206c34c4"
+    }
+  ],
+  "remote": {
+    "processing": {
+      "status": "processed",
+      "attempts": 6,
+      "history": [
+        {
+          "attempt": 1,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:05:57.063Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 2,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:06:00.294Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 3,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:06:03.592Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 4,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:06:06.844Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 5,
+          "upload_status": "uploaded",
+          "checked_at": "2026-08-09T00:06:10.076Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        },
+        {
+          "attempt": 6,
+          "upload_status": "processed",
+          "checked_at": "2026-08-09T00:06:13.323Z",
+          "failure_reason": null,
+          "rejection_reason": null
+        }
+      ],
+      "video": {
+        "kind": "youtube#video",
+        "etag": "jm6BHFWx09jRbKwEHl7E96RTvkE",
+        "id": "oBrUwEno_eA",
+        "snippet": {
+          "publishedAt": "2026-08-09T00:05:51Z",
+          "channelId": "UCc916iuoPLseg05t5J5leaQ",
+          "title": "Evidex: Turn Scattered Evidence into One Traceable Review Pack",
+          "description": "Receipts, field notes, attendance records, photographs and spreadsheets should not remain a folder hunt. Evidex maps a bounded evidence set into one traceable pack for human review.\n\nThe pack connects claims to source references, preserves provenance and exposes missing evidence. It supports review; it does not guarantee donor, funder, regulator or audit approval.\n\nStart with one redacted or otherwise non-sensitive evidence folder.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled Evidex golden-case evidence table, mapped claims and provenance outputs.\n- This video contains illustrative synthetic media; no real client case is represented.\n\nMusic: \"Soft Corporate by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/",
+          "thumbnails": {
+            "default": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/default.jpg?sqp=CKyI39MG&rs=AOn4CLA-i3L6UbSQqRU_dWX2lHDwLllduw",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/mqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLAhZ4sxalD3AKD3FcBToProfcka7g",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/hqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLCxADaRinbZ6k-PwsBpgTwnvNjqRg",
+              "width": 480,
+              "height": 360
+            }
+          },
+          "channelTitle": "DIO workflows",
+          "tags": [
+            "DIO Workflows",
+            "Evidex",
+            "NGO reporting",
+            "South Africa",
+            "audit trail",
+            "evidence pack",
+            "monitoring and evaluation",
+            "provenance"
+          ],
+          "categoryId": "27",
+          "liveBroadcastContent": "none",
+          "defaultLanguage": "en",
+          "localized": {
+            "title": "Evidex: Turn Scattered Evidence into One Traceable Review Pack",
+            "description": "Receipts, field notes, attendance records, photographs and spreadsheets should not remain a folder hunt. Evidex maps a bounded evidence set into one traceable pack for human review.\n\nThe pack connects claims to source references, preserves provenance and exposes missing evidence. It supports review; it does not guarantee donor, funder, regulator or audit approval.\n\nStart with one redacted or otherwise non-sensitive evidence folder.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled Evidex golden-case evidence table, mapped claims and provenance outputs.\n- This video contains illustrative synthetic media; no real client case is represented.\n\nMusic: \"Soft Corporate by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/"
+          }
+        },
+        "contentDetails": {
+          "duration": "PT1M7S",
+          "dimension": "2d",
+          "definition": "hd",
+          "caption": "false",
+          "licensedContent": false,
+          "contentRating": {},
+          "projection": "rectangular",
+          "hasCustomThumbnail": false
+        },
+        "status": {
+          "uploadStatus": "processed",
+          "privacyStatus": "private",
+          "license": "youtube",
+          "embeddable": true,
+          "publicStatsViewable": true,
+          "madeForKids": false,
+          "selfDeclaredMadeForKids": false
+        },
+        "processingDetails": {
+          "processingStatus": "succeeded",
+          "fileDetailsAvailability": "available",
+          "processingIssuesAvailability": "available",
+          "tagSuggestionsAvailability": "inProgress",
+          "editorSuggestionsAvailability": "inProgress",
+          "thumbnailsAvailability": "inProgress"
+        },
+        "paidProductPlacementDetails": {
+          "hasPaidProductPlacement": false
+        }
+      },
+      "checked_at": "2026-08-09T00:06:13.323Z"
+    },
+    "assets": {
+      "thumbnail": "attached",
+      "captions": "attached"
+    },
+    "verification": {
+      "passed": true,
+      "issues": [],
+      "privacy_state": "private",
+      "upload_status": "processed",
+      "thumbnails_available": "inProgress",
+      "has_custom_thumbnail": true,
+      "checked_at": "2026-08-09T00:06:18.577Z",
+      "video_id": "oBrUwEno_eA",
+      "remote": {
+        "kind": "youtube#video",
+        "etag": "8KZ6-u-oKm9SUyneCulzbVJsPbk",
+        "id": "oBrUwEno_eA",
+        "snippet": {
+          "publishedAt": "2026-08-09T00:05:51Z",
+          "channelId": "UCc916iuoPLseg05t5J5leaQ",
+          "title": "Evidex: Turn Scattered Evidence into One Traceable Review Pack",
+          "description": "Receipts, field notes, attendance records, photographs and spreadsheets should not remain a folder hunt. Evidex maps a bounded evidence set into one traceable pack for human review.\n\nThe pack connects claims to source references, preserves provenance and exposes missing evidence. It supports review; it does not guarantee donor, funder, regulator or audit approval.\n\nStart with one redacted or otherwise non-sensitive evidence folder.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled Evidex golden-case evidence table, mapped claims and provenance outputs.\n- This video contains illustrative synthetic media; no real client case is represented.\n\nMusic: \"Soft Corporate by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/",
+          "thumbnails": {
+            "default": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/default.jpg?sqp=CKyI39MG&rs=AOn4CLA-i3L6UbSQqRU_dWX2lHDwLllduw",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/mqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLAhZ4sxalD3AKD3FcBToProfcka7g",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/hqdefault.jpg?sqp=CKyI39MG&rs=AOn4CLCxADaRinbZ6k-PwsBpgTwnvNjqRg",
+              "width": 480,
+              "height": 360
+            },
+            "standard": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/sddefault.jpg?sqp=CKyI39MG&rs=AOn4CLBSZnw9-b7kxlZZd9nyl8rej6dk5w",
+              "width": 640,
+              "height": 480
+            },
+            "maxres": {
+              "url": "https://i9.ytimg.com/vi/oBrUwEno_eA/maxresdefault.jpg?sqp=CKyI39MG&rs=AOn4CLABV_CqVoPbUfLCZkc87B9iLOPH-A",
+              "width": 1280,
+              "height": 720
+            }
+          },
+          "channelTitle": "DIO workflows",
+          "tags": [
+            "DIO Workflows",
+            "Evidex",
+            "NGO reporting",
+            "South Africa",
+            "audit trail",
+            "evidence pack",
+            "monitoring and evaluation",
+            "provenance"
+          ],
+          "categoryId": "27",
+          "liveBroadcastContent": "none",
+          "defaultLanguage": "en",
+          "localized": {
+            "title": "Evidex: Turn Scattered Evidence into One Traceable Review Pack",
+            "description": "Receipts, field notes, attendance records, photographs and spreadsheets should not remain a folder hunt. Evidex maps a bounded evidence set into one traceable pack for human review.\n\nThe pack connects claims to source references, preserves provenance and exposes missing evidence. It supports review; it does not guarantee donor, funder, regulator or audit approval.\n\nStart with one redacted or otherwise non-sensitive evidence folder.\nContact: dio_workflows@outlook.com\n\nSources and further reading:\n- DIO controlled Evidex golden-case evidence table, mapped claims and provenance outputs.\n- This video contains illustrative synthetic media; no real client case is represented.\n\nMusic: \"Soft Corporate by MusicLFiles\" by MusicLFiles, licensed under CC BY 4.0. https://creativecommons.org/licenses/by/4.0/"
+          }
+        },
+        "contentDetails": {
+          "duration": "PT1M7S",
+          "dimension": "2d",
+          "definition": "hd",
+          "caption": "false",
+          "licensedContent": false,
+          "contentRating": {},
+          "projection": "rectangular",
+          "hasCustomThumbnail": true
+        },
+        "status": {
+          "uploadStatus": "processed",
+          "privacyStatus": "private",
+          "license": "youtube",
+          "embeddable": true,
+          "publicStatsViewable": true,
+          "madeForKids": false,
+          "selfDeclaredMadeForKids": false
+        },
+        "processingDetails": {
+          "processingStatus": "succeeded",
+          "fileDetailsAvailability": "available",
+          "processingIssuesAvailability": "available",
+          "tagSuggestionsAvailability": "inProgress",
+          "editorSuggestionsAvailability": "inProgress",
+          "thumbnailsAvailability": "inProgress"
+        },
+        "paidProductPlacementDetails": {
+          "hasPaidProductPlacement": false
+        }
+      }
+    },
+    "schedule": {
+      "status": "not_scheduled",
+      "publish_at": null
+    }
+  },
+  "complete": true,
+  "generated_at": "2026-08-09T00:06:18.597Z",
+  "bundle_hash": "614fd26667a2a7cb8b1bf01308a97b9d578ad66d5597da8cd5d9b7093f90f425"
+}

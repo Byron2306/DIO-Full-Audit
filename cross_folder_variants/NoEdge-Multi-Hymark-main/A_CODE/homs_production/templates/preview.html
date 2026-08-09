@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card homs-card-xl">
+    <div class="card-body">
+      <h3>Preview: {{ filename }}</h3>
+      {% if is_csv %}
+        <div class="table-responsive"><table class="table table-sm table-bordered">
+          {% for row in table %}
+            <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+          {% endfor %}
+        </table></div>
+      {% else %}
+        <pre class="pre-wrap">{{ content }}</pre>
+      {% endif %}
+      <a href="/reports" class="btn btn-link mt-3" role="button">Back</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card homs-card">
+    <div class="card-body">
+      <h3>Reports</h3>
+      {% if embedded_html %}
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Embedded Summary</h4>
+            <button id="toggle-summary-btn" type="button" class="btn btn-sm btn-outline-secondary">Hide</button>
+          </div>
+          <div id="embedded-summary" class="embedded-summary mt-2">{{ embedded_html | safe }}</div>
+        </div>
+        <script>
+          (function(){
+            const btn = document.getElementById('toggle-summary-btn');
+            const box = document.getElementById('embedded-summary');
+            if (!btn || !box) return;
+            btn.addEventListener('click', function(){
+              if (box.style.display === 'none'){
+                box.style.display = '';
+                btn.textContent = 'Hide';
+              } else {
+                box.style.display = 'none';
+                btn.textContent = 'Show';
+              }
+            });
+          })();
+        </script>
+      {% endif %}
+      {% if files %}<ul class="list-group">{% for f in files %}<li class="list-group-item d-flex justify-content-between align-items-center"><div><a href="/reports/{{ f }}">{{ f }}</a>&nbsp;•&nbsp;<a href="/reports/preview/{{ f }}" class="text-muted">Preview</a></div></li>{% endfor %}</ul>{% else %}
+        <p class="text-muted">No reports generated yet.</p>
+      {% endif %}
+      <a href="/" class="btn btn-link mt-3">Back</a>
+    </div>
+  </div>
+{% endblock %}

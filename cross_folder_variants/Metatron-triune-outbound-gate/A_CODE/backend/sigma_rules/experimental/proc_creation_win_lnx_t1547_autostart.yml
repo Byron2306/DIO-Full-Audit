@@ -1,0 +1,74 @@
+title: Boot Autostart via Registry Run Keys
+id: 9u3r4s2t-0p5q-5r8s-9t2u-3q6p7r0s5t6u
+status: experimental
+description: Detects modification of registry run keys for autostart
+references:
+  - https://attack.mitre.org/techniques/T1547/007/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: registry_set
+  product: windows
+detection:
+  selection:
+    EventType: SetValue
+    TargetObject|contains:
+      - '\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+      - '\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce'
+  condition: selection
+falsepositives:
+  - Legitimate software installation
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.007
+---
+title: Boot Autostart via Shortcut Modification
+id: 0v4s5t3u-1q6r-6s9t-0u3v-4r7q8s1t6u7v
+status: experimental
+description: Detects modification of startup shortcuts
+references:
+  - https://attack.mitre.org/techniques/T1547/012/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventType: Create
+    TargetFilename|contains:
+      - 'Start Menu'
+      - 'Startup'
+  condition: selection
+falsepositives:
+  - User customization
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.012
+---
+title: Boot Autostart via Authentication Package
+id: 1w5t6u4v-2r7s-7t0u-1v4w-5s8r9t2u7v8w
+status: experimental
+description: Detects modification of authentication packages for persistence
+references:
+  - https://attack.mitre.org/techniques/T1547/013/
+author: Seraph AI (experimental)
+date: 2026-04-20
+logsource:
+  category: registry_set
+  product: windows
+detection:
+  selection:
+    EventType: SetValue
+    TargetObject|contains:
+      - '\SYSTEM\CurrentControlSet\Control\Lsa'
+      - 'Authentication Packages'
+  condition: selection
+falsepositives:
+  - System configuration changes
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.013

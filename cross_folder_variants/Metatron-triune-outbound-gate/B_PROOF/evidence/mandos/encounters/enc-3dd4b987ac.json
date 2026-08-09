@@ -1,0 +1,53 @@
+{
+  "record": {
+    "record_id": "mem-2e5d2ffe86",
+    "principal_identity_hash": "1d920632d84cd454bba86b9304372b91ad9095e4d12ef647f5bed185b31acbc4",
+    "memory_class": "encounter",
+    "retention_class": "amendable",
+    "created_at": "2026-07-30 10:09:48.036960+00:00",
+    "consent_basis": "covenant",
+    "content_hash": "48957929b20c1d6a491e8e6cc4efd46c34fbc8d4f985c3d2deea78191ec4fdcb",
+    "parent_hash": null,
+    "inspectable": true,
+    "revocable": true,
+    "content_ref": "/home/byron/Downloads/Metatron-triune-outbound-gate/evidence/mandos/encounters/enc-3dd4b987ac.json"
+  },
+  "payload": {
+    "encounter_id": "enc-3dd4b987ac",
+    "principal_identity_hash": "1d920632d84cd454bba86b9304372b91ad9095e4d12ef647f5bed185b31acbc4",
+    "topic": "Which factors does the source give for that change?",
+    "principal_goal": null,
+    "machine_role": "speculum",
+    "summary": "The source attributes the change to \"It attributes the change to a mix of municipal planting grants, volunteer stewardship groups, and a rule requiring replacement plantings after major street repairs.\"",
+    "what_deepened": [],
+    "what_confused": [],
+    "unresolved_threads": [],
+    "officer_sequence": [
+      "speculum"
+    ],
+    "zpd_estimate": 0.5,
+    "created_at": "2026-07-30 10:09:48.021893+00:00",
+    "conditioning_delta": 0.0,
+    "reinforcement_type": null,
+    "modelled_behavior": null,
+    "habit_mediated": null,
+    "mediation_success_score": 0.0,
+    "heutagogic_shift": false,
+    "tangential_bridge_taken": null,
+    "challenge_type": "COMFORTABLE",
+    "struggle_index": 0.0,
+    "release_decision": null,
+    "handback_reason": null,
+    "dominant_cluster": null,
+    "speech_act": "answer",
+    "workspace_schema": [],
+    "expression_schema": [],
+    "verification_schema": [],
+    "memory_class": "encounter",
+    "retention_class": "amendable"
+  },
+  "encryption": {
+    "enabled": false,
+    "note": "Encryption at rest is not yet implemented in this service revision. This record is plaintext but remains locally stored and inspectable."
+  }
+}

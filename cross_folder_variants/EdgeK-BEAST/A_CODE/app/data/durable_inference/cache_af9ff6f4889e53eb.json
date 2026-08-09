@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:17b2df2afbef6d7d87a99c07fb012eadf004db9d36b31faea6e0312a03e6bc77",
+    "ref": "blobs/sha256/17b2df2afbef6d7d87a99c07fb012eadf004db9d36b31faea6e0312a03e6bc77.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-07-18T10:31:53.184771+00:00",
+  "credit_id": "cache_af9ff6f4889e53eb",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "meta/llama-3.1-70b-instruct",
+    "parameter_hash": "1f4cf14c6b87b708a7b79bbf5c6314332cae17f0de497da8a361ea7364c940dc",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 2400,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:bd9ff93fd7db1cfd7cd0b541d16a593b41824d81e967c63bd3b7a3266ac0505b",
+    "response_blob_digest": "sha256:d79a85bc4a6a71440d1f41e77817e55c0c7f2b832082f3d58f12dd1a1c77cbed",
+    "response_blob_ref": "blobs/sha256/d79a85bc4a6a71440d1f41e77817e55c0c7f2b832082f3d58f12dd1a1c77cbed.json",
+    "response_chars": 152,
+    "response_preview": "[SIMULATED] EdgeK BEAST Gateway would execute request for model meta/llama-3.1-70b-instruct. Set OPENAI_API_KEY environment variable for real API calls.",
+    "response_ref": "cache_af9ff6f4889e53eb.answer.json",
+    "response_sha256": "sha256:b6a6a6c80f64824867f2e1a44f5bbb6df70cc93d0925a34c0617b9c8a3c9fc4b"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}

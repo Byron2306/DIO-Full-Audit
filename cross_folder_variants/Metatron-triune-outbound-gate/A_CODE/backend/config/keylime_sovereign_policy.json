@@ -1,0 +1,25 @@
+{
+    "version": 1,
+    "name": "Arda_Sovereign_UKI_Policy_Alpha",
+    "pcr_policy": {
+        "11": {
+            "type": "fixed",
+            "value": "FIXME_EXPECTED_UKI_PCR11_HEX_HASH"
+        }
+    },
+    "mb_policy": {
+        "description": "Verify UKI and Embedded Arda Constitution",
+        "accept_labels": ["arda_sovereign_alpha"],
+        "event_log_hash_alg": "sha256",
+        "require_signatures": true,
+        "trusted_certs": [
+            "backend/config/keys/arda_uki_cert.crt"
+        ]
+    },
+    "runtime_policy": {
+        "ima": {
+            "enabled": true,
+            "signature_verification": true
+        }
+    }
+}

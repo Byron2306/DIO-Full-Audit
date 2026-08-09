@@ -1,0 +1,11 @@
+{
+  "beast_object_type": "content_addressed_blob",
+  "digest": "sha256:3002a32a88765f5569f88c6724b9af25bc9b127bdb91e1c21e4c4177ca710908",
+  "payload": {
+    "beast_object_type": "cached_answer_payload",
+    "response": "```json\n{\n  \"kind\": ACTION_IR_KIND,\n  \"action\": {\n    \"replace_exact\": {\n      \"path\": \"_pair_programmer_limits\",\n      \"line\": 10,\n      \"column\": 20,\n      \"new_value\": \"def _pair_programmer_limits(provider: str, model: str, requested_tokens: int, requested_context_chars: int) -> tuple[int, int, int]:\\n    # Keep local CPU coding turns responsive instead of swapping for minutes.\\n\\n    provider_id = str(provider or \"\").strip().lower().replace('-', '_')\\n    model_id = str(model or '').strip().lower()\\n    return provider_id in {'ollama', 'local_ollama'} and model_id.startswith('qwen2.5-coder:')\"\n    }\n  }\n}\n```",
+    "response_sha256": "sha256:f67ef1ce7893b5810a02f9d8c36b19bd9110daa77e7914d5d7b8c867d40bc9cf",
+    "version": "1.0"
+  },
+  "version": "1.0"
+}

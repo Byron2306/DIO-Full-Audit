@@ -1,0 +1,28 @@
+title: Lab synthetic MdmCompliancePolicyAssigned on tagged canary (honey_mdm_device_group) — T1675
+id: lab-mdm-policy-assign-001
+status: experimental
+description: >
+  Lab-synthetic Sigma rule. Fires when an audit-channel event for the canary
+  lure (honey_mdm_device_group) is observed with the metatron_run_id tag and the
+  expected event_type matches MdmCompliancePolicyAssigned. Used to validate
+  detection coverage for techniques that cannot be exercised by Linux atomics.
+references:
+  - https://attack.mitre.org/techniques/T1675
+author: metatron-lab-harvester
+date: 2026/04/27
+tags:
+  - attack.t1675
+  - lab.canary
+  - lab.intune_audit
+logsource:
+  product: lab_audit
+  service: intune_audit
+  category: mdm_takeover
+detection:
+  selection:
+    event_type: 'MdmCompliancePolicyAssigned'
+    tags.metatron_run_id|exists: true
+  condition: selection
+falsepositives:
+  - None expected when canary is tagged metatron and safe_to_delete=true
+level: high

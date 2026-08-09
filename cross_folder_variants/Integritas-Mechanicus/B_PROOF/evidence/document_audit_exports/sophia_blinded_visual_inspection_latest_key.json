@@ -1,0 +1,81 @@
+{
+  "schema_version": "sophia.blinded_visual_inspection_packet.v1",
+  "created_at": "2026-08-03T20:30:35.689559+00:00",
+  "items": [
+    {
+      "item_id": "V001",
+      "source_name": "chart_fixture.png",
+      "source_path": "/tmp/tmp_k26id1v/chart_fixture.png",
+      "candidate_pages": "1",
+      "inspection_focus": "visible chart/table/caption numbers and uncertainty",
+      "human_visible_numbers": "",
+      "human_caption_summary": "",
+      "human_uncertainty_flags": "",
+      "human_verdict": "",
+      "rater_id": "",
+      "notes": ""
+    }
+  ],
+  "native_comparison_hidden_from_raters": {
+    "schema_version": "sophia.native_vision_comparison.v1",
+    "status": "native_vision_text_conflict",
+    "has_native_vision": true,
+    "witness_count": 3,
+    "witnesses": [
+      {
+        "witness_id": "V1",
+        "source_name": "messy_scanned_pdf_proxy.txt",
+        "modality_group": "text_or_caption",
+        "parser": "plain_text",
+        "numbers": [
+          "031",
+          "044",
+          "100",
+          "18%",
+          "61.4",
+          "73.0",
+          "78.5",
+          "84.2"
+        ],
+        "sample": "Page 1\nOCR confidence low. Figure 1 caption says retention improved by 18%, but chart label is blurry.\nPage 2\nTable 2. Outcomes by condition.\nGroup / Writing score* / Transfer score† / p-value\nSophia / 84.2 / 78.5 / .031\nControl / 73.0 / 61.4 / .044\n*Writing rubric max 100. †Unaided delayed task."
+      },
+      {
+        "witness_id": "V2",
+        "source_name": "chart_fixture.png",
+        "modality_group": "ocr",
+        "parser": "sidecar_ocr",
+        "numbers": [
+          "16%",
+          "18%"
+        ],
+        "sample": "OCR says Figure 1 retention improved by 18%. Human caption note says the chart may show 16%. Conflict unresolved."
+      },
+      {
+        "witness_id": "V3",
+        "source_name": "native_vision_fixture.txt",
+        "modality_group": "native_vision",
+        "parser": "native_vision_fixture_or_external",
+        "numbers": [
+          "16%"
+        ],
+        "sample": "Native vision: Figure 1 appears to show 16% retention improvement; caption is partly cut off."
+      }
+    ],
+    "overlapping_numbers": [
+      "16%"
+    ],
+    "native_only_numbers": [],
+    "text_or_ocr_only_numbers": [
+      "031",
+      "044",
+      "100",
+      "18%",
+      "61.4",
+      "73.0",
+      "78.5",
+      "84.2"
+    ],
+    "confidence_ceiling": 0.45,
+    "integrity_rule": "Native vision may strengthen visual grounding, but disagreements with OCR, captions, tables, or page text must be reported rather than resolved silently."
+  }
+}

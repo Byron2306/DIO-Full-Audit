@@ -1,0 +1,71 @@
+# ARDA GRUB theme
+# Text-only fallback to avoid GRUB pixmap/image parsing failures.
+
+desktop-color: "#02050b"
+title-text: ""
+message-font: "unicode"
+message-color: "#dce8ee"
+message-bg-color: "#071426"
+terminal-font: "unicode"
+terminal-border: "0"
+
++ boot_menu {
+  left = 8%
+  top = 24%
+  width = 46%
+  height = 46%
+  item_font = "unicode"
+  item_color = "#9fb4c0"
+  selected_item_color = "#e8f0f4"
+  item_height = 32
+  item_padding = 6
+  item_spacing = 4
+  icon_width = 0
+  icon_height = 0
+  item_icon_space = 0
+}
+
++ label {
+  id = "arda-heading"
+  text = "ARDA OS"
+  font = "unicode"
+  color = "#e8f0f4"
+  left = 8%
+  top = 12%
+  width = 40%
+  height = 28
+}
+
++ label {
+  id = "arda-subheading"
+  text = "LAW OF THE SUBSTRATE"
+  font = "unicode"
+  color = "#63e6ff"
+  left = 8%
+  top = 17%
+  width = 40%
+  height = 20
+}
+
++ label {
+  id = "arda-footer"
+  text = "Nothing manifests without lawful authority."
+  font = "unicode"
+  color = "#dce8ee"
+  left = 8%
+  top = 76%
+  width = 60%
+  height = 20
+}
+
++ progress_bar {
+  id = "__timeout__"
+  left = 8%
+  top = 84%
+  width = 40%
+  height = 12
+  fg_color = "#63e6ff"
+  bg_color = "#0a1a2a"
+  border_color = "#19bfaf"
+  text_color = "#dce8ee"
+}

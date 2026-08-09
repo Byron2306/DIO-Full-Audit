@@ -1,0 +1,20 @@
+{
+  "constraints": [
+    "local first",
+    "governed tool use",
+    "no secret capture",
+    "approval before writes"
+  ],
+  "created_at": "2026-07-18T11:15:01.843320+00:00",
+  "objective": "Return one BEAST Action IR JSON object for the scoped objective using only the selected source context. Make at most one complete source-edit action per file. For every edit, replace one exact unique anchor with its complete replacement. No markdown, prose, explanations, placeholders, or sequential edits to the same file.\n\nObjective: Act as an autonomous coding agent. Investigate the attached workspace context, implement the requested change as a governed patch, account for dependencies and tests, and keep the change minimal.\n\nTask: Refactor the selected code for clarity without changing behavior.\n\nAllowed files:\n- app/kernel/compute/compute_forge.py\n\nReturn BEAST Action IR JSON only after inspecting the attached files. Use this exact shape:\n{\"kind\":\"beast.action_intent.v1\",\"objective\":\"...\",\"actions\":[{\"type\":\"replace_exact\",\"target\":{\"path\":\"relative/file\"},\"old\":\"exact current snippet\",\"new\":\"replacement\",\"intent\":\"why\"}],\"verify\":[\"relevant test or check\"]}\nUse only attached files and copy old snippets exactly. Every action must make a real, complete source change: never emit an unchanged old/new pair, an ellipsis, or prose such as \"rest of the function remains the same.\" Never satisfy an implementation request with a cosmetic comment, a signature-only change, or the first plausible one-line tweak. Emit at most one source-edit action per file: when a file needs several changes, make one complete anchor replacement containing all of them. Trace the requested behavior through every attached implementation, caller, configuration, and test surface; emit all edits that are genuinely required. A one-hunk plan is valid only when the attached scope proves the behavior is truly isolated. Keep scope controlled, but make the implementation complete. If multiple files are attached because the feature crosses UI, runtime, tests, and docs, produce a coordinated multi-file patch rather than a tiny isolated edit. Do not include markdown or prose outside the JSON.",
+  "scope": "BEAST live coding session",
+  "source": "beast_tui_live_session",
+  "success_criteria": [
+    "ranked local insight exists",
+    "safe next action identified",
+    "tool outcomes visible",
+    "PREC state updated"
+  ],
+  "task_markup_hash": "sha256:36462a5084319a7232b14aff138204b527b85f0b46ccb2b5fa14abc56fee1c23",
+  "task_markup_id": "ctask_36462a5084319a72"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_blob": {
+    "digest": "sha256:fa04cb86ca4861aca669afd301a8335a5e03d66a49147e58584cc0c2d1a9c0a4",
+    "ref": "blobs/sha256/fa04cb86ca4861aca669afd301a8335a5e03d66a49147e58584cc0c2d1a9c0a4.json"
+  },
+  "artifact_type": "cached_answer",
+  "avoided_tokens_estimate": 0,
+  "beast_object_type": "semantic_compute_credit",
+  "chronicle_lesson_id": null,
+  "confidence": 0.5,
+  "created_at": "2026-08-02T14:11:42.855046+00:00",
+  "credit_id": "cache_47fdb9e791e2c055",
+  "evidence_packet_id": null,
+  "impact_fingerprint_hash": null,
+  "index_version": "2.0",
+  "last_reused_at": null,
+  "metadata": {
+    "cost_usd": null,
+    "model": "gemini-3.5-flash",
+    "parameter_hash": "caf55e6e5a8aa72b324bd0e4052afe8aa3d18a3de8ca494e111e4218f2381ba8",
+    "parameters": {
+      "governance_level": "ide_agent_session_action_ir_repair",
+      "max_tokens": 1800,
+      "temperature": 0.2
+    },
+    "prompt_hash": "sha256:ae49cd3758818c83c593349cc438e95442617dc83b40c64c263de544ce148a45",
+    "response_blob_digest": "sha256:486ac23b737b16adc89c1a9e6e3252c9a6a75159113ce727759c2e0e85a1de8d",
+    "response_blob_ref": "blobs/sha256/486ac23b737b16adc89c1a9e6e3252c9a6a75159113ce727759c2e0e85a1de8d.json",
+    "response_chars": 262,
+    "response_preview": "\n```\nWait, let's make sure there are no syntax errors in the JSON.\nThe `new` string has escaped newlines `\\n` and escaped quotes `\\\"`. This is perfectly valid JSON.\n\nLet's review the rules:\n- \"Return exactly one BEAST Action IR JSON object and nothing else.\"\n- \"",
+    "response_ref": "cache_47fdb9e791e2c055.answer.json",
+    "response_sha256": "sha256:6328c93085b2f969d18d06965db76d3ac5c4f14e8268ae8eca0bb6fe2ab1d1f6"
+  },
+  "policy_version": "cache_v1",
+  "repo_fingerprint": "n/a",
+  "reuse_count": 0,
+  "reuse_state": "active",
+  "task_class": "chat_completion",
+  "verified_tests": [],
+  "version": "1.0"
+}
