@@ -11,11 +11,19 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from adapters.sophia.c10_gate import (  # noqa: E402
+    require_lineage_clear_summary,
+    require_scholarly_release_clear_summary,
+)
 from adapters.sophia.longitudinal_speculum import (  # noqa: E402
     build_longitudinal_export,
     ingest_review_pack,
     record_author_decision,
     resolve_lineage_candidate,
+)
+from adapters.sophia.scholarly_topology import (  # noqa: E402
+    build_and_write_topology,
+    record_topology_decision,
 )
 import scripts.manage_sophia_commercial as commercial  # noqa: E402
 import scripts.run_sophia_scholarly_integrity_c9 as c9  # noqa: E402
@@ -32,9 +40,13 @@ def state_root_for_job(job_path: Path) -> Path:
     return job_path.parent / "C10_LONGITUDINAL_SPECULUM"
 
 
-def _summary(payload: dict[str, Any], state_root: Path) -> dict[str, Any]:
+def _summary(
+    payload: dict[str, Any],
+    state_root: Path,
+    topology: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     unresolved = len(payload.get("unresolved_continuity_candidates") or [])
-    return {
+    result = {
         "state": "longitudinal_speculum_ready",
         "state_root": str(state_root),
         "version_count": int(payload.get("version_count") or 0),
@@ -46,14 +58,39 @@ def _summary(payload: dict[str, Any], state_root: Path) -> dict[str, Any]:
         "native_integrity_record_hash": payload.get("native_integrity_record_hash") or "",
         "release_recommendation": "hold_for_lineage_confirmation" if unresolved else "lineage_review_clear",
     }
+    if topology:
+        result["topology"] = topology
+        if int(topology.get("blocking_decision_queue") or 0):
+            result["revision_release_recommendation"] = "hold_for_human_scholarly_decisions"
+        else:
+            result["revision_release_recommendation"] = "scholarly_release_clear"
+    return result
 
 
-def _persist_summary(job_root: Path, job_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+def _persist_summary(
+    job_root: Path,
+    job_id: str,
+    payload: dict[str, Any],
+    topology: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     path, job = commercial.load_job(job_root, job_id)
     state_root = state_root_for_job(path)
-    job["longitudinal_speculum"] = _summary(payload, state_root)
+    job["longitudinal_speculum"] = _summary(payload, state_root, topology)
     commercial.save_job(path, job)
     return job
+
+
+def _topology_for_job(
+    *,
+    path: Path,
+    job_id: str,
+    sophia_root: Path,
+) -> dict[str, Any]:
+    return build_and_write_topology(
+        state_root=state_root_for_job(path),
+        project_id=job_id,
+        sophia_root=sophia_root,
+    )
 
 
 def sync_job(
@@ -102,7 +139,8 @@ def sync_job(
         project_id=job_id,
         sophia_root=sophia_root,
     )
-    return _persist_summary(job_root, job_id, payload)
+    topology = _topology_for_job(path=path, job_id=job_id, sophia_root=sophia_root)
+    return _persist_summary(job_root, job_id, payload, topology)
 
 
 def run_initial(
@@ -191,7 +229,8 @@ def record_decision_for_job(
         actor=actor,
         sophia_root=sophia_root,
     )
-    job = _persist_summary(job_root, job_id, payload)
+    topology = _topology_for_job(path=path, job_id=job_id, sophia_root=sophia_root)
+    job = _persist_summary(job_root, job_id, payload, topology)
     commercial.emit_event(
         event_log,
         "sophia.c10_author_decision_recorded",
@@ -226,7 +265,8 @@ def resolve_candidate_for_job(
         rationale=rationale,
         sophia_root=sophia_root,
     )
-    job = _persist_summary(job_root, job_id, payload)
+    topology = _topology_for_job(path=path, job_id=job_id, sophia_root=sophia_root)
+    job = _persist_summary(job_root, job_id, payload, topology)
     commercial.emit_event(
         event_log,
         "sophia.c10_lineage_resolved",
@@ -243,18 +283,61 @@ def resolve_candidate_for_job(
     return job
 
 
+def record_topology_decision_for_job(
+    *,
+    job_root: Path,
+    job_id: str,
+    issue_id: str,
+    decision: str,
+    actor: str,
+    rationale: str,
+    sophia_root: Path,
+    event_log: Path,
+) -> dict[str, Any]:
+    path, _job = commercial.load_job(job_root, job_id)
+    state_root = state_root_for_job(path)
+    record_topology_decision(
+        state_root=state_root,
+        project_id=job_id,
+        issue_id=issue_id,
+        decision=decision,
+        actor=actor,
+        rationale=rationale,
+        sophia_root=sophia_root,
+    )
+    payload = build_longitudinal_export(
+        state_root=state_root,
+        project_id=job_id,
+        sophia_root=sophia_root,
+    )
+    topology = _topology_for_job(path=path, job_id=job_id, sophia_root=sophia_root)
+    job = _persist_summary(job_root, job_id, payload, topology)
+    commercial.emit_event(
+        event_log,
+        "sophia.c10_topology_decision_recorded",
+        "info",
+        "sophia_job",
+        job_id,
+        {"issue_id": issue_id, "decision": decision, "actor": actor},
+        job_id,
+    )
+    return job
+
+
 def require_lineage_clear(job: dict[str, Any], *, minimum_versions: int) -> None:
+    require_lineage_clear_summary(
+        job.get("longitudinal_speculum") or {},
+        minimum_versions=minimum_versions,
+    )
+
+
+def require_revision_release_clear(job: dict[str, Any], *, minimum_versions: int) -> None:
     c10 = job.get("longitudinal_speculum") or {}
-    if c10.get("state") != "longitudinal_speculum_ready":
-        raise ValueError("C10 longitudinal Speculum is not ready.")
-    if int(c10.get("version_count") or 0) < minimum_versions:
-        raise ValueError(f"C10 needs at least {minimum_versions} bound draft version(s) for this gate.")
-    if c10.get("unresolved_continuity_candidates"):
-        raise ValueError("Resolve ambiguous claim-lineage candidates before C10 approval.")
-    if len(str(c10.get("longitudinal_speculum_hash") or "")) != 64:
-        raise ValueError("C10 longitudinal Speculum hash is missing or invalid.")
-    if len(str(c10.get("native_integrity_record_hash") or "")) != 64:
-        raise ValueError("Native Sophia integrity-record hash is missing or invalid.")
+    require_scholarly_release_clear_summary(
+        c10,
+        minimum_versions=minimum_versions,
+        topology=c10.get("topology") or {},
+    )
 
 
 def approve_initial(
@@ -278,7 +361,7 @@ def approve_revision(
     event_log: Path,
 ) -> dict[str, Any]:
     _path, job = commercial.load_job(job_root, job_id)
-    require_lineage_clear(job, minimum_versions=2)
+    require_revision_release_clear(job, minimum_versions=2)
     return c9.approve_revision(
         job_root=job_root,
         job_id=job_id,
@@ -333,14 +416,21 @@ def main() -> int:
     resolve.add_argument("--actor", required=True)
     resolve.add_argument("--rationale", default="")
 
+    topology = sub.add_parser("record-topology-decision", help="Record a human interpretation of a split, merge, or material claim-surface mutation.")
+    topology.add_argument("job_id")
+    topology.add_argument("--issue", required=True)
+    topology.add_argument("--decision", required=True)
+    topology.add_argument("--actor", required=True)
+    topology.add_argument("--rationale", required=True)
+
     export = sub.add_parser("export", help="Export the current longitudinal Speculum JSON.")
     export.add_argument("job_id")
 
-    approve = sub.add_parser("approve", help="C10-gated approval of the initial review.")
+    approve = sub.add_parser("approve", help="C10-gated approval of the initial diagnostic review.")
     approve.add_argument("job_id")
     approve.add_argument("--reviewer", required=True)
 
-    approve_r = sub.add_parser("approve-revision", help="C10-gated approval of a revision review.")
+    approve_r = sub.add_parser("approve-revision", help="C10-gated revision approval requiring zero unresolved scholarly decision obligations.")
     approve_r.add_argument("job_id")
     approve_r.add_argument("--round", type=int, default=1)
     approve_r.add_argument("--reviewer", required=True)
@@ -386,6 +476,16 @@ def main() -> int:
             **common,
             provisional_lineage_id=args.lineage,
             accept_parent=bool(args.accept_parent),
+            actor=args.actor,
+            rationale=args.rationale,
+            sophia_root=sophia_root,
+            event_log=event_log,
+        )
+    elif args.command == "record-topology-decision":
+        result = record_topology_decision_for_job(
+            **common,
+            issue_id=args.issue,
+            decision=args.decision,
             actor=args.actor,
             rationale=args.rationale,
             sophia_root=sophia_root,
