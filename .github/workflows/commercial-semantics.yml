@@ -12,7 +12,9 @@ on:
       - "schemas/dio.commercial_*.json"
       - "schemas/dio.conversation_context.v1.schema.json"
       - "schemas/dio.semantic_judgement.v1.schema.json"
+      - "schemas/dio.mandos_pattern.v1.schema.json"
       - "scripts/manage_mail_intent.py"
+      - "scripts/manage_mandos.py"
       - "scripts/manage_prospect_outreach.py"
       - "scripts/prospect_outreach_copy.py"
       - "scripts/manage_product_workflow.py"
@@ -20,6 +22,8 @@ on:
       - "scripts/prepare_conversation_reply.py"
       - "scripts/reconcile_conversation_context.py"
       - "scripts/run_commercial_orchestrator.py"
+      - "scripts/run_hivenance_market_agents.py"
+      - "scripts/run_nichefoundry_jobs.py"
       - "scripts/serve_presence_bridge.py"
       - "scripts/sync_outlook_mail.py"
       - "market_command/agency.py"
@@ -29,6 +33,7 @@ on:
       - "tests/test_commercial_expression*.py"
       - "tests/test_conversation_context*.py"
       - "tests/test_semantic_*.py"
+      - "tests/test_mandos_*.py"
       - ".github/workflows/commercial-semantics.yml"
   workflow_dispatch:
 
@@ -38,7 +43,7 @@ permissions:
 jobs:
   commercial-semantics:
     runs-on: ubuntu-latest
-    timeout-minutes: 7
+    timeout-minutes: 9
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -46,7 +51,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Compile C1-C5 semantic modules and outbound producers
+      - name: Compile C1-C6 semantic modules, memory, and outbound producers
         run: |
           python -m py_compile \
             commerce/semantic.py \
@@ -56,6 +61,9 @@ jobs:
             commerce/prospect_bridge.py \
             commerce/vendor_bridge.py \
             commerce/workflow_bridge.py \
+            commerce/mandos.py \
+            commerce/mandos_reconcile.py \
+            commerce/mandos_feedback.py \
             commerce/beast_semantic_governance.py \
             commerce/semantic_judgement.py \
             conversation_core/context.py \
@@ -65,6 +73,7 @@ jobs:
             presence_core/router.py \
             presence_core/llm.py \
             scripts/manage_mail_intent.py \
+            scripts/manage_mandos.py \
             scripts/manage_prospect_outreach.py \
             scripts/prospect_outreach_copy.py \
             scripts/manage_product_workflow.py \
@@ -72,12 +81,14 @@ jobs:
             scripts/prepare_conversation_reply.py \
             scripts/reconcile_conversation_context.py \
             scripts/run_commercial_orchestrator.py \
+            scripts/run_hivenance_market_agents.py \
+            scripts/run_nichefoundry_jobs.py \
             scripts/serve_presence_bridge.py \
             scripts/sync_outlook_mail.py \
             market_command/agency.py \
             market_command/agency_copy.py \
             cross_folder_variants/EdgeK-BEAST/A_CODE/app/kernel/storage/evidence_scoring.py
-      - name: Run C1-C5 semantic regression suite
+      - name: Run C1-C6 semantic and outcome-memory regression suite
         run: |
           python -m unittest \
             tests.test_commercial_semantic_object \
@@ -93,4 +104,9 @@ jobs:
             tests.test_semantic_judgement_outlook_gate \
             tests.test_semantic_judgement_idempotence \
             tests.test_semantic_mail_binding_gate \
-            tests.test_semantic_judgement_agency
+            tests.test_semantic_judgement_agency \
+            tests.test_mandos_outcome_memory \
+            tests.test_mandos_beast_memory \
+            tests.test_mandos_reconcile \
+            tests.test_mandos_feedback \
+            tests.test_mandos_silence
