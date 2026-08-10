@@ -171,9 +171,10 @@ class SophiaC10LongitudinalTests(unittest.TestCase):
             "draft_version_id": "draft-old",
         }
         registry = {
+            "versions": [{"draft_version_id": "draft-old", "revision_label": "initial"}],
             "lineages": {
                 "lineage-old": {"state": "active", "occurrences": [prior]},
-            }
+            },
         }
         current = {
             "claim": "Formative feedback supports stronger writing by postgraduate researchers.",
