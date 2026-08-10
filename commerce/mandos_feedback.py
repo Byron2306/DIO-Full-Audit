@@ -130,14 +130,17 @@ def enrich_nichefoundry_cso_with_mandos(
         for row in facts
         if isinstance(row, dict)
     }
+    outcome_refs: list[str] = []
     for outcome in feedback.get("outcomes") or []:
         outcome_id = str(outcome.get("outcome_id") or "")
         outcome_type = str(outcome.get("outcome_type") or "")
         case_id = str(outcome.get("case_id") or "")
         if not outcome_id or not outcome_type:
             continue
+        source_ref = f"mandos_outcome:{outcome_id}"
+        outcome_refs.append(source_ref)
         statement = f"Observed commercial outcome: {outcome_type} in independent case {case_id}."
-        source_refs = [f"mandos_outcome:{outcome_id}"]
+        source_refs = [source_ref]
         key = (statement, tuple(source_refs))
         if key in existing:
             continue
@@ -149,13 +152,7 @@ def enrich_nichefoundry_cso_with_mandos(
         ))
         existing.add(key)
     enriched.setdefault("truth", {})["verified_facts"] = facts
-    enriched.setdefault("provenance", {})["mandos_feedback"] = {
-        "campaign_id": feedback.get("campaign_id"),
-        "outcome_ids": [row.get("outcome_id") for row in feedback.get("outcomes") or []],
-        "pattern_keys": [row.get("pattern_key") for row in feedback.get("patterns") or []],
-        "synthetic_score_added": False,
-        "customer_truth_overwritten": False,
-        "execution_authority_added": False,
-    }
+    authority = enriched.setdefault("authority", {})
+    authority["evidence_refs"] = list(dict.fromkeys([*(authority.get("evidence_refs") or []), *outcome_refs]))
     assert_valid_commercial_semantic_object(enriched)
     return enriched
