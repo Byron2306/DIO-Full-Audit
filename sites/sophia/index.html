@@ -1,409 +1,56 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Sophia provides literature discovery, technical reference checking, claim-source mapping, and human-reviewed academic commentary for postgraduate manuscript sections.">
-  <title>Sophia Academic Review Desk</title>
-  <style>
-    :root {
-      --ink: #15242a;
-      --muted: #586970;
-      --paper: #ffffff;
-      --mist: #eef3f1;
-      --teal: #086b65;
-      --teal-dark: #084c49;
-      --red: #a44236;
-      --ochre: #d08b2d;
-      --line: #cbd7d3;
-      --max: 1180px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--paper);
-      font-family: Inter, Aptos, "Segoe UI", Arial, sans-serif;
-      font-size: 17px;
-      line-height: 1.55;
-      letter-spacing: 0;
-    }
-    a { color: inherit; }
-    .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
-    .site-nav { min-height: 66px; display: flex; align-items: center; background: #fff; border-bottom: 1px solid var(--line); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; font-weight: 900; }
-    .brand strong { color: var(--teal); font: 800 25px Georgia, serif; }
-    .brand span { color: var(--muted); font-size: 13px; }
-    .nav-links { display: flex; align-items: center; gap: 24px; font-size: 14px; font-weight: 800; }
-    .nav-links a { text-decoration: none; }
-    .nav-links a:hover { color: var(--teal); }
-    .button {
-      min-height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 18px;
-      border: 1px solid var(--teal);
-      border-radius: 5px;
-      background: var(--teal);
-      color: #fff;
-      font: inherit;
-      font-weight: 850;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .button:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
-    .button.secondary { background: #fff; color: var(--teal); }
-    .hero {
-      position: relative;
-      min-height: min(730px, calc(100svh - 66px));
-      display: flex;
-      align-items: center;
-      background: #f0f3f0 url("assets/sophia-review-hero.png") center center / cover no-repeat;
-      border-bottom: 1px solid var(--line);
-    }
-    .hero::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 62%; background: rgba(255,255,255,.9); clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%); }
-    .hero-inner { position: relative; z-index: 1; width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
-    .hero-copy { width: min(590px, 52%); padding-block: 64px; }
-    .eyebrow { margin: 0 0 14px; color: var(--red); font-size: 13px; font-weight: 900; text-transform: uppercase; }
-    h1, h2, h3 { margin: 0; line-height: 1.08; letter-spacing: 0; }
-    h1 { font: 800 76px Georgia, "Times New Roman", serif; }
-    h2 { font: 800 46px Georgia, "Times New Roman", serif; }
-    h3 { font-size: 21px; }
-    .hero-copy > p:not(.eyebrow) { max-width: 570px; margin: 22px 0 0; color: #33454b; font-size: 20px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .microcopy { margin-top: 18px; color: var(--muted); font-size: 13px; font-weight: 750; }
-    .facts { background: var(--teal-dark); color: #fff; }
-    .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .fact { min-height: 108px; padding: 24px; border-right: 1px solid rgba(255,255,255,.18); }
-    .fact:last-child { border-right: 0; }
-    .fact strong { display: block; font: 800 25px Georgia, serif; }
-    .fact span { color: #cfe3df; font-size: 13px; }
-    section { padding: 88px 0; }
-    .section-head { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: 64px; align-items: end; margin-bottom: 42px; }
-    .section-head p { margin: 0; color: var(--muted); font-size: 19px; }
-    .deliverable-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); border-right: 0; }
-    .deliverable { min-height: 220px; padding: 24px 20px; border-right: 1px solid var(--line); background: #fff; }
-    .deliverable b { display: block; color: var(--red); font-size: 12px; margin-bottom: 18px; }
-    .deliverable p { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
-    .proof { background: var(--mist); }
-    .proof-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 52px; align-items: start; }
-    .proof-copy p { color: var(--muted); }
-    .proof-list { margin-top: 28px; border-top: 1px solid var(--line); }
-    .proof-row { display: grid; grid-template-columns: 46px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-    .proof-row strong { color: var(--teal); font-size: 20px; }
-    .proof-row span { color: var(--muted); font-size: 14px; }
-    .receipt { border: 1px solid var(--line); background: #fff; }
-    .receipt-head { display: flex; justify-content: space-between; gap: 20px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
-    .receipt-head span { color: var(--teal); font-weight: 900; }
-    .receipt-body { padding: 22px 20px; }
-    .check { display: grid; grid-template-columns: 18px 1fr; gap: 11px; align-items: start; padding: 11px 0; border-bottom: 1px solid #e9eeec; font-size: 14px; }
-    .check:last-child { border-bottom: 0; }
-    .check i { width: 17px; height: 17px; border-radius: 50%; background: var(--teal); color: #fff; font-style: normal; font-size: 11px; line-height: 17px; text-align: center; }
-    .receipt-note { margin: 0; padding: 15px 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
-    .process-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; }
-    .step { border-top: 3px solid var(--teal); padding-top: 17px; }
-    .step b { color: var(--ochre); font-size: 13px; }
-    .step h3 { margin-top: 9px; font-size: 19px; }
-    .step p { color: var(--muted); font-size: 14px; }
-    .boundary { background: #fff7eb; border-block: 1px solid #ecd1a9; }
-    .boundary-inner { display: grid; grid-template-columns: .7fr 1.3fr; gap: 60px; align-items: start; }
-    .boundary ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid #dfc29a; }
-    .boundary li { padding: 13px 0; border-bottom: 1px solid #dfc29a; }
-    .boundary li strong { color: var(--red); }
-    .intake { background: #18262c; color: #fff; }
-    .intake .section-head p { color: #cbd7da; }
-    form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    label { display: grid; gap: 7px; font-size: 14px; font-weight: 800; }
-    label.full, fieldset, .form-actions, .form-status { grid-column: 1 / -1; }
-    input, select, textarea {
-      width: 100%; min-height: 48px; padding: 11px 12px; border: 1px solid #84949a;
-      border-radius: 4px; background: #fff; color: var(--ink); font: inherit;
-    }
-    textarea { min-height: 128px; resize: vertical; }
-    fieldset { margin: 4px 0 0; padding: 18px; border: 1px solid #6f8289; border-radius: 4px; }
-    legend { padding: 0 7px; font-size: 14px; font-weight: 900; }
-    .consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; margin: 9px 0; font-weight: 500; }
-    .consent input { width: 18px; min-height: 18px; margin-top: 3px; }
-    .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-    .form-status { min-height: 26px; color: #d3e1e2; font-size: 14px; }
-    footer { padding: 28px 0; background: #101b20; color: #bac7ca; font-size: 13px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 24px; }
-    :focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; }
-    @media (max-width: 980px) {
-      .deliverable-grid { grid-template-columns: repeat(2, 1fr); }
-      .deliverable { min-height: 175px; border-bottom: 1px solid var(--line); }
-      .process-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 760px) {
-      .nav-links a:not(.button) { display: none; }
-      .brand span { display: none; }
-      .hero { min-height: 690px; background-position: 66% center; }
-      .hero::after { width: 100%; background: rgba(255,255,255,.84); clip-path: none; }
-      .hero-copy { width: 100%; }
-      .facts-grid, .section-head, .proof-grid, .boundary-inner, form { grid-template-columns: 1fr; }
-      .fact { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
-      .fact:last-child { border-bottom: 0; }
-      section { padding: 64px 0; }
-      .section-head { gap: 20px; }
-      label.full, fieldset, .form-actions, .form-status { grid-column: auto; }
-      .footer-inner { display: block; }
-    }
-    @media (max-width: 520px) {
-      .wrap, .hero-inner { width: min(100% - 28px, var(--max)); }
-      h1 { font-size: 48px; }
-      h2 { font-size: 36px; }
-      .deliverable-grid, .process-grid { grid-template-columns: 1fr; }
-      .actions .button, .form-actions .button { width: 100%; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sophia provides human-reviewed scholarly-integrity diagnostics: claim-evidence fit, reference integrity, source verification, authorship-preserving revision and governed academic commentary.">
+<title>Sophia | Scholarly Integrity Review</title>
+<style>
+:root{--ink:#13242a;--muted:#5b6b71;--paper:#fff;--mist:#eef4f1;--teal:#075f59;--teal2:#0b7770;--red:#a64036;--ochre:#d28a2f;--gold:#f6e7c9;--line:#cbd7d3;--deep:#101d22;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font:17px/1.55 Inter,Aptos,"Segoe UI",Arial,sans-serif}a{color:inherit}.wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}.nav{min-height:68px;display:flex;align-items:center;border-bottom:1px solid var(--line);background:#fff}.navin{display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{text-decoration:none;display:flex;align-items:baseline;gap:10px}.brand strong{font:800 28px Georgia,serif;color:var(--teal)}.brand span{font-size:13px;color:var(--muted);font-weight:800}.links{display:flex;gap:22px;align-items:center;font-size:14px;font-weight:800}.links a{text-decoration:none}.btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border:1px solid var(--teal);border-radius:5px;background:var(--teal);color:#fff;text-decoration:none;font:inherit;font-weight:850;cursor:pointer}.btn:hover{background:#064742}.btn.secondary{background:#fff;color:var(--teal)}.hero{position:relative;min-height:min(760px,calc(100svh - 68px));display:flex;align-items:center;background:#edf2ef url("assets/sophia-review-hero.png") 72% center/cover no-repeat;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fffffff5 0%,#ffffffef 45%,#ffffff5c 70%,#ffffff05 100%)}.hero-inner{position:relative;width:min(var(--max),calc(100% - 40px));margin-inline:auto}.hero-copy{width:min(650px,58%);padding:70px 0}.eyebrow{margin:0 0 14px;color:var(--red);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}h1,h2,h3{margin:0;line-height:1.08}h1{font:800 clamp(50px,6.2vw,80px) Georgia,serif}h2{font:800 clamp(34px,4vw,50px) Georgia,serif}h3{font-size:21px}.hero-copy>p:not(.eyebrow){max-width:620px;margin:22px 0 0;color:#33464c;font-size:20px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.micro{margin-top:17px!important;color:var(--muted)!important;font-size:13px!important;font-weight:750}.facts{background:var(--deep);color:#fff}.facts-grid{display:grid;grid-template-columns:repeat(4,1fr)}.fact{padding:24px;min-height:110px;border-right:1px solid #ffffff26}.fact:last-child{border-right:0}.fact strong{display:block;font:800 25px Georgia,serif}.fact span{color:#c8dad7;font-size:13px}section{padding:88px 0}.section-head{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:64px;align-items:end;margin-bottom:42px}.section-head p{margin:0;color:var(--muted);font-size:19px}.integrity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;padding:26px;border-radius:6px}.card .num{display:block;color:var(--red);font-size:12px;font-weight:900;margin-bottom:16px}.card p{color:var(--muted);font-size:14px;margin-bottom:0}.speculum{background:var(--mist)}.spec-grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:48px;align-items:start}.spec-copy p{color:var(--muted)}.mirror{border:1px solid var(--line);background:#fff;border-radius:7px;overflow:hidden}.mirror-head{padding:16px 20px;background:var(--teal);color:#fff;font-weight:900}.claim{padding:20px;border-bottom:1px solid var(--line)}.claim-label{color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase}.claim-text{font:700 20px/1.35 Georgia,serif;margin-top:7px}.flow{display:grid;grid-template-columns:repeat(4,1fr);background:#fafcfb}.flow>div{padding:18px;border-right:1px solid var(--line);font-size:13px}.flow>div:last-child{border-right:0}.flow b{display:block;color:var(--teal);margin-bottom:5px}.alert{padding:17px 20px;background:#fff7e9;border-top:1px solid #efd0a3;font-size:14px}.pack{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-right:0}.artifact{padding:22px 18px;min-height:190px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.artifact b{display:block;color:var(--red);font-size:12px;margin-bottom:12px}.artifact p{color:var(--muted);font-size:13px}.revision{background:#14242a;color:#fff}.revision .section-head p{color:#c8d5d8}.rev-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid #ffffff30}.rev{padding:24px;border-right:1px solid #ffffff30;min-height:180px}.rev:last-child{border-right:0}.rev b{color:#f0bd72;font-size:12px}.rev h3{margin-top:9px}.rev p{color:#c9d6d9;font-size:14px}.boundary{background:#fff5e7;border-block:1px solid #ebcca1}.boundary-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:55px}.boundary-list{border-top:1px solid #e1c394}.boundary-row{padding:15px 0;border-bottom:1px solid #e1c394}.boundary-row strong{color:var(--red)}.audiences{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.audience{border-top:4px solid var(--teal);padding:24px;background:#fff;border-inline:1px solid var(--line);border-bottom:1px solid var(--line)}.audience p{color:var(--muted);font-size:14px}.intake{background:#17272d;color:#fff}.intake .section-head p{color:#c7d5d8}form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:7px;font-size:14px;font-weight:800}label.full,fieldset,.form-actions,.status{grid-column:1/-1}input,select,textarea{width:100%;min-height:48px;padding:11px 12px;border:1px solid #7d8f95;border-radius:4px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:130px;resize:vertical}fieldset{border:1px solid #6c8087;border-radius:4px;padding:18px}legend{padding:0 7px;font-weight:900;font-size:14px}.consent{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;margin:9px 0;font-weight:500}.consent input{width:18px;min-height:18px;margin-top:3px}.form-actions{display:flex;gap:12px;flex-wrap:wrap}.status{min-height:24px;color:#d5e2e4;font-size:14px}footer{padding:28px 0;background:#0e191e;color:#b8c6c9;font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px}:focus-visible{outline:3px solid var(--ochre);outline-offset:3px}@media(max-width:980px){.integrity-grid,.audiences{grid-template-columns:repeat(2,1fr)}.pack{grid-template-columns:repeat(2,1fr)}.rev-flow{grid-template-columns:1fr 1fr}.rev{border-bottom:1px solid #ffffff30}}@media(max-width:760px){.links a:not(.btn),.brand span{display:none}.hero{min-height:690px;background-position:70% center}.hero:before{background:#ffffffe8}.hero-copy{width:100%}.facts-grid,.section-head,.spec-grid,.boundary-grid,form{grid-template-columns:1fr}.fact{border-right:0;border-bottom:1px solid #ffffff26}.flow{grid-template-columns:1fr 1fr}.flow>div{border-bottom:1px solid var(--line)}section{padding:64px 0}label.full,fieldset,.form-actions,.status{grid-column:auto}}@media(max-width:520px){.wrap,.hero-inner{width:min(100% - 28px,var(--max))}.integrity-grid,.pack,.audiences,.rev-flow,.flow{grid-template-columns:1fr}.actions .btn,.form-actions .btn{width:100%}.foot{display:block}}
+</style>
 </head>
 <body>
-  <nav class="site-nav" aria-label="Primary navigation">
-    <div class="wrap nav-inner">
-      <a class="brand" href="#top"><strong>Sophia</strong><span>Academic Review Desk</span></a>
-      <div class="nav-links">
-        <a href="#review-pack">Review pack</a>
-        <a href="#proof">Proof</a>
-        <a class="button" href="#request">Request a review</a>
-      </div>
-    </div>
-  </nav>
-
-  <main id="top">
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow">Postgraduate manuscript review</p>
-          <h1>Sophia Academic Review.</h1>
-          <p>See where your argument, evidence, and references hold together, and exactly where they need attention, before the next supervisor meeting.</p>
-          <div class="actions">
-            <a class="button" href="#request">Request the $49 pilot</a>
-            <a class="button secondary" href="#proof">Inspect the proof</a>
-          </div>
-          <p class="microcopy">Up to 5,000 words · One revision round · Target: 3 working days · Human reviewed</p>
-        </div>
-      </div>
-    </header>
-
-    <div class="facts" aria-label="Service facts">
-      <div class="wrap facts-grid">
-        <div class="fact"><strong>$49</strong><span>launch pilot price</span></div>
-        <div class="fact"><strong>5,000</strong><span>word maximum</span></div>
-        <div class="fact"><strong>5 outputs</strong><span>in one diagnostic pack</span></div>
-        <div class="fact"><strong>Human gate</strong><span>before any delivery</span></div>
-      </div>
-    </div>
-
-    <section id="review-pack">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>One section. Five useful views.</h2>
-          <p>Sophia does not return a generic score or rewrite your work. It separates the review into inspectable evidence, reference, claim, and commentary layers.</p>
-        </div>
-        <div class="deliverable-grid">
-          <article class="deliverable"><b>01</b><h3>Literature map</h3><p>Discovery leads aligned to the research question, with source metadata for verification.</p></article>
-          <article class="deliverable"><b>02</b><h3>Reference audit</h3><p>Technical inconsistencies, missing details, unresolved identifiers, and citation-list mismatches.</p></article>
-          <article class="deliverable"><b>03</b><h3>Claim ledger</h3><p>Material claims anchored to manuscript locations and compared with the supplied evidence.</p></article>
-          <article class="deliverable"><b>04</b><h3>Reviewer commentary</h3><p>Gemini-assisted comments anchored to known passages, then checked against the review context.</p></article>
-          <article class="deliverable"><b>05</b><h3>Approval receipt</h3><p>A clear record of the provider, grounding checks, review state, and human release decision.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="proof" id="proof">
-      <div class="wrap proof-grid">
-        <div class="proof-copy">
-          <p class="eyebrow">Controlled proof run · SOPHIA-DEMO-001</p>
-          <h2>The engine has already produced a grounded pack.</h2>
-          <p>The first controlled run used the live Sophia reasoning lane and returned all five review artifacts. Its release validator accepted the Gemini provider, manuscript anchors, Mandos policy checks, and citation boundaries.</p>
-          <div class="proof-list">
-            <div class="proof-row"><strong>5</strong><span>candidate literature sources surfaced for human verification</span></div>
-            <div class="proof-row"><strong>5</strong><span>material manuscript claims traced through the ledger</span></div>
-            <div class="proof-row"><strong>3</strong><span>reference entries inspected, with two technical findings</span></div>
-            <div class="proof-row"><strong>1</strong><span>complete ZIP prepared for the human review gate</span></div>
-          </div>
-        </div>
-        <div class="receipt" aria-label="Grounding receipt">
-          <div class="receipt-head"><strong>Grounding receipt</strong><span>Passed</span></div>
-          <div class="receipt-body">
-            <div class="check"><i>✓</i><span>Gemini provider completed the reasoned review lane</span></div>
-            <div class="check"><i>✓</i><span>Mandos integrity policy checks passed</span></div>
-            <div class="check"><i>✓</i><span>Reviewer comments included valid manuscript anchors</span></div>
-            <div class="check"><i>✓</i><span>No unknown manuscript anchors were introduced</span></div>
-            <div class="check"><i>✓</i><span>No unknown citations or DOI identifiers were introduced</span></div>
-            <div class="check"><i>✓</i><span>Human review remained required before release</span></div>
-          </div>
-          <p class="receipt-note">Proof metrics describe a controlled demonstration, not a promise that every manuscript will produce the same number of findings.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <h2>From request to reviewed pack.</h2>
-          <p>The transaction stays visible in DIO from intake through payment, Gemini processing, operator approval, and the final Outlook delivery draft.</p>
-        </div>
-        <div class="process-grid">
-          <article class="step"><b>01 · Qualify</b><h3>Send the brief</h3><p>Tell us the section length, research question, citation style, and review priority.</p></article>
-          <article class="step"><b>02 · Authorize</b><h3>Private intake</h3><p>Receive a controlled manuscript intake route after scope and consent are confirmed.</p></article>
-          <article class="step"><b>03 · Confirm</b><h3>Secure payment</h3><p>DIO issues the PayPal checkout. Processing begins only after verified payment.</p></article>
-          <article class="step"><b>04 · Review</b><h3>Build the pack</h3><p>Sophia runs discovery, technical checks, claim mapping, and anchored Gemini commentary.</p></article>
-          <article class="step"><b>05 · Release</b><h3>Human approval</h3><p>An operator reviews the artifacts before Outlook prepares the final delivery.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="boundary">
-      <div class="wrap boundary-inner">
-        <div><p class="eyebrow">Academic integrity boundary</p><h2>Your work remains yours.</h2></div>
-        <ul>
-          <li><strong>No ghostwriting.</strong> Sophia diagnoses and comments; it does not produce a submission in your voice.</li>
-          <li><strong>No fabricated references.</strong> Discovery leads remain candidates until you inspect the full publication.</li>
-          <li><strong>No automatic release.</strong> Payment does not bypass grounding checks or the human approval gate.</li>
-          <li><strong>No manuscript by open email.</strong> Qualified clients receive the controlled intake route separately.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="intake" id="request">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Request a Section Review Pilot.</h2>
-          <p>This creates a structured request to the DIO mailbox. Do not attach the manuscript yet; the private intake step follows qualification.</p>
-        </div>
-        <form id="sophiaRequest">
-          <label>Name<input name="name" autocomplete="name" required></label>
-          <label>Email<input name="email" type="email" autocomplete="email" required></label>
-          <label>Institution<input name="institution" autocomplete="organization"></label>
-          <label>Approximate word count<input name="word_count" type="number" min="250" max="5000" step="50" required></label>
-          <label>Citation style<select name="citation_style"><option>APA 7</option><option>Harvard</option><option>Chicago</option><option>IEEE</option><option>Other / unsure</option></select></label>
-          <label>Primary review need<select name="review_need"><option>Literature and source fit</option><option>Technical reference checking</option><option>Argument and evidence</option><option>Full diagnostic pack</option></select></label>
-          <label>Output language<select name="output_language"><option>English</option><option>Afrikaans</option><option>isiZulu</option><option>Sesotho</option><option>Setswana</option></select></label>
-          <label class="full">Working title<input name="title" required></label>
-          <label class="full">Research question or central argument<textarea name="research_question" required></textarea></label>
-          <fieldset>
-            <legend>Required acknowledgements</legend>
-            <label class="consent"><input type="checkbox" name="authorised" required><span>I own the manuscript or am authorised to submit it for review.</span></label>
-            <label class="consent"><input type="checkbox" name="gemini" required><span>I understand that the manuscript section will be processed through the configured Gemini review lane after private intake.</span></label>
-            <label class="consent"><input type="checkbox" name="integrity" required><span>I understand that this is diagnostic review support, not ghostwriting or authorship replacement.</span></label>
-          </fieldset>
-          <div class="form-actions">
-            <button class="button" type="submit">Prepare email request</button>
-            <button class="button secondary" type="button" id="downloadRequest">Download request JSON</button>
-          </div>
-          <div class="form-status" id="formStatus" role="status"></div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap footer-inner"><strong>Sophia Academic Review Desk</strong><span>DIO governed intake · Gemini-assisted review · Human-approved delivery</span></div>
-  </footer>
-
-  <script src="../assets/dio-public-intake.js"></script>
-  <script>
-    const form = document.querySelector("#sophiaRequest");
-    const status = document.querySelector("#formStatus");
-
-    function requestPayload() {
-      const data = new FormData(form);
-      return {
-        schema: "dio.sophia_lead_request.v1",
-        requested_at: new Date().toISOString(),
-        customer: {
-          name: data.get("name"),
-          email: data.get("email"),
-          institution: data.get("institution") || null
-        },
-        service: "SOPHIA_SECTION_REVIEW",
-        manuscript: {
-          title: data.get("title"),
-          approximate_word_count: Number(data.get("word_count")),
-          citation_style: data.get("citation_style"),
-          research_question: data.get("research_question"),
-          primary_review_need: data.get("review_need"),
-          output_language: data.get("output_language")
-        },
-        consents: {
-          manuscript_owner_authorized: data.get("authorised") === "on",
-          gemini_remote_processing_acknowledged: data.get("gemini") === "on",
-          diagnostic_not_ghostwriting_acknowledged: data.get("integrity") === "on"
-        }
-      };
-    }
-
-    function downloadJson(payload) {
-      const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], { type: "application/json" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "SOPHIA_SECTION_REVIEW_REQUEST.json";
-      link.click();
-      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-    }
-
-    document.querySelector("#downloadRequest").addEventListener("click", () => {
-      if (!form.reportValidity()) return;
-      downloadJson(requestPayload());
-      status.textContent = "Structured request downloaded. No manuscript content was included.";
-    });
-
-    form.addEventListener("submit", async event => {
-      event.preventDefault();
-      const payload = requestPayload();
-      const subject = "SOPHIA SECTION REVIEW REQUEST";
-      const body = [
-        "Hello DIO Academic Review Desk,",
-        "",
-        "I would like to request a Sophia Section Review Pilot.",
-        "",
-        `Name: ${payload.customer.name}`,
-        `Email: ${payload.customer.email}`,
-        `Institution: ${payload.customer.institution || "Not supplied"}`,
-        `Working title: ${payload.manuscript.title}`,
-        `Approximate words: ${payload.manuscript.approximate_word_count}`,
-        `Citation style: ${payload.manuscript.citation_style}`,
-        `Primary need: ${payload.manuscript.primary_review_need}`,
-        `Output language: ${payload.manuscript.output_language}`,
-        "",
-        "Research question or central argument:",
-        payload.manuscript.research_question,
-        "",
-        "I confirm manuscript authority, acknowledge Gemini processing after private intake, and understand that the service is diagnostic rather than ghostwriting.",
-        "",
-        "Please send the controlled intake and payment instructions."
-      ].join("\n");
-      const mailto = `mailto:dio_workflows@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      const button = form.querySelector('button[type="submit"]');
-      button.disabled = true;
-      status.textContent = "Submitting to DIO...";
-      try {
-        const receipt = await window.DIOPublicIntake.submit({
-          product: "sophia",
-          offer: "section_review",
-          contact: { name: payload.customer.name, email: payload.customer.email, organisation: payload.customer.institution },
-          request: {
-            ...payload.manuscript,
-            lingua: {
-              source_language: "English",
-              target_language: payload.manuscript.output_language || "English",
-              proficient_review_required: payload.manuscript.output_language !== "English"
-            }
-          },
-          consents: payload.consents,
-          attribution: window.DIOPublicIntake.attribution("sophia_site"),
-        });
-        status.textContent = `Request received. Reference: ${receipt.lead_id}. Do not send the manuscript until DIO supplies the private intake route.`;
-      } catch {
-        window.DIOPublicIntake.showFallback(status, "The online intake could not be reached.", mailto);
-      } finally {
-        button.disabled = false;
-      }
-    });
-  </script>
+<nav class="nav"><div class="wrap navin"><a class="brand" href="#top"><strong>Sophia</strong><span>Scholarly Integrity Desk</span></a><div class="links"><a href="#integrity">Integrity work</a><a href="#pack">Your pack</a><a href="#revision">Revision round</a><a class="btn" href="#request">Request a review</a></div></div></nav>
+<main id="top">
+<header class="hero"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">Governed academic-integrity review</p><h1>Integrity you can inspect.</h1><p>Sophia does not guess whether your paper is “good” and she does not rewrite it for you. She traces claims, evidence, references, provenance, limitations and revision decisions so you can see exactly what your scholarship can and cannot currently carry.</p><div class="actions"><a class="btn" href="#request">Request the $49 pilot</a><a class="btn secondary" href="#speculum">See the Speculum</a></div><p class="micro">Up to 5,000 words · Human reviewed · One author-owned revision round · No misconduct detector theatre</p></div></div></header>
+<div class="facts"><div class="wrap facts-grid"><div class="fact"><strong>$49</strong><span>controlled launch pilot</span></div><div class="fact"><strong>10 artifacts</strong><span>one inspectable integrity pack</span></div><div class="fact"><strong>1 revision</strong><span>before → after integrity movement</span></div><div class="fact"><strong>Human authority</strong><span>before release and final scholarly decisions</span></div></div></div>
+<section id="integrity"><div class="wrap"><div class="section-head"><div><p class="eyebrow">What she actually does</p><h2>Not proofreading. Scholarly integrity work.</h2></div><p>Sophia combines deterministic audits, source-support analysis and governed model cognition. Every useful claim remains tied to visible evidence, uncertainty and a human decision boundary.</p></div><div class="integrity-grid">
+<article class="card"><span class="num">01 · CLAIM BURDEN</span><h3>What kind of claim are you making?</h3><p>Causal, comparative, predictive, normative and other material claims carry different evidence burdens. Sophia records the burden before judging the source fit.</p></article>
+<article class="card"><span class="num">02 · EVIDENCE FIT</span><h3>Does the source carry that claim?</h3><p>Candidate sources are separated into direct, partial, background or non-support. Broad topical similarity is not silently promoted into evidence.</p></article>
+<article class="card"><span class="num">03 · WARRANT + LIMIT</span><h3>What connects evidence to your inference?</h3><p>A visible span can still be insufficient. Sophia surfaces warrant gaps, scope inflation, causal overreach and missing limitations instead of laundering them into confidence.</p></article>
+<article class="card"><span class="num">04 · REFERENCE INTEGRITY</span><h3>Do citations and references reconcile?</h3><p>Cited-but-missing, listed-but-uncited, duplicates, incomplete metadata and technical citation problems are separated from substantive evidence questions.</p></article>
+<article class="card"><span class="num">05 · PROVENANCE</span><h3>What is known, inferred or still unknown?</h3><p>Sources remain verification leads until inspected. Page locators are never invented. Provider, repair and release provenance travel with the review.</p></article>
+<article class="card"><span class="num">06 · AUTHORSHIP</span><h3>Does the author still own the intellectual act?</h3><p>Sophia diagnoses and scaffolds. She does not supply submission-ready replacement prose. Her authorship-preservation signal is explicitly non-forensic and human decisions remain final.</p></article>
+</div></div></section>
+<section class="speculum" id="speculum"><div class="wrap spec-grid"><div class="spec-copy"><p class="eyebrow">The Speculum</p><h2>A mirror, not a surrogate author.</h2><p>Sophia’s deepest object is the Speculum ledger: claim → evidence → warrant → limitation → provenance → next action. It records what the system can see and what it cannot justify.</p><p>The example is a controlled product demonstration. It is not a client paper and it is not an accusation of misconduct.</p></div><div class="mirror"><div class="mirror-head">Controlled scholarly-integrity example · C1</div><div class="claim"><div class="claim-label">High-risk causal claim</div><div class="claim-text">“Structured feedback improves academic writing because it changes how learners diagnose gaps in their drafts.”</div></div><div class="flow"><div><b>Evidence burden</b>Causal inference, not topical similarity.</div><div><b>Candidate source</b>Relevant doctoral-writing literature.</div><div><b>Support state</b>Background only.</div><div><b>Integrity action</b>Narrow the claim or obtain evidence capable of carrying causality.</div></div><div class="alert"><strong>Sophia does not say “citation found, claim supported.”</strong> A candidate abstract can be highly relevant and still fail the claim’s evidence standard.</div></div></div></section>
+<section id="pack"><div class="wrap"><div class="section-head"><div><p class="eyebrow">The review pack</p><h2>Ten artifacts. One evidence trail.</h2></div><p>The outputs are deliberately separable. You can inspect the technical audit, the evidence fit, the governed commentary and the release record without trusting a single opaque score.</p></div><div class="pack">
+<div class="artifact"><b>01</b><h3>Literature map</h3><p>Governed discovery leads aligned to your research question.</p></div>
+<div class="artifact"><b>02</b><h3>Reference audit</h3><p>Technical citation/reference mismatches and metadata issues.</p></div>
+<div class="artifact"><b>03</b><h3>Claim-source ledger</h3><p>Material claims mapped against candidate source spans and support labels.</p></div>
+<div class="artifact"><b>04</b><h3>Risk register</h3><p>High, medium and critical-review scholarly risks with human next actions.</p></div>
+<div class="artifact"><b>05</b><h3>Verification queue</h3><p>Sources that still need full-text, metadata, locator or support verification.</p></div>
+<div class="artifact"><b>06</b><h3>Speculum record</h3><p>Hash-chained claim/evidence/warrant/limitation and provenance mirror.</p></div>
+<div class="artifact"><b>07</b><h3>Authorship signal</h3><p>Transparent engineering index with an explicit non-forensic boundary.</p></div>
+<div class="artifact"><b>08</b><h3>Reviewer commentary</h3><p>Mandos-governed, document-anchored commentary without replacement prose.</p></div>
+<div class="artifact"><b>09</b><h3>Integrity passport</h3><p>Manuscript hash, output hashes, provider, grounding and release checks.</p></div>
+<div class="artifact"><b>10</b><h3>Revision report</h3><p>Before → after risk movement after your own revision round.</p></div>
+</div></div></section>
+<section class="revision" id="revision"><div class="wrap"><div class="section-head"><div><p class="eyebrow">Included revision round</p><h2>The author revises. Sophia checks the movement.</h2></div><p>The service does not end with a list of problems. Your revised section is reviewed again so resolved, persistent and newly introduced risks become visible.</p></div><div class="rev-flow"><div class="rev"><b>01</b><h3>First mirror</h3><p>Claims, sources, references and integrity risks are recorded.</p></div><div class="rev"><b>02</b><h3>Human revision</h3><p>You decide what to keep, qualify, cite, remove or investigate.</p></div><div class="rev"><b>03</b><h3>Second mirror</h3><p>The revised section runs through the same governed integrity route.</p></div><div class="rev"><b>04</b><h3>Movement</h3><p>Resolved, persistent and new scholarly risks are compared.</p></div><div class="rev"><b>05</b><h3>Human sign-off</h3><p>The comparison remains diagnostic until a reviewer approves release.</p></div></div></div></section>
+<section class="boundary"><div class="wrap boundary-grid"><div><p class="eyebrow">The line Sophia will not cross</p><h2>No detector cosplay.</h2></div><div class="boundary-list"><div class="boundary-row"><strong>No plagiarism verdict from similarity.</strong> Similarity can trigger inspection; it does not establish misconduct.</div><div class="boundary-row"><strong>No “AI-written” verdict.</strong> The Authorship Preservation Index measures workflow safeguards, not who typed a sentence.</div><div class="boundary-row"><strong>No citation laundering.</strong> A DOI, abstract or search hit remains a lead until the source is verified and actually supports the claim.</div><div class="boundary-row"><strong>No ghostwriting.</strong> Reviewer commentary diagnoses, prioritizes and scaffolds. Final wording stays with the author.</div><div class="boundary-row"><strong>No institutional authority claim.</strong> Supervisors, journals, universities and research offices retain their own policy and misconduct authority.</div></div></div></section>
+<section><div class="wrap"><div class="section-head"><div><p class="eyebrow">Who this can serve</p><h2>One engine. Several serious workflows.</h2></div><p>The launch offer stays deliberately narrow. The same integrity machinery also opens credible supervisor and institutional assurance pilots without turning Sophia into an adjudicator.</p></div><div class="audiences"><article class="audience"><h3>Postgraduate authors</h3><p>Before a supervisor meeting, proposal defence, article submission or major revision. The $49 section pilot is designed for this lane now.</p></article><article class="audience"><h3>Supervisors</h3><p>Scope-on-request review of evidence burden, recurring revision risks and student-owned movement without outsourcing supervisory judgement.</p></article><article class="audience"><h3>Research units</h3><p>Future assurance packs can combine provenance, policy mapping, claim-support audit and human sign-off for governed research workflows.</p></article></div></div></section>
+<section class="intake" id="request"><div class="wrap"><div class="section-head"><div><p class="eyebrow">Start with one section</p><h2>Request a controlled integrity review.</h2></div><p>Do not upload the manuscript here. This public form sends scope and consent metadata only. DIO supplies the private manuscript intake route after review.</p></div><form id="requestForm">
+<label>Name<input name="name" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label><label>Institution<input name="institution" autocomplete="organization"></label><label>Working title<input name="title" required></label><label>Approximate word count<input name="word_count" type="number" min="100" max="5000" required></label><label>Citation style<select name="citation_style"><option>APA 7</option><option>Harvard</option><option>Chicago</option><option>Other / mixed</option></select></label><label>Primary need<select name="primary_need"><option value="claim_evidence">Claim-to-evidence integrity</option><option value="references">Reference and citation integrity</option><option value="reviewer">Pre-supervisor / pre-submission review</option><option value="revision">Revision integrity check</option><option value="mixed">Mixed scholarly-integrity review</option></select></label><label>Output language<select name="output_language"><option>English</option><option>Afrikaans</option></select></label><label class="full">Research question or central argument<textarea name="research_question" required></textarea></label>
+<fieldset><legend>Consent and boundaries</legend><label class="consent"><input type="checkbox" name="owner" required><span>I am the manuscript owner or I have authority to submit it for this review.</span></label><label class="consent"><input type="checkbox" name="gemini" required><span>I understand the private manuscript may be processed through the explicitly governed Gemini review lane after private intake.</span></label><label class="consent"><input type="checkbox" name="terms" required><span>I understand Sophia provides diagnostic scholarly-integrity support, not ghostwriting, misconduct adjudication or publication guarantees.</span></label></fieldset>
+<div class="form-actions"><button class="btn" type="submit">Request the controlled pilot</button><button class="btn secondary" type="button" id="downloadRequest">Download request JSON</button></div><div class="status" id="status" role="status" aria-live="polite"></div></form></div></section>
+</main>
+<footer><div class="wrap foot"><span>Sophia Scholarly Integrity Desk</span><span>Claim → evidence → warrant → limitation → human decision.</span></div></footer>
+<script src="../assets/dio-public-intake.js"></script>
+<script>
+const form=document.querySelector('#requestForm');const status=document.querySelector('#status');
+function payload(){const d=Object.fromEntries(new FormData(form).entries());return{customer:{name:d.name,email:d.email,institution:d.institution||null},manuscript:{title:d.title,approximate_word_count:Number(d.word_count),citation_style:d.citation_style,primary_review_need:d.primary_need,output_language:d.output_language,research_question:d.research_question},consents:{manuscript_owner_authorized:!!d.owner,gemini_remote_processing_approved:!!d.gemini,service_terms_accepted:!!d.terms}}}
+function download(p){const b=new Blob([JSON.stringify(p,null,2)+'\n'],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='SOPHIA_SCHOLARLY_INTEGRITY_REQUEST.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+document.querySelector('#downloadRequest').addEventListener('click',()=>{if(!form.reportValidity())return;download(payload());status.textContent='Structured request downloaded. No manuscript content was included.'});
+form.addEventListener('submit',async e=>{e.preventDefault();const p=payload();const subject='SOPHIA SCHOLARLY INTEGRITY REVIEW REQUEST';const body=['Hello DIO Scholarly Integrity Desk,','',`I would like to request the Sophia Scholarly Integrity Review Pilot.`,`Name: ${p.customer.name}`,`Email: ${p.customer.email}`,`Institution: ${p.customer.institution||'Not supplied'}`,`Working title: ${p.manuscript.title}`,`Approximate words: ${p.manuscript.approximate_word_count}`,`Primary need: ${p.manuscript.primary_review_need}`,'',`Research question / central argument:`,p.manuscript.research_question,'','I understand that Sophia is diagnostic, authorship-preserving and human reviewed. Please send the private intake route.'].join('\n');const mailto=`mailto:dio_workflows@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;const button=form.querySelector('button[type="submit"]');button.disabled=true;status.textContent='Submitting to DIO...';try{const r=await window.DIOPublicIntake.submit({product:'sophia',offer:'scholarly_integrity_review',contact:{name:p.customer.name,email:p.customer.email,organisation:p.customer.institution},request:{...p.manuscript,lingua:{source_language:'English',target_language:p.manuscript.output_language||'English',proficient_review_required:p.manuscript.output_language!=='English'}},consents:p.consents,attribution:window.DIOPublicIntake.attribution('sophia_site')});status.textContent=`Request received. Reference: ${r.lead_id}. Do not send the manuscript until DIO supplies the private intake route.`}catch{window.DIOPublicIntake.showFallback(status,'The online intake could not be reached.',mailto)}finally{button.disabled=false}});
+</script>
 </body>
 </html>
