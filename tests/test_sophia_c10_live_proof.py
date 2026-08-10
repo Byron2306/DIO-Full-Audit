@@ -55,39 +55,69 @@ class SophiaC10LiveProofTests(unittest.TestCase):
                 "band": "strong",
             },
         }
-        return job, longitudinal, native
+        topology = {
+            "state": "scholarly_topology_ready",
+            "topology_issue_count": 1,
+            "open_topology_issues": 0,
+            "blocking_decision_queue": 0,
+            "topology_audit_hash": "c" * 64,
+            "decision_queue_hash": "d" * 64,
+        }
+        return job, longitudinal, native, topology
 
     def test_complete_case_passes_only_when_receipts_cover_longitudinal_claim(self) -> None:
-        job, longitudinal, native = self.fixtures()
-        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native)
+        job, longitudinal, native, topology = self.fixtures()
+        receipt = evaluate_proof(
+            job=job,
+            longitudinal=longitudinal,
+            native_record=native,
+            topology=topology,
+        )
         self.assertTrue(receipt["proof_passed"])
         self.assertEqual(receipt["required_cases_passed"], receipt["required_cases_total"])
         self.assertEqual(receipt["result"], "C10_LONGITUDINAL_PROOF_PASSED")
 
     def test_missing_human_decision_prevents_victory_claim(self) -> None:
-        job, longitudinal, native = self.fixtures()
+        job, longitudinal, native, topology = self.fixtures()
         longitudinal["author_decisions"] = []
-        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native)
+        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native, topology=topology)
         self.assertFalse(receipt["proof_passed"])
         failed = {row["case_id"] for row in receipt["cases"] if not row["passed"]}
         self.assertIn("human_author_decision_recorded", failed)
         self.assertEqual(receipt["result"], "C10_LONGITUDINAL_PROOF_NOT_YET_ESTABLISHED")
 
     def test_unresolved_continuity_prevents_victory_claim(self) -> None:
-        job, longitudinal, native = self.fixtures()
+        job, longitudinal, native, topology = self.fixtures()
         longitudinal["unresolved_continuity_candidates"] = [{"lineage_id": "provisional-1"}]
-        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native)
+        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native, topology=topology)
         self.assertFalse(receipt["proof_passed"])
         failed = {row["case_id"] for row in receipt["cases"] if not row["passed"]}
         self.assertIn("ambiguous_continuity_resolved", failed)
 
     def test_duplicate_native_record_ids_prevent_history_claim(self) -> None:
-        job, longitudinal, native = self.fixtures()
+        job, longitudinal, native, topology = self.fixtures()
         native["claim_ledger"][1]["record_id"] = "claim-v1"
-        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native)
+        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native, topology=topology)
         self.assertFalse(receipt["proof_passed"])
         failed = {row["case_id"] for row in receipt["cases"] if not row["passed"]}
         self.assertIn("version_scoped_native_claim_records_preserved", failed)
+
+    def test_blocking_scholarly_decision_queue_prevents_victory_claim(self) -> None:
+        job, longitudinal, native, topology = self.fixtures()
+        topology["blocking_decision_queue"] = 2
+        topology["open_topology_issues"] = 1
+        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native, topology=topology)
+        self.assertFalse(receipt["proof_passed"])
+        failed = {row["case_id"] for row in receipt["cases"] if not row["passed"]}
+        self.assertIn("scholarly_decision_queue_clear", failed)
+
+    def test_missing_topology_hash_prevents_victory_claim(self) -> None:
+        job, longitudinal, native, topology = self.fixtures()
+        topology["topology_audit_hash"] = ""
+        receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native, topology=topology)
+        self.assertFalse(receipt["proof_passed"])
+        failed = {row["case_id"] for row in receipt["cases"] if not row["passed"]}
+        self.assertIn("scholarly_topology_ready_and_hashed", failed)
 
 
 if __name__ == "__main__":
