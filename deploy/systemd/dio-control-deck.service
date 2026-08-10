@@ -1,11 +1,11 @@
 [Unit]
-Description=DIO localhost control deck
+Description=DIO GoldenEye localhost operator cockpit
 After=network.target
 
 [Service]
 Type=simple
 WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/serve_control_deck.py --host 127.0.0.1 --port 8765
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/serve_goldeneye.py --host 127.0.0.1 --port 8765
 Restart=on-failure
 RestartSec=3
 Environment=PYTHONUNBUFFERED=1
