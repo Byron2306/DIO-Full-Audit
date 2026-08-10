@@ -15,7 +15,11 @@ from .mandos import (
     strategy_signature,
     strategy_signature_from_cso,
 )
-from .mandos_feedback import campaign_feedback, enrich_nichefoundry_cso_with_mandos
+from .mandos_feedback import (
+    campaign_feedback,
+    enrich_nichefoundry_cso_with_mandos,
+    hivenance_outcome_overlay,
+)
 from .mandos_recovery import recover_orphan_outcomes, verify_complete_memory
 from .nichefoundry_bridge import commercial_semantic_object_from_nichefoundry
 from .orchestrator import CommercialOrchestrator, CommercialStore
@@ -51,6 +55,7 @@ __all__ = [
     "commercial_semantic_object_from_prospect_target",
     "enrich_nichefoundry_cso_with_mandos",
     "expression_contract",
+    "hivenance_outcome_overlay",
     "market_signal",
     "pattern_key",
     "plan_expression",
