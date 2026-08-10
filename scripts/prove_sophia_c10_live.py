@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from adapters.sophia.longitudinal_speculum import _load_project_store  # noqa: E402
+from adapters.sophia.scholarly_topology import build_and_write_topology  # noqa: E402
 
 
 DEFAULT_SOPHIA_ROOT = ROOT / "cross_folder_variants" / "Integritas-Mechanicus" / "A_CODE"
@@ -52,6 +53,7 @@ def evaluate_proof(
     job: dict[str, Any],
     longitudinal: dict[str, Any],
     native_record: dict[str, Any],
+    topology: dict[str, Any],
 ) -> dict[str, Any]:
     review = job.get("review") or {}
     revisions = list(job.get("revision_rounds") or [])
@@ -150,6 +152,27 @@ def evaluate_proof(
             interpretation="Both the C10 interpretation layer and native Sophia evidence state must carry stable receipt hashes.",
         ),
         _case(
+            "scholarly_topology_ready_and_hashed",
+            topology.get("state") == "scholarly_topology_ready"
+            and len(str(topology.get("topology_audit_hash") or "")) == 64
+            and len(str(topology.get("decision_queue_hash") or "")) == 64,
+            evidence={
+                "state": topology.get("state"),
+                "topology_audit_hash": topology.get("topology_audit_hash"),
+                "decision_queue_hash": topology.get("decision_queue_hash"),
+            },
+            interpretation="The revision topology and human-decision queue must both be materialized as receipt-bearing C10 evidence.",
+        ),
+        _case(
+            "scholarly_decision_queue_clear",
+            int(topology.get("blocking_decision_queue") or 0) == 0,
+            evidence={
+                "blocking_decision_queue": topology.get("blocking_decision_queue"),
+                "open_topology_issues": topology.get("open_topology_issues"),
+            },
+            interpretation="A C10 victory claim is held while any material scholarly decision obligation remains unresolved.",
+        ),
+        _case(
             "non_forensic_authority_boundary_preserved",
             "not a forensic" in authority and "misconduct" in authority,
             evidence={"authority_boundary": longitudinal.get("authority_boundary")},
@@ -170,17 +193,13 @@ def evaluate_proof(
     required = [row for row in cases if row["required"]]
     passed_required = sum(1 for row in required if row["passed"])
     proof_passed = passed_required == len(required)
-    movements = {
-        str(row.get("state") or "unknown"): movements_count
-        for movements_count, row in []
-    }
     state_counts: dict[str, int] = {}
     for row in lineages:
         state = str(row.get("state") or "unknown")
         state_counts[state] = state_counts.get(state, 0) + 1
 
     return {
-        "schema": "dio.sophia_c10_live_proof_receipt.v1",
+        "schema": "dio.sophia_c10_live_proof_receipt.v2",
         "evaluated_at": now(),
         "proof_passed": proof_passed,
         "result": "C10_LONGITUDINAL_PROOF_PASSED" if proof_passed else "C10_LONGITUDINAL_PROOF_NOT_YET_ESTABLISHED",
@@ -196,9 +215,12 @@ def evaluate_proof(
             "native_final_decisions": len(native_decisions),
             "burden_mutation_lineages": len(longitudinal.get("burden_mutation_lineages") or []),
             "lineage_resolution_events": len(longitudinal.get("lineage_resolution_events") or []),
+            "topology_issue_count": topology.get("topology_issue_count"),
+            "open_topology_issues": topology.get("open_topology_issues"),
+            "blocking_decision_queue": topology.get("blocking_decision_queue"),
         },
         "truth_boundary": (
-            "A passing C10 receipt demonstrates inspectable longitudinal scholarly-memory mechanics on this reviewed case. "
+            "A passing C10 receipt demonstrates inspectable longitudinal scholarly-memory, revision-topology, and human-decision mechanics on this reviewed case. "
             "It does not prove universal claim-matching accuracy, authorship identity, misconduct, learning gain, publication quality, "
             "or the truth of the manuscript's substantive claims."
         ),
@@ -256,15 +278,28 @@ def main() -> int:
     job = load_json(job_path)
     longitudinal = load_json(longitudinal_path)
     project_id = str(job.get("job_id") or longitudinal.get("project_id") or job_dir.name)
-    ProjectStore, _resolved = _load_project_store(args.sophia_root.expanduser().resolve())
+    sophia_root = args.sophia_root.expanduser().resolve()
+    ProjectStore, _resolved = _load_project_store(sophia_root)
     native_record = ProjectStore(c10_root / "project_store").export_integrity_record(project_id=project_id)
+    topology = build_and_write_topology(
+        state_root=c10_root,
+        project_id=project_id,
+        sophia_root=sophia_root,
+    )
 
-    receipt = evaluate_proof(job=job, longitudinal=longitudinal, native_record=native_record)
+    receipt = evaluate_proof(
+        job=job,
+        longitudinal=longitudinal,
+        native_record=native_record,
+        topology=topology,
+    )
     receipt["job_id"] = project_id
     receipt["source_receipts"] = {
         "job_json": str(job_path),
         "longitudinal_speculum": str(longitudinal_path),
         "native_integrity_record_hash": native_record.get("integrity_record_hash"),
+        "topology_audit_hash": topology.get("topology_audit_hash"),
+        "decision_queue_hash": topology.get("decision_queue_hash"),
     }
     receipt["receipt_sha256"] = sha256_json(receipt)
     out_json = c10_root / "C10_LIVE_PROOF_RECEIPT.json"
