@@ -63,6 +63,53 @@ def load_evidence_scorer() -> tuple[Any, str]:
     return module.EvidenceScorer, str(path)
 
 
+def _semantic_value(cso: dict[str, Any], section: str, field: str) -> Any:
+    item = (cso.get(section) or {}).get(field)
+    if isinstance(item, dict):
+        return item.get("value")
+    return item
+
+
+def _expression_selector_scope(cso: dict[str, Any], expression: dict[str, Any]) -> dict[str, Any]:
+    """Return only failure-memory selectors the current expression can actually prove."""
+    plan = expression.get("plan") or {}
+    contract = plan.get("contract") or {}
+    verified_context = plan.get("verified_context") or {}
+    tactic_context = verified_context.get("tactic_id")
+    tactic_id = expression.get("tactic_id") or plan.get("tactic_id")
+    if not tactic_id and isinstance(tactic_context, dict):
+        tactic_id = tactic_context.get("value")
+    return {
+        "product": _semantic_value(cso, "commercial", "product"),
+        "offer": _semantic_value(cso, "commercial", "offer"),
+        "communicative_act": expression.get("communicative_act"),
+        "channel": contract.get("channel") or _semantic_value(cso, "strategy", "channel"),
+        "tactic_id": tactic_id,
+    }
+
+
+def _strict_remembered_matches(
+    rows: list[dict[str, Any]],
+    current_scope: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Never broaden a stored failure when a selector is absent from current proof scope."""
+    matches: list[dict[str, Any]] = []
+    for row in rows:
+        selectors = row.get("selectors") or {}
+        required = {key: value for key, value in selectors.items() if value not in {None, ""}}
+        if not required:
+            continue
+        proven = True
+        for key, expected in required.items():
+            actual = current_scope.get(key)
+            if actual in {None, ""} or str(actual) != str(expected):
+                proven = False
+                break
+        if proven:
+            matches.append(row)
+    return matches
+
+
 def assess_expression_evidence(
     cso: dict[str, Any],
     expression: dict[str, Any],
@@ -122,12 +169,14 @@ def assess_expression_evidence(
     ).to_dict()
 
     supplied = list(active_negative_capabilities or [])
-    remembered = mandos_negative_capabilities_for(
+    remembered_candidates = mandos_negative_capabilities_for(
         (memory_root or ROOT).resolve(),
         cso,
         expression,
         execution_kind=execution_kind,
     )
+    current_scope = _expression_selector_scope(cso, expression)
+    remembered = _strict_remembered_matches(remembered_candidates, current_scope)
     merged: dict[str, dict[str, Any]] = {}
     for row in [*supplied, *remembered]:
         key = str(row.get("capability_id") or row.get("pattern_key") or repr(row))
@@ -189,8 +238,11 @@ def assess_expression_evidence(
         "active_negative_capabilities": active_negative_capabilities,
         "mandos_memory": {
             "root": str((memory_root or ROOT).resolve()),
+            "remembered_candidates": len(remembered_candidates),
             "remembered_matches": len(remembered),
+            "selector_scope": current_scope,
             "positive_memory_may_expand_authority": False,
+            "unprovable_selector_may_broaden_veto": False,
         },
         "blockers": blockers,
         "cautions": cautions,
@@ -200,5 +252,6 @@ def assess_expression_evidence(
             "reuse_does_not_expand_authority": True,
             "negative_capability_can_veto_execution": True,
             "mandos_does_not_forget_verified_failure": True,
+            "unprovable_selector_never_broadens_failure_scope": True,
         },
     }
