@@ -1,7 +1,7 @@
 {
-  "schema": "dio.sophia_service.v1",
+  "schema": "dio.sophia_service.v2",
   "product_code": "SOPHIA_SECTION_REVIEW",
-  "public_name": "Sophia Section Review Pilot",
+  "public_name": "Sophia Scholarly Integrity Review Pilot",
   "status": "controlled_pilot_ready",
   "price": {
     "amount_minor": 4900,
@@ -18,8 +18,37 @@
     "literature discovery map",
     "technical citation and reference audit",
     "claim-to-source ledger",
-    "anchored Gemini reviewer commentary",
-    "human approval receipt"
+    "scholarly risk register",
+    "source verification queue",
+    "Speculum integrity record",
+    "Authorship Preservation Index with explicit engineering-metric boundary",
+    "anchored governed reviewer commentary",
+    "integrity passport with output hashes and release checks",
+    "one author-owned revision integrity report"
+  ],
+  "integrity_contract": {
+    "ghostwriting": false,
+    "misconduct_detection_authority": false,
+    "automatic_source_promotion": false,
+    "claim_evidence_warrant_limitation_visible": true,
+    "mandos_release_judgment_visible": true,
+    "genesis_article_conformity_visible": true,
+    "authorship_preservation_index_is_forensic_detector": false,
+    "revision_movement_is_diagnostic_not_authorship_proof": true
+  },
+  "future_scoped_offers": [
+    {
+      "code": "SOPHIA_SUPERVISOR_REVIEW",
+      "name": "Supervisor Integrity Review",
+      "status": "scope_on_request",
+      "purpose": "Compare a student's manuscript integrity risks and revision movement without substituting supervisor judgment."
+    },
+    {
+      "code": "SOPHIA_RESEARCH_ASSURANCE",
+      "name": "Research Integrity Assurance Pack",
+      "status": "scope_on_request",
+      "purpose": "Faculty or research-unit evidence pack for provenance, policy mapping, claim-support review and human sign-off."
+    }
   ],
   "required_consents": [
     "manuscript_owner_authorized",
@@ -31,6 +60,7 @@
     "human_review_before_delivery": true,
     "automatic_email": false,
     "automatic_refund": false,
-    "delivery_requires_grounding_pass": true
+    "delivery_requires_grounding_pass": true,
+    "revision_delivery_requires_human_approval": true
   }
 }
