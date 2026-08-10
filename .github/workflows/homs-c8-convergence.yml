@@ -1,0 +1,51 @@
+name: HOMS C8 Assessment Convergence
+
+on:
+  push:
+    branches:
+      - dio-c8-homs-assessment-convergence
+    paths:
+      - "scripts/homs_assessment_convergence.py"
+      - "scripts/run_homs_hymark_batch.py"
+      - "scripts/homs_exam_scope.py"
+      - "scripts/run_homs_exam_studio_c8.py"
+      - "tests/test_homs_assessment_convergence.py"
+      - "tests/test_homs_exam_scope.py"
+      - "sites/homs/**"
+      - ".github/workflows/homs-c8-convergence.yml"
+  pull_request:
+    paths:
+      - "scripts/homs_assessment_convergence.py"
+      - "scripts/run_homs_hymark_batch.py"
+      - "scripts/homs_exam_scope.py"
+      - "scripts/run_homs_exam_studio_c8.py"
+      - "tests/test_homs_assessment_convergence.py"
+      - "tests/test_homs_exam_scope.py"
+      - "sites/homs/**"
+      - ".github/workflows/homs-c8-convergence.yml"
+
+jobs:
+  convergence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile C8 assessment code
+        run: |
+          python -m py_compile \
+            scripts/homs_assessment_convergence.py \
+            scripts/run_homs_hymark_batch.py \
+            scripts/homs_exam_scope.py \
+            scripts/run_homs_exam_studio_c8.py
+      - name: Run long-form marking convergence proof
+        run: python -m unittest -v tests.test_homs_assessment_convergence
+      - name: Run Foundation-to-FET exam scope proof
+        run: python -m unittest -v tests.test_homs_exam_scope
+      - name: Verify public HOMS proof surface
+        run: |
+          grep -q "homs-marking-annotated-proof.svg" sites/homs/index.html
+          grep -q "Grades 1–12" sites/homs/index.html
+          grep -q "Term content resolved before generation" sites/homs/index.html
+          grep -q "Exact quotations grounded back to the learner submission" sites/homs/index.html
