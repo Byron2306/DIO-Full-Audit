@@ -321,10 +321,6 @@ def _match_claim(
     )
 
 
-def _version_order(registry: dict[str, Any]) -> dict[str, int]:
-    return {str(row.get("draft_version_id")): index for index, row in enumerate(registry.get("versions") or [])}
-
-
 def _support_state_for_record(record: dict[str, Any]) -> str:
     return _support_state(record.get("support_label"), record.get("entailment_status"))
 
@@ -452,6 +448,7 @@ def _render_lineage(lineage: dict[str, Any], latest_version_id: str) -> dict[str
         "latest_support_state": latest.get("support_state") or "",
         "support_trajectory": support_trajectory,
         "burden_mutations": burden_mutations,
+        "latest_author_decision": lineage.get("latest_author_decision") or "",
         "occurrences": occurrences,
     }
 
@@ -632,6 +629,18 @@ def _write_exports(
             rebuild_archive(output_dir, review_id)
 
 
+def _carry_claim_risk(mapped_records: list[dict[str, Any]], claim_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    claims = list(claim_payload.get("claims") or [])
+    for index, record in enumerate(mapped_records):
+        if index >= len(claims):
+            break
+        claim_record = claims[index].get("claim_record") or {}
+        record["evidence_risk"] = claim_record.get("evidence_risk") or record.get("evidence_risk") or "medium"
+        record["claim_type"] = claim_record.get("claim_type") or record.get("claim_type") or "unknown"
+        record["evidence_standard"] = claim_record.get("evidence_standard") or record.get("evidence_standard") or ""
+    return mapped_records
+
+
 def ingest_review_pack(
     *,
     project_id: str,
@@ -698,7 +707,7 @@ def ingest_review_pack(
     literature_payload = load_json(output_dir / "LITERATURE_MAP.json")
     commentary = load_json(output_dir / "REVIEWER_COMMENTARY.json")
     risk_register = load_json(output_dir / "SCHOLARLY_RISK_REGISTER.json")
-    mapped_records = _map_claim_records(claim_payload)
+    mapped_records = _carry_claim_risk(_map_claim_records(claim_payload), claim_payload)
     previous_version_id = str((registry.get("versions") or [{}])[-1].get("draft_version_id") or "")
 
     store.append_retrieved_sources(
@@ -717,7 +726,8 @@ def ingest_review_pack(
             registry=registry,
             previous_version_id=previous_version_id,
         )
-        record_id = f"claimocc-{_sha(f'{project_id}|{draft_version_id}|{index}|{record.get("claim")}', 20)}"
+        record_material = f"{project_id}|{draft_version_id}|{index}|{record.get('claim') or ''}"
+        record_id = f"claimocc-{_sha(record_material, 20)}"
         occurrence = _occurrence(
             record=record,
             draft_version_id=draft_version_id,
