@@ -34,7 +34,9 @@
     "mandos_release_judgment_visible": true,
     "genesis_article_conformity_visible": true,
     "authorship_preservation_index_is_forensic_detector": false,
-    "revision_movement_is_diagnostic_not_authorship_proof": true
+    "revision_movement_is_diagnostic_not_authorship_proof": true,
+    "longitudinal_claim_lineage_is_authorship_detector": false,
+    "silence_is_scholarly_intent": false
   },
   "future_scoped_offers": [
     {
@@ -48,6 +50,12 @@
       "name": "Research Integrity Assurance Pack",
       "status": "scope_on_request",
       "purpose": "Faculty or research-unit evidence pack for provenance, policy mapping, claim-support review and human sign-off."
+    },
+    {
+      "code": "SOPHIA_PROJECT_SPECULUM",
+      "name": "Longitudinal Project Speculum",
+      "status": "proof_ready_not_public",
+      "purpose": "Track version-scoped claims, evidence states, revision topology, human decisions and unresolved scholarly risk across a thesis, article or research project."
     }
   ],
   "required_consents": [
@@ -61,6 +69,8 @@
     "automatic_email": false,
     "automatic_refund": false,
     "delivery_requires_grounding_pass": true,
-    "revision_delivery_requires_human_approval": true
+    "revision_delivery_requires_human_approval": true,
+    "c10_revision_release_requires_zero_scholarly_decision_queue": true,
+    "c10_stress_proof_required_before_public_project_speculum_offer": true
   }
 }
