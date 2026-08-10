@@ -4,12 +4,18 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from commerce.mandos_feedback import campaign_feedback  # noqa: E402
+
+
 NICHEFOUNDRY_ROOT = Path("/home/byron/Downloads/NicheFoundry_Phase11")
 
 
@@ -49,6 +55,39 @@ def infer_offer(subject: str, extract: str) -> str:
     return "KnowEdge Evidence Automation Suite"
 
 
+def campaign_id_for_job(job: dict[str, Any]) -> str | None:
+    candidates = [
+        job.get("campaign_id"),
+        (job.get("source") or {}).get("campaign_id"),
+        (job.get("attribution") or {}).get("campaign_id"),
+        first_input(job).get("campaign_id"),
+    ]
+    for value in candidates:
+        text = str(value or "").strip()
+        if text:
+            return text
+    return None
+
+
+def mandos_feedback_for_job(job: dict[str, Any]) -> dict[str, Any]:
+    campaign_id = campaign_id_for_job(job)
+    if campaign_id:
+        return campaign_feedback(ROOT, campaign_id)
+    return {
+        "schema": "dio.mandos_campaign_feedback.v1",
+        "campaign_id": None,
+        "outcomes": [],
+        "patterns": [],
+        "economics": {"revenue_minor": 0, "cost_minor": 0, "manual_minutes": 0.0, "gross_margin_minor": 0},
+        "authority": {
+            "is_observed_evidence": True,
+            "is_synthetic_score": False,
+            "may_expand_execution_authority": False,
+            "may_be_reused_as_strategy": False,
+        },
+    }
+
+
 def build_opportunity(job: dict[str, Any]) -> dict[str, Any]:
     item = first_input(job)
     evidence = first_evidence(job)
@@ -77,7 +116,8 @@ def build_opportunity(job: dict[str, Any]) -> dict[str, Any]:
             f"Generated from AutoRelease job {job['job_id']} at {utc_now()}. "
             f"Route reason: {job['route']['reason']} "
             "No market score is asserted by this bridge. Missing NicheFoundry signals must remain unknown "
-            "or be calculated by the scorer as explicitly labelled derived heuristics."
+            "or be calculated by the scorer as explicitly labelled derived heuristics. Mandos outcomes, when supplied, "
+            "are separate verified commercial observations and must not be converted into synthetic scores."
         ),
     }
 
@@ -166,18 +206,21 @@ CTA: "Send one messy workflow. We will turn it into a review-ready pack."
 - [ ] No fabricated testimonials.
 - [ ] No claim that the system replaces professional judgment.
 - [ ] No automatic sending or final decisions implied.
+- [ ] Mandos outcomes remain observed evidence, not synthetic market scores.
 - [ ] CTA is concrete and low-friction.
 """
 
 
 def build_content_queue(job: dict[str, Any], opportunity: dict[str, Any]) -> dict[str, Any]:
+    feedback = mandos_feedback_for_job(job)
     return {
-        "schema": "knowedge.nichefoundry_campaign_request.v1",
+        "schema": "knowedge.nichefoundry_campaign_request.v2",
         "created_at": utc_now(),
         "job_id": job["job_id"],
         "nichefoundry_root": str(NICHEFOUNDRY_ROOT),
         "recommended_studio": "practical_open_source",
         "opportunity": opportunity,
+        "mandos_feedback": feedback,
         "requested_outputs": [
             "landing_page_outline",
             "five_short_posts",
@@ -192,7 +235,13 @@ def build_content_queue(job: dict[str, Any], opportunity: dict[str, Any]) -> dic
             "unverified revenue claims",
             "guaranteed outcomes",
             "private client data",
+            "synthetic market scores derived from Mandos outcomes",
         ],
+        "authority": {
+            "mandos_outcomes_are_observed_evidence": True,
+            "mandos_may_expand_execution_authority": False,
+            "mandos_strategy_reuse_requires_promoted_crystal": True,
+        },
     }
 
 
@@ -211,7 +260,10 @@ def write_job(job: dict[str, Any], out_root: Path) -> Path:
                 "job_id": job["job_id"],
                 "created_at": utc_now(),
                 "status": "prepared_request_only",
-                "reason": "Phase 1 prepares a NicheFoundry-compatible campaign request without rendering media or requiring API keys.",
+                "reason": "Prepares a NicheFoundry-compatible campaign request without rendering media or requiring API keys.",
+                "campaign_id": campaign_id_for_job(job),
+                "mandos_outcomes": len((request.get("mandos_feedback") or {}).get("outcomes") or []),
+                "mandos_synthetic_score_added": False,
                 "files": [
                     str(job_dir / "foundry_opportunity.json"),
                     str(job_dir / "foundry_campaign_request.json"),
@@ -226,7 +278,7 @@ def write_job(job: dict[str, Any], out_root: Path) -> Path:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Prepare NicheFoundry campaign requests for AutoRelease jobs.")
+    parser = argparse.ArgumentParser(description="Prepare NicheFoundry campaign requests for AutoRelease jobs with Mandos outcome evidence.")
     parser.add_argument("--run", default=str(ROOT / "runs" / "latest"), help="Run directory with routed jobs.")
     parser.add_argument("--out", default=str(ROOT / "deliverables" / "latest"), help="Deliverable output directory.")
     args = parser.parse_args()
