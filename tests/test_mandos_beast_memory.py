@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import tempfile
 import unittest
 from pathlib import Path
@@ -27,7 +28,7 @@ class MandosBeastMemoryTests(unittest.TestCase):
         })
 
     @staticmethod
-    def negative(lead_id: str) -> dict:
+    def negative(lead_id: str, *, tactic_id: str | None = None) -> dict:
         return commercial_outcome(
             outcome_type="no_reply_window_closed",
             lineage={"lead_id": lead_id},
@@ -41,6 +42,7 @@ class MandosBeastMemoryTests(unittest.TestCase):
                 "offer": "bounded pilot",
                 "communicative_act": "inbound_reply",
                 "channel": "email",
+                "tactic_id": tactic_id,
             },
         )
 
@@ -99,6 +101,35 @@ class MandosBeastMemoryTests(unittest.TestCase):
             assessment = assess_expression_evidence(cso, expression, execution_kind="mail_send", memory_root=root)
             self.assertEqual(0, assessment["mandos_memory"]["remembered_matches"])
             self.assertFalse(any(row["code"] == "ACTIVE_NEGATIVE_CAPABILITY" for row in assessment["blockers"]))
+
+    def test_tactic_specific_failure_does_not_broaden_when_current_tactic_is_unknown(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ledger = MandosLedger(root)
+            ledger.record(self.negative("LEAD-TACTIC-1", tactic_id="TACTIC-A"))
+            ledger.record(self.negative("LEAD-TACTIC-2", tactic_id="TACTIC-A"))
+            cso = self.cso()
+            expression = render_expression(cso, CommunicativeAct.INBOUND_REPLY)
+            assessment = assess_expression_evidence(cso, expression, execution_kind="mail_send", memory_root=root)
+            self.assertEqual(1, assessment["mandos_memory"]["remembered_candidates"])
+            self.assertEqual(0, assessment["mandos_memory"]["remembered_matches"])
+            self.assertFalse(assessment["mandos_memory"]["unprovable_selector_may_broaden_veto"])
+            self.assertFalse(any(row["code"] == "ACTIVE_NEGATIVE_CAPABILITY" for row in assessment["blockers"]))
+
+    def test_tactic_specific_failure_vetoes_when_current_expression_proves_same_tactic(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ledger = MandosLedger(root)
+            ledger.record(self.negative("LEAD-TACTIC-1", tactic_id="TACTIC-A"))
+            ledger.record(self.negative("LEAD-TACTIC-2", tactic_id="TACTIC-A"))
+            cso = self.cso()
+            expression = copy.deepcopy(render_expression(cso, CommunicativeAct.INBOUND_REPLY))
+            expression["tactic_id"] = "TACTIC-A"
+            assessment = assess_expression_evidence(cso, expression, execution_kind="mail_send", memory_root=root)
+            self.assertEqual(1, assessment["mandos_memory"]["remembered_candidates"])
+            self.assertEqual(1, assessment["mandos_memory"]["remembered_matches"])
+            self.assertEqual("BLOCK", assessment["status"])
+            self.assertTrue(any(row["code"] == "ACTIVE_NEGATIVE_CAPABILITY" for row in assessment["blockers"]))
 
 
 if __name__ == "__main__":
