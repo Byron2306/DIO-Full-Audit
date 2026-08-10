@@ -8,8 +8,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from homs_assessment_convergence import (  # noqa: E402
+    VENDORED_LOCAL_HOMS_ROOT,
     assessment_contract,
     extract_group_members,
+    resolve_local_homs_root,
+    run_local_homs_governance,
     similarity_review_candidates,
     smart_to_local_assessment,
 )
@@ -39,7 +42,7 @@ def long_essay() -> str:
     return "\n\n".join(paragraphs)
 
 
-def complete_result(essay: str) -> dict:
+def complete_result(essay: str, student_id: str = "12345678", percentage: float = 72) -> dict:
     anchors = [
         "Historical explanation requires evidence, context and careful causal reasoning.",
         "The learner tests claim 18 against a primary source and explains why the evidence matters.",
@@ -47,19 +50,20 @@ def complete_result(essay: str) -> dict:
         "Conclusion anchor: the argument succeeds only when evidence and interpretation remain connected.",
     ]
     names = ["Argument", "Evidence", "Analysis", "Structure"]
+    criterion_score = percentage / 4
     criteria = {}
     for name, quote in zip(names, anchors):
         criteria[name] = {
             "level": "Good",
-            "score": 18,
+            "score": criterion_score,
             "max_score": 25,
             "feedback": f"{name} is developed with specific evidence. The student should deepen the connection between claim, source and explanation before final submission.",
             "quotes": [quote],
         }
     return {
-        "total_score": 72,
+        "total_score": percentage,
         "max_score": 100,
-        "percentage": 72,
+        "percentage": percentage,
         "criteria_scores": criteria,
         "overall_feedback": "A coherent long-form response with a defensible line of argument and identifiable evidence use. Further revision should strengthen synthesis and make the significance of evidence explicit throughout the essay.",
         "strengths": ["Sustained line of argument", "Evidence is repeatedly connected to claims"],
@@ -69,7 +73,8 @@ def complete_result(essay: str) -> dict:
             {"quote": anchors[1], "comment": "The source is used, but the paragraph should explain the source limitation as well as its relevance.", "type": "suggestion"},
             {"quote": anchors[3], "comment": "The conclusion reconnects evidence and interpretation, but should explicitly answer the central judgement.", "type": "suggestion"},
         ],
-        "student_id": "12345678",
+        "student_id": student_id,
+        "assessed_at": "2026-08-10T00:00:00+00:00",
     }
 
 
@@ -120,6 +125,21 @@ class HomsAssessmentConvergenceTests(unittest.TestCase):
         self.assertEqual(local["status"], "success")
         self.assertEqual(local["final_score"], 72)
         self.assertEqual(local["total_annotations"], 4)
+
+    def test_vendored_local_homs_modules_actually_load_and_moderate(self) -> None:
+        essay = long_essay()
+        first = complete_result(essay, "12345678", 72)
+        second = complete_result(essay, "87654321", 35)
+        contracts = [assessment_contract(first, RUBRIC, essay), assessment_contract(second, RUBRIC, essay)]
+        resolved, source = resolve_local_homs_root(Path("/definitely/missing/homs"))
+        self.assertEqual(resolved, VENDORED_LOCAL_HOMS_ROOT.resolve())
+        self.assertEqual(source, "vendored_repository_copy")
+        governed = run_local_homs_governance([first, second], contracts, Path("/definitely/missing/homs"))
+        self.assertTrue(governed["available"], governed)
+        self.assertEqual(governed["root_source"], "vendored_repository_copy")
+        self.assertEqual(len(governed["moderation"]), 2)
+        self.assertEqual(governed["moderation_report"]["total_moderated"], 2)
+        self.assertIn("most_common_errors", governed["learning_insights"])
 
     def test_similarity_is_review_signal_not_plagiarism_finding(self) -> None:
         shared = "alpha beta gamma delta epsilon zeta eta theta iota kappa " * 30
