@@ -10,16 +10,22 @@ on:
       - "adapters/sophia/c10_gate.py"
       - "adapters/sophia/c10_scope.py"
       - "adapters/sophia/scholarly_topology.py"
+      - "adapters/sophia/c10_validation.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
       - "scripts/run_sophia_c10_topology.py"
       - "scripts/prove_sophia_c10_live.py"
+      - "scripts/record_sophia_c10_human_validation.py"
+      - "scripts/prove_sophia_c10_stress.py"
+      - "config/sophia_service.json"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
       - "tests/test_sophia_c10_lineage_isolation.py"
       - "tests/test_sophia_c10_scholarly_topology.py"
       - "tests/test_sophia_c10_decision_scoping.py"
       - "tests/test_sophia_c10_live_proof.py"
+      - "tests/test_sophia_c10_validation.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
       - "docs/SOPHIA_C10_SCHOLARLY_TOPOLOGY.md"
+      - "docs/SOPHIA_C10_STRESS_PROOF.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
   pull_request:
     paths:
@@ -28,16 +34,22 @@ on:
       - "adapters/sophia/c10_gate.py"
       - "adapters/sophia/c10_scope.py"
       - "adapters/sophia/scholarly_topology.py"
+      - "adapters/sophia/c10_validation.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
       - "scripts/run_sophia_c10_topology.py"
       - "scripts/prove_sophia_c10_live.py"
+      - "scripts/record_sophia_c10_human_validation.py"
+      - "scripts/prove_sophia_c10_stress.py"
+      - "config/sophia_service.json"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
       - "tests/test_sophia_c10_lineage_isolation.py"
       - "tests/test_sophia_c10_scholarly_topology.py"
       - "tests/test_sophia_c10_decision_scoping.py"
       - "tests/test_sophia_c10_live_proof.py"
+      - "tests/test_sophia_c10_validation.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
       - "docs/SOPHIA_C10_SCHOLARLY_TOPOLOGY.md"
+      - "docs/SOPHIA_C10_STRESS_PROOF.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
 
 jobs:
@@ -56,23 +68,27 @@ jobs:
             adapters/sophia/c10_gate.py \
             adapters/sophia/c10_scope.py \
             adapters/sophia/scholarly_topology.py \
+            adapters/sophia/c10_validation.py \
             scripts/run_sophia_longitudinal_speculum_c10.py \
             scripts/run_sophia_c10_topology.py \
-            scripts/prove_sophia_c10_live.py
+            scripts/prove_sophia_c10_live.py \
+            scripts/record_sophia_c10_human_validation.py \
+            scripts/prove_sophia_c10_stress.py
       - name: Re-run C9 integrity contracts inherited by C10
         run: |
           python -m unittest -v \
             tests.test_sophia_c9_scholarly_integrity \
             tests.test_sophia_c9_support_monotonicity \
             tests.test_sophia_c9_commercial_gate
-      - name: Run C10 longitudinal, topology, decision, and proof adversarial contracts
+      - name: Run C10 longitudinal, topology, decision, proof, and validation contracts
         run: |
           python -m unittest -v \
             tests.test_sophia_c10_longitudinal_speculum \
             tests.test_sophia_c10_lineage_isolation \
             tests.test_sophia_c10_scholarly_topology \
             tests.test_sophia_c10_decision_scoping \
-            tests.test_sophia_c10_live_proof
+            tests.test_sophia_c10_live_proof \
+            tests.test_sophia_c10_validation
       - name: Verify hardened scope semantics
         run: |
           python - <<'PY'
@@ -94,3 +110,5 @@ jobs:
           grep -Fq "topology hypotheses, not findings of author intent" adapters/sophia/scholarly_topology.py
           grep -Fq "Human decisions are required before release" adapters/sophia/c10_gate.py
           grep -Fq "C10_LONGITUDINAL_PROOF_NOT_YET_ESTABLISHED" scripts/prove_sophia_c10_live.py
+          grep -Fq "C10_STRESS_PROOF_NOT_YET_ESTABLISHED" adapters/sophia/c10_validation.py
+          grep -Fq "not a universal accuracy estimate" adapters/sophia/c10_validation.py
