@@ -51,7 +51,8 @@ class SophiaC10DecisionScopingTests(unittest.TestCase):
 
     def test_prior_author_decision_does_not_clear_later_burden_mutation(self) -> None:
         text = "Structured feedback improves academic writing among postgraduate learners."
-        first = self._ingest("initial", text, [_claim(text, claim_type="associational", risk="medium")])
+        self._ingest("initial", text, [_claim(text, claim_type="associational", risk="medium")])
+        first = self._lineage()
         lineage_id = first["lineages"][0]["lineage_id"]
         record_author_decision(
             project_id=self.project,
