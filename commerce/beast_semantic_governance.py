@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from .mandos import active_negative_capabilities_for as mandos_negative_capabilities_for
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -61,6 +63,53 @@ def load_evidence_scorer() -> tuple[Any, str]:
     return module.EvidenceScorer, str(path)
 
 
+def _semantic_value(cso: dict[str, Any], section: str, field: str) -> Any:
+    item = (cso.get(section) or {}).get(field)
+    if isinstance(item, dict):
+        return item.get("value")
+    return item
+
+
+def _expression_selector_scope(cso: dict[str, Any], expression: dict[str, Any]) -> dict[str, Any]:
+    """Return only failure-memory selectors the current expression can actually prove."""
+    plan = expression.get("plan") or {}
+    contract = plan.get("contract") or {}
+    verified_context = plan.get("verified_context") or {}
+    tactic_context = verified_context.get("tactic_id")
+    tactic_id = expression.get("tactic_id") or plan.get("tactic_id")
+    if not tactic_id and isinstance(tactic_context, dict):
+        tactic_id = tactic_context.get("value")
+    return {
+        "product": _semantic_value(cso, "commercial", "product"),
+        "offer": _semantic_value(cso, "commercial", "offer"),
+        "communicative_act": expression.get("communicative_act"),
+        "channel": contract.get("channel") or _semantic_value(cso, "strategy", "channel"),
+        "tactic_id": tactic_id,
+    }
+
+
+def _strict_remembered_matches(
+    rows: list[dict[str, Any]],
+    current_scope: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Never broaden a stored failure when a selector is absent from current proof scope."""
+    matches: list[dict[str, Any]] = []
+    for row in rows:
+        selectors = row.get("selectors") or {}
+        required = {key: value for key, value in selectors.items() if value not in {None, ""}}
+        if not required:
+            continue
+        proven = True
+        for key, expected in required.items():
+            actual = current_scope.get(key)
+            if actual in {None, ""} or str(actual) != str(expected):
+                proven = False
+                break
+        if proven:
+            matches.append(row)
+    return matches
+
+
 def assess_expression_evidence(
     cso: dict[str, Any],
     expression: dict[str, Any],
@@ -68,12 +117,13 @@ def assess_expression_evidence(
     execution_kind: str,
     repeat_count: int = 1,
     active_negative_capabilities: list[dict[str, Any]] | None = None,
+    memory_root: Path | None = None,
 ) -> dict[str, Any]:
-    """Apply BEAST evidence scoring to an expression's declared semantic dependencies.
+    """Apply BEAST evidence scoring and Mandos failure memory to semantic dependencies.
 
-    This function does not infer claims from prose. It scores only the dependencies the
-    expression declares. A probabilistic writer must therefore return a complete claim
-    source manifest or C5 will fail closed.
+    The scorer never infers claims from prose. Mandos contributes only typed, repeated,
+    verified failure patterns that have already earned `active` negative-capability state.
+    Positive Mandos patterns never expand execution authority through this path.
     """
     dependencies = list(expression.get("claim_sources") or [])
     total = len(dependencies)
@@ -95,7 +145,16 @@ def assess_expression_evidence(
 
     denominator = max(1, total)
     verification_strength = max(0.0, min(1.0, (verified + 0.45 * inferred) / denominator))
-    confidence = max(0.0, min(1.0, 1.0 - (0.45 * inferred / denominator) - (0.8 * missing_refs / denominator) - (invalid / denominator)))
+    confidence = max(
+        0.0,
+        min(
+            1.0,
+            1.0
+            - (0.45 * inferred / denominator)
+            - (0.8 * missing_refs / denominator)
+            - (invalid / denominator),
+        ),
+    )
     relevance = 1.0 if expression.get("semantic_object_id") == cso.get("object_id") else 0.0
 
     EvidenceScorer, scorer_source = load_evidence_scorer()
@@ -109,7 +168,21 @@ def assess_expression_evidence(
         blast_radius=BLAST_RADIUS.get(execution_kind, 0.5),
     ).to_dict()
 
-    active_negative_capabilities = list(active_negative_capabilities or [])
+    supplied = list(active_negative_capabilities or [])
+    remembered_candidates = mandos_negative_capabilities_for(
+        (memory_root or ROOT).resolve(),
+        cso,
+        expression,
+        execution_kind=execution_kind,
+    )
+    current_scope = _expression_selector_scope(cso, expression)
+    remembered = _strict_remembered_matches(remembered_candidates, current_scope)
+    merged: dict[str, dict[str, Any]] = {}
+    for row in [*supplied, *remembered]:
+        key = str(row.get("capability_id") or row.get("pattern_key") or repr(row))
+        merged[key] = row
+    active_negative_capabilities = list(merged.values())
+
     blockers: list[dict[str, Any]] = []
     cautions: list[dict[str, Any]] = []
     if not dependencies:
@@ -123,7 +196,7 @@ def assess_expression_evidence(
     if active_negative_capabilities:
         blockers.append({
             "code": "ACTIVE_NEGATIVE_CAPABILITY",
-            "message": "BEAST has an active failure pattern matching this expression/execution route.",
+            "message": "BEAST has an active repeated failure pattern matching this expression/execution route.",
             "matches": active_negative_capabilities,
         })
     if inferred:
@@ -146,7 +219,7 @@ def assess_expression_evidence(
     else:
         status = "PASS"
     return {
-        "schema": "dio.beast_semantic_evidence_assessment.v1",
+        "schema": "dio.beast_semantic_evidence_assessment.v2",
         "status": status,
         "scorer": {
             "organ": "EdgeK-BEAST EvidenceScorer",
@@ -163,6 +236,14 @@ def assess_expression_evidence(
             "confidence": round(confidence, 5),
         },
         "active_negative_capabilities": active_negative_capabilities,
+        "mandos_memory": {
+            "root": str((memory_root or ROOT).resolve()),
+            "remembered_candidates": len(remembered_candidates),
+            "remembered_matches": len(remembered),
+            "selector_scope": current_scope,
+            "positive_memory_may_expand_authority": False,
+            "unprovable_selector_may_broaden_veto": False,
+        },
         "blockers": blockers,
         "cautions": cautions,
         "principles": {
@@ -170,5 +251,7 @@ def assess_expression_evidence(
             "source_change_requires_rejudgement": True,
             "reuse_does_not_expand_authority": True,
             "negative_capability_can_veto_execution": True,
+            "mandos_does_not_forget_verified_failure": True,
+            "unprovable_selector_never_broadens_failure_scope": True,
         },
     }

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio.mandos_pattern.v1.schema.json",
+  "title": "DIO Mandos Pattern v1",
+  "description": "Derived pattern over append-governed, tamper-evident commercial outcomes. Reuse authority is earned separately and never expands execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "pattern_key", "updated_at", "strategy", "direction", "earned_stage", "current_stage", "historical_max_stage", "outcome_ids", "case_ids", "evidence_summary", "economics", "decision", "negative_capability", "reuse_authority", "promotion_law"],
+  "properties": {
+    "schema": {"const": "dio.mandos_pattern.v1"},
+    "pattern_key": {"type": "string", "pattern": "^MANDOS-PAT-[A-F0-9]{20}$"},
+    "updated_at": {"type": "string", "minLength": 1},
+    "strategy": {"type": "object"},
+    "direction": {"enum": ["positive", "negative", "neutral", "contested"]},
+    "earned_stage": {"enum": ["observation", "repeated_observation", "corroborated_pattern"]},
+    "current_stage": {"enum": ["observation", "repeated_observation", "corroborated_pattern", "candidate_strategy", "adversarial_validated", "reusable_crystal"]},
+    "historical_max_stage": {"enum": ["observation", "repeated_observation", "corroborated_pattern", "candidate_strategy", "adversarial_validated", "reusable_crystal"]},
+    "outcome_ids": {"type": "array", "items": {"type": "string", "pattern": "^OUT-[A-F0-9]{24}$"}, "uniqueItems": true},
+    "case_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "evidence_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verified_outcomes", "verified_cases", "positive_cases", "negative_cases", "source_classes", "source_class_count"],
+      "properties": {
+        "verified_outcomes": {"type": "integer", "minimum": 0},
+        "verified_cases": {"type": "integer", "minimum": 0},
+        "positive_cases": {"type": "integer", "minimum": 0},
+        "negative_cases": {"type": "integer", "minimum": 0},
+        "source_classes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "source_class_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "economics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "aggregation_state", "revenue_minor", "cost_minor", "manual_minutes", "gross_margin_minor", "economic_event_count", "by_currency", "attestation_deduplication"],
+      "properties": {
+        "currency": {"type": ["string", "null"]},
+        "aggregation_state": {"enum": ["no_economic_events", "single_currency", "mixed_currency_not_aggregated"]},
+        "revenue_minor": {"type": "integer", "minimum": 0},
+        "cost_minor": {"type": "integer", "minimum": 0},
+        "manual_minutes": {"type": "number", "minimum": 0},
+        "gross_margin_minor": {"type": "integer"},
+        "economic_event_count": {"type": "integer", "minimum": 0},
+        "by_currency": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["revenue_minor", "cost_minor", "manual_minutes", "gross_margin_minor", "economic_event_count"],
+            "properties": {
+              "revenue_minor": {"type": "integer", "minimum": 0},
+              "cost_minor": {"type": "integer", "minimum": 0},
+              "manual_minutes": {"type": "number", "minimum": 0},
+              "gross_margin_minor": {"type": "integer"},
+              "economic_event_count": {"type": "integer", "minimum": 0}
+            }
+          }
+        },
+        "attestation_deduplication": {"const": true}
+      }
+    },
+    "decision": {"type": "object"},
+    "negative_capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "reason"],
+      "properties": {
+        "state": {"enum": ["inactive", "active", "contested"]},
+        "reason": {"type": ["string", "null"]}
+      }
+    },
+    "reuse_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "may_expand_execution_authority", "scope", "exact_outcome_evidence_retained"],
+      "properties": {
+        "state": {"enum": ["not_earned", "active", "revoked"]},
+        "may_expand_execution_authority": {"const": false},
+        "scope": {"const": "strategy_hypothesis_only"},
+        "exact_outcome_evidence_retained": {"const": true}
+      }
+    },
+    "promotion_law": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["automatic_crystallization", "candidate_requires_corroboration", "adversarial_validation_required", "human_promotion_required", "failure_may_narrow_authority_earlier_than_success_expands_reuse"],
+      "properties": {
+        "automatic_crystallization": {"const": false},
+        "candidate_requires_corroboration": {"const": true},
+        "adversarial_validation_required": {"const": true},
+        "human_promotion_required": {"const": true},
+        "failure_may_narrow_authority_earlier_than_success_expands_reuse": {"const": true}
+      }
+    }
+  }
+}
