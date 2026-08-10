@@ -1,0 +1,46 @@
+name: Sophia C10 Longitudinal Speculum
+
+on:
+  push:
+    branches:
+      - dio-c10-sophia-longitudinal-speculum
+    paths:
+      - "adapters/sophia/longitudinal_speculum.py"
+      - "scripts/run_sophia_longitudinal_speculum_c10.py"
+      - "tests/test_sophia_c10_longitudinal_speculum.py"
+      - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
+      - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
+  pull_request:
+    paths:
+      - "adapters/sophia/longitudinal_speculum.py"
+      - "scripts/run_sophia_longitudinal_speculum_c10.py"
+      - "tests/test_sophia_c10_longitudinal_speculum.py"
+      - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
+      - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
+
+jobs:
+  longitudinal-speculum:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile C10 code
+        run: |
+          python -m py_compile \
+            adapters/sophia/longitudinal_speculum.py \
+            scripts/run_sophia_longitudinal_speculum_c10.py
+      - name: Re-run C9 integrity contracts inherited by C10
+        run: |
+          python -m unittest -v \
+            tests.test_sophia_c9_scholarly_integrity \
+            tests.test_sophia_c9_support_monotonicity \
+            tests.test_sophia_c9_commercial_gate
+      - name: Run C10 longitudinal adversarial proof
+        run: python -m unittest -v tests.test_sophia_c10_longitudinal_speculum
+      - name: Verify C10 authority language
+        run: |
+          grep -Fq "Ambiguous continuity remains unresolved until a human confirms or rejects it" adapters/sophia/longitudinal_speculum.py
+          grep -Fq "Resolve ambiguous claim-lineage candidates before C10 approval" scripts/run_sophia_longitudinal_speculum_c10.py
+          grep -Fq "not a forensic authorship or misconduct determination" adapters/sophia/longitudinal_speculum.py
