@@ -43,38 +43,8 @@ def run_initial(
     sophia_root: Path,
     review_root: Path,
 ) -> dict[str, Any]:
-    job = commercial.run_job(job_root, job_id, event_log, base_url, sophia_root, review_root)
-    output_dir = Path(job["review"]["output_dir"])
-    manuscript_path = Path(job["source"]["document_path"])
-    enrichment = enrich_review_pack(
-        job_id=job_id,
-        output_dir=output_dir,
-        manuscript_path=manuscript_path,
-        sophia_root=sophia_root,
-    )
-    path, job = commercial.load_job(job_root, job_id)
-    job["review"]["c9_integrity"] = enrichment
-    job["review"]["scholarly_risk_state"] = enrichment["risk_state"]
-    job["review"]["open_scholarly_risks"] = enrichment["open_risk_count"]
-    job["review"]["verification_queue_count"] = enrichment["verification_queue_count"]
-    job["review"]["integrity_record_hash"] = enrichment["speculum_integrity_record_hash"]
-    job.setdefault("revision_rounds", [])
-    commercial.save_job(path, job)
-    commercial.emit_event(
-        event_log,
-        "sophia.c9_integrity_pack_ready",
-        "action",
-        "sophia_job",
-        job_id,
-        {
-            "risk_state": enrichment["risk_state"],
-            "open_risks": enrichment["open_risk_count"],
-            "verification_queue": enrichment["verification_queue_count"],
-            "integrity_record_hash": enrichment["speculum_integrity_record_hash"],
-        },
-        job_id,
-    )
-    return job
+    """Use the canonical commercial runner, which now fails closed on missing C9 integrity artifacts."""
+    return commercial.run_job(job_root, job_id, event_log, base_url, sophia_root, review_root)
 
 
 def run_revision(
@@ -95,6 +65,8 @@ def run_revision(
         raise ValueError("The original manuscript and remote-processing consents must still be valid.")
     if job.get("review", {}).get("state") != "ready_for_human_review":
         raise ValueError("The initial Sophia review must be review-ready before a revision round can start.")
+    if (job.get("review", {}).get("c9_integrity") or {}).get("state") != "integrity_pack_ready":
+        raise ValueError("The initial Sophia C9 integrity pack must be complete before a revision round can start.")
     original_output = Path(job["review"]["output_dir"])
     if not original_output.is_dir():
         raise FileNotFoundError(original_output)
@@ -118,18 +90,76 @@ def run_revision(
     write_json(revision_request_path, request)
 
     revised_output = run_review(request, revision_request_path, review_root, base_url, sophia_root)
-    enrichment = enrich_review_pack(
-        job_id=revision_id,
-        output_dir=revised_output,
-        manuscript_path=revised_document.resolve(),
-        sophia_root=sophia_root,
-    )
-    comparison = compare_revision_packs(
-        original_dir=original_output,
-        revised_dir=revised_output,
-        original_document=Path(job["source"]["document_path"]),
-        revised_document=revised_document.resolve(),
-    )
+    commentary = commercial.load_json(revised_output / "REVIEWER_COMMENTARY.json")
+    grounded = bool((commentary.get("validation") or {}).get("passed"))
+    base_completed = commentary.get("status") == "completed" and grounded
+    if not base_completed:
+        round_record = {
+            "round": round_number,
+            "revision_id": revision_id,
+            "state": "blocked",
+            "document_path": str(revised_document.resolve()),
+            "output_dir": str(revised_output),
+            "grounding_passed": grounded,
+            "integrity_enrichment": {"state": "not_built"},
+            "movement": "not_calculated",
+            "approval": {"state": "pending", "reviewer": None, "reviewed_at": None},
+            "delivery": {"state": "held", "released": False},
+        }
+        job.setdefault("revision_rounds", []).append(round_record)
+        job["state"] = "revision_blocked"
+        commercial.save_job(path, job)
+        commercial.emit_event(
+            event_log,
+            "sophia.revision_integrity_blocked",
+            "critical",
+            "sophia_job",
+            job_id,
+            {"revision_id": revision_id, "grounding_passed": grounded},
+            job_id,
+        )
+        return job
+
+    try:
+        enrichment = enrich_review_pack(
+            job_id=revision_id,
+            output_dir=revised_output,
+            manuscript_path=revised_document.resolve(),
+            sophia_root=sophia_root,
+        )
+        comparison = compare_revision_packs(
+            original_dir=original_output,
+            revised_dir=revised_output,
+            original_document=Path(job["source"]["document_path"]),
+            revised_document=revised_document.resolve(),
+        )
+    except Exception as exc:
+        round_record = {
+            "round": round_number,
+            "revision_id": revision_id,
+            "state": "blocked",
+            "document_path": str(revised_document.resolve()),
+            "output_dir": str(revised_output),
+            "grounding_passed": grounded,
+            "integrity_enrichment": {"state": "blocked", "error": str(exc)},
+            "movement": "not_calculated",
+            "approval": {"state": "pending", "reviewer": None, "reviewed_at": None},
+            "delivery": {"state": "held", "released": False},
+        }
+        job.setdefault("revision_rounds", []).append(round_record)
+        job["state"] = "revision_blocked"
+        commercial.save_job(path, job)
+        commercial.emit_event(
+            event_log,
+            "sophia.revision_integrity_blocked",
+            "critical",
+            "sophia_job",
+            job_id,
+            {"revision_id": revision_id, "grounding_passed": grounded, "error": str(exc)},
+            job_id,
+        )
+        raise
+
     write_json(revised_output / "REVISION_INTEGRITY_REPORT.json", comparison)
     write_text(revised_output / "REVISION_INTEGRITY_REPORT.md", markdown_revision_report(comparison))
     write_json(original_output / f"REVISION_{round_number}_INTEGRITY_REPORT.json", comparison)
@@ -137,9 +167,7 @@ def run_revision(
     rebuild_archive(revised_output, revision_id)
     rebuild_archive(original_output, job_id)
 
-    commentary = commercial.load_json(revised_output / "REVIEWER_COMMENTARY.json")
-    grounded = bool((commentary.get("validation") or {}).get("passed"))
-    round_state = "ready_for_human_review" if commentary.get("status") == "completed" and grounded else "blocked"
+    round_state = "ready_for_human_review" if enrichment.get("state") == "integrity_pack_ready" else "blocked"
     round_record = {
         "round": round_number,
         "revision_id": revision_id,
@@ -178,8 +206,12 @@ def approve_revision(*, job_root: Path, job_id: str, round_number: int, reviewer
     target = next((row for row in rounds if int(row.get("round") or 0) == round_number), None)
     if not target:
         raise ValueError(f"Revision round {round_number} was not found.")
-    if target.get("state") != "ready_for_human_review" or not target.get("grounding_passed"):
-        raise ValueError("Only a grounded, review-ready revision pack can be approved.")
+    if (
+        target.get("state") != "ready_for_human_review"
+        or not target.get("grounding_passed")
+        or (target.get("integrity_enrichment") or {}).get("state") != "integrity_pack_ready"
+    ):
+        raise ValueError("Only a grounded, C9-integrity-complete revision pack can be approved.")
     target["approval"] = {
         "state": "approved",
         "reviewer": reviewer,
@@ -210,7 +242,7 @@ def main() -> int:
     parser.add_argument("--review-root", type=Path, default=DEFAULT_REVIEW_ROOT)
     sub = parser.add_subparsers(dest="command", required=True)
 
-    run = sub.add_parser("run", help="Run the existing commercial review, then build the C9 integrity pack.")
+    run = sub.add_parser("run", help="Run the canonical commercial review and mandatory C9 integrity pack.")
     run.add_argument("job_id")
 
     revision = sub.add_parser("revision", help="Run the included author-owned revision integrity round.")
