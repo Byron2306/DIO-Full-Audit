@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from commerce.mandos_reconcile import reconcile_all as reconcile_mandos  # noqa: E402
+from commerce.mandos_recovery import verify_complete_memory  # noqa: E402
 from commerce.orchestrator import CommercialOrchestrator  # noqa: E402
 from scripts.reconcile_conversation_context import reconcile_conversation_contexts  # noqa: E402
 
@@ -30,6 +31,9 @@ def main() -> int:
         receipt = orchestrator.run(stage_jobs=not args.no_stage_jobs)
         receipt["conversation_context"] = context_receipt
         receipt["mandos"] = reconcile_mandos(root)
+        receipt["mandos_memory_verification"] = verify_complete_memory(root)
+        if not receipt["mandos_memory_verification"]["valid"]:
+            raise RuntimeError("Mandos memory verification failed; commercial cycle refuses a clean-memory claim.")
         print(json.dumps(receipt, indent=2), flush=True)
         if not args.watch:
             return 0
