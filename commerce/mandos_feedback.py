@@ -8,6 +8,9 @@ from .mandos import MandosLedger
 from .semantic import assert_valid_commercial_semantic_object, semantic_claim
 
 
+HIVENANCE_DECISION_RANK = {"HOLD": 0, "REFINE": 1, "TEST": 2}
+
+
 def _write(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=True, sort_keys=True) + "\n", encoding="utf-8")
@@ -59,9 +62,11 @@ def campaign_feedback(root: Path, campaign_id: str) -> dict[str, Any]:
         "patterns": [
             {
                 "pattern_key": row["pattern_key"],
+                "strategy": row["strategy"],
                 "direction": row["direction"],
                 "current_stage": row["current_stage"],
                 "evidence_summary": row["evidence_summary"],
+                "negative_capability": row["negative_capability"],
                 "reuse_authority": row["reuse_authority"],
             }
             for row in patterns
@@ -72,6 +77,90 @@ def campaign_feedback(root: Path, campaign_id: str) -> dict[str, Any]:
             "is_synthetic_score": False,
             "may_expand_execution_authority": False,
             "may_be_reused_as_strategy": any((row.get("reuse_authority") or {}).get("state") == "active" for row in patterns),
+        },
+    }
+
+
+def hivenance_outcome_overlay(
+    feedback: dict[str, Any],
+    hivenance_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    """Let Mandos constrain Hivenance without rewriting its native council result.
+
+    The overlay is intentionally non-numeric. It may downgrade an exactly scoped selected
+    hypothesis family, but never upgrades Hivenance and never grants publication, outreach,
+    commerce, or execution authority.
+    """
+    if feedback.get("schema") != "dio.mandos_campaign_feedback.v1":
+        raise ValueError("Mandos campaign feedback schema is invalid")
+    council = hivenance_receipt.get("council") or {}
+    base_decision = str(council.get("decision") or "")
+    if base_decision not in HIVENANCE_DECISION_RANK:
+        raise ValueError(f"Unsupported Hivenance council decision: {base_decision}")
+    selected_family = str(council.get("selected_family") or "").strip() or None
+
+    scoped = []
+    if selected_family:
+        for pattern in feedback.get("patterns") or []:
+            tactic_id = str(((pattern.get("strategy") or {}).get("tactic_id")) or "").strip()
+            if tactic_id == selected_family:
+                scoped.append(pattern)
+
+    active_negative = [row for row in scoped if (row.get("negative_capability") or {}).get("state") == "active"]
+    contested = [
+        row for row in scoped
+        if (row.get("negative_capability") or {}).get("state") == "contested" or row.get("direction") == "contested"
+    ]
+    promoted_positive = [
+        row for row in scoped
+        if row.get("direction") == "positive" and (row.get("reuse_authority") or {}).get("state") == "active"
+    ]
+
+    effective = base_decision
+    matched_patterns: list[dict[str, Any]] = []
+    if active_negative:
+        judgement = "VETO_MATCHED_FAILURE"
+        effective = "HOLD"
+        matched_patterns = active_negative
+        rationale = "Repeated verified failure matches the exact Hivenance hypothesis family selected for this campaign."
+    elif contested:
+        judgement = "CHALLENGE_MATCHED_CONTRADICTION"
+        effective = "REFINE" if base_decision == "TEST" else base_decision
+        matched_patterns = contested
+        rationale = "The selected Hivenance hypothesis family has both supporting and contradicting verified outcome evidence."
+    elif promoted_positive:
+        judgement = "SUPPORTED_BY_REUSABLE_CRYSTAL"
+        matched_patterns = promoted_positive
+        rationale = "A promoted reusable strategy crystal supports this exact hypothesis family, but cannot upgrade Hivenance's own decision."
+    elif feedback.get("outcomes"):
+        judgement = "WITHHELD_SCOPE"
+        rationale = "Mandos has verified campaign outcomes, but none prove the exact selected Hivenance hypothesis-family scope."
+    else:
+        judgement = "NO_OUTCOME_EVIDENCE"
+        rationale = "No verified Mandos commercial outcomes are available for this campaign."
+
+    if HIVENANCE_DECISION_RANK[effective] > HIVENANCE_DECISION_RANK[base_decision]:
+        raise AssertionError("Mandos Hivenance overlay attempted to upgrade the native council decision")
+
+    return {
+        "schema": "dio.mandos_hivenance_outcome_overlay.v1",
+        "campaign_id": feedback.get("campaign_id"),
+        "hivenance_decision": base_decision,
+        "selected_family": selected_family,
+        "judgement": judgement,
+        "effective_decision": effective,
+        "rationale": rationale,
+        "matched_pattern_keys": [row.get("pattern_key") for row in matched_patterns],
+        "verified_outcome_count": len(feedback.get("outcomes") or []),
+        "economics": feedback.get("economics") or {},
+        "authority": {
+            "may_upgrade_hivenance_decision": False,
+            "may_expand_execution_authority": False,
+            "publication_authority": "none",
+            "outreach_authority": "none",
+            "commerce_authority": "none",
+            "strategy_reuse_requires_promoted_crystal": True,
+            "exact_hypothesis_scope_required_for_downgrade": True,
         },
     }
 
