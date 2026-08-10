@@ -102,14 +102,43 @@ def governed_scope_signature(text: str, claim_type: str, *, normalize: Callable[
     }
 
 
-def install_longitudinal_scope_patch(module: Any) -> None:
-    """Install the hardened classifier into the C10 longitudinal module.
+def registered_prior_candidates(registry: dict[str, Any]) -> list[tuple[str, dict[str, Any]]]:
+    """Return lineage ancestors only from already committed earlier versions.
 
-    Kept as a tiny package-level hardening hook so the branch can correct the
-    scope classifier without duplicating the large longitudinal engine.
+    During ingestion, occurrences from the current draft are appended to the
+    in-memory registry before the draft itself is committed to ``versions``.
+    Excluding unregistered versions prevents claim #2 in a manuscript from
+    incorrectly using claim #1 in the same manuscript as an ancestor.
+    """
+    registered_versions = {
+        str(row.get("draft_version_id") or "")
+        for row in (registry.get("versions") or [])
+        if str(row.get("draft_version_id") or "")
+    }
+    candidates: list[tuple[str, dict[str, Any]]] = []
+    for lineage_id, lineage in (registry.get("lineages") or {}).items():
+        if lineage.get("state") == "provisional_continuity_candidate":
+            continue
+        occurrences = list(lineage.get("occurrences") or [])
+        if not occurrences:
+            continue
+        latest = occurrences[-1]
+        if str(latest.get("draft_version_id") or "") not in registered_versions:
+            continue
+        candidates.append((str(lineage_id), latest))
+    return candidates
+
+
+def install_longitudinal_scope_patch(module: Any) -> None:
+    """Install C10's hardened scope and ancestry semantics.
+
+    Kept as a small package-level hardening hook so the branch can repair the
+    classifier and lineage-candidate boundary without duplicating the large
+    longitudinal engine.
     """
     module._scope_signature = lambda text, claim_type: governed_scope_signature(  # type: ignore[attr-defined]
         text,
         claim_type,
         normalize=module._normalize,
     )
+    module._prior_candidates = registered_prior_candidates  # type: ignore[attr-defined]
