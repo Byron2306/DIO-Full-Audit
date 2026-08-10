@@ -28,6 +28,11 @@ TOPOLOGY_DECISIONS = {
     "claim_merge_candidate": {"confirm_merge", "reject_merge", "defer"},
     "factual_surface_mutation": {"intentional_change", "needs_revision", "false_positive", "defer"},
 }
+CLOSING_TOPOLOGY_DECISIONS = {
+    "claim_split_candidate": {"confirm_split", "reject_split"},
+    "claim_merge_candidate": {"confirm_merge", "reject_merge"},
+    "factual_surface_mutation": {"intentional_change", "false_positive"},
+}
 
 NEGATION = {"no", "not", "never", "none", "without", "neither", "nor"}
 MODALITY = {
@@ -249,9 +254,15 @@ def _author_decision_for_lineage(
     rows = [row for row in longitudinal.get("author_decisions") or [] if row.get("lineage_id") == lineage_id]
     if draft_version_id:
         scoped = [row for row in rows if row.get("draft_version_id") == draft_version_id]
-        if scoped:
-            return scoped[-1]
+        return scoped[-1] if scoped else None
     return rows[-1] if rows else None
+
+
+def _topology_decision_closes(issue_kind: str, decision: dict[str, Any] | None) -> bool:
+    if not decision:
+        return False
+    allowed = CLOSING_TOPOLOGY_DECISIONS.get(issue_kind, set())
+    return str(decision.get("decision") or "") in allowed
 
 
 def build_topology_audit(
@@ -328,7 +339,12 @@ def build_topology_audit(
     for issue in topology_issues:
         decision = _decision_for_issue(decisions, str(issue["issue_id"]))
         issue["human_topology_decision"] = decision
-        issue["state"] = "human_reviewed" if decision else "open"
+        if _topology_decision_closes(str(issue.get("kind") or ""), decision):
+            issue["state"] = "human_resolved"
+        elif decision:
+            issue["state"] = "human_action_open"
+        else:
+            issue["state"] = "open"
 
     payload = {
         "schema": AUDIT_SCHEMA,
@@ -336,7 +352,7 @@ def build_topology_audit(
         "project_id": project_id,
         "version_count": len(versions),
         "issue_count": len(topology_issues),
-        "open_issue_count": sum(1 for row in topology_issues if row.get("state") == "open"),
+        "open_issue_count": sum(1 for row in topology_issues if row.get("state") != "human_resolved"),
         "issues": topology_issues,
         "human_topology_decisions": decisions.get("decisions") or [],
         "authority_boundary": (
@@ -386,10 +402,13 @@ def build_decision_queue(
         lineage_id = str(lineage.get("lineage_id") or "")
         occurrences = list(lineage.get("occurrences") or [])
         latest_occurrence = occurrences[-1] if occurrences else {}
-        latest_decision = _author_decision_for_lineage(longitudinal, lineage_id, str(latest_occurrence.get("draft_version_id") or ""))
+        latest_version_id = str(latest_occurrence.get("draft_version_id") or "")
+        latest_decision = _author_decision_for_lineage(longitudinal, lineage_id, latest_version_id)
+        any_decision = _author_decision_for_lineage(longitudinal, lineage_id)
+
         if latest_occurrence.get("burden_changes") and not latest_decision:
             queue.append({
-                "queue_id": f"DQ-{_sha('burden|' + lineage_id + '|' + str(latest_occurrence.get('draft_version_id')), 16)}",
+                "queue_id": f"DQ-{_sha('burden|' + lineage_id + '|' + latest_version_id, 16)}",
                 "kind": "author_decision_required_for_burden_mutation",
                 "severity": "high",
                 "lineage_id": lineage_id,
@@ -404,8 +423,7 @@ def build_decision_queue(
             and lineage.get("state") == "absent_latest_revision"
             and str(latest_occurrence.get("evidence_risk") or "").lower() == "high"
         ):
-            decision = _author_decision_for_lineage(longitudinal, lineage_id)
-            if not decision or decision.get("decision") not in {"remove", "defer"}:
+            if not any_decision or any_decision.get("decision") not in {"remove", "defer"}:
                 queue.append({
                     "queue_id": f"DQ-{_sha('absence|' + lineage_id + '|' + latest_version, 16)}",
                     "kind": "high_risk_claim_disappearance_needs_author_decision",
@@ -419,7 +437,7 @@ def build_decision_queue(
         if (
             latest_version
             and len(occurrences) == 1
-            and latest_occurrence.get("draft_version_id") == latest_version
+            and latest_version_id == latest_version
             and str(latest_occurrence.get("evidence_risk") or "").lower() == "high"
             and not latest_decision
         ):
@@ -433,15 +451,33 @@ def build_decision_queue(
                 "required_action": "Record how the author intends to handle the new high-risk claim before release.",
             })
 
+        if (
+            latest_version
+            and len(occurrences) > 1
+            and latest_version_id == latest_version
+            and str(latest_occurrence.get("evidence_risk") or "").lower() == "high"
+            and not any_decision
+        ):
+            queue.append({
+                "queue_id": f"DQ-{_sha('persistenthigh|' + lineage_id + '|' + latest_version, 16)}",
+                "kind": "persistent_high_risk_claim_needs_author_decision",
+                "severity": "high",
+                "lineage_id": lineage_id,
+                "state": "open",
+                "reason": "A high-risk scholarly claim persists into the latest reviewed version without any recorded author decision on the lineage.",
+                "required_action": "Record whether the author intends to retain, narrow, strengthen evidence for, qualify, remove, defer, or dispute the claim.",
+            })
+
     for issue in topology.get("issues") or []:
-        if issue.get("state") != "open":
+        if issue.get("state") == "human_resolved":
             continue
         lineage_id = str(issue.get("lineage_id") or "")
-        if issue.get("kind") == "factual_surface_mutation" and lineage_id:
+        if issue.get("kind") == "factual_surface_mutation" and lineage_id and issue.get("state") == "open":
             transition = issue.get("transition") or {}
             decision = _author_decision_for_lineage(longitudinal, lineage_id, str(transition.get("to_version") or ""))
             if decision:
                 continue
+        human_topology_decision = issue.get("human_topology_decision") or {}
         queue.append({
             "queue_id": f"DQ-{_sha('topology|' + str(issue.get('issue_id')), 16)}",
             "kind": f"topology:{issue.get('kind')}",
@@ -450,8 +486,11 @@ def build_decision_queue(
             "topology_issue_id": issue.get("issue_id"),
             "state": "open",
             "reason": issue.get("interpretation"),
+            "prior_human_topology_decision": human_topology_decision.get("decision") or None,
             "required_action": (
-                "Record a human topology decision for this structural revision question."
+                "The prior human topology decision did not close this issue; record a resolving decision when the scholarly question is settled."
+                if human_topology_decision
+                else "Record a human topology decision for this structural revision question."
                 if issue.get("kind") in {"claim_split_candidate", "claim_merge_candidate"}
                 else "Record an author decision or a human topology interpretation for this material surface change."
             ),
@@ -476,7 +515,7 @@ def build_decision_queue(
         "longitudinal_speculum_hash": longitudinal.get("longitudinal_speculum_hash"),
         "release_rule": (
             "C10 revision release should remain held while the blocking scholarly decision queue is non-zero. "
-            "Human decisions clear obligations; silence never counts as scholarly intent."
+            "Human decisions clear obligations only when they actually resolve the current scholarly change; silence never counts as scholarly intent."
         ),
         "authority_boundary": (
             "Decision-queue items are review obligations, not findings of misconduct or automated judgments about author intent."
@@ -517,6 +556,7 @@ def record_topology_decision(
         "rationale": rationale.strip(),
         "recorded_at": utc_now(),
         "authority": "human_topology_interpretation",
+        "closes_issue": decision in CLOSING_TOPOLOGY_DECISIONS.get(str(issue.get("kind") or ""), set()),
     })
     ledger["updated_at"] = utc_now()
     write_json(_decisions_path(state_root), ledger)
@@ -551,7 +591,7 @@ def _markdown_queue(payload: dict[str, Any]) -> str:
         "",
         f"Blocking human decisions: **{payload.get('blocking_count')}**",
         "",
-        "> Silence is not scholarly intent. A material revision obligation remains open until a human records the relevant decision.",
+        "> Silence is not scholarly intent. A material revision obligation remains open until a human records a decision that resolves the current scholarly change.",
         "",
     ]
     for row in payload.get("items") or []:
