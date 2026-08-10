@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#030506">
+<title>DIO GOLDENEYE | Needs Me Command</title>
+<link rel="stylesheet" href="/dashboard/goldeneye-command.css">
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand"><div class="brand-mark"><img src="/dashboard/assets/dio-logo-cockpit.svg" alt="DIO" style="width:52px;height:52px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 11px #2fa8ff55) drop-shadow(0 0 16px #d8ad4255)"><div class="brand-copy"><b>GOLDENEYE</b><span>Commercial command</span></div></div></div>
+  <div class="nav-label">Operator</div>
+  <nav class="nav">
+    <button class="active" data-view="home"><span>◉ Needs Me</span><small id="navNeeds">0</small></button>
+    <button data-view="cases"><span>◆ Cases</span><small id="navCases">0</small></button>
+    <button data-view="mandos"><span>🏛 Mandos</span><small id="navMemory">0</small></button>
+    <button data-view="advanced"><span>⌘ Advanced / Organs</span><small>Deep</small></button>
+  </nav>
+  <div class="operator"><b>OPERATOR // BYRON</b><span class="online">● LOCAL CONTROL PLANE</span><span>GoldenEye never expands DIO authority.</span></div>
+</aside>
+<div class="workspace">
+<header>
+  <div class="title"><b>DIO // GOLDENEYE</b><span id="headerState">Needs-Me commercial command cockpit</span></div>
+  <div class="header-actions"><button class="btn" id="refreshBtn">REFRESH</button><a class="btn" href="/dashboard/index.html" target="_blank">ORGAN DECK</a><button class="btn red" id="blackoutBtn">BLACKOUT</button></div>
+</header>
+<main>
+<section class="view active" id="view-home">
+  <div class="hero">
+    <div class="eye"><img src="/dashboard/assets/dio-logo-cockpit.svg" alt="DIO GoldenEye emblem" style="position:relative;width:min(245px,72%);aspect-ratio:1;object-fit:contain;opacity:.94;filter:drop-shadow(0 0 28px #d8ad4266) drop-shadow(0 0 22px #2fa8ff55)"><div class="eye-number"><strong id="eyeNeeds">0</strong><span>Needs Byron</span></div><div class="eye-foot"><span id="eyeTime">state pending</span><b>MEMORY ≠ PERMISSION</b></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>Commercial position</h2><p>Money, customers, work and human gates. No organ-hopping required.</p></div><span id="positionStamp">loading</span></div><div class="kpis" id="homeKpis"></div><div class="list" id="positionList"></div></div>
+  </div>
+
+  <div class="surface-grid">
+    <div class="panel wide"><div class="panel-head"><div><h2>1 · Needs me now</h2><p>Every stop exposes customer, product, elapsed time, money, evidence, uncertainty, stop reason and exact authorised action.</p></div><span id="needsCount">0 open</span></div><div class="needs-grid" id="needsGrid"></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>2 · Customers waiting</h2><p>Active people and cases ordered by elapsed time.</p></div><span id="waitingCount">0</span></div><div class="list" id="waitingList"></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>3 · Money & pipeline</h2><p>Direct-event money is kept separate from measurement-ledger economics.</p></div><span id="moneyStamp">truth first</span></div><div class="kpis" id="moneyKpis"></div><div class="list" id="moneyList"></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>4 · Ready to ship / release</h2><p>Reviewed deliverables, drafts and media waiting on a governed release step.</p></div><span id="shipCount">0</span></div><div class="list" id="shipList"></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>5 · Risk & memory</h2><p>Failures, uncertainty, negative capability and learned commercial evidence.</p></div><span id="riskStamp">conservative</span></div><div class="kpis" id="riskKpis"></div><div class="list" id="riskList"></div></div>
+  </div>
+</section>
+
+<section class="view" id="view-cases">
+  <div class="panel"><div class="panel-head"><div><h2>Commercial Case Dossier</h2><p>One case. One lineage. Conversation Context → CSO → transaction → quote/payment → fulfilment → delivery → Mandos outcomes.</p></div><span id="caseState">select a case</span></div><div class="case-toolbar" style="padding:12px"><select id="caseSelect"><option value="">Select a lead / commercial case…</option></select><button class="btn gold" id="caseRefreshBtn">RELOAD CASE</button></div><div class="case-summary" id="caseSummary"></div></div>
+  <div class="panel"><div class="panel-head"><h2>Canonical case chain</h2><span>missing state stays missing</span></div><div class="chain" id="caseChain"></div></div>
+  <div class="case-detail">
+    <div class="panel"><div class="panel-head"><h2>Conversation & semantic truth</h2><span>context is evidence, not authority</span></div><div class="detail-body" id="caseSemantic"></div></div>
+    <div class="panel"><div class="panel-head"><h2>Commercial execution truth</h2><span>money, fulfilment and delivery</span></div><div class="detail-body" id="caseExecution"></div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><h2>Mandos outcomes for this case</h2><span id="caseOutcomeCount">0 outcomes</span></div><div class="memory-law"><b>Case memory law:</b> an outcome may change confidence, support reusable strategy hypotheses, or narrow unsafe repetition. It cannot authorise this case to execute.</div><div class="list" id="caseOutcomes"></div></div>
+</section>
+
+<section class="view" id="view-mandos">
+  <div class="panel"><div class="panel-head"><div><h2>Mandos Commercial Outcome Memory</h2><p>C6 outcome identity, independent-case counting, promotion law and revocation surfaced without laundering memory into authority.</p></div><span id="mandosState">loading</span></div><div class="kpis" id="mandosKpis"></div><div class="memory-law"><b>Hard invariant:</b> positive memory never grants execution permission. A reusable crystal is scoped to strategy-hypothesis reuse only. Current execution authority remains independently governed.</div></div>
+  <div class="memory-grid">
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Recent outcomes</h2><span id="recentCount">0</span></div><div class="memory-list" id="recentOutcomes"></div></div>
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Repeated patterns</h2><span id="repeatedCount">0</span></div><div class="memory-list" id="repeatedPatterns"></div></div>
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Active negative capabilities</h2><span id="negativeCount">0</span></div><div class="memory-list" id="negativePatterns"></div></div>
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Contested patterns</h2><span id="contestedCount">0</span></div><div class="memory-list" id="contestedPatterns"></div></div>
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Candidate strategies</h2><span id="candidateCount">0</span></div><div class="memory-list" id="candidatePatterns"></div></div>
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Promoted crystals</h2><span id="crystalCount">0</span></div><div class="memory-list" id="crystalPatterns"></div></div>
+    <div class="panel memory-bucket"><div class="panel-head"><h2>Revocations</h2><span id="revocationCount">0</span></div><div class="memory-list" id="revokedPatterns"></div></div>
+  </div>
+</section>
+
+<section class="view" id="view-advanced">
+  <div class="panel"><div class="panel-head"><div><h2>Advanced / Organs</h2><p>The cockpit answers what Byron must decide. Precision machinery lives here.</p></div><span>deliberately secondary</span></div><div class="advanced-grid" style="padding:12px">
+    <div class="advanced-card"><h3>GoldenEye Intelligence Boards</h3><p>Hypotheses, campaigns, registry, attribution, economics, gaps and the prior dense commercial intelligence surface.</p><a class="btn gold" href="/dashboard/goldeneye.html" target="_blank">OPEN INTELLIGENCE BOARDS</a></div>
+    <div class="advanced-card"><h3>Deep Organ Deck</h3><p>Raw product jobs, mail, fulfilment, Lingua, transactions, systems and precision operator controls.</p><a class="btn gold" href="/dashboard/index.html" target="_blank">OPEN ORGAN DECK</a></div>
+    <div class="advanced-card"><h3>Market Command</h3><p>Dedicated experiment and channel command surface. Economics remain non-additive unless provenance proves otherwise.</p><a class="btn gold" href="http://127.0.0.1:8770/" target="_blank">OPEN MARKET COMMAND</a></div>
+  </div></div>
+  <div class="panel"><div class="panel-head"><h2>Current control matrix</h2><span>read-only summary here</span></div><div class="policy-grid" id="policyGrid"></div><div class="memory-law"><b>Authority law:</b> use the governed action buttons or deep consoles to change authority. GoldenEye Command does not infer authority from success, memory, revenue or confidence.</div></div>
+</section>
+</main>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/dashboard/goldeneye-command.js"></script>
+<script src="/dashboard/goldeneye-command-hardening.js"></script>
+</body>
+</html>
