@@ -16,6 +16,7 @@ import jsonschema
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from adapters.sophia.product_integrity import enrich_review_pack  # noqa: E402
 from adapters.sophia.review_pipeline import run_review  # noqa: E402
 from scripts.dio_mail_branding import branded_email  # noqa: E402
 from scripts.manage_mail_intent import create_intent, emit_event, write_json  # noqa: E402
@@ -124,7 +125,13 @@ def create_job(
             "currency": service["price"]["currency"],
             "checkout_url": None,
         },
-        "review": {"state": "not_started", "output_dir": None, "grounding_passed": False},
+        "review": {
+            "state": "not_started",
+            "output_dir": None,
+            "grounding_passed": False,
+            "c9_integrity": {"state": "not_started"},
+        },
+        "revision_rounds": [],
         "approval": {"state": "pending", "reviewer": None, "reviewed_at": None},
         "delivery": {"state": "held", "mail_intent_id": None, "released": False},
     }
@@ -191,25 +198,27 @@ def quote_job(job_root: Path, job_id: str, edge_config_path: Path, event_log: Pa
     body, body_html = branded_email(
         product="sophia",
         eyebrow="CHECKOUT READY",
-        headline="Your Sophia academic review pilot is ready to start.",
+        headline="Your Sophia scholarly integrity review is ready to start.",
         greeting=f"Hello {job['customer']['name']},",
         intro="Your request passed intake review and is ready for secure checkout.",
         body=[
-            "The launch pilot covers one manuscript section of up to 5,000 words, one diagnostic review pack and one revision round.",
-            "Sophia is built for postgraduate and research-facing work: literature discovery leads, technical reference checks, claim-to-source review and reviewer commentary.",
+            "The launch pilot covers one manuscript section of up to 5,000 words, one inspectable integrity pack and one author-owned revision round.",
+            "The pack traces literature leads, reference integrity, claim-to-source fit, scholarly risks, source-verification tasks, Speculum provenance and governed reviewer commentary.",
             "Processing starts only after PayPal confirms payment. A human operator reviews the pack before delivery.",
         ],
         reference=job_id,
         cta_label="Pay securely with PayPal",
         cta_url=checkout["approval_url"],
-        caution="Sophia supports academic review. It does not ghostwrite, replace your scholarly judgement, or guarantee publication outcomes.",
+        caution=(
+            "Sophia supports scholarly-integrity review. It does not ghostwrite, determine plagiarism or AI authorship, replace institutional misconduct processes, or guarantee publication outcomes."
+        ),
     )
     write_json(quote_path, {
         "purpose": "quote",
         "order_id": order_id,
         "job_id": job_id,
         "recipient": job["customer"]["email"],
-        "subject": f"Sophia Section Review checkout ({job_id})",
+        "subject": f"Sophia Scholarly Integrity Review checkout ({job_id})",
         "body": body,
         "body_html": body_html,
         "attachments": [],
@@ -268,7 +277,42 @@ def run_job(
     commentary = load_json(output_dir / "REVIEWER_COMMENTARY.json")
     receipt = load_json(output_dir / "SOPHIA_REVIEW_RECEIPT.json")
     grounding_passed = bool((commentary.get("validation") or {}).get("passed"))
-    completed = commentary.get("status") == "completed" and grounding_passed
+    base_completed = commentary.get("status") == "completed" and grounding_passed
+
+    integrity: dict[str, Any] | None = None
+    if base_completed:
+        try:
+            integrity = enrich_review_pack(
+                job_id=job_id,
+                output_dir=output_dir,
+                manuscript_path=Path(job["source"]["document_path"]),
+                sophia_root=sophia_root,
+            )
+        except Exception as exc:
+            job["review"] = {
+                "state": "blocked",
+                "output_dir": str(output_dir),
+                "grounding_passed": grounding_passed,
+                "provider": commentary.get("provider"),
+                "model": commentary.get("model"),
+                "reference_findings": (receipt.get("metrics") or {}).get("reference_findings"),
+                "c9_integrity": {"state": "blocked", "error": str(exc)},
+            }
+            job["state"] = "blocked"
+            save_job(path, job)
+            emit_event(
+                event_log,
+                "sophia.c9_integrity_blocked",
+                "critical",
+                "sophia_job",
+                job_id,
+                {"grounding_passed": grounding_passed, "error": str(exc)},
+                job_id,
+            )
+            raise
+
+    integrity_ready = bool(integrity and integrity.get("state") == "integrity_pack_ready" and integrity.get("speculum_integrity_record_hash"))
+    completed = base_completed and integrity_ready
     job["review"] = {
         "state": "ready_for_human_review" if completed else "blocked",
         "output_dir": str(output_dir),
@@ -276,21 +320,53 @@ def run_job(
         "provider": commentary.get("provider"),
         "model": commentary.get("model"),
         "reference_findings": (receipt.get("metrics") or {}).get("reference_findings"),
+        "c9_integrity": integrity or {"state": "not_built"},
+        "scholarly_risk_state": (integrity or {}).get("risk_state"),
+        "open_scholarly_risks": (integrity or {}).get("open_risk_count"),
+        "verification_queue_count": (integrity or {}).get("verification_queue_count"),
+        "integrity_record_hash": (integrity or {}).get("speculum_integrity_record_hash"),
     }
     job["state"] = "review_ready" if completed else "blocked"
     save_job(path, job)
-    emit_event(event_log, "sophia.review_ready" if completed else "sophia.review_blocked", "action" if completed else "critical", "sophia_job", job_id, {"grounding_passed": grounding_passed}, job_id)
+    emit_event(
+        event_log,
+        "sophia.review_ready" if completed else "sophia.review_blocked",
+        "action" if completed else "critical",
+        "sophia_job",
+        job_id,
+        {
+            "grounding_passed": grounding_passed,
+            "c9_integrity_ready": integrity_ready,
+            "open_scholarly_risks": (integrity or {}).get("open_risk_count"),
+            "verification_queue_count": (integrity or {}).get("verification_queue_count"),
+        },
+        job_id,
+    )
     return job
 
 
 def approve_job(job_root: Path, job_id: str, reviewer: str, event_log: Path) -> dict[str, Any]:
     path, job = load_job(job_root, job_id)
-    if job["review"]["state"] != "ready_for_human_review" or not job["review"]["grounding_passed"]:
-        raise ValueError("Only a grounded, review-ready Sophia pack can be approved.")
+    integrity = job.get("review", {}).get("c9_integrity") or {}
+    if (
+        job["review"]["state"] != "ready_for_human_review"
+        or not job["review"]["grounding_passed"]
+        or integrity.get("state") != "integrity_pack_ready"
+        or not job["review"].get("integrity_record_hash")
+    ):
+        raise ValueError("Only a grounded Sophia C9 integrity pack can be approved.")
     job["approval"] = {"state": "approved", "reviewer": reviewer, "reviewed_at": timestamp()}
     job["state"] = "approved_for_delivery"
     save_job(path, job)
-    emit_event(event_log, "sophia.review_approved", "info", "sophia_job", job_id, {"reviewer": reviewer}, job_id)
+    emit_event(
+        event_log,
+        "sophia.review_approved",
+        "info",
+        "sophia_job",
+        job_id,
+        {"reviewer": reviewer, "integrity_record_hash": job["review"].get("integrity_record_hash")},
+        job_id,
+    )
     return job
 
 
@@ -298,6 +374,9 @@ def prepare_delivery(job_root: Path, job_id: str, event_log: Path) -> dict[str, 
     path, job = load_job(job_root, job_id)
     if job["approval"]["state"] != "approved":
         raise ValueError("Human approval is required before preparing delivery.")
+    integrity = job.get("review", {}).get("c9_integrity") or {}
+    if integrity.get("state") != "integrity_pack_ready" or not job.get("review", {}).get("integrity_record_hash"):
+        raise ValueError("Sophia C9 integrity enrichment is required before delivery.")
     output_dir = Path(job["review"]["output_dir"])
     archive = output_dir / f"{job_id}_SOPHIA_REVIEW_PACK.zip"
     if not archive.is_file():
@@ -305,26 +384,28 @@ def prepare_delivery(job_root: Path, job_id: str, event_log: Path) -> dict[str, 
     spec_path = path.parent / "DELIVERY_MAIL_SPEC.json"
     body, body_html = branded_email(
         product="sophia",
-        eyebrow="REVIEW PACK READY",
-        headline="Your Sophia academic review pack is ready.",
+        eyebrow="SCHOLARLY INTEGRITY PACK READY",
+        headline="Your Sophia scholarly integrity review pack is ready.",
         greeting=f"Hello {job['customer']['name']},",
-        intro="The attached pack has passed the DIO human review gate and is ready for your scholarly review.",
+        intro="The attached pack has passed the governed Sophia review route and the DIO human release gate.",
         body=[
-            "Inside the pack: reviewer commentary, technical reference audit, literature discovery leads and a claim-to-source ledger.",
-            "Use it to see where the argument is supported, where sources need checking, and where revision decisions remain yours.",
-            "After you review the pack, reply with any requested revision notes or ask for the next review scope.",
+            "Inside the pack: literature discovery leads, technical reference audit, claim-to-source ledger, scholarly risk register, source verification queue, Speculum integrity record, authorship-preservation engineering signal, governed reviewer commentary and integrity passport.",
+            "Use the pack to see which claims your current evidence can carry, which source relationships still need full-text verification, and which revision decisions remain yours.",
+            "Your included revision round can compare the same scholarly-integrity signals after you revise the section in your own words.",
         ],
         reference=job_id,
         cta_label="View Sophia",
         cta_url="https://byron2306.github.io/DIO-Workflows/sites/sophia/",
-        caution="This pack is diagnostic support, not a rewritten submission. Verify retained sources against the full publication and keep final academic decisions your own.",
+        caution=(
+            "This pack is diagnostic support, not ghostwriting or a misconduct certificate. The Authorship Preservation Index is an unvalidated engineering signal, not an AI-authorship detector. Verify retained sources against the full publication and keep final academic decisions your own."
+        ),
     )
     write_json(spec_path, {
         "purpose": "delivery",
         "order_id": job["payment"].get("order_id"),
         "job_id": job_id,
         "recipient": job["customer"]["email"],
-        "subject": f"Your Sophia academic review pack is ready ({job_id})",
+        "subject": f"Your Sophia scholarly integrity pack is ready ({job_id})",
         "body": body,
         "body_html": body_html,
         "attachments": [str(archive)],
@@ -334,12 +415,12 @@ def prepare_delivery(job_root: Path, job_id: str, event_log: Path) -> dict[str, 
     job["delivery"].update({"state": "draft_ready", "mail_intent_id": intent["mail_intent_id"], "released": False})
     job["state"] = "delivery_draft_ready"
     save_job(path, job)
-    emit_event(event_log, "sophia.delivery_prepared", "action", "sophia_job", job_id, {"mail_intent_id": intent["mail_intent_id"]}, job_id)
+    emit_event(event_log, "sophia.delivery_prepared", "action", "sophia_job", job_id, {"mail_intent_id": intent["mail_intent_id"], "integrity_record_hash": job["review"].get("integrity_record_hash")}, job_id)
     return job
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Operate the controlled Sophia commercial transaction lane.")
+    parser = argparse.ArgumentParser(description="Operate the controlled Sophia commercial scholarly-integrity lane.")
     parser.add_argument("--job-root", type=Path, default=DEFAULT_JOB_ROOT)
     parser.add_argument("--event-log", type=Path, default=DEFAULT_EVENT_LOG)
     parser.add_argument("--service-config", type=Path, default=DEFAULT_SERVICE_CONFIG)
