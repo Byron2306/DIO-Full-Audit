@@ -8,16 +8,25 @@ on:
       - "dashboard/goldeneye-command.html"
       - "dashboard/goldeneye-command.css"
       - "dashboard/goldeneye-command.js"
+      - "dashboard/goldeneye-command-hardening.js"
+      - "dashboard/assets/dio-logo-cockpit.svg"
       - "scripts/serve_goldeneye.py"
+      - "commerce/mandos.py"
       - "tests/test_goldeneye_command_contract.py"
+      - "tests/test_goldeneye_control_deck.py"
       - ".github/workflows/goldeneye-command.yml"
   pull_request:
     paths:
       - "dashboard/goldeneye-command.html"
       - "dashboard/goldeneye-command.css"
       - "dashboard/goldeneye-command.js"
+      - "dashboard/goldeneye-command-hardening.js"
+      - "dashboard/assets/dio-logo-cockpit.svg"
       - "scripts/serve_goldeneye.py"
+      - "commerce/mandos.py"
       - "tests/test_goldeneye_command_contract.py"
+      - "tests/test_goldeneye_control_deck.py"
+      - ".github/workflows/goldeneye-command.yml"
 
 jobs:
   contract:
@@ -31,8 +40,12 @@ jobs:
         with:
           node-version: "22"
       - name: Python syntax
-        run: python -m py_compile scripts/serve_goldeneye.py
+        run: python -m py_compile scripts/serve_goldeneye.py commerce/mandos.py
       - name: JavaScript syntax
-        run: node --check dashboard/goldeneye-command.js
-      - name: GoldenEye closure contract
+        run: |
+          node --check dashboard/goldeneye-command.js
+          node --check dashboard/goldeneye-command-hardening.js
+      - name: GoldenEye command closure contract
         run: python tests/test_goldeneye_command_contract.py
+      - name: GoldenEye intelligence and wrapper regressions
+        run: python tests/test_goldeneye_control_deck.py
