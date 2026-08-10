@@ -5,6 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from adapters.sophia.c10_gate import require_lineage_clear_summary
 from adapters.sophia.longitudinal_speculum import (
     _load_project_store,
     _match_claim,
@@ -13,7 +14,6 @@ from adapters.sophia.longitudinal_speculum import (
     record_author_decision,
     resolve_lineage_candidate,
 )
-from scripts.run_sophia_longitudinal_speculum_c10 import require_lineage_clear
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -273,19 +273,17 @@ class SophiaC10LongitudinalTests(unittest.TestCase):
         self.assertEqual(second["lineage_count"], 1)
 
     def test_c10_release_gate_blocks_unresolved_continuity(self) -> None:
-        job = {
-            "longitudinal_speculum": {
-                "state": "longitudinal_speculum_ready",
-                "version_count": 2,
-                "unresolved_continuity_candidates": 1,
-                "longitudinal_speculum_hash": "a" * 64,
-                "native_integrity_record_hash": "b" * 64,
-            }
+        c10 = {
+            "state": "longitudinal_speculum_ready",
+            "version_count": 2,
+            "unresolved_continuity_candidates": 1,
+            "longitudinal_speculum_hash": "a" * 64,
+            "native_integrity_record_hash": "b" * 64,
         }
         with self.assertRaises(ValueError):
-            require_lineage_clear(job, minimum_versions=2)
-        job["longitudinal_speculum"]["unresolved_continuity_candidates"] = 0
-        require_lineage_clear(job, minimum_versions=2)
+            require_lineage_clear_summary(c10, minimum_versions=2)
+        c10["unresolved_continuity_candidates"] = 0
+        require_lineage_clear_summary(c10, minimum_versions=2)
 
 
 if __name__ == "__main__":
