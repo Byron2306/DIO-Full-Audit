@@ -9,10 +9,14 @@ on:
       - "adapters/sophia/longitudinal_speculum.py"
       - "adapters/sophia/c10_gate.py"
       - "adapters/sophia/c10_scope.py"
+      - "adapters/sophia/scholarly_topology.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
+      - "scripts/run_sophia_c10_topology.py"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
       - "tests/test_sophia_c10_lineage_isolation.py"
+      - "tests/test_sophia_c10_scholarly_topology.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
+      - "docs/SOPHIA_C10_SCHOLARLY_TOPOLOGY.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
   pull_request:
     paths:
@@ -20,10 +24,14 @@ on:
       - "adapters/sophia/longitudinal_speculum.py"
       - "adapters/sophia/c10_gate.py"
       - "adapters/sophia/c10_scope.py"
+      - "adapters/sophia/scholarly_topology.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
+      - "scripts/run_sophia_c10_topology.py"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
       - "tests/test_sophia_c10_lineage_isolation.py"
+      - "tests/test_sophia_c10_scholarly_topology.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
+      - "docs/SOPHIA_C10_SCHOLARLY_TOPOLOGY.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
 
 jobs:
@@ -41,18 +49,21 @@ jobs:
             adapters/sophia/longitudinal_speculum.py \
             adapters/sophia/c10_gate.py \
             adapters/sophia/c10_scope.py \
-            scripts/run_sophia_longitudinal_speculum_c10.py
+            adapters/sophia/scholarly_topology.py \
+            scripts/run_sophia_longitudinal_speculum_c10.py \
+            scripts/run_sophia_c10_topology.py
       - name: Re-run C9 integrity contracts inherited by C10
         run: |
           python -m unittest -v \
             tests.test_sophia_c9_scholarly_integrity \
             tests.test_sophia_c9_support_monotonicity \
             tests.test_sophia_c9_commercial_gate
-      - name: Run C10 longitudinal adversarial proof
+      - name: Run C10 longitudinal and topology adversarial proof
         run: |
           python -m unittest -v \
             tests.test_sophia_c10_longitudinal_speculum \
-            tests.test_sophia_c10_lineage_isolation
+            tests.test_sophia_c10_lineage_isolation \
+            tests.test_sophia_c10_scholarly_topology
       - name: Verify hardened scope semantics
         run: |
           python - <<'PY'
@@ -71,3 +82,5 @@ jobs:
           grep -Fq "Ambiguous continuity remains unresolved until a human confirms or rejects it" adapters/sophia/longitudinal_speculum.py
           grep -Fq "Resolve ambiguous claim-lineage candidates before C10 approval" adapters/sophia/c10_gate.py
           grep -Fq "not a forensic authorship or misconduct determination" adapters/sophia/longitudinal_speculum.py
+          grep -Fq "topology hypotheses, not findings of author intent" adapters/sophia/scholarly_topology.py
+          grep -Fq "Human decisions are required before release" adapters/sophia/c10_gate.py
