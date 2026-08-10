@@ -11,6 +11,7 @@ on:
       - "adapters/sophia/c10_scope.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
+      - "tests/test_sophia_c10_lineage_isolation.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
   pull_request:
@@ -21,6 +22,7 @@ on:
       - "adapters/sophia/c10_scope.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
+      - "tests/test_sophia_c10_lineage_isolation.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
 
@@ -47,7 +49,10 @@ jobs:
             tests.test_sophia_c9_support_monotonicity \
             tests.test_sophia_c9_commercial_gate
       - name: Run C10 longitudinal adversarial proof
-        run: python -m unittest -v tests.test_sophia_c10_longitudinal_speculum
+        run: |
+          python -m unittest -v \
+            tests.test_sophia_c10_longitudinal_speculum \
+            tests.test_sophia_c10_lineage_isolation
       - name: Verify hardened scope semantics
         run: |
           python - <<'PY'
