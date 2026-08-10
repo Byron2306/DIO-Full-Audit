@@ -10,7 +10,7 @@
 <body>
 <div class="app">
 <aside>
-  <div class="brand"><div class="brand-mark"><div class="eye-mini"></div><div class="brand-copy"><b>GOLDENEYE</b><span>Commercial command</span></div></div></div>
+  <div class="brand"><div class="brand-mark"><img src="/dashboard/assets/dio-logo-cockpit.svg" alt="DIO" style="width:52px;height:52px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 11px #2fa8ff55) drop-shadow(0 0 16px #d8ad4255)"><div class="brand-copy"><b>GOLDENEYE</b><span>Commercial command</span></div></div></div>
   <div class="nav-label">Operator</div>
   <nav class="nav">
     <button class="active" data-view="home"><span>◉ Needs Me</span><small id="navNeeds">0</small></button>
@@ -28,7 +28,7 @@
 <main>
 <section class="view active" id="view-home">
   <div class="hero">
-    <div class="eye"><div class="eye-core"></div><div class="eye-number"><strong id="eyeNeeds">0</strong><span>Needs Byron</span></div><div class="eye-foot"><span id="eyeTime">state pending</span><b>MEMORY ≠ PERMISSION</b></div></div>
+    <div class="eye"><img src="/dashboard/assets/dio-logo-cockpit.svg" alt="DIO GoldenEye emblem" style="position:relative;width:min(245px,72%);aspect-ratio:1;object-fit:contain;opacity:.94;filter:drop-shadow(0 0 28px #d8ad4266) drop-shadow(0 0 22px #2fa8ff55)"><div class="eye-number"><strong id="eyeNeeds">0</strong><span>Needs Byron</span></div><div class="eye-foot"><span id="eyeTime">state pending</span><b>MEMORY ≠ PERMISSION</b></div></div>
     <div class="panel"><div class="panel-head"><div><h2>Commercial position</h2><p>Money, customers, work and human gates. No organ-hopping required.</p></div><span id="positionStamp">loading</span></div><div class="kpis" id="homeKpis"></div><div class="list" id="positionList"></div></div>
   </div>
 
@@ -77,5 +77,6 @@
 </div>
 <div class="toast" id="toast"></div>
 <script src="/dashboard/goldeneye-command.js"></script>
+<script src="/dashboard/goldeneye-command-hardening.js"></script>
 </body>
 </html>
