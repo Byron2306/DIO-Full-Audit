@@ -11,6 +11,7 @@ on:
       - "config/sophia_service.json"
       - "sites/sophia/**"
       - "tests/test_sophia_c9_scholarly_integrity.py"
+      - "tests/test_sophia_c9_support_monotonicity.py"
       - "docs/SOPHIA_SCHOLARLY_INTEGRITY_C9.md"
       - ".github/workflows/sophia-c9-scholarly-integrity.yml"
   pull_request:
@@ -21,6 +22,7 @@ on:
       - "config/sophia_service.json"
       - "sites/sophia/**"
       - "tests/test_sophia_c9_scholarly_integrity.py"
+      - "tests/test_sophia_c9_support_monotonicity.py"
       - "docs/SOPHIA_SCHOLARLY_INTEGRITY_C9.md"
       - ".github/workflows/sophia-c9-scholarly-integrity.yml"
 
@@ -39,7 +41,10 @@ jobs:
             scripts/run_sophia_scholarly_integrity_c9.py \
             scripts/prepare_sophia_c9_revision_delivery.py
       - name: Run C9 scholarly integrity adversarial proof
-        run: python -m unittest -v tests.test_sophia_c9_scholarly_integrity
+        run: |
+          python -m unittest -v \
+            tests.test_sophia_c9_scholarly_integrity \
+            tests.test_sophia_c9_support_monotonicity
       - name: Verify Sophia public integrity surface
         run: |
           grep -Fq "Integrity you can inspect." sites/sophia/index.html
