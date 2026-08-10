@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .mandos import MandosLedger
+from .mandos import MandosLedger, summarize_economics
 from .semantic import assert_valid_commercial_semantic_object, semantic_claim
 
 
@@ -16,32 +16,52 @@ def _write(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=True, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def _campaign_economics(outcomes: list[dict[str, Any]]) -> tuple[dict[str, Any], str, dict[str, Any]]:
+    """Keep campaign measurement and direct-event economics as non-additive views."""
+    measurement_rows = [row for row in outcomes if row.get("outcome_type") == "campaign_measurement"]
+    direct_rows = [row for row in outcomes if row.get("outcome_type") != "campaign_measurement"]
+    measurement = summarize_economics(measurement_rows)
+    direct = summarize_economics(direct_rows)
+    if measurement["economic_event_count"] > 0:
+        selected = measurement
+        basis = "market_measurement_ledger_preferred_to_avoid_overlap"
+    elif direct["economic_event_count"] > 0:
+        selected = direct
+        basis = "direct_event_evidence"
+    else:
+        selected = summarize_economics([])
+        basis = "no_economic_events"
+    return selected, basis, {
+        "market_measurements": measurement,
+        "direct_events": direct,
+        "views_are_not_additive": True,
+    }
+
+
 def campaign_feedback(root: Path, campaign_id: str) -> dict[str, Any]:
     """Return verified Mandos outcomes for one campaign without manufacturing a score."""
     root = root.resolve()
     ledger = MandosLedger(root)
     outcomes = [
-        row for row in ledger.outcomes()
+        row
+        for row in ledger.outcomes()
         if str((row.get("lineage") or {}).get("campaign_id") or "") == str(campaign_id)
         and str((row.get("evidence") or {}).get("state") or "") in {"verified", "operator_confirmed"}
     ]
-    pattern_keys = sorted({
-        str((row.get("strategy") or {}).get("pattern_key") or "")
-        for row in outcomes
-        if (row.get("strategy") or {}).get("pattern_key")
-    })
+    pattern_keys = sorted(
+        {
+            str((row.get("strategy") or {}).get("pattern_key") or "")
+            for row in outcomes
+            if (row.get("strategy") or {}).get("pattern_key")
+        }
+    )
     patterns = []
     for key in pattern_keys:
         try:
             patterns.append(ledger.pattern(key))
         except ValueError:
             continue
-    economics = {
-        "revenue_minor": sum(int((row.get("economics") or {}).get("revenue_minor") or 0) for row in outcomes),
-        "cost_minor": sum(int((row.get("economics") or {}).get("cost_minor") or 0) for row in outcomes),
-        "manual_minutes": round(sum(float((row.get("economics") or {}).get("manual_minutes") or 0.0) for row in outcomes), 3),
-    }
-    economics["gross_margin_minor"] = economics["revenue_minor"] - economics["cost_minor"]
+    economics, economics_basis, economics_views = _campaign_economics(outcomes)
     return {
         "schema": "dio.mandos_campaign_feedback.v1",
         "campaign_id": campaign_id,
@@ -72,11 +92,16 @@ def campaign_feedback(root: Path, campaign_id: str) -> dict[str, Any]:
             for row in patterns
         ],
         "economics": economics,
+        "economics_basis": economics_basis,
+        "economics_views": economics_views,
         "authority": {
             "is_observed_evidence": True,
             "is_synthetic_score": False,
             "may_expand_execution_authority": False,
-            "may_be_reused_as_strategy": any((row.get("reuse_authority") or {}).get("state") == "active" for row in patterns),
+            "may_be_reused_as_strategy": any(
+                (row.get("reuse_authority") or {}).get("state") == "active" for row in patterns
+            ),
+            "economic_views_may_be_added_together": False,
         },
     }
 
@@ -106,13 +131,18 @@ def hivenance_outcome_overlay(
             if tactic_id == selected_family:
                 scoped.append(pattern)
 
-    active_negative = [row for row in scoped if (row.get("negative_capability") or {}).get("state") == "active"]
+    active_negative = [
+        row for row in scoped if (row.get("negative_capability") or {}).get("state") == "active"
+    ]
     contested = [
-        row for row in scoped
-        if (row.get("negative_capability") or {}).get("state") == "contested" or row.get("direction") == "contested"
+        row
+        for row in scoped
+        if (row.get("negative_capability") or {}).get("state") == "contested"
+        or row.get("direction") == "contested"
     ]
     promoted_positive = [
-        row for row in scoped
+        row
+        for row in scoped
         if row.get("direction") == "positive" and (row.get("reuse_authority") or {}).get("state") == "active"
     ]
 
@@ -153,6 +183,7 @@ def hivenance_outcome_overlay(
         "matched_pattern_keys": [row.get("pattern_key") for row in matched_patterns],
         "verified_outcome_count": len(feedback.get("outcomes") or []),
         "economics": feedback.get("economics") or {},
+        "economics_basis": feedback.get("economics_basis"),
         "authority": {
             "may_upgrade_hivenance_decision": False,
             "may_expand_execution_authority": False,
@@ -169,11 +200,13 @@ def materialize_campaign_feedback(root: Path) -> list[dict[str, Any]]:
     """Materialize campaign-scoped feedback for Hivenance and NicheFoundry consumers."""
     root = root.resolve()
     ledger = MandosLedger(root)
-    campaign_ids = sorted({
-        str((row.get("lineage") or {}).get("campaign_id") or "")
-        for row in ledger.outcomes()
-        if (row.get("lineage") or {}).get("campaign_id")
-    })
+    campaign_ids = sorted(
+        {
+            str((row.get("lineage") or {}).get("campaign_id") or "")
+            for row in ledger.outcomes()
+            if (row.get("lineage") or {}).get("campaign_id")
+        }
+    )
     receipts = []
     for campaign_id in campaign_ids:
         feedback = campaign_feedback(root, campaign_id)
@@ -194,14 +227,16 @@ def materialize_campaign_feedback(root: Path) -> list[dict[str, Any]]:
                     campaign_path = hypothesis_path.parent / "MANDOS_OUTCOME_FEEDBACK.json"
                     _write(campaign_path, {**feedback, "consumer": "hivenance", "use": "hypothesis_evidence_only"})
                     break
-        receipts.append({
-            "campaign_id": campaign_id,
-            "outcomes": len(feedback["outcomes"]),
-            "patterns": len(feedback["patterns"]),
-            "hivenance_path": str(hivenance_path.relative_to(root)),
-            "nichefoundry_path": str(niche_path.relative_to(root)),
-            "campaign_path": str(campaign_path.relative_to(root)) if campaign_path else None,
-        })
+        receipts.append(
+            {
+                "campaign_id": campaign_id,
+                "outcomes": len(feedback["outcomes"]),
+                "patterns": len(feedback["patterns"]),
+                "hivenance_path": str(hivenance_path.relative_to(root)),
+                "nichefoundry_path": str(niche_path.relative_to(root)),
+                "campaign_path": str(campaign_path.relative_to(root)) if campaign_path else None,
+            }
+        )
     return receipts
 
 
@@ -223,22 +258,24 @@ def enrich_nichefoundry_cso_with_mandos(
     for outcome in feedback.get("outcomes") or []:
         outcome_id = str(outcome.get("outcome_id") or "")
         outcome_type = str(outcome.get("outcome_type") or "")
-        case_id = str(outcome.get("case_id") or "")
+        case = str(outcome.get("case_id") or "")
         if not outcome_id or not outcome_type:
             continue
         source_ref = f"mandos_outcome:{outcome_id}"
         outcome_refs.append(source_ref)
-        statement = f"Observed commercial outcome: {outcome_type} in independent case {case_id}."
+        statement = f"Observed commercial outcome: {outcome_type} in independent case {case}."
         source_refs = [source_ref]
         key = (statement, tuple(source_refs))
         if key in existing:
             continue
-        facts.append(semantic_claim(
-            statement,
-            status="verified",
-            source_refs=source_refs,
-            authority="observed_commercial_outcome",
-        ))
+        facts.append(
+            semantic_claim(
+                statement,
+                status="verified",
+                source_refs=source_refs,
+                authority="observed_commercial_outcome",
+            )
+        )
         existing.add(key)
     enriched.setdefault("truth", {})["verified_facts"] = facts
     authority = enriched.setdefault("authority", {})
