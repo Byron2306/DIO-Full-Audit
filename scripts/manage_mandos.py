@@ -50,6 +50,38 @@ def _source_states(root: Path, values: list[str]) -> list[dict[str, Any]]:
     return [source_state((root / value).resolve(), root) for value in values]
 
 
+def _intent_strategy(root: Path, intent: dict[str, Any]) -> tuple[dict[str, Any], list[Path]]:
+    binding = intent.get("semantic_binding") or {}
+    product = None
+    offer = None
+    source_paths: list[Path] = []
+    lead_id = str(intent.get("lead_id") or "").strip()
+    if lead_id:
+        lead_path = root / "state" / "leads" / f"{lead_id}.json"
+        if lead_path.is_file():
+            lead = _json(lead_path)
+            product = lead.get("product")
+            offer = lead.get("offer")
+            source_paths.append(lead_path)
+    return {
+        "product": product,
+        "offer": offer,
+        "communicative_act": intent.get("communicative_act") or binding.get("communicative_act"),
+        "channel": "email",
+        "audience": None,
+        "tactic_id": binding.get("tactic_id"),
+        "proof_family": binding.get("proof_family"),
+    }, source_paths
+
+
+def _parse_required_time(value: str, label: str) -> datetime:
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"{label} must be an ISO-8601 timestamp") from exc
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
 def add_common_record_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("outcome_type")
     parser.add_argument("--occurred-at", default=datetime.now(timezone.utc).replace(microsecond=0).isoformat())
@@ -129,10 +161,7 @@ def main() -> int:
     if args.command == "reconcile":
         result = reconcile_all(root)
     elif args.command == "verify":
-        result = {
-            "journal": ledger.verify_journal(),
-            "patterns": ledger.refresh_patterns(),
-        }
+        result = {"journal": ledger.verify_journal(), "patterns": ledger.refresh_patterns()}
     elif args.command == "record":
         if args.evidence_state in {"verified", "operator_confirmed"} and (not args.source_ref or not args.source_class):
             raise ValueError("Verified/operator-confirmed manual outcomes require --source-ref and --source-class")
@@ -146,12 +175,7 @@ def main() -> int:
             polarity=args.polarity,
             evidence_state=args.evidence_state,
             strategy=_strategy(args),
-            economics={
-                "currency": args.currency,
-                "revenue_minor": args.revenue_minor,
-                "cost_minor": args.cost_minor,
-                "manual_minutes": args.manual_minutes,
-            },
+            economics={"currency": args.currency, "revenue_minor": args.revenue_minor, "cost_minor": args.cost_minor, "manual_minutes": args.manual_minutes},
             detail=detail,
             source_states=_source_states(root, args.source_path),
         )
@@ -164,23 +188,32 @@ def main() -> int:
         intent = _json(intent_path)
         if intent.get("send_state") != "sent":
             raise ValueError("Silence cannot be recorded before the governed mail was actually sent")
-        end = datetime.fromisoformat(args.window_end.replace("Z", "+00:00"))
+        start = _parse_required_time(args.window_start, "window-start")
+        end = _parse_required_time(args.window_end, "window-end")
         if end > datetime.now(timezone.utc):
             raise ValueError("Silence observation window cannot end in the future")
-        start = datetime.fromisoformat(args.window_start.replace("Z", "+00:00"))
         if end <= start:
             raise ValueError("Silence observation window end must be after its start")
+        sent_at = _parse_required_time(str(intent.get("sent_at") or intent.get("updated_at") or ""), "mail sent_at")
+        if start < sent_at:
+            raise ValueError("Silence observation window cannot begin before the governed send")
+
         conversation_id = str(intent.get("conversation_id") or "")
         if conversation_id:
             for path in (root / "state" / "mail_ingress").glob("*.json"):
                 ingress = _json(path)
                 if str(ingress.get("conversation_id") or "") != conversation_id:
                     continue
-                received = datetime.fromisoformat(str(ingress.get("received_at") or ingress.get("captured_at") or "").replace("Z", "+00:00"))
+                received_value = str(ingress.get("received_at") or ingress.get("captured_at") or "").strip()
+                if not received_value:
+                    continue
+                received = _parse_required_time(received_value, f"mail ingress {path.name} timestamp")
                 if start < received <= end:
                     raise ValueError("Silence window is false: an inbound message exists inside the observation window")
+
         binding = intent.get("semantic_binding") or {}
         judgement = intent.get("semantic_judgement") or {}
+        strategy, strategy_sources = _intent_strategy(root, intent)
         outcome = commercial_outcome(
             outcome_type="no_reply_window_closed",
             lineage={
@@ -198,34 +231,22 @@ def main() -> int:
             occurred_at=end.replace(microsecond=0).isoformat(),
             polarity="negative",
             evidence_state="operator_confirmed",
-            strategy={
-                "product": None,
-                "offer": None,
-                "communicative_act": intent.get("communicative_act") or binding.get("communicative_act"),
-                "channel": "email",
-                "tactic_id": binding.get("tactic_id"),
-                "proof_family": binding.get("proof_family"),
-            },
+            strategy=strategy,
             detail={
                 "window_start": start.replace(microsecond=0).isoformat(),
                 "window_end": end.replace(microsecond=0).isoformat(),
                 "closed_by": args.actor,
                 "reason": args.reason,
+                "absence_is_operator_confirmed_not_provider_fact": True,
             },
-            source_states=[source_state(intent_path, root)],
+            source_states=[source_state(intent_path, root), *[source_state(path, root) for path in strategy_sources]],
         )
         stored, created = ledger.record(outcome)
         result = {"created": created, "outcome": stored}
     elif args.command == "nominate":
         result = ledger.nominate(args.pattern_key, actor=args.actor, rationale=args.rationale)
     elif args.command == "validate":
-        result = ledger.validate_adversarially(
-            args.pattern_key,
-            actor=args.actor,
-            state=args.state,
-            receipt_refs=args.receipt_ref,
-            contradiction_resolution=args.contradiction_resolution,
-        )
+        result = ledger.validate_adversarially(args.pattern_key, actor=args.actor, state=args.state, receipt_refs=args.receipt_ref, contradiction_resolution=args.contradiction_resolution)
     elif args.command == "promote":
         result = ledger.promote(args.pattern_key, actor=args.actor, confirmed=args.confirmed, rationale=args.rationale)
     else:
