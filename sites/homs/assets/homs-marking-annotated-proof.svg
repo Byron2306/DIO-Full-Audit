@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">HOMS Marking Relief annotated feedback demonstration</title>
+  <desc id="desc">A controlled demonstration showing a marked learner essay, exact quoted evidence, rubric criterion feedback, annotations, gradebook and human review.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1"><stop stop-color="#edf4f1"/><stop offset="1" stop-color="#dce9e5"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <text x="62" y="58" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#075f5b">CONTROLLED DEMONSTRATION · HUMAN REVIEW REQUIRED</text>
+  <text x="62" y="96" font-family="Arial,sans-serif" font-size="34" font-weight="800" fill="#182229">What the educator gets back</text>
+
+  <g filter="url(#shadow)">
+    <rect x="62" y="132" width="690" height="520" rx="8" fill="#fff"/>
+    <rect x="62" y="132" width="690" height="68" rx="8" fill="#075f5b"/>
+    <text x="92" y="170" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">ANNOTATED ORIGINAL SUBMISSION</text>
+    <text x="634" y="170" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff">72 / 100</text>
+    <text x="92" y="234" font-family="Georgia,serif" font-size="17" fill="#344148">The argument becomes persuasive when the writer connects</text>
+    <rect x="88" y="250" width="585" height="35" rx="4" fill="#fff0a8"/>
+    <text x="92" y="274" font-family="Georgia,serif" font-size="17" fill="#182229">evidence, context and careful causal reasoning to the claim.</text>
+    <text x="92" y="318" font-family="Georgia,serif" font-size="17" fill="#344148">A source is not simply included. Its origin, limitation and relevance</text>
+    <text x="92" y="347" font-family="Georgia,serif" font-size="17" fill="#344148">must be explained before the evidence can carry analytical weight.</text>
+    <line x1="92" y1="385" x2="714" y2="385" stroke="#cbd5d1"/>
+    <text x="92" y="423" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#075f5b">RUBRIC · EVIDENCE &amp; ANALYSIS</text>
+    <text x="92" y="452" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#182229">18 / 25 · Good</text>
+    <text x="92" y="482" font-family="Arial,sans-serif" font-size="14" fill="#5c6870">Specific evidence is used consistently. To move higher, evaluate the</text>
+    <text x="92" y="505" font-family="Arial,sans-serif" font-size="14" fill="#5c6870">source limitation and explain why the evidence changes the judgement.</text>
+    <rect x="88" y="538" width="626" height="84" rx="6" fill="#eef3f1" stroke="#cbd5d1"/>
+    <text x="108" y="566" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#d88727">INLINE COMMENT 02 · SUGGESTION</text>
+    <text x="108" y="590" font-family="Arial,sans-serif" font-size="13" fill="#344148">“evidence, context and careful causal reasoning...”</text>
+    <text x="108" y="611" font-family="Arial,sans-serif" font-size="13" fill="#344148">Good analytical frame. Now name the limitation of the source.</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="790" y="132" width="428" height="520" rx="8" fill="#fff"/>
+    <text x="824" y="177" font-family="Arial,sans-serif" font-size="16" font-weight="800" fill="#075f5b">C8 REVIEW BUNDLE</text>
+    <g font-family="Arial,sans-serif" font-size="14" fill="#182229">
+      <circle cx="832" cy="223" r="9" fill="#075f5b"/><text x="828" y="228" fill="#fff" font-size="12">✓</text><text x="856" y="228">Criterion-specific comments</text>
+      <circle cx="832" cy="267" r="9" fill="#075f5b"/><text x="828" y="272" fill="#fff" font-size="12">✓</text><text x="856" y="272">Exact quoted evidence</text>
+      <circle cx="832" cy="311" r="9" fill="#075f5b"/><text x="828" y="316" fill="#fff" font-size="12">✓</text><text x="856" y="316">Inline DOCX / PDF annotations</text>
+      <circle cx="832" cy="355" r="9" fill="#075f5b"/><text x="828" y="360" fill="#fff" font-size="12">✓</text><text x="856" y="360">Filled rubric feedback document</text>
+      <circle cx="832" cy="399" r="9" fill="#075f5b"/><text x="828" y="404" fill="#fff" font-size="12">✓</text><text x="856" y="404">Compiled gradebook</text>
+      <circle cx="832" cy="443" r="9" fill="#075f5b"/><text x="828" y="448" fill="#fff" font-size="12">✓</text><text x="856" y="448">Validated group-member mapping</text>
+      <circle cx="832" cy="487" r="9" fill="#075f5b"/><text x="828" y="492" fill="#fff" font-size="12">✓</text><text x="856" y="492">Cohort moderation &amp; review flags</text>
+    </g>
+    <rect x="824" y="531" width="360" height="86" rx="6" fill="#fff3df" stroke="#d88727"/>
+    <text x="844" y="558" font-family="Arial,sans-serif" font-size="12" font-weight="800" fill="#9a5c16">FINAL AUTHORITY</text>
+    <text x="844" y="581" font-family="Arial,sans-serif" font-size="13" fill="#344148">Draft decision support only.</text>
+    <text x="844" y="602" font-family="Arial,sans-serif" font-size="13" fill="#344148">The educator reviews, changes and approves.</text>
+  </g>
+</svg>
