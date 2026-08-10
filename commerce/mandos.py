@@ -128,6 +128,18 @@ def _clean_refs(values: Iterable[Any]) -> list[str]:
     return list(dict.fromkeys(str(value).strip() for value in values if str(value or "").strip()))
 
 
+def _normalize_source_states(values: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows = [
+        {
+            "path": str(row.get("path") or ""),
+            "sha256": str(row.get("sha256") or ""),
+            "size": int(row.get("size") or 0),
+        }
+        for row in values
+    ]
+    return sorted(rows, key=lambda row: (row["path"], row["sha256"], row["size"]))
+
+
 def _semantic_value(cso: dict[str, Any], section: str, field: str) -> Any:
     item = (cso.get(section) or {}).get(field)
     return item.get("value") if isinstance(item, dict) else item
@@ -281,12 +293,20 @@ def commercial_outcome(
     clean_economics["gross_margin_minor"] = clean_economics["revenue_minor"] - clean_economics["cost_minor"]
     source_refs = _clean_refs(source_refs)
     source_classes = _clean_refs(source_classes)
+    clean_source_states = _normalize_source_states(source_states or [])
+    attestation = {
+        "state": evidence_state,
+        "source_refs": source_refs,
+        "source_classes": source_classes,
+        "source_states": clean_source_states,
+    }
     identity = {
         "outcome_type": outcome_type,
         "occurred_at": occurred_at,
+        "polarity": polarity,
         "lineage": lineage,
-        "source_refs": source_refs,
         "strategy": signature,
+        "evidence": attestation,
         "detail": detail or {},
         "economics": clean_economics,
     }
@@ -310,12 +330,7 @@ def commercial_outcome(
             "semantic_judgement_id": lineage.get("semantic_judgement_id"),
         },
         "strategy": {**signature, "pattern_key": pkey},
-        "evidence": {
-            "state": evidence_state,
-            "source_refs": source_refs,
-            "source_classes": source_classes,
-            "source_states": list(source_states or []),
-        },
+        "evidence": attestation,
         "economics": clean_economics,
         "detail": detail or {},
         "authority": {
@@ -732,20 +747,29 @@ def active_negative_capabilities_for(
     registry = _read_json(root.resolve() / "state" / "mandos" / "beast" / "NEGATIVE_CAPABILITIES.json", {}) or {}
     product = _semantic_value(cso, "commercial", "product")
     offer = _semantic_value(cso, "commercial", "offer")
+    plan = expression.get("plan") or {}
     act = expression.get("communicative_act")
-    channel = ((expression.get("plan") or {}).get("contract") or {}).get("channel") or _semantic_value(cso, "strategy", "channel")
+    channel = (plan.get("contract") or {}).get("channel") or _semantic_value(cso, "strategy", "channel")
+    verified_context = plan.get("verified_context") or {}
+    tactic_context = verified_context.get("tactic_id")
+    tactic_id = expression.get("tactic_id") or plan.get("tactic_id")
+    if not tactic_id and isinstance(tactic_context, dict):
+        tactic_id = tactic_context.get("value")
     current = {
         "product": str(product or "").strip() or None,
         "offer": str(offer or "").strip() or None,
         "communicative_act": str(act or "").strip() or None,
         "channel": str(channel or "").strip() or None,
+        "tactic_id": str(tactic_id or "").strip() or None,
     }
     matches: list[dict[str, Any]] = []
     for row in registry.get("capabilities") or []:
         if row.get("state") != "active" or row.get("may_veto_semantic_execution") is not True:
             continue
         selectors = row.get("selectors") or {}
-        comparable = {key: value for key, value in selectors.items() if key in current and value not in {None, ""}}
-        if comparable and all(str(current.get(key) or "") == str(value) for key, value in comparable.items()):
+        required = {key: value for key, value in selectors.items() if value not in {None, ""}}
+        if not required:
+            continue
+        if all(current.get(key) not in {None, ""} and str(current[key]) == str(value) for key, value in required.items()):
             matches.append({**row, "execution_kind": execution_kind})
     return matches
