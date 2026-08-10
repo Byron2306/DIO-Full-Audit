@@ -9,13 +9,17 @@ from scripts.serve_control_deck import ControlDeckHandler
 
 
 class GoldenEyeHandler(ControlDeckHandler):
-    """Use the existing governed control API, but make GoldenEye the root cockpit."""
+    """Use the governed control API, but make the Needs-Me cockpit GoldenEye's root.
 
-    server_version = "DIOGoldenEye/1.0"
+    The previous dense GoldenEye intelligence boards remain available at
+    /dashboard/goldeneye.html under Advanced / Organs.
+    """
+
+    server_version = "DIOGoldenEye/1.1"
 
     def do_GET(self) -> None:
         if urlsplit(self.path).path == "/":
-            self.path = "/dashboard/goldeneye.html"
+            self.path = "/dashboard/goldeneye-command.html"
         super().do_GET()
 
 
