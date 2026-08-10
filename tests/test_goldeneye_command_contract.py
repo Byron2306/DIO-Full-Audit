@@ -7,14 +7,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "dashboard" / "goldeneye-command.html").read_text(encoding="utf-8")
 JS = (ROOT / "dashboard" / "goldeneye-command.js").read_text(encoding="utf-8")
+HARDENING = (ROOT / "dashboard" / "goldeneye-command-hardening.js").read_text(encoding="utf-8")
 SERVER = (ROOT / "scripts" / "serve_goldeneye.py").read_text(encoding="utf-8")
-COCKPIT = HTML + "\n" + JS
+MANDOS = (ROOT / "commerce" / "mandos.py").read_text(encoding="utf-8")
+COCKPIT = HTML + "\n" + JS + "\n" + HARDENING
 
 
 class GoldenEyeCommandContractTests(unittest.TestCase):
     def test_command_cockpit_is_goldeneye_root(self) -> None:
         self.assertIn('self.path = "/dashboard/goldeneye-command.html"', SERVER)
         self.assertIn('/dashboard/goldeneye.html', SERVER)
+
+    def test_original_dio_emblem_is_visible_in_command_cockpit(self) -> None:
+        self.assertGreaterEqual(HTML.count('/dashboard/assets/dio-logo-cockpit.svg'), 2)
+        self.assertIn('DIO GoldenEye emblem', HTML)
 
     def test_home_has_exact_five_operator_surfaces(self) -> None:
         for label in (
@@ -44,10 +50,6 @@ class GoldenEyeCommandContractTests(unittest.TestCase):
 
     def test_unified_case_dossier_has_all_required_stages(self) -> None:
         self.assertIn("Commercial Case Dossier", HTML)
-        # The chain nodes are rendered dynamically by goldeneye-command.js, while
-        # the dossier contract also appears in the static HTML. Validate the
-        # complete browser source rather than pretending generated stages are
-        # literal static markup.
         for stage in (
             "Conversation Context",
             "CSO",
@@ -61,11 +63,16 @@ class GoldenEyeCommandContractTests(unittest.TestCase):
         self.assertIn("semantic_object_id", JS)
         self.assertIn("commercial_semantic_object_sha256", JS)
         self.assertIn("Legacy or pre-semantic case. GoldenEye does not invent a CSO.", JS)
+        self.assertIn("No Mandos outcome is bound to this case yet. Absence is not interpreted as success or failure.", JS)
 
-    def test_mandos_reads_real_c6_outcomes_and_decisions(self) -> None:
+    def test_mandos_reads_real_c6_outcomes_patterns_and_decisions(self) -> None:
         self.assertIn("/state/mandos/JOURNAL.jsonl", JS)
         self.assertIn("/state/mandos/outcomes/", JS)
-        self.assertIn("/state/mandos/decisions/", JS)
+        self.assertIn("/state/mandos/patterns/", HARDENING)
+        self.assertIn("/state/mandos/decisions/", HARDENING)
+        self.assertIn("canonical C6 state", HARDENING)
+        self.assertIn('return self.state_root / "patterns"', MANDOS)
+        self.assertIn('return self.state_root / "decisions"', MANDOS)
         self.assertIn("operator_confirmed", JS)
         self.assertIn("repeated_observation", JS)
         self.assertIn("corroborated_pattern", JS)
@@ -90,7 +97,7 @@ class GoldenEyeCommandContractTests(unittest.TestCase):
         self.assertIn("strategy-hypothesis reuse only", HTML)
         self.assertIn("EXECUTION AUTHORITY = 0", JS)
         self.assertIn("Execution authority gained", JS)
-        self.assertNotIn("/api/control/mandos/action", JS)
+        self.assertNotIn("/api/control/mandos/action", COCKPIT)
 
     def test_technical_surfaces_are_demoted_to_advanced(self) -> None:
         self.assertIn("Advanced / Organs", HTML)
