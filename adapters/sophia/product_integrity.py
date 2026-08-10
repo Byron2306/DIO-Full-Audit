@@ -47,18 +47,19 @@ def _norm(value: Any) -> str:
 
 
 def _support_state(label: Any, entailment: Any) -> str:
+    """Preserve Sophia's explicit support class; entailment may downgrade but never silently upgrade it."""
     support = _norm(label).lower().replace("_", " ")
     ent = _norm(entailment).lower().replace("_", " ")
     if any(token in ent for token in ("contradict", "does not support", "not supported")):
         return "does_not_support"
     if support in {"supports", "directly supports", "direct support"}:
         return "support_ready"
-    if "partial" in support or "partial" in ent:
-        return "partial_support"
     if support in {"background only", "background", "context only"}:
         return "background_only"
+    if "partial" in support:
+        return "partial_support"
     if not support:
-        return "unmapped"
+        return "partial_support" if "partial" in ent else "unmapped"
     return support.replace(" ", "_")
 
 
@@ -432,7 +433,7 @@ def build_integrity_passport(
         "speculum_integrity_record_hash": speculum_record.get("integrity_record_hash"),
         "authorship_preservation": {
             "index": speculum_record.get("authorship_preservation_index") or {},
-            "boundary": "Engineering signal only. It does not prove who authored the text and must not be used as a misconduct detector.",
+            "boundary": "Engineering signal only. It is not a forensic authorship or misconduct detector, does not prove who authored the text, and must not be used as a misconduct finding.",
         },
         "output_hashes": generated,
         "authority": {
