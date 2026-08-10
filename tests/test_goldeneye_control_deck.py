@@ -52,7 +52,8 @@ class GoldenEyeControlDeckTests(unittest.TestCase):
         path = ROOT / "scripts" / "serve_goldeneye.py"
         source = path.read_text(encoding="utf-8")
         ast.parse(source)
-        self.assertIn('self.path = "/dashboard/goldeneye.html"', source)
+        self.assertIn('self.path = "/dashboard/goldeneye-command.html"', source)
+        self.assertIn('/dashboard/goldeneye.html', source)
         self.assertIn('args.host not in {"127.0.0.1", "localhost", "::1"}', source)
         self.assertIn("ControlDeckHandler", source)
 
