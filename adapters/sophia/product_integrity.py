@@ -47,19 +47,21 @@ def _norm(value: Any) -> str:
 
 
 def _support_state(label: Any, entailment: Any) -> str:
-    """Preserve Sophia's explicit support class; entailment may downgrade but never silently upgrade it."""
+    """Reconcile evidence signals so secondary evidence may downgrade confidence but never inflate it."""
     support = _norm(label).lower().replace("_", " ")
     ent = _norm(entailment).lower().replace("_", " ")
     if any(token in ent for token in ("contradict", "does not support", "not supported")):
         return "does_not_support"
-    if support in {"supports", "directly supports", "direct support"}:
-        return "support_ready"
     if support in {"background only", "background", "context only"}:
         return "background_only"
     if "partial" in support:
         return "partial_support"
+    if support in {"supports", "directly supports", "direct support"}:
+        if "partial" in ent or "contextual" in ent:
+            return "partial_support"
+        return "support_ready"
     if not support:
-        return "partial_support" if "partial" in ent else "unmapped"
+        return "partial_support" if ("partial" in ent or "contextual" in ent) else "unmapped"
     return support.replace(" ", "_")
 
 
