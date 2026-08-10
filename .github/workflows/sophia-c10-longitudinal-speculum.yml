@@ -5,16 +5,20 @@ on:
     branches:
       - dio-c10-sophia-longitudinal-speculum
     paths:
+      - "adapters/sophia/__init__.py"
       - "adapters/sophia/longitudinal_speculum.py"
       - "adapters/sophia/c10_gate.py"
+      - "adapters/sophia/c10_scope.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
       - ".github/workflows/sophia-c10-longitudinal-speculum.yml"
   pull_request:
     paths:
+      - "adapters/sophia/__init__.py"
       - "adapters/sophia/longitudinal_speculum.py"
       - "adapters/sophia/c10_gate.py"
+      - "adapters/sophia/c10_scope.py"
       - "scripts/run_sophia_longitudinal_speculum_c10.py"
       - "tests/test_sophia_c10_longitudinal_speculum.py"
       - "docs/SOPHIA_LONGITUDINAL_SPECULUM_C10.md"
@@ -31,8 +35,10 @@ jobs:
       - name: Compile C10 code
         run: |
           python -m py_compile \
+            adapters/sophia/__init__.py \
             adapters/sophia/longitudinal_speculum.py \
             adapters/sophia/c10_gate.py \
+            adapters/sophia/c10_scope.py \
             scripts/run_sophia_longitudinal_speculum_c10.py
       - name: Re-run C9 integrity contracts inherited by C10
         run: |
@@ -42,6 +48,19 @@ jobs:
             tests.test_sophia_c9_commercial_gate
       - name: Run C10 longitudinal adversarial proof
         run: python -m unittest -v tests.test_sophia_c10_longitudinal_speculum
+      - name: Verify hardened scope semantics
+        run: |
+          python - <<'PY'
+          from adapters.sophia.longitudinal_speculum import _scope_signature
+          association = _scope_signature('Structured feedback is associated with improved writing outcomes.', 'associational')
+          causal = _scope_signature('Structured feedback improves writing outcomes.', 'causal')
+          strong = _scope_signature('Structured feedback causes improved writing outcomes.', 'causal')
+          assert association['causal'] is False, association
+          assert association['associational'] is True, association
+          assert causal['causal'] is True, causal
+          assert strong['strong_causal_syntax'] is True, strong
+          print('C10 governed scope semantics verified')
+          PY
       - name: Verify C10 authority language
         run: |
           grep -Fq "Ambiguous continuity remains unresolved until a human confirms or rejects it" adapters/sophia/longitudinal_speculum.py
