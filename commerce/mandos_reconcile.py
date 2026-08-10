@@ -111,6 +111,30 @@ def _nearest_prior_sent(
     return intent, path
 
 
+def _hivenance_selected_family(root: Path, campaign_id: str) -> tuple[str | None, Path | None]:
+    """Resolve the selected Hivenance family only from a durable matching campaign receipt."""
+    base = root / "campaigns" / "dio_market_loop" / "wave4" / "campaigns"
+    if not base.is_dir():
+        return None, None
+    for hypothesis_path in base.glob("*/HIVENANCE_HYPOTHESIS.json"):
+        try:
+            hypothesis = _read(hypothesis_path)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if str(hypothesis.get("campaign_id") or "") != str(campaign_id):
+            continue
+        receipt_path = hypothesis_path.parent / "HIVENANCE_MARKET_AGENTS.json"
+        if not receipt_path.is_file():
+            return None, None
+        try:
+            receipt = _read(receipt_path)
+        except (OSError, json.JSONDecodeError):
+            return None, None
+        family = str(((receipt.get("council") or {}).get("selected_family")) or "").strip()
+        return (family or None), receipt_path
+    return None, None
+
+
 def reconcile_transaction(root: Path, transaction: dict[str, Any], ledger: MandosLedger | None = None) -> dict[str, Any]:
     root = root.resolve()
     ledger = ledger or MandosLedger(root)
@@ -307,11 +331,19 @@ def reconcile_market_measurements(root: Path, ledger: MandosLedger | None = None
         qualified = int(item.get("qualified_leads") or 0)
         spend = int(item.get("spend_minor") or 0)
         polarity = "positive" if paid > 0 else "negative" if spend > 0 and qualified == 0 else "neutral"
+        family, hivenance_path = _hivenance_selected_family(root, str(item["campaign_id"]))
+        source_refs = [f"market_measurement:{item['measurement_id']}"]
+        source_classes = ["market_measurement"]
+        source_paths = [db_path]
+        if family and hivenance_path:
+            source_refs.append(f"hivenance_selected_family:{family}")
+            source_classes.append("hivenance_hypothesis_selection")
+            source_paths.append(hivenance_path)
         outcome = commercial_outcome(
             outcome_type="campaign_measurement",
             lineage={"campaign_id": item["campaign_id"]},
-            source_refs=[f"market_measurement:{item['measurement_id']}"],
-            source_classes=["market_measurement"],
+            source_refs=source_refs,
+            source_classes=source_classes,
             occurred_at=_time(item.get("recorded_at")),
             polarity=polarity,
             strategy={
@@ -320,6 +352,7 @@ def reconcile_market_measurements(root: Path, ledger: MandosLedger | None = None
                 "communicative_act": "proof_led_campaign_content",
                 "channel": item.get("channel_id"),
                 "audience": item.get("audience"),
+                "tactic_id": family,
             },
             economics={
                 "currency": "ZAR",
@@ -328,10 +361,13 @@ def reconcile_market_measurements(root: Path, ledger: MandosLedger | None = None
                 "manual_minutes": float(item.get("manual_minutes") or 0.0),
             },
             detail={
-                key: item.get(key)
-                for key in ("impressions", "reach", "clicks", "enquiries", "qualified_leads", "orders", "paid_orders")
+                **{
+                    key: item.get(key)
+                    for key in ("impressions", "reach", "clicks", "enquiries", "qualified_leads", "orders", "paid_orders")
+                },
+                "hivenance_selected_family": family,
             },
-            source_states=[source_state(db_path, root)],
+            source_states=_state_rows(root, source_paths),
         )
         stored, was_created = ledger.record(outcome)
         (created if was_created else reused).append(stored["outcome_id"])
