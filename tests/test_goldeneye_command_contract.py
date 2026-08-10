@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "dashboard" / "goldeneye-command.html").read_text(encoding="utf-8")
 JS = (ROOT / "dashboard" / "goldeneye-command.js").read_text(encoding="utf-8")
 SERVER = (ROOT / "scripts" / "serve_goldeneye.py").read_text(encoding="utf-8")
+COCKPIT = HTML + "\n" + JS
 
 
 class GoldenEyeCommandContractTests(unittest.TestCase):
@@ -43,6 +44,10 @@ class GoldenEyeCommandContractTests(unittest.TestCase):
 
     def test_unified_case_dossier_has_all_required_stages(self) -> None:
         self.assertIn("Commercial Case Dossier", HTML)
+        # The chain nodes are rendered dynamically by goldeneye-command.js, while
+        # the dossier contract also appears in the static HTML. Validate the
+        # complete browser source rather than pretending generated stages are
+        # literal static markup.
         for stage in (
             "Conversation Context",
             "CSO",
@@ -52,7 +57,7 @@ class GoldenEyeCommandContractTests(unittest.TestCase):
             "Delivery",
             "Mandos outcomes",
         ):
-            self.assertIn(stage, HTML)
+            self.assertIn(stage, COCKPIT)
         self.assertIn("semantic_object_id", JS)
         self.assertIn("commercial_semantic_object_sha256", JS)
         self.assertIn("Legacy or pre-semantic case. GoldenEye does not invent a CSO.", JS)
