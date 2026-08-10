@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio.commercial_outcome.v1.schema.json",
+  "title": "DIO Commercial Outcome v1",
+  "description": "Immutable commercial reality observation. An outcome may inform strategy but can never expand execution authority by itself.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "outcome_id", "occurred_at", "recorded_at", "outcome_type", "polarity", "lineage", "strategy", "evidence", "economics", "detail", "authority", "case_id"],
+  "properties": {
+    "schema": {"const": "dio.commercial_outcome.v1"},
+    "outcome_id": {"type": "string", "pattern": "^OUT-[A-F0-9]{24}$"},
+    "occurred_at": {"type": "string", "minLength": 1},
+    "recorded_at": {"type": "string", "minLength": 1},
+    "outcome_type": {
+      "enum": ["outbound_sent", "reply_received", "no_reply_window_closed", "objection_recorded", "qualification_changed", "revision_requested", "approval_recorded", "paid_order", "payment_failed", "delivery_sent", "delivery_acknowledged", "correction_received", "refund_or_cancellation", "manual_time_recorded", "cost_recorded", "revenue_recorded", "transaction_closed", "campaign_measurement"]
+    },
+    "polarity": {"enum": ["positive", "negative", "neutral", "mixed"]},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transaction_id", "campaign_id", "lead_id", "conversation_id", "job_id", "order_id", "mail_intent_id", "semantic_object_id", "semantic_judgement_id"],
+      "properties": {
+        "transaction_id": {"type": ["string", "null"]},
+        "campaign_id": {"type": ["string", "null"]},
+        "lead_id": {"type": ["string", "null"]},
+        "conversation_id": {"type": ["string", "null"]},
+        "job_id": {"type": ["string", "null"]},
+        "order_id": {"type": ["string", "null"]},
+        "mail_intent_id": {"type": ["string", "null"]},
+        "semantic_object_id": {"type": ["string", "null"]},
+        "semantic_judgement_id": {"type": ["string", "null"]}
+      },
+      "anyOf": [
+        {"properties": {"transaction_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"campaign_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"lead_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"conversation_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"job_id": {"type": "string", "minLength": 1}}},
+        {"properties": {"order_id": {"type": "string", "minLength": 1}}}
+      ]
+    },
+    "strategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product", "offer", "communicative_act", "channel", "audience", "tactic_id", "proof_family", "pattern_key"],
+      "properties": {
+        "product": {"type": ["string", "null"]},
+        "offer": {"type": ["string", "null"]},
+        "communicative_act": {"type": ["string", "null"]},
+        "channel": {"type": ["string", "null"]},
+        "audience": {"type": ["string", "null"]},
+        "tactic_id": {"type": ["string", "null"]},
+        "proof_family": {"type": ["string", "null"]},
+        "pattern_key": {"type": ["string", "null"], "pattern": "^MANDOS-PAT-[A-F0-9]{20}$"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "source_refs", "source_classes", "source_states"],
+      "properties": {
+        "state": {"enum": ["observed", "verified", "operator_confirmed"]},
+        "source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "source_classes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "source_states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256", "size"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+              "size": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "economics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "revenue_minor", "cost_minor", "manual_minutes", "gross_margin_minor"],
+      "properties": {
+        "currency": {"type": "string", "minLength": 1},
+        "revenue_minor": {"type": "integer", "minimum": 0},
+        "cost_minor": {"type": "integer", "minimum": 0},
+        "manual_minutes": {"type": "number", "minimum": 0},
+        "gross_margin_minor": {"type": "integer"}
+      }
+    },
+    "detail": {"type": "object"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["may_expand_execution_authority", "may_become_reusable_strategy", "promotion_requires_independent_cases", "promotion_requires_adversarial_validation", "promotion_requires_human_confirmation"],
+      "properties": {
+        "may_expand_execution_authority": {"const": false},
+        "may_become_reusable_strategy": {"const": false},
+        "promotion_requires_independent_cases": {"const": true},
+        "promotion_requires_adversarial_validation": {"const": true},
+        "promotion_requires_human_confirmation": {"const": true}
+      }
+    },
+    "case_id": {"type": "string", "minLength": 1}
+  }
+}
