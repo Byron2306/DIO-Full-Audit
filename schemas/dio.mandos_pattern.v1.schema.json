@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://dio.local/schemas/dio.mandos_pattern.v1.schema.json",
   "title": "DIO Mandos Pattern v1",
-  "description": "Derived pattern over immutable commercial outcomes. Reuse authority is earned separately and never expands execution authority.",
+  "description": "Derived pattern over append-governed, tamper-evident commercial outcomes. Reuse authority is earned separately and never expands execution authority.",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema", "pattern_key", "updated_at", "strategy", "direction", "earned_stage", "current_stage", "historical_max_stage", "outcome_ids", "case_ids", "evidence_summary", "economics", "decision", "negative_capability", "reuse_authority", "promotion_law"],
@@ -33,12 +33,31 @@
     "economics": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["revenue_minor", "cost_minor", "manual_minutes", "gross_margin_minor"],
+      "required": ["currency", "aggregation_state", "revenue_minor", "cost_minor", "manual_minutes", "gross_margin_minor", "economic_event_count", "by_currency", "attestation_deduplication"],
       "properties": {
+        "currency": {"type": ["string", "null"]},
+        "aggregation_state": {"enum": ["no_economic_events", "single_currency", "mixed_currency_not_aggregated"]},
         "revenue_minor": {"type": "integer", "minimum": 0},
         "cost_minor": {"type": "integer", "minimum": 0},
         "manual_minutes": {"type": "number", "minimum": 0},
-        "gross_margin_minor": {"type": "integer"}
+        "gross_margin_minor": {"type": "integer"},
+        "economic_event_count": {"type": "integer", "minimum": 0},
+        "by_currency": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["revenue_minor", "cost_minor", "manual_minutes", "gross_margin_minor", "economic_event_count"],
+            "properties": {
+              "revenue_minor": {"type": "integer", "minimum": 0},
+              "cost_minor": {"type": "integer", "minimum": 0},
+              "manual_minutes": {"type": "number", "minimum": 0},
+              "gross_margin_minor": {"type": "integer"},
+              "economic_event_count": {"type": "integer", "minimum": 0}
+            }
+          }
+        },
+        "attestation_deduplication": {"const": true}
       }
     },
     "decision": {"type": "object"},
