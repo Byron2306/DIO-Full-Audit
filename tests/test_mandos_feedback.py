@@ -6,7 +6,11 @@ from pathlib import Path
 from unittest.mock import patch
 
 from commerce.mandos import MandosLedger, commercial_outcome
-from commerce.mandos_feedback import campaign_feedback, enrich_nichefoundry_cso_with_mandos
+from commerce.mandos_feedback import (
+    campaign_feedback,
+    enrich_nichefoundry_cso_with_mandos,
+    hivenance_outcome_overlay,
+)
 from commerce.nichefoundry_bridge import commercial_semantic_object_from_nichefoundry
 from commerce.semantic import validate_commercial_semantic_object
 from scripts.run_hivenance_market_agents import build_context
@@ -81,6 +85,75 @@ class MandosFeedbackTests(unittest.TestCase):
             economics={"currency": "ZAR", "revenue_minor": 95000},
         )
 
+    @staticmethod
+    def hivenance_receipt(decision: str = "TEST", selected_family: str = "proof_demo") -> dict:
+        return {
+            "schema": "hivenance_non_crypto_market_intelligence_v1",
+            "council": {
+                "decision": decision,
+                "selected_family": selected_family,
+                "authority": "campaign_research_routing_only",
+            },
+            "authority": {
+                "publication": "operator_only",
+                "direct_outreach": "consent_gate_only",
+                "commerce": "none",
+            },
+        }
+
+    @staticmethod
+    def overlay_feedback(*, direction: str, negative_state: str, reuse_state: str, tactic_id: str = "proof_demo") -> dict:
+        return {
+            "schema": "dio.mandos_campaign_feedback.v1",
+            "campaign_id": "CMP-MANDOS-FEEDBACK",
+            "outcomes": [
+                {
+                    "outcome_id": "OUT-AAAAAAAAAAAAAAAAAAAAAAAA",
+                    "outcome_type": "reply_received",
+                    "polarity": direction if direction in {"positive", "negative"} else "mixed",
+                    "case_id": "lead_id:LEAD-1",
+                }
+            ],
+            "patterns": [
+                {
+                    "pattern_key": "MANDOS-PAT-AAAAAAAAAAAAAAAAAAAA",
+                    "strategy": {
+                        "product": "Evidex Evidence Pack",
+                        "offer": "EVIDEX-PILOT-PACK",
+                        "communicative_act": "proof_led_campaign_content",
+                        "channel": "proof_content",
+                        "audience": "NGO evidence teams",
+                        "tactic_id": tactic_id,
+                        "proof_family": None,
+                    },
+                    "direction": direction,
+                    "current_stage": "reusable_crystal" if reuse_state == "active" else "repeated_observation",
+                    "evidence_summary": {
+                        "verified_outcomes": 2,
+                        "verified_cases": 2,
+                        "positive_cases": 2 if direction == "positive" else 0,
+                        "negative_cases": 2 if direction in {"negative", "contested"} else 0,
+                        "source_classes": ["outlook_ingress", "operator_observation_window"],
+                        "source_class_count": 2,
+                    },
+                    "negative_capability": {"state": negative_state, "reason": None},
+                    "reuse_authority": {
+                        "state": reuse_state,
+                        "may_expand_execution_authority": False,
+                        "scope": "strategy_hypothesis_only",
+                        "exact_outcome_evidence_retained": True,
+                    },
+                }
+            ],
+            "economics": {"revenue_minor": 95000, "cost_minor": 0, "manual_minutes": 10.0, "gross_margin_minor": 95000},
+            "authority": {
+                "is_observed_evidence": True,
+                "is_synthetic_score": False,
+                "may_expand_execution_authority": False,
+                "may_be_reused_as_strategy": reuse_state == "active",
+            },
+        }
+
     def test_campaign_feedback_is_observed_evidence_not_a_synthetic_score(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -131,6 +204,49 @@ class MandosFeedbackTests(unittest.TestCase):
             self.assertEqual("CMP-MANDOS-FEEDBACK", feedback["campaign_id"])
             self.assertEqual(1, len(feedback["outcomes"]))
             self.assertFalse(feedback["authority"]["may_expand_execution_authority"])
+
+    def test_exact_matched_repeated_failure_can_downgrade_hivenance_test_to_hold(self) -> None:
+        overlay = hivenance_outcome_overlay(
+            self.overlay_feedback(direction="negative", negative_state="active", reuse_state="not_earned"),
+            self.hivenance_receipt(decision="TEST", selected_family="proof_demo"),
+        )
+        self.assertEqual("VETO_MATCHED_FAILURE", overlay["judgement"])
+        self.assertEqual("TEST", overlay["hivenance_decision"])
+        self.assertEqual("HOLD", overlay["effective_decision"])
+        self.assertFalse(overlay["authority"]["may_upgrade_hivenance_decision"])
+        self.assertFalse(overlay["authority"]["may_expand_execution_authority"])
+
+    def test_contested_exact_family_can_only_refine_a_test(self) -> None:
+        overlay = hivenance_outcome_overlay(
+            self.overlay_feedback(direction="contested", negative_state="contested", reuse_state="not_earned"),
+            self.hivenance_receipt(decision="TEST", selected_family="proof_demo"),
+        )
+        self.assertEqual("CHALLENGE_MATCHED_CONTRADICTION", overlay["judgement"])
+        self.assertEqual("REFINE", overlay["effective_decision"])
+
+    def test_positive_reusable_crystal_never_upgrades_native_hivenance_decision(self) -> None:
+        overlay = hivenance_outcome_overlay(
+            self.overlay_feedback(direction="positive", negative_state="inactive", reuse_state="active"),
+            self.hivenance_receipt(decision="HOLD", selected_family="proof_demo"),
+        )
+        self.assertEqual("SUPPORTED_BY_REUSABLE_CRYSTAL", overlay["judgement"])
+        self.assertEqual("HOLD", overlay["effective_decision"])
+        self.assertFalse(overlay["authority"]["may_upgrade_hivenance_decision"])
+
+    def test_outcomes_without_exact_hypothesis_scope_do_not_downgrade_or_upgrade(self) -> None:
+        feedback = self.overlay_feedback(
+            direction="negative",
+            negative_state="active",
+            reuse_state="not_earned",
+            tactic_id="permission_first_partnership",
+        )
+        overlay = hivenance_outcome_overlay(
+            feedback,
+            self.hivenance_receipt(decision="TEST", selected_family="proof_demo"),
+        )
+        self.assertEqual("WITHHELD_SCOPE", overlay["judgement"])
+        self.assertEqual("TEST", overlay["effective_decision"])
+        self.assertEqual([], overlay["matched_pattern_keys"])
 
 
 if __name__ == "__main__":
