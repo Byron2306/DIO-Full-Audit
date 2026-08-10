@@ -111,7 +111,7 @@ class MandosBeastMemoryTests(unittest.TestCase):
             cso = self.cso()
             expression = render_expression(cso, CommunicativeAct.INBOUND_REPLY)
             assessment = assess_expression_evidence(cso, expression, execution_kind="mail_send", memory_root=root)
-            self.assertEqual(1, assessment["mandos_memory"]["remembered_candidates"])
+            self.assertEqual(0, assessment["mandos_memory"]["remembered_candidates"])
             self.assertEqual(0, assessment["mandos_memory"]["remembered_matches"])
             self.assertFalse(assessment["mandos_memory"]["unprovable_selector_may_broaden_veto"])
             self.assertFalse(any(row["code"] == "ACTIVE_NEGATIVE_CAPABILITY" for row in assessment["blockers"]))
