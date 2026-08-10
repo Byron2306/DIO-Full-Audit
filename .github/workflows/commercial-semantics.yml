@@ -64,6 +64,7 @@ jobs:
             commerce/mandos.py \
             commerce/mandos_reconcile.py \
             commerce/mandos_feedback.py \
+            commerce/mandos_recovery.py \
             commerce/beast_semantic_governance.py \
             commerce/semantic_judgement.py \
             conversation_core/context.py \
@@ -109,4 +110,5 @@ jobs:
             tests.test_mandos_beast_memory \
             tests.test_mandos_reconcile \
             tests.test_mandos_feedback \
-            tests.test_mandos_silence
+            tests.test_mandos_silence \
+            tests.test_mandos_recovery
