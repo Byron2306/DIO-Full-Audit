@@ -16,6 +16,7 @@ from .mandos import (
     strategy_signature_from_cso,
 )
 from .mandos_feedback import campaign_feedback, enrich_nichefoundry_cso_with_mandos
+from .mandos_recovery import recover_orphan_outcomes, verify_complete_memory
 from .nichefoundry_bridge import commercial_semantic_object_from_nichefoundry
 from .orchestrator import CommercialOrchestrator, CommercialStore
 from .prospect_bridge import commercial_semantic_object_from_prospect_target
@@ -53,6 +54,7 @@ __all__ = [
     "market_signal",
     "pattern_key",
     "plan_expression",
+    "recover_orphan_outcomes",
     "render_expression",
     "semantic_claim",
     "semantic_value",
@@ -60,4 +62,5 @@ __all__ = [
     "strategy_signature",
     "strategy_signature_from_cso",
     "validate_commercial_semantic_object",
+    "verify_complete_memory",
 ]
