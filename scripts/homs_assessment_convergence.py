@@ -2,14 +2,16 @@
 from __future__ import annotations
 
 import importlib.util
-import math
 import re
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
 
 
-DEFAULT_LOCAL_HOMS_ROOT = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/Marker/homs")
+REPO_ROOT = Path(__file__).resolve().parents[1]
+EXTERNAL_LOCAL_HOMS_ROOT = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/Marker/homs")
+VENDORED_LOCAL_HOMS_ROOT = REPO_ROOT / "cross_folder_variants" / "NoEdge-Multi-Hymark-main" / "A_CODE" / "Marker" / "homs"
+DEFAULT_LOCAL_HOMS_ROOT = EXTERNAL_LOCAL_HOMS_ROOT
 
 
 def _norm(value: Any) -> str:
@@ -235,17 +237,43 @@ def _load_module(path: Path, name: str) -> Any:
     return module
 
 
+def resolve_local_homs_root(preferred: Path | None = None) -> tuple[Path, str]:
+    candidates: list[tuple[Path, str]] = []
+    if preferred is not None:
+        candidates.append((preferred, "requested"))
+    candidates.extend(
+        [
+            (EXTERNAL_LOCAL_HOMS_ROOT, "external_download_tree"),
+            (VENDORED_LOCAL_HOMS_ROOT, "vendored_repository_copy"),
+        ]
+    )
+    seen: set[str] = set()
+    for candidate, source in candidates:
+        key = str(candidate.expanduser())
+        if key in seen:
+            continue
+        seen.add(key)
+        root = candidate.expanduser().resolve()
+        if (root / "core" / "moderation_agent.py").is_file() and (root / "core" / "learning_agent.py").is_file():
+            return root, source
+    return (preferred or DEFAULT_LOCAL_HOMS_ROOT).expanduser().resolve(), "unresolved"
+
+
 def run_local_homs_governance(
     results: list[dict[str, Any]],
     contracts: list[dict[str, Any]],
     local_homs_root: Path = DEFAULT_LOCAL_HOMS_ROOT,
 ) -> dict[str, Any]:
-    moderation_path = local_homs_root / "core" / "moderation_agent.py"
-    learning_path = local_homs_root / "core" / "learning_agent.py"
+    resolved_root, root_source = resolve_local_homs_root(local_homs_root)
+    moderation_path = resolved_root / "core" / "moderation_agent.py"
+    learning_path = resolved_root / "core" / "learning_agent.py"
     if not moderation_path.is_file() or not learning_path.is_file():
         return {
             "available": False,
-            "reason": "Local HOMS moderation/learning modules not found",
+            "reason": "Local HOMS moderation/learning modules not found in requested, external or vendored roots",
+            "requested_root": str(local_homs_root),
+            "resolved_root": str(resolved_root),
+            "root_source": root_source,
             "moderation": [],
             "moderation_report": {},
             "learning_insights": {},
@@ -259,7 +287,9 @@ def run_local_homs_governance(
     learner.learn_from_assessments(local_rows, moderations)
     return {
         "available": True,
-        "source_root": str(local_homs_root),
+        "requested_root": str(local_homs_root),
+        "source_root": str(resolved_root),
+        "root_source": root_source,
         "moderation": moderations,
         "moderation_report": moderator.get_moderation_report(),
         "learning_insights": learner.get_insights(),
