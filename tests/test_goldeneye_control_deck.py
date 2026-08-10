@@ -12,15 +12,39 @@ class GoldenEyeControlDeckTests(unittest.TestCase):
     def test_goldeneye_surface_keeps_governed_control_api(self) -> None:
         html = (ROOT / "dashboard" / "goldeneye.html").read_text(encoding="utf-8")
         for required in (
-            "DIO GOLDENEYE",
-            "NEEDS BYRON NOW",
-            "MANDOS // COMMERCIAL MEMORY",
+            "DIO // GOLDENEYE",
+            "Needs Byron Now",
+            "Hypothesis Board",
+            "Campaign War Room",
+            "Registry Command",
+            "Lead Spine",
+            "Experiment Command",
+            "Economics & Attribution Truth",
+            "Gaps & Contradictions",
+            "Mandos Outcome Memory",
             "BLACKOUT",
+            "data:image/webp;base64,",
             "/api/control/state",
             "/api/control/policy",
-            "/api/control/product/action",
-            "/api/control/transaction/action",
+            "/api/control/market-campaign/action",
+            "/api/control/market-command/action",
+            "/api/control/creative-factory/action",
+            "/api/control/lead/action",
             "/dashboard/index.html",
+        ):
+            self.assertIn(required, html)
+
+    def test_goldeneye_exposes_full_commercial_lineage_and_integrity_watch(self) -> None:
+        html = (ROOT / "dashboard" / "goldeneye.html").read_text(encoding="utf-8")
+        for required in (
+            "registry → hypothesis → campaign → creative → lead → transaction → outcome",
+            "Qualified lead has no canonical transaction",
+            "Paid order lacks fulfilment job id",
+            "Lead has no resolvable campaign lineage",
+            "Market Command experiment has no Wave4 hypothesis link",
+            "measurement-ledger economics and direct-event economics",
+            "Authority gained",
+            "observation only",
         ):
             self.assertIn(required, html)
 
