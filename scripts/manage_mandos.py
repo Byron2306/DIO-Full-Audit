@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from commerce.mandos import MandosLedger, commercial_outcome, source_state  # noqa: E402
 from commerce.mandos_reconcile import reconcile_all  # noqa: E402
+from commerce.mandos_recovery import verify_complete_memory  # noqa: E402
 
 
 def _json(path: Path) -> dict[str, Any]:
@@ -159,9 +160,17 @@ def main() -> int:
     ledger = MandosLedger(root)
 
     if args.command == "reconcile":
-        result = reconcile_all(root)
+        result = {
+            "reconciliation": reconcile_all(root),
+            "memory_verification": verify_complete_memory(root),
+        }
+        if not result["memory_verification"]["valid"]:
+            raise RuntimeError("Mandos reconciliation completed but memory verification failed")
     elif args.command == "verify":
-        result = {"journal": ledger.verify_journal(), "patterns": ledger.refresh_patterns()}
+        result = {
+            "memory_verification": verify_complete_memory(root),
+            "patterns": ledger.refresh_patterns(),
+        }
     elif args.command == "record":
         if args.evidence_state in {"verified", "operator_confirmed"} and (not args.source_ref or not args.source_class):
             raise ValueError("Verified/operator-confirmed manual outcomes require --source-ref and --source-class")
@@ -180,7 +189,7 @@ def main() -> int:
             source_states=_source_states(root, args.source_path),
         )
         stored, created = ledger.record(outcome)
-        result = {"created": created, "outcome": stored}
+        result = {"created": created, "outcome": stored, "memory_verification": verify_complete_memory(root)}
     elif args.command == "close-silence":
         intent_path = root / "state" / "mail_intents" / f"{args.mail_intent_id}.json"
         if not intent_path.is_file():
@@ -242,7 +251,7 @@ def main() -> int:
             source_states=[source_state(intent_path, root), *[source_state(path, root) for path in strategy_sources]],
         )
         stored, created = ledger.record(outcome)
-        result = {"created": created, "outcome": stored}
+        result = {"created": created, "outcome": stored, "memory_verification": verify_complete_memory(root)}
     elif args.command == "nominate":
         result = ledger.nominate(args.pattern_key, actor=args.actor, rationale=args.rationale)
     elif args.command == "validate":
