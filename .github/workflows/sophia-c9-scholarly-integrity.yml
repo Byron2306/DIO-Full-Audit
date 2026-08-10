@@ -6,23 +6,27 @@ on:
       - dio-c9-sophia-scholarly-integrity
     paths:
       - "adapters/sophia/product_integrity.py"
+      - "scripts/manage_sophia_commercial.py"
       - "scripts/run_sophia_scholarly_integrity_c9.py"
       - "scripts/prepare_sophia_c9_revision_delivery.py"
       - "config/sophia_service.json"
       - "sites/sophia/**"
       - "tests/test_sophia_c9_scholarly_integrity.py"
       - "tests/test_sophia_c9_support_monotonicity.py"
+      - "tests/test_sophia_c9_commercial_gate.py"
       - "docs/SOPHIA_SCHOLARLY_INTEGRITY_C9.md"
       - ".github/workflows/sophia-c9-scholarly-integrity.yml"
   pull_request:
     paths:
       - "adapters/sophia/product_integrity.py"
+      - "scripts/manage_sophia_commercial.py"
       - "scripts/run_sophia_scholarly_integrity_c9.py"
       - "scripts/prepare_sophia_c9_revision_delivery.py"
       - "config/sophia_service.json"
       - "sites/sophia/**"
       - "tests/test_sophia_c9_scholarly_integrity.py"
       - "tests/test_sophia_c9_support_monotonicity.py"
+      - "tests/test_sophia_c9_commercial_gate.py"
       - "docs/SOPHIA_SCHOLARLY_INTEGRITY_C9.md"
       - ".github/workflows/sophia-c9-scholarly-integrity.yml"
 
@@ -38,13 +42,15 @@ jobs:
         run: |
           python -m py_compile \
             adapters/sophia/product_integrity.py \
+            scripts/manage_sophia_commercial.py \
             scripts/run_sophia_scholarly_integrity_c9.py \
             scripts/prepare_sophia_c9_revision_delivery.py
       - name: Run C9 scholarly integrity adversarial proof
         run: |
           python -m unittest -v \
             tests.test_sophia_c9_scholarly_integrity \
-            tests.test_sophia_c9_support_monotonicity
+            tests.test_sophia_c9_support_monotonicity \
+            tests.test_sophia_c9_commercial_gate
       - name: Verify Sophia public integrity surface
         run: |
           grep -Fq "Integrity you can inspect." sites/sophia/index.html
