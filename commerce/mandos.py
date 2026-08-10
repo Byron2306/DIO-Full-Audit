@@ -125,7 +125,8 @@ def _read_json(path: Path, default: Any = None) -> Any:
 
 
 def _clean_refs(values: Iterable[Any]) -> list[str]:
-    return list(dict.fromkeys(str(value).strip() for value in values if str(value or "").strip()))
+    """Canonicalize provenance collections because set order is not semantic evidence."""
+    return sorted({str(value).strip() for value in values if str(value or "").strip()})
 
 
 def _normalize_source_states(values: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -225,6 +226,122 @@ def source_state(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
+def _economic_event_key(outcome: dict[str, Any]) -> str | None:
+    """Identify one worldly economic event independently of how many attestations describe it."""
+    economics = outcome.get("economics") or {}
+    revenue = int(economics.get("revenue_minor") or 0)
+    cost = int(economics.get("cost_minor") or 0)
+    minutes = float(economics.get("manual_minutes") or 0.0)
+    if revenue == 0 and cost == 0 and minutes == 0.0:
+        return None
+    lineage = outcome.get("lineage") or {}
+    world_lineage = {
+        key: lineage.get(key)
+        for key in (
+            "transaction_id",
+            "campaign_id",
+            "lead_id",
+            "conversation_id",
+            "job_id",
+            "order_id",
+            "mail_intent_id",
+        )
+    }
+    return digest(
+        {
+            "outcome_type": outcome.get("outcome_type"),
+            "occurred_at": outcome.get("occurred_at"),
+            "lineage": world_lineage,
+            "strategy": {
+                key: value
+                for key, value in (outcome.get("strategy") or {}).items()
+                if key != "pattern_key"
+            },
+            "economics": economics,
+            "detail": outcome.get("detail") or {},
+        }
+    )
+
+
+def summarize_economics(outcomes: Iterable[dict[str, Any]]) -> dict[str, Any]:
+    """Deduplicate attestations and keep unlike currencies partitioned.
+
+    This is a reporting/learning summary only. It never creates accounting authority.
+    If multiple currencies are present, top-level monetary totals are deliberately zero
+    rather than pretending that minor units can be added across currencies.
+    """
+    unique_events: dict[str, dict[str, Any]] = {}
+    for row in outcomes:
+        key = _economic_event_key(row)
+        if key and key not in unique_events:
+            unique_events[key] = row
+
+    by_currency: dict[str, dict[str, Any]] = {}
+    total_minutes = 0.0
+    for row in unique_events.values():
+        economics = row.get("economics") or {}
+        currency = str(economics.get("currency") or "UNKNOWN").strip().upper() or "UNKNOWN"
+        bucket = by_currency.setdefault(
+            currency,
+            {
+                "revenue_minor": 0,
+                "cost_minor": 0,
+                "manual_minutes": 0.0,
+                "gross_margin_minor": 0,
+                "economic_event_count": 0,
+            },
+        )
+        revenue = int(economics.get("revenue_minor") or 0)
+        cost = int(economics.get("cost_minor") or 0)
+        minutes = float(economics.get("manual_minutes") or 0.0)
+        bucket["revenue_minor"] += revenue
+        bucket["cost_minor"] += cost
+        bucket["manual_minutes"] = round(bucket["manual_minutes"] + minutes, 3)
+        bucket["gross_margin_minor"] = bucket["revenue_minor"] - bucket["cost_minor"]
+        bucket["economic_event_count"] += 1
+        total_minutes += minutes
+
+    if not by_currency:
+        return {
+            "currency": None,
+            "aggregation_state": "no_economic_events",
+            "revenue_minor": 0,
+            "cost_minor": 0,
+            "manual_minutes": 0.0,
+            "gross_margin_minor": 0,
+            "economic_event_count": 0,
+            "by_currency": {},
+            "attestation_deduplication": True,
+        }
+
+    if len(by_currency) == 1:
+        currency = next(iter(by_currency))
+        bucket = by_currency[currency]
+        return {
+            "currency": currency,
+            "aggregation_state": "single_currency",
+            "revenue_minor": bucket["revenue_minor"],
+            "cost_minor": bucket["cost_minor"],
+            "manual_minutes": bucket["manual_minutes"],
+            "gross_margin_minor": bucket["gross_margin_minor"],
+            "economic_event_count": bucket["economic_event_count"],
+            "by_currency": by_currency,
+            "attestation_deduplication": True,
+        }
+
+    return {
+        "currency": None,
+        "aggregation_state": "mixed_currency_not_aggregated",
+        "revenue_minor": 0,
+        "cost_minor": 0,
+        "manual_minutes": round(total_minutes, 3),
+        "gross_margin_minor": 0,
+        "economic_event_count": len(unique_events),
+        "by_currency": by_currency,
+        "attestation_deduplication": True,
+    }
+
+
 def validate_outcome(payload: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if payload.get("schema") != OUTCOME_SCHEMA:
@@ -243,7 +360,10 @@ def validate_outcome(payload: dict[str, Any]) -> list[str]:
     if evidence.get("state") in {"verified", "operator_confirmed"} and not classes:
         errors.append("verified/operator_confirmed outcome requires source_classes")
     lineage = payload.get("lineage") or {}
-    if not any(str(lineage.get(field) or "").strip() for field in ("transaction_id", "lead_id", "campaign_id", "conversation_id", "order_id", "job_id")):
+    if not any(
+        str(lineage.get(field) or "").strip()
+        for field in ("transaction_id", "lead_id", "campaign_id", "conversation_id", "order_id", "job_id")
+    ):
         errors.append("outcome requires commercial lineage")
     economics = payload.get("economics") or {}
     for field in ("revenue_minor", "cost_minor"):
@@ -285,7 +405,7 @@ def commercial_outcome(
     signature = strategy_signature(**(strategy or {}))
     pkey = pattern_key(signature) if outcome_type in LEARNING_OUTCOMES else None
     clean_economics = {
-        "currency": str((economics or {}).get("currency") or "ZAR"),
+        "currency": str((economics or {}).get("currency") or "ZAR").strip().upper() or "ZAR",
         "revenue_minor": int((economics or {}).get("revenue_minor") or 0),
         "cost_minor": int((economics or {}).get("cost_minor") or 0),
         "manual_minutes": float((economics or {}).get("manual_minutes") or 0.0),
@@ -548,23 +668,31 @@ class MandosLedger:
         return _read_json(path)
 
     def _build_pattern(self, pkey: str, outcomes: list[dict[str, Any]]) -> dict[str, Any]:
-        verified = [row for row in outcomes if (row.get("evidence") or {}).get("state") in {"verified", "operator_confirmed"}]
+        verified = [
+            row
+            for row in outcomes
+            if (row.get("evidence") or {}).get("state") in {"verified", "operator_confirmed"}
+        ]
         independent: dict[str, list[dict[str, Any]]] = {}
         for row in verified:
             independent.setdefault(str(row.get("case_id") or row["outcome_id"]), []).append(row)
         positive_cases = {
-            key for key, rows in independent.items()
+            key
+            for key, rows in independent.items()
             if any(row.get("polarity") == "positive" for row in rows)
         }
         negative_cases = {
-            key for key, rows in independent.items()
+            key
+            for key, rows in independent.items()
             if any(row.get("polarity") == "negative" for row in rows)
         }
-        source_classes = sorted({
-            source_class
-            for row in verified
-            for source_class in (row.get("evidence") or {}).get("source_classes") or []
-        })
+        source_classes = sorted(
+            {
+                source_class
+                for row in verified
+                for source_class in (row.get("evidence") or {}).get("source_classes") or []
+            }
+        )
         verified_cases = len(independent)
         earned_stage = "observation"
         if verified_cases >= 2:
@@ -601,12 +729,7 @@ class MandosLedger:
         elif len(negative_cases) >= 2 and positive_cases:
             negative_capability_state = "contested"
 
-        economics = {
-            "revenue_minor": sum(int((row.get("economics") or {}).get("revenue_minor") or 0) for row in verified),
-            "cost_minor": sum(int((row.get("economics") or {}).get("cost_minor") or 0) for row in verified),
-            "manual_minutes": round(sum(float((row.get("economics") or {}).get("manual_minutes") or 0.0) for row in verified), 3),
-        }
-        economics["gross_margin_minor"] = economics["revenue_minor"] - economics["cost_minor"]
+        economics = summarize_economics(verified)
 
         return {
             "schema": PATTERN_SCHEMA,
@@ -631,10 +754,20 @@ class MandosLedger:
             "decision": decision,
             "negative_capability": {
                 "state": negative_capability_state,
-                "reason": "Repeated independent verified negative cases with no verified positive contradiction." if negative_capability_state == "active" else None,
+                "reason": (
+                    "Repeated independent verified negative cases with no verified positive contradiction."
+                    if negative_capability_state == "active"
+                    else None
+                ),
             },
             "reuse_authority": {
-                "state": "revoked" if revocation.get("state") == "revoked" else "active" if current_stage == "reusable_crystal" else "not_earned",
+                "state": (
+                    "revoked"
+                    if revocation.get("state") == "revoked"
+                    else "active"
+                    if current_stage == "reusable_crystal"
+                    else "not_earned"
+                ),
                 "may_expand_execution_authority": False,
                 "scope": "strategy_hypothesis_only",
                 "exact_outcome_evidence_retained": True,
@@ -687,7 +820,10 @@ class MandosLedger:
                 {
                     "schema": "dio.mandos_hivenance_feedback.v1",
                     **common,
-                    "interpretation": "Observed commercial outcome evidence for hypothesis testing. It is not live-execution authority.",
+                    "interpretation": (
+                        "Observed commercial outcome evidence for hypothesis testing. "
+                        "It is not live-execution authority."
+                    ),
                 },
             )
             _write_json(
@@ -696,7 +832,10 @@ class MandosLedger:
                     "schema": "dio.mandos_nichefoundry_feedback.v1",
                     **common,
                     "signal_state": "observed",
-                    "interpretation": "Verified outcome evidence that may update audience/opportunity hypotheses without manufacturing a score.",
+                    "interpretation": (
+                        "Verified outcome evidence that may update audience/opportunity hypotheses "
+                        "without manufacturing a score."
+                    ),
                 },
             )
         self._write_negative_capability_registry(patterns)
@@ -708,24 +847,26 @@ class MandosLedger:
             if negative.get("state") not in {"active", "contested"}:
                 continue
             strategy = pattern.get("strategy") or {}
-            rows.append({
-                "capability_id": f"mandos:{pattern['pattern_key']}",
-                "pattern_key": pattern["pattern_key"],
-                "state": negative["state"],
-                "selectors": {
-                    "product": strategy.get("product"),
-                    "offer": strategy.get("offer"),
-                    "communicative_act": strategy.get("communicative_act"),
-                    "channel": strategy.get("channel"),
-                    "tactic_id": strategy.get("tactic_id"),
-                },
-                "negative_cases": pattern["evidence_summary"]["negative_cases"],
-                "positive_cases": pattern["evidence_summary"]["positive_cases"],
-                "evidence_count": pattern["evidence_summary"]["verified_outcomes"],
-                "outcome_ids": pattern["outcome_ids"],
-                "may_veto_semantic_execution": negative["state"] == "active",
-                "may_expand_execution_authority": False,
-            })
+            rows.append(
+                {
+                    "capability_id": f"mandos:{pattern['pattern_key']}",
+                    "pattern_key": pattern["pattern_key"],
+                    "state": negative["state"],
+                    "selectors": {
+                        "product": strategy.get("product"),
+                        "offer": strategy.get("offer"),
+                        "communicative_act": strategy.get("communicative_act"),
+                        "channel": strategy.get("channel"),
+                        "tactic_id": strategy.get("tactic_id"),
+                    },
+                    "negative_cases": pattern["evidence_summary"]["negative_cases"],
+                    "positive_cases": pattern["evidence_summary"]["positive_cases"],
+                    "evidence_count": pattern["evidence_summary"]["verified_outcomes"],
+                    "outcome_ids": pattern["outcome_ids"],
+                    "may_veto_semantic_execution": negative["state"] == "active",
+                    "may_expand_execution_authority": False,
+                }
+            )
         path = self.state_root / "beast" / "NEGATIVE_CAPABILITIES.json"
         _write_json(
             path,
@@ -744,7 +885,10 @@ def active_negative_capabilities_for(
     *,
     execution_kind: str | None = None,
 ) -> list[dict[str, Any]]:
-    registry = _read_json(root.resolve() / "state" / "mandos" / "beast" / "NEGATIVE_CAPABILITIES.json", {}) or {}
+    registry = _read_json(
+        root.resolve() / "state" / "mandos" / "beast" / "NEGATIVE_CAPABILITIES.json",
+        {},
+    ) or {}
     product = _semantic_value(cso, "commercial", "product")
     offer = _semantic_value(cso, "commercial", "offer")
     plan = expression.get("plan") or {}
@@ -770,6 +914,9 @@ def active_negative_capabilities_for(
         required = {key: value for key, value in selectors.items() if value not in {None, ""}}
         if not required:
             continue
-        if all(current.get(key) not in {None, ""} and str(current[key]) == str(value) for key, value in required.items()):
+        if all(
+            current.get(key) not in {None, ""} and str(current[key]) == str(value)
+            for key, value in required.items()
+        ):
             matches.append({**row, "execution_kind": execution_kind})
     return matches
