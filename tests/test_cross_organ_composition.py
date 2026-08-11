@@ -104,7 +104,7 @@ def fusion_artifact(
         }
     elif assertion_type == "decision":
         payload = {
-            "decision_type": "readiness",
+            "decision_type": "requirement",
             "verdict": "ALLOW",
             "reasoning_summary": f"{system_id} readiness recorded at {stage_id}",
         }
@@ -284,7 +284,7 @@ def test_dependency_cannot_be_bypassed(tmp_path: Path) -> None:
     case = make_case(tmp_path, "dependency")
     ledger = make_composition_ledger(case, profile_id="full_governed_external_action", created_at=ISSUED)
     with pytest.raises(CompositionError, match="blocked by dependency ingress"):
-        record_case_stage(case, ledger, stage_id="epistemic", artifacts=[fusion_artifact(case, "sophia_integritas", "evidence", "epistemic")], recorded_at=ISSUED)
+        record_case_stage(case, ledger, stage_id="epistemic", artifacts=[fusion_artifact(case, "sophia_integratas", "evidence", "epistemic")], recorded_at=ISSUED)
 
 
 def test_wrong_organ_issuer_is_transactionally_refused(tmp_path: Path) -> None:
