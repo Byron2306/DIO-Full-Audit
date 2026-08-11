@@ -109,6 +109,16 @@
       ]
     },
     {
+      "alias": "nichefoundry",
+      "source_id": "nichefoundry_media",
+      "kind": "organ",
+      "required_for_phase0": false,
+      "candidate_paths": [
+        "/home/byron/NicheFoundry",
+        "/home/byron/Downloads/NicheFoundry"
+      ]
+    },
+    {
       "alias": "workflows-site",
       "source_id": "dio_workflows_site",
       "kind": "surface",
