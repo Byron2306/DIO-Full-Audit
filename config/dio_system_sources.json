@@ -1,0 +1,138 @@
+{
+  "schema": "dio.system_source_registry.v1",
+  "captured_at": "2026-08-11T13:02:00Z",
+  "purpose": "Pin published source truth and explicitly identify newer local-only or unresolved source truth before DIO makes cross-system claims.",
+  "truth_policy": {
+    "published_commit_is_authoritative_for_published_claims": true,
+    "local_runtime_may_be_newer_than_published_commit": true,
+    "local_only_claims_require_local_capture_receipt": true,
+    "missing_source_is_not_negative_evidence": true,
+    "unresolved_source_blocks_stronger_cross_system_claims": true,
+    "dirty_worktree_requires_explicit_dirty_tree_fingerprint": true,
+    "snapshot_never_mutates_source_repositories": true
+  },
+  "sources": [
+    {
+      "source_id": "dio_full_audit",
+      "role": "convergence_audit_and_commercial_spine",
+      "github_repo": "Byron2306/DIO-Full-Audit",
+      "published_ref": "main",
+      "published_sha": "442519bbf5c4f813e59511ddaf7f408a2ee56aae",
+      "published_observed_at": "2026-08-09T19:52:24Z",
+      "local_path_hints": ["/home/byron/Downloads/KnowEdge_AutoRelease_Suite", "/home/byron/DIO-Full-Audit"],
+      "capture_policy": "self_dynamic",
+      "state": "published_baseline_plus_active_branch",
+      "notes": "The active product-platform work is on agent/dio-product-platform-expansion and intentionally advances beyond main."
+    },
+    {
+      "source_id": "sophia_integritas",
+      "role": "sophia_production_lineage_and_epistemic_governance",
+      "github_repo": "Byron2306/Integritas-Mechanicus",
+      "published_ref": "main",
+      "published_sha": "cdecaa3009021e819ad787ce18305967eafa4b83",
+      "published_observed_at": "2026-08-03T12:09:39Z",
+      "local_path_hints": ["/home/byron/Integritas-Mechanicus"],
+      "capture_policy": "local_required_when_newer",
+      "state": "published_stale_relative_to_observed_local_production",
+      "expected_local_markers": ["stable DIO lineage identity", "human final decision", "UNVERIFIED", "SUPPORTED"],
+      "notes": "A Sophia Production Wave 2 Valinor gauntlet was observed on 2026-08-11 in the local Integritas-Mechanicus runtime. Phase 0 must capture the local git/worktree fingerprint and gauntlet artifacts before treating those results as published-source evidence."
+    },
+    {
+      "source_id": "sophia_legacy",
+      "role": "legacy_sophia_source_reference",
+      "github_repo": "Byron2306/Sophia-AI",
+      "published_ref": "main",
+      "published_sha": "c084d6bc315241193f0ad16771a3d51340bbf470",
+      "published_observed_at": "2026-07-10T09:04:42Z",
+      "local_path_hints": [],
+      "capture_policy": "published_reference_only",
+      "state": "legacy_reference",
+      "notes": "Do not use this repository as the current Sophia production source when newer Integritas evidence exists."
+    },
+    {
+      "source_id": "beast",
+      "role": "durable_evidence_memory_crystallization_and_governed_compute",
+      "github_repo": "Byron2306/EdgeK-BEAST",
+      "published_ref": "main",
+      "published_sha": "320bb1f48d84a59353d5252687fb305dfa06b166",
+      "published_observed_at": "2026-08-04T00:16:27Z",
+      "local_path_hints": ["/home/byron/EdgeK-BEAST", "/home/byron/Downloads/EdgeK-BEAST"],
+      "capture_policy": "published_plus_local_if_newer",
+      "state": "published_source_available",
+      "notes": "The C4-X source-file-bound proof tag remains a distinct frozen proof anchor and should not be conflated with later working-tree state."
+    },
+    {
+      "source_id": "metatron",
+      "role": "triune_orchestration_harmonic_governance_and_dissent_pattern",
+      "github_repo": "Byron2306/Metatron",
+      "published_ref": "main",
+      "published_sha": "532f8f4d22568c3812352150da7c7baf923d76e6",
+      "published_observed_at": "2026-08-03T12:14:24Z",
+      "local_path_hints": ["/home/byron/Metatron", "/home/byron/Downloads/Metatron"],
+      "capture_policy": "published_plus_local_if_newer",
+      "state": "published_source_available",
+      "notes": "DIO Full Audit already records a runtime discrepancy between the documented rich Triune path and the ordinary orchestrator route."
+    },
+    {
+      "source_id": "arda",
+      "role": "execution_identity_attestation_and_sovereignty",
+      "github_repo": "Byron2306/Metatron-Arda",
+      "published_ref": "main",
+      "published_sha": "32bdb18171e854576cd9b71c2459d6f920c7daf5",
+      "published_observed_at": "2026-03-20T19:21:04Z",
+      "local_path_hints": ["/home/byron/Metatron-Arda", "/home/byron/Downloads/Metatron-Arda"],
+      "capture_policy": "published_plus_local_if_newer",
+      "state": "published_source_available_but_old",
+      "notes": "Any newer ARDA attestation or Commons work must be captured separately rather than inferred from this published head."
+    },
+    {
+      "source_id": "seraph",
+      "role": "adversarial_challenge_and_guardian_policy",
+      "github_repo": "Byron2306/Seraph-AI",
+      "published_ref": "main",
+      "published_sha": "fffd1f9f6e77cf14672f26be88a988fedab08c45",
+      "published_observed_at": "2026-03-02T20:31:11Z",
+      "local_path_hints": ["/home/byron/Seraph-AI", "/home/byron/Downloads/Seraph-AI"],
+      "capture_policy": "published_plus_local_if_newer",
+      "state": "published_source_available_but_old",
+      "notes": "Current DIO Seraph behavior may live in later convergence folders or local sources; Phase 0 must not silently substitute them."
+    },
+    {
+      "source_id": "hivenance",
+      "role": "hypothesis_registry_temporal_validation_and_economic_gate_patterns",
+      "github_repo": "Byron2306/Hivenance",
+      "published_ref": "main",
+      "published_sha": "141ed8d1bd112ce66dbcb041cb891bbe31f95d9d",
+      "published_observed_at": "2026-07-10T08:48:16Z",
+      "local_path_hints": ["/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation", "/home/byron/Hivenance"],
+      "capture_policy": "local_required_when_newer",
+      "state": "published_stale_relative_to_known_phoenix_work",
+      "notes": "Phoenix Phase 7.1 work used by DIO is newer than this published main head and must be locally captured."
+    },
+    {
+      "source_id": "dio_workflows_site",
+      "role": "public_brand_and_claim_surface",
+      "github_repo": "Byron2306/DIO-Workflows",
+      "published_ref": "main",
+      "published_sha": "c259cd78d0cdad070982e4922722c80b700f4fb8",
+      "published_observed_at": "2026-08-09T18:02:18Z",
+      "local_path_hints": [],
+      "capture_policy": "published_reference_only",
+      "state": "published_source_available",
+      "notes": "Public claims should be checked against the converged snapshot before promotion."
+    },
+    {
+      "source_id": "dio_legalis",
+      "role": "legal_identity_requirement_evidence_external_authority_and_deadline_gates",
+      "github_repo": null,
+      "published_ref": null,
+      "published_sha": null,
+      "published_observed_at": null,
+      "local_path_hints": [],
+      "capture_policy": "source_path_required",
+      "state": "local_source_unresolved",
+      "expected_local_markers": ["ALLOW", "REFUSE", "NEEDS_YOU", "legal identity", "requirement registry", "evidence receipts"],
+      "notes": "Legalis Wave 1 exists as observed local work, but no GitHub source or local path has yet been resolved in this audit. This is a deliberate blocker for claims that require Legalis implementation evidence."
+    }
+  ]
+}
