@@ -10,6 +10,7 @@
     "created_at": {"type": "string", "format": "date-time"},
     "overall_state": {"enum": ["READY", "NEEDS_LOCAL_CAPTURE", "BLOCKED"]},
     "source_registry_path": {"type": "string"},
+    "workspace_manifest_path": {"type": ["string", "null"]},
     "sources": {
       "type": "array",
       "minItems": 1,
