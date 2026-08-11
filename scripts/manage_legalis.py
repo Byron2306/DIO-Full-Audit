@@ -3,11 +3,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from adapters.legalis import authorize_valinor_boundary, evaluate_capability, load_json
 
-ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_IDENTITY = ROOT / "config" / "legalis" / "legal_identity.json"
 DEFAULT_REGISTRY = ROOT / "config" / "legalis" / "requirement_registry.json"
 
@@ -30,7 +34,14 @@ def main() -> int:
     if not capability_id:
         print("REFUSE legalis: request requires capability_id.")
         return 2
-    decision = evaluate_capability(capability_id=capability_id, identity=identity, registry=registry, evidence=list(request.get("evidence") or []), operator_checks=dict(request.get("operator_checks") or {}), now=request.get("now"))
+    decision = evaluate_capability(
+        capability_id=capability_id,
+        identity=identity,
+        registry=registry,
+        evidence=list(request.get("evidence") or []),
+        operator_checks=dict(request.get("operator_checks") or {}),
+        now=request.get("now"),
+    )
     envelope: dict[str, object] = {"decision": decision}
     if args.authorize_valinor and not args.dry_run:
         valinor = request.get("valinor") or {}
@@ -39,7 +50,13 @@ def main() -> int:
         if not entity_id or not operation:
             print("REFUSE legalis: --authorize-valinor requires valinor.entity_id and valinor.operation.")
             return 2
-        envelope["valinor_authorization"] = authorize_valinor_boundary(decision=decision, entity_id=entity_id, operation=operation, target=valinor.get("target"), workspace_root=args.workspace_root)
+        envelope["valinor_authorization"] = authorize_valinor_boundary(
+            decision=decision,
+            entity_id=entity_id,
+            operation=operation,
+            target=valinor.get("target"),
+            workspace_root=args.workspace_root,
+        )
     if args.out and not args.dry_run:
         out = Path(args.out).expanduser().resolve()
         out.parent.mkdir(parents=True, exist_ok=True)
