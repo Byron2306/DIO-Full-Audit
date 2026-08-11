@@ -69,9 +69,9 @@
       "published_sha": "532f8f4d22568c3812352150da7c7baf923d76e6",
       "published_observed_at": "2026-08-03T12:14:24Z",
       "local_path_hints": ["/home/byron/Metatron", "/home/byron/Downloads/Metatron"],
-      "capture_policy": "published_plus_local_if_newer",
+      "capture_policy": "published_reference_only",
       "state": "published_source_available",
-      "notes": "DIO Full Audit already records a runtime discrepancy between the documented rich Triune path and the ordinary orchestrator route."
+      "notes": "The published pin is sufficient when no local Metatron checkout is mounted. If a local checkout is present, Phase 0 captures it and its runtime discrepancy evidence rather than silently substituting it."
     },
     {
       "source_id": "arda",
@@ -81,9 +81,9 @@
       "published_sha": "32bdb18171e854576cd9b71c2459d6f920c7daf5",
       "published_observed_at": "2026-03-20T19:21:04Z",
       "local_path_hints": ["/home/byron/Metatron-Arda", "/home/byron/Downloads/Metatron-Arda"],
-      "capture_policy": "published_plus_local_if_newer",
+      "capture_policy": "published_reference_only",
       "state": "published_source_available_but_old",
-      "notes": "Any newer ARDA attestation or Commons work must be captured separately rather than inferred from this published head."
+      "notes": "The published pin is accepted as historical ARDA source truth when no local checkout is mounted. Any newer ARDA attestation or Commons work must be locally captured before claims are promoted from it."
     },
     {
       "source_id": "seraph",
@@ -93,9 +93,9 @@
       "published_sha": "fffd1f9f6e77cf14672f26be88a988fedab08c45",
       "published_observed_at": "2026-03-02T20:31:11Z",
       "local_path_hints": ["/home/byron/Seraph-AI", "/home/byron/Downloads/Seraph-AI"],
-      "capture_policy": "published_plus_local_if_newer",
+      "capture_policy": "published_reference_only",
       "state": "published_source_available_but_old",
-      "notes": "Current DIO Seraph behavior may live in later convergence folders or local sources; Phase 0 must not silently substitute them."
+      "notes": "The published pin is accepted as historical Seraph source truth when no local checkout is mounted. Any later convergence implementation must be locally captured before claims are promoted from it."
     },
     {
       "source_id": "hivenance",
