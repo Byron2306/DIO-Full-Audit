@@ -173,9 +173,6 @@ def validate_evidence_assertion(
     custody = row.get("custody") or {}
     if custody.get("state") == "source_bound" and not source.get("sha256"):
         raise ValueError("source_bound evidence requires a sha256 digest.")
-    if row.get("relation", {}).get("type") == "supports" and row.get("epistemic", {}).get("freshness_state") in {"stale", "expired"}:
-        # Stale support is valid historical evidence, but must not be mistaken for current support.
-        return
 
 
 def _snapshot_authority_surfaces(case: dict[str, Any]) -> str:
@@ -184,6 +181,10 @@ def _snapshot_authority_surfaces(case: dict[str, Any]) -> str:
         "actions": case.get("actions") or [],
         "decisions": case.get("decisions") or [],
     })
+
+
+def _is_current_trusted(epistemic: dict[str, Any]) -> bool:
+    return epistemic.get("trust_state") == "trusted_for_review" and epistemic.get("freshness_state") not in {"stale", "expired"}
 
 
 def project_evidence_assertion(case: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]:
@@ -222,15 +223,19 @@ def project_evidence_assertion(case: dict[str, Any], row: dict[str, Any]) -> dic
             raise ValueError(f"Unsupported support target: {target_type}")
 
     elif relation_type == "contradicts":
-        if target_type == "claim":
+        usable_current = _is_current_trusted(epi)
+        if usable_current and target_type == "claim":
             link_evidence(case, evidence_id=evidence["evidence_id"], claim_id=target_id, relation="contradicts")
         else:
+            challenge_type = "contradiction" if usable_current else (
+                "stale_evidence" if epi.get("freshness_state") in {"stale", "expired"} else "contradiction"
+            )
             raise_challenge(
                 case,
                 target_type=target_type,
                 target_id=target_id,
-                challenge_type="contradiction",
-                severity="material",
+                challenge_type=challenge_type,
+                severity="material" if usable_current else "advisory",
                 hypothesis=f"Evidence {row['evidence_assertion_id']} contradicts {target_type} {target_id}.",
                 raised_by=issuer,
                 evidence_ids=[evidence["evidence_id"]],
