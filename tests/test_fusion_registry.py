@@ -60,11 +60,14 @@ def test_outlook_is_an_executor_not_an_autonomous_authority() -> None:
     assert "valinor" in row["authority_boundary"].lower()
 
 
-def test_seraph_current_candidate_and_no_execution_authority_are_recorded() -> None:
+def test_seraph_is_canonical_inside_metatron_and_has_no_execution_authority() -> None:
     row = next(item for item in _registry()["systems"] if item["system_id"] == "seraph")
     refs = {source["ref"]: source for source in row["sources"]}
-    assert "Byron2306/Seraph-AI-12" in refs
-    assert refs["Byron2306/Seraph-AI-12"]["sha"] == "510816f60ff0ddd2600e8f8de85d138e87b603bd"
+    assert "Byron2306/Metatron" in refs
+    assert refs["Byron2306/Metatron"]["sha"] == "532f8f4d22568c3812352150da7c7baf923d76e6"
+    assert "organs/metatron/backend/services/aatl.py" in refs
+    assert "organs/metatron/backend/threat_response.py" in refs
+    assert "Seraph-AI-12" not in " ".join(refs)
     assert "cannot authorize release" in " ".join(row["bounded"]).lower()
     assert "valinor" in row["authority_boundary"].lower()
 
