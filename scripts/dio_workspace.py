@@ -27,6 +27,7 @@ INCARNATION_TESTS = [
     "tests/test_seraph_challenge.py",
     "tests/test_fusion_registry.py",
 ]
+FUSION1_TESTS = ["tests/test_fusion_wave1.py"]
 
 
 def load_manifest(workspace: Path) -> dict[str, Any]:
@@ -88,11 +89,14 @@ def phase1(core: Path) -> int:
         "adapters/legalis/valinor_bridge.py",
         "adapters/seraph/challenge.py",
         "presence_core/authority.py",
+        "fusion/contracts.py",
+        "fusion/case_projection.py",
         "scripts/convert_document.py",
         "scripts/manage_legalis.py",
         "scripts/capture_system_snapshot.py",
         "scripts/build_unified_dio_workspace.py",
         "scripts/check_incarnation.py",
+        "scripts/check_fusion_wave1.py",
         "scripts/dio_workspace.py",
     ]
     rc = run([py, "-m", "py_compile", *compile_targets], cwd=core)
@@ -123,6 +127,32 @@ def incarnation(workspace: Path, core: Path) -> int:
     )
 
 
+def fusion1(workspace: Path, core: Path) -> int:
+    """Validate the first semantic fusion wave and write its receipt."""
+    py = python_for_core(core)
+    incarnation_path = workspace / "receipts" / "incarnation-latest.json"
+    if not incarnation_path.is_file():
+        print("REFUSE fusion1: incarnation receipt is missing. Run ./dio incarnation first.")
+        return 2
+    try:
+        incarnation_receipt = json.loads(incarnation_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"REFUSE fusion1: invalid incarnation receipt: {exc}")
+        return 2
+    if incarnation_receipt.get("state") != "READY_FOR_FUSION":
+        print(f"REFUSE fusion1: incarnation state is {incarnation_receipt.get('state')!r}, expected READY_FOR_FUSION.")
+        return 2
+    rc = run([py, "-m", "pytest", "-q", *FUSION1_TESTS], cwd=core)
+    if rc:
+        print("\nFusion Wave 1 blocked by canonical-contract or projection tests.")
+        return rc
+    out = workspace / "receipts" / "fusion-wave1-latest.json"
+    return run(
+        [py, str(core / "scripts" / "check_fusion_wave1.py"), "--workspace", str(workspace), "--core", str(core), "--out", str(out)],
+        cwd=core,
+    )
+
+
 def _binary_state(name: str) -> str:
     return shutil.which(name) or "missing"
 
@@ -134,17 +164,20 @@ def doctor(workspace: Path, core: Path, manifest: dict[str, Any]) -> int:
     print(f"Python: {py}")
     print(f"Phase 0 snapshot: {workspace / 'state' / 'system_snapshots' / 'latest.json'}")
     print(f"Incarnation receipt: {workspace / 'receipts' / 'incarnation-latest.json'}")
+    print(f"Fusion Wave 1 receipt: {workspace / 'receipts' / 'fusion-wave1-latest.json'}")
     pytest_ok = subprocess.run([py, "-c", "import pytest"], cwd=str(core), check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
     print(f"pytest: {'available' if pytest_ok else 'missing'}")
     valinor_hooks = workspace / "organs" / "sophia" / "arda_os" / "backend" / "valinor" / "runtime_hooks.py"
     legalis_service = workspace / "organs" / "legalis" / "service.py"
     seraph_contract = core / "adapters" / "seraph" / "challenge.py"
     vesper_authority = core / "presence_core" / "authority.py"
+    fusion_contract = core / "fusion" / "contracts.py"
     print("\nGovernance runtime:")
     print(f"  Valinor kernel runtime: {'available' if valinor_hooks.is_file() else 'missing/unmounted'}")
     print(f"  DIO Legalis organ: {'available' if legalis_service.is_file() else 'missing/unmounted'}")
     print(f"  Seraph challenge contract: {'available' if seraph_contract.is_file() else 'missing'}")
     print(f"  Vesper Presence authority: {'available' if vesper_authority.is_file() else 'missing'}")
+    print(f"  DIO fusion assertion contract: {'available' if fusion_contract.is_file() else 'missing'}")
     print("\nTransformation tools (optional, route-specific):")
     for binary in ("node", "ffmpeg", "ffprobe", "libreoffice", "soffice", "pandoc", "pdftotext"):
         print(f"  {binary}: {_binary_state(binary)}")
@@ -215,7 +248,7 @@ def media_transform(workspace: Path, kind: str, operands: list[str], *, media_ro
 def main() -> int:
     parser = argparse.ArgumentParser(description="One command surface for the unified DIO workspace.")
     parser.add_argument("--workspace-root", default=os.environ.get("DIO_WORKSPACE_ROOT", "/home/byron/DIO"))
-    parser.add_argument("command", choices=["status", "doctor", "phase0", "phase1", "phase01", "incarnation", "legalis", "convert-doc", "convert-image", "edit-video"])
+    parser.add_argument("command", choices=["status", "doctor", "phase0", "phase1", "phase01", "incarnation", "fusion1", "legalis", "convert-doc", "convert-image", "edit-video"])
     parser.add_argument("operands", nargs="*")
     parser.add_argument("--dry-run", action="store_true", help="Plan/evaluate without writing a transform or Legalis receipt.")
     parser.add_argument("--force", action="store_true", help="Allow Document Studio to replace an existing conversion output.")
@@ -240,6 +273,7 @@ def main() -> int:
             return rc
         return phase1(core)
     if args.command == "incarnation": return incarnation(workspace, core)
+    if args.command == "fusion1": return fusion1(workspace, core)
     if args.command == "legalis": return legalis(workspace, core, args.operands, dry_run=args.dry_run, authorize_valinor=args.authorize_valinor)
     if args.command == "convert-doc": return convert_document(core, args.operands, dry_run=args.dry_run, force=args.force)
     if args.command == "convert-image": return media_transform(workspace, "image", args.operands, media_root=args.media_root, dry_run=args.dry_run)
