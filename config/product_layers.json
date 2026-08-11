@@ -111,22 +111,27 @@
     {
       "id": "document_studio",
       "name": "DIO Document Studio",
-      "category": "technical_editing_translation",
-      "status": "multilingual_review_candidate",
-      "one_liner": "Turn an authorised document into a clean technical edit, visible redline, controlled glossary, and human-reviewed translation pack.",
+      "category": "technical_editing_translation_conversion",
+      "status": "multilingual_review_candidate_plus_conversion_engine",
+      "one_liner": "Edit, translate, or convert an authorised document while keeping source, changes, terminology, format operations, and approval inspectable.",
       "primary_buyer": "SMEs, NGOs, universities, consultancies, municipalities, training providers, and professional-services teams",
-      "pain": "Important reports, procedures, policies, manuals, and communications are unclear, inconsistent, or inaccessible across languages.",
-      "promise": "A clean copy, paragraph-level redline, change ledger, translated clean copy, bilingual review copy, terminology glossary, QA report, and approval receipt.",
-      "proof_asset": "English-to-Afrikaans golden review candidate plus isiZulu, Sesotho, and Setswana configured proof candidates",
+      "pain": "Important reports, procedures, policies, manuals, and communications are unclear, inconsistent, inaccessible across languages, or trapped in the wrong file format.",
+      "promise": "Technical editing and multilingual review packs plus governed document-format conversion with source hashes, converter identity, output hashes, lossiness warnings, and conversion receipts.",
+      "proof_asset": "English-to-Afrikaans golden review candidate plus isiZulu, Sesotho, and Setswana configured proof candidates; conversion engine requires route-specific runtime validation before commercial proof claims.",
       "offer": "One-Document Pilot",
-      "cta": "Submit the scope, word count, language pair, audience, and terminology requirements for one authorised document.",
-      "risk_boundary": "Not certified, sworn, legal, or automatically final. Technical meaning, target-language quality, layout, and client release require appropriate human approval.",
-      "lead_magnet": "Technical Document Readiness and Translation Brief",
-      "video_hook": "A fast translation is useless if one wrong verb changes the instruction. Make every correction inspectable.",
-      "visual_metaphor": "one source document becoming a clean copy, visible redline, glossary, and bilingual review",
-      "product_lines": ["technical_edit", "translation", "edit_and_translate", "dio_lingua_semantic_lifecycle"],
-      "shared_organs": ["DIO Format", "DIO Lingua", "BEAST Crystallization", "DIO Presence"],
-      "keywords": ["technical editing", "proofreading", "translation", "Afrikaans", "isiZulu", "Sesotho", "Setswana", "South African languages", "bilingual documents", "manuals", "reports", "policies"]
+      "cta": "Submit one authorised document and choose editing, translation, edit-and-translate, or format conversion.",
+      "risk_boundary": "Not certified, sworn, legal, or automatically final. Conversion does not imply semantic editing, formatting fidelity, accessibility compliance, or factual approval; route-specific review remains required.",
+      "lead_magnet": "Technical Document Readiness, Translation and Format Brief",
+      "video_hook": "A document can lose meaning through bad editing, bad translation, or bad conversion. Make every transformation inspectable.",
+      "visual_metaphor": "one source document branching into clean copy, redline, bilingual review, and format-converted artifacts with receipts",
+      "product_lines": ["technical_edit", "translation", "edit_and_translate", "document_conversion", "dio_lingua_semantic_lifecycle"],
+      "conversion_formats": {
+        "inputs": ["DOCX", "ODT", "RTF", "TXT", "Markdown", "HTML", "PDF", "PPTX", "XLSX"],
+        "outputs": ["DOCX", "ODT", "RTF", "TXT", "Markdown", "HTML", "PDF", "PPTX", "XLSX"],
+        "note": "Supported pairs depend on the governed route and locally available LibreOffice, Pandoc, pdftotext, or direct Python conversion. Unsupported pairs are refused rather than guessed."
+      },
+      "shared_organs": ["DIO Format", "DIO Lingua", "BEAST Crystallization", "NicheFoundry Media Transformation", "DIO Presence"],
+      "keywords": ["technical editing", "proofreading", "translation", "document conversion", "PDF conversion", "DOCX conversion", "Markdown", "HTML", "Afrikaans", "isiZulu", "Sesotho", "Setswana", "South African languages", "bilingual documents", "manuals", "reports", "policies"]
     }
   ]
 }
