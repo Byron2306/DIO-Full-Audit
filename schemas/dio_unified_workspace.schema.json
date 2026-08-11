@@ -34,6 +34,8 @@
           "kind": {"enum": ["core", "organ", "surface"]},
           "required_for_phase0": {"type": "boolean"},
           "candidate_paths": {"type": "array", "items": {"type": "string"}},
+          "discover_names": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "marker_policy": {"enum": ["all_text", "implementation_only"]},
           "marker_terms": {"type": "array", "items": {"type": "string", "minLength": 1}}
         },
         "additionalProperties": false
