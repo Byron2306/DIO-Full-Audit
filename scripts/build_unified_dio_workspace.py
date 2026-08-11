@@ -14,7 +14,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "dio_workspace.json"
 TEXT_SUFFIXES = {".py", ".md", ".json", ".yaml", ".yml", ".txt", ".toml", ".ini"}
-SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", "dist", "build"}
+IMPLEMENTATION_SUFFIXES = {".py", ".json", ".yaml", ".yml", ".toml", ".ini"}
+SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", "dist", "build", "docs", "doc", "documentation"}
 
 
 def timestamp() -> str:
@@ -41,17 +42,20 @@ def git_root(path: Path) -> Path | None:
     return Path(value).resolve() if value else None
 
 
-def marker_hits(root: Path, terms: list[str], *, max_files: int = 6000) -> dict[str, list[str]]:
-    """Find marker terms in bounded text files, including untracked files.
-
-    This exists primarily so a newer local-only organ such as Legalis can be
-    resolved without requiring it to have already been committed.
-    """
+def marker_hits(
+    root: Path,
+    terms: list[str],
+    *,
+    max_files: int = 6000,
+    implementation_only: bool = False,
+) -> dict[str, list[str]]:
+    """Find marker terms in bounded source files, including untracked files."""
     if not terms:
         return {}
     wanted = {term: term.casefold() for term in terms}
     hits: dict[str, list[str]] = {term: [] for term in terms}
     visited = 0
+    allowed_suffixes = IMPLEMENTATION_SUFFIXES if implementation_only else TEXT_SUFFIXES
     for current, dirs, files in os.walk(root):
         dirs[:] = [name for name in dirs if name not in SKIP_DIRS]
         current_path = Path(current)
@@ -64,7 +68,7 @@ def marker_hits(root: Path, terms: list[str], *, max_files: int = 6000) -> dict[
             continue
         for filename in files:
             path = current_path / filename
-            if path.suffix.lower() not in TEXT_SUFFIXES:
+            if path.suffix.lower() not in allowed_suffixes:
                 continue
             visited += 1
             if visited > max_files:
@@ -83,22 +87,71 @@ def marker_hits(root: Path, terms: list[str], *, max_files: int = 6000) -> dict[
     return {key: value for key, value in hits.items() if value}
 
 
-def candidate_valid(path: Path, marker_terms: list[str]) -> tuple[bool, dict[str, list[str]]]:
+def candidate_valid(path: Path, marker_terms: list[str], marker_policy: str = "all_text") -> tuple[bool, dict[str, list[str]]]:
     if not path.is_dir():
         return False, {}
     if not marker_terms:
         return True, {}
-    hits = marker_hits(path, marker_terms)
+    hits = marker_hits(path, marker_terms, implementation_only=marker_policy == "implementation_only")
     return all(term in hits for term in marker_terms), hits
+
+
+def discover_component(root: Path, names: list[str], terms: list[str], marker_policy: str) -> tuple[Path | None, dict[str, list[str]]]:
+    if not root.is_dir():
+        return None, {}
+    folded_names = [name.casefold() for name in names]
+    candidates: list[Path] = []
+    for current, dirs, files in os.walk(root):
+        dirs[:] = [name for name in dirs if name not in SKIP_DIRS]
+        current_path = Path(current)
+        try:
+            depth = len(current_path.relative_to(root).parts)
+        except ValueError:
+            continue
+        if depth > 5:
+            dirs[:] = []
+            continue
+        for dirname in dirs:
+            if any(token in dirname.casefold() for token in folded_names):
+                candidates.append(current_path / dirname)
+        for filename in files:
+            stem = Path(filename).stem.casefold()
+            if any(token in stem for token in folded_names):
+                path = current_path / filename
+                if path.suffix.lower() in IMPLEMENTATION_SUFFIXES:
+                    candidates.append(current_path)
+    seen: set[Path] = set()
+    for candidate in sorted(candidates, key=lambda item: (len(item.parts), str(item))):
+        resolved = candidate.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        valid, hits = candidate_valid(resolved, terms, marker_policy)
+        if valid:
+            return resolved, hits
+    return None, {}
 
 
 def select_target(mount: dict[str, Any], core_root: Path) -> tuple[Path | None, dict[str, list[str]]]:
     if mount["kind"] == "core":
         return core_root, {}
     terms = [str(value) for value in mount.get("marker_terms") or []]
+    discover_names = [str(value) for value in mount.get("discover_names") or []]
+    marker_policy = str(mount.get("marker_policy") or "all_text")
     for raw in mount.get("candidate_paths") or []:
         path = Path(str(raw)).expanduser()
-        valid, hits = candidate_valid(path, terms)
+        if not path.is_dir():
+            continue
+        if discover_names:
+            if any(token.casefold() in path.name.casefold() for token in discover_names):
+                valid, hits = candidate_valid(path, terms, marker_policy)
+                if valid:
+                    return path.resolve(), hits
+            discovered, hits = discover_component(path, discover_names, terms, marker_policy)
+            if discovered is not None:
+                return discovered, hits
+            continue
+        valid, hits = candidate_valid(path, terms, marker_policy)
         if valid:
             return path.resolve(), hits
     return None, {}
