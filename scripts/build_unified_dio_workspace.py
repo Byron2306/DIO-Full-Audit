@@ -101,6 +101,8 @@ def discover_component(root: Path, names: list[str], terms: list[str], marker_po
         return None, {}
     folded_names = [name.casefold() for name in names]
     candidates: list[Path] = []
+    content_candidates: list[Path] = []
+    visited_impl = 0
     for current, dirs, files in os.walk(root):
         dirs[:] = [name for name in dirs if name not in SKIP_DIRS]
         current_path = Path(current)
@@ -115,13 +117,27 @@ def discover_component(root: Path, names: list[str], terms: list[str], marker_po
             if any(token in dirname.casefold() for token in folded_names):
                 candidates.append(current_path / dirname)
         for filename in files:
-            stem = Path(filename).stem.casefold()
-            if any(token in stem for token in folded_names):
-                path = current_path / filename
-                if path.suffix.lower() in IMPLEMENTATION_SUFFIXES:
-                    candidates.append(current_path)
+            path = current_path / filename
+            stem = path.stem.casefold()
+            if any(token in stem for token in folded_names) and path.suffix.lower() in IMPLEMENTATION_SUFFIXES:
+                candidates.append(current_path)
+                continue
+            if path.suffix.lower() not in IMPLEMENTATION_SUFFIXES:
+                continue
+            visited_impl += 1
+            if visited_impl > 5000:
+                continue
+            try:
+                if path.stat().st_size > 1_000_000:
+                    continue
+                text = path.read_text(encoding="utf-8", errors="ignore").casefold()
+            except OSError:
+                continue
+            if any(token in text for token in folded_names):
+                content_candidates.append(current_path)
+
     seen: set[Path] = set()
-    for candidate in sorted(candidates, key=lambda item: (len(item.parts), str(item))):
+    for candidate in sorted([*candidates, *content_candidates], key=lambda item: (len(item.parts), str(item))):
         resolved = candidate.resolve()
         if resolved in seen:
             continue
