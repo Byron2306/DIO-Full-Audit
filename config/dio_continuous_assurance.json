@@ -1,0 +1,54 @@
+{
+  "$schema": "../schemas/dio_continuous_assurance.schema.json",
+  "schema": "dio.continuous_assurance.config.v1",
+  "depends_on": "dio.evidence_authority_twin.v1",
+  "watch_layers": [
+    "world_state",
+    "evidence_state",
+    "claim_state",
+    "requirement_state",
+    "authority_state",
+    "capability_state",
+    "action_state",
+    "receipt_state"
+  ],
+  "material_severities": ["medium", "high", "critical"],
+  "critical_categories": [
+    "authority_became_noncurrent",
+    "authority_missing",
+    "authority_state_changed",
+    "capability_became_noncurrent",
+    "capability_missing",
+    "capability_state_changed",
+    "action_payload_changed",
+    "receipt_missing",
+    "receipt_chain_changed"
+  ],
+  "responses": {
+    "evidence": "needs_evidence",
+    "authority": "needs_you",
+    "capability": "needs_you",
+    "claim": "review",
+    "requirement": "needs_evidence",
+    "world": "review",
+    "action": "needs_you",
+    "receipt": "needs_you"
+  },
+  "loki": {
+    "rerun_on_material_drift": true,
+    "mirror_remains_synthetic": true,
+    "mirror_may_not_become_evidence": true,
+    "mirror_may_not_mint_authority": true,
+    "mirror_may_not_execute": true
+  },
+  "authority": {
+    "continuous_assurance_has_authority": false,
+    "continuous_assurance_can_execute": false,
+    "kernel_authority": "Valinor",
+    "execution_identity_authority": "ARDA"
+  },
+  "notification": {
+    "emit_operator_attention_receipt": true,
+    "automatic_external_notification": false
+  }
+}
