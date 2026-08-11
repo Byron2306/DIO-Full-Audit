@@ -142,7 +142,8 @@ def bootstrap_generic_job(
             "required_evidence": profile.get("evidence_inputs") or [],
         },
         "processing": {
-            "state": "profile_registered",
+            "state": "not_started",
+            "profile_state": "registered",
             "runner": "not_implemented",
             "shared_organs": profile.get("shared_organs") or [],
         },
