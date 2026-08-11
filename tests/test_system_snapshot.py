@@ -140,3 +140,25 @@ def test_explicit_override_resolves_source_without_guessing_path(tmp_path: Path)
     assert snapshot["overall_state"] == "READY"
     assert snapshot["sources"][0]["claim_authority"] == "local_captured"
     assert snapshot["sources"][0]["local_head_sha"] == head
+
+
+def test_resolved_source_with_missing_expected_marker_is_still_blocked(tmp_path: Path) -> None:
+    repo, _ = init_repo(tmp_path)
+    registry = write_registry(
+        tmp_path / "registry.json",
+        {
+            "source_id": "dio_legalis",
+            "role": "requirements",
+            "github_repo": None,
+            "published_ref": None,
+            "published_sha": None,
+            "local_path_hints": [str(repo)],
+            "capture_policy": "source_path_required",
+            "expected_local_markers": ["requirement registry", "evidence receipts", "NEEDS_YOU"],
+            "notes": "test",
+        },
+    )
+    snapshot = build_snapshot(registry, {})
+    assert snapshot["overall_state"] == "BLOCKED"
+    assert snapshot["sources"][0]["claim_authority"] == "local_captured"
+    assert snapshot["blockers"][0]["code"] == "EXPECTED_EVIDENCE_MARKER_MISSING"
