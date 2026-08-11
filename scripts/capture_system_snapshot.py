@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,6 +12,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "config" / "dio_system_sources.json"
+TEXT_SUFFIXES = {".py", ".md", ".json", ".yaml", ".yml", ".txt", ".toml", ".ini"}
+SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", "dist", "build"}
 
 
 def timestamp() -> str:
@@ -64,6 +67,29 @@ def parse_overrides(values: list[str]) -> dict[str, Path]:
     return overrides
 
 
+def workspace_overrides(workspace: Path | None) -> tuple[dict[str, Path], str | None]:
+    if workspace is None:
+        return {}, None
+    root = workspace.expanduser().resolve()
+    manifest_path = root / "WORKSPACE.json"
+    if not manifest_path.is_file():
+        raise ValueError(f"Unified DIO workspace manifest not found: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("schema") != "dio.unified_workspace_receipt.v1":
+        raise ValueError("Unsupported unified DIO workspace manifest schema.")
+    overrides: dict[str, Path] = {}
+    for mount in manifest.get("mounts") or []:
+        if mount.get("state") != "mounted":
+            continue
+        source_id = str(mount.get("source_id") or "")
+        workspace_path = mount.get("workspace_path")
+        if source_id and workspace_path:
+            path = Path(str(workspace_path)).expanduser()
+            if path.exists():
+                overrides[source_id] = path.resolve()
+    return overrides, str(manifest_path)
+
+
 def resolve_local_path(source: dict[str, Any], overrides: dict[str, Path]) -> Path | None:
     source_id = str(source["source_id"])
     if source_id in overrides:
@@ -103,9 +129,41 @@ def dirty_entries(repo: Path) -> tuple[bool, list[dict[str, Any]], str | None]:
     return True, rows, fingerprint
 
 
+def filesystem_marker(repo: Path, marker: str, max_files: int = 8000) -> str | None:
+    folded = marker.casefold()
+    visited = 0
+    for current, dirs, files in os.walk(repo):
+        dirs[:] = [name for name in dirs if name not in SKIP_DIRS]
+        current_path = Path(current)
+        try:
+            depth = len(current_path.relative_to(repo).parts)
+        except ValueError:
+            continue
+        if depth > 7:
+            dirs[:] = []
+            continue
+        for filename in files:
+            path = current_path / filename
+            if path.suffix.lower() not in TEXT_SUFFIXES:
+                continue
+            visited += 1
+            if visited > max_files:
+                return None
+            try:
+                if path.stat().st_size > 1_000_000:
+                    continue
+                text = path.read_text(encoding="utf-8", errors="ignore").casefold()
+            except OSError:
+                continue
+            if folded in text:
+                return str(path.relative_to(repo))
+    return None
+
+
 def marker_presence(repo: Path, markers: list[str]) -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     for marker in markers:
+        sample: str | None = None
         try:
             process = subprocess.run(
                 ["git", "-C", str(repo), "grep", "-I", "-n", "-F", "--", marker],
@@ -116,9 +174,14 @@ def marker_presence(repo: Path, markers: list[str]) -> list[dict[str, Any]]:
                 check=False,
             )
             lines = [line for line in process.stdout.splitlines() if line.strip()]
-            results.append({"marker": marker, "found": bool(lines), "sample": lines[0][:500] if lines else None})
+            sample = lines[0][:500] if lines else None
         except (OSError, subprocess.SubprocessError):
-            results.append({"marker": marker, "found": False, "sample": None})
+            sample = None
+        if sample is None:
+            untracked_hit = filesystem_marker(repo, marker)
+            if untracked_hit:
+                sample = f"worktree:{untracked_hit}"
+        results.append({"marker": marker, "found": sample is not None, "sample": sample})
     return results
 
 
@@ -198,10 +261,19 @@ def blocker_for(source_cfg: dict[str, Any], captured: dict[str, Any]) -> dict[st
         return {"source_id": source_id, "code": "SOURCE_PATH_REQUIRED", "message": "A local source path must be resolved and captured before implementation claims are promoted."}
     if policy == "local_required_when_newer" and state in {"source_unresolved", "local_path_missing", "published_only"}:
         return {"source_id": source_id, "code": "LOCAL_CAPTURE_REQUIRED", "message": "Known newer local work requires a local git/worktree capture receipt."}
+    expected = [str(item) for item in source_cfg.get("expected_local_markers") or []]
+    if expected and captured.get("claim_authority") == "local_captured":
+        missing = [str(item.get("marker")) for item in captured.get("marker_presence") or [] if not item.get("found")]
+        if missing:
+            return {
+                "source_id": source_id,
+                "code": "EXPECTED_EVIDENCE_MARKER_MISSING",
+                "message": "Captured worktree does not contain every expected evidence marker: " + ", ".join(missing),
+            }
     return None
 
 
-def build_snapshot(registry_path: Path, overrides: dict[str, Path]) -> dict[str, Any]:
+def build_snapshot(registry_path: Path, overrides: dict[str, Path], workspace_manifest_path: str | None = None) -> dict[str, Any]:
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     created_at = timestamp()
     sources: list[dict[str, Any]] = []
@@ -226,6 +298,7 @@ def build_snapshot(registry_path: Path, overrides: dict[str, Path]) -> dict[str,
         "created_at": created_at,
         "overall_state": overall,
         "source_registry_path": str(registry_path.resolve()),
+        "workspace_manifest_path": workspace_manifest_path,
         "sources": sources,
         "blockers": blockers,
         "snapshot_sha256": "",
@@ -238,14 +311,17 @@ def build_snapshot(registry_path: Path, overrides: dict[str, Path]) -> dict[str,
 def main() -> int:
     parser = argparse.ArgumentParser(description="Capture a read-only DIO cross-system truth snapshot from published pins and local git worktrees.")
     parser.add_argument("--registry", default=str(REGISTRY_PATH))
+    parser.add_argument("--workspace", help="Canonical unified DIO workspace root. Mounted sources override legacy path hints.")
     parser.add_argument("--out", default=str(ROOT / "state" / "system_snapshots" / "latest.json"))
-    parser.add_argument("--source", action="append", default=[], metavar="SOURCE_ID=/path", help="Override or supply a local source path. Repeatable.")
+    parser.add_argument("--source", action="append", default=[], metavar="SOURCE_ID=/path", help="Override or supply a local source path. Repeatable; explicit overrides win over workspace mounts.")
     parser.add_argument("--require-ready", action="store_true", help="Exit non-zero unless the resulting snapshot is READY.")
     args = parser.parse_args()
 
     registry_path = Path(args.registry).expanduser().resolve()
-    overrides = parse_overrides(args.source)
-    snapshot = build_snapshot(registry_path, overrides)
+    mounted, workspace_manifest_path = workspace_overrides(Path(args.workspace) if args.workspace else None)
+    explicit = parse_overrides(args.source)
+    overrides = {**mounted, **explicit}
+    snapshot = build_snapshot(registry_path, overrides, workspace_manifest_path)
     out = Path(args.out).expanduser().resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
     temp = out.with_suffix(out.suffix + ".tmp")
