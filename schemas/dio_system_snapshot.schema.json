@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_system_snapshot.schema.json",
+  "title": "DIO Cross-System Truth Snapshot",
+  "type": "object",
+  "required": ["schema", "snapshot_id", "created_at", "overall_state", "sources", "blockers", "snapshot_sha256"],
+  "properties": {
+    "schema": {"const": "dio.system_snapshot.v1"},
+    "snapshot_id": {"type": "string", "minLength": 8},
+    "created_at": {"type": "string", "format": "date-time"},
+    "overall_state": {"enum": ["READY", "NEEDS_LOCAL_CAPTURE", "BLOCKED"]},
+    "source_registry_path": {"type": "string"},
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "role", "capture_state", "claim_authority"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "role": {"type": "string"},
+          "capture_state": {
+            "enum": [
+              "published_only",
+              "local_clean_matches_published",
+              "local_clean_newer_or_different",
+              "local_dirty_captured",
+              "local_path_missing",
+              "source_unresolved",
+              "capture_error"
+            ]
+          },
+          "claim_authority": {"enum": ["published", "local_captured", "limited", "none"]},
+          "github_repo": {"type": ["string", "null"]},
+          "published_ref": {"type": ["string", "null"]},
+          "published_sha": {"type": ["string", "null"]},
+          "local_path": {"type": ["string", "null"]},
+          "local_head_sha": {"type": ["string", "null"]},
+          "local_branch": {"type": ["string", "null"]},
+          "local_origin": {"type": ["string", "null"]},
+          "dirty": {"type": ["boolean", "null"]},
+          "dirty_tree_sha256": {"type": ["string", "null"]},
+          "dirty_files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["path", "status", "sha256"],
+              "properties": {
+                "path": {"type": "string"},
+                "status": {"type": "string"},
+                "sha256": {"type": ["string", "null"]}
+              },
+              "additionalProperties": false
+            }
+          },
+          "published_sha_matches_local_head": {"type": ["boolean", "null"]},
+          "marker_presence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["marker", "found"],
+              "properties": {
+                "marker": {"type": "string"},
+                "found": {"type": "boolean"},
+                "sample": {"type": ["string", "null"]}
+              },
+              "additionalProperties": false
+            }
+          },
+          "notes": {"type": ["string", "null"]},
+          "error": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "code", "message"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "code": {"type": "string"},
+          "message": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "snapshot_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}
