@@ -1,0 +1,92 @@
+{
+  "schema": "dio.vertical_executors.registry.v1",
+  "registry_id": "dio-fusion-wave5-vertical-executors",
+  "laws": {
+    "generic_executor": false,
+    "automatic_external_actions": false,
+    "receipt_required": true,
+    "wave4_authority_chain_required": true
+  },
+  "executors": [
+    {
+      "executor_id": "vesper_presence",
+      "system_ids": ["vesper_presence"],
+      "core_refs": ["presence_core/authority.py"],
+      "workspace_organs": [],
+      "capabilities": [
+        {"capability": "vesper_external_reply", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "vesper://reply/", "consequence_class": "external"}
+      ]
+    },
+    {
+      "executor_id": "outlook_graph",
+      "system_ids": ["outlook_triage", "microsoft_graph"],
+      "core_refs": ["adapters/outlook_triage/README.md", "adapters/microsoft_graph/client.py"],
+      "workspace_organs": ["outlook-triage"],
+      "capabilities": [
+        {"capability": "outlook_draft", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "outlook://draft/", "consequence_class": "reversible_internal"},
+        {"capability": "outlook_send", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "outlook://send/", "consequence_class": "external"}
+      ]
+    },
+    {
+      "executor_id": "homs",
+      "system_ids": ["homs"],
+      "core_refs": ["scripts/run_homs_jobs.py", "adapters/homs/README.md"],
+      "workspace_organs": ["homs"],
+      "capabilities": [
+        {"capability": "homs_prepare_assessment", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "homs://assessment/", "consequence_class": "reversible_internal"},
+        {"capability": "efundi_publish_marks", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "homs://efundi/", "consequence_class": "external"}
+      ]
+    },
+    {
+      "executor_id": "nichefoundry",
+      "system_ids": ["nichefoundry"],
+      "core_refs": ["scripts/run_nichefoundry_jobs.py", "adapters/nichefoundry/README.md"],
+      "workspace_organs": ["nichefoundry"],
+      "capabilities": [
+        {"capability": "nichefoundry_transform_media", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "nichefoundry://transform/", "consequence_class": "reversible_internal"},
+        {"capability": "nichefoundry_publish_campaign", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "nichefoundry://publish/", "consequence_class": "external"}
+      ]
+    },
+    {
+      "executor_id": "document_studio",
+      "system_ids": ["document_studio", "lingua", "format_core"],
+      "core_refs": ["adapters/document_studio/conversion.py", "config/document_studio_languages.json", "config/format_profiles.json"],
+      "workspace_organs": [],
+      "capabilities": [
+        {"capability": "document_convert", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "document://convert/", "consequence_class": "reversible_internal"},
+        {"capability": "document_release_external", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "document://release/", "consequence_class": "external"}
+      ]
+    },
+    {
+      "executor_id": "commerce_autorelease",
+      "system_ids": ["commerce_autorelease"],
+      "core_refs": ["state/commerce", "config/dio_framework_catalog.json"],
+      "workspace_organs": [],
+      "capabilities": [
+        {"capability": "commerce_prepare_fulfilment", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "commerce://prepare/", "consequence_class": "reversible_internal"},
+        {"capability": "fulfilment_release", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "commerce://release/", "consequence_class": "external"}
+      ]
+    },
+    {
+      "executor_id": "market_command",
+      "system_ids": ["market_command"],
+      "core_refs": ["config/market_command.json", "adapters/marketing/registry.py"],
+      "workspace_organs": [],
+      "capabilities": [
+        {"capability": "market_prepare_campaign", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "market://prepare/", "consequence_class": "reversible_internal"},
+        {"capability": "campaign_release", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "market://release/", "consequence_class": "external"},
+        {"capability": "campaign_spend", "mode": "explicit_environment_gate", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "market://spend/", "consequence_class": "irreversible"}
+      ]
+    },
+    {
+      "executor_id": "phoenix",
+      "system_ids": ["phoenix"],
+      "core_refs": ["config/dio_framework_catalog.json"],
+      "workspace_organs": ["phoenix"],
+      "capabilities": [
+        {"capability": "phoenix_research_execution", "mode": "local_only", "external_side_effect": false, "valinor_operation": "write", "receipt_prefix": "phoenix://research/", "consequence_class": "reversible_internal"},
+        {"capability": "phoenix_live_order", "mode": "hard_locked", "external_side_effect": true, "valinor_operation": "write", "receipt_prefix": "phoenix://live-order/", "consequence_class": "irreversible"}
+      ]
+    }
+  ]
+}
