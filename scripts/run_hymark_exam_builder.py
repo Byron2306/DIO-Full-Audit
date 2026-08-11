@@ -30,6 +30,7 @@ from apply_homs_design_law import (  # noqa: E402
     render_docx,
 )
 from resolve_caps_source import PHASE_BY_GRADE, extract_text, load_manifest, resolve as resolve_caps  # noqa: E402
+from exam_wave2_authority import wave2_pack_errors, caps_authority_provenance, opportunity_equivalence_gate  # noqa: E402
 
 DEFAULT_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
 DEFAULT_HYMARK_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
@@ -3103,6 +3104,20 @@ def validate_assessment_pack(pack: dict[str, Any], request: dict[str, Any]) -> l
         errors.append("performance task contains written-paper question phrasing")
     if shell == "performance_task_sheet" and "essay" in blob:
         errors.append("performance task contains essay language")
+    grade_number = int((request.get("grade_profile") or {}).get("grade") or request.get("grade") or 0)
+    if grade_number <= 3:
+        for phrase in [
+            "complete the concrete activity",
+            "complete the short recorded response",
+            "as instructed by the educator",
+            "complete the activity as instructed",
+        ]:
+            if phrase in blob:
+                errors.append(f"foundation activity contains a generalized placeholder: {phrase}")
+    for rubric_item in pack.get("rubric") or []:
+        criterion_blob = str(rubric_item.get("criterion") or "").strip().lower()
+        if "caps alignment" in criterion_blob or "curriculum alignment" in criterion_blob:
+            errors.append("learner rubric illegally awards marks for assessment-design/CAPS alignment")
     errors.extend(validate_afrikaans_language_pack(pack, request))
     errors.extend(validate_english_language_pack(pack, request))
     visual_blueprint = pack.get("visual_blueprint") or request.get("visual_blueprint") or {}
@@ -3118,6 +3133,9 @@ def validate_assessment_pack(pack: dict[str, Any], request: dict[str, Any]) -> l
         errors.append("pack references a map but the visual blueprint has no map visual")
     if not language_pack and references_graph and not any(kind in visual_kinds for kind in ["data_table", "axis_diagram", "investigation_sheet"]):
         errors.append("pack references a graph but the visual blueprint has no graph/data visual")
+    wave2_errors, wave2_receipt = wave2_pack_errors(pack, request)
+    errors.extend(wave2_errors)
+    pack["epistemic_release_checks"] = wave2_receipt
     return errors
 
 
@@ -3349,32 +3367,101 @@ async def build_caps_shell_opportunity(
     design_law_path: Path,
     assessment_design_path: Path,
 ) -> dict[str, Any]:
+    """Validate before rendering. Invalid children produce diagnostics only."""
     opp_label = "1st" if opp == 1 else "2nd"
     opp_suffix = "1stOpp" if opp == 1 else "2ndOpp"
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     opportunity_dir = job_dir / opp_suffix
     opportunity_dir.mkdir(parents=True, exist_ok=True)
-    status = "generated"
-    fallback_reason = ""
+
     try:
         raw_pack = model_shell_pack(hymark, request, opp)
+        (opportunity_dir / "HOMS_PROVIDER_PACK_ATTEMPT_1.json").write_text(
+            json.dumps(raw_pack, indent=2), encoding="utf-8"
+        )
         pack = normalize_assessment_pack(raw_pack, request, opp)
         errors = validate_assessment_pack(pack, request)
-        if errors:
-            status = "fallback_after_validation"
-            fallback_reason = "; ".join(errors)
-            pack = fallback_shell_pack(request, opp, fallback_reason)
-            errors = validate_assessment_pack(pack, request)
     except Exception as exc:
-        status = "fallback_after_generation_error"
-        fallback_reason = str(exc)
-        pack = fallback_shell_pack(request, opp, fallback_reason)
-        errors = validate_assessment_pack(pack, request)
+        diagnostic = {
+            "schema": "dio.exam_studio_child_block.v1",
+            "status": "blocked_generation_error",
+            "opportunity": opp,
+            "error": str(exc),
+            "policy": "No learner-facing fallback or DOCX may be rendered from a failed generation.",
+        }
+        (opportunity_dir / "HOMS_ASSESSMENT_BLOCKED.json").write_text(
+            json.dumps(diagnostic, indent=2), encoding="utf-8"
+        )
+        return {
+            "module_code": request["module_code"],
+            "module_name": request["module_name"],
+            "total_marks": request["total_marks"],
+            "duration_hours": request["duration_hours"],
+            "opportunity": opp,
+            "opportunity_label": f"{opp_label} Opportunity",
+            "generation_backend": "caps_shell",
+            "status": "blocked_generation_error",
+            "render_shell": render_shell_from_request(request),
+            "assessment_pack": None,
+            "calculated_total": 0,
+            "rubric_total": 0,
+            "validation_errors": [str(exc)],
+            "opportunity_dir": str(opportunity_dir),
+            "filename": None,
+            "memo_filename": None,
+            "learner_docx": None,
+            "formatted_review_docx": None,
+            "formatted_review_zip": None,
+            "created_at": utc_now(),
+        }
 
-    pack["validation_errors"] = errors
-    (opportunity_dir / "assessment_pack.json").write_text(json.dumps(pack, indent=2), encoding="utf-8")
-    write_validation_report(opportunity_dir / "HYMARK_ASSESSMENT_VALIDATION.md", errors, pack)
-    design_receipt = apply_design_law(opportunity_dir, design_law_path, assessment_design_path)
+    pack["validation_errors"] = sorted(set(errors))
+    (opportunity_dir / "assessment_pack.json").write_text(
+        json.dumps(pack, indent=2), encoding="utf-8"
+    )
+    write_validation_report(
+        opportunity_dir / "HYMARK_ASSESSMENT_VALIDATION.md",
+        pack["validation_errors"],
+        pack,
+    )
+
+    if pack["validation_errors"]:
+        diagnostic = {
+            "schema": "dio.exam_studio_child_block.v1",
+            "status": "blocked_validation",
+            "opportunity": opp,
+            "errors": pack["validation_errors"],
+            "policy": "Validation precedes rendering. Failed assessments produce diagnostics only.",
+        }
+        (opportunity_dir / "HOMS_ASSESSMENT_BLOCKED.json").write_text(
+            json.dumps(diagnostic, indent=2), encoding="utf-8"
+        )
+        return {
+            "module_code": request["module_code"],
+            "module_name": request["module_name"],
+            "total_marks": pack.get("total_marks") or request["total_marks"],
+            "duration_hours": request["duration_hours"],
+            "opportunity": opp,
+            "opportunity_label": f"{opp_label} Opportunity",
+            "generation_backend": "caps_shell",
+            "status": "blocked_validation",
+            "render_shell": pack.get("render_shell") or render_shell_from_request(request),
+            "assessment_pack": pack,
+            "calculated_total": sum_question_marks(pack),
+            "rubric_total": sum_rubric_marks(pack),
+            "validation_errors": pack["validation_errors"],
+            "opportunity_dir": str(opportunity_dir),
+            "filename": None,
+            "memo_filename": None,
+            "learner_docx": None,
+            "formatted_review_docx": None,
+            "formatted_review_zip": None,
+            "created_at": utc_now(),
+        }
+
+    design_receipt = apply_design_law(
+        opportunity_dir, design_law_path, assessment_design_path
+    )
     design_law = load_design_json(design_law_path)
     design_payload = load_design_json(assessment_design_path) if assessment_design_path.exists() else {}
     assessment_design = assessment_design_for_pack(pack, design_payload)
@@ -3402,13 +3489,12 @@ async def build_caps_shell_opportunity(
         "opportunity": opp,
         "opportunity_label": f"{opp_label} Opportunity",
         "generation_backend": "caps_shell",
-        "status": status if not errors else "failed_validation",
+        "status": "needs_human_review",
         "render_shell": pack.get("render_shell"),
-        "fallback_reason": fallback_reason,
         "assessment_pack": pack,
         "calculated_total": sum_question_marks(pack),
         "rubric_total": sum_rubric_marks(pack),
-        "validation_errors": errors,
+        "validation_errors": [],
         "opportunity_dir": str(opportunity_dir),
         "filename": exam_filename,
         "memo_filename": memo_filename,
@@ -3417,7 +3503,6 @@ async def build_caps_shell_opportunity(
         "formatted_review_zip": design_receipt.get("formatted_zip"),
         "created_at": utc_now(),
     }
-
 
 async def build_opportunity(hymark: Any, request: dict[str, Any], opp: int, job_dir: Path) -> dict[str, Any]:
     opp_label = "1st" if opp == 1 else "2nd"
@@ -3503,6 +3588,36 @@ async def build_opportunity(hymark: Any, request: dict[str, Any], opp: int, job_
     exam_data["memo_filename"] = memo_filename
     return exam_data
 
+
+def opportunity_release_state(data: dict[str, Any]) -> bool:
+    return bool(
+        data
+        and not (data.get("validation_errors") or [])
+        and not str(data.get("status") or "").startswith("blocked")
+        and data.get("filename")
+        and data.get("memo_filename")
+    )
+
+def normalized_opportunity_question_text(data: dict[str, Any]) -> str:
+    pack = data.get("assessment_pack") or {}
+    chunks = []
+    for section in pack.get("sections") or []:
+        for question in section.get("questions") or []:
+            chunks.append(str(question.get("question") or ""))
+    return re.sub(r"[^a-z0-9]+", " ", " ".join(chunks).lower()).strip()
+
+def opportunity_independence_check(first: dict[str, Any], second: dict[str, Any], threshold: float = 0.88) -> dict[str, Any]:
+    a = set(normalized_opportunity_question_text(first).split())
+    b = set(normalized_opportunity_question_text(second).split())
+    if not a or not b:
+        return {"passed": False, "token_jaccard": None, "reason": "one_or_both_opportunities_have_no_instantiated_questions"}
+    score = len(a & b) / max(1, len(a | b))
+    return {
+        "passed": score < threshold,
+        "token_jaccard": round(score, 4),
+        "threshold": threshold,
+        "reason": "materially_different" if score < threshold else "second_opportunity_too_similar_to_first",
+    }
 
 def zip_dir(source: Path, target: Path) -> None:
     with zipfile.ZipFile(target, "w", compression=zipfile.ZIP_DEFLATED) as zf:
@@ -3678,6 +3793,7 @@ def run_builder(
     if locked_afrikaans_section_b_path:
         request["locked_afrikaans_section_b_path"] = str(locked_afrikaans_section_b_path)
     request["visual_blueprint"] = build_visual_blueprint(request)
+    request["caps_authority_provenance"] = caps_authority_provenance(request.get("caps_context") or {}, request)
     if should_use_evidence_first_route(request):
         apply_evidence_route_overrides(request)
     visual_titles = [
@@ -3712,6 +3828,35 @@ def run_builder(
     (job_dir / "exam_builder_request.json").write_text(json.dumps(request, indent=2), encoding="utf-8")
     (job_dir / "HOMS_VISUAL_BLUEPRINT.json").write_text(json.dumps(request["visual_blueprint"], indent=2), encoding="utf-8")
 
+    if not skip_caps and not ((caps_context or {}).get("selected") or {}):
+        blocker = {
+            "schema": "dio.exam_studio_authority_block.v1",
+            "status": "blocked_authority",
+            "subject": subject_profile.get("display_name"),
+            "subject_id": subject_profile.get("subject_id"),
+            "grade": grade_profile.get("grade"),
+            "phase": grade_profile.get("phase"),
+            "reason": "no_authoritative_caps_document_resolved",
+            "policy": "No learner-facing assessment may be generated when CAPS authority is unresolved.",
+        }
+        (job_dir / "CAPS_AUTHORITY_BLOCKED.json").write_text(
+            json.dumps(blocker, indent=2), encoding="utf-8"
+        )
+        return {
+            "schema": "knowedge.hymark_exam_builder_receipt.v2",
+            "created_at": utc_now(),
+            "job_id": job_id,
+            "status": "blocked_authority",
+            "request": request,
+            "subject_profile": {"subject_id": subject_profile.get("subject_id"), "display_name": subject_profile.get("display_name")},
+            "grade_profile": {"grade": grade_profile.get("grade"), "phase": grade_profile.get("phase")},
+            "caps_context": caps_context,
+            "provider": provider,
+            "outputs": {"job_dir": str(job_dir), "authority_diagnostic": str(job_dir / "CAPS_AUTHORITY_BLOCKED.json")},
+            "human_educator_approval_required": True,
+            "release_authority_granted": False,
+        }
+
     use_evidence_first = bool(request.get("caps_context")) and should_use_evidence_first_route(request)
     use_caps_shell = bool(request.get("caps_context")) and subject_id_from_request(request) != "history" and not use_evidence_first
     opportunity_numbers = [1] if opportunities == "first" else ([2] if opportunities == "second" else [1, 2])
@@ -3736,15 +3881,38 @@ def run_builder(
         }
     if "first_opportunity" not in exam_set:
         exam_set["first_opportunity"] = exam_set.pop("second_opportunity")
+    child_passes = {label: opportunity_release_state(data) for label, data in exam_set.items()}
+    independence = {"passed": True, "reason": "single_opportunity"}
+    equivalence = {"passed": True, "reason": "single_opportunity"}
+    if "first_opportunity" in exam_set and "second_opportunity" in exam_set:
+        independence = opportunity_independence_check(
+            exam_set["first_opportunity"], exam_set["second_opportunity"]
+        )
+        equivalence = opportunity_equivalence_gate(exam_set["first_opportunity"], exam_set["second_opportunity"])
+    parent_passed = bool(child_passes) and all(child_passes.values()) and bool(independence.get("passed")) and bool(equivalence.get("passed"))
+    parent_status = "needs_human_review" if parent_passed else "blocked"
+    release_gate = {
+        "schema": "dio.exam_studio_release_gate.v1",
+        "status": parent_status,
+        "child_passes": child_passes,
+        "opportunity_independence": independence,
+        "opportunity_equivalence": equivalence,
+        "human_educator_approval_required": True,
+        "release_authority_granted": False,
+    }
+    (job_dir / "EXAM_STUDIO_RELEASE_GATE.json").write_text(json.dumps(release_gate, indent=2), encoding="utf-8")
     (job_dir / "exam_set.json").write_text(json.dumps(exam_set, indent=2), encoding="utf-8")
     summary_path = write_summary(job_dir, request, exam_set, provider)
 
     zip_path = job_dir / "HYMARK_EXAM_BUILDER_PACK.zip"
+    def _optional_job_file(name: Any) -> str | None:
+        return str(job_dir / str(name)) if name else None
+
     receipt = {
         "schema": "knowedge.hymark_exam_builder_receipt.v1",
         "created_at": utc_now(),
         "job_id": job_id,
-        "status": "completed",
+        "status": parent_status,
         "request": request,
         "subject_profile": {
             "subject_id": subject_profile["subject_id"],
@@ -3796,13 +3964,14 @@ def run_builder(
             "job_dir": str(job_dir),
             "request": str(job_dir / "exam_builder_request.json"),
             "visual_blueprint": str(job_dir / "HOMS_VISUAL_BLUEPRINT.json"),
+            "release_gate": str(job_dir / "EXAM_STUDIO_RELEASE_GATE.json"),
             "exam_set": str(job_dir / "exam_set.json"),
             "summary": str(summary_path),
             "review_zip": str(zip_path),
-            "first_exam": str(job_dir / exam_set["first_opportunity"]["filename"]),
-            "first_memo": str(job_dir / exam_set["first_opportunity"]["memo_filename"]),
-            "second_exam": str(job_dir / exam_set["second_opportunity"]["filename"]) if "second_opportunity" in exam_set else None,
-            "second_memo": str(job_dir / exam_set["second_opportunity"]["memo_filename"]) if "second_opportunity" in exam_set else None,
+            "first_exam": _optional_job_file(exam_set["first_opportunity"].get("filename")),
+            "first_memo": _optional_job_file(exam_set["first_opportunity"].get("memo_filename")),
+            "second_exam": _optional_job_file(exam_set["second_opportunity"].get("filename")) if "second_opportunity" in exam_set else None,
+            "second_memo": _optional_job_file(exam_set["second_opportunity"].get("memo_filename")) if "second_opportunity" in exam_set else None,
             "first_formatted_review_pack": exam_set["first_opportunity"].get("formatted_review_docx"),
             "first_formatted_review_zip": exam_set["first_opportunity"].get("formatted_review_zip"),
             "second_formatted_review_pack": exam_set["second_opportunity"].get("formatted_review_docx") if "second_opportunity" in exam_set else None,
@@ -3867,7 +4036,7 @@ def main() -> int:
         Path(args.locked_afrikaans_section_b).expanduser().resolve() if args.locked_afrikaans_section_b else None,
     )
     print(json.dumps({"status": receipt["status"], "assessor": receipt["assessor"]["name"], "provider": receipt["provider"]["selected_provider"], "outputs": receipt["outputs"]}, indent=2))
-    return 0
+    return 0 if receipt["status"] == "needs_human_review" else 2
 
 
 if __name__ == "__main__":

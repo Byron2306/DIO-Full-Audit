@@ -1,0 +1,42 @@
+{
+  "schema": "dio.caps_subject_registry.v1",
+  "subjects": {
+    "mathematics": {
+      "canonical_subject": "Mathematics",
+      "subject_aliases": [
+        "mathematics",
+        "maths",
+        "wiskunde"
+      ],
+      "profile_aliases": [
+        "mathematics_foundation",
+        "foundation_mathematics",
+        "mathematics_primary"
+      ]
+    },
+    "history": {
+      "canonical_subject": "History",
+      "subject_aliases": [
+        "history",
+        "geskiedenis"
+      ],
+      "profile_aliases": [
+        "history_fet",
+        "history_senior"
+      ]
+    },
+    "dance_studies": {
+      "canonical_subject": "Dance Studies",
+      "subject_aliases": [
+        "dance studies",
+        "dance",
+        "dansstudies"
+      ],
+      "profile_aliases": [
+        "dance_studies",
+        "dance_fet"
+      ]
+    }
+  },
+  "metadata_law": "language/edition metadata is separate from canonical subject identity"
+}
