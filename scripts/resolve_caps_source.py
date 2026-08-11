@@ -13,6 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = ROOT / "corpora" / "caps" / "caps_corpus_manifest.json"
 DEFAULT_OUT = ROOT / "deliverables" / "caps_resolver"
+DEFAULT_SUBJECT_REGISTRY = ROOT / "config" / "caps_subject_registry.json"
 
 
 PHASE_BY_GRADE = {
@@ -28,7 +29,8 @@ ALIASES = {
     "business_studies": ["business studies", "besigheid studies", "besigheidstudies"],
     "life_sciences": ["life sciences", "lewenswetenskappe"],
     "natural_sciences": ["natural sciences", "natuurwetenskappe"],
-    "mathematics": ["mathematics", "wiskunde"],
+    "mathematics": ["mathematics", "maths", "wiskunde"],
+    "foundation_mathematics": ["mathematics", "maths", "wiskunde"],
     "english": ["english"],
     "afrikaans": ["afrikaans"],
     "english_language": ["english", "home language", "first additional language"],
@@ -49,8 +51,24 @@ def normalized(value: str) -> str:
 
 def aliases_for(subject: str) -> list[str]:
     key = normalized(subject).replace(" ", "_")
-    values = ALIASES.get(key, [normalized(subject)])
-    return [normalized(item) for item in values if normalized(item)]
+    registry = {}
+    try:
+        if DEFAULT_SUBJECT_REGISTRY.exists():
+            registry = json.loads(DEFAULT_SUBJECT_REGISTRY.read_text(encoding="utf-8"))
+    except Exception:
+        registry = {}
+    for canonical, row in (registry.get("subjects") or {}).items():
+        aliases = [canonical, *(row.get("subject_aliases") or []), *(row.get("profile_aliases") or [])]
+        normalized_aliases = {normalized(item).replace(" ", "_") for item in aliases}
+        if key in normalized_aliases:
+            key = canonical
+            break
+    values = ALIASES.get(key, [])
+    registry_row = (registry.get("subjects") or {}).get(key) or {}
+    values = [*values, *(registry_row.get("subject_aliases") or [])]
+    if not values:
+        values = [normalized(subject)]
+    return sorted({normalized(item) for item in values if normalized(item)})
 
 
 def language_score(row: dict[str, Any], preferred_language: str) -> int:

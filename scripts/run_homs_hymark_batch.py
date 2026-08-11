@@ -31,6 +31,9 @@ from homs_assessment_convergence import (  # noqa: E402
     similarity_review_candidates,
     valid_student_ids_from_csv,
 )
+from dio_epistemic_spine import authorize_rubric_score, fold_release
+
+from homs_wave2_speculum import harden_contract, append_learner_lineage
 
 DEFAULT_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
 DEFAULT_HYMARK_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
@@ -122,27 +125,55 @@ def clamp(value: Any, max_value: float) -> float:
 
 
 def normalize_assessment(raw: dict[str, Any], rubric: dict[str, Any]) -> dict[str, Any]:
+    """Normalize model output while keeping criterion score authority deterministic."""
     raw = dict(raw or {})
     criteria_raw = raw.get("criteria_scores") or {}
     normalized: dict[str, Any] = {}
     total = 0.0
+
     for criterion in rubric.get("criteria", []):
         name = str(criterion.get("name", "Unnamed criterion"))
         max_score = float(criterion.get("weight", 0) or 0)
         item = criteria_raw.get(name)
         if item is None:
-            item = next((value for key, value in criteria_raw.items() if str(key).strip().lower() == name.strip().lower() or str(key).strip().lower() in name.strip().lower() or name.strip().lower() in str(key).strip().lower()), {})
+            item = next(
+                (
+                    value
+                    for key, value in criteria_raw.items()
+                    if str(key).strip().lower() == name.strip().lower()
+                    or str(key).strip().lower() in name.strip().lower()
+                    or name.strip().lower() in str(key).strip().lower()
+                ),
+                {},
+            )
+
         if isinstance(item, dict):
-            score = clamp(item.get("score", item.get("marks", item.get("mark", 0))), max_score)
+            proposed_score = clamp(item.get("score", item.get("marks", item.get("mark", 0))), max_score)
             level = str(item.get("level") or "").strip()
             feedback = str(item.get("feedback") or item.get("comment") or item.get("comments") or "").strip()
             quotes = item.get("quotes") or []
             if isinstance(quotes, str):
                 quotes = [quotes]
         else:
-            score, level, feedback, quotes = clamp(item, max_score), "", "", []
+            proposed_score = clamp(item, max_score)
+            level, feedback, quotes = "", "", []
+
+        authority = authorize_rubric_score(proposed_score, level, criterion)
+        score = float(authority["authorized_score"]) if authority.get("resolved") else float(proposed_score)
         total += score
-        normalized[name] = {"level": level, "score": score, "max_score": max_score, "feedback": feedback, "quotes": quotes}
+
+        normalized[name] = {
+            "level": level,
+            "score": round(score, 2),
+            "max_score": max_score,
+            "feedback": feedback,
+            "quotes": quotes,
+            "model_proposed_score": round(float(proposed_score), 2),
+            "authorized_score": round(score, 2) if authority.get("resolved") else None,
+            "score_adjusted_by_authority": bool(authority.get("adjusted")),
+            "rubric_authority": authority,
+        }
+
     raw["criteria_scores"] = normalized
     raw["total_score"] = round(total, 2)
     raw["max_score"] = float(rubric.get("total_marks", total) or total)
@@ -151,7 +182,6 @@ def normalize_assessment(raw: dict[str, Any], rubric: dict[str, Any]) -> dict[st
     raw.setdefault("strengths", [])
     raw.setdefault("areas_for_improvement", [])
     return raw
-
 
 def long_form_window(text: str, limit: int = 14500) -> tuple[str, dict[str, Any]]:
     if len(text) <= limit:
@@ -248,6 +278,12 @@ def run_batch(input_dir: Path, out_root: Path, secret_file: Path, backend_path: 
     rubric = ensure_rubric_levels(json.loads(rubric_path.read_text(encoding="utf-8")))
     (job_dir / "rubric.hymark.normalized.json").write_text(json.dumps(rubric, indent=2), encoding="utf-8")
     base_instructions = (job_dir / "memo.md").read_text(encoding="utf-8", errors="ignore") if (job_dir / "memo.md").is_file() else ""
+    base_instructions = (base_instructions + "\n\n" + (
+        "RUBRIC AUTHORITY LAW: Penalize only capabilities explicitly authorized by the governing rubric. "
+        "Enrichment outside the rubric may be praised or suggested but may not reduce a mark. "
+        "ASSESSMENT ARGUMENT TOPOLOGY LAW: Before criticizing an omission, inspect the surrounding argumentative unit. "
+        "FACTUAL RISK LAW: Flag material factual assertions for verification rather than pretending omniscient truth detection."
+    )).strip()
 
     feedback_dir, annotated_dir, rubric_dir, quality_dir = (job_dir / "feedback", job_dir / "annotated", job_dir / "rubric_feedback", job_dir / "quality")
     for folder in (feedback_dir, annotated_dir, rubric_dir, quality_dir):
@@ -281,6 +317,7 @@ def run_batch(input_dir: Path, out_root: Path, secret_file: Path, backend_path: 
                 raw = {"total_score": 0, "criteria_scores": {}, "overall_feedback": "Assessment failed.", "annotations": []}
             result = normalize_assessment(raw, rubric)
             contract = assessment_contract(result, rubric, full_text)
+            contract = harden_contract(contract, result, rubric, full_text)
             if contract["passed"]:
                 break
         result["student_id"] = submission.stem
@@ -295,6 +332,16 @@ def run_batch(input_dir: Path, out_root: Path, secret_file: Path, backend_path: 
         contracts.append(contract)
         similarity_inputs.append({"student_id": submission.stem, "text": full_text})
         (quality_dir / f"{submission.stem}_QUALITY.json").write_text(json.dumps(contract, indent=2), encoding="utf-8")
+        (quality_dir / f"{submission.stem}_ARGUMENT_TOPOLOGY.json").write_text(
+            json.dumps(contract.get("argument_topology") or {}, indent=2), encoding="utf-8"
+        )
+        (quality_dir / f"{submission.stem}_FACTUAL_VERIFICATION_QUEUE.json").write_text(
+            json.dumps(contract.get("factual_verification_queue") or {}, indent=2), encoding="utf-8"
+        )
+        (quality_dir / f"{submission.stem}_CRITICISM_AUTHORITY.json").write_text(
+            json.dumps(contract.get("criticism_authority") or {}, indent=2), encoding="utf-8"
+        )
+        append_learner_lineage(out_root, job_id, submission.stem, result, contract)
 
         hymark.create_feedback_txt(feedback_dir / f"{submission.stem}_FEEDBACK.txt", result)
         criterion_markdown(feedback_dir / f"{submission.stem}_CRITERION_FEEDBACK.md", result)
@@ -335,8 +382,37 @@ def run_batch(input_dir: Path, out_root: Path, secret_file: Path, backend_path: 
     }
     (job_dir / "BUNDLE_MANIFEST.json").write_text(json.dumps(bundle_manifest, indent=2), encoding="utf-8")
 
+    decision_rows = []
+    for result, contract in zip(results, contracts):
+        decision_rows.append({
+            "student_id": result.get("student_id"),
+            "state": "needs_human_review" if contract.get("passed") else "blocked",
+            "authority_passed": bool(contract.get("authority_passed")),
+            "evidence_passed": bool(contract.get("evidence_passed")),
+            "quality_contract_passed": bool(contract.get("passed")),
+            "reasons": list(contract.get("errors") or []),
+            "human_educator_action_required": True,
+        })
+    decision_queue = {
+        "schema": "dio.homs_assessment_decision_queue.v1",
+        "job_id": job_id,
+        "decisions": decision_rows,
+        "human_educator_approval_required": True,
+        "release_authority_granted": False,
+    }
+    (job_dir / "ASSESSMENT_DECISION_QUEUE.json").write_text(
+        json.dumps(decision_queue, indent=2), encoding="utf-8"
+    )
+
     all_quality_passed = bool(results) and all(contract.get("passed") for contract in contracts)
-    status = "completed_review_ready" if all_quality_passed else "completed_blocked_incomplete_feedback"
+    release_fold = fold_release(
+        child_passes=[bool(contract.get("passed")) for contract in contracts],
+        authority_ok=all(bool(contract.get("authority_passed")) for contract in contracts),
+        evidence_ok=all(bool(contract.get("evidence_passed")) for contract in contracts),
+        semantic_ok=True,
+        human_approval_required=True,
+    )
+    status = release_fold["state"]
     summary_lines = ["# HOMS C8 Lecturer Review Summary", "", f"Job: `{job_id}`", f"Created: {utc_now()}", f"Smart Assessor: `{backend_path}`", f"Provider: {provider['selected_provider']} / {provider['selected_model']}", f"Bundle status: **{status}**", "", "## Batch Results"]
     for result in results:
         summary_lines.append(f"- {result['student_id']}: {result['total_score']}/{result['max_score']} ({result['percentage']}%) · quality {'PASS' if result['quality_contract_passed'] else 'BLOCKED'} · coverage {result['long_form_coverage']['mode']}")
@@ -378,7 +454,7 @@ def main() -> int:
     args = parser.parse_args()
     receipt = run_batch(Path(args.input).expanduser().resolve(), Path(args.out).expanduser().resolve(), Path(args.secret_file).expanduser().resolve(), Path(args.backend).expanduser().resolve(), args.provider, args.model, Path(args.local_homs_root).expanduser().resolve(), args.quality_retries)
     print(json.dumps({"status": receipt["status"], "assessor": receipt["assessor"]["name"], "provider": receipt["provider"]["selected_provider"], "outputs": receipt["outputs"]}, indent=2))
-    return 0 if receipt["status"] == "completed_review_ready" else 2
+    return 0 if receipt["status"] == "needs_human_review" else 2
 
 
 if __name__ == "__main__":

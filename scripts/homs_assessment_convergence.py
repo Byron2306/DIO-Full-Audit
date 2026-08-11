@@ -7,6 +7,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
 
+from dio_epistemic_spine import authorize_rubric_score, evidence_support_state
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXTERNAL_LOCAL_HOMS_ROOT = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/Marker/homs")
@@ -45,12 +47,15 @@ def assessment_contract(
     min_annotation_count: int = 3,
     min_feedback_chars: int = 24,
 ) -> dict[str, Any]:
-    """Validate the buyer-facing Smart Assessor bundle before DIO calls it review-ready."""
+    """Validate evidence, deterministic rubric authority and review completeness."""
     errors: list[str] = []
     warnings: list[str] = []
+    authority_errors: list[str] = []
+    evidence_errors: list[str] = []
     verified_quotes = 0
     requested_quotes = 0
     criteria_scores = assessment.get("criteria_scores") or {}
+
     if not isinstance(criteria_scores, dict):
         criteria_scores = {}
         errors.append("criteria_scores is not an object")
@@ -58,48 +63,97 @@ def assessment_contract(
     score_sum = 0.0
     rubric_total = 0.0
     criterion_receipts: list[dict[str, Any]] = []
+
     for criterion in rubric.get("criteria") or []:
         name = _norm(criterion.get("name") or "Unnamed criterion")
         max_score = float(criterion.get("weight") or 0)
         rubric_total += max_score
         item = _criterion_lookup(criteria_scores, name)
+
         if not item:
-            errors.append(f"missing criterion result: {name}")
+            msg = f"missing criterion result: {name}"
+            errors.append(msg)
+            authority_errors.append(msg)
             criterion_receipts.append({"criterion": name, "state": "missing"})
             continue
+
         score = float(item.get("score") or 0)
         score_sum += score
+        level = _norm(item.get("level") or "")
+        authority = item.get("rubric_authority")
+        if not isinstance(authority, dict):
+            authority = authorize_rubric_score(score, level, criterion)
+
+        if not authority.get("resolved"):
+            msg = f"rubric authority unresolved for {name}: {authority.get('reason')}"
+            errors.append(msg)
+            authority_errors.append(msg)
+        else:
+            low = float(authority.get("min_score") or 0)
+            high = float(authority.get("max_score") or 0)
+            if not (low - 1e-9 <= score <= high + 1e-9):
+                msg = f"criterion score outside declared rubric level band: {name}; level={level}; score={score}; authorized={low}-{high}"
+                errors.append(msg)
+                authority_errors.append(msg)
+            if authority.get("adjusted"):
+                warnings.append(
+                    f"deterministic authority adjusted {name}: "
+                    f"{authority.get('model_proposed_score')} -> {authority.get('authorized_score')} "
+                    f"inside {authority.get('rubric_level_key')} band"
+                )
+
         feedback = _norm(item.get("feedback") or item.get("comment") or "")
         if len(feedback) < min_feedback_chars:
             errors.append(f"criterion feedback too thin: {name}")
+
         quotes = item.get("quotes") or []
         if isinstance(quotes, str):
             quotes = [quotes]
-        grounded = []
+        grounded_rows = []
+        criterion_requested = 0
+        criterion_grounded = 0
+
         for quote in quotes:
             if not _norm(quote):
                 continue
             requested_quotes += 1
+            criterion_requested += 1
             ok = quote_is_grounded(quote, submission_text)
-            grounded.append({"quote": _norm(quote), "grounded": ok})
+            grounded_rows.append({"quote": _norm(quote), "grounded": ok})
             if ok:
                 verified_quotes += 1
-        if not grounded:
-            errors.append(f"criterion has no quoted submission evidence: {name}")
-        elif not any(row["grounded"] for row in grounded):
-            errors.append(f"criterion quotations are not grounded in submission: {name}")
-        if score < 0 or score > max_score + 1e-6:
-            errors.append(f"criterion score outside rubric range: {name}")
-        criterion_receipts.append(
-            {
-                "criterion": name,
-                "score": score,
-                "max_score": max_score,
-                "feedback_chars": len(feedback),
-                "quoted_evidence": grounded,
-                "state": "complete" if feedback and any(row["grounded"] for row in grounded) else "incomplete",
-            }
+                criterion_grounded += 1
+
+        support_state = evidence_support_state(
+            grounded_count=criterion_grounded,
+            requested_count=criterion_requested,
         )
+        if not grounded_rows:
+            msg = f"criterion has no quoted submission evidence: {name}"
+            errors.append(msg)
+            evidence_errors.append(msg)
+        elif support_state == "unsupported":
+            msg = f"criterion quotations are not grounded in submission: {name}"
+            errors.append(msg)
+            evidence_errors.append(msg)
+
+        if score < 0 or score > max_score + 1e-6:
+            msg = f"criterion score outside rubric range: {name}"
+            errors.append(msg)
+            authority_errors.append(msg)
+
+        criterion_receipts.append({
+            "criterion": name,
+            "declared_level": level,
+            "score": score,
+            "model_proposed_score": item.get("model_proposed_score", score),
+            "max_score": max_score,
+            "feedback_chars": len(feedback),
+            "quoted_evidence": grounded_rows,
+            "support_state": support_state,
+            "rubric_authority": authority,
+            "state": "complete" if feedback and support_state in {"supported", "partially_supported"} and authority.get("resolved") else "incomplete",
+        })
 
     stated_total = float(assessment.get("total_score") or 0)
     max_score = float(assessment.get("max_score") or rubric.get("total_marks") or rubric_total or 0)
@@ -113,14 +167,19 @@ def assessment_contract(
         annotations = []
         errors.append("annotations is not a list")
     if len(annotations) < min_annotation_count:
-        errors.append(f"too few anchored annotations: {len(annotations)} < {min_annotation_count}")
+        msg = f"too few anchored annotations: {len(annotations)} < {min_annotation_count}"
+        errors.append(msg)
+        evidence_errors.append(msg)
+
     annotation_receipts = []
     for index, annotation in enumerate(annotations, 1):
         quote = _norm(annotation.get("quote") if isinstance(annotation, dict) else "")
         comment = _norm(annotation.get("comment") if isinstance(annotation, dict) else "")
         grounded = quote_is_grounded(quote, submission_text)
         if not quote or not grounded:
-            errors.append(f"annotation {index} has no grounded exact quotation")
+            msg = f"annotation {index} has no grounded exact quotation"
+            errors.append(msg)
+            evidence_errors.append(msg)
         if len(comment) < min_feedback_chars:
             errors.append(f"annotation {index} comment too thin")
         annotation_receipts.append({"index": index, "quote": quote, "grounded": grounded, "comment_chars": len(comment)})
@@ -133,10 +192,13 @@ def assessment_contract(
         errors.append("areas_for_improvement list is empty")
 
     return {
-        "schema": "knowedge.homs_marking_quality_contract.v1",
+        "schema": "knowedge.homs_marking_quality_contract.v2",
         "passed": not errors,
         "errors": errors,
         "warnings": warnings,
+        "authority_passed": not authority_errors,
+        "evidence_passed": not evidence_errors,
+        "semantic_profile_checks": "wave2_pending",
         "criterion_receipts": criterion_receipts,
         "annotation_receipts": annotation_receipts,
         "verified_quote_count": verified_quotes,
@@ -148,7 +210,6 @@ def assessment_contract(
         "human_review_required": True,
         "execution_authority_granted": False,
     }
-
 
 def repair_instructions(contract: dict[str, Any]) -> str:
     errors = contract.get("errors") or []
