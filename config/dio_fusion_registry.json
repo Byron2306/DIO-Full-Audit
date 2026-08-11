@@ -1,6 +1,6 @@
 {
   "schema": "dio.fusion_registry.v1",
-  "purpose": "Machine-check the systems that contribute semantics, evidence, challenge, presence, authority, execution or public surfaces to the next DIO fusion wave without collapsing specialist repositories into one history.",
+  "purpose": "Machine-check the systems contributing semantics, evidence, challenge, presence, authority, execution or public surfaces to DIO fusion while preserving specialist histories.",
   "laws": {
     "fusion_is_not_repo_absorption": true,
     "specialist_histories_preserved": true,
@@ -8,345 +8,34 @@
     "legacy_presence_not_reimported": true
   },
   "systems": [
-    {
-      "system_id": "dio_core",
-      "canonical_name": "DIO Core",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": ".", "role": "governed-case, evidence, framework, authority and composition spine"}],
-      "fuse": ["Governed Case v2", "shared evidence assertions", "framework engine", "authority plane", "event and receipt contracts"],
-      "bounded": ["generic external execution remains refused without a capability-specific executor"],
-      "authority_boundary": "DIO Core coordinates truth and authority state but does not acquire blanket external execution authority."
-    },
-    {
-      "system_id": "vesper_presence",
-      "canonical_name": "Vesper Presence Core",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "presence_core", "role": "human, public and operator ingress/egress presence"}],
-      "fuse": ["identity-bound ingress", "intent routing", "Needs You surface", "operator briefs", "reply receipts", "attachment quarantine"],
-      "bounded": ["Telegram replies default disabled", "no spend", "no fulfilment release", "no automatic attachment processing", "no professional judgment"],
-      "authority_boundary": "Vesper is DIO Presence, not decision or kernel authority; every external reply requires an explicit bounded authority receipt.",
-      "notes": "Lilith remains a legacy alias only and is not re-imported as a parallel Presence authority."
-    },
-    {
-      "system_id": "sophia_integritas",
-      "canonical_name": "Sophia / Integritas Mechanicus",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Integritas-Mechanicus", "role": "published epistemic-lineage baseline", "sha": "cdecaa3009021e819ad787ce18305967eafa4b83"},
-        {"kind": "local_path", "ref": "/home/byron/Integritas-Mechanicus", "role": "current Production Wave 2 source tree"}
-      ],
-      "fuse": ["claim lineage", "revision ancestry", "epistemic state transitions", "human authorship and final-decision history"],
-      "bounded": ["machine support never becomes human authorship or institutional authority"],
-      "authority_boundary": "Sophia governs knowledge lineage; consequential release remains separately authorised."
-    },
-    {
-      "system_id": "valinor",
-      "canonical_name": "Valinor Kernel",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "nested_runtime", "ref": "organs/sophia/arda_os/backend/valinor", "role": "kernel runtime authority"}],
-      "fuse": ["capability authorization", "runtime boundary decisions", "Mandos-compatible decision receipts"],
-      "bounded": ["kernel permission is not business, legal, professional or release authority"],
-      "authority_boundary": "Valinor remains the sole kernel authority; no organ may implement a competing kernel."
-    },
-    {
-      "system_id": "beast",
-      "canonical_name": "EdgeK BEAST",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "github_repo", "ref": "Byron2306/EdgeK-BEAST", "role": "durable evidence memory, governed compute and C4-X proof source", "sha": "320bb1f48d84a59353d5252687fb305dfa06b166"}],
-      "fuse": ["evidence crystallization", "source-bound custody", "governed compute context", "proof-first receipts"],
-      "bounded": ["IDE/developer surfaces do not become independent evidence authority"],
-      "authority_boundary": "BEAST preserves and computes over evidence; promotion and execution remain governed by DIO authority gates."
-    },
-    {
-      "system_id": "metatron",
-      "canonical_name": "Metatron",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Metatron", "role": "published triune orchestration and harmonic-governance source", "sha": "532f8f4d22568c3812352150da7c7baf923d76e6"},
-        {"kind": "local_path", "ref": "/home/byron/Downloads/Metatron-triune-outbound-gate", "role": "cross-folder outbound-gate variant"}
-      ],
-      "fuse": ["role-diverse dissent", "harmonic/coherence challenge", "orchestration patterns"],
-      "bounded": ["dissent and orchestration do not create execution authority"],
-      "authority_boundary": "Metatron may challenge and orchestrate but cannot bypass Valinor or human gates."
-    },
-    {
-      "system_id": "arda",
-      "canonical_name": "ARDA",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "github_repo", "ref": "Byron2306/Metatron-Arda", "role": "execution identity, attestation and sovereignty baseline", "sha": "32bdb18171e854576cd9b71c2459d6f920c7daf5"}],
-      "fuse": ["execution identity", "attestation", "capability-bound executor identity", "Commons sovereignty patterns"],
-      "bounded": ["no direct learning-to-execution", "no generic executor"],
-      "authority_boundary": "ARDA supplies attested execution identity beneath DIO/Valinor authority, not a parallel authority plane."
-    },
-    {
-      "system_id": "seraph",
-      "canonical_name": "Seraph Challenge Organ",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Seraph-AI-12", "role": "current implementation candidate: EDR/XDR/SOAR, AATL and adversarial security source", "sha": "510816f60ff0ddd2600e8f8de85d138e87b603bd"},
-        {"kind": "published_reference", "ref": "Byron2306/Seraph-AI", "role": "legacy published Seraph baseline", "sha": "fffd1f9f6e77cf14672f26be88a988fedab08c45"}
-      ],
-      "fuse": ["adversarial challenge receipts", "hostility and manipulation assessment", "threat mappings", "independent security challenge"],
-      "bounded": ["SOAR or containment actions cannot execute from a challenge receipt alone", "Seraph cannot authorize release"],
-      "authority_boundary": "Seraph challenges claims and proposed actions; Valinor and explicit human/capability authority decide whether actions may cross the boundary."
-    },
-    {
-      "system_id": "seraph_mitre",
-      "canonical_name": "Seraph MITRE Knowledge Extension",
-      "disposition": "reference_only",
-      "must_participate_before_deification": false,
-      "sources": [{"kind": "github_repo", "ref": "Byron2306/Seraph-MITRE", "role": "MITRE technique coverage, osquery evidence and security reference corpus"}],
-      "fuse": ["threat-technique vocabulary and reference evidence"],
-      "bounded": ["reference corpus never executes response actions"],
-      "authority_boundary": "Reference evidence may inform Seraph challenges but has no independent authority."
-    },
-    {
-      "system_id": "phoenix",
-      "canonical_name": "Hivenance Phoenix",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Hivenance", "role": "published economic hypothesis and temporal-validation baseline", "sha": "141ed8d1bd112ce66dbcb041cb891bbe31f95d9d"},
-        {"kind": "local_path", "ref": "/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation", "role": "current Phoenix 7.1 source tree"}
-      ],
-      "fuse": ["hypothesis registry", "cost-aware validation", "temporal adversarial gates", "shadow/canary promotion semantics"],
-      "bounded": ["no profitability claim without evidence", "live order execution remains locked until its independent gates pass"],
-      "authority_boundary": "Economic evidence can refuse promotion; it cannot self-authorize capital deployment."
-    },
-    {
-      "system_id": "evidex",
-      "canonical_name": "Evidex",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Evidex", "role": "published evidence-product source", "sha": "c2754b37ca32e803d84e733b5d59207fdcb17841"},
-        {"kind": "local_path", "ref": "/home/byron/Evidex", "role": "cross-folder current source candidate"}
-      ],
-      "fuse": ["claim-source mapping", "evidence packs", "provenance and gap visibility", "review trails"],
-      "bounded": ["evidence packaging does not certify unsupported claims"],
-      "authority_boundary": "Evidex assembles evidence assertions; Governed Case owns claim state and release authority."
-    },
-    {
-      "system_id": "vamp",
-      "canonical_name": "VAMP",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Vamp-Offline", "role": "current performance-evidence implementation candidate", "sha": "d9f46e3d7d0bf46b0dadf10a0a0e0e0e625acf15"},
-        {"kind": "local_path", "ref": "/home/byron/Vamp-Offline", "role": "cross-folder current source candidate"}
-      ],
-      "fuse": ["evidence-to-task mapping", "attainment evidence", "work-context provenance", "review structures"],
-      "bounded": ["machine evidence never becomes human performance judgment"],
-      "authority_boundary": "VAMP may organize and support attainment evidence; authorised humans retain performance judgment."
-    },
-    {
-      "system_id": "homs",
-      "canonical_name": "HOMS",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "github_repo", "ref": "Byron2306/HOMS-assessor", "role": "canonical HOMS assessment implementation"}],
-      "fuse": ["assessment evidence", "rubric and curriculum bindings", "moderation flags", "educator review gates"],
-      "bounded": ["automatic grading cannot silently become final academic authority", "eFundi upload remains capability-bound"],
-      "authority_boundary": "Assessment machinery can propose and evidence results; educator/institutional authority controls release and grade publication."
-    },
-    {
-      "system_id": "noedge_multi_hymark",
-      "canonical_name": "NoEdge Multi-Hymark",
-      "disposition": "reference_only",
-      "must_participate_before_deification": false,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/NoEdge-Multi-Hymark", "role": "dual-mode HOMS/Smart Assessor variant"},
-        {"kind": "local_path", "ref": "/home/byron/Downloads/NoEdge-Multi-Hymark-main", "role": "cross-folder harvested variant"}
-      ],
-      "fuse": ["unique moderation, assessment and eFundi patterns not already represented by HOMS"],
-      "bounded": ["duplicate orchestrators are not retained as parallel DIO cores"],
-      "authority_boundary": "Harvest unique semantics and executor patterns, then retire duplicate orchestration surfaces."
-    },
-    {
-      "system_id": "outlook_triage",
-      "canonical_name": "Smart Outlook Triage",
-      "disposition": "capability_executor",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Smart-Outlook-Triage", "role": "browser-based Outlook observation, classification, drafting and execution source", "sha": "2b45f2a750a92a37d16e8c32c17a8c28091f78b3"},
-        {"kind": "core_path", "ref": "adapters/outlook_triage", "role": "DIO draft-only intake adapter"}
-      ],
-      "fuse": ["message observation", "thread identity", "classification", "draft generation", "mail-memory context"],
-      "bounded": ["send", "reply", "browser navigation with side effects", "form filling", "mailbox mutation"],
-      "authority_boundary": "Read/classify/draft may enter Governed Case; any mailbox or browser side effect requires explicit human approval plus capability-bound Valinor authorization."
-    },
-    {
-      "system_id": "microsoft_graph",
-      "canonical_name": "Microsoft Graph / Outlook / OneDrive Adapter",
-      "disposition": "capability_executor",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "core_path", "ref": "adapters/microsoft_graph", "role": "Graph integration adapter"},
-        {"kind": "core_path", "ref": "scripts/sync_outlook_mail.py", "role": "Outlook mail synchronization surface"}
-      ],
-      "fuse": ["stable mail/file identity", "read receipts", "attachment provenance", "mail-intent state"],
-      "bounded": ["send mail", "move/delete mail", "write OneDrive", "external file release"],
-      "authority_boundary": "Graph writes are capability-bound external actions and never follow directly from model or triage output."
-    },
-    {
-      "system_id": "nichefoundry",
-      "canonical_name": "NicheFoundry",
-      "disposition": "governed_organ",
-      "must_participate_before_deification": true,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/NicheFoundry", "role": "published content and media-production source", "sha": "25fef4bd5bfd1258758963b374ef192fc469c14f"},
-        {"kind": "local_path", "ref": "/home/byron/Downloads/NicheFoundry_Phase11", "role": "cross-folder production variant"}
-      ],
-      "fuse": ["creative semantic object", "media transformation plans", "campaign production receipts", "asset lineage"],
-      "bounded": ["publishing", "ad spend", "external campaign release"],
-      "authority_boundary": "NicheFoundry transforms governed intent into assets; publication and spend remain separate authority actions."
-    },
-    {
-      "system_id": "document_studio",
-      "canonical_name": "Document Studio",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "adapters/document_studio", "role": "document editing, translation and conversion plane"}],
-      "fuse": ["loss-aware conversion", "semantic edit receipts", "document QA", "delivery artifact lineage"],
-      "bounded": ["semantic correctness and certified translation require human authority"],
-      "authority_boundary": "Transformation integrity is machine-checkable; semantic/professional approval is not inferred."
-    },
-    {
-      "system_id": "lingua",
-      "canonical_name": "DIO Lingua",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "adapters/lingua", "role": "language and localization infrastructure"}],
-      "fuse": ["terminology bindings", "language transformation contracts"],
-      "bounded": ["translation meaning and certification remain reviewable human claims"],
-      "authority_boundary": "Lingua transforms language under source bindings; it does not self-certify meaning."
-    },
-    {
-      "system_id": "format_core",
-      "canonical_name": "DIO Format Core",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "adapters/format_core", "role": "presentation and rendering infrastructure"}],
-      "fuse": ["render profiles", "document geometry", "template application"],
-      "bounded": ["rendering must not silently alter governed semantic content"],
-      "authority_boundary": "Format owns presentation, not semantic authorship."
-    },
-    {
-      "system_id": "legalis",
-      "canonical_name": "DIO Legalis",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "adapters/legalis", "role": "legal identity, requirements, evidence, deadline and operator prerequisite organ"}],
-      "fuse": ["requirement registry", "legal identity", "deadline gates", "operator evidence receipts"],
-      "bounded": ["ALLOW is not legal advice, legal clearance, waiver or filing"],
-      "authority_boundary": "Legalis evaluates configured prerequisites; Valinor remains kernel authority and humans/professionals retain consequential legal decisions."
-    },
-    {
-      "system_id": "market_command",
-      "canonical_name": "Market Command / Marketing Spine",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "adapters/marketing", "role": "campaign, content approval, attribution and measurement spine"}],
-      "fuse": ["campaign lineage", "content approvals", "lead attribution", "measurement receipts"],
-      "bounded": ["publication", "ad spend", "external outreach"],
-      "authority_boundary": "Campaign planning and evidence may be automated; release/spend/outreach require explicit authority."
-    },
-    {
-      "system_id": "commerce_autorelease",
-      "canonical_name": "DIO Commerce / AutoRelease Spine",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "state/commerce", "role": "order, payment, fulfilment and delivery state contracts"}],
-      "fuse": ["lead-to-order lineage", "payment state", "job linkage", "delivery and fulfilment receipts"],
-      "bounded": ["refunds", "fulfilment release", "payment mutation", "customer delivery"],
-      "authority_boundary": "Commercial state does not auto-release fulfilment; external financial and delivery actions remain separately gated."
-    },
-    {
-      "system_id": "dio_product_platform",
-      "canonical_name": "DIO Product Platform",
-      "disposition": "shared_primitive",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "core_path", "ref": "products", "role": "shared product planning and Governed Case projection"}],
-      "fuse": ["Assurance", "Agent Authority", "VendorProof", "Accreditation", "TenderProof", "GrantProof", "Research Integrity", "RegOps", "CapitalRoom"],
-      "bounded": ["registered products are not automatically executable or externally proven"],
-      "authority_boundary": "Product registration enables governed planning only; product-specific execution and release evidence remain required."
-    },
-    {
-      "system_id": "dio_workflows_site",
-      "canonical_name": "DIO Workflows Public Surface",
-      "disposition": "surface",
-      "must_participate_before_deification": true,
-      "sources": [{"kind": "github_repo", "ref": "Byron2306/DIO-Workflows", "role": "public brand, privacy-policy and claim surface", "sha": "c259cd78d0cdad070982e4922722c80b700f4fb8"}],
-      "fuse": ["published-claim lineage", "privacy-policy and public identity references"],
-      "bounded": ["site content never defines internal capability truth by itself"],
-      "authority_boundary": "Public claims must be release-gated against the converged evidence snapshot."
-    },
-    {
-      "system_id": "beast_ide",
-      "canonical_name": "BEAST IDE / Developer Surface",
-      "disposition": "surface",
-      "must_participate_before_deification": false,
-      "sources": [{"kind": "github_repo", "ref": "Byron2306/BEAST-IDE", "role": "developer/IDE surface and governance client"}],
-      "fuse": ["developer context and task interfaces where they reuse DIO contracts"],
-      "bounded": ["IDE convenience cannot bypass DIO evidence or authority gates"],
-      "authority_boundary": "Developer surfaces consume DIO governance; they do not define evidence truth."
-    },
-    {
-      "system_id": "product_marketing_sites",
-      "canonical_name": "Product Marketing Sites",
-      "disposition": "surface",
-      "must_participate_before_deification": false,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/HOMS-page", "role": "HOMS public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/Evidex-page", "role": "Evidex public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/VAMP-site", "role": "VAMP public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/Sophia-AI-page", "role": "Sophia public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/EdgeK-BEAST-page", "role": "BEAST public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/Hivenance-page", "role": "Hivenance public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/Arda-OS-page", "role": "ARDA public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/Outlook-agent-page", "role": "Outlook public surface"},
-        {"kind": "github_repo", "ref": "Byron2306/Seraph", "role": "Seraph public website surface"}
-      ],
-      "fuse": ["public claim checks and brand references"],
-      "bounded": ["no website is treated as a runtime organ"],
-      "authority_boundary": "Marketing surfaces are governed outputs of the organism, not organs with execution authority."
-    },
-    {
-      "system_id": "legacy_vamp_variants",
-      "canonical_name": "Legacy VAMP Variants",
-      "disposition": "reference_only",
-      "must_participate_before_deification": false,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/VAMP", "role": "legacy VAMP variant"},
-        {"kind": "github_repo", "ref": "Byron2306/VAMP2", "role": "legacy VAMP variant"},
-        {"kind": "github_repo", "ref": "Byron2306/VAMP-PC", "role": "legacy VAMP variant"},
-        {"kind": "github_repo", "ref": "Byron2306/VAMP-v8", "role": "legacy VAMP variant"}
-      ],
-      "fuse": ["unique evidence or workflow semantics only if absent from Vamp-Offline"],
-      "bounded": ["duplicate implementations are not retained as parallel authorities"],
-      "authority_boundary": "Vamp-Offline is the current implementation candidate unless a variant proves a unique required capability."
-    },
-    {
-      "system_id": "legacy_presence_repos",
-      "canonical_name": "Legacy Lilith Presence Implementations",
-      "disposition": "legacy_retire",
-      "must_participate_before_deification": false,
-      "sources": [
-        {"kind": "github_repo", "ref": "Byron2306/Lilith", "role": "legacy Presence implementation"},
-        {"kind": "github_repo", "ref": "Byron2306/L1l1th", "role": "legacy Presence implementation"},
-        {"kind": "github_repo", "ref": "Byron2306/lilith_minimal", "role": "legacy Presence implementation"}
-      ],
-      "fuse": ["no wholesale import; harvest only a uniquely evidenced capability through a new governed adapter"],
-      "bounded": ["cannot regain Presence identity or authority"],
-      "authority_boundary": "Vesper supersedes legacy Lilith/L1l1th Presence identities; legacy repositories cannot become parallel authority paths."
-    }
+    {"system_id":"dio_core","canonical_name":"DIO Core","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":".","role":"governed-case and shared authority spine"}],"fuse":["Governed Case v2","shared evidence assertions","framework engine","authority plane"],"bounded":["no blanket external execution authority"],"authority_boundary":"DIO coordinates truth and authority state but does not become a generic executor."},
+    {"system_id":"vesper_presence","canonical_name":"Vesper Presence Core","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"presence_core","role":"public and operator ingress/egress presence"}],"fuse":["identity-bound ingress","intent routing","Needs You","operator briefs","reply receipts","attachment quarantine"],"bounded":["Telegram replies default disabled","no spend","no fulfilment release","no automatic attachment processing"],"authority_boundary":"Vesper is Presence, not kernel or decision authority; every external reply requires an explicit bounded authority receipt.","notes":"Lilith remains a legacy alias only."},
+    {"system_id":"sophia_integritas","canonical_name":"Sophia / Integritas Mechanicus","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Integritas-Mechanicus","role":"published epistemic-lineage baseline","sha":"cdecaa3009021e819ad787ce18305967eafa4b83"},{"kind":"local_path","ref":"/home/byron/Integritas-Mechanicus","role":"current Production Wave 2 source"}],"fuse":["claim lineage","revision ancestry","epistemic transitions","human decision history"],"bounded":["machine support never becomes human authorship or institutional authority"],"authority_boundary":"Sophia governs knowledge lineage; consequential release remains separately authorised."},
+    {"system_id":"valinor","canonical_name":"Valinor Kernel","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"nested_runtime","ref":"organs/sophia/arda_os/backend/valinor","role":"kernel runtime authority"}],"fuse":["capability authorization","runtime boundary decisions","Mandos-compatible receipts"],"bounded":["kernel permission is not business, legal, professional or release authority"],"authority_boundary":"Valinor remains the sole kernel authority; no organ may create a competing kernel."},
+    {"system_id":"beast","canonical_name":"EdgeK BEAST","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/EdgeK-BEAST","role":"durable evidence memory, governed compute and C4-X proof source","sha":"320bb1f48d84a59353d5252687fb305dfa06b166"}],"fuse":["evidence crystallization","source-bound custody","governed compute","proof-first receipts"],"bounded":["developer surfaces do not become independent evidence authority"],"authority_boundary":"BEAST preserves and computes over evidence; promotion and execution remain DIO-gated."},
+    {"system_id":"metatron","canonical_name":"Metatron","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Metatron","role":"canonical Metatron and embedded Seraph source","sha":"532f8f4d22568c3812352150da7c7baf923d76e6"},{"kind":"local_path","ref":"/home/byron/Downloads/Metatron-triune-outbound-gate","role":"current outbound-gate variant"}],"fuse":["role-diverse dissent","harmonic/coherence challenge","orchestration patterns"],"bounded":["dissent and orchestration do not create execution authority"],"authority_boundary":"Metatron may challenge and orchestrate but cannot bypass Valinor or human gates."},
+    {"system_id":"arda","canonical_name":"ARDA","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Metatron-Arda","role":"execution identity, attestation and sovereignty baseline","sha":"32bdb18171e854576cd9b71c2459d6f920c7daf5"}],"fuse":["execution identity","attestation","capability-bound executor identity","Commons sovereignty patterns"],"bounded":["no direct learning-to-execution","no generic executor"],"authority_boundary":"ARDA supplies attested execution identity beneath DIO/Valinor authority, not a parallel authority plane."},
+    {"system_id":"seraph","canonical_name":"Seraph Challenge Organ","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Metatron","role":"canonical Seraph implementation co-resident with Metatron","sha":"532f8f4d22568c3812352150da7c7baf923d76e6"},{"kind":"nested_runtime","ref":"organs/metatron/backend/services/aatl.py","role":"Seraph Autonomous Agent Threat Layer challenge runtime"},{"kind":"nested_runtime","ref":"organs/metatron/backend/threat_response.py","role":"Seraph response implementation retained behind capability authority"},{"kind":"published_reference","ref":"Byron2306/Seraph-AI","role":"legacy standalone Seraph baseline","sha":"fffd1f9f6e77cf14672f26be88a988fedab08c45"}],"fuse":["adversarial challenge receipts","hostility and manipulation assessment","threat mappings","independent security challenge"],"bounded":["SOAR or containment actions cannot execute from a challenge receipt alone","Seraph cannot authorize release"],"authority_boundary":"Seraph challenges claims and proposed actions; Valinor and explicit human/capability authority decide whether actions may cross the boundary.","notes":"Seraph is a logical DIO organ whose canonical implementation lives inside the Metatron repository; standalone Seraph repos are not canonical runtime sources."},
+    {"system_id":"seraph_mitre","canonical_name":"Seraph MITRE Knowledge Extension","disposition":"reference_only","must_participate_before_deification":false,"sources":[{"kind":"github_repo","ref":"Byron2306/Seraph-MITRE","role":"MITRE technique coverage and reference evidence"}],"fuse":["threat-technique vocabulary"],"bounded":["reference corpus never executes actions"],"authority_boundary":"Reference evidence may inform Seraph challenges but has no independent authority."},
+    {"system_id":"phoenix","canonical_name":"Hivenance Phoenix","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Hivenance","role":"published economic validation baseline","sha":"141ed8d1bd112ce66dbcb041cb891bbe31f95d9d"},{"kind":"local_path","ref":"/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation","role":"current Phoenix 7.1 source"}],"fuse":["hypothesis registry","cost-aware validation","temporal adversarial gates","promotion semantics"],"bounded":["no profitability claim without evidence","live execution remains independently gated"],"authority_boundary":"Economic evidence can refuse promotion but cannot self-authorize capital deployment."},
+    {"system_id":"evidex","canonical_name":"Evidex","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Evidex","role":"published evidence-product source","sha":"c2754b37ca32e803d84e733b5d59207fdcb17841"},{"kind":"local_path","ref":"/home/byron/Evidex","role":"current source candidate"}],"fuse":["claim-source mapping","evidence packs","provenance","gap visibility"],"bounded":["evidence packaging does not certify unsupported claims"],"authority_boundary":"Evidex assembles evidence assertions; Governed Case owns claim state and release authority."},
+    {"system_id":"vamp","canonical_name":"VAMP","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Vamp-Offline","role":"current performance-evidence implementation","sha":"d9f46e3d7d0bf46b0dadf10a0a0e0e0e625acf15"},{"kind":"local_path","ref":"/home/byron/Vamp-Offline","role":"current local source"}],"fuse":["evidence-to-task mapping","attainment evidence","work-context provenance","review structures"],"bounded":["machine evidence never becomes human performance judgment"],"authority_boundary":"VAMP supports attainment evidence; authorised humans retain performance judgment."},
+    {"system_id":"homs","canonical_name":"HOMS","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/HOMS-assessor","role":"canonical HOMS assessment implementation"}],"fuse":["assessment evidence","rubric and curriculum bindings","moderation flags","educator review gates"],"bounded":["automatic grading cannot become final academic authority","eFundi upload remains capability-bound"],"authority_boundary":"Assessment machinery may propose results; educator/institutional authority controls grade release."},
+    {"system_id":"noedge_multi_hymark","canonical_name":"NoEdge Multi-Hymark","disposition":"reference_only","must_participate_before_deification":false,"sources":[{"kind":"github_repo","ref":"Byron2306/NoEdge-Multi-Hymark","role":"dual-mode HOMS/Smart Assessor variant"}],"fuse":["unique moderation or eFundi patterns not already represented by HOMS"],"bounded":["duplicate orchestrators are not retained"],"authority_boundary":"Harvest unique semantics, then retire duplicate orchestration surfaces."},
+    {"system_id":"outlook_triage","canonical_name":"Smart Outlook Triage","disposition":"capability_executor","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/Smart-Outlook-Triage","role":"browser-based Outlook observation, classification, drafting and execution source","sha":"2b45f2a750a92a37d16e8c32c17a8c28091f78b3"},{"kind":"core_path","ref":"adapters/outlook_triage","role":"DIO draft-only intake adapter"}],"fuse":["message observation","thread identity","classification","draft generation","mail memory"],"bounded":["send","reply","browser navigation with side effects","form filling","mailbox mutation"],"authority_boundary":"Read/classify/draft may enter Governed Case; any mailbox or browser side effect requires explicit human approval plus capability-bound Valinor authorization."},
+    {"system_id":"microsoft_graph","canonical_name":"Microsoft Graph / Outlook / OneDrive Adapter","disposition":"capability_executor","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"adapters/microsoft_graph","role":"Graph integration adapter"},{"kind":"core_path","ref":"scripts/sync_outlook_mail.py","role":"Outlook mail synchronization"}],"fuse":["stable mail/file identity","read receipts","attachment provenance","mail-intent state"],"bounded":["send mail","move/delete mail","write OneDrive","external file release"],"authority_boundary":"Graph writes are capability-bound external actions and never follow directly from model or triage output."},
+    {"system_id":"nichefoundry","canonical_name":"NicheFoundry","disposition":"governed_organ","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/NicheFoundry","role":"published media-production source","sha":"25fef4bd5bfd1258758963b374ef192fc469c14f"},{"kind":"local_path","ref":"/home/byron/Downloads/NicheFoundry_Phase11","role":"production variant"}],"fuse":["creative semantic object","media transform plans","campaign receipts","asset lineage"],"bounded":["publishing","ad spend","external campaign release"],"authority_boundary":"NicheFoundry transforms governed intent into assets; publication and spend remain separate authority actions."},
+    {"system_id":"document_studio","canonical_name":"Document Studio","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"adapters/document_studio","role":"document transformation plane"}],"fuse":["loss-aware conversion","semantic edit receipts","document QA","artifact lineage"],"bounded":["semantic correctness and certified translation require human authority"],"authority_boundary":"Transformation integrity is machine-checkable; semantic/professional approval is not inferred."},
+    {"system_id":"lingua","canonical_name":"DIO Lingua","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"adapters/lingua","role":"language and localization infrastructure"}],"fuse":["terminology bindings","language transformation contracts"],"bounded":["translation meaning and certification remain human-review claims"],"authority_boundary":"Lingua transforms language under source bindings; it does not self-certify meaning."},
+    {"system_id":"format_core","canonical_name":"DIO Format Core","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"adapters/format_core","role":"presentation and rendering infrastructure"}],"fuse":["render profiles","document geometry","template application"],"bounded":["rendering must not silently alter governed semantics"],"authority_boundary":"Format owns presentation, not semantic authorship."},
+    {"system_id":"legalis","canonical_name":"DIO Legalis","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"adapters/legalis","role":"legal identity, requirements, deadlines and prerequisite evidence"}],"fuse":["requirement registry","legal identity","deadline gates","operator evidence receipts"],"bounded":["ALLOW is not legal advice or legal clearance"],"authority_boundary":"Legalis evaluates configured prerequisites; humans/professionals retain consequential legal decisions and Valinor remains kernel authority."},
+    {"system_id":"market_command","canonical_name":"Market Command / Marketing Spine","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"adapters/marketing","role":"campaign, approval, attribution and measurement spine"}],"fuse":["campaign lineage","content approvals","lead attribution","measurement receipts"],"bounded":["publication","ad spend","external outreach"],"authority_boundary":"Planning and evidence may be automated; release, spend and outreach require explicit authority."},
+    {"system_id":"commerce_autorelease","canonical_name":"DIO Commerce / AutoRelease Spine","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"state/commerce","role":"order, payment, fulfilment and delivery state contracts"}],"fuse":["lead-to-order lineage","payment state","job linkage","delivery receipts"],"bounded":["refunds","fulfilment release","payment mutation","customer delivery"],"authority_boundary":"Commercial state does not auto-release fulfilment; financial and delivery actions remain separately gated."},
+    {"system_id":"dio_product_platform","canonical_name":"DIO Product Platform","disposition":"shared_primitive","must_participate_before_deification":true,"sources":[{"kind":"core_path","ref":"products","role":"shared product planning and Governed Case projection"}],"fuse":["Assurance","Agent Authority","VendorProof","Accreditation","TenderProof","GrantProof","Research Integrity","RegOps","CapitalRoom"],"bounded":["registered products are not automatically executable or externally proven"],"authority_boundary":"Product registration enables governed planning only; product-specific execution and release evidence remain required."},
+    {"system_id":"dio_workflows_site","canonical_name":"DIO Workflows Public Surface","disposition":"surface","must_participate_before_deification":true,"sources":[{"kind":"github_repo","ref":"Byron2306/DIO-Workflows","role":"public brand, privacy-policy and claim surface","sha":"c259cd78d0cdad070982e4922722c80b700f4fb8"}],"fuse":["published-claim lineage","privacy-policy and public identity references"],"bounded":["site content never defines internal capability truth by itself"],"authority_boundary":"Public claims must be release-gated against the converged evidence snapshot."},
+    {"system_id":"beast_ide","canonical_name":"BEAST IDE / Developer Surface","disposition":"surface","must_participate_before_deification":false,"sources":[{"kind":"github_repo","ref":"Byron2306/BEAST-IDE","role":"developer governance client"}],"fuse":["developer interfaces where they reuse DIO contracts"],"bounded":["IDE convenience cannot bypass DIO gates"],"authority_boundary":"Developer surfaces consume DIO governance; they do not define evidence truth."},
+    {"system_id":"product_marketing_sites","canonical_name":"Product Marketing Sites","disposition":"surface","must_participate_before_deification":false,"sources":[{"kind":"github_repo","ref":"Byron2306/HOMS-page","role":"HOMS public surface"},{"kind":"github_repo","ref":"Byron2306/Evidex-page","role":"Evidex public surface"},{"kind":"github_repo","ref":"Byron2306/VAMP-site","role":"VAMP public surface"},{"kind":"github_repo","ref":"Byron2306/Sophia-AI-page","role":"Sophia public surface"},{"kind":"github_repo","ref":"Byron2306/EdgeK-BEAST-page","role":"BEAST public surface"},{"kind":"github_repo","ref":"Byron2306/Hivenance-page","role":"Hivenance public surface"},{"kind":"github_repo","ref":"Byron2306/Arda-OS-page","role":"ARDA public surface"},{"kind":"github_repo","ref":"Byron2306/Outlook-agent-page","role":"Outlook public surface"},{"kind":"github_repo","ref":"Byron2306/Seraph","role":"Seraph website surface"}],"fuse":["public claim checks and brand references"],"bounded":["no website is treated as a runtime organ"],"authority_boundary":"Marketing surfaces are governed outputs, not organs with execution authority."},
+    {"system_id":"legacy_vamp_variants","canonical_name":"Legacy VAMP Variants","disposition":"reference_only","must_participate_before_deification":false,"sources":[{"kind":"github_repo","ref":"Byron2306/VAMP","role":"legacy VAMP variant"},{"kind":"github_repo","ref":"Byron2306/VAMP2","role":"legacy VAMP variant"},{"kind":"github_repo","ref":"Byron2306/VAMP-PC","role":"legacy VAMP variant"},{"kind":"github_repo","ref":"Byron2306/VAMP-v8","role":"legacy VAMP variant"}],"fuse":["unique semantics only if absent from Vamp-Offline"],"bounded":["duplicate implementations are not parallel authorities"],"authority_boundary":"Vamp-Offline remains canonical unless a variant proves a unique required capability."},
+    {"system_id":"legacy_presence_repos","canonical_name":"Legacy Lilith Presence Implementations","disposition":"legacy_retire","must_participate_before_deification":false,"sources":[{"kind":"github_repo","ref":"Byron2306/Lilith","role":"legacy Presence implementation"},{"kind":"github_repo","ref":"Byron2306/L1l1th","role":"legacy Presence implementation"},{"kind":"github_repo","ref":"Byron2306/lilith_minimal","role":"legacy Presence implementation"}],"fuse":["only uniquely evidenced capabilities through new governed adapters"],"bounded":["cannot regain Presence identity or authority"],"authority_boundary":"Vesper supersedes legacy Presence identities; legacy repositories cannot become parallel authority paths."}
   ]
 }
