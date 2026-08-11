@@ -1,0 +1,31 @@
+{
+  "schema": "dio.evidence_authority_twin.config.v1",
+  "layers": [
+    "world_state",
+    "evidence_state",
+    "claim_state",
+    "requirement_state",
+    "authority_state",
+    "capability_state",
+    "action_state",
+    "receipt_state"
+  ],
+  "loki": {
+    "source_repository": "Byron2306/Metatron",
+    "source_commit": "532f8f4d22568c3812352150da7c7baf923d76e6",
+    "triune_loki_path": "backend/triune/loki_ai.py",
+    "mirror_maze_path": "backend/services/mystique_maze.py",
+    "deception_router_path": "backend/routers/deception.py",
+    "reuse_mode": "internal_semantic_harvest"
+  },
+  "laws": {
+    "historical_never_silently_current": true,
+    "synthetic_never_canonical": true,
+    "twin_has_no_authority": true,
+    "loki_mirror_has_no_authority": true,
+    "loki_mirror_never_becomes_evidence": true,
+    "loki_mirror_never_executes": true,
+    "valinor_remains_sole_kernel_authority": true,
+    "arda_remains_execution_identity_only": true
+  }
+}
