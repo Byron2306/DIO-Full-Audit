@@ -4,7 +4,7 @@
   "title": "DIO Evidence Assertion v1",
   "type": "object",
   "required": [
-    "schema", "evidence_assertion_id", "source_assertion_id", "issuer", "case_id",
+    "schema", "evidence_assertion_id", "source_assertion_id", "source_assertion_fingerprint", "issuer", "case_id",
     "subject", "source", "relation", "epistemic", "temporal", "custody", "lineage",
     "created_at", "fingerprint"
   ],
@@ -12,6 +12,7 @@
     "schema": {"const": "dio.evidence.assertion.v1"},
     "evidence_assertion_id": {"type": "string", "pattern": "^EVA-[A-F0-9]{16}$"},
     "source_assertion_id": {"type": "string", "pattern": "^FUS-[A-F0-9]{16}$"},
+    "source_assertion_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
     "issuer": {
       "type": "object",
       "required": ["system_id", "role"],
