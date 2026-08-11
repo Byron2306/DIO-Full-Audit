@@ -88,6 +88,7 @@ def test_published_reference_without_local_checkout_is_ready(tmp_path: Path) -> 
     assert snapshot["overall_state"] == "READY"
     assert source["capture_state"] == "published_only"
     assert source["claim_authority"] == "published"
+    assert source["provenance_mode"] == "published_reference"
     assert snapshot["blockers"] == []
 
 
@@ -112,6 +113,8 @@ def test_clean_local_repo_matching_published_is_captured(tmp_path: Path) -> None
     assert snapshot["overall_state"] == "READY"
     assert source["capture_state"] == "local_clean_matches_published"
     assert source["claim_authority"] == "local_captured"
+    assert source["provenance_mode"] == "git_worktree"
+    assert source["git_metadata_state"] == "valid"
     assert source["dirty"] is False
     assert all(item["found"] for item in source["marker_presence"])
 
@@ -141,6 +144,53 @@ def test_dirty_local_repo_gets_content_fingerprint_instead_of_being_rejected(tmp
     assert source["dirty"] is True
     assert source["dirty_tree_sha256"] and len(source["dirty_tree_sha256"]) == 64
     assert {item["path"] for item in source["dirty_files"]} == {"README.md", "NEW.json"}
+
+
+def test_local_filesystem_with_broken_git_metadata_gets_truthful_tree_receipt(tmp_path: Path) -> None:
+    source_tree = tmp_path / "source"
+    source_tree.mkdir()
+    # Reproduce a directory that has a .git husk but no usable Git metadata.
+    (source_tree / ".git").mkdir()
+    (source_tree / "README.md").write_text(
+        "stable DIO lineage identity\nhuman final decision\nUNVERIFIED -> SUPPORTED\n",
+        encoding="utf-8",
+    )
+    (source_tree / "state.json").write_text('{"phase":"production"}\n', encoding="utf-8")
+    registry = write_registry(
+        tmp_path / "registry.json",
+        {
+            "source_id": "sophia",
+            "role": "epistemic lineage",
+            "github_repo": "example/sophia",
+            "published_ref": "main",
+            "published_sha": "b" * 40,
+            "local_path_hints": [str(source_tree)],
+            "capture_policy": "local_required_when_newer",
+            "expected_local_markers": ["stable DIO lineage identity", "human final decision", "UNVERIFIED", "SUPPORTED"],
+            "notes": "test",
+        },
+    )
+
+    first = build_snapshot(registry, {})
+    source = first["sources"][0]
+    assert first["overall_state"] == "READY"
+    assert first["blockers"] == []
+    assert source["capture_state"] == "local_filesystem_captured"
+    assert source["claim_authority"] == "local_captured"
+    assert source["provenance_mode"] == "filesystem_snapshot"
+    assert source["git_metadata_state"] == "missing_or_invalid"
+    assert source["local_head_sha"] is None
+    assert source["published_sha_matches_local_head"] is None
+    assert source["filesystem_tree_sha256"] and len(source["filesystem_tree_sha256"]) == 64
+    assert source["filesystem_file_count"] == 2
+    assert source["filesystem_total_bytes"] > 0
+    assert "not inferred" in source["provenance_note"]
+    assert all(item["found"] for item in source["marker_presence"])
+
+    original_tree_sha = source["filesystem_tree_sha256"]
+    (source_tree / "state.json").write_text('{"phase":"production","revision":2}\n', encoding="utf-8")
+    second = build_snapshot(registry, {})
+    assert second["sources"][0]["filesystem_tree_sha256"] != original_tree_sha
 
 
 def test_explicit_override_resolves_source_without_guessing_path(tmp_path: Path) -> None:
