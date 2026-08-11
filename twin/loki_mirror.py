@@ -5,7 +5,7 @@ import hashlib
 import json
 from typing import Any
 
-from .canonical import TWIN_SCHEMA, TwinError, validate_twin
+from .canonical import TwinError, validate_twin
 
 MIRROR_SCHEMA = "dio.loki_mirror_maze.v1"
 LOKI_SOURCE = {
@@ -44,7 +44,7 @@ def _node(
     mutation: dict[str, Any],
     rationale: str,
 ) -> dict[str, Any]:
-    body = {
+    identity = {
         "source_twin_id": twin["twin_id"],
         "source_twin_fingerprint": twin["fingerprint"],
         "category": category,
@@ -58,9 +58,14 @@ def _node(
         "canonical_effect": False,
         "authority_effect": False,
     }
-    body["fingerprint"] = _fingerprint(body)
-    body["mirror_node_id"] = f"LOKI-{body['fingerprint'][:16].upper()}"
-    return body
+    identity_fingerprint = _fingerprint(identity)
+    row = {
+        **identity,
+        "mirror_node_id": f"LOKI-{identity_fingerprint[:16].upper()}",
+        "children": [],
+    }
+    row["fingerprint"] = _fingerprint(row)
+    return row
 
 
 def _candidate_mutations(twin: dict[str, Any]) -> list[tuple[str, str, dict[str, Any] | None, dict[str, Any], str]]:
@@ -163,7 +168,6 @@ def build_loki_mirror_maze(twin: dict[str, Any]) -> dict[str, Any]:
             rationale=rationale,
         )
         nodes.append(node)
-        # deterministic maze branching: every second node becomes the next trunk parent
         if depth % 2 == 0:
             parent = node["mirror_node_id"]
         depth += 1
@@ -174,6 +178,9 @@ def build_loki_mirror_maze(twin: dict[str, Any]) -> dict[str, Any]:
             children[node["parent_id"]].append(node["mirror_node_id"])
     for node in nodes:
         node["children"] = sorted(children[node["mirror_node_id"]])
+        material = copy.deepcopy(node)
+        material.pop("fingerprint", None)
+        node["fingerprint"] = _fingerprint(material)
 
     max_depth = max((node["depth"] for node in nodes), default=0)
     tier = "surface" if max_depth <= 2 else "shallow" if max_depth <= 4 else "deep" if max_depth <= 7 else "labyrinth"
@@ -230,11 +237,15 @@ def validate_loki_mirror(maze: dict[str, Any], *, twin: dict[str, Any] | None = 
             raise TwinError("Mirror node attempted to escape synthetic containment.")
         if row.get("parent_id") and row.get("parent_id") not in ids:
             raise TwinError("Mirror node parent is unknown.")
-        payload = copy.deepcopy(row)
-        fingerprint = payload.pop("fingerprint", None)
-        node_id = payload.pop("mirror_node_id", None)
-        expected = _fingerprint(payload)
-        if fingerprint != expected or node_id != f"LOKI-{expected[:16].upper()}":
+        material = copy.deepcopy(row)
+        fingerprint = material.pop("fingerprint", None)
+        node_id = material.get("mirror_node_id")
+        expected_fingerprint = _fingerprint(material)
+        identity = copy.deepcopy(material)
+        identity.pop("mirror_node_id", None)
+        identity.pop("children", None)
+        expected_id = f"LOKI-{_fingerprint(identity)[:16].upper()}"
+        if fingerprint != expected_fingerprint or node_id != expected_id:
             raise TwinError("Mirror node fingerprint mismatch.")
     material = {
         "source_twin_id": maze["source_twin_id"],
