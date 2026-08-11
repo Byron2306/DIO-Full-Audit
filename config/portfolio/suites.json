@@ -1,0 +1,12 @@
+{
+  "schema":"dio.suites.registry.v1","registry_id":"dio-canonical-suites-v1","constitution_version":"1.0.0",
+  "laws":{"suite_is_market_packaging_only":true,"suite_changes_runtime":false,"suite_creates_authority":false,"suite_changes_maturity":false},
+  "suites":[
+    {"id":"education_research","name":"DIO Education & Research"},
+    {"id":"evidence_assurance","name":"DIO Evidence & Assurance"},
+    {"id":"public_programme_ops","name":"DIO Public & Programme Operations"},
+    {"id":"ai_digital_trust","name":"DIO AI & Digital Trust"},
+    {"id":"enterprise_operations","name":"DIO Enterprise Operations"},
+    {"id":"demand_presence","name":"DIO Demand & Presence"}
+  ]
+}

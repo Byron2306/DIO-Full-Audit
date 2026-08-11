@@ -1,0 +1,50 @@
+name: DIO Product Constitution Gate
+
+on:
+  push:
+    branches:
+      - agent/dio-product-platform-expansion
+    paths:
+      - "config/portfolio/**"
+      - "config/profiles/**"
+      - "config/products/manifests/**"
+      - "schemas/dio_product_manifest.schema.json"
+      - "scripts/check_product_constitution.py"
+      - "tests/test_product_constitution.py"
+      - "docs/DIO_PRODUCT_CONSTITUTION.md"
+      - ".github/workflows/dio-product-constitution.yml"
+  pull_request:
+    paths:
+      - "config/portfolio/**"
+      - "config/profiles/**"
+      - "config/products/manifests/**"
+      - "schemas/dio_product_manifest.schema.json"
+      - "scripts/check_product_constitution.py"
+      - "tests/test_product_constitution.py"
+      - "docs/DIO_PRODUCT_CONSTITUTION.md"
+      - ".github/workflows/dio-product-constitution.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  constitution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx httpx fastapi requests
+      - name: Compile constitution validator
+        run: python -m py_compile scripts/check_product_constitution.py
+      - name: Run constitution gate
+        run: python scripts/check_product_constitution.py
+      - name: Run Phase 0 constitution tests
+        run: python -m pytest -q tests/test_product_constitution.py
+      - name: Re-run existing product truth
+        run: python -m pytest -q tests/test_product_portfolio.py tests/test_meta_products.py
