@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio-workflows.local/schemas/dio_governed_case.schema.json",
+  "title": "DIO Governed Case",
+  "type": "object",
+  "required": [
+    "schema",
+    "case_id",
+    "product",
+    "status",
+    "lineage",
+    "requirements",
+    "claims",
+    "evidence",
+    "gates",
+    "decisions",
+    "outputs"
+  ],
+  "properties": {
+    "schema": {"const": "dio.governed_case.v1"},
+    "case_id": {"type": "string", "pattern": "^CASE-[A-F0-9]{16}$"},
+    "product": {
+      "type": "string",
+      "enum": [
+        "dio_assurance",
+        "dio_agent_authority",
+        "dio_vendorproof",
+        "dio_accreditation",
+        "dio_tenderproof",
+        "dio_grantproof",
+        "dio_research_integrity",
+        "dio_regops",
+        "dio_capitalroom"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake_pending",
+        "evidence_collection",
+        "review_required",
+        "blocked",
+        "approved_for_output",
+        "closed"
+      ]
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "lineage": {
+      "type": "object",
+      "properties": {
+        "lead_id": {"type": ["string", "null"]},
+        "conversation_id": {"type": ["string", "null"]},
+        "job_id": {"type": ["string", "null"]},
+        "transaction_id": {"type": ["string", "null"]},
+        "campaign_id": {"type": ["string", "null"]},
+        "parent_case_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement_id", "title", "mandatory", "status", "evidence_ids"],
+        "properties": {
+          "requirement_id": {"type": "string", "minLength": 3, "maxLength": 120},
+          "title": {"type": "string", "minLength": 2, "maxLength": 1000},
+          "source_ref": {"type": ["string", "null"], "maxLength": 2000},
+          "mandatory": {"type": "boolean"},
+          "status": {
+            "type": "string",
+            "enum": ["unknown", "satisfied", "missing", "stale", "conflicting", "needs_you"]
+          },
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "due_at": {"type": ["string", "null"], "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "statement", "state", "evidence_ids"],
+        "properties": {
+          "claim_id": {"type": "string", "minLength": 3, "maxLength": 160},
+          "statement": {"type": "string", "minLength": 1, "maxLength": 5000},
+          "state": {"type": "string", "enum": ["unverified", "supported", "refuted", "needs_review"]},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "parent_claim_id": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evidence_id", "kind", "source_ref", "trust_state", "freshness_state"],
+        "properties": {
+          "evidence_id": {"type": "string", "minLength": 3, "maxLength": 160},
+          "kind": {"type": "string", "minLength": 2, "maxLength": 120},
+          "source_ref": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"},
+          "observed_at": {"type": ["string", "null"], "format": "date-time"},
+          "trust_state": {
+            "type": "string",
+            "enum": ["captured_untrusted", "verified_source", "reviewed", "quarantined"]
+          },
+          "freshness_state": {"type": "string", "enum": ["unknown", "current", "stale", "expired"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "state", "reason", "required_authority"],
+        "properties": {
+          "gate_id": {"type": "string", "minLength": 2, "maxLength": 120},
+          "state": {"type": "string", "enum": ["allow", "refuse", "needs_you"]},
+          "reason": {"type": "string", "minLength": 1, "maxLength": 3000},
+          "required_authority": {"type": ["string", "null"], "maxLength": 160}
+        },
+        "additionalProperties": false
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["decision_id", "actor_type", "disposition", "decided_at"],
+        "properties": {
+          "decision_id": {"type": "string", "minLength": 3, "maxLength": 160},
+          "actor_type": {"type": "string", "enum": ["human", "policy", "system"]},
+          "actor_id": {"type": ["string", "null"], "maxLength": 200},
+          "disposition": {"type": "string", "minLength": 1, "maxLength": 1000},
+          "decided_at": {"type": "string", "format": "date-time"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["output_id", "kind", "state"],
+        "properties": {
+          "output_id": {"type": "string", "minLength": 3, "maxLength": 160},
+          "kind": {"type": "string", "minLength": 2, "maxLength": 160},
+          "state": {"type": "string", "enum": ["planned", "review_ready", "approved", "released"]},
+          "artifact_ref": {"type": ["string", "null"], "maxLength": 4000}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
