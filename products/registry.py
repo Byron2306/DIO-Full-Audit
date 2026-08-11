@@ -83,6 +83,107 @@ def _run_context(source_path: Path, runs_root: Path) -> tuple[str, str]:
     return run_name, mode
 
 
+def _source_evidence(source: dict[str, Any], source_path: Path, case_id: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    fallback_ref = str((source.get("source") or {}).get("path") or source_path)
+    for index, item in enumerate(source.get("evidence") or [], start=1):
+        evidence_id = str(item.get("evidence_id") or stable_id("EVID", case_id, index, item.get("title")))
+        raw_hash = str(item.get("sha256") or item.get("hash") or "")
+        sha256 = raw_hash if re.fullmatch(r"[a-fA-F0-9]{64}", raw_hash) else None
+        rows.append(
+            {
+                "evidence_id": evidence_id,
+                "kind": str(item.get("source_type") or item.get("kind") or "source_record"),
+                "source_ref": str(item.get("source_path") or item.get("source_ref") or fallback_ref),
+                "sha256": sha256,
+                "observed_at": item.get("date_observed") or item.get("observed_at"),
+                "trust_state": "captured_untrusted",
+                "freshness_state": "unknown",
+            }
+        )
+    return rows
+
+
+def _build_case(
+    source: dict[str, Any],
+    source_path: Path,
+    job_id: str,
+    product: str,
+    profile: dict[str, Any],
+    intake_state: str,
+    created_at: str,
+) -> dict[str, Any]:
+    case_id = stable_id("CASE", product, job_id)
+    intake_gate = "allow" if intake_state == "approved" else "refuse" if intake_state == "rejected" else "needs_you"
+    status = "blocked" if intake_state == "rejected" else "evidence_collection" if intake_state == "approved" else "intake_pending"
+    authorities = profile.get("required_authorities") or []
+    final_authority = str(authorities[-1]) if authorities else None
+
+    requirements = [
+        {
+            "requirement_id": stable_id("REQ", case_id, requirement),
+            "title": str(requirement),
+            "source_ref": None,
+            "mandatory": True,
+            "status": "unknown",
+            "evidence_ids": [],
+            "due_at": None,
+        }
+        for requirement in profile.get("evidence_inputs") or []
+    ]
+    outputs = [
+        {
+            "output_id": stable_id("OUT", case_id, output),
+            "kind": str(output),
+            "state": "planned",
+            "artifact_ref": None,
+        }
+        for output in profile.get("expected_outputs") or []
+    ]
+    lineage = {
+        "lead_id": (source.get("source") or {}).get("lead_id"),
+        "conversation_id": (source.get("source") or {}).get("conversation_id") or (source.get("source") or {}).get("thread_ref"),
+        "job_id": job_id,
+        "transaction_id": None,
+        "campaign_id": None,
+        "parent_case_id": None,
+    }
+    return {
+        "schema": "dio.governed_case.v1",
+        "case_id": case_id,
+        "product": product,
+        "status": status,
+        "created_at": created_at,
+        "updated_at": created_at,
+        "lineage": lineage,
+        "requirements": requirements,
+        "claims": [],
+        "evidence": _source_evidence(source, source_path, case_id),
+        "gates": [
+            {
+                "gate_id": "intake_authority",
+                "state": intake_gate,
+                "reason": "Product intake requires explicit review before any product-specific processing can begin.",
+                "required_authority": str(authorities[0]) if authorities else None,
+            },
+            {
+                "gate_id": "generic_executor",
+                "state": "refuse",
+                "reason": "The shared portfolio layer has no generic product executor. A product-specific runner and validation receipt must be implemented first.",
+                "required_authority": None,
+            },
+            {
+                "gate_id": "external_release",
+                "state": "needs_you",
+                "reason": "External release requires completed product processing, review evidence, and explicit authorised human release.",
+                "required_authority": final_authority,
+            },
+        ],
+        "decisions": [],
+        "outputs": outputs,
+    }
+
+
 def bootstrap_generic_job(
     source_path: Path,
     state_root: Path,
@@ -92,8 +193,9 @@ def bootstrap_generic_job(
     """Create a safe, non-executing workflow envelope for a registered product profile.
 
     This deliberately does not invoke a product executor. It gives the commercial
-    orchestrator a canonical job with evidence requirements, authority gates, and
-    activation boundaries while preserving the truth that the executor is not yet proven.
+    orchestrator a canonical job and governed case with evidence requirements,
+    authority gates, and activation boundaries while preserving the truth that the
+    executor is not yet proven.
     """
 
     source_path = _resolve_source_job(source_path, runs_root)
@@ -110,6 +212,10 @@ def bootstrap_generic_job(
     intake_state = str(source_approval.get("state") or "pending")
     blocked = intake_state == "rejected"
     created_at = timestamp()
+    case = _build_case(source, source_path, job_id, product, profile, intake_state, created_at)
+    case_path = target.parent / "CASE.json"
+    _write_json(case_path, case)
+
     workflow = {
         "schema": "dio.generic_product_workflow.v1",
         "job_id": job_id,
@@ -122,6 +228,9 @@ def bootstrap_generic_job(
         "created_at": created_at,
         "updated_at": created_at,
         "source_job_path": str(source_path),
+        "case_id": case["case_id"],
+        "case_path": str(case_path),
+        "case_schema": "dio.governed_case.v1",
         "lineage": {
             "source_message_id": (source.get("source") or {}).get("message_id"),
             "lead_id": (source.get("source") or {}).get("lead_id"),
@@ -161,8 +270,9 @@ def bootstrap_generic_job(
         "risk_boundary": profile.get("risk_boundary"),
     }
     _write_json(target, workflow)
-    try:
-        target.chmod(0o600)
-    except OSError:
-        pass
+    for private_path in (target, case_path):
+        try:
+            private_path.chmod(0o600)
+        except OSError:
+            pass
     return workflow
