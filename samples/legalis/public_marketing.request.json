@@ -1,0 +1,7 @@
+{
+  "capability_id": "public_marketing_release",
+  "entity_id": "dio-workflows",
+  "evidence": [],
+  "operator_checks": {"public_claim_review_complete": {"value": true, "receipt_ref": "operator://public-claim-review"}},
+  "valinor": {"entity_id": "dio-workflows", "operation": "write", "target": "public://marketing"}
+}
