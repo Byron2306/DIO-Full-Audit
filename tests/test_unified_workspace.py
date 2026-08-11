@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from scripts import dio_workspace
 from scripts.build_unified_dio_workspace import build_workspace
 from scripts.capture_system_snapshot import workspace_overrides
 
@@ -112,3 +113,65 @@ def test_marker_terms_can_resolve_untracked_local_organ_work(tmp_path: Path) -> 
     assert legalis["dirty"] is True
     assert "requirement registry" in legalis["marker_hits"]
     assert "NEEDS_YOU" in legalis["marker_hits"]
+
+
+def test_convert_document_routes_through_core_cli_without_reimplementing_converter(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    core = tmp_path / "core"
+    (core / "scripts").mkdir(parents=True)
+    (core / "scripts" / "convert_document.py").write_text("# test\n", encoding="utf-8")
+    captured: list[tuple[list[str], Path]] = []
+
+    monkeypatch.setattr(dio_workspace, "python_for_core", lambda value: "/usr/bin/python3")
+    monkeypatch.setattr(dio_workspace, "run", lambda command, cwd: captured.append((command, cwd)) or 0)
+
+    rc = dio_workspace.convert_document(core, ["source.docx", "output.pdf"], dry_run=True, force=False)
+
+    assert rc == 0
+    assert captured[0][0] == [
+        "/usr/bin/python3",
+        str(core / "scripts" / "convert_document.py"),
+        "source.docx",
+        "output.pdf",
+        "--dry-run",
+    ]
+    assert captured[0][1] == core
+
+
+def test_media_command_refuses_kind_mismatch_before_execution(tmp_path: Path) -> None:
+    request = tmp_path / "request.json"
+    request.write_text(json.dumps({"kind": "video", "input": "clip.mp4", "output": "out.mp4"}), encoding="utf-8")
+
+    rc = dio_workspace.media_transform(tmp_path / "DIO", "image", [str(request)], media_root=str(tmp_path), dry_run=True)
+
+    assert rc == 2
+
+
+def test_media_command_routes_to_mounted_nichefoundry_transformer(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    workspace = tmp_path / "DIO"
+    media_org = workspace / "organs" / "nichefoundry"
+    (media_org / "scripts").mkdir(parents=True)
+    script = media_org / "scripts" / "media_transform.js"
+    script.write_text("// test\n", encoding="utf-8")
+    media_root = tmp_path / "media"
+    media_root.mkdir()
+    request = tmp_path / "image.json"
+    request.write_text(json.dumps({"kind": "image", "input": "source.png", "output": "converted.webp"}), encoding="utf-8")
+    captured: list[tuple[list[str], Path]] = []
+
+    real_which = dio_workspace.shutil.which
+    monkeypatch.setattr(dio_workspace.shutil, "which", lambda name: "/usr/bin/node" if name == "node" else real_which(name))
+    monkeypatch.setattr(dio_workspace, "run", lambda command, cwd: captured.append((command, cwd)) or 0)
+
+    rc = dio_workspace.media_transform(workspace, "image", [str(request)], media_root=str(media_root), dry_run=True)
+
+    assert rc == 0
+    assert captured[0][0] == [
+        "/usr/bin/node",
+        str(script),
+        "--workspace",
+        str(media_root.resolve()),
+        "--request",
+        str(request.resolve()),
+        "--dry-run",
+    ]
+    assert captured[0][1] == media_org
