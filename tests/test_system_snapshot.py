@@ -68,6 +68,29 @@ def test_unresolved_required_source_blocks_snapshot(tmp_path: Path) -> None:
     assert len(snapshot["snapshot_sha256"]) == 64
 
 
+def test_published_reference_without_local_checkout_is_ready(tmp_path: Path) -> None:
+    registry = write_registry(
+        tmp_path / "registry.json",
+        {
+            "source_id": "optional_published_organ",
+            "role": "historical_reference",
+            "github_repo": "example/organ",
+            "published_ref": "main",
+            "published_sha": "a" * 40,
+            "local_path_hints": [],
+            "capture_policy": "published_reference_only",
+            "expected_local_markers": [],
+            "notes": "test",
+        },
+    )
+    snapshot = build_snapshot(registry, {})
+    source = snapshot["sources"][0]
+    assert snapshot["overall_state"] == "READY"
+    assert source["capture_state"] == "published_only"
+    assert source["claim_authority"] == "published"
+    assert snapshot["blockers"] == []
+
+
 def test_clean_local_repo_matching_published_is_captured(tmp_path: Path) -> None:
     repo, head = init_repo(tmp_path)
     registry = write_registry(
