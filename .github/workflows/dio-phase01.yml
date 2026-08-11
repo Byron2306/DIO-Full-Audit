@@ -9,17 +9,21 @@ on:
       - "config/dio_system_sources.json"
       - "config/dio_workspace.json"
       - "config/dio_product_portfolio.json"
+      - "config/legalis/**"
       - "config/media_layers.json"
       - "config/routes.json"
       - "products/**"
       - "adapters/document_studio/conversion.py"
+      - "adapters/legalis/**"
       - "schemas/dio_system_snapshot.schema.json"
       - "schemas/dio_unified_workspace.schema.json"
       - "schemas/dio_governed_case*.schema.json"
+      - "schemas/dio_legalis*.schema.json"
       - "scripts/capture_system_snapshot.py"
       - "scripts/build_unified_dio_workspace.py"
       - "scripts/dio_workspace.py"
       - "scripts/convert_document.py"
+      - "scripts/manage_legalis.py"
       - "scripts/reconcile_product_portfolio.py"
       - "scripts/plan_product_layer.py"
       - "scripts/build_portfolio_campaigns.py"
@@ -29,6 +33,7 @@ on:
       - "tests/test_system_snapshot.py"
       - "tests/test_unified_workspace.py"
       - "tests/test_document_conversion.py"
+      - "tests/test_legalis.py"
       - ".github/workflows/dio-phase01.yml"
 
 permissions:
@@ -41,15 +46,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Install validation dependencies
         run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx
-
       - name: Compile Phase 0 and 1 Python
         run: |
           python -m py_compile \
@@ -57,53 +59,43 @@ jobs:
             products/governed_case.py \
             products/case_migration.py \
             adapters/document_studio/conversion.py \
+            adapters/legalis/service.py \
+            adapters/legalis/valinor_bridge.py \
             scripts/capture_system_snapshot.py \
             scripts/build_unified_dio_workspace.py \
             scripts/dio_workspace.py \
             scripts/convert_document.py \
+            scripts/manage_legalis.py \
             scripts/reconcile_product_portfolio.py \
             scripts/plan_product_layer.py \
             scripts/build_portfolio_campaigns.py
-
       - name: Validate JSON and JSON Schemas
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           from jsonschema.validators import validator_for
-
           paths = [
-              Path("config/dio_system_sources.json"),
-              Path("config/dio_workspace.json"),
-              Path("config/dio_product_portfolio.json"),
-              Path("config/media_layers.json"),
-              Path("config/routes.json"),
-              Path("schemas/dio_system_snapshot.schema.json"),
-              Path("schemas/dio_unified_workspace.schema.json"),
-              Path("schemas/dio_governed_case.schema.json"),
-              Path("schemas/dio_governed_case_v2.schema.json"),
-              Path("schemas/dio_product_request.schema.json"),
-          ]
+              Path("config/dio_system_sources.json"), Path("config/dio_workspace.json"), Path("config/dio_product_portfolio.json"),
+              Path("config/legalis/legal_identity.json"), Path("config/legalis/requirement_registry.json"), Path("config/media_layers.json"), Path("config/routes.json"),
+              Path("schemas/dio_system_snapshot.schema.json"), Path("schemas/dio_unified_workspace.schema.json"), Path("schemas/dio_governed_case.schema.json"),
+              Path("schemas/dio_governed_case_v2.schema.json"), Path("schemas/dio_product_request.schema.json"), Path("schemas/dio_legalis_decision.schema.json"), Path("schemas/dio_legalis_request.schema.json")]
           for path in paths:
               payload = json.loads(path.read_text(encoding="utf-8"))
-              if path.parent.name == "schemas":
-                  validator_for(payload).check_schema(payload)
+              if path.parent.name == "schemas": validator_for(payload).check_schema(payload)
               print(f"PASS {path}")
           PY
-
       - name: Validate unified workspace config against schema
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           from jsonschema import Draft202012Validator
-
           schema = json.loads(Path("schemas/dio_unified_workspace.schema.json").read_text(encoding="utf-8"))
           payload = json.loads(Path("config/dio_workspace.json").read_text(encoding="utf-8"))
           Draft202012Validator(schema).validate(payload)
           print("PASS config/dio_workspace.json against unified workspace schema")
           PY
-
       - name: Run Phase 0 and 1 tests
         run: |
           python -m pytest -q \
@@ -112,4 +104,5 @@ jobs:
             tests/test_case_migration.py \
             tests/test_system_snapshot.py \
             tests/test_unified_workspace.py \
-            tests/test_document_conversion.py
+            tests/test_document_conversion.py \
+            tests/test_legalis.py

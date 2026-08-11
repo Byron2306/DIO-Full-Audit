@@ -19,6 +19,7 @@ PHASE1_TESTS = [
     "tests/test_system_snapshot.py",
     "tests/test_unified_workspace.py",
     "tests/test_document_conversion.py",
+    "tests/test_legalis.py",
 ]
 
 
@@ -66,15 +67,7 @@ def phase0(workspace: Path, core: Path, manifest: dict[str, Any]) -> int:
         return 2
     py = python_for_core(core)
     out = workspace / "state" / "system_snapshots" / "latest.json"
-    command = [
-        py,
-        str(core / "scripts" / "capture_system_snapshot.py"),
-        "--workspace",
-        str(workspace),
-        "--out",
-        str(out),
-        "--require-ready",
-    ]
+    command = [py, str(core / "scripts" / "capture_system_snapshot.py"), "--workspace", str(workspace), "--out", str(out), "--require-ready"]
     return run(command, cwd=core)
 
 
@@ -85,7 +78,10 @@ def phase1(core: Path) -> int:
         "products/governed_case.py",
         "products/case_migration.py",
         "adapters/document_studio/conversion.py",
+        "adapters/legalis/service.py",
+        "adapters/legalis/valinor_bridge.py",
         "scripts/convert_document.py",
+        "scripts/manage_legalis.py",
         "scripts/capture_system_snapshot.py",
         "scripts/build_unified_dio_workspace.py",
         "scripts/dio_workspace.py",
@@ -112,6 +108,11 @@ def doctor(workspace: Path, core: Path, manifest: dict[str, Any]) -> int:
     print(f"Phase 0 snapshot: {workspace / 'state' / 'system_snapshots' / 'latest.json'}")
     pytest_ok = subprocess.run([py, "-c", "import pytest"], cwd=str(core), check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
     print(f"pytest: {'available' if pytest_ok else 'missing'}")
+    valinor_hooks = workspace / "organs" / "sophia" / "arda_os" / "backend" / "valinor" / "runtime_hooks.py"
+    legalis_service = workspace / "organs" / "legalis" / "service.py"
+    print("\nGovernance runtime:")
+    print(f"  Valinor kernel runtime: {'available' if valinor_hooks.is_file() else 'missing/unmounted'}")
+    print(f"  DIO Legalis organ: {'available' if legalis_service.is_file() else 'missing/unmounted'}")
     print("\nTransformation tools (optional, route-specific):")
     for binary in ("node", "ffmpeg", "ffprobe", "libreoffice", "soffice", "pandoc", "pdftotext"):
         print(f"  {binary}: {_binary_state(binary)}")
@@ -133,6 +134,19 @@ def convert_document(core: Path, operands: list[str], *, dry_run: bool, force: b
     return run(command, cwd=core)
 
 
+def legalis(workspace: Path, core: Path, operands: list[str], *, dry_run: bool, authorize_valinor: bool) -> int:
+    if len(operands) != 1:
+        print("REFUSE legalis: expected REQUEST.json.")
+        return 2
+    py = python_for_core(core)
+    command = [py, str(core / "scripts" / "manage_legalis.py"), operands[0], "--workspace-root", str(workspace)]
+    if dry_run:
+        command.append("--dry-run")
+    if authorize_valinor:
+        command.append("--authorize-valinor")
+    return run(command, cwd=core)
+
+
 def media_transform(workspace: Path, kind: str, operands: list[str], *, media_root: str | None, dry_run: bool) -> int:
     if len(operands) != 1:
         print(f"REFUSE {'convert-image' if kind == 'image' else 'edit-video'}: expected REQUEST.json.")
@@ -149,7 +163,6 @@ def media_transform(workspace: Path, kind: str, operands: list[str], *, media_ro
     if str(request.get("kind") or "").casefold() != kind:
         print(f"REFUSE media transform: request kind must be {kind!r} for this command.")
         return 2
-
     media_org = workspace / "organs" / "nichefoundry"
     script = media_org / "scripts" / "media_transform.js"
     if not script.is_file():
@@ -170,13 +183,11 @@ def media_transform(workspace: Path, kind: str, operands: list[str], *, media_ro
 def main() -> int:
     parser = argparse.ArgumentParser(description="One command surface for the unified DIO workspace.")
     parser.add_argument("--workspace-root", default=os.environ.get("DIO_WORKSPACE_ROOT", "/home/byron/DIO"))
-    parser.add_argument(
-        "command",
-        choices=["status", "doctor", "phase0", "phase1", "phase01", "convert-doc", "convert-image", "edit-video"],
-    )
+    parser.add_argument("command", choices=["status", "doctor", "phase0", "phase1", "phase01", "legalis", "convert-doc", "convert-image", "edit-video"])
     parser.add_argument("operands", nargs="*")
-    parser.add_argument("--dry-run", action="store_true", help="Plan/fingerprint a transformation without executing it.")
+    parser.add_argument("--dry-run", action="store_true", help="Plan/evaluate without writing a transform or Legalis receipt.")
     parser.add_argument("--force", action="store_true", help="Allow Document Studio to replace an existing conversion output.")
+    parser.add_argument("--authorize-valinor", action="store_true", help="For Legalis, request bounded Valinor runtime authorization after ALLOW.")
     parser.add_argument("--media-root", help="Root containing media input/output paths referenced by a media request; defaults to the current directory.")
     args = parser.parse_args()
 
@@ -186,26 +197,20 @@ def main() -> int:
     if core != CORE_ROOT.resolve():
         print(f"NOTICE: launcher core resolves to {core}; script source is {CORE_ROOT.resolve()}.")
 
-    if args.command == "status":
-        return status(workspace, manifest)
-    if args.command == "doctor":
-        return doctor(workspace, core, manifest)
-    if args.command == "phase0":
-        return phase0(workspace, core, manifest)
-    if args.command == "phase1":
-        return phase1(core)
+    if args.command == "status": return status(workspace, manifest)
+    if args.command == "doctor": return doctor(workspace, core, manifest)
+    if args.command == "phase0": return phase0(workspace, core, manifest)
+    if args.command == "phase1": return phase1(core)
     if args.command == "phase01":
         rc = phase0(workspace, core, manifest)
         if rc:
             print("\nPhase 1 not started because Phase 0 did not earn READY.")
             return rc
         return phase1(core)
-    if args.command == "convert-doc":
-        return convert_document(core, args.operands, dry_run=args.dry_run, force=args.force)
-    if args.command == "convert-image":
-        return media_transform(workspace, "image", args.operands, media_root=args.media_root, dry_run=args.dry_run)
-    if args.command == "edit-video":
-        return media_transform(workspace, "video", args.operands, media_root=args.media_root, dry_run=args.dry_run)
+    if args.command == "legalis": return legalis(workspace, core, args.operands, dry_run=args.dry_run, authorize_valinor=args.authorize_valinor)
+    if args.command == "convert-doc": return convert_document(core, args.operands, dry_run=args.dry_run, force=args.force)
+    if args.command == "convert-image": return media_transform(workspace, "image", args.operands, media_root=args.media_root, dry_run=args.dry_run)
+    if args.command == "edit-video": return media_transform(workspace, "video", args.operands, media_root=args.media_root, dry_run=args.dry_run)
     return 1
 
 
