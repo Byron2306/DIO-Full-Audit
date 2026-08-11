@@ -1,6 +1,6 @@
 """Canonical DIO authority and execution plane."""
 
-from .plane import (
+from .canonical import (
     AuthorityPlaneError,
     authorize_valinor,
     make_arda_execution_identity,
