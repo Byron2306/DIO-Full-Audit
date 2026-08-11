@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_evidence_assertion.schema.json",
+  "title": "DIO Evidence Assertion v1",
+  "type": "object",
+  "required": [
+    "schema", "evidence_assertion_id", "source_assertion_id", "issuer", "case_id",
+    "subject", "source", "relation", "epistemic", "temporal", "custody", "lineage",
+    "created_at", "fingerprint"
+  ],
+  "properties": {
+    "schema": {"const": "dio.evidence.assertion.v1"},
+    "evidence_assertion_id": {"type": "string", "pattern": "^EVA-[A-F0-9]{16}$"},
+    "source_assertion_id": {"type": "string", "pattern": "^FUS-[A-F0-9]{16}$"},
+    "issuer": {
+      "type": "object",
+      "required": ["system_id", "role"],
+      "properties": {
+        "system_id": {"type": "string", "minLength": 2},
+        "role": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "case_id": {"type": ["string", "null"]},
+    "subject": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "ref": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["source_type", "source_ref", "sha256"],
+      "properties": {
+        "source_type": {"type": "string", "minLength": 1},
+        "source_ref": {"type": "string", "minLength": 1},
+        "sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "required": ["type", "target_type", "target_id"],
+      "properties": {
+        "type": {"enum": ["observes", "supports", "contradicts"]},
+        "target_type": {"enum": ["case", "claim", "requirement", "evidence"]},
+        "target_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "epistemic": {
+      "type": "object",
+      "required": ["authority_grade", "trust_state", "freshness_state"],
+      "properties": {
+        "authority_grade": {"enum": ["self_asserted", "source_backed", "independent", "authoritative"]},
+        "trust_state": {"enum": ["captured_untrusted", "trusted_for_review", "rejected", "quarantined"]},
+        "freshness_state": {"enum": ["unknown", "current", "stale", "expired"]}
+      },
+      "additionalProperties": false
+    },
+    "temporal": {
+      "type": "object",
+      "required": ["observed_at", "effective_at", "expires_at"],
+      "properties": {
+        "observed_at": {"type": ["string", "null"], "format": "date-time"},
+        "effective_at": {"type": ["string", "null"], "format": "date-time"},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "custody": {
+      "type": "object",
+      "required": ["state", "custodian_system", "chain_refs"],
+      "properties": {
+        "state": {"enum": ["captured", "source_bound", "derived", "transformed"]},
+        "custodian_system": {"type": "string", "minLength": 2},
+        "chain_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["parent_evidence_assertion_id", "source_refs"],
+      "properties": {
+        "parent_evidence_assertion_id": {"type": ["string", "null"]},
+        "source_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}
