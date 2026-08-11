@@ -96,6 +96,10 @@ jobs:
           Draft202012Validator(schema).validate(payload)
           print("PASS config/dio_workspace.json against unified workspace schema")
           PY
+      - name: Smoke test Legalis CLI
+        run: |
+          python scripts/manage_legalis.py samples/legalis/linkedin_vetting.request.json --dry-run
+          python scripts/manage_legalis.py samples/legalis/public_marketing.request.json --dry-run
       - name: Run Phase 0 and 1 tests
         run: |
           python -m pytest -q \
