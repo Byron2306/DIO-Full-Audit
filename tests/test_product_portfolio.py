@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from products.governed_case import CASE_SCHEMA, validate_case
 from products.registry import bootstrap_generic_job, load_portfolio, product_profiles
 from scripts.build_portfolio_campaigns import marketable_products
 from scripts.reconcile_product_portfolio import reconcile_once
@@ -89,7 +90,7 @@ def _write_routed_job(runs_root: Path, product: str, job_id: str) -> Path:
     return path
 
 
-def test_generic_bootstrap_is_idempotent_non_executing_and_case_backed(tmp_path: Path) -> None:
+def test_generic_bootstrap_is_idempotent_non_executing_and_case_v2_backed(tmp_path: Path) -> None:
     runs_root = tmp_path / "runs"
     state_root = tmp_path / "state" / "product_jobs"
     source = _write_routed_job(runs_root, "dio_assurance", "dio_assurance-test-job")
@@ -98,9 +99,11 @@ def test_generic_bootstrap_is_idempotent_non_executing_and_case_backed(tmp_path:
     second = bootstrap_generic_job(source, state_root, runs_root)
 
     assert first == second
-    assert first["schema"] == "dio.generic_product_workflow.v1"
+    assert first["schema"] == "dio.generic_product_workflow.v2"
     assert first["product"] == "dio_assurance"
+    assert first["case_schema"] == CASE_SCHEMA
     assert first["capability"]["classification"] == "registered"
+    assert first["capability"]["case_reasoning"] == "enabled"
     assert first["capability"]["execution"] == "not_implemented"
     assert first["capability"]["external_release"] == "held"
     assert first["processing"]["state"] == "not_started"
@@ -113,11 +116,14 @@ def test_generic_bootstrap_is_idempotent_non_executing_and_case_backed(tmp_path:
     assert job_path.is_file()
     assert case_path.is_file()
     governed_case = json.loads(case_path.read_text(encoding="utf-8"))
-    assert governed_case["schema"] == "dio.governed_case.v1"
+    validate_case(governed_case)
+    assert governed_case["schema"] == CASE_SCHEMA
     assert governed_case["case_id"] == first["case_id"]
     assert governed_case["status"] == "intake_pending"
     assert governed_case["requirements"]
+    assert governed_case["requirements"][0]["state"] == "evidence_needed"
     assert governed_case["evidence"][0]["evidence_id"] == "EVID-001"
+    assert governed_case["evidence"][0]["trust_state"] == "captured_untrusted"
     gates = {gate["gate_id"]: gate for gate in governed_case["gates"]}
     assert gates["intake_authority"]["state"] == "needs_you"
     assert gates["generic_executor"]["state"] == "refuse"
@@ -139,6 +145,9 @@ def test_reconciler_promotes_mailbox_jobs_into_canonical_product_state(tmp_path:
     assert second["created"] == 0
     assert second["unchanged"] == 1
     workflow = json.loads((state_root / "dio_vendorproof-test-job" / "JOB.json").read_text(encoding="utf-8"))
+    assert workflow["schema"] == "dio.generic_product_workflow.v2"
     assert workflow["product"] == "dio_vendorproof"
     assert workflow["capability"]["execution"] == "not_implemented"
-    assert (state_root / "dio_vendorproof-test-job" / "CASE.json").is_file()
+    case_path = state_root / "dio_vendorproof-test-job" / "CASE.json"
+    assert case_path.is_file()
+    validate_case(json.loads(case_path.read_text(encoding="utf-8")))
