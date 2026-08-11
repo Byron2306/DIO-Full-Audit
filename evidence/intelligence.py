@@ -13,6 +13,7 @@ from products.governed_case import (
     add_evidence,
     link_evidence,
     raise_challenge,
+    recalculate_requirement_state,
     validate_case,
 )
 
@@ -60,8 +61,8 @@ def from_fusion_assertion(
     """Normalize a Fusion Wave 1 evidence/observation assertion into DIO evidence.
 
     Evidence Intelligence is downstream of the canonical fusion membrane. It
-    preserves the source fusion assertion, source refs, temporal state and
-    custody without acquiring execution or release authority.
+    preserves the full source assertion fingerprint, source refs, temporal
+    state and custody without acquiring execution or release authority.
     """
     validate_assertion(assertion)
     if assertion["assertion_type"] not in {"evidence", "observation"}:
@@ -108,9 +109,11 @@ def from_fusion_assertion(
     if freshness_state == "N/A":
         freshness_state = "unknown"
 
+    fusion_custody_ref = f"fusion://{assertion['assertion_id']}"
     row: dict[str, Any] = {
         "schema": "dio.evidence.assertion.v1",
         "source_assertion_id": assertion["assertion_id"],
+        "source_assertion_fingerprint": assertion["fingerprint"],
         "issuer": {
             "system_id": issuer,
             "role": str(assertion["issuer"].get("role") or "evidence_contributor"),
@@ -143,7 +146,7 @@ def from_fusion_assertion(
         "custody": {
             "state": chosen_custody,
             "custodian_system": issuer,
-            "chain_refs": list(dict.fromkeys(chain_refs or [])),
+            "chain_refs": list(dict.fromkeys([fusion_custody_ref, *(chain_refs or [])])),
         },
         "lineage": {
             "parent_evidence_assertion_id": parent_evidence_assertion_id,
@@ -164,6 +167,10 @@ def validate_evidence_assertion(
     Draft202012Validator(schema).validate(row)
     if row.get("fingerprint") != _fingerprint(row):
         raise ValueError("Evidence assertion fingerprint mismatch.")
+    source_fingerprint = str(row.get("source_assertion_fingerprint") or "")
+    expected_source_id = f"FUS-{source_fingerprint[:16].upper()}"
+    if row.get("source_assertion_id") != expected_source_id:
+        raise ValueError("Evidence assertion is not bound to the supplied fusion fingerprint.")
 
     registry = source_registry or load_source_registry()
     issuer = str((row.get("issuer") or {}).get("system_id") or "")
@@ -173,6 +180,8 @@ def validate_evidence_assertion(
     custody = row.get("custody") or {}
     if custody.get("state") == "source_bound" and not source.get("sha256"):
         raise ValueError("source_bound evidence requires a sha256 digest.")
+    if f"fusion://{row['source_assertion_id']}" not in set(custody.get("chain_refs") or []):
+        raise ValueError("Evidence custody chain does not include the source fusion assertion.")
 
 
 def _snapshot_authority_surfaces(case: dict[str, Any]) -> str:
@@ -240,6 +249,8 @@ def project_evidence_assertion(case: dict[str, Any], row: dict[str, Any]) -> dic
                 raised_by=issuer,
                 evidence_ids=[evidence["evidence_id"]],
             )
+            if target_type == "requirement":
+                recalculate_requirement_state(case)
 
     ref = f"evidence://{row['evidence_assertion_id']}"
     if ref not in case["event_refs"]:
@@ -276,10 +287,15 @@ def explain_claim_support(case: dict[str, Any], claim_id: str) -> dict[str, Any]
             contradicting.append({"evidence_id": evidence_id, "usable_current": usable, "source_ref": row.get("source_ref")})
 
     material_challenges = []
+    advisory_challenges = []
     for challenge_id in claim.get("challenge_ids") or []:
         row = challenges.get(challenge_id)
-        if row and row.get("state") == "open" and row.get("severity") in {"material", "blocking"}:
+        if not row or row.get("state") != "open":
+            continue
+        if row.get("severity") in {"material", "blocking"}:
             material_challenges.append(challenge_id)
+        elif row.get("severity") == "advisory":
+            advisory_challenges.append(challenge_id)
 
     usable_support = [row for row in supporting if row["usable_current"]]
     usable_contradiction = [row for row in contradicting if row["usable_current"]]
@@ -295,6 +311,7 @@ def explain_claim_support(case: dict[str, Any], claim_id: str) -> dict[str, Any]
         "supporting_evidence": supporting,
         "contradicting_evidence": contradicting,
         "open_material_challenges": material_challenges,
+        "open_advisory_challenges": advisory_challenges,
         "support_reconstructible": reconstructible,
     }
 
