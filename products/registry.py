@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from products.case_migration import LEGACY_SCHEMA, migrate_v1_to_v2
 from products.governed_case import CASE_SCHEMA, new_case, stable_id, validate_case
 
 
@@ -78,6 +79,48 @@ def _run_context(source_path: Path, runs_root: Path) -> tuple[str, str]:
     return run_name, mode
 
 
+def _upgrade_existing_case(
+    *,
+    target: Path,
+    case_path: Path,
+    source: dict[str, Any],
+    source_path: Path,
+    profile: dict[str, Any],
+    intake_state: str,
+) -> dict[str, Any]:
+    workflow = load_json(target)
+    if not case_path.is_file():
+        raise FileNotFoundError(f"Existing product workflow is missing governed case: {case_path}")
+    case = load_json(case_path)
+    if case.get("schema") == LEGACY_SCHEMA:
+        migrated, receipt = migrate_v1_to_v2(
+            old_case=case,
+            source=source,
+            source_path=source_path,
+            profile=profile,
+            intake_state=intake_state,
+        )
+        _write_json(case_path, migrated)
+        _write_json(case_path.parent / "CASE_MIGRATION.json", receipt)
+        case = migrated
+    validate_case(case)
+    changed = False
+    if workflow.get("schema") != "dio.generic_product_workflow.v2":
+        workflow["schema"] = "dio.generic_product_workflow.v2"
+        changed = True
+    if workflow.get("case_schema") != CASE_SCHEMA:
+        workflow["case_schema"] = CASE_SCHEMA
+        changed = True
+    capability = workflow.setdefault("capability", {})
+    if capability.get("case_reasoning") != "enabled":
+        capability["case_reasoning"] = "enabled"
+        changed = True
+    if changed:
+        workflow["updated_at"] = timestamp()
+        _write_json(target, workflow)
+    return workflow
+
+
 def bootstrap_generic_job(
     source_path: Path,
     state_root: Path,
@@ -88,7 +131,8 @@ def bootstrap_generic_job(
 
     Registration means DIO can classify, stage, reason about evidence, challenge state,
     and enforce authority boundaries. It does not create a product executor or external
-    release authority.
+    release authority. Existing scaffold-only v1 cases are migrated only when migration
+    is lossless; unexpected progressed state is held for human review.
     """
     source_path = _resolve_source_job(source_path, runs_root)
     source = load_json(source_path)
@@ -97,15 +141,19 @@ def bootstrap_generic_job(
     job_id = safe_job_id(str(source.get("job_id") or stable_id(product.upper(), source_path)))
     target = state_root / job_id / "JOB.json"
     case_path = target.parent / "CASE.json"
-    if target.is_file():
-        workflow = load_json(target)
-        if case_path.is_file():
-            validate_case(load_json(case_path))
-        return workflow
-
-    run_name, mode = _run_context(source_path, runs_root)
     source_approval = source.get("approval") or {}
     intake_state = str(source_approval.get("state") or "pending")
+    if target.is_file():
+        return _upgrade_existing_case(
+            target=target,
+            case_path=case_path,
+            source=source,
+            source_path=source_path,
+            profile=profile,
+            intake_state=intake_state,
+        )
+
+    run_name, mode = _run_context(source_path, runs_root)
     blocked = intake_state == "rejected"
     created_at = timestamp()
     case = new_case(
