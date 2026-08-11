@@ -1,4 +1,4 @@
-name: DIO Phase 0-1 + Incarnation Gauntlet
+name: DIO Phase 0-1 + Incarnation + Fusion Wave 1 Gauntlet
 
 on:
   push:
@@ -10,11 +10,13 @@ on:
       - "config/dio_workspace.json"
       - "config/dio_product_portfolio.json"
       - "config/dio_fusion_registry.json"
+      - "config/dio_fusion_bindings.json"
       - "config/presence.json"
       - "config/legalis/**"
       - "config/media_layers.json"
       - "config/routes.json"
       - "products/**"
+      - "fusion/**"
       - "presence_core/**"
       - "adapters/document_studio/conversion.py"
       - "adapters/legalis/**"
@@ -25,9 +27,12 @@ on:
       - "schemas/dio_legalis*.schema.json"
       - "schemas/dio_seraph_challenge.schema.json"
       - "schemas/dio_fusion_registry.schema.json"
+      - "schemas/dio_fusion_assertion.schema.json"
+      - "schemas/dio_fusion_bindings.schema.json"
       - "scripts/capture_system_snapshot.py"
       - "scripts/build_unified_dio_workspace.py"
       - "scripts/check_incarnation.py"
+      - "scripts/check_fusion_wave1.py"
       - "scripts/dio_workspace.py"
       - "scripts/serve_presence_bridge.py"
       - "scripts/convert_document.py"
@@ -46,6 +51,7 @@ on:
       - "tests/test_presence_vesper.py"
       - "tests/test_seraph_challenge.py"
       - "tests/test_fusion_registry.py"
+      - "tests/test_fusion_wave1.py"
       - ".github/workflows/dio-phase01.yml"
 
 permissions:
@@ -64,12 +70,14 @@ jobs:
           python-version: "3.12"
       - name: Install validation dependencies
         run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx httpx fastapi requests
-      - name: Compile Phase 0, 1 and Incarnation Python
+      - name: Compile Phase 0, 1, Incarnation and Fusion Python
         run: |
           python -m py_compile \
             products/registry.py \
             products/governed_case.py \
             products/case_migration.py \
+            fusion/contracts.py \
+            fusion/case_projection.py \
             adapters/document_studio/conversion.py \
             adapters/legalis/service.py \
             adapters/legalis/valinor_bridge.py \
@@ -81,6 +89,7 @@ jobs:
             scripts/capture_system_snapshot.py \
             scripts/build_unified_dio_workspace.py \
             scripts/check_incarnation.py \
+            scripts/check_fusion_wave1.py \
             scripts/dio_workspace.py \
             scripts/serve_presence_bridge.py \
             scripts/convert_document.py \
@@ -96,11 +105,12 @@ jobs:
           from jsonschema.validators import validator_for
           paths = [
               Path("config/dio_system_sources.json"), Path("config/dio_workspace.json"), Path("config/dio_product_portfolio.json"),
-              Path("config/dio_fusion_registry.json"), Path("config/presence.json"),
+              Path("config/dio_fusion_registry.json"), Path("config/dio_fusion_bindings.json"), Path("config/presence.json"),
               Path("config/legalis/legal_identity.json"), Path("config/legalis/requirement_registry.json"), Path("config/media_layers.json"), Path("config/routes.json"),
               Path("schemas/dio_system_snapshot.schema.json"), Path("schemas/dio_unified_workspace.schema.json"), Path("schemas/dio_governed_case.schema.json"),
               Path("schemas/dio_governed_case_v2.schema.json"), Path("schemas/dio_product_request.schema.json"), Path("schemas/dio_legalis_decision.schema.json"),
-              Path("schemas/dio_legalis_request.schema.json"), Path("schemas/dio_seraph_challenge.schema.json"), Path("schemas/dio_fusion_registry.schema.json")]
+              Path("schemas/dio_legalis_request.schema.json"), Path("schemas/dio_seraph_challenge.schema.json"), Path("schemas/dio_fusion_registry.schema.json"),
+              Path("schemas/dio_fusion_assertion.schema.json"), Path("schemas/dio_fusion_bindings.schema.json")]
           for path in paths:
               payload = json.loads(path.read_text(encoding="utf-8"))
               if path.parent.name == "schemas": validator_for(payload).check_schema(payload)
@@ -115,6 +125,7 @@ jobs:
           pairs = [
               ("schemas/dio_unified_workspace.schema.json", "config/dio_workspace.json"),
               ("schemas/dio_fusion_registry.schema.json", "config/dio_fusion_registry.json"),
+              ("schemas/dio_fusion_bindings.schema.json", "config/dio_fusion_bindings.json"),
           ]
           for schema_path, payload_path in pairs:
               schema = json.loads(Path(schema_path).read_text(encoding="utf-8"))
@@ -143,3 +154,5 @@ jobs:
             tests/test_presence_vesper.py \
             tests/test_seraph_challenge.py \
             tests/test_fusion_registry.py
+      - name: Run Fusion Wave 1 tests
+        run: python -m pytest -q tests/test_fusion_wave1.py
