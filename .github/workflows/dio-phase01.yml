@@ -18,6 +18,7 @@ on:
       - "scripts/build_portfolio_campaigns.py"
       - "tests/test_product_portfolio.py"
       - "tests/test_governed_case_v2.py"
+      - "tests/test_case_migration.py"
       - "tests/test_system_snapshot.py"
       - ".github/workflows/dio-phase01.yml"
 
@@ -79,4 +80,5 @@ jobs:
           python -m pytest -q \
             tests/test_product_portfolio.py \
             tests/test_governed_case_v2.py \
+            tests/test_case_migration.py \
             tests/test_system_snapshot.py
