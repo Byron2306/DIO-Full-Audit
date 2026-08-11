@@ -91,7 +91,8 @@ def test_generic_bootstrap_is_idempotent_and_non_executing(tmp_path: Path) -> No
     assert first["capability"]["classification"] == "registered"
     assert first["capability"]["execution"] == "not_implemented"
     assert first["capability"]["external_release"] == "held"
-    assert first["processing"]["state"] == "profile_registered"
+    assert first["processing"]["state"] == "not_started"
+    assert first["processing"]["profile_state"] == "registered"
     assert first["delivery"]["state"] == "held"
     assert first["output_review"]["required"] is True
     assert (state_root / "dio_assurance-test-job" / "JOB.json").is_file()
