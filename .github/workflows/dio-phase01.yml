@@ -7,12 +7,16 @@ on:
   pull_request:
     paths:
       - "config/dio_system_sources.json"
+      - "config/dio_workspace.json"
       - "config/dio_product_portfolio.json"
       - "config/routes.json"
       - "products/**"
       - "schemas/dio_system_snapshot.schema.json"
+      - "schemas/dio_unified_workspace.schema.json"
       - "schemas/dio_governed_case*.schema.json"
       - "scripts/capture_system_snapshot.py"
+      - "scripts/build_unified_dio_workspace.py"
+      - "scripts/dio_workspace.py"
       - "scripts/reconcile_product_portfolio.py"
       - "scripts/plan_product_layer.py"
       - "scripts/build_portfolio_campaigns.py"
@@ -20,6 +24,7 @@ on:
       - "tests/test_governed_case_v2.py"
       - "tests/test_case_migration.py"
       - "tests/test_system_snapshot.py"
+      - "tests/test_unified_workspace.py"
       - ".github/workflows/dio-phase01.yml"
 
 permissions:
@@ -48,6 +53,8 @@ jobs:
             products/governed_case.py \
             products/case_migration.py \
             scripts/capture_system_snapshot.py \
+            scripts/build_unified_dio_workspace.py \
+            scripts/dio_workspace.py \
             scripts/reconcile_product_portfolio.py \
             scripts/plan_product_layer.py \
             scripts/build_portfolio_campaigns.py
@@ -61,9 +68,11 @@ jobs:
 
           paths = [
               Path("config/dio_system_sources.json"),
+              Path("config/dio_workspace.json"),
               Path("config/dio_product_portfolio.json"),
               Path("config/routes.json"),
               Path("schemas/dio_system_snapshot.schema.json"),
+              Path("schemas/dio_unified_workspace.schema.json"),
               Path("schemas/dio_governed_case.schema.json"),
               Path("schemas/dio_governed_case_v2.schema.json"),
               Path("schemas/dio_product_request.schema.json"),
@@ -75,10 +84,24 @@ jobs:
               print(f"PASS {path}")
           PY
 
+      - name: Validate unified workspace config against schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+
+          schema = json.loads(Path("schemas/dio_unified_workspace.schema.json").read_text(encoding="utf-8"))
+          payload = json.loads(Path("config/dio_workspace.json").read_text(encoding="utf-8"))
+          Draft202012Validator(schema).validate(payload)
+          print("PASS config/dio_workspace.json against unified workspace schema")
+          PY
+
       - name: Run Phase 0 and 1 tests
         run: |
           python -m pytest -q \
             tests/test_product_portfolio.py \
             tests/test_governed_case_v2.py \
             tests/test_case_migration.py \
-            tests/test_system_snapshot.py
+            tests/test_system_snapshot.py \
+            tests/test_unified_workspace.py
