@@ -1,0 +1,82 @@
+name: DIO Phase 0-1 Gauntlet
+
+on:
+  push:
+    branches:
+      - agent/dio-product-platform-expansion
+  pull_request:
+    paths:
+      - "config/dio_system_sources.json"
+      - "config/dio_product_portfolio.json"
+      - "config/routes.json"
+      - "products/**"
+      - "schemas/dio_system_snapshot.schema.json"
+      - "schemas/dio_governed_case*.schema.json"
+      - "scripts/capture_system_snapshot.py"
+      - "scripts/reconcile_product_portfolio.py"
+      - "scripts/plan_product_layer.py"
+      - "scripts/build_portfolio_campaigns.py"
+      - "tests/test_product_portfolio.py"
+      - "tests/test_governed_case_v2.py"
+      - "tests/test_system_snapshot.py"
+      - ".github/workflows/dio-phase01.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phase01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+
+      - name: Compile Phase 0 and 1 Python
+        run: |
+          python -m py_compile \
+            products/registry.py \
+            products/governed_case.py \
+            products/case_migration.py \
+            scripts/capture_system_snapshot.py \
+            scripts/reconcile_product_portfolio.py \
+            scripts/plan_product_layer.py \
+            scripts/build_portfolio_campaigns.py
+
+      - name: Validate JSON and JSON Schemas
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema.validators import validator_for
+
+          paths = [
+              Path("config/dio_system_sources.json"),
+              Path("config/dio_product_portfolio.json"),
+              Path("config/routes.json"),
+              Path("schemas/dio_system_snapshot.schema.json"),
+              Path("schemas/dio_governed_case.schema.json"),
+              Path("schemas/dio_governed_case_v2.schema.json"),
+              Path("schemas/dio_product_request.schema.json"),
+          ]
+          for path in paths:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              if path.parent.name == "schemas":
+                  validator_for(payload).check_schema(payload)
+              print(f"PASS {path}")
+          PY
+
+      - name: Run Phase 0 and 1 tests
+        run: |
+          python -m pytest -q \
+            tests/test_product_portfolio.py \
+            tests/test_governed_case_v2.py \
+            tests/test_system_snapshot.py
