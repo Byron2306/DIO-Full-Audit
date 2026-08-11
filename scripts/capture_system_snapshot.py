@@ -4,9 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import subprocess
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -39,7 +37,7 @@ def sha256_file(path: Path) -> str | None:
         return None
 
 
-def run_git(repo: Path, *args: str, check: bool = True) -> str:
+def run_git(repo: Path, *args: str, check: bool = True, strip: bool = True) -> str:
     process = subprocess.run(
         ["git", "-C", str(repo), *args],
         stdout=subprocess.PIPE,
@@ -50,7 +48,7 @@ def run_git(repo: Path, *args: str, check: bool = True) -> str:
     )
     if check and process.returncode != 0:
         raise RuntimeError(process.stderr.strip() or f"git {' '.join(args)} failed")
-    return process.stdout.strip()
+    return process.stdout.strip() if strip else process.stdout
 
 
 def parse_overrides(values: list[str]) -> dict[str, Path]:
@@ -78,7 +76,10 @@ def resolve_local_path(source: dict[str, Any], overrides: dict[str, Path]) -> Pa
 
 
 def dirty_entries(repo: Path) -> tuple[bool, list[dict[str, Any]], str | None]:
-    raw = run_git(repo, "status", "--porcelain=v1", "-z")
+    # Porcelain v1 uses a significant leading space in statuses such as " M".
+    # Never strip this output, or " M README.md" becomes "M README.md" and the
+    # first character of the path is silently lost during parsing.
+    raw = run_git(repo, "status", "--porcelain=v1", "-z", strip=False)
     if not raw:
         return False, [], None
     chunks = [chunk for chunk in raw.split("\x00") if chunk]
