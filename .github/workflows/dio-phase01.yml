@@ -9,14 +9,17 @@ on:
       - "config/dio_system_sources.json"
       - "config/dio_workspace.json"
       - "config/dio_product_portfolio.json"
+      - "config/media_layers.json"
       - "config/routes.json"
       - "products/**"
+      - "adapters/document_studio/conversion.py"
       - "schemas/dio_system_snapshot.schema.json"
       - "schemas/dio_unified_workspace.schema.json"
       - "schemas/dio_governed_case*.schema.json"
       - "scripts/capture_system_snapshot.py"
       - "scripts/build_unified_dio_workspace.py"
       - "scripts/dio_workspace.py"
+      - "scripts/convert_document.py"
       - "scripts/reconcile_product_portfolio.py"
       - "scripts/plan_product_layer.py"
       - "scripts/build_portfolio_campaigns.py"
@@ -25,6 +28,7 @@ on:
       - "tests/test_case_migration.py"
       - "tests/test_system_snapshot.py"
       - "tests/test_unified_workspace.py"
+      - "tests/test_document_conversion.py"
       - ".github/workflows/dio-phase01.yml"
 
 permissions:
@@ -44,7 +48,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install validation dependencies
-        run: python -m pip install --disable-pip-version-check pytest jsonschema
+        run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx
 
       - name: Compile Phase 0 and 1 Python
         run: |
@@ -52,9 +56,11 @@ jobs:
             products/registry.py \
             products/governed_case.py \
             products/case_migration.py \
+            adapters/document_studio/conversion.py \
             scripts/capture_system_snapshot.py \
             scripts/build_unified_dio_workspace.py \
             scripts/dio_workspace.py \
+            scripts/convert_document.py \
             scripts/reconcile_product_portfolio.py \
             scripts/plan_product_layer.py \
             scripts/build_portfolio_campaigns.py
@@ -70,6 +76,7 @@ jobs:
               Path("config/dio_system_sources.json"),
               Path("config/dio_workspace.json"),
               Path("config/dio_product_portfolio.json"),
+              Path("config/media_layers.json"),
               Path("config/routes.json"),
               Path("schemas/dio_system_snapshot.schema.json"),
               Path("schemas/dio_unified_workspace.schema.json"),
@@ -104,4 +111,5 @@ jobs:
             tests/test_governed_case_v2.py \
             tests/test_case_migration.py \
             tests/test_system_snapshot.py \
-            tests/test_unified_workspace.py
+            tests/test_unified_workspace.py \
+            tests/test_document_conversion.py
