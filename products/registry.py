@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from products.governed_case import CASE_SCHEMA, new_case, stable_id, validate_case
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,7 +25,7 @@ def load_json(path: Path) -> dict[str, Any]:
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(path.suffix + ".tmp")
-    temp.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+    temp.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     temp.replace(path)
 
 
@@ -62,12 +63,6 @@ def safe_job_id(value: str) -> str:
     return value
 
 
-def stable_id(prefix: str, *parts: Any) -> str:
-    raw = "\n".join(str(part or "") for part in parts)
-    digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16].upper()
-    return f"{prefix}-{digest}"
-
-
 def _resolve_source_job(path: Path, runs_root: Path) -> Path:
     resolved = path.expanduser().resolve()
     allowed = runs_root.expanduser().resolve()
@@ -83,141 +78,55 @@ def _run_context(source_path: Path, runs_root: Path) -> tuple[str, str]:
     return run_name, mode
 
 
-def _source_evidence(source: dict[str, Any], source_path: Path, case_id: str) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    fallback_ref = str((source.get("source") or {}).get("path") or source_path)
-    for index, item in enumerate(source.get("evidence") or [], start=1):
-        evidence_id = str(item.get("evidence_id") or stable_id("EVID", case_id, index, item.get("title")))
-        raw_hash = str(item.get("sha256") or item.get("hash") or "")
-        sha256 = raw_hash if re.fullmatch(r"[a-fA-F0-9]{64}", raw_hash) else None
-        rows.append(
-            {
-                "evidence_id": evidence_id,
-                "kind": str(item.get("source_type") or item.get("kind") or "source_record"),
-                "source_ref": str(item.get("source_path") or item.get("source_ref") or fallback_ref),
-                "sha256": sha256,
-                "observed_at": item.get("date_observed") or item.get("observed_at"),
-                "trust_state": "captured_untrusted",
-                "freshness_state": "unknown",
-            }
-        )
-    return rows
-
-
-def _build_case(
-    source: dict[str, Any],
-    source_path: Path,
-    job_id: str,
-    product: str,
-    profile: dict[str, Any],
-    intake_state: str,
-    created_at: str,
-) -> dict[str, Any]:
-    case_id = stable_id("CASE", product, job_id)
-    intake_gate = "allow" if intake_state == "approved" else "refuse" if intake_state == "rejected" else "needs_you"
-    status = "blocked" if intake_state == "rejected" else "evidence_collection" if intake_state == "approved" else "intake_pending"
-    authorities = profile.get("required_authorities") or []
-    final_authority = str(authorities[-1]) if authorities else None
-
-    requirements = [
-        {
-            "requirement_id": stable_id("REQ", case_id, requirement),
-            "title": str(requirement),
-            "source_ref": None,
-            "mandatory": True,
-            "status": "unknown",
-            "evidence_ids": [],
-            "due_at": None,
-        }
-        for requirement in profile.get("evidence_inputs") or []
-    ]
-    outputs = [
-        {
-            "output_id": stable_id("OUT", case_id, output),
-            "kind": str(output),
-            "state": "planned",
-            "artifact_ref": None,
-        }
-        for output in profile.get("expected_outputs") or []
-    ]
-    lineage = {
-        "lead_id": (source.get("source") or {}).get("lead_id"),
-        "conversation_id": (source.get("source") or {}).get("conversation_id") or (source.get("source") or {}).get("thread_ref"),
-        "job_id": job_id,
-        "transaction_id": None,
-        "campaign_id": None,
-        "parent_case_id": None,
-    }
-    return {
-        "schema": "dio.governed_case.v1",
-        "case_id": case_id,
-        "product": product,
-        "status": status,
-        "created_at": created_at,
-        "updated_at": created_at,
-        "lineage": lineage,
-        "requirements": requirements,
-        "claims": [],
-        "evidence": _source_evidence(source, source_path, case_id),
-        "gates": [
-            {
-                "gate_id": "intake_authority",
-                "state": intake_gate,
-                "reason": "Product intake requires explicit review before any product-specific processing can begin.",
-                "required_authority": str(authorities[0]) if authorities else None,
-            },
-            {
-                "gate_id": "generic_executor",
-                "state": "refuse",
-                "reason": "The shared portfolio layer has no generic product executor. A product-specific runner and validation receipt must be implemented first.",
-                "required_authority": None,
-            },
-            {
-                "gate_id": "external_release",
-                "state": "needs_you",
-                "reason": "External release requires completed product processing, review evidence, and explicit authorised human release.",
-                "required_authority": final_authority,
-            },
-        ],
-        "decisions": [],
-        "outputs": outputs,
-    }
-
-
 def bootstrap_generic_job(
     source_path: Path,
     state_root: Path,
     runs_root: Path,
     portfolio_path: Path = PORTFOLIO_PATH,
 ) -> dict[str, Any]:
-    """Create a safe, non-executing workflow envelope for a registered product profile.
+    """Create a safe non-executing workflow plus canonical governed case v2.
 
-    This deliberately does not invoke a product executor. It gives the commercial
-    orchestrator a canonical job and governed case with evidence requirements,
-    authority gates, and activation boundaries while preserving the truth that the
-    executor is not yet proven.
+    Registration means DIO can classify, stage, reason about evidence, challenge state,
+    and enforce authority boundaries. It does not create a product executor or external
+    release authority.
     """
-
     source_path = _resolve_source_job(source_path, runs_root)
     source = load_json(source_path)
     product = str((source.get("route") or {}).get("product") or "")
     profile = get_profile(product, portfolio_path)
     job_id = safe_job_id(str(source.get("job_id") or stable_id(product.upper(), source_path)))
     target = state_root / job_id / "JOB.json"
+    case_path = target.parent / "CASE.json"
     if target.is_file():
-        return load_json(target)
+        workflow = load_json(target)
+        if case_path.is_file():
+            validate_case(load_json(case_path))
+        return workflow
 
     run_name, mode = _run_context(source_path, runs_root)
     source_approval = source.get("approval") or {}
     intake_state = str(source_approval.get("state") or "pending")
     blocked = intake_state == "rejected"
     created_at = timestamp()
-    case = _build_case(source, source_path, job_id, product, profile, intake_state, created_at)
-    case_path = target.parent / "CASE.json"
+    case = new_case(
+        product=product,
+        job_id=job_id,
+        source=source,
+        source_path=source_path,
+        evidence_inputs=[str(item) for item in profile.get("evidence_inputs") or []],
+        expected_outputs=[str(item) for item in profile.get("expected_outputs") or []],
+        required_authorities=[str(item) for item in profile.get("required_authorities") or []],
+        intake_state=intake_state,
+        framework_ids=[str(item) for item in profile.get("framework_ids") or []],
+        jurisdiction_ids=[str(item) for item in profile.get("jurisdiction_ids") or []],
+        subject_ref=(source.get("request") or {}).get("subject_ref"),
+        world_state_ref=(source.get("request") or {}).get("world_state_ref"),
+        now=created_at,
+    )
     _write_json(case_path, case)
 
     workflow = {
-        "schema": "dio.generic_product_workflow.v1",
+        "schema": "dio.generic_product_workflow.v2",
         "job_id": job_id,
         "product": product,
         "product_name": profile["name"],
@@ -230,7 +139,7 @@ def bootstrap_generic_job(
         "source_job_path": str(source_path),
         "case_id": case["case_id"],
         "case_path": str(case_path),
-        "case_schema": "dio.governed_case.v1",
+        "case_schema": CASE_SCHEMA,
         "lineage": {
             "source_message_id": (source.get("source") or {}).get("message_id"),
             "lead_id": (source.get("source") or {}).get("lead_id"),
@@ -240,6 +149,7 @@ def bootstrap_generic_job(
         "capability": {
             "classification": "registered",
             "planning": "enabled",
+            "case_reasoning": "enabled",
             "execution": "not_implemented",
             "external_release": "held",
             "commercial_claim": "architecture_seeded_not_product_proven",
@@ -263,7 +173,7 @@ def bootstrap_generic_job(
         },
         "delivery": {
             "state": "held",
-            "reason": "No generic executor, completed review, or product-specific release receipt exists.",
+            "reason": "No product-specific executor, completed review, or release receipt exists.",
         },
         "expected_outputs": profile.get("expected_outputs") or [],
         "activation_gates": profile.get("activation_gates") or [],
