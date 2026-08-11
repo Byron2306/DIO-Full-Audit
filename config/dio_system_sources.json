@@ -34,8 +34,8 @@
       "local_path_hints": ["/home/byron/Integritas-Mechanicus"],
       "capture_policy": "local_required_when_newer",
       "state": "published_stale_relative_to_observed_local_production",
-      "expected_local_markers": ["stable DIO lineage identity", "human final decision", "UNVERIFIED", "SUPPORTED"],
-      "notes": "A Sophia Production Wave 2 Valinor gauntlet was observed on 2026-08-11 in the local Integritas-Mechanicus runtime. Phase 0 must capture the local git/worktree fingerprint and gauntlet artifacts before treating those results as published-source evidence."
+      "expected_local_markers": ["claim_lineage_id", "final_decision_ledger", "UNVERIFIED", "SUPPORTED"],
+      "notes": "A Sophia Production Wave 2 Valinor gauntlet was observed on 2026-08-11 in the local Integritas-Mechanicus runtime. Phase 0 captures the current local source tree and requires implementation-level evidence markers for stable claim lineage, human final-decision persistence, and explicit epistemic states before treating those results as current-source evidence."
     },
     {
       "source_id": "sophia_legacy",
