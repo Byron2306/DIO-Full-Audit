@@ -1,0 +1,48 @@
+{
+  "schema": "dio.capitalroom.config.v1",
+  "mode": "internal_only",
+  "proof_sections": [
+    "architecture_proof",
+    "operational_proof",
+    "refusal_proof",
+    "product_proof"
+  ],
+  "required_foundation": {
+    "phase0_state": "READY",
+    "incarnation_state": "READY_FOR_FUSION",
+    "fusion_waves": 8
+  },
+  "product_ids": [
+    "dio_assurance",
+    "dio_agent_authority",
+    "dio_vendorproof",
+    "dio_accreditation",
+    "dio_tenderproof",
+    "dio_grantproof",
+    "dio_research_integrity",
+    "dio_regops",
+    "dio_capitalroom"
+  ],
+  "truth_boundary": {
+    "revenue_proven": false,
+    "product_market_fit_proven": false,
+    "external_customer_validation_proven": false,
+    "production_deployment_proven": false,
+    "registered_product_means_product_proven": false,
+    "ci_means_production_deployment": false,
+    "bound_entrypoint_means_executed": false
+  },
+  "authority": {
+    "capitalroom_has_authority": false,
+    "capitalroom_can_execute": false,
+    "external_release_authorized": false,
+    "kernel_authority": "Valinor",
+    "execution_identity_authority": "ARDA"
+  },
+  "publication": {
+    "external_release": "locked",
+    "redact_local_paths": true,
+    "source_hashes_required": true,
+    "manifest_hashes_required": true
+  }
+}
