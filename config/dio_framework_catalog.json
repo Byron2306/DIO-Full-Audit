@@ -1,0 +1,89 @@
+{
+  "schema": "dio.framework.catalog.v1",
+  "catalog_id": "dio-fusion-phase2-frameworks",
+  "laws": {
+    "requirements_do_not_create_authority": true,
+    "frameworks_do_not_execute": true,
+    "specialist_sources_remain_traceable": true
+  },
+  "frameworks": [
+    {
+      "framework_id": "dio.legalis.public_marketing",
+      "version": "1",
+      "title": "Legalis public marketing prerequisites",
+      "source_system": "legalis",
+      "source_ref": "config/legalis/requirement_registry.json#public_marketing_release",
+      "scope": {"products": ["dio_assurance", "dio_vendorproof", "dio_regops"], "jurisdictions": ["ZA"], "capabilities": ["public_marketing_release"]},
+      "requirements": [
+        {"rule_id": "privacy_policy_surface_recorded", "statement": "The applicable privacy-policy public surface is recorded before public marketing release.", "kind": "policy", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["identity_record", "public_surface_receipt"], "authority_role": null, "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "public_claim_review_complete", "statement": "Public claims receive explicit review before release.", "kind": "obligation", "mandatory": true, "dependency_rule_ids": ["privacy_policy_surface_recorded"], "evidence_types": ["operator_review_receipt", "claim_evidence_pack"], "authority_role": "release_operator", "due_offset_days": null, "expires_after_days": null}
+      ]
+    },
+    {
+      "framework_id": "dio.homs.assessment_release",
+      "version": "1",
+      "title": "HOMS assessment and moderation requirements",
+      "source_system": "homs",
+      "source_ref": "adapters/homs",
+      "scope": {"products": ["dio_accreditation"], "jurisdictions": [], "capabilities": ["assessment_generation", "assessment_release", "efundi_upload"]},
+      "requirements": [
+        {"rule_id": "rubric_binding", "statement": "Assessment output is bound to an explicit rubric or curriculum requirement set.", "kind": "framework", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["rubric_binding", "curriculum_mapping"], "authority_role": null, "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "moderation_review", "statement": "Assessment output receives moderation evidence before institutional release.", "kind": "control", "mandatory": true, "dependency_rule_ids": ["rubric_binding"], "evidence_types": ["moderation_receipt"], "authority_role": "educator_or_moderator", "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "institutional_release_authority", "statement": "Institutional release remains an explicit authorised human decision.", "kind": "obligation", "mandatory": true, "dependency_rule_ids": ["moderation_review"], "evidence_types": ["human_release_receipt"], "authority_role": "authorised_educator", "due_offset_days": null, "expires_after_days": null}
+      ]
+    },
+    {
+      "framework_id": "dio.phoenix.promotion",
+      "version": "1",
+      "title": "Phoenix economic promotion requirements",
+      "source_system": "phoenix",
+      "source_ref": "organs/phoenix",
+      "scope": {"products": [], "jurisdictions": [], "capabilities": ["economic_hypothesis", "temporal_adversarial_validation", "shadow_flight", "tiny_live_canary", "controlled_growth"]},
+      "requirements": [
+        {"rule_id": "verified_cost_model", "statement": "Promotion evidence includes a verified cost model for the intended execution venue.", "kind": "control", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["fee_evidence", "fill_evidence", "cost_model_receipt"], "authority_role": null, "due_offset_days": null, "expires_after_days": 30},
+        {"rule_id": "persistent_independent_edge", "statement": "A temporally persistent independent economic edge is evidenced before prospective promotion.", "kind": "framework", "mandatory": true, "dependency_rule_ids": ["verified_cost_model"], "evidence_types": ["temporal_validation_receipt", "independent_edge_evidence"], "authority_role": null, "due_offset_days": null, "expires_after_days": 30},
+        {"rule_id": "prospective_shadow_flight", "statement": "Prospective shadow-flight evidence is required before any tiny live canary proposal.", "kind": "control", "mandatory": true, "dependency_rule_ids": ["persistent_independent_edge"], "evidence_types": ["shadow_flight_receipt"], "authority_role": null, "due_offset_days": null, "expires_after_days": 14},
+        {"rule_id": "capital_authority", "statement": "Any live-capital action requires explicit authorised human capital authority after the research gates pass.", "kind": "obligation", "mandatory": true, "dependency_rule_ids": ["prospective_shadow_flight"], "evidence_types": ["capital_authority_receipt"], "authority_role": "capital_operator", "due_offset_days": null, "expires_after_days": null}
+      ]
+    },
+    {
+      "framework_id": "dio.commerce.fulfilment",
+      "version": "1",
+      "title": "Commerce and AutoRelease fulfilment requirements",
+      "source_system": "commerce_autorelease",
+      "source_ref": "state/commerce",
+      "scope": {"products": ["dio_assurance", "dio_vendorproof", "dio_accreditation", "dio_tenderproof", "dio_grantproof", "dio_research_integrity", "dio_regops"], "jurisdictions": [], "capabilities": ["fulfilment_release", "customer_delivery"]},
+      "requirements": [
+        {"rule_id": "payment_state_verified", "statement": "Applicable payment state is verified before paid fulfilment release.", "kind": "contract", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["payment_receipt", "order_state"], "authority_role": null, "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "job_completion_verified", "statement": "The governed job is complete and its expected deliverables have validation receipts.", "kind": "control", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["job_receipt", "artifact_receipt"], "authority_role": null, "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "fulfilment_release_authority", "statement": "Customer fulfilment release requires explicit authorised release after payment and job completion are verified.", "kind": "obligation", "mandatory": true, "dependency_rule_ids": ["payment_state_verified", "job_completion_verified"], "evidence_types": ["human_release_receipt"], "authority_role": "fulfilment_operator", "due_offset_days": null, "expires_after_days": null}
+      ]
+    },
+    {
+      "framework_id": "dio.market_command.public_release",
+      "version": "1",
+      "title": "Market Command campaign and public claim requirements",
+      "source_system": "market_command",
+      "source_ref": "adapters/marketing",
+      "scope": {"products": ["dio_assurance", "dio_agent_authority", "dio_vendorproof", "dio_accreditation", "dio_tenderproof", "dio_grantproof", "dio_research_integrity", "dio_regops"], "jurisdictions": [], "capabilities": ["campaign_release", "public_claim_release", "external_outreach"]},
+      "requirements": [
+        {"rule_id": "claim_evidence_bound", "statement": "Every consequential public claim is bound to current reviewable evidence.", "kind": "control", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["claim_evidence_pack"], "authority_role": null, "due_offset_days": null, "expires_after_days": 30},
+        {"rule_id": "campaign_approval", "statement": "Campaign release has an explicit approval receipt covering the intended channel and claims.", "kind": "obligation", "mandatory": true, "dependency_rule_ids": ["claim_evidence_bound"], "evidence_types": ["campaign_approval_receipt"], "authority_role": "campaign_release_operator", "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "spend_authority", "statement": "Any paid campaign spend has a separately authorised spending decision.", "kind": "obligation", "mandatory": false, "dependency_rule_ids": ["campaign_approval"], "evidence_types": ["spend_authority_receipt"], "authority_role": "spend_operator", "due_offset_days": null, "expires_after_days": null}
+      ]
+    },
+    {
+      "framework_id": "dio.product.platform",
+      "version": "1",
+      "title": "DIO product-platform baseline requirements",
+      "source_system": "dio_product_platform",
+      "source_ref": "config/dio_product_portfolio.json",
+      "scope": {"products": ["dio_assurance", "dio_agent_authority", "dio_vendorproof", "dio_accreditation", "dio_tenderproof", "dio_grantproof", "dio_research_integrity", "dio_regops", "dio_capitalroom"], "jurisdictions": [], "capabilities": ["product_case"]},
+      "requirements": [
+        {"rule_id": "source_scope_recorded", "statement": "The case source, subject and applicable scope are recorded before substantive processing.", "kind": "framework", "mandatory": true, "dependency_rule_ids": [], "evidence_types": ["source_record", "scope_record"], "authority_role": null, "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "evidence_expectations_recorded", "statement": "Product-specific evidence expectations are explicit and traceable.", "kind": "evidence_input", "mandatory": true, "dependency_rule_ids": ["source_scope_recorded"], "evidence_types": ["evidence_plan"], "authority_role": null, "due_offset_days": null, "expires_after_days": null},
+        {"rule_id": "challenge_review_before_release", "statement": "Material open challenges are reviewed before consequential external release.", "kind": "control", "mandatory": true, "dependency_rule_ids": ["evidence_expectations_recorded"], "evidence_types": ["challenge_receipt", "review_receipt"], "authority_role": "release_operator", "due_offset_days": null, "expires_after_days": null}
+      ]
+    }
+  ]
+}
