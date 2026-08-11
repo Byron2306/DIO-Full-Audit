@@ -124,15 +124,19 @@
     {
       "source_id": "dio_legalis",
       "role": "legal_identity_requirement_evidence_external_authority_and_deadline_gates",
-      "github_repo": null,
+      "github_repo": "Byron2306/DIO-Full-Audit",
       "published_ref": null,
       "published_sha": null,
       "published_observed_at": null,
-      "local_path_hints": [],
+      "local_path_hints": [
+        "/home/byron/DIO-Core/adapters/legalis",
+        "/home/byron/DIO-Full-Audit/adapters/legalis",
+        "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/adapters/legalis"
+      ],
       "capture_policy": "source_path_required",
-      "state": "local_source_unresolved",
+      "state": "core_resident_source_available",
       "expected_local_markers": ["ALLOW", "REFUSE", "NEEDS_YOU", "legal identity", "requirement registry", "evidence receipts"],
-      "notes": "Legalis Wave 1 exists as observed local work, but no GitHub source or local path has yet been resolved in this audit. This is a deliberate blocker for claims that require Legalis implementation evidence."
+      "notes": "Legalis is now a first-class core-resident DIO organ under adapters/legalis. It evaluates configured prerequisites and projects decisions into Governed Case; Valinor remains the kernel authority and is invoked only after Legalis earns ALLOW. Phase 0 must capture the active DIO worktree containing this implementation."
     }
   ]
 }
