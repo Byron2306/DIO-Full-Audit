@@ -30,17 +30,28 @@ def _fingerprint(value: Mapping[str, Any]) -> str:
     return hashlib.sha256(_canonical(value).encode("utf-8")).hexdigest()
 
 
+def _payload_digest(payload: Mapping[str, Any] | None) -> str:
+    return "sha256:" + hashlib.sha256(_canonical(dict(payload or {})).encode("utf-8")).hexdigest()
+
+
 def load_vertical_executor_registry(path: Path | None = None) -> dict[str, Any]:
     payload = json.loads((path or REGISTRY_PATH).read_text(encoding="utf-8"))
     if payload.get("schema") != "dio.vertical_executors.registry.v1":
         raise VerticalExecutorError("Unsupported vertical executor registry schema.")
     laws = payload.get("laws") or {}
+    required_true = {
+        "receipt_required",
+        "wave4_authority_chain_required",
+        "bound_means_real_entrypoint",
+        "unproven_external_capabilities_are_locked",
+    }
     if laws.get("generic_executor") is not False:
         raise VerticalExecutorError("Generic execution must remain disabled.")
     if laws.get("automatic_external_actions") is not False:
         raise VerticalExecutorError("Automatic external actions must remain disabled.")
-    if laws.get("receipt_required") is not True:
-        raise VerticalExecutorError("Every vertical execution must require a receipt.")
+    missing = sorted(name for name in required_true if laws.get(name) is not True)
+    if missing:
+        raise VerticalExecutorError("Required executor laws are disabled: " + ",".join(missing))
     return payload
 
 
@@ -54,6 +65,27 @@ def _binding(registry: Mapping[str, Any], executor_id: str, capability: str) -> 
     return dict(executor), dict(cap)
 
 
+def _validate_binding(executor_id: str, cap: Mapping[str, Any]) -> None:
+    binding_state = cap.get("binding_state")
+    mode = cap.get("mode")
+    entrypoint_kind = cap.get("entrypoint_kind")
+    entrypoint_ref = cap.get("entrypoint_ref")
+
+    if binding_state == "locked" or mode == "hard_locked":
+        reason = str(cap.get("lock_reason") or "not bound")
+        raise VerticalExecutorError(f"Capability is hard locked: {executor_id}/{cap.get('capability')}: {reason}")
+    if binding_state != "bound":
+        raise VerticalExecutorError("Vertical capability is not explicitly bound.")
+    if mode not in {"local_only", "explicit_environment_gate"}:
+        raise VerticalExecutorError("Unsupported vertical execution mode.")
+    if entrypoint_kind not in {"core_callable", "core_cli", "workspace_mount"}:
+        raise VerticalExecutorError("Bound capability has no supported entrypoint kind.")
+    if not isinstance(entrypoint_ref, str) or not entrypoint_ref.strip():
+        raise VerticalExecutorError("Bound capability has no real entrypoint reference.")
+    if cap.get("external_side_effect") is True and mode != "explicit_environment_gate":
+        raise VerticalExecutorError("External side effects require an explicit environment gate.")
+
+
 def prepare_vertical_execution(
     *,
     executor_id: str,
@@ -61,17 +93,20 @@ def prepare_vertical_execution(
     lease: dict[str, Any],
     valinor_authorization: dict[str, Any],
     arda_identity: dict[str, Any],
+    payload: Mapping[str, Any] | None = None,
     environment_gate: bool = False,
     requested_at: str | None = None,
     registry_path: Path | None = None,
 ) -> dict[str, Any]:
-    """Fail-closed preflight for one capability-bound specialist execution.
+    """Fail-closed preflight for one payload-bound specialist execution.
 
-    This function never invokes the specialist executor. It only proves that the
-    Wave 4 authority chain and the Wave 5 registry binding agree exactly.
+    The preflight never invokes the specialist executor. It proves that the Wave
+    4 authority chain, Wave 5 registry binding, exact payload, and runtime
+    identity agree before any specialist callback is allowed to run.
     """
     registry = load_vertical_executor_registry(registry_path)
     executor, cap = _binding(registry, executor_id, capability)
+    _validate_binding(executor_id, cap)
 
     try:
         validate_capability_lease(lease, now=requested_at)
@@ -90,13 +125,7 @@ def prepare_vertical_execution(
         raise VerticalExecutorError("ARDA audience does not match the capability lease.")
 
     mode = cap.get("mode")
-    if mode == "hard_locked":
-        raise VerticalExecutorError(f"Capability is hard locked: {executor_id}/{capability}")
-    if mode not in {"local_only", "explicit_environment_gate"}:
-        raise VerticalExecutorError("Unsupported vertical execution mode.")
     if cap.get("external_side_effect") is True:
-        if mode != "explicit_environment_gate":
-            raise VerticalExecutorError("External side effects require an explicit environment gate.")
         if environment_gate is not True:
             raise VerticalExecutorError("Explicit environment gate is not enabled for this external action.")
         if arda_identity.get("evidence_mode") not in {"observed", "enforced"}:
@@ -104,11 +133,15 @@ def prepare_vertical_execution(
     elif mode == "explicit_environment_gate" and environment_gate is not True:
         raise VerticalExecutorError("Explicit environment gate is not enabled for this capability.")
 
+    digest = _payload_digest(payload)
     request: dict[str, Any] = {
         "schema": REQUEST_SCHEMA,
         "executor_id": executor_id,
         "system_ids": list(executor.get("system_ids") or []),
         "capability": capability,
+        "binding_state": cap.get("binding_state"),
+        "entrypoint_kind": cap.get("entrypoint_kind"),
+        "entrypoint_ref": cap.get("entrypoint_ref"),
         "mode": mode,
         "external_side_effect": bool(cap.get("external_side_effect")),
         "case_id": lease.get("case_id"),
@@ -120,6 +153,8 @@ def prepare_vertical_execution(
         "arda_execution_identity_id": arda_identity.get("execution_identity_id"),
         "valinor_operation": cap.get("valinor_operation"),
         "receipt_prefix": cap.get("receipt_prefix"),
+        "receipt_contract": cap.get("receipt_contract"),
+        "payload_digest": digest,
         "requested_at": requested_at,
     }
     request["fingerprint"] = _fingerprint(request)
@@ -136,23 +171,27 @@ def execute_vertical_capability(
     valinor_authorization: dict[str, Any],
     arda_identity: dict[str, Any],
     specialist_executor: Callable[[dict[str, Any]], Mapping[str, Any]],
+    payload: Mapping[str, Any] | None = None,
     environment_gate: bool = False,
     executed_at: str | None = None,
     registry_path: Path | None = None,
 ) -> dict[str, Any]:
-    """Execute exactly one pre-authorized specialist capability and close it with a Wave 4 receipt."""
+    """Execute exactly one pre-authorized, payload-bound specialist capability."""
+    payload_dict = dict(payload or {})
     request = prepare_vertical_execution(
         executor_id=executor_id,
         capability=capability,
         lease=lease,
         valinor_authorization=valinor_authorization,
         arda_identity=arda_identity,
+        payload=payload_dict,
         environment_gate=environment_gate,
         requested_at=executed_at,
         registry_path=registry_path,
     )
 
-    result = specialist_executor(dict(request))
+    envelope = {"request": dict(request), "payload": payload_dict}
+    result = specialist_executor(envelope)
     if not isinstance(result, Mapping):
         raise VerticalExecutorError("Specialist executor must return a receipt mapping.")
     receipt_ref = str(result.get("receipt_ref") or "")
@@ -162,6 +201,10 @@ def execute_vertical_capability(
     prefix = str(request.get("receipt_prefix") or "")
     if not receipt_ref or not prefix or not receipt_ref.startswith(prefix):
         raise VerticalExecutorError("Specialist receipt reference does not match the registered executor prefix.")
+    if result.get("vertical_request_id") != request["vertical_request_id"]:
+        raise VerticalExecutorError("Specialist receipt is not bound to the exact vertical request.")
+    if result.get("payload_digest") != request["payload_digest"]:
+        raise VerticalExecutorError("Specialist receipt payload digest does not match the authorized payload.")
 
     try:
         execution_receipt, consumed_lease = record_execution_receipt(
