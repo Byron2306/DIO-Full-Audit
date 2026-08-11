@@ -54,6 +54,27 @@ def run_git(repo: Path, *args: str, check: bool = True, strip: bool = True) -> s
     return process.stdout.strip() if strip else process.stdout
 
 
+def git_root_or_none(repo: Path) -> tuple[Path | None, str | None]:
+    """Resolve a valid Git root without treating absent/broken metadata as a capture failure."""
+    try:
+        process = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", "--show-toplevel"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=20,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        return None, f"{type(exc).__name__}: {exc}"
+    if process.returncode != 0 or not process.stdout.strip():
+        return None, process.stderr.strip() or "Git metadata unavailable."
+    try:
+        return Path(process.stdout.strip()).resolve(), None
+    except OSError as exc:
+        return None, f"{type(exc).__name__}: {exc}"
+
+
 def parse_overrides(values: list[str]) -> dict[str, Path]:
     overrides: dict[str, Path] = {}
     for value in values:
@@ -73,7 +94,7 @@ def workspace_overrides(workspace: Path | None) -> tuple[dict[str, Path], str | 
     root = workspace.expanduser().resolve()
     manifest_path = root / "WORKSPACE.json"
     if not manifest_path.is_file():
-        raise ValueError(f"Unified DIO workspace manifest not found: {manifest_path}")
+        raise ValueError(f"Unified DIO workspace manifest not found: {manifest_path}. Run scripts/build_unified_dio_workspace.py first.")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("schema") != "dio.unified_workspace_receipt.v1":
         raise ValueError("Unsupported unified DIO workspace manifest schema.")
@@ -127,6 +148,57 @@ def dirty_entries(repo: Path) -> tuple[bool, list[dict[str, Any]], str | None]:
         index += 1
     fingerprint = sha256_bytes("\n".join(sorted(digest_material)).encode("utf-8"))
     return True, rows, fingerprint
+
+
+def filesystem_tree_fingerprint(root: Path, max_files: int = 50000) -> tuple[str, int, int]:
+    """Hash a current filesystem tree without implying any Git ancestry.
+
+    The fingerprint includes relative paths, file sizes and content hashes, plus
+    symlink targets. Known generated/cache directories are excluded consistently.
+    Capture refuses rather than silently truncating if the safety file limit is hit.
+    """
+    digest = hashlib.sha256()
+    file_count = 0
+    total_bytes = 0
+    for current, dirs, files in os.walk(root, followlinks=False):
+        current_path = Path(current)
+        dirs[:] = sorted(
+            name
+            for name in dirs
+            if name not in SKIP_DIRS and not (current_path / name).is_symlink()
+        )
+        for filename in sorted(files):
+            path = current_path / filename
+            try:
+                relative = path.relative_to(root).as_posix()
+            except ValueError:
+                continue
+            if path.is_symlink():
+                try:
+                    target = os.readlink(path)
+                except OSError as exc:
+                    raise RuntimeError(f"Could not read symlink {relative}: {exc}") from exc
+                material = f"symlink\t{relative}\t{target}"
+            elif path.is_file():
+                file_count += 1
+                if file_count > max_files:
+                    raise RuntimeError(
+                        f"Filesystem capture exceeded safety limit of {max_files} files; refusing partial provenance receipt."
+                    )
+                try:
+                    size = path.stat().st_size
+                except OSError as exc:
+                    raise RuntimeError(f"Could not stat {relative}: {exc}") from exc
+                file_hash = sha256_file(path)
+                if file_hash is None:
+                    raise RuntimeError(f"Could not hash {relative}; refusing partial provenance receipt.")
+                total_bytes += size
+                material = f"file\t{relative}\t{size}\t{file_hash}"
+            else:
+                continue
+            digest.update(material.encode("utf-8", errors="surrogateescape"))
+            digest.update(b"\n")
+    return digest.hexdigest(), file_count, total_bytes
 
 
 def filesystem_marker(repo: Path, marker: str, max_files: int = 8000) -> str | None:
@@ -202,6 +274,13 @@ def capture_source(source: dict[str, Any], overrides: dict[str, Path]) -> dict[s
         "dirty_tree_sha256": None,
         "dirty_files": [],
         "published_sha_matches_local_head": None,
+        "provenance_mode": None,
+        "git_metadata_state": None,
+        "git_metadata_detail": None,
+        "filesystem_tree_sha256": None,
+        "filesystem_file_count": None,
+        "filesystem_total_bytes": None,
+        "provenance_note": None,
         "marker_presence": [],
         "notes": source.get("notes"),
         "error": None,
@@ -209,9 +288,10 @@ def capture_source(source: dict[str, Any], overrides: dict[str, Path]) -> dict[s
     local_path = resolve_local_path(source, overrides)
     policy = str(source.get("capture_policy") or "")
     if local_path is None:
-        if policy in {"published_reference_only", "self_dynamic"} and source.get("published_sha"):
+        if policy in {"published_reference_only", "published_plus_local_if_newer", "self_dynamic"} and source.get("published_sha"):
             result["capture_state"] = "published_only"
             result["claim_authority"] = "published"
+            result["provenance_mode"] = "published_reference"
         elif source.get("published_sha"):
             result["capture_state"] = "local_path_missing"
             result["claim_authority"] = "limited"
@@ -224,9 +304,39 @@ def capture_source(source: dict[str, Any], overrides: dict[str, Path]) -> dict[s
         result["error"] = "Resolved path is not a directory."
         return result
 
+    root, git_detail = git_root_or_none(local_path)
+    if root is None:
+        try:
+            tree_sha, file_count, total_bytes = filesystem_tree_fingerprint(local_path)
+            result["capture_state"] = "local_filesystem_captured"
+            result["claim_authority"] = "local_captured"
+            result["provenance_mode"] = "filesystem_snapshot"
+            result["git_metadata_state"] = "missing_or_invalid"
+            result["git_metadata_detail"] = git_detail
+            result["filesystem_tree_sha256"] = tree_sha
+            result["filesystem_file_count"] = file_count
+            result["filesystem_total_bytes"] = total_bytes
+            result["provenance_note"] = (
+                "Current filesystem bytes were captured deterministically. Git ancestry is unavailable and was not inferred; "
+                "any published SHA is a baseline reference only."
+            )
+            result["marker_presence"] = marker_presence(
+                local_path,
+                [str(item) for item in source.get("expected_local_markers") or []],
+            )
+        except Exception as exc:
+            result["capture_state"] = "capture_error"
+            result["claim_authority"] = "limited" if source.get("published_sha") else "none"
+            result["provenance_mode"] = "filesystem_snapshot"
+            result["git_metadata_state"] = "missing_or_invalid"
+            result["git_metadata_detail"] = git_detail
+            result["error"] = f"{type(exc).__name__}: {exc}"
+        return result
+
     try:
-        root = Path(run_git(local_path, "rev-parse", "--show-toplevel")).resolve()
         result["local_path"] = str(root)
+        result["provenance_mode"] = "git_worktree"
+        result["git_metadata_state"] = "valid"
         result["local_head_sha"] = run_git(root, "rev-parse", "HEAD")
         result["local_branch"] = run_git(root, "branch", "--show-current", check=False) or None
         result["local_origin"] = run_git(root, "remote", "get-url", "origin", check=False) or None
@@ -260,7 +370,7 @@ def blocker_for(source_cfg: dict[str, Any], captured: dict[str, Any]) -> dict[st
     if policy == "source_path_required" and state in {"source_unresolved", "local_path_missing"}:
         return {"source_id": source_id, "code": "SOURCE_PATH_REQUIRED", "message": "A local source path must be resolved and captured before implementation claims are promoted."}
     if policy == "local_required_when_newer" and state in {"source_unresolved", "local_path_missing", "published_only"}:
-        return {"source_id": source_id, "code": "LOCAL_CAPTURE_REQUIRED", "message": "Known newer local work requires a local git/worktree capture receipt."}
+        return {"source_id": source_id, "code": "LOCAL_CAPTURE_REQUIRED", "message": "Known newer local work requires a local source-tree capture receipt."}
     expected = [str(item) for item in source_cfg.get("expected_local_markers") or []]
     if expected and captured.get("claim_authority") == "local_captured":
         missing = [str(item.get("marker")) for item in captured.get("marker_presence") or [] if not item.get("found")]
@@ -268,7 +378,7 @@ def blocker_for(source_cfg: dict[str, Any], captured: dict[str, Any]) -> dict[st
             return {
                 "source_id": source_id,
                 "code": "EXPECTED_EVIDENCE_MARKER_MISSING",
-                "message": "Captured worktree does not contain every expected evidence marker: " + ", ".join(missing),
+                "message": "Captured source tree does not contain every expected evidence marker: " + ", ".join(missing),
             }
     return None
 
@@ -294,7 +404,15 @@ def build_snapshot(registry_path: Path, overrides: dict[str, Path], workspace_ma
         overall = "READY"
     snapshot: dict[str, Any] = {
         "schema": "dio.system_snapshot.v1",
-        "snapshot_id": stable_id("SNAP", created_at, *(f"{row['source_id']}:{row.get('local_head_sha') or row.get('published_sha') or 'none'}:{row.get('dirty_tree_sha256') or 'clean'}" for row in sources)),
+        "snapshot_id": stable_id(
+            "SNAP",
+            created_at,
+            *(
+                f"{row['source_id']}:{row.get('local_head_sha') or row.get('filesystem_tree_sha256') or row.get('published_sha') or 'none'}:"
+                f"{row.get('dirty_tree_sha256') or row.get('filesystem_tree_sha256') or 'clean'}"
+                for row in sources
+            ),
+        ),
         "created_at": created_at,
         "overall_state": overall,
         "source_registry_path": str(registry_path.resolve()),
@@ -309,7 +427,7 @@ def build_snapshot(registry_path: Path, overrides: dict[str, Path], workspace_ma
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Capture a read-only DIO cross-system truth snapshot from published pins and local git worktrees.")
+    parser = argparse.ArgumentParser(description="Capture a read-only DIO cross-system truth snapshot from published pins and local source trees.")
     parser.add_argument("--registry", default=str(REGISTRY_PATH))
     parser.add_argument("--workspace", help="Canonical unified DIO workspace root. Mounted sources override legacy path hints.")
     parser.add_argument("--out", default=str(ROOT / "state" / "system_snapshots" / "latest.json"))
