@@ -26,6 +26,7 @@
               "local_clean_matches_published",
               "local_clean_newer_or_different",
               "local_dirty_captured",
+              "local_filesystem_captured",
               "local_path_missing",
               "source_unresolved",
               "capture_error"
@@ -55,6 +56,19 @@
             }
           },
           "published_sha_matches_local_head": {"type": ["boolean", "null"]},
+          "provenance_mode": {
+            "type": ["string", "null"],
+            "enum": ["published_reference", "git_worktree", "filesystem_snapshot", null]
+          },
+          "git_metadata_state": {
+            "type": ["string", "null"],
+            "enum": ["valid", "missing_or_invalid", null]
+          },
+          "git_metadata_detail": {"type": ["string", "null"]},
+          "filesystem_tree_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+          "filesystem_file_count": {"type": ["integer", "null"], "minimum": 0},
+          "filesystem_total_bytes": {"type": ["integer", "null"], "minimum": 0},
+          "provenance_note": {"type": ["string", "null"]},
           "marker_presence": {
             "type": "array",
             "items": {
