@@ -8,7 +8,7 @@ from validate_profiles import PROFILE_CLASS_DIRS, load_json, sha256_file, valida
 
 
 def build_index(root: Path) -> dict:
-    validate(root)
+    validate(root, check_index=False)
     profile_root = root / "config" / "profiles"
     entries: list[dict] = []
     for dirname, expected_class in PROFILE_CLASS_DIRS.items():
