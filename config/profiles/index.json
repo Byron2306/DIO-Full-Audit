@@ -43,6 +43,30 @@
       "status": "source_bound"
     },
     {
+      "profile_id": "framework.grant_award",
+      "profile_class": "framework",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/frameworks/grant_award.json",
+      "content_hash": "sha256:761586ac9d4471eca167f8b7e69b4948892450c82370ba5ce98c7b025371cf32",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "framework.permit_conditions",
+      "profile_class": "framework",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/frameworks/permit_conditions.json",
+      "content_hash": "sha256:ae8fa85acf337b66477dbabc6315930c6e2d1b35a3f4869276c34d24e7f133ce",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "framework.tender_submission",
+      "profile_class": "framework",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/frameworks/tender_submission.json",
+      "content_hash": "sha256:ca3dbdbe0cbe2feb3670fec50f971da3df9de51c51cc9d19a2d77f4216047399",
+      "status": "source_bound"
+    },
+    {
       "profile_id": "output.evidence_pack",
       "profile_class": "output",
       "profile_version": "1.0.0",
@@ -52,3 +76,4 @@
     }
   ]
 }
+
