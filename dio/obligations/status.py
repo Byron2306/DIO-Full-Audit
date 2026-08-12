@@ -49,9 +49,15 @@ def evaluate(bundle: dict[str, Any], *, now: str | None = None) -> list[dict[str
         elif contradictions:
             status = "CONTESTED"
             basis = ["trusted current contradictory evidence is bound to the obligation"]
-        elif expiry is not None and current > expiry:
+        elif expiry is not None and current >= expiry:
             status = "EXPIRED"
-            basis = ["explicit obligation expiry timestamp has passed"]
+            basis = ["explicit obligation expiry timestamp has been reached or passed"]
+        elif obligation.get("dependency_refs"):
+            status = "NEEDS_REVIEW"
+            basis = ["explicit dependency references exist and v0.1 does not auto-adjudicate dependency fulfilment"]
+        elif obligation.get("authority_requirement"):
+            status = "NEEDS_REVIEW"
+            basis = ["explicit authority prerequisite requires authoritative human/system disposition"]
         elif not requirements:
             status = "NEEDS_REVIEW"
             basis = ["no explicit evidence requirements were supplied by the source profile"]
