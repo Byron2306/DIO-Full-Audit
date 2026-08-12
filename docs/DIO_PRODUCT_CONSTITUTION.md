@@ -68,6 +68,41 @@ Phase 0 does **not** implement concrete source-bound profiles, the Product Compi
 
 Those remain Phase 1–4. In particular, no `contractproof.py`, `tenderproof.py`, `grantproof.py` or `permitproof.py` is permitted as a shortcut around the factory.
 
+## Machine acceptance gate
+
+Run the constitutional gate before beginning Phase 1:
+
+```bash
+python3 scripts/validate_product_constitution.py
+```
+
+The gate validates that:
+
+- the constitution is frozen at v1.0.0;
+- canonical registry paths exist;
+- exactly four META primitives exist;
+- exactly twelve work patterns exist and each preserves a human boundary;
+- exactly six profile classes exist;
+- the nine-state maturity vocabulary and independent operational flags agree with the manifest schema;
+- suites remain packaging-only;
+- repository boundaries forbid manifest/profile executor implementations and parallel vertical core engines;
+- the manifest schema cannot directly wire organs or create an executor;
+- missing required executors resolve to `REFUSE`;
+- the current Product Platform compatibility artifacts remain present;
+- bespoke ContractProof, TenderProof, GrantProof and PermitProof runtimes remain outside Phase 0.
+
+Expected final token:
+
+```text
+DIO_PRODUCT_CONSTITUTION_READY
+```
+
+Any disagreement between the constitutional registries must fail closed as:
+
+```text
+DIO_PRODUCT_CONSTITUTION_REFUSE: <reason>
+```
+
 ## Exit condition
 
 Phase 0 is complete when the constitution gate proves:
