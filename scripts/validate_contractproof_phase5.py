@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import tempfile
+import zipfile
 from pathlib import Path
 
 
@@ -107,36 +108,47 @@ def main() -> int:
             output_dir = Path(temp) / "proof"
             result = run_contractproof(source, evidence, output_dir=output_dir, operator_id="human.phase5_acceptance_operator", now=NOW, job_id="phase5-golden-acceptance")
             receipt = result["receipt"]
-            counts = receipt["obligation_status_counts"]
             expected_counts = {"SATISFIED": 1, "MISSING": 1, "PARTIAL": 1, "EXPIRED": 1, "NOT_YET_DUE": 1, "NEEDS_REVIEW": 1}
-            require(counts == expected_counts, f"golden obligation truth drift: {counts}")
+            require(receipt["obligation_status_counts"] == expected_counts, f"golden obligation truth drift: {receipt['obligation_status_counts']}")
             require(receipt["evidence_sufficiency_state"] == "GAPS_PRESENT", "golden case incorrectly claimed evidence sufficiency")
-            require(receipt["internal_processing"] == "COMPLETE", "bounded internal processing did not complete")
-            require(receipt["proof_integrity_verified"] is True, "proof integrity receipt not verified")
+            require(receipt["internal_processing"] == "COMPLETE" and receipt["proof_integrity_verified"] is True, "bounded internal processing/proof verification did not complete")
             require(set(receipt["required_artifact_types"]) == expected_artifact_types, "golden artifact profile mismatch")
             require(set(receipt["required_sections"]) == expected_sections, "golden required-section profile mismatch")
             require(receipt["human_fulfilment_gate"] == "NEEDS_YOU" and receipt["human_disclosure_gate"] == "NEEDS_YOU", "human decision boundary lost")
             require(receipt["external_release_gate"] == "REFUSE", "golden proof external release drift")
             require(receipt["authority_created"] is False and receipt["external_effects"] is False and receipt["external_release"] is False, "golden executor claimed forbidden authority/effects")
-            verification = verify_integrity(output_dir)
-            require(verification["verified"] is True, f"proof pack failed post-run verification: {verification['failures']}")
+
             proof_manifest = result["proof_manifest"]
             observed_types = {row["artifact_type"] for row in proof_manifest["artifacts"]} | {proof_manifest["artifact_type"]}
             require(observed_types == expected_artifact_types, f"proof manifest artifact type drift: {observed_types}")
             require(set(proof_manifest["required_sections"]) == expected_sections, "proof manifest section coverage drift")
             evidence_pack = load_json(output_dir / "EVIDENCE_PACK.json")
             require(expected_sections.issubset(evidence_pack), "JSON evidence pack omits required semantic sections")
-            for filename in ("EVIDENCE_PACK.json", "EVIDENCE_PACK.docx", "EVIDENCE_PACK.pdf", "EVIDENCE_PACK.html", "PROOF_MANIFEST.json"):
-                require((output_dir / filename).is_file(), f"required ContractProof output missing: {filename}")
-            print("ALLOW golden contract completes end-to-end with mixed truthful states and the exact multi-format Evidence Pack profile")
+            require(zipfile.is_zipfile(output_dir / "EVIDENCE_PACK.docx"), "DOCX output is not a valid OOXML ZIP container")
+            with zipfile.ZipFile(output_dir / "EVIDENCE_PACK.docx") as docx:
+                require("word/document.xml" in docx.namelist(), "DOCX output is missing word/document.xml")
+            require((output_dir / "EVIDENCE_PACK.pdf").read_bytes().startswith(b"%PDF-1.4"), "PDF output is not a PDF")
+            require((output_dir / "EVIDENCE_PACK.html").read_text(encoding="utf-8").lower().startswith("<!doctype html>"), "HTML output is not an HTML document")
+            require(verify_integrity(output_dir)["verified"] is True, "proof pack failed post-run verification")
+            print("ALLOW golden contract completes with mixed truthful states and structurally valid multi-format Evidence Pack outputs")
 
             pack_path = output_dir / "EVIDENCE_PACK.json"
             pack_payload = load_json(pack_path)
             pack_payload["tampered"] = True
             pack_path.write_text(json.dumps(pack_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
             tampered = verify_integrity(output_dir)
-            require(tampered["verified"] is False and "hash:JSON" in tampered["failures"], "proof tamper was not detected")
-            print("ALLOW proof-pack tampering is detected by hash verification")
+            require(tampered["verified"] is False and "hash:JSON" in tampered["failures"], "child artifact tamper was not detected")
+            print("ALLOW child artifact tampering is detected by hash verification")
+
+            result = run_contractproof(source, evidence, output_dir=output_dir, operator_id="human.phase5_acceptance_operator", now=NOW, job_id="phase5-golden-acceptance")
+            manifest_path = output_dir / "PROOF_MANIFEST.json"
+            manifest_payload = load_json(manifest_path)
+            manifest_payload["external_release"] = True
+            manifest_path.write_text(json.dumps(manifest_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            tampered_manifest = verify_integrity(output_dir)
+            require(tampered_manifest["verified"] is False, "proof manifest authority tamper was not detected")
+            require("manifest:authority_boundary" in tampered_manifest["failures"] and "manifest:fingerprint" in tampered_manifest["failures"], "manifest authority/fingerprint refusal reason drift")
+            print("ALLOW proof-manifest authority tampering is detected")
 
         print("ALLOW ContractProof produces internal-proof maturity evidence without claiming fulfilment, legal opinion, waiver or external release")
         print("DIO_CONTRACTPROOF_GOLDEN_READY")
