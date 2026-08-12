@@ -1,0 +1,74 @@
+name: DIO Fusion Wave 4 Authority & Execution Gauntlet
+
+on:
+  push:
+    branches:
+      - agent/dio-product-platform-expansion
+  pull_request:
+    paths:
+      - "authority/**"
+      - "config/dio_authority_plane.json"
+      - "schemas/dio_authority_plane.schema.json"
+      - "scripts/check_fusion_wave4.py"
+      - "scripts/run_fusion_wave4.py"
+      - "tests/test_authority_execution_plane.py"
+      - ".github/workflows/dio-fusion4.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fusion4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx httpx fastapi requests
+      - name: Compile authority plane
+        run: |
+          python -m py_compile \
+            authority/canonical.py \
+            scripts/check_fusion_wave4.py \
+            scripts/run_fusion_wave4.py
+      - name: Validate authority policy schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+          schema = json.loads(Path("schemas/dio_authority_plane.schema.json").read_text(encoding="utf-8"))
+          payload = json.loads(Path("config/dio_authority_plane.json").read_text(encoding="utf-8"))
+          Draft202012Validator.check_schema(schema)
+          Draft202012Validator(schema).validate(payload)
+          print("PASS authority plane configuration")
+          PY
+      - name: Re-run Phase 0 and 1 suite
+        run: |
+          python -m pytest -q \
+            tests/test_product_portfolio.py \
+            tests/test_governed_case_v2.py \
+            tests/test_case_migration.py \
+            tests/test_system_snapshot.py \
+            tests/test_unified_workspace.py \
+            tests/test_document_conversion.py \
+            tests/test_legalis.py
+      - name: Re-run Incarnation suite
+        run: |
+          python -m pytest -q \
+            tests/test_presence_authority.py \
+            tests/test_presence_vesper.py \
+            tests/test_seraph_challenge.py \
+            tests/test_fusion_registry.py
+      - name: Re-run Fusion Waves 1 to 3
+        run: |
+          python -m pytest -q tests/test_fusion_wave1.py
+          python -m pytest -q tests/test_framework_engine.py
+          python -m pytest -q tests/test_evidence_intelligence.py
+      - name: Run Fusion Wave 4 Authority and Execution Plane tests
+        run: python -m pytest -q tests/test_authority_execution_plane.py

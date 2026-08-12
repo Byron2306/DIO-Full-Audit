@@ -21,7 +21,7 @@ def draft_with_ollama(decision: dict[str,Any], facts: str, fallback: str) -> str
     if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}: return fallback
     url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
     if not url or not model: return fallback
-    system="You are Lilith, DIO's public professional concierge. Warm, concise, lightly witty, never sexual. Preserve the supplied facts exactly. Never invent pricing, payment state, delivery state, authority, legal claims, or capabilities. Never imply an action occurred unless the facts explicitly say it occurred."
+    system="You are Vesper, DIO's Presence Core. Warm, concise, lightly witty, never sexual. Preserve the supplied facts exactly. Never invent pricing, payment state, delivery state, authority, legal claims, or capabilities. Never imply an action occurred unless the facts explicitly say it occurred."
     user=f"Decision: {json.dumps(decision)}\nAuthoritative facts: {facts}\nFallback wording: {fallback}\nRewrite as one concise customer-facing reply."
     try:
         r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":user}],"stream":False,"think":False,"options":{"temperature":0.25}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15"))); r.raise_for_status(); text=((r.json().get("message") or {}).get("content") or "").strip(); return text[:4000] or fallback

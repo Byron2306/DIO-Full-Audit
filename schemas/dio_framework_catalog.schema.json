@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_framework_catalog.schema.json",
+  "title": "DIO Framework Catalog",
+  "type": "object",
+  "required": ["schema", "catalog_id", "laws", "frameworks"],
+  "properties": {
+    "schema": {"const": "dio.framework.catalog.v1"},
+    "catalog_id": {"type": "string", "minLength": 3},
+    "laws": {
+      "type": "object",
+      "required": ["requirements_do_not_create_authority", "frameworks_do_not_execute", "specialist_sources_remain_traceable"],
+      "properties": {
+        "requirements_do_not_create_authority": {"const": true},
+        "frameworks_do_not_execute": {"const": true},
+        "specialist_sources_remain_traceable": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "frameworks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["framework_id", "version", "title", "source_system", "source_ref", "scope", "requirements"],
+        "properties": {
+          "framework_id": {"type": "string", "minLength": 4},
+          "version": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 3},
+          "source_system": {"type": "string", "minLength": 2},
+          "source_ref": {"type": "string", "minLength": 2},
+          "scope": {
+            "type": "object",
+            "required": ["products", "jurisdictions", "capabilities"],
+            "properties": {
+              "products": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "jurisdictions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+              "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+            },
+            "additionalProperties": false
+          },
+          "requirements": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["rule_id", "statement", "kind", "mandatory", "dependency_rule_ids", "evidence_types", "authority_role", "due_offset_days", "expires_after_days"],
+              "properties": {
+                "rule_id": {"type": "string", "minLength": 2},
+                "statement": {"type": "string", "minLength": 3},
+                "kind": {"enum": ["framework", "control", "contract", "obligation", "policy", "request", "evidence_input"]},
+                "mandatory": {"type": "boolean"},
+                "dependency_rule_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+                "evidence_types": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+                "authority_role": {"type": ["string", "null"]},
+                "due_offset_days": {"type": ["integer", "null"], "minimum": 0},
+                "expires_after_days": {"type": ["integer", "null"], "minimum": 1}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

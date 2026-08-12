@@ -1,0 +1,56 @@
+{
+  "schema": "dio.composition_profiles.v1",
+  "registry_id": "dio-fusion-wave6-cross-organ-composition",
+  "laws": {
+    "composition_has_no_authority": true,
+    "same_case_required": true,
+    "dependency_receipts_hash_bound": true,
+    "required_stages_cannot_be_skipped": true,
+    "machine_evidence_is_not_human_authority": true,
+    "valinor_remains_sole_kernel_authority": true,
+    "arda_remains_execution_identity_only": true,
+    "external_execution_requires_wave5_bundle": true
+  },
+  "profiles": [
+    {
+      "profile_id": "full_governed_external_action",
+      "description": "Full DIO organism path from human/public ingress through epistemic, evidence, challenge, framework and legal readiness into explicit authority, Valinor, ARDA, one bounded vertical execution and governed egress.",
+      "final_state": "executed_and_egressed",
+      "stages": [
+        {"stage_id":"ingress","stage_kind":"organ","system_id":"vesper_presence","role":"presence_ingress","required":true,"depends_on":[],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["observation","receipt"]},
+        {"stage_id":"epistemic","stage_kind":"organ","system_id":"sophia_integritas","role":"epistemic_lineage","required":true,"depends_on":["ingress"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["evidence","observation","decision","receipt"]},
+        {"stage_id":"provenance","stage_kind":"organ","system_id":"evidex","role":"evidence_provenance","required":true,"depends_on":["ingress"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["evidence","observation","receipt"]},
+        {"stage_id":"custody","stage_kind":"organ","system_id":"beast","role":"source_bound_custody","required":true,"depends_on":["epistemic","provenance"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["evidence","observation","receipt"]},
+        {"stage_id":"adversarial","stage_kind":"organ","system_id":"seraph","role":"adversarial_challenge","required":true,"depends_on":["epistemic","provenance","custody"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["challenge","evidence","receipt"]},
+        {"stage_id":"coherence","stage_kind":"organ","system_id":"metatron","role":"coherence_and_dissent","required":true,"depends_on":["adversarial"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["challenge","observation","receipt"]},
+        {"stage_id":"framework","stage_kind":"framework","system_id":"dio_core","role":"framework_engine","required":true,"depends_on":["provenance","coherence"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["requirement","decision","receipt"]},
+        {"stage_id":"legal_readiness","stage_kind":"organ","system_id":"legalis","role":"legal_platform_readiness","required":true,"depends_on":["framework"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["requirement","decision","receipt"]},
+        {"stage_id":"human_authority","stage_kind":"human_authority","system_id":"human_or_organisation","role":"consequential_authority","required":true,"depends_on":["coherence","legal_readiness"],"accepted_contracts":["dio.authority.receipt.v1"]},
+        {"stage_id":"capability_lease","stage_kind":"capability_lease","system_id":"dio_core","role":"capability_lease_issuer","required":true,"depends_on":["human_authority"],"accepted_contracts":["dio.capability.lease.v1"]},
+        {"stage_id":"kernel_authority","stage_kind":"kernel_authority","system_id":"valinor","role":"sole_kernel_authority","required":true,"depends_on":["capability_lease"],"accepted_contracts":["dio.valinor.authorization.v1"]},
+        {"stage_id":"execution_identity","stage_kind":"execution_identity","system_id":"arda","role":"execution_identity_attestation","required":true,"depends_on":["capability_lease"],"accepted_contracts":["dio.arda.execution_identity.v1"]},
+        {"stage_id":"vertical_execution","stage_kind":"vertical_execution","system_id":"bounded_vertical_executor","role":"specialist_execution","required":true,"depends_on":["kernel_authority","execution_identity"],"accepted_contracts":["dio.vertical_execution_bundle.v1"]},
+        {"stage_id":"egress","stage_kind":"egress","system_id":"vesper_presence","role":"presence_egress","required":true,"depends_on":["vertical_execution"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["receipt"]}
+      ]
+    },
+    {
+      "profile_id": "governed_internal_artifact",
+      "description": "Cross-organ internal transformation path with epistemic review, provenance, custody, adversarial challenge, explicit human authority and a bounded local-only executor before governed egress.",
+      "final_state": "internal_artifact_ready",
+      "stages": [
+        {"stage_id":"ingress","stage_kind":"organ","system_id":"vesper_presence","role":"presence_ingress","required":true,"depends_on":[],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["observation","receipt"]},
+        {"stage_id":"epistemic","stage_kind":"organ","system_id":"sophia_integritas","role":"epistemic_lineage","required":true,"depends_on":["ingress"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["evidence","decision","receipt"]},
+        {"stage_id":"provenance","stage_kind":"organ","system_id":"evidex","role":"evidence_provenance","required":true,"depends_on":["ingress"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["evidence","observation","receipt"]},
+        {"stage_id":"custody","stage_kind":"organ","system_id":"beast","role":"source_bound_custody","required":true,"depends_on":["epistemic","provenance"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["evidence","receipt"]},
+        {"stage_id":"adversarial","stage_kind":"organ","system_id":"seraph","role":"adversarial_challenge","required":true,"depends_on":["custody"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["challenge","evidence","receipt"]},
+        {"stage_id":"coherence","stage_kind":"organ","system_id":"metatron","role":"coherence_and_dissent","required":true,"depends_on":["adversarial"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["challenge","observation","receipt"]},
+        {"stage_id":"human_authority","stage_kind":"human_authority","system_id":"human_or_organisation","role":"bounded_internal_authority","required":true,"depends_on":["coherence"],"accepted_contracts":["dio.authority.receipt.v1"]},
+        {"stage_id":"capability_lease","stage_kind":"capability_lease","system_id":"dio_core","role":"capability_lease_issuer","required":true,"depends_on":["human_authority"],"accepted_contracts":["dio.capability.lease.v1"]},
+        {"stage_id":"kernel_authority","stage_kind":"kernel_authority","system_id":"valinor","role":"sole_kernel_authority","required":true,"depends_on":["capability_lease"],"accepted_contracts":["dio.valinor.authorization.v1"]},
+        {"stage_id":"execution_identity","stage_kind":"execution_identity","system_id":"arda","role":"execution_identity_attestation","required":true,"depends_on":["capability_lease"],"accepted_contracts":["dio.arda.execution_identity.v1"]},
+        {"stage_id":"vertical_execution","stage_kind":"vertical_execution","system_id":"bounded_vertical_executor","role":"specialist_execution","required":true,"depends_on":["kernel_authority","execution_identity"],"accepted_contracts":["dio.vertical_execution_bundle.v1"]},
+        {"stage_id":"egress","stage_kind":"egress","system_id":"vesper_presence","role":"presence_egress","required":true,"depends_on":["vertical_execution"],"accepted_contracts":["dio.fusion.assertion.v1"],"accepted_assertion_types":["receipt"]}
+      ]
+    }
+  ]
+}

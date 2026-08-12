@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_fusion_registry.schema.json",
+  "title": "DIO Fusion Registry",
+  "type": "object",
+  "required": ["schema", "purpose", "laws", "systems"],
+  "properties": {
+    "schema": {"const": "dio.fusion_registry.v1"},
+    "purpose": {"type": "string", "minLength": 1},
+    "laws": {
+      "type": "object",
+      "required": ["fusion_is_not_repo_absorption", "specialist_histories_preserved", "external_actions_remain_authority_gated", "legacy_presence_not_reimported"],
+      "properties": {
+        "fusion_is_not_repo_absorption": {"const": true},
+        "specialist_histories_preserved": {"const": true},
+        "external_actions_remain_authority_gated": {"const": true},
+        "legacy_presence_not_reimported": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "systems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["system_id", "canonical_name", "disposition", "must_participate_before_deification", "sources", "fuse", "bounded", "authority_boundary"],
+        "properties": {
+          "system_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+          "canonical_name": {"type": "string", "minLength": 1},
+          "disposition": {"enum": ["shared_primitive", "governed_organ", "capability_executor", "surface", "reference_only", "legacy_retire"]},
+          "must_participate_before_deification": {"type": "boolean"},
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["kind", "ref", "role"],
+              "properties": {
+                "kind": {"enum": ["core_path", "github_repo", "local_path", "published_reference", "nested_runtime", "service"]},
+                "ref": {"type": "string", "minLength": 1},
+                "role": {"type": "string", "minLength": 1},
+                "sha": {"type": ["string", "null"]}
+              },
+              "additionalProperties": false
+            }
+          },
+          "fuse": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "bounded": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "authority_boundary": {"type": "string", "minLength": 1},
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

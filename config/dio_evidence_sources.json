@@ -1,0 +1,30 @@
+{
+  "schema": "dio.evidence_sources.v1",
+  "contributors": {
+    "dio_core": {"input_primitives": ["evidence"], "evidence_roles": ["canonical_case_evidence"], "default_custody": "captured"},
+    "vesper_presence": {"input_primitives": ["observation"], "evidence_roles": ["human_and_channel_observation"], "default_custody": "captured"},
+    "sophia_integritas": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["claim_lineage", "revision_ancestry", "authorship_boundary", "decision_history"], "default_custody": "derived"},
+    "beast": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["source_bound_custody", "proof_first_compute", "context_receipts"], "default_custody": "source_bound"},
+    "metatron": {"input_primitives": ["observation"], "evidence_roles": ["orchestration_observation", "challenge_context"], "default_custody": "captured"},
+    "seraph": {"input_primitives": ["evidence"], "evidence_roles": ["adversarial_evidence", "threat_evidence", "challenge_support"], "default_custody": "captured"},
+    "phoenix": {"input_primitives": ["evidence"], "evidence_roles": ["economic_observation", "temporal_persistence", "negative_evidence", "experiment_receipt"], "default_custody": "captured"},
+    "evidex": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["claim_source_mapping", "provenance", "evidence_pack", "gap_detection"], "default_custody": "source_bound"},
+    "vamp": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["attainment_evidence", "institutional_mapping"], "default_custody": "captured"},
+    "homs": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["assessment_evidence", "moderation_evidence", "rubric_evidence"], "default_custody": "captured"},
+    "outlook_triage": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["mail_observation", "thread_identity", "draft_context"], "default_custody": "captured"},
+    "microsoft_graph": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["mail_source", "attachment_source", "onedrive_source"], "default_custody": "source_bound"},
+    "nichefoundry": {"input_primitives": ["evidence"], "evidence_roles": ["creative_asset_lineage", "media_transform_receipt"], "default_custody": "transformed"},
+    "document_studio": {"input_primitives": ["evidence"], "evidence_roles": ["document_transform_lineage", "conversion_receipt"], "default_custody": "transformed"},
+    "lingua": {"input_primitives": ["evidence"], "evidence_roles": ["terminology_binding", "translation_lineage"], "default_custody": "derived"},
+    "format_core": {"input_primitives": ["evidence"], "evidence_roles": ["layout_profile", "render_receipt"], "default_custody": "transformed"},
+    "market_command": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["market_observation", "campaign_evidence", "claim_review_evidence"], "default_custody": "captured"},
+    "commerce_autorelease": {"input_primitives": ["evidence", "observation"], "evidence_roles": ["payment_state", "order_state", "fulfilment_state", "delivery_receipt"], "default_custody": "captured"},
+    "dio_workflows_site": {"input_primitives": ["evidence"], "evidence_roles": ["public_claim_surface", "published_policy_surface"], "default_custody": "source_bound"}
+  },
+  "laws": {
+    "source_lineage_required": true,
+    "support_requires_current_trusted_evidence": true,
+    "contradiction_requires_current_trusted_evidence": true,
+    "evidence_never_creates_execution_authority": true
+  }
+}

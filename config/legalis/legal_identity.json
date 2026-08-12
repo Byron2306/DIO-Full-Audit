@@ -1,0 +1,20 @@
+{
+  "schema": "dio.legalis.legal_identity.v1",
+  "identity_id": "dio-workflows",
+  "display_name": "DIO Workflows",
+  "entity_type": "unregistered_trading_brand",
+  "registered_entity": false,
+  "registered_company": false,
+  "jurisdictions": ["ZA"],
+  "public_surfaces": {
+    "website": {"status": "recorded"},
+    "privacy_policy": {"status": "recorded"}
+  },
+  "contact_channels": {
+    "linkedin_community_management": {
+      "email": "dio_workflows@outlook.com",
+      "domain_classification": "personal_domain"
+    }
+  },
+  "boundary": "Configuration evidence only; no legal conclusion is created by this record."
+}

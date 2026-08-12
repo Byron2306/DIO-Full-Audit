@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_fusion_bindings.schema.json",
+  "title": "DIO Fusion Bindings",
+  "type": "object",
+  "required": ["schema","primitives","bindings","laws"],
+  "properties": {
+    "schema": {"const":"dio.fusion_bindings.v1"},
+    "primitives": {
+      "type":"array","minItems":1,"uniqueItems":true,
+      "items":{"enum":["evidence","observation","challenge","requirement","authority","capability_request","decision","receipt"]}
+    },
+    "bindings": {
+      "type":"object",
+      "additionalProperties": {
+        "type":"array","minItems":1,"uniqueItems":true,
+        "items":{"enum":["evidence","observation","challenge","requirement","authority","capability_request","decision","receipt"]}
+      }
+    },
+    "laws": {
+      "type":"object",
+      "required":["all_mandatory_systems_bound","no_organ_mints_kernel_authority","no_machine_organ_mints_external_release","specialist_histories_preserved"],
+      "properties": {
+        "all_mandatory_systems_bound":{"const":true},
+        "no_organ_mints_kernel_authority":{"const":true},
+        "no_machine_organ_mints_external_release":{"const":true},
+        "specialist_histories_preserved":{"const":true}
+      },
+      "additionalProperties":false
+    }
+  },
+  "additionalProperties":false
+}

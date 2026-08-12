@@ -1,0 +1,14 @@
+{
+  "schema": "dio.meta_capabilities.registry.v1",
+  "registry_id": "dio-canonical-meta-capabilities-v1",
+  "constitution_version": "1.0.0",
+  "composition_authority": "config/products/manifests/",
+  "legacy_registry": "config/dio_meta_products.json",
+  "laws": {"exact_primitive_count":4,"creates_authority":false,"creates_executor":false,"changes_maturity":false,"implies_market_validation":false,"vertical_compositions_belong_in_product_manifests":true},
+  "meta_capabilities": [
+    {"id":"meta_evidence","name":"DIO META Evidence","role":"evidence_requirement_and_claim_operating_system","component_refs":["frameworks/engine.py","evidence/intelligence.py","products/governed_case.py","composition/case_bridge.py"]},
+    {"id":"meta_assurance","name":"DIO META Assurance","role":"continuous_assurance_and_adversarial_twin","component_refs":["twin/canonical.py","twin/loki_mirror.py","assurance/continuous.py","assurance/watcher.py"]},
+    {"id":"meta_authority","name":"DIO META Authority","role":"governed_action_and_capability_control_plane","component_refs":["authority/canonical.py","executors/vertical.py","composition/orchestrator.py"]},
+    {"id":"meta_room","name":"DIO META Room","role":"portable_tamper_evident_proof_packaging","component_refs":["capitalroom/proof_room.py","twin/canonical.py","assurance/continuous.py"]}
+  ]
+}

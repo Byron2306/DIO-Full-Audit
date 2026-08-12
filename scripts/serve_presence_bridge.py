@@ -8,6 +8,11 @@ import requests
 import uvicorn
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
 from presence_core.config import load_config
+from presence_core.authority import (
+    authorize_external_reply,
+    bind_external_action_receipt,
+    telegram_reply_switch_enabled,
+)
 from presence_core.engine import process_envelope
 from presence_core.identity import create_status_binding, revoke_binding
 from presence_core.signing import verify_body, SignatureError
@@ -26,19 +31,25 @@ def prune():
         if v<cutoff: REPLAY.pop(k,None)
 
 def core_telegram_replies_enabled() -> bool:
-    raw = os.getenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
-    return raw.strip().lower() not in {"0", "false", "no", "off"}
+    return telegram_reply_switch_enabled()
 
-def send_telegram_reply_from_core(envelope: dict, result: dict) -> tuple[bool, str | None]:
-    if not core_telegram_replies_enabled():
-        return False, "core_telegram_replies_disabled"
-    if envelope.get("channel") != "telegram":
-        return False, "not_telegram"
+def send_telegram_reply_from_core(
+    envelope: dict,
+    result: dict,
+) -> tuple[bool, str | None, dict]:
+    receipt = authorize_external_reply(envelope, result)
+    if not receipt["authorized"]:
+        return False, ",".join(receipt["reasons"]) or "external_reply_not_authorized", receipt
+
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     chat_id = ((envelope.get("metadata") or {}).get("telegram_chat_id"))
     text = (((result.get("reply") or {}).get("text")) or "").strip()
     if not token or not chat_id or not text:
-        return False, "missing_token_chat_or_text"
+        receipt = dict(receipt)
+        receipt["authorized"] = False
+        receipt["reasons"] = list(receipt.get("reasons") or []) + ["missing_token_chat_or_text"]
+        return False, "missing_token_chat_or_text", receipt
+
     response = requests.post(
         f"https://api.telegram.org/bot{token}/sendMessage",
         json={"chat_id": chat_id, "text": text[:4096]},
@@ -47,12 +58,25 @@ def send_telegram_reply_from_core(envelope: dict, result: dict) -> tuple[bool, s
     response.raise_for_status()
     payload = response.json()
     if not payload.get("ok"):
-        return False, str(payload.get("description") or "telegram_api_error")
-    return True, None
+        receipt = dict(receipt)
+        receipt["authorized"] = False
+        receipt["reasons"] = list(receipt.get("reasons") or []) + ["telegram_api_error"]
+        return False, str(payload.get("description") or "telegram_api_error"), receipt
+    return True, None, receipt
 
 @app.get('/api/presence/health')
 def health():
-    return {'ok':True,'service':'dio-presence-bridge','version':'2.0.0','automatic_external_actions':False,'attachment_mode':'quarantine_only','public_status':'verified_binding_only'}
+    return {
+        'ok': True,
+        'service': 'dio-presence-bridge',
+        'version': '2.0.0',
+        'presence_identity': 'Vesper',
+        'automatic_external_actions': False,
+        'telegram_reply_switch_enabled': core_telegram_replies_enabled(),
+        'telegram_reply_authority': 'explicit_environment_gate',
+        'attachment_mode': 'quarantine_only',
+        'public_status': 'verified_binding_only',
+    }
 
 @app.post('/api/presence/ingress')
 async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''),x_dio_presence_timestamp:str=Header(default=''),x_dio_presence_nonce:str=Header(default=''),x_dio_presence_key_id:str=Header(default='')):
@@ -75,13 +99,28 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
     try: result=process_envelope(envelope,ROOT,CFG)
     except Exception as exc: raise HTTPException(400,f'Presence request blocked: {exc}')
     try:
-        sent, error = send_telegram_reply_from_core(envelope, result)
-        result["core_reply_sent"] = sent
-        if error:
-            result["core_reply_send_error"] = error
+        sent, error, reply_receipt = send_telegram_reply_from_core(envelope, result)
+        bind_external_action_receipt(
+            result,
+            reply_receipt,
+            sent=sent,
+            error=error,
+        )
     except Exception as exc:
-        result["core_reply_sent"] = False
-        result["core_reply_send_error"] = str(exc)[:300]
+        bind_external_action_receipt(
+            result,
+            {
+                "schema": "dio.vesper.external_reply_authority.v1",
+                "identity": {"name": "Vesper", "role": "DIO Presence Core"},
+                "authorized": False,
+                "channel": envelope.get("channel"),
+                "intent": ((result.get("decision") or {}).get("intent")),
+                "reasons": ["external_reply_exception"],
+                "external_action_type": "telegram_reply",
+            },
+            sent=False,
+            error=str(exc),
+        )
     return JSONResponse(result,headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})
 
 @app.get('/api/presence/needs-you')

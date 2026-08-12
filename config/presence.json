@@ -6,6 +6,16 @@
   "routes_path": "config/routes.json",
   "signature_ttl_seconds": 300,
   "max_message_chars": 4000,
+  "identity": {
+    "name": "Vesper",
+    "role": "DIO Presence Core",
+    "legacy_alias": "Lilith"
+  },
+  "external_replies": {
+    "telegram": "explicit_environment_gate",
+    "default_enabled": false,
+    "receipt_required": true
+  },
   "attachments": {
     "max_bytes": 8388608,
     "mode": "quarantine_only",
@@ -26,9 +36,24 @@
     "can_spend_money": false
   },
   "channels": {
-    "telegram": {"wave": 2, "state": "implemented", "documents": "quarantine_only"},
-    "whatsapp": {"wave": 2, "state": "implemented", "documents": "quarantine_only"},
-    "webchat": {"wave": 2, "state": "implemented", "identity": "anonymous_session_by_default"}
+    "telegram": {
+      "wave": 2,
+      "state": "implemented",
+      "documents": "quarantine_only"
+    },
+    "whatsapp": {
+      "wave": 2,
+      "state": "implemented",
+      "documents": "quarantine_only"
+    },
+    "webchat": {
+      "wave": 2,
+      "state": "implemented",
+      "identity": "anonymous_session_by_default"
+    }
   },
-  "llm": {"role": "advisory_classifier_and_copy_drafter_only", "tool_authority": false}
+  "llm": {
+    "role": "advisory_classifier_and_copy_drafter_only",
+    "tool_authority": false
+  }
 }

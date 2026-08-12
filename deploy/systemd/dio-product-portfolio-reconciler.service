@@ -1,0 +1,14 @@
+[Unit]
+Description=DIO governed product portfolio reconciler
+After=dio-commercial-orchestrator.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/reconcile_product_portfolio.py --watch --interval 5
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,94 @@
+name: DIO Fusion Wave 9 CapitalRoom External Proof Gauntlet
+
+on:
+  push:
+    branches:
+      - agent/dio-product-platform-expansion
+  pull_request:
+    paths:
+      - "capitalroom/**"
+      - "config/dio_capitalroom.json"
+      - "schemas/dio_capitalroom.schema.json"
+      - "scripts/check_fusion_wave9.py"
+      - "scripts/run_fusion_wave9.py"
+      - "tests/capitalroom_fixtures.py"
+      - "tests/test_capitalroom_proof.py"
+      - "tests/test_capitalroom_integrity.py"
+      - ".github/workflows/dio-fusion9.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fusion9:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx httpx fastapi requests
+
+      - name: Compile CapitalRoom plane
+        run: |
+          python -m py_compile \
+            capitalroom/proof_room.py \
+            scripts/check_fusion_wave9.py \
+            scripts/run_fusion_wave9.py
+
+      - name: Validate CapitalRoom config schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+          schema = json.loads(Path("schemas/dio_capitalroom.schema.json").read_text(encoding="utf-8"))
+          payload = json.loads(Path("config/dio_capitalroom.json").read_text(encoding="utf-8"))
+          Draft202012Validator.check_schema(schema)
+          Draft202012Validator(schema).validate(payload)
+          print("PASS CapitalRoom config schema")
+          PY
+
+      - name: Re-run Phase 0 and 1 suite
+        run: |
+          python -m pytest -q \
+            tests/test_product_portfolio.py \
+            tests/test_governed_case_v2.py \
+            tests/test_case_migration.py \
+            tests/test_system_snapshot.py \
+            tests/test_unified_workspace.py \
+            tests/test_document_conversion.py \
+            tests/test_legalis.py
+
+      - name: Re-run Incarnation suite
+        run: |
+          python -m pytest -q \
+            tests/test_presence_authority.py \
+            tests/test_presence_vesper.py \
+            tests/test_seraph_challenge.py \
+            tests/test_fusion_registry.py
+
+      - name: Re-run Fusion Waves 1 to 8
+        run: |
+          python -m pytest -q tests/test_fusion_wave1.py
+          python -m pytest -q tests/test_framework_engine.py
+          python -m pytest -q tests/test_evidence_intelligence.py
+          python -m pytest -q tests/test_authority_execution_plane.py
+          python -m pytest -q tests/test_vertical_executors.py
+          python -m pytest -q tests/test_cross_organ_composition.py
+          python -m pytest -q tests/test_evidence_authority_twin.py
+          python -m pytest -q \
+            tests/test_continuous_assurance.py \
+            tests/test_continuous_assurance_watcher.py
+
+      - name: Run Fusion Wave 9 CapitalRoom tests
+        run: |
+          python -m pytest -q \
+            tests/test_capitalroom_proof.py \
+            tests/test_capitalroom_integrity.py

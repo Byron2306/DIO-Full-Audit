@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_governed_case_v2.schema.json",
+  "title": "DIO Governed Case v2",
+  "type": "object",
+  "required": [
+    "schema", "case_id", "product", "status", "created_at", "updated_at",
+    "scope", "lineage", "actors", "requirements", "claims", "evidence",
+    "challenges", "exceptions", "deadlines", "gates", "actions", "decisions",
+    "outputs", "event_refs"
+  ],
+  "properties": {
+    "schema": {"const": "dio.governed_case.v2"},
+    "case_id": {"type": "string", "minLength": 8},
+    "product": {"type": "string", "minLength": 2},
+    "status": {"enum": ["intake_pending", "evidence_collection", "review", "action_ready", "blocked", "closed"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "scope": {
+      "type": "object",
+      "required": ["framework_ids", "jurisdiction_ids", "subject_ref", "world_state_ref"],
+      "properties": {
+        "framework_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "jurisdiction_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "subject_ref": {"type": ["string", "null"]},
+        "world_state_ref": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["campaign_id", "lead_id", "conversation_id", "job_id", "transaction_id", "parent_case_id", "revision_of_case_id"],
+      "properties": {
+        "campaign_id": {"type": ["string", "null"]},
+        "lead_id": {"type": ["string", "null"]},
+        "conversation_id": {"type": ["string", "null"]},
+        "job_id": {"type": ["string", "null"]},
+        "transaction_id": {"type": ["string", "null"]},
+        "parent_case_id": {"type": ["string", "null"]},
+        "revision_of_case_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["actor_id", "actor_type", "role", "authority_scope"],
+        "properties": {
+          "actor_id": {"type": "string"},
+          "actor_type": {"enum": ["human", "system", "service", "organisation"]},
+          "role": {"type": "string"},
+          "authority_scope": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "additionalProperties": false
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement_id", "statement", "kind", "source_ref", "mandatory", "state", "claim_ids", "evidence_ids", "dependency_ids", "owner_actor_id", "due_at", "expires_at"],
+        "properties": {
+          "requirement_id": {"type": "string"},
+          "statement": {"type": "string", "minLength": 1},
+          "kind": {"enum": ["framework", "control", "contract", "obligation", "policy", "request", "evidence_input"]},
+          "source_ref": {"type": ["string", "null"]},
+          "mandatory": {"type": "boolean"},
+          "state": {"enum": ["unknown", "evidence_needed", "supported", "challenged", "satisfied", "waived", "refused", "expired"]},
+          "claim_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "dependency_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "owner_actor_id": {"type": ["string", "null"]},
+          "due_at": {"type": ["string", "null"], "format": "date-time"},
+          "expires_at": {"type": ["string", "null"], "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "lineage_id", "statement", "fingerprint", "epistemic_state", "parent_claim_id", "requirement_ids", "evidence_ids", "challenge_ids", "created_at", "updated_at"],
+        "properties": {
+          "claim_id": {"type": "string"},
+          "lineage_id": {"type": "string"},
+          "statement": {"type": "string", "minLength": 1},
+          "fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "epistemic_state": {"enum": ["UNVERIFIED", "SUPPORTED", "CONTESTED", "REFUTED"]},
+          "parent_claim_id": {"type": ["string", "null"]},
+          "requirement_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "challenge_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "created_at": {"type": "string", "format": "date-time"},
+          "updated_at": {"type": "string", "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evidence_id", "kind", "source_ref", "sha256", "observed_at", "effective_at", "expires_at", "authority_grade", "trust_state", "freshness_state", "supports_claim_ids", "contradicts_claim_ids", "supports_requirement_ids"],
+        "properties": {
+          "evidence_id": {"type": "string"},
+          "kind": {"type": "string"},
+          "source_ref": {"type": "string"},
+          "sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"},
+          "observed_at": {"type": ["string", "null"], "format": "date-time"},
+          "effective_at": {"type": ["string", "null"], "format": "date-time"},
+          "expires_at": {"type": ["string", "null"], "format": "date-time"},
+          "authority_grade": {"enum": ["self_asserted", "source_backed", "independent", "authoritative"]},
+          "trust_state": {"enum": ["captured_untrusted", "trusted_for_review", "rejected", "quarantined"]},
+          "freshness_state": {"enum": ["unknown", "current", "stale", "expired"]},
+          "supports_claim_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "contradicts_claim_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "supports_requirement_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "additionalProperties": false
+      }
+    },
+    "challenges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["challenge_id", "target_type", "target_id", "challenge_type", "severity", "hypothesis", "evidence_ids", "state", "raised_by", "raised_at", "resolved_by", "resolved_at", "resolution"],
+        "properties": {
+          "challenge_id": {"type": "string"},
+          "target_type": {"enum": ["case", "requirement", "claim", "evidence", "gate", "action"]},
+          "target_id": {"type": "string"},
+          "challenge_type": {"enum": ["contradiction", "missing_evidence", "stale_evidence", "authority", "scope", "alternative_hypothesis", "duplication", "world_state"]},
+          "severity": {"enum": ["advisory", "material", "blocking"]},
+          "hypothesis": {"type": "string"},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "state": {"enum": ["open", "accepted", "dismissed", "resolved"]},
+          "raised_by": {"type": "string"},
+          "raised_at": {"type": "string", "format": "date-time"},
+          "resolved_by": {"type": ["string", "null"]},
+          "resolved_at": {"type": ["string", "null"], "format": "date-time"},
+          "resolution": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["exception_id", "requirement_ids", "rationale", "state", "authority_actor_id", "created_at", "expires_at"],
+        "properties": {
+          "exception_id": {"type": "string"},
+          "requirement_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+          "rationale": {"type": "string"},
+          "state": {"enum": ["proposed", "approved", "rejected", "expired"]},
+          "authority_actor_id": {"type": ["string", "null"]},
+          "created_at": {"type": "string", "format": "date-time"},
+          "expires_at": {"type": ["string", "null"], "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["deadline_id", "subject_type", "subject_id", "kind", "due_at", "state"],
+        "properties": {
+          "deadline_id": {"type": "string"},
+          "subject_type": {"enum": ["case", "requirement", "evidence", "exception", "action"]},
+          "subject_id": {"type": "string"},
+          "kind": {"enum": ["submission", "renewal", "review", "expiry", "response", "other"]},
+          "due_at": {"type": "string", "format": "date-time"},
+          "state": {"enum": ["open", "due", "overdue", "satisfied", "cancelled"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "state", "reason", "required_authority", "required_evidence_ids", "decision_id", "decided_at"],
+        "properties": {
+          "gate_id": {"type": "string"},
+          "state": {"enum": ["allow", "refuse", "needs_you", "needs_evidence"]},
+          "reason": {"type": "string"},
+          "required_authority": {"type": ["string", "null"]},
+          "required_evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "decision_id": {"type": ["string", "null"]},
+          "decided_at": {"type": ["string", "null"], "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action_id", "action_type", "description", "risk_tier", "reversibility", "state", "required_gate_ids", "capability_lease_id", "proposed_by", "proposed_at", "executed_at", "receipt_ref"],
+        "properties": {
+          "action_id": {"type": "string"},
+          "action_type": {"type": "string"},
+          "description": {"type": "string"},
+          "risk_tier": {"enum": ["read_only", "reversible_internal", "consequential_internal", "external", "irreversible"]},
+          "reversibility": {"enum": ["reversible", "compensatable", "irreversible", "unknown"]},
+          "state": {"enum": ["proposed", "blocked", "approved", "executed", "failed", "cancelled"]},
+          "required_gate_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "capability_lease_id": {"type": ["string", "null"]},
+          "proposed_by": {"type": "string"},
+          "proposed_at": {"type": "string", "format": "date-time"},
+          "executed_at": {"type": ["string", "null"], "format": "date-time"},
+          "receipt_ref": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["decision_id", "decision_type", "verdict", "actor_id", "reasoning_summary", "evidence_refs", "created_at"],
+        "properties": {
+          "decision_id": {"type": "string"},
+          "decision_type": {"enum": ["requirement", "claim", "gate", "exception", "action", "release", "closeout"]},
+          "verdict": {"type": "string"},
+          "actor_id": {"type": "string"},
+          "reasoning_summary": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "created_at": {"type": "string", "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["output_id", "kind", "state", "artifact_ref", "sha256"],
+        "properties": {
+          "output_id": {"type": "string"},
+          "kind": {"type": "string"},
+          "state": {"enum": ["planned", "generated", "reviewed", "approved", "released", "superseded", "rejected"]},
+          "artifact_ref": {"type": ["string", "null"]},
+          "sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "event_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,161 @@
+{
+  "schema": "dio.work_pattern_runtime.registry.v1",
+  "runtime_version": "1.0.0",
+  "constitution_version": "1.0.0",
+  "laws": {
+    "contracts_request_capabilities_not_providers": true,
+    "contracts_create_authority": false,
+    "contracts_create_executors": false,
+    "runtime_executes_side_effects": false,
+    "human_boundaries_are_inherited": true,
+    "provider_applicability_remains_product_scoped": true
+  },
+  "focus_patterns": ["WP01", "WP05", "WP08", "WP10", "WP11"],
+  "contracts": [
+    {
+      "work_pattern_id": "WP01",
+      "contract_id": "evidence.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "v1_focus",
+      "input_contract": ["requirements", "evidence"],
+      "output_contract": ["governed_case", "evidence_links", "sufficiency_assessment", "gaps"],
+      "human_boundary": "human accepts evidence",
+      "operations": [
+        {"operation_id": "materialize_case", "capability_id": "case.materialize", "required": true, "execution_required": false},
+        {"operation_id": "capture_provenance", "capability_id": "evidence.provenance", "required": true, "execution_required": false},
+        {"operation_id": "map_evidence", "capability_id": "evidence.link", "required": true, "execution_required": false},
+        {"operation_id": "assess_sufficiency", "capability_id": "evidence.sufficiency", "required": true, "execution_required": false},
+        {"operation_id": "emit_gaps", "capability_id": "evidence.gaps", "required": true, "execution_required": false}
+      ]
+    },
+    {
+      "work_pattern_id": "WP02",
+      "contract_id": "integrity.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["claims", "sources"],
+      "output_contract": ["warrants", "limitations", "contradictions"],
+      "human_boundary": "author/reviewer disposes claim",
+      "operations": []
+    },
+    {
+      "work_pattern_id": "WP03",
+      "contract_id": "achievement.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["objectives", "framework", "evidence"],
+      "output_contract": ["coverage", "gaps"],
+      "human_boundary": "reviewer judges achievement",
+      "operations": []
+    },
+    {
+      "work_pattern_id": "WP04",
+      "contract_id": "quality.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["rules", "implementation_evidence"],
+      "output_contract": ["nonconformance", "gaps"],
+      "human_boundary": "quality owner acts",
+      "operations": []
+    },
+    {
+      "work_pattern_id": "WP05",
+      "contract_id": "obligation.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "v1_focus",
+      "input_contract": ["authoritative_source", "evidence"],
+      "output_contract": ["obligations", "deadlines", "responsible_parties", "evidence_bindings", "fulfilment_status"],
+      "human_boundary": "owner decides fulfilment/escalation",
+      "operations": [
+        {"operation_id": "extract_obligations", "capability_id": "obligation.extract", "required": true, "execution_required": false},
+        {"operation_id": "normalize_obligations", "capability_id": "obligation.normalize", "required": true, "execution_required": false},
+        {"operation_id": "identify_deadlines", "capability_id": "obligation.deadlines", "required": true, "execution_required": false},
+        {"operation_id": "bind_evidence", "capability_id": "evidence.link", "required": true, "execution_required": false},
+        {"operation_id": "assess_status", "capability_id": "obligation.evaluate", "required": true, "execution_required": false}
+      ]
+    },
+    {
+      "work_pattern_id": "WP06",
+      "contract_id": "assessment.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["curriculum", "framework", "assessment_artefact"],
+      "output_contract": ["judgement", "moderation_state"],
+      "human_boundary": "educator/examiner owns marks/release",
+      "operations": []
+    },
+    {
+      "work_pattern_id": "WP07",
+      "contract_id": "assurance.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["expected_state", "actual_state"],
+      "output_contract": ["drift", "challenge", "reassessment"],
+      "human_boundary": "operator/risk owner decides response",
+      "operations": []
+    },
+    {
+      "work_pattern_id": "WP08",
+      "contract_id": "intake.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "v1_focus",
+      "input_contract": ["inbound_communication", "attachments", "identity_context"],
+      "output_contract": ["governed_case", "classification", "missing_information"],
+      "human_boundary": "human controls side effects",
+      "operations": [
+        {"operation_id": "materialize_case", "capability_id": "case.materialize", "required": true, "execution_required": false},
+        {"operation_id": "normalize_inbound", "capability_id": "intake.normalize", "required": true, "execution_required": false},
+        {"operation_id": "classify_case", "capability_id": "intake.classify", "required": true, "execution_required": false},
+        {"operation_id": "identify_missing_information", "capability_id": "intake.missing_information", "required": true, "execution_required": false}
+      ]
+    },
+    {
+      "work_pattern_id": "WP09",
+      "contract_id": "authority.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["proposed_action", "prerequisites", "authority_context"],
+      "output_contract": ["authority_gate", "bounded_action_plan"],
+      "human_boundary": "explicit human + Valinor + ARDA",
+      "operations": []
+    },
+    {
+      "work_pattern_id": "WP10",
+      "contract_id": "document.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "v1_focus",
+      "input_contract": ["approved_meaning", "output_profile"],
+      "output_contract": ["controlled_projection", "qa_findings", "release_candidate"],
+      "human_boundary": "qualified editor/reviewer/client",
+      "operations": [
+        {"operation_id": "project_approved_meaning", "capability_id": "document.project", "required": true, "execution_required": false},
+        {"operation_id": "quality_assure", "capability_id": "document.qa", "required": true, "execution_required": false},
+        {"operation_id": "prepare_release", "capability_id": "document.release.prepare", "required": true, "execution_required": false}
+      ]
+    },
+    {
+      "work_pattern_id": "WP11",
+      "contract_id": "proof.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "v1_focus",
+      "input_contract": ["governed_case", "case_history", "disclosure_policy"],
+      "output_contract": ["portable_evidence_package", "integrity_verification", "disclosure_candidate"],
+      "human_boundary": "authorised owner controls disclosure",
+      "operations": [
+        {"operation_id": "compile_portable_room", "capability_id": "proof.room.compile", "required": true, "execution_required": false},
+        {"operation_id": "verify_integrity", "capability_id": "proof.integrity.verify", "required": true, "execution_required": false},
+        {"operation_id": "prepare_disclosure", "capability_id": "proof.disclosure.prepare", "required": true, "execution_required": false}
+      ]
+    },
+    {
+      "work_pattern_id": "WP12",
+      "contract_id": "market.v1",
+      "contract_version": "1.0.0",
+      "runtime_stage": "declared",
+      "input_contract": ["signals", "hypothesis", "experiment_constraints"],
+      "output_contract": ["measured_outcome", "learning"],
+      "human_boundary": "operator controls publishing/spend/outreach",
+      "operations": []
+    }
+  ]
+}

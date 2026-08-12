@@ -1,0 +1,252 @@
+{
+  "schema": "dio.vertical_executors.registry.v1",
+  "registry_id": "dio-fusion-wave5-vertical-executors",
+  "laws": {
+    "generic_executor": false,
+    "automatic_external_actions": false,
+    "receipt_required": true,
+    "wave4_authority_chain_required": true,
+    "bound_means_real_entrypoint": true,
+    "unproven_external_capabilities_are_locked": true
+  },
+  "executors": [
+    {
+      "executor_id": "vesper_presence",
+      "system_ids": ["vesper_presence"],
+      "capabilities": [
+        {
+          "capability": "vesper_external_reply",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "vesper://reply/",
+          "consequence_class": "external",
+          "lock_reason": "Vesper reply authority exists, but no canonical Wave 5 sender entrypoint has been bound yet."
+        }
+      ]
+    },
+    {
+      "executor_id": "outlook_graph",
+      "system_ids": ["outlook_triage", "microsoft_graph"],
+      "capabilities": [
+        {
+          "capability": "outlook_draft_create",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_callable",
+          "entrypoint_ref": "scripts/sync_outlook_mail.py:create_outlook_draft",
+          "mode": "explicit_environment_gate",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "outlook://draft/",
+          "receipt_contract": "dio.outlook_draft_receipt.v1",
+          "consequence_class": "external"
+        },
+        {
+          "capability": "outlook_send",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_callable",
+          "entrypoint_ref": "scripts/sync_outlook_mail.py:send_outlook_draft",
+          "mode": "explicit_environment_gate",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "outlook://send/",
+          "receipt_contract": "dio.mail_send_receipt.v1",
+          "compatibility_guard": "legacy mail-intent approval token remains an executor-local guard, not DIO constitutional authority",
+          "consequence_class": "external"
+        }
+      ]
+    },
+    {
+      "executor_id": "homs",
+      "system_ids": ["homs"],
+      "capabilities": [
+        {
+          "capability": "homs_prepare_assessment",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_cli",
+          "entrypoint_ref": "scripts/run_homs_jobs.py:main",
+          "mode": "local_only",
+          "external_side_effect": false,
+          "valinor_operation": "write",
+          "receipt_prefix": "homs://assessment/",
+          "receipt_contract": "HOMS_RUN_RECEIPT.json",
+          "consequence_class": "reversible_internal"
+        },
+        {
+          "capability": "efundi_publish_marks",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "homs://efundi/",
+          "consequence_class": "external",
+          "lock_reason": "No canonical bounded eFundi publication entrypoint has been proven; educator approval remains final authority."
+        }
+      ]
+    },
+    {
+      "executor_id": "nichefoundry",
+      "system_ids": ["nichefoundry"],
+      "capabilities": [
+        {
+          "capability": "nichefoundry_prepare_campaign_pack",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_cli",
+          "entrypoint_ref": "scripts/run_nichefoundry_jobs.py:main",
+          "mode": "local_only",
+          "external_side_effect": false,
+          "valinor_operation": "write",
+          "receipt_prefix": "nichefoundry://prepare/",
+          "receipt_contract": "NICHEFOUNDRY_RUN_RECEIPT.json",
+          "consequence_class": "reversible_internal"
+        },
+        {
+          "capability": "nichefoundry_publish_campaign",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "nichefoundry://publish/",
+          "consequence_class": "external",
+          "lock_reason": "Current DIO adapter prepares campaign packs; no canonical bounded publication entrypoint is proven."
+        }
+      ]
+    },
+    {
+      "executor_id": "document_studio",
+      "system_ids": ["document_studio", "lingua", "format_core"],
+      "capabilities": [
+        {
+          "capability": "document_convert",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_callable",
+          "entrypoint_ref": "adapters/document_studio/conversion.py:execute_conversion",
+          "mode": "local_only",
+          "external_side_effect": false,
+          "valinor_operation": "write",
+          "receipt_prefix": "document://convert/",
+          "consequence_class": "reversible_internal"
+        },
+        {
+          "capability": "document_release_external",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "document://release/",
+          "consequence_class": "external",
+          "lock_reason": "Document conversion is real; no generic external-release executor is permitted."
+        }
+      ]
+    },
+    {
+      "executor_id": "commerce_autorelease",
+      "system_ids": ["commerce_autorelease"],
+      "capabilities": [
+        {
+          "capability": "commerce_create_order",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_cli",
+          "entrypoint_ref": "scripts/create_dio_order.py:main",
+          "mode": "explicit_environment_gate",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "commerce://order/",
+          "consequence_class": "external"
+        },
+        {
+          "capability": "fulfilment_release",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "commerce://release/",
+          "consequence_class": "external",
+          "lock_reason": "Order creation is bound; a canonical fulfilment-release executor has not yet been proven."
+        }
+      ]
+    },
+    {
+      "executor_id": "market_command",
+      "system_ids": ["market_command"],
+      "capabilities": [
+        {
+          "capability": "market_export_campaign_pack",
+          "binding_state": "bound",
+          "entrypoint_kind": "core_callable",
+          "entrypoint_ref": "market_command/export_pack.py:export_campaign_pack",
+          "mode": "local_only",
+          "external_side_effect": false,
+          "valinor_operation": "write",
+          "receipt_prefix": "market://export/",
+          "receipt_contract": "dio.market_campaign_export.v2",
+          "consequence_class": "reversible_internal"
+        },
+        {
+          "capability": "campaign_release",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "market://release/",
+          "consequence_class": "external",
+          "lock_reason": "Market Command remains operator-publish; write-capable platform adapters are disabled by design."
+        },
+        {
+          "capability": "campaign_spend",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "market://spend/",
+          "consequence_class": "irreversible",
+          "lock_reason": "No autonomous spend executor is enabled."
+        }
+      ]
+    },
+    {
+      "executor_id": "phoenix",
+      "system_ids": ["phoenix"],
+      "capabilities": [
+        {
+          "capability": "phoenix_research_execution",
+          "binding_state": "bound",
+          "entrypoint_kind": "workspace_mount",
+          "entrypoint_ref": "organs/phoenix",
+          "mode": "local_only",
+          "external_side_effect": false,
+          "valinor_operation": "write",
+          "receipt_prefix": "phoenix://research/",
+          "consequence_class": "reversible_internal"
+        },
+        {
+          "capability": "phoenix_live_order",
+          "binding_state": "locked",
+          "entrypoint_kind": "none",
+          "entrypoint_ref": null,
+          "mode": "hard_locked",
+          "external_side_effect": true,
+          "valinor_operation": "write",
+          "receipt_prefix": "phoenix://live-order/",
+          "consequence_class": "irreversible",
+          "lock_reason": "Live capital execution remains locked; economic promotion gates have not earned live-order authority."
+        }
+      ]
+    }
+  ]
+}

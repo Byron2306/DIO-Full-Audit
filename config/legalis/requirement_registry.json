@@ -1,0 +1,81 @@
+{
+  "schema": "dio.legalis.requirement_registry.v1",
+  "registry_id": "dio-legalis-wave1",
+  "purpose": "Configured prerequisite checks for consequential capabilities. Requirements express known operational prerequisites, not legal interpretations.",
+  "capabilities": [
+    {
+      "capability_id": "linkedin_community_management_vetting",
+      "description": "Readiness check before attempting LinkedIn Community Management vetting or setup.",
+      "human_or_professional_decision_may_still_be_required": true,
+      "requirements": [
+        {
+          "requirement_id": "legal_identity_recorded",
+          "kind": "identity_field",
+          "field": "entity_type",
+          "operator": "present",
+          "missing_verdict": "NEEDS_YOU",
+          "source_ref": "seeded_identity"
+        },
+        {
+          "requirement_id": "linkedin_mailbox_classification_recorded",
+          "kind": "identity_field",
+          "field": "contact_channels.linkedin_community_management.domain_classification",
+          "operator": "present",
+          "missing_verdict": "NEEDS_YOU",
+          "source_ref": "seeded_identity"
+        },
+        {
+          "requirement_id": "platform_requirements_reviewed",
+          "kind": "operator_check",
+          "operator_key": "platform_requirements_reviewed",
+          "required_value": true,
+          "missing_verdict": "NEEDS_YOU",
+          "failure_verdict": "NEEDS_YOU",
+          "source_ref": "operator_check"
+        }
+      ]
+    },
+    {
+      "capability_id": "public_marketing_release",
+      "description": "Readiness check before releasing public DIO marketing material.",
+      "human_or_professional_decision_may_still_be_required": true,
+      "requirements": [
+        {
+          "requirement_id": "privacy_policy_surface_recorded",
+          "kind": "identity_field",
+          "field": "public_surfaces.privacy_policy.status",
+          "operator": "equals",
+          "value": "recorded",
+          "missing_verdict": "NEEDS_YOU",
+          "failure_verdict": "NEEDS_YOU",
+          "source_ref": "seeded_identity"
+        },
+        {
+          "requirement_id": "public_claim_review_complete",
+          "kind": "operator_check",
+          "operator_key": "public_claim_review_complete",
+          "required_value": true,
+          "missing_verdict": "NEEDS_YOU",
+          "failure_verdict": "NEEDS_YOU",
+          "source_ref": "operator_check"
+        }
+      ]
+    },
+    {
+      "capability_id": "contract_or_filing",
+      "description": "Gate for contracts, filings, registrations, tax choices, waivers, or comparable consequential legal acts.",
+      "human_or_professional_decision_may_still_be_required": true,
+      "requirements": [
+        {
+          "requirement_id": "authorised_human_or_professional_approval",
+          "kind": "operator_check",
+          "operator_key": "authorised_human_or_professional_approval",
+          "required_value": true,
+          "missing_verdict": "NEEDS_YOU",
+          "failure_verdict": "REFUSE",
+          "source_ref": "human_authority"
+        }
+      ]
+    }
+  ]
+}

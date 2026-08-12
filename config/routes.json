@@ -1,6 +1,124 @@
 {
   "routes": [
     {
+      "product": "dio_assurance",
+      "priority": 1,
+      "keywords": [
+        "dio assurance",
+        "ai governance",
+        "ai assurance",
+        "ai inventory",
+        "ai audit trail",
+        "model governance",
+        "iso 42001"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_agent_authority",
+      "priority": 2,
+      "keywords": [
+        "dio agent authority",
+        "agent authority",
+        "agent governance",
+        "agent action gate",
+        "capability lease",
+        "agent approval"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_vendorproof",
+      "priority": 3,
+      "keywords": [
+        "dio vendorproof",
+        "vendor due diligence",
+        "third party risk",
+        "third-party risk",
+        "supplier assessment",
+        "vendor questionnaire"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_accreditation",
+      "priority": 4,
+      "keywords": [
+        "dio accreditation",
+        "accreditation evidence",
+        "institutional accreditation",
+        "programme review",
+        "quality assurance review",
+        "accreditation readiness"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_tenderproof",
+      "priority": 5,
+      "keywords": [
+        "dio tenderproof",
+        "tender compliance",
+        "rfp compliance",
+        "bid compliance",
+        "mandatory requirements",
+        "bid checklist"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_grantproof",
+      "priority": 6,
+      "keywords": [
+        "dio grantproof",
+        "grant agreement",
+        "grant compliance",
+        "donor obligations",
+        "indicator evidence",
+        "grant reporting period"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_research_integrity",
+      "priority": 7,
+      "keywords": [
+        "dio research integrity",
+        "research integrity",
+        "claim lineage",
+        "source lineage",
+        "epistemic lineage",
+        "research reproducibility"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_regops",
+      "priority": 8,
+      "keywords": [
+        "dio regops",
+        "regulatory readiness",
+        "licence renewal",
+        "compliance obligation",
+        "operational prerequisite",
+        "regulatory evidence"
+      ],
+      "approval_required": true
+    },
+    {
+      "product": "dio_capitalroom",
+      "priority": 9,
+      "keywords": [
+        "dio capitalroom",
+        "investor diligence",
+        "fundraising diligence",
+        "capital raise",
+        "term sheet",
+        "investor evidence request"
+      ],
+      "approval_required": true
+    },
+    {
       "product": "evidex",
       "priority": 10,
       "keywords": [

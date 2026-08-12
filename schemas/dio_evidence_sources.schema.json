@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_evidence_sources.schema.json",
+  "title": "DIO Evidence Sources v1",
+  "type": "object",
+  "required": ["schema", "contributors", "laws"],
+  "properties": {
+    "schema": {"const": "dio.evidence_sources.v1"},
+    "contributors": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["input_primitives", "evidence_roles", "default_custody"],
+        "properties": {
+          "input_primitives": {
+            "type": "array",
+            "items": {"enum": ["evidence", "observation"]},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "evidence_roles": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "default_custody": {"enum": ["captured", "source_bound", "derived", "transformed"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "laws": {
+      "type": "object",
+      "required": [
+        "source_lineage_required", "support_requires_current_trusted_evidence",
+        "contradiction_requires_current_trusted_evidence", "evidence_never_creates_execution_authority"
+      ],
+      "properties": {
+        "source_lineage_required": {"const": true},
+        "support_requires_current_trusted_evidence": {"const": true},
+        "contradiction_requires_current_trusted_evidence": {"const": true},
+        "evidence_never_creates_execution_authority": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

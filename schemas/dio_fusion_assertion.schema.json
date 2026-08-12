@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_fusion_assertion.schema.json",
+  "title": "DIO Fusion Assertion",
+  "type": "object",
+  "required": ["schema","assertion_id","assertion_type","issuer","subject","payload","epistemic","authority","lineage","created_at","fingerprint"],
+  "properties": {
+    "schema": {"const": "dio.fusion.assertion.v1"},
+    "assertion_id": {"type":"string","pattern":"^FUS-[A-F0-9]{16}$"},
+    "assertion_type": {"enum":["evidence","observation","challenge","requirement","authority","capability_request","decision","receipt"]},
+    "issuer": {
+      "type":"object",
+      "required":["system_id","role"],
+      "properties":{"system_id":{"type":"string","minLength":1},"role":{"type":"string","minLength":1}},
+      "additionalProperties":false
+    },
+    "subject": {
+      "type":"object",
+      "required":["kind","ref"],
+      "properties":{"kind":{"type":"string","minLength":1},"ref":{"type":"string","minLength":1}},
+      "additionalProperties":false
+    },
+    "payload": {"type":"object"},
+    "epistemic": {
+      "type":"object",
+      "required":["state","authority_grade","trust_state","freshness_state"],
+      "properties": {
+        "state":{"enum":["UNVERIFIED","SUPPORTED","CONTESTED","REFUTED","N/A"]},
+        "authority_grade":{"enum":["self_asserted","source_backed","independent","authoritative","N/A"]},
+        "trust_state":{"enum":["captured_untrusted","trusted_for_review","rejected","quarantined","N/A"]},
+        "freshness_state":{"enum":["unknown","current","stale","expired","N/A"]}
+      },
+      "additionalProperties":false
+    },
+    "authority": {
+      "type":"object",
+      "required":["kernel_authority","kernel_authorized","external_release_authorized","human_required"],
+      "properties": {
+        "kernel_authority":{"const":"Valinor"},
+        "kernel_authorized":{"type":"boolean"},
+        "external_release_authorized":{"type":"boolean"},
+        "human_required":{"type":"boolean"}
+      },
+      "additionalProperties":false
+    },
+    "lineage": {
+      "type":"object",
+      "required":["case_id","parent_assertion_id","source_refs"],
+      "properties": {
+        "case_id":{"type":["string","null"]},
+        "parent_assertion_id":{"type":["string","null"]},
+        "source_refs":{"type":"array","items":{"type":"string"}}
+      },
+      "additionalProperties":false
+    },
+    "created_at":{"type":"string","minLength":1},
+    "fingerprint":{"type":"string","pattern":"^[a-f0-9]{64}$"}
+  },
+  "additionalProperties":false
+}

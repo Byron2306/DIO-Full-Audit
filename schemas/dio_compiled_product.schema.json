@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.compiled_product.v1",
+  "title": "DIO Compiled Product",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "compiler_version", "compiler_provenance", "product_id", "name", "incarnation", "suite_ids",
+    "composition_fingerprint", "compilation_fingerprint", "input_receipt", "work_patterns", "meta_capabilities",
+    "profile_bindings", "capability_plan", "maturity", "gates", "unresolved",
+    "case_template", "output_plan", "commercial_policy"
+  ],
+  "properties": {
+    "schema": {"const": "dio.compiled_product.v1"},
+    "compiler_version": {"const": "1.1.0"},
+    "compiler_provenance": {
+      "type": "object",
+      "required": ["version", "source_ref", "source_sha256"],
+      "properties": {
+        "version": {"const": "1.1.0"},
+        "source_ref": {"const": "products/compiler.py"},
+        "source_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "product_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "name": {"type": "string", "minLength": 1},
+    "incarnation": {"type": "object"},
+    "suite_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "composition_fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "compilation_fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "input_receipt": {"type": "object"},
+    "work_patterns": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "meta_capabilities": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "profile_bindings": {"type": "array", "minItems": 6, "items": {"type": "object"}},
+    "capability_plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capability_id", "required", "execution_required", "resolution_state", "provider", "reason"],
+        "properties": {
+          "capability_id": {"type": "string"},
+          "required": {"type": "boolean"},
+          "execution_required": {"type": "boolean"},
+          "resolution_state": {"enum": ["RESOLVED", "PLANNED", "UNAVAILABLE", "UNKNOWN"]},
+          "provider": {"type": ["object", "null"]},
+          "reason": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "maturity": {"type": "object"},
+    "gates": {
+      "type": "object",
+      "required": ["composition", "planning", "execution", "human_review", "external_release"],
+      "properties": {
+        "composition": {"$ref": "#/$defs/gate"},
+        "planning": {"$ref": "#/$defs/gate"},
+        "execution": {"$ref": "#/$defs/gate"},
+        "human_review": {"$ref": "#/$defs/gate"},
+        "external_release": {"$ref": "#/$defs/gate"}
+      },
+      "additionalProperties": false
+    },
+    "unresolved": {
+      "type": "object",
+      "required": ["planning", "execution"],
+      "properties": {
+        "planning": {"type": "array", "items": {"type": "string"}},
+        "execution": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "case_template": {"type": "object"},
+    "output_plan": {"type": "object"},
+    "commercial_policy": {"type": "object"}
+  },
+  "$defs": {
+    "gate": {
+      "type": "object",
+      "required": ["state", "reason"],
+      "properties": {
+        "state": {"enum": ["ALLOW", "REFUSE", "NEEDS_YOU", "NEEDS_IMPLEMENTATION"]},
+        "reason": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  }
+}

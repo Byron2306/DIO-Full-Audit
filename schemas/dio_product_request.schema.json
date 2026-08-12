@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio-workflows.local/schemas/dio_product_request.schema.json",
+  "title": "DIO Governed Product Request",
+  "type": "object",
+  "required": ["product", "requester", "scope", "consents"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,120}$"
+    },
+    "product": {
+      "type": "string",
+      "enum": [
+        "dio_assurance",
+        "dio_agent_authority",
+        "dio_vendorproof",
+        "dio_accreditation",
+        "dio_tenderproof",
+        "dio_grantproof",
+        "dio_research_integrity",
+        "dio_regops",
+        "dio_capitalroom"
+      ]
+    },
+    "requester": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": {"type": "string", "minLength": 2, "maxLength": 160},
+        "email": {"type": "string", "format": "email"},
+        "organisation": {"type": "string", "maxLength": 200},
+        "role": {"type": "string", "maxLength": 160}
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": ["title", "objective"],
+      "properties": {
+        "title": {"type": "string", "minLength": 3, "maxLength": 300},
+        "objective": {"type": "string", "minLength": 8, "maxLength": 3000},
+        "jurisdiction_or_framework": {"type": "string", "maxLength": 300},
+        "deadline": {"type": ["string", "null"], "format": "date-time"},
+        "sensitivity": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"],
+          "default": "internal"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_refs": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "required": ["kind", "reference"],
+        "properties": {
+          "kind": {"type": "string", "minLength": 2, "maxLength": 80},
+          "reference": {"type": "string", "minLength": 1, "maxLength": 1000},
+          "sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "requested_outputs": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {"type": "string", "minLength": 2, "maxLength": 200}
+    },
+    "consents": {
+      "type": "object",
+      "required": ["evidence_processing_authorized", "service_terms_accepted"],
+      "properties": {
+        "evidence_processing_authorized": {"const": true},
+        "service_terms_accepted": {"const": true},
+        "remote_processing_approved": {"type": "boolean", "default": false},
+        "professional_review_acknowledged": {"type": "boolean", "default": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
