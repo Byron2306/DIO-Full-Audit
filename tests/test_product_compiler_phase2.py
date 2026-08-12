@@ -74,17 +74,19 @@ def test_existing_provider_is_not_assumed_generic() -> None:
     assert "dio_contractproof" not in provider["product_scope"]
 
 
-def test_unearned_obligation_runtime_remains_visible() -> None:
+def test_capability_frontier_is_truthful_while_executor_remains_unearned() -> None:
     compiled = compile_manifest(ROOT, MANIFEST)
     capabilities = {row["capability_id"]: row for row in compiled["capability_plan"]}
+    catalog, _ = load_capability_catalog(ROOT)
     for capability_id in (
         "obligation.extract",
         "obligation.normalize",
         "obligation.deadlines",
         "obligation.evaluate",
-        "product.executor.contractproof",
     ):
-        assert capabilities[capability_id]["resolution_state"] == "PLANNED"
+        expected = "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
+        assert capabilities[capability_id]["resolution_state"] == expected
+    assert capabilities["product.executor.contractproof"]["resolution_state"] == "PLANNED"
 
 
 def test_earned_generic_capabilities_resolve() -> None:
