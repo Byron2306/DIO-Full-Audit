@@ -1,0 +1,44 @@
+{
+  "source_id": "tenderproof-golden-reference-001",
+  "source_type": "tender",
+  "source_ref": "fixture://tenderproof/golden-reference-001",
+  "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+  "effective_at": "2026-07-01T00:00:00+00:00",
+  "expires_at": null,
+  "clauses": [
+    {
+      "clause_id": "T-1",
+      "text": "The bidder shall provide the submission receipt.",
+      "obligation": true,
+      "obligation_kind": "reporting",
+      "responsible_party": "bidder",
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "evidence_requirements": [
+        "submission_receipt"
+      ]
+    },
+    {
+      "clause_id": "T-2",
+      "text": "The bidder shall retain the tax certificate.",
+      "obligation": true,
+      "obligation_kind": "retention",
+      "responsible_party": "bidder",
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "evidence_requirements": [
+        "tax_certificate"
+      ]
+    },
+    {
+      "clause_id": "T-3",
+      "text": "The bidder shall maintain the clarification response.",
+      "obligation": true,
+      "obligation_kind": "maintenance",
+      "responsible_party": "bidder",
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "evidence_requirements": [
+        "clarification_response"
+      ]
+    }
+  ]
+}
+
