@@ -82,14 +82,18 @@ def main() -> int:
         require(len(compiled_a["profile_bindings"]) == 6, "ContractProof must bind one reference profile from each Phase 1 class")
 
         capability_rows = {item["capability_id"]: item for item in compiled_a["capability_plan"]}
-        for capability_id in ("case.materialize", "evidence.provenance", "evidence.link", "proof.room.compile"):
-            require(capability_rows[capability_id]["resolution_state"] == "RESOLVED", f"earned capability failed to resolve: {capability_id}")
+        for capability_id in ("case.materialize", "evidence.provenance", "evidence.link"):
+            require(capability_rows[capability_id]["resolution_state"] == "RESOLVED", f"earned generic capability failed to resolve: {capability_id}")
+
+        require(capability_rows["proof.room.compile"]["resolution_state"] == "UNAVAILABLE", "CapitalRoom proof provider must not be treated as generic ContractProof capability")
+        require("no earned provider declares applicability" in capability_rows["proof.room.compile"]["reason"], "proof-room scope refusal reason drift")
+
         for capability_id in ("obligation.extract", "obligation.normalize", "obligation.deadlines", "obligation.evaluate"):
             require(capability_rows[capability_id]["resolution_state"] == "PLANNED", f"future Obligation capability must remain PLANNED in Phase 2: {capability_id}")
         require(capability_rows["product.executor.contractproof"]["resolution_state"] == "PLANNED", "ContractProof executor must remain unearned")
 
         require(compiled_a["gates"]["composition"]["state"] == "ALLOW", "valid composition should ALLOW")
-        require(compiled_a["gates"]["planning"]["state"] == "NEEDS_IMPLEMENTATION", "unearned Obligation runtime should be explicit")
+        require(compiled_a["gates"]["planning"]["state"] == "NEEDS_IMPLEMENTATION", "unearned or inapplicable planning capability should be explicit")
         require(compiled_a["gates"]["execution"]["state"] == "REFUSE", "compiler must refuse execution without earned executor")
         require(compiled_a["gates"]["human_review"]["state"] == "NEEDS_YOU", "human review gate must remain explicit")
         require(compiled_a["gates"]["external_release"]["state"] == "REFUSE", "internal-only reference product must refuse external release")
@@ -117,6 +121,8 @@ def main() -> int:
 
         capability_catalog, _ = load_capability_catalog(ROOT)
         require(capability_catalog["product.executor.contractproof"]["status"] == "planned", "Phase 2 must not smuggle in a ContractProof executor")
+        room_provider = capability_catalog["proof.room.compile"]["providers"][0]
+        require("dio_contractproof" not in set(room_provider.get("product_scope") or []), "CapitalRoom provider scope must remain truthful for ContractProof")
 
         target = write_compilation(ROOT, compiled_a)
         required_artifacts = {
@@ -148,6 +154,8 @@ def main() -> int:
     print("ALLOW work-pattern META dependencies are enforced")
     print("ALLOW profile version/hash bindings are enforced")
     print("ALLOW capability resolution is deterministic")
+    print("ALLOW earned provider applicability is product-scoped")
+    print("ALLOW existing-but-inapplicable capability remains unavailable")
     print("ALLOW unearned capabilities remain visible instead of inferred")
     print("ALLOW missing ContractProof executor produces execution REFUSE")
     print("ALLOW internal-only commercial policy produces external-release REFUSE")
