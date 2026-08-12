@@ -12,6 +12,7 @@ from jsonschema import Draft202012Validator
 
 COMPILER_SCHEMA = "dio.compiled_product.v1"
 COMPILER_VERSION = "1.0.0"
+MANIFEST_ROOT = Path("config/products/manifests")
 PROFILE_KEY_TO_CLASS = {
     "domain": "domain",
     "framework": "framework",
@@ -87,6 +88,29 @@ def validate_compiled_schema(root: Path, compiled: dict[str, Any]) -> None:
             where = ".".join(str(part) for part in error.absolute_path) or "<root>"
             rendered.append(f"{where}: {error.message}")
         raise CompilerError("compiled product schema validation failed: " + " | ".join(rendered))
+
+
+def load_manifest_registry(root: Path) -> dict[str, dict[str, Any]]:
+    manifest_root = (root / MANIFEST_ROOT).resolve()
+    require(manifest_root.is_dir(), f"canonical manifest directory missing: {manifest_root}")
+    result: dict[str, dict[str, Any]] = {}
+    incarnations: dict[str, str] = {}
+    for path in sorted(manifest_root.glob("*.json")):
+        manifest = load_json(path)
+        validate_manifest_schema(root, manifest)
+        product_id = str(manifest.get("product_id") or "")
+        incarnation_id = str((manifest.get("incarnation") or {}).get("id") or "")
+        require(product_id not in result, f"duplicate canonical product_id: {product_id}")
+        require(incarnation_id not in incarnations, f"duplicate canonical incarnation id: {incarnation_id}")
+        require(path.stem == incarnation_id, f"manifest filename must equal incarnation id: {path.name} != {incarnation_id}.json")
+        result[product_id] = {
+            "path": str(path),
+            "manifest": manifest,
+            "incarnation_id": incarnation_id,
+        }
+        incarnations[incarnation_id] = product_id
+    require(result, "canonical manifest registry is empty")
+    return result
 
 
 def load_profile_index(root: Path) -> dict[str, dict[str, Any]]:
@@ -258,11 +282,7 @@ def resolve_capability(
     status = str(definition.get("status") or "")
     providers = list(definition.get("providers") or [])
     applicable = [provider for provider in providers if _provider_applies(provider, product_id)]
-    eligible = [
-        provider
-        for provider in applicable
-        if (not execution_required or bool(provider.get("execution_capable")))
-    ]
+    eligible = [provider for provider in applicable if (not execution_required or bool(provider.get("execution_capable")))]
     eligible.sort(key=lambda item: (-int(item.get("priority") or 0), str(item.get("provider_id") or "")))
 
     if status == "available" and eligible:
@@ -361,10 +381,17 @@ def build_output_plan(profiles: dict[str, dict[str, Any]]) -> dict[str, Any]:
 
 def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
     root = root.resolve()
+    canonical_root = (root / MANIFEST_ROOT).resolve()
     manifest_path = manifest_path.resolve()
-    require(manifest_path.is_relative_to(root), "manifest path must remain inside repository root")
+    require(manifest_path.is_relative_to(canonical_root), "compiler accepts only manifests under config/products/manifests/")
+
+    registry = load_manifest_registry(root)
     manifest = load_json(manifest_path)
     validate_manifest_schema(root, manifest)
+    product_id = str(manifest["product_id"])
+    registered = registry.get(product_id)
+    require(registered is not None, f"manifest product is not present in canonical registry: {product_id}")
+    require(Path(str(registered["path"])).resolve() == manifest_path, f"canonical manifest path mismatch for {product_id}")
 
     profile_index = load_profile_index(root)
     bindings, loaded_profiles = bind_profiles(root, manifest, profile_index)
@@ -373,17 +400,13 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
     selected_patterns, selected_meta = validate_pattern_meta_composition(manifest, work_patterns, meta_capabilities)
     capability_catalog, capability_hash = load_capability_catalog(root)
 
-    product_id = str(manifest["product_id"])
     capability_plan = [
         resolve_capability(requirement, capability_catalog, product_id)
         for requirement in manifest.get("capability_requirements") or []
     ]
     capability_plan.sort(key=lambda item: item["capability_id"])
 
-    unresolved_required = [
-        item for item in capability_plan
-        if item["required"] and item["resolution_state"] != "RESOLVED"
-    ]
+    unresolved_required = [item for item in capability_plan if item["required"] and item["resolution_state"] != "RESOLVED"]
     unresolved_planning = [item for item in unresolved_required if not item["execution_required"]]
     unresolved_execution = [item for item in unresolved_required if item["execution_required"]]
 
@@ -394,6 +417,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
 
     offer_state, internal_only = commercial_release_policy(loaded_profiles)
     campaign_enabled = bool((maturity.get("operational_flags") or {}).get("campaign_enabled"))
+    require(not (internal_only and campaign_enabled), "internal-only commercial profile cannot coexist with campaign_enabled=true")
 
     planning_state = "ALLOW" if not unresolved_planning else "NEEDS_IMPLEMENTATION"
     execution_state = "ALLOW" if executable_claimed and not unresolved_execution else "REFUSE"
@@ -405,14 +429,8 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
         release_reason = "External release remains bound to explicit human authority even after compilation."
 
     input_receipt = {
-        "manifest": {
-            "path": str(manifest_path.relative_to(root)),
-            "sha256": sha256_file(manifest_path),
-        },
-        "profiles": [
-            {"profile_id": item["profile_id"], "content_hash": item["content_hash"]}
-            for item in bindings
-        ],
+        "manifest": {"path": str(manifest_path.relative_to(root)), "sha256": sha256_file(manifest_path)},
+        "profiles": [{"profile_id": item["profile_id"], "content_hash": item["content_hash"]} for item in bindings],
         "registries": {
             "work_patterns": work_patterns_hash,
             "meta_capabilities": meta_hash,
@@ -440,14 +458,8 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
         "maturity": maturity,
         "gates": {
             "composition": {"state": "ALLOW", "reason": "Manifest, profile bindings and composition invariants validated."},
-            "planning": {
-                "state": planning_state,
-                "reason": "All required planning capabilities resolve." if planning_state == "ALLOW" else "Required planning capabilities remain unearned or inapplicable.",
-            },
-            "execution": {
-                "state": execution_state,
-                "reason": "All required execution capabilities resolve and executable maturity is asserted." if execution_state == "ALLOW" else "Compilation does not create execution authority; unresolved or unearned execution capability remains.",
-            },
+            "planning": {"state": planning_state, "reason": "All required planning capabilities resolve." if planning_state == "ALLOW" else "Required planning capabilities remain unearned or inapplicable."},
+            "execution": {"state": execution_state, "reason": "All required execution capabilities resolve and executable maturity is asserted." if execution_state == "ALLOW" else "Compilation does not create execution authority; unresolved or unearned execution capability remains."},
             "human_review": {"state": "NEEDS_YOU", "reason": "Consequential judgement remains human-authority bound."},
             "external_release": {"state": release_state, "reason": release_reason},
         },
@@ -476,6 +488,7 @@ def build_test_plan(compiled: dict[str, Any]) -> dict[str, Any]:
             "product manifest contains no direct organ wiring",
             "work-pattern META requirements are a subset of the product META composition",
             "an earned provider must explicitly declare applicability to the product",
+            "only canonical manifests may be compiled",
         ],
         "current_expected_gates": copy.deepcopy(compiled["gates"]),
     }
@@ -522,9 +535,7 @@ def inspect_compilation(compiled: dict[str, Any]) -> dict[str, Any]:
         "composition_fingerprint": compiled["composition_fingerprint"],
         "maturity": compiled["maturity"]["state"],
         "gates": {key: value["state"] for key, value in compiled["gates"].items()},
-        "resolved_capabilities": [
-            item["capability_id"] for item in compiled["capability_plan"] if item["resolution_state"] == "RESOLVED"
-        ],
+        "resolved_capabilities": [item["capability_id"] for item in compiled["capability_plan"] if item["resolution_state"] == "RESOLVED"],
         "unresolved_planning": list(compiled["unresolved"]["planning"]),
         "unresolved_execution": list(compiled["unresolved"]["execution"]),
         "profiles": [item["profile_id"] for item in compiled["profile_bindings"]],
