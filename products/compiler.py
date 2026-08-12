@@ -78,6 +78,17 @@ def validate_manifest_schema(root: Path, manifest: dict[str, Any]) -> None:
         raise CompilerError("manifest schema validation failed: " + " | ".join(rendered))
 
 
+def validate_compiled_schema(root: Path, compiled: dict[str, Any]) -> None:
+    schema = load_json(root / "schemas" / "dio_compiled_product.schema.json")
+    errors = sorted(Draft202012Validator(schema).iter_errors(compiled), key=lambda err: list(err.absolute_path))
+    if errors:
+        rendered = []
+        for error in errors[:12]:
+            where = ".".join(str(part) for part in error.absolute_path) or "<root>"
+            rendered.append(f"{where}: {error.message}")
+        raise CompilerError("compiled product schema validation failed: " + " | ".join(rendered))
+
+
 def load_profile_index(root: Path) -> dict[str, dict[str, Any]]:
     payload = load_json(root / "config" / "profiles" / "index.json")
     require(payload.get("schema") == "dio.profile_index.v1", "unexpected profile index schema")
@@ -184,6 +195,10 @@ def load_capability_catalog(root: Path) -> tuple[dict[str, dict[str, Any]], str]
     path = root / "config" / "portfolio" / "capability_catalog.json"
     payload = load_json(path)
     require(payload.get("schema") == "dio.capability_catalog.v1", "unexpected capability catalog schema")
+    laws = payload.get("laws") or {}
+    require(laws.get("products_request_capabilities_not_organs") is True, "capability catalog must preserve capability-first product law")
+    require(laws.get("compiler_resolves_providers") is True, "compiler must remain provider resolver")
+    require(laws.get("provider_applicability_must_be_explicit") is True, "provider applicability must be explicit")
     rows = payload.get("capabilities")
     require(isinstance(rows, list), "capability catalog capabilities must be a list")
     result: dict[str, dict[str, Any]] = {}
@@ -203,6 +218,9 @@ def load_capability_catalog(root: Path) -> tuple[dict[str, dict[str, Any]], str]
             provider_ids.add(provider_id)
             ref = str(provider.get("ref") or "")
             require(ref, f"provider ref required: {capability_id}/{provider_id}")
+            product_scope = provider.get("product_scope")
+            require(isinstance(product_scope, list) and product_scope, f"provider product_scope required: {capability_id}/{provider_id}")
+            require(all(isinstance(item, str) and item for item in product_scope), f"provider product_scope contains invalid entry: {capability_id}/{provider_id}")
             resolved = (root / ref).resolve()
             require(resolved.is_relative_to(root.resolve()), f"provider ref escapes repository: {capability_id}/{provider_id}")
             if status == "available":
@@ -213,9 +231,15 @@ def load_capability_catalog(root: Path) -> tuple[dict[str, dict[str, Any]], str]
     return result, f"sha256:{sha256_file(path)}"
 
 
+def _provider_applies(provider: dict[str, Any], product_id: str) -> bool:
+    scope = set(str(item) for item in provider.get("product_scope") or [])
+    return "*" in scope or product_id in scope
+
+
 def resolve_capability(
     requirement: dict[str, Any],
     catalog: dict[str, dict[str, Any]],
+    product_id: str,
 ) -> dict[str, Any]:
     capability_id = str(requirement.get("capability_id") or "")
     required = bool(requirement.get("required"))
@@ -233,9 +257,10 @@ def resolve_capability(
 
     status = str(definition.get("status") or "")
     providers = list(definition.get("providers") or [])
+    applicable = [provider for provider in providers if _provider_applies(provider, product_id)]
     eligible = [
         provider
-        for provider in providers
+        for provider in applicable
         if (not execution_required or bool(provider.get("execution_capable")))
     ]
     eligible.sort(key=lambda item: (-int(item.get("priority") or 0), str(item.get("provider_id") or "")))
@@ -252,8 +277,9 @@ def resolve_capability(
                 "provider_kind": chosen.get("provider_kind"),
                 "ref": chosen.get("ref"),
                 "execution_capable": bool(chosen.get("execution_capable")),
+                "product_scope": list(chosen.get("product_scope") or []),
             },
-            "reason": "Resolved deterministically from the canonical capability catalog.",
+            "reason": "Resolved deterministically from an earned provider whose product scope includes this product.",
         }
 
     if status == "planned":
@@ -266,8 +292,10 @@ def resolve_capability(
             "reason": "Capability is declared as planned but has not been earned by an available provider.",
         }
 
-    if status == "available" and execution_required and not eligible:
-        reason = "Available capability has no execution-capable provider."
+    if status == "available" and providers and not applicable:
+        reason = "Capability exists, but no earned provider declares applicability to this product."
+    elif status == "available" and execution_required and applicable and not eligible:
+        reason = "Applicable providers exist, but none are execution-capable."
     else:
         reason = f"Capability status is {status or 'unknown'}."
     return {
@@ -282,7 +310,7 @@ def resolve_capability(
 
 def commercial_release_policy(profiles: dict[str, dict[str, Any]]) -> tuple[str | None, bool]:
     offer_states: list[str] = []
-    for profile_id, profile in profiles.items():
+    for profile in profiles.values():
         if profile.get("profile_class") != "commercial":
             continue
         offer_states.append(str((profile.get("spec") or {}).get("offer_state") or ""))
@@ -345,8 +373,9 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
     selected_patterns, selected_meta = validate_pattern_meta_composition(manifest, work_patterns, meta_capabilities)
     capability_catalog, capability_hash = load_capability_catalog(root)
 
+    product_id = str(manifest["product_id"])
     capability_plan = [
-        resolve_capability(requirement, capability_catalog)
+        resolve_capability(requirement, capability_catalog, product_id)
         for requirement in manifest.get("capability_requirements") or []
     ]
     capability_plan.sort(key=lambda item: item["capability_id"])
@@ -390,6 +419,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
             "capability_catalog": capability_hash,
             "profile_index": f"sha256:{sha256_file(root / 'config' / 'profiles' / 'index.json')}",
             "manifest_schema": f"sha256:{sha256_file(root / 'schemas' / 'dio_product_manifest.schema.json')}",
+            "compiled_schema": f"sha256:{sha256_file(root / 'schemas' / 'dio_compiled_product.schema.json')}",
         },
     }
     fingerprint = f"sha256:{sha256_json(input_receipt)}"
@@ -397,7 +427,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
     compiled = {
         "schema": COMPILER_SCHEMA,
         "compiler_version": COMPILER_VERSION,
-        "product_id": manifest["product_id"],
+        "product_id": product_id,
         "name": manifest["name"],
         "incarnation": copy.deepcopy(manifest["incarnation"]),
         "suite_ids": list(manifest["suite_ids"]),
@@ -412,7 +442,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
             "composition": {"state": "ALLOW", "reason": "Manifest, profile bindings and composition invariants validated."},
             "planning": {
                 "state": planning_state,
-                "reason": "All required planning capabilities resolve." if planning_state == "ALLOW" else "Required planning capabilities remain unearned.",
+                "reason": "All required planning capabilities resolve." if planning_state == "ALLOW" else "Required planning capabilities remain unearned or inapplicable.",
             },
             "execution": {
                 "state": execution_state,
@@ -429,6 +459,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
         "output_plan": build_output_plan(loaded_profiles),
         "commercial_policy": {"offer_state": offer_state, "external_release_state": release_state},
     }
+    validate_compiled_schema(root, compiled)
     return compiled
 
 
@@ -444,6 +475,7 @@ def build_test_plan(compiled: dict[str, Any]) -> dict[str, Any]:
             "external release is never granted by compilation alone",
             "product manifest contains no direct organ wiring",
             "work-pattern META requirements are a subset of the product META composition",
+            "an earned provider must explicitly declare applicability to the product",
         ],
         "current_expected_gates": copy.deepcopy(compiled["gates"]),
     }
@@ -451,6 +483,7 @@ def build_test_plan(compiled: dict[str, Any]) -> dict[str, Any]:
 
 def write_compilation(root: Path, compiled: dict[str, Any], output_root: Path | None = None) -> Path:
     root = root.resolve()
+    validate_compiled_schema(root, compiled)
     base = (output_root or (root / "state" / "compiled_products")).resolve()
     require(base.is_relative_to(root), "compiled output root must remain inside repository root")
     target = base / compiled["product_id"]
