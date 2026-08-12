@@ -30,7 +30,9 @@ explicit unresolved capabilities
       +
 explicit authority gates
       +
-deterministic composition fingerprint
+deterministic composition identity
+      +
+compiler-bound compilation identity
       +
 proof receipt
 ```
@@ -52,6 +54,14 @@ python3 scripts/dio_product.py compile contractproof
 state/compiled_products/<product_id>/
 ```
 
+Only manifests under:
+
+```text
+config/products/manifests/
+```
+
+may be compiled. Product IDs and incarnation IDs must be unique, and the manifest filename must equal the incarnation ID.
+
 ## Compilation artifacts
 
 A successful compilation emits:
@@ -66,24 +76,45 @@ TEST_PLAN.json
 COMPILATION_RECEIPT.json
 ```
 
-The receipt contains the deterministic `composition_fingerprint` and the execution / external-release gate states at compilation time.
+The receipt preserves both product-composition identity and compiler-bound compilation identity, plus execution and external-release gate states.
 
-## Deterministic composition fingerprint
+## Two fingerprints, two truths
 
-The composition fingerprint is derived from hashes of the canonical compilation inputs:
+Phase 2 deliberately separates **composition identity** from **compilation identity**.
 
-- the exact Product Manifest bytes;
+### Composition fingerprint
+
+`composition_fingerprint` identifies the canonical product composition and is derived from:
+
+- exact Product Manifest bytes;
 - exact bound profile content hashes;
 - Work Pattern registry;
 - META capability registry;
 - capability catalog;
 - profile index;
-- Product Manifest schema;
-- Compiled Product schema.
+- Product Manifest schema.
 
-The timestamp is **not** part of the composition fingerprint. Two compilations from identical canonical inputs must therefore produce the same fingerprint.
+The compiler implementation itself is not part of this identity. This lets DIO distinguish “the same product composition” from “the exact compiler build that produced this plan.”
 
-Changing any governed input changes the fingerprint.
+### Compilation fingerprint
+
+`compilation_fingerprint` binds the resulting governed plan to:
+
+- the composition fingerprint;
+- compiler version;
+- SHA-256 of `products/compiler.py`;
+- Compiled Product schema SHA-256;
+- deterministic SHA-256 of the compiled plan before the compilation fingerprint is inserted.
+
+Thus:
+
+```text
+same composition + different compiler implementation
+→ same composition identity may remain
+→ compilation identity MUST change
+```
+
+Timestamps are excluded from both deterministic fingerprints.
 
 ## Capability resolution
 
@@ -97,12 +128,12 @@ Product manifests request capability IDs. They never name concrete organs or run
 
 The compiler resolves a capability only from the canonical catalog. Provider selection is deterministic by priority and provider ID.
 
-Every earned provider also declares a `product_scope`. A provider is usable only when its scope includes the product ID or the explicit wildcard `*`.
+Every earned provider declares a `product_scope`. A provider is usable only when its scope includes the product ID or the explicit wildcard `*`.
 
-This distinction prevents a dangerous shortcut:
+This prevents a dangerous shortcut:
 
 ```text
-relevant code exists != capability is generic != provider applies to this product
+relevant code exists != generic capability != provider applies to this product
 ```
 
 Capability states are:
@@ -112,7 +143,7 @@ Capability states are:
 - `UNAVAILABLE`: a known capability cannot currently satisfy this product/requirement;
 - `UNKNOWN`: no canonical capability definition exists.
 
-A `PLANNED` capability is not treated as available merely because an architecture document says it should exist. Likewise, an existing provider is not treated as generic merely because its file exists.
+A `PLANNED` capability is never treated as available merely because architecture says it should exist. An existing provider is never treated as generic merely because its file exists.
 
 ## Execution law
 
@@ -124,7 +155,7 @@ missing required execution capability -> REFUSE
 
 Compilation itself never promotes `maturity.operational_flags.executable`.
 
-If a manifest claims `executable = true` while a required execution capability is unresolved, compilation refuses the manifest rather than downgrading the truth silently.
+If a manifest claims `executable = true` while a required execution capability is unresolved, compilation refuses the manifest rather than silently downgrading truth.
 
 ## META dependency law
 
@@ -144,6 +175,18 @@ Every profile reference in a Product Manifest must match the canonical profile i
 - exact profile content SHA-256.
 
 A stale or tampered profile reference refuses compilation.
+
+## Commercial contradiction law
+
+An `internal_only` commercial profile cannot coexist with:
+
+```text
+campaign_enabled = true
+```
+
+That combination is refused rather than translated into ambiguous runtime behaviour.
+
+External release is never granted by compilation alone.
 
 ## ContractProof reference compilation
 
@@ -176,9 +219,15 @@ Currently earned generic capabilities resolve for:
 - evidence provenance;
 - evidence linking.
 
-`CapitalRoom` currently exists as an earned proof-room provider, but its implementation declares the existing registered product set and does **not** yet include `dio_contractproof`. The compiler therefore returns `proof.room.compile = UNAVAILABLE` for ContractProof rather than pretending that existing code is automatically reusable.
+`CapitalRoom` exists as an earned proof-room provider, but its current implementation is scoped to the existing registered products and does **not** include `dio_contractproof`. Therefore:
 
-The following remain intentionally `PLANNED` until later phases:
+```text
+proof.room.compile = UNAVAILABLE
+```
+
+for ContractProof in Phase 2.
+
+The following remain intentionally `PLANNED`:
 
 - `obligation.extract`;
 - `obligation.normalize`;
@@ -186,7 +235,7 @@ The following remain intentionally `PLANNED` until later phases:
 - `obligation.evaluate`;
 - `product.executor.contractproof`.
 
-Therefore the expected Phase 2 ContractProof gates are:
+Expected ContractProof gates:
 
 ```text
 composition      = ALLOW
@@ -198,25 +247,33 @@ external_release = REFUSE
 
 That is a successful Phase 2 compilation.
 
-## Refusal harness
+## Refusal and regression harnesses
 
-Run:
+Primary acceptance:
 
 ```bash
 python3 scripts/validate_product_compiler.py
 ```
 
-The acceptance harness proves positive compilation and negative constitutional behaviour.
+Regression contract:
 
-It must refuse or withhold capability for:
+```bash
+pytest -q tests/test_product_compiler_phase2.py
+```
+
+The harnesses prove positive compilation and negative constitutional behaviour.
+
+They must refuse or withhold capability for:
 
 1. a Product Manifest that attempts direct `organs` wiring;
-2. a product whose selected Work Patterns require a META primitive omitted by the manifest;
+2. a product whose Work Patterns require a META primitive omitted by the manifest;
 3. a manifest whose bound profile content hash is stale or tampered;
 4. execution without an earned execution-capable provider;
-5. an existing provider whose declared product scope does not include the product being compiled.
+5. an existing provider whose declared product scope does not include the product;
+6. an internal-only commercial profile paired with campaign enablement;
+7. compilation from outside the canonical manifest registry.
 
-It also proves that identical governed inputs reproduce the same composition fingerprint.
+They also prove deterministic reproduction of both fingerprints under unchanged inputs and unchanged compiler source.
 
 Expected final token:
 
@@ -228,18 +285,20 @@ DIO_PRODUCT_COMPILER_READY
 
 Phase 2 is complete only when:
 
-1. Phase 0 constitution still passes;
-2. Phase 1 profiles still pass;
-3. `contractproof` validates;
+1. Phase 0 constitution passes;
+2. Phase 1 profiles pass;
+3. `contractproof` validates as a canonical manifest;
 4. `contractproof` compiles into the seven canonical artifacts;
-5. deterministic fingerprint reproduction passes;
-6. direct organ wiring is refused;
-7. incomplete META composition is refused;
-8. stale profile binding is refused;
-9. provider applicability scope is enforced;
-10. missing ContractProof executor remains `REFUSE`;
-11. internal-only external release remains `REFUSE`;
-12. the final token is `DIO_PRODUCT_COMPILER_READY`.
+5. composition fingerprint reproduction passes;
+6. compiler-bound compilation fingerprint reproduction passes;
+7. direct organ wiring is refused;
+8. incomplete META composition is refused;
+9. stale profile binding is refused;
+10. provider applicability scope is enforced;
+11. missing ContractProof executor remains `REFUSE`;
+12. internal-only external release remains `REFUSE`;
+13. regression tests pass;
+14. the final token is `DIO_PRODUCT_COMPILER_READY`.
 
 ## Phase boundary
 
