@@ -73,23 +73,32 @@ def main() -> int:
         print("ALLOW deterministic runtime planning preserves authority and execution boundaries")
 
         patterns = {row["work_pattern_id"]: row for row in plan_a["patterns"]}
-        require(patterns["WP01"]["runtime_state"] == "PARTIAL", "ContractProof Evidence pattern must remain PARTIAL")
-        require(patterns["WP05"]["runtime_state"] == "PARTIAL", "ContractProof Obligation pattern must expose the Phase 4 frontier")
-        require(patterns["WP11"]["runtime_state"] == "BLOCKED", "ContractProof Proof pattern must be BLOCKED by provider applicability")
-        print("ALLOW ContractProof reports PARTIAL Evidence, PARTIAL Obligation and BLOCKED Proof")
+        require(patterns["WP01"]["runtime_state"] == "PARTIAL", "ContractProof Evidence pattern must remain PARTIAL until evidence frontier advances")
+        require(patterns["WP11"]["runtime_state"] == "BLOCKED", "ContractProof Proof pattern must remain BLOCKED by provider applicability")
+
+        catalog, _ = load_capability_catalog(ROOT)
+        obligation_ops = {row["operation_id"]: row for row in patterns["WP05"]["operations"]}
+        obligation_capabilities = {
+            "extract_obligations": "obligation.extract",
+            "normalize_obligations": "obligation.normalize",
+            "identify_deadlines": "obligation.deadlines",
+            "assess_status": "obligation.evaluate",
+        }
+        all_earned = True
+        for operation_id, capability_id in obligation_capabilities.items():
+            expected = "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
+            require(obligation_ops[operation_id]["resolution_state"] == expected, f"work-pattern frontier drift for {operation_id}")
+            all_earned = all_earned and expected == "RESOLVED"
+        require(obligation_ops["bind_evidence"]["resolution_state"] == "RESOLVED", "earned generic evidence linking should remain reusable")
+        expected_wp05 = "READY" if all_earned else "PARTIAL"
+        require(patterns["WP05"]["runtime_state"] == expected_wp05, "Obligation work-pattern runtime state does not reflect capability truth")
+        print("ALLOW Obligation work pattern tracks the current earned capability frontier")
 
         proof_ops = {row["operation_id"]: row for row in patterns["WP11"]["operations"]}
         require(proof_ops["compile_portable_room"]["resolution_state"] == "UNAVAILABLE", "ContractProof must not inherit CapitalRoom proof provider")
         require("no earned provider declares applicability" in proof_ops["compile_portable_room"]["reason"], "proof provider refusal reason drift")
         print("ALLOW existing proof provider remains product-scoped instead of magically generic")
 
-        obligation_ops = {row["operation_id"]: row for row in patterns["WP05"]["operations"]}
-        for operation_id in ("extract_obligations", "normalize_obligations", "identify_deadlines", "assess_status"):
-            require(obligation_ops[operation_id]["resolution_state"] == "PLANNED", f"Phase 4 obligation capability was prematurely earned: {operation_id}")
-        require(obligation_ops["bind_evidence"]["resolution_state"] == "RESOLVED", "earned generic evidence linking should remain reusable")
-        print("ALLOW Obligation Core remains unearned while generic evidence binding is reused")
-
-        catalog, _ = load_capability_catalog(ROOT)
         new_planned = {
             "evidence.sufficiency",
             "evidence.gaps",
@@ -103,9 +112,9 @@ def main() -> int:
             "proof.disclosure.prepare",
         }
         for capability_id in new_planned:
-            require(catalog[capability_id]["status"] == "planned", f"new Phase 3 capability falsely marked earned: {capability_id}")
+            require(catalog[capability_id]["status"] == "planned", f"unearned Phase 3 frontier capability falsely marked earned: {capability_id}")
             require(catalog[capability_id]["providers"] == [], f"planned Phase 3 capability unexpectedly has a provider: {capability_id}")
-        print("ALLOW new capability frontier is declared planned, not earned")
+        print("ALLOW remaining Phase 3 capability frontier stays planned until earned")
 
         for pattern in plan_a["patterns"]:
             require(pattern["human_gate"]["state"] == "NEEDS_YOU", f"human boundary lost for {pattern['work_pattern_id']}")
