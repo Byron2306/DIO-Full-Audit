@@ -76,7 +76,7 @@ def load_json(path: Path) -> dict[str, Any]:
         raise ProfileError(f"missing file: {path}") from exc
     except json.JSONDecodeError as exc:
         raise ProfileError(f"invalid JSON in {path}: {exc}") from exc
-    require(isinstance(payload, dict), f"profile must be a JSON object: {path}")
+    require(isinstance(payload, dict), f"expected JSON object: {path}")
     return payload
 
 
@@ -134,12 +134,11 @@ def validate_profile(root: Path, path: Path, expected_class: str) -> str:
     profile_id = str(profile.get("profile_id") or "")
     profile_class = str(profile.get("profile_class") or "")
     require(profile_class == expected_class, f"{profile_id}: class {profile_class} disagrees with directory class {expected_class}")
-    require(profile_id.startswith(expected_class + ".") or (expected_class == "connector" and profile_id.startswith("connector.")), f"{profile_id}: profile_id prefix disagrees with class")
+    require(profile_id.startswith(expected_class + "."), f"{profile_id}: profile_id prefix disagrees with class")
     require(profile.get("status") in {"internal_reference", "source_bound", "externally_validated", "deprecated"}, f"{profile_id}: invalid status")
     require(isinstance(profile.get("risk_boundary"), str) and len(profile["risk_boundary"].strip()) >= 8, f"{profile_id}: explicit risk_boundary required")
 
-    keys = walk_keys(profile)
-    forbidden = FORBIDDEN_PROFILE_KEYS.intersection(keys)
+    forbidden = FORBIDDEN_PROFILE_KEYS.intersection(walk_keys(profile))
     require(not forbidden, f"{profile_id}: profile contains forbidden runtime/maturity keys {sorted(forbidden)}")
 
     spec = profile.get("spec")
@@ -155,27 +154,44 @@ def validate_profile(root: Path, path: Path, expected_class: str) -> str:
         sources = binding.get("source_bindings") or []
         require(any(item.get("authority_level") == "externally_authoritative" for item in sources), f"{profile_id}: externally_validated requires an externally_authoritative source")
 
-    if profile_class == "commercial":
-        offer_state = spec.get("offer_state")
-        if offer_state == "internal_only":
-            prohibited = set(spec.get("prohibited_actions") or [])
-            require("customer charging" in prohibited, f"{profile_id}: internal_only policy must prohibit customer charging")
-            require("external delivery" in prohibited, f"{profile_id}: internal_only policy must prohibit external delivery")
-            require("autonomous release" in prohibited, f"{profile_id}: internal_only policy must prohibit autonomous release")
+    if profile_class == "commercial" and spec.get("offer_state") == "internal_only":
+        prohibited = set(spec.get("prohibited_actions") or [])
+        for action in ("customer charging", "external delivery", "autonomous release"):
+            require(action in prohibited, f"{profile_id}: internal_only policy must prohibit {action}")
 
-    if profile_class == "connector":
-        writes = spec.get("write_capabilities") or []
-        if writes:
-            authority_requirements = spec.get("authority_requirements") or []
-            require(authority_requirements, f"{profile_id}: write-capable connector requires authority requirements")
+    if profile_class == "connector" and (spec.get("write_capabilities") or []):
+        require(spec.get("authority_requirements"), f"{profile_id}: write-capable connector requires authority requirements")
 
     return profile_id
 
 
+def validate_index(root: Path, seen_ids: set[str]) -> None:
+    index_path = root / "config" / "profiles" / "index.json"
+    index = load_json(index_path)
+    require(index.get("schema") == "dio.profile_index.v1", "unexpected profile index schema")
+    entries = index.get("profiles")
+    require(isinstance(entries, list), "profile index profiles must be a list")
+    indexed_ids = [str(item.get("profile_id") or "") for item in entries]
+    require(len(indexed_ids) == len(set(indexed_ids)), "duplicate profile IDs in profile index")
+    require(set(indexed_ids) == seen_ids, "profile index does not exactly match concrete profile files")
+
+    for entry in entries:
+        profile_id = str(entry.get("profile_id") or "")
+        path = (root / str(entry.get("path") or "")).resolve()
+        require(path.is_relative_to(root.resolve()), f"{profile_id}: indexed path escapes repository root")
+        require(path.is_file(), f"{profile_id}: indexed profile path missing")
+        profile = load_json(path)
+        require(profile.get("profile_id") == profile_id, f"{profile_id}: index/profile ID mismatch")
+        require(profile.get("profile_class") == entry.get("profile_class"), f"{profile_id}: index/profile class mismatch")
+        require(profile.get("profile_version") == entry.get("profile_version"), f"{profile_id}: index/profile version mismatch")
+        require(profile.get("status") == entry.get("status"), f"{profile_id}: index/profile status mismatch")
+        expected_hash = str(entry.get("content_hash") or "")
+        require(expected_hash == f"sha256:{sha256_file(path)}", f"{profile_id}: profile index content hash mismatch")
+
+
 def validate(root: Path) -> list[str]:
     checks: list[str] = []
-    schema_path = root / "schemas" / "dio_profile.schema.json"
-    schema = load_json(schema_path)
+    schema = load_json(root / "schemas" / "dio_profile.schema.json")
     require(schema.get("$id") == "dio.profile.v1", "unexpected profile schema id")
     require(set(((schema.get("properties") or {}).get("profile_class") or {}).get("enum") or []) == set(PROFILE_CLASS_DIRS.values()), "profile schema classes disagree with Phase 0 registry")
     checks.append("canonical profile schema present")
@@ -196,6 +212,9 @@ def validate(root: Path) -> list[str]:
     missing_reference = EXPECTED_REFERENCE_PROFILES.difference(seen_ids)
     require(not missing_reference, f"missing Phase 1 reference profiles: {sorted(missing_reference)}")
     checks.append("Obligation-family reference profile set complete")
+
+    validate_index(root, seen_ids)
+    checks.append("profile index hashes match concrete profile bytes")
 
     return checks
 
