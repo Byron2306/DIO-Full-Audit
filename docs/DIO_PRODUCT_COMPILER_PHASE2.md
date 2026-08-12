@@ -78,7 +78,8 @@ The composition fingerprint is derived from hashes of the canonical compilation 
 - META capability registry;
 - capability catalog;
 - profile index;
-- Product Manifest schema.
+- Product Manifest schema;
+- Compiled Product schema.
 
 The timestamp is **not** part of the composition fingerprint. Two compilations from identical canonical inputs must therefore produce the same fingerprint.
 
@@ -96,14 +97,22 @@ Product manifests request capability IDs. They never name concrete organs or run
 
 The compiler resolves a capability only from the canonical catalog. Provider selection is deterministic by priority and provider ID.
 
+Every earned provider also declares a `product_scope`. A provider is usable only when its scope includes the product ID or the explicit wildcard `*`.
+
+This distinction prevents a dangerous shortcut:
+
+```text
+relevant code exists != capability is generic != provider applies to this product
+```
+
 Capability states are:
 
-- `RESOLVED`: an earned available provider satisfies the requirement;
+- `RESOLVED`: an earned available provider explicitly applies to the product and satisfies the requirement;
 - `PLANNED`: the capability is known but has not been earned;
-- `UNAVAILABLE`: a known capability cannot currently satisfy the requirement;
+- `UNAVAILABLE`: a known capability cannot currently satisfy this product/requirement;
 - `UNKNOWN`: no canonical capability definition exists.
 
-A `PLANNED` capability is not treated as available merely because an architecture document says it should exist.
+A `PLANNED` capability is not treated as available merely because an architecture document says it should exist. Likewise, an existing provider is not treated as generic merely because its file exists.
 
 ## Execution law
 
@@ -161,12 +170,13 @@ META Room
 
 with the six Phase 1 reference profiles.
 
-Currently earned capabilities resolve for:
+Currently earned generic capabilities resolve for:
 
 - Governed Case materialisation;
 - evidence provenance;
-- evidence linking;
-- proof-room compilation.
+- evidence linking.
+
+`CapitalRoom` currently exists as an earned proof-room provider, but its implementation declares the existing registered product set and does **not** yet include `dio_contractproof`. The compiler therefore returns `proof.room.compile = UNAVAILABLE` for ContractProof rather than pretending that existing code is automatically reusable.
 
 The following remain intentionally `PLANNED` until later phases:
 
@@ -198,12 +208,13 @@ python3 scripts/validate_product_compiler.py
 
 The acceptance harness proves positive compilation and negative constitutional behaviour.
 
-It must refuse:
+It must refuse or withhold capability for:
 
 1. a Product Manifest that attempts direct `organs` wiring;
 2. a product whose selected Work Patterns require a META primitive omitted by the manifest;
 3. a manifest whose bound profile content hash is stale or tampered;
-4. execution without an earned execution-capable provider.
+4. execution without an earned execution-capable provider;
+5. an existing provider whose declared product scope does not include the product being compiled.
 
 It also proves that identical governed inputs reproduce the same composition fingerprint.
 
@@ -225,14 +236,15 @@ Phase 2 is complete only when:
 6. direct organ wiring is refused;
 7. incomplete META composition is refused;
 8. stale profile binding is refused;
-9. missing ContractProof executor remains `REFUSE`;
-10. internal-only external release remains `REFUSE`;
-11. the final token is `DIO_PRODUCT_COMPILER_READY`.
+9. provider applicability scope is enforced;
+10. missing ContractProof executor remains `REFUSE`;
+11. internal-only external release remains `REFUSE`;
+12. the final token is `DIO_PRODUCT_COMPILER_READY`.
 
 ## Phase boundary
 
 Phase 2 does **not** implement Obligation Core.
 
-The compiler is now allowed to tell DIO exactly what is missing. Phase 3 formalises reusable Work Pattern runtime contracts, and the subsequent Obligation phase earns the capabilities currently visible as `PLANNED`.
+The compiler is now allowed to tell DIO exactly what is missing. Phase 3 formalises reusable Work Pattern runtime contracts, and the subsequent Obligation phase earns the capabilities currently visible as `PLANNED` or `UNAVAILABLE`.
 
 No bespoke `contractproof.py`, `tenderproof.py`, `grantproof.py` or `permitproof.py` is introduced by this phase.
