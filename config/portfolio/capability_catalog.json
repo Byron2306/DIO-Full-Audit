@@ -1,0 +1,77 @@
+{
+  "schema": "dio.capability_catalog.v1",
+  "catalog_version": "1.0.0",
+  "constitution_version": "1.0.0",
+  "laws": {
+    "products_request_capabilities_not_organs": true,
+    "compiler_resolves_providers": true,
+    "planned_capability_is_not_earned_capability": true,
+    "missing_required_execution_capability": "REFUSE",
+    "provider_selection_is_deterministic": true,
+    "provider_reference_must_exist_when_available": true
+  },
+  "capabilities": [
+    {
+      "capability_id": "case.materialize",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {"provider_id": "governed_case_v2", "provider_kind": "shared_runtime", "ref": "products/governed_case.py", "priority": 10, "execution_capable": false}
+      ]
+    },
+    {
+      "capability_id": "evidence.provenance",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {"provider_id": "evidence_intelligence", "provider_kind": "shared_runtime", "ref": "evidence/intelligence.py", "priority": 10, "execution_capable": false}
+      ]
+    },
+    {
+      "capability_id": "evidence.link",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {"provider_id": "evidence_intelligence", "provider_kind": "shared_runtime", "ref": "evidence/intelligence.py", "priority": 10, "execution_capable": false}
+      ]
+    },
+    {
+      "capability_id": "proof.room.compile",
+      "kind": "proof_runtime",
+      "status": "available",
+      "providers": [
+        {"provider_id": "capitalroom_proof_room", "provider_kind": "shared_runtime", "ref": "capitalroom/proof_room.py", "priority": 10, "execution_capable": false}
+      ]
+    },
+    {
+      "capability_id": "obligation.extract",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "obligation.normalize",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "obligation.deadlines",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "obligation.evaluate",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "product.executor.contractproof",
+      "kind": "vertical_executor",
+      "status": "planned",
+      "providers": []
+    }
+  ]
+}
