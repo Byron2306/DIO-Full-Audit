@@ -92,8 +92,11 @@ def main() -> int:
         require(capability_rows["proof.room.compile"]["resolution_state"] == "UNAVAILABLE", "CapitalRoom proof provider must not be treated as generic ContractProof capability")
         require("no earned provider declares applicability" in capability_rows["proof.room.compile"]["reason"], "proof-room scope refusal reason drift")
 
-        for capability_id in ("obligation.extract", "obligation.normalize", "obligation.deadlines", "obligation.evaluate"):
-            require(capability_rows[capability_id]["resolution_state"] == "PLANNED", f"future Obligation capability must remain PLANNED in Phase 2: {capability_id}")
+        capability_catalog, _ = load_capability_catalog(ROOT)
+        obligation_ids = ("obligation.extract", "obligation.normalize", "obligation.deadlines", "obligation.evaluate")
+        for capability_id in obligation_ids:
+            expected = "RESOLVED" if capability_catalog[capability_id]["status"] == "available" else "PLANNED"
+            require(capability_rows[capability_id]["resolution_state"] == expected, f"capability frontier is not truthful for {capability_id}")
         require(capability_rows["product.executor.contractproof"]["resolution_state"] == "PLANNED", "ContractProof executor must remain unearned")
 
         require(compiled_a["gates"]["composition"]["state"] == "ALLOW", "valid composition should ALLOW")
@@ -123,8 +126,7 @@ def main() -> int:
             "profile content hash mismatch",
         )
 
-        capability_catalog, _ = load_capability_catalog(ROOT)
-        require(capability_catalog["product.executor.contractproof"]["status"] == "planned", "Phase 2 must not smuggle in a ContractProof executor")
+        require(capability_catalog["product.executor.contractproof"]["status"] == "planned", "compiler regression must not smuggle in a ContractProof executor")
         room_provider = capability_catalog["proof.room.compile"]["providers"][0]
         require("dio_contractproof" not in set(room_provider.get("product_scope") or []), "CapitalRoom provider scope must remain truthful for ContractProof")
 
@@ -163,7 +165,7 @@ def main() -> int:
     print("ALLOW capability resolution is deterministic")
     print("ALLOW earned provider applicability is product-scoped")
     print("ALLOW existing-but-inapplicable capability remains unavailable")
-    print("ALLOW unearned capabilities remain visible instead of inferred")
+    print("ALLOW capability frontier advances without rewriting compiler truth")
     print("ALLOW missing ContractProof executor produces execution REFUSE")
     print("ALLOW internal-only commercial policy produces external-release REFUSE")
     print("ALLOW composition fingerprint is deterministic")
