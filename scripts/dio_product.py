@@ -10,47 +10,49 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from products.compiler import CompilerError, compile_manifest, inspect_compilation, write_compilation
-
-
-MANIFEST_ROOT = ROOT / "config" / "products" / "manifests"
+from products.compiler import (
+    CompilerError,
+    compile_manifest,
+    inspect_compilation,
+    load_manifest_registry,
+    write_compilation,
+)
 
 
 def resolve_manifest(value: str, root: Path) -> Path:
+    registry = load_manifest_registry(root)
+    manifest_root = (root / "config" / "products" / "manifests").resolve()
+
+    for row in registry.values():
+        manifest = row["manifest"]
+        path = Path(str(row["path"])).resolve()
+        if value in {
+            str(manifest.get("product_id") or ""),
+            str((manifest.get("incarnation") or {}).get("id") or ""),
+            path.name,
+            path.stem,
+        }:
+            return path
+
     candidate = Path(value)
     if candidate.suffix == ".json":
-        if not candidate.is_absolute():
-            direct = (root / candidate).resolve()
-            if direct.is_file():
-                return direct
-        elif candidate.is_file():
-            return candidate.resolve()
+        direct = candidate.resolve() if candidate.is_absolute() else (root / candidate).resolve()
+        if direct.is_file() and direct.is_relative_to(manifest_root):
+            return direct
 
-    manifest_root = root / "config" / "products" / "manifests"
-    by_filename = manifest_root / f"{value}.json"
-    if by_filename.is_file():
-        return by_filename.resolve()
-
-    matches = []
-    for path in sorted(manifest_root.glob("*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        if payload.get("product_id") == value or (payload.get("incarnation") or {}).get("id") == value:
-            matches.append(path)
-    if len(matches) == 1:
-        return matches[0].resolve()
-    if len(matches) > 1:
-        raise CompilerError(f"ambiguous product selector {value}: {[str(path) for path in matches]}")
-    raise CompilerError(f"no product manifest found for selector: {value}")
+    raise CompilerError(f"no canonical product manifest found for selector: {value}")
 
 
 def list_products(root: Path) -> list[dict]:
     rows = []
-    manifest_root = root / "config" / "products" / "manifests"
-    for path in sorted(manifest_root.glob("*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))
+    registry = load_manifest_registry(root)
+    for product_id in sorted(registry):
+        row = registry[product_id]
+        payload = row["manifest"]
+        path = Path(str(row["path"])).resolve()
         rows.append(
             {
-                "product_id": payload.get("product_id"),
+                "product_id": product_id,
                 "name": payload.get("name"),
                 "incarnation": (payload.get("incarnation") or {}).get("id"),
                 "surface": (payload.get("incarnation") or {}).get("surface"),
@@ -76,20 +78,20 @@ def emit(payload: object, as_json: bool) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="dio-product", description="Validate, compile and inspect DIO Product Manifests.")
+    parser = argparse.ArgumentParser(prog="dio-product", description="Validate, compile and inspect canonical DIO Product Manifests.")
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON.")
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("list", help="List canonical product manifests.")
 
-    validate_parser = sub.add_parser("validate", help="Validate and resolve a product manifest without writing compiled artifacts.")
+    validate_parser = sub.add_parser("validate", help="Validate and resolve a canonical product manifest without writing compiled artifacts.")
     validate_parser.add_argument("product")
 
-    inspect_parser = sub.add_parser("inspect", help="Inspect the resolved product composition without writing artifacts.")
+    inspect_parser = sub.add_parser("inspect", help="Inspect the resolved canonical product composition without writing artifacts.")
     inspect_parser.add_argument("product")
 
-    compile_parser = sub.add_parser("compile", help="Compile a product manifest into governed runtime plans.")
+    compile_parser = sub.add_parser("compile", help="Compile a canonical product manifest into governed runtime plans.")
     compile_parser.add_argument("product")
     compile_parser.add_argument("--output-root", type=Path, default=None)
 
@@ -113,7 +115,7 @@ def main() -> int:
             return 0
 
         if args.command == "inspect":
-            emit(inspect_compilation(compiled), True if args.json else False)
+            emit(inspect_compilation(compiled), args.json)
             return 0
 
         if args.command == "compile":
