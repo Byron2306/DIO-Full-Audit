@@ -11,6 +11,7 @@ from products.governed_case import (
     add_requirement,
     link_evidence,
     raise_challenge,
+    recalculate_requirement_state,
     validate_case,
 )
 
@@ -145,6 +146,7 @@ def project(bundle: dict[str, Any], case: dict[str, Any]) -> dict[str, Any]:
                 raised_by="dio.obligation_core",
                 evidence_ids=[evidence_id],
             )
+            recalculate_requirement_state(case)
 
     event_ref = f"obligation://{bundle['fingerprint']}"
     if event_ref not in case["event_refs"]:
