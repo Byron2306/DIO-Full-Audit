@@ -23,17 +23,17 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "config" / "products" / "manifests" / "contractproof.json"
 
 
-def test_contractproof_compilation_is_deterministic_and_fail_closed() -> None:
+def test_contractproof_compilation_is_deterministic_and_never_autonomously_authoritative() -> None:
     first = compile_manifest(ROOT, MANIFEST)
     second = compile_manifest(ROOT, MANIFEST)
-
     assert first["composition_fingerprint"] == second["composition_fingerprint"]
     assert first["compilation_fingerprint"] == second["compilation_fingerprint"]
     assert first["compiler_provenance"]["source_ref"] == "products/compiler.py"
     assert first["compiler_provenance"]["source_sha256"].startswith("sha256:")
     assert first["gates"]["composition"]["state"] == "ALLOW"
-    assert first["gates"]["planning"]["state"] == "NEEDS_IMPLEMENTATION"
-    assert first["gates"]["execution"]["state"] == "REFUSE"
+    assert first["gates"]["planning"]["state"] in {"ALLOW", "NEEDS_IMPLEMENTATION"}
+    assert first["gates"]["execution"]["state"] in {"REFUSE", "NEEDS_YOU"}
+    assert first["gates"]["execution"]["state"] != "ALLOW"
     assert first["gates"]["human_review"]["state"] == "NEEDS_YOU"
     assert first["gates"]["external_release"]["state"] == "REFUSE"
 
@@ -62,31 +62,34 @@ def test_profile_hash_tamper_is_refused() -> None:
         bind_profiles(ROOT, manifest, index)
 
 
-def test_existing_provider_is_not_assumed_generic() -> None:
+def test_capitalroom_is_never_assumed_generic_for_contractproof() -> None:
     compiled = compile_manifest(ROOT, MANIFEST)
     capabilities = {row["capability_id"]: row for row in compiled["capability_plan"]}
+    catalog, _ = load_capability_catalog(ROOT)
+    capitalroom = next(row for row in catalog["proof.room.compile"]["providers"] if row["provider_id"] == "capitalroom_proof_room")
+    assert "dio_contractproof" not in capitalroom["product_scope"]
     room = capabilities["proof.room.compile"]
-    assert room["resolution_state"] == "UNAVAILABLE"
-    assert "no earned provider declares applicability" in room["reason"]
+    if room["resolution_state"] == "RESOLVED":
+        assert room["provider"]["provider_id"] != "capitalroom_proof_room"
+    else:
+        assert room["resolution_state"] == "UNAVAILABLE"
+        assert "no earned provider declares applicability" in room["reason"]
 
-    catalog, _ = load_capability_catalog(ROOT)
-    provider = catalog["proof.room.compile"]["providers"][0]
-    assert "dio_contractproof" not in provider["product_scope"]
 
-
-def test_capability_frontier_is_truthful_while_executor_remains_unearned() -> None:
+def test_capability_frontier_is_truthful_as_later_phases_earn_providers() -> None:
     compiled = compile_manifest(ROOT, MANIFEST)
     capabilities = {row["capability_id"]: row for row in compiled["capability_plan"]}
     catalog, _ = load_capability_catalog(ROOT)
-    for capability_id in (
+    tracked = (
         "obligation.extract",
         "obligation.normalize",
         "obligation.deadlines",
         "obligation.evaluate",
-    ):
+        "product.executor.contractproof",
+    )
+    for capability_id in tracked:
         expected = "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
         assert capabilities[capability_id]["resolution_state"] == expected
-    assert capabilities["product.executor.contractproof"]["resolution_state"] == "PLANNED"
 
 
 def test_earned_generic_capabilities_resolve() -> None:
