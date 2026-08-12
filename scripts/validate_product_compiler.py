@@ -75,7 +75,11 @@ def main() -> int:
         compiled_b = compile_manifest(ROOT, manifest_path)
         validate_compiled_contract(compiled_a)
 
-        require(compiled_a["composition_fingerprint"] == compiled_b["composition_fingerprint"], "same inputs must produce identical composition fingerprints")
+        require(compiled_a["composition_fingerprint"] == compiled_b["composition_fingerprint"], "same canonical inputs must produce identical composition fingerprints")
+        require(compiled_a["compilation_fingerprint"] == compiled_b["compilation_fingerprint"], "same compiler source and canonical inputs must produce identical compilation fingerprints")
+        require(compiled_a["compiler_provenance"]["source_ref"] == "products/compiler.py", "compiler provenance source ref drift")
+        require(str(compiled_a["compiler_provenance"]["source_sha256"]).startswith("sha256:"), "compiler source hash missing")
+
         require(compiled_a["product_id"] == "dio_contractproof", "unexpected reference product")
         require({item["id"] for item in compiled_a["work_patterns"]} == {"WP01", "WP05", "WP11"}, "ContractProof work-pattern composition drift")
         require({item["id"] for item in compiled_a["meta_capabilities"]} == {"meta_evidence", "meta_assurance", "meta_authority", "meta_room"}, "ContractProof META composition drift")
@@ -139,8 +143,11 @@ def main() -> int:
 
         persisted = json.loads((target / "COMPILED_PRODUCT.json").read_text(encoding="utf-8"))
         receipt = json.loads((target / "COMPILATION_RECEIPT.json").read_text(encoding="utf-8"))
-        require(persisted["composition_fingerprint"] == compiled_a["composition_fingerprint"], "persisted compiled product fingerprint drift")
-        require(receipt["composition_fingerprint"] == compiled_a["composition_fingerprint"], "compilation receipt fingerprint drift")
+        require(persisted["composition_fingerprint"] == compiled_a["composition_fingerprint"], "persisted composition fingerprint drift")
+        require(persisted["compilation_fingerprint"] == compiled_a["compilation_fingerprint"], "persisted compilation fingerprint drift")
+        require(receipt["composition_fingerprint"] == compiled_a["composition_fingerprint"], "compilation receipt composition fingerprint drift")
+        require(receipt["compilation_fingerprint"] == compiled_a["compilation_fingerprint"], "compilation receipt compiler-bound fingerprint drift")
+        require(receipt["compiler_provenance"] == compiled_a["compiler_provenance"], "compilation receipt compiler provenance drift")
         require(receipt["execution_gate"] == "REFUSE", "receipt must preserve execution refusal")
         require(receipt["external_release_gate"] == "REFUSE", "receipt must preserve external-release refusal")
 
@@ -159,7 +166,9 @@ def main() -> int:
     print("ALLOW unearned capabilities remain visible instead of inferred")
     print("ALLOW missing ContractProof executor produces execution REFUSE")
     print("ALLOW internal-only commercial policy produces external-release REFUSE")
-    print("ALLOW compiled artifacts and receipt preserve the composition fingerprint")
+    print("ALLOW composition fingerprint is deterministic")
+    print("ALLOW compilation fingerprint binds compiler provenance")
+    print("ALLOW compiled artifacts and receipt preserve both fingerprints")
     print("DIO_PRODUCT_COMPILER_READY")
     return 0
 
