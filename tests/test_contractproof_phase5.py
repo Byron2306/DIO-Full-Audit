@@ -120,6 +120,19 @@ def test_tampered_proof_artifact_is_detected(tmp_path: Path) -> None:
     assert "hash:JSON" in verification["failures"]
 
 
+def test_tampered_proof_manifest_authority_boundary_is_detected(tmp_path: Path) -> None:
+    result = _run(tmp_path)
+    output_dir = Path(result["output_dir"])
+    path = output_dir / "PROOF_MANIFEST.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["external_release"] = True
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    verification = verify_integrity(output_dir)
+    assert verification["verified"] is False
+    assert "manifest:authority_boundary" in verification["failures"]
+    assert "manifest:fingerprint" in verification["failures"]
+
+
 def test_golden_runner_requires_explicit_human_operator(tmp_path: Path) -> None:
     source = _load("reference_contract.json")
     evidence = _load("reference_evidence.json")["evidence_records"]
