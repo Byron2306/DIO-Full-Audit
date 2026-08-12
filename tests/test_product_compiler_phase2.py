@@ -28,6 +28,9 @@ def test_contractproof_compilation_is_deterministic_and_fail_closed() -> None:
     second = compile_manifest(ROOT, MANIFEST)
 
     assert first["composition_fingerprint"] == second["composition_fingerprint"]
+    assert first["compilation_fingerprint"] == second["compilation_fingerprint"]
+    assert first["compiler_provenance"]["source_ref"] == "products/compiler.py"
+    assert first["compiler_provenance"]["source_sha256"].startswith("sha256:")
     assert first["gates"]["composition"]["state"] == "ALLOW"
     assert first["gates"]["planning"]["state"] == "NEEDS_IMPLEMENTATION"
     assert first["gates"]["execution"]["state"] == "REFUSE"
@@ -52,8 +55,7 @@ def test_work_pattern_meta_dependencies_are_mandatory() -> None:
 
 
 def test_profile_hash_tamper_is_refused() -> None:
-    manifest = load_json(MANIFEST)
-    manifest = copy.deepcopy(manifest)
+    manifest = copy.deepcopy(load_json(MANIFEST))
     manifest["profiles"]["framework"][0]["content_hash"] = "sha256:" + ("0" * 64)
     index = load_profile_index(ROOT)
     with pytest.raises(CompilerError, match="profile content hash mismatch"):
