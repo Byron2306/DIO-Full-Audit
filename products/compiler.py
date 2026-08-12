@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator
 
 
 COMPILER_SCHEMA = "dio.compiled_product.v1"
-COMPILER_VERSION = "1.0.0"
+COMPILER_VERSION = "1.1.0"
 COMPILER_SOURCE_REF = "products/compiler.py"
 MANIFEST_ROOT = Path("config/products/manifests")
 PROFILE_KEY_TO_CLASS = {
@@ -418,7 +418,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
     require(not (internal_only and campaign_enabled), "internal-only commercial profile cannot coexist with campaign_enabled=true")
 
     planning_state = "ALLOW" if not unresolved_planning else "NEEDS_IMPLEMENTATION"
-    execution_state = "ALLOW" if executable_claimed and not unresolved_execution else "REFUSE"
+    execution_state = "NEEDS_YOU" if executable_claimed and not unresolved_execution else "REFUSE"
     if internal_only or not campaign_enabled:
         release_state = "REFUSE"
         release_reason = "Commercial policy or maturity flags prohibit external release."
@@ -445,6 +445,11 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
         "source_sha256": f"sha256:{sha256_file(compiler_source)}",
     }
 
+    execution_reason = (
+        "All required execution capabilities resolve, but execution remains bound to explicit human initiation and authority."
+        if execution_state == "NEEDS_YOU"
+        else "Compilation does not create execution authority; unresolved or unearned execution capability remains."
+    )
     compiled = {
         "schema": COMPILER_SCHEMA,
         "compiler_version": COMPILER_VERSION,
@@ -464,7 +469,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
         "gates": {
             "composition": {"state": "ALLOW", "reason": "Manifest, profile bindings and composition invariants validated."},
             "planning": {"state": planning_state, "reason": "All required planning capabilities resolve." if planning_state == "ALLOW" else "Required planning capabilities remain unearned or inapplicable."},
-            "execution": {"state": execution_state, "reason": "All required execution capabilities resolve and executable maturity is asserted." if execution_state == "ALLOW" else "Compilation does not create execution authority; unresolved or unearned execution capability remains."},
+            "execution": {"state": execution_state, "reason": execution_reason},
             "human_review": {"state": "NEEDS_YOU", "reason": "Consequential judgement remains human-authority bound."},
             "external_release": {"state": release_state, "reason": release_reason},
         },
@@ -501,6 +506,7 @@ def build_test_plan(compiled: dict[str, Any]) -> dict[str, Any]:
             "same compiler source and canonical inputs reproduce the same compilation fingerprint",
             "profile hash drift causes compilation refusal",
             "missing required execution capability yields execution REFUSE",
+            "earned execution capability yields NEEDS_YOU rather than autonomous ALLOW",
             "external release is never granted by compilation alone",
             "product manifest contains no direct organ wiring",
             "work-pattern META requirements are a subset of the product META composition",
