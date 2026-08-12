@@ -67,14 +67,24 @@ def test_contractproof_evidence_pattern_is_partial_not_magically_ready() -> None
     assert operations["emit_gaps"]["resolution_state"] == "PLANNED"
 
 
-def test_contractproof_obligation_pattern_exposes_phase4_frontier() -> None:
+def test_contractproof_obligation_pattern_tracks_current_capability_frontier() -> None:
     plan = plan_manifest(ROOT, MANIFEST)
     obligation = _by_pattern(plan)["WP05"]
     operations = _by_operation(obligation)
-    assert obligation["runtime_state"] == "PARTIAL"
+    catalog, _ = load_capability_catalog(ROOT)
+    obligation_capabilities = {
+        "extract_obligations": "obligation.extract",
+        "normalize_obligations": "obligation.normalize",
+        "identify_deadlines": "obligation.deadlines",
+        "assess_status": "obligation.evaluate",
+    }
+    expected_states = []
+    for operation_id, capability_id in obligation_capabilities.items():
+        expected = "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
+        assert operations[operation_id]["resolution_state"] == expected
+        expected_states.append(expected)
     assert operations["bind_evidence"]["resolution_state"] == "RESOLVED"
-    for operation_id in ("extract_obligations", "normalize_obligations", "identify_deadlines", "assess_status"):
-        assert operations[operation_id]["resolution_state"] == "PLANNED"
+    assert obligation["runtime_state"] == ("READY" if all(state == "RESOLVED" for state in expected_states) else "PARTIAL")
 
 
 def test_contractproof_proof_pattern_respects_provider_product_scope() -> None:
