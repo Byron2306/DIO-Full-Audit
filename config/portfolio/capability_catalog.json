@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.0.0",
+  "catalog_version": "1.1.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -37,6 +37,18 @@
       ]
     },
     {
+      "capability_id": "evidence.sufficiency",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "evidence.gaps",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
       "capability_id": "proof.room.compile",
       "kind": "proof_runtime",
       "status": "available",
@@ -62,6 +74,18 @@
       ]
     },
     {
+      "capability_id": "proof.integrity.verify",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "proof.disclosure.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
       "capability_id": "obligation.extract",
       "kind": "work_pattern_runtime",
       "status": "planned",
@@ -81,6 +105,42 @@
     },
     {
       "capability_id": "obligation.evaluate",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "intake.normalize",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "intake.classify",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "intake.missing_information",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "document.project",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "document.qa",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "document.release.prepare",
       "kind": "work_pattern_runtime",
       "status": "planned",
       "providers": []
