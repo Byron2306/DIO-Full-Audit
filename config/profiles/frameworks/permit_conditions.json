@@ -1,0 +1,66 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.permit_conditions",
+  "profile_class": "framework",
+  "name": "Permit Condition Obligation Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_OBLIGATION_FAMILY_PHASE6.md",
+        "source_section": "Permit Condition Obligation Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:0b5bb40260c32059e50722a05ede06a438676735738b8492e703fd4c7bf9117c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal permit condition obligation framework configures vocabulary and review semantics only. It creates no legal, procurement, funder or regulatory conclusion or authority.",
+  "spec": {
+    "requirement_types": [
+      "approval_prerequisite",
+      "operating_condition",
+      "monitoring",
+      "notification",
+      "renewal",
+      "retention"
+    ],
+    "state_vocabulary": [
+      "unverified",
+      "satisfied",
+      "partial",
+      "missing",
+      "contested",
+      "expired",
+      "not_yet_due",
+      "needs_review"
+    ],
+    "deadline_semantics": [
+      "effective_date",
+      "renewal_date",
+      "incident_relative",
+      "monitoring_period"
+    ],
+    "human_boundaries": [
+      "human confirms permit-condition interpretation",
+      "human confirms regulator-facing evidence",
+      "human controls submissions and operating decisions"
+    ],
+    "forbidden_claims": [
+      "permit_valid",
+      "regulatory_compliance",
+      "operating_authority",
+      "legally_approved"
+    ]
+  },
+  "tags": [
+    "phase6",
+    "WP05",
+    "obligation-family",
+    "permit_conditions"
+  ]
+}
+
