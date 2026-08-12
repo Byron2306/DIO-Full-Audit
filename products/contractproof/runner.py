@@ -103,7 +103,13 @@ def run_contractproof(
     if compiled["gates"]["external_release"]["state"] != "REFUSE":
         raise RuntimeError("ContractProof internal proof profile must refuse external release")
 
-    expected_outputs = [str(item) for item in compiled["output_plan"]["required_output_types"]]
+    expected_outputs = sorted({
+        str(artifact_type)
+        for output in compiled["output_plan"]["outputs"]
+        for artifact_type in output.get("artifact_types") or []
+    })
+    if not expected_outputs:
+        raise RuntimeError("ContractProof compiled output profile contains no artifact types")
     resolved_job_id = str(job_id or f"golden-{source.get('source_id') or 'contract'}")
     case = new_case(
         product="dio_contractproof",
@@ -124,13 +130,7 @@ def run_contractproof(
     validate_case(case)
     sufficiency = assess_sufficiency(case)
 
-    proof_manifest = compile_portable_room(
-        case,
-        obligation_bundle,
-        sufficiency,
-        projection_receipt,
-        output_dir,
-    )
+    proof_manifest = compile_portable_room(case, obligation_bundle, sufficiency, projection_receipt, output_dir)
     integrity = verify_integrity(output_dir)
     if not integrity["verified"]:
         raise RuntimeError(f"ContractProof proof pack integrity failed: {integrity['failures']}")
@@ -138,9 +138,7 @@ def run_contractproof(
 
     observed_outputs = {str(row["output_id"]) for row in proof_manifest["artifacts"]}
     if observed_outputs != set(expected_outputs):
-        raise RuntimeError(
-            f"ContractProof output profile mismatch: expected {sorted(expected_outputs)}, observed {sorted(observed_outputs)}"
-        )
+        raise RuntimeError(f"ContractProof output profile mismatch: expected {sorted(expected_outputs)}, observed {sorted(observed_outputs)}")
 
     status_counts: dict[str, int] = {}
     for row in obligation_bundle.get("evaluations") or []:
