@@ -8,7 +8,8 @@
     "planned_capability_is_not_earned_capability": true,
     "missing_required_execution_capability": "REFUSE",
     "provider_selection_is_deterministic": true,
-    "provider_reference_must_exist_when_available": true
+    "provider_reference_must_exist_when_available": true,
+    "provider_applicability_must_be_explicit": true
   },
   "capabilities": [
     {
@@ -16,7 +17,7 @@
       "kind": "planning_runtime",
       "status": "available",
       "providers": [
-        {"provider_id": "governed_case_v2", "provider_kind": "shared_runtime", "ref": "products/governed_case.py", "priority": 10, "execution_capable": false}
+        {"provider_id": "governed_case_v2", "provider_kind": "shared_runtime", "ref": "products/governed_case.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
       ]
     },
     {
@@ -24,7 +25,7 @@
       "kind": "planning_runtime",
       "status": "available",
       "providers": [
-        {"provider_id": "evidence_intelligence", "provider_kind": "shared_runtime", "ref": "evidence/intelligence.py", "priority": 10, "execution_capable": false}
+        {"provider_id": "evidence_intelligence", "provider_kind": "shared_runtime", "ref": "evidence/intelligence.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
       ]
     },
     {
@@ -32,7 +33,7 @@
       "kind": "planning_runtime",
       "status": "available",
       "providers": [
-        {"provider_id": "evidence_intelligence", "provider_kind": "shared_runtime", "ref": "evidence/intelligence.py", "priority": 10, "execution_capable": false}
+        {"provider_id": "evidence_intelligence", "provider_kind": "shared_runtime", "ref": "evidence/intelligence.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
       ]
     },
     {
@@ -40,7 +41,24 @@
       "kind": "proof_runtime",
       "status": "available",
       "providers": [
-        {"provider_id": "capitalroom_proof_room", "provider_kind": "shared_runtime", "ref": "capitalroom/proof_room.py", "priority": 10, "execution_capable": false}
+        {
+          "provider_id": "capitalroom_proof_room",
+          "provider_kind": "shared_runtime",
+          "ref": "capitalroom/proof_room.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_assurance",
+            "dio_agent_authority",
+            "dio_vendorproof",
+            "dio_accreditation",
+            "dio_tenderproof",
+            "dio_grantproof",
+            "dio_research_integrity",
+            "dio_regops",
+            "dio_capitalroom"
+          ]
+        }
       ]
     },
     {
