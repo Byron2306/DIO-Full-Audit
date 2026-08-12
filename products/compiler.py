@@ -12,6 +12,7 @@ from jsonschema import Draft202012Validator
 
 COMPILER_SCHEMA = "dio.compiled_product.v1"
 COMPILER_VERSION = "1.0.0"
+COMPILER_SOURCE_REF = "products/compiler.py"
 MANIFEST_ROOT = Path("config/products/manifests")
 PROFILE_KEY_TO_CLASS = {
     "domain": "domain",
@@ -400,10 +401,7 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
     selected_patterns, selected_meta = validate_pattern_meta_composition(manifest, work_patterns, meta_capabilities)
     capability_catalog, capability_hash = load_capability_catalog(root)
 
-    capability_plan = [
-        resolve_capability(requirement, capability_catalog, product_id)
-        for requirement in manifest.get("capability_requirements") or []
-    ]
+    capability_plan = [resolve_capability(requirement, capability_catalog, product_id) for requirement in manifest.get("capability_requirements") or []]
     capability_plan.sort(key=lambda item: item["capability_id"])
 
     unresolved_required = [item for item in capability_plan if item["required"] and item["resolution_state"] != "RESOLVED"]
@@ -437,19 +435,26 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
             "capability_catalog": capability_hash,
             "profile_index": f"sha256:{sha256_file(root / 'config' / 'profiles' / 'index.json')}",
             "manifest_schema": f"sha256:{sha256_file(root / 'schemas' / 'dio_product_manifest.schema.json')}",
-            "compiled_schema": f"sha256:{sha256_file(root / 'schemas' / 'dio_compiled_product.schema.json')}",
         },
     }
-    fingerprint = f"sha256:{sha256_json(input_receipt)}"
+    composition_fingerprint = f"sha256:{sha256_json(input_receipt)}"
+    compiler_source = Path(__file__).resolve()
+    compiler_provenance = {
+        "version": COMPILER_VERSION,
+        "source_ref": COMPILER_SOURCE_REF,
+        "source_sha256": f"sha256:{sha256_file(compiler_source)}",
+    }
 
     compiled = {
         "schema": COMPILER_SCHEMA,
         "compiler_version": COMPILER_VERSION,
+        "compiler_provenance": compiler_provenance,
         "product_id": product_id,
         "name": manifest["name"],
         "incarnation": copy.deepcopy(manifest["incarnation"]),
         "suite_ids": list(manifest["suite_ids"]),
-        "composition_fingerprint": fingerprint,
+        "composition_fingerprint": composition_fingerprint,
+        "compilation_fingerprint": "",
         "input_receipt": input_receipt,
         "work_patterns": selected_patterns,
         "meta_capabilities": selected_meta,
@@ -471,6 +476,16 @@ def compile_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
         "output_plan": build_output_plan(loaded_profiles),
         "commercial_policy": {"offer_state": offer_state, "external_release_state": release_state},
     }
+
+    compilation_basis = copy.deepcopy(compiled)
+    compilation_basis.pop("compilation_fingerprint", None)
+    compilation_receipt_basis = {
+        "composition_fingerprint": composition_fingerprint,
+        "compiler_provenance": compiler_provenance,
+        "compiled_schema_sha256": f"sha256:{sha256_file(root / 'schemas' / 'dio_compiled_product.schema.json')}",
+        "compiled_plan_sha256": f"sha256:{sha256_json(compilation_basis)}",
+    }
+    compiled["compilation_fingerprint"] = f"sha256:{sha256_json(compilation_receipt_basis)}"
     validate_compiled_schema(root, compiled)
     return compiled
 
@@ -480,8 +495,10 @@ def build_test_plan(compiled: dict[str, Any]) -> dict[str, Any]:
         "schema": "dio.compiled_test_plan.v1",
         "product_id": compiled["product_id"],
         "composition_fingerprint": compiled["composition_fingerprint"],
+        "compilation_fingerprint": compiled["compilation_fingerprint"],
         "required_assertions": [
-            "same inputs reproduce the same composition fingerprint",
+            "same canonical inputs reproduce the same composition fingerprint",
+            "same compiler source and canonical inputs reproduce the same compilation fingerprint",
             "profile hash drift causes compilation refusal",
             "missing required execution capability yields execution REFUSE",
             "external release is never granted by compilation alone",
@@ -512,8 +529,10 @@ def write_compilation(root: Path, compiled: dict[str, Any], output_root: Path | 
         "COMPILATION_RECEIPT.json": {
             "schema": "dio.product_compilation_receipt.v1",
             "compiler_version": COMPILER_VERSION,
+            "compiler_provenance": compiled["compiler_provenance"],
             "product_id": compiled["product_id"],
             "composition_fingerprint": compiled["composition_fingerprint"],
+            "compilation_fingerprint": compiled["compilation_fingerprint"],
             "compiled_at": timestamp(),
             "execution_gate": compiled["gates"]["execution"]["state"],
             "external_release_gate": compiled["gates"]["external_release"]["state"],
@@ -533,6 +552,8 @@ def inspect_compilation(compiled: dict[str, Any]) -> dict[str, Any]:
         "product_id": compiled["product_id"],
         "name": compiled["name"],
         "composition_fingerprint": compiled["composition_fingerprint"],
+        "compilation_fingerprint": compiled["compilation_fingerprint"],
+        "compiler_provenance": compiled["compiler_provenance"],
         "maturity": compiled["maturity"]["state"],
         "gates": {key: value["state"] for key, value in compiled["gates"].items()},
         "resolved_capabilities": [item["capability_id"] for item in compiled["capability_plan"] if item["resolution_state"] == "RESOLVED"],
