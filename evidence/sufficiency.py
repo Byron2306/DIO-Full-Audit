@@ -29,12 +29,11 @@ def assess_sufficiency(case: dict[str, Any]) -> dict[str, Any]:
     """
     validate_case(case)
     gaps = emit_gaps(case)
-    blocking = (
-        int(gaps["counts"]["unverified_claims"])
-        + int(gaps["counts"]["contested_or_refuted_claims"])
-        + int(gaps["counts"]["requirement_gaps"])
-    )
-    stale = int(gaps["counts"]["stale_or_expired_evidence"])
+    unverified = len(gaps.get("unverified_claim_ids") or [])
+    contested = len(gaps.get("contested_or_refuted_claim_ids") or [])
+    requirement_gaps = len(gaps.get("requirement_gap_ids") or [])
+    stale = len(gaps.get("stale_or_expired_evidence_ids") or [])
+    blocking = unverified + contested + requirement_gaps
     state = "READY_FOR_HUMAN_REVIEW" if blocking == 0 else "GAPS_PRESENT"
     return {
         "schema": SCHEMA,
@@ -42,6 +41,12 @@ def assess_sufficiency(case: dict[str, Any]) -> dict[str, Any]:
         "state": state,
         "blocking_gap_count": blocking,
         "stale_or_expired_evidence_count": stale,
+        "counts": {
+            "unverified_claims": unverified,
+            "contested_or_refuted_claims": contested,
+            "requirement_gaps": requirement_gaps,
+            "stale_or_expired_evidence": stale,
+        },
         "gap_report": gaps,
         "human_gate": {
             "state": "NEEDS_YOU",
