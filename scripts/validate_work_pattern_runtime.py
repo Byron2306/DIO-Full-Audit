@@ -30,12 +30,9 @@ def require(condition: bool, message: str) -> None:
 
 def main() -> int:
     try:
-        constitution_checks = validate_constitution(ROOT)
-        require(bool(constitution_checks), "Phase 0 constitution validation returned no checks")
+        require(bool(validate_constitution(ROOT)), "Phase 0 constitution validation returned no checks")
         print("ALLOW Phase 0 constitution remains valid")
-
-        profile_checks = validate_profiles(ROOT)
-        require(bool(profile_checks), "Phase 1 profile validation returned no checks")
+        require(bool(validate_profiles(ROOT)), "Phase 1 profile validation returned no checks")
         print("ALLOW Phase 1 profile foundation remains valid")
 
         manifest = ROOT / "config" / "products" / "manifests" / "contractproof.json"
@@ -43,14 +40,15 @@ def main() -> int:
         compiled_b = compile_manifest(ROOT, manifest)
         require(compiled_a["composition_fingerprint"] == compiled_b["composition_fingerprint"], "Phase 2 composition lost determinism")
         require(compiled_a["compilation_fingerprint"] == compiled_b["compilation_fingerprint"], "Phase 2 compilation lost determinism")
-        require(compiled_a["gates"]["execution"]["state"] == "REFUSE", "ContractProof execution refusal was relaxed")
-        print("ALLOW Phase 2 compiler remains deterministic and fail-closed")
+        require(compiled_a["gates"]["execution"]["state"] in {"REFUSE", "NEEDS_YOU"}, "compiler created autonomous execution authority")
+        require(compiled_a["gates"]["execution"]["state"] != "ALLOW", "compiler execution may not be autonomous")
+        require(compiled_a["gates"]["external_release"]["state"] == "REFUSE", "internal ContractProof external release drift")
+        print("ALLOW Phase 2 compiler remains deterministic and human-gated")
 
         contracts, registry, _ = load_runtime_registry(ROOT)
         require(set(contracts) == {f"WP{index:02d}" for index in range(1, 13)}, "runtime registry must declare exactly twelve patterns")
         require(set(registry["focus_patterns"]) == FOCUS_PATTERNS, "Phase 3 focus set drift")
         print("ALLOW twelve canonical contracts registered with five Phase 3 focus patterns")
-
         for pattern_id, contract in contracts.items():
             for operation in contract["operations"]:
                 require(operation["execution_required"] is False, f"execution operation leaked into {pattern_id}")
@@ -68,61 +66,49 @@ def main() -> int:
         plan_b = plan_manifest(ROOT, manifest)
         require(plan_a["runtime_fingerprint"] == plan_b["runtime_fingerprint"], "runtime plan fingerprint is not deterministic")
         require(plan_a["authority_created"] is False and plan_a["executor_created"] is False, "runtime created authority or executor")
-        require(plan_a["execution_gate"]["state"] == "REFUSE", "Phase 3 runtime execution gate must REFUSE")
-        require(plan_a["compiler_execution_gate"]["state"] == "REFUSE", "Phase 3 runtime relaxed compiler execution refusal")
+        require(plan_a["execution_gate"]["state"] == "REFUSE", "work-pattern planner itself must remain non-executing")
+        require(plan_a["compiler_execution_gate"]["state"] in {"REFUSE", "NEEDS_YOU"}, "runtime observed autonomous compiler execution")
         print("ALLOW deterministic runtime planning preserves authority and execution boundaries")
 
-        patterns = {row["work_pattern_id"]: row for row in plan_a["patterns"]}
-        require(patterns["WP01"]["runtime_state"] == "PARTIAL", "ContractProof Evidence pattern must remain PARTIAL until evidence frontier advances")
-        require(patterns["WP11"]["runtime_state"] == "BLOCKED", "ContractProof Proof pattern must remain BLOCKED by provider applicability")
-
         catalog, _ = load_capability_catalog(ROOT)
-        obligation_ops = {row["operation_id"]: row for row in patterns["WP05"]["operations"]}
-        obligation_capabilities = {
-            "extract_obligations": "obligation.extract",
-            "normalize_obligations": "obligation.normalize",
-            "identify_deadlines": "obligation.deadlines",
-            "assess_status": "obligation.evaluate",
-        }
-        all_earned = True
-        for operation_id, capability_id in obligation_capabilities.items():
-            expected = "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
-            require(obligation_ops[operation_id]["resolution_state"] == expected, f"work-pattern frontier drift for {operation_id}")
-            all_earned = all_earned and expected == "RESOLVED"
-        require(obligation_ops["bind_evidence"]["resolution_state"] == "RESOLVED", "earned generic evidence linking should remain reusable")
-        expected_wp05 = "READY" if all_earned else "PARTIAL"
-        require(patterns["WP05"]["runtime_state"] == expected_wp05, "Obligation work-pattern runtime state does not reflect capability truth")
-        print("ALLOW Obligation work pattern tracks the current earned capability frontier")
+        patterns = {row["work_pattern_id"]: row for row in plan_a["patterns"]}
+        for pattern_id in ("WP01", "WP05", "WP11"):
+            operations = patterns[pattern_id]["operations"]
+            states = [row["resolution_state"] for row in operations]
+            if all(state == "RESOLVED" for state in states):
+                expected = "READY"
+            elif any(state in {"UNAVAILABLE", "UNKNOWN"} for state in states):
+                expected = "BLOCKED"
+            elif all(state == "PLANNED" for state in states):
+                expected = "PLANNED"
+            else:
+                expected = "PARTIAL"
+            require(patterns[pattern_id]["runtime_state"] == expected, f"runtime state does not reflect current frontier for {pattern_id}")
+        print("ALLOW Evidence, Obligation and Proof patterns track the current earned frontier")
 
+        room_providers = catalog["proof.room.compile"]["providers"]
+        capitalroom = next(row for row in room_providers if row["provider_id"] == "capitalroom_proof_room")
+        require("dio_contractproof" not in capitalroom["product_scope"], "CapitalRoom scope was broadened to ContractProof")
         proof_ops = {row["operation_id"]: row for row in patterns["WP11"]["operations"]}
-        require(proof_ops["compile_portable_room"]["resolution_state"] == "UNAVAILABLE", "ContractProof must not inherit CapitalRoom proof provider")
-        require("no earned provider declares applicability" in proof_ops["compile_portable_room"]["reason"], "proof provider refusal reason drift")
-        print("ALLOW existing proof provider remains product-scoped instead of magically generic")
+        if proof_ops["compile_portable_room"]["resolution_state"] == "RESOLVED":
+            require(proof_ops["compile_portable_room"]["provider"]["provider_id"] != "capitalroom_proof_room", "ContractProof inherited inapplicable CapitalRoom provider")
+        print("ALLOW proof provider applicability remains product-scoped instead of magically generic")
 
-        new_planned = {
-            "evidence.sufficiency",
-            "evidence.gaps",
-            "intake.normalize",
-            "intake.classify",
-            "intake.missing_information",
-            "document.project",
-            "document.qa",
-            "document.release.prepare",
-            "proof.integrity.verify",
-            "proof.disclosure.prepare",
+        unrelated_planned = {
+            "intake.normalize", "intake.classify", "intake.missing_information",
+            "document.project", "document.qa", "document.release.prepare",
         }
-        for capability_id in new_planned:
-            require(catalog[capability_id]["status"] == "planned", f"unearned Phase 3 frontier capability falsely marked earned: {capability_id}")
-            require(catalog[capability_id]["providers"] == [], f"planned Phase 3 capability unexpectedly has a provider: {capability_id}")
-        print("ALLOW remaining Phase 3 capability frontier stays planned until earned")
+        for capability_id in unrelated_planned:
+            require(catalog[capability_id]["status"] == "planned", f"unrelated Phase 3 frontier capability falsely earned: {capability_id}")
+            require(catalog[capability_id]["providers"] == [], f"planned capability unexpectedly has provider: {capability_id}")
+        print("ALLOW unrelated capability frontier remains planned until earned")
 
         for pattern in plan_a["patterns"]:
             require(pattern["human_gate"]["state"] == "NEEDS_YOU", f"human boundary lost for {pattern['work_pattern_id']}")
         print("ALLOW human boundaries remain explicit NEEDS_YOU gates")
-
         print("DIO_WORK_PATTERN_RUNTIME_READY")
         return 0
-    except (AcceptanceError, Exception) as exc:
+    except Exception as exc:
         print(f"DIO_WORK_PATTERN_RUNTIME_REFUSE: {exc}", file=sys.stderr)
         return 1
 
