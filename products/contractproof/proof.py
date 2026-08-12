@@ -42,50 +42,39 @@ def _semantic_pack(
     evaluations = {str(row["obligation_id"]): row for row in obligation_bundle.get("evaluations") or []}
     requirement_map = projection_receipt.get("requirement_map") or {}
     requirements = {str(row["requirement_id"]): row for row in case.get("requirements") or []}
-
     ledger = []
     for obligation in obligations:
         obligation_id = str(obligation["obligation_id"])
         requirement_id = requirement_map.get(obligation_id)
         requirement = requirements.get(str(requirement_id)) or {}
         evaluation = evaluations.get(obligation_id) or {}
-        ledger.append(
-            {
-                "obligation_id": obligation_id,
-                "requirement_id": requirement_id,
-                "source_locator": (obligation.get("source") or {}).get("locator"),
-                "statement": obligation.get("statement"),
-                "responsible_party": obligation.get("responsible_party"),
-                "due_at": obligation.get("due_at"),
-                "expires_at": obligation.get("expires_at"),
-                "status": obligation.get("status"),
-                "status_basis": obligation.get("status_basis") or [],
-                "requirement_state": requirement.get("state"),
-                "evidence_ids": list(requirement.get("evidence_ids") or []),
-                "human_gate": evaluation.get("human_gate", "NEEDS_YOU"),
-            }
-        )
-
-    evidence_map = [
-        {
-            "evidence_id": row["evidence_id"],
-            "kind": row["kind"],
-            "source_ref": row["source_ref"],
-            "sha256": row.get("sha256"),
-            "authority_grade": row["authority_grade"],
-            "trust_state": row["trust_state"],
-            "freshness_state": row["freshness_state"],
-            "supports_requirement_ids": list(row.get("supports_requirement_ids") or []),
-            "supports_claim_ids": list(row.get("supports_claim_ids") or []),
-            "contradicts_claim_ids": list(row.get("contradicts_claim_ids") or []),
-        }
-        for row in case.get("evidence") or []
-    ]
-
-    missing = [
-        row for row in obligation_bundle.get("evaluations") or []
-        if row.get("status") in {"PARTIAL", "MISSING", "EXPIRED", "NOT_YET_DUE", "NEEDS_REVIEW"}
-    ]
+        ledger.append({
+            "obligation_id": obligation_id,
+            "requirement_id": requirement_id,
+            "source_locator": (obligation.get("source") or {}).get("locator"),
+            "statement": obligation.get("statement"),
+            "responsible_party": obligation.get("responsible_party"),
+            "due_at": obligation.get("due_at"),
+            "expires_at": obligation.get("expires_at"),
+            "status": obligation.get("status"),
+            "status_basis": obligation.get("status_basis") or [],
+            "requirement_state": requirement.get("state"),
+            "evidence_ids": list(requirement.get("evidence_ids") or []),
+            "human_gate": evaluation.get("human_gate", "NEEDS_YOU"),
+        })
+    evidence_map = [{
+        "evidence_id": row["evidence_id"],
+        "kind": row["kind"],
+        "source_ref": row["source_ref"],
+        "sha256": row.get("sha256"),
+        "authority_grade": row["authority_grade"],
+        "trust_state": row["trust_state"],
+        "freshness_state": row["freshness_state"],
+        "supports_requirement_ids": list(row.get("supports_requirement_ids") or []),
+        "supports_claim_ids": list(row.get("supports_claim_ids") or []),
+        "contradicts_claim_ids": list(row.get("contradicts_claim_ids") or []),
+    } for row in case.get("evidence") or []]
+    missing = [row for row in obligation_bundle.get("evaluations") or [] if row.get("status") in {"PARTIAL", "MISSING", "EXPIRED", "NOT_YET_DUE", "NEEDS_REVIEW"}]
     contested = [row for row in obligation_bundle.get("evaluations") or [] if row.get("status") == "CONTESTED"]
     human_review = {
         "obligation_bundle_gate": obligation_bundle.get("human_gate"),
@@ -135,17 +124,11 @@ def _render_html(pack: dict[str, Any], required_sections: list[str]) -> bytes:
 
 def _docx_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
     from io import BytesIO
-
     paragraphs = ["DIO ContractProof Evidence Pack"]
     for section in required_sections:
         paragraphs.append(section)
         paragraphs.append(json.dumps(pack[section], sort_keys=True, ensure_ascii=False))
-    document_xml = (
-        "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"
-        "<w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'><w:body>"
-        + "".join(f"<w:p><w:r><w:t xml:space='preserve'>{xml_escape(text)}</w:t></w:r></w:p>" for text in paragraphs)
-        + "<w:sectPr/></w:body></w:document>"
-    )
+    document_xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'><w:body>" + "".join(f"<w:p><w:r><w:t xml:space='preserve'>{xml_escape(text)}</w:t></w:r></w:p>" for text in paragraphs) + "<w:sectPr/></w:body></w:document>"
     content_types = "<?xml version='1.0' encoding='UTF-8'?><Types xmlns='http://schemas.openxmlformats.org/package/2006/content-types'><Default Extension='rels' ContentType='application/vnd.openxmlformats-package.relationships+xml'/><Default Extension='xml' ContentType='application/xml'/><Override PartName='/word/document.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'/></Types>"
     rels = "<?xml version='1.0' encoding='UTF-8'?><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/></Relationships>"
     buffer = BytesIO()
@@ -169,19 +152,15 @@ def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
         for offset in range(0, len(compact), 90):
             lines.append(compact[offset : offset + 90])
     pages = [lines[index : index + 42] for index in range(0, len(lines), 42)] or [[]]
-
-    objects: list[bytes] = []
     page_object_ids: list[int] = []
     font_id = 3
     next_id = 4
     content_pairs: list[tuple[int, int, list[str]]] = []
     for page_lines in pages:
-        page_id = next_id
-        content_id = next_id + 1
+        page_id, content_id = next_id, next_id + 1
         next_id += 2
         page_object_ids.append(page_id)
         content_pairs.append((page_id, content_id, page_lines))
-
     max_id = next_id - 1
     object_map: dict[int, bytes] = {
         1: b"<< /Type /Catalog /Pages 2 0 R >>",
@@ -198,7 +177,6 @@ def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
         stream = "\n".join(commands).encode("latin-1", errors="replace")
         object_map[content_id] = b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\nstream\n" + stream + b"\nendstream"
         object_map[page_id] = f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 {font_id} 0 R >> >> /Contents {content_id} 0 R >>".encode("ascii")
-
     output = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
     offsets = [0] * (max_id + 1)
     for object_id in range(1, max_id + 1):
@@ -215,6 +193,15 @@ def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
     return bytes(output)
 
 
+def _proof_identity(manifest: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "case_id": manifest.get("case_id"),
+        "obligation_bundle_fingerprint": manifest.get("obligation_bundle_fingerprint"),
+        "required_sections": list(manifest.get("required_sections") or []),
+        "artifacts": list(manifest.get("artifacts") or []),
+    }
+
+
 def compile_portable_room(
     case: dict[str, Any],
     obligation_bundle: dict[str, Any],
@@ -224,17 +211,10 @@ def compile_portable_room(
     *,
     required_sections: list[str],
 ) -> dict[str, Any]:
-    """Compile the profile-required ContractProof evidence pack and hash manifest.
-
-    This is a product-scoped proof adapter, not CapitalRoom. It cannot create
-    authority, perform external release, or turn evidentiary state into a legal
-    or compliance verdict.
-    """
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     pack = _semantic_pack(case, obligation_bundle, sufficiency, projection_receipt)
     _validate_required_sections(pack, required_sections)
-
     rendered = {
         "JSON": ("EVIDENCE_PACK.json", (json.dumps(pack, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")),
         "HTML": ("EVIDENCE_PACK.html", _render_html(pack, required_sections)),
@@ -244,15 +224,7 @@ def compile_portable_room(
     artifacts: list[dict[str, Any]] = []
     for artifact_type in ("JSON", "DOCX", "PDF", "HTML"):
         filename, body = rendered[artifact_type]
-        digest = _write_bytes(output_dir / filename, body)
-        artifacts.append({"artifact_type": artifact_type, "filename": filename, "sha256": digest})
-
-    identity = {
-        "case_id": case["case_id"],
-        "obligation_bundle_fingerprint": obligation_bundle["fingerprint"],
-        "required_sections": required_sections,
-        "artifacts": artifacts,
-    }
+        artifacts.append({"artifact_type": artifact_type, "filename": filename, "sha256": _write_bytes(output_dir / filename, body)})
     manifest = {
         "schema": PROOF_SCHEMA,
         "provider_id": PROVIDER_ID,
@@ -260,17 +232,15 @@ def compile_portable_room(
         "artifact_type": "proof_room_manifest",
         "case_id": case["case_id"],
         "obligation_bundle_fingerprint": obligation_bundle["fingerprint"],
-        "proof_fingerprint": f"sha256:{_sha256_bytes(_canonical(identity).encode('utf-8'))}",
+        "proof_fingerprint": "",
         "required_sections": list(required_sections),
         "artifacts": artifacts,
-        "human_gate": {
-            "state": "NEEDS_YOU",
-            "reason": "An authorised contract owner controls any disclosure or contractual judgement based on this pack.",
-        },
+        "human_gate": {"state": "NEEDS_YOU", "reason": "An authorised contract owner controls any disclosure or contractual judgement based on this pack."},
         "authority_created": False,
         "execution_performed": False,
         "external_release": False,
     }
+    manifest["proof_fingerprint"] = f"sha256:{_sha256_bytes(_canonical(_proof_identity(manifest)).encode('utf-8'))}"
     _write_json(output_dir / "PROOF_MANIFEST.json", manifest)
     return manifest
 
@@ -282,6 +252,9 @@ def verify_integrity(output_dir: Path) -> dict[str, Any]:
     if manifest.get("schema") != PROOF_SCHEMA or manifest.get("artifact_type") != "proof_room_manifest":
         raise ValueError("unexpected ContractProof proof manifest identity")
     failures: list[str] = []
+    expected_proof_fingerprint = f"sha256:{_sha256_bytes(_canonical(_proof_identity(manifest)).encode('utf-8'))}"
+    if manifest.get("proof_fingerprint") != expected_proof_fingerprint:
+        failures.append("manifest:fingerprint")
     observed = {"proof_room_manifest"}
     for artifact in manifest.get("artifacts") or []:
         artifact_type = str(artifact.get("artifact_type") or "")
@@ -316,10 +289,7 @@ def prepare_disclosure(output_dir: Path) -> dict[str, Any]:
         "case_id": verification["case_id"],
         "proof_fingerprint": verification["proof_fingerprint"],
         "state": "INTERNAL_REVIEW_CANDIDATE",
-        "human_gate": {
-            "state": "NEEDS_YOU",
-            "reason": "The internal proof pack requires authorised human review before any disclosure decision.",
-        },
+        "human_gate": {"state": "NEEDS_YOU", "reason": "The internal proof pack requires authorised human review before any disclosure decision."},
         "external_release_gate": "REFUSE",
         "authority_created": False,
         "release_authority_created": False,
