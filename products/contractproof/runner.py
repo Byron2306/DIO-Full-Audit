@@ -88,11 +88,7 @@ def run_contractproof(
 
     compiled = compile_manifest(ROOT, MANIFEST_PATH)
     capabilities = {row["capability_id"]: row for row in compiled["capability_plan"]}
-    unresolved = [
-        capability_id
-        for capability_id, row in capabilities.items()
-        if row["required"] and row["resolution_state"] != "RESOLVED"
-    ]
+    unresolved = [capability_id for capability_id, row in capabilities.items() if row["required"] and row["resolution_state"] != "RESOLVED"]
     if unresolved:
         raise RuntimeError(f"ContractProof cannot execute with unresolved required capabilities: {sorted(unresolved)}")
     executor = capabilities["product.executor.contractproof"].get("provider") or {}
@@ -103,13 +99,12 @@ def run_contractproof(
     if compiled["gates"]["external_release"]["state"] != "REFUSE":
         raise RuntimeError("ContractProof internal proof profile must refuse external release")
 
-    expected_outputs = sorted({
-        str(artifact_type)
-        for output in compiled["output_plan"]["outputs"]
-        for artifact_type in output.get("artifact_types") or []
-    })
-    if not expected_outputs:
-        raise RuntimeError("ContractProof compiled output profile contains no artifact types")
+    output_rows = compiled["output_plan"]["outputs"]
+    expected_artifact_types = sorted({str(item) for output in output_rows for item in output.get("artifact_types") or []})
+    required_sections = sorted({str(item) for output in output_rows for item in output.get("required_sections") or []})
+    if not expected_artifact_types or not required_sections:
+        raise RuntimeError("ContractProof compiled output profile is incomplete")
+
     resolved_job_id = str(job_id or f"golden-{source.get('source_id') or 'contract'}")
     case = new_case(
         product="dio_contractproof",
@@ -117,7 +112,7 @@ def run_contractproof(
         source={"source": {"path": str(source.get("source_ref") or "contract://unknown")}},
         source_path=MANIFEST_PATH,
         evidence_inputs=[],
-        expected_outputs=expected_outputs,
+        expected_outputs=expected_artifact_types,
         required_authorities=["contract_owner", "evidence_reviewer"],
         intake_state="approved",
         framework_ids=["framework.contract_generic"],
@@ -130,15 +125,24 @@ def run_contractproof(
     validate_case(case)
     sufficiency = assess_sufficiency(case)
 
-    proof_manifest = compile_portable_room(case, obligation_bundle, sufficiency, projection_receipt, output_dir)
+    proof_manifest = compile_portable_room(
+        case,
+        obligation_bundle,
+        sufficiency,
+        projection_receipt,
+        output_dir,
+        required_sections=required_sections,
+    )
     integrity = verify_integrity(output_dir)
     if not integrity["verified"]:
         raise RuntimeError(f"ContractProof proof pack integrity failed: {integrity['failures']}")
     disclosure = prepare_disclosure(output_dir)
 
-    observed_outputs = {str(row["output_id"]) for row in proof_manifest["artifacts"]}
-    if observed_outputs != set(expected_outputs):
-        raise RuntimeError(f"ContractProof output profile mismatch: expected {sorted(expected_outputs)}, observed {sorted(observed_outputs)}")
+    observed_artifact_types = {str(row["artifact_type"]) for row in proof_manifest["artifacts"]} | {str(proof_manifest["artifact_type"])}
+    if observed_artifact_types != set(expected_artifact_types):
+        raise RuntimeError(f"ContractProof output profile mismatch: expected {sorted(expected_artifact_types)}, observed {sorted(observed_artifact_types)}")
+    if set(proof_manifest["required_sections"]) != set(required_sections):
+        raise RuntimeError("ContractProof proof manifest does not preserve every required output-profile section")
 
     status_counts: dict[str, int] = {}
     for row in obligation_bundle.get("evaluations") or []:
@@ -158,7 +162,8 @@ def run_contractproof(
         "obligation_bundle_fingerprint": obligation_bundle["fingerprint"],
         "proof_fingerprint": proof_manifest["proof_fingerprint"],
         "proof_integrity_verified": True,
-        "required_outputs": expected_outputs,
+        "required_artifact_types": expected_artifact_types,
+        "required_sections": required_sections,
         "obligation_status_counts": status_counts,
         "evidence_sufficiency_state": sufficiency["state"],
         "internal_processing": "COMPLETE",
@@ -172,7 +177,7 @@ def run_contractproof(
         "external_release": False,
         "maturity_evidence": {
             "candidate_state": "internal_proof",
-            "basis": "A controlled internal ContractProof case completed all required work-pattern operations and produced a hash-verified output pack.",
+            "basis": "A controlled internal ContractProof case completed all required work-pattern operations and produced a hash-verified multi-format evidence pack.",
         },
     }
     _write_json(output_dir / "CONTRACTPROOF_RECEIPT.json", receipt)
