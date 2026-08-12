@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 import json
 from pathlib import Path
 
@@ -8,9 +7,9 @@ import pytest
 
 from evidence.sufficiency import assess_sufficiency
 from products.compiler import compile_manifest, load_capability_catalog
-from products.contractproof.proof import REQUIRED_OUTPUTS, verify_integrity
+from products.contractproof.proof import REQUIRED_ARTIFACT_TYPES, verify_integrity
 from products.contractproof.runner import EXECUTOR_ID, run_contractproof
-from products.governed_case import add_evidence, new_case
+from products.governed_case import new_case
 from products.work_pattern_runtime import plan_manifest
 
 
@@ -27,14 +26,7 @@ def _load(name: str):
 def _run(tmp_path: Path):
     source = _load("reference_contract.json")
     evidence = _load("reference_evidence.json")["evidence_records"]
-    return run_contractproof(
-        source,
-        evidence,
-        output_dir=tmp_path / "contractproof",
-        operator_id="human.phase5_test_operator",
-        now=NOW,
-        job_id="phase5-test",
-    )
+    return run_contractproof(source, evidence, output_dir=tmp_path / "contractproof", operator_id="human.phase5_test_operator", now=NOW, job_id="phase5-test")
 
 
 def test_compiler_resolves_complete_contractproof_composition_but_keeps_human_and_release_gates() -> None:
@@ -76,17 +68,7 @@ def test_contractproof_proof_provider_is_product_scoped_without_broadening_capit
 
 
 def test_evidence_sufficiency_is_review_readiness_not_authority() -> None:
-    case = new_case(
-        product="dio_contractproof",
-        job_id="phase5-sufficiency",
-        source={"source": {}},
-        source_path=MANIFEST,
-        evidence_inputs=[],
-        expected_outputs=[],
-        required_authorities=["contract_owner"],
-        intake_state="approved",
-        now=NOW,
-    )
+    case = new_case(product="dio_contractproof", job_id="phase5-sufficiency", source={"source": {}}, source_path=MANIFEST, evidence_inputs=[], expected_outputs=[], required_authorities=["contract_owner"], intake_state="approved", now=NOW)
     result = assess_sufficiency(case)
     assert result["state"] == "READY_FOR_HUMAN_REVIEW"
     assert result["human_gate"]["state"] == "NEEDS_YOU"
@@ -101,38 +83,41 @@ def test_golden_runner_completes_internal_processing_and_preserves_mixed_contrac
     counts = receipt["obligation_status_counts"]
     assert receipt["executor_id"] == EXECUTOR_ID
     assert receipt["internal_processing"] == "COMPLETE"
-    assert counts["SATISFIED"] == 1
-    assert counts["MISSING"] == 1
-    assert counts["PARTIAL"] == 1
-    assert counts["EXPIRED"] == 1
-    assert counts["NOT_YET_DUE"] == 1
-    assert counts["NEEDS_REVIEW"] == 1
+    assert counts == {"SATISFIED": 1, "MISSING": 1, "PARTIAL": 1, "EXPIRED": 1, "NOT_YET_DUE": 1, "NEEDS_REVIEW": 1}
     assert receipt["evidence_sufficiency_state"] == "GAPS_PRESENT"
     assert receipt["proof_integrity_verified"] is True
     assert receipt["external_effects"] is False
 
 
-def test_golden_pack_contains_exact_output_profile_and_hash_verifies(tmp_path: Path) -> None:
+def test_golden_pack_matches_exact_profile_artifact_types_and_required_sections(tmp_path: Path) -> None:
     result = _run(tmp_path)
     output_dir = Path(result["output_dir"])
-    assert {row["output_id"] for row in result["proof_manifest"]["artifacts"]} == set(REQUIRED_OUTPUTS)
-    assert set(result["receipt"]["required_outputs"]) == set(REQUIRED_OUTPUTS)
-    verification = verify_integrity(output_dir)
-    assert verification["verified"] is True
-    for output_id in REQUIRED_OUTPUTS:
-        assert (output_dir / f"{output_id.upper()}.json").is_file()
+    manifest = result["proof_manifest"]
+    observed_types = {row["artifact_type"] for row in manifest["artifacts"]} | {manifest["artifact_type"]}
+    assert observed_types == set(REQUIRED_ARTIFACT_TYPES)
+    assert set(result["receipt"]["required_artifact_types"]) == set(REQUIRED_ARTIFACT_TYPES)
+    compiled = compile_manifest(ROOT, MANIFEST)
+    required_sections = {item for output in compiled["output_plan"]["outputs"] for item in output["required_sections"]}
+    assert set(manifest["required_sections"]) == required_sections
+    evidence_pack = json.loads((output_dir / "EVIDENCE_PACK.json").read_text(encoding="utf-8"))
+    assert required_sections.issubset(evidence_pack.keys())
+    assert (output_dir / "EVIDENCE_PACK.docx").is_file()
+    assert (output_dir / "EVIDENCE_PACK.pdf").is_file()
+    assert (output_dir / "EVIDENCE_PACK.html").is_file()
+    assert (output_dir / "PROOF_MANIFEST.json").is_file()
+    assert verify_integrity(output_dir)["verified"] is True
 
 
 def test_tampered_proof_artifact_is_detected(tmp_path: Path) -> None:
     result = _run(tmp_path)
     output_dir = Path(result["output_dir"])
-    path = output_dir / "GAP_REPORT.json"
+    path = output_dir / "EVIDENCE_PACK.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
     payload["tampered"] = True
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     verification = verify_integrity(output_dir)
     assert verification["verified"] is False
-    assert "hash:gap_report" in verification["failures"]
+    assert "hash:JSON" in verification["failures"]
 
 
 def test_golden_runner_requires_explicit_human_operator(tmp_path: Path) -> None:
