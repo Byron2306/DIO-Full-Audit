@@ -1,0 +1,50 @@
+name: DIO Phase 6 Obligation Family Gauntlet
+
+on:
+  push:
+    branches:
+      - agent/dio-phase6-obligation-family
+  pull_request:
+    paths:
+      - "config/portfolio/capability_catalog.json"
+      - "config/profiles/**"
+      - "config/products/manifests/{tenderproof,grantproof,permitproof}.json"
+      - "config/products/golden/{tenderproof,grantproof,permitproof}/**"
+      - "products/obligationfamily/**"
+      - "scripts/validate_obligation_family_phase6.py"
+      - "tests/test_obligation_family_phase6.py"
+      - "docs/DIO_OBLIGATION_FAMILY_PHASE6.md"
+      - ".github/workflows/dio-obligation-family-phase6.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phase6:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+      - name: Compile Phase 6 Python
+        run: python -m py_compile products/obligationfamily/__init__.py products/obligationfamily/runner.py scripts/validate_obligation_family_phase6.py tests/test_obligation_family_phase6.py
+      - name: Validate Phase 6 profiles
+        run: |
+          python scripts/build_profile_index.py
+          git diff --exit-code -- config/profiles/index.json
+          python scripts/validate_profiles.py
+      - name: Run Phase 0-5 regression gates
+        run: |
+          python scripts/validate_product_constitution.py
+          python scripts/validate_product_compiler.py
+          python scripts/validate_work_pattern_runtime.py
+          python scripts/validate_obligation_engine.py
+          python scripts/validate_contractproof_phase5.py
+      - name: Run Phase 6 tests
+        run: python -m pytest -q tests/test_obligation_family_phase6.py
+      - name: Run Phase 6 acceptance
+        run: python scripts/validate_obligation_family_phase6.py
