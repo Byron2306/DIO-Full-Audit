@@ -185,11 +185,10 @@ def validate_index(root: Path, seen_ids: set[str]) -> None:
         require(profile.get("profile_class") == entry.get("profile_class"), f"{profile_id}: index/profile class mismatch")
         require(profile.get("profile_version") == entry.get("profile_version"), f"{profile_id}: index/profile version mismatch")
         require(profile.get("status") == entry.get("status"), f"{profile_id}: index/profile status mismatch")
-        expected_hash = str(entry.get("content_hash") or "")
-        require(expected_hash == f"sha256:{sha256_file(path)}", f"{profile_id}: profile index content hash mismatch")
+        require(str(entry.get("content_hash") or "") == f"sha256:{sha256_file(path)}", f"{profile_id}: profile index content hash mismatch")
 
 
-def validate(root: Path) -> list[str]:
+def validate(root: Path, *, check_index: bool = True) -> list[str]:
     checks: list[str] = []
     schema = load_json(root / "schemas" / "dio_profile.schema.json")
     require(schema.get("$id") == "dio.profile.v1", "unexpected profile schema id")
@@ -213,8 +212,9 @@ def validate(root: Path) -> list[str]:
     require(not missing_reference, f"missing Phase 1 reference profiles: {sorted(missing_reference)}")
     checks.append("Obligation-family reference profile set complete")
 
-    validate_index(root, seen_ids)
-    checks.append("profile index hashes match concrete profile bytes")
+    if check_index:
+        validate_index(root, seen_ids)
+        checks.append("profile index hashes match concrete profile bytes")
 
     return checks
 
