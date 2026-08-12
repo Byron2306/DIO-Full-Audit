@@ -40,6 +40,35 @@ A changed source therefore invalidates the profile binding until the profile is 
 
 `externally_validated` is permitted only when at least one bound source has `authority_level = externally_authoritative`.
 
+## Concrete profile identity
+
+Product manifests bind to profiles by ID, version and profile-content SHA-256. The deterministic index is:
+
+```text
+config/profiles/index.json
+```
+
+It records each concrete profile's:
+
+- profile ID;
+- class;
+- version;
+- repository path;
+- SHA-256 of the profile bytes;
+- validation status.
+
+Rebuild it after any profile change with:
+
+```bash
+python3 scripts/build_profile_index.py
+```
+
+The builder validates concrete profiles without trusting a stale index, rewrites the index deterministically, and emits:
+
+```text
+DIO_PROFILE_INDEX_READY
+```
+
 ## First reference profile set
 
 The first six profiles exist to prepare the Obligation-family build without pretending the generic contract model is already legal-domain validated:
@@ -67,6 +96,7 @@ Run:
 
 ```bash
 python3 scripts/validate_product_constitution.py
+python3 scripts/build_profile_index.py
 python3 scripts/validate_profiles.py
 ```
 
@@ -82,7 +112,9 @@ The profile gate verifies:
 - class and path agree;
 - required class-specific semantics exist;
 - source references exist inside the repository;
-- stored SHA-256 hashes match current source bytes;
+- stored source SHA-256 hashes match current source bytes;
+- the profile index exactly matches concrete profile IDs;
+- indexed profile SHA-256 hashes match current profile bytes;
 - profiles contain no executor, maturity or market-proof state;
 - an externally validated profile cannot be backed only by internal-reference sources;
 - internal-only commercial policy prohibits charging, external delivery and autonomous release.
