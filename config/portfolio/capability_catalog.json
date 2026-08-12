@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.1.0",
+  "catalog_version": "1.2.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -88,26 +88,34 @@
     {
       "capability_id": "obligation.extract",
       "kind": "work_pattern_runtime",
-      "status": "planned",
-      "providers": []
+      "status": "available",
+      "providers": [
+        {"provider_id": "obligation_core_v1", "provider_kind": "shared_runtime", "ref": "dio/obligations/engine.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
+      ]
     },
     {
       "capability_id": "obligation.normalize",
       "kind": "work_pattern_runtime",
-      "status": "planned",
-      "providers": []
+      "status": "available",
+      "providers": [
+        {"provider_id": "obligation_core_v1", "provider_kind": "shared_runtime", "ref": "dio/obligations/engine.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
+      ]
     },
     {
       "capability_id": "obligation.deadlines",
       "kind": "work_pattern_runtime",
-      "status": "planned",
-      "providers": []
+      "status": "available",
+      "providers": [
+        {"provider_id": "obligation_core_v1", "provider_kind": "shared_runtime", "ref": "dio/obligations/engine.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
+      ]
     },
     {
       "capability_id": "obligation.evaluate",
       "kind": "work_pattern_runtime",
-      "status": "planned",
-      "providers": []
+      "status": "available",
+      "providers": [
+        {"provider_id": "obligation_core_v1", "provider_kind": "shared_runtime", "ref": "dio/obligations/engine.py", "priority": 10, "execution_capable": false, "product_scope": ["*"]}
+      ]
     },
     {
       "capability_id": "intake.normalize",
