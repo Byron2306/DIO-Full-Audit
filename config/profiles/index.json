@@ -1,0 +1,54 @@
+{
+  "schema": "dio.profile_index.v1",
+  "index_version": "1.0.0",
+  "profiles": [
+    {
+      "profile_id": "authority.contract_owner",
+      "profile_class": "authority",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/authorities/contract_owner.json",
+      "content_hash": "sha256:20a0a092ca46c2f115bedba248f126ef9877b5ae0c68e70d81aae19bc24787fc",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "commercial.internal_proof",
+      "profile_class": "commercial",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/commercial/internal_proof.json",
+      "content_hash": "sha256:5e335d7867cb45d3474b6777e86315c0a242874909ce1810d19fa7ea5787fdbd",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "connector.files_readonly",
+      "profile_class": "connector",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/connectors/files_readonly.json",
+      "content_hash": "sha256:573fde172e9f4575813c4641cb069e327766402a1308c030cf4df42268b4de84",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "domain.project_delivery",
+      "profile_class": "domain",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/domains/project_delivery.json",
+      "content_hash": "sha256:2ffcb3acf4d2328589d4bb990b02c3205a05d7f8c72c0bfc1e5e0c954961ffaa",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "framework.contract_generic",
+      "profile_class": "framework",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/frameworks/contract_generic.json",
+      "content_hash": "sha256:e37b4133f702559d9e08dcca68167499a0f08bd32a989191b57db1ecbe48fc7c",
+      "status": "source_bound"
+    },
+    {
+      "profile_id": "output.evidence_pack",
+      "profile_class": "output",
+      "profile_version": "1.0.0",
+      "path": "config/profiles/outputs/evidence_pack.json",
+      "content_hash": "sha256:c72ff735b0deaf0d7de0f961e9d5214bba4a67709a024ca808c0cabd33f29f75",
+      "status": "source_bound"
+    }
+  ]
+}
