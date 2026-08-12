@@ -1,0 +1,32 @@
+{
+  "evidence_records": [
+    {
+      "evidence_kind": "submission_receipt",
+      "source_ref": "fixture://tenderproof/evidence/primary",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "target_locators": [
+        "T-1"
+      ],
+      "relation": "supports",
+      "authority_grade": "source_backed",
+      "trust_state": "trusted_for_review",
+      "freshness_state": "current",
+      "observed_at": "2026-08-10T09:00:00+00:00"
+    },
+    {
+      "evidence_kind": "clarification_response",
+      "source_ref": "fixture://tenderproof/evidence/expired",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "target_locators": [
+        "T-3"
+      ],
+      "relation": "supports",
+      "authority_grade": "source_backed",
+      "trust_state": "trusted_for_review",
+      "freshness_state": "expired",
+      "observed_at": "2026-07-15T09:00:00+00:00",
+      "expires_at": "2026-08-01T12:00:00+00:00"
+    }
+  ]
+}
+
