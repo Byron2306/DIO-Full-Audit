@@ -32,12 +32,7 @@ def _write_json(path: Path, payload: Any) -> str:
     return _write_bytes(path, body)
 
 
-def _semantic_pack(
-    case: dict[str, Any],
-    obligation_bundle: dict[str, Any],
-    sufficiency: dict[str, Any],
-    projection_receipt: dict[str, Any],
-) -> dict[str, Any]:
+def _semantic_pack(case: dict[str, Any], obligation_bundle: dict[str, Any], sufficiency: dict[str, Any], projection_receipt: dict[str, Any]) -> dict[str, Any]:
     obligations = obligation_bundle.get("obligations") or []
     evaluations = {str(row["obligation_id"]): row for row in obligation_bundle.get("evaluations") or []}
     requirement_map = projection_receipt.get("requirement_map") or {}
@@ -63,36 +58,14 @@ def _semantic_pack(
             "human_gate": evaluation.get("human_gate", "NEEDS_YOU"),
         })
     evidence_map = [{
-        "evidence_id": row["evidence_id"],
-        "kind": row["kind"],
-        "source_ref": row["source_ref"],
-        "sha256": row.get("sha256"),
-        "authority_grade": row["authority_grade"],
-        "trust_state": row["trust_state"],
-        "freshness_state": row["freshness_state"],
+        "evidence_id": row["evidence_id"], "kind": row["kind"], "source_ref": row["source_ref"], "sha256": row.get("sha256"),
+        "authority_grade": row["authority_grade"], "trust_state": row["trust_state"], "freshness_state": row["freshness_state"],
         "supports_requirement_ids": list(row.get("supports_requirement_ids") or []),
         "supports_claim_ids": list(row.get("supports_claim_ids") or []),
         "contradicts_claim_ids": list(row.get("contradicts_claim_ids") or []),
     } for row in case.get("evidence") or []]
     missing = [row for row in obligation_bundle.get("evaluations") or [] if row.get("status") in {"PARTIAL", "MISSING", "EXPIRED", "NOT_YET_DUE", "NEEDS_REVIEW"}]
     contested = [row for row in obligation_bundle.get("evaluations") or [] if row.get("status") == "CONTESTED"]
-    human_review = {
-        "obligation_bundle_gate": obligation_bundle.get("human_gate"),
-        "evidence_sufficiency_gate": sufficiency.get("human_gate"),
-        "review_required_obligation_ids": [row["obligation_id"] for row in obligations if row.get("review_required") is True],
-        "fulfilment_judgement": "NEEDS_YOU",
-        "disclosure_judgement": "NEEDS_YOU",
-        "external_release": "REFUSE",
-    }
-    provenance = {
-        "case_id": case["case_id"],
-        "obligation_source": obligation_bundle.get("source"),
-        "obligation_bundle_fingerprint": obligation_bundle["fingerprint"],
-        "projection_receipt": projection_receipt,
-        "event_refs": list(case.get("event_refs") or []),
-        "authority_created": False,
-        "external_effects": False,
-    }
     return {
         "schema": "dio.contractproof.evidence_pack.v1",
         "product_id": "dio_contractproof",
@@ -102,8 +75,23 @@ def _semantic_pack(
         "missing_evidence_register": missing,
         "contested_state_register": contested,
         "deadline_register": obligation_bundle.get("deadlines") or [],
-        "human_review_register": human_review,
-        "provenance_manifest": provenance,
+        "human_review_register": {
+            "obligation_bundle_gate": obligation_bundle.get("human_gate"),
+            "evidence_sufficiency_gate": sufficiency.get("human_gate"),
+            "review_required_obligation_ids": [row["obligation_id"] for row in obligations if row.get("review_required") is True],
+            "fulfilment_judgement": "NEEDS_YOU",
+            "disclosure_judgement": "NEEDS_YOU",
+            "external_release": "REFUSE",
+        },
+        "provenance_manifest": {
+            "case_id": case["case_id"],
+            "obligation_source": obligation_bundle.get("source"),
+            "obligation_bundle_fingerprint": obligation_bundle["fingerprint"],
+            "projection_receipt": projection_receipt,
+            "event_refs": list(case.get("event_refs") or []),
+            "authority_created": False,
+            "external_effects": False,
+        },
     }
 
 
@@ -118,16 +106,14 @@ def _render_html(pack: dict[str, Any], required_sections: list[str]) -> bytes:
     for section in required_sections:
         value = json.dumps(pack[section], indent=2, sort_keys=True, ensure_ascii=False)
         blocks.append(f"<section><h2>{html.escape(section)}</h2><pre>{html.escape(value)}</pre></section>")
-    body = "<!doctype html><html><head><meta charset='utf-8'><title>DIO ContractProof Evidence Pack</title></head><body><h1>DIO ContractProof Evidence Pack</h1>" + "".join(blocks) + "</body></html>"
-    return body.encode("utf-8")
+    return ("<!doctype html><html><head><meta charset='utf-8'><title>DIO ContractProof Evidence Pack</title></head><body><h1>DIO ContractProof Evidence Pack</h1>" + "".join(blocks) + "</body></html>").encode("utf-8")
 
 
 def _docx_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
     from io import BytesIO
     paragraphs = ["DIO ContractProof Evidence Pack"]
     for section in required_sections:
-        paragraphs.append(section)
-        paragraphs.append(json.dumps(pack[section], sort_keys=True, ensure_ascii=False))
+        paragraphs.extend([section, json.dumps(pack[section], sort_keys=True, ensure_ascii=False)])
     document_xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'><w:body>" + "".join(f"<w:p><w:r><w:t xml:space='preserve'>{xml_escape(text)}</w:t></w:r></w:p>" for text in paragraphs) + "<w:sectPr/></w:body></w:document>"
     content_types = "<?xml version='1.0' encoding='UTF-8'?><Types xmlns='http://schemas.openxmlformats.org/package/2006/content-types'><Default Extension='rels' ContentType='application/vnd.openxmlformats-package.relationships+xml'/><Default Extension='xml' ContentType='application/xml'/><Override PartName='/word/document.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'/></Types>"
     rels = "<?xml version='1.0' encoding='UTF-8'?><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/></Relationships>"
@@ -149,11 +135,9 @@ def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
     for section in required_sections:
         compact = json.dumps(pack[section], sort_keys=True, ensure_ascii=True)
         lines.append(section)
-        for offset in range(0, len(compact), 90):
-            lines.append(compact[offset : offset + 90])
+        lines.extend(compact[offset : offset + 90] for offset in range(0, len(compact), 90))
     pages = [lines[index : index + 42] for index in range(0, len(lines), 42)] or [[]]
     page_object_ids: list[int] = []
-    font_id = 3
     next_id = 4
     content_pairs: list[tuple[int, int, list[str]]] = []
     for page_lines in pages:
@@ -176,7 +160,7 @@ def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
         commands.append("ET")
         stream = "\n".join(commands).encode("latin-1", errors="replace")
         object_map[content_id] = b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\nstream\n" + stream + b"\nendstream"
-        object_map[page_id] = f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 {font_id} 0 R >> >> /Contents {content_id} 0 R >>".encode("ascii")
+        object_map[page_id] = f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents {content_id} 0 R >>".encode("ascii")
     output = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
     offsets = [0] * (max_id + 1)
     for object_id in range(1, max_id + 1):
@@ -194,23 +178,13 @@ def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
 
 
 def _proof_identity(manifest: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "case_id": manifest.get("case_id"),
-        "obligation_bundle_fingerprint": manifest.get("obligation_bundle_fingerprint"),
-        "required_sections": list(manifest.get("required_sections") or []),
-        "artifacts": list(manifest.get("artifacts") or []),
-    }
+    return {key: manifest.get(key) for key in (
+        "schema", "provider_id", "product_id", "artifact_type", "case_id", "obligation_bundle_fingerprint",
+        "required_sections", "artifacts", "human_gate", "authority_created", "execution_performed", "external_release",
+    )}
 
 
-def compile_portable_room(
-    case: dict[str, Any],
-    obligation_bundle: dict[str, Any],
-    sufficiency: dict[str, Any],
-    projection_receipt: dict[str, Any],
-    output_dir: Path,
-    *,
-    required_sections: list[str],
-) -> dict[str, Any]:
+def compile_portable_room(case: dict[str, Any], obligation_bundle: dict[str, Any], sufficiency: dict[str, Any], projection_receipt: dict[str, Any], output_dir: Path, *, required_sections: list[str]) -> dict[str, Any]:
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     pack = _semantic_pack(case, obligation_bundle, sufficiency, projection_receipt)
@@ -247,11 +221,16 @@ def compile_portable_room(
 
 def verify_integrity(output_dir: Path) -> dict[str, Any]:
     output_dir = output_dir.resolve()
-    path = output_dir / "PROOF_MANIFEST.json"
-    manifest = json.loads(path.read_text(encoding="utf-8"))
+    manifest = json.loads((output_dir / "PROOF_MANIFEST.json").read_text(encoding="utf-8"))
     if manifest.get("schema") != PROOF_SCHEMA or manifest.get("artifact_type") != "proof_room_manifest":
         raise ValueError("unexpected ContractProof proof manifest identity")
     failures: list[str] = []
+    if manifest.get("provider_id") != PROVIDER_ID or manifest.get("product_id") != "dio_contractproof":
+        failures.append("manifest:provider_or_product")
+    if (manifest.get("human_gate") or {}).get("state") != "NEEDS_YOU":
+        failures.append("manifest:human_gate")
+    if manifest.get("authority_created") is not False or manifest.get("execution_performed") is not False or manifest.get("external_release") is not False:
+        failures.append("manifest:authority_boundary")
     expected_proof_fingerprint = f"sha256:{_sha256_bytes(_canonical(_proof_identity(manifest)).encode('utf-8'))}"
     if manifest.get("proof_fingerprint") != expected_proof_fingerprint:
         failures.append("manifest:fingerprint")
@@ -263,11 +242,9 @@ def verify_integrity(output_dir: Path) -> dict[str, Any]:
         if not artifact_path.is_file():
             failures.append(f"missing:{artifact_type}")
             continue
-        digest = _sha256_bytes(artifact_path.read_bytes())
-        if digest != artifact.get("sha256"):
+        if _sha256_bytes(artifact_path.read_bytes()) != artifact.get("sha256"):
             failures.append(f"hash:{artifact_type}")
-    missing = sorted(set(REQUIRED_ARTIFACT_TYPES).difference(observed))
-    failures.extend(f"manifest_missing:{item}" for item in missing)
+    failures.extend(f"manifest_missing:{item}" for item in sorted(set(REQUIRED_ARTIFACT_TYPES).difference(observed)))
     return {
         "schema": "dio.contractproof.integrity_verification.v1",
         "case_id": manifest.get("case_id"),
