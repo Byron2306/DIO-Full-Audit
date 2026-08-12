@@ -35,11 +35,15 @@
     {"capability_id": "case.materialize", "required": true, "execution_required": false},
     {"capability_id": "evidence.provenance", "required": true, "execution_required": false},
     {"capability_id": "evidence.link", "required": true, "execution_required": false},
-    {"capability_id": "proof.room.compile", "required": true, "execution_required": false},
+    {"capability_id": "evidence.sufficiency", "required": true, "execution_required": false},
+    {"capability_id": "evidence.gaps", "required": true, "execution_required": false},
     {"capability_id": "obligation.extract", "required": true, "execution_required": false},
     {"capability_id": "obligation.normalize", "required": true, "execution_required": false},
     {"capability_id": "obligation.deadlines", "required": true, "execution_required": false},
     {"capability_id": "obligation.evaluate", "required": true, "execution_required": false},
+    {"capability_id": "proof.room.compile", "required": true, "execution_required": false},
+    {"capability_id": "proof.integrity.verify", "required": true, "execution_required": false},
+    {"capability_id": "proof.disclosure.prepare", "required": true, "execution_required": false},
     {"capability_id": "product.executor.contractproof", "required": true, "execution_required": true}
   ],
   "executor_policy": {
@@ -47,16 +51,16 @@
     "missing_required_executor": "REFUSE"
   },
   "maturity": {
-    "state": "composed",
+    "state": "internal_proof",
     "operational_flags": {
-      "routable": false,
-      "governable": false,
-      "executable": false,
+      "routable": true,
+      "governable": true,
+      "executable": true,
       "campaign_enabled": false,
       "externally_validated": false,
       "continuous_assurance_ready": false,
       "revenue_proven": false
     }
   },
-  "notes": "Phase 2 reference incarnation. ContractProof is intentionally internal-only and non-executable until Obligation Core and a bounded executor are earned in later phases."
+  "notes": "Phase 5 internal golden-proof incarnation. ContractProof has a bounded local executor and complete WP01/WP05/WP11 capability composition, while fulfilment judgement remains human and the internal commercial profile keeps external release REFUSE."
 }
