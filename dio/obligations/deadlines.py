@@ -9,8 +9,10 @@ def _deadline_state(due_at: str, *, now: str, kind: str) -> str:
     current = parse_time(now)
     due = parse_time(due_at)
     assert current is not None and due is not None
-    if current > due:
-        return "expired" if kind == "expiry" else "overdue"
+    if kind == "expiry" and current >= due:
+        return "expired"
+    if kind != "expiry" and current > due:
+        return "overdue"
     seconds = (due - current).total_seconds()
     return "due" if seconds <= 86400 else "open"
 
