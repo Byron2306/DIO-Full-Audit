@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.profile.v1",
+  "title": "DIO Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profile_version",
+    "profile_id",
+    "profile_class",
+    "name",
+    "status",
+    "binding",
+    "risk_boundary",
+    "spec"
+  ],
+  "properties": {
+    "schema": {"const": "dio.profile.v1"},
+    "profile_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "profile_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "profile_class": {"enum": ["domain", "framework", "authority", "connector", "output", "commercial"]},
+    "name": {"type": "string", "minLength": 2, "maxLength": 200},
+    "status": {"enum": ["internal_reference", "source_bound", "externally_validated", "deprecated"]},
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "source_bindings"],
+      "properties": {
+        "state": {"const": "BOUND"},
+        "source_bindings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_ref", "source_version", "content_hash", "source_kind", "authority_level"],
+            "properties": {
+              "source_ref": {"type": "string", "minLength": 1, "maxLength": 1000},
+              "source_section": {"type": "string", "maxLength": 300},
+              "source_version": {"type": "string", "minLength": 1, "maxLength": 120},
+              "content_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+              "source_kind": {"enum": ["internal_design", "policy", "contract", "standard", "regulation", "official_guidance", "customer_authority", "technical_specification"]},
+              "authority_level": {"enum": ["internal_reference", "customer_authoritative", "externally_authoritative"]}
+            }
+          }
+        }
+      }
+    },
+    "risk_boundary": {"type": "string", "minLength": 8, "maxLength": 3000},
+    "spec": {"type": "object"},
+    "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "notes": {"type": "string", "maxLength": 3000}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"profile_class": {"const": "domain"}}, "required": ["profile_class"]},
+      "then": {"properties": {"spec": {"$ref": "#/$defs/domainSpec"}}}
+    },
+    {
+      "if": {"properties": {"profile_class": {"const": "framework"}}, "required": ["profile_class"]},
+      "then": {"properties": {"spec": {"$ref": "#/$defs/frameworkSpec"}}}
+    },
+    {
+      "if": {"properties": {"profile_class": {"const": "authority"}}, "required": ["profile_class"]},
+      "then": {"properties": {"spec": {"$ref": "#/$defs/authoritySpec"}}}
+    },
+    {
+      "if": {"properties": {"profile_class": {"const": "connector"}}, "required": ["profile_class"]},
+      "then": {"properties": {"spec": {"$ref": "#/$defs/connectorSpec"}}}
+    },
+    {
+      "if": {"properties": {"profile_class": {"const": "output"}}, "required": ["profile_class"]},
+      "then": {"properties": {"spec": {"$ref": "#/$defs/outputSpec"}}}
+    },
+    {
+      "if": {"properties": {"profile_class": {"const": "commercial"}}, "required": ["profile_class"]},
+      "then": {"properties": {"spec": {"$ref": "#/$defs/commercialSpec"}}}
+    }
+  ],
+  "$defs": {
+    "stringSet": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "domainSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_types", "vocabulary", "human_boundaries", "forbidden_claims"],
+      "properties": {
+        "object_types": {"$ref": "#/$defs/stringSet"},
+        "vocabulary": {"$ref": "#/$defs/stringSet"},
+        "human_boundaries": {"$ref": "#/$defs/stringSet"},
+        "forbidden_claims": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "frameworkSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement_types", "state_vocabulary", "deadline_semantics", "human_boundaries", "forbidden_claims"],
+      "properties": {
+        "requirement_types": {"$ref": "#/$defs/stringSet"},
+        "state_vocabulary": {"$ref": "#/$defs/stringSet"},
+        "deadline_semantics": {"$ref": "#/$defs/stringSet"},
+        "human_boundaries": {"$ref": "#/$defs/stringSet"},
+        "forbidden_claims": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "authoritySpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_roles", "decision_boundaries", "capability_constraints", "forbidden_claims"],
+      "properties": {
+        "human_roles": {"$ref": "#/$defs/stringSet"},
+        "decision_boundaries": {"$ref": "#/$defs/stringSet"},
+        "capability_constraints": {"$ref": "#/$defs/stringSet"},
+        "forbidden_claims": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "connectorSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["read_capabilities", "write_capabilities", "side_effects", "authority_requirements"],
+      "properties": {
+        "read_capabilities": {"$ref": "#/$defs/stringSet"},
+        "write_capabilities": {"$ref": "#/$defs/stringSet"},
+        "side_effects": {"$ref": "#/$defs/stringSet"},
+        "authority_requirements": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "outputSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_types", "required_sections", "disclosure_rules", "qa_requirements"],
+      "properties": {
+        "artifact_types": {"$ref": "#/$defs/stringSet"},
+        "required_sections": {"$ref": "#/$defs/stringSet"},
+        "disclosure_rules": {"$ref": "#/$defs/stringSet"},
+        "qa_requirements": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "commercialSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["offer_state", "permitted_actions", "prohibited_actions", "claim_ceiling"],
+      "properties": {
+        "offer_state": {"enum": ["internal_only", "pilot", "customer_available", "scale_available"]},
+        "permitted_actions": {"$ref": "#/$defs/stringSet"},
+        "prohibited_actions": {"$ref": "#/$defs/stringSet"},
+        "claim_ceiling": {"$ref": "#/$defs/stringSet"}
+      }
+    }
+  }
+}
