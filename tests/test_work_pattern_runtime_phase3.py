@@ -21,6 +21,10 @@ def _by_operation(pattern: dict) -> dict[str, dict]:
     return {row["operation_id"]: row for row in pattern["operations"]}
 
 
+def _expected_state(catalog: dict, capability_id: str) -> str:
+    return "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
+
+
 def test_registry_declares_exactly_twelve_patterns_and_five_v1_focus_contracts() -> None:
     contracts, payload, _ = load_runtime_registry(ROOT)
     assert set(contracts) == {f"WP{index:02d}" for index in range(1, 13)}
@@ -55,16 +59,19 @@ def test_schema_rejects_direct_provider_wiring() -> None:
     assert any("Additional properties are not allowed" in error.message for error in errors)
 
 
-def test_contractproof_evidence_pattern_is_partial_not_magically_ready() -> None:
+def test_contractproof_evidence_pattern_tracks_earned_frontier_without_creating_authority() -> None:
     plan = plan_manifest(ROOT, MANIFEST)
     evidence = _by_pattern(plan)["WP01"]
     operations = _by_operation(evidence)
-    assert evidence["runtime_state"] == "PARTIAL"
+    catalog, _ = load_capability_catalog(ROOT)
     assert operations["materialize_case"]["resolution_state"] == "RESOLVED"
     assert operations["capture_provenance"]["resolution_state"] == "RESOLVED"
     assert operations["map_evidence"]["resolution_state"] == "RESOLVED"
-    assert operations["assess_sufficiency"]["resolution_state"] == "PLANNED"
-    assert operations["emit_gaps"]["resolution_state"] == "PLANNED"
+    assert operations["assess_sufficiency"]["resolution_state"] == _expected_state(catalog, "evidence.sufficiency")
+    assert operations["emit_gaps"]["resolution_state"] == _expected_state(catalog, "evidence.gaps")
+    expected_runtime = "READY" if all(row["resolution_state"] == "RESOLVED" for row in operations.values()) else "PARTIAL"
+    assert evidence["runtime_state"] == expected_runtime
+    assert evidence["human_gate"]["state"] == "NEEDS_YOU"
 
 
 def test_contractproof_obligation_pattern_tracks_current_capability_frontier() -> None:
@@ -80,50 +87,54 @@ def test_contractproof_obligation_pattern_tracks_current_capability_frontier() -
     }
     expected_states = []
     for operation_id, capability_id in obligation_capabilities.items():
-        expected = "RESOLVED" if catalog[capability_id]["status"] == "available" else "PLANNED"
+        expected = _expected_state(catalog, capability_id)
         assert operations[operation_id]["resolution_state"] == expected
         expected_states.append(expected)
     assert operations["bind_evidence"]["resolution_state"] == "RESOLVED"
     assert obligation["runtime_state"] == ("READY" if all(state == "RESOLVED" for state in expected_states) else "PARTIAL")
 
 
-def test_contractproof_proof_pattern_respects_provider_product_scope() -> None:
+def test_contractproof_proof_pattern_keeps_capitalroom_scope_truthful_as_product_adapter_is_earned() -> None:
     plan = plan_manifest(ROOT, MANIFEST)
     proof = _by_pattern(plan)["WP11"]
     operations = _by_operation(proof)
-    assert proof["runtime_state"] == "BLOCKED"
-    assert operations["compile_portable_room"]["resolution_state"] == "UNAVAILABLE"
-    assert "no earned provider declares applicability" in operations["compile_portable_room"]["reason"]
-    assert operations["verify_integrity"]["resolution_state"] == "PLANNED"
-    assert operations["prepare_disclosure"]["resolution_state"] == "PLANNED"
+    catalog, _ = load_capability_catalog(ROOT)
+    capitalroom = next(row for row in catalog["proof.room.compile"]["providers"] if row["provider_id"] == "capitalroom_proof_room")
+    assert "dio_contractproof" not in capitalroom["product_scope"]
+    expected_room = "RESOLVED" if any("dio_contractproof" in row["product_scope"] for row in catalog["proof.room.compile"]["providers"]) else "UNAVAILABLE"
+    assert operations["compile_portable_room"]["resolution_state"] == expected_room
+    if expected_room == "RESOLVED":
+        assert operations["compile_portable_room"]["provider"]["provider_id"] != "capitalroom_proof_room"
+    assert operations["verify_integrity"]["resolution_state"] == _expected_state(catalog, "proof.integrity.verify")
+    assert operations["prepare_disclosure"]["resolution_state"] == _expected_state(catalog, "proof.disclosure.prepare")
+    expected_runtime = "READY" if all(row["resolution_state"] == "RESOLVED" for row in operations.values()) else "BLOCKED"
+    assert proof["runtime_state"] == expected_runtime
 
 
-def test_phase3_runtime_never_relaxes_execution_or_human_authority() -> None:
+def test_phase3_runtime_never_executes_or_relaxes_human_authority_even_when_product_executor_is_earned() -> None:
     plan = plan_manifest(ROOT, MANIFEST)
     compiled = compile_manifest(ROOT, MANIFEST)
-    assert plan["planning_gate"]["state"] == "NEEDS_IMPLEMENTATION"
+    assert plan["planning_gate"]["state"] in {"ALLOW", "NEEDS_IMPLEMENTATION"}
     assert plan["execution_gate"]["state"] == "REFUSE"
-    assert plan["compiler_execution_gate"]["state"] == "REFUSE"
+    assert plan["compiler_execution_gate"]["state"] in {"REFUSE", "NEEDS_YOU"}
+    assert plan["compiler_execution_gate"]["state"] != "ALLOW"
     assert plan["authority_created"] is False
     assert plan["executor_created"] is False
-    assert compiled["gates"]["execution"]["state"] == "REFUSE"
+    assert compiled["gates"]["execution"]["state"] in {"REFUSE", "NEEDS_YOU"}
+    assert compiled["gates"]["external_release"]["state"] == "REFUSE"
     for pattern in plan["patterns"]:
         assert pattern["human_gate"]["state"] == "NEEDS_YOU"
 
 
-def test_phase3_new_capabilities_are_declared_planned_not_earned() -> None:
+def test_unrelated_phase3_frontier_remains_planned_until_earned() -> None:
     catalog, _ = load_capability_catalog(ROOT)
     planned = {
-        "evidence.sufficiency",
-        "evidence.gaps",
         "intake.normalize",
         "intake.classify",
         "intake.missing_information",
         "document.project",
         "document.qa",
         "document.release.prepare",
-        "proof.integrity.verify",
-        "proof.disclosure.prepare",
     }
     for capability_id in planned:
         assert catalog[capability_id]["status"] == "planned"
