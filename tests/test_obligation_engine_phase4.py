@@ -74,6 +74,29 @@ def test_evaluation_covers_bounded_states_without_compliance_verdicts() -> None:
     assert bundle["authority_created"] is False and bundle["executor_created"] is False and bundle["external_effects"] is False
 
 
+def test_deadlines_are_derived_only_from_explicit_normalized_dates() -> None:
+    source = _source()
+    ids = _ids_by_locator(source)
+    bundle = build(source, now=NOW)
+    by_obligation: dict[str, list[dict]] = {}
+    for row in bundle["deadlines"]:
+        by_obligation.setdefault(row["obligation_id"], []).append(row)
+    assert by_obligation[ids["4.2"]][0]["state"] == "open"
+    assert by_obligation[ids["5.1"]][0]["state"] == "overdue"
+    assert by_obligation[ids["7.4"]][0]["state"] == "expired"
+    assert ids["9.2"] not in by_obligation
+
+
+def test_expiry_is_effective_at_the_exact_expiry_instant() -> None:
+    source = _source()
+    exact = "2026-08-01T12:00:00+00:00"
+    bundle = build(source, now=exact)
+    ids = _ids_by_locator(source)
+    expiry_deadline = next(row for row in bundle["deadlines"] if row["obligation_id"] == ids["7.4"] and row["kind"] == "expiry")
+    assert expiry_deadline["state"] == "expired"
+    assert _status_by_locator(bundle)["7.4"] == "EXPIRED"
+
+
 def test_contradiction_and_stale_evidence_remain_conservative() -> None:
     source = _source()
     ids = _ids_by_locator(source)
