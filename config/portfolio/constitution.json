@@ -52,5 +52,12 @@
     "phase_2": "Implement product validate/compile/inspect commands and resolver-generated runtime plans.",
     "phase_3": "Implement reusable work-pattern runtime contracts.",
     "forbidden_in_phase_0": ["bespoke ContractProof runtime", "bespoke TenderProof runtime", "bespoke GrantProof runtime", "bespoke PermitProof runtime", "compiler-selected organ wiring", "new execution authority", "automatic maturity promotion"]
+  },
+  "acceptance": {
+    "gate": "scripts/validate_product_constitution.py",
+    "command": "python3 scripts/validate_product_constitution.py",
+    "ready_token": "DIO_PRODUCT_CONSTITUTION_READY",
+    "refuse_prefix": "DIO_PRODUCT_CONSTITUTION_REFUSE:",
+    "must_pass_before_phase_1": true
   }
 }
