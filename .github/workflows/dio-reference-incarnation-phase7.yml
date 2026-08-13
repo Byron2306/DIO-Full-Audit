@@ -1,0 +1,50 @@
+name: DIO Phase 7 Reference Incarnation Gauntlet
+
+on:
+  push:
+    branches:
+      - agent/dio-phase7-reference-gauntlet
+  pull_request:
+    paths:
+      - "config/products/reference_incarnations.json"
+      - "config/products/manifests/**"
+      - "config/products/golden/**"
+      - "config/profiles/**"
+      - "config/portfolio/capability_catalog.json"
+      - "dio/obligations/**"
+      - "products/compiler.py"
+      - "products/contractproof/**"
+      - "products/obligationfamily/**"
+      - "products/reference_gauntlet.py"
+      - "scripts/run_reference_incarnation_gauntlet.py"
+      - "tests/test_reference_incarnation_gauntlet_phase7.py"
+      - ".github/workflows/dio-reference-incarnation-phase7.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phase7:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+      - name: Compile Phase 7 Python
+        run: python -m py_compile products/reference_gauntlet.py scripts/run_reference_incarnation_gauntlet.py tests/test_reference_incarnation_gauntlet_phase7.py
+      - name: Run Phase 0-6 regression gates
+        run: |
+          python scripts/validate_product_constitution.py
+          python scripts/validate_product_compiler.py
+          python scripts/validate_work_pattern_runtime.py
+          python scripts/validate_obligation_engine.py
+          python scripts/validate_contractproof_phase5.py
+          python scripts/validate_obligation_family_phase6.py
+      - name: Run Phase 7 tests
+        run: python -m pytest -q tests/test_reference_incarnation_gauntlet_phase7.py
+      - name: Emit Phase 7 acceptance receipt
+        run: python scripts/run_reference_incarnation_gauntlet.py --output state/reference_incarnation_gauntlet

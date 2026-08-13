@@ -1,0 +1,21 @@
+{
+  "schema": "dio.reference_incarnation_registry.v1",
+  "registry_version": "1.0.0",
+  "fixed_evaluation_time": "2026-08-12T12:00:00+00:00",
+  "incarnations": [
+    {"product_id": "dio_contractproof", "slug": "contractproof", "source_type": "contract", "runner": "contractproof", "manifest": "config/products/manifests/contractproof.json", "fixture_source": "config/products/golden/contractproof/reference_contract.json", "fixture_evidence": "config/products/golden/contractproof/reference_evidence.json"},
+    {"product_id": "dio_tenderproof", "slug": "tenderproof", "source_type": "tender", "runner": "obligation_family", "manifest": "config/products/manifests/tenderproof.json", "fixture_source": "config/products/golden/tenderproof/reference_source.json", "fixture_evidence": "config/products/golden/tenderproof/reference_evidence.json"},
+    {"product_id": "dio_grantproof", "slug": "grantproof", "source_type": "grant", "runner": "obligation_family", "manifest": "config/products/manifests/grantproof.json", "fixture_source": "config/products/golden/grantproof/reference_source.json", "fixture_evidence": "config/products/golden/grantproof/reference_evidence.json"},
+    {"product_id": "dio_permitproof", "slug": "permitproof", "source_type": "permit", "runner": "obligation_family", "manifest": "config/products/manifests/permitproof.json", "fixture_source": "config/products/golden/permitproof/reference_source.json", "fixture_evidence": "config/products/golden/permitproof/reference_evidence.json"}
+  ],
+  "shared_core_guard": {
+    "dio/obligations/__init__.py": "e397bfa3cf0bdd9e9db8e73f023532d166eb3310a2ee215fd8cebe920b662d4d",
+    "dio/obligations/deadlines.py": "81a91354ddfb5c7df0bb5a6679b4e4cc68f99033d1bd5683e8fa101f3e9438c6",
+    "dio/obligations/engine.py": "79a2f73f9bf0cd414abb6e543c6c8dc2f6b75186b70f614915860d6eac04c549",
+    "dio/obligations/evidence.py": "052c6eb580243acd21ca397a976740fa4dbc70478af9142c1b321bd11fb01eac",
+    "dio/obligations/extractor.py": "dca57206e3c808361d198571c85b9da0f6670212b4d1d8c7b2a8b6ffe74b92fe",
+    "dio/obligations/models.py": "568e23b0b0551d2e9bd72e6415aa45b3c6a9cd4e5f32abad0dcfe1c2dd2e8100",
+    "dio/obligations/normalizer.py": "16ac875e7b22f16352d80660d4a6aa396349290e2f60f68a13c9c08f52b83aa6",
+    "dio/obligations/status.py": "6f18cdc001fbc554176c11c47f8a785f6b6145da10c39ce3fc4f4871e7404cc2"
+  }
+}
