@@ -1,54 +1,78 @@
 {
-  "schema": "dio.profile_index.v1",
   "index_version": "1.0.0",
   "profiles": [
     {
-      "profile_id": "authority.contract_owner",
-      "profile_class": "authority",
-      "profile_version": "1.0.0",
-      "path": "config/profiles/authorities/contract_owner.json",
       "content_hash": "sha256:20a0a092ca46c2f115bedba248f126ef9877b5ae0c68e70d81aae19bc24787fc",
+      "path": "config/profiles/authorities/contract_owner.json",
+      "profile_class": "authority",
+      "profile_id": "authority.contract_owner",
+      "profile_version": "1.0.0",
       "status": "source_bound"
     },
     {
-      "profile_id": "commercial.internal_proof",
-      "profile_class": "commercial",
-      "profile_version": "1.0.0",
-      "path": "config/profiles/commercial/internal_proof.json",
       "content_hash": "sha256:5e335d7867cb45d3474b6777e86315c0a242874909ce1810d19fa7ea5787fdbd",
+      "path": "config/profiles/commercial/internal_proof.json",
+      "profile_class": "commercial",
+      "profile_id": "commercial.internal_proof",
+      "profile_version": "1.0.0",
       "status": "source_bound"
     },
     {
-      "profile_id": "connector.files_readonly",
-      "profile_class": "connector",
-      "profile_version": "1.0.0",
-      "path": "config/profiles/connectors/files_readonly.json",
       "content_hash": "sha256:573fde172e9f4575813c4641cb069e327766402a1308c030cf4df42268b4de84",
+      "path": "config/profiles/connectors/files_readonly.json",
+      "profile_class": "connector",
+      "profile_id": "connector.files_readonly",
+      "profile_version": "1.0.0",
       "status": "source_bound"
     },
     {
-      "profile_id": "domain.project_delivery",
-      "profile_class": "domain",
-      "profile_version": "1.0.0",
-      "path": "config/profiles/domains/project_delivery.json",
       "content_hash": "sha256:2ffcb3acf4d2328589d4bb990b02c3205a05d7f8c72c0bfc1e5e0c954961ffaa",
+      "path": "config/profiles/domains/project_delivery.json",
+      "profile_class": "domain",
+      "profile_id": "domain.project_delivery",
+      "profile_version": "1.0.0",
       "status": "source_bound"
     },
     {
-      "profile_id": "framework.contract_generic",
-      "profile_class": "framework",
-      "profile_version": "1.0.0",
-      "path": "config/profiles/frameworks/contract_generic.json",
       "content_hash": "sha256:e37b4133f702559d9e08dcca68167499a0f08bd32a989191b57db1ecbe48fc7c",
+      "path": "config/profiles/frameworks/contract_generic.json",
+      "profile_class": "framework",
+      "profile_id": "framework.contract_generic",
+      "profile_version": "1.0.0",
       "status": "source_bound"
     },
     {
-      "profile_id": "output.evidence_pack",
-      "profile_class": "output",
+      "content_hash": "sha256:761586ac9d4471eca167f8b7e69b4948892450c82370ba5ce98c7b025371cf32",
+      "path": "config/profiles/frameworks/grant_award.json",
+      "profile_class": "framework",
+      "profile_id": "framework.grant_award",
       "profile_version": "1.0.0",
-      "path": "config/profiles/outputs/evidence_pack.json",
+      "status": "source_bound"
+    },
+    {
+      "content_hash": "sha256:ae8fa85acf337b66477dbabc6315930c6e2d1b35a3f4869276c34d24e7f133ce",
+      "path": "config/profiles/frameworks/permit_conditions.json",
+      "profile_class": "framework",
+      "profile_id": "framework.permit_conditions",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
+      "content_hash": "sha256:ca3dbdbe0cbe2feb3670fec50f971da3df9de51c51cc9d19a2d77f4216047399",
+      "path": "config/profiles/frameworks/tender_submission.json",
+      "profile_class": "framework",
+      "profile_id": "framework.tender_submission",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
       "content_hash": "sha256:c72ff735b0deaf0d7de0f961e9d5214bba4a67709a024ca808c0cabd33f29f75",
+      "path": "config/profiles/outputs/evidence_pack.json",
+      "profile_class": "output",
+      "profile_id": "output.evidence_pack",
+      "profile_version": "1.0.0",
       "status": "source_bound"
     }
-  ]
+  ],
+  "schema": "dio.profile_index.v1"
 }
