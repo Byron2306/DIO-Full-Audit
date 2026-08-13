@@ -9,13 +9,13 @@
     {"product_id": "dio_permitproof", "slug": "permitproof", "source_type": "permit", "runner": "obligation_family", "manifest": "config/products/manifests/permitproof.json", "fixture_source": "config/products/golden/permitproof/reference_source.json", "fixture_evidence": "config/products/golden/permitproof/reference_evidence.json"}
   ],
   "shared_core_guard": {
-    "dio/obligations/__init__.py": "22454cb049c3f82ea44bf3d96ce61a804a94c6221aad510bd66213f4ed04bff2",
-    "dio/obligations/deadlines.py": "4740e297d802fe83006d79328b28fc57586b18250acce3f640d4e3d1a1f4cd0f",
-    "dio/obligations/engine.py": "11801263057f6dbddbaf432bc1e1147c647036c41c79d8c55d6963ea104d4665",
-    "dio/obligations/evidence.py": "0d9be6bdc19cbb19891786f73fdfd86f21b5c6b424f3c780996de74917f7dcd5",
-    "dio/obligations/extractor.py": "baca452c6ed87e21b1f29334ae1d4247045e9344ab7a0cc25a2131356220f7ff",
-    "dio/obligations/models.py": "6ca5edd28b5e0e373e4fffc74ed23525bb7a2c1e996896d0cf0a7c0ad9fe6033",
-    "dio/obligations/normalizer.py": "d14cceb56e6d6a96c0487bbdf7d1908e363bc3b31a014b717694d593e96077e6",
-    "dio/obligations/status.py": "f66c7645c4eb6d4862e2ce038b50b7fc678a528eec7ab0877c99d33084ff2768"
+    "dio/obligations/__init__.py": "e397bfa3cf0bdd9e9db8e73f023532d166eb3310a2ee215fd8cebe920b662d4d",
+    "dio/obligations/deadlines.py": "81a91354ddfb5c7df0bb5a6679b4e4cc68f99033d1bd5683e8fa101f3e9438c6",
+    "dio/obligations/engine.py": "79a2f73f9bf0cd414abb6e543c6c8dc2f6b75186b70f614915860d6eac04c549",
+    "dio/obligations/evidence.py": "052c6eb580243acd21ca397a976740fa4dbc70478af9142c1b321bd11fb01eac",
+    "dio/obligations/extractor.py": "dca57206e3c808361d198571c85b9da0f6670212b4d1d8c7b2a8b6ffe74b92fe",
+    "dio/obligations/models.py": "568e23b0b0551d2e9bd72e6415aa45b3c6a9cd4e5f32abad0dcfe1c2dd2e8100",
+    "dio/obligations/normalizer.py": "16ac875e7b22f16352d80660d4a6aa396349290e2f60f68a13c9c08f52b83aa6",
+    "dio/obligations/status.py": "6f18cdc001fbc554176c11c47f8a785f6b6145da10c39ce3fc4f4871e7404cc2"
   }
 }
