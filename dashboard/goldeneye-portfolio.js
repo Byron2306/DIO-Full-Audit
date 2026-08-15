@@ -89,12 +89,41 @@ function renderSources(data) {
   }));
 }
 
+function renderCommercial(data) {
+  const summary = data.summary;
+  $("commercialState").textContent = data.snapshot_fingerprint.slice(0, 20) + "…";
+  const values = [
+    ["Live verified payments", summary.live_verified_payment_count],
+    ["Attributed paid cases", summary.attributed_paid_case_count],
+    ["Customer validated", summary.customer_validated_product_count],
+    ["Repeatable", summary.repeatable_product_count],
+    ["Economically proven", summary.economically_proven_product_count],
+  ];
+  $("commercialKpis").replaceChildren(...values.map(([label, value]) => {
+    const box = node("div", "kpi");
+    box.append(node("label", "", label), node("strong", "", value));
+    return box;
+  }));
+  $("commercialProducts").replaceChildren(...data.products.map((item) => {
+    const card = node("article", "card");
+    card.append(node("h3", "", item.product_id));
+    const facts = node("div", "facts");
+    Object.entries(item.claims).forEach(([claim, state]) => facts.append(fact(claim, state)));
+    card.append(facts);
+    return card;
+  }));
+}
+
 async function refresh() {
   $("refresh").disabled = true;
   try {
-    const response = await fetch("/api/control-deck/portfolio", {cache: "no-store"});
-    const data = await response.json();
+    const [response, commercialResponse] = await Promise.all([
+      fetch("/api/control-deck/portfolio", {cache: "no-store"}),
+      fetch("/api/commercial-truth", {cache: "no-store"}),
+    ]);
+    const [data, commercial] = await Promise.all([response.json(), commercialResponse.json()]);
     if (!response.ok) throw new Error(data.action || data.error || "GoldenEye state unavailable");
+    if (!commercialResponse.ok) throw new Error(commercial.action || commercial.error || "Commercial Truth state unavailable");
     $("observedAt").textContent = data.observed_at;
     renderKpis(data.summary);
     renderNeeds(data.operator_attention);
@@ -102,6 +131,7 @@ async function refresh() {
     renderProducts(data.products);
     renderRuntime(data.meta_runtime);
     renderSources(data);
+    renderCommercial(commercial);
     toast("GoldenEye truth projection refreshed");
   } catch (error) {
     toast(error.message);
