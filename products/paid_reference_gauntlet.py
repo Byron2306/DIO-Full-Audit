@@ -14,6 +14,9 @@ def run_paid_reference_gauntlet(*, output_dir: Path) -> dict[str, Any]:
     payload = {
         "name": "Phase 11 Reference Operator", "email": "phase11@example.invalid",
         "organisation": "DIO Controlled Test", "message": "Compile the controlled ContractProof reference journey.",
+        "review_title": "Phase 11 controlled service agreement review",
+        "contract_text": "The Supplier shall provide the monthly service report by the fifth business day. The Customer must retain signed acceptance records for twelve months.",
+        "evidence_notes": "Controlled gauntlet intentionally supplies no formally bound evidence records.",
         "page_viewed": True, "information_acknowledged": True,
         "controlled_test_payment_consented": True, "website_honeypot": "",
     }
