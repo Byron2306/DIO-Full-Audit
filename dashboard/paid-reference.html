@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DIO ContractProof Reference Review</title>
+  <style>
+    :root{color-scheme:dark;--ink:#edf5ff;--muted:#9fb0c8;--gold:#f3c969;--panel:#111a2d;--line:#263653}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#18294d,#070b14 60%);color:var(--ink);font:16px/1.55 system-ui,sans-serif}main{max-width:820px;margin:auto;padding:5rem 1.25rem}.eyebrow{color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:.76rem}h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.96;margin:.5rem 0 1.4rem}.panel{background:color-mix(in srgb,var(--panel) 92%,transparent);border:1px solid var(--line);border-radius:18px;padding:1.3rem;margin:1rem 0}.truth{border-left:4px solid var(--gold)}label{display:block;margin:.8rem 0 .3rem;color:var(--muted)}input,textarea{width:100%;padding:.8rem;border-radius:9px;border:1px solid var(--line);background:#09101e;color:var(--ink)}textarea{min-height:120px}.check{display:flex;gap:.7rem;align-items:flex-start}.check input{width:auto;margin-top:.35rem}button{border:0;border-radius:999px;padding:.9rem 1.25rem;background:var(--gold);color:#171006;font-weight:800;cursor:pointer}button:disabled{opacity:.55;cursor:wait}#result{white-space:pre-wrap}.small{color:var(--muted);font-size:.9rem}
+  </style>
+</head>
+<body><main>
+  <div class="eyebrow">Phase 11 · Paid Reference Products</div>
+  <h1>ContractProof Reference Review</h1>
+  <p>Submit a controlled reference request and a USD 1.00 test-payment receipt. DIO will bind the intake, payment, bounded fulfilment and proof-integrity result into one deterministic journey.</p>
+  <section class="panel truth">
+    <strong>Truth boundary</strong>
+    <p>This page never collects card or bank details. The payment is a local controlled test—not revenue, customer validation or permission to deliver externally.</p>
+  </section>
+  <form id="journey" class="panel">
+    <label for="name">Name</label><input id="name" name="name" required maxlength="160">
+    <label for="email">Email</label><input id="email" name="email" type="email" required maxlength="254">
+    <label for="organisation">Organisation</label><input id="organisation" name="organisation" maxlength="240">
+    <label for="message">What should ContractProof review?</label><textarea id="message" name="message" required maxlength="4000"></textarea>
+    <input name="website_honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <label class="check"><input id="ack" type="checkbox" required><span>I read the offer and understand this is a controlled USD 1.00 test payment with no external delivery.</span></label>
+    <button type="submit">Send and resolve test journey</button>
+    <p class="small">Submission stays on this laptop. No external email or live payment is sent.</p>
+  </form>
+  <section id="result" class="panel" hidden aria-live="polite"></section>
+</main><script src="/paid-reference.js"></script></body>
+</html>

@@ -1,0 +1,55 @@
+name: DIO Phase 11 Paid Reference Products
+
+on:
+  push:
+    branches:
+      - agent/dio-phase11-paid-reference-products
+  pull_request:
+    paths:
+      - "config/portfolio/paid_reference_products.json"
+      - "products/paid_reference.py"
+      - "products/paid_reference_gauntlet.py"
+      - "scripts/run_paid_reference_phase11.py"
+      - "scripts/serve_paid_reference_phase11.py"
+      - "dashboard/paid-reference.*"
+      - "tests/test_paid_reference_phase11.py"
+      - "docs/DIO_PAID_REFERENCE_PRODUCTS_PHASE11.md"
+      - ".github/workflows/dio-paid-reference-phase11.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phase11:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+      - name: Compile Phase 11 sources
+        run: python -m py_compile products/paid_reference.py products/paid_reference_gauntlet.py scripts/run_paid_reference_phase11.py scripts/serve_paid_reference_phase11.py tests/test_paid_reference_phase11.py
+      - name: Validate reference storefront JavaScript
+        run: node --check dashboard/paid-reference.js
+      - name: Run Phase 0-10 regression gates
+        run: |
+          python scripts/validate_product_constitution.py
+          python scripts/validate_product_compiler.py
+          python scripts/validate_work_pattern_runtime.py
+          python scripts/validate_obligation_engine.py
+          python scripts/validate_contractproof_phase5.py
+          python scripts/validate_obligation_family_phase6.py
+          python scripts/run_reference_incarnation_gauntlet.py --output /tmp/dio-phase7-regression
+          python scripts/run_meta_runtime_phase8.py --output /tmp/dio-phase8-regression
+          python scripts/run_control_deck_phase9.py --output /tmp/dio-phase9-regression
+          python scripts/run_commercial_truth_phase10.py --output /tmp/dio-phase10-regression
+      - name: Run Phase 11 tests
+        run: python -m pytest -q tests/test_paid_reference_phase11.py
+      - name: Emit Phase 11 acceptance receipt
+        run: python scripts/run_paid_reference_phase11.py --output state/paid_reference_phase11
