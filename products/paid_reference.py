@@ -188,7 +188,7 @@ def run_paid_reference_journey(payload: dict[str, Any], *, output_dir: Path, roo
         "offer_id": offer["offer_id"],
         "product_id": offer["product_id"],
         "case_id": case_id,
-        "proof_output_dir": str((output_dir / "fulfilment" / "proof").resolve()),
+        "proof_output_dir": "fulfilment/proof",
         "steps": {
             "website_seen": "PASS", "information_read": "PASS", "mailer_submitted": "PASS",
             "controlled_test_payment": "PASS", "bounded_fulfilment": "PASS", "proof_integrity": "PASS",
