@@ -1,0 +1,40 @@
+{
+  "schema": "dio.commercial_truth.config.v1",
+  "commercial_truth_version": "1.0.0",
+  "canonical_entrypoint": "products/commercial_truth.py",
+  "evidence_categories": [
+    "offer_published",
+    "lead_qualified",
+    "payment_verified",
+    "fulfilment_completed",
+    "delivery_accepted",
+    "customer_value_confirmed",
+    "cost_recorded",
+    "labour_recorded",
+    "commercial_review_confirmed"
+  ],
+  "claim_states": ["UNKNOWN", "OBSERVED", "SUPPORTED", "CONTESTED", "REFUSED"],
+  "laws": {
+    "absence_is_unknown_not_zero": true,
+    "payment_is_not_revenue_attribution": true,
+    "payment_is_not_fulfilment": true,
+    "delivery_is_not_customer_value": true,
+    "customer_value_is_not_repeatability": true,
+    "repeatability_is_not_economic_proof": true,
+    "internal_tests_are_not_market_validation": true,
+    "cross_currency_totals_forbidden": true,
+    "commercial_truth_changes_maturity": false,
+    "commercial_truth_creates_authority": false,
+    "commercial_truth_authorizes_release": false
+  },
+  "economic_proof": {
+    "minimum_independent_external_customers": 2,
+    "requires_verified_payment_per_case": true,
+    "requires_fulfilment_per_case": true,
+    "requires_delivery_acceptance_per_case": true,
+    "requires_customer_value_confirmation_per_case": true,
+    "requires_cost_and_labour_per_case": true,
+    "requires_positive_same_currency_contribution": true,
+    "requires_human_commercial_review": true
+  }
+}

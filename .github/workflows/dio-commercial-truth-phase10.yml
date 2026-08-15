@@ -1,0 +1,54 @@
+name: DIO Phase 10 Commercial Truth Layer
+
+on:
+  push:
+    branches:
+      - agent/dio-phase10-commercial-truth
+  pull_request:
+    paths:
+      - "config/portfolio/commercial_truth.json"
+      - "products/commercial_truth.py"
+      - "products/commercial_truth_gauntlet.py"
+      - "schemas/dio_commercial_truth_snapshot.schema.json"
+      - "scripts/run_commercial_truth_phase10.py"
+      - "scripts/serve_goldeneye_portfolio.py"
+      - "dashboard/goldeneye-portfolio.*"
+      - "tests/test_commercial_truth_phase10.py"
+      - ".github/workflows/dio-commercial-truth-phase10.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phase10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+      - name: Compile Commercial Truth sources
+        run: python -m py_compile products/commercial_truth.py products/commercial_truth_gauntlet.py scripts/run_commercial_truth_phase10.py scripts/serve_goldeneye_portfolio.py tests/test_commercial_truth_phase10.py
+      - name: Validate GoldenEye JavaScript
+        run: node --check dashboard/goldeneye-portfolio.js
+      - name: Run Phase 0-9 regression gates
+        run: |
+          python scripts/validate_product_constitution.py
+          python scripts/validate_product_compiler.py
+          python scripts/validate_work_pattern_runtime.py
+          python scripts/validate_obligation_engine.py
+          python scripts/validate_contractproof_phase5.py
+          python scripts/validate_obligation_family_phase6.py
+          python scripts/run_reference_incarnation_gauntlet.py --output /tmp/dio-phase7-regression
+          python scripts/run_meta_runtime_phase8.py --output /tmp/dio-phase8-regression
+          python scripts/run_control_deck_phase9.py --output /tmp/dio-phase9-regression
+      - name: Run Phase 10 tests
+        run: python -m pytest -q tests/test_commercial_truth_phase10.py
+      - name: Emit Phase 10 acceptance receipt
+        run: python scripts/run_commercial_truth_phase10.py --output state/commercial_truth
