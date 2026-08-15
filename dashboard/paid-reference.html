@@ -20,7 +20,12 @@
     <label for="name">Name</label><input id="name" name="name" required maxlength="160">
     <label for="email">Email</label><input id="email" name="email" type="email" required maxlength="254">
     <label for="organisation">Organisation</label><input id="organisation" name="organisation" maxlength="240">
-    <label for="message">What should ContractProof review?</label><textarea id="message" name="message" required maxlength="4000"></textarea>
+    <label for="review_title">Review title</label><input id="review_title" name="review_title" required maxlength="240" placeholder="Supplier agreement evidence review">
+    <label for="message">What decision should this review support?</label><textarea id="message" name="message" required maxlength="4000" placeholder="Identify obligations and evidence gaps for human review."></textarea>
+    <label for="contract_file">Contract text file (optional)</label><input id="contract_file" name="contract_file" type="file" accept=".txt,.md,text/plain,text/markdown">
+    <p class="small">Choose a TXT/Markdown file or paste the relevant contract language below. The file is read locally by your browser.</p>
+    <label for="contract_text">Contract language</label><textarea id="contract_text" name="contract_text" required minlength="40" maxlength="100000" placeholder="The Supplier shall provide the monthly service report by the fifth business day. The Customer must retain acceptance records for twelve months."></textarea>
+    <label for="evidence_notes">Evidence notes (optional)</label><textarea id="evidence_notes" name="evidence_notes" maxlength="12000" placeholder="List records you have or still need. Notes are context only until evidence files are formally bound."></textarea>
     <input name="website_honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <label class="check"><input id="ack" type="checkbox" required><span>I read the offer and understand this is a controlled USD 1.00 test payment with no external delivery.</span></label>
     <button type="submit">Send and resolve test journey</button>
