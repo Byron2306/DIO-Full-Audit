@@ -1,0 +1,27 @@
+{
+  "schema": "dio.paid_reference_products.config.v1",
+  "version": "1.0.0",
+  "offers": [
+    {
+      "offer_id": "contractproof_reference_review",
+      "product_id": "dio_contractproof",
+      "title": "ContractProof Reference Review",
+      "description": "A controlled reference journey that turns supplied contract context into a human-gated internal Evidence Pack.",
+      "test_price": {"amount_minor": 100, "currency": "USD"},
+      "payment_mode": "CONTROLLED_TEST_ONLY",
+      "fulfilment_mode": "BOUNDED_INTERNAL",
+      "external_delivery_gate": "REFUSE",
+      "market_validation_eligible": false
+    }
+  ],
+  "laws": {
+    "card_data_collection_forbidden": true,
+    "test_payment_is_controlled_evidence": true,
+    "test_payment_is_not_revenue": true,
+    "mailer_submission_is_not_qualified_demand": true,
+    "payment_does_not_authorize_fulfilment": true,
+    "fulfilment_does_not_authorize_external_delivery": true,
+    "human_initiation_required": true,
+    "external_release_authorized": false
+  }
+}

@@ -84,7 +84,7 @@ def _payment_event_for(root: Path, environment: str, provider_event_id: str | No
     return None
 
 
-def discover_observations(root: Path, canonical_products: set[str]) -> list[dict[str, Any]]:
+def discover_observations(root: Path, canonical_products: set[str], *, config_root: Path | None = None) -> list[dict[str, Any]]:
     root = root.resolve()
     rows: list[dict[str, Any]] = []
     order_roots = [
@@ -151,7 +151,7 @@ def discover_observations(root: Path, canonical_products: set[str]) -> list[dict
         }))
 
     manual_root = root / "state" / "commercial_evidence"
-    allowed = set(load_config(root)["evidence_categories"])
+    allowed = set(load_config((config_root or root).resolve())["evidence_categories"])
     for path in sorted(manual_root.glob("*.json")) if manual_root.exists() else []:
         item = _load(path)
         if item.get("schema") != MANUAL_SCHEMA or item.get("category") not in allowed:
