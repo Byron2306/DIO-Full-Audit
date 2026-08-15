@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import ast
+import json
+import zipfile
 from pathlib import Path
 
 import pytest
@@ -12,6 +14,9 @@ def _payload() -> dict:
     return {
         "name": "Byron Reference Tester", "email": "byron@example.invalid", "organisation": "DIO",
         "message": "Run the complete controlled ContractProof reference chain.",
+        "review_title": "Monthly service report review",
+        "contract_text": "The Supplier shall provide the monthly service report by the fifth business day. The Customer must retain acceptance records for twelve months.",
+        "evidence_notes": "The report and acceptance register have not yet been bound.",
         "page_viewed": True, "information_acknowledged": True,
         "controlled_test_payment_consented": True, "website_honeypot": "",
     }
@@ -25,12 +30,32 @@ def test_complete_website_mailer_payment_fulfilment_chain_resolves(tmp_path: Pat
     assert journey["commercial_truth"]["controlled"] is True
     assert journey["gates"]["external_delivery"] == "REFUSE"
     assert (tmp_path / "fulfilment" / "proof" / "PROOF_MANIFEST.json").exists()
+    proof_dir = tmp_path / "fulfilment" / "proof"
+    html = (proof_dir / "EVIDENCE_PACK.html").read_text(encoding="utf-8")
+    assert "Executive summary" in html and "Priority actions" in html and "Obligation review" in html
+    assert "The Supplier shall provide" in html
+    assert "<pre>" not in html and "fixture://" not in html
+    with zipfile.ZipFile(proof_dir / "EVIDENCE_PACK.docx") as archive:
+        document_xml = archive.read("word/document.xml").decode("utf-8")
+    assert "Executive summary" in document_xml and "The Supplier shall provide" in document_xml
+    assert "fixture://" not in document_xml
+    bundle = json.loads((proof_dir / "OBLIGATION_BUNDLE.json").read_text(encoding="utf-8"))
+    assert bundle["source"]["source_ref"].startswith("intake://")
+    assert bundle["source"]["sha256"] == __import__("hashlib").sha256(_payload()["contract_text"].encode()).hexdigest()
 
 
 def test_journey_is_deterministic(tmp_path: Path) -> None:
     first = run_paid_reference_journey(_payload(), output_dir=tmp_path / "a")
     second = run_paid_reference_journey(_payload(), output_dir=tmp_path / "b")
     assert first == second
+
+
+def test_contract_content_changes_journey_identity(tmp_path: Path) -> None:
+    first = run_paid_reference_journey(_payload(), output_dir=tmp_path / "a")
+    changed = _payload()
+    changed["contract_text"] = "The Supplier shall deliver a signed inspection record within seven calendar days."
+    second = run_paid_reference_journey(changed, output_dir=tmp_path / "b")
+    assert first["journey_id"] != second["journey_id"]
 
 
 @pytest.mark.parametrize("field", ["page_viewed", "information_acknowledged", "controlled_test_payment_consented"])
@@ -63,6 +88,7 @@ def test_storefront_is_localhost_only_and_posts_only_to_bounded_endpoint() -> No
     server = (ROOT / "scripts" / "serve_paid_reference_phase11.py").read_text(encoding="utf-8")
     ast.parse(server)
     assert "never collects card or bank details" in html
+    assert 'name="contract_text"' in html and 'name="review_title"' in html
     assert "/api/reference-journey" in js and 'method: "POST"' in js
     assert "localhost-only" in server
     assert "mailto:" not in js.lower() and "paypal" not in js.lower()
