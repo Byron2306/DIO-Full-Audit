@@ -120,7 +120,7 @@ def run_paid_reference_journey(payload: dict[str, Any], *, output_dir: Path, roo
     _write(output_dir / "state" / "commerce" / "orders" / f"{order_id}.json", order)
     _write(output_dir / "state" / "commerce" / "payment_events" / f"{provider_event_id}.json", event)
 
-    observations = discover_observations(output_dir, {offer["product_id"]})
+    observations = discover_observations(output_dir, {offer["product_id"]}, config_root=root)
     payment = next(row for row in observations if row["category"] == "payment_verified" and row["case_id"] == case_id)
     if not payment["verified"] or not payment["controlled"] or payment["qualifying"]:
         raise PaidReferenceError("Phase 10 failed to preserve the controlled-payment boundary")
