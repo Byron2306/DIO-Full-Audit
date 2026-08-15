@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_control_deck_snapshot.schema.json",
+  "title": "DIO Control Deck Portfolio Snapshot",
+  "type": "object",
+  "required": [
+    "schema", "control_deck_version", "surface", "observed_at", "source_fingerprints",
+    "summary", "meta_runtime", "suites", "products", "operator_attention",
+    "truth_boundaries", "snapshot_fingerprint"
+  ],
+  "properties": {
+    "schema": {"const": "dio.control_deck.portfolio_snapshot.v1"},
+    "control_deck_version": {"const": "1.0.0"},
+    "surface": {"const": "GOLDENEYE"},
+    "observed_at": {"type": "string", "minLength": 1},
+    "source_fingerprints": {
+      "type": "object",
+      "minProperties": 5,
+      "additionalProperties": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+    },
+    "summary": {
+      "type": "object",
+      "required": ["suite_count", "registered_product_count", "runtime_observed_product_count", "needs_you_count", "internally_proven_count", "externally_validated_count", "revenue_proven_count", "external_release_authorized_count"],
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "meta_runtime": {
+      "type": "object",
+      "required": ["entrypoint", "runtime_version", "primitive_count", "runtime_order", "deterministic_invocation", "input_immutability"],
+      "properties": {
+        "primitive_count": {"const": 4},
+        "runtime_order": {"const": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"]},
+        "deterministic_invocation": {"const": "PASS"},
+        "input_immutability": {"const": "PASS"}
+      },
+      "additionalProperties": true
+    },
+    "suites": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object"}},
+    "products": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "operator_attention": {"type": "array", "items": {"type": "object"}},
+    "truth_boundaries": {
+      "type": "object",
+      "required": ["projection_only", "memory_is_permission", "authority_created", "executor_created", "external_effects", "maturity_changed", "market_validation_created", "commercial_success_inferred", "external_release_authorized"],
+      "properties": {
+        "projection_only": {"const": true},
+        "memory_is_permission": {"const": false},
+        "authority_created": {"const": false},
+        "executor_created": {"const": false},
+        "external_effects": {"const": false},
+        "maturity_changed": {"const": false},
+        "market_validation_created": {"const": false},
+        "commercial_success_inferred": {"const": false},
+        "external_release_authorized": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "snapshot_fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}
