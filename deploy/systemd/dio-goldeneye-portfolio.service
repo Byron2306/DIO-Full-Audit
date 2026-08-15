@@ -1,0 +1,14 @@
+[Unit]
+Description=DIO GoldenEye Phase 9 Portfolio OS
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/DIO-Product-Factory
+ExecStart=/home/byron/DIO-Product-Factory/.venv/bin/python /home/byron/DIO-Product-Factory/scripts/serve_goldeneye_portfolio.py --host 127.0.0.1 --port 8766
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target
