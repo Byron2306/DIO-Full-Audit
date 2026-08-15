@@ -1,14 +1,17 @@
 {
   "schema": "dio.meta_capabilities.registry.v1",
   "registry_id": "dio-canonical-meta-capabilities-v1",
+  "runtime_version": "1.0.0",
   "constitution_version": "1.0.0",
   "composition_authority": "config/products/manifests/",
   "legacy_registry": "config/dio_meta_products.json",
-  "laws": {"exact_primitive_count":4,"creates_authority":false,"creates_executor":false,"changes_maturity":false,"implies_market_validation":false,"vertical_compositions_belong_in_product_manifests":true},
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_order": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"],
+  "laws": {"exact_primitive_count":4,"creates_authority":false,"creates_executor":false,"changes_maturity":false,"implies_market_validation":false,"executes_external_effects":false,"single_runtime_entrypoint":true,"legacy_registry_must_align":true,"vertical_compositions_belong_in_product_manifests":true},
   "meta_capabilities": [
-    {"id":"meta_evidence","name":"DIO META Evidence","role":"evidence_requirement_and_claim_operating_system","component_refs":["frameworks/engine.py","evidence/intelligence.py","products/governed_case.py","composition/case_bridge.py"]},
-    {"id":"meta_assurance","name":"DIO META Assurance","role":"continuous_assurance_and_adversarial_twin","component_refs":["twin/canonical.py","twin/loki_mirror.py","assurance/continuous.py","assurance/watcher.py"]},
-    {"id":"meta_authority","name":"DIO META Authority","role":"governed_action_and_capability_control_plane","component_refs":["authority/canonical.py","executors/vertical.py","composition/orchestrator.py"]},
-    {"id":"meta_room","name":"DIO META Room","role":"portable_tamper_evident_proof_packaging","component_refs":["capitalroom/proof_room.py","twin/canonical.py","assurance/continuous.py"]}
+    {"id":"meta_evidence","name":"DIO META Evidence","role":"evidence_requirement_and_claim_operating_system","handler_id":"observe_evidence","depends_on":[],"input_contract":["governed_case","obligation_bundle","evidence_sufficiency"],"output_contract":["evidence_observation","gap_state","provenance_bindings"],"component_refs":["frameworks/engine.py","evidence/intelligence.py","products/governed_case.py","composition/case_bridge.py"]},
+    {"id":"meta_assurance","name":"DIO META Assurance","role":"continuous_assurance_and_adversarial_twin","handler_id":"observe_assurance","depends_on":["meta_evidence"],"input_contract":["execution_receipt","proof_manifest","meta_evidence_receipt"],"output_contract":["boundary_assessment","integrity_state","attention_state"],"component_refs":["twin/canonical.py","twin/loki_mirror.py","assurance/continuous.py","assurance/watcher.py"]},
+    {"id":"meta_authority","name":"DIO META Authority","role":"governed_action_and_capability_control_plane","handler_id":"observe_authority","depends_on":["meta_evidence","meta_assurance"],"input_contract":["compiled_gates","execution_receipt","meta_assurance_receipt"],"output_contract":["authority_observation","human_gate","release_gate"],"component_refs":["authority/canonical.py","executors/vertical.py","composition/orchestrator.py"]},
+    {"id":"meta_room","name":"DIO META Room","role":"portable_tamper_evident_proof_packaging","handler_id":"observe_room","depends_on":["meta_evidence","meta_assurance","meta_authority"],"input_contract":["proof_manifest","artifact_hashes","prior_meta_receipts"],"output_contract":["proof_observation","integrity_binding","portable_runtime_receipt"],"component_refs":["capitalroom/proof_room.py","twin/canonical.py","assurance/continuous.py"]}
   ]
 }

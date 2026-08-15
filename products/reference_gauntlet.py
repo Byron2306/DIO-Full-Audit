@@ -31,7 +31,7 @@ def _artifact_hashes(output_dir: Path, proof: dict[str, Any]) -> dict[str, str]:
     return {row["artifact_type"]: _sha(output_dir / row["filename"]) for row in proof["artifacts"]}
 
 
-def _run(entry: dict[str, Any], output_dir: Path, now: str) -> dict[str, Any]:
+def run_reference_entry(entry: dict[str, Any], output_dir: Path, now: str) -> dict[str, Any]:
     source = _load(ROOT / entry["fixture_source"])
     evidence = _load(ROOT / entry["fixture_evidence"])["evidence_records"]
     if source.get("source_type") != entry["source_type"]:
@@ -83,8 +83,8 @@ def run_gauntlet(*, output_dir: Path | None = None) -> dict[str, Any]:
         plan = plan_manifest(ROOT, manifest)
         if {row["work_pattern_id"]: row["runtime_state"] for row in plan["patterns"]} != {"WP01": "READY", "WP05": "READY", "WP11": "READY"} or plan["execution_gate"]["state"] != "REFUSE":
             raise AssertionError(f"work-pattern readiness drift for {entry['product_id']}")
-        first = _run(entry, output_dir / entry["slug"] / "run-a", registry["fixed_evaluation_time"])
-        second = _run(entry, output_dir / entry["slug"] / "run-b", registry["fixed_evaluation_time"])
+        first = run_reference_entry(entry, output_dir / entry["slug"] / "run-a", registry["fixed_evaluation_time"])
+        second = run_reference_entry(entry, output_dir / entry["slug"] / "run-b", registry["fixed_evaluation_time"])
         for run in (first, second):
             receipt = run["receipt"]
             if receipt["external_release_gate"] != "REFUSE" or receipt["authority_created"] is not False or receipt["external_effects"] is not False:
