@@ -26,7 +26,7 @@ def run_gauntlet(*,output_dir:Path|None=None,nichefoundry_root:Path|None=None,pr
     if result["nichefoundry"]["music_quality"]["hiss_detection"]!="PASS":raise AssertionError("music hiss gate failed")
     if result["nichefoundry"]["gamma"]["native_engine_invoked"] is not True:raise AssertionError("Gamma did not execute")
     states={row["engine_id"]:row["state"] for row in result["census"]["engines"]}
-    expected={"nichefoundry":"NATIVE_EXECUTED","document_studio":"SOURCE_BOUND_ONLY","lingua":"NOT_INVOKED",
+    expected={"nichefoundry":"NATIVE_EXECUTED","document_studio":"NATIVE_EXECUTED","lingua":"NOT_INVOKED",
       "homs":"PROJECTION_ONLY","evidex":"PROJECTION_ONLY","vamp":"NOT_BOUND","sophia":"PROJECTION_ONLY"}
     if states!=expected:raise AssertionError("corpus execution census drift")
     if result["census"]["full_corpus_native_execution"]!="REFUSE":raise AssertionError("census inflated full-corpus execution")
@@ -42,6 +42,8 @@ def run_gauntlet(*,output_dir:Path|None=None,nichefoundry_root:Path|None=None,pr
       "premium_or_approved_voice":"PASS","robotic_production_fallback":"REFUSE","music_asset_present":"PASS",
       "music_rights_evidence":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS",
       "narration_music_mix":"PASS","native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS","sample_rate_48khz_stereo":"PASS",
+      "native_document_studio_execution":"PASS","document_studio_format_core_binding":"PASS","document_studio_safe_zone_qa":"PASS",
+      "document_studio_motion_composition":"PASS",
       "loudness_qa":"PASS","premium_video_rendering":"PASS","corpus_execution_census":"PASS",
       "full_corpus_native_execution":"REFUSE","canonical_output_integrity":"PASS","tamper_detection":"PASS",
       "provider_set":sorted(providers),"external_publication":"REFUSE","external_send":"REFUSE","media_spend":"REFUSE",
