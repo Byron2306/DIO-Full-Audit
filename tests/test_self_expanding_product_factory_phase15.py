@@ -3,14 +3,13 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
-import shutil
 from pathlib import Path
 
 import pytest
 from jsonschema import Draft202012Validator
 
 from products.compiler import CompilerError,compile_manifest
-from products.factory.compiler import FactoryError,materialize_product
+from products.factory.compiler import FactoryError,create_factory_sandbox,materialize_product
 from products.factory.runtime import run_generated_product
 from products.self_expanding_factory_gauntlet import ACCEPTANCE_TOKEN,run_gauntlet
 from scripts.validate_profiles import validate as validate_profiles
@@ -21,8 +20,7 @@ NOW="2026-08-16T12:00:00+00:00"
 
 
 def _copy(target:Path)->Path:
-    shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns(".git",".venv","__pycache__",".pytest_cache","state","sites"))
-    return target
+    return create_factory_sandbox(ROOT,target)
 
 
 def _load(path:Path)->dict:
