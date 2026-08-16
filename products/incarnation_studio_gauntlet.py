@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import shutil
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -61,18 +62,27 @@ def run_gauntlet(*,output_dir:Path|None=None)->dict[str,Any]:
     except IncarnationStudioError as exc:promotion_refused="unsafe incarnation" in str(exc)
     else:promotion_refused=False
     if not promotion_refused:raise AssertionError("unsafe publication promotion accepted")
-    artifact=Path(first["output_dir"])/"marketfront/index.html";artifact.write_text(artifact.read_text()+"\nTAMPER")
-    try:verify_incarnation_proof(Path(first["output_dir"]),first["proof_manifest"])
+    # Adversarial mutations must never touch the canonical deliverable.
+    tamper_probe=output_dir/"tamper-probe"
+    if tamper_probe.exists():shutil.rmtree(tamper_probe)
+    shutil.copytree(Path(first["output_dir"]),tamper_probe)
+    artifact=tamper_probe/"marketfront/index.html";artifact.write_text(artifact.read_text()+"\nTAMPER")
+    try:verify_incarnation_proof(tamper_probe,first["proof_manifest"])
     except IncarnationStudioError as exc:tamper_refused="integrity failure" in str(exc)
     else:tamper_refused=False
+    finally:shutil.rmtree(tamper_probe,ignore_errors=True)
     if not tamper_refused:raise AssertionError("marketfront tampering was not detected")
+    # The readiness token is forbidden unless both canonical runs still verify
+    # after every adversarial probe.
+    verify_incarnation_proof(Path(first["output_dir"]),first["proof_manifest"])
+    verify_incarnation_proof(Path(second["output_dir"]),second["proof_manifest"])
     receipt={"schema":"dio.product_incarnation_studio_gauntlet_receipt.v1","product_id":"dio_incidentreadinessproof",
       "phase15_regression":"PASS","engine_count":10,"full_corpus_binding":"PASS","truthful_invocation_semantics":"PASS",
       "deterministic_generation":"PASS","responsive_marketfront":"PASS","local_attachment_intake":"PASS",
       "nichefoundry_positioning":"PASS","market_command_campaign":"PASS","document_studio_assets":"PASS",
       "sophia_claim_boundary":"PASS","homs_customer_education":"PASS","evidex_proof_binding":"PASS",
       "vesper_fulfilment_binding":"PASS","outlook_draft_boundary":"PASS","presence_release_package":"PASS",
-      "commercial_measurement_contract":"PASS","artifact_integrity":"PASS","tamper_detection":"PASS",
+      "commercial_measurement_contract":"PASS","artifact_integrity":"PASS","canonical_output_integrity":"PASS","tamper_detection":"PASS",
       "publication_promotion_refusal":"PASS","input_immutability":"PASS","human_gate":"NEEDS_YOU",
       "external_publication":"REFUSE","external_send":"REFUSE","media_spend":"REFUSE","payment":"REFUSE",
       "authority_created":False,"external_effects":False,"incarnation_fingerprint":first["receipt"]["incarnation_fingerprint"],
