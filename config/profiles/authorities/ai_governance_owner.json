@@ -1,0 +1,53 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "authority.ai_governance_owner",
+  "profile_class": "authority",
+  "name": "AI Governance Owner Authority",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_AI_DIGITAL_TRUST_PHASE13.md",
+        "source_section": "AI Governance Owner Authority",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:b690573fbfb310b237a3bfdf75b71fd1700c2c8eefac891e6357855b83c47142",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal AI and Digital Trust profile structures evidence and review only. It creates no safety certification, legal conclusion, compliance determination, model approval, permission, external effect or release authority.",
+  "spec": {
+    "human_roles": [
+      "ai_governance_owner",
+      "system_owner",
+      "evidence_reviewer",
+      "release_authority"
+    ],
+    "decision_boundaries": [
+      "approve intended use",
+      "accept residual risk",
+      "authorize bounded tool effect",
+      "authorize external release"
+    ],
+    "capability_constraints": [
+      "identity does not create authority",
+      "challenge does not self-approve",
+      "draft does not imply send permission",
+      "authority must bind target and effect"
+    ],
+    "forbidden_claims": [
+      "automatic_approval",
+      "authority_by_inference",
+      "execution_identity_is_permission",
+      "silence_is_consent"
+    ]
+  },
+  "tags": [
+    "phase13",
+    "ai-digital-trust",
+    "authority"
+  ]
+}
