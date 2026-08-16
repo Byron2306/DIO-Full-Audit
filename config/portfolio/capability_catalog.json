@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.9.0",
+  "catalog_version": "1.10.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -25,7 +25,10 @@
     "engine_binding_is_not_engine_execution": true,
     "generated_media_is_draft_only": true,
     "generated_storefront_payment_defaults_to_refuse": true,
-    "commercial_measurement_does_not_create_market_truth": true
+    "commercial_measurement_does_not_create_market_truth": true,
+    "native_engine_execution_must_be_receipted": true,
+    "rendered_media_is_not_publication": true,
+    "media_production_must_not_create_spend_authority": true
   },
   "capabilities": [
     {
@@ -1099,6 +1102,142 @@
           "ref": "products/commercial_truth.py",
           "priority": 10,
           "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "nichefoundry.campaign.native",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "nichefoundry_native_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_nichefoundry_jobs.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.ad.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.carousel.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.thumbnail.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.narration.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.caption.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.video.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.proof.verify",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
           "product_scope": [
             "dio_incidentreadinessproof"
           ]

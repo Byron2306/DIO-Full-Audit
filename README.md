@@ -386,3 +386,23 @@ It treats provenance, uncertainty, authority, reproducibility, commercial truth 
 The ambition is a self-expanding product factory capable of discovering and composing new product candidates from reusable governed intelligence without sacrificing the boundaries that make its results trustworthy.
 
 That is **Deterministic Intelligence Orchestration**.
+
+
+## Phase 16.1 — Media Incarnation
+
+Phase 16.1 crosses the boundary from planned media to produced media. It natively invokes the repository's NicheFoundry campaign functions, renders advertisements, a five-slide carousel and a YouTube thumbnail, synthesizes offline spoken narration, emits timed captions, and composes a real 1080p H.264/AAC video. Sophia reviews the produced script and Evidex binds every resulting byte.
+
+Media creation does not create publication or spend authority. External publication, external sending and media spend remain `REFUSE`; the human gate remains `NEEDS_YOU`.
+
+```bash
+python -m pytest -q tests/test_media_incarnation_phase16_1.py
+
+python scripts/run_media_incarnation_phase16_1.py \
+  --output /tmp/dio-phase16-1-media-incarnation
+```
+
+Expected acceptance token:
+
+```text
+DIO_MEDIA_INCARNATION_READY
+```
