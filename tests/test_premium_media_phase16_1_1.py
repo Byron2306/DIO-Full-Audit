@@ -44,6 +44,17 @@ def test_music_rights_mastering_and_loudness_are_real(built:dict)->None:
     stream=niche["probe"]["streams"][0]
     assert int(stream["sample_rate"])==48000 and int(stream["channels"])==2
     assert niche["loudness"]["episode"]
+    assert niche["music_rights"]["commercial_friendly_licence"] is True
+    assert niche["music_quality"]["high_frequency_attenuation_db"]>=4.0
+
+
+def test_gamma_is_native_and_drives_every_final_scene(built:dict)->None:
+    niche=built["nichefoundry"];root=Path(built["output_dir"])
+    assert niche["gamma"]["native_engine_invoked"] is True
+    assert niche["gamma"]["scene_coverage"]==6
+    assert len([row for row in niche["gamma"]["assets"] if row["kind"]=="scene"])==6
+    assert (root/"media/youtube/THUMBNAIL_GAMMA.png").is_file()
+    assert built["receipt"]["gamma_final_video_binding"]=="PASS"
 
 
 def test_premium_video_and_proof_are_material(built:dict)->None:
@@ -78,4 +89,3 @@ def test_phase16_1_1_premium_gauntlet(tmp_path:Path,settings:tuple[Path,str])->N
     assert receipt["premium_or_approved_voice"]=="PASS"
     assert receipt["music_rights_evidence"]=="PASS"
     assert receipt["full_corpus_native_execution"]=="REFUSE"
-
