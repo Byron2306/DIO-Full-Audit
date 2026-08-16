@@ -23,6 +23,8 @@ def run_gauntlet(*,output_dir:Path|None=None,nichefoundry_root:Path|None=None,pr
     sound=result["nichefoundry"]["sound_design"]
     if not sound.get("music_identity") or not sound.get("rights") or not all(x.get("music_cue") for x in sound.get("scenes",[])):
         raise AssertionError("music or rights evidence incomplete")
+    if result["nichefoundry"]["music_quality"]["hiss_detection"]!="PASS":raise AssertionError("music hiss gate failed")
+    if result["nichefoundry"]["gamma"]["native_engine_invoked"] is not True:raise AssertionError("Gamma did not execute")
     states={row["engine_id"]:row["state"] for row in result["census"]["engines"]}
     expected={"nichefoundry":"NATIVE_EXECUTED","document_studio":"SOURCE_BOUND_ONLY","lingua":"NOT_INVOKED",
       "homs":"PROJECTION_ONLY","evidex":"PROJECTION_ONLY","vamp":"NOT_BOUND","sophia":"PROJECTION_ONLY"}
@@ -38,7 +40,8 @@ def run_gauntlet(*,output_dir:Path|None=None,nichefoundry_root:Path|None=None,pr
     verify_premium_proof(root,proof)
     receipt={"schema":"dio.premium_media_gauntlet_receipt.v1","nichefoundry_repository_execution":"PASS",
       "premium_or_approved_voice":"PASS","robotic_production_fallback":"REFUSE","music_asset_present":"PASS",
-      "music_rights_evidence":"PASS","narration_music_mix":"PASS","sample_rate_48khz_stereo":"PASS",
+      "music_rights_evidence":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS",
+      "narration_music_mix":"PASS","native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS","sample_rate_48khz_stereo":"PASS",
       "loudness_qa":"PASS","premium_video_rendering":"PASS","corpus_execution_census":"PASS",
       "full_corpus_native_execution":"REFUSE","canonical_output_integrity":"PASS","tamper_detection":"PASS",
       "provider_set":sorted(providers),"external_publication":"REFUSE","external_send":"REFUSE","media_spend":"REFUSE",
@@ -47,4 +50,3 @@ def run_gauntlet(*,output_dir:Path|None=None,nichefoundry_root:Path|None=None,pr
     (output_dir/"PREMIUM_MEDIA_GAUNTLET_RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
     if owned is not None:owned.cleanup()
     return receipt
-
