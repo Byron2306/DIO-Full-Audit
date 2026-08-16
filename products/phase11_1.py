@@ -40,6 +40,16 @@ def run_attachment_delivery_journey(payload: dict[str, Any], *, output_dir: Path
     intake = validate_intake(paid_payload)
     journey = run_paid_reference_journey(paid_payload, output_dir=output_dir, root=root)
     source = _contract_source(intake, journey["journey_id"])
+    contract_hashes = {row["sha256"] for row in contracts}
+    duplicate_source_evidence = [
+        row["filename"] for row in manifest["attachments"]
+        if row["role"] == "evidence" and row["sha256"] in contract_hashes
+    ]
+    if duplicate_source_evidence:
+        raise AttachmentIntakeError(
+            "authoritative contract bytes may not also be submitted as evidence: "
+            + ", ".join(sorted(duplicate_source_evidence))
+        )
     reconciliation = reconcile_evidence(
         manifest, source, now="2026-08-16T12:00:00+00:00",
         output_path=output_dir / "fulfilment" / "proof" / "EVIDENCE_RECONCILIATION.json",
@@ -54,7 +64,15 @@ def run_attachment_delivery_journey(payload: dict[str, Any], *, output_dir: Path
             "target_locators": mapping["target_locators"], "evidence_kind": "attachment", "source_ref": row["source_ref"], "sha256": row["sha256"],
             "authority_grade": "source_backed", "trust_state": "captured_untrusted", "freshness_state": mapping["freshness_state"], "relation": mapping["relation"],
         })
-    proof = run_contractproof(source, evidence, output_dir=output_dir / "fulfilment" / "proof", operator_id="human.phase11_1.vesper_intake", now="2026-08-16T12:00:00+00:00", job_id=journey["journey_id"])
+    proof = run_contractproof(
+        source, evidence, output_dir=output_dir / "fulfilment" / "proof",
+        operator_id="human.phase11_1.vesper_intake", now="2026-08-16T12:00:00+00:00", job_id=journey["journey_id"],
+        review_context={
+            "engagement": {"title": intake["review_title"], "review_purpose": intake["message"]},
+            "evidence_reconciliation_register": reconciliation,
+            "source_clauses": source["clauses"],
+        },
+    )
     vesper = {
         "schema": "dio.vesper.intake_receipt.v1", "identity": "Vesper, DIO Presence Core", "intake_id": intake_id, "channel": channel,
         "case_id": proof["case"]["case_id"], "thread_ref": payload.get("thread_ref"), "attachment_manifest_ref": f"vesper://{intake_id}/ATTACHMENT_INTAKE.json",
