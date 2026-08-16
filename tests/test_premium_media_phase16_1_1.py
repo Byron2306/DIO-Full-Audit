@@ -53,8 +53,17 @@ def test_gamma_is_native_and_drives_every_final_scene(built:dict)->None:
     assert niche["gamma"]["native_engine_invoked"] is True
     assert niche["gamma"]["scene_coverage"]==6
     assert len([row for row in niche["gamma"]["assets"] if row["kind"]=="scene"])==6
-    assert (root/"media/youtube/THUMBNAIL_GAMMA.png").is_file()
+    assert (root/"media/youtube/THUMBNAIL_CONTROLLED.png").is_file()
     assert built["receipt"]["gamma_final_video_binding"]=="PASS"
+
+
+def test_document_studio_controls_composition_and_typography(built:dict)->None:
+    receipt=built["document_studio"]
+    assert receipt["native_engine_invoked"] is True
+    assert receipt["format_core_profile"]=="dio_professional"
+    assert receipt["scene_coverage"]=="PASS"
+    assert receipt["typography_safe_zones"]=="PASS"
+    assert all(row["safe_zone"]=="PASS" and row["line_count"]<=2 for row in receipt["renders"])
 
 
 def test_premium_video_and_proof_are_material(built:dict)->None:
@@ -66,7 +75,7 @@ def test_premium_video_and_proof_are_material(built:dict)->None:
 def test_corpus_census_never_confuses_projection_with_execution(built:dict)->None:
     states={row["engine_id"]:row["state"] for row in built["census"]["engines"]}
     assert states["nichefoundry"]=="NATIVE_EXECUTED"
-    assert states["document_studio"]=="SOURCE_BOUND_ONLY"
+    assert states["document_studio"]=="NATIVE_EXECUTED"
     assert states["lingua"]=="NOT_INVOKED"
     assert states["homs"]=="PROJECTION_ONLY"
     assert states["evidex"]=="PROJECTION_ONLY"
