@@ -12,7 +12,7 @@ from xml.sax.saxutils import escape as xml_escape
 from products.compiler import compile_manifest
 
 EXECUTOR_ID="factory_generated_internal_runner_v1"
-PROVIDER_ID="factory_generated_proof_pack_v1"
+PROVIDER_ID_PREFIX="factory_generated_"
 
 
 def _canonical(value:Any)->bytes:
@@ -135,7 +135,7 @@ def run_generated_product(root:Path,product_id:str,payload:dict[str,Any],*,outpu
     rendered={"JSON":(f"{base}.json",json.dumps(dossier,indent=2,sort_keys=True).encode()+b"\n"),"HTML":(f"{base}.html",_html(envelope,spec["name"])),"DOCX":(f"{base}.docx",_docx(envelope,spec["name"])),"PDF":(f"{base}.pdf",_pdf(envelope,spec["name"]))}
     artifacts=[]
     for kind,(name,content) in rendered.items():(output_dir/name).write_bytes(content);artifacts.append({"artifact_type":kind,"filename":name,"sha256":_sha(content)})
-    proof={"schema":"dio.generated_product_proof_manifest.v1","provider_id":PROVIDER_ID,"product_id":product_id,"envelope_fingerprint":envelope["envelope_fingerprint"],"artifacts":artifacts,"human_gate":"NEEDS_YOU","external_release":False,"authority_created":False,"external_effects":False}
+    proof={"schema":"dio.generated_product_proof_manifest.v1","provider_id":f"{PROVIDER_ID_PREFIX}{slug}_proof_v1","product_id":product_id,"envelope_fingerprint":envelope["envelope_fingerprint"],"artifacts":artifacts,"human_gate":"NEEDS_YOU","external_release":False,"authority_created":False,"external_effects":False}
     proof["proof_fingerprint"]=_fingerprint(proof);(output_dir/"PROOF_MANIFEST.json").write_text(json.dumps(proof,indent=2,sort_keys=True)+"\n")
     receipt={"schema":"dio.generated_product_execution_receipt.v1","product_id":product_id,"executor_id":EXECUTOR_ID,"operator_id":operator_id,"evaluated_at":now,"envelope_fingerprint":envelope["envelope_fingerprint"],"proof_fingerprint":proof["proof_fingerprint"],"states":{x["dimension"]:x["state"] for x in envelope["dimensions"]},"human_gate":"NEEDS_YOU","external_release_gate":"REFUSE","authority_created":False,"external_effects":False}
     (output_dir/"GENERATED_PRODUCT_RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
