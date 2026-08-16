@@ -73,6 +73,7 @@ def run_contractproof(
     operator_id: str,
     now: str,
     job_id: str | None = None,
+    review_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Execute the bounded internal ContractProof processing lane.
 
@@ -132,6 +133,7 @@ def run_contractproof(
         projection_receipt,
         output_dir,
         required_sections=required_sections,
+        review_context=review_context,
     )
     integrity = verify_integrity(output_dir)
     if not integrity["verified"]:
