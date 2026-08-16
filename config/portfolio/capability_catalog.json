@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.4.0",
+  "catalog_version": "1.5.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -139,6 +139,7 @@
           "product_scope": [
             "dio_grantproof",
             "dio_permitproof",
+            "dio_policyproof",
             "dio_tenderproof"
           ]
         }
@@ -168,6 +169,7 @@
           "product_scope": [
             "dio_grantproof",
             "dio_permitproof",
+            "dio_policyproof",
             "dio_tenderproof"
           ]
         }
@@ -197,6 +199,7 @@
           "product_scope": [
             "dio_grantproof",
             "dio_permitproof",
+            "dio_policyproof",
             "dio_tenderproof"
           ]
         }
@@ -373,7 +376,23 @@
           ]
         }
       ]
+    },
+    {
+      "capability_id": "product.executor.policyproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_family_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_policyproof"
+          ]
+        }
+      ]
     }
   ]
 }
-
