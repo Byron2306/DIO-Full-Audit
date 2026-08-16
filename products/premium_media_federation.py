@@ -280,9 +280,11 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     episode=premium_dir/"nichefoundry_episode";niche=_run_nichefoundry(niche_root,episode,provider)
     document_studio=render_media_control_surface(gamma_dir=episode/"premium_visuals",script_package=_script_package(),
       output_dir=premium_dir/"document_studio_media",style_profile="dio_professional")
-    evidence={k:v for k,v in niche.items() if k not in {"manifest","performance","sound_design","loudness","preview","gamma","music_rights","premium_assets"}}
+    evidence={k:v for k,v in niche.items() if k not in {"manifest","performance","sound_design","loudness","preview","gamma","music_rights","premium_assets","native_render"}}
     evidence.update({"audio_manifest_sha256":_sha(episode/"audio_manifest.json"),"audio_asset_hashes_sha256":_sha(episode/"audio_asset_hashes.json"),
-      "loudness_report_sha256":_sha(episode/"loudness_report.json"),"sound_design_plan_sha256":_sha(episode/"sound_design_plan.json")})
+      "loudness_report_sha256":_sha(episode/"loudness_report.json"),"sound_design_plan_sha256":_sha(episode/"sound_design_plan.json"),
+      "native_render_manifest_sha256":_sha(episode/"render_manifest_v2.json"),"native_render_qa_sha256":_sha(episode/"render_qa_report.json"),
+      "native_final_sha256":_sha(episode/"final.mp4"),"native_thumbnail_sha256":_sha(episode/"thumbnail.png")})
     _write(premium_dir/"NICHEFOUNDRY_NATIVE_EXECUTION.json",evidence)
     census=_corpus_census(niche);_write(premium_dir/"CORPUS_EXECUTION_CENSUS.json",census)
     final=output_dir/"media/youtube/FINAL_VIDEO_PREMIUM.mp4"
