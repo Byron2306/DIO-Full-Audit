@@ -137,11 +137,29 @@ def _site(cfg:dict[str,Any])->tuple[str,str,str]:
     return page,css,js
 
 
+
+
+def validate_studio_config(cfg:dict[str,Any])->None:
+    if cfg.get("schema")!="dio.product_incarnation_studio_spec.v1":raise IncarnationStudioError("unexpected studio configuration schema")
+    release=cfg.get("release") or {}
+    if release.get("human_gate")!="NEEDS_YOU":raise IncarnationStudioError("incarnation requires human gate")
+    if any(release.get(key)!="REFUSE" for key in ("external_publication","external_send","media_spend","payment")):
+        raise IncarnationStudioError("unsafe incarnation release configuration")
+    offer=cfg.get("offer") or {}
+    if offer.get("payment_enabled") is not False or offer.get("external_delivery") is not False:
+        raise IncarnationStudioError("incarnation offer exceeds Phase 16 authority")
+
+
+def verify_incarnation_proof(output_dir:Path,proof:dict[str,Any])->None:
+    for row in proof.get("artifacts") or []:
+        path=(output_dir/row["path"]).resolve()
+        if not path.is_relative_to(output_dir.resolve()) or not path.is_file() or _sha(path)!=row["sha256"]:
+            raise IncarnationStudioError(f"incarnation artifact integrity failure: {row.get('path')}")
+
 def build_product_incarnation(*,output_dir:Path,root:Path=ROOT,now:str="2026-08-16T12:00:00+00:00")->dict[str,Any]:
     root=root.resolve();cfg=_load(root/"config/incarnation_studio/incidentreadinessproof.json");spec=_load(root/cfg["factory_spec"]);registry=_load(root/cfg["corpus_registry"])
     if cfg["product_id"]!=spec["product_id"]:raise IncarnationStudioError("studio/factory product identity mismatch")
-    if any(cfg["release"][key]!="REFUSE" for key in ("external_publication","external_send","media_spend","payment")):
-        raise IncarnationStudioError("unsafe incarnation release configuration")
+    validate_studio_config(cfg)
     bindings=_corpus_bindings(root,registry)
     required={"evidex","homs","sophia","document_studio","nichefoundry","market_command","vesper","outlook_mail_core","presence_core","commercial_truth"}
     if {x["engine_id"] for x in bindings}!=required:raise IncarnationStudioError("full Phase 16 corpus binding incomplete")
