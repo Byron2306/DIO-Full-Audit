@@ -153,6 +153,26 @@ def run_ai_trust(product_id: str, payload: dict[str, Any], *, output_dir: Path, 
     if executor["provider_id"] != EXECUTOR_ID or compiled["gates"]["execution"]["state"] != "NEEDS_YOU":
         raise RuntimeError("AI Trust executor or authority boundary drift")
     envelope = build_trust_envelope(product_id, payload, now=now)
+    dossier = {
+        "system_identity": envelope["system_identity"],
+        "trust_dimensions": envelope["dimensions"],
+        "evaluation_registry": envelope["evaluation_registry"],
+        "drift_register": envelope["drift_events"],
+        "untrusted_content_register": envelope["prompt_injection_signals"],
+        "tool_decisions": envelope["action_decisions"],
+        "human_review": {"state": "NEEDS_YOU", "external_release": "REFUSE"},
+        "provenance_manifest": {
+            "sources": envelope["source_provenance"],
+            "attachments": envelope["attachment_inventory"],
+            "envelope_fingerprint": envelope["envelope_fingerprint"],
+            "authority_created": False,
+            "external_effects": False,
+        },
+    }
+    required_sections = {item for row in compiled["output_plan"]["outputs"] for item in row.get("required_sections") or []}
+    missing_sections = sorted(required_sections.difference(dossier))
+    if missing_sections:
+        raise RuntimeError(f"AI Trust dossier missing required sections: {missing_sections}")
     output_dir = output_dir.resolve(); output_dir.mkdir(parents=True, exist_ok=True)
     rendered = {
         "JSON": ("AI_TRUST_DOSSIER.json", json.dumps(envelope, indent=2, sort_keys=True).encode() + b"\n"),
