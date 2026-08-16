@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.6.0",
+  "catalog_version": "1.7.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -9,7 +9,12 @@
     "missing_required_execution_capability": "REFUSE",
     "provider_selection_is_deterministic": true,
     "provider_reference_must_exist_when_available": true,
-    "provider_applicability_must_be_explicit": true
+    "provider_applicability_must_be_explicit": true,
+    "regulatory_source_authority_must_be_explicit": true,
+    "regulatory_source_version_and_effective_interval_must_be_retained": true,
+    "applicability_uncertainty": "NEEDS_YOU",
+    "draft_is_not_filing": true,
+    "regulatory_filing_requires_external_human_authority": true
   },
   "capabilities": [
     {
@@ -154,6 +159,19 @@
             "dio_aitrustproof",
             "dio_modelchangeproof"
           ]
+        },
+        {
+          "provider_id": "regulated_markets_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/regulatory/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
         }
       ]
     },
@@ -196,6 +214,19 @@
             "dio_aitrustproof",
             "dio_modelchangeproof"
           ]
+        },
+        {
+          "provider_id": "regulated_markets_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/regulatory/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
         }
       ]
     },
@@ -237,6 +268,19 @@
             "dio_agentauthority",
             "dio_aitrustproof",
             "dio_modelchangeproof"
+          ]
+        },
+        {
+          "provider_id": "regulated_markets_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/regulatory/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
           ]
         }
       ]
@@ -572,6 +616,174 @@
           "execution_capable": true,
           "product_scope": [
             "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.context.envelope",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.source.authority",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.applicability",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.temporal",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.integrity",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.privacyproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_privacyproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.educationaccreditationproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_educationaccreditationproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.publicprocurementproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_publicprocurementproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.airegreadiness",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_airegreadiness"
           ]
         }
       ]

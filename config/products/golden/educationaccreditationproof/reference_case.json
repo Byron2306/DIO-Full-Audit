@@ -1,0 +1,60 @@
+{
+  "schema": "dio.regulatory_reference_case.v1",
+  "source_type": "education_accreditation_context",
+  "context": {
+    "jurisdiction": "ZA",
+    "regulator": "Controlled Education Quality Council",
+    "organisation_role": "regulated_entity",
+    "regulated_activity": "programme accreditation",
+    "framework_version": "controlled-fixture-v1"
+  },
+  "required_applicability_facts": [
+    "territorial_nexus",
+    "regulated_activity",
+    "organisation_type"
+  ],
+  "applicability_facts": {
+    "territorial_nexus": true,
+    "regulated_activity": true,
+    "organisation_type": "private_entity"
+  },
+  "applicability_conflicts": [],
+  "sources": [
+    {
+      "source_id": "EDU-OLD-2024",
+      "title": "Superseded accreditation rule fixture",
+      "source_class": "historical_superseded",
+      "version": "2024.0",
+      "effective_from": "2024-01-01T00:00:00+00:00",
+      "effective_to": "2025-12-31T23:59:59+00:00",
+      "superseded_by": "EDU-NEW-2026",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "obligations": [
+    {
+      "obligation_id": "EDU-01",
+      "source_id": "EDU-OLD-2024",
+      "requirement": "Prepare controlled programme evidence",
+      "deadline": "2026-07-01T00:00:00+00:00"
+    }
+  ],
+  "licence_required": true,
+  "licences": [
+    {
+      "licence_id": "ACC-EXPIRED",
+      "status": "EXPIRED",
+      "expires_at": "2026-01-31T00:00:00+00:00"
+    }
+  ],
+  "requested_actions": [
+    {
+      "effect": "draft",
+      "target": "internal_review"
+    }
+  ],
+  "unresolved_interpretations": [
+    "professional interpretation and final applicability decision required"
+  ],
+  "ai_trust_binding": {}
+}

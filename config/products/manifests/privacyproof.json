@@ -1,0 +1,158 @@
+{
+  "schema": "dio.product_manifest.v1",
+  "manifest_version": "1.0.0",
+  "product_id": "dio_privacyproof",
+  "name": "DIO PrivacyProof",
+  "incarnation": {
+    "id": "privacyproof",
+    "surface": "internal",
+    "buyer_context": [
+      "regulated markets",
+      "evidence assurance"
+    ]
+  },
+  "suite_ids": [
+    "public_programme_ops",
+    "evidence_assurance"
+  ],
+  "work_patterns": [
+    "WP01",
+    "WP05",
+    "WP11"
+  ],
+  "meta_capabilities": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_authority",
+    "meta_room"
+  ],
+  "profiles": {
+    "domain": [
+      {
+        "profile_id": "domain.regulated_markets",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:7c26b424eebb447a018f6005df656601aef1d34a35f9970d3215d8d9331d9798"
+      }
+    ],
+    "framework": [
+      {
+        "profile_id": "framework.privacy_governance",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:db313912af6e207539c76ec44ed30a22872eea5d6143a717bf047af34efb43b2"
+      }
+    ],
+    "authority": [
+      {
+        "profile_id": "authority.regulatory_owner",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:3b545a6bcc8774ea43b7070a011abbb8a230ae129e54735db8fbc38491e391be"
+      }
+    ],
+    "connector_pack": [
+      {
+        "profile_id": "connector.files_readonly",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:573fde172e9f4575813c4641cb069e327766402a1308c030cf4df42268b4de84"
+      }
+    ],
+    "output": [
+      {
+        "profile_id": "output.regulatory_readiness_dossier",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:cd9dbd889059c3beaa7312c85a4bff656eaca993dcc65d82be71a5f1c379864c"
+      }
+    ],
+    "commercial": [
+      {
+        "profile_id": "commercial.internal_proof",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:5e335d7867cb45d3474b6777e86315c0a242874909ce1810d19fa7ea5787fdbd"
+      }
+    ]
+  },
+  "capability_requirements": [
+    {
+      "capability_id": "case.materialize",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "evidence.provenance",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "evidence.link",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "proof.room.compile",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "proof.integrity.verify",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "proof.disclosure.prepare",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "regulatory.context.envelope",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "regulatory.source.authority",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "regulatory.applicability",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "regulatory.temporal",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "regulatory.integrity",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "product.executor.privacyproof",
+      "required": true,
+      "execution_required": true
+    }
+  ],
+  "executor_policy": {
+    "resolution": "compiler",
+    "missing_required_executor": "REFUSE"
+  },
+  "maturity": {
+    "state": "internal_proof",
+    "operational_flags": {
+      "routable": true,
+      "governable": true,
+      "executable": true,
+      "campaign_enabled": false,
+      "externally_validated": false,
+      "continuous_assurance_ready": false,
+      "revenue_proven": false
+    }
+  },
+  "notes": "Phase 14 controlled internal regulatory reference incarnation. Source authority, temporal validity, applicability and action authority remain independent; external filing and release are REFUSE."
+}

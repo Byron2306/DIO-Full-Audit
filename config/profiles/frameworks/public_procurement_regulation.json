@@ -1,0 +1,62 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.public_procurement_regulation",
+  "profile_class": "framework",
+  "name": "Public Procurement Regulatory Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "Public Procurement Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "requirement_types": [
+      "procurement_method",
+      "bidder_eligibility",
+      "authority_role",
+      "mandatory_form",
+      "conflict_declaration",
+      "submission_deadline"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "deadline_semantics": [
+      "publication_date",
+      "clarification_deadline",
+      "submission_deadline",
+      "standstill_period"
+    ],
+    "human_boundaries": [
+      "human interprets procurement law",
+      "human approves bid assertions",
+      "human submits bid"
+    ],
+    "forbidden_claims": [
+      "eligible_bidder_certified",
+      "award_guaranteed",
+      "lawful_procurement"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "framework"
+  ]
+}
