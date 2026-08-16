@@ -7,11 +7,17 @@ from typing import Any
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps, ImageStat
 
-from adapters.format_core.renderer import load_profiles
-
-
 class DocumentStudioMediaError(RuntimeError):
     pass
+
+
+ROOT=Path(__file__).resolve().parents[2]
+PROFILE_PATH=ROOT/"config/format_profiles.json"
+
+
+def _load_profiles()->dict[str,Any]:
+    try:return json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
+    except (OSError,json.JSONDecodeError) as exc:raise DocumentStudioMediaError(f"invalid Format Core profile registry: {PROFILE_PATH}") from exc
 
 
 def _sha256(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -100,7 +106,7 @@ def _compose(source:Path,target:Path,*,title:str,kicker:str,index:str|None,style
 
 
 def render_media_control_surface(*,gamma_dir:Path,script_package:dict[str,Any],output_dir:Path,style_profile:str="dio_professional")->dict[str,Any]:
-    profiles=load_profiles();style=(profiles.get("styles") or {}).get(style_profile)
+    profiles=_load_profiles();style=(profiles.get("styles") or {}).get(style_profile)
     if not style:raise DocumentStudioMediaError(f"unknown Format Core style profile: {style_profile}")
     scenes=script_package.get("scenes") or [];renders=[]
     for index,scene in enumerate(scenes,1):
