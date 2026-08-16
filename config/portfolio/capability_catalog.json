@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.5.0",
+  "catalog_version": "1.6.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -142,6 +142,18 @@
             "dio_policyproof",
             "dio_tenderproof"
           ]
+        },
+        {
+          "provider_id": "ai_trust_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
         }
       ]
     },
@@ -172,6 +184,18 @@
             "dio_policyproof",
             "dio_tenderproof"
           ]
+        },
+        {
+          "provider_id": "ai_trust_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
         }
       ]
     },
@@ -201,6 +225,18 @@
             "dio_permitproof",
             "dio_policyproof",
             "dio_tenderproof"
+          ]
+        },
+        {
+          "provider_id": "ai_trust_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
           ]
         }
       ]
@@ -390,6 +426,152 @@
           "execution_capable": true,
           "product_scope": [
             "dio_policyproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.envelope",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.evaluate",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.drift",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.injection",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.provenance",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.aitrustproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_aitrustproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.agentauthority",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_agentauthority"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.modelchangeproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_modelchangeproof"
           ]
         }
       ]

@@ -1,0 +1,57 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "output.ai_trust_dossier",
+  "profile_class": "output",
+  "name": "AI Trust Dossier Output",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_AI_DIGITAL_TRUST_PHASE13.md",
+        "source_section": "AI Trust Dossier Output",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:b690573fbfb310b237a3bfdf75b71fd1700c2c8eefac891e6357855b83c47142",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal AI and Digital Trust profile structures evidence and review only. It creates no safety certification, legal conclusion, compliance determination, model approval, permission, external effect or release authority.",
+  "spec": {
+    "artifact_types": [
+      "JSON",
+      "HTML",
+      "DOCX",
+      "PDF",
+      "proof_room_manifest"
+    ],
+    "required_sections": [
+      "system_identity",
+      "trust_dimensions",
+      "evaluation_registry",
+      "drift_register",
+      "untrusted_content_register",
+      "tool_decisions",
+      "human_review",
+      "provenance_manifest"
+    ],
+    "disclosure_rules": [
+      "external release requires authorised human receipt",
+      "unresolved and adverse states remain visible",
+      "internal proof is not certification"
+    ],
+    "qa_requirements": [
+      "artifact hashes verified",
+      "all trust dimensions present",
+      "human and release gates explicit",
+      "human-readable output required"
+    ]
+  },
+  "tags": [
+    "phase13",
+    "ai-digital-trust",
+    "output"
+  ]
+}
