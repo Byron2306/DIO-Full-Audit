@@ -1,0 +1,28 @@
+{
+  "schema": "dio.self_expanding_product_factory_registry.v1",
+  "registry_version": "1.0.0",
+  "factory_schema": "schemas/dio_product_factory_spec.schema.json",
+  "factory_engine": "products/factory/compiler.py",
+  "generated_runtime": "products/factory/runtime.py",
+  "canonical_profile_registry": "config/profiles/index.json",
+  "canonical_capability_registry": "config/portfolio/capability_catalog.json",
+  "fixed_evaluation_time": "2026-08-16T12:00:00+00:00",
+  "reference_specs": [
+    {
+      "product_id": "dio_incidentreadinessproof",
+      "slug": "incidentreadinessproof",
+      "spec": "config/factory/specs/incidentreadinessproof.json",
+      "fixture": "config/factory/golden/incidentreadinessproof/reference_case.json"
+    }
+  ],
+  "laws": {
+    "declarative_spec_is_not_authority": true,
+    "generation_is_not_maturity_promotion": true,
+    "generated_product_must_compile_through_canonical_compiler": true,
+    "generated_profile_hashes_must_be_registered": true,
+    "generated_provider_scope_must_be_exact": true,
+    "generated_validation_contract_required": true,
+    "external_effects_are_forbidden": true,
+    "human_release_required": true
+  }
+}
