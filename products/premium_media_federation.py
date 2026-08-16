@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import urllib.error
@@ -144,14 +145,34 @@ def _probe_audio(path:Path,ffprobe:str)->dict[str,Any]:
     return json.loads(result.stdout)
 
 
+def _music_quality(path:Path,ffmpeg:str)->dict[str,Any]:
+    def measure(filters:str|None)->float:
+        command=[ffmpeg,"-hide_banner","-i",str(path)]
+        if filters:command.extend(["-af",filters])
+        command.extend(["-f","null","-"])
+        completed=subprocess.run(command,text=True,capture_output=True,check=False)
+        values=re.findall(r"RMS level dB:\s*(-?[0-9.]+)",completed.stderr)
+        if not values:raise PremiumMediaError("music spectral QA could not measure RMS")
+        return float(values[-1])
+    full=measure("astats=metadata=1:reset=0")
+    high=measure("highpass=f=4000,astats=metadata=1:reset=0")
+    delta=round(full-high,3)
+    if delta<4.0:raise PremiumMediaError(f"premium music gate detected hiss-like high-frequency energy: delta {delta} dB")
+    return {"full_band_rms_db":full,"above_4khz_rms_db":high,"high_frequency_attenuation_db":delta,
+      "minimum_attenuation_db":4.0,"hiss_detection":"PASS"}
+
+
 def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,Any]:
     node=shutil.which("node")
     if not node:raise PremiumMediaError("Node.js is required for real NicheFoundry execution")
     _prepare_episode(niche_root,episode_dir)
+    assets_command=[node,str(niche_root/"scripts/build_premium_assets.js"),str(episode_dir)]
+    assets_completed=_run(assets_command,cwd=niche_root,env=dict(os.environ))
     selected_provider=_resolve_premium_provider(niche_root,provider,episode_dir)
     command=[node,str(niche_root/"scripts/build_audio_performance.js"),str(episode_dir),"--provider",selected_provider,"--force"]
     completed=_run(command,cwd=niche_root,env=dict(os.environ))
-    required=["host_profile.json","pronunciation_lexicon.json","audio_performance_plan.json","sound_design_plan.json",
+    required=["premium_assets_receipt.json","gamma_execution_receipt.json","music_rights_receipt.json",
+      "host_profile.json","pronunciation_lexicon.json","audio_performance_plan.json","sound_design_plan.json",
       "audio_preflight_report.json","audio_manifest.json","audio_asset_hashes.json","loudness_report.json","audio_performance_report.json"]
     missing=[name for name in required if not (episode_dir/name).is_file()]
     if missing:raise PremiumMediaError(f"NicheFoundry omitted audio evidence: {missing}")
@@ -173,8 +194,18 @@ def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,A
     stream=streams[0]
     if int(stream.get("sample_rate") or 0)!=48000 or int(stream.get("channels") or 0)!=2:
         raise PremiumMediaError("NicheFoundry master is not 48 kHz stereo")
-    return {"command":command,"stdout":completed.stdout.strip(),"providers":sorted(providers),"manifest":manifest,
+    gamma=_load(episode_dir/"gamma_execution_receipt.json");music_rights=_load(episode_dir/"music_rights_receipt.json")
+    premium_assets=_load(episode_dir/"premium_assets_receipt.json")
+    if gamma.get("native_engine_invoked") is not True or gamma.get("scene_coverage")!=len(_script_package()["scenes"]):
+        raise PremiumMediaError("native Gamma scene coverage is incomplete")
+    if music_rights.get("commercial_friendly_licence") is not True:
+        raise PremiumMediaError("premium music lacks a commercial-friendly licence receipt")
+    music_preview=episode_dir/"audio/episode_music_bed_preview.wav"
+    quality=_music_quality(music_preview,shutil.which("ffmpeg") or "ffmpeg")
+    return {"command":command,"stdout":completed.stdout.strip(),"premium_assets_stdout":assets_completed.stdout.strip(),
+      "providers":sorted(providers),"manifest":manifest,
       "performance":performance,"sound_design":sound,"loudness":loudness,"preview":preview,"probe":probe,
+      "gamma":gamma,"music_rights":music_rights,"premium_assets":premium_assets,"music_quality":quality,
       "source_ref":"Byron2306/NicheFoundry","source_root":str(niche_root),"native_engine_invoked":True}
 
 
@@ -205,29 +236,39 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     base=build_media_incarnation(output_dir=output_dir/"base")
     niche_root=resolve_nichefoundry_root(nichefoundry_root);premium_dir=output_dir/"premium"
     episode=premium_dir/"nichefoundry_episode";niche=_run_nichefoundry(niche_root,episode,provider)
-    evidence={k:v for k,v in niche.items() if k not in {"manifest","performance","sound_design","loudness","preview"}}
+    evidence={k:v for k,v in niche.items() if k not in {"manifest","performance","sound_design","loudness","preview","gamma","music_rights","premium_assets"}}
     evidence.update({"audio_manifest_sha256":_sha(episode/"audio_manifest.json"),"audio_asset_hashes_sha256":_sha(episode/"audio_asset_hashes.json"),
       "loudness_report_sha256":_sha(episode/"loudness_report.json"),"sound_design_plan_sha256":_sha(episode/"sound_design_plan.json")})
     _write(premium_dir/"NICHEFOUNDRY_NATIVE_EXECUTION.json",evidence)
     census=_corpus_census(niche);_write(premium_dir/"CORPUS_EXECUTION_CENSUS.json",census)
     ffmpeg=shutil.which("ffmpeg")
     if not ffmpeg:raise PremiumMediaError("ffmpeg is required")
-    source_video=Path(base["output_dir"])/"media/youtube/FINAL_VIDEO.mp4";final=output_dir/"media/youtube/FINAL_VIDEO_PREMIUM.mp4"
+    final=output_dir/"media/youtube/FINAL_VIDEO_PREMIUM.mp4"
     final.parent.mkdir(parents=True,exist_ok=True)
-    _run([ffmpeg,"-y","-hide_banner","-loglevel","error","-stream_loop","-1","-i",str(source_video),"-i",str(niche["preview"]),
-      "-map","0:v:0","-map","1:a:0","-c:v","copy","-c:a","aac","-b:a","192k","-shortest","-map_metadata","-1",
-      "-movflags","+faststart","-fflags","+bitexact","-flags:a","+bitexact",str(final)])
+    gamma_assets=sorted((episode/"premium_visuals").glob("*_scene_*_GAMMA.png"))
+    if len(gamma_assets)!=len(niche["manifest"].get("scenes",[])):raise PremiumMediaError("Gamma visual count does not match audio scenes")
+    concat=output_dir/"premium/GAMMA_SCENES.ffconcat";parts=["ffconcat version 1.0"]
+    for image,row in zip(gamma_assets,niche["manifest"]["scenes"]):
+        parts.extend([f"file '{image.as_posix()}'",f"duration {float(row['resolved_duration_seconds']):.6f}"])
+    parts.append(f"file '{gamma_assets[-1].as_posix()}'");concat.write_text("\n".join(parts)+"\n",encoding="utf-8")
+    _run([ffmpeg,"-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(concat),"-i",str(niche["preview"]),
+      "-map","0:v:0","-map","1:a:0","-vf","fps=30,scale=1920:1080:flags=lanczos,format=yuv420p","-c:v","libx264","-preset","medium","-crf","20",
+      "-c:a","aac","-b:a","192k","-shortest","-map_metadata","-1","-movflags","+faststart",str(final)])
+    shutil.copy2(episode/"premium_visuals/THUMBNAIL_GAMMA.png",output_dir/"media/youtube/THUMBNAIL_GAMMA.png")
     artifacts=[]
     for path in sorted(p for p in output_dir.rglob("*") if p.is_file() and p.name not in {"PREMIUM_MEDIA_PROOF.json","PREMIUM_MEDIA_RECEIPT.json"}):
         artifacts.append({"path":str(path.relative_to(output_dir)),"sha256":_sha(path),"bytes":path.stat().st_size})
     proof={"schema":"dio.premium_media_proof.v1","artifacts":artifacts,"nichefoundry_repository_execution":"PASS",
       "premium_or_approved_voice":"PASS","robotic_production_fallback":"REFUSE","music_asset_present":"PASS",
-      "music_rights_evidence":"PASS","narration_music_mix":"PASS","sample_rate_48khz_stereo":"PASS","loudness_qa":"PASS",
+      "music_rights_evidence":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS","narration_music_mix":"PASS",
+      "native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS",
+      "sample_rate_48khz_stereo":"PASS","loudness_qa":"PASS",
       "native_engine_execution_census":"PASS","full_corpus_native_execution":"REFUSE","external_publication":"REFUSE",
       "external_send":"REFUSE","media_spend":"REFUSE","human_gate":"NEEDS_YOU"}
     proof["proof_fingerprint"]=_fingerprint(proof);_write(output_dir/"PREMIUM_MEDIA_PROOF.json",proof)
     receipt={"schema":"dio.premium_media_receipt.v1","provider_set":niche["providers"],"nichefoundry_repository_execution":"PASS",
-      "premium_voice":"PASS","music_and_rights":"PASS","audio_mastering":"PASS","premium_video":"PASS",
+      "premium_voice":"PASS","music_and_rights":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS",
+      "native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS","audio_mastering":"PASS","premium_video":"PASS",
       "corpus_execution_census":"PASS","full_corpus_native_execution":"REFUSE","external_publication":"REFUSE",
       "external_send":"REFUSE","media_spend":"REFUSE","human_gate":"NEEDS_YOU","proof_fingerprint":proof["proof_fingerprint"]}
     receipt["premium_media_fingerprint"]=_fingerprint(receipt);_write(output_dir/"PREMIUM_MEDIA_RECEIPT.json",receipt)
