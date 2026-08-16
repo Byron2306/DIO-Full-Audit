@@ -54,8 +54,13 @@
   },
   "allOf": [
     {
-      "if": {"properties": {"service": {"enum": ["translation", "edit_and_translate"]}}},
-      "then": {"required": ["target_language"]}
+      "if": {"properties": {"service": {"enum": ["translation", "edit_and_translate"]}}, "required": ["service"]},
+      "then": {
+        "required": ["target_language"],
+        "properties": {
+          "target_language": {"type": "string", "minLength": 1}
+        }
+      }
     }
   ]
 }

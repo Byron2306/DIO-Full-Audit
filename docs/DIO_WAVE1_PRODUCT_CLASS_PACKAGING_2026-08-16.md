@@ -1,24 +1,47 @@
-# Wave 1 Product Class Packaging
+# Wave 1 Product Class Structural Packaging
 
-Generated: `2026-08-16T18:18:35+00:00`
+Historical packaging run: `2026-08-16`
 
-## Result
+## Corrected Result
 
-The first six non-packaged atlas product classes now have controlled-pilot packages. They are not new engines; they are product wrappers over the processors DIO already has.
+The Wave 1 run generated useful **structural product packages** for six profile extensions:
 
-| Product class | Site | Package | Zip |
-| --- | --- | --- | --- |
-| GrantProof | `sites/product-classes/grantproof/index.html` | `state/product_class_packages/grantproof` | `deliverables/product_class_packages/grantproof/grantproof_CONTROLLED_PILOT_PACKAGE.zip` |
-| VendorProof | `sites/product-classes/vendorproof/index.html` | `state/product_class_packages/vendorproof` | `deliverables/product_class_packages/vendorproof/vendorproof_CONTROLLED_PILOT_PACKAGE.zip` |
-| TenderProof | `sites/product-classes/tenderproof/index.html` | `state/product_class_packages/tenderproof` | `deliverables/product_class_packages/tenderproof/tenderproof_CONTROLLED_PILOT_PACKAGE.zip` |
-| PromotionProof | `sites/product-classes/promotionproof/index.html` | `state/product_class_packages/promotionproof` | `deliverables/product_class_packages/promotionproof/promotionproof_CONTROLLED_PILOT_PACKAGE.zip` |
-| AuditProof | `sites/product-classes/auditproof/index.html` | `state/product_class_packages/auditproof` | `deliverables/product_class_packages/auditproof/auditproof_CONTROLLED_PILOT_PACKAGE.zip` |
-| DossierOps | `sites/product-classes/dossierops/index.html` | `state/product_class_packages/dossierops` | `deliverables/product_class_packages/dossierops/dossierops_CONTROLLED_PILOT_PACKAGE.zip` |
+- GrantProof
+- VendorProof
+- TenderProof
+- PromotionProof
+- AuditProof
+- DossierOps
 
-## Launch Boundary
+The original wording called these “controlled-pilot packages.” That was too strong.
 
-These products can be marketed only as controlled pilots. Human approval remains required for final claims, delivery, payment state, public campaign release and any sensitive interpretation.
+What the run actually proved:
 
-## Next
+- a typed product profile could be drafted;
+- an intake shape could be described;
+- likely DIO processors could be named;
+- synthetic/example output shapes could be produced;
+- authority boundaries and mail/campaign scaffolds could be represented;
+- the package could be bundled consistently.
 
-Run the readiness audit after packaging so the dashboard promotes these only because the profile, proof, intake, mail, market and smoke artifacts exist.
+What it did **not** prove:
+
+- that a typed fulfilment route existed for the product-class slug;
+- that the suggested processors had executed that profile;
+- that a buyer-shaped fixture had completed successfully;
+- that a public-safe execution receipt existed;
+- that the class was ready for public intake or campaign release.
+
+## Correct Evidence Level
+
+`structural_proof`
+
+The active packaging entrypoint now truth-gates the legacy generator. Generated manifests use `structural_proof_packaged`, processing routes use `typed_route_required`, public leaf pages are removed, and structural ZIPs are not treated as launch evidence.
+
+## Next Gate
+
+Each Wave 1 class must earn:
+
+`typed route → controlled execution → reviewed output → public-safe proof → operator launch`
+
+Only after that sequence should a “Request Pilot” page be restored.

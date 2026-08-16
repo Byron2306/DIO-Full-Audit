@@ -1,19 +1,74 @@
 {
-  "schema": "dio.product_class_activation_plan.v1",
-  "generated_at": "2026-08-16T18:25:16+00:00",
+  "schema": "dio.product_class_activation_plan.v2",
+  "generated_at": "2026-08-16T20:50:00+00:00",
   "source_registry": "state/product_portfolio/DIO_META_PORTFOLIO_ATLAS_IMPORT.json",
+  "route_contract": "config/product_class_routes.json",
   "summary": {
-    "products_to_package": 0,
-    "processing_ready": 0,
-    "wave_counts": {}
+    "registered_product_classes": 53,
+    "direct_controlled_pilot_lanes": 9,
+    "internal_operational_capabilities": 6,
+    "profile_extensions_requiring_execution_proof": 38,
+    "public_launch_ready_profile_extensions": 0,
+    "wave_counts": {
+      "wave_1_fast_packaging": 6,
+      "wave_2_research_integrity": 2,
+      "wave_2_education_extensions": 6,
+      "wave_3_trust_and_authority": 3,
+      "wave_4_boundary_heavy": 1,
+      "wave_5_later_catalogue": 20
+    }
   },
   "wave_meanings": {
-    "wave_1_fast_packaging": "Package the quickest evidence/document extensions into controlled pilots.",
-    "wave_2_research_integrity": "Package Sophia/HOMS domain extensions that need better domain-specific proof.",
-    "wave_2_education_extensions": "Package education-adjacent extensions once HOMS typed lanes are in place.",
-    "wave_3_trust_and_authority": "Package high-value AI/agent assurance products with stricter validation.",
-    "wave_4_boundary_heavy": "Package legal/regulatory/permitting products only with strict no-advice boundaries.",
-    "wave_5_later_catalogue": "Hold until a buyer asks or a reusable proof naturally falls out of another job."
+    "wave_1_fast_packaging": "Build typed execution proof for the quickest evidence/document profile extensions.",
+    "wave_2_research_integrity": "Build typed Sophia research/integrity execution proofs.",
+    "wave_2_education_extensions": "Build typed HOMS and adjacent evidence execution proofs.",
+    "wave_3_trust_and_authority": "Build high-assurance AI/authority execution proofs with stricter receipts.",
+    "wave_4_boundary_heavy": "Prove regulatory/legal-readiness support with explicit no-advice boundaries.",
+    "wave_5_later_catalogue": "Hold until demand or adjacent proof justifies execution work."
   },
-  "entries": []
+  "entries": [
+    {"product_class":"GrantProof","activation_wave":"wave_1_fast_packaging","priority":1,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one typed grant-obligation route before public launch."},
+    {"product_class":"VendorProof","activation_wave":"wave_1_fast_packaging","priority":2,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one typed vendor-evidence route before public launch."},
+    {"product_class":"TenderProof","activation_wave":"wave_1_fast_packaging","priority":3,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one typed tender-readiness route with human bid authority."},
+    {"product_class":"PromotionProof","activation_wave":"wave_1_fast_packaging","priority":4,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one typed promotion-evidence route before public launch."},
+    {"product_class":"AuditProof","activation_wave":"wave_1_fast_packaging","priority":5,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one typed audit-evidence route before public launch."},
+    {"product_class":"DossierOps","activation_wave":"wave_1_fast_packaging","priority":6,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one typed dossier route before public launch."},
+
+    {"product_class":"Sophia Research","activation_wave":"wave_2_research_integrity","priority":7,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove a source-grounded research map route."},
+    {"product_class":"Sophia Integrity","activation_wave":"wave_2_research_integrity","priority":8,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove an inspectable integrity-review route."},
+
+    {"product_class":"HOMS Moderate","activation_wave":"wave_2_education_extensions","priority":9,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove marker-drift moderation over a controlled batch."},
+    {"product_class":"HOMS Accreditation","activation_wave":"wave_2_education_extensions","priority":10,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one accreditation criterion route."},
+    {"product_class":"AssuranceRoom","activation_wave":"wave_2_education_extensions","priority":11,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove portable governed-room packaging."},
+    {"product_class":"CPDProof","activation_wave":"wave_2_education_extensions","priority":12,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove a CPD framework profile over VAMP/Evidex."},
+    {"product_class":"ImpactProof","activation_wave":"wave_2_education_extensions","priority":13,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove an indicator-to-evidence route."},
+    {"product_class":"ProjectProof","activation_wave":"wave_2_education_extensions","priority":14,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove a deliverable-to-evidence route."},
+
+    {"product_class":"DIO AI Assurance","activation_wave":"wave_3_trust_and_authority","priority":15,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one bounded AI assurance case."},
+    {"product_class":"Agent Authority","activation_wave":"wave_3_trust_and_authority","priority":16,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one capability-lease/action receipt case."},
+    {"product_class":"ControlDrift","activation_wave":"wave_3_trust_and_authority","priority":17,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one expected-vs-actual drift case."},
+
+    {"product_class":"DIO RegOps","activation_wave":"wave_4_boundary_heavy","priority":18,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Prove one readiness-support route with no-advice language."},
+
+    {"product_class":"AI IncidentRoom","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a buyer-shaped incident-room proof is justified."},
+    {"product_class":"CertificationProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a certification-readiness execution case exists."},
+    {"product_class":"ChangeProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a change-impact execution case exists."},
+    {"product_class":"ContractProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a Vesper-governed contract case route is proved."},
+    {"product_class":"CriticalAI Assurance","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until stricter high-assurance validation exists."},
+    {"product_class":"CyberAssurance","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a buyer-shaped cyber assurance proof exists."},
+    {"product_class":"DORA Vendor Assurance","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until jurisdiction/profile proof exists."},
+    {"product_class":"DiligenceRoom","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until portable diligence-room execution proof exists."},
+    {"product_class":"DonorProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a donor-reporting execution case exists."},
+    {"product_class":"HOMS Curriculum","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a typed curriculum-alignment route exists."},
+    {"product_class":"IncidentProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until an incident evidence route exists."},
+    {"product_class":"ModelProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a model-release proof route exists."},
+    {"product_class":"PermitProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a permit-readiness route exists."},
+    {"product_class":"PolicyProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a policy-to-evidence route exists."},
+    {"product_class":"ProgrammeProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a programme assurance route exists."},
+    {"product_class":"QualityProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a quality-evidence route exists."},
+    {"product_class":"ReleaseProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a release authority/assurance route exists."},
+    {"product_class":"Sophia Supervisor","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until a bounded supervision workspace route exists."},
+    {"product_class":"Sophia Tutor","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until policy-bound tutoring execution proof exists."},
+    {"product_class":"SupplierCyberProof","activation_wave":"wave_5_later_catalogue","priority":90,"processing_state":"typed_route_required","processing_ready":false,"pilot_offer":"Hold until supplier-cyber evidence execution proof exists."}
+  ]
 }

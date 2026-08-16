@@ -3,182 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DIO Product Classes</title>
+  <title>DIO Product Class Registry</title>
   <style>
-    body { margin:0; font-family:Arial, Helvetica, sans-serif; color:#14202e; background:#f7f9fc; }
-    header { padding:24px 5vw; background:white; border-bottom:1px solid #c8d3df; display:flex; align-items:center; justify-content:space-between; gap:20px; }
-    header img { height:52px; }
-    a { color:#0d3b66; font-weight:700; }
-    .hero { padding:42px 5vw 24px; background:white; display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:24px; align-items:center; }
-    .hero h1 { color:#0d3b66; margin:0 0 10px; font-size:clamp(2rem,4vw,4.4rem); line-height:1; }
-    .hero p { font-size:1.08rem; line-height:1.55; }
+    :root { --ink:#14202e; --muted:#5d6a78; --line:#c8d3df; --paper:#f7f9fc; --brand:#0d3b66; --warn:#fff3cd; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; color:var(--ink); background:var(--paper); }
+    header { padding:22px 5vw; background:white; border-bottom:1px solid var(--line); display:flex; gap:18px; align-items:center; justify-content:space-between; }
+    header img { height:50px; }
+    a { color:var(--brand); font-weight:700; }
+    .hero { padding:42px 5vw 24px; background:white; display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:28px; align-items:center; }
+    .hero h1 { color:var(--brand); margin:0 0 12px; font-size:clamp(2rem,4vw,4.4rem); line-height:1; }
+    .hero p { font-size:1.08rem; line-height:1.55; max-width:800px; }
     .hero img { width:100%; max-height:220px; object-fit:contain; }
-    main { padding:28px 5vw 54px; }
-    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
-    .card { display:grid; grid-template-rows:180px 1fr; background:white; border:1px solid #c8d3df; border-radius:6px; overflow:hidden; }
-    .card img { width:100%; height:100%; object-fit:cover; background:#eef3f7; }
-    .card div { padding:18px; display:flex; flex-direction:column; gap:8px; }
-    .card p { color:#7a4d00; font-weight:700; margin:0; }
-    .card h2 { margin:0; color:#0d3b66; }
-    .card span { line-height:1.45; min-height:58px; }
-    .card small { color:#5d6a78; }
-    @media(max-width:900px) { .hero,.grid { grid-template-columns:1fr; } }
+    main { padding:28px 5vw 60px; }
+    .notice { max-width:1100px; padding:16px 18px; background:var(--warn); border:1px solid #e5c07b; line-height:1.5; margin-bottom:28px; }
+    .proven { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin:0 0 34px; }
+    .proven a { background:white; border:1px solid var(--line); padding:16px; text-decoration:none; border-radius:5px; }
+    table { width:100%; max-width:1200px; border-collapse:collapse; background:white; }
+    th,td { border:1px solid var(--line); padding:10px; text-align:left; vertical-align:top; }
+    th { background:#eaf1f8; }
+    .held { color:#7a4d00; font-weight:700; }
+    small { color:var(--muted); }
+    @media(max-width:900px) { .hero,.proven { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
-  <header><a href="https://byron2306.github.io/DIO-Workflows/"><img src="assets/dio-logo.png" alt="DIO Workflows"></a><a href="https://byron2306.github.io/DIO-Workflows/">Main DIO site</a></header>
-  <section class="hero"><div><h1>DIO Product Classes</h1><p>38 packaged controlled-pilot product classes, all routed through DIO intake, Outlook conversation binding, processor orchestration, human approval and governed delivery.</p></div><img src="assets/dio-banner.png" alt="DIO banner"></section>
-  <main><div class="grid"><article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="AuditProof preview">
-          <div><p>packaged</p><h2>AuditProof</h2><span>Prepare control evidence before the audit room gets loud.</span><small>controlled boundary</small><a href="auditproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../document-studio/assets/document-studio-proof.png" alt="DossierOps preview">
-          <div><p>packaged</p><h2>DossierOps</h2><span>Turn a messy folder into a clean, indexed dossier.</span><small>controlled boundary</small><a href="dossierops/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="GrantProof preview">
-          <div><p>packaged</p><h2>GrantProof</h2><span>Turn grant obligations into a reviewable evidence ledger.</span><small>controlled boundary</small><a href="grantproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../document-studio/assets/document-studio-proof.png" alt="PromotionProof preview">
-          <div><p>packaged</p><h2>PromotionProof</h2><span>Map promotion criteria to evidence before review day.</span><small>controlled boundary</small><a href="promotionproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="TenderProof preview">
-          <div><p>packaged</p><h2>TenderProof</h2><span>Build a tender compliance dossier before the deadline eats the week.</span><small>controlled boundary</small><a href="tenderproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="VendorProof preview">
-          <div><p>packaged</p><h2>VendorProof</h2><span>Answer vendor due diligence with evidence, not panic.</span><small>controlled boundary</small><a href="vendorproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="AssuranceRoom preview">
-          <div><p>wave 2 education extensions</p><h2>AssuranceRoom</h2><span>AssuranceRoom turns portable proof of governed state into a controlled assurance package.</span><small>default boundary</small><a href="assuranceroom/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../document-studio/assets/document-studio-proof.png" alt="CPDProof preview">
-          <div><p>wave 2 education extensions</p><h2>CPDProof</h2><span>CPDProof turns competency/CPD portfolio assembly into a controlled CPD portfolio.</span><small>default boundary</small><a href="cpdproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../homs/assets/homs-exam-studio.png" alt="HOMS Accreditation preview">
-          <div><p>wave 2 education extensions</p><h2>HOMS Accreditation</h2><span>HOMS Accreditation turns programme evidence against accreditation criteria into a controlled criterion matrix + proof room.</span><small>education boundary</small><a href="homs-accreditation/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../homs/assets/homs-exam-studio.png" alt="HOMS Moderate preview">
-          <div><p>wave 2 education extensions</p><h2>HOMS Moderate</h2><span>HOMS Moderate turns marker drift and disagreement moderation into a controlled moderation pack.</span><small>education boundary</small><a href="homs-moderate/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="ImpactProof preview">
-          <div><p>wave 2 education extensions</p><h2>ImpactProof</h2><span>ImpactProof turns outcome/indicator evidence and gaps into a controlled impact evidence pack.</span><small>default boundary</small><a href="impactproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../document-studio/assets/document-studio-proof.png" alt="ProjectProof preview">
-          <div><p>wave 2 education extensions</p><h2>ProjectProof</h2><span>ProjectProof turns deliverables versus actual evidence into a controlled deliverable proof pack.</span><small>default boundary</small><a href="projectproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="Sophia Integrity preview">
-          <div><p>wave 2 research integrity</p><h2>Sophia Integrity</h2><span>Sophia Integrity turns inspectable research-integrity case into a controlled integrity case.</span><small>education boundary</small><a href="sophia-integrity/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="Sophia Research preview">
-          <div><p>wave 2 research integrity</p><h2>Sophia Research</h2><span>Sophia Research turns literature/evidence landscape and contradictions into a controlled research evidence map.</span><small>education boundary</small><a href="sophia-research/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="Agent Authority preview">
-          <div><p>wave 3 trust and authority</p><h2>Agent Authority</h2><span>Agent Authority turns may this agent perform this action? into a controlled lease + execution receipt.</span><small>ai boundary</small><a href="agent-authority/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-review-hero.png" alt="ControlDrift preview">
-          <div><p>wave 3 trust and authority</p><h2>ControlDrift</h2><span>ControlDrift turns expected vs actual control state into a controlled drift report + attention state.</span><small>ai boundary</small><a href="controldrift/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-review-hero.png" alt="DIO AI Assurance preview">
-          <div><p>wave 3 trust and authority</p><h2>DIO AI Assurance</h2><span>DIO AI Assurance turns AI controls/tests/drift to governed release assurance into a controlled AI assurance case.</span><small>ai boundary</small><a href="dio-ai-assurance/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="DIO RegOps preview">
-          <div><p>wave 4 boundary heavy</p><h2>DIO RegOps</h2><span>DIO RegOps turns configured prerequisites/deadlines to readiness into a controlled readiness register + proof.</span><small>legal boundary</small><a href="dio-regops/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="AI IncidentRoom preview">
-          <div><p>wave 5 later catalogue</p><h2>AI IncidentRoom</h2><span>AI IncidentRoom turns AI incident chronology/evidence/decisions into a controlled incident room.</span><small>cyber boundary</small><a href="ai-incidentroom/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="CertificationProof preview">
-          <div><p>wave 5 later catalogue</p><h2>CertificationProof</h2><span>CertificationProof turns certification readiness evidence into a controlled readiness dossier.</span><small>default boundary</small><a href="certificationproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="ChangeProof preview">
-          <div><p>wave 5 later catalogue</p><h2>ChangeProof</h2><span>ChangeProof turns change impact and evidence invalidation into a controlled change impact report.</span><small>ai boundary</small><a href="changeproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="ContractProof preview">
-          <div><p>wave 5 later catalogue</p><h2>ContractProof</h2><span>ContractProof turns contract obligations/milestones to evidence into a controlled contract proof ledger.</span><small>default boundary</small><a href="contractproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-review-hero.png" alt="CriticalAI Assurance preview">
-          <div><p>wave 5 later catalogue</p><h2>CriticalAI Assurance</h2><span>CriticalAI Assurance turns continuous high-assurance AI governance into a controlled continuous assurance state.</span><small>ai boundary</small><a href="criticalai-assurance/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-review-hero.png" alt="CyberAssurance preview">
-          <div><p>wave 5 later catalogue</p><h2>CyberAssurance</h2><span>CyberAssurance turns continuous security control evidence + challenge into a controlled cyber assurance room.</span><small>cyber boundary</small><a href="cyberassurance/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="DORA Vendor Assurance preview">
-          <div><p>wave 5 later catalogue</p><h2>DORA Vendor Assurance</h2><span>DORA Vendor Assurance turns ICT third-party evidence/register support into a controlled vendor register support + gaps.</span><small>legal boundary</small><a href="dora-vendor-assurance/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="DiligenceRoom preview">
-          <div><p>wave 5 later catalogue</p><h2>DiligenceRoom</h2><span>DiligenceRoom turns due diligence questions/evidence/contradictions into a controlled tamper-evident diligence room.</span><small>default boundary</small><a href="diligenceroom/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="DonorProof preview">
-          <div><p>wave 5 later catalogue</p><h2>DonorProof</h2><span>DonorProof turns donor indicators and evidence into a controlled donor reporting pack.</span><small>default boundary</small><a href="donorproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../homs/assets/homs-exam-studio.png" alt="HOMS Curriculum preview">
-          <div><p>wave 5 later catalogue</p><h2>HOMS Curriculum</h2><span>HOMS Curriculum turns curriculum-outcome-assessment alignment into a controlled alignment matrix.</span><small>education boundary</small><a href="homs-curriculum/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="IncidentProof preview">
-          <div><p>wave 5 later catalogue</p><h2>IncidentProof</h2><span>IncidentProof turns incident evidence/chronology/response proof into a controlled incident proof pack.</span><small>cyber boundary</small><a href="incidentproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="ModelProof preview">
-          <div><p>wave 5 later catalogue</p><h2>ModelProof</h2><span>ModelProof turns model eval/limits/use evidence for release into a controlled model release proof.</span><small>ai boundary</small><a href="modelproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="PermitProof preview">
-          <div><p>wave 5 later catalogue</p><h2>PermitProof</h2><span>PermitProof turns permit/licence prerequisites + renewal evidence into a controlled permit readiness pack.</span><small>legal boundary</small><a href="permitproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="PolicyProof preview">
-          <div><p>wave 5 later catalogue</p><h2>PolicyProof</h2><span>PolicyProof turns policy requirements to implementation evidence into a controlled policy assurance pack.</span><small>default boundary</small><a href="policyproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="ProgrammeProof preview">
-          <div><p>wave 5 later catalogue</p><h2>ProgrammeProof</h2><span>ProgrammeProof turns programme obligations/outcomes to proof into a controlled programme assurance pack.</span><small>default boundary</small><a href="programmeproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../evidex/assets/evidex-output.png" alt="QualityProof preview">
-          <div><p>wave 5 later catalogue</p><h2>QualityProof</h2><span>QualityProof turns standard requirements to records/gaps into a controlled quality evidence matrix.</span><small>default boundary</small><a href="qualityproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="ReleaseProof preview">
-          <div><p>wave 5 later catalogue</p><h2>ReleaseProof</h2><span>ReleaseProof turns release evidence + go/no-go + proof into a controlled release case + room.</span><small>ai boundary</small><a href="releaseproof/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="Sophia Supervisor preview">
-          <div><p>wave 5 later catalogue</p><h2>Sophia Supervisor</h2><span>Sophia Supervisor turns claim/revision/supervision lineage into a controlled supervision workspace.</span><small>education boundary</small><a href="sophia-supervisor/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="Sophia Tutor preview">
-          <div><p>wave 5 later catalogue</p><h2>Sophia Tutor</h2><span>Sophia Tutor turns policy-bound institutional tutoring into a controlled bounded tutoring session.</span><small>education boundary</small><a href="sophia-tutor/index.html">Open product</a></div>
-        </article>
-<article class="card">
-          <img src="../sophia/assets/sophia-review-hero.png" alt="SupplierCyberProof preview">
-          <div><p>wave 5 later catalogue</p><h2>SupplierCyberProof</h2><span>SupplierCyberProof turns supplier cyber evidence/freshness into a controlled supplier cyber pack.</span><small>cyber boundary</small><a href="suppliercyberproof/index.html">Open product</a></div>
-        </article></div></main>
+<header>
+  <a href="https://byron2306.github.io/DIO-Workflows/"><img src="assets/dio-logo.png" alt="DIO Workflows"></a>
+  <a href="https://byron2306.github.io/DIO-Workflows/">Main DIO site</a>
+</header>
+<section class="hero">
+  <div>
+    <h1>DIO Product Class Registry</h1>
+    <p>The atlas is broad. The evidence boundary is narrower. Product classes listed here are registered profile extensions until their typed fulfilment routes have executed successfully and produced public-safe proof.</p>
+  </div>
+  <img src="assets/dio-banner.png" alt="DIO banner">
+</section>
+<main>
+  <div class="notice"><strong>Why there are no individual “Request Pilot” pages here:</strong> structural packaging is not execution proof. DIO will not present a profile extension as a live product merely because a page, ZIP or synthetic demonstration exists. Human approval is necessary, but human approval cannot substitute for missing execution evidence.</div>
+
+  <h2>Existing public product surfaces</h2>
+  <div class="proven">
+    <a href="../evidex/index.html">Evidex<br><small>EvidenceOps</small></a>
+    <a href="../homs/index.html">HOMS<br><small>Assessment and education</small></a>
+    <a href="../sophia/index.html">Sophia<br><small>Academic review</small></a>
+    <a href="../vamp/index.html">VAMP<br><small>Performance evidence</small></a>
+    <a href="../document-studio/index.html">Document Studio<br><small>Edit, localize, publish</small></a>
+  </div>
+
+  <h2>Registered profile extensions</h2>
+  <table>
+    <thead><tr><th>Product class</th><th>Suggested composition</th><th>Current evidence</th><th>Next gate</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+</main>
+<script>
+const classes = [
+  ["AuditProof","Evidex"],["DossierOps","Document Studio"],["GrantProof","Evidex"],["PromotionProof","VAMP"],["TenderProof","Evidex"],["VendorProof","Evidex"],
+  ["AssuranceRoom","Evidex"],["CPDProof","VAMP"],["HOMS Accreditation","HOMS"],["HOMS Moderate","HOMS"],["ImpactProof","Evidex"],["ProjectProof","Evidex"],
+  ["Sophia Integrity","Sophia"],["Sophia Research","Sophia"],["Agent Authority","META Authority profile"],["ControlDrift","META Assurance profile"],["DIO AI Assurance","AI assurance composition"],["DIO RegOps","boundary-heavy composition"],
+  ["AI IncidentRoom","META Room / Assurance"],["CertificationProof","Evidex"],["ChangeProof","Assurance composition"],["ContractProof","Evidex via governed Vesper intake"],["CriticalAI Assurance","Assurance composition"],["CyberAssurance","Assurance composition"],
+  ["DORA Vendor Assurance","boundary-heavy composition"],["DiligenceRoom","Evidex"],["DonorProof","Evidex"],["HOMS Curriculum","HOMS"],["IncidentProof","Assurance composition"],["ModelProof","AI assurance composition"],
+  ["PermitProof","boundary-heavy composition"],["PolicyProof","Evidex"],["ProgrammeProof","Evidex"],["QualityProof","Evidex"],["ReleaseProof","META Authority / Assurance"],["Sophia Supervisor","Sophia"],
+  ["Sophia Tutor","Sophia"],["SupplierCyberProof","Assurance composition"]
+];
+document.querySelector("#rows").innerHTML = classes.map(([name,composition]) => `<tr><td><strong>${name}</strong></td><td>${composition}</td><td><span class="held">structural/profile only</span></td><td>Approve typed route → controlled execution → reviewed artifact → public-safe proof</td></tr>`).join("");
+</script>
 </body>
 </html>

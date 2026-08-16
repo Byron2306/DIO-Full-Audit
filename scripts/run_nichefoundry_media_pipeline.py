@@ -78,18 +78,21 @@ def family_request_path(family: dict[str, Any]) -> Path | None:
     return resolve(value) if value else None
 
 
-def missing_request_inputs(request: dict[str, Any]) -> list[str]:
+def request_artifacts(request: dict[str, Any]) -> tuple[list[str], Path | None, Path | None]:
     missing: list[str] = []
     for scene in request.get("scene_images") or []:
         if not Path(scene).expanduser().is_file():
             missing.append(f"scene image: {scene}")
-    music = ((request.get("music") or {}).get("path") or "")
+    music = str(((request.get("music") or {}).get("path") or "")).strip()
     if not music or not Path(music).expanduser().is_file():
         missing.append(f"music bed: {music or 'not configured'}")
-    output = ((request.get("outputs") or {}).get("vertical_reel") or "")
-    if not output:
+    output_raw = str(((request.get("outputs") or {}).get("vertical_reel") or "")).strip()
+    if not output_raw:
         missing.append("vertical reel output path")
-    return missing
+        return missing, None, None
+    output_path = Path(output_raw).expanduser()
+    receipt_path = output_path.parent / "NICHEFOUNDRY_REEL_RECEIPT.json"
+    return missing, output_path, receipt_path
 
 
 def run_reel_engine(foundry_root: Path, request_path: Path, timeout: int) -> dict[str, Any]:
@@ -103,6 +106,15 @@ def run_reel_engine(foundry_root: Path, request_path: Path, timeout: int) -> dic
     if completed.returncode != 0:
         raise RuntimeError((completed.stderr or completed.stdout or "NicheFoundry reel engine failed.").strip()[-1600:])
     return json.loads(completed.stdout)
+
+
+def verified_reel_artifacts(output_path: Path | None, receipt_path: Path | None) -> tuple[bool, list[str]]:
+    missing: list[str] = []
+    if output_path is None or not output_path.is_file() or output_path.stat().st_size == 0:
+        missing.append(f"rendered reel artifact: {output_path or 'not configured'}")
+    if receipt_path is None or not receipt_path.is_file():
+        missing.append(f"native reel receipt: {receipt_path or 'not configured'}")
+    return not missing, missing
 
 
 def run_family(
@@ -125,70 +137,90 @@ def run_family(
         "engine_checks": checks,
         "state": "blocked",
         "missing_inputs": [],
+        "planned_outputs": {},
         "outputs": {},
         "notes": [],
     }
 
+    output_path: Path | None = None
+    reel_receipt_path: Path | None = None
     if not request_path or not request_path.is_file():
         receipt["missing_inputs"].append(f"production request: {request_path or 'not configured'}")
     elif not checks["ready_for_campaign_reels"]:
         receipt["missing_inputs"].append("local NicheFoundry reel engine prerequisites")
     else:
         request = load_json(request_path)
-        missing = missing_request_inputs(request)
+        missing, output_path, reel_receipt_path = request_artifacts(request)
         receipt["missing_inputs"].extend(missing)
         receipt["request"] = rel(request_path)
         receipt["request_hash"] = request.get("request_hash")
-        receipt["outputs"]["vertical_reel"] = rel(Path((request.get("outputs") or {}).get("vertical_reel", ""))) if (request.get("outputs") or {}).get("vertical_reel") else ""
-        if not missing and render_reel:
+        if output_path is not None:
+            receipt["planned_outputs"]["vertical_reel"] = rel(output_path)
+        if missing:
+            receipt["state"] = "blocked"
+        elif not render_reel:
+            receipt["state"] = "render_ready"
+            receipt["notes"].append("Inputs and local engine prerequisites are valid; no reel artifact was rendered in this run.")
+            already_verified, _ = verified_reel_artifacts(output_path, reel_receipt_path)
+            if already_verified and output_path is not None and reel_receipt_path is not None:
+                receipt["outputs"]["vertical_reel"] = rel(output_path)
+                receipt["outputs"]["reel_receipt"] = rel(reel_receipt_path)
+                receipt["notes"].append("A previously rendered reel and native receipt exist, but this run did not create them.")
+        else:
             try:
-                reel_receipt = run_reel_engine(foundry_root, request_path, timeout)
-                reel_path = Path(str(reel_receipt.get("output") or ""))
+                native = run_reel_engine(foundry_root, request_path, timeout)
+                native_output = Path(str(native.get("output") or output_path or "")).expanduser()
+                if str(native_output):
+                    output_path = native_output
+                    reel_receipt_path = output_path.parent / "NICHEFOUNDRY_REEL_RECEIPT.json"
+                verified, verification_missing = verified_reel_artifacts(output_path, reel_receipt_path)
+                if not verified:
+                    raise RuntimeError("Renderer returned without verified artifacts: " + "; ".join(verification_missing))
                 receipt["state"] = "ready"
-                receipt["native_reel_receipt"] = reel_receipt
-                receipt["outputs"]["vertical_reel"] = rel(reel_path)
-                receipt["outputs"]["reel_receipt"] = rel(reel_path.parent / "NICHEFOUNDRY_REEL_RECEIPT.json")
+                receipt["native_reel_receipt"] = native
+                receipt["outputs"]["vertical_reel"] = rel(output_path)
+                receipt["outputs"]["reel_receipt"] = rel(reel_receipt_path)
             except (OSError, RuntimeError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
                 receipt["state"] = "failed"
                 receipt["missing_inputs"].append(str(exc))
-        elif not missing:
-            output_value = (request.get("outputs") or {}).get("vertical_reel")
-            if output_value:
-                output_path = Path(str(output_value))
-                reel_receipt_path = output_path.parent / "NICHEFOUNDRY_REEL_RECEIPT.json"
-                if output_path.is_file():
-                    receipt["outputs"]["vertical_reel"] = rel(output_path)
-                if reel_receipt_path.is_file():
-                    receipt["outputs"]["reel_receipt"] = rel(reel_receipt_path)
-            receipt["state"] = "ready"
-            receipt["notes"].append("Inputs are render-ready; reel render was skipped by request.")
 
     family_dir = request_path.parent if request_path else ROOT / "state" / "marketing_factory" / family_id.lower()
     receipt_path = family_dir / "MEDIA_PIPELINE_RECEIPT.json"
     receipt["media_pipeline_receipt"] = rel(receipt_path)
     write_json(receipt_path, receipt)
 
-    reel_path = receipt["outputs"].get("vertical_reel") or (family.get("assets") or {}).get("reel_1080x1920")
-    if reel_path:
-        family.setdefault("assets", {})["reel_1080x1920"] = reel_path
+    if receipt["state"] == "ready" and receipt["outputs"].get("vertical_reel"):
+        family.setdefault("assets", {})["reel_1080x1920"] = receipt["outputs"]["vertical_reel"]
+    elif receipt["state"] != "ready":
+        existing_reel = str((family.get("assets") or {}).get("reel_1080x1920") or "")
+        if existing_reel and not resolve(existing_reel).is_file():
+            family.setdefault("assets", {}).pop("reel_1080x1920", None)
+
+    native_state = "ready" if receipt["state"] == "ready" else receipt["state"]
     nichefoundry.update(
         {
             "request": rel(request_path) if request_path else nichefoundry.get("request", ""),
             "media_pipeline_state": receipt["state"],
             "media_pipeline_receipt": rel(receipt_path),
             "media_pipeline_at": now,
-            "native_reel_state": "ready" if receipt["state"] == "ready" else receipt["state"],
+            "native_reel_state": native_state,
             "native_reel_receipt": receipt["outputs"].get("reel_receipt", ""),
             "premium_episode_state": "needs_full_episode_promotion",
-            "premium_episode_reason": "Campaign-family requests can render short reels, but Gamma assets, voice, music discovery and long-form render require a promoted NicheFoundry episode directory.",
+            "premium_episode_reason": "Campaign-family requests can prepare or render short reels, but premium long-form output requires a promoted NicheFoundry episode directory and a separately verified publication candidate.",
             "long_form_state": "needs_episode_promotion",
             "engine_checks": checks,
             "missing_inputs": receipt["missing_inputs"],
         }
     )
     family.setdefault("governance", {}).update({"publication": "held", "spend": "disabled"})
-    family.setdefault("validation", {})["state"] = "passed" if receipt["state"] == "ready" else "failed"
-    family["validation"]["errors"] = receipt["missing_inputs"]
+    validation = family.setdefault("validation", {})
+    if receipt["state"] == "ready":
+        validation["state"] = "passed"
+    elif receipt["state"] == "render_ready":
+        validation["state"] = "inputs_validated"
+    else:
+        validation["state"] = "failed"
+    validation["errors"] = receipt["missing_inputs"]
     write_json(family_dir / "FAMILY.json", family)
     emit_event("marketing.media_pipeline_ran", family_id, {"state": receipt["state"], "receipt": rel(receipt_path)})
     return receipt
@@ -216,15 +248,11 @@ def run_media_pipeline(
         raise ValueError("No creative families matched the requested media pipeline filter.")
 
     receipts = [run_family(family, foundry_root, render_reel=render_reel, timeout=timeout) for family in selected]
-    selected_counts = {
-        "ready": sum(receipt["state"] == "ready" for receipt in receipts),
-        "blocked": sum(receipt["state"] == "blocked" for receipt in receipts),
-        "failed": sum(receipt["state"] == "failed" for receipt in receipts),
-    }
+    states = ("ready", "render_ready", "blocked", "failed")
+    selected_counts = {state: sum(receipt["state"] == state for receipt in receipts) for state in states}
     global_counts = {
-        "ready": sum((family.get("nichefoundry") or {}).get("media_pipeline_state") == "ready" for family in families),
-        "blocked": sum((family.get("nichefoundry") or {}).get("media_pipeline_state") == "blocked" for family in families),
-        "failed": sum((family.get("nichefoundry") or {}).get("media_pipeline_state") == "failed" for family in families),
+        state: sum((family.get("nichefoundry") or {}).get("media_pipeline_state") == state for family in families)
+        for state in states
     }
     summary = registry.setdefault("summary", {})
     summary["media_pipeline_last_run_at"] = utc_now()

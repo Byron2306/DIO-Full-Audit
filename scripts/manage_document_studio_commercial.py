@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from adapters.document_studio.pipeline import run_document_studio  # noqa: E402
+from adapters.sophia.review_pipeline import extract_document_text  # noqa: E402
 from scripts.dio_mail_branding import branded_email  # noqa: E402
 from scripts.manage_mail_intent import create_intent, emit_event, write_json  # noqa: E402
 from scripts.sync_dio_edge_events import EdgeError, edge_request, read_config  # noqa: E402
@@ -26,6 +27,8 @@ DEFAULT_EVENT_LOG = ROOT / "telemetry" / "dio_events.jsonl"
 DEFAULT_SERVICE_CONFIG = ROOT / "config" / "document_studio_service.json"
 DEFAULT_EDGE_CONFIG = ROOT / "config" / "dio_edge.live.json"
 DEFAULT_OUTPUT_ROOT = ROOT / "deliverables" / "document_studio"
+TRANSLATION_SERVICES = {"translation", "edit_and_translate"}
+APPROVED_LANGUAGE_AUTHORITY = {"human_approved_crystallized", "approved_crystallized"}
 
 
 def timestamp() -> str:
@@ -59,6 +62,72 @@ def load_job(job_root: Path, job_id: str) -> tuple[Path, dict[str, Any]]:
     return path, load_json(path)
 
 
+def document_word_count(path: Path) -> int:
+    text, _ = extract_document_text(path)
+    return len(re.findall(r"\S+", text))
+
+
+def language_authority_state(job: dict[str, Any]) -> dict[str, Any]:
+    source = job.get("source") or {}
+    service = str(source.get("service") or "")
+    target_language = str(source.get("target_language") or "").strip()
+    if service not in TRANSLATION_SERVICES:
+        return {
+            "required": False,
+            "state": "not_applicable",
+            "target_language": None,
+            "qa_path": None,
+            "reviewer": None,
+            "approved_at": None,
+        }
+    output_dir_raw = str((job.get("studio") or {}).get("output_dir") or "")
+    if not output_dir_raw:
+        return {
+            "required": True,
+            "state": "pending",
+            "target_language": target_language,
+            "qa_path": None,
+            "reviewer": None,
+            "approved_at": None,
+            "reason": "Translation output has not been generated yet.",
+        }
+    qa_path = Path(output_dir_raw) / "LINGUA_QA.json"
+    if not qa_path.is_file():
+        return {
+            "required": True,
+            "state": "pending",
+            "target_language": target_language,
+            "qa_path": str(qa_path),
+            "reviewer": None,
+            "approved_at": None,
+            "reason": "LINGUA_QA.json is missing.",
+        }
+    qa = load_json(qa_path)
+    qa_target = str(qa.get("target_language") or "").strip()
+    authority = str(qa.get("semantic_authority") or "").strip()
+    reviewer = str(qa.get("reviewer") or "").strip()
+    approved = (
+        authority in APPROVED_LANGUAGE_AUTHORITY
+        and qa.get("linguistic_quality_approved") is True
+        and qa.get("review_required") is False
+        and bool(reviewer)
+        and bool(target_language)
+        and qa_target.casefold() == target_language.casefold()
+    )
+    return {
+        "required": True,
+        "state": "approved" if approved else "pending",
+        "target_language": target_language,
+        "qa_path": str(qa_path),
+        "reviewer": reviewer or None,
+        "reviewer_role": qa.get("reviewer_role"),
+        "approved_at": qa.get("approved_at") if approved else None,
+        "semantic_authority": authority or None,
+        "release_readiness": qa.get("release_readiness"),
+        "reason": None if approved else "A proficient target-language approval/crystallization receipt is required before delivery.",
+    }
+
+
 def create_job(spec_path: Path, job_root: Path, event_log: Path, service_path: Path, controlled: bool) -> dict[str, Any]:
     spec = load_json(spec_path)
     schema = load_json(ROOT / "schemas" / "document_studio_commercial_request.schema.json")
@@ -74,6 +143,11 @@ def create_job(spec_path: Path, job_root: Path, event_log: Path, service_path: P
     document_path = document_path.resolve()
     if not document_path.is_file():
         raise FileNotFoundError(f"Source document not found: {document_path}")
+
+    words = document_word_count(document_path)
+    maximum_words = int((service.get("limits") or {}).get("maximum_words") or 0)
+    if maximum_words and words > maximum_words:
+        raise ValueError(f"Document exceeds the controlled-pilot limit of {maximum_words} words ({words} supplied).")
 
     consents = spec["consents"]
     studio_request = {
@@ -99,7 +173,7 @@ def create_job(spec_path: Path, job_root: Path, event_log: Path, service_path: P
         "remote_processing_approved": consents["remote_processing_approved"],
         "human_language_review_required": bool(consents["human_review_required"]),
         "certified_translation_required": not bool(consents["certified_translation_not_requested"]),
-        "automated_language_critic": spec["service"] in {"translation", "edit_and_translate"},
+        "automated_language_critic": spec["service"] in TRANSLATION_SERVICES,
         "translation_review_overrides": spec.get("translation_review_overrides") or {},
         "translation_override_reviewer": spec.get("translation_override_reviewer") or "",
         "human_approval_required": True,
@@ -123,6 +197,8 @@ def create_job(spec_path: Path, job_root: Path, event_log: Path, service_path: P
             "request_path": str(request_path),
             "document_name": document_path.name,
             "document_path": str(document_path),
+            "word_count": words,
+            "maximum_words": maximum_words or None,
             "service": spec["service"],
             "source_language": spec["source_language"],
             "target_language": spec.get("target_language"),
@@ -137,10 +213,18 @@ def create_job(spec_path: Path, job_root: Path, event_log: Path, service_path: P
         },
         "studio": {"state": "not_started", "output_dir": None, "release_readiness": None, "semantic_object_id": None},
         "approval": {"state": "pending", "reviewer": None, "reviewed_at": None},
+        "language_authority": {
+            "required": spec["service"] in TRANSLATION_SERVICES,
+            "state": "pending" if spec["service"] in TRANSLATION_SERVICES else "not_applicable",
+            "target_language": spec.get("target_language") if spec["service"] in TRANSLATION_SERVICES else None,
+            "qa_path": None,
+            "reviewer": None,
+            "approved_at": None,
+        },
         "delivery": {"state": "held", "mail_intent_id": None, "released": False},
     }
     save_job(path, job)
-    emit_event(event_log, "document_studio.intake_received", "info", "document_studio_job", job_id, {"controlled": controlled}, job_id)
+    emit_event(event_log, "document_studio.intake_received", "info", "document_studio_job", job_id, {"controlled": controlled, "word_count": words}, job_id)
     return job
 
 
@@ -216,6 +300,20 @@ def reconcile_payment(job_root: Path, job_id: str, edge_config_path: Path, event
     config = read_config(edge_config_path)
     token = Path(config["edge_token_path"]).expanduser().read_text(encoding="utf-8").strip()
     order = edge_request(str(config["base_url"]).rstrip("/") + f"/api/dio/orders/{order_id}", token)
+    metadata = order.get("metadata") or {}
+    mismatches: list[str] = []
+    if order.get("order_id") not in {None, order_id}:
+        mismatches.append("order_id")
+    if order.get("product_code") not in {None, job["product_code"]}:
+        mismatches.append("product_code")
+    if order.get("amount_minor") not in {None, job["payment"]["amount_minor"]}:
+        mismatches.append("amount_minor")
+    if order.get("currency") not in {None, job["payment"]["currency"]}:
+        mismatches.append("currency")
+    if metadata.get("job_id") not in {None, job_id}:
+        mismatches.append("metadata.job_id")
+    if mismatches:
+        raise ValueError(f"Commerce order does not match the Document Studio job: {', '.join(mismatches)}")
     state = str(order.get("state") or "unknown")
     job["payment"]["state"] = state
     job["state"] = "paid_ready_for_processing" if state == "paid" else "payment_hold"
@@ -242,9 +340,10 @@ def run_job(job_root: Path, job_id: str, output_root: Path, event_log: Path) -> 
         "release_readiness": (receipt.get("release") or {}).get("release_readiness") or qa.get("release_readiness"),
         "semantic_object_id": (receipt.get("processing") or {}).get("semantic_object_id"),
     }
+    job["language_authority"] = language_authority_state(job)
     job["state"] = "studio_ready" if ready else "blocked"
     save_job(path, job)
-    emit_event(event_log, "document_studio.pack_ready" if ready else "document_studio.pack_blocked", "action" if ready else "critical", "document_studio_job", job_id, job["studio"], job_id)
+    emit_event(event_log, "document_studio.pack_ready" if ready else "document_studio.pack_blocked", "action" if ready else "critical", "document_studio_job", job_id, {**job["studio"], "language_authority": job["language_authority"]["state"]}, job_id)
     return job
 
 
@@ -252,10 +351,13 @@ def approve_job(job_root: Path, job_id: str, reviewer: str, event_log: Path) -> 
     path, job = load_job(job_root, job_id)
     if job["studio"]["state"] != "ready_for_human_review":
         raise ValueError("Only a review-ready Document Studio pack can be approved.")
+    job["language_authority"] = language_authority_state(job)
     job["approval"] = {"state": "approved", "reviewer": reviewer, "reviewed_at": timestamp()}
-    job["state"] = "approved_for_delivery"
+    language_required = bool(job["language_authority"].get("required"))
+    language_approved = job["language_authority"].get("state") == "approved"
+    job["state"] = "approved_for_delivery" if not language_required or language_approved else "approved_pending_language_authority"
     save_job(path, job)
-    emit_event(event_log, "document_studio.pack_approved", "info", "document_studio_job", job_id, {"reviewer": reviewer}, job_id)
+    emit_event(event_log, "document_studio.pack_approved", "info", "document_studio_job", job_id, {"reviewer": reviewer, "language_authority": job["language_authority"]["state"]}, job_id)
     return job
 
 
@@ -263,6 +365,10 @@ def prepare_delivery(job_root: Path, job_id: str, event_log: Path) -> dict[str, 
     path, job = load_job(job_root, job_id)
     if job["approval"]["state"] != "approved":
         raise ValueError("Human approval is required before Document Studio delivery preparation.")
+    job["language_authority"] = language_authority_state(job)
+    if job["language_authority"].get("required") and job["language_authority"].get("state") != "approved":
+        save_job(path, job)
+        raise ValueError("Proficient target-language authority is required before translation delivery preparation.")
     output_dir = Path(job["studio"]["output_dir"])
     archive = output_dir / f"{job_id}_DOCUMENT_STUDIO_REVIEW_PACK.zip"
     if not archive.is_file():
@@ -282,7 +388,7 @@ def prepare_delivery(job_root: Path, job_id: str, event_log: Path) -> dict[str, 
         reference=job_id,
         cta_label="View Document Studio",
         cta_url="https://byron2306.github.io/DIO-Workflows/sites/document-studio/",
-        caution="Translation outputs are review candidates unless a proficient target-language reviewer has approved the final wording. This is not a certified translation service.",
+        caution="Translation outputs require proficient target-language authority before this delivery draft can be prepared. This is not a certified translation service.",
     )
     write_json(spec_path, {
         "purpose": "delivery",
@@ -299,7 +405,7 @@ def prepare_delivery(job_root: Path, job_id: str, event_log: Path) -> dict[str, 
     job["delivery"].update({"state": "draft_ready", "mail_intent_id": intent["mail_intent_id"], "released": False})
     job["state"] = "delivery_draft_ready"
     save_job(path, job)
-    emit_event(event_log, "document_studio.delivery_prepared", "action", "document_studio_job", job_id, {"mail_intent_id": intent["mail_intent_id"]}, job_id)
+    emit_event(event_log, "document_studio.delivery_prepared", "action", "document_studio_job", job_id, {"mail_intent_id": intent["mail_intent_id"], "language_authority": job["language_authority"]["state"]}, job_id)
     return job
 
 

@@ -36,23 +36,54 @@ def request_spec(base: Path, consents: dict[str, bool] | None = None) -> Path:
     return path
 
 
+def translation_spec(base: Path, *, target_language: str | None = "Afrikaans") -> Path:
+    source = base / "translation_source.md"
+    source.write_text("# Water Safety\n\nRecord pH after 2 minutes before releasing the report.\n", encoding="utf-8")
+    spec = {
+        "job_id": "DOC-STUDIO-TRANSLATION-001",
+        "customer": {"name": "Test Client", "email": "client@example.org"},
+        "service": "translation",
+        "title": "Water Safety Policy",
+        "document_path": str(source),
+        "source_language": "English",
+        "target_language": target_language,
+        "document_domain": "water operations",
+        "audience": "municipal operator",
+        "consents": {
+            "document_owner_authorized": True,
+            "remote_processing_approved": True,
+            "human_review_required": True,
+            "certified_translation_not_requested": True,
+        },
+    }
+    path = base / "translation_request.json"
+    path.write_text(json.dumps(spec), encoding="utf-8")
+    return path
+
+
+def fake_review_pack(request: dict, output_root: Path, *, lingua_qa: dict | None = None) -> Path:
+    job_dir = output_root / request["job_id"]
+    job_dir.mkdir(parents=True, exist_ok=True)
+    (job_dir / "DOCUMENT_STUDIO_RECEIPT.json").write_text(json.dumps({
+        "status": "human_review_required",
+        "release": {"release_readiness": "blocked_pending_human_approval"},
+        "processing": {"semantic_object_id": None},
+    }), encoding="utf-8")
+    (job_dir / "DOCUMENT_STUDIO_QA.json").write_text(json.dumps({
+        "passed": True,
+        "automated_integrity_passed": True,
+        "release_readiness": "blocked_pending_human_approval",
+    }), encoding="utf-8")
+    if lingua_qa is not None:
+        (job_dir / "LINGUA_QA.json").write_text(json.dumps(lingua_qa), encoding="utf-8")
+    with zipfile.ZipFile(job_dir / f"{request['job_id']}_DOCUMENT_STUDIO_REVIEW_PACK.zip", "w") as archive:
+        archive.writestr("DOCUMENT_STUDIO_QA.json", "{}")
+    return job_dir
+
+
 def test_controlled_document_studio_job_runs_through_approval_and_delivery(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     def fake_run_document_studio(request: dict, request_path: Path, output_root: Path) -> Path:
-        job_dir = output_root / request["job_id"]
-        job_dir.mkdir(parents=True, exist_ok=True)
-        (job_dir / "DOCUMENT_STUDIO_RECEIPT.json").write_text(json.dumps({
-            "status": "human_review_required",
-            "release": {"release_readiness": "blocked_pending_human_approval"},
-            "processing": {"semantic_object_id": None},
-        }), encoding="utf-8")
-        (job_dir / "DOCUMENT_STUDIO_QA.json").write_text(json.dumps({
-            "passed": True,
-            "automated_integrity_passed": True,
-            "release_readiness": "blocked_pending_human_approval",
-        }), encoding="utf-8")
-        with zipfile.ZipFile(job_dir / f"{request['job_id']}_DOCUMENT_STUDIO_REVIEW_PACK.zip", "w") as archive:
-            archive.writestr("DOCUMENT_STUDIO_QA.json", "{}")
-        return job_dir
+        return fake_review_pack(request, output_root)
 
     monkeypatch.setattr(document_manager, "run_document_studio", fake_run_document_studio)
     job_root = tmp_path / "jobs"
@@ -67,6 +98,7 @@ def test_controlled_document_studio_job_runs_through_approval_and_delivery(tmp_p
     )
     assert job["payment"]["state"] == "waived"
     assert job["studio"]["state"] == "not_started"
+    assert job["language_authority"]["state"] == "not_applicable"
 
     job = document_manager.run_job(job_root, job["job_id"], output_root, event_log)
     assert job["studio"]["state"] == "ready_for_human_review"
@@ -74,6 +106,7 @@ def test_controlled_document_studio_job_runs_through_approval_and_delivery(tmp_p
 
     job = document_manager.approve_job(job_root, job["job_id"], "Test reviewer", event_log)
     assert job["approval"]["state"] == "approved"
+    assert job["state"] == "approved_for_delivery"
 
     job = document_manager.prepare_delivery(job_root, job["job_id"], event_log)
     assert job["delivery"]["state"] == "draft_ready"
@@ -95,3 +128,70 @@ def test_document_studio_rejects_missing_remote_processing_consent(tmp_path: Pat
             ROOT / "config" / "document_studio_service.json",
             controlled=True,
         )
+
+
+def test_translation_requires_nonempty_target_language(tmp_path: Path) -> None:
+    with pytest.raises(Exception):
+        document_manager.create_job(
+            translation_spec(tmp_path, target_language=None),
+            tmp_path / "jobs",
+            tmp_path / "events.jsonl",
+            ROOT / "config" / "document_studio_service.json",
+            controlled=True,
+        )
+
+
+def test_translation_generic_approval_cannot_cross_language_authority_gate(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def fake_run_document_studio(request: dict, request_path: Path, output_root: Path) -> Path:
+        return fake_review_pack(request, output_root)
+
+    monkeypatch.setattr(document_manager, "run_document_studio", fake_run_document_studio)
+    monkeypatch.setattr(document_manager, "create_intent", lambda *args, **kwargs: {"mail_intent_id": "MAIL-TEST-LANGUAGE"})
+    job_root = tmp_path / "jobs"
+    event_log = tmp_path / "events.jsonl"
+    output_root = tmp_path / "deliverables"
+    job = document_manager.create_job(
+        translation_spec(tmp_path),
+        job_root,
+        event_log,
+        ROOT / "config" / "document_studio_service.json",
+        controlled=True,
+    )
+    job = document_manager.run_job(job_root, job["job_id"], output_root, event_log)
+    assert job["language_authority"]["state"] == "pending"
+
+    job = document_manager.approve_job(job_root, job["job_id"], "General DIO operator", event_log)
+    assert job["approval"]["state"] == "approved"
+    assert job["state"] == "approved_pending_language_authority"
+    with pytest.raises(ValueError, match="Proficient target-language authority"):
+        document_manager.prepare_delivery(job_root, job["job_id"], event_log)
+
+    output_dir = Path(job["studio"]["output_dir"])
+    (output_dir / "LINGUA_QA.json").write_text(json.dumps({
+        "schema": "dio.lingua.qa.v1",
+        "target_language": "Afrikaans",
+        "linguistic_quality_approved": True,
+        "review_required": False,
+        "release_readiness": "semantic_approved",
+        "semantic_authority": "human_approved_crystallized",
+        "reviewer": "Language Practitioner",
+        "reviewer_role": "Language practitioner",
+        "approved_at": "2026-08-16T00:00:00+00:00",
+    }), encoding="utf-8")
+
+    job = document_manager.prepare_delivery(job_root, job["job_id"], event_log)
+    assert job["language_authority"]["state"] == "approved"
+    assert job["delivery"]["state"] == "draft_ready"
+
+
+def test_document_studio_enforces_service_word_limit(tmp_path: Path) -> None:
+    spec_path = request_spec(tmp_path)
+    source = Path(json.loads(spec_path.read_text())["document_path"])
+    source.write_text("one two three four five six", encoding="utf-8")
+    service = json.loads((ROOT / "config" / "document_studio_service.json").read_text())
+    service["limits"]["maximum_words"] = 5
+    service_path = tmp_path / "service.json"
+    service_path.write_text(json.dumps(service), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="exceeds the controlled-pilot limit"):
+        document_manager.create_job(spec_path, tmp_path / "jobs", tmp_path / "events.jsonl", service_path, controlled=True)

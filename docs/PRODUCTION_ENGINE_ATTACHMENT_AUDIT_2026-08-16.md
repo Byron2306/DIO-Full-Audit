@@ -1,104 +1,49 @@
 # Production Engine Attachment Audit
 
 Date: 2026-08-16
-Receipt: `state/production_engines/ENGINE_AUDIT_RECEIPT.json`
 Audit tool: `scripts/audit_product_engines.py`
 
-## Current Verdict
+## Corrected Verdict
 
-The detached-engine problem has been repaired at the control-layer contract level.
+The previous audit treated source-code wiring as equivalent to production attachment. That was too generous.
 
-The latest audit now reports:
+The active audit now grades each engine by evidence level:
 
-- Audited engines: **6**
-- Attached or partial: **6**
-- Detached or CLI-only: **0**
-- Average readiness score: **80.3**
+1. `detached`
+2. `code_attached_runtime_missing`
+3. `structural_proof`
+4. `execution_proof`
 
-The remaining work is no longer “find the missing engines.” The remaining work is **smoke testing, lead-to-job conversion, typed HOMS lanes, and premium NicheFoundry video promotion**.
+A function import, dashboard action, path check, or string match can support **structural** evidence. It cannot by itself create execution proof.
 
-## Attachment Matrix
+## Execution-Proof Requirements
 
-| Product | Verdict | Score | Current attachment state | Remaining work |
-|---|---:|---:|---|---|
-| Evidex | attached | 82 | Generic product workflow calls the real Evidex evidence-pack CLI. VAMP can also call Evidex internally. | Promote Evidex into the richer Sophia/VAMP-style commercial lifecycle. |
-| HOMS | attached | 78 | Product workflow now runs HyMark when a complete batch folder exists; incomplete intake is explicitly marked as waiting for source files. | Add typed HOMS commercial lanes for marking, exam studio, and learning studio. |
-| Sophia | attached | 84 | Dedicated commercial manager supports create, quote, reconcile, run, approve, delivery. | Add a live controlled smoke-run receipt surfaced in Systems. |
-| VAMP | attached with Evidex dependency | 80 | Dedicated commercial manager calls snapshot pipeline and can run Evidex internally. | Add dependency-health card and a generic non-NWU golden demo. |
-| Document Studio / Lingua | attached | 82 | New commercial manager and Control Deck route support create, quote, reconcile, run, approve, delivery. Lingua QA remains semantic authority. | Bridge public document-studio leads into typed jobs and run a controlled commercial smoke test. |
-| Market Media Factory / NicheFoundry | short-form attached, premium partial | 76 | 24 campaign families have media receipts and short-form reel outputs. | Build premium/long-form episode promotion into full NicheFoundry episode folders. |
+| Engine | Minimum execution evidence |
+| --- | --- |
+| Evidex | successful `EVIDEX_RUN_RECEIPT.json` |
+| HOMS | completed `HOMS_HYMARK_BATCH_RECEIPT.json` with at least one submission |
+| Sophia | `SOPHIA_REVIEW_RECEIPT.json` plus completed grounded reviewer commentary |
+| VAMP | review-ready snapshot job with concrete output lineage |
+| Document Studio | `DOCUMENT_STUDIO_RECEIPT.json` plus automated QA pass; translation delivery has a separate language-authority gate |
+| NicheFoundry media | media receipt `ready` plus actual reel file plus native reel receipt |
 
-## What Changed
+## Important Consequences
 
-### HOMS
+- HOMS code is attached to HyMark, but source directories must survive promotion and resolve to a valid batch folder before execution.
+- Document Studio has a commercial route, but translation approval is not equivalent to target-language authority.
+- The media bridge may report `render_ready` when inputs are valid but rendering is skipped. That is not a rendered artifact.
+- Product-class profile extensions may name likely processors without being considered attached executable products.
 
-The old behavior allowed a HOMS workflow to stop at `prepared_request_only`, which could look like progress while the real assessor had not run.
+## Dashboard Meaning
 
-The workflow now does this:
+Engine cards should be interpreted as evidence status, not marketing readiness.
 
-`approved intake -> complete HyMark input folder? -> run HyMark -> review_ready -> approve output -> delivery`
+`structural_proof` means “the route appears wired and runtime prerequisites are present.”
 
-If the source is incomplete:
+`execution_proof` means “a qualifying execution receipt and artifact lineage were found.”
 
-`approved intake -> awaiting_source_files -> source upload notification`
+Neither state creates customer authority, public-release authority, or proof of repeatable commerce.
 
-That means HOMS no longer pretends a request file is an assessment pack.
+## Remaining Work
 
-### Document Studio / Lingua
-
-Document Studio now has a first-class commercial manager:
-
-`scripts/manage_document_studio_commercial.py`
-
-It supports:
-
-- create
-- quote
-- reconcile payment
-- run
-- approve
-- prepare delivery
-- status
-
-It uses the existing Document Studio engine and keeps Lingua/BEAST approval separate. That is the right split: the product can run and deliver a review pack, while reusable semantic truth still requires proficient review and crystallization.
-
-### Control Deck
-
-The dashboard now includes:
-
-- a Document Studio tab
-- Document Studio attention queue items
-- Document Studio fulfilment rows
-- Document Studio action buttons
-- Systems cards for engine attachment
-
-Control route added:
-
-`/api/control/document-studio/action`
-
-### Audit
-
-The audit now checks the attachment contract and records the result into:
-
-`state/production_engines/ENGINE_AUDIT_RECEIPT.json`
-
-This prevents the UI from quietly going green while a product engine is detached underneath.
-
-## Remaining Build Order
-
-1. Run controlled smoke tests for HOMS, Document Studio, Evidex, Sophia, and VAMP.
-2. Bridge public leads into typed product jobs instead of only capturing website requests.
-3. Promote HOMS into typed service lanes:
-   - marking batch
-   - exam studio
-   - learning material / extra class pack
-4. Promote Evidex into a dedicated commercial manager.
-5. Build the premium NicheFoundry episode promotion bridge for YouTube-grade videos.
-
-## Operational Rule
-
-A product is production-attached only when this route exists:
-
-`public intake -> qualified lead/order -> quote/payment state -> engine run -> human review -> delivery draft -> approval/send -> closeout receipt`
-
-By this rule, the control layer is now attached for every major engine, but the lead-to-job and smoke-test layers still need to be tightened before live marketing is treated as fully reliable.
+Run and retain current controlled execution receipts for each major engine under the corrected contracts, then surface the latest valid receipt rather than a hard-coded readiness percentage.
