@@ -90,21 +90,32 @@ def _opaque_customer(email: str) -> str:
 
 
 def _contract_source(intake: dict[str, Any], journey_id: str) -> dict[str, Any]:
-    """Bind user-supplied contract language without pretending to interpret it."""
+    """Bind user language and extract only explicit, reviewable contract facts."""
     text = intake["contract_text"]
     parts = [part.strip() for part in re.split(r"(?:\r?\n)+|(?<=[.;])\s+(?=[A-Z0-9])", text) if part.strip()]
     clauses = []
     for index, part in enumerate(parts, start=1):
         if re.search(r"\b(shall|must|is required to|are required to|will be required to)\b", part, re.IGNORECASE):
-            clauses.append({
+            party = None
+            party_match = re.match(r"(?:section\s+\d+[.:]?\s*)?(?:the\s+)?([A-Z][A-Za-z0-9_-]{2,40})\b", part)
+            if party_match:
+                party = party_match.group(1)
+            dates = re.findall(r"\b20\d{2}-\d{2}-\d{2}\b", part)
+            relative = re.search(r"\b(?:within|no later than)\s+([^.;]{1,80})", part, re.I)
+            clause = {
                 "clause_id": str(index),
                 "text": part,
                 "obligation": True,
                 "review_required": True,
                 "obligation_kind": "other",
-                "responsible_party": None,
+                "responsible_party": party,
                 "evidence_requirements": ["human evidence record"],
-            })
+            }
+            if dates:
+                clause["due_at"] = dates[0] + "T23:59:59+00:00"
+            if relative:
+                clause["relative_deadline"] = relative.group(0).strip()
+            clauses.append(clause)
     if not clauses:
         raise PaidReferenceError("no reviewable obligations were found in contract_text")
     digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
