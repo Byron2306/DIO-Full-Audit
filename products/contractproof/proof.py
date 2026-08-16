@@ -369,8 +369,13 @@ def _reportlab_pdf_bytes(pack: dict[str, Any]) -> bytes:
 def _pdf_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
     try:
         return _reportlab_pdf_bytes(pack)
-    except ImportError:
-        pass
+    except ImportError as exc:
+        mappings = ((pack.get("evidence_reconciliation_register") or {}).get("mappings") or [])
+        if mappings:
+            raise ValueError(
+                "Phase 11.1.1 professional PDF rendering requires reportlab; "
+                "install it in the storefront interpreter with: python -m pip install reportlab"
+            ) from exc
     view = _presentation(pack)
     blocks: list[tuple[str, str]] = [
         ("brand", "DIO CONTRACTPROOF"), ("title", view["title"]), ("sub", f"Case {view['case_id']} · Internal review candidate"),
