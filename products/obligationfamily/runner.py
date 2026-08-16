@@ -24,7 +24,7 @@ REQUIRED_ARTIFACT_TYPES = ("JSON", "DOCX", "PDF", "HTML", "proof_room_manifest")
 FAMILY_DEFINITIONS = {
     "dio_tenderproof": {"slug": "tenderproof", "title": "DIO TenderProof", "source_type": "tender", "framework": "framework.tender_submission", "owner_role": "tender_owner"},
     "dio_grantproof": {"slug": "grantproof", "title": "DIO GrantProof", "source_type": "grant", "framework": "framework.grant_award", "owner_role": "grant_owner"},
-    "dio_permitproof": {"slug": "permitproof", "title": "DIO PermitProof", "source_type": "permit", "framework": "framework.permit_conditions", "owner_role": "permit_owner"},
+    "dio_permitproof": {"slug": "permitproof", "title": "DIO PermitProof", "source_type": "permit", "framework": "framework.permit_conditions", "owner_role": "permit_owner"},\n    "dio_policyproof": {"slug": "policyproof", "title": "DIO PolicyProof", "source_type": "policy", "framework": "framework.policy_assurance", "owner_role": "policy_owner"},
 }
 
 
