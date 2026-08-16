@@ -19,7 +19,7 @@ EXPECTED_SUITES = {
     "enterprise_operations",
     "demand_presence",
 }
-EXPECTED_PRODUCTS = {"dio_contractproof", "dio_tenderproof", "dio_grantproof", "dio_permitproof", "dio_policyproof"}
+EXPECTED_PRODUCTS = {"dio_contractproof", "dio_tenderproof", "dio_grantproof", "dio_permitproof", "dio_policyproof", "dio_aitrustproof", "dio_agentauthority", "dio_modelchangeproof"}
 
 
 @pytest.fixture(scope="module")
@@ -45,7 +45,7 @@ def test_snapshot_projects_all_six_suites_and_expanded_reference_products(snapsh
     assert {item["suite_id"] for item in snapshot["suites"]} == EXPECTED_SUITES
     assert {item["product_id"] for item in snapshot["products"]} == EXPECTED_PRODUCTS
     assert snapshot["summary"]["suite_count"] == 6
-    assert snapshot["summary"]["registered_product_count"] == 5
+    assert snapshot["summary"]["registered_product_count"] == 8
     assert snapshot["summary"]["runtime_observed_product_count"] == 4
 
 
@@ -58,7 +58,7 @@ def test_snapshot_is_deterministic_and_source_bound(runtime_receipt: dict) -> No
 
 
 def test_control_deck_never_promotes_maturity_or_commercial_truth(snapshot: dict) -> None:
-    assert snapshot["summary"]["internally_proven_count"] == 5
+    assert snapshot["summary"]["internally_proven_count"] == 8
     assert snapshot["summary"]["externally_validated_count"] == 0
     assert snapshot["summary"]["revenue_proven_count"] == 0
     assert snapshot["summary"]["external_release_authorized_count"] == 0
@@ -67,8 +67,8 @@ def test_control_deck_never_promotes_maturity_or_commercial_truth(snapshot: dict
 
 
 def test_needs_me_is_explicit_human_attention_not_an_action_queue(snapshot: dict) -> None:
-    assert snapshot["summary"]["needs_you_count"] == 5
-    assert len(snapshot["operator_attention"]) == 5
+    assert snapshot["summary"]["needs_you_count"] == 8
+    assert len(snapshot["operator_attention"]) == 8
     for item in snapshot["operator_attention"]:
         assert item["state"] == "NEEDS_YOU"
         assert item["authorised_action"] == "inspect_bound_receipts_and_record_human_decision"
