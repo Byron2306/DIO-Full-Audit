@@ -7,6 +7,7 @@ from typing import Any
 
 from products.attachment_intake import AttachmentIntakeError, quarantine_attachments
 from products.contractproof.runner import run_contractproof
+from products.evidence_reconciliation import reconcile_evidence
 from products.paid_reference import _contract_source, run_paid_reference_journey, validate_intake
 
 
@@ -39,14 +40,19 @@ def run_attachment_delivery_journey(payload: dict[str, Any], *, output_dir: Path
     intake = validate_intake(paid_payload)
     journey = run_paid_reference_journey(paid_payload, output_dir=output_dir, root=root)
     source = _contract_source(intake, journey["journey_id"])
-    locators = [str(row["clause_id"]) for row in source["clauses"]]
+    reconciliation = reconcile_evidence(
+        manifest, source, now="2026-08-16T12:00:00+00:00",
+        output_path=output_dir / "fulfilment" / "proof" / "EVIDENCE_RECONCILIATION.json",
+    )
     evidence = []
-    for row in manifest["attachments"]:
-        if row["role"] != "evidence":
+    by_id = {row["attachment_id"]: row for row in manifest["attachments"]}
+    for mapping in reconciliation["mappings"]:
+        if not mapping["target_locators"]:
             continue
+        row = by_id[mapping["attachment_id"]]
         evidence.append({
-            "target_locators": locators, "evidence_kind": "attachment", "source_ref": row["source_ref"], "sha256": row["sha256"],
-            "authority_grade": "source_backed", "trust_state": "captured_untrusted", "freshness_state": "unknown", "relation": "supports",
+            "target_locators": mapping["target_locators"], "evidence_kind": "attachment", "source_ref": row["source_ref"], "sha256": row["sha256"],
+            "authority_grade": "source_backed", "trust_state": "captured_untrusted", "freshness_state": mapping["freshness_state"], "relation": mapping["relation"],
         })
     proof = run_contractproof(source, evidence, output_dir=output_dir / "fulfilment" / "proof", operator_id="human.phase11_1.vesper_intake", now="2026-08-16T12:00:00+00:00", job_id=journey["journey_id"])
     vesper = {
@@ -56,7 +62,7 @@ def run_attachment_delivery_journey(payload: dict[str, Any], *, output_dir: Path
     }
     _write(output_dir / "state" / "vesper" / "intakes" / intake_id / "VESPER_INTAKE_RECEIPT.json", vesper)
     artifacts = []
-    for name in ("EVIDENCE_PACK.pdf", "EVIDENCE_PACK.docx", "EVIDENCE_PACK.html", "PROOF_MANIFEST.json"):
+    for name in ("EVIDENCE_PACK.pdf", "EVIDENCE_PACK.docx", "EVIDENCE_PACK.html", "PROOF_MANIFEST.json", "EVIDENCE_RECONCILIATION.json", "EVIDENCE_RECONCILIATION.html"):
         path = output_dir / "fulfilment" / "proof" / name
         artifacts.append({"filename": name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "path": str(path)})
     draft = {
@@ -69,6 +75,8 @@ def run_attachment_delivery_journey(payload: dict[str, Any], *, output_dir: Path
     result = {
         "schema": SCHEMA, "intake_id": intake_id, "journey_id": journey["journey_id"], "case_id": proof["case"]["case_id"],
         "channel": channel, "attachment_count": len(manifest["attachments"]), "evidence_attachment_count": len(evidence),
+        "reconciled_attachment_count": len(reconciliation["mappings"]), "unresolved_attachment_count": len(reconciliation["unresolved_attachment_ids"]),
+        "evidence_fanout_guard": reconciliation["fanout_guard"],
         "source_binding": "PASS", "proof_integrity": "PASS", "vesper_intake": "PASS", "outlook_draft": "PASS",
         "attachment_policy": "quarantine_only", "external_delivery": "REFUSE", "human_release": "NEEDS_YOU", "sent": False,
         "proof_output_dir": "fulfilment/proof", "outlook_draft_ref": f"state/outlook_smart_bot/drafts/{draft['draft_id']}.json",
