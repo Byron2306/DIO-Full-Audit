@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from products.evidence_reconciliation import reconcile_evidence
+from products.contractproof.proof import _pdf_bytes
+import builtins
+import pytest
 
 
 def _source() -> dict:
@@ -33,3 +36,15 @@ def test_specific_reconciliation_blocks_blanket_fanout() -> None:
     assert result["mappings"][3]["target_locators"] == []
     assert result["unresolved_attachment_ids"] == ["ATT-4"]
     assert all(row["automatic_acceptance"] is False and row["human_gate"] == "NEEDS_YOU" for row in result["mappings"])
+
+
+def test_phase11_reconciliation_refuses_degraded_pdf_renderer(monkeypatch: pytest.MonkeyPatch) -> None:
+    original = builtins.__import__
+    def blocked(name: str, *args: object, **kwargs: object):
+        if name == "reportlab" or name.startswith("reportlab."):
+            raise ImportError("controlled missing renderer")
+        return original(name, *args, **kwargs)
+    monkeypatch.setattr(builtins, "__import__", blocked)
+    pack = {"evidence_reconciliation_register": {"mappings": [{"filename": "evidence.txt"}]}}
+    with pytest.raises(ValueError, match="requires reportlab"):
+        _pdf_bytes(pack, [])
