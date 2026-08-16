@@ -1,0 +1,60 @@
+{
+  "schema": "dio.product_incarnation_studio_spec.v1",
+  "studio_version": "1.0.0",
+  "product_id": "dio_incidentreadinessproof",
+  "factory_spec": "config/factory/specs/incidentreadinessproof.json",
+  "factory_fixture": "config/factory/golden/incidentreadinessproof/reference_case.json",
+  "corpus_registry": "config/incarnation_studio/corpus_registry.json",
+  "brand": {
+    "eyebrow": "DIO // INCIDENT READINESS",
+    "headline": "Know what your response plan can prove before the incident does.",
+    "subhead": "A governed readiness review that maps plans, roles, exercises and contact evidence—without pretending a dossier can guarantee recovery.",
+    "palette": {
+      "ink": "#07111f",
+      "navy": "#0d2138",
+      "cyan": "#29d3c2",
+      "amber": "#ffb547",
+      "paper": "#f5f1e8"
+    },
+    "voice": [
+      "direct",
+      "evidence-led",
+      "calm under pressure",
+      "no fear theatre"
+    ]
+  },
+  "offer": {
+    "name": "Incident Readiness Evidence Review",
+    "state": "controlled_internal_pilot",
+    "price_display": "Pilot pricing requires human confirmation",
+    "cta": "Prepare a controlled review",
+    "payment_enabled": false,
+    "external_delivery": false
+  },
+  "audience_hypothesis": {
+    "primary": "Operations, risk and programme leaders responsible for evidence-heavy incident readiness",
+    "pain": "Plans, role matrices, exercises and contact registers exist in different places and age at different speeds.",
+    "job": "Show me what is evidenced, stale, missing and human-dependent before I rely on the plan."
+  },
+  "requested_outputs": [
+    "responsive_marketfront",
+    "local_attachment_intake",
+    "positioning_brief",
+    "campaign_plan",
+    "media_creative_kit",
+    "sales_brochure_html",
+    "sales_brochure_docx",
+    "sales_brochure_pdf",
+    "outlook_draft",
+    "commercial_measurement_contract",
+    "presence_release_package",
+    "proof_manifest"
+  ],
+  "release": {
+    "human_gate": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  }
+}
