@@ -1,0 +1,42 @@
+name: DIO Phase 11.1 Vesper Attachment Delivery
+
+on:
+  push:
+    paths:
+      - "products/attachment_intake.py"
+      - "products/evidence_reconciliation.py"
+      - "products/phase11_1.py"
+      - "products/phase11_1_gauntlet.py"
+      - "products/paid_reference.py"
+      - "products/contractproof/runner.py"
+      - "products/contractproof/proof.py"
+      - "scripts/run_phase11_1.py"
+      - "scripts/serve_phase11_1.py"
+      - "scripts/publish_phase11_1_review.py"
+      - "dashboard/vesper-intake.html"
+      - "dashboard/vesper-intake.js"
+      - "tests/test_phase11_1.py"
+      - "tests/test_phase11_1_1.py"
+      - "tests/test_phase11_1_review_publisher.py"
+      - "config/portfolio/phase11_1.json"
+      - ".github/workflows/dio-phase11-1.yml"
+  pull_request:
+
+jobs:
+  phase11_1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install pytest jsonschema reportlab
+      - name: Compile Phase 11.1 sources
+        run: python -m py_compile products/attachment_intake.py products/evidence_reconciliation.py products/paid_reference.py products/contractproof/runner.py products/contractproof/proof.py products/phase11_1.py products/phase11_1_gauntlet.py scripts/run_phase11_1.py scripts/serve_phase11_1.py scripts/publish_phase11_1_review.py
+      - name: Validate Vesper storefront JavaScript
+        run: node --check dashboard/vesper-intake.js
+      - name: Run Phase 11.1 tests
+        run: pytest -q tests/test_phase11_1.py tests/test_phase11_1_1.py tests/test_phase11_1_review_publisher.py
+      - name: Emit acceptance receipt
+        run: python scripts/run_phase11_1.py --output /tmp/dio-phase11-1
