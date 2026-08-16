@@ -106,7 +106,16 @@ def _contract_source(intake: dict[str, Any], journey_id: str) -> dict[str, Any]:
             if party_match:
                 party = party_match.group(1).title()
             dates = re.findall(r"\b20\d{2}-\d{2}-\d{2}\b", part)
-            relative = re.search(r"\b(?:within|no later than)\s+([^.;]{1,80})", part, re.I)
+            relative = re.search(
+                r"\b(?:"
+                r"no later than\s+20\d{2}-\d{2}-\d{2}|"
+                r"within\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+"
+                r"(?:business\s+)?(?:hours?|days?|weeks?|months?|years?)(?:\s+after\s+[^.;,]+)?|"
+                r"every\s+(?:calendar\s+)?(?:day|week|month|quarter|year)"
+                r")",
+                part,
+                re.IGNORECASE,
+            )
             clause = {
                 "clause_id": str(index),
                 "text": part,
