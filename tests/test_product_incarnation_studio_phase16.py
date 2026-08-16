@@ -110,9 +110,13 @@ def test_incarnation_is_deterministic_and_hash_verified(tmp_path:Path)->None:
     verify_incarnation_proof(Path(a["output_dir"]),a["proof_manifest"])
 
 
-def test_tampering_and_authority_promotion_are_refused(built:dict)->None:
-    root=Path(built["output_dir"]);page=root/"marketfront/index.html";page.write_text(page.read_text()+"\nTAMPER")
+def test_tampering_and_authority_promotion_are_refused(built:dict,tmp_path:Path)->None:
+    source=Path(built["output_dir"]);root=tmp_path/"tamper-probe"
+    import shutil
+    shutil.copytree(source,root)
+    page=root/"marketfront/index.html";page.write_text(page.read_text()+"\nTAMPER")
     with pytest.raises(IncarnationStudioError,match="integrity failure"):verify_incarnation_proof(root,built["proof_manifest"])
+    verify_incarnation_proof(source,built["proof_manifest"])
     cfg=_load(ROOT/"config/incarnation_studio/incidentreadinessproof.json");attack=copy.deepcopy(cfg);attack["offer"]["payment_enabled"]=True
     with pytest.raises(IncarnationStudioError,match="exceeds Phase 16 authority"):validate_studio_config(attack)
 
@@ -127,6 +131,12 @@ def test_phase16_incarnation_gauntlet(tmp_path:Path)->None:
     assert receipt["responsive_marketfront"]=="PASS"
     assert receipt["document_studio_assets"]=="PASS"
     assert receipt["tamper_detection"]=="PASS"
+    assert receipt["canonical_output_integrity"]=="PASS"
+    canonical=tmp_path/"phase16"/"run-a"
+    proof=_load(canonical/"PROOF_MANIFEST.json")
+    verify_incarnation_proof(canonical,proof)
+    assert "TAMPER" not in (canonical/"marketfront/index.html").read_text()
+    assert not (tmp_path/"phase16"/"tamper-probe").exists()
     assert receipt["external_publication"]=="REFUSE"
     assert receipt["external_send"]=="REFUSE"
     assert receipt["media_spend"]=="REFUSE"
