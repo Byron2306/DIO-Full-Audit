@@ -101,13 +101,40 @@ def _measurement(cfg:dict[str,Any])->dict[str,Any]:
 
 
 def _docx(lines:list[str])->bytes:
-    body="".join(f"<w:p><w:r><w:t xml:space='preserve'>{xml_escape(str(x))}</w:t></w:r></w:p>" for x in lines)
-    document=f"<?xml version='1.0' encoding='UTF-8' standalone='yes'?><w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'><w:body>{body}<w:sectPr/></w:body></w:document>"
-    types="<?xml version='1.0' encoding='UTF-8'?><Types xmlns='http://schemas.openxmlformats.org/package/2006/content-types'><Default Extension='rels' ContentType='application/vnd.openxmlformats-package.relationships+xml'/><Default Extension='xml' ContentType='application/xml'/><Override PartName='/word/document.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'/></Types>"
+    def para(text:str,style:str)->str:
+        return f"<w:p><w:pPr><w:pStyle w:val='{style}'/></w:pPr><w:r><w:t xml:space='preserve'>{xml_escape(str(text))}</w:t></w:r></w:p>"
+    title,subtitle=lines[0],lines[1]
+    rows=[
+      ("THE REVIEW","Map response plans, named role owners, dated exercise records and contact-register currency."),
+      ("THE RESULT","A reviewable evidence dossier that keeps supported, stale, missing and human-dependent states separate."),
+      ("THE BOUNDARY","No certification, guaranteed recovery, compliance conclusion or automatic authority."),
+      ("THE NEXT STEP","Prepare a local intake draft. Pricing, fulfilment, delivery and publication require human confirmation.")
+    ]
+    body=para("DIO // INCIDENT READINESS","Eyebrow")+para(title,"Title")+para(subtitle,"Subtitle")
+    body+=para("CONTROLLED PILOT  |  HUMAN REVIEW REQUIRED  |  EXTERNAL RELEASE REFUSED","Gate")
+    body+=para("Know what exists. See what is stale. Preserve who decides.","Heading1")
+    for label,text in rows:
+        body+=para(label,"Heading2")+para(text,"Body")
+    body+=para("OUTPUT FAMILY","Heading2")+para("Evidence register  |  Gap register  |  Action boundary  |  Hash-bound proof manifest","Body")
+    body+=para("Prepare a controlled review","Callout")
+    document=f"""<?xml version='1.0' encoding='UTF-8' standalone='yes'?><w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'><w:body>{body}<w:sectPr><w:pgSz w:w='11906' w:h='16838'/><w:pgMar w:top='1000' w:right='1100' w:bottom='1000' w:left='1100'/></w:sectPr></w:body></w:document>"""
+    styles="""<?xml version='1.0' encoding='UTF-8' standalone='yes'?><w:styles xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'>
+<w:style w:type='paragraph' w:default='1' w:styleId='Normal'><w:name w:val='Normal'/><w:rPr><w:rFonts w:ascii='Arial' w:hAnsi='Arial'/><w:color w:val='182033'/><w:sz w:val='21'/></w:rPr><w:pPr><w:spacing w:after='150' w:line='290' w:lineRule='auto'/></w:pPr></w:style>
+<w:style w:type='paragraph' w:styleId='Eyebrow'><w:name w:val='Eyebrow'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:after='160'/></w:pPr><w:rPr><w:b/><w:color w:val='098B80'/><w:sz w:val='18'/><w:spacing w:val='22'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Title'><w:name w:val='Title'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:after='100'/></w:pPr><w:rPr><w:b/><w:color w:val='0D2138'/><w:sz w:val='42'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Subtitle'><w:name w:val='Subtitle'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:after='260'/></w:pPr><w:rPr><w:color w:val='536574'/><w:sz w:val='24'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Gate'><w:name w:val='Gate'/><w:basedOn w:val='Normal'/><w:pPr><w:shd w:val='clear' w:fill='FFF1D6'/><w:spacing w:before='100' w:after='260'/><w:ind w:left='160' w:right='160'/></w:pPr><w:rPr><w:b/><w:color w:val='8B4E00'/><w:sz w:val='17'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Heading1'><w:name w:val='Heading 1'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:before='120' w:after='180'/></w:pPr><w:rPr><w:b/><w:color w:val='0D2138'/><w:sz w:val='29'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Heading2'><w:name w:val='Heading 2'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:before='150' w:after='45'/></w:pPr><w:rPr><w:b/><w:color w:val='098B80'/><w:sz w:val='17'/><w:spacing w:val='16'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Body'><w:name w:val='Body'/><w:basedOn w:val='Normal'/></w:style>
+<w:style w:type='paragraph' w:styleId='Callout'><w:name w:val='Callout'/><w:basedOn w:val='Normal'/><w:pPr><w:shd w:val='clear' w:fill='0D2138'/><w:spacing w:before='260' w:after='0'/><w:ind w:left='180' w:right='180'/></w:pPr><w:rPr><w:b/><w:color w:val='FFFFFF'/><w:sz w:val='23'/></w:rPr></w:style>
+</w:styles>"""
+    types="<?xml version='1.0' encoding='UTF-8'?><Types xmlns='http://schemas.openxmlformats.org/package/2006/content-types'><Default Extension='rels' ContentType='application/vnd.openxmlformats-package.relationships+xml'/><Default Extension='xml' ContentType='application/xml'/><Override PartName='/word/document.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'/><Override PartName='/word/styles.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml'/></Types>"
     rels="<?xml version='1.0' encoding='UTF-8'?><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/></Relationships>"
+    docrels="<?xml version='1.0' encoding='UTF-8'?><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles' Target='styles.xml'/></Relationships>"
     out=BytesIO()
     with zipfile.ZipFile(out,"w",zipfile.ZIP_DEFLATED) as z:
-        for name,value in (("[Content_Types].xml",types),("_rels/.rels",rels),("word/document.xml",document)):
+        for name,value in (("[Content_Types].xml",types),("_rels/.rels",rels),("word/_rels/document.xml.rels",docrels),("word/document.xml",document),("word/styles.xml",styles)):
             info=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;z.writestr(info,value.encode())
     return out.getvalue()
 
@@ -116,17 +143,38 @@ def _pdf(lines:list[str])->bytes:
     from reportlab import rl_config
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
-    from reportlab.lib.styles import ParagraphStyle,getSampleStyleSheet
+    from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.units import mm
-    from reportlab.platypus import Paragraph,SimpleDocTemplate,Spacer
-    rl_config.invariant=1;out=BytesIO();styles=getSampleStyleSheet()
-    body=ParagraphStyle("body",parent=styles["BodyText"],fontSize=9,leading=13,textColor=colors.HexColor("#182033"))
-    h=ParagraphStyle("h",parent=styles["Heading1"],fontSize=22,leading=27,textColor=colors.HexColor("#0d2138"))
-    gate=ParagraphStyle("gate",parent=body,backColor=colors.HexColor("#fff1d6"),borderPadding=8,textColor=colors.HexColor("#8b4e00"))
-    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=19*mm,rightMargin=19*mm,topMargin=17*mm,bottomMargin=17*mm)
-    story=[Paragraph(html.escape(lines[0]),h),Paragraph(html.escape(lines[1]),body),Paragraph("CONTROLLED PILOT · HUMAN REVIEW REQUIRED · EXTERNAL RELEASE REFUSED",gate),Spacer(1,5*mm)]
-    for line in lines[2:]:story.append(Paragraph(html.escape(line),body));story.append(Spacer(1,2*mm))
-    doc.build(story);return out.getvalue()
+    from reportlab.platypus import Paragraph,SimpleDocTemplate,Spacer,Table,TableStyle
+    rl_config.invariant=1;out=BytesIO()
+    navy=colors.HexColor("#0d2138");cyan=colors.HexColor("#098b80");amber=colors.HexColor("#ffb547");ink=colors.HexColor("#182033")
+    eyebrow=ParagraphStyle("eyebrow",fontName="Helvetica-Bold",fontSize=8,leading=10,textColor=cyan,spaceAfter=7)
+    title=ParagraphStyle("title",fontName="Helvetica-Bold",fontSize=24,leading=28,textColor=navy,spaceAfter=7)
+    subtitle=ParagraphStyle("subtitle",fontName="Helvetica",fontSize=11,leading=16,textColor=colors.HexColor("#536574"),spaceAfter=15)
+    gate=ParagraphStyle("gate",fontName="Helvetica-Bold",fontSize=8,leading=11,textColor=colors.HexColor("#8b4e00"))
+    heading=ParagraphStyle("heading",fontName="Helvetica-Bold",fontSize=15,leading=18,textColor=navy,spaceBefore=12,spaceAfter=8)
+    label=ParagraphStyle("label",fontName="Helvetica-Bold",fontSize=7.5,leading=9,textColor=cyan,spaceAfter=3)
+    body=ParagraphStyle("body",fontName="Helvetica",fontSize=9.5,leading=14,textColor=ink)
+    cta=ParagraphStyle("cta",fontName="Helvetica-Bold",fontSize=11,leading=14,textColor=colors.white,alignment=1)
+    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=20*mm,rightMargin=20*mm,topMargin=17*mm,bottomMargin=16*mm,title=lines[0],author="DIO")
+    story=[Paragraph("DIO // INCIDENT READINESS",eyebrow),Paragraph(html.escape(lines[0]),title),Paragraph(html.escape(lines[1]).replace("—","-"),subtitle)]
+    gatebox=Table([[Paragraph("CONTROLLED PILOT  |  HUMAN REVIEW REQUIRED  |  EXTERNAL RELEASE REFUSED",gate)]],colWidths=[170*mm])
+    gatebox.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),colors.HexColor("#fff1d6")),("BOX",(0,0),(-1,-1),0.5,colors.HexColor("#ffdca3")),("LEFTPADDING",(0,0),(-1,-1),10),("RIGHTPADDING",(0,0),(-1,-1),10),("TOPPADDING",(0,0),(-1,-1),8),("BOTTOMPADDING",(0,0),(-1,-1),8)]))
+    story += [gatebox,Paragraph("Know what exists. See what is stale. Preserve who decides.",heading)]
+    rows=[
+      ("THE REVIEW","Map response plans, named role owners, dated exercise records and contact-register currency."),
+      ("THE RESULT","A reviewable evidence dossier that keeps supported, stale, missing and human-dependent states separate."),
+      ("THE BOUNDARY","No certification, guaranteed recovery, compliance conclusion or automatic authority."),
+      ("THE NEXT STEP","Prepare a local intake draft. Pricing, fulfilment, delivery and publication require human confirmation.")
+    ]
+    cards=[]
+    for lab,txt in rows:cards.append([Paragraph(lab,label),Paragraph(txt,body)])
+    table=Table(cards,colWidths=[30*mm,140*mm],hAlign="LEFT")
+    table.setStyle(TableStyle([("VALIGN",(0,0),(-1,-1),"TOP"),("LINEBELOW",(0,0),(-1,-2),0.35,colors.HexColor("#d8e2e4")),("LEFTPADDING",(0,0),(-1,-1),0),("RIGHTPADDING",(0,0),(0,-1),8),("RIGHTPADDING",(1,0),(1,-1),0),("TOPPADDING",(0,0),(-1,-1),8),("BOTTOMPADDING",(0,0),(-1,-1),8)]))
+    story += [table,Spacer(1,4*mm),Paragraph("OUTPUT FAMILY",label),Paragraph("Evidence register  |  Gap register  |  Action boundary  |  Hash-bound proof manifest",body),Spacer(1,7*mm)]
+    ctabox=Table([[Paragraph("Prepare a controlled review",cta)]],colWidths=[170*mm])
+    ctabox.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,-1),navy),("TOPPADDING",(0,0),(-1,-1),10),("BOTTOMPADDING",(0,0),(-1,-1),10)]))
+    story.append(ctabox);doc.build(story);return out.getvalue()
 
 
 def _site(cfg:dict[str,Any])->tuple[str,str,str]:
@@ -178,7 +226,7 @@ def build_product_incarnation(*,output_dir:Path,root:Path=ROOT,now:str="2026-08-
       "operations/EVIDEX_CAMPAIGN_PROOF.json":evidence,"operations/CORPUS_BINDING_RECEIPT.json":{"schema":"dio.corpus_binding_receipt.v1","bound_at":now,"bindings":bindings}}
     for rel,value in text_files.items():path=output_dir/rel;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(value,encoding="utf-8")
     for rel,value in json_files.items():_write_json(output_dir/rel,value)
-    lines=[cfg["offer"]["name"],cfg["brand"]["subhead"],"What it maps: response plans, role ownership, exercise evidence and contact currency.","What remains visible: missing evidence, stale evidence and consequential human decisions.","What it does not claim: certification, guaranteed recovery, compliance or automatic authority.","Output: a multi-format, hash-bound readiness evidence dossier.","Pilot boundary: pricing, fulfilment, delivery and publication require explicit human confirmation."]
+    lines=[cfg["offer"]["name"],cfg["brand"]["subhead"]]
     (output_dir/"sales/PRODUCT_BRIEF.docx").write_bytes(_docx(lines));(output_dir/"sales/PRODUCT_BRIEF.pdf").write_bytes(_pdf(lines))
     artifacts=[]
     for path in sorted(p for p in output_dir.rglob("*") if p.is_file() and p.name not in {"PROOF_MANIFEST.json","INCARNATION_STUDIO_RECEIPT.json"}):
