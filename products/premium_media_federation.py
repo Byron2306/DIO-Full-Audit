@@ -72,6 +72,16 @@ def _voicebox_ready()->bool:
       for row in profiles if isinstance(row,dict))
 
 
+def _kokoro_ready(command:Path,wrapper:Path)->bool:
+    if not command.is_file() or not wrapper.is_file():return False
+    try:
+        probe=subprocess.run(
+          [str(command),"-c","import numpy, soundfile; from kokoro import KPipeline"],
+          text=True,capture_output=True,timeout=30,check=False)
+    except (OSError,subprocess.TimeoutExpired):return False
+    return probe.returncode==0
+
+
 def _resolve_premium_provider(niche_root:Path,requested:str,episode_dir:Path)->str:
     if requested in {"espeak","flite"}:raise PremiumMediaError("robotic reference voices are forbidden by the premium gate")
     if requested!="auto":
@@ -82,7 +92,7 @@ def _resolve_premium_provider(niche_root:Path,requested:str,episode_dir:Path)->s
     if _voicebox_ready():return "voicebox"
     kokoro_command=Path(os.environ.get("KOKORO_COMMAND",niche_root/".venv-kokoro/bin/python"))
     kokoro_wrapper=Path(os.environ.get("KOKORO_WRAPPER",niche_root/"scripts/kokoro_synthesize.py"))
-    if kokoro_command.is_file() and kokoro_wrapper.is_file():return "kokoro"
+    if _kokoro_ready(kokoro_command,kokoro_wrapper):return "kokoro"
     piper_bin=os.environ.get("PIPER_BIN") or str(niche_root/"tools/piper/piper")
     piper_model_name=os.environ.get("PIPER_MODEL_NAME","en_US-lessac-high")
     piper_model_dir=Path(os.environ.get("PIPER_MODEL_DIR",niche_root/f"assets/piper/{piper_model_name}"))
@@ -94,8 +104,9 @@ def _resolve_premium_provider(niche_root:Path,requested:str,episode_dir:Path)->s
     openvoice_reference=Path(os.environ.get("OPENVOICE_REFERENCE_AUDIO",niche_root/"assets/voices/elevenlabs_curator/reference.wav"))
     if openvoice_command.is_file() and openvoice_wrapper.is_file() and openvoice_reference.is_file():return "openvoice"
     stale=" VOICEBOX_PROFILE is configured, but its backend/profile is unreachable." if os.environ.get("VOICEBOX_PROFILE") else ""
+    broken_kokoro=" Kokoro exists, but its import preflight failed; rerun NicheFoundry scripts/install_kokoro.sh." if kokoro_command.is_file() else ""
     raise PremiumMediaError(
-      "no runnable premium narration provider was found."+stale+
+      "no runnable premium narration provider was found."+stale+broken_kokoro+
       " Start Voicebox, install NicheFoundry Kokoro/Piper, configure ElevenLabs/OpenVoice, or supply cleared imported narration; eSpeak/Flite remain refused.")
 
 
