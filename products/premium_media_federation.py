@@ -5,6 +5,8 @@ import json
 import os
 import shutil
 import subprocess
+import urllib.error
+import urllib.request
 from pathlib import Path
 from typing import Any
 
@@ -56,6 +58,47 @@ def resolve_nichefoundry_root(value:Path|None)->Path:
     raise PremiumMediaError("real NicheFoundry checkout not found; set DIO_NICHEFOUNDRY_ROOT")
 
 
+def _voicebox_ready()->bool:
+    profile=os.environ.get("VOICEBOX_PROFILE","").strip()
+    if not profile:return False
+    base=os.environ.get("VOICEBOX_API_URL","http://127.0.0.1:17493").rstrip("/")
+    try:
+        with urllib.request.urlopen(f"{base}/profiles",timeout=2.0) as response:
+            if response.status!=200:return False
+            profiles=json.loads(response.read().decode("utf-8"))
+    except (OSError,ValueError,urllib.error.URLError,json.JSONDecodeError):return False
+    return isinstance(profiles,list) and any(
+      str(row.get("id") or "")==profile or str(row.get("name") or "").lower()==profile.lower()
+      for row in profiles if isinstance(row,dict))
+
+
+def _resolve_premium_provider(niche_root:Path,requested:str,episode_dir:Path)->str:
+    if requested in {"espeak","flite"}:raise PremiumMediaError("robotic reference voices are forbidden by the premium gate")
+    if requested!="auto":
+        if requested not in PREMIUM_PROVIDERS:raise PremiumMediaError(f"unsupported premium provider: {requested}")
+        return requested
+    imports=episode_dir/"imports/audio"
+    if imports.is_dir() and any(path.suffix.lower() in {".wav",".mp3",".m4a",".ogg"} for path in imports.iterdir()):return "imported"
+    if _voicebox_ready():return "voicebox"
+    kokoro_command=Path(os.environ.get("KOKORO_COMMAND",niche_root/".venv-kokoro/bin/python"))
+    kokoro_wrapper=Path(os.environ.get("KOKORO_WRAPPER",niche_root/"scripts/kokoro_synthesize.py"))
+    if kokoro_command.is_file() and kokoro_wrapper.is_file():return "kokoro"
+    piper_bin=os.environ.get("PIPER_BIN") or str(niche_root/"tools/piper/piper")
+    piper_model_name=os.environ.get("PIPER_MODEL_NAME","en_US-lessac-high")
+    piper_model_dir=Path(os.environ.get("PIPER_MODEL_DIR",niche_root/f"assets/piper/{piper_model_name}"))
+    piper_available=bool(shutil.which(piper_bin)) or Path(piper_bin).is_file()
+    if piper_available and (piper_model_dir/f"{piper_model_name}.onnx").is_file() and (piper_model_dir/f"{piper_model_name}.onnx.json").is_file():return "piper"
+    if os.environ.get("ELEVENLABS_API_KEY") and os.environ.get("ELEVENLABS_VOICE_ID"):return "elevenlabs"
+    openvoice_command=Path(os.environ.get("OPENVOICE_COMMAND",niche_root/".venv-openvoice/bin/python"))
+    openvoice_wrapper=Path(os.environ.get("OPENVOICE_WRAPPER",niche_root/"scripts/openvoice_convert.py"))
+    openvoice_reference=Path(os.environ.get("OPENVOICE_REFERENCE_AUDIO",niche_root/"assets/voices/elevenlabs_curator/reference.wav"))
+    if openvoice_command.is_file() and openvoice_wrapper.is_file() and openvoice_reference.is_file():return "openvoice"
+    stale=" VOICEBOX_PROFILE is configured, but its backend/profile is unreachable." if os.environ.get("VOICEBOX_PROFILE") else ""
+    raise PremiumMediaError(
+      "no runnable premium narration provider was found."+stale+
+      " Start Voicebox, install NicheFoundry Kokoro/Piper, configure ElevenLabs/OpenVoice, or supply cleared imported narration; eSpeak/Flite remain refused.")
+
+
 def _script_package()->dict[str,Any]:
     rows=[
       ("The plan exists","Your incident response plan may exist. Your role matrix may exist. Your exercise records may exist. But that does not mean the evidence agrees."),
@@ -91,12 +134,11 @@ def _probe_audio(path:Path,ffprobe:str)->dict[str,Any]:
 
 
 def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,Any]:
-    if provider in {"espeak","flite"}:raise PremiumMediaError("robotic reference voices are forbidden by the premium gate")
-    if provider not in PREMIUM_PROVIDERS|{"auto"}:raise PremiumMediaError(f"unsupported premium provider: {provider}")
     node=shutil.which("node")
     if not node:raise PremiumMediaError("Node.js is required for real NicheFoundry execution")
     _prepare_episode(niche_root,episode_dir)
-    command=[node,str(niche_root/"scripts/build_audio_performance.js"),str(episode_dir),"--provider",provider,"--force"]
+    selected_provider=_resolve_premium_provider(niche_root,provider,episode_dir)
+    command=[node,str(niche_root/"scripts/build_audio_performance.js"),str(episode_dir),"--provider",selected_provider,"--force"]
     completed=_run(command,cwd=niche_root,env=dict(os.environ))
     required=["host_profile.json","pronunciation_lexicon.json","audio_performance_plan.json","sound_design_plan.json",
       "audio_preflight_report.json","audio_manifest.json","audio_asset_hashes.json","loudness_report.json","audio_performance_report.json"]
@@ -180,4 +222,3 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     receipt["premium_media_fingerprint"]=_fingerprint(receipt);_write(output_dir/"PREMIUM_MEDIA_RECEIPT.json",receipt)
     verify_premium_proof(output_dir,proof)
     return {"receipt":receipt,"proof_manifest":proof,"census":census,"nichefoundry":niche,"base":base,"output_dir":str(output_dir)}
-
