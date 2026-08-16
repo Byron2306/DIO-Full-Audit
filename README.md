@@ -112,6 +112,8 @@ AI & Digital Trust
 Regulated Markets
         ↓
 Self-expanding Product Factory
+        ↓
+Product Incarnation Studio
 ```
 
 A product manifest declares what a product needs. The compiler resolves its capabilities and profiles, identifies missing or ambiguous providers, and emits deterministic composition fingerprints. A valid composition may become executable only through a bounded product executor, and even then execution remains human-initiated.
@@ -122,7 +124,7 @@ The result is not “AI that can do anything.” It is a factory that can state 
 
 ## Current Build State
 
-The fifteen-phase portfolio programme now reaches **Phase 15**.
+The original fifteen-phase portfolio programme is complete; the expansion programme now reaches **Phase 16**.
 
 | Phase | Capability | State | Acceptance receipt |
 |---:|---|---|---|
@@ -142,6 +144,7 @@ The fifteen-phase portfolio programme now reaches **Phase 15**.
 | 13 | AI & Digital Trust | Complete | `DIO_AI_DIGITAL_TRUST_READY` |
 | 14 | Regulated Markets | Complete | `DIO_REGULATED_MARKETS_READY` |
 | 15 | Self-expanding Product Factory | Complete | `DIO_SELF_EXPANDING_PRODUCT_FACTORY_READY` |
+| 16 | Product Incarnation Studio | Complete | `DIO_PRODUCT_INCARNATION_STUDIO_READY` |
 
 “Complete” means the phase-specific acceptance and inherited regression gates pass. It does not silently mean external validation, legal approval, market success or autonomous authority.
 
@@ -165,6 +168,16 @@ A closed declarative specification can now generate:
 The reference specification generates **DIO IncidentReadinessProof** inside an isolated materialised repository. The ordinary Product Compiler compiles it; no special compiler bypass exists. The final gauntlet verifies deterministic materialisation and execution, source/hash custody, registry integrity, artifact integrity, input immutability, tamper detection, path confinement, unearned-capability refusal, maturity ceilings and external-release refusal.
 
 Self-expanding does not mean self-authorising. Every generated product begins at `internal_proof`, retains `NEEDS_YOU`, and refuses external effects and release.
+
+---
+
+## Product Incarnation Studio
+
+Phase 16 turns a generated internal product into a complete marketfront package. The reference run binds Evidex, HOMS, Sophia, Document Studio, NicheFoundry, Market Command, Vesper, Outlook Mail Core, Presence Core and Commercial Truth through explicit capability providers.
+
+It generates a responsive static site, local-only attachment intake, positioning and campaign strategy, advertising copy and video storyboard, professional DOCX/PDF/HTML sales assets, claim review, customer education, fulfilment and mail drafts, presence deployment preparation, measurement contracts and a hash-bound proof manifest.
+
+Corpus binding is not reported as live adapter execution. Publication, sending, media spend, payment and external delivery remain `REFUSE`.
 
 ---
 
@@ -305,6 +318,7 @@ python scripts/run_profile_expansion_phase12.py --output /tmp/dio-phase12
 python scripts/run_ai_digital_trust_phase13.py --output /tmp/dio-phase13
 python scripts/run_regulated_markets_phase14.py --output /tmp/dio-phase14
 python scripts/run_self_expanding_product_factory_phase15.py --output /tmp/dio-phase15
+python scripts/run_product_incarnation_studio_phase16.py --output /tmp/dio-phase16
 ```
 
 Focused tests:
@@ -324,7 +338,8 @@ python -m pytest -q \
   tests/test_profile_expansion_phase12.py \
   tests/test_ai_digital_trust_phase13.py \
   tests/test_regulated_markets_phase14.py \
-  tests/test_self_expanding_product_factory_phase15.py
+  tests/test_self_expanding_product_factory_phase15.py \
+  tests/test_product_incarnation_studio_phase16.py
 ```
 
 ---
