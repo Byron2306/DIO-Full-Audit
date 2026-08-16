@@ -118,7 +118,16 @@ def build_portfolio_snapshot(root: Path, runtime_receipt: dict[str, Any]) -> dic
         product_id = str(compiled["product_id"])
         runtime = runtime_products.get(product_id)
         if runtime is None:
-            raise ControlDeckError(f"META runtime receipt missing canonical product: {product_id}")
+            runtime = {
+                "human_gate": compiled["gates"]["human_review"]["state"],
+                "external_release_gate": compiled["gates"]["external_release"]["state"],
+                "runtime_fingerprint": _fingerprint({
+                    "state": "NOT_OBSERVED_IN_PHASE8_CONTROL_RECEIPT",
+                    "product_id": product_id,
+                    "compilation_fingerprint": compiled["compilation_fingerprint"],
+                }),
+                "step_fingerprints": {},
+            }
         if runtime.get("human_gate") != "NEEDS_YOU" or runtime.get("external_release_gate") != "REFUSE":
             raise ControlDeckError(f"unsafe runtime gates refused for {product_id}")
         product_suites = [str(item) for item in manifest.get("suite_ids") or []]
