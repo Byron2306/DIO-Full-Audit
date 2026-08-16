@@ -105,7 +105,13 @@ Commercial Truth
         ↓
 Paid Reference Products
         ↓
-Profile-driven expansion
+Profile-driven Expansion
+        ↓
+AI & Digital Trust
+        ↓
+Regulated Markets
+        ↓
+Self-expanding Product Factory
 ```
 
 A product manifest declares what a product needs. The compiler resolves its capabilities and profiles, identifies missing or ambiguous providers, and emits deterministic composition fingerprints. A valid composition may become executable only through a bounded product executor, and even then execution remains human-initiated.
@@ -116,7 +122,7 @@ The result is not “AI that can do anything.” It is a factory that can state 
 
 ## Current Build State
 
-The phased portfolio programme currently reaches **Phase 11**.
+The fifteen-phase portfolio programme now reaches **Phase 15**.
 
 | Phase | Capability | State | Acceptance receipt |
 |---:|---|---|---|
@@ -132,12 +138,33 @@ The phased portfolio programme currently reaches **Phase 11**.
 | 9 | GoldenEye Control Deck Portfolio OS | Complete | `DIO_CONTROL_DECK_PORTFOLIO_OS_READY` |
 | 10 | Commercial Truth Layer | Complete | `DIO_COMMERCIAL_TRUTH_LAYER_READY` |
 | 11 | Paid Reference Products | Complete | `DIO_PAID_REFERENCE_PRODUCTS_READY` |
-| 12 | Profile-driven Expansion | Planned | New products must emerge primarily from configuration |
-| 13 | AI & Digital Trust | Planned | Trust, provenance and AI-governance product family |
-| 14 | Regulated Markets | Planned | Profession- and jurisdiction-aware bounded products |
-| 15 | Self-expanding Product Factory | Planned | Governed discovery and compilation of new product candidates |
+| 12 | Profile-driven Expansion | Complete | `DIO_PROFILE_DRIVEN_EXPANSION_READY` |
+| 13 | AI & Digital Trust | Complete | `DIO_AI_DIGITAL_TRUST_READY` |
+| 14 | Regulated Markets | Complete | `DIO_REGULATED_MARKETS_READY` |
+| 15 | Self-expanding Product Factory | Complete | `DIO_SELF_EXPANDING_PRODUCT_FACTORY_READY` |
 
 “Complete” means the phase-specific acceptance and inherited regression gates pass. It does not silently mean external validation, legal approval, market success or autonomous authority.
+
+---
+
+## The Self-expanding Factory
+
+Phase 15 closes the original programme by turning product expansion itself into a governed, proof-carrying operation.
+
+A closed declarative specification can now generate:
+
+- four product-specific source-bound profiles;
+- bindings to the existing connector and commercial profiles;
+- an ordinary canonical product manifest;
+- exact-scope capability and executor registrations;
+- a generated validation contract;
+- a GoldenEye registration projection;
+- deterministic JSON, HTML, DOCX and PDF outputs;
+- proof manifests and execution receipts.
+
+The reference specification generates **DIO IncidentReadinessProof** inside an isolated materialised repository. The ordinary Product Compiler compiles it; no special compiler bypass exists. The final gauntlet verifies deterministic materialisation and execution, source/hash custody, registry integrity, artifact integrity, input immutability, tamper detection, path confinement, unearned-capability refusal, maturity ceilings and external-release refusal.
+
+Self-expanding does not mean self-authorising. Every generated product begins at `internal_proof`, retains `NEEDS_YOU`, and refuses external effects and release.
 
 ---
 
@@ -274,6 +301,10 @@ python scripts/run_meta_runtime_phase8.py --output /tmp/dio-phase8
 python scripts/run_control_deck_phase9.py --output /tmp/dio-phase9
 python scripts/run_commercial_truth_phase10.py --output /tmp/dio-phase10
 python scripts/run_paid_reference_phase11.py --output /tmp/dio-phase11
+python scripts/run_profile_expansion_phase12.py --output /tmp/dio-phase12
+python scripts/run_ai_digital_trust_phase13.py --output /tmp/dio-phase13
+python scripts/run_regulated_markets_phase14.py --output /tmp/dio-phase14
+python scripts/run_self_expanding_product_factory_phase15.py --output /tmp/dio-phase15
 ```
 
 Focused tests:
@@ -289,7 +320,11 @@ python -m pytest -q \
   tests/test_meta_runtime_phase8.py \
   tests/test_control_deck_phase9.py \
   tests/test_commercial_truth_phase10.py \
-  tests/test_paid_reference_phase11.py
+  tests/test_paid_reference_phase11.py \
+  tests/test_profile_expansion_phase12.py \
+  tests/test_ai_digital_trust_phase13.py \
+  tests/test_regulated_markets_phase14.py \
+  tests/test_self_expanding_product_factory_phase15.py
 ```
 
 ---
