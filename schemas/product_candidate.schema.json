@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio-workflows.local/schemas/product_candidate.schema.json",
+  "title": "DIO Product Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "candidate_id",
+    "product_id",
+    "name",
+    "state",
+    "created_at",
+    "source_signals",
+    "audience",
+    "pain",
+    "offer",
+    "proof",
+    "incarnation",
+    "campaign",
+    "marketfront",
+    "fulfilment_route",
+    "approval",
+    "commercial_metrics",
+    "decision"
+  ],
+  "properties": {
+    "schema": {"const": "dio.product_candidate.v1"},
+    "candidate_id": {"type": "string", "pattern": "^PC-[A-Z0-9][A-Z0-9._-]{6,80}$"},
+    "product_id": {"type": "string", "minLength": 3, "maxLength": 120},
+    "name": {"type": "string", "minLength": 3, "maxLength": 180},
+    "state": {"enum": ["candidate", "incarnated", "pilot_ready", "campaign_active", "commercial", "repeatable", "revised", "killed"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "source_signals": {"type": "array", "items": {"type": "object"}},
+    "audience": {"type": "object"},
+    "pain": {"type": "string", "maxLength": 1200},
+    "offer": {"type": "object"},
+    "proof": {
+      "type": "object",
+      "required": ["claim_ceiling", "manifest_path", "unsupported_inferences"],
+      "properties": {
+        "claim_ceiling": {"enum": ["HYPOTHESIS", "CONTROLLED_PROOF", "OBSERVED_MARKET", "PAID_MARKET", "REPEATABLE"]},
+        "manifest_path": {"type": "string"},
+        "unsupported_inferences": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "incarnation": {
+      "type": "object",
+      "required": ["receipt_path", "fingerprint", "artifact_integrity", "human_gate"],
+      "properties": {
+        "receipt_path": {"type": "string"},
+        "source_archive": {"type": "string"},
+        "fingerprint": {"type": "string"},
+        "artifact_integrity": {"type": "string"},
+        "human_gate": {"type": "string"},
+        "artifact_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "campaign": {"type": "object"},
+    "marketfront": {"type": "object"},
+    "fulfilment_route": {"type": "object"},
+    "approval": {
+      "type": "object",
+      "required": ["state", "release_boundary"],
+      "properties": {
+        "state": {"enum": ["draft", "needs_operator", "approved", "rejected"]},
+        "release_boundary": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "commercial_metrics": {"type": "object"},
+    "decision": {
+      "type": "object",
+      "required": ["state", "reason"],
+      "properties": {
+        "state": {"enum": ["candidate", "pilot", "promote", "revise", "kill"]},
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  }
+}

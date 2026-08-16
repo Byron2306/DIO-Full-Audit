@@ -1,0 +1,73 @@
+{
+  "schema": "dio.product_genesis_policy.v1",
+  "status": "active_control_policy",
+  "principle": "DIO may discover, score, draft, scaffold and stage product candidates from market evidence, but it may not spend money, send outreach, publish campaigns, process sensitive source files or deliver final work without the relevant operator gate.",
+  "allowed_automatic_actions": [
+    "market_signal_ingestion",
+    "opportunity_clustering",
+    "candidate_offer_drafting",
+    "product_page_scaffold_drafting",
+    "campaign_copy_drafting",
+    "creative_brief_generation",
+    "local_demo_fixture_generation",
+    "lead_to_route_promotion_for_qualified_leads",
+    "missing_input_mail_intent_preparation",
+    "economics_projection",
+    "repeatability_scoring"
+  ],
+  "operator_gated_actions": [
+    "public_site_publish",
+    "public_campaign_release",
+    "direct_prospect_outreach",
+    "ad_spend_activation",
+    "payment_request_issue",
+    "remote_model_processing_of_client_source_files",
+    "output_delivery_send",
+    "product_promotion_to_commercial_catalog",
+    "product_kill_or_reposition_decision"
+  ],
+  "product_genesis_loop": [
+    "observe_market_need",
+    "form_candidate_product_hypothesis",
+    "bind_target_audience_and_pain",
+    "draft_offer_contract",
+    "generate_golden_proof_or_demo",
+    "produce_campaign_assets",
+    "stage_public_intake_route",
+    "capture_leads",
+    "promote_qualified_leads_to_product_routes",
+    "verify_payment_or_controlled_terms",
+    "run_engine_or_prepare_missing_input_request",
+    "human_review",
+    "governed_delivery",
+    "measure_revenue_time_revisions_and_conversion",
+    "promote_revise_or_kill"
+  ],
+  "evidence_thresholds": {
+    "candidate": {
+      "minimum_market_signals": 3,
+      "requires_operator_approval": false
+    },
+    "scaffolded": {
+      "minimum_offer_contract": true,
+      "minimum_demo_artifact": true,
+      "requires_operator_approval": false
+    },
+    "pilot_ready": {
+      "minimum_golden_proof": true,
+      "minimum_public_intake": true,
+      "requires_operator_approval": true
+    },
+    "commercial": {
+      "minimum_paid_orders": 1,
+      "complete_delivery_receipt": true,
+      "requires_operator_approval": true
+    },
+    "repeatable": {
+      "minimum_paid_orders": 3,
+      "minimum_campaign_periods": 2,
+      "positive_contribution_required": true,
+      "requires_operator_approval": true
+    }
+  }
+}

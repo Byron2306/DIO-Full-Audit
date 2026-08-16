@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio-workflows.local/schemas/document_studio_commercial_request.schema.json",
+  "title": "DIO Document Studio commercial request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["job_id", "customer", "service", "title", "document_path", "source_language", "consents"],
+  "properties": {
+    "job_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$"},
+    "customer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "email"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 160},
+        "email": {"type": "string", "format": "email", "maxLength": 254},
+        "organization": {"type": ["string", "null"], "maxLength": 240}
+      }
+    },
+    "service": {"enum": ["technical_edit", "translation", "edit_and_translate"]},
+    "title": {"type": "string", "minLength": 1, "maxLength": 240},
+    "document_path": {"type": "string", "minLength": 1},
+    "source_language": {"type": "string", "minLength": 1},
+    "target_language": {"type": ["string", "null"]},
+    "document_domain": {"type": "string", "minLength": 1, "maxLength": 160, "default": "professional document"},
+    "audience": {"type": "string", "minLength": 1, "maxLength": 160, "default": "professional reader"},
+    "provider": {"type": "string", "enum": ["nim", "nvidia", "nvidia_nim", "gemini", "google_gemini"], "default": "nim"},
+    "nim_model": {"type": "string", "maxLength": 160},
+    "gemini_model": {"type": "string", "maxLength": 160},
+    "provider_secret_file": {"type": "string", "maxLength": 500},
+    "protected_tokens": {"type": "array", "items": {"type": "string"}, "default": []},
+    "preferred_terms": {"type": "array", "items": {"type": "object"}, "default": []},
+    "format_channels": {"type": "array", "items": {"enum": ["docx", "pdf", "html"]}, "default": ["docx", "pdf", "html"]},
+    "format_style_profile": {"type": "string", "maxLength": 120},
+    "format_delivery_profile": {"type": "string", "maxLength": 120},
+    "translation_review_overrides": {"type": "object"},
+    "translation_override_reviewer": {"type": "string", "maxLength": 160},
+    "consents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_owner_authorized",
+        "remote_processing_approved",
+        "human_review_required",
+        "certified_translation_not_requested"
+      ],
+      "properties": {
+        "document_owner_authorized": {"const": true},
+        "remote_processing_approved": {"const": true},
+        "human_review_required": {"const": true},
+        "certified_translation_not_requested": {"const": true}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"service": {"enum": ["translation", "edit_and_translate"]}}},
+      "then": {"required": ["target_language"]}
+    }
+  ]
+}

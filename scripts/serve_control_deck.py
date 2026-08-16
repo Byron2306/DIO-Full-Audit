@@ -54,12 +54,26 @@ from scripts.manage_vamp_commercial import (
     reconcile_payment as reconcile_vamp_payment,
     run_job as run_vamp_job,
 )
+from scripts.manage_document_studio_commercial import (
+    DEFAULT_EDGE_CONFIG as DOCUMENT_EDGE_CONFIG,
+    DEFAULT_EVENT_LOG as DOCUMENT_EVENT_LOG,
+    DEFAULT_JOB_ROOT as DOCUMENT_JOB_ROOT,
+    DEFAULT_OUTPUT_ROOT as DOCUMENT_OUTPUT_ROOT,
+    approve_job as approve_document_job,
+    load_job as load_document_job,
+    prepare_delivery as prepare_document_delivery,
+    quote_job as quote_document_job,
+    reconcile_payment as reconcile_document_payment,
+    run_job as run_document_job,
+)
 from scripts.sync_outlook_mail import DEFAULT_RECEIPT_DIR, GraphClient, create_outlook_draft, load_config, send_outlook_draft
 from scripts.manage_video_release import approve_review as approve_video_review, release_public as release_public_video, upload_private as upload_private_video
 from scripts.manage_prospect_outreach import prepare_outlook_draft as prepare_prospect_draft, upgrade_outlook_draft as upgrade_prospect_draft
+from scripts.promote_lead_to_product_job import promote_lead
 from market_command.catalog import load_json as load_market_json
 from market_command.core import MarketStore
 from scripts.build_multichannel_campaign_factory import build as build_creative_factory, promote_family
+from scripts.run_nichefoundry_media_pipeline import run_media_pipeline
 
 
 POLICY_PATH = ROOT / "state" / "control_policy.json"
@@ -186,6 +200,39 @@ def operate_vamp(payload: dict[str, Any]) -> dict[str, Any]:
         result = create_outlook_draft(graph, ROOT / "state" / "mail_intents", VAMP_EVENT_LOG, mail_intent_id)
     else:
         raise ValueError("Unknown VAMP operator action.")
+    return {"status": "completed", "action": action, "result": result}
+
+
+def operate_document_studio(payload: dict[str, Any]) -> dict[str, Any]:
+    job_id = str(payload.get("job_id") or "")
+    action = str(payload.get("action") or "")
+    if action == "quote":
+        require_policy("invoice_authority", "issue", "Invoice issuance")
+        result = quote_document_job(DOCUMENT_JOB_ROOT, job_id, edge_config_for_policy(), DOCUMENT_EVENT_LOG)
+    elif action == "reconcile-payment":
+        result = reconcile_document_payment(DOCUMENT_JOB_ROOT, job_id, edge_config_for_policy(), DOCUMENT_EVENT_LOG)
+    elif action == "run":
+        require_policy("automation", "running", "Document Studio automation")
+        require_policy("data_processing", "process", "Document Studio processing")
+        result = run_document_job(DOCUMENT_JOB_ROOT, job_id, DOCUMENT_OUTPUT_ROOT, DOCUMENT_EVENT_LOG)
+    elif action == "approve":
+        if payload.get("confirmed") is not True:
+            raise ValueError("Document Studio approval requires explicit operator confirmation.")
+        result = approve_document_job(DOCUMENT_JOB_ROOT, job_id, "DIO operator via control deck", DOCUMENT_EVENT_LOG)
+    elif action == "prepare-delivery":
+        require_policy("fulfilment_release", "release", "Document Studio fulfilment")
+        result = prepare_document_delivery(DOCUMENT_JOB_ROOT, job_id, DOCUMENT_EVENT_LOG)
+    elif action == "outlook-draft":
+        require_policy("outbound_mail", "on", "Outlook draft creation")
+        _, job = load_document_job(DOCUMENT_JOB_ROOT, job_id)
+        mail_intent_id = (job.get("delivery") or {}).get("mail_intent_id")
+        if not mail_intent_id:
+            raise ValueError("Prepare the Document Studio delivery intent before creating an Outlook draft.")
+        graph = GraphClient(load_config(ROOT / "config" / "microsoft_graph.local.json"))
+        graph.acquire_token(interactive=False)
+        result = create_outlook_draft(graph, ROOT / "state" / "mail_intents", DOCUMENT_EVENT_LOG, mail_intent_id)
+    else:
+        raise ValueError("Unknown Document Studio operator action.")
     return {"status": "completed", "action": action, "result": result}
 
 
@@ -327,6 +374,9 @@ def operate_creative_factory(payload: dict[str, Any]) -> dict[str, Any]:
     if action == "refresh":
         result = build_creative_factory(render_reels=False)
         return {"status": "completed", "action": action, "result": result}
+    if action == "media-pipeline":
+        result = run_media_pipeline(family_id=str(payload.get("family_id") or ""), render_reel=True)
+        return {"status": "completed", "action": action, "result": result}
     if action == "promote":
         return promote_family(str(payload.get("family_id") or ""), str(payload.get("channel_id") or ""))
     raise ValueError("Unsupported Creative Factory action.")
@@ -335,13 +385,17 @@ def operate_creative_factory(payload: dict[str, Any]) -> dict[str, Any]:
 def operate_lead(payload: dict[str, Any]) -> dict[str, Any]:
     lead_id = str(payload.get("lead_id") or "").upper()
     action = str(payload.get("action") or "")
-    if action not in {"qualify", "reject", "close"} or payload.get("confirmed") is not True:
+    if action not in {"qualify", "reject", "close", "promote-to-job"} or payload.get("confirmed") is not True:
         raise ValueError("Lead decisions require explicit operator confirmation.")
     if not lead_id.replace("-", "").isalnum():
         raise ValueError("Invalid lead id.")
     path = ROOT / "state" / "leads" / f"{lead_id}.json"
     if not path.exists():
         raise ValueError("Lead does not exist.")
+    if action == "promote-to-job":
+        require_policy("lead_capture", "accept", "Lead-to-product promotion")
+        result = promote_lead(lead_id, controlled=bool(payload.get("controlled")))
+        return {"status": "completed", "action": action, "result": result}
     lead = read_json(path)
     if action == "qualify":
         require_policy("lead_capture", "accept", "Lead qualification")
@@ -571,7 +625,7 @@ class ControlDeckHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:
         route = urlsplit(self.path).path
-        if route not in {"/api/control/policy", "/api/control/transaction/action", "/api/control/sophia/action", "/api/control/vamp/action", "/api/control/product/action", "/api/control/campaign/action", "/api/control/market-campaign/action", "/api/control/market-command/action", "/api/control/creative-factory/action", "/api/control/lead/action", "/api/control/mail/action", "/api/control/video/action", "/api/control/prospect/action", "/api/control/lingua/action"}:
+        if route not in {"/api/control/policy", "/api/control/transaction/action", "/api/control/sophia/action", "/api/control/vamp/action", "/api/control/document-studio/action", "/api/control/product/action", "/api/control/campaign/action", "/api/control/market-campaign/action", "/api/control/market-command/action", "/api/control/creative-factory/action", "/api/control/lead/action", "/api/control/mail/action", "/api/control/video/action", "/api/control/prospect/action", "/api/control/lingua/action"}:
             self.send_json({"error": "not_found"}, HTTPStatus.NOT_FOUND)
             return
         try:
@@ -590,6 +644,8 @@ class ControlDeckHandler(SimpleHTTPRequestHandler):
                 result = operate_sophia(payload)
             elif route == "/api/control/vamp/action":
                 result = operate_vamp(payload)
+            elif route == "/api/control/document-studio/action":
+                result = operate_document_studio(payload)
             elif route == "/api/control/campaign/action":
                 result = operate_campaign(payload)
             elif route == "/api/control/market-campaign/action":
