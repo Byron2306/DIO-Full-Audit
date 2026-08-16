@@ -223,7 +223,7 @@ def build_media_incarnation(*,output_dir:Path,root:Path=ROOT,now:str=NOW)->dict[
     phase16=build_product_incarnation(output_dir=output_dir/"product",root=root,now=now)
     tools=_toolchain();native=_native_nichefoundry(now);script=_production_script()
     strategy=output_dir/"strategy";strategy.mkdir(exist_ok=True)
-    _write_json(strategy/"NICHEFOUNDRY_NATIVE_RECEIPT.json",{k:v for k,v in native.items() if k!="campaign_markdown"})
+    _write_json(strategy/"NICHEFOUNDRY_ADAPTER_RECEIPT.json",{k:v for k,v in native.items() if k!="campaign_markdown"})
     (strategy/"NICHEFOUNDRY_CAMPAIGN_PACK.md").write_text(native["campaign_markdown"],encoding="utf-8")
     _write_json(strategy/"FULL_VIDEO_SCRIPT.json",{"schema":"dio.full_video_script.v1","title":"Can Your Incident Plan Prove It?","scenes":script,"state":"DRAFT_ONLY","publication":"REFUSE"})
     media=_render_media(output_dir,script,tools);review=_sophia_review(script);_write_json(strategy/"SOPHIA_MEDIA_REVIEW.json",review)
