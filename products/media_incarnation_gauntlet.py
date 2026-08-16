@@ -25,7 +25,7 @@ def run_gauntlet(*,output_dir:Path|None=None)->dict[str,Any]:
     if _identity(first)!=_identity(second):raise AssertionError("media incarnation is non-deterministic")
     root=Path(first["output_dir"]);proof=first["proof_manifest"];verify_media_proof(root,proof)
     native=json.loads((root/"strategy/NICHEFOUNDRY_NATIVE_RECEIPT.json").read_text())
-    if native["binding_state"]!="NATIVE_FUNCTION_EXECUTION" or native["live_adapter_invoked"] is not True:
+    if native["binding_state"]!="DIO_ADAPTER_EXECUTION" or native["live_adapter_invoked"] is not True:
         raise AssertionError("NicheFoundry native execution not proven")
     required={"media/youtube/FINAL_VIDEO.mp4","media/youtube/NARRATION.wav",
       "media/youtube/CAPTIONS.srt","media/youtube/THUMBNAIL.png","media/ads/LINKEDIN_1200x628.png",
@@ -53,7 +53,7 @@ def run_gauntlet(*,output_dir:Path|None=None)->dict[str,Any]:
     if not tamper_refused:raise AssertionError("media tampering was not refused")
     verify_media_proof(root,proof);verify_media_proof(Path(second["output_dir"]),second["proof_manifest"])
     receipt={"schema":"dio.media_incarnation_gauntlet_receipt.v1","product_id":"dio_incidentreadinessproof",
-      "native_nichefoundry_execution":"PASS","ad_asset_rendering":"PASS","carousel_rendering":"PASS","thumbnail_rendering":"PASS",
+      "nichefoundry_adapter_execution":"PASS","native_nichefoundry_execution":"REFUSE","ad_asset_rendering":"PASS","carousel_rendering":"PASS","thumbnail_rendering":"PASS",
       "youtube_script_completeness":"PASS","narration_rendering":"PASS","caption_alignment":"PASS","video_rendering":"PASS",
       "sophia_media_review":"PASS","evidex_asset_provenance":"PASS","deterministic_generation":"PASS",
       "canonical_output_integrity":"PASS","tamper_detection":"PASS","network_used":False,"external_publication":"REFUSE",
