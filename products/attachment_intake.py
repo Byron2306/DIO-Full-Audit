@@ -14,6 +14,8 @@ from xml.etree import ElementTree
 SCHEMA = "dio.vesper.attachment_intake.v1"
 MAX_ATTACHMENTS = 12
 MAX_BYTES = 10 * 1024 * 1024
+MAX_ARCHIVE_MEMBERS = 100
+MAX_ARCHIVE_TEXT_BYTES = 512 * 1024
 ALLOWED = {".txt", ".md", ".json", ".pdf", ".docx", ".xlsx", ".png", ".jpg", ".jpeg", ".zip"}
 TEXT_TYPES = {".txt", ".md", ".json"}
 MAGIC = {".pdf": b"%PDF", ".png": b"\x89PNG\r\n\x1a\n", ".jpg": b"\xff\xd8\xff", ".jpeg": b"\xff\xd8\xff"}
@@ -69,7 +71,10 @@ def _xlsx_text(body: bytes) -> str:
                 values = []
                 for cell in root.iter("{http://schemas.openxmlformats.org/spreadsheetml/2006/main}c"):
                     value = next(cell.iter("{http://schemas.openxmlformats.org/spreadsheetml/2006/main}v"), None)
-                    if value is not None and value.text is not None:
+                    inline = next(cell.iter("{http://schemas.openxmlformats.org/spreadsheetml/2006/main}t"), None)
+                    if cell.get("t") == "inlineStr" and inline is not None:
+                        values.append(inline.text or "")
+                    elif value is not None and value.text is not None:
                         text = shared[int(value.text)] if cell.get("t") == "s" and int(value.text) < len(shared) else value.text
                         values.append(text)
                 if values:
@@ -79,15 +84,27 @@ def _xlsx_text(body: bytes) -> str:
         raise AttachmentIntakeError("XLSX container is invalid") from exc
 
 
-def _zip_inventory(body: bytes) -> list[dict[str, Any]]:
+def _zip_inventory(body: bytes) -> tuple[list[dict[str, Any]], str]:
     try:
         with zipfile.ZipFile(BytesIO(body)) as archive:
+            if len(archive.infolist()) > MAX_ARCHIVE_MEMBERS:
+                raise AttachmentIntakeError("ZIP contains too many members")
             rows = []
+            excerpts = []
+            extracted_bytes = 0
             for info in archive.infolist():
                 path = Path(info.filename)
                 unsafe = path.is_absolute() or ".." in path.parts or info.file_size > MAX_BYTES
                 rows.append({"name": info.filename, "bytes": info.file_size, "safe": not unsafe})
-            return rows
+                suffix = path.suffix.lower()
+                if not unsafe and not info.is_dir() and suffix in TEXT_TYPES and extracted_bytes + info.file_size <= MAX_ARCHIVE_TEXT_BYTES:
+                    raw = archive.read(info)
+                    excerpt = raw.decode("utf-8", errors="strict")
+                    if suffix == ".json":
+                        json.loads(excerpt)
+                    excerpts.append(f"ARCHIVE MEMBER {info.filename}\n{excerpt}")
+                    extracted_bytes += len(raw)
+            return rows, "\n\n".join(excerpts)
     except Exception as exc:
         raise AttachmentIntakeError("ZIP container is invalid") from exc
 
@@ -124,7 +141,8 @@ def quarantine_attachments(attachments: list[dict[str, Any]], *, output_dir: Pat
         elif suffix == ".xlsx":
             extracted, state = _xlsx_text(body), "EXTRACTED"
         elif suffix == ".zip":
-            inventory, state = _zip_inventory(body), "INVENTORIED_QUARANTINED"
+            inventory, extracted = _zip_inventory(body)
+            state = "INVENTORIED_AND_TEXT_EXTRACTED" if extracted else "INVENTORIED_QUARANTINED"
             if any(not row["safe"] for row in inventory):
                 raise AttachmentIntakeError(f"attachment {name} contains an unsafe ZIP member")
         receipt = {
