@@ -20,7 +20,8 @@ def _item(filename: str, body: bytes, role: str = "evidence") -> dict:
 def test_phase11_1_binds_attachments_and_stops_at_draft(tmp_path: Path) -> None:
     receipt = run_phase11_1_gauntlet(output_dir=tmp_path, root=ROOT)
     assert receipt["deterministic_execution"] == "PASS"
-    assert receipt["attachment_count"] == 2 and receipt["evidence_attachment_count"] == 1
+    assert receipt["attachment_count"] == 3 and receipt["evidence_attachment_count"] == 2
+    assert receipt["evidence_fanout_guard"] == "PASS" and receipt["unresolved_attachment_count"] == 0
     assert receipt["external_delivery"] == "REFUSE" and receipt["human_release"] == "NEEDS_YOU" and receipt["sent"] is False
     draft = json.loads((tmp_path / "first" / receipt["outlook_draft_ref"]).read_text())
     assert draft["state"] == "DRAFT_ONLY" and draft["send_authorized"] is False and draft["message_id"] is None
