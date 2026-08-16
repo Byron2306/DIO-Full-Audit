@@ -11,7 +11,7 @@ from typing import Any
 
 SCHEMA = "dio.phase11_1.evidence_reconciliation.v1"
 STOP = {"the", "a", "an", "and", "or", "to", "of", "for", "in", "on", "by", "is", "are", "be", "shall", "must", "with", "from", "this", "that"}
-NEGATIVE = ("expired", "failed", "failure", "late", "unsigned", "not signed", "not accepted", "rejected", "defect", "overdue", "non-compliant")
+NEGATIVE = ("expired", "failed", "failure", "unsigned", "not signed", "not accepted", "rejected", "defect", "overdue", "non-compliant")
 
 
 def _tokens(value: str) -> set[str]:
@@ -36,7 +36,7 @@ def _signals(text: str, *, now: str) -> tuple[list[str], str, str]:
     for label, patterns in {
         "UNSIGNED": ("unsigned", "signed: false", '"signed": false'),
         "EXPIRED": ("expired", "expiry", "expiration"),
-        "LATE_NOTICE": ("late", "30 hours", "thirty hours", "after 24 hours"),
+        "LATE_NOTICE": ("late notice", "notice was late", "assessment: late", "30 hours", "thirty hours", "after the contractual 24-hour"),
         "FAILED_INSPECTION": ("failed inspection", "inspection: failed", '"inspection_status": "failed"', "remediation required"),
         "PROVISIONAL_ACCEPTANCE": ("provisional acceptance", "final_acceptance: false", '"final_acceptance": false'),
     }.items():
@@ -85,7 +85,7 @@ def reconcile_evidence(manifest: dict[str, Any], source: dict[str, Any], *, now:
             tokens = _tokens(text)
             scored = [(len(tokens & wanted), index + 1) for index, wanted in enumerate(clause_tokens)]
             best = max((score for score, _ in scored), default=0)
-            ordinals = [ordinal for score, ordinal in scored if score == best and score >= 2][:2]
+            ordinals = [ordinal for score, ordinal in scored if score == best and score >= 3][:1]
             if ordinals:
                 basis.append(f"lexical_overlap:{best}")
         signals, freshness, relation = _signals(text, now=now)
@@ -97,7 +97,7 @@ def reconcile_evidence(manifest: dict[str, Any], source: dict[str, Any], *, now:
             "extraction_state": attachment["extraction_state"],
             "target_obligation_ordinals": ordinals,
             "target_locators": [str(clauses[index - 1]["clause_id"]) for index in ordinals],
-            "relation": relation,
+            "relation": relation if ordinals else "unresolved",
             "observed_signals": signals,
             "confidence_basis": basis or ["unresolved_no_confident_match"],
             "trust_state": "captured_untrusted",
