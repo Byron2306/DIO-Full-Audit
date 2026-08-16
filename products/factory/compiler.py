@@ -88,7 +88,7 @@ def create_factory_sandbox(source_root: Path, target: Path) -> Path:
     for relative in ("schemas","config/profiles","config/portfolio","config/products/manifests","config/factory"):
         source=source_root/relative
         if source.is_dir(): shutil.copytree(source,target/relative)
-    required_files:set[str]=set()
+    required_files:set[str]={"products/factory/runtime.py","products/factory/compiler.py"}
     for path in (target/"config/profiles").glob("*/*.json"):
         if path.name=="index.json": continue
         profile=_load(path)
