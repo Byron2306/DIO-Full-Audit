@@ -127,7 +127,7 @@ def _docx(lines:list[str])->bytes:
 <w:style w:type='paragraph' w:styleId='Heading1'><w:name w:val='Heading 1'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:before='120' w:after='180'/></w:pPr><w:rPr><w:b/><w:color w:val='0D2138'/><w:sz w:val='29'/></w:rPr></w:style>
 <w:style w:type='paragraph' w:styleId='Heading2'><w:name w:val='Heading 2'/><w:basedOn w:val='Normal'/><w:pPr><w:spacing w:before='150' w:after='45'/></w:pPr><w:rPr><w:b/><w:color w:val='098B80'/><w:sz w:val='17'/><w:spacing w:val='16'/></w:rPr></w:style>
 <w:style w:type='paragraph' w:styleId='Body'><w:name w:val='Body'/><w:basedOn w:val='Normal'/></w:style>
-<w:style w:type='paragraph' w:styleId='Callout'><w:name w:val='Callout'/><w:basedOn w:val='Normal'/><w:pPr><w:shd w:val='clear' w:fill='0D2138'/><w:spacing w:before='260' w:after='0'/><w:ind w:left='180' w:right='180'/></w:pPr><w:rPr><w:b/><w:color w:val='FFFFFF'/><w:sz w:val='23'/></w:rPr></w:style>
+<w:style w:type='paragraph' w:styleId='Callout'><w:name w:val='Callout'/><w:basedOn w:val='Normal'/><w:pPr><w:shd w:val='clear' w:fill='0D2138'/><w:spacing w:before='260' w:after='0'/><w:ind w:left='180' w:right='180'/><w:jc w:val='center'/></w:pPr><w:rPr><w:b/><w:color w:val='FFFFFF'/><w:sz w:val='23'/></w:rPr></w:style>
 </w:styles>"""
     types="<?xml version='1.0' encoding='UTF-8'?><Types xmlns='http://schemas.openxmlformats.org/package/2006/content-types'><Default Extension='rels' ContentType='application/vnd.openxmlformats-package.relationships+xml'/><Default Extension='xml' ContentType='application/xml'/><Override PartName='/word/document.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'/><Override PartName='/word/styles.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml'/></Types>"
     rels="<?xml version='1.0' encoding='UTF-8'?><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/></Relationships>"
@@ -142,20 +142,29 @@ def _docx(lines:list[str])->bytes:
 def _pdf(lines:list[str])->bytes:
     from reportlab import rl_config
     from reportlab.lib import colors
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.units import mm
     from reportlab.platypus import Paragraph,SimpleDocTemplate,Spacer,Table,TableStyle
     rl_config.invariant=1;out=BytesIO()
+    regular_path=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+    bold_path=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
+    if not regular_path.is_file() or not bold_path.is_file():
+        raise IncarnationStudioError("Document Studio requires DejaVu fonts for deterministic PDF rendering")
+    pdfmetrics.registerFont(TTFont("DIO-DejaVu",str(regular_path)))
+    pdfmetrics.registerFont(TTFont("DIO-DejaVu-Bold",str(bold_path)))
+    regular,bold="DIO-DejaVu","DIO-DejaVu-Bold"
     navy=colors.HexColor("#0d2138");cyan=colors.HexColor("#098b80");amber=colors.HexColor("#ffb547");ink=colors.HexColor("#182033")
-    eyebrow=ParagraphStyle("eyebrow",fontName="Helvetica-Bold",fontSize=8,leading=10,textColor=cyan,spaceAfter=7)
-    title=ParagraphStyle("title",fontName="Helvetica-Bold",fontSize=24,leading=28,textColor=navy,spaceAfter=7)
-    subtitle=ParagraphStyle("subtitle",fontName="Helvetica",fontSize=11,leading=16,textColor=colors.HexColor("#536574"),spaceAfter=15)
-    gate=ParagraphStyle("gate",fontName="Helvetica-Bold",fontSize=8,leading=11,textColor=colors.HexColor("#8b4e00"))
-    heading=ParagraphStyle("heading",fontName="Helvetica-Bold",fontSize=15,leading=18,textColor=navy,spaceBefore=12,spaceAfter=8)
-    label=ParagraphStyle("label",fontName="Helvetica-Bold",fontSize=7.5,leading=9,textColor=cyan,spaceAfter=3)
-    body=ParagraphStyle("body",fontName="Helvetica",fontSize=9.5,leading=14,textColor=ink)
-    cta=ParagraphStyle("cta",fontName="Helvetica-Bold",fontSize=11,leading=14,textColor=colors.white,alignment=1)
+    eyebrow=ParagraphStyle("eyebrow",fontName=bold,fontSize=8,leading=10,textColor=cyan,spaceAfter=7)
+    title=ParagraphStyle("title",fontName=bold,fontSize=24,leading=28,textColor=navy,spaceAfter=7)
+    subtitle=ParagraphStyle("subtitle",fontName=regular,fontSize=11,leading=16,textColor=colors.HexColor("#536574"),spaceAfter=15)
+    gate=ParagraphStyle("gate",fontName=bold,fontSize=8,leading=11,textColor=colors.HexColor("#8b4e00"))
+    heading=ParagraphStyle("heading",fontName=bold,fontSize=15,leading=18,textColor=navy,spaceBefore=12,spaceAfter=8)
+    label=ParagraphStyle("label",fontName=bold,fontSize=7.5,leading=9,textColor=cyan,spaceAfter=3)
+    body=ParagraphStyle("body",fontName=regular,fontSize=9.5,leading=14,textColor=ink)
+    cta=ParagraphStyle("cta",fontName=bold,fontSize=11,leading=14,textColor=colors.white,alignment=1)
     doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=20*mm,rightMargin=20*mm,topMargin=17*mm,bottomMargin=16*mm,title=lines[0],author="DIO")
     story=[Paragraph("DIO // INCIDENT READINESS",eyebrow),Paragraph(html.escape(lines[0]),title),Paragraph(html.escape(lines[1]).replace("—","-"),subtitle)]
     gatebox=Table([[Paragraph("CONTROLLED PILOT  |  HUMAN REVIEW REQUIRED  |  EXTERNAL RELEASE REFUSED",gate)]],colWidths=[170*mm])
