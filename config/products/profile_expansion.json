@@ -1,0 +1,44 @@
+{
+  "schema": "dio.profile_expansion_registry.v1",
+  "registry_version": "1.0.0",
+  "fixed_evaluation_time": "2026-08-12T12:00:00+00:00",
+  "incarnations": [
+    {
+      "product_id": "dio_contractproof",
+      "slug": "contractproof",
+      "framework_profile": "framework.contract_generic",
+      "manifest": "config/products/manifests/contractproof.json",
+      "reference_kind": "phase7_control"
+    },
+    {
+      "product_id": "dio_tenderproof",
+      "slug": "tenderproof",
+      "framework_profile": "framework.tender_submission",
+      "manifest": "config/products/manifests/tenderproof.json",
+      "reference_kind": "phase7_control"
+    },
+    {
+      "product_id": "dio_grantproof",
+      "slug": "grantproof",
+      "framework_profile": "framework.grant_award",
+      "manifest": "config/products/manifests/grantproof.json",
+      "reference_kind": "phase7_control"
+    },
+    {
+      "product_id": "dio_permitproof",
+      "slug": "permitproof",
+      "framework_profile": "framework.permit_conditions",
+      "manifest": "config/products/manifests/permitproof.json",
+      "reference_kind": "phase7_control"
+    },
+    {
+      "product_id": "dio_policyproof",
+      "slug": "policyproof",
+      "framework_profile": "framework.policy_assurance",
+      "manifest": "config/products/manifests/policyproof.json",
+      "reference_kind": "phase12_expansion",
+      "fixture_source": "config/products/golden/policyproof/reference_source.json",
+      "fixture_evidence": "config/products/golden/policyproof/reference_evidence.json"
+    }
+  ]
+}
