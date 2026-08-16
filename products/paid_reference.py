@@ -97,9 +97,14 @@ def _contract_source(intake: dict[str, Any], journey_id: str) -> dict[str, Any]:
     for index, part in enumerate(parts, start=1):
         if re.search(r"\b(shall|must|is required to|are required to|will be required to)\b", part, re.IGNORECASE):
             party = None
-            party_match = re.match(r"(?:section\s+\d+[.:]?\s*)?(?:the\s+)?([A-Z][A-Za-z0-9_-]{2,40})\b", part)
+            party_match = re.match(
+                r"(?:\d+[.:]?\s*|section\s+\d+[.:]?\s*)?(?:the\s+)?"
+                r"(Supplier|Customer|Contractor|Client|Buyer|Seller|Employer|Vendor)\b",
+                part,
+                re.IGNORECASE,
+            )
             if party_match:
-                party = party_match.group(1)
+                party = party_match.group(1).title()
             dates = re.findall(r"\b20\d{2}-\d{2}-\d{2}\b", part)
             relative = re.search(r"\b(?:within|no later than)\s+([^.;]{1,80})", part, re.I)
             clause = {
