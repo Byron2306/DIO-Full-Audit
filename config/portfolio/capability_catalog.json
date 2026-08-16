@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.8.0",
+  "catalog_version": "1.9.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -20,7 +20,12 @@
     "generated_profiles_must_be_source_and_hash_bound": true,
     "generated_provider_scope_must_be_exact": true,
     "generation_must_not_promote_maturity": true,
-    "generation_must_not_create_external_authority": true
+    "generation_must_not_create_external_authority": true,
+    "marketfront_generation_is_not_publication": true,
+    "engine_binding_is_not_engine_execution": true,
+    "generated_media_is_draft_only": true,
+    "generated_storefront_payment_defaults_to_refuse": true,
+    "commercial_measurement_does_not_create_market_truth": true
   },
   "capabilities": [
     {
@@ -858,6 +863,244 @@
           "execution_capable": false,
           "product_scope": [
             "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "corpus.discover",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "incarnation_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/incarnation_studio.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.marketfront.compile",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "incarnation_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/incarnation_studio.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "storefront.intake.local",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "incarnation_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/incarnation_studio.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "market.position",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "nichefoundry_adapter_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_nichefoundry_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.creative.compose",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "nichefoundry_adapter_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_nichefoundry_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "campaign.plan",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "market_command_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "market_command/agency.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "document.sales_assets",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "document_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "adapters/document_studio/pipeline.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "marketing.claim.review",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "sophia_review_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_sophia_review.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "customer.education.compose",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "homs_jobs_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_homs_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "evidence.campaign.proof",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "evidex_jobs_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_evidex_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "fulfilment.attachment.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "vesper_phase11_1_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/phase11_1.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "outlook.mail.draft.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_mail_core_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/manage_mail_intent.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "presence.release.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "presence_core_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "presence_core/engine.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "commercial.measurement.contract",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "commercial_truth_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/commercial_truth.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
           ]
         }
       ]
