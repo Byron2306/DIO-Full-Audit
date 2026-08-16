@@ -1,6 +1,6 @@
 {
   "schema": "dio.capability_catalog.v1",
-  "catalog_version": "1.7.0",
+  "catalog_version": "1.8.0",
   "constitution_version": "1.0.0",
   "laws": {
     "products_request_capabilities_not_organs": true,
@@ -14,7 +14,13 @@
     "regulatory_source_version_and_effective_interval_must_be_retained": true,
     "applicability_uncertainty": "NEEDS_YOU",
     "draft_is_not_filing": true,
-    "regulatory_filing_requires_external_human_authority": true
+    "regulatory_filing_requires_external_human_authority": true,
+    "self_expansion_requires_closed_declarative_spec": true,
+    "self_expansion_must_use_canonical_compiler": true,
+    "generated_profiles_must_be_source_and_hash_bound": true,
+    "generated_provider_scope_must_be_exact": true,
+    "generation_must_not_promote_maturity": true,
+    "generation_must_not_create_external_authority": true
   },
   "capabilities": [
     {
@@ -784,6 +790,74 @@
           "execution_capable": true,
           "product_scope": [
             "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.spec.validate",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.product.materialize",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.validation.generate",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.registration.project",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
           ]
         }
       ]
