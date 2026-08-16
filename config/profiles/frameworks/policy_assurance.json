@@ -1,0 +1,65 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.policy_assurance",
+  "profile_class": "framework",
+  "name": "Policy Assurance Obligation Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_PROFILE_DRIVEN_EXPANSION_PHASE12.md",
+        "source_section": "Policy Assurance Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal policy-assurance framework identifies review obligations and evidence gaps only. It creates no legal interpretation, policy approval, compliance finding, waiver or authority.",
+  "spec": {
+    "requirement_types": [
+      "policy_owner",
+      "effective_date",
+      "review_cadence",
+      "control_evidence",
+      "exception_record",
+      "approval_record"
+    ],
+    "state_vocabulary": [
+      "unverified",
+      "satisfied",
+      "partial",
+      "missing",
+      "contested",
+      "expired",
+      "not_yet_due",
+      "needs_review"
+    ],
+    "deadline_semantics": [
+      "effective_date",
+      "review_due",
+      "relative_to_event",
+      "none_explicit"
+    ],
+    "human_boundaries": [
+      "human confirms policy interpretation",
+      "human decides whether evidence establishes implementation",
+      "human controls approval and external release"
+    ],
+    "forbidden_claims": [
+      "policy_compliant",
+      "legally_sufficient",
+      "approved",
+      "externally_validated"
+    ]
+  },
+  "tags": [
+    "phase12",
+    "WP05",
+    "profile-driven-expansion",
+    "policy_assurance"
+  ]
+}
