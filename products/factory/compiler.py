@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -76,6 +77,35 @@ def _profile(spec: dict[str,Any],kind: str,spec_ref: str,spec_hash: str)->dict[s
             "spec":{key:copy.deepcopy(src[key]) for key in mappings[kind]},
             "tags":["phase15","factory-generated",slug,kind]}
 
+
+
+
+def create_factory_sandbox(source_root: Path, target: Path) -> Path:
+    """Create the smallest repository projection accepted by the canonical compiler."""
+    source_root=source_root.resolve();target=target.resolve()
+    if target.exists(): raise FactoryError(f"sandbox target already exists: {target}")
+    target.mkdir(parents=True)
+    for relative in ("schemas","config/profiles","config/portfolio","config/products/manifests","config/factory"):
+        source=source_root/relative
+        if source.is_dir(): shutil.copytree(source,target/relative)
+    required_files:set[str]=set()
+    for path in (target/"config/profiles").glob("*/*.json"):
+        if path.name=="index.json": continue
+        profile=_load(path)
+        for binding in (profile.get("binding") or {}).get("source_bindings") or []:
+            required_files.add(str(binding.get("source_ref") or ""))
+    catalog=_load(target/"config/portfolio/capability_catalog.json")
+    for capability in catalog.get("capabilities") or []:
+        for provider in capability.get("providers") or []:
+            required_files.add(str(provider.get("ref") or ""))
+    for relative in sorted(required_files):
+        if not relative: continue
+        source=(source_root/relative).resolve()
+        if not source.is_relative_to(source_root) or not source.is_file():
+            raise FactoryError(f"sandbox dependency missing or unsafe: {relative}")
+        destination=target/relative;destination.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(source,destination)
+    return target
 
 def materialize_product(root: Path,spec_path: Path)->dict[str,Any]:
     root=root.resolve();spec=_validate_spec(root,spec_path);slug=spec["slug"];product_id=spec["product_id"]
