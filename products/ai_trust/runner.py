@@ -175,7 +175,7 @@ def run_ai_trust(product_id: str, payload: dict[str, Any], *, output_dir: Path, 
         raise RuntimeError(f"AI Trust dossier missing required sections: {missing_sections}")
     output_dir = output_dir.resolve(); output_dir.mkdir(parents=True, exist_ok=True)
     rendered = {
-        "JSON": ("AI_TRUST_DOSSIER.json", json.dumps(envelope, indent=2, sort_keys=True).encode() + b"\n"),
+        "JSON": ("AI_TRUST_DOSSIER.json", json.dumps(dossier, indent=2, sort_keys=True).encode() + b"\n"),
         "HTML": ("AI_TRUST_DOSSIER.html", _html(envelope, definition["title"])),
         "DOCX": ("AI_TRUST_DOSSIER.docx", _docx(envelope, definition["title"])),
         "PDF": ("AI_TRUST_DOSSIER.pdf", _pdf(envelope, definition["title"])),
