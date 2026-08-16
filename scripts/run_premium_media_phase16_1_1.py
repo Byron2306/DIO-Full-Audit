@@ -14,6 +14,8 @@ def main()->int:
     keys=("nichefoundry_repository_execution","premium_or_approved_voice","robotic_production_fallback",
       "music_asset_present","music_rights_evidence","narration_music_mix","sample_rate_48khz_stereo","loudness_qa",
       "procedural_music_fallback","music_hiss_detection","native_gamma_execution","gamma_scene_coverage","gamma_final_video_binding",
+      "native_document_studio_execution","document_studio_format_core_binding","document_studio_safe_zone_qa",
+      "document_studio_motion_composition",
       "premium_video_rendering","corpus_execution_census","full_corpus_native_execution","canonical_output_integrity",
       "tamper_detection","provider_set","external_publication","external_send","media_spend","human_gate")
     print(json.dumps({key:result[key] for key in keys},indent=2,sort_keys=True));print(ACCEPTANCE_TOKEN);return 0
