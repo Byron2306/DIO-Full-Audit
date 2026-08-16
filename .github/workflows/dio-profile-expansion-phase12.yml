@@ -1,0 +1,45 @@
+name: DIO Phase 12 Profile-driven Expansion
+
+on:
+  push:
+    paths:
+      - "config/products/profile_expansion.json"
+      - "config/products/manifests/policyproof.json"
+      - "config/products/golden/policyproof/**"
+      - "config/profiles/frameworks/policy_assurance.json"
+      - "config/profiles/index.json"
+      - "config/portfolio/capability_catalog.json"
+      - "products/profile_expansion.py"
+      - "products/obligationfamily/runner.py"
+      - "products/reference_gauntlet.py"
+      - "scripts/run_profile_expansion_phase12.py"
+      - "tests/test_profile_expansion_phase12.py"
+      - ".github/workflows/dio-profile-expansion-phase12.yml"
+  pull_request:
+    paths:
+      - "config/products/profile_expansion.json"
+      - "config/products/manifests/policyproof.json"
+      - "config/products/golden/policyproof/**"
+      - "config/profiles/frameworks/policy_assurance.json"
+      - "config/profiles/index.json"
+      - "config/portfolio/capability_catalog.json"
+      - "products/profile_expansion.py"
+      - "products/obligationfamily/runner.py"
+      - "products/reference_gauntlet.py"
+      - "scripts/run_profile_expansion_phase12.py"
+      - "tests/test_profile_expansion_phase12.py"
+      - ".github/workflows/dio-profile-expansion-phase12.yml"
+
+jobs:
+  phase12:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install pytest jsonschema reportlab
+      - run: python -m compileall products dio evidence scripts
+      - run: python -m pytest -q tests/test_product_compiler_phase2.py tests/test_obligation_family_phase6.py tests/test_reference_incarnation_gauntlet_phase7.py tests/test_profile_expansion_phase12.py
+      - run: python scripts/run_profile_expansion_phase12.py --output /tmp/dio-phase12-profile-expansion

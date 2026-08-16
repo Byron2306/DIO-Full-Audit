@@ -307,6 +307,7 @@ def _pdf_escape(text: str) -> str:
 
 
 def _reportlab_pdf_bytes(pack: dict[str, Any]) -> bytes:
+    from reportlab import rl_config
     from reportlab.lib import colors
     from reportlab.lib.enums import TA_LEFT
     from reportlab.lib.pagesizes import A4
@@ -316,6 +317,7 @@ def _reportlab_pdf_bytes(pack: dict[str, Any]) -> bytes:
     from reportlab.pdfbase.ttfonts import TTFont
     from reportlab.platypus import KeepTogether, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
+    rl_config.invariant = 1
     font = "Helvetica"
     bold_font = "Helvetica-Bold"
     regular = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
