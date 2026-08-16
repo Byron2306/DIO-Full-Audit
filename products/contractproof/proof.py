@@ -287,9 +287,6 @@ def _docx_bytes(pack: dict[str, Any], required_sections: list[str]) -> bytes:
         _w_p("Fulfilment judgement: NEEDS YOU", bold=True), _w_p("Disclosure judgement: NEEDS YOU", bold=True),
         _w_p("External release: REFUSE", bold=True, colour="B42318"),
         _w_p("This pack supports review. It does not decide contractual fulfilment, provide legal advice, create a waiver, or authorize external release.", colour="667085"),
-        _w_p("Technical provenance", style="Heading1"),
-        _w_p(f"Source fingerprint: {(view['provenance'].get('obligation_source') or {}).get('sha256') or 'not supplied'}", size=18, colour="667085"),
-        _w_p(f"Obligation bundle: {view['provenance'].get('obligation_bundle_fingerprint')}", size=18, colour="667085"),
     ])
     sect = '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1080" w:right="1080" w:bottom="1080" w:left="1080"/></w:sectPr>'
     document_xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>' + "".join(parts) + sect + '</w:body></w:document>'
