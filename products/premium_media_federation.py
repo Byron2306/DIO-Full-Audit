@@ -163,6 +163,34 @@ def _music_quality(path:Path,ffmpeg:str)->dict[str,Any]:
       "minimum_attenuation_db":4.0,"hiss_detection":"PASS"}
 
 
+
+def _prepare_native_render_contract(episode_dir:Path,gamma:dict[str,Any])->None:
+    script=_script_package()
+    scenes=[]
+    assets=[]
+    for index,scene in enumerate(script["scenes"],1):
+        asset=next((row for row in gamma.get("assets",[]) if row.get("scene_id")==scene["scene_id"]),None)
+        if not asset:raise PremiumMediaError(f"Gamma omitted native scene asset: {scene['scene_id']}")
+        scenes.append({"scene_id":scene["scene_id"],"title":scene["title"],"beat_name":scene["story_beat"],
+          "preview_path":asset["relative_path"],"preview_asset_id":f"gamma_{scene['scene_id']}",
+          "motion_cue":"restrained documentary push","composition":"native_gamma_composition_preserved",
+          "claim_ids":scene.get("claim_ids",[]),"source_ids":scene.get("source_ids",[])})
+        assets.append({"asset_id":f"gamma_{scene['scene_id']}","scene_id":scene["scene_id"],
+          "asset_type":"generated_scene","relative_path":asset["relative_path"],"sha256":asset["sha256"],
+          "status":"ready","provider":"gamma_public_api"})
+    thumb=next((row for row in gamma.get("assets",[]) if row.get("kind")=="thumbnail"),None)
+    if not thumb:raise PremiumMediaError("Gamma omitted native thumbnail asset")
+    assets.append({"asset_id":"gamma_thumbnail","role":"thumbnail","asset_type":"thumbnail",
+      "relative_path":thumb["relative_path"],"sha256":thumb["sha256"],"status":"ready","provider":"gamma_public_api"})
+    _write(episode_dir/"episode.json",{"episode_id":episode_dir.name,"title":script["title"],
+      "studio":{"id":"practical_open_source"}})
+    _write(episode_dir/"visual_plan.json",{"schema":"nichefoundry.visual_plan.v1","scene_plans":scenes})
+    _write(episode_dir/"asset_manifest.json",{"schema":"nichefoundry.asset_manifest.v1","assets":assets})
+    _write(episode_dir/"visual_report.json",{"schema":"nichefoundry.visual_report.v1","passed":True,
+      "scene_count":len(scenes),"composition_authority":"native_gamma","human_visual_release":"NEEDS_YOU"})
+
+
+
 def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,Any]:
     node=shutil.which("node")
     if not node:raise PremiumMediaError("Node.js is required for real NicheFoundry execution")
@@ -199,6 +227,17 @@ def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,A
     premium_assets=_load(episode_dir/"premium_assets_receipt.json")
     if gamma.get("native_engine_invoked") is not True or gamma.get("scene_coverage")!=len(_script_package()["scenes"]):
         raise PremiumMediaError("native Gamma scene coverage is incomplete")
+    _prepare_native_render_contract(episode_dir,gamma)
+    render_command=[node,str(niche_root/"scripts/render_episode.js"),str(episode_dir),"final","--force"]
+    render_completed=_run(render_command,cwd=niche_root,env=dict(os.environ))
+    native_final=episode_dir/"final.mp4";native_thumbnail=episode_dir/"thumbnail.png"
+    if not native_final.is_file() or not native_thumbnail.is_file():
+        raise PremiumMediaError("NicheFoundry native render system omitted release assets")
+    render_qa=_load(episode_dir/"render_qa_report.json")
+    render_manifest=_load(episode_dir/"render_manifest_v2.json")
+    render_hashes=_load(episode_dir/"render_asset_hashes.json")
+    if render_qa.get("passed") is not True or render_hashes.get("complete") is not True:
+        raise PremiumMediaError("NicheFoundry native render QA failed")
     if music_rights.get("commercial_friendly_licence") is not True:
         raise PremiumMediaError("premium music lacks a commercial-friendly licence receipt")
     music_preview=episode_dir/"audio/episode_music_bed_preview.wav"
@@ -207,20 +246,22 @@ def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,A
       "providers":sorted(providers),"manifest":manifest,
       "performance":performance,"sound_design":sound,"loudness":loudness,"preview":preview,"probe":probe,
       "gamma":gamma,"music_rights":music_rights,"premium_assets":premium_assets,"music_quality":quality,
+      "native_render":{"command":render_command,"stdout":render_completed.stdout.strip(),"final":native_final,
+        "thumbnail":native_thumbnail,"qa":render_qa,"manifest":render_manifest,"hashes":render_hashes},
       "source_ref":"Byron2306/NicheFoundry","source_root":str(niche_root),"native_engine_invoked":True}
 
 
 def _corpus_census(niche:dict[str,Any])->dict[str,Any]:
     rows=[
       {"engine_id":"nichefoundry","repository":"Byron2306/NicheFoundry","state":"NATIVE_EXECUTED","receipt":"premium/NICHEFOUNDRY_NATIVE_EXECUTION.json"},
-      {"engine_id":"document_studio","repository":"DIO-Full-Audit/adapters/document_studio","state":"NATIVE_EXECUTED","receipt":"premium/document_studio_media/DOCUMENT_STUDIO_MEDIA_RECEIPT.json"},
+      {"engine_id":"document_studio","repository":"DIO-Full-Audit/adapters/document_studio","state":"CONTROL_SURFACE_BOUND","receipt":"premium/document_studio_media/DOCUMENT_STUDIO_MEDIA_RECEIPT.json","reason":"Controls and validates native media without replacing its renderer"},
       {"engine_id":"lingua","repository":"DIO-Full-Audit/adapters/lingua","state":"NOT_INVOKED","reason":"No translation/localisation request is part of this incarnation"},
       {"engine_id":"homs","repository":"Byron2306/HOMS-assessor","state":"PROJECTION_ONLY","reason":"Phase 16 customer education is locally constructed"},
       {"engine_id":"evidex","repository":"Byron2306/Evidex","state":"PROJECTION_ONLY","reason":"Phase 16 proof manifest does not invoke the external Evidex runtime"},
       {"engine_id":"vamp","repository":"Byron2306/VAMP","state":"NOT_BOUND","reason":"VAMP is absent from the Phase 16 product contract"},
       {"engine_id":"sophia","repository":"Byron2306/Sophia-AI","state":"PROJECTION_ONLY","reason":"Phase 16 claim review is locally constructed"}
     ]
-    return {"schema":"dio.corpus_execution_census.v1","engines":rows,"native_executed_count":2,
+    return {"schema":"dio.corpus_execution_census.v1","engines":rows,"native_executed_count":1,
       "required_engine_count":7,"full_corpus_native_execution":"REFUSE",
       "law":"source binding, local projection and native engine execution are distinct evidence states"}
 
@@ -244,20 +285,10 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
       "loudness_report_sha256":_sha(episode/"loudness_report.json"),"sound_design_plan_sha256":_sha(episode/"sound_design_plan.json")})
     _write(premium_dir/"NICHEFOUNDRY_NATIVE_EXECUTION.json",evidence)
     census=_corpus_census(niche);_write(premium_dir/"CORPUS_EXECUTION_CENSUS.json",census)
-    ffmpeg=shutil.which("ffmpeg")
-    if not ffmpeg:raise PremiumMediaError("ffmpeg is required")
     final=output_dir/"media/youtube/FINAL_VIDEO_PREMIUM.mp4"
     final.parent.mkdir(parents=True,exist_ok=True)
-    gamma_assets=sorted((premium_dir/"document_studio_media").glob("SCENE_*_CONTROLLED.png"))
-    if len(gamma_assets)!=len(niche["manifest"].get("scenes",[])):raise PremiumMediaError("Gamma visual count does not match audio scenes")
-    concat=output_dir/"premium/DOCUMENT_STUDIO_SCENES.ffconcat";parts=["ffconcat version 1.0"]
-    for image,row in zip(gamma_assets,niche["manifest"]["scenes"]):
-        parts.extend([f"file '{image.as_posix()}'",f"duration {float(row['resolved_duration_seconds']):.6f}"])
-    parts.append(f"file '{gamma_assets[-1].as_posix()}'");concat.write_text("\n".join(parts)+"\n",encoding="utf-8")
-    _run([ffmpeg,"-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(concat),"-i",str(niche["preview"]),
-      "-map","0:v:0","-map","1:a:0","-vf","fps=30,scale=2048:1152:flags=lanczos,zoompan=z='min(max(zoom,pzoom)+0.00012,1.055)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=30,format=yuv420p","-c:v","libx264","-preset","medium","-crf","20",
-      "-c:a","aac","-b:a","192k","-shortest","-map_metadata","-1","-movflags","+faststart",str(final)])
-    shutil.copy2(premium_dir/"document_studio_media/THUMBNAIL_CONTROLLED.png",output_dir/"media/youtube/THUMBNAIL_CONTROLLED.png")
+    shutil.copy2(niche["native_render"]["final"],final)
+    shutil.copy2(niche["native_render"]["thumbnail"],output_dir/"media/youtube/THUMBNAIL_NATIVE.png")
     artifacts=[]
     for path in sorted(p for p in output_dir.rglob("*") if p.is_file() and p.name not in {"PREMIUM_MEDIA_PROOF.json","PREMIUM_MEDIA_RECEIPT.json"}):
         artifacts.append({"path":str(path.relative_to(output_dir)),"sha256":_sha(path),"bytes":path.stat().st_size})
@@ -265,8 +296,9 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
       "premium_or_approved_voice":"PASS","robotic_production_fallback":"REFUSE","music_asset_present":"PASS",
       "music_rights_evidence":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS","narration_music_mix":"PASS",
       "native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS",
-      "native_document_studio_execution":"PASS","document_studio_format_core_binding":"PASS","document_studio_safe_zone_qa":"PASS",
-      "document_studio_motion_composition":"PASS",
+      "native_nichefoundry_render_execution":"PASS","gamma_composition_preserved":"PASS",
+      "document_studio_control_surface_binding":"PASS","document_studio_native_render_execution":"REFUSE",
+      "automated_perceptual_release":"REFUSE","human_visual_release":"NEEDS_YOU",
       "sample_rate_48khz_stereo":"PASS","loudness_qa":"PASS",
       "native_engine_execution_census":"PASS","full_corpus_native_execution":"REFUSE","external_publication":"REFUSE",
       "external_send":"REFUSE","media_spend":"REFUSE","human_gate":"NEEDS_YOU"}
@@ -274,8 +306,9 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     receipt={"schema":"dio.premium_media_receipt.v1","provider_set":niche["providers"],"nichefoundry_repository_execution":"PASS",
       "premium_voice":"PASS","music_and_rights":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS",
       "native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS","audio_mastering":"PASS","premium_video":"PASS",
-      "native_document_studio_execution":"PASS","document_studio_format_core_binding":"PASS","document_studio_safe_zone_qa":"PASS",
-      "document_studio_motion_composition":"PASS",
+      "native_nichefoundry_render_execution":"PASS","gamma_composition_preserved":"PASS",
+      "document_studio_control_surface_binding":"PASS","document_studio_native_render_execution":"REFUSE",
+      "automated_perceptual_release":"REFUSE","human_visual_release":"NEEDS_YOU",
       "corpus_execution_census":"PASS","full_corpus_native_execution":"REFUSE","external_publication":"REFUSE",
       "external_send":"REFUSE","media_spend":"REFUSE","human_gate":"NEEDS_YOU","proof_fingerprint":proof["proof_fingerprint"]}
     receipt["premium_media_fingerprint"]=_fingerprint(receipt);_write(output_dir/"PREMIUM_MEDIA_RECEIPT.json",receipt)
