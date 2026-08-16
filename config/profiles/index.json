@@ -18,6 +18,14 @@
       "status": "source_bound"
     },
     {
+      "content_hash": "sha256:3b545a6bcc8774ea43b7070a011abbb8a230ae129e54735db8fbc38491e391be",
+      "path": "config/profiles/authorities/regulatory_owner.json",
+      "profile_class": "authority",
+      "profile_id": "authority.regulatory_owner",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
       "content_hash": "sha256:5e335d7867cb45d3474b6777e86315c0a242874909ce1810d19fa7ea5787fdbd",
       "path": "config/profiles/commercial/internal_proof.json",
       "profile_class": "commercial",
@@ -50,10 +58,26 @@
       "status": "source_bound"
     },
     {
+      "content_hash": "sha256:7c26b424eebb447a018f6005df656601aef1d34a35f9970d3215d8d9331d9798",
+      "path": "config/profiles/domains/regulated_markets.json",
+      "profile_class": "domain",
+      "profile_id": "domain.regulated_markets",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
       "content_hash": "sha256:20c8582408c41b7713d0263fe6e963880c8c330052e77abd6bc8cbd822390a20",
       "path": "config/profiles/frameworks/agent_authority.json",
       "profile_class": "framework",
       "profile_id": "framework.agent_authority",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
+      "content_hash": "sha256:94f854b0e943f993fc58cfd380d669167138b22d1f5fb8c9b392aa2a49bc03ea",
+      "path": "config/profiles/frameworks/ai_regulatory_readiness.json",
+      "profile_class": "framework",
+      "profile_id": "framework.ai_regulatory_readiness",
       "profile_version": "1.0.0",
       "status": "source_bound"
     },
@@ -70,6 +94,14 @@
       "path": "config/profiles/frameworks/contract_generic.json",
       "profile_class": "framework",
       "profile_id": "framework.contract_generic",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
+      "content_hash": "sha256:992918dfd62dee63f011ef97d8797925dee830e52810434e58d8d05e1bf7d35d",
+      "path": "config/profiles/frameworks/education_accreditation.json",
+      "profile_class": "framework",
+      "profile_id": "framework.education_accreditation",
       "profile_version": "1.0.0",
       "status": "source_bound"
     },
@@ -106,6 +138,22 @@
       "status": "source_bound"
     },
     {
+      "content_hash": "sha256:db313912af6e207539c76ec44ed30a22872eea5d6143a717bf047af34efb43b2",
+      "path": "config/profiles/frameworks/privacy_governance.json",
+      "profile_class": "framework",
+      "profile_id": "framework.privacy_governance",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
+      "content_hash": "sha256:0c76793f821a5d366cfc1fcd8ac614ec4fa1a595a4ae57af991670a7a5839acd",
+      "path": "config/profiles/frameworks/public_procurement_regulation.json",
+      "profile_class": "framework",
+      "profile_id": "framework.public_procurement_regulation",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
       "content_hash": "sha256:ca3dbdbe0cbe2feb3670fec50f971da3df9de51c51cc9d19a2d77f4216047399",
       "path": "config/profiles/frameworks/tender_submission.json",
       "profile_class": "framework",
@@ -126,6 +174,14 @@
       "path": "config/profiles/outputs/evidence_pack.json",
       "profile_class": "output",
       "profile_id": "output.evidence_pack",
+      "profile_version": "1.0.0",
+      "status": "source_bound"
+    },
+    {
+      "content_hash": "sha256:cd9dbd889059c3beaa7312c85a4bff656eaca993dcc65d82be71a5f1c379864c",
+      "path": "config/profiles/outputs/regulatory_readiness_dossier.json",
+      "profile_class": "output",
+      "profile_id": "output.regulatory_readiness_dossier",
       "profile_version": "1.0.0",
       "status": "source_bound"
     }
