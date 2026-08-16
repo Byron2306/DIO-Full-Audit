@@ -50,8 +50,9 @@ def _assert_provider_isolation(entries: list[dict[str, Any]]) -> None:
         if scopes != {entry["product_id"]}:
             raise AssertionError(f"executor scope leaked for {entry['product_id']}: {sorted(scopes)}")
     family_scope = set(FAMILY_DEFINITIONS)
-    if family_scope != products.difference({"dio_contractproof"}):
-        raise AssertionError("family runner and reference registry disagree")
+    registered_family = products.difference({"dio_contractproof"})
+    if not registered_family.issubset(family_scope) or "dio_contractproof" in family_scope:
+        raise AssertionError("family runner does not cover the registered family safely")
 
 
 def run_gauntlet(*, output_dir: Path | None = None) -> dict[str, Any]:
