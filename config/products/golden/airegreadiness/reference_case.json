@@ -1,0 +1,58 @@
+{
+  "schema": "dio.regulatory_reference_case.v1",
+  "source_type": "ai_regulatory_context",
+  "context": {
+    "jurisdiction": "EU",
+    "regulator": "Controlled AI Market Authority",
+    "organisation_role": "regulated_entity",
+    "regulated_activity": "high-impact AI deployment",
+    "framework_version": "controlled-fixture-v1"
+  },
+  "required_applicability_facts": [
+    "territorial_nexus",
+    "regulated_activity",
+    "organisation_type"
+  ],
+  "applicability_facts": {
+    "territorial_nexus": true,
+    "regulated_activity": true,
+    "organisation_type": "private_entity"
+  },
+  "applicability_conflicts": [],
+  "sources": [
+    {
+      "source_id": "AI-REG-2026",
+      "title": "Controlled AI regulation fixture",
+      "source_class": "regulation",
+      "version": "2026.1",
+      "effective_from": "2026-01-01T00:00:00+00:00",
+      "effective_to": null,
+      "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ],
+  "obligations": [
+    {
+      "obligation_id": "AI-REG-01",
+      "source_id": "AI-REG-2026",
+      "requirement": "Retain system and evaluation evidence",
+      "deadline": "2026-12-01T00:00:00+00:00"
+    }
+  ],
+  "licence_required": false,
+  "licences": [],
+  "requested_actions": [
+    {
+      "effect": "draft",
+      "target": "internal_review"
+    }
+  ],
+  "unresolved_interpretations": [
+    "professional interpretation and final applicability decision required"
+  ],
+  "ai_trust_binding": {
+    "schema": "dio.ai_trust_envelope.v1",
+    "envelope_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "external_release": "REFUSE",
+    "source_phase": "13"
+  }
+}
