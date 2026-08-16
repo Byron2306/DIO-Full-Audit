@@ -37,6 +37,8 @@ def test_phase11_1_binds_attachments_and_stops_at_draft(tmp_path: Path) -> None:
     assert len((pack["evidence_reconciliation_register"] or {})["mappings"]) == 9
     assert {row["responsible_party"] for row in pack["requirement_or_obligation_ledger"]} == {"Supplier", "Customer"}
     assert sum(bool(row.get("relative_deadline_rule")) for row in pack["requirement_or_obligation_ledger"]) >= 4
+    maintenance = next(row for row in pack["requirement_or_obligation_ledger"] if "preventative maintenance" in row["statement"])
+    assert maintenance["relative_deadline_rule"].lower() == "every calendar month"
     contract_mapping = [row for row in pack["evidence_reconciliation_register"]["mappings"] if row["filename"] == "01_agreement.txt"]
     assert contract_mapping == []
     assert all("LATE_NOTICE" not in row["observed_signals"] for row in pack["evidence_reconciliation_register"]["mappings"] if row["filename"] != "05_incident.txt")
