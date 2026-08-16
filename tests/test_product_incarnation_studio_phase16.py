@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import zipfile
 from pathlib import Path
 
 import pytest
@@ -62,8 +63,17 @@ def test_storefront_intake_is_strictly_local_and_refuses_payment_send_upload(bui
 
 def test_document_studio_projection_emits_real_multiformat_sales_assets(built:dict)->None:
     root=Path(built["output_dir"])
-    assert (root/"sales/PRODUCT_BRIEF.pdf").read_bytes().startswith(b"%PDF")
-    assert (root/"sales/PRODUCT_BRIEF.docx").read_bytes().startswith(b"PK")
+    pdf=(root/"sales/PRODUCT_BRIEF.pdf").read_bytes()
+    docx=root/"sales/PRODUCT_BRIEF.docx"
+    assert pdf.startswith(b"%PDF") and len(pdf)>10_000
+    assert docx.read_bytes().startswith(b"PK")
+    with zipfile.ZipFile(docx) as package:
+        assert "word/styles.xml" in package.namelist()
+        document=package.read("word/document.xml").decode("utf-8")
+        styles=package.read("word/styles.xml").decode("utf-8")
+    for phrase in ("THE REVIEW","THE RESULT","THE BOUNDARY","Prepare a controlled review"):
+        assert phrase in document
+    assert "Heading1" in styles and "Callout" in styles
     assert "<!doctype html>" in (root/"sales/PRODUCT_BRIEF.html").read_text().lower()
     receipt=built["receipt"];assert receipt["document_studio_assets"]=="PASS"
 
