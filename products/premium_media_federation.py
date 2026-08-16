@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from products.media_incarnation import MediaIncarnationError,build_media_incarnation,verify_media_proof
+from adapters.document_studio.media_control import render_media_control_surface
 
 ROOT=Path(__file__).resolve().parents[1]
 ACCEPTANCE_TOKEN="DIO_PREMIUM_MEDIA_INCARNATION_READY"
@@ -212,14 +213,14 @@ def _run_nichefoundry(niche_root:Path,episode_dir:Path,provider:str)->dict[str,A
 def _corpus_census(niche:dict[str,Any])->dict[str,Any]:
     rows=[
       {"engine_id":"nichefoundry","repository":"Byron2306/NicheFoundry","state":"NATIVE_EXECUTED","receipt":"premium/NICHEFOUNDRY_NATIVE_EXECUTION.json"},
-      {"engine_id":"document_studio","repository":"DIO-Full-Audit/adapters/document_studio","state":"SOURCE_BOUND_ONLY","reason":"Phase 16 collateral bypasses adapters/document_studio/pipeline.py"},
+      {"engine_id":"document_studio","repository":"DIO-Full-Audit/adapters/document_studio","state":"NATIVE_EXECUTED","receipt":"premium/document_studio_media/DOCUMENT_STUDIO_MEDIA_RECEIPT.json"},
       {"engine_id":"lingua","repository":"DIO-Full-Audit/adapters/lingua","state":"NOT_INVOKED","reason":"No translation/localisation request is part of this incarnation"},
       {"engine_id":"homs","repository":"Byron2306/HOMS-assessor","state":"PROJECTION_ONLY","reason":"Phase 16 customer education is locally constructed"},
       {"engine_id":"evidex","repository":"Byron2306/Evidex","state":"PROJECTION_ONLY","reason":"Phase 16 proof manifest does not invoke the external Evidex runtime"},
       {"engine_id":"vamp","repository":"Byron2306/VAMP","state":"NOT_BOUND","reason":"VAMP is absent from the Phase 16 product contract"},
       {"engine_id":"sophia","repository":"Byron2306/Sophia-AI","state":"PROJECTION_ONLY","reason":"Phase 16 claim review is locally constructed"}
     ]
-    return {"schema":"dio.corpus_execution_census.v1","engines":rows,"native_executed_count":1,
+    return {"schema":"dio.corpus_execution_census.v1","engines":rows,"native_executed_count":2,
       "required_engine_count":7,"full_corpus_native_execution":"REFUSE",
       "law":"source binding, local projection and native engine execution are distinct evidence states"}
 
@@ -236,6 +237,8 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     base=build_media_incarnation(output_dir=output_dir/"base")
     niche_root=resolve_nichefoundry_root(nichefoundry_root);premium_dir=output_dir/"premium"
     episode=premium_dir/"nichefoundry_episode";niche=_run_nichefoundry(niche_root,episode,provider)
+    document_studio=render_media_control_surface(gamma_dir=episode/"premium_visuals",script_package=_script_package(),
+      output_dir=premium_dir/"document_studio_media",style_profile="dio_professional")
     evidence={k:v for k,v in niche.items() if k not in {"manifest","performance","sound_design","loudness","preview","gamma","music_rights","premium_assets"}}
     evidence.update({"audio_manifest_sha256":_sha(episode/"audio_manifest.json"),"audio_asset_hashes_sha256":_sha(episode/"audio_asset_hashes.json"),
       "loudness_report_sha256":_sha(episode/"loudness_report.json"),"sound_design_plan_sha256":_sha(episode/"sound_design_plan.json")})
@@ -245,16 +248,16 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     if not ffmpeg:raise PremiumMediaError("ffmpeg is required")
     final=output_dir/"media/youtube/FINAL_VIDEO_PREMIUM.mp4"
     final.parent.mkdir(parents=True,exist_ok=True)
-    gamma_assets=sorted((episode/"premium_visuals").glob("*_scene_*_GAMMA.png"))
+    gamma_assets=sorted((premium_dir/"document_studio_media").glob("SCENE_*_CONTROLLED.png"))
     if len(gamma_assets)!=len(niche["manifest"].get("scenes",[])):raise PremiumMediaError("Gamma visual count does not match audio scenes")
-    concat=output_dir/"premium/GAMMA_SCENES.ffconcat";parts=["ffconcat version 1.0"]
+    concat=output_dir/"premium/DOCUMENT_STUDIO_SCENES.ffconcat";parts=["ffconcat version 1.0"]
     for image,row in zip(gamma_assets,niche["manifest"]["scenes"]):
         parts.extend([f"file '{image.as_posix()}'",f"duration {float(row['resolved_duration_seconds']):.6f}"])
     parts.append(f"file '{gamma_assets[-1].as_posix()}'");concat.write_text("\n".join(parts)+"\n",encoding="utf-8")
     _run([ffmpeg,"-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(concat),"-i",str(niche["preview"]),
-      "-map","0:v:0","-map","1:a:0","-vf","fps=30,scale=1920:1080:flags=lanczos,format=yuv420p","-c:v","libx264","-preset","medium","-crf","20",
+      "-map","0:v:0","-map","1:a:0","-vf","fps=30,scale=2048:1152:flags=lanczos,zoompan=z='min(max(zoom,pzoom)+0.00012,1.055)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=30,format=yuv420p","-c:v","libx264","-preset","medium","-crf","20",
       "-c:a","aac","-b:a","192k","-shortest","-map_metadata","-1","-movflags","+faststart",str(final)])
-    shutil.copy2(episode/"premium_visuals/THUMBNAIL_GAMMA.png",output_dir/"media/youtube/THUMBNAIL_GAMMA.png")
+    shutil.copy2(premium_dir/"document_studio_media/THUMBNAIL_CONTROLLED.png",output_dir/"media/youtube/THUMBNAIL_CONTROLLED.png")
     artifacts=[]
     for path in sorted(p for p in output_dir.rglob("*") if p.is_file() and p.name not in {"PREMIUM_MEDIA_PROOF.json","PREMIUM_MEDIA_RECEIPT.json"}):
         artifacts.append({"path":str(path.relative_to(output_dir)),"sha256":_sha(path),"bytes":path.stat().st_size})
@@ -262,6 +265,8 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
       "premium_or_approved_voice":"PASS","robotic_production_fallback":"REFUSE","music_asset_present":"PASS",
       "music_rights_evidence":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS","narration_music_mix":"PASS",
       "native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS",
+      "native_document_studio_execution":"PASS","document_studio_format_core_binding":"PASS","document_studio_safe_zone_qa":"PASS",
+      "document_studio_motion_composition":"PASS",
       "sample_rate_48khz_stereo":"PASS","loudness_qa":"PASS",
       "native_engine_execution_census":"PASS","full_corpus_native_execution":"REFUSE","external_publication":"REFUSE",
       "external_send":"REFUSE","media_spend":"REFUSE","human_gate":"NEEDS_YOU"}
@@ -269,8 +274,10 @@ def build_premium_media(*,output_dir:Path,nichefoundry_root:Path|None=None,provi
     receipt={"schema":"dio.premium_media_receipt.v1","provider_set":niche["providers"],"nichefoundry_repository_execution":"PASS",
       "premium_voice":"PASS","music_and_rights":"PASS","procedural_music_fallback":"REFUSE","music_hiss_detection":"PASS",
       "native_gamma_execution":"PASS","gamma_scene_coverage":"PASS","gamma_final_video_binding":"PASS","audio_mastering":"PASS","premium_video":"PASS",
+      "native_document_studio_execution":"PASS","document_studio_format_core_binding":"PASS","document_studio_safe_zone_qa":"PASS",
+      "document_studio_motion_composition":"PASS",
       "corpus_execution_census":"PASS","full_corpus_native_execution":"REFUSE","external_publication":"REFUSE",
       "external_send":"REFUSE","media_spend":"REFUSE","human_gate":"NEEDS_YOU","proof_fingerprint":proof["proof_fingerprint"]}
     receipt["premium_media_fingerprint"]=_fingerprint(receipt);_write(output_dir/"PREMIUM_MEDIA_RECEIPT.json",receipt)
     verify_premium_proof(output_dir,proof)
-    return {"receipt":receipt,"proof_manifest":proof,"census":census,"nichefoundry":niche,"base":base,"output_dir":str(output_dir)}
+    return {"receipt":receipt,"proof_manifest":proof,"census":census,"nichefoundry":niche,"document_studio":document_studio,"base":base,"output_dir":str(output_dir)}
