@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.product_factory_spec.v1",
+  "title": "DIO Self-expanding Product Factory Specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "factory_version",
+    "product_id",
+    "slug",
+    "name",
+    "source_type",
+    "surface",
+    "buyer_context",
+    "suite_ids",
+    "work_patterns",
+    "meta_capabilities",
+    "profiles",
+    "capability_requirements",
+    "evidence_contract",
+    "output_contract",
+    "maturity",
+    "external_release",
+    "reference_case"
+  ],
+  "properties": {
+    "schema": {
+      "const": "dio.product_factory_spec.v1"
+    },
+    "factory_version": {
+      "const": "1.0.0"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^dio_[a-z0-9][a-z0-9_-]*$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160
+    },
+    "source_type": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "surface": {
+      "const": "internal"
+    },
+    "buyer_context": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "suite_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "education_research",
+          "evidence_assurance",
+          "public_programme_ops",
+          "ai_digital_trust",
+          "enterprise_operations",
+          "demand_presence"
+        ]
+      }
+    },
+    "work_patterns": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "WP01",
+          "WP02",
+          "WP03",
+          "WP04",
+          "WP05",
+          "WP06",
+          "WP07",
+          "WP08",
+          "WP09",
+          "WP10",
+          "WP11",
+          "WP12"
+        ]
+      }
+    },
+    "meta_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "meta_evidence",
+          "meta_assurance",
+          "meta_authority",
+          "meta_room"
+        ]
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "framework",
+        "authority",
+        "output"
+      ],
+      "properties": {
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "framework": {
+          "$ref": "#/$defs/framework"
+        },
+        "authority": {
+          "$ref": "#/$defs/authority"
+        },
+        "output": {
+          "$ref": "#/$defs/output"
+        }
+      }
+    },
+    "capability_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      }
+    },
+    "evidence_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_types",
+        "state_vocabulary",
+        "human_decisions",
+        "forbidden_claims"
+      ],
+      "properties": {
+        "required_types": {
+          "$ref": "#/$defs/strings"
+        },
+        "state_vocabulary": {
+          "$ref": "#/$defs/strings"
+        },
+        "human_decisions": {
+          "$ref": "#/$defs/strings"
+        },
+        "forbidden_claims": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_basename",
+        "required_sections"
+      ],
+      "properties": {
+        "artifact_basename": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "required_sections": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    },
+    "maturity": {
+      "const": "internal_proof"
+    },
+    "external_release": {
+      "const": "REFUSE"
+    },
+    "reference_case": {
+      "type": "string",
+      "pattern": "^config/factory/golden/[a-z0-9_-]+/reference_case.json$"
+    }
+  },
+  "$defs": {
+    "strings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "object_types",
+        "vocabulary",
+        "human_boundaries",
+        "forbidden_claims"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "object_types": {
+          "$ref": "#/$defs/strings"
+        },
+        "vocabulary": {
+          "$ref": "#/$defs/strings"
+        },
+        "human_boundaries": {
+          "$ref": "#/$defs/strings"
+        },
+        "forbidden_claims": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    },
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "requirement_types",
+        "state_vocabulary",
+        "deadline_semantics",
+        "human_boundaries",
+        "forbidden_claims"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "requirement_types": {
+          "$ref": "#/$defs/strings"
+        },
+        "state_vocabulary": {
+          "$ref": "#/$defs/strings"
+        },
+        "deadline_semantics": {
+          "$ref": "#/$defs/strings"
+        },
+        "human_boundaries": {
+          "$ref": "#/$defs/strings"
+        },
+        "forbidden_claims": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "human_roles",
+        "decision_boundaries",
+        "capability_constraints",
+        "forbidden_claims"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "human_roles": {
+          "$ref": "#/$defs/strings"
+        },
+        "decision_boundaries": {
+          "$ref": "#/$defs/strings"
+        },
+        "capability_constraints": {
+          "$ref": "#/$defs/strings"
+        },
+        "forbidden_claims": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "artifact_types",
+        "required_sections",
+        "disclosure_rules",
+        "qa_requirements"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "artifact_types": {
+          "type": "array",
+          "const": [
+            "JSON",
+            "HTML",
+            "DOCX",
+            "PDF",
+            "proof_room_manifest"
+          ]
+        },
+        "required_sections": {
+          "$ref": "#/$defs/strings"
+        },
+        "disclosure_rules": {
+          "$ref": "#/$defs/strings"
+        },
+        "qa_requirements": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    }
+  }
+}
