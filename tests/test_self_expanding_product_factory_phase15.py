@@ -21,7 +21,7 @@ NOW="2026-08-16T12:00:00+00:00"
 
 
 def _copy(target:Path)->Path:
-    shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns(".git",".venv","__pycache__",".pytest_cache","state"))
+    shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns(".git",".venv","__pycache__",".pytest_cache","state","sites"))
     return target
 
 
