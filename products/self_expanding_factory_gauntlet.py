@@ -28,7 +28,7 @@ def _hash(value:Any)->str:
 
 
 def _copy_repo(target:Path)->Path:
-    shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns(".git",".venv","__pycache__",".pytest_cache","state"))
+    shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns(".git",".venv","__pycache__",".pytest_cache","state","sites"))
     return target
 
 
