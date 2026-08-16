@@ -127,7 +127,8 @@ def _native_nichefoundry(now:str)->dict[str,Any]:
         campaign=nichefoundry.build_campaign_markdown(job,opportunity).strip()+"\n"
     finally:nichefoundry.utc_now=original
     return {"job":job,"opportunity":opportunity,"request":request,"campaign_markdown":campaign,
-      "binding_state":"NATIVE_FUNCTION_EXECUTION","live_adapter_invoked":True,"source_ref":"scripts/run_nichefoundry_jobs.py"}
+      "binding_state":"DIO_ADAPTER_EXECUTION","live_adapter_invoked":True,"native_engine_invoked":False,
+      "source_ref":"scripts/run_nichefoundry_jobs.py","native_engine_ref":"Byron2306/NicheFoundry"}
 
 
 def _production_script()->list[dict[str,Any]]:
@@ -206,7 +207,8 @@ def _sophia_review(script:list[dict[str,Any]])->dict[str,Any]:
       "supported_claims":["maps supplied evidence","keeps missing and stale states visible","preserves human authority"],
       "forbidden_claim_checks":[{"claim":x,"used_as_promotion":False,"state":"PASS"} for x in forbidden],
       "boundary_language_present":all(x in text for x in ("does not certify","does not guarantee","human")),
-      "external_publication":"REFUSE","source_engine":"sophia","live_adapter_invoked":True}
+      "external_publication":"REFUSE","source_engine":"sophia","execution_mode":"DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked":False,"native_engine_invoked":False}
 
 
 def verify_media_proof(output_dir:Path,proof:dict[str,Any])->None:
@@ -221,7 +223,7 @@ def build_media_incarnation(*,output_dir:Path,root:Path=ROOT,now:str=NOW)->dict[
     phase16=build_product_incarnation(output_dir=output_dir/"product",root=root,now=now)
     tools=_toolchain();native=_native_nichefoundry(now);script=_production_script()
     strategy=output_dir/"strategy";strategy.mkdir(exist_ok=True)
-    _write_json(strategy/"NICHEFOUNDRY_NATIVE_RECEIPT.json",{k:v for k,v in native.items() if k!="campaign_markdown"})
+    _write_json(strategy/"NICHEFOUNDRY_ADAPTER_RECEIPT.json",{k:v for k,v in native.items() if k!="campaign_markdown"})
     (strategy/"NICHEFOUNDRY_CAMPAIGN_PACK.md").write_text(native["campaign_markdown"],encoding="utf-8")
     _write_json(strategy/"FULL_VIDEO_SCRIPT.json",{"schema":"dio.full_video_script.v1","title":"Can Your Incident Plan Prove It?","scenes":script,"state":"DRAFT_ONLY","publication":"REFUSE"})
     media=_render_media(output_dir,script,tools);review=_sophia_review(script);_write_json(strategy/"SOPHIA_MEDIA_REVIEW.json",review)
@@ -235,12 +237,13 @@ def build_media_incarnation(*,output_dir:Path,root:Path=ROOT,now:str=NOW)->dict[
     for path in sorted(p for p in output_dir.rglob("*") if p.is_file() and p.name not in {"MEDIA_PROOF_MANIFEST.json","MEDIA_INCARNATION_RECEIPT.json"}):
         artifacts.append({"path":str(path.relative_to(output_dir)),"sha256":_sha(path),"bytes":path.stat().st_size})
     proof={"schema":"dio.media_incarnation_proof_manifest.v1","product_id":"dio_incidentreadinessproof","artifacts":artifacts,
-      "native_nichefoundry_execution":"PASS","ad_asset_rendering":"PASS","youtube_script_completeness":"PASS","narration_rendering":"PASS",
+      "nichefoundry_adapter_execution":"PASS","native_nichefoundry_execution":"REFUSE","ad_asset_rendering":"PASS","youtube_script_completeness":"PASS","narration_rendering":"PASS",
       "caption_alignment":"PASS","video_rendering":"PASS","sophia_media_review":"PASS","evidex_asset_provenance":"PASS",
       "network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE","external_send":"REFUSE","human_gate":"NEEDS_YOU"}
     proof["proof_fingerprint"]=_fingerprint(proof);_write_json(output_dir/"MEDIA_PROOF_MANIFEST.json",proof)
     receipt={"schema":"dio.media_incarnation_receipt.v1","product_id":"dio_incidentreadinessproof","artifact_count":len(artifacts),
-      "native_nichefoundry_execution":"PASS","nichefoundry_live_adapter_invoked":True,"ad_asset_rendering":"PASS","carousel_rendering":"PASS",
+      "nichefoundry_adapter_execution":"PASS","native_nichefoundry_execution":"REFUSE","nichefoundry_live_adapter_invoked":True,
+      "nichefoundry_native_engine_invoked":False,"ad_asset_rendering":"PASS","carousel_rendering":"PASS",
       "thumbnail_rendering":"PASS","youtube_script_completeness":"PASS","narration_rendering":"PASS","caption_alignment":"PASS",
       "video_rendering":"PASS","sophia_media_review":"PASS","evidex_asset_provenance":"PASS","deterministic_media_toolchain":"PASS",
       "video_duration_seconds":media["duration_seconds"],"network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE",

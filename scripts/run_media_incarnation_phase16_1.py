@@ -9,7 +9,7 @@ from products.media_incarnation_gauntlet import run_gauntlet
 def main()->int:
     parser=argparse.ArgumentParser();parser.add_argument("--output",type=Path,default=Path("state/media_incarnation/phase16_1"))
     result=run_gauntlet(output_dir=parser.parse_args().output)
-    keys=("native_nichefoundry_execution","ad_asset_rendering","carousel_rendering","thumbnail_rendering",
+    keys=("nichefoundry_adapter_execution","native_nichefoundry_execution","ad_asset_rendering","carousel_rendering","thumbnail_rendering",
       "youtube_script_completeness","narration_rendering","caption_alignment","video_rendering","sophia_media_review",
       "evidex_asset_provenance","deterministic_generation","canonical_output_integrity","tamper_detection","network_used",
       "external_publication","media_spend","external_send","human_gate","video_duration_seconds")
