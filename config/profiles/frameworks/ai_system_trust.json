@@ -1,0 +1,63 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.ai_system_trust",
+  "profile_class": "framework",
+  "name": "AI System Trust Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_AI_DIGITAL_TRUST_PHASE13.md",
+        "source_section": "AI System Trust Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:b690573fbfb310b237a3bfdf75b71fd1700c2c8eefac891e6357855b83c47142",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal AI and Digital Trust profile structures evidence and review only. It creates no safety certification, legal conclusion, compliance determination, model approval, permission, external effect or release authority.",
+  "spec": {
+    "requirement_types": [
+      "system_identity",
+      "intended_use",
+      "source_provenance",
+      "evaluation_coverage",
+      "data_boundary",
+      "incident_readiness"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "deadline_semantics": [
+      "evaluation_expiry",
+      "review_due",
+      "incident_response_due",
+      "none_explicit"
+    ],
+    "human_boundaries": [
+      "human confirms intended use",
+      "human judges residual risk",
+      "human controls release"
+    ],
+    "forbidden_claims": [
+      "universally_safe",
+      "certified",
+      "legally_compliant",
+      "externally_validated"
+    ]
+  },
+  "tags": [
+    "phase13",
+    "ai-digital-trust",
+    "framework"
+  ]
+}
