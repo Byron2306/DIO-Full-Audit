@@ -10,6 +10,10 @@ Phase 11.1.1 replaces blanket evidence fan-out with deterministic, evidence-spec
 - Evidence remains `captured_untrusted`; every semantic conclusion remains `NEEDS_YOU`.
 - No candidate mapping establishes fulfilment, acceptance, waiver, legal opinion, or release authority.
 - Both JSON and a readable HTML reconciliation register are placed beside the ContractProof evidence pack and attached to the Outlook draft.
+- Reconciliation artifacts are first-class entries in `PROOF_MANIFEST.json`; tampering invalidates proof integrity.
+- Contract source bytes are forbidden from re-entering the case as evidence.
+- Absolute dates, relative deadline rules, and explicit Supplier/Customer actors are preserved for human review.
+- The PDF renderer uses `reportlab` with an embedded system font when available; install it with the validation dependencies.
 
 ## Acceptance
 
