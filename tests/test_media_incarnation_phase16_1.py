@@ -16,10 +16,11 @@ def built(tmp_path_factory:pytest.TempPathFactory)->dict:
     return build_media_incarnation(output_dir=tmp_path_factory.mktemp("phase16-1")/"media")
 
 
-def test_native_nichefoundry_is_actually_invoked(built:dict)->None:
-    receipt=json.loads((Path(built["output_dir"])/"strategy/NICHEFOUNDRY_NATIVE_RECEIPT.json").read_text())
+def test_dio_nichefoundry_adapter_is_invoked_without_native_claim(built:dict)->None:
+    receipt=json.loads((Path(built["output_dir"])/"strategy/NICHEFOUNDRY_ADAPTER_RECEIPT.json").read_text())
     assert receipt["binding_state"]=="DIO_ADAPTER_EXECUTION"
     assert receipt["live_adapter_invoked"] is True
+    assert receipt["native_engine_invoked"] is False
     assert receipt["request"]["requested_outputs"]
 
 
