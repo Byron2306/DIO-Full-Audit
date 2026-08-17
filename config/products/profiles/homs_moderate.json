@@ -1,0 +1,31 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "homs_moderate",
+  "product_id": "dio_homs_moderate",
+  "category": "assessment_moderation_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "HOMS Moderate is currently bounded to preparing and reviewing supplied moderation criteria, assessment artefacts, rubrics or memoranda, sampled marking evidence and declared issues. It does not determine final marks, change grades, issue a moderation decision, make an academic-integrity finding, or release learner results.",
+  "default_requirement_kind": "framework",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "HOMSMODERATE",
+  "review_pack_title": "DIO HOMS Moderate Controlled Evidence Review Pack",
+  "human_gate_reason": "Moderation conclusions, final marks, grade changes, academic-integrity findings, sign-off and learner-result release remain with authorised educators and institutional authorities.",
+  "forbidden_outcomes": [
+    "final_mark_determination",
+    "grade_change",
+    "moderation_decision",
+    "academic_integrity_finding",
+    "assessment_signoff",
+    "learner_result_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

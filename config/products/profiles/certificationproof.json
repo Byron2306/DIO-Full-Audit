@@ -1,0 +1,26 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "certificationproof",
+  "product_id": "dio_certificationproof",
+  "category": "certification_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "CertificationProof is currently bounded to organising and reviewing evidence against supplied certification criteria. It does not make certification, conformity, accreditation or regulator-acceptance decisions.",
+  "default_requirement_kind": "control",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "CERTIFICATIONPROOF",
+  "review_pack_title": "DIO CertificationProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Certification decisions, conformity attestations, certificate issuance, accreditation decisions and regulator acceptance remain with authorised humans.",
+  "forbidden_outcomes": [
+    "certification_decision",
+    "certificate_issuance",
+    "conformity_attestation",
+    "accreditation_decision",
+    "regulator_acceptance"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

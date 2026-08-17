@@ -1,0 +1,26 @@
+{
+  "schema": "dio.dossier_assembly.profile.v1",
+  "profile_id": "dossierops",
+  "product_id": "dio_dossierops",
+  "category": "controlled_dossier_assembly",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "DossierOps is currently bounded to indexing, hash-binding and packaging authorised review artifacts. It does not determine completeness, legal sufficiency, authenticity, retention, submission or release.",
+  "suggested_engine_binding": "document_studio_review_artifacts",
+  "document_studio_receipt_schema": "dio.document_studio.receipt.v1",
+  "artifact_prefix": "DOSSIEROPS",
+  "review_pack_title": "DIO DossierOps Controlled Assembly Pack",
+  "human_gate_reason": "Dossier completeness, record sufficiency, authenticity conclusions, retention or disposal decisions, external submission and final release remain with authorised humans.",
+  "forbidden_outcomes": [
+    "dossier_completeness_certification",
+    "legal_sufficiency_determination",
+    "record_authenticity_attestation",
+    "retention_disposal_authorization",
+    "external_submission",
+    "final_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

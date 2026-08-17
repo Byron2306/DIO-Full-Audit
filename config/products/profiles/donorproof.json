@@ -1,0 +1,26 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "donorproof",
+  "product_id": "dio_donorproof",
+  "category": "donor_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "DonorProof is currently bounded to organising and reviewing supplied donor, grant and programme evidence. It does not determine eligibility, award funding, certify grant compliance or approve final donor reporting.",
+  "default_requirement_kind": "request",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "DONORPROOF",
+  "review_pack_title": "DIO DonorProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Donor eligibility, funding awards, grant-compliance conclusions, donor acceptance and final reporting approval remain with authorised humans.",
+  "forbidden_outcomes": [
+    "donor_eligibility_determination",
+    "funding_award_decision",
+    "donor_acceptance",
+    "grant_compliance_certification",
+    "final_donor_report_approval"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

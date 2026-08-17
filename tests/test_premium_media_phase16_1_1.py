@@ -53,8 +53,29 @@ def test_gamma_is_native_and_drives_every_final_scene(built:dict)->None:
     assert niche["gamma"]["native_engine_invoked"] is True
     assert niche["gamma"]["scene_coverage"]==6
     assert len([row for row in niche["gamma"]["assets"] if row["kind"]=="scene"])==6
-    assert (root/"media/youtube/THUMBNAIL_GAMMA.png").is_file()
+    assert (root/"media/youtube/THUMBNAIL_NATIVE.png").is_file()
     assert built["receipt"]["gamma_final_video_binding"]=="PASS"
+
+
+def test_document_studio_is_non_destructive_control_surface(built:dict)->None:
+    receipt=built["document_studio"]
+    assert receipt["native_engine_invoked"] is False
+    assert receipt["binding_state"]=="CONTROL_SURFACE_BOUND"
+    assert receipt["format_core_profile"]=="dio_professional"
+    assert receipt["scene_coverage"]=="PASS"
+    assert receipt["gamma_composition_preserved"]=="PASS"
+    assert receipt["destructive_crop"]=="REFUSE"
+    assert receipt["raster_text_overpaint"]=="REFUSE"
+    assert receipt["silent_font_fallback"]=="REFUSE"
+    assert receipt["automated_perceptual_release"]=="REFUSE"
+    assert receipt["human_visual_release"]=="NEEDS_YOU"
+
+
+def test_native_nichefoundry_renderer_owns_final_media(built:dict)->None:
+    native=built["nichefoundry"]["native_render"]
+    assert native["qa"]["passed"] is True
+    assert native["hashes"]["complete"] is True
+    assert native["manifest"]["output"]=="final.mp4"
 
 
 def test_premium_video_and_proof_are_material(built:dict)->None:
@@ -66,7 +87,7 @@ def test_premium_video_and_proof_are_material(built:dict)->None:
 def test_corpus_census_never_confuses_projection_with_execution(built:dict)->None:
     states={row["engine_id"]:row["state"] for row in built["census"]["engines"]}
     assert states["nichefoundry"]=="NATIVE_EXECUTED"
-    assert states["document_studio"]=="SOURCE_BOUND_ONLY"
+    assert states["document_studio"]=="CONTROL_SURFACE_BOUND"
     assert states["lingua"]=="NOT_INVOKED"
     assert states["homs"]=="PROJECTION_ONLY"
     assert states["evidex"]=="PROJECTION_ONLY"
@@ -84,7 +105,7 @@ def test_premium_tampering_is_refused_without_dirtying_canonical(built:dict,tmp_
 
 def test_phase16_1_1_premium_gauntlet(tmp_path:Path,settings:tuple[Path,str])->None:
     root,provider=settings;receipt=run_gauntlet(output_dir=tmp_path/"gauntlet",nichefoundry_root=root,provider=provider)
-    assert receipt["acceptance_token"]==ACCEPTANCE_TOKEN
+    assert receipt["acceptance_token"]=="DIO_FUSION_CLOSURE_READY"
     assert receipt["nichefoundry_repository_execution"]=="PASS"
     assert receipt["premium_or_approved_voice"]=="PASS"
     assert receipt["music_rights_evidence"]=="PASS"

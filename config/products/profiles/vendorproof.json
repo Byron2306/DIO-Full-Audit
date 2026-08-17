@@ -1,0 +1,30 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "vendorproof",
+  "product_id": "dio_vendorproof",
+  "category": "third_party_risk_due_diligence",
+  "identity_state": "canonical_portfolio_registered_profile_extension",
+  "canonical_portfolio_registration": true,
+  "scope_basis": "canonical_portfolio_registration_plus_atlas_reconciliation",
+  "scope_limit": "VendorProof prepares evidence and review findings. It never autonomously approves, rejects, scores, contracts with a supplier, or grants external release authority.",
+  "default_requirement_kind": "request",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "VENDORPROOF",
+  "review_pack_title": "DIO VendorProof Controlled Review Pack",
+  "human_gate_reason": "Vendor evidence review and any supplier, procurement, contracting, or acceptance decision remain with authorised humans.",
+  "forbidden_outcomes": [
+    "vendor_approval",
+    "vendor_rejection",
+    "vendor_score",
+    "procurement_decision",
+    "contracting_action"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "cpdproof",
+  "product_id": "dio_cpdproof",
+  "category": "cpd_evidence_readiness",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_reconciliation_route_and_vamp_snapshot_only",
+  "source_contract": "vamp_snapshot_evidence_coverage",
+  "scope_limit": "CPDProof is currently bounded to preparing and reviewing explicitly selected VAMP evidence-coverage objectives for human continuing-professional-development evidence review. It does not award CPD credits, certify compliance or competence, decide professional registration, rate an employee, or create an employment action.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "CPDPROOF",
+  "review_pack_title": "DIO CPDProof Controlled Evidence Readiness Pack",
+  "human_gate_reason": "CPD credit awards, compliance certification, competence findings, professional registration decisions, performance ratings, employment actions and final release remain with authorised humans or professional bodies.",
+  "forbidden_outcomes": [
+    "cpd_credit_award",
+    "cpd_compliance_certification",
+    "professional_registration_decision",
+    "competence_determination",
+    "performance_rating",
+    "employment_action",
+    "final_cpd_claim"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

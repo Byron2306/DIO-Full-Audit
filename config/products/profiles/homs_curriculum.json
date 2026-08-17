@@ -1,0 +1,32 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "homs_curriculum",
+  "product_id": "dio_homs_curriculum",
+  "category": "curriculum_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "HOMS Curriculum is currently bounded to preparing and reviewing supplied curriculum requirements, learning outcomes, module or programme materials, assessment alignment evidence and declared gaps. It does not approve a curriculum, certify programme quality, determine accreditation, issue academic policy, or authorise institutional release.",
+  "default_requirement_kind": "framework",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "HOMSCURRICULUM",
+  "review_pack_title": "DIO HOMS Curriculum Controlled Evidence Review Pack",
+  "human_gate_reason": "Curriculum approval, programme-quality conclusions, accreditation decisions, academic-policy decisions, institutional sign-off and final release remain with authorised academic and quality-assurance bodies.",
+  "forbidden_outcomes": [
+    "curriculum_approval",
+    "programme_quality_certification",
+    "accreditation_decision",
+    "academic_policy_decision",
+    "institutional_signoff",
+    "final_curriculum_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false,
+  "source_contract": "homs_learning_pack_receipt_artifacts"
+}
