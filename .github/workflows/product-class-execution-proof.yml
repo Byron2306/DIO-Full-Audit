@@ -4,13 +4,28 @@ on:
   pull_request:
     paths:
       - "products/product_class_execution_proof.py"
+      - "products/evidence_profile_execution_proof.py"
+      - "products/evidence_review.py"
       - "products/obligationfamily/**"
+      - "products/auditproof/**"
+      - "products/vendorproof/**"
+      - "products/assuranceroom/**"
+      - "products/unpromoted_evidence_profile.py"
       - "scripts/run_product_class_execution_proof.py"
       - "config/products/manifests/**"
       - "config/products/golden/**"
+      - "config/products/profiles/**"
+      - "config/product_class_routes.json"
+      - "config/product_class_reconciliation.json"
       - "config/portfolio/capability_catalog.json"
       - "tests/test_product_class_execution_proof.py"
+      - "tests/test_evidence_profile_execution_proof.py"
       - "tests/test_obligation_family_phase6.py"
+      - "tests/test_auditproof_controlled_review.py"
+      - "tests/test_vendorproof_controlled_review.py"
+      - "tests/test_assuranceroom_controlled_review.py"
+      - "tests/test_unpromoted_evidex_profile_batch.py"
+      - "tests/test_unpromoted_evidex_profile_batch2.py"
       - ".github/workflows/product-class-execution-proof.yml"
   workflow_dispatch:
 
@@ -33,23 +48,39 @@ jobs:
         run: |
           python -m py_compile \
             products/product_class_execution_proof.py \
+            products/evidence_profile_execution_proof.py \
+            products/evidence_review.py \
             products/obligationfamily/runner.py \
             scripts/run_product_class_execution_proof.py \
-            tests/test_product_class_execution_proof.py
+            tests/test_product_class_execution_proof.py \
+            tests/test_evidence_profile_execution_proof.py
 
-      - name: Run obligation family regression and proof-factory tests
+      - name: Run obligation and evidence proof-factory regressions
         run: |
           PYTHONNOUSERSITE=1 python -m pytest -q \
             tests/test_obligation_family_phase6.py \
-            tests/test_product_class_execution_proof.py
+            tests/test_product_class_execution_proof.py \
+            tests/test_auditproof_controlled_review.py \
+            tests/test_vendorproof_controlled_review.py \
+            tests/test_assuranceroom_controlled_review.py \
+            tests/test_unpromoted_evidex_profile_batch.py \
+            tests/test_unpromoted_evidex_profile_batch2.py \
+            tests/test_evidence_profile_execution_proof.py
 
-      - name: Smoke canonical GrantProof execution proof CLI
+      - name: Smoke GrantProof and AuditProof execution proof CLI
         run: |
-          rm -rf /tmp/dio-grantproof-ci-proof
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
             --product-id dio_grantproof \
             --golden \
             --output-dir /tmp/dio-grantproof-ci-proof \
             --operator-id human.github_actions_proof_operator \
             --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
+            --product-id dio_auditproof \
+            --golden \
+            --output-dir /tmp/dio-auditproof-ci-proof \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-17T20:00:00+00:00
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
