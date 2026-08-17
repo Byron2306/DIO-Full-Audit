@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from products.high_risk_execution_proof import high_risk_profiles_by_product
 from scripts.run_product_class_execution_proof_batch import registered_products, run_batch
 
 
@@ -14,7 +15,7 @@ OPERATOR = "human.product_class_batch_test"
 
 def test_batch_runner_proves_all_currently_attached_products(tmp_path: Path) -> None:
     products = registered_products()
-    assert len(products) == 27
+    assert len(products) == 36
     for product_id in (
         "dio_contractproof",
         "dio_regops",
@@ -29,15 +30,17 @@ def test_batch_runner_proves_all_currently_attached_products(tmp_path: Path) -> 
         "dio_sophia_tutor",
     ):
         assert product_id in products
+    assert set(high_risk_profiles_by_product()).issubset(set(products))
+    assert len(high_risk_profiles_by_product()) == 9
 
     output = tmp_path / "proof-bundle"
     receipt = run_batch(output_root=output, operator_id=OPERATOR, now=NOW)
     assert receipt["schema"] == "dio.product_class.execution_proof_batch.v1"
-    assert receipt["registered_proof_adapters"] == 27
-    assert receipt["controlled_routes_proved"] == 27
+    assert receipt["registered_proof_adapters"] == 36
+    assert receipt["controlled_routes_proved"] == 36
     assert receipt["all_controlled_routes_proved"] is True
     assert receipt["public_launch_ready_products"] == []
-    assert len(receipt["products"]) == 27
+    assert len(receipt["products"]) == 36
     assert all(row["execution_proof_state"] == "CONTROLLED_ROUTE_PROVED" for row in receipt["products"])
     assert all(row["human_review_gate"] == "NEEDS_YOU" for row in receipt["products"])
     assert all(row["external_release_gate"] == "REFUSE" for row in receipt["products"])
@@ -60,6 +63,8 @@ def test_batch_runner_proves_all_currently_attached_products(tmp_path: Path) -> 
         "dio_sophia_tutor",
     ):
         assert by_id[product_id]["adapter_family"] == "homs_sophia_controlled_review"
+    for product_id in high_risk_profiles_by_product():
+        assert by_id[product_id]["adapter_family"] == "high_risk_controlled_review_no_engine"
 
     persisted = json.loads((output / "BATCH_EXECUTION_PROOF_RECEIPT.json").read_text(encoding="utf-8"))
     assert persisted == receipt
