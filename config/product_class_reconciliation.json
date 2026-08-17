@@ -137,7 +137,16 @@
       "next_gate": "run one human-reviewed vendor pilot over an authorised vendor questionnaire and evidence bundle before any controlled-pilot launch consideration"
     },
     "assuranceroom": {
-      "suggested_engine": "evidex"
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_assuranceroom",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/assuranceroom.json",
+      "controlled_processor": "products/assuranceroom/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed assurance-room pilot over authorised assurance requirements and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "cpdproof": {
       "suggested_engine": "vamp"
@@ -146,10 +155,28 @@
       "suggested_engine": "homs"
     },
     "impactproof": {
-      "suggested_engine": "evidex"
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_impactproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/impactproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed ImpactProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "projectproof": {
-      "suggested_engine": "evidex"
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_projectproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/projectproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed ProjectProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "sophia_integrity": {
       "suggested_engine": "sophia"
@@ -164,7 +191,16 @@
       "suggested_engine": null
     },
     "certificationproof": {
-      "suggested_engine": "evidex"
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_certificationproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/certificationproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed CertificationProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "criticalai_assurance": {
       "suggested_engine": null
@@ -176,10 +212,28 @@
       "suggested_engine": null
     },
     "diligenceroom": {
-      "suggested_engine": "evidex"
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_diligenceroom",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/diligenceroom.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed DiligenceRoom pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "donorproof": {
-      "suggested_engine": "evidex"
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_donorproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/donorproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed DonorProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "homs_curriculum": {
       "suggested_engine": "homs"
