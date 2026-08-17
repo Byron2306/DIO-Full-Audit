@@ -6,8 +6,14 @@ on:
       - "products/product_class_execution_proof.py"
       - "products/evidence_profile_execution_proof.py"
       - "products/vamp_profile_execution_proof.py"
+      - "products/contractproof_execution_proof.py"
       - "products/evidence_review.py"
       - "products/obligationfamily/**"
+      - "products/contractproof/**"
+      - "products/phase11_1.py"
+      - "products/phase11_1_gauntlet.py"
+      - "products/attachment_intake.py"
+      - "products/evidence_reconciliation.py"
       - "products/auditproof/**"
       - "products/vendorproof/**"
       - "products/assuranceroom/**"
@@ -24,7 +30,11 @@ on:
       - "tests/test_product_class_execution_proof.py"
       - "tests/test_evidence_profile_execution_proof.py"
       - "tests/test_vamp_profile_execution_proof.py"
+      - "tests/test_contractproof_execution_proof.py"
       - "tests/test_product_class_execution_proof_batch.py"
+      - "tests/test_contractproof_vesper_boundary.py"
+      - "tests/test_phase11_1.py"
+      - "tests/test_phase11_1_1.py"
       - "tests/test_obligation_family_phase6.py"
       - "tests/test_auditproof_controlled_review.py"
       - "tests/test_vendorproof_controlled_review.py"
@@ -48,7 +58,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install validation dependencies
-        run: python -m pip install --disable-pip-version-check pytest jsonschema
+        run: python -m pip install --disable-pip-version-check pytest jsonschema reportlab
 
       - name: Compile execution-proof sources
         run: |
@@ -56,16 +66,21 @@ jobs:
             products/product_class_execution_proof.py \
             products/evidence_profile_execution_proof.py \
             products/vamp_profile_execution_proof.py \
+            products/contractproof_execution_proof.py \
             products/evidence_review.py \
             products/obligationfamily/runner.py \
+            products/contractproof/runner.py \
+            products/phase11_1.py \
+            products/phase11_1_gauntlet.py \
             scripts/run_product_class_execution_proof.py \
             scripts/run_product_class_execution_proof_batch.py \
             tests/test_product_class_execution_proof.py \
             tests/test_evidence_profile_execution_proof.py \
             tests/test_vamp_profile_execution_proof.py \
+            tests/test_contractproof_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
-      - name: Run obligation evidence and VAMP proof-factory regressions
+      - name: Run proof-factory and native-route regressions
         run: |
           PYTHONNOUSERSITE=1 python -m pytest -q \
             tests/test_obligation_family_phase6.py \
@@ -78,11 +93,15 @@ jobs:
             tests/test_evidence_profile_execution_proof.py \
             tests/test_unpromoted_vamp_profile_batch.py \
             tests/test_vamp_profile_execution_proof.py \
+            tests/test_contractproof_vesper_boundary.py \
+            tests/test_phase11_1.py \
+            tests/test_phase11_1_1.py \
+            tests/test_contractproof_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
-      - name: Smoke GrantProof AuditProof and PromotionProof CLI
+      - name: Smoke representative execution proof CLI lanes
         run: |
-          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
             --product-id dio_grantproof \
             --golden \
@@ -101,9 +120,16 @@ jobs:
             --output-dir /tmp/dio-promotionproof-ci-proof \
             --operator-id human.github_actions_proof_operator \
             --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
+            --product-id dio_contractproof \
+            --golden \
+            --output-dir /tmp/dio-contractproof-ci-proof \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-17T20:00:00+00:00
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-contractproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
 
       - name: Build complete attached-product proof bundle
         run: |
