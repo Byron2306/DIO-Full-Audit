@@ -109,7 +109,18 @@
       "next_gate": "run one human-reviewed audit-evidence pilot over authorised audit criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
     },
     "dossierops": {
-      "suggested_engine": "document_studio"
+      "suggested_engine": "document_studio",
+      "profile_product_id": "dio_dossierops",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/dossierops.json",
+      "controlled_processor": "products/dossierops/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_assembly_not_execution_proof",
+      "document_studio_binding": "validated_review_artifact_input_not_invocation",
+      "document_studio_execution_performed": false,
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed dossier pilot over authorised source records and review artifacts before any identity promotion or controlled-pilot launch consideration"
     },
     "promotionproof": {
       "suggested_engine": "vamp"
