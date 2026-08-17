@@ -14,31 +14,30 @@ OPERATOR = "human.product_class_batch_test"
 
 def test_batch_runner_proves_all_currently_attached_products(tmp_path: Path) -> None:
     products = registered_products()
-    assert len(products) == 19
-    assert "dio_contractproof" in products
-    assert "dio_regops" in products
-    assert "dio_accreditation" in products
+    assert len(products) == 20
+    for product_id in ("dio_contractproof", "dio_regops", "dio_accreditation", "dio_agentauthority"):
+        assert product_id in products
 
     output = tmp_path / "proof-bundle"
     receipt = run_batch(output_root=output, operator_id=OPERATOR, now=NOW)
     assert receipt["schema"] == "dio.product_class.execution_proof_batch.v1"
-    assert receipt["registered_proof_adapters"] == 19
-    assert receipt["controlled_routes_proved"] == 19
+    assert receipt["registered_proof_adapters"] == 20
+    assert receipt["controlled_routes_proved"] == 20
     assert receipt["all_controlled_routes_proved"] is True
     assert receipt["public_launch_ready_products"] == []
-    assert len(receipt["products"]) == 19
+    assert len(receipt["products"]) == 20
     assert all(row["execution_proof_state"] == "CONTROLLED_ROUTE_PROVED" for row in receipt["products"])
     assert all(row["human_review_gate"] == "NEEDS_YOU" for row in receipt["products"])
     assert all(row["external_release_gate"] == "REFUSE" for row in receipt["products"])
     assert all(row["public_launch_ready"] is False for row in receipt["products"])
 
-    contract = next(row for row in receipt["products"] if row["product_id"] == "dio_contractproof")
-    assert contract["adapter_family"] == "vesper_contractproof_attachment_journey"
-    regops = next(row for row in receipt["products"] if row["product_id"] == "dio_regops")
-    assert regops["adapter_family"] == "regops_controlled_readiness"
-    accreditation = next(row for row in receipt["products"] if row["product_id"] == "dio_accreditation")
-    assert accreditation["atlas_product_class"] == "homs_accreditation"
-    assert accreditation["adapter_family"] == "accreditation_controlled_review"
+    by_id = {row["product_id"]: row for row in receipt["products"]}
+    assert by_id["dio_contractproof"]["adapter_family"] == "vesper_contractproof_attachment_journey"
+    assert by_id["dio_regops"]["adapter_family"] == "regops_controlled_readiness"
+    assert by_id["dio_accreditation"]["atlas_product_class"] == "homs_accreditation"
+    assert by_id["dio_accreditation"]["adapter_family"] == "accreditation_controlled_review"
+    assert by_id["dio_agentauthority"]["atlas_product_class"] == "agent_authority"
+    assert by_id["dio_agentauthority"]["adapter_family"] == "ai_trust_agent_authority"
 
     persisted = json.loads((output / "BATCH_EXECUTION_PROOF_RECEIPT.json").read_text(encoding="utf-8"))
     assert persisted == receipt
