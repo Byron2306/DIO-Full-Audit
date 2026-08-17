@@ -67,6 +67,18 @@ def test_proof_verifier_detects_artifact_tampering(tmp_path: Path) -> None:
         verify_execution_proof(output)
 
 
+def test_proof_verifier_detects_top_level_metadata_tampering(tmp_path: Path) -> None:
+    product_id = "dio_grantproof"
+    output = tmp_path / "grantproof"
+    run_execution_proof(product_id, _fixture(product_id), output_dir=output, operator_id=OPERATOR, now=NOW)
+    proof_path = output / "PRODUCT_EXECUTION_PROOF.json"
+    proof = json.loads(proof_path.read_text(encoding="utf-8"))
+    proof["claim_ceiling"] = "tampered claim ceiling"
+    proof_path.write_text(json.dumps(proof, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    with pytest.raises(ProductClassExecutionProofError, match="fingerprint mismatch"):
+        verify_execution_proof(output)
+
+
 def test_harness_refuses_missing_operator_unknown_product_and_dirty_output(tmp_path: Path) -> None:
     fixture = _fixture("dio_grantproof")
     with pytest.raises(ProductClassExecutionProofError, match="operator_id"):
