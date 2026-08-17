@@ -203,7 +203,7 @@ def audit(root: Path = ROOT) -> dict[str, Any]:
         "truth_boundary": (
             "Typed profile coverage proves only explicit scope and authority boundaries over shared DIO organs. "
             "A canonical portfolio registration remains distinct from an exact executable incarnation. "
-            "Neither typed coverage nor portfolio registration is product execution proof, customer validation, "
+            "Typed coverage and portfolio registration are not product execution proof, customer validation, "
             "public launch authority or external release authority."
         ),
     }
