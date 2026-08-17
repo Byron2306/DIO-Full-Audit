@@ -7,11 +7,11 @@
   "summary": {
     "atlas_profile_extensions_reviewed": 38,
     "exact_canonical_incarnations": 6,
-    "equivalence_candidates": 2,
+    "equivalence_candidates": 1,
     "genuine_profile_extensions": 28,
     "auto_promotable_from_reconciliation": 0,
     "public_launch_authorized_from_reconciliation": 0,
-    "resolved_composition_bindings": 2
+    "resolved_composition_bindings": 3
   },
   "exact_canonical_incarnations": {
     "grantproof": {
@@ -64,12 +64,6 @@
       "candidate_manifest": "config/products/manifests/modelchangeproof.json",
       "question": "Does atlas ChangeProof mean only model, prompt, policy, connector and environment change assurance, or a broader enterprise change product?",
       "state": "equivalence_review_required"
-    },
-    "dio_ai_assurance": {
-      "candidate_product_id": "dio_aitrustproof",
-      "candidate_manifest": "config/products/manifests/aitrustproof.json",
-      "question": "Is DIO AI Assurance the bounded AI system trust and evaluation dossier represented by AITrustProof, or a broader assurance umbrella?",
-      "state": "equivalence_review_required"
     }
   },
   "resolved_composition_bindings": {
@@ -90,6 +84,15 @@
       "state": "identity_equivalence_rejected",
       "reason": "DIO RegOps spans operational prerequisites, evidence, deadlines and readiness gates. AIRegReadiness is the bounded AI regulatory-readiness incarnation and therefore only one reusable RegOps component/profile.",
       "next_gate": "prove a bounded RegOps readiness case over an explicit non-AI or mixed regulatory profile while preserving no-advice and human release gates"
+    },
+    "dio_ai_assurance": {
+      "canonical_product_id": "dio_assurance",
+      "reusable_component_product_id": "dio_aitrustproof",
+      "reusable_component_manifest": "config/products/manifests/aitrustproof.json",
+      "relationship": "composition_reuse",
+      "state": "identity_equivalence_rejected",
+      "reason": "DIO Assurance is the broader AI-governance assurance composition spanning inventory, controls, evidence, decisions, exceptions and review. AITrustProof is a bounded AI system trust and evaluation dossier, not an identity alias.",
+      "next_gate": "bind one bounded AI workflow into the broader DIO Assurance control-evidence and review workflow while preserving human assurance and release authority"
     }
   },
   "genuine_profile_extensions": {

@@ -24,8 +24,8 @@ def test_reconciliation_partitions_all_38_atlas_profile_extensions() -> None:
     extensions = set(reconciliation["genuine_profile_extensions"])
 
     assert len(exact) == 6
-    assert len(candidates) == 2
-    assert len(resolved) == 2
+    assert len(candidates) == 1
+    assert len(resolved) == 3
     assert len(extensions) == 28
 
     partitions = [exact, candidates, resolved, extensions]
@@ -86,10 +86,7 @@ def test_equivalence_candidates_remain_review_only() -> None:
     result = audit_reconciliation()
     reconciliation = read_json(RECONCILIATION)
 
-    assert set(reconciliation["equivalence_candidates"]) == {
-        "changeproof",
-        "dio_ai_assurance",
-    }
+    assert set(reconciliation["equivalence_candidates"]) == {"changeproof"}
     for product_class, row in result["equivalence_candidates"].items():
         assert row["manifest_exists"], product_class
         assert row["candidate_id_match"], product_class
@@ -104,8 +101,9 @@ def test_resolved_composition_bindings_reject_aliases_but_preserve_reuse() -> No
     assert set(reconciliation["resolved_composition_bindings"]) == {
         "homs_accreditation",
         "dio_regops",
+        "dio_ai_assurance",
     }
-    assert result["summary"]["resolved_composition_bindings"] == 2
+    assert result["summary"]["resolved_composition_bindings"] == 3
 
     homs = result["resolved_composition_bindings"]["homs_accreditation"]
     assert homs["canonical_product_id"] == "dio_accreditation"
@@ -122,6 +120,14 @@ def test_resolved_composition_bindings_reject_aliases_but_preserve_reuse() -> No
     assert regops["relationship"] == "composition_reuse"
     assert regops["state"] == "identity_equivalence_rejected"
     assert regops["route_auto_promotable"] is False
+
+    assurance = result["resolved_composition_bindings"]["dio_ai_assurance"]
+    assert assurance["canonical_product_id"] == "dio_assurance"
+    assert assurance["canonical_product_exists"] is True
+    assert assurance["component_id_match"] is True
+    assert assurance["relationship"] == "composition_reuse"
+    assert assurance["state"] == "identity_equivalence_rejected"
+    assert assurance["route_auto_promotable"] is False
 
 
 def test_reconciliation_grants_no_launch_or_auto_promotion_authority() -> None:
