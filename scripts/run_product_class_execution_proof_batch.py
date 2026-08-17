@@ -14,6 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.evidence_profile_execution_proof import (  # noqa: E402
     _profiles_by_product,
     controlled_evidence_fixture,
@@ -29,6 +30,7 @@ from products.vamp_profile_execution_proof import (  # noqa: E402
 
 
 BATCH_SCHEMA = "dio.product_class.execution_proof_batch.v1"
+CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
 
 
 def _canonical(value: Any) -> bytes:
@@ -51,6 +53,7 @@ def registered_products() -> tuple[str, ...]:
     products = set(FAMILY_DEFINITIONS)
     products.update(_profiles_by_product())
     products.update(vamp_profiles_by_product())
+    products.add(CONTRACTPROOF_PRODUCT_ID)
     return tuple(sorted(products))
 
 
@@ -63,6 +66,8 @@ def _obligation_fixture(product_id: str) -> dict[str, Any]:
 
 
 def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -> dict[str, Any]:
+    if product_id == CONTRACTPROOF_PRODUCT_ID:
+        return run_contractproof_execution_proof(output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(
             product_id,
