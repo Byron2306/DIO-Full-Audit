@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "modelproof",
+  "product_id": "dio_modelproof",
+  "category": "model_governance_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "ModelProof is currently bounded to reviewing supplied model documentation, evaluation evidence, limitations, approvals, change records and declared gaps for authorised human model-governance review. It does not certify model validity, guarantee performance or safety, approve deployment, accept risk, grant regulatory approval, or authorise external release.",
+  "default_requirement_kind": "control",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "MODELPROOF",
+  "review_pack_title": "DIO ModelProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Model validation conclusions, performance or safety claims, deployment approval, risk acceptance, regulatory conclusions and final release remain with authorised model, risk and governance owners.",
+  "forbidden_outcomes": [
+    "model_validity_certification",
+    "performance_or_safety_guarantee",
+    "deployment_approval",
+    "risk_acceptance",
+    "regulatory_approval",
+    "external_model_assurance_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}
