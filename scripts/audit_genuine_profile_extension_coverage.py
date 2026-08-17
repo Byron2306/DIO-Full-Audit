@@ -8,13 +8,8 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RECONCILIATION = ROOT / "config" / "product_class_reconciliation.json"
-ROUTES = ROOT / "config" / "product_class_routes.json"
-PORTFOLIO = ROOT / "config" / "dio_product_portfolio.json"
-META_REGISTRY = ROOT / "config" / "dio_meta_products.json"
-PROFILE_ROOT = ROOT / "config" / "products" / "profiles"
-
-EXPECTED_IDENTITY_STATE = "genuine_profile_extension_unpromoted"
+UNPROMOTED_IDENTITY = "genuine_profile_extension_unpromoted"
+CANONICAL_REGISTERED_IDENTITY = "canonical_portfolio_registered_profile_extension"
 EVIDENCE_REVIEW_SCHEMA = "dio.evidence_review.profile.v1"
 EXPECTED_META_PRODUCTS = ["meta_evidence", "meta_assurance", "meta_room"]
 EXPECTED_RELEASE_GUARD = "meta_authority"
@@ -90,13 +85,20 @@ def audit(root: Path = ROOT) -> dict[str, Any]:
             continue
 
         product_id = str(profile.get("product_id") or "")
+        canonical_registration = product_id in canonical_ids
+        composition_registration = product_id in composition_ids
+        identity_state = profile.get("identity_state")
+        declared_canonical = profile.get("canonical_portfolio_registration")
+        reconciled_canonical = str(extension.get("canonical_product_id") or "")
+
         row.update(
             {
                 "schema": profile.get("schema"),
                 "product_id": product_id,
-                "identity_state": profile.get("identity_state"),
-                "canonical_portfolio_registration": profile.get("canonical_portfolio_registration"),
-                "state": "typed_unpromoted_profile",
+                "identity_state": identity_state,
+                "canonical_portfolio_registration": declared_canonical,
+                "canonical_identity_present": canonical_registration,
+                "meta_composition_present": composition_registration,
             }
         )
 
@@ -104,14 +106,38 @@ def audit(root: Path = ROOT) -> dict[str, Any]:
             errors.append(f"{profile_id}: profile_id does not match filename/reconciliation key")
         if not product_id:
             errors.append(f"{profile_id}: product_id is required")
-        if profile.get("identity_state") != EXPECTED_IDENTITY_STATE:
-            errors.append(f"{profile_id}: identity_state must remain {EXPECTED_IDENTITY_STATE}")
-        if profile.get("canonical_portfolio_registration") is not False:
-            errors.append(f"{profile_id}: cannot claim canonical portfolio registration")
-        if product_id in canonical_ids:
-            errors.append(f"{profile_id}: unpromoted profile product_id collides with canonical portfolio {product_id}")
-        if product_id in composition_ids:
-            errors.append(f"{profile_id}: unpromoted profile product_id collides with canonical META composition {product_id}")
+
+        if canonical_registration:
+            row["state"] = "typed_canonical_registered_profile_extension"
+            if identity_state != CANONICAL_REGISTERED_IDENTITY:
+                errors.append(
+                    f"{profile_id}: canonical portfolio profile must use identity_state={CANONICAL_REGISTERED_IDENTITY}"
+                )
+            if declared_canonical is not True:
+                errors.append(f"{profile_id}: canonical portfolio registration must be declared true")
+            if reconciled_canonical != product_id:
+                errors.append(
+                    f"{profile_id}: reconciliation must explicitly bind canonical_product_id={product_id}"
+                )
+            if not composition_registration:
+                errors.append(
+                    f"{profile_id}: canonical portfolio profile is missing its canonical META composition"
+                )
+        else:
+            row["state"] = "typed_unpromoted_profile"
+            if identity_state != UNPROMOTED_IDENTITY:
+                errors.append(f"{profile_id}: identity_state must remain {UNPROMOTED_IDENTITY}")
+            if declared_canonical is not False:
+                errors.append(f"{profile_id}: noncanonical profile must declare canonical registration false")
+            if composition_registration:
+                errors.append(
+                    f"{profile_id}: noncanonical product_id unexpectedly collides with META composition {product_id}"
+                )
+            if reconciled_canonical:
+                errors.append(
+                    f"{profile_id}: noncanonical profile cannot claim reconciliation canonical_product_id={reconciled_canonical}"
+                )
+
         if not profile.get("scope_limit"):
             errors.append(f"{profile_id}: scope_limit is required")
         if not profile.get("human_gate_reason"):
@@ -138,39 +164,47 @@ def audit(root: Path = ROOT) -> dict[str, Any]:
         rows.append(row)
 
     orphan_profiles: list[str] = []
+    audited_identity_states = {UNPROMOTED_IDENTITY, CANONICAL_REGISTERED_IDENTITY}
     for path in sorted(profile_root.glob("*.json")):
         payload = _read(path)
-        if payload.get("identity_state") == EXPECTED_IDENTITY_STATE and path.stem not in extensions:
+        if payload.get("identity_state") in audited_identity_states and path.stem not in extensions:
             orphan_profiles.append(path.stem)
             errors.append(
-                f"{path.stem}: unpromoted genuine-extension profile exists outside reconciliation"
+                f"{path.stem}: genuine-extension typed profile exists outside reconciliation"
             )
 
-    typed_count = sum(1 for row in rows if row["state"] == "typed_unpromoted_profile")
+    typed_states = {
+        "typed_unpromoted_profile",
+        "typed_canonical_registered_profile_extension",
+    }
+    typed_count = sum(1 for row in rows if row["state"] in typed_states)
+    canonical_registered = sum(
+        1 for row in rows if row["state"] == "typed_canonical_registered_profile_extension"
+    )
+    unpromoted = sum(1 for row in rows if row["state"] == "typed_unpromoted_profile")
+
     result = {
         "schema": "dio.genuine_profile_extension_coverage_audit.v1",
         "state": "reconciled" if not errors else "failed",
         "genuine_profile_extensions": len(extensions),
         "typed_profiles": typed_count,
+        "typed_unpromoted_profiles": unpromoted,
+        "typed_canonical_registered_profiles": canonical_registered,
         "missing_profiles": len(extensions) - typed_count,
         "auto_promotable_profiles": sum(
             1
             for profile_id in extensions
             if (route_rows.get(profile_id) or {}).get("auto_promotable") is True
         ),
-        "canonical_collisions": sum(
-            1
-            for row in rows
-            if row.get("product_id") in canonical_ids or row.get("product_id") in composition_ids
-        ),
-        "orphan_unpromoted_profiles": orphan_profiles,
+        "orphan_typed_profiles": orphan_profiles,
         "errors": errors,
         "warnings": warnings,
         "profiles": rows,
         "truth_boundary": (
-            "Typed unpromoted profile coverage proves only that each genuine extension has an explicit "
-            "scope and authority boundary over shared DIO organs. It is not product execution proof, "
-            "customer validation, public launch authority or external release authority."
+            "Typed profile coverage proves only explicit scope and authority boundaries over shared DIO organs. "
+            "A canonical portfolio registration remains distinct from an exact executable incarnation. "
+            "Neither typed coverage nor portfolio registration is product execution proof, customer validation, "
+            "public launch authority or external release authority."
         ),
     }
     return result
