@@ -15,26 +15,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
+from products.agentauthority_execution_proof import controlled_agentauthority_fixture, run_agentauthority_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
-from products.evidence_profile_execution_proof import (  # noqa: E402
-    _profiles_by_product,
-    controlled_evidence_fixture,
-    run_evidence_profile_execution_proof,
-)
+from products.evidence_profile_execution_proof import _profiles_by_product, controlled_evidence_fixture, run_evidence_profile_execution_proof  # noqa: E402
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof, verify_execution_proof  # noqa: E402
 from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
-from products.vamp_profile_execution_proof import (  # noqa: E402
-    controlled_vamp_fixture,
-    run_vamp_profile_execution_proof,
-    vamp_profiles_by_product,
-)
+from products.vamp_profile_execution_proof import controlled_vamp_fixture, run_vamp_profile_execution_proof, vamp_profiles_by_product  # noqa: E402
 
 
 BATCH_SCHEMA = "dio.product_class.execution_proof_batch.v1"
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
 REGOPS_PRODUCT_ID = "dio_regops"
 ACCREDITATION_PRODUCT_ID = "dio_accreditation"
+AGENTAUTHORITY_PRODUCT_ID = "dio_agentauthority"
 
 
 def _canonical(value: Any) -> bytes:
@@ -57,7 +51,7 @@ def registered_products() -> tuple[str, ...]:
     products = set(FAMILY_DEFINITIONS)
     products.update(_profiles_by_product())
     products.update(vamp_profiles_by_product())
-    products.update({CONTRACTPROOF_PRODUCT_ID, REGOPS_PRODUCT_ID, ACCREDITATION_PRODUCT_ID})
+    products.update({CONTRACTPROOF_PRODUCT_ID, REGOPS_PRODUCT_ID, ACCREDITATION_PRODUCT_ID, AGENTAUTHORITY_PRODUCT_ID})
     return tuple(sorted(products))
 
 
@@ -76,32 +70,16 @@ def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -
         return run_regops_execution_proof(controlled_regops_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id == ACCREDITATION_PRODUCT_ID:
         return run_accreditation_execution_proof(controlled_accreditation_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == AGENTAUTHORITY_PRODUCT_ID:
+        return run_agentauthority_execution_proof(controlled_agentauthority_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
-        return run_execution_proof(
-            product_id,
-            _obligation_fixture(product_id),
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-        )
+        return run_execution_proof(product_id, _obligation_fixture(product_id), output_dir=output_dir, operator_id=operator_id, now=now)
     evidence_profile = _profiles_by_product().get(product_id)
     if evidence_profile is not None:
-        return run_evidence_profile_execution_proof(
-            product_id,
-            controlled_evidence_fixture(evidence_profile),
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-        )
+        return run_evidence_profile_execution_proof(product_id, controlled_evidence_fixture(evidence_profile), output_dir=output_dir, operator_id=operator_id, now=now)
     vamp_profile = vamp_profiles_by_product().get(product_id)
     if vamp_profile is not None:
-        return run_vamp_profile_execution_proof(
-            product_id,
-            controlled_vamp_fixture(vamp_profile),
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-        )
+        return run_vamp_profile_execution_proof(product_id, controlled_vamp_fixture(vamp_profile), output_dir=output_dir, operator_id=operator_id, now=now)
     raise RuntimeError(f"batch execution-proof adapter missing: {product_id}")
 
 
@@ -168,21 +146,15 @@ def main() -> int:
     if args.replace and out.exists():
         shutil.rmtree(out)
     receipt = run_batch(output_root=out, operator_id=args.operator_id, now=args.now)
-    print(
-        json.dumps(
-            {
-                "schema": receipt["schema"],
-                "registered_proof_adapters": receipt["registered_proof_adapters"],
-                "controlled_routes_proved": receipt["controlled_routes_proved"],
-                "all_controlled_routes_proved": receipt["all_controlled_routes_proved"],
-                "public_launch_ready_products": receipt["public_launch_ready_products"],
-                "batch_fingerprint": receipt["batch_fingerprint"],
-                "output_root": str(out),
-            },
-            indent=2,
-            sort_keys=True,
-        )
-    )
+    print(json.dumps({
+        "schema": receipt["schema"],
+        "registered_proof_adapters": receipt["registered_proof_adapters"],
+        "controlled_routes_proved": receipt["controlled_routes_proved"],
+        "all_controlled_routes_proved": receipt["all_controlled_routes_proved"],
+        "public_launch_ready_products": receipt["public_launch_ready_products"],
+        "batch_fingerprint": receipt["batch_fingerprint"],
+        "output_root": str(out),
+    }, indent=2, sort_keys=True))
     return 0
 
 
