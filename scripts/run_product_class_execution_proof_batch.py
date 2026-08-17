@@ -10,13 +10,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
 from products.agentauthority_execution_proof import controlled_agentauthority_fixture, run_agentauthority_execution_proof  # noqa: E402
 from products.ai_assurance_execution_proof import controlled_ai_assurance_fixture, run_ai_assurance_execution_proof  # noqa: E402
+from products.changeproof_execution_proof import controlled_changeproof_fixture, run_changeproof_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.dossierops_execution_proof import controlled_dossierops_fixture, run_dossierops_execution_proof  # noqa: E402
 from products.education_research_execution_proof import controlled_education_research_fixture, profiles_by_product as education_research_profiles_by_product, run_education_research_execution_proof  # noqa: E402
@@ -27,7 +27,6 @@ from products.product_class_execution_proof import run_execution_proof, verify_e
 from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
 from products.vamp_profile_execution_proof import controlled_vamp_fixture, run_vamp_profile_execution_proof, vamp_profiles_by_product  # noqa: E402
 
-
 BATCH_SCHEMA = "dio.product_class.execution_proof_batch.v1"
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
 REGOPS_PRODUCT_ID = "dio_regops"
@@ -35,6 +34,7 @@ ACCREDITATION_PRODUCT_ID = "dio_accreditation"
 AGENTAUTHORITY_PRODUCT_ID = "dio_agentauthority"
 DOSSIEROPS_PRODUCT_ID = "dio_dossierops"
 AI_ASSURANCE_PRODUCT_ID = "dio_assurance"
+CHANGEPROOF_PRODUCT_ID = "dio_modelchangeproof"
 
 
 def _canonical(value: Any) -> bytes:
@@ -66,6 +66,7 @@ def registered_products() -> tuple[str, ...]:
         AGENTAUTHORITY_PRODUCT_ID,
         DOSSIEROPS_PRODUCT_ID,
         AI_ASSURANCE_PRODUCT_ID,
+        CHANGEPROOF_PRODUCT_ID,
     })
     return tuple(sorted(products))
 
@@ -91,6 +92,8 @@ def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -
         return run_dossierops_execution_proof(controlled_dossierops_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id == AI_ASSURANCE_PRODUCT_ID:
         return run_ai_assurance_execution_proof(controlled_ai_assurance_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == CHANGEPROOF_PRODUCT_ID:
+        return run_changeproof_execution_proof(controlled_changeproof_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(product_id, _obligation_fixture(product_id), output_dir=output_dir, operator_id=operator_id, now=now)
     evidence_profile = _profiles_by_product().get(product_id)
@@ -99,24 +102,12 @@ def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -
     vamp_profile = vamp_profiles_by_product().get(product_id)
     if vamp_profile is not None:
         return run_vamp_profile_execution_proof(product_id, controlled_vamp_fixture(vamp_profile), output_dir=output_dir, operator_id=operator_id, now=now)
-    education_research_profile = education_research_profiles_by_product().get(product_id)
-    if education_research_profile is not None:
-        return run_education_research_execution_proof(
-            product_id,
-            controlled_education_research_fixture(education_research_profile),
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-        )
+    education_profile = education_research_profiles_by_product().get(product_id)
+    if education_profile is not None:
+        return run_education_research_execution_proof(product_id, controlled_education_research_fixture(education_profile), output_dir=output_dir, operator_id=operator_id, now=now)
     high_risk_profile = high_risk_profiles_by_product().get(product_id)
     if high_risk_profile is not None:
-        return run_high_risk_execution_proof(
-            product_id,
-            controlled_high_risk_fixture(high_risk_profile),
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-        )
+        return run_high_risk_execution_proof(product_id, controlled_high_risk_fixture(high_risk_profile), output_dir=output_dir, operator_id=operator_id, now=now)
     raise RuntimeError(f"batch execution-proof adapter missing: {product_id}")
 
 
@@ -136,20 +127,18 @@ def run_batch(*, output_root: Path, operator_id: str, now: str) -> dict[str, Any
         proof_path = product_dir / "PRODUCT_EXECUTION_PROOF.json"
         if proof != result["proof"]:
             raise RuntimeError(f"batch proof verification drifted: {product_id}")
-        rows.append(
-            {
-                "product_id": product_id,
-                "atlas_product_class": proof.get("atlas_product_class"),
-                "adapter_family": proof["adapter_family"],
-                "execution_proof_state": proof["execution_proof_state"],
-                "proof_fingerprint": proof["proof_fingerprint"],
-                "proof_sha256": "sha256:" + _sha_file(proof_path),
-                "relative_path": str(proof_path.relative_to(output_root)),
-                "human_review_gate": proof["human_review_gate"],
-                "external_release_gate": proof["external_release_gate"],
-                "public_launch_ready": proof["public_launch_ready"],
-            }
-        )
+        rows.append({
+            "product_id": product_id,
+            "atlas_product_class": proof.get("atlas_product_class"),
+            "adapter_family": proof["adapter_family"],
+            "execution_proof_state": proof["execution_proof_state"],
+            "proof_fingerprint": proof["proof_fingerprint"],
+            "proof_sha256": "sha256:" + _sha_file(proof_path),
+            "relative_path": str(proof_path.relative_to(output_root)),
+            "human_review_gate": proof["human_review_gate"],
+            "external_release_gate": proof["external_release_gate"],
+            "public_launch_ready": proof["public_launch_ready"],
+        })
 
     receipt: dict[str, Any] = {
         "schema": BATCH_SCHEMA,
@@ -161,12 +150,12 @@ def run_batch(*, output_root: Path, operator_id: str, now: str) -> dict[str, Any
         "public_launch_ready_products": [row["product_id"] for row in rows if row["public_launch_ready"] is True],
         "products": rows,
         "truth_boundary": (
-            "This batch proves only the listed controlled processor routes over controlled fixtures or governed "
-            "upstream receipts. For high-risk no-engine profiles the proved route is evidence review only; no domain "
-            "engine is assigned or invoked and no domain execution proof is created. Composition-reuse products prove "
-            "bounded component execution plus broader review without creating identity equivalence. Human review, "
-            "customer source authority, external effects, public launch, external release, customer validation and "
-            "repeatable commercial demand remain separate gates."
+            "This batch proves only the listed controlled processor routes over controlled fixtures or governed upstream receipts. "
+            "For high-risk no-engine profiles the proved route is evidence review only; no domain engine is assigned or invoked. "
+            "Composition-reuse products prove bounded component execution plus broader review without creating identity equivalence. "
+            "ChangeProof is counted only under the recorded operator-approved bounded AI/model-system scope equivalence to "
+            "ModelChangeProof. Human review, customer authority, external effects, public launch, external release, customer "
+            "validation and repeatable commercial demand remain separate gates."
         ),
     }
     receipt["batch_fingerprint"] = "sha256:" + _sha_bytes(_canonical(receipt))
@@ -180,7 +169,7 @@ def main() -> int:
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--operator-id", required=True)
     parser.add_argument("--now", default=datetime.now(timezone.utc).replace(microsecond=0).isoformat())
-    parser.add_argument("--replace", action="store_true", help="Delete an existing output directory before the controlled batch.")
+    parser.add_argument("--replace", action="store_true")
     args = parser.parse_args()
     out = args.out.expanduser().resolve()
     if args.replace and out.exists():
