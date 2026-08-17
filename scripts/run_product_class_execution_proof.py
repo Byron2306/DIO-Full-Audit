@@ -18,6 +18,11 @@ from products.evidence_profile_execution_proof import (  # noqa: E402
 )
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof  # noqa: E402
+from products.vamp_profile_execution_proof import (  # noqa: E402
+    controlled_vamp_fixture,
+    run_vamp_profile_execution_proof,
+    vamp_profiles_by_product,
+)
 
 
 def _load_json(path: Path):
@@ -38,6 +43,9 @@ def _golden_fixture(product_id: str) -> dict:
     profile_id = _profiles_by_product().get(product_id)
     if profile_id is not None:
         return controlled_evidence_fixture(profile_id)
+    vamp_profile_id = vamp_profiles_by_product().get(product_id)
+    if vamp_profile_id is not None:
+        return controlled_vamp_fixture(vamp_profile_id)
     raise ValueError(f"no controlled execution fixture is registered for product: {product_id}")
 
 
@@ -61,6 +69,15 @@ def _run(
         )
     if product_id in _profiles_by_product():
         return run_evidence_profile_execution_proof(
+            product_id,
+            fixture,
+            output_dir=output_dir,
+            operator_id=operator_id,
+            now=now,
+            job_id=job_id,
+        )
+    if product_id in vamp_profiles_by_product():
+        return run_vamp_profile_execution_proof(
             product_id,
             fixture,
             output_dir=output_dir,
