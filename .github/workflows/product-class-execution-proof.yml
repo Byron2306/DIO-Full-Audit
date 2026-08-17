@@ -1,0 +1,233 @@
+name: DIO Product Class Execution Proof
+
+on:
+  pull_request:
+    paths:
+      - "products/product_class_execution_proof.py"
+      - "products/evidence_profile_execution_proof.py"
+      - "products/vamp_profile_execution_proof.py"
+      - "products/contractproof_execution_proof.py"
+      - "products/regops_execution_proof.py"
+      - "products/accreditation_execution_proof.py"
+      - "products/agentauthority_execution_proof.py"
+      - "products/dossierops_execution_proof.py"
+      - "products/education_research_execution_proof.py"
+      - "products/high_risk_execution_proof.py"
+      - "products/ai_assurance_execution_proof.py"
+      - "products/changeproof_execution_proof.py"
+      - "products/ai_trust/**"
+      - "products/evidence_review.py"
+      - "products/dossier_assembly.py"
+      - "products/dossierops/**"
+      - "products/unpromoted_homs_profile.py"
+      - "products/unpromoted_sophia_profile.py"
+      - "products/unpromoted_high_risk_profile.py"
+      - "products/regops/**"
+      - "products/accreditation/**"
+      - "products/regulatory/**"
+      - "products/obligationfamily/**"
+      - "products/contractproof/**"
+      - "products/phase11_1.py"
+      - "products/phase11_1_gauntlet.py"
+      - "products/attachment_intake.py"
+      - "products/evidence_reconciliation.py"
+      - "products/auditproof/**"
+      - "products/vendorproof/**"
+      - "products/assuranceroom/**"
+      - "products/unpromoted_evidence_profile.py"
+      - "products/unpromoted_vamp_profile.py"
+      - "scripts/run_product_class_execution_proof.py"
+      - "scripts/run_product_class_execution_proof_batch.py"
+      - "config/products/manifests/**"
+      - "config/products/golden/**"
+      - "config/products/profiles/**"
+      - "config/product_class_equivalence_decisions/**"
+      - "config/dio_product_portfolio.json"
+      - "config/product_class_routes.json"
+      - "config/product_class_reconciliation.json"
+      - "config/portfolio/capability_catalog.json"
+      - "deliverables/homs_learning_studio/**"
+      - "tests/test_product_class_execution_proof.py"
+      - "tests/test_evidence_profile_execution_proof.py"
+      - "tests/test_vamp_profile_execution_proof.py"
+      - "tests/test_contractproof_execution_proof.py"
+      - "tests/test_regops_execution_proof.py"
+      - "tests/test_accreditation_execution_proof.py"
+      - "tests/test_agentauthority_execution_proof.py"
+      - "tests/test_dossierops_execution_proof.py"
+      - "tests/test_education_research_execution_proof.py"
+      - "tests/test_high_risk_execution_proof.py"
+      - "tests/test_ai_assurance_execution_proof.py"
+      - "tests/test_changeproof_execution_proof.py"
+      - "tests/test_product_class_execution_proof_batch.py"
+      - "tests/test_dossierops_controlled_assembly.py"
+      - "tests/test_unpromoted_homs_curriculum_receipt_bridge.py"
+      - "tests/test_unpromoted_sophia_receipt_bridge.py"
+      - "tests/test_unpromoted_high_risk_no_engine_guard.py"
+      - "tests/test_contractproof_vesper_boundary.py"
+      - "tests/test_phase11_1.py"
+      - "tests/test_phase11_1_1.py"
+      - "tests/test_regops_controlled_review.py"
+      - "tests/test_accreditation_runner.py"
+      - "tests/test_obligation_family_phase6.py"
+      - "tests/test_auditproof_controlled_review.py"
+      - "tests/test_vendorproof_controlled_review.py"
+      - "tests/test_assuranceroom_controlled_review.py"
+      - "tests/test_unpromoted_evidex_profile_batch.py"
+      - "tests/test_unpromoted_evidex_profile_batch2.py"
+      - "tests/test_unpromoted_vamp_profile_batch.py"
+      - "tests/test_ai_digital_trust_phase13.py"
+      - ".github/workflows/product-class-execution-proof.yml"
+  workflow_dispatch:
+
+jobs:
+  execution-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema reportlab
+
+      - name: Compile execution-proof sources
+        run: |
+          python -m py_compile \
+            products/product_class_execution_proof.py \
+            products/evidence_profile_execution_proof.py \
+            products/vamp_profile_execution_proof.py \
+            products/contractproof_execution_proof.py \
+            products/regops_execution_proof.py \
+            products/accreditation_execution_proof.py \
+            products/agentauthority_execution_proof.py \
+            products/dossierops_execution_proof.py \
+            products/education_research_execution_proof.py \
+            products/high_risk_execution_proof.py \
+            products/ai_assurance_execution_proof.py \
+            products/changeproof_execution_proof.py \
+            products/ai_trust/core.py \
+            products/ai_trust/runner.py \
+            products/evidence_review.py \
+            products/dossier_assembly.py \
+            products/dossierops/runner.py \
+            products/unpromoted_homs_profile.py \
+            products/unpromoted_sophia_profile.py \
+            products/unpromoted_high_risk_profile.py \
+            products/regops/runner.py \
+            products/accreditation/runner.py \
+            products/obligationfamily/runner.py \
+            products/contractproof/runner.py \
+            products/phase11_1.py \
+            products/phase11_1_gauntlet.py \
+            scripts/run_product_class_execution_proof.py \
+            scripts/run_product_class_execution_proof_batch.py \
+            tests/test_product_class_execution_proof.py \
+            tests/test_evidence_profile_execution_proof.py \
+            tests/test_vamp_profile_execution_proof.py \
+            tests/test_contractproof_execution_proof.py \
+            tests/test_regops_execution_proof.py \
+            tests/test_accreditation_execution_proof.py \
+            tests/test_agentauthority_execution_proof.py \
+            tests/test_dossierops_execution_proof.py \
+            tests/test_education_research_execution_proof.py \
+            tests/test_high_risk_execution_proof.py \
+            tests/test_ai_assurance_execution_proof.py \
+            tests/test_changeproof_execution_proof.py \
+            tests/test_product_class_execution_proof_batch.py
+
+      - name: Run proof-factory and native-route regressions
+        run: |
+          PYTHONNOUSERSITE=1 python -m pytest -q \
+            tests/test_obligation_family_phase6.py \
+            tests/test_product_class_execution_proof.py \
+            tests/test_auditproof_controlled_review.py \
+            tests/test_vendorproof_controlled_review.py \
+            tests/test_assuranceroom_controlled_review.py \
+            tests/test_unpromoted_evidex_profile_batch.py \
+            tests/test_unpromoted_evidex_profile_batch2.py \
+            tests/test_evidence_profile_execution_proof.py \
+            tests/test_unpromoted_vamp_profile_batch.py \
+            tests/test_vamp_profile_execution_proof.py \
+            tests/test_contractproof_vesper_boundary.py \
+            tests/test_phase11_1.py \
+            tests/test_phase11_1_1.py \
+            tests/test_contractproof_execution_proof.py \
+            tests/test_regops_controlled_review.py \
+            tests/test_regops_execution_proof.py \
+            tests/test_accreditation_runner.py \
+            tests/test_accreditation_execution_proof.py \
+            tests/test_agentauthority_execution_proof.py \
+            tests/test_dossierops_controlled_assembly.py \
+            tests/test_dossierops_execution_proof.py \
+            tests/test_unpromoted_homs_curriculum_receipt_bridge.py \
+            tests/test_unpromoted_sophia_receipt_bridge.py \
+            tests/test_education_research_execution_proof.py \
+            tests/test_unpromoted_high_risk_no_engine_guard.py \
+            tests/test_high_risk_execution_proof.py \
+            tests/test_ai_assurance_execution_proof.py \
+            tests/test_ai_digital_trust_phase13.py \
+            tests/test_changeproof_execution_proof.py \
+            tests/test_product_class_execution_proof_batch.py
+
+      - name: Smoke representative execution proof CLI lanes
+        run: |
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof /tmp/dio-regops-ci-proof /tmp/dio-accreditation-ci-proof /tmp/dio-agentauthority-ci-proof /tmp/dio-dossierops-ci-proof /tmp/dio-homs-curriculum-ci-proof /tmp/dio-sophia-integrity-ci-proof /tmp/dio-controldrift-ci-proof /tmp/dio-ai-assurance-ci-proof /tmp/dio-changeproof-ci-proof
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_grantproof --golden --output-dir /tmp/dio-grantproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_auditproof --golden --output-dir /tmp/dio-auditproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_promotionproof --golden --output-dir /tmp/dio-promotionproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_contractproof --golden --output-dir /tmp/dio-contractproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_regops --golden --output-dir /tmp/dio-regops-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_accreditation --golden --output-dir /tmp/dio-accreditation-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_agentauthority --golden --output-dir /tmp/dio-agentauthority-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_dossierops --golden --output-dir /tmp/dio-dossierops-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_homs_curriculum --golden --output-dir /tmp/dio-homs-curriculum-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_sophia_integrity --golden --output-dir /tmp/dio-sophia-integrity-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_controldrift --golden --output-dir /tmp/dio-controldrift-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_assurance --golden --output-dir /tmp/dio-ai-assurance-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_modelchangeproof --golden --output-dir /tmp/dio-changeproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-18T00:05:00+02:00
+          test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-contractproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-regops-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-accreditation-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-agentauthority-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-dossierops-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-homs-curriculum-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-sophia-integrity-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-controldrift-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-ai-assurance-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-changeproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+
+      - name: Build complete 38-route proof bundle
+        run: |
+          rm -rf /tmp/dio-product-class-proof-bundle
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof_batch.py \
+            --out /tmp/dio-product-class-proof-bundle \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-18T00:05:00+02:00
+          test -f /tmp/dio-product-class-proof-bundle/BATCH_EXECUTION_PROOF_RECEIPT.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('/tmp/dio-product-class-proof-bundle/BATCH_EXECUTION_PROOF_RECEIPT.json').read_text())
+          assert receipt['registered_proof_adapters'] == 38
+          assert receipt['controlled_routes_proved'] == 38
+          assert receipt['all_controlled_routes_proved'] is True
+          assert receipt['public_launch_ready_products'] == []
+          changeproof = next(row for row in receipt['products'] if row['product_id'] == 'dio_modelchangeproof')
+          assert changeproof['atlas_product_class'] == 'changeproof'
+          assert changeproof['adapter_family'] == 'ai_trust_changeproof_scope_equivalence'
+          PY
+
+      - name: Upload execution proof bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: dio-product-class-execution-proof-bundle
+          path: /tmp/dio-product-class-proof-bundle
+          if-no-files-found: error

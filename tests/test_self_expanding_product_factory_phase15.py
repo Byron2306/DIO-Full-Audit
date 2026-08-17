@@ -44,7 +44,8 @@ def test_factory_spec_schema_closes_maturity_release_and_surface()->None:
 
 def test_factory_capabilities_are_in_existing_canonical_registry()->None:
     catalog=_load(ROOT/"config/portfolio/capability_catalog.json")
-    assert catalog["catalog_version"]=="1.8.0"
+    assert catalog["schema"]=="dio.capability_catalog.v1"
+    assert catalog["constitution_version"]=="1.0.0"
     assert catalog["laws"]["self_expansion_must_use_canonical_compiler"] is True
     ids={row["capability_id"] for row in catalog["capabilities"]}
     assert {"factory.spec.validate","factory.product.materialize","factory.validation.generate","factory.registration.project"}<=ids
@@ -72,8 +73,7 @@ def test_generated_product_passes_ordinary_canonical_compiler(materialised:tuple
 
 
 def test_generated_validation_contract_and_goldeneye_projection_are_truthful(materialised:tuple[Path,dict])->None:
-    root,receipt=materialised
-    validation=_load(root/receipt["validation_path"]);registration=_load(root/receipt["registration_path"])
+    root,receipt=materialised;validation=_load(root/receipt["validation_path"]);registration=_load(root/receipt["registration_path"])
     assert "tamper_detection" in validation["assertions"]
     assert registration["projection_only"] is True
     assert registration["maturity"]["state"]=="internal_proof"

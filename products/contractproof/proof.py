@@ -220,7 +220,8 @@ def _w_run(text: Any, *, bold: bool = False, colour: str | None = None, size: in
 
 
 def _w_p(text: Any = "", *, style: str | None = None, bold: bool = False, colour: str | None = None, size: int | None = None, before: int = 0, after: int = 100) -> str:
-    ppr = f'<w:pPr>{f"<w:pStyle w:val=\"{style}\"/>" if style else ""}<w:spacing w:before="{before}" w:after="{after}"/></w:pPr>'
+    style_xml = f'<w:pStyle w:val="{style}"/>' if style else ""
+    ppr = f'<w:pPr>{style_xml}<w:spacing w:before="{before}" w:after="{after}"/></w:pPr>'
     return f"<w:p>{ppr}{_w_run(text, bold=bold, colour=colour, size=size)}</w:p>"
 
 
