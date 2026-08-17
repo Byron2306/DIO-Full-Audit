@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 
 from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
 from products.agentauthority_execution_proof import controlled_agentauthority_fixture, run_agentauthority_execution_proof  # noqa: E402
+from products.ai_assurance_execution_proof import controlled_ai_assurance_fixture, run_ai_assurance_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.dossierops_execution_proof import controlled_dossierops_fixture, run_dossierops_execution_proof  # noqa: E402
 from products.education_research_execution_proof import (  # noqa: E402
@@ -45,6 +46,7 @@ REGOPS_PRODUCT_ID = "dio_regops"
 ACCREDITATION_PRODUCT_ID = "dio_accreditation"
 AGENTAUTHORITY_PRODUCT_ID = "dio_agentauthority"
 DOSSIEROPS_PRODUCT_ID = "dio_dossierops"
+AI_ASSURANCE_PRODUCT_ID = "dio_assurance"
 
 
 def _load_json(path: Path):
@@ -62,6 +64,8 @@ def _golden_fixture(product_id: str) -> dict:
         return controlled_agentauthority_fixture()
     if product_id == DOSSIEROPS_PRODUCT_ID:
         return controlled_dossierops_fixture()
+    if product_id == AI_ASSURANCE_PRODUCT_ID:
+        return controlled_ai_assurance_fixture()
 
     definition = FAMILY_DEFINITIONS.get(product_id)
     if definition is not None:
@@ -98,6 +102,8 @@ def _run(product_id: str, fixture: dict, *, output_dir: Path, operator_id: str, 
         return run_agentauthority_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id == DOSSIEROPS_PRODUCT_ID:
         return run_dossierops_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
+    if product_id == AI_ASSURANCE_PRODUCT_ID:
+        return run_ai_assurance_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     if product_id in _profiles_by_product():
