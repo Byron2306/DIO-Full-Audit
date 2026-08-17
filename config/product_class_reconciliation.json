@@ -96,9 +96,24 @@
     }
   },
   "genuine_profile_extensions": {
-    "auditproof": {"suggested_engine": "evidex"},
-    "dossierops": {"suggested_engine": "document_studio"},
-    "promotionproof": {"suggested_engine": "vamp"},
+    "auditproof": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_auditproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/auditproof.json",
+      "controlled_processor": "products/auditproof/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed audit-evidence pilot over authorised audit criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "dossierops": {
+      "suggested_engine": "document_studio"
+    },
+    "promotionproof": {
+      "suggested_engine": "vamp"
+    },
     "vendorproof": {
       "suggested_engine": "evidex",
       "canonical_product_id": "dio_vendorproof",
@@ -110,30 +125,78 @@
       "external_release_authorized": false,
       "next_gate": "run one human-reviewed vendor pilot over an authorised vendor questionnaire and evidence bundle before any controlled-pilot launch consideration"
     },
-    "assuranceroom": {"suggested_engine": "evidex"},
-    "cpdproof": {"suggested_engine": "vamp"},
-    "homs_moderate": {"suggested_engine": "homs"},
-    "impactproof": {"suggested_engine": "evidex"},
-    "projectproof": {"suggested_engine": "evidex"},
-    "sophia_integrity": {"suggested_engine": "sophia"},
-    "sophia_research": {"suggested_engine": "sophia"},
-    "controldrift": {"suggested_engine": null},
-    "ai_incidentroom": {"suggested_engine": null},
-    "certificationproof": {"suggested_engine": "evidex"},
-    "criticalai_assurance": {"suggested_engine": null},
-    "cyberassurance": {"suggested_engine": null},
-    "dora_vendor_assurance": {"suggested_engine": null},
-    "diligenceroom": {"suggested_engine": "evidex"},
-    "donorproof": {"suggested_engine": "evidex"},
-    "homs_curriculum": {"suggested_engine": "homs"},
-    "incidentproof": {"suggested_engine": null},
-    "modelproof": {"suggested_engine": null},
-    "programmeproof": {"suggested_engine": "evidex"},
-    "qualityproof": {"suggested_engine": "evidex"},
-    "releaseproof": {"suggested_engine": null},
-    "sophia_supervisor": {"suggested_engine": "sophia"},
-    "sophia_tutor": {"suggested_engine": "sophia"},
-    "suppliercyberproof": {"suggested_engine": null}
+    "assuranceroom": {
+      "suggested_engine": "evidex"
+    },
+    "cpdproof": {
+      "suggested_engine": "vamp"
+    },
+    "homs_moderate": {
+      "suggested_engine": "homs"
+    },
+    "impactproof": {
+      "suggested_engine": "evidex"
+    },
+    "projectproof": {
+      "suggested_engine": "evidex"
+    },
+    "sophia_integrity": {
+      "suggested_engine": "sophia"
+    },
+    "sophia_research": {
+      "suggested_engine": "sophia"
+    },
+    "controldrift": {
+      "suggested_engine": null
+    },
+    "ai_incidentroom": {
+      "suggested_engine": null
+    },
+    "certificationproof": {
+      "suggested_engine": "evidex"
+    },
+    "criticalai_assurance": {
+      "suggested_engine": null
+    },
+    "cyberassurance": {
+      "suggested_engine": null
+    },
+    "dora_vendor_assurance": {
+      "suggested_engine": null
+    },
+    "diligenceroom": {
+      "suggested_engine": "evidex"
+    },
+    "donorproof": {
+      "suggested_engine": "evidex"
+    },
+    "homs_curriculum": {
+      "suggested_engine": "homs"
+    },
+    "incidentproof": {
+      "suggested_engine": null
+    },
+    "modelproof": {
+      "suggested_engine": null
+    },
+    "programmeproof": {
+      "suggested_engine": "evidex"
+    },
+    "qualityproof": {
+      "suggested_engine": "evidex"
+    },
+    "releaseproof": {
+      "suggested_engine": null
+    },
+    "sophia_supervisor": {
+      "suggested_engine": "sophia"
+    },
+    "sophia_tutor": {
+      "suggested_engine": "sophia"
+    },
+    "suppliercyberproof": {
+      "suggested_engine": null
+    }
   },
   "promotion_law": {
     "exact_canonical_incarnation": "Identity reconciliation may reuse the canonical manifest and executor, but it does not by itself grant customer processing, public launch or external release authority.",
