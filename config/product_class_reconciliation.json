@@ -99,7 +99,17 @@
     "auditproof": {"suggested_engine": "evidex"},
     "dossierops": {"suggested_engine": "document_studio"},
     "promotionproof": {"suggested_engine": "vamp"},
-    "vendorproof": {"suggested_engine": "evidex"},
+    "vendorproof": {
+      "suggested_engine": "evidex",
+      "canonical_product_id": "dio_vendorproof",
+      "typed_profile": "config/products/profiles/vendorproof.json",
+      "controlled_processor": "products/vendorproof/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed vendor pilot over an authorised vendor questionnaire and evidence bundle before any controlled-pilot launch consideration"
+    },
     "assuranceroom": {"suggested_engine": "evidex"},
     "cpdproof": {"suggested_engine": "vamp"},
     "homs_moderate": {"suggested_engine": "homs"},

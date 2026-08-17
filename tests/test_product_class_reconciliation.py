@@ -138,3 +138,13 @@ def test_reconciliation_grants_no_launch_or_auto_promotion_authority() -> None:
     assert reconciliation["summary"]["public_launch_authorized_from_reconciliation"] == 0
     assert result["summary"]["auto_promotable_from_reconciliation"] == 0
     assert result["summary"]["public_launch_authorized_from_reconciliation"] == 0
+
+    vendorproof = reconciliation["genuine_profile_extensions"]["vendorproof"]
+    assert vendorproof["canonical_product_id"] == "dio_vendorproof"
+    assert vendorproof["typed_profile"] == "config/products/profiles/vendorproof.json"
+    assert vendorproof["controlled_processor"] == "products/vendorproof/runner.py"
+    assert vendorproof["processing_state"] == "controlled_internal_processing_validated"
+    assert vendorproof["processing_receipt_kind"] == "controlled_processing_not_execution_proof"
+    assert vendorproof["product_execution_proved"] is False
+    assert vendorproof["external_release_authorized"] is False
+    assert result["genuine_profile_extensions"]["vendorproof"]["route_auto_promotable"] is False
