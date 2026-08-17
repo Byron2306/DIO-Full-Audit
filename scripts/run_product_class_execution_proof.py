@@ -19,6 +19,7 @@ from products.evidence_profile_execution_proof import (  # noqa: E402
 )
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof  # noqa: E402
+from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
 from products.vamp_profile_execution_proof import (  # noqa: E402
     controlled_vamp_fixture,
     run_vamp_profile_execution_proof,
@@ -27,6 +28,7 @@ from products.vamp_profile_execution_proof import (  # noqa: E402
 
 
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
+REGOPS_PRODUCT_ID = "dio_regops"
 
 
 def _load_json(path: Path):
@@ -36,6 +38,8 @@ def _load_json(path: Path):
 def _golden_fixture(product_id: str) -> dict:
     if product_id == CONTRACTPROOF_PRODUCT_ID:
         return {"fixture_kind": "dio.phase11_1.gauntlet.v1", "inbound_owner": "vesper"}
+    if product_id == REGOPS_PRODUCT_ID:
+        return controlled_regops_fixture()
 
     definition = FAMILY_DEFINITIONS.get(product_id)
     if definition is not None:
@@ -68,7 +72,10 @@ def _run(
     if product_id == CONTRACTPROOF_PRODUCT_ID:
         if fixture.get("fixture_kind") != "dio.phase11_1.gauntlet.v1" or fixture.get("inbound_owner") != "vesper":
             raise ValueError("ContractProof proof CLI requires the Vesper-owned Phase 11.1 controlled fixture")
-        return run_contractproof_execution_proof(
+        return run_contractproof_execution_proof(output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == REGOPS_PRODUCT_ID:
+        return run_regops_execution_proof(
+            fixture,
             output_dir=output_dir,
             operator_id=operator_id,
             now=now,
