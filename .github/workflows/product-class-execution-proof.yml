@@ -7,7 +7,10 @@ on:
       - "products/evidence_profile_execution_proof.py"
       - "products/vamp_profile_execution_proof.py"
       - "products/contractproof_execution_proof.py"
+      - "products/regops_execution_proof.py"
       - "products/evidence_review.py"
+      - "products/regops/**"
+      - "products/regulatory/**"
       - "products/obligationfamily/**"
       - "products/contractproof/**"
       - "products/phase11_1.py"
@@ -31,10 +34,12 @@ on:
       - "tests/test_evidence_profile_execution_proof.py"
       - "tests/test_vamp_profile_execution_proof.py"
       - "tests/test_contractproof_execution_proof.py"
+      - "tests/test_regops_execution_proof.py"
       - "tests/test_product_class_execution_proof_batch.py"
       - "tests/test_contractproof_vesper_boundary.py"
       - "tests/test_phase11_1.py"
       - "tests/test_phase11_1_1.py"
+      - "tests/test_regops_controlled_review.py"
       - "tests/test_obligation_family_phase6.py"
       - "tests/test_auditproof_controlled_review.py"
       - "tests/test_vendorproof_controlled_review.py"
@@ -67,7 +72,9 @@ jobs:
             products/evidence_profile_execution_proof.py \
             products/vamp_profile_execution_proof.py \
             products/contractproof_execution_proof.py \
+            products/regops_execution_proof.py \
             products/evidence_review.py \
+            products/regops/runner.py \
             products/obligationfamily/runner.py \
             products/contractproof/runner.py \
             products/phase11_1.py \
@@ -78,6 +85,7 @@ jobs:
             tests/test_evidence_profile_execution_proof.py \
             tests/test_vamp_profile_execution_proof.py \
             tests/test_contractproof_execution_proof.py \
+            tests/test_regops_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
       - name: Run proof-factory and native-route regressions
@@ -97,11 +105,13 @@ jobs:
             tests/test_phase11_1.py \
             tests/test_phase11_1_1.py \
             tests/test_contractproof_execution_proof.py \
+            tests/test_regops_controlled_review.py \
+            tests/test_regops_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
       - name: Smoke representative execution proof CLI lanes
         run: |
-          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof /tmp/dio-regops-ci-proof
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
             --product-id dio_grantproof \
             --golden \
@@ -126,10 +136,17 @@ jobs:
             --output-dir /tmp/dio-contractproof-ci-proof \
             --operator-id human.github_actions_proof_operator \
             --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
+            --product-id dio_regops \
+            --golden \
+            --output-dir /tmp/dio-regops-ci-proof \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-17T20:00:00+00:00
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-contractproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-regops-ci-proof/PRODUCT_EXECUTION_PROOF.json
 
       - name: Build complete attached-product proof bundle
         run: |
