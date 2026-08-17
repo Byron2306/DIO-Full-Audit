@@ -22,6 +22,7 @@ from products.evidence_profile_execution_proof import (  # noqa: E402
 )
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof, verify_execution_proof  # noqa: E402
+from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
 from products.vamp_profile_execution_proof import (  # noqa: E402
     controlled_vamp_fixture,
     run_vamp_profile_execution_proof,
@@ -31,6 +32,7 @@ from products.vamp_profile_execution_proof import (  # noqa: E402
 
 BATCH_SCHEMA = "dio.product_class.execution_proof_batch.v1"
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
+REGOPS_PRODUCT_ID = "dio_regops"
 
 
 def _canonical(value: Any) -> bytes:
@@ -54,6 +56,7 @@ def registered_products() -> tuple[str, ...]:
     products.update(_profiles_by_product())
     products.update(vamp_profiles_by_product())
     products.add(CONTRACTPROOF_PRODUCT_ID)
+    products.add(REGOPS_PRODUCT_ID)
     return tuple(sorted(products))
 
 
@@ -68,6 +71,13 @@ def _obligation_fixture(product_id: str) -> dict[str, Any]:
 def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -> dict[str, Any]:
     if product_id == CONTRACTPROOF_PRODUCT_ID:
         return run_contractproof_execution_proof(output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == REGOPS_PRODUCT_ID:
+        return run_regops_execution_proof(
+            controlled_regops_fixture(),
+            output_dir=output_dir,
+            operator_id=operator_id,
+            now=now,
+        )
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(
             product_id,
