@@ -152,6 +152,15 @@ def _verify_obligation_family_result(
     return receipt, artifacts
 
 
+def _verify_proof_fingerprint(proof: dict[str, Any]) -> None:
+    observed = str(proof.get("proof_fingerprint") or "")
+    basis = dict(proof)
+    basis.pop("proof_fingerprint", None)
+    expected = "sha256:" + _sha_bytes(_canonical(basis))
+    if observed != expected:
+        raise ProductClassExecutionProofError("product execution proof fingerprint mismatch")
+
+
 def verify_execution_proof(output_dir: Path) -> dict[str, Any]:
     output_dir = output_dir.resolve()
     path = output_dir / "PRODUCT_EXECUTION_PROOF.json"
@@ -160,6 +169,7 @@ def verify_execution_proof(output_dir: Path) -> dict[str, Any]:
     proof = json.loads(path.read_text(encoding="utf-8"))
     if proof.get("schema") != PROOF_SCHEMA:
         raise ProductClassExecutionProofError("unsupported product-class execution proof schema")
+    _verify_proof_fingerprint(proof)
     if proof.get("execution_proof_state") != "CONTROLLED_ROUTE_PROVED":
         raise ProductClassExecutionProofError("execution proof is not in CONTROLLED_ROUTE_PROVED state")
     if proof.get("processor_invoked") is not True or proof.get("controlled_processor_execution") is not True:
