@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.evidence_profile_execution_proof import (  # noqa: E402
     _profiles_by_product,
     controlled_evidence_fixture,
@@ -25,11 +26,17 @@ from products.vamp_profile_execution_proof import (  # noqa: E402
 )
 
 
+CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
+
+
 def _load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _golden_fixture(product_id: str) -> dict:
+    if product_id == CONTRACTPROOF_PRODUCT_ID:
+        return {"fixture_kind": "dio.phase11_1.gauntlet.v1", "inbound_owner": "vesper"}
+
     definition = FAMILY_DEFINITIONS.get(product_id)
     if definition is not None:
         root = ROOT / "config" / "products" / "golden" / definition["slug"]
@@ -58,6 +65,14 @@ def _run(
     now: str,
     job_id: str | None,
 ):
+    if product_id == CONTRACTPROOF_PRODUCT_ID:
+        if fixture.get("fixture_kind") != "dio.phase11_1.gauntlet.v1" or fixture.get("inbound_owner") != "vesper":
+            raise ValueError("ContractProof proof CLI requires the Vesper-owned Phase 11.1 controlled fixture")
+        return run_contractproof_execution_proof(
+            output_dir=output_dir,
+            operator_id=operator_id,
+            now=now,
+        )
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(
             product_id,
