@@ -14,6 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.evidence_profile_execution_proof import (  # noqa: E402
     _profiles_by_product,
@@ -33,6 +34,7 @@ from products.vamp_profile_execution_proof import (  # noqa: E402
 BATCH_SCHEMA = "dio.product_class.execution_proof_batch.v1"
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
 REGOPS_PRODUCT_ID = "dio_regops"
+ACCREDITATION_PRODUCT_ID = "dio_accreditation"
 
 
 def _canonical(value: Any) -> bytes:
@@ -55,8 +57,7 @@ def registered_products() -> tuple[str, ...]:
     products = set(FAMILY_DEFINITIONS)
     products.update(_profiles_by_product())
     products.update(vamp_profiles_by_product())
-    products.add(CONTRACTPROOF_PRODUCT_ID)
-    products.add(REGOPS_PRODUCT_ID)
+    products.update({CONTRACTPROOF_PRODUCT_ID, REGOPS_PRODUCT_ID, ACCREDITATION_PRODUCT_ID})
     return tuple(sorted(products))
 
 
@@ -72,12 +73,9 @@ def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -
     if product_id == CONTRACTPROOF_PRODUCT_ID:
         return run_contractproof_execution_proof(output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id == REGOPS_PRODUCT_ID:
-        return run_regops_execution_proof(
-            controlled_regops_fixture(),
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-        )
+        return run_regops_execution_proof(controlled_regops_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == ACCREDITATION_PRODUCT_ID:
+        return run_accreditation_execution_proof(controlled_accreditation_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(
             product_id,
@@ -126,6 +124,7 @@ def run_batch(*, output_root: Path, operator_id: str, now: str) -> dict[str, Any
         rows.append(
             {
                 "product_id": product_id,
+                "atlas_product_class": proof.get("atlas_product_class"),
                 "adapter_family": proof["adapter_family"],
                 "execution_proof_state": proof["execution_proof_state"],
                 "proof_fingerprint": proof["proof_fingerprint"],
