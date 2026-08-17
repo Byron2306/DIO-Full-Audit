@@ -10,8 +10,14 @@ on:
       - "products/regops_execution_proof.py"
       - "products/accreditation_execution_proof.py"
       - "products/agentauthority_execution_proof.py"
+      - "products/dossierops_execution_proof.py"
+      - "products/education_research_execution_proof.py"
       - "products/ai_trust/**"
       - "products/evidence_review.py"
+      - "products/dossier_assembly.py"
+      - "products/dossierops/**"
+      - "products/unpromoted_homs_profile.py"
+      - "products/unpromoted_sophia_profile.py"
       - "products/regops/**"
       - "products/accreditation/**"
       - "products/regulatory/**"
@@ -34,6 +40,7 @@ on:
       - "config/product_class_routes.json"
       - "config/product_class_reconciliation.json"
       - "config/portfolio/capability_catalog.json"
+      - "deliverables/homs_learning_studio/**"
       - "tests/test_product_class_execution_proof.py"
       - "tests/test_evidence_profile_execution_proof.py"
       - "tests/test_vamp_profile_execution_proof.py"
@@ -41,7 +48,12 @@ on:
       - "tests/test_regops_execution_proof.py"
       - "tests/test_accreditation_execution_proof.py"
       - "tests/test_agentauthority_execution_proof.py"
+      - "tests/test_dossierops_execution_proof.py"
+      - "tests/test_education_research_execution_proof.py"
       - "tests/test_product_class_execution_proof_batch.py"
+      - "tests/test_dossierops_controlled_assembly.py"
+      - "tests/test_unpromoted_homs_curriculum_receipt_bridge.py"
+      - "tests/test_unpromoted_sophia_receipt_bridge.py"
       - "tests/test_contractproof_vesper_boundary.py"
       - "tests/test_phase11_1.py"
       - "tests/test_phase11_1_1.py"
@@ -82,9 +94,15 @@ jobs:
             products/regops_execution_proof.py \
             products/accreditation_execution_proof.py \
             products/agentauthority_execution_proof.py \
+            products/dossierops_execution_proof.py \
+            products/education_research_execution_proof.py \
             products/ai_trust/core.py \
             products/ai_trust/runner.py \
             products/evidence_review.py \
+            products/dossier_assembly.py \
+            products/dossierops/runner.py \
+            products/unpromoted_homs_profile.py \
+            products/unpromoted_sophia_profile.py \
             products/regops/runner.py \
             products/accreditation/runner.py \
             products/obligationfamily/runner.py \
@@ -100,6 +118,8 @@ jobs:
             tests/test_regops_execution_proof.py \
             tests/test_accreditation_execution_proof.py \
             tests/test_agentauthority_execution_proof.py \
+            tests/test_dossierops_execution_proof.py \
+            tests/test_education_research_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
       - name: Run proof-factory and native-route regressions
@@ -124,11 +144,16 @@ jobs:
             tests/test_accreditation_runner.py \
             tests/test_accreditation_execution_proof.py \
             tests/test_agentauthority_execution_proof.py \
+            tests/test_dossierops_controlled_assembly.py \
+            tests/test_dossierops_execution_proof.py \
+            tests/test_unpromoted_homs_curriculum_receipt_bridge.py \
+            tests/test_unpromoted_sophia_receipt_bridge.py \
+            tests/test_education_research_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
       - name: Smoke representative execution proof CLI lanes
         run: |
-          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof /tmp/dio-regops-ci-proof /tmp/dio-accreditation-ci-proof /tmp/dio-agentauthority-ci-proof
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof /tmp/dio-regops-ci-proof /tmp/dio-accreditation-ci-proof /tmp/dio-agentauthority-ci-proof /tmp/dio-dossierops-ci-proof /tmp/dio-homs-curriculum-ci-proof /tmp/dio-sophia-integrity-ci-proof
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_grantproof --golden --output-dir /tmp/dio-grantproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_auditproof --golden --output-dir /tmp/dio-auditproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_promotionproof --golden --output-dir /tmp/dio-promotionproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
@@ -136,6 +161,9 @@ jobs:
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_regops --golden --output-dir /tmp/dio-regops-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_accreditation --golden --output-dir /tmp/dio-accreditation-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_agentauthority --golden --output-dir /tmp/dio-agentauthority-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_dossierops --golden --output-dir /tmp/dio-dossierops-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_homs_curriculum --golden --output-dir /tmp/dio-homs-curriculum-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_sophia_integrity --golden --output-dir /tmp/dio-sophia-integrity-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
@@ -143,6 +171,9 @@ jobs:
           test -f /tmp/dio-regops-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-accreditation-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-agentauthority-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-dossierops-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-homs-curriculum-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-sophia-integrity-ci-proof/PRODUCT_EXECUTION_PROOF.json
 
       - name: Build complete attached-product proof bundle
         run: |
@@ -152,6 +183,15 @@ jobs:
             --operator-id human.github_actions_proof_operator \
             --now 2026-08-17T21:00:00+00:00
           test -f /tmp/dio-product-class-proof-bundle/BATCH_EXECUTION_PROOF_RECEIPT.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('/tmp/dio-product-class-proof-bundle/BATCH_EXECUTION_PROOF_RECEIPT.json').read_text())
+          assert receipt['registered_proof_adapters'] == 27
+          assert receipt['controlled_routes_proved'] == 27
+          assert receipt['all_controlled_routes_proved'] is True
+          assert receipt['public_launch_ready_products'] == []
+          PY
 
       - name: Upload execution proof bundle
         uses: actions/upload-artifact@v4
