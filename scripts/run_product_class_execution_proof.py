@@ -7,39 +7,22 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
 from products.agentauthority_execution_proof import controlled_agentauthority_fixture, run_agentauthority_execution_proof  # noqa: E402
 from products.ai_assurance_execution_proof import controlled_ai_assurance_fixture, run_ai_assurance_execution_proof  # noqa: E402
+from products.changeproof_execution_proof import controlled_changeproof_fixture, run_changeproof_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.dossierops_execution_proof import controlled_dossierops_fixture, run_dossierops_execution_proof  # noqa: E402
-from products.education_research_execution_proof import (  # noqa: E402
-    controlled_education_research_fixture,
-    profiles_by_product as education_research_profiles_by_product,
-    run_education_research_execution_proof,
-)
-from products.evidence_profile_execution_proof import (  # noqa: E402
-    _profiles_by_product,
-    controlled_evidence_fixture,
-    run_evidence_profile_execution_proof,
-)
-from products.high_risk_execution_proof import (  # noqa: E402
-    controlled_high_risk_fixture,
-    high_risk_profiles_by_product,
-    run_high_risk_execution_proof,
-)
+from products.education_research_execution_proof import controlled_education_research_fixture, profiles_by_product as education_research_profiles_by_product, run_education_research_execution_proof  # noqa: E402
+from products.evidence_profile_execution_proof import _profiles_by_product, controlled_evidence_fixture, run_evidence_profile_execution_proof  # noqa: E402
+from products.high_risk_execution_proof import controlled_high_risk_fixture, high_risk_profiles_by_product, run_high_risk_execution_proof  # noqa: E402
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof  # noqa: E402
 from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
-from products.vamp_profile_execution_proof import (  # noqa: E402
-    controlled_vamp_fixture,
-    run_vamp_profile_execution_proof,
-    vamp_profiles_by_product,
-)
-
+from products.vamp_profile_execution_proof import controlled_vamp_fixture, run_vamp_profile_execution_proof, vamp_profiles_by_product  # noqa: E402
 
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
 REGOPS_PRODUCT_ID = "dio_regops"
@@ -47,6 +30,7 @@ ACCREDITATION_PRODUCT_ID = "dio_accreditation"
 AGENTAUTHORITY_PRODUCT_ID = "dio_agentauthority"
 DOSSIEROPS_PRODUCT_ID = "dio_dossierops"
 AI_ASSURANCE_PRODUCT_ID = "dio_assurance"
+CHANGEPROOF_PRODUCT_ID = "dio_modelchangeproof"
 
 
 def _load_json(path: Path):
@@ -66,6 +50,8 @@ def _golden_fixture(product_id: str) -> dict:
         return controlled_dossierops_fixture()
     if product_id == AI_ASSURANCE_PRODUCT_ID:
         return controlled_ai_assurance_fixture()
+    if product_id == CHANGEPROOF_PRODUCT_ID:
+        return controlled_changeproof_fixture()
 
     definition = FAMILY_DEFINITIONS.get(product_id)
     if definition is not None:
@@ -77,15 +63,15 @@ def _golden_fixture(product_id: str) -> dict:
     profile_id = _profiles_by_product().get(product_id)
     if profile_id is not None:
         return controlled_evidence_fixture(profile_id)
-    vamp_profile_id = vamp_profiles_by_product().get(product_id)
-    if vamp_profile_id is not None:
-        return controlled_vamp_fixture(vamp_profile_id)
-    education_research_profile_id = education_research_profiles_by_product().get(product_id)
-    if education_research_profile_id is not None:
-        return controlled_education_research_fixture(education_research_profile_id)
-    high_risk_profile_id = high_risk_profiles_by_product().get(product_id)
-    if high_risk_profile_id is not None:
-        return controlled_high_risk_fixture(high_risk_profile_id)
+    profile_id = vamp_profiles_by_product().get(product_id)
+    if profile_id is not None:
+        return controlled_vamp_fixture(profile_id)
+    profile_id = education_research_profiles_by_product().get(product_id)
+    if profile_id is not None:
+        return controlled_education_research_fixture(profile_id)
+    profile_id = high_risk_profiles_by_product().get(product_id)
+    if profile_id is not None:
+        return controlled_high_risk_fixture(profile_id)
     raise ValueError(f"no controlled execution fixture is registered for product: {product_id}")
 
 
@@ -104,6 +90,8 @@ def _run(product_id: str, fixture: dict, *, output_dir: Path, operator_id: str, 
         return run_dossierops_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     if product_id == AI_ASSURANCE_PRODUCT_ID:
         return run_ai_assurance_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == CHANGEPROOF_PRODUCT_ID:
+        return run_changeproof_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     if product_id in _profiles_by_product():
@@ -121,8 +109,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run a bounded DIO product-class processor and emit hash-verified controlled execution proof.")
     parser.add_argument("--product-id", required=True)
     fixture_group = parser.add_mutually_exclusive_group(required=True)
-    fixture_group.add_argument("--fixture", type=Path, help="JSON controlled execution fixture")
-    fixture_group.add_argument("--golden", action="store_true", help="Use the canonical/deterministic controlled fixture")
+    fixture_group.add_argument("--fixture", type=Path)
+    fixture_group.add_argument("--golden", action="store_true")
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--operator-id", required=True)
     parser.add_argument("--job-id")
@@ -132,7 +120,7 @@ def main() -> int:
     fixture = _golden_fixture(args.product_id) if args.golden else _load_json(args.fixture)
     result = _run(args.product_id, fixture, output_dir=args.output_dir, operator_id=args.operator_id, now=args.now, job_id=args.job_id)
     proof = result["proof"]
-    summary = {
+    print(json.dumps({
         "schema": proof["schema"],
         "product_id": proof["product_id"],
         "atlas_product_class": proof.get("atlas_product_class"),
@@ -145,8 +133,7 @@ def main() -> int:
         "public_launch_ready": proof["public_launch_ready"],
         "proof_fingerprint": proof["proof_fingerprint"],
         "output_dir": result["output_dir"],
-    }
-    print(json.dumps(summary, indent=2, sort_keys=True))
+    }, indent=2, sort_keys=True))
     return 0
 
 
