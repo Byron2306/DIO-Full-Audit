@@ -11,6 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from products.evidence_profile_execution_proof import (  # noqa: E402
+    _profiles_by_product,
+    controlled_evidence_fixture,
+    run_evidence_profile_execution_proof,
+)
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof  # noqa: E402
 
@@ -21,15 +26,49 @@ def _load_json(path: Path):
 
 def _golden_fixture(product_id: str) -> dict:
     definition = FAMILY_DEFINITIONS.get(product_id)
-    if definition is None:
-        raise ValueError(f"no golden execution fixture is registered for product: {product_id}")
-    root = ROOT / "config" / "products" / "golden" / definition["slug"]
-    source = _load_json(root / "reference_source.json")
-    evidence_payload = _load_json(root / "reference_evidence.json")
-    return {
-        "source": source,
-        "evidence_inputs": evidence_payload.get("evidence_records") or [],
-    }
+    if definition is not None:
+        root = ROOT / "config" / "products" / "golden" / definition["slug"]
+        source = _load_json(root / "reference_source.json")
+        evidence_payload = _load_json(root / "reference_evidence.json")
+        return {
+            "source": source,
+            "evidence_inputs": evidence_payload.get("evidence_records") or [],
+        }
+
+    profile_id = _profiles_by_product().get(product_id)
+    if profile_id is not None:
+        return controlled_evidence_fixture(profile_id)
+    raise ValueError(f"no controlled execution fixture is registered for product: {product_id}")
+
+
+def _run(
+    product_id: str,
+    fixture: dict,
+    *,
+    output_dir: Path,
+    operator_id: str,
+    now: str,
+    job_id: str | None,
+):
+    if product_id in FAMILY_DEFINITIONS:
+        return run_execution_proof(
+            product_id,
+            fixture,
+            output_dir=output_dir,
+            operator_id=operator_id,
+            now=now,
+            job_id=job_id,
+        )
+    if product_id in _profiles_by_product():
+        return run_evidence_profile_execution_proof(
+            product_id,
+            fixture,
+            output_dir=output_dir,
+            operator_id=operator_id,
+            now=now,
+            job_id=job_id,
+        )
+    raise ValueError(f"no execution-proof adapter is registered for product: {product_id}")
 
 
 def main() -> int:
@@ -38,8 +77,8 @@ def main() -> int:
     )
     parser.add_argument("--product-id", required=True)
     fixture_group = parser.add_mutually_exclusive_group(required=True)
-    fixture_group.add_argument("--fixture", type=Path, help="JSON object containing source and evidence_inputs")
-    fixture_group.add_argument("--golden", action="store_true", help="Use the canonical controlled golden fixture")
+    fixture_group.add_argument("--fixture", type=Path, help="JSON controlled execution fixture")
+    fixture_group.add_argument("--golden", action="store_true", help="Use the canonical/deterministic controlled fixture")
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--operator-id", required=True)
     parser.add_argument("--job-id")
@@ -47,7 +86,7 @@ def main() -> int:
     args = parser.parse_args()
 
     fixture = _golden_fixture(args.product_id) if args.golden else _load_json(args.fixture)
-    result = run_execution_proof(
+    result = _run(
         args.product_id,
         fixture,
         output_dir=args.output_dir,
@@ -59,6 +98,7 @@ def main() -> int:
     summary = {
         "schema": proof["schema"],
         "product_id": proof["product_id"],
+        "adapter_family": proof["adapter_family"],
         "execution_proof_state": proof["execution_proof_state"],
         "executor_id": proof["executor_id"],
         "controlled_processor_execution": proof["controlled_processor_execution"],
