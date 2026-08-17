@@ -1,0 +1,26 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "projectproof",
+  "product_id": "dio_projectproof",
+  "category": "project_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "ProjectProof is currently bounded to organising and reviewing supplied project evidence. It does not certify project success, accept milestones or deliverables, approve budgets or make project-governance decisions.",
+  "default_requirement_kind": "request",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "PROJECTPROOF",
+  "review_pack_title": "DIO ProjectProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Milestone acceptance, delivery acceptance, budget approval, project-success conclusions and governance decisions remain with authorised humans.",
+  "forbidden_outcomes": [
+    "project_success_certification",
+    "milestone_acceptance",
+    "delivery_acceptance",
+    "budget_approval",
+    "project_governance_decision"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}
