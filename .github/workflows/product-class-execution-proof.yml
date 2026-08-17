@@ -1,0 +1,55 @@
+name: DIO Product Class Execution Proof
+
+on:
+  pull_request:
+    paths:
+      - "products/product_class_execution_proof.py"
+      - "products/obligationfamily/**"
+      - "scripts/run_product_class_execution_proof.py"
+      - "config/products/manifests/**"
+      - "config/products/golden/**"
+      - "config/portfolio/capability_catalog.json"
+      - "tests/test_product_class_execution_proof.py"
+      - "tests/test_obligation_family_phase6.py"
+      - ".github/workflows/product-class-execution-proof.yml"
+  workflow_dispatch:
+
+jobs:
+  execution-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+
+      - name: Compile execution-proof sources
+        run: |
+          python -m py_compile \
+            products/product_class_execution_proof.py \
+            products/obligationfamily/runner.py \
+            scripts/run_product_class_execution_proof.py \
+            tests/test_product_class_execution_proof.py
+
+      - name: Run obligation family regression and proof-factory tests
+        run: |
+          PYTHONNOUSERSITE=1 python -m pytest -q \
+            tests/test_obligation_family_phase6.py \
+            tests/test_product_class_execution_proof.py
+
+      - name: Smoke canonical GrantProof execution proof CLI
+        run: |
+          rm -rf /tmp/dio-grantproof-ci-proof
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
+            --product-id dio_grantproof \
+            --golden \
+            --output-dir /tmp/dio-grantproof-ci-proof \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-17T20:00:00+00:00
+          test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
