@@ -1,0 +1,50 @@
+name: One-shot ContractProof Python compatibility fix
+
+on:
+  push:
+    branches:
+      - agent/dio-product-class-execution-proof-blitz
+    paths:
+      - .github/workflows/contractproof-py311-hotfix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-contractproof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout proof branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/dio-product-class-execution-proof-blitz
+          fetch-depth: 0
+
+      - name: Replace Python-invalid nested f-string without changing renderer semantics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('products/contractproof/proof.py')
+          lines = path.read_text(encoding='utf-8').splitlines()
+          matches = [i for i, line in enumerate(lines) if line.strip().startswith("ppr = f'<w:pPr>{f")]
+          if len(matches) != 1:
+              raise SystemExit(f'expected exactly one nested ContractProof ppr f-string, found {len(matches)}')
+          i = matches[0]
+          indent = lines[i][: len(lines[i]) - len(lines[i].lstrip())]
+          lines[i:i+1] = [
+              indent + 'style_xml = f\'<w:pStyle w:val="{style}"/>\' if style else ""',
+              indent + 'ppr = f\'<w:pPr>{style_xml}<w:spacing w:before="{before}" w:after="{after}"/></w:pPr>\'',
+          ]
+          path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+          python -m py_compile products/contractproof/proof.py
+
+      - name: Commit compatibility fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add products/contractproof/proof.py
+          git diff --cached --check
+          git commit -m "Fix ContractProof proof renderer Python syntax"
+          git push origin HEAD:agent/dio-product-class-execution-proof-blitz
