@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "sophia_integrity",
+  "product_id": "dio_sophia_integrity",
+  "category": "academic_integrity_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "Sophia Integrity is currently bounded to preparing and reviewing supplied manuscript, citation, provenance and integrity-related evidence for authorised human review. It does not determine plagiarism or misconduct, decide authorship, impose discipline, decide publication, or create an institutional integrity finding.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "SOPHIAINTEGRITY",
+  "review_pack_title": "DIO Sophia Integrity Controlled Evidence Review Pack",
+  "human_gate_reason": "Academic-integrity findings, misconduct determinations, authorship decisions, disciplinary action, publication decisions and final release remain with authorised humans and institutions.",
+  "forbidden_outcomes": [
+    "plagiarism_determination",
+    "research_misconduct_finding",
+    "authorship_decision",
+    "disciplinary_action",
+    "publication_decision",
+    "institutional_integrity_finding"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}
