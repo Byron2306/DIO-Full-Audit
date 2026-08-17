@@ -1,0 +1,26 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "diligenceroom",
+  "product_id": "dio_diligenceroom",
+  "category": "due_diligence_evidence_room",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "DiligenceRoom is currently bounded to organising and reviewing supplied diligence evidence. It does not grant diligence clearance, transaction approval, investment or legal sufficiency conclusions, or external release.",
+  "default_requirement_kind": "request",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "DILIGENCEROOM",
+  "review_pack_title": "DIO DiligenceRoom Controlled Evidence Review Pack",
+  "human_gate_reason": "Diligence clearance, legal sufficiency, transaction approval, investment decisions and final release remain with authorised humans.",
+  "forbidden_outcomes": [
+    "due_diligence_clearance",
+    "transaction_approval",
+    "investment_recommendation",
+    "legal_sufficiency_determination",
+    "final_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}
