@@ -14,6 +14,7 @@ on:
       - "products/unpromoted_evidence_profile.py"
       - "products/unpromoted_vamp_profile.py"
       - "scripts/run_product_class_execution_proof.py"
+      - "scripts/run_product_class_execution_proof_batch.py"
       - "config/products/manifests/**"
       - "config/products/golden/**"
       - "config/products/profiles/**"
@@ -23,6 +24,7 @@ on:
       - "tests/test_product_class_execution_proof.py"
       - "tests/test_evidence_profile_execution_proof.py"
       - "tests/test_vamp_profile_execution_proof.py"
+      - "tests/test_product_class_execution_proof_batch.py"
       - "tests/test_obligation_family_phase6.py"
       - "tests/test_auditproof_controlled_review.py"
       - "tests/test_vendorproof_controlled_review.py"
@@ -57,9 +59,11 @@ jobs:
             products/evidence_review.py \
             products/obligationfamily/runner.py \
             scripts/run_product_class_execution_proof.py \
+            scripts/run_product_class_execution_proof_batch.py \
             tests/test_product_class_execution_proof.py \
             tests/test_evidence_profile_execution_proof.py \
-            tests/test_vamp_profile_execution_proof.py
+            tests/test_vamp_profile_execution_proof.py \
+            tests/test_product_class_execution_proof_batch.py
 
       - name: Run obligation evidence and VAMP proof-factory regressions
         run: |
@@ -73,7 +77,8 @@ jobs:
             tests/test_unpromoted_evidex_profile_batch2.py \
             tests/test_evidence_profile_execution_proof.py \
             tests/test_unpromoted_vamp_profile_batch.py \
-            tests/test_vamp_profile_execution_proof.py
+            tests/test_vamp_profile_execution_proof.py \
+            tests/test_product_class_execution_proof_batch.py
 
       - name: Smoke GrantProof AuditProof and PromotionProof CLI
         run: |
@@ -99,3 +104,19 @@ jobs:
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+
+      - name: Build complete attached-product proof bundle
+        run: |
+          rm -rf /tmp/dio-product-class-proof-bundle
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof_batch.py \
+            --out /tmp/dio-product-class-proof-bundle \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-17T21:00:00+00:00
+          test -f /tmp/dio-product-class-proof-bundle/BATCH_EXECUTION_PROOF_RECEIPT.json
+
+      - name: Upload execution proof bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: dio-product-class-execution-proof-bundle
+          path: /tmp/dio-product-class-proof-bundle
+          if-no-files-found: error
