@@ -14,20 +14,24 @@ OPERATOR = "human.product_class_batch_test"
 
 def test_batch_runner_proves_all_currently_attached_products(tmp_path: Path) -> None:
     products = registered_products()
-    assert len(products) == 16
+    assert len(products) == 17
+    assert "dio_contractproof" in products
 
     output = tmp_path / "proof-bundle"
     receipt = run_batch(output_root=output, operator_id=OPERATOR, now=NOW)
     assert receipt["schema"] == "dio.product_class.execution_proof_batch.v1"
-    assert receipt["registered_proof_adapters"] == 16
-    assert receipt["controlled_routes_proved"] == 16
+    assert receipt["registered_proof_adapters"] == 17
+    assert receipt["controlled_routes_proved"] == 17
     assert receipt["all_controlled_routes_proved"] is True
     assert receipt["public_launch_ready_products"] == []
-    assert len(receipt["products"]) == 16
+    assert len(receipt["products"]) == 17
     assert all(row["execution_proof_state"] == "CONTROLLED_ROUTE_PROVED" for row in receipt["products"])
     assert all(row["human_review_gate"] == "NEEDS_YOU" for row in receipt["products"])
     assert all(row["external_release_gate"] == "REFUSE" for row in receipt["products"])
     assert all(row["public_launch_ready"] is False for row in receipt["products"])
+
+    contract = next(row for row in receipt["products"] if row["product_id"] == "dio_contractproof")
+    assert contract["adapter_family"] == "vesper_contractproof_attachment_journey"
 
     persisted = json.loads((output / "BATCH_EXECUTION_PROOF_RECEIPT.json").read_text(encoding="utf-8"))
     assert persisted == receipt
