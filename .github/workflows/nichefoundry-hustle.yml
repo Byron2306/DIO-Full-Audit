@@ -1,0 +1,48 @@
+name: NicheFoundry Proof-Backed Commercial Persuasion
+
+on:
+  pull_request:
+    paths:
+      - "config/marketing_sales_playbook.json"
+      - "scripts/build_hustle_campaign_factory.py"
+      - "scripts/build_multichannel_campaign_factory.py"
+      - "tests/test_nichefoundry_hustle_factory.py"
+      - "tests/test_multichannel_campaign_factory.py"
+      - "ops/systemd/user/dio-marketing-factory.service"
+      - ".github/workflows/nichefoundry-hustle.yml"
+  workflow_dispatch:
+
+jobs:
+  hustle-factory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install focused test dependencies
+        run: python -m pip install --upgrade pip pillow pytest
+      - name: Compile marketing factory
+        run: python -m compileall -q scripts/build_multichannel_campaign_factory.py scripts/build_hustle_campaign_factory.py
+      - name: Run legacy and hustle factory tests
+        run: pytest -q tests/test_multichannel_campaign_factory.py tests/test_nichefoundry_hustle_factory.py
+      - name: Smoke one commercially upgraded family
+        run: |
+          out="$(mktemp -d)"
+          python scripts/build_hustle_campaign_factory.py --no-reels --limit 1 --output "$out"
+          python - "$out" <<'PY'
+          import json, pathlib, sys
+          root=pathlib.Path(sys.argv[1])
+          registry=json.loads((root/'CREATIVE_FAMILY_REGISTRY.json').read_text())
+          assert registry['schema']=='dio.marketing.creative_family_registry.v2'
+          assert registry['summary']['commercial_failures']==0
+          assert registry['summary']['validation_failures']==0
+          family=registry['families'][0]
+          assert family['commercial_quality']['all_channels_passed'] is True
+          assert len(family['sales_scenes'])==5
+          request=json.loads((root/'evidex-pack'/'ngo-programme-leads'/'NICHEFOUNDRY_PRODUCTION_REQUEST.json').read_text())
+          assert request['script_brief']['first_hook_deadline_seconds']==2
+          assert request['release']['state']=='held'
+          assert request['spend']['state']=='disabled'
+          print('NICHEFOUNDRY_HUSTLE_READY score=',family['commercial_quality']['minimum_channel_score'])
+          PY
