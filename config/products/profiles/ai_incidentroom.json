@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "ai_incidentroom",
+  "product_id": "dio_ai_incidentroom",
+  "category": "ai_incident_evidence_room",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "AI IncidentRoom is currently bounded to organising and reviewing supplied AI incident records, timelines, system evidence, control records, challenges and unresolved questions for authorised human incident review. It does not determine final severity or root cause, execute containment, decide legal notification duties, submit regulator reports, or make external disclosures.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "AIINCIDENTROOM",
+  "review_pack_title": "DIO AI IncidentRoom Controlled Evidence Review Pack",
+  "human_gate_reason": "Final incident classification, root cause, containment, legal notification, regulator reporting, public disclosure and final release remain with authorised incident, legal, security and governance owners.",
+  "forbidden_outcomes": [
+    "final_incident_severity",
+    "root_cause_determination",
+    "containment_execution",
+    "legal_notification_decision",
+    "regulator_submission",
+    "external_incident_disclosure"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}
