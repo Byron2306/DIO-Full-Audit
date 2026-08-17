@@ -25,6 +25,11 @@ from products.evidence_profile_execution_proof import (  # noqa: E402
     controlled_evidence_fixture,
     run_evidence_profile_execution_proof,
 )
+from products.high_risk_execution_proof import (  # noqa: E402
+    controlled_high_risk_fixture,
+    high_risk_profiles_by_product,
+    run_high_risk_execution_proof,
+)
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof  # noqa: E402
 from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
@@ -74,6 +79,9 @@ def _golden_fixture(product_id: str) -> dict:
     education_research_profile_id = education_research_profiles_by_product().get(product_id)
     if education_research_profile_id is not None:
         return controlled_education_research_fixture(education_research_profile_id)
+    high_risk_profile_id = high_risk_profiles_by_product().get(product_id)
+    if high_risk_profile_id is not None:
+        return controlled_high_risk_fixture(high_risk_profile_id)
     raise ValueError(f"no controlled execution fixture is registered for product: {product_id}")
 
 
@@ -98,6 +106,8 @@ def _run(product_id: str, fixture: dict, *, output_dir: Path, operator_id: str, 
         return run_vamp_profile_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     if product_id in education_research_profiles_by_product():
         return run_education_research_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
+    if product_id in high_risk_profiles_by_product():
+        return run_high_risk_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     raise ValueError(f"no execution-proof adapter is registered for product: {product_id}")
 
 
