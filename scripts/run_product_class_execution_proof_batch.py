@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT))
 
 from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
 from products.agentauthority_execution_proof import controlled_agentauthority_fixture, run_agentauthority_execution_proof  # noqa: E402
+from products.ai_assurance_execution_proof import controlled_ai_assurance_fixture, run_ai_assurance_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.dossierops_execution_proof import controlled_dossierops_fixture, run_dossierops_execution_proof  # noqa: E402
 from products.education_research_execution_proof import controlled_education_research_fixture, profiles_by_product as education_research_profiles_by_product, run_education_research_execution_proof  # noqa: E402
@@ -33,6 +34,7 @@ REGOPS_PRODUCT_ID = "dio_regops"
 ACCREDITATION_PRODUCT_ID = "dio_accreditation"
 AGENTAUTHORITY_PRODUCT_ID = "dio_agentauthority"
 DOSSIEROPS_PRODUCT_ID = "dio_dossierops"
+AI_ASSURANCE_PRODUCT_ID = "dio_assurance"
 
 
 def _canonical(value: Any) -> bytes:
@@ -63,6 +65,7 @@ def registered_products() -> tuple[str, ...]:
         ACCREDITATION_PRODUCT_ID,
         AGENTAUTHORITY_PRODUCT_ID,
         DOSSIEROPS_PRODUCT_ID,
+        AI_ASSURANCE_PRODUCT_ID,
     })
     return tuple(sorted(products))
 
@@ -86,6 +89,8 @@ def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -
         return run_agentauthority_execution_proof(controlled_agentauthority_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id == DOSSIEROPS_PRODUCT_ID:
         return run_dossierops_execution_proof(controlled_dossierops_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == AI_ASSURANCE_PRODUCT_ID:
+        return run_ai_assurance_execution_proof(controlled_ai_assurance_fixture(), output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
         return run_execution_proof(product_id, _obligation_fixture(product_id), output_dir=output_dir, operator_id=operator_id, now=now)
     evidence_profile = _profiles_by_product().get(product_id)
@@ -158,9 +163,10 @@ def run_batch(*, output_root: Path, operator_id: str, now: str) -> dict[str, Any
         "truth_boundary": (
             "This batch proves only the listed controlled processor routes over controlled fixtures or governed "
             "upstream receipts. For high-risk no-engine profiles the proved route is evidence review only; no domain "
-            "engine is assigned or invoked and no domain execution proof is created. Human review, customer source "
-            "authority, external effects, public launch, external release, customer validation and repeatable "
-            "commercial demand remain separate gates."
+            "engine is assigned or invoked and no domain execution proof is created. Composition-reuse products prove "
+            "bounded component execution plus broader review without creating identity equivalence. Human review, "
+            "customer source authority, external effects, public launch, external release, customer validation and "
+            "repeatable commercial demand remain separate gates."
         ),
     }
     receipt["batch_fingerprint"] = "sha256:" + _sha_bytes(_canonical(receipt))
