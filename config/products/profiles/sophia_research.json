@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "sophia_research",
+  "product_id": "dio_sophia_research",
+  "category": "research_claim_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "Sophia Research is currently bounded to preparing and reviewing supplied research questions, claims, source-support mappings, citation records and declared gaps for authorised human research review. It does not establish scientific truth, approve research ethics, accept a publication, determine authorship, or issue a final research conclusion.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "SOPHIARESEARCH",
+  "review_pack_title": "DIO Sophia Research Controlled Evidence Review Pack",
+  "human_gate_reason": "Research conclusions, factual verification, ethics approval, authorship, publication acceptance and final release remain with authorised researchers, reviewers, ethics bodies and publishers.",
+  "forbidden_outcomes": [
+    "scientific_truth_determination",
+    "research_conclusion",
+    "ethics_approval",
+    "publication_acceptance",
+    "authorship_decision",
+    "final_research_claim"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}
