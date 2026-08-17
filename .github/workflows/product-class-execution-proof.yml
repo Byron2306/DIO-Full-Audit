@@ -5,12 +5,14 @@ on:
     paths:
       - "products/product_class_execution_proof.py"
       - "products/evidence_profile_execution_proof.py"
+      - "products/vamp_profile_execution_proof.py"
       - "products/evidence_review.py"
       - "products/obligationfamily/**"
       - "products/auditproof/**"
       - "products/vendorproof/**"
       - "products/assuranceroom/**"
       - "products/unpromoted_evidence_profile.py"
+      - "products/unpromoted_vamp_profile.py"
       - "scripts/run_product_class_execution_proof.py"
       - "config/products/manifests/**"
       - "config/products/golden/**"
@@ -20,12 +22,14 @@ on:
       - "config/portfolio/capability_catalog.json"
       - "tests/test_product_class_execution_proof.py"
       - "tests/test_evidence_profile_execution_proof.py"
+      - "tests/test_vamp_profile_execution_proof.py"
       - "tests/test_obligation_family_phase6.py"
       - "tests/test_auditproof_controlled_review.py"
       - "tests/test_vendorproof_controlled_review.py"
       - "tests/test_assuranceroom_controlled_review.py"
       - "tests/test_unpromoted_evidex_profile_batch.py"
       - "tests/test_unpromoted_evidex_profile_batch2.py"
+      - "tests/test_unpromoted_vamp_profile_batch.py"
       - ".github/workflows/product-class-execution-proof.yml"
   workflow_dispatch:
 
@@ -49,13 +53,15 @@ jobs:
           python -m py_compile \
             products/product_class_execution_proof.py \
             products/evidence_profile_execution_proof.py \
+            products/vamp_profile_execution_proof.py \
             products/evidence_review.py \
             products/obligationfamily/runner.py \
             scripts/run_product_class_execution_proof.py \
             tests/test_product_class_execution_proof.py \
-            tests/test_evidence_profile_execution_proof.py
+            tests/test_evidence_profile_execution_proof.py \
+            tests/test_vamp_profile_execution_proof.py
 
-      - name: Run obligation and evidence proof-factory regressions
+      - name: Run obligation evidence and VAMP proof-factory regressions
         run: |
           PYTHONNOUSERSITE=1 python -m pytest -q \
             tests/test_obligation_family_phase6.py \
@@ -65,11 +71,13 @@ jobs:
             tests/test_assuranceroom_controlled_review.py \
             tests/test_unpromoted_evidex_profile_batch.py \
             tests/test_unpromoted_evidex_profile_batch2.py \
-            tests/test_evidence_profile_execution_proof.py
+            tests/test_evidence_profile_execution_proof.py \
+            tests/test_unpromoted_vamp_profile_batch.py \
+            tests/test_vamp_profile_execution_proof.py
 
-      - name: Smoke GrantProof and AuditProof execution proof CLI
+      - name: Smoke GrantProof AuditProof and PromotionProof CLI
         run: |
-          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof
           PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
             --product-id dio_grantproof \
             --golden \
@@ -82,5 +90,12 @@ jobs:
             --output-dir /tmp/dio-auditproof-ci-proof \
             --operator-id human.github_actions_proof_operator \
             --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
+            --product-id dio_promotionproof \
+            --golden \
+            --output-dir /tmp/dio-promotionproof-ci-proof \
+            --operator-id human.github_actions_proof_operator \
+            --now 2026-08-17T20:00:00+00:00
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
