@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from products.accreditation_execution_proof import controlled_accreditation_fixture, run_accreditation_execution_proof  # noqa: E402
+from products.agentauthority_execution_proof import controlled_agentauthority_fixture, run_agentauthority_execution_proof  # noqa: E402
 from products.contractproof_execution_proof import run_contractproof_execution_proof  # noqa: E402
 from products.evidence_profile_execution_proof import (  # noqa: E402
     _profiles_by_product,
@@ -31,6 +32,7 @@ from products.vamp_profile_execution_proof import (  # noqa: E402
 CONTRACTPROOF_PRODUCT_ID = "dio_contractproof"
 REGOPS_PRODUCT_ID = "dio_regops"
 ACCREDITATION_PRODUCT_ID = "dio_accreditation"
+AGENTAUTHORITY_PRODUCT_ID = "dio_agentauthority"
 
 
 def _load_json(path: Path):
@@ -44,16 +46,15 @@ def _golden_fixture(product_id: str) -> dict:
         return controlled_regops_fixture()
     if product_id == ACCREDITATION_PRODUCT_ID:
         return controlled_accreditation_fixture()
+    if product_id == AGENTAUTHORITY_PRODUCT_ID:
+        return controlled_agentauthority_fixture()
 
     definition = FAMILY_DEFINITIONS.get(product_id)
     if definition is not None:
         root = ROOT / "config" / "products" / "golden" / definition["slug"]
         source = _load_json(root / "reference_source.json")
         evidence_payload = _load_json(root / "reference_evidence.json")
-        return {
-            "source": source,
-            "evidence_inputs": evidence_payload.get("evidence_records") or [],
-        }
+        return {"source": source, "evidence_inputs": evidence_payload.get("evidence_records") or []}
 
     profile_id = _profiles_by_product().get(product_id)
     if profile_id is not None:
@@ -64,15 +65,7 @@ def _golden_fixture(product_id: str) -> dict:
     raise ValueError(f"no controlled execution fixture is registered for product: {product_id}")
 
 
-def _run(
-    product_id: str,
-    fixture: dict,
-    *,
-    output_dir: Path,
-    operator_id: str,
-    now: str,
-    job_id: str | None,
-):
+def _run(product_id: str, fixture: dict, *, output_dir: Path, operator_id: str, now: str, job_id: str | None):
     if product_id == CONTRACTPROOF_PRODUCT_ID:
         if fixture.get("fixture_kind") != "dio.phase11_1.gauntlet.v1" or fixture.get("inbound_owner") != "vesper":
             raise ValueError("ContractProof proof CLI requires the Vesper-owned Phase 11.1 controlled fixture")
@@ -81,40 +74,19 @@ def _run(
         return run_regops_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id == ACCREDITATION_PRODUCT_ID:
         return run_accreditation_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
+    if product_id == AGENTAUTHORITY_PRODUCT_ID:
+        return run_agentauthority_execution_proof(fixture, output_dir=output_dir, operator_id=operator_id, now=now)
     if product_id in FAMILY_DEFINITIONS:
-        return run_execution_proof(
-            product_id,
-            fixture,
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-            job_id=job_id,
-        )
+        return run_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     if product_id in _profiles_by_product():
-        return run_evidence_profile_execution_proof(
-            product_id,
-            fixture,
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-            job_id=job_id,
-        )
+        return run_evidence_profile_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     if product_id in vamp_profiles_by_product():
-        return run_vamp_profile_execution_proof(
-            product_id,
-            fixture,
-            output_dir=output_dir,
-            operator_id=operator_id,
-            now=now,
-            job_id=job_id,
-        )
+        return run_vamp_profile_execution_proof(product_id, fixture, output_dir=output_dir, operator_id=operator_id, now=now, job_id=job_id)
     raise ValueError(f"no execution-proof adapter is registered for product: {product_id}")
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Run a bounded DIO product-class processor and emit hash-verified controlled execution proof."
-    )
+    parser = argparse.ArgumentParser(description="Run a bounded DIO product-class processor and emit hash-verified controlled execution proof.")
     parser.add_argument("--product-id", required=True)
     fixture_group = parser.add_mutually_exclusive_group(required=True)
     fixture_group.add_argument("--fixture", type=Path, help="JSON controlled execution fixture")
@@ -126,14 +98,7 @@ def main() -> int:
     args = parser.parse_args()
 
     fixture = _golden_fixture(args.product_id) if args.golden else _load_json(args.fixture)
-    result = _run(
-        args.product_id,
-        fixture,
-        output_dir=args.output_dir,
-        operator_id=args.operator_id,
-        now=args.now,
-        job_id=args.job_id,
-    )
+    result = _run(args.product_id, fixture, output_dir=args.output_dir, operator_id=args.operator_id, now=args.now, job_id=args.job_id)
     proof = result["proof"]
     summary = {
         "schema": proof["schema"],
