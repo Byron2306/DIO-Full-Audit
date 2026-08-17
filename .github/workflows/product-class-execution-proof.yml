@@ -9,6 +9,8 @@ on:
       - "products/contractproof_execution_proof.py"
       - "products/regops_execution_proof.py"
       - "products/accreditation_execution_proof.py"
+      - "products/agentauthority_execution_proof.py"
+      - "products/ai_trust/**"
       - "products/evidence_review.py"
       - "products/regops/**"
       - "products/accreditation/**"
@@ -38,6 +40,7 @@ on:
       - "tests/test_contractproof_execution_proof.py"
       - "tests/test_regops_execution_proof.py"
       - "tests/test_accreditation_execution_proof.py"
+      - "tests/test_agentauthority_execution_proof.py"
       - "tests/test_product_class_execution_proof_batch.py"
       - "tests/test_contractproof_vesper_boundary.py"
       - "tests/test_phase11_1.py"
@@ -78,6 +81,9 @@ jobs:
             products/contractproof_execution_proof.py \
             products/regops_execution_proof.py \
             products/accreditation_execution_proof.py \
+            products/agentauthority_execution_proof.py \
+            products/ai_trust/core.py \
+            products/ai_trust/runner.py \
             products/evidence_review.py \
             products/regops/runner.py \
             products/accreditation/runner.py \
@@ -93,6 +99,7 @@ jobs:
             tests/test_contractproof_execution_proof.py \
             tests/test_regops_execution_proof.py \
             tests/test_accreditation_execution_proof.py \
+            tests/test_agentauthority_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
       - name: Run proof-factory and native-route regressions
@@ -116,53 +123,26 @@ jobs:
             tests/test_regops_execution_proof.py \
             tests/test_accreditation_runner.py \
             tests/test_accreditation_execution_proof.py \
+            tests/test_agentauthority_execution_proof.py \
             tests/test_product_class_execution_proof_batch.py
 
       - name: Smoke representative execution proof CLI lanes
         run: |
-          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof /tmp/dio-regops-ci-proof /tmp/dio-accreditation-ci-proof
-          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
-            --product-id dio_grantproof \
-            --golden \
-            --output-dir /tmp/dio-grantproof-ci-proof \
-            --operator-id human.github_actions_proof_operator \
-            --now 2026-08-17T20:00:00+00:00
-          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
-            --product-id dio_auditproof \
-            --golden \
-            --output-dir /tmp/dio-auditproof-ci-proof \
-            --operator-id human.github_actions_proof_operator \
-            --now 2026-08-17T20:00:00+00:00
-          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
-            --product-id dio_promotionproof \
-            --golden \
-            --output-dir /tmp/dio-promotionproof-ci-proof \
-            --operator-id human.github_actions_proof_operator \
-            --now 2026-08-17T20:00:00+00:00
-          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
-            --product-id dio_contractproof \
-            --golden \
-            --output-dir /tmp/dio-contractproof-ci-proof \
-            --operator-id human.github_actions_proof_operator \
-            --now 2026-08-17T20:00:00+00:00
-          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
-            --product-id dio_regops \
-            --golden \
-            --output-dir /tmp/dio-regops-ci-proof \
-            --operator-id human.github_actions_proof_operator \
-            --now 2026-08-17T20:00:00+00:00
-          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py \
-            --product-id dio_accreditation \
-            --golden \
-            --output-dir /tmp/dio-accreditation-ci-proof \
-            --operator-id human.github_actions_proof_operator \
-            --now 2026-08-17T20:00:00+00:00
+          rm -rf /tmp/dio-grantproof-ci-proof /tmp/dio-auditproof-ci-proof /tmp/dio-promotionproof-ci-proof /tmp/dio-contractproof-ci-proof /tmp/dio-regops-ci-proof /tmp/dio-accreditation-ci-proof /tmp/dio-agentauthority-ci-proof
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_grantproof --golden --output-dir /tmp/dio-grantproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_auditproof --golden --output-dir /tmp/dio-auditproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_promotionproof --golden --output-dir /tmp/dio-promotionproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_contractproof --golden --output-dir /tmp/dio-contractproof-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_regops --golden --output-dir /tmp/dio-regops-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_accreditation --golden --output-dir /tmp/dio-accreditation-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
+          PYTHONNOUSERSITE=1 python scripts/run_product_class_execution_proof.py --product-id dio_agentauthority --golden --output-dir /tmp/dio-agentauthority-ci-proof --operator-id human.github_actions_proof_operator --now 2026-08-17T20:00:00+00:00
           test -f /tmp/dio-grantproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-auditproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-promotionproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-contractproof-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-regops-ci-proof/PRODUCT_EXECUTION_PROOF.json
           test -f /tmp/dio-accreditation-ci-proof/PRODUCT_EXECUTION_PROOF.json
+          test -f /tmp/dio-agentauthority-ci-proof/PRODUCT_EXECUTION_PROOF.json
 
       - name: Build complete attached-product proof bundle
         run: |
