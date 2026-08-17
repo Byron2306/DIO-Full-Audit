@@ -20,6 +20,7 @@ from products.contractproof_execution_proof import run_contractproof_execution_p
 from products.dossierops_execution_proof import controlled_dossierops_fixture, run_dossierops_execution_proof  # noqa: E402
 from products.education_research_execution_proof import controlled_education_research_fixture, profiles_by_product as education_research_profiles_by_product, run_education_research_execution_proof  # noqa: E402
 from products.evidence_profile_execution_proof import _profiles_by_product, controlled_evidence_fixture, run_evidence_profile_execution_proof  # noqa: E402
+from products.high_risk_execution_proof import controlled_high_risk_fixture, high_risk_profiles_by_product, run_high_risk_execution_proof  # noqa: E402
 from products.obligationfamily.runner import FAMILY_DEFINITIONS  # noqa: E402
 from products.product_class_execution_proof import run_execution_proof, verify_execution_proof  # noqa: E402
 from products.regops_execution_proof import controlled_regops_fixture, run_regops_execution_proof  # noqa: E402
@@ -55,6 +56,7 @@ def registered_products() -> tuple[str, ...]:
     products.update(_profiles_by_product())
     products.update(vamp_profiles_by_product())
     products.update(education_research_profiles_by_product())
+    products.update(high_risk_profiles_by_product())
     products.update({
         CONTRACTPROOF_PRODUCT_ID,
         REGOPS_PRODUCT_ID,
@@ -97,6 +99,15 @@ def _run_one(product_id: str, *, output_dir: Path, operator_id: str, now: str) -
         return run_education_research_execution_proof(
             product_id,
             controlled_education_research_fixture(education_research_profile),
+            output_dir=output_dir,
+            operator_id=operator_id,
+            now=now,
+        )
+    high_risk_profile = high_risk_profiles_by_product().get(product_id)
+    if high_risk_profile is not None:
+        return run_high_risk_execution_proof(
+            product_id,
+            controlled_high_risk_fixture(high_risk_profile),
             output_dir=output_dir,
             operator_id=operator_id,
             now=now,
@@ -146,8 +157,10 @@ def run_batch(*, output_root: Path, operator_id: str, now: str) -> dict[str, Any
         "products": rows,
         "truth_boundary": (
             "This batch proves only the listed controlled processor routes over controlled fixtures or governed "
-            "upstream receipts. Human review, customer source authority, external effects, public launch, external "
-            "release, customer validation and repeatable commercial demand remain separate gates."
+            "upstream receipts. For high-risk no-engine profiles the proved route is evidence review only; no domain "
+            "engine is assigned or invoked and no domain execution proof is created. Human review, customer source "
+            "authority, external effects, public launch, external release, customer validation and repeatable "
+            "commercial demand remain separate gates."
         ),
     }
     receipt["batch_fingerprint"] = "sha256:" + _sha_bytes(_canonical(receipt))
