@@ -1,0 +1,121 @@
+{
+  "schema": "dio.product_class_reconciliation.v1",
+  "status": "active_evidence_contract",
+  "principle": "Atlas identity, execution proof and launch authority are independent. Reuse a canonical incarnation when identity is exact; require an explicit equivalence decision for semantic cousins; require a new typed execution proof for genuine profile extensions.",
+  "source_route_contract": "config/product_class_routes.json",
+  "source_manifest_root": "config/products/manifests",
+  "summary": {
+    "atlas_profile_extensions_reviewed": 38,
+    "exact_canonical_incarnations": 6,
+    "equivalence_candidates": 4,
+    "genuine_profile_extensions": 28,
+    "auto_promotable_from_reconciliation": 0,
+    "public_launch_authorized_from_reconciliation": 0
+  },
+  "exact_canonical_incarnations": {
+    "grantproof": {
+      "canonical_product_id": "dio_grantproof",
+      "canonical_manifest": "config/products/manifests/grantproof.json",
+      "canonical_executor": "product.executor.grantproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "tenderproof": {
+      "canonical_product_id": "dio_tenderproof",
+      "canonical_manifest": "config/products/manifests/tenderproof.json",
+      "canonical_executor": "product.executor.tenderproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "permitproof": {
+      "canonical_product_id": "dio_permitproof",
+      "canonical_manifest": "config/products/manifests/permitproof.json",
+      "canonical_executor": "product.executor.permitproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "policyproof": {
+      "canonical_product_id": "dio_policyproof",
+      "canonical_manifest": "config/products/manifests/policyproof.json",
+      "canonical_executor": "product.executor.policyproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "contractproof": {
+      "canonical_product_id": "dio_contractproof",
+      "canonical_manifest": "config/products/manifests/contractproof.json",
+      "canonical_executor": "product.executor.contractproof",
+      "inbound_owner": "vesper",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "Vesper-bound intake plus fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "agent_authority": {
+      "canonical_product_id": "dio_agentauthority",
+      "canonical_manifest": "config/products/manifests/agentauthority.json",
+      "canonical_executor": "product.executor.agentauthority",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    }
+  },
+  "equivalence_candidates": {
+    "changeproof": {
+      "candidate_product_id": "dio_modelchangeproof",
+      "candidate_manifest": "config/products/manifests/modelchangeproof.json",
+      "question": "Does atlas ChangeProof mean only model, prompt, policy, connector and environment change assurance, or a broader enterprise change product?",
+      "state": "equivalence_review_required"
+    },
+    "dio_ai_assurance": {
+      "candidate_product_id": "dio_aitrustproof",
+      "candidate_manifest": "config/products/manifests/aitrustproof.json",
+      "question": "Is DIO AI Assurance the bounded AI system trust and evaluation dossier represented by AITrustProof, or a broader assurance umbrella?",
+      "state": "equivalence_review_required"
+    },
+    "homs_accreditation": {
+      "candidate_product_id": "dio_educationaccreditationproof",
+      "candidate_manifest": "config/products/manifests/educationaccreditationproof.json",
+      "question": "Does HOMS Accreditation bind directly to EducationAccreditationProof, or require a HOMS-specific education evidence profile layered over the regulated-market executor?",
+      "state": "equivalence_review_required"
+    },
+    "dio_regops": {
+      "candidate_product_id": "dio_airegreadiness",
+      "candidate_manifest": "config/products/manifests/airegreadiness.json",
+      "question": "DIO RegOps is broader than AI regulatory readiness. Determine whether AIRegReadiness is one RegOps profile rather than an alias for the whole class.",
+      "state": "equivalence_review_required"
+    }
+  },
+  "genuine_profile_extensions": {
+    "auditproof": {"suggested_engine": "evidex"},
+    "dossierops": {"suggested_engine": "document_studio"},
+    "promotionproof": {"suggested_engine": "vamp"},
+    "vendorproof": {"suggested_engine": "evidex"},
+    "assuranceroom": {"suggested_engine": "evidex"},
+    "cpdproof": {"suggested_engine": "vamp"},
+    "homs_moderate": {"suggested_engine": "homs"},
+    "impactproof": {"suggested_engine": "evidex"},
+    "projectproof": {"suggested_engine": "evidex"},
+    "sophia_integrity": {"suggested_engine": "sophia"},
+    "sophia_research": {"suggested_engine": "sophia"},
+    "controldrift": {"suggested_engine": null},
+    "ai_incidentroom": {"suggested_engine": null},
+    "certificationproof": {"suggested_engine": "evidex"},
+    "criticalai_assurance": {"suggested_engine": null},
+    "cyberassurance": {"suggested_engine": null},
+    "dora_vendor_assurance": {"suggested_engine": null},
+    "diligenceroom": {"suggested_engine": "evidex"},
+    "donorproof": {"suggested_engine": "evidex"},
+    "homs_curriculum": {"suggested_engine": "homs"},
+    "incidentproof": {"suggested_engine": null},
+    "modelproof": {"suggested_engine": null},
+    "programmeproof": {"suggested_engine": "evidex"},
+    "qualityproof": {"suggested_engine": "evidex"},
+    "releaseproof": {"suggested_engine": null},
+    "sophia_supervisor": {"suggested_engine": "sophia"},
+    "sophia_tutor": {"suggested_engine": "sophia"},
+    "suppliercyberproof": {"suggested_engine": null}
+  },
+  "promotion_law": {
+    "exact_canonical_incarnation": "Identity reconciliation may reuse the canonical manifest and executor, but it does not by itself grant customer processing, public launch or external release authority.",
+    "equivalence_candidate": "No alias or executor binding until an operator-approved scope equivalence decision is recorded.",
+    "genuine_profile_extension": "Requires a typed product profile, controlled fixture, actual execution receipt, reviewed output and public-safe proof before controlled-pilot launch consideration."
+  }
+}
