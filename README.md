@@ -1,6 +1,11 @@
 # DIO
 
+<p align="center">
+  <img src="file_000000005f1c81f4a4cf3c834834c6a9.png" alt="BEAST mascot" width="720" style="max-width: 92%; height: auto;">
+</p>
+
 ## Deterministic Intelligence Orchestration
+
 
 **A proof-carrying operating architecture for building, governing and expanding trustworthy intelligent products.**
 
