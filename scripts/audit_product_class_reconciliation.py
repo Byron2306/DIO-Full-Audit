@@ -35,17 +35,18 @@ def audit_reconciliation(
     errors: list[str] = []
     warnings: list[str] = []
 
-    if reconciliation.get("schema") != "dio.product_class_reconciliation.v1":
+    if reconciliation.get("schema") != "dio.product_class_reconciliation.v2":
         errors.append("unsupported reconciliation schema")
     if routes.get("schema") != "dio.product_class_routes.v1":
         errors.append("unsupported route contract schema")
 
     exact = reconciliation.get("exact_canonical_incarnations") or {}
     candidates = reconciliation.get("equivalence_candidates") or {}
+    resolved = reconciliation.get("resolved_composition_bindings") or {}
     extensions = reconciliation.get("genuine_profile_extensions") or {}
     route_classes = routes.get("product_classes") or {}
 
-    partitions = [set(exact), set(candidates), set(extensions)]
+    partitions = [set(exact), set(candidates), set(resolved), set(extensions)]
     names = set().union(*partitions)
     for left_index, left in enumerate(partitions):
         for right in partitions[left_index + 1 :]:
@@ -146,6 +147,69 @@ def audit_reconciliation(
             errors.append(f"{product_class}: equivalence candidate product id mismatch")
         candidate_results[product_class] = row
 
+    portfolio = {
+        str(row.get("id")): row
+        for row in read_json(root / "config" / "dio_product_portfolio.json").get("products", [])
+        if isinstance(row, dict)
+    }
+
+    resolved_results: dict[str, Any] = {}
+    for product_class, binding in resolved.items():
+        route = route_classes.get(product_class) or {}
+        manifest_rel = str(binding.get("reusable_component_manifest") or "")
+        manifest_path = root / manifest_rel
+        canonical_product_id = str(binding.get("canonical_product_id") or "")
+        component_product_id = str(binding.get("reusable_component_product_id") or "")
+
+        row: dict[str, Any] = {
+            "canonical_product_id": canonical_product_id,
+            "canonical_product_exists": canonical_product_id in portfolio,
+            "component_manifest": manifest_rel,
+            "component_manifest_exists": manifest_path.is_file(),
+            "relationship": binding.get("relationship"),
+            "state": binding.get("state"),
+            "route_auto_promotable": route.get("auto_promotable"),
+        }
+
+        if route.get("auto_promotable") is not False:
+            errors.append(
+                f"{product_class}: resolved composition binding must remain non-auto-promotable"
+            )
+        if binding.get("relationship") != "composition_reuse":
+            errors.append(
+                f"{product_class}: resolved binding must declare composition_reuse"
+            )
+        if binding.get("state") != "identity_equivalence_rejected":
+            errors.append(
+                f"{product_class}: resolved binding must reject identity equivalence"
+            )
+        if canonical_product_id not in portfolio:
+            errors.append(
+                f"{product_class}: canonical composition product missing: {canonical_product_id}"
+            )
+
+        if not manifest_path.is_file():
+            errors.append(
+                f"{product_class}: reusable component manifest missing: {manifest_rel}"
+            )
+            resolved_results[product_class] = row
+            continue
+
+        manifest = read_json(manifest_path)
+        row.update(
+            {
+                "component_manifest_product_id": manifest.get("product_id"),
+                "component_id_match": manifest.get("product_id") == component_product_id,
+                "component_maturity": (manifest.get("maturity") or {}).get("state"),
+            }
+        )
+        if manifest.get("product_id") != component_product_id:
+            errors.append(
+                f"{product_class}: reusable component product id mismatch"
+            )
+
+        resolved_results[product_class] = row
+
     extension_results: dict[str, Any] = {}
     for product_class, binding in extensions.items():
         route = route_classes.get(product_class) or {}
@@ -164,6 +228,7 @@ def audit_reconciliation(
         "atlas_profile_extensions_reviewed": len(names),
         "exact_canonical_incarnations": len(exact),
         "equivalence_candidates": len(candidates),
+        "resolved_composition_bindings": len(resolved),
         "genuine_profile_extensions": len(extensions),
     }
     for key, value in expected_counts.items():
@@ -176,7 +241,7 @@ def audit_reconciliation(
         errors.append("reconciliation must grant zero public launch authority")
 
     return {
-        "schema": "dio.product_class_reconciliation_audit.v1",
+        "schema": "dio.product_class_reconciliation_audit.v2",
         "state": "reconciled" if not errors else "failed",
         "summary": {
             **expected_counts,
@@ -187,6 +252,7 @@ def audit_reconciliation(
         },
         "exact_canonical_incarnations": exact_results,
         "equivalence_candidates": candidate_results,
+        "resolved_composition_bindings": resolved_results,
         "genuine_profile_extensions": extension_results,
         "errors": errors,
         "warnings": warnings,

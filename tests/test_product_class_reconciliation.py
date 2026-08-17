@@ -20,15 +20,20 @@ def test_reconciliation_partitions_all_38_atlas_profile_extensions() -> None:
 
     exact = set(reconciliation["exact_canonical_incarnations"])
     candidates = set(reconciliation["equivalence_candidates"])
+    resolved = set(reconciliation["resolved_composition_bindings"])
     extensions = set(reconciliation["genuine_profile_extensions"])
 
     assert len(exact) == 6
-    assert len(candidates) == 4
+    assert len(candidates) == 2
+    assert len(resolved) == 2
     assert len(extensions) == 28
-    assert not (exact & candidates)
-    assert not (exact & extensions)
-    assert not (candidates & extensions)
-    assert exact | candidates | extensions == set(routes["product_classes"])
+
+    partitions = [exact, candidates, resolved, extensions]
+    for index, left in enumerate(partitions):
+        for right in partitions[index + 1:]:
+            assert not (left & right)
+
+    assert exact | candidates | resolved | extensions == set(routes["product_classes"])
 
 
 def test_exact_canonical_incarnations_are_real_executable_internal_manifests() -> None:
@@ -84,14 +89,39 @@ def test_equivalence_candidates_remain_review_only() -> None:
     assert set(reconciliation["equivalence_candidates"]) == {
         "changeproof",
         "dio_ai_assurance",
-        "homs_accreditation",
-        "dio_regops",
     }
     for product_class, row in result["equivalence_candidates"].items():
         assert row["manifest_exists"], product_class
         assert row["candidate_id_match"], product_class
         assert row["state"] == "equivalence_review_required", product_class
         assert row["route_auto_promotable"] is False, product_class
+
+
+def test_resolved_composition_bindings_reject_aliases_but_preserve_reuse() -> None:
+    result = audit_reconciliation()
+    reconciliation = read_json(RECONCILIATION)
+
+    assert set(reconciliation["resolved_composition_bindings"]) == {
+        "homs_accreditation",
+        "dio_regops",
+    }
+    assert result["summary"]["resolved_composition_bindings"] == 2
+
+    homs = result["resolved_composition_bindings"]["homs_accreditation"]
+    assert homs["canonical_product_id"] == "dio_accreditation"
+    assert homs["canonical_product_exists"] is True
+    assert homs["component_id_match"] is True
+    assert homs["relationship"] == "composition_reuse"
+    assert homs["state"] == "identity_equivalence_rejected"
+    assert homs["route_auto_promotable"] is False
+
+    regops = result["resolved_composition_bindings"]["dio_regops"]
+    assert regops["canonical_product_id"] == "dio_regops"
+    assert regops["canonical_product_exists"] is True
+    assert regops["component_id_match"] is True
+    assert regops["relationship"] == "composition_reuse"
+    assert regops["state"] == "identity_equivalence_rejected"
+    assert regops["route_auto_promotable"] is False
 
 
 def test_reconciliation_grants_no_launch_or_auto_promotion_authority() -> None:
