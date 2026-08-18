@@ -94,7 +94,6 @@ class CommercialObservationEpisode:
 
     @property
     def observation_truth_digest(self) -> str:
-        """Stable semantic truth excluding volatile local receipt identities."""
         return digest_payload(
             {
                 "schema": "dio.m2.commercial_observation_truth.v1",
@@ -176,13 +175,7 @@ def _measurement_truth_digest(campaign_id: str, metrics: Mapping[str, Any]) -> s
     )
 
 
-def _build_observation(
-    *,
-    plan: Any,
-    scenario: Mapping[str, Any],
-    config_digest: str,
-    measurement_truth_digest: str,
-) -> MarketObservation:
+def _build_observation(*, plan: Any, scenario: Mapping[str, Any], config_digest: str, measurement_truth_digest: str) -> MarketObservation:
     window = scenario.get("window")
     if not isinstance(window, dict):
         raise CommercialObservationError("scenario window must be materialised before observation construction")
@@ -204,8 +197,6 @@ def _build_observation(
         window_end=str(window.get("end") or ""),
         window_closed=bool(scenario.get("window_closed")),
         evidence_refs=(fixture_digest, measurement_truth_digest),
-        customer_lineage_id=None,
-        payment_lineage_id=None,
     )
 
 
@@ -235,11 +226,7 @@ def _store_for(target: Path, episode_cfg: Mapping[str, Any]) -> MarketStore:
     )
 
 
-def exercise_controlled_observation_scenarios(
-    repo_root: str | Path,
-    *,
-    work_root: str | Path,
-) -> tuple[tuple[CommercialObservationEpisode, ...], dict[str, Any]]:
+def exercise_controlled_observation_scenarios(repo_root: str | Path, *, work_root: str | Path) -> tuple[tuple[CommercialObservationEpisode, ...], dict[str, Any]]:
     root = Path(repo_root).resolve()
     target = Path(work_root).resolve()
     target.mkdir(parents=True, exist_ok=True)
@@ -248,21 +235,17 @@ def exercise_controlled_observation_scenarios(
     if parent_gate.get("passed") is not True or parent_gate.get("acceptance") != config.get("required_parent_acceptance"):
         raise CommercialObservationError("M2-4 market episode parent is not verified")
 
-    plan, _pricing, observation_contract, market = compile_reference_market_episode(
-        root,
-        work_root=target / "episode",
-    )
+    plan, _pricing, observation_contract, market = compile_reference_market_episode(root, work_root=target / "episode")
     base_campaign = market["campaign"]
     if base_campaign.get("state") != "draft" or base_campaign.get("publication_state") != "held":
         raise CommercialObservationError("M2-5 controlled observation requires held Market Command planning state")
 
     episode_cfg = json.loads((root / "config/m2_phase4_market_episode.json").read_text(encoding="utf-8")).get("episode") or {}
     config_digest = digest_payload(config)
-    scenarios = _materialise_scenarios(config)
     results: list[CommercialObservationEpisode] = []
     raw_rows: dict[str, Any] = {}
 
-    for scenario in scenarios:
+    for scenario in _materialise_scenarios(config):
         scenario_id = str(scenario.get("scenario_id") or "")
         scenario_root = target / "scenario_worlds" / scenario_id
         store = _store_for(scenario_root, episode_cfg)
@@ -273,80 +256,24 @@ def exercise_controlled_observation_scenarios(
         metrics = dict(scenario.get("metrics") or {})
         measurement_truth = _measurement_truth_digest(plan.campaign_id, metrics)
         measurement_receipt = store.record_measurement(plan.campaign_id, metrics)
-        observation = _build_observation(
-            plan=plan,
-            scenario=scenario,
-            config_digest=config_digest,
-            measurement_truth_digest=measurement_truth,
-        )
+        observation = _build_observation(plan=plan, scenario=scenario, config_digest=config_digest, measurement_truth_digest=measurement_truth)
         fixture_digest = observation.evidence_refs[0]
 
         runtime = create_commercial_runtime(root, out_dir=scenario_root / "sensorium")
         mission_id = f"{plan.episode_id}:{scenario_id}"
         event_ids = [
-            observe_commercial_event(
-                runtime,
-                mission_id=mission_id,
-                event_type="controlled_market_fixture_admitted",
-                payload={
-                    "scenario_id": scenario_id,
-                    "source_fixture_digest": fixture_digest,
-                    "controlled_fixture": True,
-                    "real_market_exposure_observed": False,
-                },
-            ),
-            observe_commercial_event(
-                runtime,
-                mission_id=mission_id,
-                event_type="market_command_measurement_materialised",
-                payload={
-                    "scenario_id": scenario_id,
-                    "measurement_id": measurement_receipt["measurement_id"],
-                    "measurement_truth_digest": measurement_truth,
-                    "source": metrics.get("source"),
-                },
-            ),
-            observe_commercial_event(
-                runtime,
-                mission_id=mission_id,
-                event_type="market_observation_recorded",
-                payload={
-                    "scenario_id": scenario_id,
-                    "outcome_class": scenario.get("outcome_class"),
-                    "kind": observation.kind.value,
-                    "observation_digest": observation.observation_digest,
-                    "window_closed": observation.window_closed,
-                },
-            ),
+            observe_commercial_event(runtime, mission_id=mission_id, event_type="controlled_market_fixture_admitted", payload={"scenario_id": scenario_id, "source_fixture_digest": fixture_digest, "controlled_fixture": True, "real_market_exposure_observed": False}),
+            observe_commercial_event(runtime, mission_id=mission_id, event_type="market_command_measurement_materialised", payload={"scenario_id": scenario_id, "measurement_id": measurement_receipt["measurement_id"], "measurement_truth_digest": measurement_truth, "source": metrics.get("source")}),
+            observe_commercial_event(runtime, mission_id=mission_id, event_type="market_observation_recorded", payload={"scenario_id": scenario_id, "outcome_class": scenario.get("outcome_class"), "kind": observation.kind.value, "observation_digest": observation.observation_digest, "window_closed": observation.window_closed}),
         ]
         if observation.kind == MarketObservationKind.NO_RESPONSE:
-            event_ids.append(
-                observe_commercial_event(
-                    runtime,
-                    mission_id=mission_id,
-                    event_type="measurement_window_closed_without_response",
-                    payload={
-                        "scenario_id": scenario_id,
-                        "window_start": observation.window_start,
-                        "window_end": observation.window_end,
-                        "no_response_scope": "exact_commercial_context_only",
-                    },
-                )
-            )
+            event_ids.append(observe_commercial_event(runtime, mission_id=mission_id, event_type="measurement_window_closed_without_response", payload={"scenario_id": scenario_id, "window_start": observation.window_start, "window_end": observation.window_end, "no_response_scope": "exact_commercial_context_only"}))
         sensorium = close_commercial_episode(
             runtime,
             mission_id=mission_id,
             objective_hash=plan.plan_digest,
             initial_state_hash=plan.context_digest,
-            outcome={
-                "status": "OBSERVED_CONTROLLED_FIXTURE",
-                "scenario_id": scenario_id,
-                "outcome_class": str(scenario.get("outcome_class") or ""),
-                "observation_digest": observation.observation_digest,
-                "controlled_fixture": True,
-                "real_market_exposure_observed": False,
-                "authority_created": False,
-            },
+            outcome={"status": "OBSERVED_CONTROLLED_FIXTURE", "scenario_id": scenario_id, "outcome_class": str(scenario.get("outcome_class") or ""), "observation_digest": observation.observation_digest, "controlled_fixture": True, "real_market_exposure_observed": False, "authority_created": False},
         )
         result = CommercialObservationEpisode(
             scenario_id=scenario_id,
@@ -369,14 +296,7 @@ def exercise_controlled_observation_scenarios(
             "sensorium": sensorium,
         }
 
-    return tuple(results), {
-        "parent_gate": parent_gate,
-        "plan": plan,
-        "observation_contract": observation_contract,
-        "base_campaign": base_campaign,
-        "config_digest": config_digest,
-        "rows": raw_rows,
-    }
+    return tuple(results), {"parent_gate": parent_gate, "plan": plan, "observation_contract": observation_contract, "base_campaign": base_campaign, "config_digest": config_digest, "rows": raw_rows}
 
 
 def _run_phase5(repo_root: Path, work_root: Path) -> dict[str, Any]:
@@ -390,18 +310,12 @@ def _run_phase5(repo_root: Path, work_root: Path) -> dict[str, Any]:
     schema_valid = False
     if schema_path.is_file():
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
-        schema_valid = (
-            schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema"
-            and schema.get("$id") == "dio.commercial_observation_episode.v1"
-        )
+        schema_valid = schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema" and schema.get("$id") == "dio.commercial_observation_episode.v1"
 
     controlled_outcomes = {row.outcome_class for row in episodes}
     sensorium_complete = all(row.sensorium_event_ids and row.sensorium_episode_hash.startswith("sha256:") for row in episodes)
     truth_digests_unique = len({row.observation_truth_digest for row in episodes}) == 3
-    scenario_campaigns_held = all(
-        row["campaign"].get("state") == "draft" and row["campaign"].get("publication_state") == "held"
-        for row in evidence["rows"].values()
-    )
+    scenario_campaigns_held = all(row["campaign"].get("state") == "draft" and row["campaign"].get("publication_state") == "held" for row in evidence["rows"].values())
     passed = (
         parent.get("passed") is True
         and parent.get("acceptance") == config.get("required_parent_acceptance")
@@ -453,9 +367,7 @@ def _run_phase5(repo_root: Path, work_root: Path) -> dict[str, Any]:
         "market_command_base_publication_state": base_campaign.get("publication_state"),
         "market_command_scenario_worlds_isolated": True,
         "market_command_scenario_campaigns_held": scenario_campaigns_held,
-        "market_command_scenario_metrics": {
-            key: value["aggregate_metrics"] for key, value in evidence["rows"].items()
-        },
+        "market_command_scenario_metrics": {key: value["aggregate_metrics"] for key, value in evidence["rows"].items()},
         "observation_truth_digests_unique": truth_digests_unique,
         "observation_episodes": [row.to_dict() for row in episodes],
         "real_market_exposure_observed": False,
@@ -474,16 +386,12 @@ def _run_phase5(repo_root: Path, work_root: Path) -> dict[str, Any]:
         "authority_created": False,
         "authority_widened": False,
         "external_effects": False,
-        "new_runtime_engine_created": false,
-        "m2_final_verified": False
+        "new_runtime_engine_created": False,
+        "m2_final_verified": False,
     }
 
 
-def phase5_market_observation_receipt(
-    repo_root: str | Path,
-    *,
-    work_root: str | Path | None = None,
-) -> dict[str, Any]:
+def phase5_market_observation_receipt(repo_root: str | Path, *, work_root: str | Path | None = None) -> dict[str, Any]:
     root = Path(repo_root).resolve()
     if work_root is not None:
         target = Path(work_root).resolve()
