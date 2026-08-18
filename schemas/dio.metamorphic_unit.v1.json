@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO Metamorphic Unit v1",
+  "type": "object",
+  "required": [
+    "schema", "identity", "roles", "provides", "requires", "executor",
+    "input_contract", "output_contract", "evidence_contract", "quality_contract",
+    "semantic_contract", "buyer_projection", "maturity_state", "authority_ceiling",
+    "applicability_fingerprints", "promotion_rules", "negative_capability_refs",
+    "crystal_refs", "unit_digest"
+  ],
+  "properties": {
+    "schema": {"const": "dio.metamorphic_unit.v1"},
+    "identity": {
+      "type": "object",
+      "required": ["unit_id", "version", "source_digest", "parent_unit_id"],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "source_digest": {"$ref": "#/$defs/digest"},
+        "parent_unit_id": {"type": ["string", "null"], "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "roles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "enum": ["product", "capability", "composite_node"]}
+    },
+    "provides": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "requires": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "executor": {
+      "type": "object",
+      "required": ["executor_id", "executor_version", "executor_digest"],
+      "properties": {
+        "executor_id": {"type": "string", "minLength": 1},
+        "executor_version": {"type": "string", "minLength": 1},
+        "executor_digest": {"$ref": "#/$defs/digest"}
+      },
+      "additionalProperties": false
+    },
+    "input_contract": {"type": "object"},
+    "output_contract": {"type": "object"},
+    "evidence_contract": {"type": "object"},
+    "quality_contract": {"type": "object"},
+    "semantic_contract": {
+      "type": "object",
+      "required": ["denotation", "affordances", "prohibitions", "projections"],
+      "properties": {
+        "denotation": {"type": "array", "items": {"type": "string"}},
+        "affordances": {"type": "array", "items": {"type": "string"}},
+        "prohibitions": {"type": "array", "items": {"type": "string"}},
+        "projections": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "buyer_projection": {
+      "type": "object",
+      "required": ["default", "variants"],
+      "properties": {
+        "default": {},
+        "variants": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "maturity_state": {"type": "string", "minLength": 1},
+    "authority_ceiling": {"type": "string", "minLength": 1},
+    "applicability_fingerprints": {
+      "type": "object",
+      "properties": {
+        "policy": {"$ref": "#/$defs/stringArray"},
+        "audience": {"$ref": "#/$defs/stringArray"},
+        "curriculum": {"$ref": "#/$defs/stringArray"},
+        "privacy": {"$ref": "#/$defs/stringArray"},
+        "market": {"$ref": "#/$defs/stringArray"},
+        "runtime": {"$ref": "#/$defs/stringArray"}
+      },
+      "additionalProperties": false
+    },
+    "promotion_rules": {"type": "object"},
+    "negative_capability_refs": {"$ref": "#/$defs/stringArray"},
+    "crystal_refs": {"$ref": "#/$defs/stringArray"},
+    "unit_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}
