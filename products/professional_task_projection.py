@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from adapters.sophia.review_pipeline import reference_key
 from products.professional_task_packets import (
     BASE_MANIFESTS,
     ROOT,
@@ -92,8 +93,64 @@ def _issue_lines(case: dict[str, Any]) -> list[str]:
     return deduped
 
 
+def _article_source_role(row: dict[str, Any]) -> str:
+    """Classify visible Article packet rows as evidence or editorial instruction.
+
+    Draft press releases and commissioning notes remain available in
+    professional_task_input so the Studio can reject their unsafe requests, but
+    they must not be promoted into Sophia's evidentiary reference fixture.
+    """
+    citation = str(row.get("citation") or "")
+    filename = str(row.get("filename") or "")
+    text = str(row.get("text") or "")
+    combined = "\n".join((citation, filename, text))
+    if re.search(r"\b(?:DRAFT PRESS RELEASE|COMMISSIONING NOTE)\b", combined, flags=re.IGNORECASE):
+        return "editorial_instruction"
+    if re.search(r"\b(?:press[- ]release draft|commissioning editor note)\b", combined, flags=re.IGNORECASE):
+        return "editorial_instruction"
+    return "evidence"
+
+
+def _article_lineage_citation(row: dict[str, Any]) -> str:
+    """Return a Sophia-parseable citation using only source-supplied metadata.
+
+    Existing author-year references pass through unchanged. Dated interview
+    citations are normalised to surname/year form using the interviewee name and
+    year already present in the supplied citation. No missing year is invented.
+    """
+    raw = str(row.get("citation") or row.get("filename") or "").strip()
+    if not raw:
+        raise ProfessionalTaskGauntletError("article evidence source lacks citation metadata")
+    if reference_key(raw):
+        return raw
+
+    interview = re.search(
+        r"\bInterview with\s+(?:(?:Dr|Professor)\s+)?([A-Z][A-Za-z'’.-]+)\s+([A-Z][A-Za-z'’.-]+)",
+        raw,
+    )
+    year = re.search(r"\b((?:19|20)\d{2})\b", raw)
+    if interview and year:
+        given, surname = interview.group(1), interview.group(2)
+        normalised = f"{surname}, {given[0]}. ({year.group(1)}). {raw}"
+        if reference_key(normalised):
+            return normalised
+
+    # Some institutional/internal citations provide a year without APA-style
+    # parentheses. Normalise only when the source itself supplies that year.
+    lead = re.match(r"^([A-Z][A-Za-z'’-]+)", raw)
+    if lead and year:
+        normalised = f"{lead.group(1)}. ({year.group(1)}). {raw}"
+        if reference_key(normalised):
+            return normalised
+
+    raise ProfessionalTaskGauntletError(
+        f"article evidence source lacks source-supported author-year lineage: {row.get('filename') or raw}"
+    )
+
+
 def _article_claims(case: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     sources: list[dict[str, Any]] = []
+    source_by_id: dict[str, dict[str, Any]] = {}
     claims: list[dict[str, Any]] = []
     claim_no = 1
     unsafe = re.compile(
@@ -103,45 +160,60 @@ def _article_claims(case: dict[str, Any]) -> tuple[list[dict[str, Any]], list[di
 
     for index, row in enumerate(case.get("source_documents") or [], 1):
         source_id = f"SRC-{index:02d}"
-        citation = str(row.get("citation") or row.get("filename") or source_id)
-        sources.append({"source_id": source_id, "citation": citation, "supports": []})
+        role = _article_source_role(row)
+        source_entry: dict[str, Any] | None = None
+        if role == "evidence":
+            source_entry = {
+                "source_id": source_id,
+                "citation": _article_lineage_citation(row),
+                "supports": [],
+            }
+            sources.append(source_entry)
+            source_by_id[source_id] = source_entry
+
         candidates: list[str] = []
         for raw in str(row.get("text") or "").splitlines():
             line = raw.strip()
             if not line:
                 continue
             labelled = re.match(
-                r"^(?:Key finding|Limitation|Sample|Professor [^:]+|Dr [^:]+|Patel cautioned|She said|He said)\s*:\s*(.+)$",
-                line, flags=re.IGNORECASE,
+                r"^(?:Key finding|Limitation|Sample|Professor [^:]+|Dr [^:]+|Patel cautioned|She said|He said|Proposed headline|Draft sentence|Request)\s*:\s*(.+)$",
+                line,
+                flags=re.IGNORECASE,
             )
             if labelled:
                 candidates.append(labelled.group(1).strip())
             elif "%" in line or re.search(
                 r"\b(?:observational|non-randomised|not randomised|not directly comparable|cannot establish|expires?)\b",
-                line, flags=re.IGNORECASE,
+                line,
+                flags=re.IGNORECASE,
             ):
                 candidates.append(line)
 
         for text_value in candidates:
             if len(text_value) < 20:
                 continue
-            state = "REFUSE" if unsafe.search(text_value) else "SUPPORTED"
+            state = "REFUSE" if role != "evidence" or unsafe.search(text_value) else "SUPPORTED"
             claim_id = f"CL-{claim_no:02d}"
             claim_no += 1
+            evidence_ids = [source_id] if state == "SUPPORTED" else []
             claims.append(
                 {
                     "claim_id": claim_id,
                     "text": text_value.rstrip(".") + ".",
                     "state": state,
-                    "evidence_ids": [] if state == "REFUSE" else [source_id],
+                    "evidence_ids": evidence_ids,
                 }
             )
-            if state == "SUPPORTED":
-                sources[-1]["supports"].append(claim_id)
+            if state == "SUPPORTED" and source_entry is not None:
+                source_entry["supports"].append(claim_id)
 
     if len([row for row in claims if row["state"] == "SUPPORTED"]) < 2:
         for index, row in enumerate(case.get("source_documents") or [], 1):
             source_id = f"SRC-{index:02d}"
+            source_entry = source_by_id.get(source_id)
+            if source_entry is None:
+                continue
             for sentence in re.split(r"(?<=[.!?])\s+", str(row.get("text") or "")):
                 sentence = sentence.strip()
                 if len(sentence) < 35 or unsafe.search(sentence):
@@ -156,7 +228,7 @@ def _article_claims(case: dict[str, Any]) -> tuple[list[dict[str, Any]], list[di
                         "evidence_ids": [source_id],
                     }
                 )
-                sources[index - 1]["supports"].append(claim_id)
+                source_entry["supports"].append(claim_id)
                 if len([x for x in claims if x["state"] == "SUPPORTED"]) >= 3:
                     break
             if len([x for x in claims if x["state"] == "SUPPORTED"]) >= 3:
