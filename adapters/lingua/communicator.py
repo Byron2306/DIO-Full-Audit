@@ -12,13 +12,18 @@ from adapters.lingua.lifecycle import register_product_source
 
 LANGUAGE_ALIASES = {
     "english": "English",
+    "en": "English",
     "afrikaans": "Afrikaans",
+    "af": "Afrikaans",
     "isizulu": "isiZulu",
     "zulu": "isiZulu",
+    "zu": "isiZulu",
     "sesotho": "Sesotho",
     "sotho": "Sesotho",
+    "st": "Sesotho",
     "setswana": "Setswana",
     "tswana": "Setswana",
+    "tn": "Setswana",
 }
 
 APPROVED_TRANSLATION_STATES = {"approved", "human_approved", "crystallized", "crystallised"}
@@ -46,13 +51,25 @@ def plain_text_from_html(value: str | None) -> str:
     return text.strip()
 
 
+def _normalize_language(value: str) -> str:
+    raw = str(value or "").strip()
+    if not raw:
+        return "English"
+    key = raw.casefold().replace("_", "-")
+    if key in LANGUAGE_ALIASES:
+        return LANGUAGE_ALIASES[key]
+    prefix = key.split("-", 1)[0]
+    if prefix in LANGUAGE_ALIASES:
+        return LANGUAGE_ALIASES[prefix]
+    return raw
+
+
 def requested_language(text: str = "", explicit: str | None = None) -> str:
     if explicit:
-        key = str(explicit).strip().casefold()
-        return LANGUAGE_ALIASES.get(key, str(explicit).strip())
+        return _normalize_language(explicit)
     low = str(text or "").casefold()
     for token, language in LANGUAGE_ALIASES.items():
-        if re.search(rf"\b{re.escape(token)}\b", low):
+        if len(token) > 2 and re.search(rf"\b{re.escape(token)}\b", low):
             return language
     return "English"
 
@@ -109,6 +126,7 @@ def register_communication(
     if not body and not subject:
         raise ValueError("communication requires subject or body")
 
+    source_language = _normalize_language(source_language)
     target = requested_language(body, target_language)
     object_id = _communication_object_id(
         owner=owner,
