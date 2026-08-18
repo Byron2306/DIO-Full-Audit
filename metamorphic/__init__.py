@@ -28,6 +28,8 @@ authority owner, and ARDA is bound as an armed bounded-execution/reverse-evidenc
 contract without claiming physical transport or general execution authority.
 """
 
+import importlib
+
 from .integration_inventory import (
     CANONICAL_INTEGRATION_ANCHORS,
     PHASE0_EXIT_TOKEN,
@@ -103,13 +105,28 @@ from .learning import (
     PHASE7_EXIT_TOKEN,
     phase7_learning_receipt,
 )
-from .boundary_closure import (
-    PHASE8_EXIT_TOKEN,
-    REQUIRED_PHASE8_WITNESSES,
-    MetamorphicBoundaryClosureError,
-    phase8_boundary_closure_receipt,
-    validate_required_witnesses,
-)
+
+# Phase 8 is deliberately lazy-loaded. Its boundary module imports the ARDA,
+# Seraph, and VNS adapters, while those adapters import metamorphic.contracts.
+# Eagerly importing boundary_closure here would therefore make an adapter-first
+# import recurse through this package and observe a partially initialized module.
+_PHASE8_EXPORTS = {
+    "PHASE8_EXIT_TOKEN",
+    "REQUIRED_PHASE8_WITNESSES",
+    "MetamorphicBoundaryClosureError",
+    "phase8_boundary_closure_receipt",
+    "validate_required_witnesses",
+}
+
+
+def __getattr__(name: str):
+    if name in _PHASE8_EXPORTS:
+        module = importlib.import_module(".boundary_closure", __name__)
+        value = getattr(module, name)
+        globals()[name] = value
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
