@@ -6,6 +6,9 @@ contracts without reimplementing any organ's runtime authority.
 Phase 2 proves that one immutable unit may be viewed as a product or capability
 without changing identity, executor, evidence contract, quality contract, or
 authority ceiling.
+Phase 3 binds LINGUA semantic law to those same units: denotation, affordance,
+prohibition and context projection, with learning candidate-only and no direct
+learning-to-execution path.
 """
 
 from .integration_inventory import (
@@ -30,6 +33,16 @@ from .registry import (
     build_reference_registry,
     phase2_identity_receipt,
 )
+from .semantic_law import (
+    PHASE3_EXIT_TOKEN,
+    SemanticLaw,
+    SemanticLawError,
+    build_reference_semantic_laws,
+    build_semantic_law,
+    evaluate_claim,
+    phase3_semantic_receipt,
+    project_semantics,
+)
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
@@ -48,4 +61,12 @@ __all__ = [
     "MetamorphicRegistryError",
     "build_reference_registry",
     "phase2_identity_receipt",
+    "PHASE3_EXIT_TOKEN",
+    "SemanticLaw",
+    "SemanticLawError",
+    "build_reference_semantic_laws",
+    "build_semantic_law",
+    "evaluate_claim",
+    "phase3_semantic_receipt",
+    "project_semantics",
 ]
