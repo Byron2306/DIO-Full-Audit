@@ -21,7 +21,8 @@ from metamorphic.world_lease import (
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-FIXED_NOW = datetime(2026, 8, 18, 21, 30, tzinfo=timezone.utc)
+# Deliberately future-dated so acquisition tests do not become wall-clock flaky.
+FIXED_NOW = datetime(2030, 8, 18, 21, 30, tzinfo=timezone.utc)
 
 
 def _config():
@@ -153,8 +154,8 @@ def test_phase4_cannot_acquire_from_expired_snapshot():
     snapshot = build_controlled_world_snapshot(REPO_ROOT, now=FIXED_NOW)
     expired = replace(
         snapshot,
-        observed_at=(FIXED_NOW - timedelta(minutes=30)).isoformat(),
-        expires_at=(FIXED_NOW - timedelta(minutes=15)).isoformat(),
+        observed_at="2020-08-18T21:00:00+00:00",
+        expires_at="2020-08-18T21:15:00+00:00",
     )
     caps, auth = _refs()
     with pytest.raises(WorldLeaseBindingError):
