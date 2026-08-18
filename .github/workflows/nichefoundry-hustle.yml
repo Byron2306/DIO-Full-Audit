@@ -7,6 +7,7 @@ on:
     paths:
       - "config/marketing_sales_playbook.json"
       - "config/lingua_product_routes.json"
+      - "config/vesper_voice_profiles.json"
       - "scripts/build_multichannel_campaign_factory.py"
       - "scripts/build_hustle_campaign_factory.py"
       - "scripts/build_lingua_hustle_campaign_factory.py"
@@ -28,6 +29,7 @@ on:
       - "tests/test_lingua_interaction_regulator.py"
       - "tests/test_presence_engine.py"
       - "tests/test_vesper_presence_diagnostic.py"
+      - "tests/test_vesper_voice.py"
       - "ops/systemd/user/dio-marketing-factory.service"
       - ".github/workflows/nichefoundry-hustle.yml"
   workflow_dispatch:
@@ -66,7 +68,8 @@ jobs:
             tests/test_lingua_public_communicator.py \
             tests/test_lingua_interaction_regulator.py \
             tests/test_presence_engine.py \
-            tests/test_vesper_presence_diagnostic.py
+            tests/test_vesper_presence_diagnostic.py \
+            tests/test_vesper_voice.py
       - name: Smoke one LINGUA-taught family without external effects
         run: |
           out="$(mktemp -d)"
