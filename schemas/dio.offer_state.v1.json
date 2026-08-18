@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.offer_state.v1",
+  "title": "DIO Offer State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","offer_state_id","offer_id","product_id","context_digest","version","lifecycle","price_hypothesis_id","semantic_object_ref","authority_ceiling","claim_refs","evidence_refs","authority_created","offer_state_digest"],
+  "properties": {
+    "schema": {"const": "dio.offer_state.v1"},
+    "offer_state_id": {"type": "string", "minLength": 1},
+    "offer_id": {"type": "string", "minLength": 1},
+    "product_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "version": {"type": "string", "minLength": 1},
+    "lifecycle": {"enum": ["DRAFT","HELD","ELIGIBLE","RELEASED","WITHDRAWN"]},
+    "price_hypothesis_id": {"type": "string", "minLength": 1},
+    "semantic_object_ref": {"type": "string", "minLength": 1},
+    "authority_ceiling": {"type": "string", "minLength": 1},
+    "claim_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "authority_created": {"const": false},
+    "offer_state_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}
