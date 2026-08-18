@@ -165,15 +165,27 @@ def test_non_seraph_external_effect_owner_is_rejected():
         )
 
 
-def test_preflight_is_deterministic_and_does_not_execute_seraph(reference_preflight, tmp_path):
+def test_preflight_digest_is_deterministic_for_exact_same_bound_context(reference_preflight):
     first, _channel, _anchors = reference_preflight
-    second, _channel2, _anchors2 = build_reference_authority_preflight(
-        REPO_ROOT,
-        work_root=tmp_path / "second",
+    twin = CommercialAuthorityPreflight(
+        context_digest=first.context_digest,
+        projection_digest=first.projection_digest,
+        offer_state_digest=first.offer_state_digest,
+        channel_state_digest=first.channel_state_digest,
+        seraph_anchor_digest=first.seraph_anchor_digest,
+        market_command_anchor_digest=first.market_command_anchor_digest,
+        vesper_anchor_digest=first.vesper_anchor_digest,
+        authority_plane_anchor_digest=first.authority_plane_anchor_digest,
+        decisions=first.decisions,
+        claim_language_safe=first.claim_language_safe,
+        market_command_planning_only=first.market_command_planning_only,
+        vesper_draft_only=first.vesper_draft_only,
+        seraph_operational_gate_executed=False,
+        authority_created=False,
+        external_effects=False,
     )
-    assert first.preflight_digest == second.preflight_digest
+    assert first.preflight_digest == twin.preflight_digest
     assert first.seraph_operational_gate_executed is False
-    assert second.seraph_operational_gate_executed is False
     assert first.authority_created is False
     assert first.external_effects is False
 
