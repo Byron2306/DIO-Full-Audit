@@ -11,7 +11,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DEPLOYMENT = ROOT / "state" / "presence" / "deployment.json"
 
@@ -25,7 +24,7 @@ def truthy(value: str | None) -> bool:
 
 
 def get_json(url: str, *, headers: dict[str, str] | None = None, timeout: float = 8.0) -> tuple[bool, dict[str, Any] | None, str | None]:
-    request = urllib.request.Request(url, headers=headers or {"User-Agent": "DIO-Vesper-Diagnostic/1.0"})
+    request = urllib.request.Request(url, headers=headers or {"User-Agent": "DIO-Vesper-Diagnostic/1.1"})
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             raw = response.read().decode("utf-8", errors="replace")
@@ -73,16 +72,55 @@ def first(*values: Any) -> str | None:
     return None
 
 
+def infer_edge_role(explicit: str | None, deployment: dict[str, Any], space_id: str | None) -> str:
+    role = first(explicit, deployment.get("edge_role"), os.getenv("DIO_PRESENCE_EDGE_ROLE"))
+    if role:
+        role = role.casefold()
+        if role not in {"public", "operator"}:
+            raise ValueError(f"unsupported edge role: {role}")
+        return role
+    if "operator" in str(space_id or "").casefold():
+        return "operator"
+    return "public"
+
+
+def default_space_url(space_id: str | None) -> str | None:
+    if not space_id or "/" not in space_id:
+        return None
+    owner, name = space_id.split("/", 1)
+    slug = f"{owner}-{name}".lower().replace("_", "-")
+    return f"https://{slug}.hf.space"
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Diagnose the live Vesper Presence chain without exposing credentials.")
+    parser = argparse.ArgumentParser(description="Diagnose a live Vesper Presence edge without exposing credentials.")
     parser.add_argument("--deployment", type=Path, default=DEFAULT_DEPLOYMENT)
     parser.add_argument("--core-url", default=None, help="Override local/core health base URL.")
-    parser.add_argument("--space-id", default=None, help="Override Hugging Face Space repo id, e.g. user/space.")
-    parser.add_argument("--public-url", default=None, help="Override public HF Space URL/subdomain.")
+    parser.add_argument("--space-id", default=None, help="Hugging Face Space repo id, e.g. user/space.")
+    parser.add_argument("--edge-url", "--public-url", dest="edge_url", default=None, help="Override HF Space URL/subdomain.")
+    parser.add_argument("--edge-role", choices=("public", "operator"), default=None)
     parser.add_argument("--write-receipt", action="store_true", help="Persist the redacted diagnostic under state/presence.")
     args = parser.parse_args()
 
     deployment = load_deployment(args.deployment.expanduser())
+    space_id = first(
+        args.space_id,
+        os.getenv("DIO_VESPER_HF_SPACE_ID"),
+        deployment.get("hf_space_id"),
+    )
+    edge_role = infer_edge_role(args.edge_role, deployment, space_id)
+    role_space_id = first(
+        os.getenv(f"DIO_VESPER_{edge_role.upper()}_HF_SPACE_ID"),
+        space_id,
+    )
+    edge_url = clean_url(first(
+        args.edge_url,
+        os.getenv(f"DIO_VESPER_{edge_role.upper()}_URL"),
+        os.getenv("DIO_VESPER_PUBLIC_URL") if edge_role == "public" else None,
+        deployment.get("edge_url"),
+        deployment.get("public_url"),
+        default_space_url(role_space_id),
+    ))
     core_url = clean_url(first(
         args.core_url,
         os.getenv("DIO_PRESENCE_CORE_URL"),
@@ -90,10 +128,10 @@ def main() -> int:
         deployment.get("core_url"),
         "http://127.0.0.1:8787",
     ))
-    space_id = first(args.space_id, os.getenv("DIO_VESPER_HF_SPACE_ID"), deployment.get("hf_space_id"))
-    public_url = clean_url(first(args.public_url, os.getenv("DIO_VESPER_PUBLIC_URL"), deployment.get("public_url")))
     telegram_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
     hf_token = os.getenv("HF_TOKEN", "").strip()
+    shared_secret_env = "DIO_PRESENCE_OPERATOR_SHARED_SECRET" if edge_role == "operator" else "DIO_PRESENCE_PUBLIC_SHARED_SECRET"
+    shared_secret_present = bool(os.getenv(shared_secret_env, "").strip())
 
     blockers: list[str] = []
     warnings: list[str] = []
@@ -101,28 +139,35 @@ def main() -> int:
 
     checks["identity"] = {
         "presence_identity": "Vesper",
-        "hf_space_id": space_id,
-        "public_url": display_url(public_url),
+        "legacy_edge_alias": "Lilith",
+        "edge_role": edge_role,
+        "hf_space_id": role_space_id,
+        "edge_url": display_url(edge_url),
         "deployment_receipt_present": args.deployment.expanduser().is_file(),
     }
-    if not space_id:
+    if not role_space_id:
         blockers.append("hf_space_id_not_recorded")
-    if not public_url:
-        blockers.append("vesper_public_url_not_recorded")
+    if not edge_url:
+        blockers.append("vesper_edge_url_not_resolved")
 
     reply_switch = truthy(os.getenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "0"))
+    operator_allowlist_present = bool(os.getenv("DIO_OPERATOR_TELEGRAM_IDS", "").strip())
     checks["reply_authority"] = {
         "telegram_reply_switch_enabled": reply_switch,
-        "telegram_bot_token_present": bool(telegram_token),
-        "public_shared_secret_present": bool(os.getenv("DIO_PRESENCE_PUBLIC_SHARED_SECRET", "").strip()),
+        "telegram_bot_token_present_on_core": bool(telegram_token),
+        "required_shared_secret_env": shared_secret_env,
+        "required_shared_secret_present": shared_secret_present,
         "identity_salt_present": bool(os.getenv("DIO_PRESENCE_IDENTITY_SALT", "").strip()),
+        "operator_telegram_allowlist_present": operator_allowlist_present if edge_role == "operator" else None,
     }
     if not reply_switch:
         blockers.append("core_telegram_reply_switch_disabled")
     if not telegram_token:
         blockers.append("telegram_bot_token_missing_on_core")
-    if not checks["reply_authority"]["public_shared_secret_present"]:
-        blockers.append("presence_public_shared_secret_missing_on_core")
+    if not shared_secret_present:
+        blockers.append(f"{shared_secret_env.casefold()}_missing_on_core")
+    if edge_role == "operator" and not operator_allowlist_present:
+        blockers.append("operator_telegram_allowlist_missing_on_core")
 
     if core_url:
         ok, payload, error = get_json(core_url + "/api/presence/health")
@@ -142,10 +187,10 @@ def main() -> int:
         checks["core_health"] = {"reachable": False, "error": "no_core_url"}
         blockers.append("presence_core_url_missing")
 
-    if public_url:
-        ok, payload, error = get_json(public_url + "/health")
-        checks["public_edge_health"] = {
-            "url": display_url(public_url + "/health"),
+    if edge_url:
+        ok, payload, error = get_json(edge_url + "/health")
+        checks["hf_edge_health"] = {
+            "url": display_url(edge_url + "/health"),
             "reachable": ok,
             "error": error,
             "payload_summary": {
@@ -155,19 +200,19 @@ def main() -> int:
             },
         }
         if not ok:
-            blockers.append("hf_public_edge_unreachable")
+            blockers.append("hf_edge_unreachable")
 
-    if space_id:
-        headers = {"User-Agent": "DIO-Vesper-Diagnostic/1.0"}
+    if role_space_id:
+        headers = {"User-Agent": "DIO-Vesper-Diagnostic/1.1"}
         if hf_token:
             headers["Authorization"] = f"Bearer {hf_token}"
         ok, payload, error = get_json(
-            "https://huggingface.co/api/spaces/" + urllib.parse.quote(space_id, safe="/"),
+            "https://huggingface.co/api/spaces/" + urllib.parse.quote(role_space_id, safe="/"),
             headers=headers,
         )
         runtime = (payload or {}).get("runtime") or {}
         checks["hf_space"] = {
-            "repo_id": space_id,
+            "repo_id": role_space_id,
             "resolved": ok,
             "error": error,
             "sha": (payload or {}).get("sha"),
@@ -195,7 +240,7 @@ def main() -> int:
         hook_ok, hook, hook_error = get_json(base + "/getWebhookInfo")
         hook_result = (hook or {}).get("result") or {}
         hook_url = clean_url(hook_result.get("url"))
-        expected_hook = public_url + "/telegram/webhook" if public_url else None
+        expected_hook = edge_url + "/telegram/webhook" if edge_url else None
         checks["telegram_webhook"] = {
             "reachable": hook_ok and bool((hook or {}).get("ok")),
             "error": hook_error,
@@ -204,7 +249,7 @@ def main() -> int:
             "pending_update_count": hook_result.get("pending_update_count"),
             "last_error_date": hook_result.get("last_error_date"),
             "last_error_message": hook_result.get("last_error_message"),
-            "matches_recorded_public_edge": bool(hook_url and expected_hook and hook_url == expected_hook),
+            "matches_recorded_edge": bool(hook_url and expected_hook and hook_url == expected_hook),
         }
         if not hook_url:
             blockers.append("telegram_webhook_not_set")
@@ -218,6 +263,7 @@ def main() -> int:
         "schema": "dio.vesper.presence_diagnostic.v1",
         "observed_at": utc_now(),
         "state": state,
+        "edge_role": edge_role,
         "blockers": sorted(set(blockers)),
         "warnings": sorted(set(warnings)),
         "checks": checks,
@@ -225,7 +271,7 @@ def main() -> int:
     }
 
     if args.write_receipt:
-        target = ROOT / "state" / "presence" / "diagnostics" / "latest.json"
+        target = ROOT / "state" / "presence" / "diagnostics" / f"latest-{edge_role}.json"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
         report["receipt_path"] = str(target)
