@@ -1,12 +1,16 @@
 [Unit]
-Description=DIO daily proof-backed commercial creative factory
+Description=DIO daily LINGUA-taught proof-backed commercial creative factory
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
 WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/build_hustle_campaign_factory.py
+# First observe real Market Command outcomes and resolve only human-approved LINGUA patterns
+# into the next held draft. No learning event can publish or spend.
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/build_lingua_hustle_campaign_factory.py --no-reels
+# Render only after LINGUA has resolved the commercial strategy and rewritten the held draft.
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/render_pending_hustle_reels.py
 Environment=PYTHONUNBUFFERED=1
 
 [Install]
