@@ -1,20 +1,23 @@
-# DIO Presence · Wave 2
+# DIO Presence · Wave 2 — Vesper
 
-**Lilith is DIO's public interaction layer, not DIO's authority.**
+**Vesper is DIO's public interaction and communication layer, not DIO's authority.**
 
-Wave 2 turns the Wave 1 Telegram concierge into a multi-channel public edge with WhatsApp Cloud API, a browser chat surface, quarantine-only document intake, and explicitly verified public status lookup.
+`Lilith` remains a legacy deployment/bundle alias only where older Hugging Face artifacts still carry that name. New semantic communication, telemetry and deployment receipts use the canonical identity **Vesper**.
+
+Wave 2 provides Telegram, WhatsApp and browser-chat ingress through a non-canonical public edge, with signed delivery to the separately trusted DIO Presence Core.
 
 ## Implemented
 
 - Telegram public concierge, voice-note transcription hook, photo/document intake.
 - WhatsApp Cloud API webhook verification, signed webhook validation, text/audio/document/image intake, bounded text replies.
-- Public Lilith web chat with signed anonymous session cookies, per-session rate limits, campaign hints, and no identity authority by default.
+- Public Vesper web chat with signed anonymous session cookies, per-session rate limits, campaign hints, and no identity authority by default.
 - Binary uploads are downloaded at the untrusted edge, bounded by size, SHA-256 hashed, extension/MIME/magic checked, then sent to DIO and written as `content.blob` in a quarantine directory.
 - Quarantined uploads are **not parsed, rendered, executed, indexed, or passed to models automatically**.
 - Public customer status is locked unless an operator explicitly binds a conversation to one or more exact local DIO order IDs.
-- Bound status disclosure is deliberately minimal: order ID, payment state, and whether fulfilment has been released. Provider, amount, email, and unrelated orders are not disclosed.
-- Public and operator Lilith remain separate cryptographic trust domains. Only the operator Telegram edge plus server-side Telegram allowlist can acquire `operator` role.
-- Product intake remains human-held. No public message automatically releases fulfilment, sends outbound mail, approves professional work, changes policy, or spends money.
+- Bound status disclosure is deliberately minimal: order ID, payment state, and whether fulfilment has been released.
+- Public and operator Presence edges remain separate cryptographic trust domains.
+- Product intake remains human-held.
+- Vesper replies and governed Outlook mail now register shared LINGUA semantic lineage before channel rendering.
 
 ## Trust model
 
@@ -22,14 +25,14 @@ Wave 2 turns the Wave 1 Telegram concierge into a multi-channel public edge with
 Telegram / WhatsApp / Web Chat
              │
              ▼
-      PUBLIC LILITH EDGE
+      PUBLIC VESPER EDGE
        non-canonical state
              │
       signed public ingress
              ▼
         DIO PRESENCE CORE
              │
-   classify / bind / quarantine
+ LINGUA / classify / bind / quarantine
              │
      ┌───────┴────────┐
      ▼                ▼
@@ -40,7 +43,64 @@ Telegram / WhatsApp / Web Chat
        HUMAN AUTHORITY
 ```
 
-Operator Lilith is a **separate Telegram bot/deployment** using a different signing key. WhatsApp and web chat cannot become operator channels in Wave 2.
+The operator Telegram edge remains a **separate bot/deployment** using a different signing key. WhatsApp and web chat cannot become operator channels.
+
+## LINGUA public communicator
+
+Telegram, WhatsApp, web chat, voice, email and Outlook are rendering surfaces over shared governed meaning rather than independent linguistic authorities.
+
+The communication lifecycle can bind:
+
+- subject and body meaning;
+- source and requested language;
+- channel and audience;
+- product context;
+- source hash/version;
+- explicit authority boundary.
+
+LINGUA may reuse a current human-approved translation lane. A new translation does not become approved merely because a model can produce it.
+
+LINGUA does **not** create consent, send authority, payment state, fulfilment authority, professional judgment, publication authority or spend authority.
+
+## Telegram reply truth
+
+The hardened Presence Core owns the bounded Telegram reply action after trusted ingress. External replies are fail-closed unless the runtime permits that exact reply rail. A healthy reasoning path therefore does **not** prove that the public bot is reachable or that Telegram delivery is enabled.
+
+## Deployment identity receipt
+
+Deployment instructions are not a live deployment identity. Record the actual public edge in `state/presence/deployment.json` without secrets:
+
+```json
+{
+  "schema": "dio.vesper.presence_deployment.v1",
+  "hf_space_id": "namespace/space-name",
+  "public_url": "https://space-subdomain.hf.space",
+  "space_sha": "<observed deployed revision>",
+  "edge_role": "public",
+  "telegram_webhook_path": "/telegram/webhook",
+  "core_url": "<reachable Presence Core base URL or governed backhaul endpoint>",
+  "observed_at": "<UTC timestamp>"
+}
+```
+
+Do not store Telegram tokens, shared secrets, operator tokens or OAuth credentials in this receipt.
+
+Run the redacted live diagnostic:
+
+```bash
+python3 scripts/diagnose_vesper_presence.py --write-receipt
+```
+
+If the live Space has not yet been recorded:
+
+```bash
+python3 scripts/diagnose_vesper_presence.py \
+  --space-id 'namespace/space-name' \
+  --public-url 'https://space-subdomain.hf.space' \
+  --write-receipt
+```
+
+It checks Core reachability, reply-gate state, required secret presence, Telegram bot identity/webhook information, public-edge health and the recorded HF Space identity without printing credentials.
 
 ## Safe upload path
 
@@ -52,74 +112,30 @@ provider media id
 → signed DIO ingress
 → extension + MIME + file-signature checks
 → random attachment id
-→ content.blob (0600 where supported)
+→ content.blob
 → metadata receipt
 → Needs You
 ```
 
-Allowed public types in Wave 2: PDF, DOCX, XLSX, PPTX, CSV, TXT, PNG, JPEG.
-
-Active/macro/archive/script formats including EXE, JS, HTML, SVG, ZIP, DOCM, XLSM and PPTM are rejected.
-
-Default DIO public attachment ceiling: **8 MiB**, deliberately below Telegram's provider-side download maximum. Change only after reviewing your ingress/reverse-proxy limits.
+Allowed public types remain PDF, DOCX, XLSX, PPTX, CSV, TXT, PNG and JPEG. Active/macro/archive/script formats remain rejected. Quarantined uploads are not parsed or trusted automatically.
 
 ## Identity-bound status
 
-A phone number, Telegram ID, web-chat cookie, or order number alone is **not** sufficient authority.
-
-When a public user requests status without a binding, Lilith creates a `Needs You` item. An operator verifies the relationship out-of-band and creates an exact conversation→order binding:
-
-```bash
-python3 scripts/manage_presence.py conversations
-python3 scripts/manage_presence.py bind-status \
-  --conversation CONV-ABC123 \
-  --order DIO-ORDER-001 \
-  --method "matched caller to payment receipt and confirmed contact"
-```
-
-Revoke at any time:
-
-```bash
-python3 scripts/manage_presence.py revoke-binding --conversation CONV-ABC123
-```
-
-The same operation is available through the operator-token-protected Presence API.
+A phone number, Telegram ID, web-chat cookie or order number alone is not sufficient authority. Public status disclosure remains locked until an operator explicitly binds the conversation to exact local DIO order identity.
 
 ## Installation
 
 ```bash
-unzip DIO_Presence_Wave2.zip
-cd DIO_Presence_Wave2
-python3 install_presence.py --target ~/DIO
-
 cd ~/DIO
 source .venv/bin/activate
 python -m pytest -q tests/test_presence_*.py
 python3 scripts/serve_presence_bridge.py
 ```
 
-The Wave 2 installer backs up overwritten Presence-owned files into `.dio_presence_backups/<timestamp>/`.
+Older deployment bundles may still be named `DIO_Lilith_Public_HF_Space_Wave2.zip` and `DIO_Lilith_Operator_HF_Space_Wave2.zip`. Those filenames are compatibility artifacts, not the canonical Presence identity.
 
-## Hugging Face
+## Authority boundary
 
-Deploy `DIO_Lilith_Public_HF_Space_Wave2.zip` as the public Docker Space. Store credentials in Space Secrets, never in the repository.
+DIO Presence may receive, classify, preserve semantic lineage, quarantine, create held intakes, expose explicitly bound minimal status, draft customer-facing responses and surface human attention.
 
-Deploy `DIO_Lilith_Operator_HF_Space_Wave2.zip` separately if you want PA Lilith. It uses a different Telegram bot and `DIO_PRESENCE_OPERATOR_SHARED_SECRET`.
-
-See `docs/HF_SPACE_DEPLOYMENT.md`, `docs/WHATSAPP_ONBOARDING.md`, `docs/TELEGRAM_ONBOARDING.md`, and `docs/IDENTITY_BINDING.md`.
-
-## Wave 2 authority boundary
-
-DIO Presence can receive, classify, quarantine, create held intakes, expose explicitly bound minimal status, draft customer-facing responses, and surface human attention.
-
-It cannot silently:
-
-- spend money,
-- create/refund payments,
-- release fulfilment,
-- approve educator/research/HR work,
-- send arbitrary outbound campaigns,
-- change DIO control policy,
-- parse customer files automatically,
-- expose unbound customer/order records,
-- turn public WhatsApp or web-chat identity into operator authority.
+It cannot silently spend money, create or refund payments, release fulfilment, approve educator/research/HR work, send arbitrary outbound campaigns, change DIO control policy, parse customer files automatically, expose unbound customer/order records or turn public-channel identity into operator authority.
