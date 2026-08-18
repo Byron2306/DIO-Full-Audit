@@ -59,12 +59,15 @@ def _issue_lines(case: dict[str, Any]) -> list[str]:
         text = str(row.get("text") or "")
         labelled: list[str] = []
         for raw in text.splitlines():
-            match = re.search(r"\b(ISSUE|ASSUMPTION)\s*:\s*(.+)$", raw.strip(), flags=re.IGNORECASE)
+            clean = raw.strip()
+            match = re.search(r"\b(ISSUE|ASSUMPTION)\s*:\s*(.+)$", clean, flags=re.IGNORECASE)
             if match:
                 kind = match.group(1).strip().casefold()
-                detail = match.group(2).strip()
                 prefix = "Discrepancy / issue" if kind == "issue" else "Forecast assumption"
-                labelled.append(f"{prefix}: {detail}")
+                # Preserve the whole visible source line, not only the text after
+                # ISSUE:/ASSUMPTION:. Material context such as R85,000, 28%→36%
+                # or 85% utilisation may appear before the label.
+                labelled.append(f"{prefix}: {clean}")
         lines.extend(labelled)
 
         if state in {"missing", "incomplete", "stale", "contradictory", "unclear"}:
