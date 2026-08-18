@@ -19,6 +19,9 @@ Phase 6 executes that DAG through the existing Studio native executor, rechecks
 the world lease at each node, preserves node receipts, and records an evidence-
 only BEAST Sensorium runtime episode without claiming later-phase learning,
 egress, ARDA execution or world settlement.
+Phase 7 records that closed Sensorium outcome into BEAST capability learning and
+negative-capability organs, binds Harmonics inference, and keeps all learning
+candidate-only with no direct learning-to-execution or authority path.
 """
 
 from .integration_inventory import (
@@ -92,6 +95,10 @@ from .native_execution import (
     phase6_native_execution_receipt,
     run_reference_native_execution,
 )
+from .learning import (
+    PHASE7_EXIT_TOKEN,
+    phase7_learning_receipt,
+)
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
@@ -147,4 +154,6 @@ __all__ = [
     "execute_resolution",
     "phase6_native_execution_receipt",
     "run_reference_native_execution",
+    "PHASE7_EXIT_TOKEN",
+    "phase7_learning_receipt",
 ]
