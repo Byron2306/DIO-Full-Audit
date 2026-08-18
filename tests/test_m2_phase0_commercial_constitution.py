@@ -69,6 +69,11 @@ def test_m2_phase0_market_command_is_not_promoted_to_authority(receipt):
     assert receipt["truth_guard_checks"]["market_command_automatic_spend_off"] is True
 
 
+def test_m2_phase0_vesper_outlook_stays_draft_only(receipt):
+    assert receipt["truth_guard_checks"]["vesper_outlook_remains_draft_only"] is True
+    assert receipt["authority_checks"]["vesper_is_draft_only_customer_interface"] is True
+
+
 def test_m2_phase0_seraph_remains_egress_boundary_owner(receipt):
     assert receipt["seraph_owns_egress_boundary"] is True
     assert receipt["authority_checks"]["seraph_is_egress_authority_owner"] is True
