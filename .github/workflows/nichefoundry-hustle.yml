@@ -53,8 +53,10 @@ jobs:
       - name: Install focused test dependencies
         run: python -m pip install --upgrade pip pillow pytest httpx
       - name: Compile marketing, Vesper, mail and LINGUA seams
+        shell: bash
         run: |
-          python -m compileall -q \
+          set -o pipefail
+          (python -m compileall -q \
             scripts/build_multichannel_campaign_factory.py \
             scripts/build_hustle_campaign_factory.py \
             scripts/build_lingua_hustle_campaign_factory.py \
@@ -69,10 +71,12 @@ jobs:
             adapters/lingua/communicator.py \
             adapters/lingua/interaction_regulator.py \
             adapters/lingua/persona_lab.py \
-            presence_core
+            presence_core) 2>&1 | tee -a vesper-ci.log
       - name: Run legacy, persuasion, Presence, Persona Lab and LINGUA tests
+        shell: bash
         run: |
-          pytest -q \
+          set -o pipefail
+          (pytest -q \
             tests/test_multichannel_campaign_factory.py \
             tests/test_nichefoundry_hustle_factory.py \
             tests/test_lingua_marketing_learning.py \
@@ -83,9 +87,12 @@ jobs:
             tests/test_vesper_voice.py \
             tests/test_vesper_voice_rendering.py \
             tests/test_vesper_persona_lab.py \
-            tests/test_vesper_persona_presence_integration.py
+            tests/test_vesper_persona_presence_integration.py) 2>&1 | tee -a vesper-ci.log
       - name: Smoke NicheFoundry and Vesper Persona Lab without external effects
+        shell: bash
         run: |
+          set -o pipefail
+          (
           out="$(mktemp -d)"
           python -m scripts.build_lingua_hustle_campaign_factory --no-reels --no-observe-market --limit 1 --output "$out/marketing"
           python scripts/build_vesper_persona_lab.py --output "$out/persona"
@@ -123,3 +130,11 @@ jobs:
           assert matrix['human_approval_required'] is True
           print('VESPER_PERSONA_LAB_READY avatars=',lab['avatar_request_count'],'cells=',len(matrix['cells']))
           PY
+          ) 2>&1 | tee -a vesper-ci.log
+      - name: Upload focused diagnostic log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vesper-persona-ci-diagnostic
+          path: vesper-ci.log
+          if-no-files-found: warn
