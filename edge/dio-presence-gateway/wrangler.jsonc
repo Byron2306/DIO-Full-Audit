@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dio-presence-gateway-staging",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-18",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PRESENCE_EDGE_ACCEPT_WINDOW_SECONDS": "300"
+  },
+  "d1_databases": [
+    {
+      "binding": "DIO_DB",
+      "database_name": "dio-commerce",
+      "database_id": "75f5b630-de1e-4153-a806-afb5f80913fc",
+      "migrations_dir": "migrations"
+    }
+  ]
+}
