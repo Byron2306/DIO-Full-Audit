@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import hashlib
 import json
-import shutil
 from pathlib import Path
 from typing import Any
 
-from adapters.document_studio.studio_sales import render_studio_sales_asset
-from adapters.evidex_studio import build_campaign_proof, build_studio_intake
+from adapters.document_studio.studio_sales import (
+    render_finance_readiness_pack,
+    render_publication_pack,
+    render_studio_sales_asset,
+)
+from adapters.evidex_studio import (
+    build_campaign_proof,
+    build_editorial_proof,
+    build_readiness_gap_map,
+    build_studio_intake,
+)
 from presence_core.studio_release import prepare_studio_release
 from products.commercial_truth_studio import evaluate_studio_truth
 from products.studio_native_activation import activate_studio_case, verify_native_execution_proof
@@ -38,9 +46,10 @@ def _write_json(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def _body_for_sales(manifest: dict[str, Any]) -> tuple[str, str]:
+def _pack_content(manifest: dict[str, Any]) -> tuple[str, str]:
     contract = manifest["artifact_contract"]
-    if contract["kind"] == "site":
+    kind = contract["kind"]
+    if kind == "site":
         title = str(contract["brand"]["title"])
         body = "\n".join([
             str(contract["brand"]["headline"]),
@@ -49,8 +58,40 @@ def _body_for_sales(manifest: dict[str, Any]) -> tuple[str, str]:
             "CONTROLLED REVIEW ASSET. Human publication authority remains required.",
         ])
         return title, body
-    draft = contract["draft"]
-    return str(draft["subject"]), "\n".join(str(row) for row in draft["body_lines"])
+    if kind == "correspondence":
+        draft = contract["draft"]
+        return str(draft["subject"]), "\n".join(str(row) for row in draft["body_lines"])
+    if kind == "finance_readiness":
+        venture = contract["venture"]
+        body = "\n".join([
+            str(contract["purpose"]),
+            f"Funding need: {venture['funding_need']}",
+            *[f"Published requirement {row['requirement_id']}: {row['label']}" for row in contract["published_requirements_fixture"]],
+            *[f"Assumption: {row}" for row in contract["assumptions"]],
+            str(contract["decision_boundary"]),
+        ])
+        return f"{venture['name']} Finance Readiness Pack", body
+    if kind == "article":
+        body = "\n".join([
+            str(contract["standfirst"]),
+            *[f"{row['heading']}: {row['body']}" for row in contract["sections"]],
+            *[f"Reference: {row['citation']}" for row in contract["source_fixture"]],
+            "DRAFT ONLY. Human editorial review and publication authority remain required.",
+        ])
+        return str(contract["headline"]), body
+    raise StudioNativeClosureError(f"unsupported Studio closure kind: {kind}")
+
+
+def _release_entrypoint(kind: str) -> str:
+    if kind == "site":
+        return "native_base/composition/marketfront/index.html"
+    if kind == "correspondence":
+        return "native_base/composition/correspondence/RESPONSE_BRIEF.html"
+    if kind == "finance_readiness":
+        return "native_base/composition/finance/READINESS_REPORT.html"
+    if kind == "article":
+        return "native_base/composition/publication/ARTICLE_DRAFT.html"
+    raise StudioNativeClosureError(f"unsupported Presence release kind: {kind}")
 
 
 def _base_execution(base: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -113,6 +154,12 @@ def _ledger(manifest: dict[str, Any], executed: dict[str, dict[str, Any]]) -> di
     }
 
 
+def _normalize_pack_path(pack: dict[str, Any], output_dir: Path) -> dict[str, Any]:
+    result = dict(pack)
+    result["output_path"] = str(Path(str(result["output_path"])).relative_to(output_dir))
+    return result
+
+
 def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     output_dir = output_dir.resolve()
@@ -123,10 +170,9 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
     closure = output_dir / "closure"
     closure.mkdir(parents=True, exist_ok=True)
     executed = _base_execution(base)
-
     kind = manifest["artifact_contract"]["kind"]
-    release_entrypoint = "native_base/composition/marketfront/index.html" if kind == "site" else "native_base/composition/correspondence/RESPONSE_BRIEF.html"
-    release = prepare_studio_release(studio_id=manifest["studio_id"], entrypoint=release_entrypoint)
+
+    release = prepare_studio_release(studio_id=manifest["studio_id"], entrypoint=_release_entrypoint(kind))
     _write_json(closure / "presence" / "PRESENCE_STUDIO_RELEASE.json", release)
     _add_execution(executed, "vesper", ["presence.release.prepare"], "presence_core/studio_release.py", "closure/presence/PRESENCE_STUDIO_RELEASE.json")
 
@@ -140,32 +186,54 @@ def close_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
     _write_json(closure / "evidex" / "EVIDEX_STUDIO_INTAKE.json", intake)
     _add_execution(executed, "evidex", ["evidence.intake.structure"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_STUDIO_INTAKE.json")
 
+    title, body = _pack_content(manifest)
+    audience = str(manifest["job"]["buyer"])
+
     if kind == "site":
         niche = position_site_studio(manifest)
         _write_json(closure / "nichefoundry" / "NICHEFOUNDRY_STUDIO_EXECUTION.json", niche)
         _add_execution(executed, "nichefoundry", list(niche["capabilities_executed"]), "scripts/nichefoundry_studio_adapter.py", "closure/nichefoundry/NICHEFOUNDRY_STUDIO_EXECUTION.json")
 
-        title, body = _body_for_sales(manifest)
         sales_dir = closure / "document_studio" / "sales_asset"
         sales = render_studio_sales_asset(
-            studio_id=manifest["studio_id"],
-            title=title,
-            body=body,
-            audience=str(manifest["job"]["buyer"]),
-            out_dir=sales_dir,
-            source_root=root,
+            studio_id=manifest["studio_id"], title=title, body=body, audience=audience, out_dir=sales_dir, source_root=root
         )
-        sales["output_path"] = str(Path(str(sales["output_path"])).relative_to(output_dir))
+        sales = _normalize_pack_path(sales, output_dir)
         _write_json(closure / "document_studio" / "DOCUMENT_STUDIO_SALES_RECEIPT.json", sales)
         _add_execution(executed, "document_studio", ["document.sales_assets"], "adapters/document_studio/studio_sales.py", "closure/document_studio/DOCUMENT_STUDIO_SALES_RECEIPT.json")
 
-        campaign_proof = build_campaign_proof(
-            manifest,
-            base["composition"]["proof_manifest"],
-            Path(base["composition"]["output_dir"]),
-        )
+        campaign_proof = build_campaign_proof(manifest, base["composition"]["proof_manifest"], Path(base["composition"]["output_dir"]))
         _write_json(closure / "evidex" / "EVIDEX_CAMPAIGN_PROOF.json", campaign_proof)
         _add_execution(executed, "evidex", ["evidence.campaign.proof"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_CAMPAIGN_PROOF.json")
+
+    elif kind == "finance_readiness":
+        pack_dir = closure / "document_studio" / "finance_readiness_pack"
+        pack = render_finance_readiness_pack(
+            studio_id=manifest["studio_id"], title=title, body=body, audience=audience, out_dir=pack_dir, source_root=root
+        )
+        pack = _normalize_pack_path(pack, output_dir)
+        _write_json(closure / "document_studio" / "DOCUMENT_STUDIO_FINANCE_PACK_RECEIPT.json", pack)
+        _add_execution(executed, "document_studio", ["document.finance_readiness_pack"], "adapters/document_studio/studio_sales.py", "closure/document_studio/DOCUMENT_STUDIO_FINANCE_PACK_RECEIPT.json")
+
+        gap_map = build_readiness_gap_map(manifest)
+        _write_json(closure / "evidex" / "EVIDEX_READINESS_GAP_MAP.json", gap_map)
+        _add_execution(executed, "evidex", ["evidence.readiness.gap_map"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_READINESS_GAP_MAP.json")
+
+    elif kind == "article":
+        pack_dir = closure / "document_studio" / "publication_pack"
+        pack = render_publication_pack(
+            studio_id=manifest["studio_id"], title=title, body=body, audience=audience, out_dir=pack_dir, source_root=root
+        )
+        pack = _normalize_pack_path(pack, output_dir)
+        _write_json(closure / "document_studio" / "DOCUMENT_STUDIO_PUBLICATION_PACK_RECEIPT.json", pack)
+        _add_execution(executed, "document_studio", ["document.publication_pack"], "adapters/document_studio/studio_sales.py", "closure/document_studio/DOCUMENT_STUDIO_PUBLICATION_PACK_RECEIPT.json")
+
+        editorial_proof = build_editorial_proof(manifest, base["composition"]["proof_manifest"], Path(base["composition"]["output_dir"]))
+        _write_json(closure / "evidex" / "EVIDEX_EDITORIAL_PROOF.json", editorial_proof)
+        _add_execution(executed, "evidex", ["evidence.editorial.proof"], "adapters/evidex_studio.py", "closure/evidex/EVIDEX_EDITORIAL_PROOF.json")
+
+    elif kind != "correspondence":
+        raise StudioNativeClosureError(f"unsupported native closure kind: {kind}")
 
     ledger = _ledger(manifest, executed)
     _write_json(output_dir / "NATIVE_CAPABILITY_CLOSURE_LEDGER.json", ledger)
