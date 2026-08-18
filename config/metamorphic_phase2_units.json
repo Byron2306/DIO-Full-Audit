@@ -5,6 +5,11 @@
     "executor_version": "1",
     "executor_path": "products/studio_native_closure.py"
   },
+  "professional_proof": {
+    "path": "docs/proofs/professional_task_gauntlet/2026-08-18/PROFESSIONAL_TASK_GAUNTLET_RECEIPT.json",
+    "required_acceptance_token": "DIO_PROFESSIONAL_TASK_GAUNTLET_VERIFIED",
+    "required_verified_cases_per_unit": 3
+  },
   "units": [
     {
       "unit_id": "professional_correspondence_studio",
@@ -33,7 +38,7 @@
     "media_spend": "REFUSE",
     "payment": "REFUSE"
   },
-  "maturity_state": "native_multi_organ_execution_proved",
+  "maturity_state": "professional_task_verified",
   "site_studio_reference_excluded": true,
   "phase3_semantic_law_required": true
 }
