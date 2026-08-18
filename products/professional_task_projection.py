@@ -59,7 +59,7 @@ def _issue_lines(case: dict[str, Any]) -> list[str]:
         text = str(row.get("text") or "")
         labelled: list[str] = []
         for raw in text.splitlines():
-            match = re.match(r"^(ISSUE|ASSUMPTION)\s*:\s*(.+)$", raw.strip(), flags=re.IGNORECASE)
+            match = re.search(r"\b(ISSUE|ASSUMPTION)\s*:\s*(.+)$", raw.strip(), flags=re.IGNORECASE)
             if match:
                 kind = match.group(1).strip().casefold()
                 detail = match.group(2).strip()
