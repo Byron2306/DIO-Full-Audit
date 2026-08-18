@@ -47,7 +47,7 @@ jobs:
       - name: Smoke one LINGUA-taught family without external effects
         run: |
           out="$(mktemp -d)"
-          python scripts/build_lingua_hustle_campaign_factory.py --no-reels --no-observe-market --limit 1 --output "$out"
+          python -m scripts.build_lingua_hustle_campaign_factory --no-reels --no-observe-market --limit 1 --output "$out"
           python - "$out" <<'PY'
           import json, pathlib, sys
           root=pathlib.Path(sys.argv[1])
