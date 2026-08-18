@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from products.commercial_proof import (
+from products.commercial_proof_v1_1 import (
     COMMERCIAL_PROVED,
     ZERO_PILOT_TOKEN,
     run_commercial_proof_gauntlet,
@@ -13,7 +13,7 @@ from products.commercial_proof import (
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Evaluate source-bound market, payment and customer-acceptance evidence without laundering zero-value pilots into commercial proof."
+        description="Evaluate source-bound market, payment and customer-acceptance evidence without laundering zero-value pilots or self-payments into commercial proof."
     )
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
