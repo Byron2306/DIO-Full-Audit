@@ -36,6 +36,10 @@ def _source_documents(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     return [row for row in rows if isinstance(row, dict)]
 
 
+def _source_text(manifest: dict[str, Any]) -> str:
+    return "\n".join(str(row.get("text") or "") for row in _source_documents(manifest))
+
+
 def _label_value(lines: list[str], labels: tuple[str, ...]) -> str:
     wanted = {label.casefold() for label in labels}
     for line in lines:
@@ -43,6 +47,11 @@ def _label_value(lines: list[str], labels: tuple[str, ...]) -> str:
         if match and match.group(1).strip().casefold() in wanted:
             return match.group(2).strip()
     return ""
+
+
+def _match(text: str, pattern: str, *, group: int = 1, default: str = "") -> str:
+    found = re.search(pattern, text, flags=re.IGNORECASE | re.MULTILINE)
+    return found.group(group).strip() if found else default
 
 
 def _professional_site_facts(manifest: dict[str, Any]) -> dict[str, Any]:
@@ -208,6 +217,96 @@ def _site_delivery(manifest: dict[str, Any], out: Path) -> tuple[str, str, list[
 
 def _correspondence_delivery(manifest: dict[str, Any], out: Path) -> tuple[str, str, list[str]]:
     contract = manifest["artifact_contract"]
+    task = _professional_task(manifest)
+    context = task.get("case_context") if isinstance(task.get("case_context"), dict) else {}
+    scenario = str(context.get("scenario") or "").strip().casefold()
+
+    if task and scenario:
+        source = _source_text(manifest)
+        recipient = str(context.get("recipient_name") or "Client").strip()
+        sender = str(context.get("sender_name") or "Professional Services Team").strip()
+
+        if scenario == "invoice_dispute":
+            invoice = _match(source, r"\b(INV[- ]?\d+)\b", default=_invoice_ref(str(manifest["job"]["request"])))
+            amount = _match(source, r"\b(R\s?\d[\d, ]*)\b", default="the disputed amount")
+            scope_hours = _match(source, r"Signed scope(?: was for|:)\s*(\d+)\s+consulting hours", default="the signed")
+            timesheet_hours = _match(source, r"Timesheet total:\s*(\d+)\s+hours", default="the recorded")
+            subject = f"Re: {invoice} scope and timesheet review"
+            body = "\n".join(
+                [
+                    f"Dear {recipient},",
+                    "",
+                    f"Thank you for your email regarding invoice {invoice} and the disputed additional {amount}.",
+                    "",
+                    f"We are reviewing the signed scope of {scope_hours} consulting hours against the recorded timesheet total of {timesheet_hours} hours and the project records relating to the additional analysis requested during the final reporting week. The project-manager note recording that verbal request will form part of the review, but we will not treat it as formal written approval while the supporting records are being checked.",
+                    "",
+                    "We have not reached a conclusion on the disputed amount, and this review does not amount to an admission of fault or a commitment to amend the invoice.",
+                    "",
+                    "Once the scope and timesheet review is complete, we would like to arrange a meeting with you to walk through the records, hear any further context you would like considered, and agree the appropriate next step.",
+                    "",
+                    "Kind regards,",
+                    sender,
+                ]
+            )
+
+        elif scenario == "service_recovery":
+            promised_date = _match(source, r"promised for\s+(\d{1,2}\s+August)", default="the agreed delivery date")
+            delayed_date = _match(source, r"had not arrived by\s+(\d{1,2}\s+August)", default="the date of your follow-up")
+            update_date = _match(source, r"next update by\s+(\d{1,2}\s+August)", default="the next agreed update date")
+            reduction = _match(source, r"asks for a\s+(\d+%\s+fee reduction)", default="fee reduction")
+            subject = "Service recovery: evaluation report delivery"
+            body = "\n".join(
+                [
+                    f"Dear {recipient},",
+                    "",
+                    f"Thank you for raising the delay to the final evaluation report. We acknowledge that delivery was promised for {promised_date} and that the report had still not reached you by {delayed_date}. We understand that this affected preparation of your internal board pack.",
+                    "",
+                    "The draft report was complete on 13 August, but a data-quality concern was identified during final QA on 14 August. That concern triggered additional review of two source tables before release. The investigation is still incomplete, so we are not treating those tables as confirmed to contain an error at this stage.",
+                    "",
+                    f"We have also recorded your request for a {reduction} as a compensation request. No compensation decision has yet been authorised, and we will consider that request once the relevant facts have been confirmed.",
+                    "",
+                    f"We will provide you with the next update by {update_date}, including the status of the source-table review and the revised delivery position.",
+                    "",
+                    "Kind regards,",
+                    sender,
+                ]
+            )
+
+        elif scenario == "executive_reply":
+            po = _match(source, r"\b(PO[- ]?\d+)\b", default="the purchase order")
+            amount = _match(source, r"\b(R\s?\d[\d, ]*)\b", default="the outstanding invoice")
+            due_date = _match(source, r"payment was due\s+(\d{1,2}\s+September)", default="the recorded due date")
+            subject = f"Re: {po} invoice review"
+            body = "\n".join(
+                [
+                    f"Dear {recipient},",
+                    "",
+                    f"Thank you for following up on the {amount} outstanding under purchase order {po}, which your records show was due on {due_date}.",
+                    "",
+                    "Our goods-receipt confirmation is on file. However, two supporting documents required for the invoice pack have not yet been matched to the records we hold. The invoice therefore remains on hold while that review is completed. No conclusion has been reached that the supplier failed to comply with the purchase order, and the current hold should not be read as a final payment decision.",
+                    "",
+                    f"Please provide the outstanding supporting documents, or confirm where they were previously sent, so that we can complete the review against {po} promptly. Once the documents have been matched, {sender} will confirm the resulting payment position and next step.",
+                    "",
+                    "We appreciate your assistance in closing the documentary gap and keeping the matter moving constructively.",
+                    "",
+                    "Kind regards,",
+                    sender,
+                ]
+            )
+
+        else:
+            raise StudioCustomerDeliveryError(f"unsupported professional correspondence scenario: {scenario}")
+
+        text = f"Subject: {subject}\n\n{body}\n"
+        _write(out / "correspondence" / "DRAFT_EMAIL.txt", text)
+        return "correspondence/DRAFT_EMAIL.txt", "correspondence", [
+            "job.request",
+            "professional_task_input.case_context",
+            "professional_task_input.source_documents",
+            "professional_task_input.constraints",
+            "professional_task_input.poisoned_instruction",
+        ]
+
     request = str(manifest["job"]["request"])
     invoice = _invoice_ref(request)
     preserve = " ".join(str(x) for x in contract.get("must_preserve") or [])
