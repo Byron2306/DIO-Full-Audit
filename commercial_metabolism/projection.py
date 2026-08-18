@@ -161,6 +161,57 @@ def _load_config(root: Path) -> dict[str, Any]:
     return value
 
 
+def _stable_m1_projection_anchor(m1: Mapping[str, Any], unit: Any) -> str:
+    """Bind commercial projection to stable M1 truth, not one ephemeral replay.
+
+    phase9_m1_receipt() deliberately re-executes the reference organism. Episode,
+    settlement and crystal block hashes are therefore execution receipts and may
+    legitimately differ between fresh runs. They must not become part of the
+    identity of an otherwise unchanged commercial projection.
+
+    M2-2 still re-verifies M1 on every build. This anchor hashes only the invariant
+    truth earned by that proof: acceptance gates, composite identity, settlement/
+    crystallisation success and preserved authority boundaries.
+    """
+    raw_gates = m1.get("acceptance_gates") or {}
+    gates = {
+        str(key): bool(value)
+        for key, value in sorted(raw_gates.items(), key=lambda row: str(row[0]))
+    }
+    crystal = m1.get("beast_crystal") or {}
+    payload = {
+        "schema": "dio.m2.m1_projection_proof_anchor.v1",
+        "m1_acceptance": str(m1.get("acceptance") or ""),
+        "m1_passed": m1.get("passed") is True,
+        "acceptance_gate_count": int(m1.get("acceptance_gate_count") or 0),
+        "acceptance_gate_pass_count": int(m1.get("acceptance_gate_pass_count") or 0),
+        "acceptance_gates": gates,
+        "unit_id": str(unit.unit_id),
+        "unit_digest": str(unit.unit_digest),
+        "same_composite_identity_across_roles": m1.get("same_composite_identity_across_roles") is True,
+        "composite_provider_reentry": m1.get("composite_provider_reentry") is True,
+        "no_bespoke_duplicate_engine": m1.get("no_bespoke_duplicate_engine") is True,
+        "content_transform_dataflow_proved": m1.get("content_transform_dataflow_proved") is True,
+        "world_settlement_complete": m1.get("world_settlement_complete") is True,
+        "beast_crystallization_executed": m1.get("beast_crystallization_executed") is True,
+        "crystal_chain_valid": crystal.get("crystal_chain_valid") is True,
+        "authority_widened": m1.get("authority_widened") is True,
+        "external_effects": m1.get("external_effects") is True,
+    }
+    return digest_payload(payload)
+
+
+def _stable_m1_claim_evidence_ref(rule: str, m1: Mapping[str, Any], unit: Any) -> str:
+    return digest_payload(
+        {
+            "schema": "dio.m2.m1_claim_evidence_ref.v1",
+            "rule": rule,
+            "m1_projection_proof_anchor": _stable_m1_projection_anchor(m1, unit),
+            "unit_digest": unit.unit_digest,
+        }
+    )
+
+
 def build_reference_commercial_context(
     repo_root: str | Path,
     *,
@@ -238,7 +289,7 @@ def _state_for_rule(
     if rule == "m1_composite_verified":
         passed = m1.get("passed") is True and m1.get("acceptance") == PHASE9_EXIT_TOKEN
         state = CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED
-        return state, tuple(filter(None, (str(m1.get("composition_digest") or ""), unit.unit_digest)))
+        return state, (_stable_m1_claim_evidence_ref(rule, m1, unit),)
     if rule == "m1_settled_crystal":
         crystal = m1.get("beast_crystal") or {}
         passed = (
@@ -246,17 +297,28 @@ def _state_for_rule(
             and m1.get("beast_crystallization_executed") is True
             and crystal.get("crystal_chain_valid") is True
         )
-        refs = tuple(filter(None, (str(m1.get("settlement_digest") or ""), str(crystal.get("crystal_block_hash") or ""))))
-        return (CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED), refs
+        return (
+            CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED,
+            (_stable_m1_claim_evidence_ref(rule, m1, unit),),
+        )
     if rule == "m1_same_identity":
         passed = m1.get("same_composite_identity_across_roles") is True and m1.get("composite_provider_reentry") is True
-        return (CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED), (unit.unit_digest,)
+        return (
+            CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED,
+            (_stable_m1_claim_evidence_ref(rule, m1, unit),),
+        )
     if rule == "m1_no_external_effects":
         passed = m1.get("external_effects") is False and m1.get("authority_widened") is False
-        return (CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED), (unit.unit_digest,)
+        return (
+            CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED,
+            (_stable_m1_claim_evidence_ref(rule, m1, unit),),
+        )
     if rule == "m1_content_dataflow":
         passed = m1.get("content_transform_dataflow_proved") is True
-        return (CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED), (unit.unit_digest,)
+        return (
+            CommercialClaimState.SUPPORTED if passed else CommercialClaimState.HELD_UNPROVED,
+            (_stable_m1_claim_evidence_ref(rule, m1, unit),),
+        )
     if rule in {
         "m2_market_demand",
         "m2_customer_acceptance",
@@ -295,6 +357,7 @@ def build_commercial_projection(
         raise CommercialProjectionError("commercial context is not bound to the verified Funding Proposal unit")
     if m1.get("composite_unit", {}).get("unit_digest") != unit.unit_digest:
         raise CommercialProjectionError("M1 receipt and current Funding Proposal identity diverge")
+    m1_projection_proof_anchor = _stable_m1_projection_anchor(m1, unit)
 
     claim_specs = config.get("claims")
     if not isinstance(claim_specs, list) or not claim_specs:
@@ -377,10 +440,7 @@ def build_commercial_projection(
         semantic_object_ref=semantic_object_id,
         authority_ceiling=unit.authority_ceiling,
         claim_refs=tuple(row.claim_digest for row in claims),
-        evidence_refs=tuple(filter(None, (
-            str(m1.get("settlement_digest") or ""),
-            str((m1.get("beast_crystal") or {}).get("crystal_block_hash") or ""),
-        ))),
+        evidence_refs=(m1_projection_proof_anchor,),
         authority_created=False,
     )
     projection = CommercialProjection(
@@ -451,6 +511,8 @@ def _run_phase2(repo_root: Path, work_root: Path) -> dict[str, Any]:
         context=context,
         work_root=work_root,
     )
+    unit = build_funding_proposal_metamorphic_unit(repo_root)
+    m1_projection_proof_anchor = _stable_m1_projection_anchor(m1, unit)
     claim_map = {row.claim_id: row for row in projection.claims}
     safe_guard = evaluate_buyer_draft(
         repo_root,
@@ -525,6 +587,8 @@ def _run_phase2(repo_root: Path, work_root: Path) -> dict[str, Any]:
         "parent_verified": parent.get("passed") is True,
         "m1_parent_acceptance": m1.get("acceptance"),
         "m1_parent_verified": m1.get("passed") is True,
+        "m1_projection_proof_anchor": m1_projection_proof_anchor,
+        "m1_volatile_execution_receipts_excluded_from_projection_identity": True,
         "reference_product": context.product_id,
         "context_digest": context.context_digest,
         "world_lease_digest": context.world_lease_digest,
