@@ -21,6 +21,24 @@ def detect_product(text: str, routes: list[dict[str,Any]]) -> tuple[str|None,flo
         if hits>best[1]: best=(product,hits)
     return (best[0],min(0.55+best[1]*0.12,0.98)) if best[1] else (None,0.0)
 
+def _looks_like_product_request(low: str, product: str|None) -> bool:
+    if not product:
+        return False
+    request_terms=["i need","i want","can you make","can you create","prepare","build me","help me with","send me","make me","create me"]
+    if any(x in low for x in request_terms) or low.startswith("create "):
+        return True
+    polite_prefixes=("please ","can you ","could you ","would you ")
+    candidate=low
+    for prefix in polite_prefixes:
+        if candidate.startswith(prefix):
+            candidate=candidate[len(prefix):].lstrip()
+            break
+    imperative_verbs=(
+        "assess ","evaluate ","review ","analyse ","analyze ","turn ",
+        "draft ","write ","convert ","summarise ","summarize ","prepare ",
+    )
+    return candidate.startswith(imperative_verbs)
+
 def route_message(text: str, role: str, routes_path: Path) -> Decision:
     low=" ".join(text.lower().split()); routes=load_routes(routes_path); product,pconf=detect_product(low,routes)
     if low in {"/help","help","commands","/commands"}:
@@ -38,8 +56,7 @@ def route_message(text: str, role: str, routes_path: Path) -> Decision:
     if role=="operator" and (low in {"/needs","/attention"} or any(x in low for x in ["needs me","needs you","need me","attention queue"])): return Decision("needs_you",None,0.99,"deterministic","operator attention phrase")
     if any(x in low for x in ["how much","price","pricing","cost","quote"]): return Decision("pricing_info",product,0.94,"deterministic","commercial question")
     if any(x in low for x in ["where is my","order status","payment status","job status","already paid","my order"]): return Decision("status_request",product,0.94,"deterministic","status question")
-    request_terms=["i need","i want","can you make","can you create","prepare","build me","help me with","send me","make me","create me"]
-    if product and (any(x in low for x in request_terms) or low.startswith("create ")):
+    if _looks_like_product_request(low,product):
         return Decision("intake_request",product,max(0.9,pconf),"deterministic","product request")
     if any(x in low for x in ["translate","translation","afrikaans","isizulu","xhosa","multilingual","localise","localize"]): return Decision("translation_info",product,0.93,"deterministic","translation phrase")
     if any(x in low for x in ["formatting","format this","technical format","template","page layout","powerpoint master","docx"]): return Decision("formatting_info",product,0.92,"deterministic","formatting phrase")
