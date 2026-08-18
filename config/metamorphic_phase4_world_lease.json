@@ -1,0 +1,17 @@
+{
+  "schema": "dio.metamorphic_phase4_world_lease_config.v1",
+  "dai_root": "cross_folder_variants/EdgeK-BEAST/A_CODE",
+  "dai_contract_path": "cross_folder_variants/EdgeK-BEAST/A_CODE/app/kernel/dai/contracts.py",
+  "dai_world_state_path": "cross_folder_variants/EdgeK-BEAST/A_CODE/app/kernel/dai/world_state.py",
+  "world_manifold_path": "cross_folder_variants/Metatron-triune-outbound-gate/A_CODE/backend/services/world_manifold.py",
+  "world_model_path": "cross_folder_variants/Metatron-triune-outbound-gate/A_CODE/backend/services/world_model.py",
+  "seraph_world_recheck_path": "cross_folder_variants/EdgeK-BEAST/A_CODE/app/kernel/dai/phase2_seraph.py",
+  "policy_generation": "dio-metamorphic-m1-phase4-policy-v1",
+  "lease_seconds": 900,
+  "controlled_snapshot_id": "dio-metamorphic-m1-phase4-controlled-world",
+  "controlled_epoch_id": "dio-metamorphic-m1-phase4-epoch",
+  "required_phase3_acceptance": "DIO_METAMORPHIC_LINGUA_SEMANTIC_LAW_PROVED",
+  "authority_ceiling": "controlled_artifact_only",
+  "external_effects_authority": "REFUSE",
+  "operational_manifold_executed": false
+}
