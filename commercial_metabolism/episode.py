@@ -1,10 +1,9 @@
 """M2 Phase 4 governed market-episode compiler.
 
-This phase turns the verified commercial meaning and authority preflight into a
-complete commercial intention. It reuses Market Command to materialise only a
-local DRAFT/HELD planning record. It does not activate a campaign, execute
-Seraph, publish, send, spend, purchase, deploy, deliver, fabricate observations,
-or claim commercial validation.
+Compiles a complete commercial intention from the verified M2-3 authority
+preflight. Market Command is reused only to materialise a local DRAFT/HELD
+planning record. No campaign activation, Seraph execution, publication, send,
+spend, purchase, deployment, delivery or market observation occurs here.
 """
 from __future__ import annotations
 
@@ -78,7 +77,7 @@ class MarketEpisodePlan:
         if set(self.observation_kinds) != {row.value for row in MarketObservationKind}:
             raise ValueError("market episode must declare the complete observation vocabulary")
         if self.market_response_observed:
-            raise ValueError("M2-4 compiles observation intent but may not fabricate market response")
+            raise ValueError("M2-4 may not fabricate market response")
         if self.activation_performed or self.seraph_operational_gate_executed:
             raise ValueError("M2-4 may not activate or execute Seraph")
         if self.authority_created or self.external_effects:
@@ -91,7 +90,7 @@ class MarketEpisodePlan:
         return digest_payload(self)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        payload = {
             "schema": self.schema,
             "episode_id": self.episode_id,
             "product_id": self.product_id,
@@ -117,8 +116,9 @@ class MarketEpisodePlan:
             "seraph_operational_gate_executed": self.seraph_operational_gate_executed,
             "authority_created": self.authority_created,
             "external_effects": self.external_effects,
-            "plan_digest": self.plan_digest,
         }
+        payload["plan_digest"] = self.plan_digest
+        return payload
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -197,7 +197,7 @@ def _market_command_spec(
 ) -> dict[str, Any]:
     context_digest = str(parent.get("context_digest") or "")
     campaign_id = "M2P4-" + context_digest.split(":", 1)[-1][:20].upper()
-    spec = {
+    return {
         "campaign_id": campaign_id,
         "product_line_id": str(parent.get("reference_product") or ""),
         "offer_id": str(ref.get("offer_id") or ""),
@@ -227,19 +227,19 @@ def _market_command_spec(
             "seraph_operational_gate_executed": bool(parent.get("seraph_operational_gate_executed")),
         },
     }
-    return spec
 
 
 def compile_reference_market_episode(
     repo_root: str | Path,
     *,
     work_root: str | Path,
+    parent_receipt: Mapping[str, Any] | None = None,
 ) -> tuple[MarketEpisodePlan, PricingHypothesisState, dict[str, Any], dict[str, Any]]:
     root = Path(repo_root).resolve()
     target = Path(work_root).resolve()
     target.mkdir(parents=True, exist_ok=True)
     config = _load_config(root)
-    parent = phase3_authority_receipt(root)
+    parent = dict(parent_receipt) if parent_receipt is not None else phase3_authority_receipt(root)
     if parent.get("passed") is not True or parent.get("acceptance") != config.get("required_parent_acceptance"):
         raise MarketEpisodeError("M2-3 authority separation parent is not verified")
     if parent.get("all_external_effects_refused") is not True or parent.get("seraph_operational_gate_executed") is not False:
@@ -250,7 +250,7 @@ def compile_reference_market_episode(
     pricing = _build_pricing_state(parent, ref)
     observation_contract = _observation_contract(parent, episode_cfg)
     spec = _market_command_spec(parent, ref, episode_cfg, pricing, observation_contract)
-    plan_digest = digest_payload({"schema": "dio.m2.market_command_plan.v1", "spec": spec})
+    market_plan_digest = digest_payload({"schema": "dio.m2.market_command_plan.v1", "spec": spec})
 
     store = MarketStore(
         db_path=target / "market_command" / "market.sqlite3",
@@ -274,7 +274,7 @@ def compile_reference_market_episode(
         "projection": parent.get("projection_digest"),
         "pricing": pricing.pricing_state_digest,
         "preflight": parent.get("preflight_digest"),
-        "market_plan": plan_digest,
+        "market_plan": market_plan_digest,
         "observation": observation_contract["observation_contract_digest"],
     }).split(":", 1)[1][:24]
     plan = MarketEpisodePlan(
@@ -286,7 +286,7 @@ def compile_reference_market_episode(
         channel_state_digest=str(parent.get("channel_state_digest") or ""),
         pricing_state_digest=pricing.pricing_state_digest,
         authority_preflight_digest=str(parent.get("preflight_digest") or ""),
-        market_command_plan_digest=plan_digest,
+        market_command_plan_digest=market_plan_digest,
         observation_contract_digest=str(observation_contract["observation_contract_digest"]),
         campaign_id=str(campaign.get("campaign_id") or ""),
         buyer_segment_id=str(ref.get("buyer_segment_id") or ""),
@@ -307,6 +307,7 @@ def compile_reference_market_episode(
         "campaign": campaign,
         "policy": policy,
         "market_command_spec": spec,
+        "parent_receipt": parent,
     }
 
 
@@ -316,6 +317,7 @@ def _run_phase4(repo_root: Path, work_root: Path) -> dict[str, Any]:
     plan, pricing, observation_contract, market = compile_reference_market_episode(
         repo_root,
         work_root=work_root / "episode",
+        parent_receipt=parent,
     )
     schema_path = repo_root / EPISODE_SCHEMA_FILE
     schema_valid = False
