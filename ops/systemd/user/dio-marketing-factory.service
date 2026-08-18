@@ -8,9 +8,9 @@ Type=oneshot
 WorkingDirectory=/home/byron/Downloads/KnowEdge_AutoRelease_Suite
 # First observe real Market Command outcomes and resolve only human-approved LINGUA patterns
 # into the next held draft. No learning event can publish or spend.
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/build_lingua_hustle_campaign_factory.py --no-reels
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python -m scripts.build_lingua_hustle_campaign_factory --no-reels
 # Render only after LINGUA has resolved the commercial strategy and rewritten the held draft.
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python /home/byron/Downloads/KnowEdge_AutoRelease_Suite/scripts/render_pending_hustle_reels.py
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python -m scripts.render_pending_hustle_reels
 Environment=PYTHONUNBUFFERED=1
 
 [Install]
