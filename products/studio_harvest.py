@@ -11,6 +11,7 @@ from products.incarnation_studio import IncarnationStudioError, verify_incarnati
 
 ROOT = Path(__file__).resolve().parents[1]
 ACCEPTANCE_TOKEN = "DIO_STUDIO_HARVEST_READY"
+SUPPORTED_KINDS = {"site", "correspondence", "finance_readiness", "article"}
 
 
 class StudioHarvestError(RuntimeError):
@@ -62,7 +63,8 @@ def validate_studio_manifest(manifest: dict[str, Any]) -> None:
     ids = [str(row.get("engine_id") or "") for row in organs]
     if any(not x for x in ids) or len(ids) != len(set(ids)):
         raise StudioHarvestError("Studio Harvest organ bindings must have unique engine_id values")
-    if manifest["artifact_contract"].get("kind") not in {"site", "correspondence"}:
+    kind = manifest["artifact_contract"].get("kind")
+    if kind not in SUPPORTED_KINDS:
         raise StudioHarvestError("unsupported Studio Harvest artifact contract")
 
 
@@ -119,7 +121,14 @@ def _measurement(manifest: dict[str, Any]) -> dict[str, Any]:
             {"event": "controlled_artifact_generated", "claim_ceiling": "OBSERVED"},
             {"event": "human_review_requested", "claim_ceiling": "OBSERVED"},
         ],
-        "unsupported_inferences": ["customer value", "qualified demand", "verified payment", "attributed revenue", "repeatability", "market validation"],
+        "unsupported_inferences": [
+            "customer value",
+            "qualified demand",
+            "verified payment",
+            "attributed revenue",
+            "repeatability",
+            "market validation",
+        ],
         "payment_enabled": False,
         "revenue_claimed": False,
         "market_validation_claimed": False,
@@ -196,6 +205,130 @@ def _render_correspondence(manifest: dict[str, Any]) -> tuple[dict[str, str], di
     return {"correspondence/DRAFT_EMAIL.txt": draft_text, "correspondence/RESPONSE_BRIEF.html": brief}, semantic
 
 
+def _finance_gap_map(contract: dict[str, Any]) -> list[dict[str, Any]]:
+    evidence = contract["supplied_evidence_fixture"]
+    rows = []
+    for requirement in contract["published_requirements_fixture"]:
+        supporting = [
+            item["evidence_id"] for item in evidence
+            if requirement["requirement_id"] in set(item.get("supports") or []) and item.get("state") == "supplied"
+        ]
+        rows.append({
+            "requirement_id": requirement["requirement_id"],
+            "label": requirement["label"],
+            "mandatory": requirement["mandatory"],
+            "supporting_evidence_ids": supporting,
+            "state": "SUPPORTED_FOR_READINESS_REVIEW" if supporting else "EVIDENCE_NEEDED",
+        })
+    return rows
+
+
+def _render_finance_readiness(manifest: dict[str, Any]) -> tuple[dict[str, str], dict[str, Any]]:
+    contract = manifest["artifact_contract"]
+    venture = contract["venture"]
+    gaps = _finance_gap_map(contract)
+    missing = [row for row in gaps if row["state"] == "EVIDENCE_NEEDED"]
+    rows = "".join(
+        f"<tr><td>{html.escape(row['requirement_id'])}</td><td>{html.escape(row['label'])}</td><td>{html.escape(row['state'])}</td><td>{html.escape(', '.join(row['supporting_evidence_ids']) or 'None supplied')}</td></tr>"
+        for row in gaps
+    )
+    assumptions = "".join(f"<li>{html.escape(str(value))}</li>" for value in contract["assumptions"])
+    page = (
+        "<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
+        "<title>DIO Finance Readiness Studio</title><style>body{font:16px/1.55 system-ui,sans-serif;margin:0;color:#172230;background:#f4f7f7}main{max-width:1000px;margin:auto;padding:44px 24px}h1,h2{color:#113f42}.gate{border-left:5px solid #c07a00;background:#fff3dc;padding:14px 18px;font-weight:700}table{width:100%;border-collapse:collapse;background:white}th,td{border:1px solid #ccd8d8;padding:10px;text-align:left;vertical-align:top}th{background:#e5f1ef}.missing{font-weight:800;color:#8a3b00}</style></head><body><main>"
+        "<p>DIO // FINANCE READINESS STUDIO // CONTROLLED PROOF</p>"
+        f"<h1>{html.escape(venture['name'])}</h1><p><strong>Funding need:</strong> {html.escape(venture['funding_need'])}</p>"
+        f"<p>{html.escape(contract['purpose'])}</p><p class='gate'>{html.escape(contract['decision_boundary'])}</p>"
+        "<h2>Evidence-readiness matrix</h2><table><thead><tr><th>ID</th><th>Published requirement fixture</th><th>Readiness state</th><th>Evidence</th></tr></thead>"
+        f"<tbody>{rows}</tbody></table><h2>Unresolved assumptions</h2><ul>{assumptions}</ul>"
+        f"<p class='missing'>Missing mandatory evidence items: {len(missing)}.</p>"
+        "<p>No lender approval, affordability, underwriting, credit-bureau or funding outcome is inferred by this controlled dossier.</p>"
+        "</main></body></html>"
+    )
+    summary = (
+        f"Finance Readiness Studio controlled review\nVenture: {venture['name']}\nFunding need: {venture['funding_need']}\n"
+        f"Requirements reviewed: {len(gaps)}\nEvidence-needed items: {len(missing)}\n"
+        f"Decision boundary: {contract['decision_boundary']}\n"
+    )
+    readiness = {
+        "schema": "dio.finance_readiness_controlled_object.v1",
+        "studio_id": manifest["studio_id"],
+        "venture": venture,
+        "requirement_gap_map": gaps,
+        "evidence_needed_count": len(missing),
+        "assumptions": contract["assumptions"],
+        "forbidden_claims": contract["forbidden_claims"],
+        "decision_boundary": contract["decision_boundary"],
+        "readiness_state": "EVIDENCE_GAPS_PRESENT" if missing else "EVIDENCE_SET_COMPLETE_FOR_HUMAN_REVIEW",
+        "lender_decision": "NOT_MADE",
+        "financial_advice": "NOT_PROVIDED",
+        "human_gate": "NEEDS_YOU",
+    }
+    return {
+        "finance/READINESS_REPORT.html": page,
+        "finance/READINESS_SUMMARY.txt": summary,
+    }, readiness
+
+
+def _render_article(manifest: dict[str, Any]) -> tuple[dict[str, str], dict[str, Any]]:
+    contract = manifest["artifact_contract"]
+    supported_claims = [row for row in contract["claim_fixture"] if row["state"] == "SUPPORTED"]
+    refused_claims = [row for row in contract["claim_fixture"] if row["state"] == "REFUSE"]
+    sections = "".join(
+        f"<section><h2>{html.escape(str(row['heading']))}</h2><p>{html.escape(str(row['body']))}</p></section>"
+        for row in contract["sections"]
+    )
+    refs = "".join(
+        f"<li id='{html.escape(str(row['source_id']))}'>{html.escape(str(row['citation']))}</li>"
+        for row in contract["source_fixture"]
+    )
+    claim_rows = "".join(
+        f"<tr><td>{html.escape(str(row['claim_id']))}</td><td>{html.escape(str(row['text']))}</td><td>{html.escape(str(row['state']))}</td><td>{html.escape(', '.join(row['evidence_ids']) or 'None')}</td></tr>"
+        for row in contract["claim_fixture"]
+    )
+    article = (
+        "<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
+        "<title>DIO Article Publication Studio</title><style>body{font:18px/1.65 Georgia,serif;margin:0;color:#202126;background:#fbfaf7}article{max-width:850px;margin:auto;padding:48px 24px}h1{font:700 clamp(2.6rem,7vw,5.2rem)/.98 system-ui,sans-serif;letter-spacing:-.05em}h2{font-family:system-ui,sans-serif;margin-top:2em}.standfirst{font-size:1.25rem;color:#555}.gate{border-top:1px solid #aaa;border-bottom:1px solid #aaa;padding:14px 0;font:700 .85rem system-ui,sans-serif}table{font:14px/1.4 system-ui,sans-serif;width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left;vertical-align:top}</style></head><body><article>"
+        f"<p>{html.escape(contract['publication'])} // CONTROLLED EDITORIAL FIXTURE</p><h1>{html.escape(contract['headline'])}</h1>"
+        f"<p class='standfirst'>{html.escape(contract['standfirst'])}</p><p class='gate'>DRAFT ONLY. HUMAN EDITORIAL REVIEW AND PUBLICATION AUTHORITY REQUIRED.</p>"
+        f"{sections}<h2>Claim/source review map</h2><table><thead><tr><th>Claim</th><th>Text</th><th>State</th><th>Evidence</th></tr></thead><tbody>{claim_rows}</tbody></table>"
+        f"<h2>References</h2><ol>{refs}</ol><p>This controlled draft does not fabricate quotations or sources and does not publish itself.</p>"
+        "</article></body></html>"
+    )
+    lineage = {
+        "schema": "dio.article_publication_lineage_object.v1",
+        "studio_id": manifest["studio_id"],
+        "publication": contract["publication"],
+        "headline": contract["headline"],
+        "source_fixture": contract["source_fixture"],
+        "claim_fixture": contract["claim_fixture"],
+        "supported_claim_count": len(supported_claims),
+        "refused_claim_count": len(refused_claims),
+        "forbidden_claims": contract["forbidden_claims"],
+        "source_lineage_state": "CONTROLLED_FIXTURE_BOUND",
+        "publication": "REFUSE",
+        "human_gate": "NEEDS_YOU",
+    }
+    map_text = "\n".join(
+        f"{row['claim_id']} | {row['state']} | {','.join(row['evidence_ids']) or 'NO_EVIDENCE'} | {row['text']}"
+        for row in contract["claim_fixture"]
+    ) + "\n"
+    return {
+        "publication/ARTICLE_DRAFT.html": article,
+        "publication/CLAIM_SOURCE_MAP.txt": map_text,
+    }, lineage
+
+
+def _entrypoint(kind: str) -> str:
+    if kind == "site":
+        return "marketfront/index.html"
+    if kind == "finance_readiness":
+        return "finance/READINESS_REPORT.html"
+    if kind == "article":
+        return "publication/ARTICLE_DRAFT.html"
+    return "correspondence/RESPONSE_BRIEF.html"
+
+
 def build_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     manifest_path = manifest_path if manifest_path.is_absolute() else root / manifest_path
@@ -215,6 +348,12 @@ def build_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
     elif kind == "correspondence":
         text_files, studio_object = _render_correspondence(manifest)
         studio_object_path = "correspondence/LINGUA_SEMANTIC_OBJECT.json"
+    elif kind == "finance_readiness":
+        text_files, studio_object = _render_finance_readiness(manifest)
+        studio_object_path = "finance/FINANCE_READINESS_OBJECT.json"
+    elif kind == "article":
+        text_files, studio_object = _render_article(manifest)
+        studio_object_path = "publication/ARTICLE_LINEAGE_OBJECT.json"
     else:
         raise StudioHarvestError(f"unsupported Studio Harvest kind: {kind}")
 
@@ -261,12 +400,33 @@ def build_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
         json_files["operations/PRESENCE_RELEASE.json"] = {
             "schema": "dio.presence_release_projection.v1",
             "studio_id": manifest["studio_id"],
-            "entrypoint": "marketfront/index.html",
-            "hosting_package": "STATIC_READY",
+            "entrypoint": _entrypoint(kind),
+            "hosting_package": "STATIC_READY" if kind == "site" else "REVIEW_PACKAGE_READY",
             "publication": "REFUSE",
             "custom_domain": "UNBOUND",
             "human_gate": "NEEDS_YOU",
             "source_engine": "presence_core",
+        }
+    if kind == "finance_readiness":
+        json_files["finance/FINANCIAL_AUTHORITY_BOUNDARY.json"] = {
+            "schema": "dio.finance_readiness_authority_boundary.v1",
+            "studio_id": manifest["studio_id"],
+            "readiness_assessment": "ALLOW_CONTROLLED",
+            "lending_decision": "REFUSE",
+            "affordability_decision": "REFUSE",
+            "credit_decision": "REFUSE",
+            "regulated_financial_advice": "REFUSE",
+            "human_gate": "NEEDS_YOU",
+        }
+    if kind == "article":
+        json_files["publication/PUBLICATION_BOUNDARY.json"] = {
+            "schema": "dio.article_publication_authority_boundary.v1",
+            "studio_id": manifest["studio_id"],
+            "draft_generation": "ALLOW_CONTROLLED",
+            "fabricated_sources": "REFUSE",
+            "fabricated_quotations": "REFUSE",
+            "automatic_publication": "REFUSE",
+            "human_editorial_review": "NEEDS_YOU",
         }
 
     for rel, value in text_files.items():
@@ -319,7 +479,14 @@ def build_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROO
     }
     receipt["studio_fingerprint"] = _fingerprint(receipt)
     _write_json(output_dir / "STUDIO_EXECUTION_RECEIPT.json", receipt)
-    return {"manifest": manifest, "receipt": receipt, "proof_manifest": proof, "bindings": bindings, "route": route, "output_dir": str(output_dir)}
+    return {
+        "manifest": manifest,
+        "receipt": receipt,
+        "proof_manifest": proof,
+        "bindings": bindings,
+        "route": route,
+        "output_dir": str(output_dir),
+    }
 
 
 def verify_studio_proof(output_dir: Path, proof: dict[str, Any]) -> None:
