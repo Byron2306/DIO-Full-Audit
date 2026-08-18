@@ -9,6 +9,9 @@ authority ceiling.
 Phase 3 binds LINGUA semantic law to those same units: denotation, affordance,
 prohibition and context projection, with learning candidate-only and no direct
 learning-to-execution path.
+Phase 4 reuses BEAST DAI's canonical WorldStateSnapshot and binds short-lived
+metamorphic world leases to exact reality, epoch, policy, capability, and
+authority references without replacing the operational Metatron manifold.
 """
 
 from .integration_inventory import (
@@ -43,6 +46,17 @@ from .semantic_law import (
     phase3_semantic_receipt,
     project_semantics,
 )
+from .world_lease import (
+    PHASE4_EXIT_TOKEN,
+    WorldLeaseBindingError,
+    WorldLeaseValidation,
+    acquire_world_lease,
+    build_controlled_world_snapshot,
+    phase4_world_lease_receipt,
+    require_world_lease_current,
+    validate_world_lease,
+    world_anchor_digests,
+)
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
@@ -69,4 +83,13 @@ __all__ = [
     "evaluate_claim",
     "phase3_semantic_receipt",
     "project_semantics",
+    "PHASE4_EXIT_TOKEN",
+    "WorldLeaseBindingError",
+    "WorldLeaseValidation",
+    "acquire_world_lease",
+    "build_controlled_world_snapshot",
+    "phase4_world_lease_receipt",
+    "require_world_lease_current",
+    "validate_world_lease",
+    "world_anchor_digests",
 ]
