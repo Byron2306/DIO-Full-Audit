@@ -48,3 +48,10 @@ def test_informational_studio_questions_do_not_become_intake():
     article = route_message("Tell me about Article Studio.", "public", ROUTES)
     assert (finance.product, finance.intent) == ("finance_readiness_studio", "product_info")
     assert (article.product, article.intent) == ("article_publication_studio", "product_info")
+
+
+def test_specific_article_studio_phrase_beats_broad_article_keyword():
+    studio = route_message("Tell me about Article Studio.", "public", ROUTES)
+    generic = route_message("Write an article for our newsletter.", "public", ROUTES)
+    assert (studio.product, studio.intent) == ("article_publication_studio", "product_info")
+    assert (generic.product, generic.intent) == ("nichefoundry", "intake_request")
