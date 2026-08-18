@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.commercial_projection.v1",
+  "title": "DIO Commercial Projection v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "projection_id",
+    "product_id",
+    "context_digest",
+    "unit_digest",
+    "offer_state_digest",
+    "semantic_object_id",
+    "lingua_source_document_hash",
+    "claims",
+    "claim_extraction_mode",
+    "autonomous_natural_language_claim_inference_claimed",
+    "authority_created",
+    "external_effects",
+    "projection_digest"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial_projection.v1"},
+    "projection_id": {"type": "string", "minLength": 1},
+    "product_id": {"type": "string", "minLength": 1},
+    "context_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "unit_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "offer_state_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "semantic_object_id": {"type": "string", "minLength": 3},
+    "lingua_source_document_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "statement", "state", "rule", "context_digest", "allowed_in_buyer_copy"],
+        "properties": {
+          "claim_id": {"type": "string", "minLength": 1},
+          "statement": {"type": "string", "minLength": 1},
+          "state": {"enum": ["SUPPORTED", "HELD_UNPROVED", "REFUSE"]},
+          "rule": {"type": "string", "minLength": 1},
+          "context_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "allowed_in_buyer_copy": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "claim_extraction_mode": {"type": "string", "minLength": 1},
+    "autonomous_natural_language_claim_inference_claimed": {"const": false},
+    "authority_created": {"const": false},
+    "external_effects": {"const": false},
+    "projection_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}
