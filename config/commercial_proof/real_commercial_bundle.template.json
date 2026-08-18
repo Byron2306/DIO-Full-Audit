@@ -1,0 +1,91 @@
+{
+  "schema": "dio.commercial_proof_bundle.v1",
+  "bundle_id": "REPLACE-ME",
+  "product_id": "REPLACE-ME",
+  "professional_proof": {
+    "receipt_path": "docs/proofs/professional_task_gauntlet/2026-08-18/PROFESSIONAL_TASK_GAUNTLET_RECEIPT.json",
+    "portfolio_fingerprint": "sha256:7b0e1f9e5ea6a0149dd585ccd13a8dca0dbc4dc3169f8b0229729804dd9512d8"
+  },
+  "market": {
+    "as_of": "YYYY-MM-DD",
+    "buyer_segment": "REPLACE WITH SPECIFIC BUYER SEGMENT",
+    "buyer_problem": "REPLACE WITH SOURCE-SUPPORTED BUYER PROBLEM",
+    "methodology": "Describe how current competitor offers, price observations and demand signals were collected and how stale, simulated or duplicate evidence was excluded.",
+    "max_source_age_days": 180,
+    "sources": [
+      {
+        "source_id": "SRC-1",
+        "url": "https://REPLACE-ME",
+        "observed_at": "YYYY-MM-DD",
+        "evidence_origin": "real_research"
+      },
+      {
+        "source_id": "SRC-2",
+        "url": "https://REPLACE-ME",
+        "observed_at": "YYYY-MM-DD",
+        "evidence_origin": "real_research"
+      },
+      {
+        "source_id": "SRC-3",
+        "url": "https://REPLACE-ME",
+        "observed_at": "YYYY-MM-DD",
+        "evidence_origin": "real_research"
+      }
+    ],
+    "competitor_offers": [
+      {
+        "name": "REPLACE-ME",
+        "source_id": "SRC-1",
+        "offer": "REPLACE-ME"
+      },
+      {
+        "name": "REPLACE-ME",
+        "source_id": "SRC-2",
+        "offer": "REPLACE-ME"
+      }
+    ],
+    "pricing_observations": [
+      {
+        "source_id": "SRC-1",
+        "amount_minor": 1,
+        "currency": "ZAR"
+      },
+      {
+        "source_id": "SRC-2",
+        "amount_minor": 1,
+        "currency": "ZAR"
+      }
+    ],
+    "demand_signals": [
+      {
+        "source_id": "SRC-1",
+        "signal": "REPLACE WITH OBSERVED DEMAND SIGNAL"
+      },
+      {
+        "source_id": "SRC-3",
+        "signal": "REPLACE WITH INDEPENDENT OBSERVED DEMAND SIGNAL"
+      }
+    ]
+  },
+  "transaction": {
+    "mode": "real_payment",
+    "order_id": "REPLACE WITH DIO EDGE ORDER ID",
+    "customer_id": "REPLACE WITH BOUND CUSTOMER ID",
+    "product_code": "REPLACE-ME",
+    "amount_minor": 1,
+    "currency": "ZAR",
+    "payment_required": true
+  },
+  "acceptance": {
+    "state": "accepted",
+    "customer_id": "REPLACE WITH SAME BOUND CUSTOMER ID",
+    "independent_customer": true,
+    "customer_originated": true,
+    "artifact_sha256": "sha256:REPLACE_WITH_64_HEX_CHARACTERS",
+    "source_kind": "outlook_customer_reply",
+    "source_message_id": "REPLACE WITH SOURCE MESSAGE ID",
+    "refund_state": "none",
+    "dispute_state": "none"
+  },
+  "prior_validated_engagements": []
+}

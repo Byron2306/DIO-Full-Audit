@@ -1,0 +1,85 @@
+{
+  "acceptance_token": "DIO_COMMERCIAL_PROOF_ZERO_VALUE_PILOT_READY",
+  "authority_created": false,
+  "bundle_id": "CPG-SITE-MARKET-20260818",
+  "claim_boundary": "Market research, verified settlement, independent-customer willingness to pay, acceptance and repeatability are separate evidence gates. Self-payment can verify payment plumbing but cannot prove market willingness to pay or commercial validation.",
+  "commercial_validation": "COMMERCIAL_VALIDATION_UNPROVED",
+  "customer_acceptance": {
+    "artifact_sha256": "",
+    "claim_boundary": "Zero-value acceptance records product-flow usefulness but does not create paid-customer acceptance proof.",
+    "commercial_customer_acceptance": "CUSTOMER_ACCEPTANCE_UNPROVED",
+    "customer_originated": false,
+    "independent_customer": false,
+    "passed": false,
+    "state": "CUSTOMER_ACCEPTANCE_UNPROVED"
+  },
+  "external_effects": false,
+  "lineage": {
+    "checks": {
+      "acceptance_customer_matches": true,
+      "bundle_product_present": true,
+      "customer_present": true,
+      "order_present": true
+    },
+    "passed": true
+  },
+  "market_viability": {
+    "checks": {
+      "buyer_problem_present": true,
+      "buyer_segment_present": true,
+      "competitor_offers": true,
+      "demand_signals": true,
+      "freshness": true,
+      "methodology_present": true,
+      "non_demo_sources_only": true,
+      "pricing_observations": true,
+      "source_count": true,
+      "source_domain_diversity": true,
+      "source_url_count": true
+    },
+    "claim_boundary": "Market viability here means the configured source-bound evidence threshold was satisfied. It does not by itself prove willingness to pay, customer acceptance, revenue or repeatability.",
+    "passed": true,
+    "source_count": 6,
+    "source_domains": [
+      "companywebdesign.co.za",
+      "smesouthafrica.co.za",
+      "webxdesign.co.za",
+      "www.juicydesigns.co.za",
+      "www.mastercard.com",
+      "www.sars.gov.za"
+    ],
+    "stale_or_invalid_sources": [],
+    "state": "MARKET_VIABILITY_PROVED"
+  },
+  "payment": {
+    "claim_boundary": "A zero-value pilot can prove flow and acceptance mechanics, never willingness to pay or revenue.",
+    "currency": "ZAR",
+    "customer_id": "operator-self-test",
+    "mode": "zero_value_pilot",
+    "order_id": "ZERO-SITE-MARKET-20260818",
+    "passed": true,
+    "payment_flow_executed": true,
+    "revenue_minor": 0,
+    "verified_payment": "NOT_APPLICABLE_ZERO_VALUE_PILOT",
+    "willingness_to_pay": "WILLINGNESS_TO_PAY_UNPROVED"
+  },
+  "product_id": "site_studio",
+  "professional_quality": {
+    "passed": true,
+    "portfolio_fingerprint": "sha256:7b0e1f9e5ea6a0149dd585ccd13a8dca0dbc4dc3169f8b0229729804dd9512d8",
+    "reason": "professional_task_portfolio_verified",
+    "receipt_path": "/tmp/dio-prof-task-gauntlet-worktree/docs/proofs/professional_task_gauntlet/2026-08-18/PROFESSIONAL_TASK_GAUNTLET_RECEIPT.json",
+    "receipt_sha256": "sha256:7a6b86678ebb4a98fdc9a927ccc59e77f5c6df41fa34e8604f7bfbcd5fccd4ba",
+    "verified_task_count": 12
+  },
+  "receipt_fingerprint": "sha256:00e229e77100889a8510613fdde01c9cecd27070a91706603036da985a1c9e1b",
+  "repeatable_commercial_proof": {
+    "claim_boundary": "Repeatability requires at least three distinct independent commercially validated engagements.",
+    "independent_customer_count": 0,
+    "minimum_required": 3,
+    "passed": false,
+    "state": "REPEATABLE_COMMERCIAL_PROOF_UNPROVED",
+    "validated_engagement_count": 0
+  },
+  "schema": "dio.commercial_proof_gauntlet_receipt.v1.1"
+}

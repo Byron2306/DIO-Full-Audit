@@ -1,0 +1,138 @@
+{
+  "schema": "dio.commercial_proof_bundle.v1",
+  "bundle_id": "CPG-SITE-MARKET-20260818",
+  "product_id": "site_studio",
+  "professional_proof": {
+    "receipt_path": "docs/proofs/professional_task_gauntlet/2026-08-18/PROFESSIONAL_TASK_GAUNTLET_RECEIPT.json",
+    "portfolio_fingerprint": "sha256:7b0e1f9e5ea6a0149dd585ccd13a8dca0dbc4dc3169f8b0229729804dd9512d8"
+  },
+  "market": {
+    "as_of": "2026-08-18",
+    "buyer_segment": "South African small businesses, startups, independent professionals and professional-service firms that need a credible, mobile-friendly business website and lead-generation presence without a large agency engagement.",
+    "buyer_problem": "The buyer needs a professional online presence that communicates services clearly, captures enquiries and can be launched quickly, while navigating a fragmented market spanning low-cost template packages through higher-priced custom agency builds.",
+    "methodology": "Direct observation on 2026-08-18 of current South African web-design competitor offers and published prices, combined with independent or institutional evidence on the size of the SMME buyer base and growth of online commercial activity. Competitor pages are used only for offer and price observations; broader demand claims are sourced separately. No demo, simulation or synthetic market telemetry is used.",
+    "max_source_age_days": 180,
+    "sources": [
+      {
+        "source_id": "SRC-WEB-01",
+        "url": "https://companywebdesign.co.za/",
+        "observed_at": "2026-08-18",
+        "evidence_origin": "real_research",
+        "source_role": "competitor_offer_and_price",
+        "observation": "Published small-business website packages include a one-page package at R990, a multi-page package at R2,490 and a pro package at R3,490 once-off."
+      },
+      {
+        "source_id": "SRC-WEB-02",
+        "url": "https://webxdesign.co.za/pricing",
+        "observed_at": "2026-08-18",
+        "evidence_origin": "real_research",
+        "source_role": "competitor_offer_and_price",
+        "observation": "Published 2026 website packages include a Basic tier at R195/month plus R2,500 setup, Standard at R345/month plus R5,500 setup, and Premium at R695/month plus R12,000 setup."
+      },
+      {
+        "source_id": "SRC-WEB-03",
+        "url": "https://www.juicydesigns.co.za/services/web-design/pricing/",
+        "observed_at": "2026-08-18",
+        "evidence_origin": "real_research",
+        "source_role": "competitor_offer_and_price",
+        "observation": "Published starting prices include Starter at R12,000 for a small-business first website, Business at R28,000 for lead generation, and Custom/e-commerce at R85,000."
+      },
+      {
+        "source_id": "SRC-DEMAND-01",
+        "url": "https://www.mastercard.com/news/eemea/en/newsroom/press-releases/en/2025-1/september/south-africa-s-online-retail-set-to-surpass-r130-billion-in-2025/",
+        "observed_at": "2026-08-18",
+        "evidence_origin": "real_research",
+        "source_role": "macro_digital_demand",
+        "observation": "Mastercard and World Wide Worx reported South African online retail expected to exceed R130 billion in 2025 and approach 10% of total retail, following strong digital growth."
+      },
+      {
+        "source_id": "SRC-DEMAND-02",
+        "url": "https://www.sars.gov.za/businesses-and-employers/small-businesses-taxpayers/smme-connect-13-february-2026-edition/",
+        "observed_at": "2026-08-18",
+        "evidence_origin": "real_research",
+        "source_role": "buyer_base",
+        "observation": "SARS states that SMMEs account for approximately 34% of South Africa's GDP and employ 60% of the workforce."
+      },
+      {
+        "source_id": "SRC-DEMAND-03",
+        "url": "https://smesouthafrica.co.za/research-about-sme-hosting-gives-insights-into-the-sector/",
+        "observed_at": "2026-08-18",
+        "evidence_origin": "real_research",
+        "source_role": "small_business_digital_usage",
+        "observation": "A 2025 South African SME hosting study reported a strong concentration of solo and very small teams and found 42.20% of respondents used hosting primarily for a business website or online store."
+      }
+    ],
+    "competitor_offers": [
+      {
+        "source_id": "SRC-WEB-01",
+        "provider": "Company Web Design",
+        "offer": "Small-business website packages from one-page to pro multi-page builds"
+      },
+      {
+        "source_id": "SRC-WEB-02",
+        "provider": "webX Design",
+        "offer": "Subscription-plus-setup business website packages with SEO, analytics and lead tooling"
+      },
+      {
+        "source_id": "SRC-WEB-03",
+        "provider": "Juicy Designs",
+        "offer": "Starter, lead-generation business and custom/e-commerce website engagements"
+      }
+    ],
+    "pricing_observations": [
+      {
+        "source_id": "SRC-WEB-01",
+        "label": "Pro website package once-off",
+        "amount_minor": 349000,
+        "currency": "ZAR"
+      },
+      {
+        "source_id": "SRC-WEB-02",
+        "label": "Standard website setup fee",
+        "amount_minor": 550000,
+        "currency": "ZAR"
+      },
+      {
+        "source_id": "SRC-WEB-03",
+        "label": "Starter website starting price",
+        "amount_minor": 1200000,
+        "currency": "ZAR"
+      }
+    ],
+    "demand_signals": [
+      {
+        "source_id": "SRC-DEMAND-01",
+        "signal": "South African online commercial activity is structurally large and growing, increasing the relevance of credible digital storefronts and business web presence."
+      },
+      {
+        "source_id": "SRC-DEMAND-02",
+        "signal": "The addressable SMME buyer base is economically material, representing approximately 34% of GDP and 60% of employment according to SARS."
+      },
+      {
+        "source_id": "SRC-DEMAND-03",
+        "signal": "Recent SME hosting research shows direct business-website and online-store usage among South African small-business respondents, with many operating in solo or very small teams."
+      }
+    ]
+  },
+  "transaction": {
+    "mode": "zero_value_pilot",
+    "order_id": "ZERO-SITE-MARKET-20260818",
+    "customer_id": "operator-self-test",
+    "amount_minor": 0,
+    "currency": "ZAR",
+    "payment_required": false,
+    "provider_transaction_id": null
+  },
+  "acceptance": {
+    "state": "pending",
+    "customer_id": "operator-self-test",
+    "independent_customer": false,
+    "customer_originated": false,
+    "artifact_sha256": "",
+    "source_kind": "",
+    "source_message_id": "",
+    "refund_state": "none",
+    "dispute_state": "none"
+  },
+  "prior_validated_engagements": []
+}
