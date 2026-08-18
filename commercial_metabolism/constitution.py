@@ -39,6 +39,7 @@ REQUIRED_ANCHOR_IDS = {
     "commercial_proof_v1_1",
     "commercial_proof_legacy_doc",
     "paid_reference_products",
+    "vesper_outlook_draft_bridge",
     "commercial_operating_plan",
     "commerce_orchestrator",
     "commerce_triune",
@@ -63,6 +64,7 @@ ALLOWED_CLASSIFICATIONS = {
     "truth_evaluator",
     "legacy_semantic_hazard",
     "controlled_reference",
+    "draft_only_customer_interface",
     "workflow_doctrine",
     "workflow_state",
     "workflow_advisory",
@@ -200,6 +202,7 @@ def _truth_guard_checks(root: Path) -> dict[str, bool]:
     truth = (root / "docs/DIO_COMMERCIAL_TRUTH_LAYER_PHASE10.md").read_text(encoding="utf-8")
     proof = (root / "products/commercial_proof_v1_1.py").read_text(encoding="utf-8")
     paid_reference = (root / "docs/DIO_PAID_REFERENCE_PRODUCTS_PHASE11.md").read_text(encoding="utf-8")
+    vesper = (root / "docs/DIO_PHASE11_1_VESPER_ATTACHMENT_DELIVERY.md").read_text(encoding="utf-8")
     niche = (root / "docs/NICHEFOUNDRY_LINGUA_COMMERCIAL_LEARNING.md").read_text(encoding="utf-8")
     market_core = (root / "market_command/core.py").read_text(encoding="utf-8")
     edge = (root / "edge/dio-edge-gateway/src/index.js").read_text(encoding="utf-8")
@@ -215,6 +218,11 @@ def _truth_guard_checks(root: Path) -> dict[str, bool]:
             and "WTP_UNPROVED" in proof
         ),
         "controlled_reference_not_market_validation": "no market validation is claimed" in paid_reference,
+        "vesper_outlook_remains_draft_only": (
+            "DRAFT_ONLY" in vesper
+            and "send_authorized: false" in vesper
+            and "sent: false" in vesper
+        ),
         "learning_has_no_direct_execution_path": "There is **no direct learning → execution path**." in niche,
         "market_command_automatic_spend_off": '"automatic_spend": "off"' in market_core,
         "edge_redirect_not_payment_truth": (
@@ -229,6 +237,7 @@ def _authority_checks(config: Mapping[str, Any]) -> dict[str, bool]:
     return {
         "seraph_is_egress_authority_owner": rows.get("seraph_outbound_gate", {}).get("classification") == "authority_owner",
         "market_command_is_not_authority_owner": rows.get("market_command_core", {}).get("classification") == "planning_state",
+        "vesper_is_draft_only_customer_interface": rows.get("vesper_outlook_draft_bridge", {}).get("classification") == "draft_only_customer_interface",
         "legalis_is_prerequisite_not_egress": rows.get("legalis", {}).get("classification") == "prerequisite_evaluator",
         "beast_crystals_are_evidence_not_egress": rows.get("beast_crystal_chain", {}).get("classification") == "evidence_crystallisation",
         "world_settlement_is_separate": rows.get("world_settlement", {}).get("classification") == "settlement",
