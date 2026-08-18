@@ -5,7 +5,9 @@ commercial constitution and harvests existing DIO organs. Phase M2-1 adds
 immutable commercial context, lineage, observation and settlement contracts.
 Phase M2-2 reuses LINGUA to project buyer-facing claims without laundering proof
 gaps into commercial truth. Phase M2-3 separates channel capability, commercial
-evidence and planning state from Seraph-owned external-effect authority.
+evidence and planning state from Seraph-owned external-effect authority. Phase
+M2-4 compiles a complete market intention and observation contract while keeping
+Market Command in local DRAFT/HELD planning state.
 """
 
 from .constitution import (
@@ -62,17 +64,29 @@ from .authority import (
     evaluate_non_authority_influences,
     phase3_authority_receipt,
 )
+from .episode import (
+    DEFAULT_EPISODE_CONFIG,
+    EPISODE_SCHEMA_FILE,
+    M2_PHASE4_EXIT_TOKEN,
+    MarketEpisodeError,
+    MarketEpisodePlan,
+    compile_reference_market_episode,
+    phase4_market_episode_receipt,
+)
 
 __all__ = [
     "AUTHORITY_SCHEMA_FILE",
     "AuthorityDecision",
     "DEFAULT_AUTHORITY_CONFIG",
     "DEFAULT_CONFIG",
+    "DEFAULT_EPISODE_CONFIG",
     "DEFAULT_PROJECTION_CONFIG",
+    "EPISODE_SCHEMA_FILE",
     "M2_PHASE0_EXIT_TOKEN",
     "M2_PHASE1_EXIT_TOKEN",
     "M2_PHASE2_EXIT_TOKEN",
     "M2_PHASE3_EXIT_TOKEN",
+    "M2_PHASE4_EXIT_TOKEN",
     "REQUIRED_ANCHOR_IDS",
     "REQUIRED_LAWS",
     "CommercialAuthorityError",
@@ -92,6 +106,8 @@ __all__ = [
     "CustomerLineage",
     "EffectAuthorityDecision",
     "EvidenceClaimState",
+    "MarketEpisodeError",
+    "MarketEpisodePlan",
     "MarketObservation",
     "MarketObservationKind",
     "OfferLifecycle",
@@ -104,10 +120,12 @@ __all__ = [
     "build_commercial_projection",
     "build_reference_authority_preflight",
     "build_reference_commercial_context",
+    "compile_reference_market_episode",
     "evaluate_buyer_draft",
     "evaluate_non_authority_influences",
     "phase1_contract_receipt",
     "phase2_projection_receipt",
     "phase3_authority_receipt",
+    "phase4_market_episode_receipt",
     "validate_commercial_constitution",
 ]
