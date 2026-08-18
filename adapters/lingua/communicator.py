@@ -50,7 +50,7 @@ def _communication_object_id(*, owner: str, channel: str, correlation_id: str | 
     anchor = "|".join([str(owner or "vesper"), str(channel or "conversation"), str(correlation_id or ""), str(source_message_id or ""), subject, body])
     return f"{_safe_id(owner or 'VESPER').upper()}-COMM-{_digest(anchor)[:20].upper()}"
 
-def register_communication(*, dio_root: Path, owner: str, artifact_type: str, channel: str, body: str, subject: str = "", audience: str = "public", privacy_domain: str = "public_communication", correlation_id: str | None = None, source_message_id: str | None = None, source_language: str = "English", target_language: str | None = None, purpose: str = "response", authority_boundary: str = "No external authority is created by linguistic rendering.", product_context: str | None = None, interaction_context: dict[str,Any] | None = None, source_version: str = "1.0.0") -> dict[str, Any]:
+def register_communication(*, dio_root: Path, owner: str, artifact_type: str, channel: str, body: str, subject: str = "", audience: str = "public", privacy_domain: str = "public_communication", correlation_id: str | None = None, source_message_id: str | None = None, source_language: str = "English", target_language: str | None = None, purpose: str = "response", authority_boundary: str = "No external authority is created by linguistic rendering.", product_context: str | None = None, interaction_context: dict[str,Any] | None = None, persona_context: dict[str,Any] | None = None, source_version: str = "1.0.0") -> dict[str, Any]:
     """Register shared communication meaning. This never sends, publishes, approves, spends or creates authority."""
     body = str(body or "").strip(); subject = str(subject or "").strip()
     if not body and not subject: raise ValueError("communication requires subject or body")
@@ -62,6 +62,8 @@ def register_communication(*, dio_root: Path, owner: str, artifact_type: str, ch
     origin={"product": owner, "artifact_type": artifact_type, "artifact_id": correlation_id or source_message_id or object_id, "audience": audience, "channel": channel, "privacy_domain": privacy_domain, "correlation_id": correlation_id, "source_message_id": source_message_id, "purpose": purpose, "target_language": target, "product_context": product_context, "authority_boundary": authority_boundary}
     if interaction_context:
         origin["interaction_context"] = interaction_context
+    if persona_context:
+        origin["persona_context"] = persona_context
     semantic, receipt = register_product_source(state_root=Path(dio_root) / "state" / "lingua", object_id=object_id, source_version=source_version, source_language=source_language, source_rows=rows, origin=origin, domain="DIO governed communication")
     lane = (semantic.get("translations") or {}).get(target) if target != source_language else None
     selected_text, selected_subject, translation_state = body, subject, "source_language"
@@ -75,7 +77,7 @@ def register_communication(*, dio_root: Path, owner: str, artifact_type: str, ch
                     usable = False; break
             if usable:
                 selected_subject = str((units.get("SUBJECT") or {}).get("target_text") or subject); selected_text = str((units.get("BODY") or {}).get("target_text") or body); translation_state = "approved_translation"
-    return {"schema": "dio.lingua.communication_receipt.v1", "object_id": object_id, "source_document_hash": receipt["source_document_hash"], "object_path": receipt["object_path"], "owner": owner, "artifact_type": artifact_type, "channel": channel, "source_language": source_language, "target_language": target, "translation_state": translation_state, "selected_subject": selected_subject, "selected_text": selected_text, "interaction_context": interaction_context, "semantic_lineage_created": True, "external_action_executed": False, "publication_authorized": False, "send_authorized": False, "authority_created": False, "authority_boundary": authority_boundary}
+    return {"schema": "dio.lingua.communication_receipt.v1", "object_id": object_id, "source_document_hash": receipt["source_document_hash"], "object_path": receipt["object_path"], "owner": owner, "artifact_type": artifact_type, "channel": channel, "source_language": source_language, "target_language": target, "translation_state": translation_state, "selected_subject": selected_subject, "selected_text": selected_text, "interaction_context": interaction_context, "persona_context": persona_context, "semantic_lineage_created": True, "external_action_executed": False, "publication_authorized": False, "send_authorized": False, "authority_created": False, "authority_boundary": authority_boundary}
 
 def communication_manifest(receipt: dict[str, Any]) -> str:
     payload = {"object_id": receipt.get("object_id"), "source_document_hash": receipt.get("source_document_hash"), "owner": receipt.get("owner"), "channel": receipt.get("channel"), "translation_state": receipt.get("translation_state")}
