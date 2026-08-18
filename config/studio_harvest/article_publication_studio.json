@@ -12,7 +12,7 @@
     {"engine_id": "vesper", "source_ref": "presence_core/router.py", "capabilities": ["storefront.route.bind", "presence.release.prepare"]},
     {"engine_id": "lingua", "source_ref": "adapters/lingua/communicator.py", "capabilities": ["communication.meaning.register", "communication.render.bound"]},
     {"engine_id": "sophia", "source_ref": "adapters/sophia/review_pipeline.py", "capabilities": ["source.reference.audit", "claim.lineage.audit"]},
-    {"engine_id": "evidex", "source_ref": "adapters/evidex/studio_adapter.py", "capabilities": ["evidence.intake.structure", "evidence.campaign.proof"]},
+    {"engine_id": "evidex", "source_ref": "adapters/evidex_studio.py", "capabilities": ["evidence.intake.structure", "evidence.editorial.proof"]},
     {"engine_id": "document_studio", "source_ref": "adapters/document_studio/studio_sales.py", "capabilities": ["document.preview.render", "document.publication_pack"]},
     {"engine_id": "nichefoundry", "source_ref": "scripts/build_hustle_campaign_factory.py", "capabilities": ["media.creative.compose"]},
     {"engine_id": "commercial_truth", "source_ref": "products/commercial_truth.py", "capabilities": ["commercial.claim.boundary", "commercial.measurement.contract"]}
