@@ -25,6 +25,7 @@ on:
       - "tests/test_lingua_marketing_learning.py"
       - "tests/test_lingua_public_communicator.py"
       - "tests/test_presence_engine.py"
+      - "tests/test_vesper_presence_diagnostic.py"
       - "ops/systemd/user/dio-marketing-factory.service"
       - ".github/workflows/nichefoundry-hustle.yml"
   workflow_dispatch:
@@ -60,7 +61,8 @@ jobs:
             tests/test_nichefoundry_hustle_factory.py \
             tests/test_lingua_marketing_learning.py \
             tests/test_lingua_public_communicator.py \
-            tests/test_presence_engine.py
+            tests/test_presence_engine.py \
+            tests/test_vesper_presence_diagnostic.py
       - name: Smoke one LINGUA-taught family without external effects
         run: |
           out="$(mktemp -d)"
