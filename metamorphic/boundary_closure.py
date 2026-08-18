@@ -11,7 +11,7 @@ from adapters.harmonics.metamorphic_state import assess_execution_harmony
 from adapters.seraph.metamorphic_egress import bind_seraph_egress
 from adapters.vns.metamorphic_witness import build_vns_witness
 
-from .contracts import LayerWitnessState
+from .contracts import LayerWitnessState, digest_payload
 from .native_execution import execute_resolution
 from .resolver import build_reference_intent, resolve_intent
 from .world_lease import acquire_world_lease, build_controlled_world_snapshot
@@ -113,8 +113,21 @@ def _run_phase8(repo_root: Path, work_root: Path) -> dict[str, Any]:
     witnesses = [vns_witness, seraph_witness, arda_witness]
     witness_validation = validate_required_witnesses(witnesses)
 
+    node_receipts = list(execution.get("node_receipts") or [])
+    node_count = int(execution.get("node_count") or 0)
+    node_receipts_complete = node_count > 0 and len(node_receipts) == node_count
+    quality_contracts_preserved = bool(
+        node_receipts_complete
+        and all(row.get("all_declared_capabilities_executed") is True for row in node_receipts)
+        and execution.get("all_native_nodes_passed") is True
+    )
+
     passed = (
         execution.get("all_native_nodes_passed") is True
+        and execution.get("native_executors_only") is True
+        and execution.get("same_unit_identity_preserved") is True
+        and node_receipts_complete
+        and quality_contracts_preserved
         and execution.get("sensorium_episode_complete") is True
         and learning.get("learning_candidate_only") is True
         and learning.get("direct_learning_to_execution") is False
@@ -145,7 +158,19 @@ def _run_phase8(repo_root: Path, work_root: Path) -> dict[str, Any]:
         "composition_name": execution.get("composition_name"),
         "composition_digest": execution.get("composition_digest"),
         "effect_hash": execution.get("effect_hash"),
+        "pre_world_digest": snapshot.snapshot_digest,
+        "world_facts_digest": digest_payload(snapshot.facts),
+        "world_epoch_id": snapshot.epoch_id,
+        "world_policy_generation": snapshot.policy_generation,
         "world_lease_digest": lease.lease_digest,
+        "all_native_nodes_passed": execution.get("all_native_nodes_passed"),
+        "native_executors_only": execution.get("native_executors_only"),
+        "same_unit_identity_preserved": execution.get("same_unit_identity_preserved"),
+        "node_count": node_count,
+        "node_receipt_count": len(node_receipts),
+        "node_receipts_complete": node_receipts_complete,
+        "quality_contracts_preserved": quality_contracts_preserved,
+        "content_transform_dataflow_proved": execution.get("content_transform_dataflow_proved", False),
         "sensorium_episode_hash": (execution.get("sensorium_episode") or {}).get("episode_hash"),
         "learning_candidate_only": learning.get("learning_candidate_only"),
         "direct_learning_to_execution": learning.get("direct_learning_to_execution"),
