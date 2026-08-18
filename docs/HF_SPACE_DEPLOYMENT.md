@@ -1,75 +1,77 @@
 # Vesper Presence Edges on Hugging Face Spaces
 
-DIO Presence uses Hugging Face Docker Spaces as **non-canonical edges**. The canonical Presence identity is **Vesper**. Older bundle filenames and deployed repo names may still contain `Lilith` for compatibility.
+## Current canonical status
 
-The edge terminates public or operator Telegram webhooks and forwards normalized signed ingress to the separately trusted DIO Presence Core. The Space does not own canonical leads, orders, payments, jobs, approval state or professional authority.
+Hugging Face Docker Spaces are now **compatibility/non-critical Vesper deployments, not the canonical operator Telegram transport**.
 
-## Known operator deployment
+The proved operator Telegram path is:
+
+```text
+Telegram
+→ Cloudflare Presence Gateway
+→ staging D1 durable custody
+→ outbound-only local reconciler
+→ local operator-edge HMAC signing
+→ Vesper Presence Core
+→ LINGUA + Vesper
+→ explicit Telegram reply authority gate
+→ Telegram
+```
+
+The controlled staging proof is recorded in `docs/VESPER_PERMANENT_PRESENCE_PROOF_2026-08-18.md`.
+
+Older Hugging Face bundles and deployed repo names may still contain the legacy alias `Lilith`. The canonical Presence identity is **Vesper**.
+
+## Known operator compatibility deployment
 
 User-confirmed on 2026-08-18:
 
 ```text
 HF Space: Byron230686/dio-lilith-operator-wave2
-Role: operator
+Role: operator compatibility deployment
 Canonical Presence identity: Vesper
 Legacy deployment alias: Lilith
+Critical Telegram transport dependency: false
 Runtime state: must be observed, never inferred from the repo name
 ```
 
-The Hugging Face repository metadata identifies this as a Docker Space. Its repository metadata was last updated on 2026-08-09, so it must not be assumed to contain later Vesper/LINGUA hardening without a current runtime or source observation.
+This Space may remain useful as a non-critical operator UI, compatibility witness or future bounded interface. It must not be treated as evidence that Telegram is routed through Hugging Face.
 
-## Routes
+## Legacy edge behavior
 
-A Presence edge is expected to expose `/health` and `/telegram/webhook`. The public edge may additionally expose `/whatsapp/webhook` and browser chat.
+The existing HF edge implementation may expose `/health` and `/telegram/webhook`, normalize provider updates and sign them for Presence Core. Public variants may additionally expose WhatsApp and browser chat.
+
+That historical capability is retained for compatibility and diagnostic purposes. It is no longer the preferred operator Telegram architecture because the permanent staging membrane removes the remote-edge-to-local-Core backhaul dependency.
 
 ## Trust separation
 
-Public and operator Presence deployments are separate trust domains. They must not share Telegram bot tokens, webhook secrets, DIO signing keys, operator allowlists or operator tokens.
+Public and operator Presence deployments remain separate trust domains. They must not share Telegram bot tokens, webhook secrets, DIO signing keys, operator allowlists or operator tokens.
 
-The operator edge signs with `DIO_PRESENCE_OPERATOR_SHARED_SECRET`. The Core independently requires the operator Telegram numeric-ID allowlist before granting operator role.
+If an HF operator edge is deliberately re-enabled for a controlled compatibility test, it signs with `DIO_PRESENCE_OPERATOR_SHARED_SECRET`, and the Core independently requires the operator Telegram numeric-ID allowlist before granting operator role.
 
-## Live deployment identity
+The canonical Cloudflare Telegram membrane is different: Cloudflare receives only the Telegram provider-authentication secret and a separate transport pull token. It does **not** receive the DIO operator shared secret and does not create DIO signatures.
 
-A ZIP filename or deployment instruction is not evidence of which Space is currently serving Vesper. After deployment or any rebuild, record the observed deployment under `state/presence/deployment.json` without secrets:
+## Deployment identity
 
-```json
-{
-  "schema": "dio.vesper.presence_deployment.v1",
-  "hf_space_id": "Byron230686/dio-lilith-operator-wave2",
-  "edge_role": "operator",
-  "edge_url": "https://byron230686-dio-lilith-operator-wave2.hf.space",
-  "space_sha": "<observed deployed revision>",
-  "telegram_webhook_path": "/telegram/webhook",
-  "core_url": "<reachable Presence Core base URL or governed backhaul endpoint>",
-  "observed_at": "<UTC timestamp>"
-}
-```
+A ZIP filename or deployment instruction is not evidence of which Space is currently serving Vesper. If an HF compatibility deployment is used, record the observed deployment under `state/presence/deployment.json` without secrets.
 
-The URL above is the standard Hugging Face Space subdomain derived from the repo ID. Reachability still has to be observed.
+A compatibility receipt should state explicitly that the deployment is not the canonical Telegram transport unless an authorised architecture change says otherwise.
 
 ## Core reachability
 
-Presence Core normally binds to localhost for safety. A remote HF Space cannot use the Core's `127.0.0.1` address. Production therefore requires an explicitly governed reachable backhaul endpoint or tunnel from the HF edge to Presence Core. Reachability is transport, not authority; signed ingress still applies.
+Presence Core normally binds to localhost for safety. A remote HF Space cannot use the Core's `127.0.0.1` address. The old topology therefore required an explicitly governed reachable backhaul endpoint or tunnel from the HF edge to Presence Core.
+
+The canonical Cloudflare/D1 topology avoids that requirement. The local reconciler initiates outbound polling and forwards locally to `127.0.0.1:8787` after constructing and signing the DIO Presence envelope.
 
 ## Telegram delivery
 
-The hardened Core owns the bounded Telegram reply action after trusted ingress. External Telegram replies are fail-closed unless the exact runtime reply rail is enabled and has the correct Telegram token/chat metadata.
+The hardened Core still owns the bounded Telegram reply action after trusted ingress. External Telegram replies remain fail-closed unless the exact runtime reply rail is enabled and has the required Telegram token/chat metadata.
 
-```text
-Telegram
-→ operator HF edge
-→ operator-signed ingress
-→ Vesper Presence Core
-→ LINGUA binds response meaning
-→ external-reply authority gate
-→ Telegram send
-```
+A prepared reply is not proof of a delivered reply. The permanent Presence proof records actual repeatable Telegram delivery through the Cloudflare/D1/local-signing path.
 
-A prepared reply is not proof of a delivered reply.
+## Compatibility diagnostics
 
-## Operator-edge diagnostic
-
-For the known operator Space:
+The existing diagnostic remains useful when intentionally inspecting the HF operator deployment:
 
 ```bash
 python3 scripts/diagnose_vesper_presence.py \
@@ -78,22 +80,7 @@ python3 scripts/diagnose_vesper_presence.py \
   --write-receipt
 ```
 
-The diagnostic derives the standard Space URL when `--edge-url` is omitted and checks, without printing secrets:
-
-- exact Space identity and role;
-- Core health;
-- HF edge `/health`;
-- HF Space metadata/runtime when API access permits it;
-- operator shared-secret presence on Core;
-- operator Telegram allowlist presence;
-- Core Telegram reply-switch state;
-- Core Telegram token presence;
-- Telegram bot identity;
-- Telegram webhook target, pending updates and last reported webhook error.
-
-## Public-edge diagnostic
-
-Use the same script with `--edge-role public` and the public Space ID. Public and operator receipts are written separately.
+The resulting receipt should be interpreted as an HF compatibility/runtime observation, not as the canonical Presence transport receipt.
 
 ## LINGUA boundary
 
