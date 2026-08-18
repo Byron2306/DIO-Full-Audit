@@ -166,7 +166,31 @@
         "sa_media_buy"
       ]
     },
+    "vesper": {
+      "artifact_types": [
+        "conversation_response",
+        "guided_explanation",
+        "support_prompt",
+        "operator_brief",
+        "email_draft",
+        "email_subject"
+      ],
+      "required_context": [
+        "audience",
+        "privacy_domain"
+      ],
+      "channels": [
+        "conversation",
+        "telegram",
+        "whatsapp",
+        "webchat",
+        "voice",
+        "email",
+        "outlook"
+      ]
+    },
     "lilith": {
+      "deprecated_alias_for": "vesper",
       "artifact_types": [
         "conversation_response",
         "guided_explanation",
@@ -224,6 +248,14 @@
       "prices_dates_and_spend_caps_are_preserved",
       "channel_specific_variants_are_separate_semantic_objects",
       "outreach_permission_is_not_created_by_translation"
+    ],
+    "communication_invariants": [
+      "identity_survives_translation",
+      "intent_survives_translation",
+      "prices_dates_order_ids_and_reference_ids_are_preserved",
+      "authority_boundaries_survive_translation",
+      "translation_does_not_create_consent_commitment_or_send_authority",
+      "channel_rendering_does_not_change_source meaning"
     ]
   }
 }
