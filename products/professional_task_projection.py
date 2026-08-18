@@ -16,6 +16,33 @@ from products.professional_task_packets import (
 )
 
 
+ROUTE_ENVELOPES = {
+    "site_studio": "I need a professional website from Site Studio.",
+    "professional_correspondence_studio": "I need a professional correspondence reply.",
+    "finance_readiness_studio": "I need a finance readiness assessment.",
+    "article_publication_studio": "I need a publication-ready article from Article Publication Studio.",
+}
+
+
+def _routeable_request(case: dict[str, Any]) -> str:
+    """Wrap the raw buyer request in deterministic Vesper intake grammar.
+
+    This is routing metadata, not answer content. The original customer request is
+    preserved verbatim in job.source_request and professional_task_input. The
+    envelope contains only the already-known Studio identity and an intake verb;
+    it never uses examiner truth, expected facts, prohibited inventions or scores.
+    """
+    studio_id = str(case["studio_id"])
+    try:
+        envelope = ROUTE_ENVELOPES[studio_id]
+    except KeyError as exc:
+        raise ProfessionalTaskGauntletError(f"missing Vesper route envelope for Studio: {studio_id}") from exc
+    raw = str(case["job"]["request"]).strip()
+    if not raw:
+        raise ProfessionalTaskGauntletError(f"{case['case_id']} has an empty professional task request")
+    return f"{envelope} {raw}"
+
+
 def _issue_lines(case: dict[str, Any]) -> list[str]:
     lines: list[str] = []
     for row in case.get("source_documents") or []:
@@ -113,14 +140,18 @@ def build_task_manifest(case: dict[str, Any], *, root: Path = ROOT) -> dict[str,
     """Project a raw professional task into the existing Studio manifest.
 
     The projection may use only customer-visible task material. Expected facts,
-    prohibited inventions and acceptance scores are examiner-only.
+    prohibited inventions and acceptance scores are examiner-only. Vesper routing
+    receives a deterministic intake envelope, while the raw buyer request remains
+    separately preserved for audit and task fidelity.
     """
     validate_case_definition(case)
     root = Path(root).resolve()
     base_path = root / "config" / "studio_harvest" / BASE_MANIFESTS[str(case["studio_id"])]
     manifest = copy.deepcopy(load_json(base_path))
+    raw_request = str(case["job"]["request"])
     manifest["job"]["buyer"] = str(case["job"]["buyer"])
-    manifest["job"]["request"] = str(case["job"]["request"])
+    manifest["job"]["source_request"] = raw_request
+    manifest["job"]["request"] = _routeable_request(case)
     manifest["professional_task_input"] = studio_input(case)
 
     contract = manifest["artifact_contract"]
@@ -135,14 +166,14 @@ def build_task_manifest(case: dict[str, Any], *, root: Path = ROOT) -> dict[str,
         contract["positioning"]["forbidden_claims"] = constraints
 
     elif case["studio_id"] == "professional_correspondence_studio":
-        contract["purpose"] = str(case["job"]["request"])
+        contract["purpose"] = raw_request
         contract["must_preserve"] = constraints[:]
         if not any("review" in row.casefold() for row in contract["must_preserve"]):
             contract["must_preserve"].append("the matter requires review")
         contract["must_not_invent"] = constraints[:]
 
     elif case["studio_id"] == "finance_readiness_studio":
-        contract["purpose"] = str(case["job"]["request"])
+        contract["purpose"] = raw_request
         contract["venture"] = copy.deepcopy(context["venture"])
         contract["published_requirements_fixture"] = copy.deepcopy(context["requirements"])
         supplied = []
