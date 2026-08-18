@@ -1,0 +1,167 @@
+{
+  "schema": "dio.commercial_product_compositions.v1",
+  "status": "structural_composition_contract",
+  "principle": "Customer-facing Design Studio and Legal Operations products are compositions over existing DIO organs and proven product routes. Composition registration does not create an executor, execution proof, professional authority, public release authority, commercial validation, or automatic launch authority.",
+  "families": {
+    "design_studio": {
+      "label": "DIO Design Studio",
+      "customer_promise": "Turn a bounded brief into coherent, audience-ready digital and document design while preserving source meaning, reviewability and release control.",
+      "governance_owner": "dio_product_factory"
+    },
+    "legal_operations": {
+      "label": "DIO Legal Operations",
+      "customer_promise": "Turn legal and regulatory operational requirements into evidence-bound readiness, document assembly, obligation tracking and professional-review packs without pretending DIO is a lawyer.",
+      "governance_owner": "legalis",
+      "legal_advice_created": false,
+      "legal_interpretation_authority_created": false,
+      "legal_representation_created": false
+    }
+  },
+  "products": {
+    "dio_site_studio": {
+      "label": "DIO Site Studio",
+      "family": "design_studio",
+      "work_pattern": "brief_to_governed_web_presence",
+      "buyer": "SME, professional practice, school, research group, NGO/NPO or project team needing a credible public web presence",
+      "pain": "Website work is fragmented across positioning, copy, visual direction, assets, forms and deployment, leaving the buyer to coordinate incompatible outputs.",
+      "outcome": "A coherent review-ready website package with source-bound copy, design direction, responsive page assets and governed intake surfaces.",
+      "pricing": {"mode": "from", "currency": "ZAR", "amount": 6900, "state": "launch_hypothesis_not_validated"},
+      "intake_owner": "document_studio",
+      "components": [
+        {"id": "nichefoundry", "role": "market_research_and_creative_direction", "binding": "direct_products.nichefoundry"},
+        {"id": "document_studio", "role": "structured_web_and_document_rendering", "binding": "direct_products.document_studio"},
+        {"id": "lingua", "role": "semantic_and_language_custody", "binding": "aliases.lingua"},
+        {"id": "vesper", "role": "governed_public_intake", "binding": "presence_owner"}
+      ],
+      "inputs": ["business or project brief", "audience", "brand/source assets", "required pages", "contact/intake requirements"],
+      "deliverables": ["positioning brief", "sitemap", "website copy", "visual direction", "responsive web package", "intake configuration brief", "review receipt"],
+      "human_gates": ["brand approval", "copy approval", "public release approval"],
+      "effects": {"publication": false, "spend": false, "send": false, "deployment": false},
+      "commercial_state": "composition_defined_execution_proof_required"
+    },
+    "dio_launch_studio": {
+      "label": "DIO Launch Studio",
+      "family": "design_studio",
+      "work_pattern": "offer_to_multichannel_launch_package",
+      "buyer": "organisation launching a product, service, programme or campaign and needing one coherent market-facing package",
+      "pain": "Web, social, video, ads and email launch assets are often produced independently and drift in promise, proof, visual identity and CTA.",
+      "outcome": "One source-bound launch system spanning website, campaign creative, short-form media and governed response intake.",
+      "pricing": {"mode": "from", "currency": "ZAR", "amount": 12900, "state": "launch_hypothesis_not_validated"},
+      "intake_owner": "document_studio",
+      "components": [
+        {"id": "dio_site_studio", "role": "site_composition", "binding": "commercial_composition"},
+        {"id": "nichefoundry", "role": "campaign_assets_reels_and_channel_copy", "binding": "direct_products.nichefoundry"},
+        {"id": "market_command", "role": "held_campaign_packaging_and_observation", "binding": "internal_capability"},
+        {"id": "lingua", "role": "semantic_and_language_custody", "binding": "aliases.lingua"},
+        {"id": "vesper", "role": "governed_public_response_and_intake", "binding": "presence_owner"}
+      ],
+      "inputs": ["offer", "audience", "proof assets", "brand/source assets", "channels", "CTA"],
+      "deliverables": ["launch page", "ad family", "social posts", "five-beat reel briefs", "email creative brief", "channel copy", "governed intake attribution"],
+      "human_gates": ["claim approval", "creative approval", "publication approval", "spend approval"],
+      "effects": {"publication": false, "spend": false, "send": false, "deployment": false},
+      "commercial_state": "composition_defined_execution_proof_required"
+    },
+    "dio_report_pitch_studio": {
+      "label": "DIO Report & Pitch Studio",
+      "family": "design_studio",
+      "work_pattern": "source_material_to_professional_presentation_package",
+      "buyer": "professional, research, NGO/NPO, education or SME team with valuable content that needs executive-quality presentation",
+      "pain": "Strong source material loses impact when reports, proposals and decks are visually weak, inconsistent or rebuilt manually across formats.",
+      "outcome": "A polished, source-faithful report or pitch package rendered consistently across document and presentation formats.",
+      "pricing": {"mode": "from", "currency": "ZAR", "amount": 3900, "state": "launch_hypothesis_not_validated"},
+      "intake_owner": "document_studio",
+      "components": [
+        {"id": "document_studio", "role": "document_and_presentation_rendering", "binding": "direct_products.document_studio"},
+        {"id": "nichefoundry", "role": "visual_narrative_and_supporting_media_direction", "binding": "direct_products.nichefoundry"},
+        {"id": "lingua", "role": "source_meaning_and_localisation_custody", "binding": "aliases.lingua"}
+      ],
+      "inputs": ["source documents", "audience", "purpose", "brand assets", "required output formats"],
+      "deliverables": ["content hierarchy", "visual narrative brief", "formatted report or deck", "supporting graphic briefs", "delivery package", "review receipt"],
+      "human_gates": ["content approval", "visual approval", "external release approval"],
+      "effects": {"publication": false, "spend": false, "send": false, "deployment": false},
+      "commercial_state": "composition_defined_execution_proof_required"
+    },
+    "dio_popia_readiness": {
+      "label": "DIO POPIA Readiness",
+      "family": "legal_operations",
+      "work_pattern": "authority_profile_to_privacy_readiness_pack",
+      "buyer": "South African SME, professional practice, school, NGO/NPO or project team preparing privacy operations and documentation for professional review",
+      "pain": "Privacy obligations, information flows, policies, notices, supplier evidence and remediation actions are scattered across documents and people.",
+      "outcome": "An evidence-bound privacy readiness pack showing known requirements, source evidence, gaps, draft materials and review decisions without claiming legal compliance.",
+      "pricing": {"mode": "from", "currency": "ZAR", "amount": 7900, "state": "launch_hypothesis_not_validated"},
+      "intake_owner": "evidex",
+      "governance_owner": "legalis",
+      "components": [
+        {"id": "dio_regops", "role": "prerequisite_evidence_deadline_and_readiness_review", "binding": "product_classes.dio_regops"},
+        {"id": "dio_policyproof", "role": "policy_requirement_and_evidence_mapping", "binding": "product_classes.policyproof"},
+        {"id": "evidex", "role": "evidence_and_gap_operations", "binding": "direct_products.evidex"},
+        {"id": "document_studio", "role": "review_ready_document_assembly", "binding": "direct_products.document_studio"},
+        {"id": "lingua", "role": "semantic_and_language_custody", "binding": "aliases.lingua"}
+      ],
+      "inputs": ["authorised jurisdiction/profile", "business context", "processing information", "existing policies/notices", "supplier and website evidence"],
+      "deliverables": ["requirement register", "evidence map", "gap register", "draft review materials", "remediation/action queue", "professional-review pack"],
+      "human_gates": ["authority profile approval", "legal interpretation where required", "document approval", "external use approval"],
+      "legal_boundary": {"legal_advice": false, "compliance_certification": false, "legal_opinion": false, "professional_review_required_when_interpretation_needed": true},
+      "effects": {"publication": false, "spend": false, "send": false, "filing": false, "legal_representation": false},
+      "commercial_state": "composition_defined_execution_proof_required"
+    },
+    "dio_corporate_readiness": {
+      "label": "DIO Corporate Readiness",
+      "family": "legal_operations",
+      "work_pattern": "corporate_requirements_to_evidence_and_deadline_readiness",
+      "buyer": "South African small business or organisation needing structured corporate record, prerequisite and deadline preparation",
+      "pain": "Corporate obligations, change events, supporting records, filing prerequisites and deadlines are easy to lose across inboxes, spreadsheets and ad hoc reminders.",
+      "outcome": "A governed corporate-readiness register and evidence pack prepared for an authorised filer, accountant, company secretarial professional or legal reviewer where needed.",
+      "pricing": {"mode": "from", "currency": "ZAR", "amount": 4900, "state": "launch_hypothesis_not_validated"},
+      "intake_owner": "evidex",
+      "governance_owner": "legalis",
+      "components": [
+        {"id": "dio_regops", "role": "prerequisite_evidence_and_readiness_control", "binding": "product_classes.dio_regops"},
+        {"id": "obligation_engine", "role": "deadline_and_obligation_tracking", "binding": "internal_runtime"},
+        {"id": "evidex", "role": "record_and_evidence_operations", "binding": "direct_products.evidex"},
+        {"id": "document_studio", "role": "review_pack_assembly", "binding": "direct_products.document_studio"},
+        {"id": "vesper", "role": "held_intake_and_attention_surface", "binding": "presence_owner"}
+      ],
+      "inputs": ["authorised corporate profile", "entity records", "known change events", "supporting evidence", "relevant deadlines"],
+      "deliverables": ["corporate obligation register", "evidence checklist", "missing-record queue", "deadline queue", "filing-readiness pack", "human handoff brief"],
+      "human_gates": ["requirement/profile approval", "filing decision", "professional interpretation where required", "submission authority"],
+      "legal_boundary": {"legal_advice": false, "filing_authority": false, "legal_opinion": false, "professional_review_required_when_interpretation_needed": true},
+      "effects": {"publication": false, "spend": false, "send": false, "filing": false, "legal_representation": false},
+      "commercial_state": "composition_defined_execution_proof_required"
+    },
+    "dio_contract_desk": {
+      "label": "DIO Contract Desk",
+      "family": "legal_operations",
+      "work_pattern": "contract_source_to_obligation_and_review_pack",
+      "buyer": "SME, project, professional, procurement or operations team needing contract facts, obligations and evidence organised for human review",
+      "pain": "Contract dates, deliverables, dependencies, supporting evidence and review questions are buried in source documents and monitored manually.",
+      "outcome": "A source-bound contract review pack and obligation register that helps an authorised human understand and operate the agreement without DIO giving legal advice.",
+      "pricing": {"mode": "from", "currency": "ZAR", "amount": 7900, "state": "launch_hypothesis_not_validated"},
+      "intake_owner": "evidex",
+      "governance_owner": "legalis",
+      "components": [
+        {"id": "dio_contractproof", "role": "contract_obligation_evidence_proof", "binding": "product_classes.contractproof"},
+        {"id": "obligation_engine", "role": "obligation_and_deadline_tracking", "binding": "internal_runtime"},
+        {"id": "evidex", "role": "supporting_evidence_operations", "binding": "direct_products.evidex"},
+        {"id": "document_studio", "role": "review_pack_and_register_rendering", "binding": "direct_products.document_studio"},
+        {"id": "vesper", "role": "inbound_intake_and_human_attention", "binding": "presence_owner"}
+      ],
+      "inputs": ["authorised contract source", "party/context metadata", "supporting evidence", "known milestones or amendments"],
+      "deliverables": ["source identity receipt", "obligation register", "deadline/dependency map", "supporting evidence map", "review questions", "human-review pack"],
+      "human_gates": ["source authority approval", "legal interpretation", "risk acceptance", "contract decision", "external communication"],
+      "legal_boundary": {"legal_advice": false, "contract_interpretation_authority": false, "risk_acceptance": false, "professional_review_required_when_interpretation_needed": true},
+      "effects": {"publication": false, "spend": false, "send": false, "filing": false, "legal_representation": false},
+      "commercial_state": "composition_defined_execution_proof_required"
+    }
+  },
+  "portfolio_truth": {
+    "product_count": 6,
+    "design_products": 3,
+    "legal_operations_products": 3,
+    "executors_created_by_this_registry": 0,
+    "execution_proofs_created_by_this_registry": 0,
+    "public_launch_authority_created": false,
+    "commercial_validation_created": false,
+    "next_gate": "Run typed composition validation, then prove each composition through one bounded controlled case before controlled-pilot launch consideration."
+  }
+}
