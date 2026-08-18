@@ -37,6 +37,18 @@ def _truthy(value: str | None) -> bool:
 
 def load_persona_lab(root: Path) -> dict[str, Any]:
     path = Path(root) / "config" / "vesper_persona_lab.json"
+    if not path.is_file():
+        return {
+            "schema": "dio.vesper.persona_lab.v1",
+            "experiment_id": "VESPER-PERSONA-LAB-DISABLED",
+            "state": "not_configured",
+            "assignment": {"environment_gate": "DIO_VESPER_PERSONA_LAB"},
+            "initial_cells": [],
+            "personas": {},
+            "avatars": {},
+            "voice_candidates": {},
+            "promotion": {},
+        }
     value = json.loads(path.read_text(encoding="utf-8"))
     if value.get("schema") != "dio.vesper.persona_lab.v1":
         raise ValueError("unsupported Vesper persona lab schema")
@@ -125,7 +137,6 @@ def assign_persona(
         target.parent.mkdir(parents=True, exist_ok=True)
         if target.is_file():
             existing = json.loads(target.read_text(encoding="utf-8"))
-            # Preserve the first assignment so configuration changes cannot morph a live conversation.
             return existing
         target.write_text(json.dumps(receipt, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
         receipt["receipt_path"] = str(target)
