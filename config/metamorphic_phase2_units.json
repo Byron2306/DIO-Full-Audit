@@ -1,0 +1,39 @@
+{
+  "schema": "dio.metamorphic_phase2_reference_units.v1",
+  "executor": {
+    "executor_id": "products.studio_native_closure.close_studio_case",
+    "executor_version": "1",
+    "executor_path": "products/studio_native_closure.py"
+  },
+  "units": [
+    {
+      "unit_id": "professional_correspondence_studio",
+      "manifest_path": "config/studio_harvest/professional_correspondence_studio.json",
+      "roles": ["product", "capability"],
+      "provides": ["professional_correspondence"]
+    },
+    {
+      "unit_id": "finance_readiness_studio",
+      "manifest_path": "config/studio_harvest/finance_readiness_studio.json",
+      "roles": ["product", "capability"],
+      "provides": ["finance_readiness"]
+    },
+    {
+      "unit_id": "article_publication_studio",
+      "manifest_path": "config/studio_harvest/article_publication_studio.json",
+      "roles": ["product", "capability"],
+      "provides": ["article_publication"]
+    }
+  ],
+  "authority_ceiling": "controlled_artifact_only",
+  "required_manifest_authority": {
+    "human_gate": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "maturity_state": "native_multi_organ_execution_proved",
+  "site_studio_reference_excluded": true,
+  "phase3_semantic_law_required": true
+}
