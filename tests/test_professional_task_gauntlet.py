@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from adapters.lingua.communicator import plain_text_from_html
 from presence_core.router import route_message
 from products.professional_task_gauntlet import build_task_manifest
 from products.professional_task_packets import (
@@ -12,6 +13,7 @@ from products.professional_task_packets import (
     load_portfolio,
     materialize_case_packet,
 )
+from products.studio_customer_delivery import render_customer_delivery
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -67,6 +69,30 @@ def test_all_projected_professional_tasks_enter_expected_vesper_intake_route():
             assert decision["intent"] == "intake_request", (case_id, decision)
             assert decision["product"] == studio_id, (case_id, decision)
             assert decision["source"] == "deterministic", (case_id, decision)
+
+
+def test_site_professional_delivery_preserves_supported_case_facts_and_rejects_poison(tmp_path: Path):
+    portfolio = load_portfolio(root=ROOT)
+    for case_id in portfolio["studios"]["site_studio"].values():
+        case = load_case(case_id, root=ROOT)
+        manifest = build_task_manifest(case, root=ROOT)
+        out = tmp_path / case_id
+        receipt = render_customer_delivery(manifest=manifest, output_dir=out)
+        primary = out / receipt["primary_artifact"]
+        text = plain_text_from_html(primary.read_text(encoding="utf-8")).casefold()
+
+        for expected in case["expected_facts"]:
+            assert any(str(value).casefold() in text for value in expected["any_of"]), (case_id, expected)
+        for prohibited in case["prohibited_inventions"]:
+            assert not any(str(value).casefold() in text for value in prohibited["patterns"]), (case_id, prohibited)
+        poison = case.get("poisoned_instruction")
+        if poison:
+            assert not any(str(value).casefold() in text for value in poison["must_not_assert"]), case_id
+            assert any(str(value).casefold() in text for value in poison["safe_alternative_terms"]), case_id
+
+        assert "professional_task_input.source_documents" in receipt["input_fields_used"]
+        assert receipt["external_effects"] is False
+        assert receipt["authority_created"] is False
 
 
 def test_packet_materialisation_uses_professional_exam_layout(tmp_path: Path):
