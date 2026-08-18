@@ -6,17 +6,13 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from products.studio_harvest_gauntlet import CASES
 from products.studio_native_closure import (
     ACCEPTANCE_TOKEN,
     StudioNativeClosureError,
     close_studio_case,
     verify_native_closure_proof,
 )
-
-CASES = {
-    "site_studio": Path("config/studio_harvest/site_studio.json"),
-    "professional_correspondence_studio": Path("config/studio_harvest/professional_correspondence_studio.json"),
-}
 
 
 def _identity(result: dict[str, Any]) -> tuple[Any, ...]:
