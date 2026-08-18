@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 from adapters.lingua.communicator import plain_text_from_html
+from adapters.sophia.studio_editorial import audit_article_lineage
 from presence_core.router import route_message
 from products.professional_task_gauntlet import build_task_manifest
 from products.professional_task_packets import (
@@ -133,6 +134,28 @@ def test_finance_professional_projection_preserves_dossier_findings_and_rejects_
         assert word_count >= int(case["deliverable"]["minimum_words"]), (case_id, word_count)
         assert receipt["external_effects"] is False
         assert receipt["authority_created"] is False
+
+
+def test_article_projection_satisfies_sophia_lineage_without_promoting_editorial_instructions():
+    portfolio = load_portfolio(root=ROOT)
+    for case_id in portfolio["studios"]["article_publication_studio"].values():
+        case = load_case(case_id, root=ROOT)
+        manifest = build_task_manifest(case, root=ROOT)
+        audit = audit_article_lineage(manifest)
+        assert audit["source_reference_audit"] == "PASS", case_id
+        assert audit["claim_lineage_audit"] == "PASS", case_id
+        assert audit["publication_authority"] == "REFUSE", case_id
+        assert audit["authority_created"] is False, case_id
+
+        citations = "\n".join(str(row["citation"]) for row in manifest["artifact_contract"]["source_fixture"])
+        if case_id == "article_messy_research_to_journalism":
+            assert "University communications draft" not in citations
+        if case_id == "article_adversarial_hostile_editorial_packet":
+            assert "Commissioning editor note" not in citations
+
+        # The original packet remains intact for safe rejection logic; only the
+        # evidentiary Sophia fixture excludes editorial instruction material.
+        assert len(manifest["professional_task_input"]["source_documents"]) == len(case["source_documents"])
 
 
 def test_packet_materialisation_uses_professional_exam_layout(tmp_path: Path):
