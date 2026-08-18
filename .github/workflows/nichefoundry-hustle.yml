@@ -1,4 +1,4 @@
-name: NicheFoundry LINGUA Commercial Learning
+name: DIO LINGUA Communication Learning
 
 on:
   push:
@@ -7,21 +7,28 @@ on:
   pull_request:
     paths:
       - "config/marketing_sales_playbook.json"
+      - "config/lingua_product_routes.json"
       - "scripts/build_multichannel_campaign_factory.py"
       - "scripts/build_hustle_campaign_factory.py"
       - "scripts/build_lingua_hustle_campaign_factory.py"
       - "scripts/lingua_marketing_learning.py"
       - "scripts/render_pending_hustle_reels.py"
+      - "scripts/manage_mail_intent.py"
+      - "scripts/dio_mail_branding.py"
+      - "presence_core/**"
       - "adapters/lingua/lifecycle.py"
+      - "adapters/lingua/communicator.py"
       - "tests/test_multichannel_campaign_factory.py"
       - "tests/test_nichefoundry_hustle_factory.py"
       - "tests/test_lingua_marketing_learning.py"
+      - "tests/test_lingua_public_communicator.py"
+      - "tests/test_presence_engine.py"
       - "ops/systemd/user/dio-marketing-factory.service"
       - ".github/workflows/nichefoundry-hustle.yml"
   workflow_dispatch:
 
 jobs:
-  lingua-hustle-factory:
+  lingua-communication-factory:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,21 +36,28 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install focused test dependencies
-        run: python -m pip install --upgrade pip pillow pytest
-      - name: Compile marketing and LINGUA learning factory
+        run: python -m pip install --upgrade pip pillow pytest httpx
+      - name: Compile marketing, Vesper, mail and LINGUA seams
         run: |
           python -m compileall -q \
             scripts/build_multichannel_campaign_factory.py \
             scripts/build_hustle_campaign_factory.py \
             scripts/build_lingua_hustle_campaign_factory.py \
             scripts/lingua_marketing_learning.py \
-            scripts/render_pending_hustle_reels.py
-      - name: Run legacy, persuasion and LINGUA learning tests
+            scripts/render_pending_hustle_reels.py \
+            scripts/manage_mail_intent.py \
+            scripts/dio_mail_branding.py \
+            adapters/lingua/lifecycle.py \
+            adapters/lingua/communicator.py \
+            presence_core
+      - name: Run legacy, persuasion, Presence and LINGUA tests
         run: |
           pytest -q \
             tests/test_multichannel_campaign_factory.py \
             tests/test_nichefoundry_hustle_factory.py \
-            tests/test_lingua_marketing_learning.py
+            tests/test_lingua_marketing_learning.py \
+            tests/test_lingua_public_communicator.py \
+            tests/test_presence_engine.py
       - name: Smoke one LINGUA-taught family without external effects
         run: |
           out="$(mktemp -d)"
