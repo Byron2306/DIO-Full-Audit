@@ -6,7 +6,6 @@ import pytest
 from commercial_metabolism.contracts import MarketObservation, MarketObservationKind
 from commercial_metabolism.observation import (
     M2_PHASE5_EXIT_TOKEN,
-    CommercialObservationEpisode,
     exercise_controlled_observation_scenarios,
     phase5_market_observation_receipt,
 )
@@ -83,12 +82,17 @@ def test_no_response_requires_and_has_closed_window(observed, phase_receipt):
     assert phase_receipt["no_response_scope"] == "exact_commercial_context_only"
 
 
-def test_market_command_materialises_measurements_without_activating_campaign(observed, phase_receipt):
+def test_market_command_scenario_worlds_are_isolated_draft_and_held(observed, phase_receipt):
     _episodes, evidence = observed
-    campaign = evidence["campaign"]
-    assert campaign["state"] == "draft"
-    assert campaign["publication_state"] == "held"
+    base = evidence["base_campaign"]
+    assert base["state"] == "draft"
+    assert base["publication_state"] == "held"
+    for row in evidence["rows"].values():
+        assert row["campaign"]["state"] == "draft"
+        assert row["campaign"]["publication_state"] == "held"
     assert phase_receipt["market_command_existing_organ_reused"] is True
+    assert phase_receipt["market_command_scenario_worlds_isolated"] is True
+    assert phase_receipt["market_command_scenario_campaigns_held"] is True
     assert phase_receipt["activation_performed"] is False
 
 
