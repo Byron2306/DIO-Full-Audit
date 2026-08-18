@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from adapters.lingua.communicator import plain_text_from_html, register_communication
+from adapters.lingua.communicator import plain_text_from_html, register_communication, requested_language
 from presence_core.engine import process_envelope
 from scripts.manage_mail_intent import create_intent_from_payload
 
@@ -40,6 +40,14 @@ def test_shared_communicator_registers_meaning_without_authority(tmp_path: Path)
     assert semantic["origin"]["product"] == "vesper"
     assert semantic["origin"]["channel"] == "telegram"
     assert semantic["origin"]["target_language"] == "Afrikaans"
+
+
+def test_common_locale_codes_resolve_to_canonical_lingua_languages() -> None:
+    assert requested_language(explicit="en-ZA") == "English"
+    assert requested_language(explicit="af_ZA") == "Afrikaans"
+    assert requested_language(explicit="zu-ZA") == "isiZulu"
+    assert requested_language(explicit="st-ZA") == "Sesotho"
+    assert requested_language(explicit="tn-ZA") == "Setswana"
 
 
 def test_presence_reply_is_bound_to_lingua(tmp_path: Path, monkeypatch) -> None:
