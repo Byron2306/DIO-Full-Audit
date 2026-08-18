@@ -42,7 +42,7 @@ def observe(runtime: Any, *, mission_id: str, event_type: str, payload: dict[str
         workspace_id="dio-metamorphic-m1",
         confidence_method="native_execution_receipt",
     )
-    event_id = str(receipt.admitted.event_id)
+    event_id = str(receipt.admitted.event.event_id)
     if not event_id:
         raise MetamorphicSensoriumError("Sensorium admitted event has no identity")
     return event_id
