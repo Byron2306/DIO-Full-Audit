@@ -148,15 +148,31 @@ def _article_lineage_citation(row: dict[str, Any]) -> str:
     )
 
 
+def _article_substantive_line(line: str) -> bool:
+    """Return True for source content worth carrying into editorial synthesis."""
+    clean = re.sub(r"\s+", " ", line).strip()
+    if not clean:
+        return False
+    # Packet headings describe document type rather than evidence content.
+    if re.fullmatch(r"[A-Z][A-Z0-9 /&_-]{2,}", clean) and len(clean.split()) <= 8 and ":" not in clean:
+        return False
+    words = re.findall(r"\b[\w'-]+\b", clean)
+    return len(words) >= 6 or bool(re.search(r"\d|%", clean))
+
+
 def _article_claims(case: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Project visible Article sources into traceable editorial claims.
+
+    Genuine evidence sources retain all substantive factual/limitation lines so
+    samples, findings, caveats and expert attribution survive into delivery.
+    Hostile press-release or commissioning instructions remain visible in the
+    task packet but are represented in the claim fixture only by a neutral REFUSE
+    notice. Their original wording is retained separately for proof/audit and is
+    never promoted into Sophia evidence lineage or buyer-facing copy.
+    """
     sources: list[dict[str, Any]] = []
-    source_by_id: dict[str, dict[str, Any]] = {}
     claims: list[dict[str, Any]] = []
     claim_no = 1
-    unsafe = re.compile(
-        r"\b(proves?|caused?|always|universally|#1|leading|guarantee[sd]?|request:|proposed headline)\b",
-        flags=re.IGNORECASE,
-    )
 
     for index, row in enumerate(case.get("source_documents") or [], 1):
         source_id = f"SRC-{index:02d}"
@@ -169,70 +185,43 @@ def _article_claims(case: dict[str, Any]) -> tuple[list[dict[str, Any]], list[di
                 "supports": [],
             }
             sources.append(source_entry)
-            source_by_id[source_id] = source_entry
 
-        candidates: list[str] = []
+        seen_lines: set[str] = set()
         for raw in str(row.get("text") or "").splitlines():
-            line = raw.strip()
-            if not line:
+            line = re.sub(r"\s+", " ", raw).strip()
+            if not _article_substantive_line(line):
                 continue
-            labelled = re.match(
-                r"^(?:Key finding|Limitation|Sample|Professor [^:]+|Dr [^:]+|Patel cautioned|She said|He said|Proposed headline|Draft sentence|Request)\s*:\s*(.+)$",
-                line,
-                flags=re.IGNORECASE,
-            )
-            if labelled:
-                candidates.append(labelled.group(1).strip())
-            elif "%" in line or re.search(
-                r"\b(?:observational|non-randomised|not randomised|not directly comparable|cannot establish|expires?)\b",
-                line,
-                flags=re.IGNORECASE,
-            ):
-                candidates.append(line)
+            key = line.casefold()
+            if key in seen_lines:
+                continue
+            seen_lines.add(key)
 
-        for text_value in candidates:
-            if len(text_value) < 20:
-                continue
-            state = "REFUSE" if role != "evidence" or unsafe.search(text_value) else "SUPPORTED"
             claim_id = f"CL-{claim_no:02d}"
             claim_no += 1
-            evidence_ids = [source_id] if state == "SUPPORTED" else []
-            claims.append(
-                {
+            original = line.rstrip(".") + "."
+            if role == "evidence":
+                claim = {
                     "claim_id": claim_id,
-                    "text": text_value.rstrip(".") + ".",
-                    "state": state,
-                    "evidence_ids": evidence_ids,
+                    "text": original,
+                    "state": "SUPPORTED",
+                    "evidence_ids": [source_id],
                 }
-            )
-            if state == "SUPPORTED" and source_entry is not None:
-                source_entry["supports"].append(claim_id)
+                if source_entry is not None:
+                    source_entry["supports"].append(claim_id)
+            else:
+                claim = {
+                    "claim_id": claim_id,
+                    "text": "Unsupported editorial instruction excluded from publication.",
+                    "state": "REFUSE",
+                    "evidence_ids": [],
+                    "rejected_source_text": original,
+                }
+            claims.append(claim)
 
     if len([row for row in claims if row["state"] == "SUPPORTED"]) < 2:
-        for index, row in enumerate(case.get("source_documents") or [], 1):
-            source_id = f"SRC-{index:02d}"
-            source_entry = source_by_id.get(source_id)
-            if source_entry is None:
-                continue
-            for sentence in re.split(r"(?<=[.!?])\s+", str(row.get("text") or "")):
-                sentence = sentence.strip()
-                if len(sentence) < 35 or unsafe.search(sentence):
-                    continue
-                claim_id = f"CL-{claim_no:02d}"
-                claim_no += 1
-                claims.append(
-                    {
-                        "claim_id": claim_id,
-                        "text": sentence.rstrip(".") + ".",
-                        "state": "SUPPORTED",
-                        "evidence_ids": [source_id],
-                    }
-                )
-                source_entry["supports"].append(claim_id)
-                if len([x for x in claims if x["state"] == "SUPPORTED"]) >= 3:
-                    break
-            if len([x for x in claims if x["state"] == "SUPPORTED"]) >= 3:
-                break
+        raise ProfessionalTaskGauntletError(
+            f"article professional task has insufficient source-supported material: {case['case_id']}"
+        )
     return sources, claims
 
 
