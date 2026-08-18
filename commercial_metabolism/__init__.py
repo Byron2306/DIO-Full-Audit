@@ -2,8 +2,9 @@
 
 M2 begins from a verified Metamorphic Spine M1 parent. Phase M2-0 freezes the
 commercial constitution and harvests existing DIO organs. Phase M2-1 adds
-immutable commercial context, lineage, observation and settlement contracts
-without introducing a competing runtime or widening authority.
+immutable commercial context, lineage, observation and settlement contracts.
+Phase M2-2 reuses LINGUA to project buyer-facing claims without laundering proof
+gaps into commercial truth or widening authority.
 """
 
 from .constitution import (
@@ -35,14 +36,32 @@ from .contracts import (
     SettlementOutcome,
     phase1_contract_receipt,
 )
+from .projection import (
+    CommercialClaim,
+    CommercialClaimState,
+    CommercialProjection,
+    CommercialProjectionError,
+    DEFAULT_PROJECTION_CONFIG,
+    M2_PHASE2_EXIT_TOKEN,
+    build_commercial_projection,
+    build_reference_commercial_context,
+    evaluate_buyer_draft,
+    phase2_projection_receipt,
+)
 
 __all__ = [
     "DEFAULT_CONFIG",
+    "DEFAULT_PROJECTION_CONFIG",
     "M2_PHASE0_EXIT_TOKEN",
     "M2_PHASE1_EXIT_TOKEN",
+    "M2_PHASE2_EXIT_TOKEN",
     "REQUIRED_ANCHOR_IDS",
     "REQUIRED_LAWS",
+    "CommercialClaim",
+    "CommercialClaimState",
     "CommercialConstitutionError",
+    "CommercialProjection",
+    "CommercialProjectionError",
     "ChannelAccessState",
     "ChannelState",
     "CommercialContext",
@@ -60,6 +79,10 @@ __all__ = [
     "PricingEvidenceState",
     "PricingHypothesisState",
     "SettlementOutcome",
+    "build_commercial_projection",
+    "build_reference_commercial_context",
+    "evaluate_buyer_draft",
     "phase1_contract_receipt",
+    "phase2_projection_receipt",
     "validate_commercial_constitution",
 ]
