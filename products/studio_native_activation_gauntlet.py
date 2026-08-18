@@ -61,6 +61,42 @@ def _assert_truthful_capabilities(result: dict[str, Any]) -> None:
             raise AssertionError(f"{row['engine_id']} source-bound state contains execution claims")
 
 
+def _expected_states(studio_id: str) -> dict[str, str]:
+    if studio_id == "site_studio":
+        return {
+            "market_command": "NATIVE_EXECUTED",
+            "nichefoundry": "PARTIAL_NATIVE_EXECUTION",
+            "document_studio": "PARTIAL_NATIVE_EXECUTION",
+            "evidex": "PARTIAL_NATIVE_EXECUTION",
+            "commercial_truth": "PARTIAL_NATIVE_EXECUTION",
+        }
+    if studio_id == "professional_correspondence_studio":
+        return {
+            "outlook_mail_core": "NATIVE_EXECUTED",
+            "document_studio": "NATIVE_EXECUTED",
+            "commercial_truth": "NATIVE_EXECUTED",
+            "evidex": "SOURCE_BOUND_ONLY",
+        }
+    if studio_id == "finance_readiness_studio":
+        return {
+            "nichefoundry": "NATIVE_EXECUTED",
+            "sophia": "NATIVE_EXECUTED",
+            "vamp": "NATIVE_EXECUTED",
+            "document_studio": "PARTIAL_NATIVE_EXECUTION",
+            "evidex": "PARTIAL_NATIVE_EXECUTION",
+            "commercial_truth": "PARTIAL_NATIVE_EXECUTION",
+        }
+    if studio_id == "article_publication_studio":
+        return {
+            "nichefoundry": "NATIVE_EXECUTED",
+            "sophia": "NATIVE_EXECUTED",
+            "document_studio": "PARTIAL_NATIVE_EXECUTION",
+            "evidex": "PARTIAL_NATIVE_EXECUTION",
+            "commercial_truth": "PARTIAL_NATIVE_EXECUTION",
+        }
+    raise AssertionError(f"missing native activation expectation for {studio_id}")
+
+
 def run_gauntlet(*, output_dir: Path | None = None) -> dict[str, Any]:
     owned = tempfile.TemporaryDirectory(prefix="dio-studio-native-") if output_dir is None else None
     out = Path(owned.name) if owned else Path(output_dir)
@@ -99,22 +135,7 @@ def run_gauntlet(*, output_dir: Path | None = None) -> dict[str, Any]:
         if engines["vesper"]["execution_state"] != "PARTIAL_NATIVE_EXECUTION":
             raise AssertionError(f"{studio_id} Vesper route truth changed unexpectedly")
 
-        if studio_id == "site_studio":
-            expected = {
-                "market_command": "NATIVE_EXECUTED",
-                "nichefoundry": "PARTIAL_NATIVE_EXECUTION",
-                "document_studio": "PARTIAL_NATIVE_EXECUTION",
-                "evidex": "PARTIAL_NATIVE_EXECUTION",
-                "commercial_truth": "PARTIAL_NATIVE_EXECUTION",
-            }
-        else:
-            expected = {
-                "outlook_mail_core": "NATIVE_EXECUTED",
-                "document_studio": "NATIVE_EXECUTED",
-                "commercial_truth": "NATIVE_EXECUTED",
-                "evidex": "SOURCE_BOUND_ONLY",
-            }
-        for engine_id, state in expected.items():
+        for engine_id, state in _expected_states(studio_id).items():
             if engines[engine_id]["execution_state"] != state:
                 raise AssertionError(f"{studio_id} {engine_id} expected {state}, got {engines[engine_id]['execution_state']}")
 
