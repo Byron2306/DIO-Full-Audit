@@ -22,6 +22,10 @@ egress, ARDA execution or world settlement.
 Phase 7 records that closed Sensorium outcome into BEAST capability learning and
 negative-capability organs, binds Harmonics inference, and keeps all learning
 candidate-only with no direct learning-to-execution or authority path.
+Phase 8 closes the VNS, Seraph, and ARDA boundaries with explicit Last-Chord
+witness states. No network evidence is invented, Seraph remains the egress
+authority owner, and ARDA is bound as an armed bounded-execution/reverse-evidence
+contract without claiming physical transport or general execution authority.
 """
 
 from .integration_inventory import (
@@ -99,6 +103,13 @@ from .learning import (
     PHASE7_EXIT_TOKEN,
     phase7_learning_receipt,
 )
+from .boundary_closure import (
+    PHASE8_EXIT_TOKEN,
+    REQUIRED_PHASE8_WITNESSES,
+    MetamorphicBoundaryClosureError,
+    phase8_boundary_closure_receipt,
+    validate_required_witnesses,
+)
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
@@ -156,4 +167,9 @@ __all__ = [
     "run_reference_native_execution",
     "PHASE7_EXIT_TOKEN",
     "phase7_learning_receipt",
+    "PHASE8_EXIT_TOKEN",
+    "REQUIRED_PHASE8_WITNESSES",
+    "MetamorphicBoundaryClosureError",
+    "phase8_boundary_closure_receipt",
+    "validate_required_witnesses",
 ]
