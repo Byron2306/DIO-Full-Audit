@@ -2,6 +2,7 @@
   "schema": "dio.m2.commercial_authority_separation_config.v1",
   "required_parent_acceptance": "DIO_M2_LINGUA_COMMERCIAL_PROJECTION_READY",
   "reference_channel": {
+    "context_id": "M2-P3-FUNDING-PROPOSAL-OUTLOOK",
     "channel_id": "OUTLOOK",
     "access_state": "DRAFT_ONLY",
     "read_capability_present": true,
