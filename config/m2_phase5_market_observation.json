@@ -1,0 +1,76 @@
+{
+  "schema": "dio.m2.market_observation_config.v1",
+  "required_parent_acceptance": "DIO_M2_MARKET_EPISODE_READY",
+  "observation_mode": "source_bound_controlled_fixture",
+  "real_market_exposure_claimed": false,
+  "commercial_validation_claimed": false,
+  "base_window": {
+    "start": "2026-08-18T00:00:00+00:00",
+    "end": "2026-08-18T01:00:00+00:00"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "positive_response",
+      "outcome_class": "POSITIVE_RESPONSE",
+      "kind": "ENQUIRY",
+      "observed_at": "2026-08-18T00:30:00+00:00",
+      "window_closed": true,
+      "source_ref": "fixture:m2-phase5:positive-response",
+      "metrics": {
+        "impressions": 100,
+        "reach": 90,
+        "clicks": 10,
+        "enquiries": 1,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "source": "controlled_fixture_positive_response"
+      }
+    },
+    {
+      "scenario_id": "negative_response",
+      "outcome_class": "NEGATIVE_RESPONSE",
+      "kind": "REJECTION",
+      "observed_at": "2026-08-18T00:40:00+00:00",
+      "window_closed": true,
+      "source_ref": "fixture:m2-phase5:negative-response",
+      "metrics": {
+        "impressions": 100,
+        "reach": 88,
+        "clicks": 7,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "source": "controlled_fixture_negative_response"
+      }
+    },
+    {
+      "scenario_id": "no_response",
+      "outcome_class": "NO_RESPONSE",
+      "kind": "NO_RESPONSE",
+      "observed_at": "2026-08-18T01:00:00+00:00",
+      "window_closed": true,
+      "source_ref": "fixture:m2-phase5:no-response",
+      "metrics": {
+        "impressions": 100,
+        "reach": 85,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "source": "controlled_fixture_no_response"
+      }
+    }
+  ]
+}
