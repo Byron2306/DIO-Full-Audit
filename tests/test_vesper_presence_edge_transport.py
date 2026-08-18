@@ -33,6 +33,25 @@ def sample_event(body_text: str) -> dict:
     }
 
 
+def telegram_event(text: str = "Tell me what HOMS does") -> dict:
+    return {
+        "id": 9,
+        "event_key": "telegram:123:hash",
+        "update_id": "123",
+        "body_text": json.dumps({
+            "update_id": 123,
+            "message": {
+                "message_id": 77,
+                "from": {"id": 42, "first_name": "Byron"},
+                "chat": {"id": 42, "type": "private"},
+                "text": text,
+            },
+        }, separators=(",", ":")),
+        "received_at": "2026-08-18T05:30:00Z",
+        "attempts": 0,
+    }
+
+
 class FakeResponse:
     def __init__(self, payload: dict):
         self.payload = json.dumps(payload).encode()
@@ -43,7 +62,7 @@ class FakeResponse:
     def __exit__(self, *args):
         return False
 
-    def read(self):
+    def read(self, *args):
         return self.payload
 
 
@@ -96,3 +115,50 @@ def test_config_refuses_public_core(tmp_path):
     }))
     with pytest.raises(module.PresenceEdgeError):
         module.read_config(path)
+
+
+def test_telegram_text_update_becomes_operator_signable_presence_envelope():
+    module = load_module()
+    envelope = module.telegram_to_envelope(telegram_event())
+    assert envelope["schema"] == "dio.presence_ingress.v2"
+    assert envelope["channel"] == "telegram"
+    assert envelope["external_user_id"] == "42"
+    assert envelope["display_name"] == "Byron"
+    assert envelope["source_message_id"] == "77"
+    assert envelope["message_type"] == "text"
+    assert envelope["text"] == "Tell me what HOMS does"
+    assert envelope["metadata"]["telegram_update_id"] == "123"
+    assert envelope["metadata"]["telegram_chat_id"] == "42"
+    assert envelope["metadata"]["custody"] == "cloudflare_d1_provider_authenticated_transport_only"
+    assert envelope["attachment"] is None
+
+
+def test_telegram_local_signing_keeps_dio_shared_secret_off_cloudflare(monkeypatch):
+    module = load_module()
+    monkeypatch.setenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", "x" * 40)
+    signed = module.locally_sign_telegram_event(telegram_event())
+    assert signed["key_id"] == "operator-edge"
+    assert len(signed["signature"]) == 64
+    assert signed["nonce"].startswith("tg_123_")
+    envelope = json.loads(signed["body_text"])
+    assert envelope["external_user_id"] == "42"
+    assert "DIO_PRESENCE_OPERATOR_SHARED_SECRET" not in signed["body_text"]
+
+
+def test_missing_local_operator_secret_is_retryable(monkeypatch):
+    module = load_module()
+    monkeypatch.delenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", raising=False)
+    with pytest.raises(module.TransientPresenceError):
+        module.locally_sign_telegram_event(telegram_event())
+
+
+def test_replay_409_can_close_telegram_delivery_without_duplicate_processing(monkeypatch):
+    module = load_module()
+    event = sample_event('{"channel":"telegram","external_user_id":"42","text":"hello"}')
+
+    def fake_urlopen(request, timeout):
+        raise HTTPError(request.full_url, 409, "Conflict", {}, io.BytesIO(b'{"detail":"Replay detected."}'))
+
+    monkeypatch.setattr(module, "urlopen", fake_urlopen)
+    result = module.forward_to_core(event, "http://127.0.0.1:8787", replay_is_success=True)
+    assert result["duplicate_delivery"] is True
