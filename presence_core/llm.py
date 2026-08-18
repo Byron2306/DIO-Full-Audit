@@ -2,6 +2,7 @@ from __future__ import annotations
 import json, os
 from typing import Any
 import httpx
+from adapters.lingua.interaction_regulator import llm_style_instruction
 
 INTENTS=["general_info","product_info","pricing_info","intake_request","status_request","translation_info","formatting_info","unknown"]
 
@@ -17,12 +18,16 @@ def classify_with_ollama(text: str, products: list[str]) -> dict[str,Any]|None:
         parsed["confidence"]=max(0.0,min(float(parsed.get("confidence",0)),1.0)); return parsed
     except Exception: return None
 
-def draft_with_ollama(decision: dict[str,Any], facts: str, fallback: str) -> str:
+def draft_with_ollama(decision: dict[str,Any], facts: str, fallback: str, interaction: dict[str,Any]|None=None) -> str:
     if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}: return fallback
     url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
     if not url or not model: return fallback
-    system="You are Vesper, DIO's Presence Core. Warm, concise, lightly witty, never sexual. Preserve the supplied facts exactly. Never invent pricing, payment state, delivery state, authority, legal claims, or capabilities. Never imply an action occurred unless the facts explicitly say it occurred."
-    user=f"Decision: {json.dumps(decision)}\nAuthoritative facts: {facts}\nFallback wording: {fallback}\nRewrite as one concise customer-facing reply."
+    style=llm_style_instruction(interaction)
+    system=("You are Vesper, DIO's Presence Core. Warm, concise, lightly witty only when the delivery policy permits it, never sexual. "
+            "Preserve the supplied facts exactly. Never invent pricing, payment state, delivery state, authority, legal claims, emotions, vulnerabilities, personality traits, or capabilities. "
+            "Never imply an action occurred unless the facts explicitly say it occurred. Never intensify pressure because a user sounds upset, urgent, confused, skeptical, or price-sensitive. "
+            + style)
+    user=f"Decision: {json.dumps(decision)}\nAuthoritative facts: {facts}\nFallback wording: {fallback}\nInteraction regulation: {json.dumps(interaction or {}, sort_keys=True)}\nRewrite as one concise customer-facing reply."
     try:
-        r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":user}],"stream":False,"think":False,"options":{"temperature":0.25}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15"))); r.raise_for_status(); text=((r.json().get("message") or {}).get("content") or "").strip(); return text[:4000] or fallback
+        r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":user}],"stream":False,"think":False,"options":{"temperature":0.2}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15"))); r.raise_for_status(); text=((r.json().get("message") or {}).get("content") or "").strip(); return text[:4000] or fallback
     except Exception: return fallback
