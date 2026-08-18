@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.lingua.metamorphic_semantic_law.v1",
+  "title": "DIO LINGUA Metamorphic Semantic Law v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "unit_id",
+    "unit_digest",
+    "source_digest",
+    "lingua_anchor_digests",
+    "denotation",
+    "affordances",
+    "prohibitions",
+    "projections",
+    "learning_contract",
+    "evidence_refs",
+    "authority_ceiling",
+    "law_digest"
+  ],
+  "properties": {
+    "schema": {"const": "dio.lingua.metamorphic_semantic_law.v1"},
+    "unit_id": {"type": "string", "minLength": 1},
+    "unit_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "source_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "lingua_anchor_digests": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+    },
+    "denotation": {"type": "object", "minProperties": 1},
+    "affordances": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "prohibitions": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "projections": {
+      "type": "object",
+      "required": ["direct_product", "nested_capability", "technical_proof"],
+      "properties": {
+        "direct_product": {"type": "object"},
+        "nested_capability": {"type": "object"},
+        "technical_proof": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "learning_contract": {
+      "type": "object",
+      "required": [
+        "semantic_observations_may_be_recorded",
+        "learning_outputs_are_candidates_only",
+        "direct_learning_to_execution",
+        "crystallization_authority",
+        "human_approval_required_for_promoted_meaning",
+        "market_feedback_learning_deferred"
+      ]
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "authority_ceiling": {"type": "string", "minLength": 1},
+    "law_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}
