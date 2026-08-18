@@ -1,0 +1,85 @@
+{
+  "schema": "dio.vesper.voice_profiles.v1",
+  "identity": {
+    "name": "Vesper",
+    "role": "DIO Presence Core",
+    "voice_identity_is_rendering_only": true
+  },
+  "default_public_profile": null,
+  "profiles": {
+    "piper_free_local_baseline": {
+      "backend": "piper_http",
+      "cost_class": "free_local",
+      "model": "en_US-lessac-medium",
+      "language": "English",
+      "accent_claim": null,
+      "public_brand_state": "experiment_only",
+      "review_required_before_default": true,
+      "notes": "Official Piper baseline voice for local experiment only. It is not claimed to be South African and is not the final Vesper voice."
+    },
+    "openvoice2_sa_warm_candidate": {
+      "backend": "openvoice2_piper",
+      "cost_class": "free_local",
+      "model": "openvoice2_tone_identity",
+      "source_model": "en_US-lessac-medium",
+      "language": "English",
+      "accent_claim": "South African English only after reviewed reference evidence exists",
+      "target_embedding": null,
+      "converter_dir": "models/openvoice_v2/converter",
+      "reference_provenance": null,
+      "reference_consent_verified": false,
+      "public_brand_state": "reference_required",
+      "review_required_before_default": true,
+      "style": {
+        "pace": "measured",
+        "expressiveness": "medium_low",
+        "warmth": "medium_high"
+      },
+      "notes": "Candidate extracted from the VAMP OpenVoice2 architecture. Requires a reviewed, consented Vesper reference embedding before any public voice claim."
+    },
+    "openvoice2_sa_executive_candidate": {
+      "backend": "openvoice2_piper",
+      "cost_class": "free_local",
+      "model": "openvoice2_tone_identity",
+      "source_model": "en_US-lessac-medium",
+      "language": "English",
+      "accent_claim": "South African English only after reviewed reference evidence exists",
+      "target_embedding": null,
+      "converter_dir": "models/openvoice_v2/converter",
+      "reference_provenance": null,
+      "reference_consent_verified": false,
+      "public_brand_state": "reference_required",
+      "review_required_before_default": true,
+      "style": {
+        "pace": "measured_brisk",
+        "expressiveness": "low",
+        "warmth": "medium"
+      },
+      "notes": "Executive delivery candidate using the same Vesper identity architecture with a different approved reference/style target."
+    },
+    "piper_sa_english_candidate": {
+      "backend": "piper_http",
+      "cost_class": "free_local",
+      "model": null,
+      "language": "English",
+      "accent_claim": "South African English only after reviewed voice evidence exists",
+      "public_brand_state": "voice_model_required",
+      "review_required_before_default": true,
+      "notes": "Reserved for a reviewed South African English Piper model or a locally trained voice with clear licensing and consent provenance."
+    }
+  },
+  "unsupported_public_voice_languages": [
+    "Afrikaans",
+    "isiZulu",
+    "Sesotho",
+    "Setswana"
+  ],
+  "unsupported_language_policy": "LINGUA may render reviewed text, but Vesper must not claim a native spoken voice for a language until an approved voice model and pronunciation review exist.",
+  "authority": {
+    "synthesis_creates_send_authority": false,
+    "synthesis_creates_identity_authority": false,
+    "synthesis_creates_translation_authority": false,
+    "public_default_requires_human_promotion": true,
+    "openvoice_reference_requires_consent_provenance": true
+  }
+}

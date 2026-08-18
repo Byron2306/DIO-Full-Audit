@@ -1,0 +1,11 @@
+{
+  "schema": "dio.presence_edge_connection.v2",
+  "base_url": "https://dio-presence-gateway-staging.dio-workflows.workers.dev",
+  "event_api_path": "/api/presence/events",
+  "ack_api_path": "/api/presence/events/ack",
+  "telegram_event_api_path": "/api/presence/telegram-events",
+  "telegram_ack_api_path": "/api/presence/telegram-events/ack",
+  "edge_token_path": "/home/byron/.local/state/knowedge-dio/presence-edge-pull-token",
+  "core_url": "http://127.0.0.1:8787",
+  "poll_interval_seconds": 1.0
+}

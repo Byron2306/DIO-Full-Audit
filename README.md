@@ -1,7 +1,7 @@
 # DIO
 
 <p align="center">
-  <img src="DIO.png" alt="BEAST mascot" width="720" style="max-width: 92%; height: auto;">
+  <img src="DIO.png" alt="BEAST mascot" width="520" style="max-width: 92%; height: auto;">
 </p>
 
 ## Deterministic Intelligence Orchestration

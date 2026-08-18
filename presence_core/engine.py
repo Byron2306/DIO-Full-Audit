@@ -2,6 +2,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any
+from adapters.lingua.communicator import register_communication, requested_language
+from adapters.lingua.interaction_regulator import observe_interaction
+from adapters.lingua.persona_lab import assign_persona
 from .attachments import AttachmentError, validate_and_store_attachment
 from .config import operator_ids
 from .events import emit_event
@@ -10,6 +13,7 @@ from .llm import draft_with_ollama
 from .policy import authorize
 from .router import route_message
 from .state import load_or_create_conversation, update_conversation, create_intake, create_needs_you, list_needs_you, operator_summary
+from .voice import build_voice_plan
 
 PRODUCT_COPY={
 'homs':'HOMS turns curriculum intent into governed educator-ready work: assessments, marking support, lesson plans, slides, worksheets and lesson media. Educator approval remains the authority gate.',
@@ -91,13 +95,79 @@ def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,s
     if intent=='translation_info': return 'Yes. DIO’s localisation path is designed to translate structured meaning before final rendering, so terminology, grade level and layout can be checked rather than blindly translating a finished document. Human language review remains available as a gate.','translation=structured_meaning_first'
     if intent=='formatting_info': return 'Yes. DIO Format treats presentation as a governed render step: templates, document geometry, headings, tables, references, PowerPoint masters and delivery profiles can be applied without rewriting the underlying content.','formatting=render_layer'
     if intent=='product_info' and product: return PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.'),f'product={product}'
-    if intent=='general_info': return 'I’m Vesper, DIO’s Presence Core. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
+    if intent=='general_info': return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
     return 'I’m not confident enough to route that safely yet. Tell me whether this is about HOMS, Evidex, Sophia, VAMP, translation/formatting, an uploaded file, or an existing DIO job and I’ll put it on the right rail.','classification=unresolved'
+
+def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None)->tuple[str,dict[str,Any]]:
+    metadata=envelope.get('metadata') or {}
+    explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
+    target=requested_language(str(envelope.get('text') or ''),str(explicit_language) if explicit_language else None)
+    artifact='operator_brief' if role=='operator' else 'conversation_response'
+    interaction_context=None
+    if interaction:
+        policy=interaction.get('delivery_policy') or {}
+        interaction_context={
+            'observation_id':interaction.get('observation_id'),
+            'delivery_mode':policy.get('mode'),
+            'sales_pressure_allowed':policy.get('sales_pressure_allowed'),
+            'humour_allowed':policy.get('humour_allowed'),
+            'proof_priority':policy.get('proof_priority'),
+            'voice':policy.get('voice'),
+            'emotion_diagnosed':False,
+            'personality_diagnosed':False,
+        }
+    persona_context=None
+    if persona:
+        package=persona.get('package') or {}
+        persona_context={
+            'assignment_id':persona.get('assignment_id'),
+            'experiment_id':persona.get('experiment_id'),
+            'experimental_assignment':persona.get('experimental_assignment'),
+            'cell_id':package.get('cell_id'),
+            'persona_id':package.get('persona_id'),
+            'avatar_id':package.get('avatar_id'),
+            'voice_candidate_id':package.get('voice_candidate_id'),
+            'voice_profile_id':package.get('voice_profile_id'),
+            'stable_for_conversation':True,
+            'ai_disclosure_locked':True,
+        }
+    receipt=register_communication(
+        dio_root=dio_root,
+        owner='vesper',
+        artifact_type=artifact,
+        channel=str(envelope.get('channel') or 'conversation'),
+        body=reply,
+        audience='operator' if role=='operator' else 'public',
+        privacy_domain='operator_private' if role=='operator' else 'public_communication',
+        correlation_id=correlation,
+        source_message_id=str(envelope.get('source_message_id') or metadata.get('source_message_id') or '' ) or None,
+        source_language='English',
+        target_language=target,
+        purpose=str(decision.get('intent') or 'response'),
+        authority_boundary='LINGUA may preserve and render Vesper meaning but cannot create send, spend, fulfilment, professional, identity, or release authority.',
+        product_context=str(decision.get('product') or '') or None,
+        interaction_context=interaction_context,
+        persona_context=persona_context,
+    )
+    if receipt.get('translation_state')=='approved_translation':
+        return str(receipt.get('selected_text') or reply),receipt
+    return reply,receipt
 
 def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->dict[str,Any]:
     presence_root=dio_root/str(cfg.get('state_root','state/presence')); event_log=dio_root/str(cfg.get('event_log','telemetry/dio_events.jsonl')); routes_path=dio_root/str(cfg.get('routes_path','config/routes.json'))
     role=_role(envelope); conv=load_or_create_conversation(presence_root,envelope,role); text=str(envelope.get('text') or '').strip(); correlation=conv['conversation_id']
+    metadata=envelope.get('metadata') or {}
+    interaction=observe_interaction(
+        state_root=dio_root/'state'/'lingua',
+        conversation_id=correlation,
+        text=text,
+        channel=str(envelope.get('channel') or 'conversation'),
+        role=role,
+        source_message_id=str(envelope.get('source_message_id') or metadata.get('source_message_id') or '') or None,
+    )
+    policy=interaction.get('delivery_policy') or {}
     emit_event(event_log,'presence.message_received','info','presence_conversation',correlation,{'channel':envelope.get('channel'),'role':role,'message_type':envelope.get('message_type','text'),'campaign_hint':(conv.get('attribution') or {}).get('campaign_hint')},correlation)
+    emit_event(event_log,'presence.interaction_observed','info','lingua_interaction',interaction['observation_id'],{'delivery_mode':policy.get('mode'),'sales_pressure_allowed':policy.get('sales_pressure_allowed'),'humour_allowed':policy.get('humour_allowed'),'proof_priority':policy.get('proof_priority'),'emotion_diagnosed':False,'personality_diagnosed':False},correlation)
     attachment_record=None
     if envelope.get('attachment'):
         try:
@@ -105,12 +175,26 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             emit_event(event_log,'presence.attachment_quarantined','action','presence_attachment',attachment_record['attachment_id'],{'channel':envelope.get('channel'),'sha256':attachment_record['sha256'],'size_bytes':attachment_record['size_bytes'],'automatic_processing':False},correlation)
         except AttachmentError as exc:
             emit_event(event_log,'presence.attachment_rejected','warning','presence_conversation',correlation,{'reason':str(exc)},correlation)
-            return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':{'intent':'attachment_rejected','product':None,'confidence':1.0,'source':'policy','reason':str(exc)},'reply':{'text':f"I refused that upload safely: {exc}",'mode':'text','voice_eligible':False},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':None,'intake':None}
+            return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':{'intent':'attachment_rejected','product':None,'confidence':1.0,'source':'policy','reason':str(exc)},'reply':{'text':f"I refused that upload safely: {exc}",'mode':'text','voice_eligible':False},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':None,'intake':None,'interaction':interaction,'persona':None,'lingua':{'state':'not_registered','reason':'attachment_rejected_before_response_registration'}}
     decision=route_message(text,role,routes_path).as_dict()
     if attachment_record and decision['intent'] in {'unknown','general_info'}:
         decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
     ok,reason=authorize(role,decision['intent'])
     if not ok: decision={'intent':'unknown','product':None,'confidence':1.0,'source':'policy','reason':reason}
+    explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
+    target_language=requested_language(text,str(explicit_language) if explicit_language else None)
+    persona=assign_persona(
+        root=dio_root,
+        conversation_id=correlation,
+        role=role,
+        channel=str(envelope.get('channel') or 'conversation'),
+        audience=str(metadata.get('audience') or ('operator' if role=='operator' else 'public')),
+        product=str(decision.get('product') or '') or None,
+        language=target_language,
+    )
+    voice_profile_id=((persona.get('package') or {}).get('voice_profile_id'))
+    voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,requested_profile=voice_profile_id)
+    emit_event(event_log,'presence.persona_assigned','info','vesper_persona',persona['assignment_id'],{'experimental_assignment':persona.get('experimental_assignment'),'cell_id':((persona.get('package') or {}).get('cell_id')),'persona_id':((persona.get('package') or {}).get('persona_id')),'avatar_id':((persona.get('package') or {}).get('avatar_id')),'voice_profile_id':voice_profile_id,'stable_for_conversation':True},correlation)
     summary=None; needs=None; intake=None; statuses=None
     if decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
@@ -129,7 +213,12 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         else:
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
-    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record); reply=draft_with_ollama(decision,facts,fallback)
+    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record); reply=draft_with_ollama(decision,facts,fallback,interaction,persona)
+    try:
+        reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
+    except Exception as exc:
+        lingua={'schema':'dio.lingua.communication_receipt.v1','state':'registration_failed','error':str(exc)[:300],'external_action_executed':False,'send_authorized':False,'authority_created':False}
+        emit_event(event_log,'presence.lingua_registration_failed','warning','presence_conversation',correlation,{'error':str(exc)[:180]},correlation)
     update_conversation(presence_root,conv,decision['intent'],decision.get('product'))
-    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory'},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'})},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses}
+    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses,'interaction':interaction,'persona':persona,'lingua':lingua}

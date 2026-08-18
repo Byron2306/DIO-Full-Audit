@@ -1,0 +1,65 @@
+{
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_version": "1.0.0",
+  "studio_id": "article_publication_studio",
+  "name": "DIO Article & Publication Studio",
+  "job": {
+    "buyer": "Professional editor preparing a source-bound article",
+    "request": "Turn these supplied sources into a publication-ready article draft with traceable claims and references.",
+    "expected_route": "article_publication_studio"
+  },
+  "required_organs": [
+    {"engine_id": "vesper", "source_ref": "presence_core/router.py", "capabilities": ["storefront.route.bind", "presence.release.prepare"]},
+    {"engine_id": "lingua", "source_ref": "adapters/lingua/communicator.py", "capabilities": ["communication.meaning.register", "communication.render.bound"]},
+    {"engine_id": "sophia", "source_ref": "adapters/sophia/review_pipeline.py", "capabilities": ["source.reference.audit", "claim.lineage.audit"]},
+    {"engine_id": "evidex", "source_ref": "adapters/evidex_studio.py", "capabilities": ["evidence.intake.structure", "evidence.editorial.proof"]},
+    {"engine_id": "document_studio", "source_ref": "adapters/document_studio/studio_sales.py", "capabilities": ["document.preview.render", "document.publication_pack"]},
+    {"engine_id": "nichefoundry", "source_ref": "scripts/build_hustle_campaign_factory.py", "capabilities": ["media.creative.compose"]},
+    {"engine_id": "commercial_truth", "source_ref": "products/commercial_truth.py", "capabilities": ["commercial.claim.boundary", "commercial.measurement.contract"]}
+  ],
+  "authority": {
+    "human_gate": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "artifact_contract": {
+    "kind": "article",
+    "publication": "Professional Research Review",
+    "audience": "educated general professional audience",
+    "editorial_register": ["clear", "evidence-first", "measured", "non-sensational"],
+    "headline": "Why evidence lineage matters when professional work moves faster",
+    "standfirst": "A controlled editorial fixture showing how source provenance and claim boundaries can remain visible while a draft becomes publication-ready.",
+    "source_fixture": [
+      {
+        "source_id": "SRC-01",
+        "citation": "Mokoena, T. (2024). Evidence lineage in professional decision systems. Journal of Applied Governance, 12(2), 44-61.",
+        "supports": ["CL-01", "CL-02"]
+      },
+      {
+        "source_id": "SRC-02",
+        "citation": "Naidoo, P. (2025). Human authority in AI-assisted professional workflows. Review of Digital Practice, 8(1), 15-29.",
+        "supports": ["CL-02", "CL-03"]
+      }
+    ],
+    "claim_fixture": [
+      {"claim_id": "CL-01", "text": "Traceable source lineage makes later review and correction easier to reconstruct.", "state": "SUPPORTED", "evidence_ids": ["SRC-01"]},
+      {"claim_id": "CL-02", "text": "Faster drafting does not remove the need to preserve provenance and human review.", "state": "SUPPORTED", "evidence_ids": ["SRC-01", "SRC-02"]},
+      {"claim_id": "CL-03", "text": "Publication authority remains a separate decision from draft quality.", "state": "SUPPORTED", "evidence_ids": ["SRC-02"]},
+      {"claim_id": "CL-04", "text": "Source-aware drafting guarantees factual accuracy.", "state": "REFUSE", "evidence_ids": []}
+    ],
+    "sections": [
+      {"heading": "The speed problem", "body": "Professional drafting can accelerate while the evidentiary trail becomes harder to inspect unless source relationships are preserved deliberately."},
+      {"heading": "Lineage as editorial infrastructure", "body": "A governed editorial workflow should keep claims, supporting sources, contradictions and unresolved questions visible during revision rather than reconstructing them after publication."},
+      {"heading": "Quality is not publication authority", "body": "A polished draft may be ready for editorial review while publication remains an explicitly human-authorised act."}
+    ],
+    "forbidden_claims": [
+      "fabricated quotation",
+      "fabricated source",
+      "invented evidence",
+      "guaranteed factual accuracy",
+      "automatic publication"
+    ]
+  }
+}

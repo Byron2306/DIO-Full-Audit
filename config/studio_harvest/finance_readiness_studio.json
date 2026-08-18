@@ -1,0 +1,63 @@
+{
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_version": "1.0.0",
+  "studio_id": "finance_readiness_studio",
+  "name": "DIO Finance Readiness Studio",
+  "job": {
+    "buyer": "South African small-business owner preparing a funding application",
+    "request": "Assess whether my business evidence is ready for a finance application and show me what is missing.",
+    "expected_route": "finance_readiness_studio"
+  },
+  "required_organs": [
+    {"engine_id": "vesper", "source_ref": "presence_core/router.py", "capabilities": ["storefront.route.bind", "presence.release.prepare"]},
+    {"engine_id": "lingua", "source_ref": "adapters/lingua/communicator.py", "capabilities": ["communication.meaning.register", "communication.render.bound"]},
+    {"engine_id": "nichefoundry", "source_ref": "scripts/build_hustle_campaign_factory.py", "capabilities": ["market.position", "market.research.hypothesis"]},
+    {"engine_id": "evidex", "source_ref": "adapters/evidex_studio.py", "capabilities": ["evidence.intake.structure", "evidence.readiness.gap_map"]},
+    {"engine_id": "sophia", "source_ref": "adapters/sophia/review_pipeline.py", "capabilities": ["claim.lineage.audit", "assumption.boundary"]},
+    {"engine_id": "document_studio", "source_ref": "adapters/document_studio/studio_sales.py", "capabilities": ["document.preview.render", "document.finance_readiness_pack"]},
+    {"engine_id": "vamp", "source_ref": "adapters/vamp/snapshot_pipeline.py", "capabilities": ["objective.milestone.map"]},
+    {"engine_id": "commercial_truth", "source_ref": "products/commercial_truth.py", "capabilities": ["commercial.claim.boundary", "commercial.measurement.contract"]}
+  ],
+  "authority": {
+    "human_gate": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "artifact_contract": {
+    "kind": "finance_readiness",
+    "purpose": "Assess evidence completeness and published-fit readiness without making a lending decision.",
+    "venture": {
+      "name": "Karoo Field Analytics",
+      "business_model": "Field-data and research support services for agricultural and environmental projects.",
+      "funding_need": "R350,000 equipment and working-capital facility",
+      "use_of_funds": ["field equipment", "laptop and data-capture hardware", "three months working capital"]
+    },
+    "published_requirements_fixture": [
+      {"requirement_id": "FR-01", "label": "business registration evidence", "mandatory": true},
+      {"requirement_id": "FR-02", "label": "recent bank statements", "mandatory": true},
+      {"requirement_id": "FR-03", "label": "management accounts or financial statements", "mandatory": true},
+      {"requirement_id": "FR-04", "label": "use-of-funds breakdown", "mandatory": true},
+      {"requirement_id": "FR-05", "label": "repayment or cash-flow assumptions", "mandatory": true}
+    ],
+    "supplied_evidence_fixture": [
+      {"evidence_id": "EV-01", "supports": ["FR-01"], "label": "company registration record", "state": "supplied"},
+      {"evidence_id": "EV-02", "supports": ["FR-02"], "label": "three months bank statements", "state": "supplied"},
+      {"evidence_id": "EV-03", "supports": ["FR-04"], "label": "equipment quotations and use-of-funds schedule", "state": "supplied"}
+    ],
+    "assumptions": [
+      "Projected monthly revenue grows after equipment acquisition.",
+      "Working-capital requirement is limited to three months.",
+      "No lender approval, affordability or underwriting outcome is known."
+    ],
+    "forbidden_claims": [
+      "guaranteed finance approval",
+      "guaranteed affordability",
+      "lender underwriting score",
+      "credit bureau conclusion",
+      "regulated investment or financial advice"
+    ],
+    "decision_boundary": "DIO assesses finance readiness and published fit. The lender, investor or authorised financial decision maker decides approval."
+  }
+}
