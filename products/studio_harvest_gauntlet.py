@@ -18,6 +18,8 @@ from products.studio_harvest import (
 CASES = {
     "site_studio": Path("config/studio_harvest/site_studio.json"),
     "professional_correspondence_studio": Path("config/studio_harvest/professional_correspondence_studio.json"),
+    "finance_readiness_studio": Path("config/studio_harvest/finance_readiness_studio.json"),
+    "article_publication_studio": Path("config/studio_harvest/article_publication_studio.json"),
 }
 
 
