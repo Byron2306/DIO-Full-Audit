@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from presence_core.router import route_message
 from products.professional_task_gauntlet import build_task_manifest
 from products.professional_task_packets import (
     BASE_MANIFESTS,
@@ -51,6 +52,21 @@ def test_examiner_truth_is_withheld_from_studio_manifest():
             assert "prohibited_inventions" not in task_input
             assert "acceptance_rubric" not in task_input
             assert task_input["case_id"] == case_id
+            assert manifest["job"]["source_request"] == case["job"]["request"]
+            assert case["job"]["request"] in manifest["job"]["request"]
+
+
+def test_all_projected_professional_tasks_enter_expected_vesper_intake_route():
+    portfolio = load_portfolio(root=ROOT)
+    routes = ROOT / "config" / "routes.json"
+    for studio_id, tiers in portfolio["studios"].items():
+        for case_id in tiers.values():
+            case = load_case(case_id, root=ROOT)
+            manifest = build_task_manifest(case, root=ROOT)
+            decision = route_message(manifest["job"]["request"], "public", routes).as_dict()
+            assert decision["intent"] == "intake_request", (case_id, decision)
+            assert decision["product"] == studio_id, (case_id, decision)
+            assert decision["source"] == "deterministic", (case_id, decision)
 
 
 def test_packet_materialisation_uses_professional_exam_layout(tmp_path: Path):
