@@ -1,6 +1,9 @@
 name: NicheFoundry LINGUA Commercial Learning
 
 on:
+  push:
+    branches:
+      - "agent/dio-nichefoundry-hustle"
   pull_request:
     paths:
       - "config/marketing_sales_playbook.json"
