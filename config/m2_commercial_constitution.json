@@ -1,0 +1,160 @@
+{
+  "schema": "dio.m2.commercial_constitution.v1",
+  "m1_required_acceptance": "DIO_METAMORPHIC_SPINE_M1_VERIFIED",
+  "m2_final_acceptance": "DIO_METAMORPHIC_COMMERCIAL_METABOLISM_VERIFIED",
+  "reference_product": "funding_proposal_studio",
+  "laws": [
+    "market_research_never_implies_wtp",
+    "zero_value_flow_never_implies_revenue",
+    "self_payment_never_implies_independent_demand",
+    "verified_payment_never_implies_customer_acceptance",
+    "verified_payment_never_implies_wtp_without_independent_acceptance",
+    "customer_acceptance_never_implies_repeatability",
+    "commercial_success_never_mints_authority",
+    "commercial_failure_never_globally_invalidates_product",
+    "silence_is_evidence_only_in_exact_context",
+    "market_command_never_owns_egress_authority",
+    "seraph_owns_commercial_egress_boundary",
+    "no_market_crystal_before_commercial_settlement",
+    "commercial_learning_never_directly_executes_publishes_or_spends",
+    "customer_lineage_and_payment_lineage_remain_distinct",
+    "commercial_facts_are_world_state_bound"
+  ],
+  "anchors": [
+    {
+      "id": "m1_parent_proof",
+      "path": "metamorphic/crystallisation.py",
+      "classification": "parent_proof",
+      "owner": "Metamorphic Spine M1"
+    },
+    {
+      "id": "commercial_truth_layer",
+      "path": "docs/DIO_COMMERCIAL_TRUTH_LAYER_PHASE10.md",
+      "classification": "truth_semantics",
+      "owner": "Commercial Truth Layer"
+    },
+    {
+      "id": "commercial_proof_v1_1",
+      "path": "products/commercial_proof_v1_1.py",
+      "classification": "truth_evaluator",
+      "owner": "Commercial Proof Gauntlet v1.1"
+    },
+    {
+      "id": "commercial_proof_legacy_doc",
+      "path": "docs/DIO_COMMERCIAL_PROOF_GAUNTLET_V1.md",
+      "classification": "legacy_semantic_hazard",
+      "owner": "Historical Commercial Proof documentation"
+    },
+    {
+      "id": "paid_reference_products",
+      "path": "docs/DIO_PAID_REFERENCE_PRODUCTS_PHASE11.md",
+      "classification": "controlled_reference",
+      "owner": "Paid Reference Products"
+    },
+    {
+      "id": "commercial_operating_plan",
+      "path": "docs/DIO_COMMERCIAL_OPERATING_PLAN.md",
+      "classification": "workflow_doctrine",
+      "owner": "Commercial Operating Plan"
+    },
+    {
+      "id": "commerce_orchestrator",
+      "path": "commerce/orchestrator.py",
+      "classification": "workflow_state",
+      "owner": "DIO Commerce Core"
+    },
+    {
+      "id": "commerce_triune",
+      "path": "commerce/triune.py",
+      "classification": "workflow_advisory",
+      "owner": "Commerce Triune"
+    },
+    {
+      "id": "commerce_event_processor",
+      "path": "scripts/process_commerce_events.py",
+      "classification": "payment_materialisation",
+      "owner": "Local Commerce Event Processor"
+    },
+    {
+      "id": "dio_edge_gateway",
+      "path": "edge/dio-edge-gateway/src/index.js",
+      "classification": "payment_verification",
+      "owner": "DIO Edge"
+    },
+    {
+      "id": "market_command_core",
+      "path": "market_command/core.py",
+      "classification": "planning_state",
+      "owner": "Market Command"
+    },
+    {
+      "id": "market_command_intelligence",
+      "path": "market_command/intelligence.py",
+      "classification": "observation_attribution",
+      "owner": "Market Command Intelligence"
+    },
+    {
+      "id": "market_command_status",
+      "path": "docs/MARKET_COMMAND_INTEGRATION_STATUS.md",
+      "classification": "integration_status",
+      "owner": "Market Command"
+    },
+    {
+      "id": "nichefoundry_lingua_learning",
+      "path": "docs/NICHEFOUNDRY_LINGUA_COMMERCIAL_LEARNING.md",
+      "classification": "semantic_learning_doctrine",
+      "owner": "NicheFoundry + LINGUA"
+    },
+    {
+      "id": "lingua_lifecycle",
+      "path": "adapters/lingua/lifecycle.py",
+      "classification": "semantic_lifecycle",
+      "owner": "LINGUA"
+    },
+    {
+      "id": "sensorium_episode",
+      "path": "adapters/sensorium/metamorphic_episode.py",
+      "classification": "observation",
+      "owner": "Sensorium"
+    },
+    {
+      "id": "beast_crystal_chain",
+      "path": "cross_folder_variants/EdgeK-BEAST/A_CODE/app/kernel/security/crystal_chain.py",
+      "classification": "evidence_crystallisation",
+      "owner": "BEAST"
+    },
+    {
+      "id": "seraph_outbound_gate",
+      "path": "cross_folder_variants/Metatron-triune-outbound-gate/A_CODE/backend/services/outbound_gate.py",
+      "classification": "authority_owner",
+      "owner": "Seraph"
+    },
+    {
+      "id": "legalis",
+      "path": "adapters/legalis/__init__.py",
+      "classification": "prerequisite_evaluator",
+      "owner": "DIO Legalis"
+    },
+    {
+      "id": "world_lease",
+      "path": "metamorphic/world_lease.py",
+      "classification": "world_binding",
+      "owner": "Metamorphic World Lease"
+    },
+    {
+      "id": "world_settlement",
+      "path": "metamorphic/settlement.py",
+      "classification": "settlement",
+      "owner": "Metamorphic World Settlement"
+    }
+  ],
+  "legacy_semantic_hazards": [
+    {
+      "id": "legacy_payment_implies_wtp",
+      "path": "docs/DIO_COMMERCIAL_PROOF_GAUNTLET_V1.md",
+      "must_detect": "A successful positive-value payment proves both:",
+      "quarantined_by": "products/commercial_proof_v1_1.py",
+      "required_correction": "INDEPENDENT_CUSTOMER_ACCEPTANCE_REQUIRED"
+    }
+  ]
+}
