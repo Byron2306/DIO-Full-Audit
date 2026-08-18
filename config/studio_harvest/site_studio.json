@@ -1,0 +1,48 @@
+{
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_version": "1.0.0",
+  "studio_id": "site_studio",
+  "name": "DIO Site Studio",
+  "job": {
+    "buyer": "South African research consultancy",
+    "request": "I need a professional website for a South African research consultancy.",
+    "expected_route": "site_studio"
+  },
+  "required_organs": [
+    {"engine_id": "nichefoundry", "source_ref": "scripts/run_nichefoundry_jobs.py", "capabilities": ["market.position", "media.creative.compose"]},
+    {"engine_id": "lingua", "source_ref": "adapters/lingua/communicator.py", "capabilities": ["communication.meaning.register", "communication.render.bound"]},
+    {"engine_id": "document_studio", "source_ref": "adapters/document_studio/pipeline.py", "capabilities": ["document.preview.render", "document.sales_assets"]},
+    {"engine_id": "evidex", "source_ref": "scripts/run_evidex_jobs.py", "capabilities": ["evidence.campaign.proof", "evidence.intake.structure"]},
+    {"engine_id": "vesper", "source_ref": "presence_core/router.py", "capabilities": ["storefront.route.bind", "presence.release.prepare"]},
+    {"engine_id": "market_command", "source_ref": "market_command/agency.py", "capabilities": ["campaign.plan"]},
+    {"engine_id": "commercial_truth", "source_ref": "products/commercial_truth.py", "capabilities": ["commercial.measurement.contract", "commercial.claim.boundary"]}
+  ],
+  "authority": {
+    "human_gate": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "artifact_contract": {
+    "kind": "site",
+    "brand": {
+      "title": "Karoo Research Advisory",
+      "eyebrow": "EVIDENCE-LED RESEARCH CONSULTING",
+      "headline": "Turn complex research into decisions people can actually use.",
+      "subhead": "A controlled Site Studio proof for a South African research consultancy, built from existing DIO positioning, semantic, document, evidence, presence and commercial-truth capabilities."
+    },
+    "positioning": {
+      "category": "research advisory",
+      "buyer_problem": "Important research is often trapped in reports, disconnected evidence and unclear decision pathways.",
+      "desired_outcome": "A credible public presence that makes expertise, services and evidence boundaries immediately understandable.",
+      "forbidden_claims": ["guaranteed research outcomes", "fabricated clients", "fabricated testimonials", "automatic publication"]
+    },
+    "sections": [
+      {"title": "Research strategy", "body": "Frame complex questions, evidence needs and decision contexts without pretending uncertainty has disappeared."},
+      {"title": "Evidence synthesis", "body": "Turn supplied research and source material into reviewable, provenance-aware insight."},
+      {"title": "Decision communication", "body": "Translate governed meaning into clear reports, presentations and public-facing explanations."}
+    ],
+    "intake_filename": "SITE_STUDIO_RESEARCH_CONSULTANCY_INTAKE.json"
+  }
+}
