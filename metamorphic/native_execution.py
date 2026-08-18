@@ -31,9 +31,9 @@ class NativeExecutionError(RuntimeError):
 
 
 def _node_map(resolution: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    nodes = resolution.get("composition", {}).get("nodes") or []
-    result = {str(row.get("node_id")): row for row in nodes if isinstance(row, dict)}
-    if len(result) != len(nodes):
+    rows = resolution.get("composition", {}).get("nodes") or []
+    result = {str(row.get("node_id")): row for row in rows if isinstance(row, dict)}
+    if len(result) != len(rows):
         raise NativeExecutionError("composition node identities are invalid")
     return result
 
@@ -49,6 +49,10 @@ def _dependency_map(resolution: dict[str, Any]) -> dict[str, tuple[str, ...]]:
     return {key: tuple(sorted(value)) for key, value in result.items()}
 
 
+def _check_time(now: datetime | None) -> datetime:
+    return now if now is not None else datetime.now(timezone.utc)
+
+
 def execute_resolution(
     repo_root: str | Path,
     *,
@@ -61,7 +65,6 @@ def execute_resolution(
     root = Path(repo_root).resolve()
     output = Path(output_dir).resolve()
     output.mkdir(parents=True, exist_ok=True)
-    current = now or datetime.now(timezone.utc)
 
     composition = resolution.get("composition") or {}
     if resolution.get("native_execution_performed") is not False:
@@ -79,8 +82,7 @@ def execute_resolution(
 
     runtime = create_runtime(root, out_dir=output / "sensorium")
     mission_id = "metamorphic:" + str(composition["composition_digest"]).split(":", 1)[1][:24]
-    event_ids: list[str] = []
-    event_ids.append(
+    event_ids = [
         observe(
             runtime,
             mission_id=mission_id,
@@ -92,7 +94,7 @@ def execute_resolution(
                 "external_effects_authorized": False,
             },
         )
-    )
+    ]
 
     completed: dict[str, dict[str, Any]] = {}
     try:
@@ -103,6 +105,7 @@ def execute_resolution(
                 raise NativeExecutionError(f"unit identity drift before node execution: {node_id}")
             if node.get("executor_id") != unit.executor_id or node.get("executor_digest") != unit.executor_digest:
                 raise NativeExecutionError(f"native executor identity drift before node execution: {node_id}")
+
             missing_dependencies = [dep for dep in dependencies[node_id] if dep not in completed]
             if missing_dependencies:
                 raise NativeExecutionError(
@@ -115,11 +118,14 @@ def execute_resolution(
                     live_snapshot=live_snapshot,
                     live_capability_refs=live_caps,
                     live_authority_refs=tuple(world_lease.authority_refs),
-                    now=current,
+                    now=_check_time(now),
                 )
             except Exception as exc:
                 raise NativeExecutionError(f"world lease invalid before node {node_id}: {exc}") from exc
 
+            dependency_receipts = {
+                dep: completed[dep]["native_closure_fingerprint"] for dep in dependencies[node_id]
+            }
             event_ids.append(
                 observe(
                     runtime,
@@ -131,10 +137,7 @@ def execute_resolution(
                         "unit_digest": unit.unit_digest,
                         "executor_id": unit.executor_id,
                         "executor_digest": unit.executor_digest,
-                        "dependency_receipts": {
-                            dep: completed[dep]["native_closure_fingerprint"]
-                            for dep in dependencies[node_id]
-                        },
+                        "dependency_receipts": dependency_receipts,
                         "world_lease_rechecked": validation.valid,
                     },
                 )
@@ -154,7 +157,10 @@ def execute_resolution(
                 raise NativeExecutionError(f"native node failed closure: {node_id}")
             if receipt.get("authority_created") is not False or receipt.get("external_effects") is not False:
                 raise NativeExecutionError(f"native node widened authority/effects: {node_id}")
-            if any(receipt.get(key) != "REFUSE" for key in ("external_publication", "external_send", "media_spend", "payment")):
+            if any(
+                receipt.get(key) != "REFUSE"
+                for key in ("external_publication", "external_send", "media_spend", "payment")
+            ):
                 raise NativeExecutionError(f"native node external-effect boundary changed: {node_id}")
 
             node_receipt = {
@@ -164,10 +170,7 @@ def execute_resolution(
                 "executor_id": unit.executor_id,
                 "executor_digest": unit.executor_digest,
                 "dependencies": list(dependencies[node_id]),
-                "dependency_receipts": {
-                    dep: completed[dep]["native_closure_fingerprint"]
-                    for dep in dependencies[node_id]
-                },
+                "dependency_receipts": dependency_receipts,
                 "native_closure_fingerprint": receipt["native_closure_fingerprint"],
                 "proof_fingerprint": receipt["proof_fingerprint"],
                 "all_declared_capabilities_executed": receipt["all_declared_capabilities_executed"],
@@ -243,6 +246,7 @@ def execute_resolution(
         "world_lease_digest": world_lease.lease_digest,
         "topological_order": list(order),
         "dependency_order_enforced": True,
+        "world_lease_rechecked_before_each_node": True,
         "content_transform_dataflow_proved": False,
         "node_receipts": [completed[node_id] for node_id in order],
         "node_count": len(completed),
@@ -268,9 +272,9 @@ def execute_resolution(
 
 def run_reference_native_execution(repo_root: str | Path, *, output_dir: str | Path) -> dict[str, Any]:
     root = Path(repo_root).resolve()
-    now = datetime.now(timezone.utc).replace(microsecond=0)
+    plan_now = datetime.now(timezone.utc).replace(microsecond=0)
     intent, source_text, config = build_reference_intent(root)
-    snapshot = build_controlled_world_snapshot(root, now=now)
+    snapshot = build_controlled_world_snapshot(root, now=plan_now)
     lease = acquire_world_lease(root, snapshot=snapshot, composition_id=intent.intent_id)
     resolution = resolve_intent(
         root,
@@ -278,7 +282,7 @@ def run_reference_native_execution(repo_root: str | Path, *, output_dir: str | P
         live_buyer_job_text=source_text,
         world_lease=lease,
         live_snapshot=snapshot,
-        now=now,
+        now=plan_now,
         config=config,
     )
     return execute_resolution(
@@ -287,7 +291,7 @@ def run_reference_native_execution(repo_root: str | Path, *, output_dir: str | P
         world_lease=lease,
         live_snapshot=snapshot,
         output_dir=output_dir,
-        now=now,
+        now=None,
     )
 
 
@@ -307,6 +311,7 @@ def phase6_native_execution_receipt(repo_root: str | Path, *, output_dir: str | 
         and execution["same_unit_identity_preserved"] is True
         and execution["sensorium_episode_complete"] is True
         and execution["sensorium_authority"] == "evidence_only"
+        and execution["world_lease_rechecked_before_each_node"] is True
         and execution["external_effects"] is False
         and execution["authority_widened"] is False
         and execution["new_engine_created"] is False
