@@ -26,6 +26,114 @@ def _invoice_ref(text: str) -> str:
     return match.group(0) if match else "the invoice"
 
 
+def _professional_task(manifest: dict[str, Any]) -> dict[str, Any]:
+    value = manifest.get("professional_task_input")
+    return value if isinstance(value, dict) else {}
+
+
+def _source_documents(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = _professional_task(manifest).get("source_documents") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def _label_value(lines: list[str], labels: tuple[str, ...]) -> str:
+    wanted = {label.casefold() for label in labels}
+    for line in lines:
+        match = re.match(r"^\s*([^:]+)\s*:\s*(.+?)\s*$", line)
+        if match and match.group(1).strip().casefold() in wanted:
+            return match.group(2).strip()
+    return ""
+
+
+def _professional_site_facts(manifest: dict[str, Any]) -> dict[str, Any]:
+    documents = _source_documents(manifest)
+    if not documents:
+        return {}
+
+    all_lines: list[str] = []
+    services: list[str] = []
+    projects: list[str] = []
+    emails: list[str] = []
+
+    unsafe_markers = (
+        "owner request:",
+        "no formal market-leadership ranking",
+        "no client testimonials",
+        "no awards or certifications",
+        "evidence supplied for",
+        "outcome of donor decision",
+        "client identity is confidential",
+        "client name: confidential",
+    )
+
+    for document in documents:
+        filename = str(document.get("filename") or "").casefold()
+        text = str(document.get("text") or "")
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        all_lines.extend(lines)
+        emails.extend(re.findall(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}", text, flags=re.IGNORECASE))
+
+        in_services = False
+        project_doc = any(token in filename for token in ("project", "case", "evidence"))
+        for line in lines:
+            low = line.casefold()
+            if low.startswith(("supported services:", "current service list", "services:")):
+                in_services = True
+                tail = line.split(":", 1)[1].strip() if ":" in line else ""
+                if tail:
+                    for item in tail.split(";"):
+                        item = item.strip(" .")
+                        if item:
+                            services.append(item)
+                continue
+            if in_services and re.match(r"^(?:[-•]|\d+[.)])\s*", line):
+                item = re.sub(r"^(?:[-•]|\d+[.)])\s*", "", line).strip(" .")
+                if item:
+                    services.append(item)
+                continue
+            if in_services and line.isupper():
+                in_services = False
+
+            if project_doc and not any(marker in low for marker in unsafe_markers):
+                if re.match(r"^(?:project\s+[a-z0-9]+:|case\s+[a-z0-9]+:)", line, flags=re.IGNORECASE):
+                    projects.append(line)
+                elif any(token in low for token in ("assignment", "monitoring points", "supported one community organisation")):
+                    projects.append(line)
+
+    def dedupe(values: list[str]) -> list[str]:
+        result: list[str] = []
+        seen: set[str] = set()
+        for value in values:
+            key = value.casefold()
+            if key not in seen:
+                seen.add(key)
+                result.append(value)
+        return result
+
+    services = dedupe(services)
+    projects = dedupe(projects)
+    emails = dedupe(emails)
+
+    experience = _label_value(all_lines, ("Founder experience", "Team experience"))
+    if not experience:
+        for line in all_lines:
+            if re.search(r"\b(?:owner|founder)\b.*\b\d+\s+years\b", line, flags=re.IGNORECASE):
+                experience = line.rstrip(".")
+                break
+
+    location = _label_value(all_lines, ("Operating base", "Geographic reach"))
+    buyers = _label_value(all_lines, ("Target buyers", "Buyers"))
+
+    return {
+        "services": services[:8],
+        "projects": projects[:4],
+        "experience": experience,
+        "location": location,
+        "buyers": buyers,
+        "email": emails[0] if emails else "",
+    }
+
+
 def _site_delivery(manifest: dict[str, Any], out: Path) -> tuple[str, str, list[str]]:
     contract = manifest["artifact_contract"]
     positioning = contract["positioning"]
@@ -34,29 +142,68 @@ def _site_delivery(manifest: dict[str, Any], out: Path) -> tuple[str, str, list[
     problem = str(positioning["buyer_problem"])
     outcome = str(positioning["desired_outcome"])
     buyer = str(manifest["job"]["buyer"])
+    professional = _professional_site_facts(manifest)
 
-    headline = f"{brand_name} turns complex {category} work into clearer decisions."
-    subhead = f"Practical, evidence-led support for {buyer.lower()} teams that need credible analysis, clear communication and decision-ready outputs."
-    sections = [
-        ("Clarify the decision", f"Start with the real decision behind the work. {problem}"),
-        ("Structure the evidence", "Bring source material, assumptions and limits into one reviewable evidence trail before conclusions are presented."),
-        ("Communicate what matters", f"Translate the work into a usable public or professional form. {outcome}"),
-    ]
-    cards = "".join(
-        f"<article class='card'><span>0{i}</span><h2>{html.escape(title)}</h2><p>{html.escape(body)}</p></article>"
-        for i, (title, body) in enumerate(sections, 1)
-    )
-    page = f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{html.escape(brand_name)}</title><link rel='stylesheet' href='styles.css'></head><body><header><nav><strong>{html.escape(brand_name)}</strong><a href='#contact'>Start a conversation</a></nav><section class='hero'><div><p class='eyebrow'>{html.escape(category.upper())}</p><h1>{html.escape(headline)}</h1><p class='lead'>{html.escape(subhead)}</p><a class='button' href='#contact'>Discuss your project</a></div><aside><strong>What you can expect</strong><p>Clear scope. Evidence-aware work. Professional outputs. No invented credentials or guarantees.</p></aside></section></header><main><section class='services'>{cards}</section><section id='contact' class='contact'><p class='eyebrow'>PROJECT ENQUIRY</p><h2>Tell us what decision your work needs to support.</h2><p>Bring the question, available evidence and intended audience. We will use that to shape the right project brief.</p><form><label>Name<input required></label><label>Organisation<input required></label><label>What do you need to achieve?<textarea rows='5' required></textarea></label><button type='button'>Prepare enquiry</button></form></section></main><footer>{html.escape(brand_name)} · Professional research and evidence support</footer></body></html>"""
-    css = """*{box-sizing:border-box}body{margin:0;background:#07131d;color:#edf4f5;font:17px/1.6 system-ui,sans-serif}header,main,footer{width:min(1120px,calc(100% - 40px));margin:auto}nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0}nav a,.button{color:#07131d;background:#d9b86c;text-decoration:none;padding:12px 17px;border-radius:8px;font-weight:800}.hero{min-height:72vh;display:grid;grid-template-columns:1.35fr .65fr;gap:48px;align-items:center}.eyebrow{letter-spacing:.13em;font-weight:900;color:#68d5ca;font-size:.8rem}h1{font-size:clamp(3rem,7vw,6.3rem);line-height:.94;letter-spacing:-.055em;margin:.25em 0}.lead{max-width:760px;color:#bfd0d3;font-size:1.16rem}aside{padding:28px;border:1px solid #ffffff25;border-radius:18px;background:#ffffff08}.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:80px 0}.card{padding:28px;background:#f5f1e8;color:#16232c;border-radius:16px}.card span{font-weight:900;color:#078d82}.contact{padding:70px 0 90px;max-width:760px}.contact form{display:grid;gap:15px}label{font-weight:800}input,textarea{display:block;width:100%;margin-top:6px;padding:13px;border-radius:8px;border:1px solid #ffffff35;background:#ffffff0d;color:white}button{width:max-content;border:0;background:#d9b86c;padding:13px 18px;border-radius:8px;font-weight:800}footer{padding:34px 0;border-top:1px solid #ffffff1d;color:#91a7ab}@media(max-width:800px){.hero,.services{grid-template-columns:1fr}.hero{padding:55px 0}nav a{display:none}}"""
+    if not professional:
+        headline = f"{brand_name} turns complex {category} work into clearer decisions."
+        subhead = f"Practical, evidence-led support for {buyer.lower()} teams that need credible analysis, clear communication and decision-ready outputs."
+        sections = [
+            ("Clarify the decision", f"Start with the real decision behind the work. {problem}"),
+            ("Structure the evidence", "Bring source material, assumptions and limits into one reviewable evidence trail before conclusions are presented."),
+            ("Communicate what matters", f"Translate the work into a usable public or professional form. {outcome}"),
+        ]
+        cards = "".join(
+            f"<article class='card'><span>0{i}</span><h2>{html.escape(title)}</h2><p>{html.escape(body)}</p></article>"
+            for i, (title, body) in enumerate(sections, 1)
+        )
+        page = f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{html.escape(brand_name)}</title><link rel='stylesheet' href='styles.css'></head><body><header><nav><strong>{html.escape(brand_name)}</strong><a href='#contact'>Start a conversation</a></nav><section class='hero'><div><p class='eyebrow'>{html.escape(category.upper())}</p><h1>{html.escape(headline)}</h1><p class='lead'>{html.escape(subhead)}</p><a class='button' href='#contact'>Discuss your project</a></div><aside><strong>What you can expect</strong><p>Clear scope. Evidence-aware work. Professional outputs. No invented credentials or guarantees.</p></aside></section></header><main><section class='services'>{cards}</section><section id='contact' class='contact'><p class='eyebrow'>PROJECT ENQUIRY</p><h2>Tell us what decision your work needs to support.</h2><p>Bring the question, available evidence and intended audience. We will use that to shape the right project brief.</p><form><label>Name<input required></label><label>Organisation<input required></label><label>What do you need to achieve?<textarea rows='5' required></textarea></label><button type='button'>Prepare enquiry</button></form></section></main><footer>{html.escape(brand_name)} · Professional research and evidence support</footer></body></html>"""
+        fields = [
+            "artifact_contract.brand.title",
+            "artifact_contract.positioning.category",
+            "artifact_contract.positioning.buyer_problem",
+            "artifact_contract.positioning.desired_outcome",
+            "job.buyer",
+        ]
+    else:
+        services = professional["services"] or [category]
+        service_cards = "".join(
+            f"<article class='card'><span>{i:02d}</span><h2>{html.escape(service)}</h2><p>Practical support shaped around the evidence, audience and decision behind the work.</p></article>"
+            for i, service in enumerate(services, 1)
+        )
+        experience = str(professional.get("experience") or "").strip()
+        location = str(professional.get("location") or "").strip()
+        buyers = str(professional.get("buyers") or "").strip()
+        email = str(professional.get("email") or "").strip()
+        projects = professional.get("projects") or []
+        project_html = "".join(
+            f"<article class='project'><p>{html.escape(project)}</p></article>" for project in projects
+        )
+        if not project_html:
+            project_html = "<p>Project examples are shared only where the supplied evidence supports public use.</p>"
+
+        credibility_bits = [value for value in (experience, location) if value]
+        credibility = " · ".join(credibility_bits) or "Evidence-backed professional support"
+        audience = buyers or buyer
+        contact_copy = f"Email {email} to discuss your brief." if email else "Tell us what you need to achieve and which evidence is already available."
+        headline = f"{brand_name}: {category} that turns evidence into practical next steps."
+        subhead = f"Professional support for {audience}. {problem}"
+
+        page = f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{html.escape(brand_name)}</title><meta name='description' content='{html.escape(outcome)}'><link rel='stylesheet' href='styles.css'></head><body><header><nav><strong>{html.escape(brand_name)}</strong><a href='#contact'>Start a conversation</a></nav><section class='hero'><div><p class='eyebrow'>{html.escape(category.upper())}</p><h1>{html.escape(headline)}</h1><p class='lead'>{html.escape(subhead)}</p><p class='credibility'>{html.escape(credibility)}</p><a class='button' href='#contact'>Discuss your project</a></div><aside><strong>Built around the work you actually need done</strong><p>{html.escape(outcome)}</p></aside></section></header><main><section class='intro'><p class='eyebrow'>SERVICES</p><h2>Clear professional support, grounded in supplied evidence.</h2><p>We focus the work on the buyer's real decision, keep claims proportionate to the available evidence, and turn complex material into useful professional outputs.</p></section><section class='services'>{service_cards}</section><section class='evidence'><div><p class='eyebrow'>EXPERIENCE</p><h2>Credibility without inflated claims.</h2><p>{html.escape(credibility)}</p><p>Where client identities, outcomes, rankings or testimonials are not supported for public use, they are not presented as credentials.</p></div><div><p class='eyebrow'>SELECTED WORK</p><h2>Examples supported by the supplied record.</h2>{project_html}</div></section><section id='contact' class='contact'><p class='eyebrow'>PROJECT ENQUIRY</p><h2>Start a conversation about the work in front of you.</h2><p>{html.escape(contact_copy)}</p><form><label>Name<input required></label><label>Organisation<input required></label><label>What do you need to achieve?<textarea rows='5' required></textarea></label><button type='button'>Prepare enquiry</button></form></section></main><footer>{html.escape(brand_name)} · {html.escape(category)}</footer></body></html>"""
+        fields = [
+            "artifact_contract.brand.title",
+            "artifact_contract.positioning.category",
+            "artifact_contract.positioning.buyer_problem",
+            "artifact_contract.positioning.desired_outcome",
+            "job.buyer",
+            "professional_task_input.source_documents",
+            "professional_task_input.case_context",
+            "professional_task_input.constraints",
+        ]
+
+    css = """*{box-sizing:border-box}body{margin:0;background:#07131d;color:#edf4f5;font:17px/1.6 system-ui,sans-serif}header,main,footer{width:min(1120px,calc(100% - 40px));margin:auto}nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0}nav a,.button{color:#07131d;background:#d9b86c;text-decoration:none;padding:12px 17px;border-radius:8px;font-weight:800}.hero{min-height:70vh;display:grid;grid-template-columns:1.35fr .65fr;gap:48px;align-items:center}.eyebrow{letter-spacing:.13em;font-weight:900;color:#68d5ca;font-size:.8rem}h1{font-size:clamp(2.8rem,6.8vw,6rem);line-height:.96;letter-spacing:-.05em;margin:.25em 0}h2{font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.1}.lead{max-width:760px;color:#bfd0d3;font-size:1.16rem}.credibility{font-weight:800;color:#f0d79a}aside{padding:28px;border:1px solid #ffffff25;border-radius:18px;background:#ffffff08}.intro{padding:76px 0 24px;max-width:820px}.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:24px 0 72px}.card{padding:28px;background:#f5f1e8;color:#16232c;border-radius:16px}.card span{font-weight:900;color:#078d82}.evidence{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:70px 0;border-top:1px solid #ffffff1d}.project{padding:16px 0;border-bottom:1px solid #ffffff1d}.contact{padding:70px 0 90px;max-width:760px}.contact form{display:grid;gap:15px}label{font-weight:800}input,textarea{display:block;width:100%;margin-top:6px;padding:13px;border-radius:8px;border:1px solid #ffffff35;background:#ffffff0d;color:white}button{width:max-content;border:0;background:#d9b86c;padding:13px 18px;border-radius:8px;font-weight:800}footer{padding:34px 0;border-top:1px solid #ffffff1d;color:#91a7ab}@media(max-width:800px){.hero,.services,.evidence{grid-template-columns:1fr}.hero{padding:55px 0}nav a{display:none}}"""
     _write(out / "site" / "index.html", page)
     _write(out / "site" / "styles.css", css)
-    return "site/index.html", "site", [
-        "artifact_contract.brand.title",
-        "artifact_contract.positioning.category",
-        "artifact_contract.positioning.buyer_problem",
-        "artifact_contract.positioning.desired_outcome",
-        "job.buyer",
-    ]
+    return "site/index.html", "site", fields
 
 
 def _correspondence_delivery(manifest: dict[str, Any], out: Path) -> tuple[str, str, list[str]]:
