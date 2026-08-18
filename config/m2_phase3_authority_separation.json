@@ -1,0 +1,44 @@
+{
+  "schema": "dio.m2.commercial_authority_separation_config.v1",
+  "required_parent_acceptance": "DIO_M2_LINGUA_COMMERCIAL_PROJECTION_READY",
+  "reference_channel": {
+    "channel_id": "OUTLOOK",
+    "access_state": "DRAFT_ONLY",
+    "read_capability_present": true,
+    "draft_capability_present": true,
+    "publish_capability_present": true,
+    "spend_capability_present": false,
+    "required_authority_refs": [
+      "SERAPH:PUBLISH",
+      "SERAPH:SEND",
+      "SERAPH:SPEND",
+      "SERAPH:PURCHASE",
+      "SERAPH:DEPLOY",
+      "SERAPH:DELIVER"
+    ]
+  },
+  "effects": [
+    {"effect": "PUBLISH", "owner": "Seraph", "reference_decision": "REFUSE"},
+    {"effect": "SEND", "owner": "Seraph", "reference_decision": "REFUSE"},
+    {"effect": "SPEND", "owner": "Seraph", "reference_decision": "REFUSE"},
+    {"effect": "PURCHASE", "owner": "Seraph", "reference_decision": "REFUSE"},
+    {"effect": "DEPLOY", "owner": "Seraph", "reference_decision": "REFUSE"},
+    {"effect": "DELIVER", "owner": "Seraph", "reference_decision": "REFUSE"}
+  ],
+  "anchors": {
+    "seraph": "cross_folder_variants/Metatron-triune-outbound-gate/A_CODE/backend/services/outbound_gate.py",
+    "market_command": "market_command/core.py",
+    "vesper": "docs/DIO_PHASE11_1_VESPER_ATTACHMENT_DELIVERY.md",
+    "authority_plane": "config/dio_authority_plane.json"
+  },
+  "non_authority_influences": [
+    "claim_language_safe",
+    "conversion_observed",
+    "verified_payment",
+    "customer_acceptance",
+    "market_command_release_state",
+    "legalis_allow",
+    "beast_market_crystal",
+    "harmonic_normal_flow"
+  ]
+}
