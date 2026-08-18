@@ -354,7 +354,10 @@ def _organ_ledger(manifest: dict[str, Any], executed: dict[str, dict[str, Any]])
                 "provider_ref": organ["source_ref"],
             })
             continue
-        executed_caps = list(actual.get("capabilities") or required_caps)
+        executed_caps = list(actual.get("capabilities") or [])
+        unexpected = [cap for cap in executed_caps if cap not in required_caps]
+        if unexpected:
+            raise StudioNativeActivationError(f"{engine_id} claimed undeclared Studio capabilities: {unexpected}")
         missing = [cap for cap in required_caps if cap not in executed_caps]
         rows.append({
             "engine_id": engine_id,
@@ -386,6 +389,13 @@ def _organ_ledger(manifest: dict[str, Any], executed: dict[str, dict[str, Any]])
     }
 
 
+def _required_caps(manifest: dict[str, Any], engine_id: str) -> list[str]:
+    organ = next((row for row in manifest["required_organs"] if row["engine_id"] == engine_id), None)
+    if not organ:
+        raise StudioNativeActivationError(f"Studio manifest does not declare organ: {engine_id}")
+    return list(organ.get("capabilities") or [])
+
+
 def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     output_dir = output_dir.resolve()
@@ -396,7 +406,7 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
     native_dir.mkdir(parents=True, exist_ok=True)
     executed: dict[str, dict[str, Any]] = {
         "vesper": {
-            "capabilities": list(next(row["capabilities"] for row in manifest["required_organs"] if row["engine_id"] == "vesper")),
+            "capabilities": ["storefront.route.bind"],
             "provider_ref": "presence_core/router.py",
             "receipt_ref": "composition/operations/VESPER_ROUTE_RECEIPT.json",
         }
@@ -412,9 +422,9 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
             "receipt_ref": "native/lingua/LINGUA_NATIVE_RECEIPT.json",
         }
 
-        format_receipt = _invoke_format_core(manifest, sandbox_root, native_dir)
+        _invoke_format_core(manifest, sandbox_root, native_dir)
         executed["document_studio"] = {
-            "capabilities": list(next(row["capabilities"] for row in manifest["required_organs"] if row["engine_id"] == "document_studio")),
+            "capabilities": ["document.preview.render"],
             "provider_ref": "adapters/format_core/renderer.py",
             "receipt_ref": "native/document_studio/FORMAT_CORE_NORMALIZED_RECEIPT.json",
         }
@@ -422,7 +432,7 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
         commercial = _invoke_commercial_truth(manifest, root)
         _write_json(native_dir / "commercial_truth" / "COMMERCIAL_TRUTH_EVALUATION.json", commercial)
         executed["commercial_truth"] = {
-            "capabilities": list(next(row["capabilities"] for row in manifest["required_organs"] if row["engine_id"] == "commercial_truth")),
+            "capabilities": ["commercial.claim.boundary"],
             "provider_ref": "products/commercial_truth.py",
             "receipt_ref": "native/commercial_truth/COMMERCIAL_TRUTH_EVALUATION.json",
         }
@@ -431,7 +441,7 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
             niche = _invoke_nichefoundry_site(manifest)
             _write_json(native_dir / "nichefoundry" / "NICHEFOUNDRY_NATIVE_COPY.json", niche)
             executed["nichefoundry"] = {
-                "capabilities": ["market.position", "media.creative.compose"],
+                "capabilities": ["media.creative.compose"],
                 "provider_ref": "scripts/build_multichannel_campaign_factory.py",
                 "receipt_ref": "native/nichefoundry/NICHEFOUNDRY_NATIVE_COPY.json",
             }
@@ -457,6 +467,12 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
                 "provider_ref": "scripts/manage_mail_intent.py",
                 "receipt_ref": "native/outlook_mail_core/OUTLOOK_NATIVE_DRAFT_RECEIPT.json",
             }
+
+    for engine_id, actual in executed.items():
+        declared = _required_caps(manifest, engine_id)
+        undeclared = [cap for cap in actual["capabilities"] if cap not in declared]
+        if undeclared:
+            raise StudioNativeActivationError(f"{engine_id} execution escaped the Studio manifest: {undeclared}")
 
     ledger = _organ_ledger(manifest, executed)
     _write_json(output_dir / "NATIVE_ORGAN_EXECUTION_LEDGER.json", ledger)
