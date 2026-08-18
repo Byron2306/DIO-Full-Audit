@@ -50,7 +50,7 @@ def render_studio_sales_asset(*, studio_id: str, title: str, body: str, audience
     qa = receipt.get("qa") or {}
     if receipt.get("status") != "rendered_review_candidate" or not qa.get("passed"):
         raise RuntimeError("Document Studio sales asset failed controlled render QA")
-    return {
+    normalized = {
         "schema": "dio.document_studio_sales_asset_receipt.v1",
         "studio_id": studio_id,
         "artifact_type": "controlled_sales_asset",
@@ -69,3 +69,9 @@ def render_studio_sales_asset(*, studio_id: str, title: str, body: str, audience
         "capability_executed": "document.sales_assets",
         "output_path": str(path),
     }
+    # Format Core's canonical receipt includes an observation timestamp. The
+    # Studio closure keeps the deterministic normalized receipt above and the
+    # rendered asset itself, so the double-run proof is not polluted by clock
+    # metadata that carries no semantic or authority meaning.
+    (out_dir / "FORMAT_CORE_RECEIPT.json").unlink(missing_ok=True)
+    return normalized
