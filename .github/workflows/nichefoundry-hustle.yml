@@ -15,6 +15,7 @@ on:
       - "scripts/render_pending_hustle_reels.py"
       - "scripts/manage_mail_intent.py"
       - "scripts/dio_mail_branding.py"
+      - "scripts/diagnose_vesper_presence.py"
       - "presence_core/**"
       - "adapters/lingua/lifecycle.py"
       - "adapters/lingua/communicator.py"
@@ -47,6 +48,7 @@ jobs:
             scripts/render_pending_hustle_reels.py \
             scripts/manage_mail_intent.py \
             scripts/dio_mail_branding.py \
+            scripts/diagnose_vesper_presence.py \
             adapters/lingua/lifecycle.py \
             adapters/lingua/communicator.py \
             presence_core
