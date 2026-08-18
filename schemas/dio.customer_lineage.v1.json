@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.customer_lineage.v1",
+  "title": "DIO Customer Lineage v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","customer_lineage_id","context_digest","subject_digest","independence","source_refs","acceptance_refs","customer_lineage_digest"],
+  "properties": {
+    "schema": {"const": "dio.customer_lineage.v1"},
+    "customer_lineage_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "subject_digest": {"$ref": "#/$defs/digest"},
+    "independence": {"enum": ["UNKNOWN","OPERATOR_SELF","RELATED","INDEPENDENT_EXTERNAL"]},
+    "source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "acceptance_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "customer_lineage_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}
