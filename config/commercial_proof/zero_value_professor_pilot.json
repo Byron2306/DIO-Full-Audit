@@ -1,0 +1,41 @@
+{
+  "schema": "dio.commercial_proof_bundle.v1",
+  "bundle_id": "CPG-PROFESSOR-ZERO-001",
+  "product_id": "professional_task_portfolio",
+  "professional_proof": {
+    "receipt_path": "docs/proofs/professional_task_gauntlet/2026-08-18/PROFESSIONAL_TASK_GAUNTLET_RECEIPT.json",
+    "portfolio_fingerprint": "sha256:7b0e1f9e5ea6a0149dd585ccd13a8dca0dbc4dc3169f8b0229729804dd9512d8"
+  },
+  "market": {
+    "as_of": "2026-08-18",
+    "buyer_segment": "",
+    "buyer_problem": "",
+    "methodology": "",
+    "max_source_age_days": 180,
+    "sources": [],
+    "competitor_offers": [],
+    "pricing_observations": [],
+    "demand_signals": []
+  },
+  "transaction": {
+    "mode": "zero_value_pilot",
+    "order_id": "ZERO-PILOT-BYRON-001",
+    "customer_id": "operator-self-test",
+    "amount_minor": 0,
+    "currency": "USD",
+    "payment_required": false,
+    "provider_transaction_id": null
+  },
+  "acceptance": {
+    "state": "pending",
+    "customer_id": "operator-self-test",
+    "independent_customer": false,
+    "customer_originated": false,
+    "artifact_sha256": "",
+    "source_kind": "",
+    "source_message_id": "",
+    "refund_state": "none",
+    "dispute_state": "none"
+  },
+  "prior_validated_engagements": []
+}
