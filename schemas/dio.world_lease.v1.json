@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO World Lease v1",
+  "type": "object",
+  "required": [
+    "schema", "lease_id", "composition_id", "snapshot_digest", "epoch_id",
+    "observed_at", "expires_at", "policy_generation", "facts_refs",
+    "market_state_refs", "network_state_refs", "capability_refs", "authority_refs",
+    "customer_refs", "lease_digest"
+  ],
+  "properties": {
+    "schema": {"const": "dio.world_lease.v1"},
+    "lease_id": {"type": "string", "minLength": 1},
+    "composition_id": {"type": "string", "minLength": 1},
+    "snapshot_digest": {"$ref": "#/$defs/digest"},
+    "epoch_id": {"type": "string", "minLength": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "policy_generation": {"type": "string", "minLength": 1},
+    "facts_refs": {"$ref": "#/$defs/stringArray"},
+    "market_state_refs": {"$ref": "#/$defs/stringArray"},
+    "network_state_refs": {"$ref": "#/$defs/stringArray"},
+    "capability_refs": {"$ref": "#/$defs/stringArray"},
+    "authority_refs": {"$ref": "#/$defs/stringArray"},
+    "customer_refs": {"$ref": "#/$defs/stringArray"},
+    "lease_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "additionalProperties": false
+}
