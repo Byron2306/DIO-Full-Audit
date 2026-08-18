@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.market_observation.v1",
+  "title": "DIO Market Observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","observation_id","context_digest","observed_at","kind","source","source_ref","window_start","window_end","window_closed","evidence_refs","customer_lineage_id","payment_lineage_id","observation_digest"],
+  "properties": {
+    "schema": {"const": "dio.market_observation.v1"},
+    "observation_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "kind": {"enum": ["IMPRESSION","ENGAGEMENT","ENQUIRY","QUALIFIED_LEAD","ORDER","PAYMENT","ACCEPTANCE","REJECTION","NO_RESPONSE","LOSS","REFUND","DISPUTE"]},
+    "source": {"type": "string", "minLength": 1},
+    "source_ref": {"type": "string", "minLength": 1},
+    "window_start": {"type": "string", "format": "date-time"},
+    "window_end": {"type": "string", "format": "date-time"},
+    "window_closed": {"type": "boolean"},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "customer_lineage_id": {"type": ["string","null"], "minLength": 1},
+    "payment_lineage_id": {"type": ["string","null"], "minLength": 1},
+    "observation_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}
