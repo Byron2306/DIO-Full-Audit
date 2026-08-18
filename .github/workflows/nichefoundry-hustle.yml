@@ -1,19 +1,24 @@
-name: NicheFoundry Proof-Backed Commercial Persuasion
+name: NicheFoundry LINGUA Commercial Learning
 
 on:
   pull_request:
     paths:
       - "config/marketing_sales_playbook.json"
-      - "scripts/build_hustle_campaign_factory.py"
       - "scripts/build_multichannel_campaign_factory.py"
-      - "tests/test_nichefoundry_hustle_factory.py"
+      - "scripts/build_hustle_campaign_factory.py"
+      - "scripts/build_lingua_hustle_campaign_factory.py"
+      - "scripts/lingua_marketing_learning.py"
+      - "scripts/render_pending_hustle_reels.py"
+      - "adapters/lingua/lifecycle.py"
       - "tests/test_multichannel_campaign_factory.py"
+      - "tests/test_nichefoundry_hustle_factory.py"
+      - "tests/test_lingua_marketing_learning.py"
       - "ops/systemd/user/dio-marketing-factory.service"
       - ".github/workflows/nichefoundry-hustle.yml"
   workflow_dispatch:
 
 jobs:
-  hustle-factory:
+  lingua-hustle-factory:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,27 +27,44 @@ jobs:
           python-version: "3.12"
       - name: Install focused test dependencies
         run: python -m pip install --upgrade pip pillow pytest
-      - name: Compile marketing factory
-        run: python -m compileall -q scripts/build_multichannel_campaign_factory.py scripts/build_hustle_campaign_factory.py
-      - name: Run legacy and hustle factory tests
-        run: pytest -q tests/test_multichannel_campaign_factory.py tests/test_nichefoundry_hustle_factory.py
-      - name: Smoke one commercially upgraded family
+      - name: Compile marketing and LINGUA learning factory
+        run: |
+          python -m compileall -q \
+            scripts/build_multichannel_campaign_factory.py \
+            scripts/build_hustle_campaign_factory.py \
+            scripts/build_lingua_hustle_campaign_factory.py \
+            scripts/lingua_marketing_learning.py \
+            scripts/render_pending_hustle_reels.py
+      - name: Run legacy, persuasion and LINGUA learning tests
+        run: |
+          pytest -q \
+            tests/test_multichannel_campaign_factory.py \
+            tests/test_nichefoundry_hustle_factory.py \
+            tests/test_lingua_marketing_learning.py
+      - name: Smoke one LINGUA-taught family without external effects
         run: |
           out="$(mktemp -d)"
-          python scripts/build_hustle_campaign_factory.py --no-reels --limit 1 --output "$out"
+          python scripts/build_lingua_hustle_campaign_factory.py --no-reels --no-observe-market --limit 1 --output "$out"
           python - "$out" <<'PY'
           import json, pathlib, sys
           root=pathlib.Path(sys.argv[1])
           registry=json.loads((root/'CREATIVE_FAMILY_REGISTRY.json').read_text())
-          assert registry['schema']=='dio.marketing.creative_family_registry.v2'
+          assert registry['schema']=='dio.marketing.creative_family_registry.v3'
           assert registry['summary']['commercial_failures']==0
           assert registry['summary']['validation_failures']==0
+          assert registry['summary']['lingua_semantic_objects_registered']==10
+          assert registry['summary']['lingua_registration_errors']==0
+          assert registry['summary']['lingua_reuse_hits']==0
           family=registry['families'][0]
           assert family['commercial_quality']['all_channels_passed'] is True
           assert len(family['sales_scenes'])==5
+          assert family['governance']['direct_learning_to_execution'] is False
+          assert family['governance']['learning_reuse']=='held_drafts_only'
           request=json.loads((root/'evidex-pack'/'ngo-programme-leads'/'NICHEFOUNDRY_PRODUCTION_REQUEST.json').read_text())
           assert request['script_brief']['first_hook_deadline_seconds']==2
           assert request['release']['state']=='held'
           assert request['spend']['state']=='disabled'
-          print('NICHEFOUNDRY_HUSTLE_READY score=',family['commercial_quality']['minimum_channel_score'])
+          assert registry['lingua_learning']['publication'] is False
+          assert registry['lingua_learning']['spend'] is False
+          print('NICHEFOUNDRY_LINGUA_READY objects=',registry['summary']['lingua_semantic_objects_registered'])
           PY
