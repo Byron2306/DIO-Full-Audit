@@ -19,6 +19,8 @@ on:
       - "presence_core/**"
       - "adapters/lingua/lifecycle.py"
       - "adapters/lingua/communicator.py"
+      - "README_PRESENCE.md"
+      - "docs/HF_SPACE_DEPLOYMENT.md"
       - "tests/test_multichannel_campaign_factory.py"
       - "tests/test_nichefoundry_hustle_factory.py"
       - "tests/test_lingua_marketing_learning.py"
