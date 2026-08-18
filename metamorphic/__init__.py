@@ -12,6 +12,9 @@ learning-to-execution path.
 Phase 4 reuses BEAST DAI's canonical WorldStateSnapshot and binds short-lived
 metamorphic world leases to exact reality, epoch, policy, capability, and
 authority references without replacing the operational Metatron manifold.
+Phase 5 resolves source-bound LINGUA intent into existing governed capabilities,
+intersects authority, and builds a deterministic composition DAG without
+executing the selected native units.
 """
 
 from .integration_inventory import (
@@ -57,6 +60,27 @@ from .world_lease import (
     validate_world_lease,
     world_anchor_digests,
 )
+from .authority import (
+    AuthorityIntersection,
+    AuthorityIntersectionError,
+    intersect_authority,
+)
+from .composition import (
+    CompositionDAG,
+    CompositionEdge,
+    CompositionError,
+    ResolvedNode,
+    build_composition_dag,
+)
+from .resolver import (
+    PHASE5_EXIT_TOKEN,
+    LinguaIntent,
+    LinguaOutcome,
+    ResolverError,
+    build_reference_intent,
+    phase5_resolver_receipt,
+    resolve_intent,
+)
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
@@ -92,4 +116,19 @@ __all__ = [
     "require_world_lease_current",
     "validate_world_lease",
     "world_anchor_digests",
+    "AuthorityIntersection",
+    "AuthorityIntersectionError",
+    "intersect_authority",
+    "CompositionDAG",
+    "CompositionEdge",
+    "CompositionError",
+    "ResolvedNode",
+    "build_composition_dag",
+    "PHASE5_EXIT_TOKEN",
+    "LinguaIntent",
+    "LinguaOutcome",
+    "ResolverError",
+    "build_reference_intent",
+    "phase5_resolver_receipt",
+    "resolve_intent",
 ]
