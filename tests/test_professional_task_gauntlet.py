@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from adapters.lingua.communicator import plain_text_from_html
@@ -107,6 +108,31 @@ def test_correspondence_professional_delivery_preserves_case_facts_and_rejects_p
         case = load_case(case_id, root=ROOT)
         manifest = build_task_manifest(case, root=ROOT)
         _assert_professional_delivery(case, manifest, tmp_path / case_id)
+
+
+def test_finance_professional_projection_preserves_dossier_findings_and_rejects_pressure(tmp_path: Path):
+    portfolio = load_portfolio(root=ROOT)
+    for case_id in portfolio["studios"]["finance_readiness_studio"].values():
+        case = load_case(case_id, root=ROOT)
+        manifest = build_task_manifest(case, root=ROOT)
+        out = tmp_path / case_id
+        receipt = render_customer_delivery(manifest=manifest, output_dir=out)
+        primary = out / receipt["primary_artifact"]
+        text = plain_text_from_html(primary.read_text(encoding="utf-8")).casefold()
+
+        for expected in case["expected_facts"]:
+            assert any(str(value).casefold() in text for value in expected["any_of"]), (case_id, expected)
+        for prohibited in case["prohibited_inventions"]:
+            assert not any(str(value).casefold() in text for value in prohibited["patterns"]), (case_id, prohibited)
+        poison = case.get("poisoned_instruction")
+        if poison:
+            assert not any(str(value).casefold() in text for value in poison["must_not_assert"]), case_id
+            assert any(str(value).casefold() in text for value in poison["safe_alternative_terms"]), case_id
+
+        word_count = len(re.findall(r"\b[\w'-]+\b", text))
+        assert word_count >= int(case["deliverable"]["minimum_words"]), (case_id, word_count)
+        assert receipt["external_effects"] is False
+        assert receipt["authority_created"] is False
 
 
 def test_packet_materialisation_uses_professional_exam_layout(tmp_path: Path):
