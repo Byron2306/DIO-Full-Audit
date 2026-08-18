@@ -18,12 +18,14 @@ on:
       - "presence_core/**"
       - "adapters/lingua/lifecycle.py"
       - "adapters/lingua/communicator.py"
+      - "adapters/lingua/interaction_regulator.py"
       - "README_PRESENCE.md"
       - "docs/HF_SPACE_DEPLOYMENT.md"
       - "tests/test_multichannel_campaign_factory.py"
       - "tests/test_nichefoundry_hustle_factory.py"
       - "tests/test_lingua_marketing_learning.py"
       - "tests/test_lingua_public_communicator.py"
+      - "tests/test_lingua_interaction_regulator.py"
       - "tests/test_presence_engine.py"
       - "tests/test_vesper_presence_diagnostic.py"
       - "ops/systemd/user/dio-marketing-factory.service"
@@ -53,6 +55,7 @@ jobs:
             scripts/diagnose_vesper_presence.py \
             adapters/lingua/lifecycle.py \
             adapters/lingua/communicator.py \
+            adapters/lingua/interaction_regulator.py \
             presence_core
       - name: Run legacy, persuasion, Presence and LINGUA tests
         run: |
@@ -61,6 +64,7 @@ jobs:
             tests/test_nichefoundry_hustle_factory.py \
             tests/test_lingua_marketing_learning.py \
             tests/test_lingua_public_communicator.py \
+            tests/test_lingua_interaction_regulator.py \
             tests/test_presence_engine.py \
             tests/test_vesper_presence_diagnostic.py
       - name: Smoke one LINGUA-taught family without external effects
