@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from products.product_grade import ROOT, VERIFIED, evaluate_product_grade_case
+from products.product_grade_v2 import ROOT, VERIFIED, evaluate_product_grade_case
 
 BASELINE_TOKEN = "DIO_PRODUCT_GRADE_BASELINE_MEASURED"
 VERIFIED_TOKEN = "DIO_PRODUCT_GRADE_VERIFIED"
@@ -42,16 +42,22 @@ def run_product_grade_gauntlet(*, output_dir: Path, root: Path = ROOT) -> dict[s
             "threshold": receipt["threshold"],
             "critical_blockers": receipt["critical_blockers"],
             "buyer_grade_candidate": receipt["buyer_grade_candidate"],
+            "primary_artifact": receipt["primary_artifact"],
             "primary_artifact_sha256": receipt["primary_artifact_sha256"],
             "receipt_fingerprint": receipt["receipt_fingerprint"],
             "beast_mechanical_pass": bool(receipt["beast_artifact_checks"].get("mechanical_pass")),
+            "lingua_semantic_custody": any(
+                row["check"] == "lingua_native_semantic_custody" and row["passed"]
+                for row in receipt["native_authority_checks"]
+            ),
+            "legacy_final_copy_used": bool(receipt["customer_delivery_receipt"].get("final_copy_fields_used")),
             "customers_will_pay": receipt["customers_will_pay"],
             "verified_payment": receipt["verified_payment"],
         }
     verified_count = sum(1 for row in studios.values() if row["status"] == VERIFIED)
     all_verified = verified_count == len(studios)
     receipt = {
-        "schema": "dio.product_grade.portfolio_gauntlet_receipt.v1",
+        "schema": "dio.product_grade.portfolio_gauntlet_receipt.v2",
         "acceptance_token": VERIFIED_TOKEN if all_verified else BASELINE_TOKEN,
         "studio_count": len(studios),
         "product_grade_verified_count": verified_count,
@@ -61,7 +67,7 @@ def run_product_grade_gauntlet(*, output_dir: Path, root: Path = ROOT) -> dict[s
         "external_effects": False,
         "authority_created": False,
         "commercial_validation": "UNPROVED",
-        "claim_boundary": "Portfolio ProductGrade is controlled output verification. Real willingness to pay remains unproved until observed.",
+        "claim_boundary": "Portfolio ProductGrade verifies buyer-facing controlled outputs after native closure. Real willingness to pay remains unproved until observed.",
     }
     receipt["portfolio_fingerprint"] = _fingerprint(receipt)
     target = output_dir / "PRODUCT_GRADE_PORTFOLIO_RECEIPT.json"
