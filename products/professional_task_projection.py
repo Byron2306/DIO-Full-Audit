@@ -44,22 +44,47 @@ def _routeable_request(case: dict[str, Any]) -> str:
 
 
 def _issue_lines(case: dict[str, Any]) -> list[str]:
+    """Build buyer-usable finance findings from visible dossier material only.
+
+    Findings deliberately retain unresolved discrepancies rather than choosing a
+    favourable value. Adversarial instruction rows are never promoted into the
+    evidence/findings stream. The examiner memo is not consulted here.
+    """
     lines: list[str] = []
     for row in case.get("source_documents") or []:
-        text = str(row.get("text") or "")
-        for raw in text.splitlines():
-            match = re.match(r"^(?:ISSUE|ASSUMPTION)\s*:\s*(.+)$", raw.strip(), flags=re.IGNORECASE)
-            if match:
-                lines.append(match.group(1).strip())
         state = str(row.get("state") or "").casefold()
+        if state == "instruction":
+            continue
+
+        text = str(row.get("text") or "")
+        labelled: list[str] = []
+        for raw in text.splitlines():
+            match = re.match(r"^(ISSUE|ASSUMPTION)\s*:\s*(.+)$", raw.strip(), flags=re.IGNORECASE)
+            if match:
+                kind = match.group(1).strip().casefold()
+                detail = match.group(2).strip()
+                prefix = "Discrepancy / issue" if kind == "issue" else "Forecast assumption"
+                labelled.append(f"{prefix}: {detail}")
+        lines.extend(labelled)
+
         if state in {"missing", "incomplete", "stale", "contradictory", "unclear"}:
             summary = " ".join(part.strip() for part in text.splitlines() if part.strip())
             if summary:
-                lines.append(summary)
-    deduped, seen = [], set()
+                label = {
+                    "missing": "Missing evidence",
+                    "incomplete": "Incomplete evidence",
+                    "stale": "Stale evidence",
+                    "contradictory": "Contradictory evidence",
+                    "unclear": "Unclear evidence",
+                }[state]
+                lines.append(f"{label}: {summary}")
+
+    deduped: list[str] = []
+    seen: set[str] = set()
     for line in lines:
-        if line.casefold() not in seen:
-            seen.add(line.casefold())
+        key = line.casefold()
+        if key not in seen:
+            seen.add(key)
             deduped.append(line)
     return deduped
 
@@ -173,7 +198,14 @@ def build_task_manifest(case: dict[str, Any], *, root: Path = ROOT) -> dict[str,
         contract["must_not_invent"] = constraints[:]
 
     elif case["studio_id"] == "finance_readiness_studio":
-        contract["purpose"] = raw_request
+        contract["purpose"] = (
+            raw_request
+            + " Use this report as a pre-submission action list: separate evidence already on file from missing, "
+              "stale or incomplete records; retain both sides of unresolved contradictions; reconcile material "
+              "scope or amount differences; document the basis for material forecast assumptions; and replace or "
+              "refresh evidence where necessary before presenting the dossier to a finance provider. These findings "
+              "assess readiness only and do not determine affordability, creditworthiness or lender approval."
+        )
         contract["venture"] = copy.deepcopy(context["venture"])
         contract["published_requirements_fixture"] = copy.deepcopy(context["requirements"])
         supplied = []
@@ -194,6 +226,11 @@ def build_task_manifest(case: dict[str, Any], *, root: Path = ROOT) -> dict[str,
         contract["assumptions"] = _issue_lines(case) or [
             "No lender approval, affordability or underwriting outcome is known."
         ]
+        contract["assumptions"].append(
+            "Before submission, reconcile every flagged discrepancy, replace missing or stale evidence, validate "
+            "unsupported forecast assumptions against source records, and keep unresolved differences visible rather "
+            "than selecting the more favourable figure."
+        )
         contract["decision_boundary"] = str(context["decision_boundary"])
         contract["forbidden_claims"] = constraints
 
