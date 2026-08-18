@@ -12,7 +12,7 @@
     {"engine_id": "vesper", "source_ref": "presence_core/router.py", "capabilities": ["storefront.route.bind", "presence.release.prepare"]},
     {"engine_id": "lingua", "source_ref": "adapters/lingua/communicator.py", "capabilities": ["communication.meaning.register", "communication.render.bound"]},
     {"engine_id": "nichefoundry", "source_ref": "scripts/build_hustle_campaign_factory.py", "capabilities": ["market.position", "market.research.hypothesis"]},
-    {"engine_id": "evidex", "source_ref": "adapters/evidex/studio_adapter.py", "capabilities": ["evidence.intake.structure", "evidence.readiness.gap_map"]},
+    {"engine_id": "evidex", "source_ref": "adapters/evidex_studio.py", "capabilities": ["evidence.intake.structure", "evidence.readiness.gap_map"]},
     {"engine_id": "sophia", "source_ref": "adapters/sophia/review_pipeline.py", "capabilities": ["claim.lineage.audit", "assumption.boundary"]},
     {"engine_id": "document_studio", "source_ref": "adapters/document_studio/studio_sales.py", "capabilities": ["document.preview.render", "document.finance_readiness_pack"]},
     {"engine_id": "vamp", "source_ref": "adapters/vamp/snapshot_pipeline.py", "capabilities": ["objective.milestone.map"]},
