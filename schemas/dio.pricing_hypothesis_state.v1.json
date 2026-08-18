@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.pricing_hypothesis_state.v1",
+  "title": "DIO Pricing Hypothesis State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","pricing_state_id","hypothesis_id","context_digest","amount_minor","currency","evidence_state","exposure_count","verified_payment_count","accepted_customer_count","evidence_refs","pricing_state_digest"],
+  "properties": {
+    "schema": {"const": "dio.pricing_hypothesis_state.v1"},
+    "pricing_state_id": {"type": "string", "minLength": 1},
+    "hypothesis_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "amount_minor": {"type": "integer", "minimum": 0},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "evidence_state": {"enum": ["UNTESTED","EXPOSED","OBSERVING","SUPPORTED","WEAKENED","REFUTED"]},
+    "exposure_count": {"type": "integer", "minimum": 0},
+    "verified_payment_count": {"type": "integer", "minimum": 0},
+    "accepted_customer_count": {"type": "integer", "minimum": 0},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "pricing_state_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}
