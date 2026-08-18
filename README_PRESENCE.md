@@ -4,46 +4,77 @@
 
 `Lilith` remains a legacy deployment/bundle alias only where older Hugging Face artifacts still carry that name. New semantic communication, telemetry and deployment receipts use the canonical identity **Vesper**.
 
-Wave 2 provides Telegram, WhatsApp and browser-chat ingress through a non-canonical public edge, with signed delivery to the separately trusted DIO Presence Core.
+## Canonical operator Telegram transport
+
+The proved operator Telegram transport is now the Cloudflare Presence custody membrane with outbound-only local reconciliation:
+
+```text
+Telegram
+   ↓ provider webhook authentication
+Cloudflare Presence Gateway
+   ↓ exact raw provider update
+staging D1 durable custody
+   ↓ outbound-only local polling
+local Presence reconciler
+   ↓ local envelope construction + operator-edge HMAC signing
+DIO Presence Core on 127.0.0.1:8787
+   ↓
+LINGUA / Vesper / authority gates
+   ↓
+Telegram reply
+```
+
+Hugging Face Presence Spaces remain compatibility/non-critical deployments. They are no longer the canonical operator Telegram transport dependency.
+
+The controlled staging execution proof is recorded in `docs/VESPER_PERMANENT_PRESENCE_PROOF_2026-08-18.md`.
 
 ## Implemented
 
-- Telegram public concierge, voice-note transcription hook, photo/document intake.
-- WhatsApp Cloud API webhook verification, signed webhook validation, text/audio/document/image intake, bounded text replies.
-- Public Vesper web chat with signed anonymous session cookies, per-session rate limits, campaign hints, and no identity authority by default.
-- Binary uploads are downloaded at the untrusted edge, bounded by size, SHA-256 hashed, extension/MIME/magic checked, then sent to DIO and written as `content.blob` in a quarantine directory.
+- Telegram operator ingress through the Cloudflare/D1 custody membrane with local DIO signing.
+- Legacy/compatibility Telegram, WhatsApp and browser-chat edge implementations remain available for bounded use and further migration.
+- Telegram photo/document/voice custody can be reconciled locally, preserving the quarantine-first attachment boundary.
+- WhatsApp Cloud API webhook verification, signed webhook validation, text/audio/document/image intake, bounded text replies in the existing edge implementation.
+- Public Vesper web chat with signed anonymous session cookies, per-session rate limits, campaign hints, and no identity authority by default in the existing edge implementation.
 - Quarantined uploads are **not parsed, rendered, executed, indexed, or passed to models automatically**.
 - Public customer status is locked unless an operator explicitly binds a conversation to one or more exact local DIO order IDs.
 - Bound status disclosure is deliberately minimal: order ID, payment state, and whether fulfilment has been released.
-- Public and operator Presence edges remain separate cryptographic trust domains.
+- Public and operator Presence trust domains remain separate.
 - Product intake remains human-held.
 - Vesper replies and governed Outlook mail register shared LINGUA semantic lineage before channel rendering.
 
 ## Trust model
 
+For the proved operator Telegram path:
+
 ```text
-Telegram / WhatsApp / Web Chat
-             │
-             ▼
-      PUBLIC VESPER EDGE
-       non-canonical state
-             │
-      signed public ingress
-             ▼
-        DIO PRESENCE CORE
-             │
- LINGUA / classify / bind / quarantine
-             │
-     ┌───────┴────────┐
-     ▼                ▼
-  Needs You       product intake
-     │                │
-     └───────┬────────┘
-             ▼
-       HUMAN AUTHORITY
+Telegram
+   │
+   ▼
+Cloudflare provider-authenticated custody
+   │
+   ▼
+D1 pending event
+   │
+   ▼ outbound-only pull
+local reconciler
+   │ local DIO signing
+   ▼
+DIO Presence Core
+   │
+LINGUA / classify / bind / quarantine
+   │
+   ├───────────────┐
+   ▼               ▼
+Needs You      product intake
+   │               │
+   └───────┬───────┘
+           ▼
+     HUMAN AUTHORITY
 ```
 
-The operator Telegram edge remains a **separate bot/deployment** using a different signing key. WhatsApp and web chat cannot become operator channels.
+Cloudflare receives the Telegram webhook-authentication secret and the separate edge pull token. It does **not** receive the DIO public/operator shared signing secrets and therefore cannot create DIO Presence authority.
+
+WhatsApp and web chat cannot become operator channels merely because they share Vesper's communication layer.
 
 ## LINGUA public communicator
 
@@ -57,37 +88,36 @@ LINGUA does **not** create consent, send authority, payment state, fulfilment au
 
 ## Telegram reply truth
 
-The hardened Presence Core owns the bounded Telegram reply action after trusted ingress. External replies are fail-closed unless the runtime permits that exact reply rail. A healthy reasoning path therefore does **not** prove that the public bot is reachable or that Telegram delivery is enabled.
+The hardened Presence Core owns the bounded Telegram reply action after trusted ingress. External replies are fail-closed unless the runtime permits that exact reply rail.
 
-## Deployment identity receipt
+The permanent staging proof goes beyond a prepared-reply claim: multiple real Telegram provider updates were durably queued, locally signed, accepted by Presence Core and answered through the governed reply rail.
 
-Deployment instructions are not a live deployment identity. Record the actual public edge in `state/presence/deployment.json` without secrets. It should bind at least the HF Space ID, public URL, observed Space SHA, public edge role, Telegram webhook path, governed Core/backhaul URL and observation timestamp.
+## Deployment identity receipts
 
-Run the redacted live diagnostic:
+Deployment instructions are not live deployment evidence.
+
+For the canonical operator Telegram path, use the Cloudflare/D1 proof receipt:
+
+```text
+docs/VESPER_PERMANENT_PRESENCE_PROOF_2026-08-18.md
+```
+
+If a Hugging Face compatibility deployment is intentionally inspected, its diagnostic/receipt must state that it is non-canonical unless an authorised architecture change says otherwise.
+
+The existing redacted diagnostic remains available for compatibility/runtime inspection:
 
 ```bash
 python3 scripts/diagnose_vesper_presence.py --write-receipt
 ```
 
-If the Space has not yet been recorded:
-
-```bash
-python3 scripts/diagnose_vesper_presence.py \
-  --space-id 'namespace/space-name' \
-  --public-url 'https://space-subdomain.hf.space' \
-  --write-receipt
-```
-
-It checks Core reachability, reply-gate state, required secret presence, Telegram bot identity/webhook information, public-edge health and the recorded HF Space identity without printing credentials.
-
 ## Safe upload path
 
 ```text
 provider media id
-→ provider-authenticated download
-→ edge size limit
+→ provider-authenticated custody/download path
+→ size limit
 → SHA-256
-→ signed DIO ingress
+→ locally signed DIO ingress
 → extension + MIME + file-signature checks
 → random attachment id
 → content.blob
@@ -108,9 +138,10 @@ cd ~/DIO
 source .venv/bin/activate
 python -m pytest -q tests/test_presence_*.py
 python3 scripts/serve_presence_bridge.py
+python3 scripts/sync_vesper_presence_edge.py --watch
 ```
 
-Older deployment bundles may still be named `DIO_Lilith_Public_HF_Space_Wave2.zip` and `DIO_Lilith_Operator_HF_Space_Wave2.zip`. Those filenames are compatibility artifacts, not the canonical Presence identity.
+Older deployment bundles may still be named `DIO_Lilith_Public_HF_Space_Wave2.zip` and `DIO_Lilith_Operator_HF_Space_Wave2.zip`. Those filenames are compatibility artifacts, not the canonical Presence identity or operator Telegram topology.
 
 ## Authority boundary
 
