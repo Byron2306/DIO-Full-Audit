@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from metamorphic.integration_inventory import validate_integration_inventory
 
 
 def main() -> int:
-    repo_root = Path(__file__).resolve().parents[1]
-    receipt = validate_integration_inventory(repo_root)
+    receipt = validate_integration_inventory(REPO_ROOT)
     print(json.dumps(receipt, indent=2, sort_keys=True))
     return 0 if receipt["passed"] else 1
 
