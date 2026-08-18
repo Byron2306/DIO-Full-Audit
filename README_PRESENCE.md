@@ -17,7 +17,7 @@ Wave 2 provides Telegram, WhatsApp and browser-chat ingress through a non-canoni
 - Bound status disclosure is deliberately minimal: order ID, payment state, and whether fulfilment has been released.
 - Public and operator Presence edges remain separate cryptographic trust domains.
 - Product intake remains human-held.
-- Vesper replies and governed Outlook mail now register shared LINGUA semantic lineage before channel rendering.
+- Vesper replies and governed Outlook mail register shared LINGUA semantic lineage before channel rendering.
 
 ## Trust model
 
@@ -49,14 +49,7 @@ The operator Telegram edge remains a **separate bot/deployment** using a differe
 
 Telegram, WhatsApp, web chat, voice, email and Outlook are rendering surfaces over shared governed meaning rather than independent linguistic authorities.
 
-The communication lifecycle can bind:
-
-- subject and body meaning;
-- source and requested language;
-- channel and audience;
-- product context;
-- source hash/version;
-- explicit authority boundary.
+The communication lifecycle binds subject/body meaning, source/requested language, channel/audience, product context, source hash/version and explicit authority boundaries.
 
 LINGUA may reuse a current human-approved translation lane. A new translation does not become approved merely because a model can produce it.
 
@@ -68,22 +61,7 @@ The hardened Presence Core owns the bounded Telegram reply action after trusted 
 
 ## Deployment identity receipt
 
-Deployment instructions are not a live deployment identity. Record the actual public edge in `state/presence/deployment.json` without secrets:
-
-```json
-{
-  "schema": "dio.vesper.presence_deployment.v1",
-  "hf_space_id": "namespace/space-name",
-  "public_url": "https://space-subdomain.hf.space",
-  "space_sha": "<observed deployed revision>",
-  "edge_role": "public",
-  "telegram_webhook_path": "/telegram/webhook",
-  "core_url": "<reachable Presence Core base URL or governed backhaul endpoint>",
-  "observed_at": "<UTC timestamp>"
-}
-```
-
-Do not store Telegram tokens, shared secrets, operator tokens or OAuth credentials in this receipt.
+Deployment instructions are not a live deployment identity. Record the actual public edge in `state/presence/deployment.json` without secrets. It should bind at least the HF Space ID, public URL, observed Space SHA, public edge role, Telegram webhook path, governed Core/backhaul URL and observation timestamp.
 
 Run the redacted live diagnostic:
 
@@ -91,7 +69,7 @@ Run the redacted live diagnostic:
 python3 scripts/diagnose_vesper_presence.py --write-receipt
 ```
 
-If the live Space has not yet been recorded:
+If the Space has not yet been recorded:
 
 ```bash
 python3 scripts/diagnose_vesper_presence.py \
