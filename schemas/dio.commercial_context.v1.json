@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.commercial_context.v1",
+  "title": "DIO Commercial Context v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","context_id","product_id","metamorphic_unit_digest","buyer_segment_id","jurisdiction","channel_id","offer_id","currency","price_minor","period_start","period_end","world_lease_digest","world_state_digest","market_state_digest","creative_profile_digest","copy_profile_digest","source_refs","context_digest"],
+  "properties": {
+    "schema": {"const": "dio.commercial_context.v1"},
+    "context_id": {"type": "string", "minLength": 1},
+    "product_id": {"type": "string", "minLength": 1},
+    "metamorphic_unit_digest": {"$ref": "#/$defs/digest"},
+    "buyer_segment_id": {"type": "string", "minLength": 1},
+    "jurisdiction": {"type": "string", "minLength": 1},
+    "channel_id": {"type": "string", "minLength": 1},
+    "offer_id": {"type": "string", "minLength": 1},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "price_minor": {"type": "integer", "minimum": 0},
+    "period_start": {"type": "string", "format": "date-time"},
+    "period_end": {"type": "string", "format": "date-time"},
+    "world_lease_digest": {"$ref": "#/$defs/digest"},
+    "world_state_digest": {"$ref": "#/$defs/digest"},
+    "market_state_digest": {"$ref": "#/$defs/digest"},
+    "creative_profile_digest": {"$ref": "#/$defs/digest"},
+    "copy_profile_digest": {"$ref": "#/$defs/digest"},
+    "source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "context_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}
