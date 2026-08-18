@@ -7,13 +7,18 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from adapters.evidex_studio import build_studio_intake as build_evidex_studio_intake
 from adapters.format_core.renderer import build_paragraph_semantic_content, render_semantic_asset
 from adapters.lingua.communicator import register_communication
+from adapters.sophia.studio_editorial import audit_article_lineage
+from adapters.sophia.studio_finance import audit_finance_readiness
+from adapters.vamp.finance_readiness import map_finance_objectives
 from market_command.core import MarketStore
 from products.commercial_truth import evaluate_product, load_config
 from products.studio_harvest import build_studio_case
 from scripts.build_multichannel_campaign_factory import copy_package
 from scripts.manage_mail_intent import create_intent_from_payload
+from scripts.nichefoundry_studio_adapter import compose_article_creative, position_finance_readiness
 from scripts.run_evidex_jobs import build_intake as build_evidex_intake
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,7 +67,8 @@ def _normalise_lingua(receipt: dict[str, Any]) -> dict[str, Any]:
 
 def _lingua_body(manifest: dict[str, Any]) -> tuple[str, str]:
     contract = manifest["artifact_contract"]
-    if contract["kind"] == "site":
+    kind = contract["kind"]
+    if kind == "site":
         brand = contract["brand"]
         sections = contract["sections"]
         body = "\n\n".join([
@@ -71,8 +77,27 @@ def _lingua_body(manifest: dict[str, Any]) -> tuple[str, str]:
             *[f"{row['title']}: {row['body']}" for row in sections],
         ])
         return str(brand["title"]), body
-    draft = contract["draft"]
-    return str(draft["subject"]), "\n".join(str(row) for row in draft["body_lines"])
+    if kind == "correspondence":
+        draft = contract["draft"]
+        return str(draft["subject"]), "\n".join(str(row) for row in draft["body_lines"])
+    if kind == "finance_readiness":
+        venture = contract["venture"]
+        body = "\n".join([
+            str(contract["purpose"]),
+            f"Funding need: {venture['funding_need']}",
+            *[f"Requirement {row['requirement_id']}: {row['label']}" for row in contract["published_requirements_fixture"]],
+            *[f"Assumption: {row}" for row in contract["assumptions"]],
+            str(contract["decision_boundary"]),
+        ])
+        return f"{venture['name']} Finance Readiness", body
+    if kind == "article":
+        body = "\n".join([
+            str(contract["standfirst"]),
+            *[f"{row['heading']}: {row['body']}" for row in contract["sections"]],
+            *[f"Reference: {row['citation']}" for row in contract["source_fixture"]],
+        ])
+        return str(contract["headline"]), body
+    raise StudioNativeActivationError(f"unsupported Studio kind for LINGUA: {kind}")
 
 
 def _invoke_lingua(manifest: dict[str, Any], sandbox_root: Path) -> dict[str, Any]:
@@ -437,7 +462,8 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
             "receipt_ref": "native/commercial_truth/COMMERCIAL_TRUTH_EVALUATION.json",
         }
 
-        if manifest["artifact_contract"]["kind"] == "site":
+        kind = manifest["artifact_contract"]["kind"]
+        if kind == "site":
             niche = _invoke_nichefoundry_site(manifest)
             _write_json(native_dir / "nichefoundry" / "NICHEFOUNDRY_NATIVE_COPY.json", niche)
             executed["nichefoundry"] = {
@@ -459,7 +485,7 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
                 "provider_ref": "scripts/run_evidex_jobs.py",
                 "receipt_ref": "native/evidex/EVIDEX_NATIVE_ADAPTER_RECEIPT.json",
             }
-        else:
+        elif kind == "correspondence":
             outlook = _invoke_outlook_correspondence(manifest, sandbox_root)
             _write_json(native_dir / "outlook_mail_core" / "OUTLOOK_NATIVE_DRAFT_RECEIPT.json", outlook)
             executed["outlook_mail_core"] = {
@@ -467,6 +493,59 @@ def activate_studio_case(*, manifest_path: Path, output_dir: Path, root: Path = 
                 "provider_ref": "scripts/manage_mail_intent.py",
                 "receipt_ref": "native/outlook_mail_core/OUTLOOK_NATIVE_DRAFT_RECEIPT.json",
             }
+        elif kind == "finance_readiness":
+            niche = position_finance_readiness(manifest)
+            _write_json(native_dir / "nichefoundry" / "NICHEFOUNDRY_FINANCE_RECEIPT.json", niche)
+            executed["nichefoundry"] = {
+                "capabilities": list(niche["capabilities_executed"]),
+                "provider_ref": "scripts/nichefoundry_studio_adapter.py",
+                "receipt_ref": "native/nichefoundry/NICHEFOUNDRY_FINANCE_RECEIPT.json",
+            }
+            evidex = build_evidex_studio_intake(manifest)
+            _write_json(native_dir / "evidex" / "EVIDEX_FINANCE_INTAKE.json", evidex)
+            executed["evidex"] = {
+                "capabilities": ["evidence.intake.structure"],
+                "provider_ref": "adapters/evidex_studio.py",
+                "receipt_ref": "native/evidex/EVIDEX_FINANCE_INTAKE.json",
+            }
+            sophia = audit_finance_readiness(manifest)
+            _write_json(native_dir / "sophia" / "SOPHIA_FINANCE_AUDIT.json", sophia)
+            executed["sophia"] = {
+                "capabilities": list(sophia["capabilities_executed"]),
+                "provider_ref": "adapters/sophia/studio_finance.py",
+                "receipt_ref": "native/sophia/SOPHIA_FINANCE_AUDIT.json",
+            }
+            vamp = map_finance_objectives(manifest)
+            _write_json(native_dir / "vamp" / "VAMP_FINANCE_OBJECTIVE_MAP.json", vamp)
+            executed["vamp"] = {
+                "capabilities": list(vamp["capabilities_executed"]),
+                "provider_ref": "adapters/vamp/finance_readiness.py",
+                "receipt_ref": "native/vamp/VAMP_FINANCE_OBJECTIVE_MAP.json",
+            }
+        elif kind == "article":
+            niche = compose_article_creative(manifest)
+            _write_json(native_dir / "nichefoundry" / "NICHEFOUNDRY_ARTICLE_CREATIVE.json", niche)
+            executed["nichefoundry"] = {
+                "capabilities": list(niche["capabilities_executed"]),
+                "provider_ref": "scripts/nichefoundry_studio_adapter.py",
+                "receipt_ref": "native/nichefoundry/NICHEFOUNDRY_ARTICLE_CREATIVE.json",
+            }
+            evidex = build_evidex_studio_intake(manifest)
+            _write_json(native_dir / "evidex" / "EVIDEX_ARTICLE_INTAKE.json", evidex)
+            executed["evidex"] = {
+                "capabilities": ["evidence.intake.structure"],
+                "provider_ref": "adapters/evidex_studio.py",
+                "receipt_ref": "native/evidex/EVIDEX_ARTICLE_INTAKE.json",
+            }
+            sophia = audit_article_lineage(manifest)
+            _write_json(native_dir / "sophia" / "SOPHIA_ARTICLE_LINEAGE.json", sophia)
+            executed["sophia"] = {
+                "capabilities": list(sophia["capabilities_executed"]),
+                "provider_ref": "adapters/sophia/studio_editorial.py",
+                "receipt_ref": "native/sophia/SOPHIA_ARTICLE_LINEAGE.json",
+            }
+        else:
+            raise StudioNativeActivationError(f"unsupported native Studio kind: {kind}")
 
     for engine_id, actual in executed.items():
         declared = _required_caps(manifest, engine_id)
