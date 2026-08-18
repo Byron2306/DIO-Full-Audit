@@ -15,6 +15,10 @@ authority references without replacing the operational Metatron manifold.
 Phase 5 resolves source-bound LINGUA intent into existing governed capabilities,
 intersects authority, and builds a deterministic composition DAG without
 executing the selected native units.
+Phase 6 executes that DAG through the existing Studio native executor, rechecks
+the world lease at each node, preserves node receipts, and records an evidence-
+only BEAST Sensorium runtime episode without claiming later-phase learning,
+egress, ARDA execution or world settlement.
 """
 
 from .integration_inventory import (
@@ -81,6 +85,13 @@ from .resolver import (
     phase5_resolver_receipt,
     resolve_intent,
 )
+from .native_execution import (
+    PHASE6_EXIT_TOKEN,
+    NativeExecutionError,
+    execute_resolution,
+    phase6_native_execution_receipt,
+    run_reference_native_execution,
+)
 
 __all__ = [
     "CANONICAL_INTEGRATION_ANCHORS",
@@ -131,4 +142,9 @@ __all__ = [
     "build_reference_intent",
     "phase5_resolver_receipt",
     "resolve_intent",
+    "PHASE6_EXIT_TOKEN",
+    "NativeExecutionError",
+    "execute_resolution",
+    "phase6_native_execution_receipt",
+    "run_reference_native_execution",
 ]
