@@ -155,6 +155,13 @@
       "must_detect": "A successful positive-value payment proves both:",
       "quarantined_by": "products/commercial_proof_v1_1.py",
       "required_correction": "INDEPENDENT_CUSTOMER_ACCEPTANCE_REQUIRED"
+    },
+    {
+      "id": "legacy_one_payment_means_someone_will_pay",
+      "path": "docs/DIO_COMMERCIAL_OPERATING_PLAN.md",
+      "must_detect": "| Commercial | at least 1 verified paid order | Someone will pay |",
+      "quarantined_by": "docs/DIO_COMMERCIAL_TRUTH_LAYER_PHASE10.md",
+      "required_correction": "Payment proves payment only."
     }
   ]
 }
