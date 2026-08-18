@@ -2,8 +2,7 @@ name: DIO LINGUA Communication Learning
 
 on:
   push:
-    branches:
-      - "agent/dio-nichefoundry-hustle"
+    branches: ["agent/dio-nichefoundry-hustle"]
   pull_request:
     paths:
       - "config/marketing_sales_playbook.json"
