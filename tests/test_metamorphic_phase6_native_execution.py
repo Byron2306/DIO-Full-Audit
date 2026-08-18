@@ -45,6 +45,10 @@ def _planned_context():
     return now, resolution, snapshot, lease
 
 
+def _node(resolution, node_id):
+    return next(row for row in resolution["composition"]["nodes"] if row["node_id"] == node_id)
+
+
 def test_phase6_receipt_executes_all_three_native_nodes(phase6_receipt):
     assert phase6_receipt["passed"] is True, phase6_receipt
     assert phase6_receipt["acceptance"] == PHASE6_EXIT_TOKEN
@@ -140,7 +144,7 @@ def test_phase6_live_world_drift_refuses_before_native_node(monkeypatch, tmp_pat
 def test_phase6_tampered_unit_identity_refuses_before_native_node(monkeypatch, tmp_path):
     now, resolution, snapshot, lease = _planned_context()
     hostile = deepcopy(resolution)
-    hostile["composition"]["nodes"][0]["unit_digest"] = "sha256:" + "0" * 64
+    _node(hostile, "readiness")["unit_digest"] = "sha256:" + "0" * 64
     called = []
 
     def forbidden_executor(**kwargs):
@@ -163,7 +167,7 @@ def test_phase6_tampered_unit_identity_refuses_before_native_node(monkeypatch, t
 def test_phase6_tampered_executor_identity_refuses_before_native_node(monkeypatch, tmp_path):
     now, resolution, snapshot, lease = _planned_context()
     hostile = deepcopy(resolution)
-    hostile["composition"]["nodes"][0]["executor_id"] = "invented.executor"
+    _node(hostile, "readiness")["executor_id"] = "invented.executor"
     called = []
 
     def forbidden_executor(**kwargs):
