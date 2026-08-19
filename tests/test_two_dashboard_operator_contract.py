@@ -15,17 +15,21 @@ def test_only_business_and_market_are_deployed_operator_dashboards():
 
 def test_business_root_routes_to_business_workbench():
     source = text("scripts/serve_control_deck_ms10.py")
-    assert 'self.path = "/dashboard/business.html"' in source
+    assert 'if route in {"/", "/dashboard/business.html"}:' in source
+    assert "self._serve_business_page()" in source
     assert "DIO BUSINESS" in source
     assert "/api/business/artifact" in source
     assert "/api/business/lead/update" in source
+    assert "/api/business/secrets" in source
 
 
 def test_market_root_routes_to_market_workbench():
     source = text("scripts/serve_market_command_ms10.py")
-    assert 'self.path = "/dashboard/market.html"' in source
+    assert 'if route in {"/", "/dashboard/market.html"}:' in source
+    assert "self._serve_market_page()" in source
     assert "DIO MARKET" in source
     assert "/api/market/products" in source
+    assert "load_secret_env(overwrite=False)" in source
 
 
 def test_business_exposes_human_authority_full_portfolio_and_public_links():
