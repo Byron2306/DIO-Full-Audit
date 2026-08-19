@@ -18,7 +18,7 @@ class MarketSensoriumCycle:
         self.state_root.mkdir(parents=True, exist_ok=True)
         self.db_path = self.state_root / "market_sensorium.sqlite"
         self.domain_registry = self.root / "config" / "atlas" / "dio_atlas_universal_domain_registry.csv"
-        self.seed_registry = self.root / "config" / "market_sensorium" / "seed_organisations.csv"
+        self.seed_registry = self.root / "config" / "market_sensorium" / "seeds"
         self.baseline_output = self.state_root / "domain_baseline_candidates.csv"
         self.receipt_path = self.state_root / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
 
