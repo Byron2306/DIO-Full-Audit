@@ -10,19 +10,28 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from atlas import atlas_foundation_receipt, atlas_pivot_foundation_receipt
+from atlas import (
+    atlas_foundation_receipt,
+    atlas_pivot_foundation_receipt,
+    validate_meta_profile_crosswalk,
+)
 
 
 def main() -> int:
+    meta = validate_meta_profile_crosswalk(REPO_ROOT)
     foundation = atlas_foundation_receipt(REPO_ROOT)
     pivot = atlas_pivot_foundation_receipt(REPO_ROOT)
-    passed = foundation.get("passed") is True and pivot.get("passed") is True
+    passed = meta.get("passed") is True and foundation.get("passed") is True and pivot.get("passed") is True
     receipt = {
         "schema": "dio.atlas.m4_foundation_programme_receipt.v1",
         "acceptance": "DIO_ATLAS_M4_FOUNDATION_AND_PIVOT_READY" if passed else "DIO_ATLAS_M4_FOUNDATION_AND_PIVOT_BLOCKED",
         "passed": passed,
+        "dio_meta_crosswalk": meta,
         "atlas_foundation": foundation,
         "analogical_pivot_foundation": pivot,
+        "portfolio_incarnation_count": meta.get("portfolio_incarnation_count"),
+        "profile_row_count": meta.get("profile_row_count"),
+        "capability_cost_first_class": meta.get("capability_cost_first_class") is True,
         "m1_verified": foundation.get("m1_verified") is True,
         "m2_verified": foundation.get("m2_verified") is True,
         "m3_boundary_preserved": foundation.get("m3_boundary_preserved") is True,
