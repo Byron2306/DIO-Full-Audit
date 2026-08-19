@@ -13,7 +13,10 @@ through Market Command and Sensorium without claiming real market validation.
 Phase M2-6 binds customer identity, payment evidence and acceptance evidence as
 distinct lineages and exercises the structural WTP gate without claiming real
 WTP from controlled fixtures. Phase M2-7 settles those controlled commercial
-evidence worlds before BEAST may append evidence-only market crystals.
+evidence worlds before BEAST may append evidence-only market crystals. Phase
+M2-8 reuses LINGUA and BEAST learning organs to form a held commercial
+projection-adaptation candidate and context-bound negative observations without
+promoting controlled fixtures into reusable market truth.
 """
 
 from .constitution import (
@@ -106,10 +109,21 @@ from .settlement import (
     phase7_commercial_settlement_receipt,
     settle_and_crystallize_controlled_commercial_evidence,
 )
+from .learning import (
+    ADAPTATION_SCHEMA_FILE,
+    CommercialLearningError,
+    CommercialProjectionAdaptationCandidate,
+    DEFAULT_ADAPTATION_CONFIG,
+    M2_PHASE8_EXIT_TOKEN,
+    exercise_projection_adaptation,
+    phase8_projection_adaptation_receipt,
+)
 
 __all__ = [
+    "ADAPTATION_SCHEMA_FILE",
     "AUTHORITY_SCHEMA_FILE",
     "AuthorityDecision",
+    "DEFAULT_ADAPTATION_CONFIG",
     "DEFAULT_AUTHORITY_CONFIG",
     "DEFAULT_CONFIG",
     "DEFAULT_EPISODE_CONFIG",
@@ -129,6 +143,7 @@ __all__ = [
     "M2_PHASE5_EXIT_TOKEN",
     "M2_PHASE6_EXIT_TOKEN",
     "M2_PHASE7_EXIT_TOKEN",
+    "M2_PHASE8_EXIT_TOKEN",
     "REQUIRED_ANCHOR_IDS",
     "REQUIRED_LAWS",
     "CommercialAuthorityError",
@@ -137,11 +152,13 @@ __all__ = [
     "CommercialClaimState",
     "CommercialConstitutionError",
     "CommercialEffect",
+    "CommercialLearningError",
     "CommercialLineageError",
     "CommercialLineageEvidence",
     "CommercialObservationEpisode",
     "CommercialObservationError",
     "CommercialProjection",
+    "CommercialProjectionAdaptationCandidate",
     "CommercialProjectionError",
     "CommercialSettlementBundle",
     "CommercialSettlementError",
@@ -173,6 +190,7 @@ __all__ = [
     "evaluate_non_authority_influences",
     "exercise_controlled_lineage_scenarios",
     "exercise_controlled_observation_scenarios",
+    "exercise_projection_adaptation",
     "phase1_contract_receipt",
     "phase2_projection_receipt",
     "phase3_authority_receipt",
@@ -180,6 +198,7 @@ __all__ = [
     "phase5_market_observation_receipt",
     "phase6_customer_payment_lineage_receipt",
     "phase7_commercial_settlement_receipt",
+    "phase8_projection_adaptation_receipt",
     "settle_and_crystallize_controlled_commercial_evidence",
     "validate_commercial_constitution",
 ]
