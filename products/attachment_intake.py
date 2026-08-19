@@ -16,8 +16,8 @@ MAX_ATTACHMENTS = 12
 MAX_BYTES = 10 * 1024 * 1024
 MAX_ARCHIVE_MEMBERS = 100
 MAX_ARCHIVE_TEXT_BYTES = 512 * 1024
-ALLOWED = {".txt", ".md", ".json", ".pdf", ".docx", ".xlsx", ".png", ".jpg", ".jpeg", ".zip"}
-TEXT_TYPES = {".txt", ".md", ".json"}
+ALLOWED = {".txt", ".md", ".csv", ".json", ".pdf", ".docx", ".xlsx", ".png", ".jpg", ".jpeg", ".zip"}
+TEXT_TYPES = {".txt", ".md", ".csv", ".json"}
 MAGIC = {".pdf": b"%PDF", ".png": b"\x89PNG\r\n\x1a\n", ".jpg": b"\xff\xd8\xff", ".jpeg": b"\xff\xd8\xff"}
 
 
