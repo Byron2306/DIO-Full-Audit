@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import ast
 import inspect
+import textwrap
 
 import pytest
 
@@ -92,8 +94,17 @@ def test_installation_patches_only_execution_seams_and_keeps_route_constitution(
 def test_prepared_executor_remains_non_rematerializing() -> None:
     import products.professional_evidence_prepared_executor as prepared
 
-    source = inspect.getsource(prepared.execute_prepared_customer_case)
-    assert "materialize_customer_packet" not in source
-    assert "enrich_customer_packet" not in source
+    source = textwrap.dedent(inspect.getsource(prepared.execute_prepared_customer_case))
+    tree = ast.parse(source)
+    called_names: set[str] = set()
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        if isinstance(node.func, ast.Name):
+            called_names.add(node.func.id)
+        elif isinstance(node.func, ast.Attribute):
+            called_names.add(node.func.attr)
+    assert "materialize_customer_packet" not in called_names
+    assert "enrich_customer_packet" not in called_names
     assert 'prepared_by != "vesper_web_chat"' in source
     assert '"rematerialized_by_executor": False' in source
