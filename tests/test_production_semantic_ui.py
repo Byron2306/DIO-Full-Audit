@@ -58,3 +58,11 @@ def test_local_exact_surfaces_remain_available() -> None:
     source = _source()
     assert "'Document Studio Edit':'/sites/document-studio/'" in source
     assert "'Vesper Desk':VESPER_PRESENCE" in source
+
+
+def test_vesper_presence_is_bound_to_exact_selected_incarnation() -> None:
+    source = _source()
+    assert "const vesperPresence = incarnation => incarnation" in source
+    assert "?incarnation=${encodeURIComponent(incarnation)}" in source
+    assert "OPEN VESPER FOR ${esc2(incarnation || 'PRODUCT')}" in source
+    assert "The Vesper link is separately bound to this exact incarnation" in source
