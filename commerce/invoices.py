@@ -147,6 +147,25 @@ def load_invoice(root: Path, invoice_id: str) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def issue_invoice(root: Path, invoice_id: str, *, operator: str) -> dict[str, Any]:
+    invoice = load_invoice(root, invoice_id)
+    if invoice["state"] == "issued":
+        return invoice
+    if invoice["state"] != "draft":
+        raise ValueError(f"Cannot issue invoice from state {invoice['state']}")
+    invoice["state"] = "issued"
+    invoice["issued_at"] = utc_now()
+    invoice["authority"] = {
+        "operator": operator,
+        "issued": True,
+        "authority_created": False,
+    }
+    directory = root / "state" / "invoices" / invoice_id
+    _write_json(directory / "INVOICE.json", invoice)
+    (directory / "INVOICE.html").write_text(_invoice_html(invoice), encoding="utf-8")
+    return invoice
+
+
 def list_invoices(root: Path) -> list[dict[str, Any]]:
     invoice_root = root / "state" / "invoices"
     if not invoice_root.exists():
