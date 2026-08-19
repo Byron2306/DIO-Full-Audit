@@ -36,10 +36,14 @@ def test_connections_page_has_tiktok_business_and_ads_manager_links():
         "https://business.tiktok.com/",
         "https://ads.tiktok.com/",
         "/api/business/secrets",
-        "TIKTOK_ACCESS_TOKEN",
-        "TIKTOK_ADVERTISER_ID",
+        "Save changed secrets",
     ):
         assert marker in page
+    # Credential field names are intentionally supplied at runtime by the
+    # secret registry API rather than duplicated into static HTML.
+    registry = json.loads((ROOT / "config" / "secret_registry.json").read_text(encoding="utf-8"))
+    ads = next(row for row in registry["providers"] if row["id"] == "TIKTOK_ADS")
+    assert ads["required"] == ["TIKTOK_ACCESS_TOKEN", "TIKTOK_ADVERTISER_ID"]
     assert "Connections & Secrets" in server
     assert "TikTok Business" in server
     assert "TikTok Ads" in server
