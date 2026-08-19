@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from adapters.document_studio.art_direction import build_art_direction
@@ -32,7 +33,7 @@ def _story(archetype: str = "education_practitioner") -> dict:
                 "You still decide",
                 "Send one controlled assessment batch",
             ][index - 1],
-            "narration": f"SECRET NARRATION PARAGRAPH {index}: this belongs in Leah audio and must never become visible Gamma body copy.",
+            "narration": f"SECRET NARRATION PARAGRAPH {index}: this belongs in Leah audio and must never become visible visual body copy.",
             "visual": f"Scene {index} should show tactile human evidence rather than a corporate card grid.",
         })
     return {
@@ -80,7 +81,7 @@ def test_teacher_and_assurance_art_languages_are_visually_distinct() -> None:
     assert teacher["format_core_profile"] != assurance["format_core_profile"]
 
 
-def test_gamma_visible_input_contains_display_copy_not_narration(tmp_path: Path) -> None:
+def test_visual_request_contains_sparse_copy_and_local_composition(tmp_path: Path) -> None:
     story = _story()
     request = build_art_directed_gamma_request(story, tmp_path)
     assert request["art_direction_hash"].startswith("sha256:")
@@ -90,17 +91,35 @@ def test_gamma_visible_input_contains_display_copy_not_narration(tmp_path: Path)
     assert "Still doing this by hand?" in request["input_text"]
     assert len(request["creative_direction"]["scene_directions"]) == 7
     assert "four_quadrant_saas_card_grid" in request["creative_direction"]["anti_patterns"]
+    assert request["visual_source_policy"] == {
+        "primary": "document_studio_local_compositor",
+        "gamma": "optional_candidate_only",
+        "gamma_required_for_media": False,
+    }
     assert (tmp_path / "DOCUMENT_STUDIO_ART_DIRECTION_LANDSCAPE_EXPLAINER.json").is_file()
+    local_receipt_path = tmp_path / "DOCUMENT_STUDIO_LOCAL_COMPOSITION_LANDSCAPE_EXPLAINER.json"
+    assert local_receipt_path.is_file()
+    local_receipt = json.loads(local_receipt_path.read_text(encoding="utf-8"))
+    assert local_receipt["state"] == "ready"
+    assert local_receipt["frame_count"] == 7
+    assert local_receipt["governance"]["gamma_required"] is False
+    assert all(Path(row["path"]).is_file() for row in local_receipt["frames"])
+    assert len({row["layout_family"] for row in local_receipt["frames"]}) >= 6
 
 
-def test_active_factory_installs_visual_spine_and_real_motion() -> None:
+def test_active_factory_installs_local_primary_visual_spine_and_real_motion() -> None:
     active = (ROOT / "scripts" / "build_multichannel_campaign_factory.py").read_text(encoding="utf-8")
+    spine = (ROOT / "scripts" / "nichefoundry_visual_spine.py").read_text(encoding="utf-8")
     runner = (ROOT / "scripts" / "run_gamma_art_directed_story.js").read_text(encoding="utf-8")
     motion = (ROOT / "scripts" / "cinematic_motion_renderer.py").read_text(encoding="utf-8")
     assert "install_visual_spine(_v3)" in active
-    assert "VIDEO ART-DIRECTION JOB, NOT A PRESENTATION-DECK JOB" in runner
-    assert "Do not add body paragraphs" in runner
-    assert "scene_directions" in runner
+    assert '"primary": "document_studio_local_compositor"' in spine
+    assert '"gamma_required_for_media": False' in spine
+    assert 'DIO_GAMMA_VISUAL_CANDIDATE' in spine
+    assert '"optional_skipped"' in spine
+    assert "VIDEO FRAME ART, NOT A PRESENTATION DECK" in runner
+    assert "MAX_ADDITIONAL_INSTRUCTIONS = 4800" in runner
+    assert "additionalInstructions.length > 5000" in runner
     assert "zoompan" in motion
     assert '"motion_state": "executed"' in motion
     assert '"static_slide_deck": False' in motion
