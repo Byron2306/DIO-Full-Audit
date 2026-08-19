@@ -18,6 +18,19 @@ QUERY_KINDS = (
     "BROADEN_DISCOVERY",
 )
 
+# Evidence-specific deficits outrank structural priors. In particular, a live
+# unresolved entity must be investigated before a generic family-fallback gap is
+# allowed to steer the next query. This ordering is about research necessity, not
+# truth, demand, lead status, or execution authority.
+QUERY_DRIVER_PRECEDENCE = {
+    "ENTITY_RESOLUTION": 6,
+    "HIVENANCE_RESEARCH_TEST": 5,
+    "COMPETITIVE_OFFER": 4,
+    "HABITAT_CORROBORATION": 3,
+    "BASELINE_GAP": 2,
+    "BROADEN_DISCOVERY": 1,
+}
+
 
 def _text(value: Any) -> str:
     return str(value or "").strip()
@@ -374,6 +387,7 @@ def learn_discovery_queries(
             score = float(candidate["priority"]) + adaptive_bonus + min(0.08, len(source_drivers) * 0.01)
             if candidate["novelty_score"] <= 0:
                 score -= 0.25
+            driver_precedence = int(QUERY_DRIVER_PRECEDENCE.get(candidate["query_kind"], 0))
             item = {
                 "query_id": query_id,
                 "domain_id": domain_id,
@@ -387,6 +401,7 @@ def learn_discovery_queries(
                 "source_driver_count": len(source_drivers),
                 "novelty_score": candidate["novelty_score"],
                 "parent_query_id": parent_query_id,
+                "driver_precedence": driver_precedence,
                 "selection_score": round(score, 6),
                 "previous_query": prior_query or None,
             }
@@ -419,16 +434,29 @@ def learn_discovery_queries(
     best_by_domain: dict[str, dict[str, Any]] = {}
     for item in selected_pool:
         current = best_by_domain.get(item["domain_id"])
-        key = (item["selection_score"], item["novelty_score"], item["query_kind"])
+        key = (
+            item["driver_precedence"],
+            item["selection_score"],
+            item["novelty_score"],
+            item["query_kind"],
+        )
         current_key = (
-            current["selection_score"], current["novelty_score"], current["query_kind"]
+            current["driver_precedence"],
+            current["selection_score"],
+            current["novelty_score"],
+            current["query_kind"],
         ) if current else None
         if current is None or key > current_key:
             best_by_domain[item["domain_id"]] = item
 
     selected = sorted(
         best_by_domain.values(),
-        key=lambda item: (-float(item["selection_score"]), -float(item["novelty_score"]), item["domain_id"]),
+        key=lambda item: (
+            -int(item["driver_precedence"]),
+            -float(item["selection_score"]),
+            -float(item["novelty_score"]),
+            item["domain_id"],
+        ),
     )[: max(1, int(max_domains))]
 
     for item in selected:
@@ -537,6 +565,7 @@ def learn_discovery_queries(
                 "query": item["query"],
                 "novelty_score": item["novelty_score"],
                 "source_driver_count": item["source_driver_count"],
+                "driver_precedence": item["driver_precedence"],
                 "selection_score": item["selection_score"],
                 "previous_query": item["previous_query"],
                 "query_id": item["query_id"],
