@@ -6,6 +6,9 @@
 
   const VESPER_PRESENCE = '/dashboard/vesper-intake.html';
   const SEMANTIC_BOUNDARY_ASSET = 'config/atlas/dio_meta_incarnation_crosswalk.csv';
+  const vesperPresence = incarnation => incarnation
+    ? `${VESPER_PRESENCE}?incarnation=${encodeURIComponent(incarnation)}`
+    : VESPER_PRESENCE;
 
   // Exact product surfaces only. Do not substitute a family site for a
   // different incarnation and never fall back to the conjoined DIO catalogue.
@@ -49,12 +52,14 @@
     const primary = route.href
       ? `<a class="btn small ${route.kind === 'public' ? 'green' : 'blue'}" target="_blank" rel="noreferrer" href="${esc2(route.href)}">${esc2(route.label)}</a>`
       : '<span style="color:var(--muted);font-size:10px">No exact standalone product site registered. No family or shared-catalogue substitution will be made.</span>';
-    const vesper = incarnation === 'Vesper Desk' ? '' : `<a class="btn small" target="_blank" href="${VESPER_PRESENCE}">VESPER PRESENCE</a>`;
+    const vesper = incarnation === 'Vesper Desk'
+      ? ''
+      : `<a class="btn small" target="_blank" href="${esc2(vesperPresence(incarnation))}">OPEN VESPER FOR ${esc2(incarnation || 'PRODUCT')}</a>`;
     panel.innerHTML = `
       <b>Product presence</b><br>
       <span style="color:var(--muted)">${selected} · launch only the registered surface for this exact incarnation.</span>
       <div class="actions" style="margin-top:8px">${primary}${vesper}</div>
-      <div style="margin-top:7px;color:var(--muted);font-size:10px">Exact means exact: no conjoined DIO catalogue and no neighbouring family-product page. If this incarnation has no registered standalone surface yet, Production Studio says so instead of inventing a destination.</div>`;
+      <div style="margin-top:7px;color:var(--muted);font-size:10px">Exact means exact: no conjoined DIO catalogue and no neighbouring family-product page. The Vesper link is separately bound to this exact incarnation, so the chat begins with the correct product context even when no standalone public product site exists yet.</div>`;
   }
 
   function ensureSemanticUI() {
