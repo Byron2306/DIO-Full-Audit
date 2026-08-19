@@ -29,6 +29,8 @@ def _vesper_verified(row: dict) -> bool:
     return (
         row.get("vesper_web_chat_front_door_verified") is True
         and row.get("chat_completed_before_product_execution") is True
+        and row.get("product_consumed_vesper_quarantined_bytes") is True
+        and row.get("executor_rematerialized_packet") is False
         and row.get("channel") == "web_chat"
         and row.get("whatsapp_used") is False
         and row.get("telegram_used") is False
@@ -65,16 +67,16 @@ def run_portfolio(
                 online=online,
             )
         except Exception as exc:
-            # A harness-level error is itself a hard execution failure; preserve it
-            # and continue so one broken product cannot hide the other 52.
             receipt = {
-                "schema": "dio.professional_evidence.case_receipt.v2",
+                "schema": "dio.professional_evidence.case_receipt.v3",
                 "incarnation": incarnation,
                 "status": FAIL,
                 "executor": None,
                 "product_pipeline_executed": False,
                 "vesper_web_chat_front_door_verified": False,
                 "chat_completed_before_product_execution": False,
+                "product_consumed_vesper_quarantined_bytes": False,
+                "executor_rematerialized_packet": False,
                 "channel": "web_chat",
                 "whatsapp_used": False,
                 "telegram_used": False,
@@ -84,7 +86,7 @@ def run_portfolio(
                 "error": f"HARNESS_ERROR {type(exc).__name__}: {exc}",
             }
         results.append(receipt)
-        vesper_state = "VESPER_PASS" if _vesper_verified(receipt) else "VESPER_FAIL"
+        vesper_state = "VESPER_BYTES_PASS" if _vesper_verified(receipt) else "VESPER_BYTES_FAIL"
         print(
             f"    {receipt['status']} · {vesper_state}"
             + (f" :: {receipt.get('error')}" if receipt.get("error") else ""),
@@ -97,6 +99,8 @@ def run_portfolio(
         BLOCKED: sum(row.get("status") == BLOCKED for row in results),
     }
     vesper_verified_count = sum(_vesper_verified(row) for row in results)
+    quarantine_consumed_count = sum(row.get("product_consumed_vesper_quarantined_bytes") is True for row in results)
+    executor_rematerialization_count = sum(row.get("executor_rematerialized_packet") is True for row in results)
     all_53_selected = len(selected) == 53 and set(selected) == set(canonical)
     all_vesper_verified = vesper_verified_count == len(selected)
     all_passed = (
@@ -106,9 +110,11 @@ def run_portfolio(
         and counts[BLOCKED] == 0
         and all_vesper_verified
         and vesper_verified_count == 53
+        and quarantine_consumed_count == 53
+        and executor_rematerialization_count == 0
     )
     receipt = {
-        "schema": "dio.professional_evidence.portfolio_receipt.v2",
+        "schema": "dio.professional_evidence.portfolio_receipt.v3",
         "generated_at": utc_now(),
         "canonical_portfolio_count": 53,
         "selected_count": len(selected),
@@ -117,6 +123,8 @@ def run_portfolio(
         "required_front_door": "vesper_web_chat",
         "vesper_web_chat_front_door_required": True,
         "vesper_web_chat_verified_count": vesper_verified_count,
+        "vesper_quarantined_bytes_consumed_count": quarantine_consumed_count,
+        "executor_rematerialization_count": executor_rematerialization_count,
         "all_selected_vesper_web_chat_verified": all_vesper_verified,
         "whatsapp_required": False,
         "telegram_required": False,
@@ -149,11 +157,11 @@ def run_portfolio(
         "media_spend": "REFUSE",
         "payment": "REFUSE",
         "claim_boundary": (
-            "A PASS proves Vesper Web Chat first bound the literal customer-shaped request and source files to the exact canonical "
-            "product handoff, after which the configured professional product pipeline processed that same packet into its bounded "
-            "review-ready product artifact under the recorded human/release gates. It does not prove customer acceptance, "
-            "willingness to pay, professional certification, legal clearance, regulatory approval, market demand, external "
-            "delivery, or real-world domain action unless separately evidenced."
+            "A PASS proves Vesper Web Chat first captured and quarantined the literal customer-shaped source bytes, those exact "
+            "quarantined bytes were rehydrated into the product-facing customer packet without changing its fingerprint, and a "
+            "non-rematerializing product executor then produced the bounded review-ready professional artifact under the recorded "
+            "human/release gates. It does not prove customer acceptance, willingness to pay, professional certification, legal "
+            "clearance, regulatory approval, market demand, external delivery, or real-world domain action unless separately evidenced."
         ),
     }
     write_json(output / "PROFESSIONAL_EVIDENCE_PORTFOLIO_RECEIPT.json", receipt)
@@ -166,7 +174,7 @@ def main() -> int:
     parser.add_argument("--only", action="append", default=[], help="Run one canonical incarnation; may be supplied repeatedly")
     parser.add_argument("--online", action="store_true", help="Allow current public-signal retrieval required by Market Radar/Opportunity Foundry")
     parser.add_argument("--operator-id", default="professional-evidence-harness")
-    parser.add_argument("--strict", action="store_true", help="Return non-zero unless every selected case passes Vesper + product execution; full acceptance still requires all 53")
+    parser.add_argument("--strict", action="store_true", help="Return non-zero unless every selected case passes Vesper byte custody + product execution; full acceptance still requires all 53")
     args = parser.parse_args()
     receipt = run_portfolio(args.output, only=args.only or None, online=args.online, operator_id=args.operator_id)
     summary = {
@@ -174,6 +182,8 @@ def main() -> int:
         "all_full_pipeline_verified": receipt["all_full_pipeline_verified"],
         "selected_count": receipt["selected_count"],
         "vesper_web_chat_verified_count": receipt["vesper_web_chat_verified_count"],
+        "vesper_quarantined_bytes_consumed_count": receipt["vesper_quarantined_bytes_consumed_count"],
+        "executor_rematerialization_count": receipt["executor_rematerialization_count"],
         "counts": receipt["counts"],
         "vesper_front_door_failure_list": receipt["vesper_front_door_failure_list"],
         "full_pipeline_gap_kill_list": receipt["full_pipeline_gap_kill_list"],
@@ -186,6 +196,8 @@ def main() -> int:
         and receipt["counts"][BLOCKED] == 0
         and receipt["counts"][PASS] == receipt["selected_count"]
         and receipt["vesper_web_chat_verified_count"] == receipt["selected_count"]
+        and receipt["vesper_quarantined_bytes_consumed_count"] == receipt["selected_count"]
+        and receipt["executor_rematerialization_count"] == 0
     )
     return 0 if (not args.strict or selected_all_pass) else 2
 
