@@ -20,23 +20,37 @@ def test_atlas_constitution_freezes_exact_laws_relations_and_verdicts():
 
 def test_atlas_constitution_binds_all_foundation_sources_and_expected_scale():
     receipt = validate_atlas_constitution(REPO_ROOT)
-    assert receipt["source_file_count"] == 8
+    assert receipt["source_file_count"] == 9
     assert receipt["missing_source_files"] == []
-    assert len(receipt["source_digests"]) == 8
+    assert len(receipt["source_digests"]) == 9
     assert all(value.startswith("sha256:") for value in receipt["source_digests"].values())
     assert receipt["minimums"] == {
         "source_federation": 12,
         "work_primitives": 50,
         "universal_domain_nodes": 200,
         "pivot_gauntlet_tasks": 30,
+        "job_morphology_templates": 20,
+        "derived_candidate_incarnations": 500,
+        "derived_domain_coverage_ratio": 1.0,
     }
     assert receipt["exact_portfolio_bindings"] == {
-        "incarnations": 53,
+        "legacy_incarnations": 53,
         "profile_rows": 43,
         "canonical_work_patterns": 12,
         "candidate_work_patterns": 1,
         "execution_grade_m1_capability_signatures": 4,
     }
+
+
+def test_atlas_constitution_separates_53_legacy_rows_from_generated_candidate_universe():
+    receipt = validate_atlas_constitution(REPO_ROOT)
+    assert receipt["csv_counts"]["legacy_incarnations"] == 53
+    assert receipt["csv_counts"]["job_morphology_templates"] >= 20
+    assert receipt["derived_candidate_incarnation_count"] >= 500
+    assert receipt["derived_candidate_incarnation_count"] > receipt["csv_counts"]["legacy_incarnations"]
+    assert receipt["derived_domain_coverage_ratio"] == 1.0
+    assert receipt["scale_checks"]["derived_candidate_incarnations_minimum_met"] is True
+    assert receipt["scale_checks"]["derived_domain_coverage_ratio_met"] is True
 
 
 def test_atlas_constitution_preserves_truth_authority_and_foundation_boundary():
