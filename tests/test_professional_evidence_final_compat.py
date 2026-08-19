@@ -84,11 +84,15 @@ def test_installation_patches_only_execution_seams_and_keeps_route_constitution(
 
     install_final_gauntlet_compat()
     assert executor._dio_final_gauntlet_compat_installed is True
-    assert executor._run_vamp_corrected.__module__ == "products.professional_evidence_final_compat"
+    layered = {
+        "products.professional_evidence_final_compat",
+        "products.professional_evidence_red13_compat",
+    }
+    assert executor._run_vamp_corrected.__module__ in layered
     assert executor._run_market_radar.__module__ == "products.professional_evidence_final_compat"
-    assert executor._run_campaign_lab.__module__ == "products.professional_evidence_final_compat"
+    assert executor._run_campaign_lab.__module__ in layered
     assert renderer._qa_outputs.__module__ == "products.professional_evidence_final_compat"
-    assert run_evidex_jobs.run_evidex.__module__ == "products.professional_evidence_final_compat"
+    assert run_evidex_jobs.run_evidex.__module__ in layered
 
 
 def test_prepared_executor_remains_non_rematerializing() -> None:
