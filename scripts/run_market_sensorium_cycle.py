@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import market_sensorium.cycle as cycle_module  # noqa: E402
+from market_sensorium.commercial_phoenix import install_commercial_phoenix_runtime  # noqa: E402
 from market_sensorium.mail_refresh import refresh_mail_ingress_with_coverage  # noqa: E402
 from market_sensorium.rank_transitions import install_rank_transition_runtime  # noqa: E402
 from market_sensorium.revalidation import (  # noqa: E402
@@ -21,11 +22,14 @@ from market_sensorium.temporal_ingest import ingest_existing_prospects_temporal 
 # Keep the cycle API stable while replacing its resolver with the stricter MS-1.2
 # evidence path and its prospect ingestion with MS-2 coverage-bound commercial
 # time. MS-3 wraps the existing rank API to preserve prior state and construct
-# source-bound dynamic rank-transition receipts. None of these replacements creates
-# outbound authority.
+# source-bound dynamic rank-transition receipts. MS-4 wraps that completed MS-3
+# pass and forms rival, source-bound Hivenance commercial hypotheses whose selected
+# tests are read-only research only. None of these replacements creates outbound
+# authority or market truth.
 cycle_module.resolve_discovery_candidates = resolve_discovery_candidates_revalidated
 cycle_module.ingest_existing_prospects = ingest_existing_prospects_temporal
 install_rank_transition_runtime(cycle_module.MarketSensoriumStore)
+install_commercial_phoenix_runtime(cycle_module.MarketSensoriumStore)
 
 
 def _refresh_mail_with_coverage(self):
@@ -194,6 +198,84 @@ def _apply_ms3_gate(receipt: dict) -> dict:
     return receipt
 
 
+def _apply_ms4_gate(receipt: dict) -> dict:
+    """Apply the Hivenance Commercial Phoenix v2 rival-hypothesis gate."""
+    summary = receipt.get("summary") or {}
+    store_summary = summary.get("store") or {}
+    phoenix = store_summary.get("commercial_phoenix") or {}
+    summary["commercial_phoenix"] = phoenix
+
+    movements = int(phoenix.get("movement_events_examined") or 0)
+    sets_created = int(phoenix.get("hypothesis_sets_created") or 0)
+    hypotheses = int(phoenix.get("hypotheses_created") or 0)
+    rival_sets = int(phoenix.get("rival_sets_with_3plus") or 0)
+    source_bound = int(phoenix.get("source_bound_hypotheses") or 0)
+    michael = int(phoenix.get("michael_validated_hypotheses") or 0)
+    loki = int(phoenix.get("loki_challenged_hypotheses") or 0)
+    metatron = int(phoenix.get("metatron_synthesized_hypotheses") or 0)
+    selected_tests = int(phoenix.get("selected_bounded_tests") or 0)
+    unbounded = int(phoenix.get("unbounded_or_authority_tests") or 0)
+    without_source = int(phoenix.get("sets_without_source_evidence") or 0)
+    truth_claims = int(phoenix.get("truth_claims_created") or 0)
+    type_counts = phoenix.get("hypothesis_type_counts") or {}
+    type_diversity = sum(1 for value in type_counts.values() if int(value or 0) > 0)
+    authority = any(
+        bool(phoenix.get(key, False))
+        for key in (
+            "authority_created",
+            "outreach_authority_created",
+            "publication_authority_created",
+            "spend_authority_created",
+            "commerce_authority_created",
+        )
+    )
+
+    if receipt.get("ms3_acceptance") != "DIO_MARKET_SENSORIUM_DYNAMIC_RANK_MOVEMENT_VERIFIED":
+        gate = "PENDING_MS3_DYNAMIC_RANK_INPUT"
+    elif movements <= 0:
+        gate = "PENDING_REAL_RANK_MOVEMENT_INPUT"
+    elif sets_created < movements or rival_sets < sets_created or hypotheses < sets_created * 3:
+        gate = "REFUSE_NON_RIVAL_COMMERCIAL_HYPOTHESIS_SET"
+    elif without_source > 0 or source_bound < hypotheses:
+        gate = "PENDING_SOURCE_BOUND_COMMERCIAL_HYPOTHESES"
+    elif michael < hypotheses or loki < hypotheses or metatron < hypotheses:
+        gate = "REFUSE_INCOMPLETE_HIVENANCE_TRIUNE_CHALLENGE"
+    elif selected_tests < sets_created:
+        gate = "PENDING_BOUNDED_RESEARCH_TEST_SELECTION"
+    elif unbounded > 0 or truth_claims > 0 or authority:
+        gate = "REFUSE_HYPOTHESIS_TRUTH_OR_AUTHORITY_PROMOTION"
+    elif type_diversity < 3:
+        gate = "PENDING_COMMERCIAL_HYPOTHESIS_DIVERSITY"
+    else:
+        gate = "DIO_MARKET_SENSORIUM_HIVENANCE_COMMERCIAL_PHOENIX_V2_VERIFIED"
+
+    receipt["ms4_implementation"] = "DIO_MARKET_SENSORIUM_HIVENANCE_COMMERCIAL_PHOENIX_V2_IMPLEMENTED"
+    receipt["ms4_acceptance"] = gate
+    receipt["ms4_truth"] = {
+        "movement_events_examined": movements,
+        "hypothesis_sets_created": sets_created,
+        "hypotheses_created": hypotheses,
+        "rival_sets_with_3plus": rival_sets,
+        "source_bound_hypotheses": source_bound,
+        "michael_validated_hypotheses": michael,
+        "loki_challenged_hypotheses": loki,
+        "metatron_synthesized_hypotheses": metatron,
+        "selected_bounded_tests": selected_tests,
+        "unbounded_or_authority_tests": unbounded,
+        "hypothesis_type_diversity": type_diversity,
+        "hypothesis_type_counts": type_counts,
+        "hypothesis_is_fact": False,
+        "selected_hypothesis_is_truth": False,
+        "selected_test_is_execution_authority": False,
+        "truth_claims_created": truth_claims,
+        "buyer_unit_verified_by_hypothesis": False,
+        "market_demand_claimed": False,
+        "best_target_claimed": False,
+        "authority_created": False,
+    }
+    return receipt
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run the read-only DIO Market Sensorium cycle with temporal memory, ATLAS baselines and Hivenance observations."
@@ -216,6 +298,7 @@ def main() -> int:
     receipt = _apply_ms1_gate(receipt)
     receipt = _apply_ms2_gate(receipt)
     receipt = _apply_ms3_gate(receipt)
+    receipt = _apply_ms4_gate(receipt)
 
     receipt_path = ROOT / "state" / "market_sensorium" / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
     receipt_path.write_text(
