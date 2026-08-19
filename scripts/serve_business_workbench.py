@@ -26,8 +26,11 @@ from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
 from scripts.serve_control_deck_ms10 import MS10ControlDeckHandler, _read_json_body  # noqa: E402
 
 
+SEMANTIC_BOUNDARY_ASSET = "config/atlas/dio_meta_incarnation_crosswalk.csv"
+
+
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.4"
+    server_version = "DIOBusinessWorkbench/3.5"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -85,6 +88,24 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 merged["source_image"] = brief["source_image"]
             if not str(merged.get("proof_asset") or "").strip() and brief.get("proof_asset"):
                 merged["proof_asset"] = brief["proof_asset"]
+
+            # A rendered campaign is still a marketing hypothesis. When the
+            # incarnation does not have an execution-proof object, bind media
+            # to the canonical portfolio evidence boundary rather than
+            # inventing proof or refusing the render entirely.
+            if not str(merged.get("proof_asset") or "").strip():
+                merged["proof_asset"] = SEMANTIC_BOUNDARY_ASSET
+                brief["evidence_binding"] = {
+                    "kind": "CANONICAL_PORTFOLIO_BOUNDARY",
+                    "path": SEMANTIC_BOUNDARY_ASSET,
+                    "execution_proof_claimed": False,
+                }
+            else:
+                brief["evidence_binding"] = {
+                    "kind": "PRODUCT_PROOF_ASSET",
+                    "path": str(merged["proof_asset"]),
+                    "execution_proof_claimed": False,
+                }
         return merged, brief
 
     @staticmethod
@@ -106,6 +127,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 receipt["semantic_brief_path"] = str(brief_path)
                 receipt["semantic_brief_truth_class"] = brief.get("truth_class")
                 receipt["semantic_generation_mode"] = brief.get("generation_mode")
+                receipt["semantic_evidence_binding"] = brief.get("evidence_binding") or {}
                 receipt["observed_market_demand"] = False
                 receipt["best_audience_proved"] = False
                 receipt["authority_created"] = False
@@ -129,6 +151,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             state["marketing"]["profile_compatibility"] = {key: sorted(value) for key, value in PROFILE_COMPATIBILITY.items()}
             state["marketing"]["semantic_brief_endpoint"] = "/api/business/production/marketing-brief"
             state["marketing"]["manual_pain_audience_required"] = False
+            state["marketing"]["semantic_boundary_media_fallback"] = True
             self.send_json(state)
             return
         if route == "/api/business/portfolio":
@@ -140,13 +163,14 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.4",
+                    "version": "3.5",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "production_studio": True,
                     "marketing_asset_factory": True,
                     "semantic_marketing_briefs": True,
                     "manual_pain_audience_required": False,
+                    "semantic_boundary_media_fallback": True,
                     "fresh_controlled_evidence_runs": True,
                     "factory_test_bench": True,
                     "evidence_gate": True,
@@ -190,6 +214,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                         "render_reel_requested": result["render_reel_requested"],
                         "semantic_brief_truth_class": semantic_brief.get("truth_class"),
                         "semantic_generation_mode": semantic_brief.get("generation_mode"),
+                        "semantic_evidence_binding": semantic_brief.get("evidence_binding") or {},
                         "publication_authorized": False,
                         "market_demand_claimed": False,
                     },
