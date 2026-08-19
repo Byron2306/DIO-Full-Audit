@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT))
 
 import market_sensorium.cycle as cycle_module  # noqa: E402
 from market_sensorium.mail_refresh import refresh_mail_ingress_with_coverage  # noqa: E402
+from market_sensorium.rank_transitions import install_rank_transition_runtime  # noqa: E402
 from market_sensorium.revalidation import (  # noqa: E402
     STRICT_RESOLVER_VERSION,
     resolve_discovery_candidates_revalidated,
@@ -19,9 +20,12 @@ from market_sensorium.temporal_ingest import ingest_existing_prospects_temporal 
 
 # Keep the cycle API stable while replacing its resolver with the stricter MS-1.2
 # evidence path and its prospect ingestion with MS-2 coverage-bound commercial
-# time. Neither replacement creates outbound authority.
+# time. MS-3 wraps the existing rank API to preserve prior state and construct
+# source-bound dynamic rank-transition receipts. None of these replacements creates
+# outbound authority.
 cycle_module.resolve_discovery_candidates = resolve_discovery_candidates_revalidated
 cycle_module.ingest_existing_prospects = ingest_existing_prospects_temporal
+install_rank_transition_runtime(cycle_module.MarketSensoriumStore)
 
 
 def _refresh_mail_with_coverage(self):
@@ -84,11 +88,7 @@ def _apply_ms1_gate(receipt: dict) -> dict:
 
 
 def _apply_ms2_gate(receipt: dict) -> dict:
-    """Apply the MS-2 commercial-time truth gate.
-
-    A clock value alone cannot become a no-reply observation. Real no-reply truth
-    requires prospective continuous inbox coverage; replies remain direct evidence.
-    """
+    """Apply the MS-2 commercial-time truth gate."""
     summary = receipt.get("summary") or {}
     prospects = summary.get("prospects") or {}
     commercial = prospects.get("commercial_time") or {}
@@ -138,6 +138,58 @@ def _apply_ms2_gate(receipt: dict) -> dict:
     return receipt
 
 
+def _apply_ms3_gate(receipt: dict) -> dict:
+    """Apply the live evidence-bearing dynamic rank-movement gate."""
+    summary = receipt.get("summary") or {}
+    store_summary = summary.get("store") or {}
+    transitions = store_summary.get("rank_transitions") or {}
+    summary["rank_transitions"] = transitions
+
+    recorded = int(transitions.get("transitions_recorded") or 0)
+    historical = int(transitions.get("historical_transitions") or 0)
+    movements = int(transitions.get("rank_movement_transitions") or 0)
+    evidence_bound = int(transitions.get("evidence_bound_transitions") or 0)
+    movement_evidence_bound = int(
+        transitions.get("rank_movement_evidence_bound_transitions") or 0
+    )
+    unexplained = int(transitions.get("unexplained_rank_movements") or 0)
+    history_preserved = bool(transitions.get("history_preserved", False))
+    evidence_source_bound = bool(transitions.get("evidence_source_bound", False))
+    evidence_mutated = bool(transitions.get("rank_learning_mutated_evidence", False))
+
+    if recorded <= 0 or historical <= 0:
+        gate = "PENDING_SECOND_RANK_OBSERVATION"
+    elif evidence_mutated or not history_preserved:
+        gate = "REFUSE_RANK_HISTORY_OR_EVIDENCE_MUTATION"
+    elif unexplained > 0:
+        gate = "REFUSE_UNEXPLAINED_RANK_MOVEMENT"
+    elif movements <= 0:
+        gate = "PENDING_DYNAMIC_RANK_MOVEMENT"
+    elif not evidence_source_bound or movement_evidence_bound < movements:
+        gate = "PENDING_SOURCE_BOUND_RANK_MOVEMENT_EVIDENCE"
+    else:
+        gate = "DIO_MARKET_SENSORIUM_DYNAMIC_RANK_MOVEMENT_VERIFIED"
+
+    receipt["ms3_implementation"] = "DIO_MARKET_SENSORIUM_DYNAMIC_RANK_LINEAGE_IMPLEMENTED"
+    receipt["ms3_acceptance"] = gate
+    receipt["ms3_truth"] = {
+        "transitions_recorded": recorded,
+        "historical_transitions": historical,
+        "rank_movement_transitions": movements,
+        "evidence_bound_transitions": evidence_bound,
+        "rank_movement_evidence_bound_transitions": movement_evidence_bound,
+        "unexplained_rank_movements": unexplained,
+        "history_preserved": history_preserved,
+        "rank_learning_mutated_evidence": evidence_mutated,
+        "evidence_source_bound": evidence_source_bound,
+        "persisted_transition_count": int(transitions.get("persisted_transition_count") or 0),
+        "market_demand_claimed": False,
+        "best_target_claimed": False,
+        "authority_created": False,
+    }
+    return receipt
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run the read-only DIO Market Sensorium cycle with temporal memory, ATLAS baselines and Hivenance observations."
@@ -159,6 +211,7 @@ def main() -> int:
     )
     receipt = _apply_ms1_gate(receipt)
     receipt = _apply_ms2_gate(receipt)
+    receipt = _apply_ms3_gate(receipt)
 
     receipt_path = ROOT / "state" / "market_sensorium" / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
     receipt_path.write_text(
