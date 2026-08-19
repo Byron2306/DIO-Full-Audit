@@ -1,6 +1,47 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vesper Attachment Intake</title><style>
-:root{color-scheme:dark;--ink:#eff6ff;--muted:#a9b8cc;--gold:#f3c969;--panel:#111a2d;--line:#293b5c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#20345d,#070b14 60%);color:var(--ink);font:16px/1.55 system-ui,sans-serif}main{max-width:880px;margin:auto;padding:4rem 1.25rem}.eyebrow{color:var(--gold);letter-spacing:.15em;text-transform:uppercase;font-size:.76rem}h1{font-size:clamp(2.4rem,7vw,4.8rem);line-height:1;margin:.5rem 0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:1.35rem;margin:1rem 0}.truth{border-left:4px solid var(--gold)}label{display:block;margin:.8rem 0 .3rem;color:var(--muted)}input,textarea,select{width:100%;padding:.8rem;border-radius:9px;border:1px solid var(--line);background:#09101e;color:var(--ink)}textarea{min-height:100px}.check{display:flex;gap:.7rem}.check input{width:auto}.small{color:var(--muted);font-size:.9rem}button{border:0;border-radius:999px;padding:.9rem 1.3rem;background:var(--gold);color:#171006;font-weight:800}#result{white-space:pre-wrap}
-</style></head><body><main><div class="eyebrow">DIO Phase 11.1 · Vesper Presence Core</div><h1>Attachment-bearing ContractProof</h1><p>Bring the agreement and its supporting records. Vesper preserves the original bytes, binds provenance, builds the proof pack and prepares an Outlook delivery draft.</p><section class="panel truth"><strong>The chain stops at draft.</strong><p>Files remain quarantined and untrusted until review. No email is sent and no external release is authorized.</p></section><form id="intake" class="panel">
-<label>Name<input name="name" required maxlength="160"></label><label>Email<input name="email" type="email" required maxlength="254"></label><label>Organisation<input name="organisation" maxlength="240"></label><label>Review title<input name="review_title" required maxlength="240"></label><label>Review purpose<textarea name="message" required maxlength="4000"></textarea></label>
-<label>Authoritative contract (TXT, MD or DOCX)<input id="contract" type="file" required accept=".txt,.md,.docx"></label><label>Evidence attachments<input id="evidence" type="file" multiple accept=".txt,.md,.json,.pdf,.docx,.xlsx,.png,.jpg,.jpeg,.zip"></label><p class="small">Maximum 12 files, 10 MiB each. ZIPs are inventoried but never expanded.</p>
-<label class="check"><input id="ack" type="checkbox" required><span>I understand this is a controlled test, attachments begin untrusted, and Outlook output remains draft-only.</span></label><button type="submit">Quarantine, review and prepare draft</button></form><section id="result" class="panel" hidden aria-live="polite"></section></main><script src="/vesper-intake.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vesper · DIO Web Chat</title>
+<style>
+:root{color-scheme:dark;--bg:#06090f;--panel:#0d1522;--panel2:#111d2e;--line:#263953;--ink:#eef5ff;--muted:#9eb0c8;--gold:#f1c76b;--green:#8be0bc;--red:#ff9b9b;--blue:#88b8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -10%,#233d68 0,#0b1220 33%,var(--bg) 68%);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+.shell{min-height:100vh;display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr)}
+.side{border-right:1px solid var(--line);background:rgba(5,10,18,.88);padding:26px 22px;display:flex;flex-direction:column;gap:18px}.brand{display:flex;gap:13px;align-items:center}.sigil{width:44px;height:44px;border-radius:14px;border:1px solid #5e7390;background:linear-gradient(145deg,#15233b,#090f1b);display:grid;place-items:center;color:var(--gold);font:700 23px Georgia,serif;box-shadow:0 10px 30px #0008}.brand b{display:block;font-size:1.05rem}.brand small,.muted{color:var(--muted)}
+.truth{padding:13px 14px;border:1px solid #334861;border-radius:13px;background:#0b1522}.truth strong{color:var(--gold)}.truth p{margin:.45rem 0 0;color:var(--muted);font-size:.88rem}.field label{display:block;color:var(--muted);font-size:.78rem;margin:0 0 5px;text-transform:uppercase;letter-spacing:.08em}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:10px;background:#08111d;color:var(--ink);padding:10px 11px}.contact{display:grid;gap:10px}.routebox{padding:12px;border-radius:12px;border:1px solid var(--line);background:#09121f}.routebox .state{font-weight:800}.routebox .state.ok{color:var(--green)}.routebox .state.wait{color:var(--gold)}.candidates{margin-top:7px;color:var(--muted);font-size:.84rem}.foot{margin-top:auto;color:#72849b;font-size:.78rem}
+.chat{min-width:0;display:grid;grid-template-rows:auto 1fr auto;max-height:100vh}.top{border-bottom:1px solid var(--line);padding:19px 26px;display:flex;justify-content:space-between;align-items:center;background:#08101bc9;backdrop-filter:blur(14px)}.eyebrow{color:var(--gold);letter-spacing:.15em;text-transform:uppercase;font-size:.72rem}.top h1{margin:2px 0 0;font:700 clamp(1.35rem,2vw,1.8rem) Georgia,serif}.gate{font-size:.78rem;color:var(--green);border:1px solid #315b50;background:#0a211d;padding:7px 10px;border-radius:999px;white-space:nowrap}
+.messages{overflow:auto;padding:28px clamp(18px,5vw,64px) 36px;display:flex;flex-direction:column;gap:15px}.msg{display:flex;gap:10px;max-width:850px}.msg.customer{align-self:flex-end;flex-direction:row-reverse}.avatar{flex:0 0 34px;height:34px;border-radius:12px;display:grid;place-items:center;background:#15243a;border:1px solid #304764;color:var(--gold);font-family:Georgia,serif}.msg.customer .avatar{color:var(--blue)}.bubble{border:1px solid var(--line);background:var(--panel);padding:12px 14px;border-radius:15px 15px 15px 4px;box-shadow:0 9px 28px #0003;white-space:pre-wrap;overflow-wrap:anywhere}.customer .bubble{background:#14243a;border-color:#335070;border-radius:15px 15px 4px 15px}.meta{margin-top:6px;font-size:.73rem;color:#71839b}.attachments{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{border:1px solid #3a4f69;background:#0d1827;border-radius:999px;padding:4px 8px;color:#aebfd2;font-size:.74rem}
+.composer{padding:17px clamp(16px,4vw,38px) 22px;border-top:1px solid var(--line);background:#070d16e8}.composebox{max-width:1050px;margin:auto;border:1px solid #344961;border-radius:18px;background:#0d1725;padding:10px;box-shadow:0 18px 50px #0005}.composebox textarea{display:block;width:100%;min-height:74px;max-height:220px;resize:vertical;background:transparent;border:0;outline:0;color:var(--ink);font:inherit;padding:8px 9px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:4px 4px 1px}.lefttools{display:flex;align-items:center;gap:8px;min-width:0}.attach{cursor:pointer;border:1px solid #38506d;border-radius:999px;padding:7px 10px;color:#bdcce0;background:#0a1320;font-weight:700}.attach input{display:none}.filecount{color:var(--muted);font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.send{border:0;border-radius:999px;padding:9px 16px;background:var(--gold);color:#171006;font-weight:900;cursor:pointer}.send:disabled{opacity:.48;cursor:not-allowed}.notice{max-width:1050px;margin:7px auto 0;color:#72849a;font-size:.75rem}.error{color:var(--red)}
+@media(max-width:820px){.shell{grid-template-columns:1fr}.side{display:none}.chat{max-height:none;min-height:100vh}.messages{padding:20px 14px 28px}.top{padding:15px}.gate{display:none}.composer{position:sticky;bottom:0;padding:10px}.bubble{max-width:82vw}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="side">
+  <div class="brand"><div class="sigil">V</div><div><b>Vesper</b><small>DIO Presence Core</small></div></div>
+  <div class="truth"><strong>Web chat is the front door.</strong><p>This conversation persists, source files are quarantined and hash-bound, and the routed DIO product receives a governed handoff. WhatsApp and Telegram are not required.</p></div>
+  <div class="field"><label for="product">Product context</label><select id="product"><option value="">Let Vesper route me</option></select></div>
+  <div class="contact">
+    <div class="field"><label for="name">Name · optional</label><input id="name" maxlength="160" autocomplete="name"></div>
+    <div class="field"><label for="email">Email · optional</label><input id="email" type="email" maxlength="254" autocomplete="email"></div>
+    <div class="field"><label for="organisation">Organisation · optional</label><input id="organisation" maxlength="240" autocomplete="organization"></div>
+  </div>
+  <div class="routebox"><div class="muted">Current routing</div><div id="routeState" class="state wait">Awaiting request</div><div id="routeCandidates" class="candidates"></div></div>
+  <div class="foot">Human authority remains explicit. No chat message can publish, send mail, spend money, certify a result, or create external authority.</div>
+</aside>
+<main class="chat">
+  <header class="top"><div><div class="eyebrow">DIO · Governed customer presence</div><h1>Talk to Vesper</h1></div><div class="gate">External effects held</div></header>
+  <section id="messages" class="messages" aria-live="polite"></section>
+  <section class="composer">
+    <div class="composebox">
+      <textarea id="message" maxlength="12000" placeholder="Tell Vesper what you need DIO to do. You can attach the actual source material here."></textarea>
+      <div class="toolbar"><div class="lefttools"><label class="attach">＋ Attach files<input id="files" type="file" multiple accept=".txt,.md,.csv,.json,.pdf,.docx,.xlsx,.png,.jpg,.jpeg,.zip"></label><span id="fileCount" class="filecount">No files selected</span></div><button id="send" class="send" type="button">Send</button></div>
+    </div>
+    <div id="notice" class="notice">Attachments begin untrusted. A resolved route means “ready for product execution”, not “externally approved”.</div>
+  </section>
+</main>
+</div>
+<script src="/vesper-intake.js"></script>
+</body>
+</html>
