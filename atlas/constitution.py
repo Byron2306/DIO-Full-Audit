@@ -105,17 +105,33 @@ def validate_atlas_constitution(repo_root: str | Path) -> dict[str, Any]:
         "work_primitives": _csv_count(root / str(source_files["work_primitives"])),
         "universal_domain_nodes": _csv_count(root / str(source_files["universal_domain_registry"])),
         "pivot_gauntlet_tasks": _csv_count(root / str(source_files["pivot_gauntlet"])),
-        "incarnations": _csv_count(root / str(source_files["incarnation_crosswalk"])),
+        "legacy_incarnations": _csv_count(root / str(source_files["incarnation_crosswalk"])),
         "profile_rows": _csv_count(root / str(source_files["profile_crosswalk"])),
         "work_pattern_rows": _csv_count(root / str(source_files["work_pattern_crosswalk"])),
         "capability_signatures": _csv_count(root / str(source_files["capability_signatures"])),
+        "job_morphology_templates": _csv_count(root / str(source_files["job_morphologies"])),
     }
+
+    # Lazy import prevents ATLAS package initialization from turning the
+    # constitution module into a candidate-registry dependency cycle.
+    from .incarnations import compile_candidate_incarnations, eligible_domain_nodes
+    from .registry import AtlasRegistry
+
+    registry = AtlasRegistry.load(root)
+    derived_candidates = compile_candidate_incarnations(root, registry=registry)
+    eligible_domains = eligible_domain_nodes(registry)
+    covered_domains = {row.domain_id for row in derived_candidates}
+    derived_domain_coverage_ratio = len(covered_domains) / len(eligible_domains) if eligible_domains else 0.0
+
     scale_checks = {
         "source_federation_minimum_met": csv_counts["source_federation"] >= int(minimums.get("source_federation") or 0),
         "work_primitives_minimum_met": csv_counts["work_primitives"] >= int(minimums.get("work_primitives") or 0),
         "universal_domain_nodes_minimum_met": csv_counts["universal_domain_nodes"] >= int(minimums.get("universal_domain_nodes") or 0),
         "pivot_gauntlet_tasks_minimum_met": csv_counts["pivot_gauntlet_tasks"] >= int(minimums.get("pivot_gauntlet_tasks") or 0),
-        "incarnations_exact": csv_counts["incarnations"] == int(exact.get("incarnations") or 0),
+        "job_morphology_templates_minimum_met": csv_counts["job_morphology_templates"] >= int(minimums.get("job_morphology_templates") or 0),
+        "derived_candidate_incarnations_minimum_met": len(derived_candidates) >= int(minimums.get("derived_candidate_incarnations") or 0),
+        "derived_domain_coverage_ratio_met": derived_domain_coverage_ratio >= float(minimums.get("derived_domain_coverage_ratio") or 0.0),
+        "legacy_incarnations_exact": csv_counts["legacy_incarnations"] == int(exact.get("legacy_incarnations") or 0),
         "profile_rows_exact": csv_counts["profile_rows"] == int(exact.get("profile_rows") or 0),
         "work_pattern_rows_exact": csv_counts["work_pattern_rows"] == (
             int(exact.get("canonical_work_patterns") or 0) + int(exact.get("candidate_work_patterns") or 0)
@@ -130,6 +146,10 @@ def validate_atlas_constitution(repo_root: str | Path) -> dict[str, Any]:
         "source_knowledge_may_create_authority": payload.get("source_knowledge_may_create_authority") is False,
         "analogical_resolution_may_execute": payload.get("analogical_resolution_may_execute") is False,
         "negative_learning_may_execute_pivot": payload.get("negative_learning_may_execute_pivot") is False,
+        "derived_candidate_may_claim_market_demand": payload.get("derived_candidate_may_claim_market_demand") is False,
+        "derived_candidate_may_claim_execution_truth": payload.get("derived_candidate_may_claim_execution_truth") is False,
+        "legacy_portfolio_is_generated_candidate_universe": payload.get("legacy_portfolio_is_generated_candidate_universe") is False,
+        "derived_candidate_registry_is_execution_registry": payload.get("derived_candidate_registry_is_execution_registry") is False,
         "capability_cost_is_first_class": payload.get("capability_cost_is_first_class") is True,
         "m3_boundary_must_remain_preserved": payload.get("m3_boundary_must_remain_preserved") is True,
         "foundation_not_final": payload.get("m4_0_is_foundation_not_final_verification") is True,
@@ -164,6 +184,10 @@ def validate_atlas_constitution(repo_root: str | Path) -> dict[str, Any]:
         "minimums": minimums,
         "exact_portfolio_bindings": exact,
         "csv_counts": csv_counts,
+        "derived_candidate_incarnation_count": len(derived_candidates),
+        "eligible_domain_node_count": len(eligible_domains),
+        "covered_domain_node_count": len(covered_domains),
+        "derived_domain_coverage_ratio": round(derived_domain_coverage_ratio, 6),
         "scale_checks": scale_checks,
         "truth_boundaries": truth_boundaries,
         "full_external_taxonomy_ingestion_required_for_m4_0": payload.get("full_external_taxonomy_ingestion_required_for_m4_0") is True,
