@@ -1,0 +1,69 @@
+{
+  "schema": "dio.atlas.m4_constitution.v1",
+  "required_parent_acceptance": "DIO_METAMORPHIC_COMMERCIAL_METABOLISM_VERIFIED",
+  "m3_boundary_must_remain_preserved": true,
+  "m4_final_acceptance": "DIO_ATLAS_UNIVERSAL_PIVOT_VERIFIED",
+  "laws": [
+    "knowledge_never_implies_capability",
+    "similarity_never_implies_equivalence",
+    "analogy_never_implies_evidence",
+    "domain_adjacency_never_implies_market_demand",
+    "task_match_never_implies_execution_proof",
+    "taxonomy_membership_never_mints_authority",
+    "commercial_negative_learning_never_globally_invalidates_product",
+    "negative_learning_may_generate_pivot_hypothesis_but_never_execute_it",
+    "verified_capability_identity_must_be_preserved_across_domain_projection",
+    "capability_gaps_must_remain_explicit",
+    "external_taxonomy_nodes_are_knowledge_only_until_separately_proved",
+    "all_cross_domain_relations_require_provenance_and_relation_state",
+    "governed_review_required_before_analogical_candidate_becomes_semantic_policy",
+    "authority_ceiling_cannot_widen_during_pivot",
+    "commercial_truth_remains_context_bound",
+    "unknown_domain_names_must_not_block_task_morphology_reasoning"
+  ],
+  "relation_states": [
+    "SOURCE_ASSERTED",
+    "CROSSWALKED",
+    "DIO_DERIVED",
+    "ANALOGICAL_CANDIDATE",
+    "HUMAN_APPROVED",
+    "EXECUTION_CORROBORATED",
+    "MARKET_CORROBORATED"
+  ],
+  "mechanical_verdicts": [
+    "COMPOSABLE",
+    "PARTIALLY_COMPOSABLE",
+    "UNSUPPORTED"
+  ],
+  "source_files": {
+    "source_federation": "config/atlas/dio_atlas_source_federation.csv",
+    "work_primitives": "config/atlas/dio_atlas_work_primitives.csv",
+    "work_pattern_crosswalk": "config/atlas/dio_atlas_work_pattern_crosswalk.csv",
+    "universal_domain_registry": "config/atlas/dio_atlas_universal_domain_registry.csv",
+    "incarnation_crosswalk": "config/atlas/dio_meta_incarnation_crosswalk.csv",
+    "profile_crosswalk": "config/atlas/dio_meta_profile_crosswalk.csv",
+    "capability_signatures": "config/atlas/dio_atlas_capability_signatures.csv",
+    "pivot_gauntlet": "config/atlas/dio_atlas_pivot_gauntlet.csv"
+  },
+  "minimums": {
+    "source_federation": 12,
+    "work_primitives": 50,
+    "universal_domain_nodes": 200,
+    "pivot_gauntlet_tasks": 30
+  },
+  "exact_portfolio_bindings": {
+    "incarnations": 53,
+    "profile_rows": 43,
+    "canonical_work_patterns": 12,
+    "candidate_work_patterns": 1,
+    "execution_grade_m1_capability_signatures": 4
+  },
+  "capability_cost_is_first_class": true,
+  "full_external_taxonomy_ingestion_required_for_m4_0": false,
+  "federation_envelope_may_reference_not_yet_ingested_sources": true,
+  "source_knowledge_may_create_capability": false,
+  "source_knowledge_may_create_authority": false,
+  "analogical_resolution_may_execute": false,
+  "negative_learning_may_execute_pivot": false,
+  "m4_0_is_foundation_not_final_verification": true
+}
