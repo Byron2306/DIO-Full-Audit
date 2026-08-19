@@ -29,6 +29,12 @@ from .pivot import (
     pivot_candidates,
     resolve_task,
 )
+from .meta_crosswalk import (
+    EXPECTED_PROFILE_CLASS_COUNTS,
+    META_CROSSWALK_TOKEN,
+    PROFILE_FILE,
+    validate_meta_profile_crosswalk,
+)
 
 __all__ = [
     "ATLAS_BLOCKED_TOKEN",
@@ -44,6 +50,9 @@ __all__ = [
     "CANONICAL_WORK_PATTERNS",
     "CANDIDATE_WORK_PATTERNS",
     "EXPECTED_M1_CAPABILITIES",
+    "EXPECTED_PROFILE_CLASS_COUNTS",
+    "META_CROSSWALK_TOKEN",
+    "PROFILE_FILE",
     "PivotCandidate",
     "atlas_foundation_receipt",
     "atlas_pivot_foundation_receipt",
@@ -51,4 +60,5 @@ __all__ = [
     "evaluate_pivot_gauntlet",
     "pivot_candidates",
     "resolve_task",
+    "validate_meta_profile_crosswalk",
 ]
