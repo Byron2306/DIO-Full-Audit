@@ -8,6 +8,10 @@ import scripts.run_nichefoundry_media_pipeline_v2 as media_v2
 from dio_secrets import _derive_local_media_env
 
 
+ROOT = Path(__file__).resolve().parents[1]
+PREFLIGHT = ROOT / "scripts" / "check_nichefoundry_media_runtime.py"
+
+
 def test_legacy_media_entrypoint_is_the_v2_narrated_pipeline() -> None:
     assert legacy_bridge.run_media_pipeline is media_v2.run_media_pipeline
     assert legacy_bridge.main is media_v2.main
@@ -23,6 +27,13 @@ def test_nichefoundry_legacy_piper_env_derives_dio_model(monkeypatch, tmp_path: 
     _derive_local_media_env(loaded, overwrite=False)
     expected = str((model_dir / "en_US-lessac-high.onnx").resolve())
     assert loaded["PIPER_MODEL"] == expected
+
+
+def test_media_preflight_bootstraps_repo_root_before_local_imports() -> None:
+    source = PREFLIGHT.read_text(encoding="utf-8")
+    bootstrap = source.index("sys.path.insert(0, str(ROOT))")
+    local_import = source.index("from dio_secrets import load_secret_env")
+    assert bootstrap < local_import
 
 
 def test_v2_media_bridge_requires_and_registers_both_mp4_outputs(monkeypatch, tmp_path: Path) -> None:
