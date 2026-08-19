@@ -13,12 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from dio_secrets import load_secret_env  # noqa: E402
+from operator_evidence_intake import stage_controlled_evidence_run  # noqa: E402
 from operator_production import (  # noqa: E402
     create_marketing_pack,
     production_state,
     run_evidence_gate,
     run_factory_test,
-    stage_controlled_evidence_run,
 )
 from portfolio_runtime import import_portfolio  # noqa: E402
 from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
@@ -35,7 +35,7 @@ PROFILE_COMPATIBILITY = {
 
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.2"
+    server_version = "DIOBusinessWorkbench/3.3"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -73,7 +73,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.2",
+                    "version": "3.3",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "production_studio": True,
