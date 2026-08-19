@@ -90,7 +90,7 @@ def _read_json_body(handler: ControlDeckHandler, maximum: int = 32768) -> dict:
 
 
 class MS10ControlDeckHandler(ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/2.3"
+    server_version = "DIOBusinessWorkbench/2.4"
 
     def _send_bytes(self, body: bytes, content_type: str, filename: str | None = None) -> None:
         self.send_response(HTTPStatus.OK)
@@ -115,6 +115,12 @@ class MS10ControlDeckHandler(ControlDeckHandler):
             '<a class="btn" href="#presence">Sites & social</a><a class="btn" href="/dashboard/connections.html">Secrets & connections</a>',
             1,
         )
+        youtube = '<a class="card launch social" target="_blank" rel="noreferrer" href="https://www.youtube.com/@DIOworkflows"><small>Social</small><b>YouTube</b><span>@DIOworkflows</span></a>'
+        tiktok = (
+            '<a class="card launch social" target="_blank" rel="noreferrer" href="https://business.tiktok.com/"><small>Social</small><b>TikTok Business</b><span>Business account / center</span></a>'
+            '<a class="card launch social" target="_blank" rel="noreferrer" href="https://ads.tiktok.com/"><small>Advertising</small><b>TikTok Ads</b><span>Ads Manager</span></a>'
+        )
+        page = page.replace(youtube, youtube + tiktok, 1)
         self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
 
     def _redirect_repo_artifact(self, target: Path) -> bool:
@@ -292,7 +298,7 @@ class MS10ControlDeckHandler(ControlDeckHandler):
             self.send_json(secret_status())
             return
         if route == "/api/business/health":
-            self.send_json({"ok": True, "service": "dio-business", "version": "2.3", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True, "secret_vault": True, "connections_surface": True})
+            self.send_json({"ok": True, "service": "dio-business", "version": "2.4", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True, "secret_vault": True, "connections_surface": True, "tiktok_quick_links": True})
             return
         super().do_GET()
 
