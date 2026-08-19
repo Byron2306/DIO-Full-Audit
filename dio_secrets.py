@@ -203,7 +203,7 @@ def save_secret_values(values: dict[str, Any]) -> dict[str, Any]:
     SECRET_FILE.parent.mkdir(parents=True, exist_ok=True)
     lines = ["# DIO local secret vault. NEVER COMMIT THIS FILE."]
     for key in sorted(existing):
-        lines.append(f"{key}={_quote(existing[key])")
+        lines.append(f"{key}={_quote(existing[key])}")
     payload = "\n".join(lines) + "\n"
     with tempfile.NamedTemporaryFile(
         mode="w",
