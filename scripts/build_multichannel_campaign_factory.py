@@ -17,10 +17,16 @@ configure_edge_tts_environment()
 
 from scripts import build_multichannel_campaign_factory_v3 as _v3
 from scripts.lingua_music_projection import select_projection_music
+from scripts.nichefoundry_visual_spine import install_visual_spine
 
 # LINGUA projection owns music fitness. Merely having a rights-cleared track is
 # not enough: zero-semantic-match reuse would recreate the old one-track clone.
 _v3._select_music = select_projection_music
+
+# LINGUA decides lawful representational meaning; Document Studio compiles the
+# visual language; BEAST contributes only human-approved representational memory;
+# NicheFoundry/Gamma execute; the media renderer must execute real motion.
+install_visual_spine(_v3)
 
 from scripts.build_multichannel_campaign_factory_v3 import *  # noqa: E402,F401,F403
 
