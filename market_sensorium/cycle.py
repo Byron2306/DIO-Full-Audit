@@ -52,6 +52,50 @@ class MarketSensoriumCycle:
             "external_effects": False,
         }
 
+    def refresh_mail_ingress(self) -> dict[str, Any]:
+        """Pull inbound Outlook replies when Graph is already configured.
+
+        This is a read-only observation refresh. Missing credentials do not block the
+        rest of the Sensorium cycle.
+        """
+        config_path = self.root / "config" / "microsoft_graph.local.json"
+        script = self.root / "scripts" / "sync_outlook_mail.py"
+        if not config_path.is_file() or not script.is_file():
+            return {"state": "not_configured", "authority_created": False}
+        try:
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return {"state": "config_invalid", "authority_created": False}
+        client_id = str(config.get("client_id") or "")
+        token_cache_raw = str(config.get("token_cache_path") or "")
+        token_cache = Path(token_cache_raw).expanduser() if token_cache_raw else None
+        if not client_id or client_id.startswith("REPLACE_") or token_cache is None or not token_cache.exists():
+            return {"state": "not_configured", "authority_created": False}
+        completed = subprocess.run(
+            [sys.executable, str(script), "pull"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+        if completed.returncode != 0:
+            return {
+                "state": "failed",
+                "returncode": completed.returncode,
+                "error": (completed.stderr or completed.stdout)[-3000:],
+                "authority_created": False,
+            }
+        try:
+            payload = json.loads(completed.stdout)
+        except json.JSONDecodeError:
+            payload = {"stdout": completed.stdout[-3000:]}
+        return {
+            "state": "refreshed",
+            "receipt": payload,
+            "authority_created": False,
+            "external_effects": False,
+        }
+
     def compile_baselines(self) -> dict[str, Any]:
         rows, summary = compile_baselines(self.domain_registry, self.seed_registry, per_domain=5)
         write_baselines(self.baseline_output, rows)
@@ -61,12 +105,13 @@ class MarketSensoriumCycle:
             "output_exists": self.baseline_output.is_file(),
         }
 
-    def run(self, *, refresh_public: bool = False, mode: str = "read_only") -> dict[str, Any]:
+    def run(self, *, refresh_public: bool = False, refresh_mail: bool = False, mode: str = "read_only") -> dict[str, Any]:
         if mode != "read_only":
             raise ValueError("Market Sensorium currently supports read_only mode only.")
         started = utc_now()
         baseline_receipt = self.compile_baselines()
         refresh_receipt = self.refresh_existing_public_intelligence() if refresh_public else {"state": "not_requested"}
+        mail_refresh = self.refresh_mail_ingress() if refresh_mail else {"state": "not_requested"}
 
         with MarketSensoriumStore(self.db_path) as store:
             baseline_features, baseline_summary = ingest_baselines(
@@ -105,6 +150,7 @@ class MarketSensoriumCycle:
                     for item in rank_movers
                 ],
                 "public_refresh": refresh_receipt,
+                "mail_ingress_refresh": mail_refresh,
                 "authority_created": False,
                 "external_effects": False,
                 "market_demand_claimed": False,
