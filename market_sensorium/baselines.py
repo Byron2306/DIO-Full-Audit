@@ -36,8 +36,19 @@ def load_domains(path: Path) -> list[dict[str, str]]:
 
 
 def load_seed_organisations(path: Path) -> list[dict[str, str]]:
-    with Path(path).open("r", encoding="utf-8", newline="") as handle:
-        return list(csv.DictReader(handle))
+    source = Path(path)
+    paths = sorted(source.glob("*.csv")) if source.is_dir() else [source]
+    rows: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for item in paths:
+        with item.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                key = (str(row.get("organisation") or "").strip().lower(), str(row.get("website") or "").strip().lower())
+                if not key[0] or key in seen:
+                    continue
+                seen.add(key)
+                rows.append(row)
+    return rows
 
 
 def candidate_score(domain: dict[str, str], candidate: dict[str, str]) -> tuple[float, str]:
