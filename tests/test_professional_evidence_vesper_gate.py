@@ -34,8 +34,8 @@ def test_53_acceptance_requires_every_vesper_front_door() -> None:
 def test_vesper_gate_requires_chat_before_product_execution() -> None:
     source = GATE.read_text(encoding="utf-8")
     preflight = source.index("def _prepare_vesper_preflight")
-    execution = source.index("product_receipt = execute_customer_case(")
     binding = source.index("binding, chat_root = _prepare_vesper_preflight")
+    execution = source.index("product_receipt = execute_customer_case(")
     assert preflight < binding < execution
     assert 'binding.get("channel") != "web_chat"' in source
     assert 'binding.get("handoff_state") != "READY_FOR_PRODUCT_EXECUTION"' in source
@@ -52,9 +52,17 @@ def test_vesper_and_product_execution_bind_same_literal_packet() -> None:
     assert '"sequence": ["VESPER_WEB_CHAT_INTAKE", "PRODUCT_EXECUTION", "HUMAN_REVIEW_GATE"]' in source
 
 
-def test_professional_routes_constitution_declares_53_canonical_products() -> None:
+def test_professional_routes_constitution_declares_53_canonical_products_and_vesper_front_door() -> None:
     routes = json.loads(ROUTES.read_text(encoding="utf-8"))
+    policy = routes["policy"]
     assert len(routes["routes"]) == 53
-    assert routes["policy"]["customer_packet_must_be_literal"] is True
-    assert routes["policy"]["examiner_truth_must_be_withheld"] is True
-    assert routes["policy"]["halfway_fixture_counts_as_full_pipeline"] is False
+    assert policy["customer_packet_must_be_literal"] is True
+    assert policy["examiner_truth_must_be_withheld"] is True
+    assert policy["halfway_fixture_counts_as_full_pipeline"] is False
+    assert policy["required_front_door"] == "vesper_web_chat"
+    assert policy["vesper_channel"] == "web_chat"
+    assert policy["vesper_must_precede_product_execution"] is True
+    assert policy["vesper_packet_fingerprint_must_match_product_packet"] is True
+    assert policy["whatsapp_required"] is False
+    assert policy["telegram_required"] is False
+    assert policy["missing_vesper_front_door"] == "REFUSE"
