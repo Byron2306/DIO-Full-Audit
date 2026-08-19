@@ -31,9 +31,12 @@ def main() -> int:
         "piper_model_config_exists": False,
         "ready": False,
         "errors": [],
+        "remediation": [],
     }
     errors = checks["errors"]
+    remediation = checks["remediation"]
     assert isinstance(errors, list)
+    assert isinstance(remediation, list)
 
     try:
         binary = resolve_piper_binary(FOUNDRY)
@@ -47,6 +50,14 @@ def main() -> int:
         checks["piper_model_config_exists"] = Path(str(model) + ".json").is_file()
     except CampaignMediaError as exc:
         errors.append(str(exc))
+        configured_config = FOUNDRY / "assets" / "piper" / "en_US-lessac-high" / "en_US-lessac-high.onnx.json"
+        configured_model = FOUNDRY / "assets" / "piper" / "en_US-lessac-high" / "en_US-lessac-high.onnx"
+        if configured_config.is_file() and not configured_model.is_file():
+            remediation.append(
+                "Configured Lessac-high voice metadata exists but the ONNX model bytes are missing. "
+                "Run: PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 "
+                "scripts/install_nichefoundry_piper_voice.py"
+            )
 
     if not checks["ffmpeg"]:
         errors.append("ffmpeg is not on PATH")
