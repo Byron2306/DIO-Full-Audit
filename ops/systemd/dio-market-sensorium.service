@@ -8,7 +8,7 @@ Type=oneshot
 User=byron
 WorkingDirectory=/home/byron/DIO-Full-Audit
 Environment=PYTHONNOUSERSITE=1
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/run_market_sensorium_cycle.py --refresh-public
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/run_market_sensorium_cycle.py --refresh-public --refresh-mail
 Nice=10
 
 # The cycle is observation-only by contract. External effects remain gated in DIO.
