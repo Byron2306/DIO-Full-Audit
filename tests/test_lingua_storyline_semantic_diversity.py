@@ -4,7 +4,11 @@ from pathlib import Path
 
 from lingua.product_projection import build_projection_plan
 from lingua.semantic_law import build_semantic_law
-from lingua.storyline_planner import project_story, validate_story_semantic_diversity
+from lingua.storyline_planner import (
+    project_story,
+    validate_cross_surface_semantic_distance,
+    validate_story_semantic_diversity,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,6 +50,7 @@ def test_landscape_does_not_repeat_bounded_outcome_after_every_scene() -> None:
     assert narration.count(audience["outcome"].rstrip(".")) == 1
     assert story["semantic_diversity"] == {"state": "PASS", "errors": []}
     assert story["storyline_strategy"]["semantic_invariants_are_contract_not_refrain"] is True
+    assert story["storyline_strategy"]["surface_specific_realisation"] is True
     assert len(set(story["storyline_strategy"]["focus_sequence"])) >= 5
 
 
@@ -62,6 +67,18 @@ def test_vertical_story_remains_semantically_distinct_and_governed() -> None:
     assert story["governance"]["publication"] == "held"
     assert story["governance"]["spend"] == "disabled"
     assert story["governance"]["authority_created"] is False
+
+
+def test_education_short_and_explainer_do_not_collapse_to_same_realised_story() -> None:
+    product, audience, law, projection = _projection()
+    short_story = project_story(law, projection, product, audience, "vertical_short")
+    long_story = project_story(law, projection, product, audience, "landscape_explainer")
+    assert validate_cross_surface_semantic_distance(short_story, long_story) == []
+    short_screens = {scene["screen_text"] for scene in short_story["scenes"]}
+    long_screens = {scene["screen_text"] for scene in long_story["scenes"]}
+    assert len(short_screens & long_screens) <= 2
+    assert long_story["scenes"][0]["screen_text"] == "Start with the real workload"
+    assert long_story["scenes"][-2]["screen_text"] == "The final judgement stays human"
 
 
 def test_semantic_diversity_gate_refuses_duplicate_substantive_sentences() -> None:
