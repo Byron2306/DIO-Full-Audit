@@ -1,13 +1,15 @@
 [Unit]
-Description=DIO Market Command
+Description=DIO Market Command — MS-10 Sensorium convergence
 After=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=%h/Downloads/DIO
-ExecStart=/usr/bin/python3 scripts/serve_market_command.py --host 127.0.0.1 --port 8770
+WorkingDirectory=/home/byron/DIO-Full-Audit
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/serve_market_command_ms10.py --host 127.0.0.1 --port 8770
 Restart=on-failure
 RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONNOUSERSITE=1
 
 [Install]
 WantedBy=default.target
