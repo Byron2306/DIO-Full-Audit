@@ -32,6 +32,21 @@ def _text(value: Any) -> str:
     return str(value or "").strip()
 
 
+def _source_hints(record: dict[str, Any], payload: dict[str, Any]) -> list[str]:
+    values: list[str] = []
+    for source in (record, payload):
+        raw = source.get("source_hints")
+        if isinstance(raw, str):
+            values.append(raw)
+        elif isinstance(raw, list):
+            values.extend(str(item) for item in raw if item)
+        for key in ("link", "url", "source_url", "canonical_url", "webpage_url"):
+            value = source.get(key)
+            if isinstance(value, str) and value.strip():
+                values.append(value.strip())
+    return list(dict.fromkeys(value for value in values if value.startswith(("https://", "http://"))))
+
+
 def classify_blocker(row: sqlite3.Row) -> list[str]:
     payload = _json(row["payload_json"])
     record = _record(payload)
@@ -44,19 +59,19 @@ def classify_blocker(row: sqlite3.Row) -> list[str]:
     }
     if not any(_text(record.get(key) or payload.get(key)) for key in explicit_keys):
         blockers.append("NO_EXPLICIT_ORGANISATION_FIELD")
-    if float(row["score"] or 0.0) < 0.50:
-        blockers.append("SCORE_BELOW_HEURISTIC_THRESHOLD")
-    if resolve_identity(row) is None:
-        blockers.append("CURRENT_RESOLVER_NO_IDENTITY")
+    if resolve_identity(row, root=ROOT) is None:
+        blockers.append("SOURCE_AWARE_RESOLVER_NO_TARGET_IDENTITY")
     if not _text(record.get("description") or record.get("extract") or record.get("summary")):
-        blockers.append("NO_CONTEXT_TEXT")
-    if not _text(record.get("link") or record.get("url") or record.get("source_url") or record.get("canonical_url")):
-        blockers.append("NO_SOURCE_LINK")
+        blockers.append("NO_INLINE_CONTEXT_TEXT")
+    if not _source_hints(record, payload):
+        blockers.append("NO_SOURCE_HINT_OR_LINK")
     return blockers
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Audit unresolved Market Sensorium discovery candidates without promoting any target.")
+    parser = argparse.ArgumentParser(
+        description="Audit unresolved Market Sensorium discovery candidates without promoting any target."
+    )
     parser.add_argument("--db", default="state/market_sensorium/market_sensorium.sqlite")
     parser.add_argument("--limit", type=int, default=53)
     parser.add_argument("--samples", type=int, default=30)
@@ -84,6 +99,7 @@ def main() -> int:
     record_key_counts: Counter[str] = Counter()
     payload_key_counts: Counter[str] = Counter()
     score_buckets: Counter[str] = Counter()
+    resolvable_now: Counter[str] = Counter()
     by_source: dict[str, list[dict[str, Any]]] = defaultdict(list)
 
     for row in rows:
@@ -96,8 +112,15 @@ def main() -> int:
             payload_key_counts[key] += 1
         for key in record:
             record_key_counts[key] += 1
-        for blocker in classify_blocker(row):
+
+        identity = resolve_identity(row, root=ROOT)
+        if identity is not None:
+            resolvable_now[identity.evidence] += 1
+
+        blockers = classify_blocker(row)
+        for blocker in blockers:
             blocker_counts[blocker] += 1
+
         score = float(row["score"] or 0.0)
         if score >= 0.80:
             score_buckets["0.80-1.00"] += 1
@@ -108,6 +131,7 @@ def main() -> int:
         else:
             score_buckets["0.00-0.49"] += 1
 
+        hints = _source_hints(record, payload)
         by_source[source_kind].append({
             "candidate_id": row["candidate_id"],
             "domain_id": row["domain_id"],
@@ -120,8 +144,20 @@ def main() -> int:
             "publisher": record.get("publisher"),
             "feed_title": record.get("feed_title"),
             "channel_title": record.get("channel_title"),
-            "link": record.get("link") or record.get("url") or record.get("source_url") or record.get("canonical_url"),
-            "blockers": classify_blocker(row),
+            "source_hints": hints,
+            "resolver_identity": (
+                {
+                    "organisation": identity.organisation,
+                    "evidence": identity.evidence,
+                    "confidence": identity.confidence,
+                    "entity_role": identity.entity_role,
+                    "target_eligible": identity.target_eligible,
+                    "source_link": identity.source_link,
+                }
+                if identity is not None
+                else None
+            ),
+            "blockers": blockers,
         })
 
     samples: list[dict[str, Any]] = []
@@ -147,18 +183,23 @@ def main() -> int:
                 break
 
     receipt = {
-        "schema": "dio.market_sensorium.unresolved_source_shape_audit.v1",
+        "schema": "dio.market_sensorium.unresolved_source_shape_audit.v2",
+        "resolver": "MS-1.1_SOURCE_AWARE",
         "db": str(db),
         "unresolved_examined": len(rows),
         "source_kind_counts": dict(source_counts),
         "candidate_kind_counts": dict(candidate_kind_counts),
         "score_buckets": dict(score_buckets),
+        "resolvable_now_by_evidence": dict(resolvable_now),
+        "resolvable_now_count": sum(resolvable_now.values()),
         "blocker_counts": dict(blocker_counts),
         "record_key_frequency": dict(record_key_counts.most_common()),
         "payload_key_frequency": dict(payload_key_counts.most_common()),
         "samples": samples,
         "interpretation": {
-            "purpose": "Reveal the actual source record morphology before widening entity resolution.",
+            "purpose": "Audit real unresolved source morphology against the source-aware resolver.",
+            "identity_relevance_decoupled": True,
+            "source_hints_count_as_provenance": True,
             "target_created": False,
             "lead_created": False,
             "market_demand_claimed": False,
