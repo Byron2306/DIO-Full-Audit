@@ -5,8 +5,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from commercial_metabolism.contracts import CommercialSettlement, CommercialSettlementState
-from metamorphic.contracts import SettlementState, WorldSettlement, require_digest
+from metamorphic.contracts import SettlementState, require_digest
 
 
 class CommercialCrystallisationError(RuntimeError):
@@ -28,8 +27,8 @@ def _load_beast_crystal_organs(repo_root: str | Path):
 def crystallize_commercial_settlement(
     repo_root: str | Path,
     *,
-    commercial_settlement: CommercialSettlement,
-    world_settlement: WorldSettlement,
+    commercial_settlement: Any,
+    world_settlement: Any,
     scenario_id: str,
     lineage_truth_digest: str,
     structural_wtp_gate_satisfied: bool,
@@ -37,10 +36,16 @@ def crystallize_commercial_settlement(
 ) -> dict[str, Any]:
     """Append one evidence-only market crystal after full commercial settlement.
 
+    Commercial contract imports are intentionally resolved inside the call. This
+    keeps the BEAST adapter importable independently without creating a package
+    cycle through commercial_metabolism.__init__.
+
     M2-7 uses controlled fixtures. A crystal records the settled evidence shape; it
     does not turn fixture evidence into real market truth, WTP, validation,
     repeatability, execution authority, release authority or spend authority.
     """
+    from commercial_metabolism.contracts import CommercialSettlementState
+
     if commercial_settlement.settlement_state is not CommercialSettlementState.SETTLED:
         raise CommercialCrystallisationError("commercial settlement must be SETTLED before crystallisation")
     if not commercial_settlement.market_crystal_eligible:
