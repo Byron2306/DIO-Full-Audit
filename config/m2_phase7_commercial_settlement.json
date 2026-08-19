@@ -1,0 +1,21 @@
+{
+  "schema": "dio.m2.commercial_settlement_config.v1",
+  "required_parent_acceptance": "DIO_M2_CUSTOMER_PAYMENT_LINEAGE_BOUND",
+  "reference_product": "funding_proposal_studio",
+  "evidence_scope": "controlled_fixture",
+  "settled_at": "2026-08-18T03:00:00+00:00",
+  "world_snapshot_now": "2026-08-18T03:00:00+00:00",
+  "expected_effect": "controlled_commercial_lineage_evidence_materialisation",
+  "real_market_evidence_claimed": false,
+  "real_payment_claimed": false,
+  "real_customer_acceptance_claimed": false,
+  "willingness_to_pay_claimed": false,
+  "commercial_validation_claimed": false,
+  "repeatability_claimed": false,
+  "scenarios": {
+    "verified_payment_without_acceptance": "MIXED",
+    "operator_self_paid_acceptance": "MIXED",
+    "independent_acceptance_without_payment": "MIXED",
+    "independent_paid_acceptance_structural_gate": "GAIN"
+  }
+}
