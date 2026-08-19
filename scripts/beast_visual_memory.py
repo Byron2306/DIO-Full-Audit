@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 from scripts.lingua_beast_bridge import (
+    CHAIN_PATH,
     canonical_digest,
     load_beast,
     load_beast_organs,
@@ -10,8 +12,16 @@ from scripts.lingua_beast_bridge import (
     write_memory_residue,
 )
 
+ROOT = Path(__file__).resolve().parents[1]
+VISUAL_STORAGE_ROOT = ROOT / "state" / "visual" / "beast_credits"
+VISUAL_NEGATIVE_PATH = ROOT / "state" / "visual" / "beast_negative_capabilities.json"
 VISUAL_TASK_CLASS = "dio_visual_design_crystal"
 VISUAL_CAPABILITY_ID = "dio_visual_projection"
+
+
+def _storage() -> Any:
+    DurableInferenceStorage, _ = load_beast()
+    return DurableInferenceStorage(VISUAL_STORAGE_ROOT)
 
 
 def resolve_visual_memory(*, audience_archetype: str, surface: str, visual_grammar: str) -> dict[str, Any]:
@@ -22,23 +32,19 @@ def resolve_visual_memory(*, audience_archetype: str, surface: str, visual_gramm
     art language remains the fallback.
     """
     try:
-        DurableInferenceStorage, _ = load_beast()
-        storage = DurableInferenceStorage()
-    except TypeError:
-        # Current BEAST DurableInferenceStorage requires a storage root through the
-        # Lingua bridge. Reuse that bridge's canonical root by importing lazily.
-        from scripts.lingua_beast_bridge import STORAGE_ROOT
-        DurableInferenceStorage, _ = load_beast()
-        storage = DurableInferenceStorage(STORAGE_ROOT)
+        storage = _storage()
     except Exception as exc:
         return {
             "schema": "dio.visual.beast_resolution.v1",
             "state": "beast_unavailable",
             "approved_crystal_refs": [],
+            "approved_patterns": [],
             "negative_patterns": [],
             "memory_hull_refs": [],
             "error": str(exc),
             "authority": "representational_context_only",
+            "semantic_authority_created": False,
+            "release_authority_created": False,
         }
 
     approved: list[dict[str, Any]] = []
@@ -71,8 +77,7 @@ def resolve_visual_memory(*, audience_archetype: str, surface: str, visual_gramm
     negative_patterns: list[dict[str, Any]] = []
     try:
         organs = load_beast_organs()
-        from scripts.lingua_beast_bridge import BEAST_NEGATIVE_PATH
-        negative_store = organs["NegativeCapabilityStore"](BEAST_NEGATIVE_PATH)
+        negative_store = organs["NegativeCapabilityStore"](VISUAL_NEGATIVE_PATH)
         matches = negative_store.active_matches({
             "capability_id": VISUAL_CAPABILITY_ID,
             "task_class": "visual_projection_quality",
@@ -120,6 +125,82 @@ def resolve_visual_memory(*, audience_archetype: str, surface: str, visual_gramm
     return result
 
 
+def record_visual_rejection(
+    *,
+    audience_archetype: str,
+    surface: str,
+    failure_category: str,
+    detail: str,
+    artifact_id: str,
+    reviewer: str,
+) -> dict[str, Any]:
+    """Feed an explicit human visual rejection into BEAST negative capability memory.
+
+    One rejection is evidence, not an active prohibition. BEAST's own repetition
+    threshold decides when the pattern becomes an active negative capability.
+    """
+    if not reviewer.strip():
+        raise ValueError("A named human reviewer is required for visual feedback.")
+    if not detail.strip():
+        raise ValueError("Visual rejection detail is required.")
+    organs = load_beast_organs()
+    negative_store = organs["NegativeCapabilityStore"](VISUAL_NEGATIVE_PATH)
+    scope = {"route": audience_archetype, "transform_type": surface}
+    outcome = organs["OutcomeEvidence"].create(
+        capability_id=VISUAL_CAPABILITY_ID,
+        task_class="visual_projection_quality",
+        outcome="failure",
+        failure_category=failure_category,
+        failure_code="human_reject",
+        detail=detail,
+        scope=scope,
+        confidence_before=1.0,
+        selected_capabilities=("document_studio_art_direction", "gamma_visual_generation", "nichefoundry_motion"),
+    )
+    record = negative_store.record(outcome)
+    repeat_count = record.failure_count if record else 1
+    result = {
+        "schema": "dio.visual.rejection_receipt.v1",
+        "state": "recorded",
+        "artifact_id": artifact_id,
+        "reviewer": reviewer,
+        "audience_archetype": audience_archetype,
+        "surface": surface,
+        "failure_category": failure_category,
+        "detail": detail,
+        "repeat_count": repeat_count,
+        "negative_capability_active": bool(record and getattr(record, "state", "") == "active"),
+        "authority": "negative_evidence_only",
+        "semantic_authority_created": False,
+        "release_authority_created": False,
+    }
+    try:
+        residue = write_memory_residue(
+            task=f"Visual rejection for {audience_archetype}/{surface}",
+            decision=f"Human rejected visual projection: {failure_category}",
+            evidence={"artifact_id": artifact_id, "detail": detail, "repeat_count": repeat_count},
+            tags=["visual-design", "document-studio", "human-rejected", "negative-capability"],
+        )
+        result["memory_residue"] = residue
+    except Exception:
+        result["memory_residue"] = None
+    try:
+        record_learning_event(
+            event_type="visual_projection_rejected",
+            capability_type="visual_projection_quality",
+            capability_id=f"visual:{audience_archetype}:{surface}",
+            lifecycle_state="rejected",
+            authority="human_visual_feedback",
+            evidence={"artifact_id": artifact_id, "failure_category": failure_category, "detail": detail},
+            receipt=result,
+            refusal_reason=failure_category,
+            metadata={"reviewer": reviewer, "repeat_count": repeat_count},
+        )
+    except Exception:
+        pass
+    return result
+
+
 def crystallize_human_approved_pattern(
     *,
     audience_archetype: str,
@@ -135,9 +216,8 @@ def crystallize_human_approved_pattern(
     if not design_pattern:
         raise ValueError("A non-empty design_pattern is required.")
 
-    from scripts.lingua_beast_bridge import STORAGE_ROOT
+    storage = _storage()
     DurableInferenceStorage, CrystalChainLedger = load_beast()
-    storage = DurableInferenceStorage(STORAGE_ROOT)
     metadata = {
         "human_approved": True,
         "audience_archetype": audience_archetype,
@@ -171,7 +251,6 @@ def crystallize_human_approved_pattern(
             evidence_packet_id=str(evidence.get("artifact_id") or fingerprint),
             metadata=metadata,
         )
-        from scripts.lingua_beast_bridge import CHAIN_PATH
         CrystalChainLedger(CHAIN_PATH, node_id="dio-visual").append(
             "visual.design_pattern.crystallized",
             credit.credit_id,
