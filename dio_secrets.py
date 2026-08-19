@@ -37,9 +37,14 @@ def _parse_env(path: Path) -> dict[str, str]:
         if key not in _allowed_names():
             continue
         value = value.strip()
-        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        if value.startswith('"') and value.endswith('"'):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError:
+                value = value[1:-1]
+        elif len(value) >= 2 and value[0] == value[-1] == "'":
             value = value[1:-1]
-        values[key] = value
+        values[key] = str(value)
     return values
 
 
@@ -80,7 +85,7 @@ def load_secret_env(*, overwrite: bool = False) -> dict[str, str]:
 
 
 def _quote(value: str) -> str:
-    return '"' + value.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n') + '"'
+    return json.dumps(value, ensure_ascii=True)
 
 
 def save_secret_values(values: dict[str, Any]) -> dict[str, Any]:
