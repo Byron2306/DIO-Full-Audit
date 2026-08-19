@@ -16,6 +16,7 @@ from scripts.edge_tts_runtime import configure_edge_tts_environment
 configure_edge_tts_environment()
 
 from scripts import build_multichannel_campaign_factory_v3 as _v3
+from lingua.storyline_planner import project_story as project_story_semantic_anti_clone
 from scripts.lingua_music_projection import select_projection_music
 from scripts.local_compositor_identity_bridge import install_local_compositor_identity_bridge
 from scripts.nichefoundry_visual_spine import install_visual_spine
@@ -25,6 +26,11 @@ from scripts.nichefoundry_visual_spine import install_visual_spine
 # compositor resolves visual/source profile from the first segment and audience
 # from the final segment while preserving the middle exact-incarnation lineage.
 install_local_compositor_identity_bridge()
+
+# LINGUA owns semantic allocation across story beats. Semantic invariants are
+# preserved by the story contract, not mechanically repeated as narration after
+# every scene. Refuse substantive duplicate narration before media execution.
+_v3.project_story = project_story_semantic_anti_clone
 
 # LINGUA projection owns music fitness. Merely having a rights-cleared track is
 # not enough: zero-semantic-match reuse would recreate the old one-track clone.
