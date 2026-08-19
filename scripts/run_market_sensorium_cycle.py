@@ -21,8 +21,13 @@ def main() -> int:
         action="store_true",
         help="Refresh the already-governed YouTube/RSS market intelligence lane before ingesting evidence.",
     )
+    parser.add_argument(
+        "--refresh-mail",
+        action="store_true",
+        help="Pull inbound Outlook mail through the already-configured Microsoft Graph lane before calculating reply/silence state.",
+    )
     args = parser.parse_args()
-    receipt = MarketSensoriumCycle(ROOT).run(refresh_public=args.refresh_public)
+    receipt = MarketSensoriumCycle(ROOT).run(refresh_public=args.refresh_public, refresh_mail=args.refresh_mail)
     print(json.dumps(receipt, indent=2))
     return 0
 
