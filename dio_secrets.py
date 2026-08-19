@@ -10,6 +10,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 REGISTRY_PATH = ROOT / "config" / "secret_registry.json"
 SECRET_FILE = ROOT / "secrets" / "dio.env"
+DEFAULT_NICHEFOUNDRY_ROOT = Path("/home/byron/Downloads/NicheFoundry_Phase11")
 
 
 def _registry() -> dict[str, Any]:
@@ -68,19 +69,92 @@ def _parse_external_env(path: Path) -> dict[str, str]:
     return values
 
 
+def _piper_config_for(model: Path, model_dir: Path | None = None) -> Path | None:
+    explicit = str(os.environ.get("PIPER_CONFIG_FILE") or "").strip()
+    if explicit:
+        config = Path(explicit).expanduser()
+        if not config.is_absolute() and model_dir is not None:
+            config = model_dir / config
+        config = config.resolve()
+        if config.is_file():
+            return config
+    sibling = Path(str(model) + ".json")
+    return sibling.resolve() if sibling.is_file() else None
+
+
+def _valid_piper_model(model: Path, model_dir: Path | None = None) -> tuple[Path, Path] | None:
+    model = model.expanduser().resolve()
+    if not model.is_file() or model.suffix.lower() != ".onnx":
+        return None
+    config = _piper_config_for(model, model_dir)
+    if config is None:
+        return None
+    return model, config
+
+
+def _discover_legacy_piper_model() -> tuple[Path, Path] | None:
+    """Resolve the established NicheFoundry Piper layout without copying models into DIO."""
+
+    raw_dir = str(os.environ.get("PIPER_MODEL_DIR") or "").strip()
+    model_dir = Path(raw_dir).expanduser().resolve() if raw_dir else None
+    model_file = str(os.environ.get("PIPER_MODEL_FILE") or "").strip()
+    model_name = str(os.environ.get("PIPER_MODEL_NAME") or "").strip()
+    voice_hint = str(os.environ.get("PIPER_VOICE") or model_name or Path(model_file).stem).strip().lower()
+
+    direct_candidates: list[Path] = []
+    if model_dir is not None:
+        if model_file:
+            direct_candidates.append(model_dir / model_file)
+        if model_name:
+            direct_candidates.append(model_dir / (model_name if model_name.endswith(".onnx") else f"{model_name}.onnx"))
+        if model_dir.is_dir():
+            direct_candidates.extend(sorted(model_dir.glob("*.onnx")))
+            direct_candidates.extend(sorted(model_dir.glob("*/*.onnx")))
+
+    for candidate in direct_candidates:
+        pair = _valid_piper_model(candidate, model_dir)
+        if pair:
+            return pair
+
+    foundry_root = Path(os.environ.get("DIO_NICHEFOUNDRY_ROOT") or DEFAULT_NICHEFOUNDRY_ROOT).expanduser().resolve()
+    search_roots = [
+        foundry_root / "assets",
+        foundry_root / "models",
+        foundry_root / "voices",
+        foundry_root / "piper",
+        foundry_root / "vendor",
+    ]
+    discovered: list[tuple[Path, Path]] = []
+    for root in search_roots:
+        if not root.is_dir():
+            continue
+        for candidate in root.rglob("*.onnx"):
+            pair = _valid_piper_model(candidate, candidate.parent)
+            if pair:
+                discovered.append(pair)
+
+    if voice_hint:
+        hinted = [pair for pair in discovered if voice_hint in pair[0].stem.lower() or voice_hint in str(pair[0]).lower()]
+        if hinted:
+            discovered = hinted
+    return sorted(discovered, key=lambda pair: str(pair[0]))[0] if discovered else None
+
+
 def _derive_local_media_env(loaded: dict[str, str], *, overwrite: bool) -> None:
     """Bridge NicheFoundry's established Piper env names into DIO media contracts."""
 
     if overwrite or not os.environ.get("PIPER_MODEL"):
-        model_dir = str(os.environ.get("PIPER_MODEL_DIR") or "").strip()
-        model_file = str(os.environ.get("PIPER_MODEL_FILE") or "").strip()
-        if model_dir and model_file:
-            model = str((Path(model_dir).expanduser() / model_file).resolve())
-            os.environ["PIPER_MODEL"] = model
-            loaded["PIPER_MODEL"] = model
+        pair = _discover_legacy_piper_model()
+        if pair:
+            model, config = pair
+            os.environ["PIPER_MODEL"] = str(model)
+            loaded["PIPER_MODEL"] = str(model)
+            if overwrite or not os.environ.get("PIPER_CONFIG_FILE"):
+                os.environ["PIPER_CONFIG_FILE"] = str(config)
+                loaded["PIPER_CONFIG_FILE"] = str(config)
 
     if overwrite or not os.environ.get("PIPER_BIN"):
-        foundry_default = Path("/home/byron/Downloads/NicheFoundry_Phase11/.venv-piper/bin/piper")
+        foundry_default = DEFAULT_NICHEFOUNDRY_ROOT / ".venv-piper" / "bin" / "piper"
         if foundry_default.is_file():
             os.environ["PIPER_BIN"] = str(foundry_default)
             loaded["PIPER_BIN"] = str(foundry_default)
@@ -129,7 +203,7 @@ def save_secret_values(values: dict[str, Any]) -> dict[str, Any]:
     SECRET_FILE.parent.mkdir(parents=True, exist_ok=True)
     lines = ["# DIO local secret vault. NEVER COMMIT THIS FILE."]
     for key in sorted(existing):
-        lines.append(f"{key}={_quote(existing[key])}")
+        lines.append(f"{key}={_quote(existing[key])")
     payload = "\n".join(lines) + "\n"
     with tempfile.NamedTemporaryFile(
         mode="w",
