@@ -6,6 +6,7 @@ and creates no runtime engine or external effect.
 """
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 from pathlib import Path
@@ -60,6 +61,14 @@ def _digest(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _csv_count(path: Path) -> int:
+    try:
+        with path.open("r", encoding="utf-8", newline="") as handle:
+            return sum(1 for _row in csv.DictReader(handle))
+    except OSError as exc:
+        raise AtlasConstitutionError(f"cannot count ATLAS CSV: {path}") from exc
+
+
 def _load(root: Path) -> dict[str, Any]:
     path = root / DEFAULT_ATLAS_CONSTITUTION
     try:
@@ -89,6 +98,33 @@ def validate_atlas_constitution(repo_root: str | Path) -> dict[str, Any]:
             continue
         source_digests[str(source_id)] = _digest(path)
 
+    minimums = payload.get("minimums") or {}
+    exact = payload.get("exact_portfolio_bindings") or {}
+    csv_counts = {
+        "source_federation": _csv_count(root / str(source_files["source_federation"])),
+        "work_primitives": _csv_count(root / str(source_files["work_primitives"])),
+        "universal_domain_nodes": _csv_count(root / str(source_files["universal_domain_registry"])),
+        "pivot_gauntlet_tasks": _csv_count(root / str(source_files["pivot_gauntlet"])),
+        "incarnations": _csv_count(root / str(source_files["incarnation_crosswalk"])),
+        "profile_rows": _csv_count(root / str(source_files["profile_crosswalk"])),
+        "work_pattern_rows": _csv_count(root / str(source_files["work_pattern_crosswalk"])),
+        "capability_signatures": _csv_count(root / str(source_files["capability_signatures"])),
+    }
+    scale_checks = {
+        "source_federation_minimum_met": csv_counts["source_federation"] >= int(minimums.get("source_federation") or 0),
+        "work_primitives_minimum_met": csv_counts["work_primitives"] >= int(minimums.get("work_primitives") or 0),
+        "universal_domain_nodes_minimum_met": csv_counts["universal_domain_nodes"] >= int(minimums.get("universal_domain_nodes") or 0),
+        "pivot_gauntlet_tasks_minimum_met": csv_counts["pivot_gauntlet_tasks"] >= int(minimums.get("pivot_gauntlet_tasks") or 0),
+        "incarnations_exact": csv_counts["incarnations"] == int(exact.get("incarnations") or 0),
+        "profile_rows_exact": csv_counts["profile_rows"] == int(exact.get("profile_rows") or 0),
+        "work_pattern_rows_exact": csv_counts["work_pattern_rows"] == (
+            int(exact.get("canonical_work_patterns") or 0) + int(exact.get("candidate_work_patterns") or 0)
+        ),
+        "capability_signatures_exact": csv_counts["capability_signatures"] == int(
+            exact.get("execution_grade_m1_capability_signatures") or 0
+        ),
+    }
+
     truth_boundaries = {
         "source_knowledge_may_create_capability": payload.get("source_knowledge_may_create_capability") is False,
         "source_knowledge_may_create_authority": payload.get("source_knowledge_may_create_authority") is False,
@@ -104,6 +140,7 @@ def validate_atlas_constitution(repo_root: str | Path) -> dict[str, Any]:
         and mechanical_verdicts == REQUIRED_MECHANICAL_VERDICTS
         and not missing
         and len(source_digests) == len(source_files)
+        and all(scale_checks.values())
         and all(truth_boundaries.values())
         and payload.get("required_parent_acceptance") == "DIO_METAMORPHIC_COMMERCIAL_METABOLISM_VERIFIED"
         and payload.get("m4_final_acceptance") == "DIO_ATLAS_UNIVERSAL_PIVOT_VERIFIED"
@@ -124,8 +161,10 @@ def validate_atlas_constitution(repo_root: str | Path) -> dict[str, Any]:
         "source_file_count": len(source_files),
         "source_digests": source_digests,
         "missing_source_files": missing,
-        "minimums": payload.get("minimums"),
-        "exact_portfolio_bindings": payload.get("exact_portfolio_bindings"),
+        "minimums": minimums,
+        "exact_portfolio_bindings": exact,
+        "csv_counts": csv_counts,
+        "scale_checks": scale_checks,
         "truth_boundaries": truth_boundaries,
         "full_external_taxonomy_ingestion_required_for_m4_0": payload.get("full_external_taxonomy_ingestion_required_for_m4_0") is True,
         "federation_envelope_may_reference_not_yet_ingested_sources": payload.get("federation_envelope_may_reference_not_yet_ingested_sources") is True,
