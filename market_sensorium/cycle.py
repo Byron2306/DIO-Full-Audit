@@ -8,7 +8,9 @@ from typing import Any
 
 from .baselines import compile_baselines, write_baselines
 from .core import MarketSensoriumStore, TargetFeatures, utc_now
+from .domain_discovery import ingest_domain_discovery_signals
 from .ingest import ingest_baselines, ingest_existing_prospects, ingest_hivenance_receipts, ingest_live_market_signals
+from .queries import mark_refreshed, select_domain_query_batch
 
 
 class MarketSensoriumCycle:
@@ -21,6 +23,8 @@ class MarketSensoriumCycle:
         self.seed_registry = self.root / "config" / "market_sensorium" / "seeds"
         self.baseline_output = self.state_root / "domain_baseline_candidates.csv"
         self.receipt_path = self.state_root / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
+        self.query_batch_path = self.state_root / "DOMAIN_DISCOVERY_QUERY_BATCH.json"
+        self.query_history_path = self.state_root / "domain_query_history.json"
 
     def refresh_existing_public_intelligence(self) -> dict[str, Any]:
         script = self.root / "scripts" / "refresh_all_market_intelligence.py"
@@ -48,6 +52,46 @@ class MarketSensoriumCycle:
             "state": "refreshed",
             "script": str(script.relative_to(self.root)),
             "receipt": payload,
+            "authority_created": False,
+            "external_effects": False,
+        }
+
+    def refresh_domain_public_discovery(self, weak_domain_ids: set[str], limit: int = 8) -> dict[str, Any]:
+        script = self.root / "scripts" / "refresh_market_sensorium_domain_signals.js"
+        if not script.is_file():
+            return {"state": "missing", "script": str(script), "authority_created": False}
+        batch = select_domain_query_batch(
+            self.domain_registry,
+            self.query_history_path,
+            weak_domain_ids=weak_domain_ids,
+            limit=limit,
+        )
+        self.query_batch_path.write_text(json.dumps(batch, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+        completed = subprocess.run(
+            ["node", str(script), f"--batch={self.query_batch_path}"],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+            timeout=1200,
+        )
+        if completed.returncode != 0:
+            return {
+                "state": "failed",
+                "batch": batch,
+                "returncode": completed.returncode,
+                "error": (completed.stderr or completed.stdout)[-4000:],
+                "authority_created": False,
+            }
+        try:
+            result = json.loads(completed.stdout)
+        except json.JSONDecodeError:
+            result = {"results": [], "stdout": completed.stdout[-4000:]}
+        mark_refreshed(self.query_history_path, batch, result)
+        return {
+            "state": "refreshed",
+            "batch_size": len(batch.get("domains") or []),
+            "batch_path": str(self.query_batch_path.relative_to(self.root)),
+            "receipt": result,
             "authority_created": False,
             "external_effects": False,
         }
@@ -110,7 +154,9 @@ class MarketSensoriumCycle:
             raise ValueError("Market Sensorium currently supports read_only mode only.")
         started = utc_now()
         baseline_receipt = self.compile_baselines()
+        weak_domain_ids = set(baseline_receipt.get("family_fallback_only_domains") or [])
         refresh_receipt = self.refresh_existing_public_intelligence() if refresh_public else {"state": "not_requested"}
+        domain_refresh = self.refresh_domain_public_discovery(weak_domain_ids) if refresh_public else {"state": "not_requested"}
         mail_refresh = self.refresh_mail_ingress() if refresh_mail else {"state": "not_requested"}
 
         with MarketSensoriumStore(self.db_path) as store:
@@ -122,6 +168,7 @@ class MarketSensoriumCycle:
             )
             prospect_features, prospect_summary = ingest_existing_prospects(self.root, store)
             signal_summary = ingest_live_market_signals(self.root, store)
+            domain_signal_summary = ingest_domain_discovery_signals(self.root, store)
             hivenance_summary = ingest_hivenance_receipts(self.root, store)
             features = self._coalesce_features([*baseline_features, *prospect_features])
             rank_receipts = store.rank(features, observed_at=utc_now())
@@ -133,6 +180,7 @@ class MarketSensoriumCycle:
                 "baseline": baseline_summary,
                 "prospects": prospect_summary,
                 "live_signals": signal_summary,
+                "domain_discovery": domain_signal_summary,
                 "hivenance": hivenance_summary,
                 "store": store.summary(),
                 "ranked_targets": len(rank_receipts),
@@ -150,6 +198,7 @@ class MarketSensoriumCycle:
                     for item in rank_movers
                 ],
                 "public_refresh": refresh_receipt,
+                "domain_public_refresh": domain_refresh,
                 "mail_ingress_refresh": mail_refresh,
                 "authority_created": False,
                 "external_effects": False,
