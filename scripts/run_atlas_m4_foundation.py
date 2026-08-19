@@ -13,19 +13,27 @@ if str(REPO_ROOT) not in sys.path:
 from atlas import (
     atlas_foundation_receipt,
     atlas_pivot_foundation_receipt,
+    validate_atlas_constitution,
     validate_meta_profile_crosswalk,
 )
 
 
 def main() -> int:
+    constitution = validate_atlas_constitution(REPO_ROOT)
     meta = validate_meta_profile_crosswalk(REPO_ROOT)
     foundation = atlas_foundation_receipt(REPO_ROOT)
     pivot = atlas_pivot_foundation_receipt(REPO_ROOT)
-    passed = meta.get("passed") is True and foundation.get("passed") is True and pivot.get("passed") is True
+    passed = (
+        constitution.get("passed") is True
+        and meta.get("passed") is True
+        and foundation.get("passed") is True
+        and pivot.get("passed") is True
+    )
     receipt = {
         "schema": "dio.atlas.m4_foundation_programme_receipt.v1",
         "acceptance": "DIO_ATLAS_M4_FOUNDATION_AND_PIVOT_READY" if passed else "DIO_ATLAS_M4_FOUNDATION_AND_PIVOT_BLOCKED",
         "passed": passed,
+        "atlas_constitution": constitution,
         "dio_meta_crosswalk": meta,
         "atlas_foundation": foundation,
         "analogical_pivot_foundation": pivot,
