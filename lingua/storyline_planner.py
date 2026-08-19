@@ -163,7 +163,9 @@ def validate_story_semantic_diversity(story: dict[str, Any], *, outcome: str = "
     normalised_outcome = _normalise(outcome)
     if normalised_outcome:
         exact_outcome_uses = sum(normalised_outcome in _normalise(narration) for narration in narrations)
-        if exact_outcome_uses > 1:
+        if story.get("surface") == "landscape_explainer" and exact_outcome_uses == 0:
+            errors.append("bounded_outcome_missing")
+        elif exact_outcome_uses > 1:
             errors.append(f"bounded_outcome_repeated:{exact_outcome_uses}")
 
     focuses = [str(scene.get("semantic_focus") or "") for scene in scenes]
