@@ -18,6 +18,17 @@ def create_commercial_runtime(repo_root: str | Path, *, out_dir: str | Path) -> 
     return Runtime(export_root=out / "outbox", boot_id="dio-m2-phase5")
 
 
+def _canonical_event_type(event_type: str) -> str:
+    value = str(event_type or "").strip()
+    if not value:
+        raise CommercialSensoriumError("commercial Sensorium event type is required")
+    if "." not in value:
+        value = f"commercial.{value}"
+    if not value.startswith("commercial."):
+        raise CommercialSensoriumError("commercial Sensorium event types must remain in the commercial.* namespace")
+    return value
+
+
 def observe_commercial_event(
     runtime: Any,
     *,
@@ -26,7 +37,7 @@ def observe_commercial_event(
     payload: dict[str, Any],
 ) -> str:
     receipt = runtime.observe_owned(
-        event_type=event_type,
+        event_type=_canonical_event_type(event_type),
         source="dio_m2_market_observation",
         payload_schema="dio.m2.market_observation_event.v1",
         payload=payload,
@@ -48,12 +59,23 @@ def close_commercial_episode(
     initial_state_hash: str,
     outcome: dict[str, Any],
 ) -> dict[str, Any]:
+    if not isinstance(outcome, dict):
+        raise CommercialSensoriumError("commercial Sensorium outcome must be an object")
+    if "effect_hash" in outcome:
+        raise CommercialSensoriumError("commercial Sensorium effect_hash is adapter-owned")
+    sealed_outcome = dict(outcome)
+    sealed_outcome["effect_hash"] = digest_payload(
+        {
+            "schema": "dio.m2.commercial_sensorium_effect.v1",
+            "outcome": outcome,
+        }
+    )
     episode = runtime.close_episode(
         mission_id,
         objective_hash=objective_hash,
         workspace_identity="dio-metamorphic-m2",
         initial_state_hash=initial_state_hash,
-        outcome=outcome,
+        outcome=sealed_outcome,
         resources={},
         export=False,
     )
