@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import operator_production
 from lingua.product_projection import build_projection_plan, creative_distance, project_story
 from lingua.semantic_law import build_semantic_law, validate_projection
 
@@ -103,6 +104,7 @@ def test_active_campaign_factory_routes_to_v3_and_removes_single_music_constant(
     active = (ROOT / "scripts" / "build_multichannel_campaign_factory.py").read_text(encoding="utf-8")
     v3 = (ROOT / "scripts" / "build_multichannel_campaign_factory_v3.py").read_text(encoding="utf-8")
     assert "build_multichannel_campaign_factory_v3 import *" in active
+    assert operator_production.build_family.__module__ == "scripts.build_multichannel_campaign_factory_v3"
     assert "MUSIC = FOUNDRY /" not in active
     assert "MUSIC = FOUNDRY /" not in v3
     assert "_music_catalog" in v3
@@ -125,3 +127,11 @@ def test_gamma_and_media_executors_consume_projection_instead_of_fixed_skin() ->
     assert "piper_local" in media
     assert "nichefoundry.dio_campaign_production_request.v3" in media
     assert "semantic_law_preserved" in media
+
+
+def test_projection_preflight_is_directly_invokable_and_checks_historical_voice() -> None:
+    source = (ROOT / "scripts" / "check_lingua_nichefoundry_projection_runtime.py").read_text(encoding="utf-8")
+    assert "sys.path.insert(0, str(ROOT))" in source
+    assert '"historical_teacher_voice": "en-ZA-LeahNeural"' in source
+    assert '"ready_for_teacher_projection"' in source
+    assert '"music_selection": "RIGHTS_RECORDED_CATALOG_OR_INTENTIONAL_SILENCE"' in source
