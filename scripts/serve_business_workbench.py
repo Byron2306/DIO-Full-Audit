@@ -13,14 +13,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from dio_secrets import load_secret_env  # noqa: E402
-from operator_production import create_marketing_pack, production_state, run_evidence_gate  # noqa: E402
+from operator_production import (  # noqa: E402
+    create_marketing_pack,
+    production_state,
+    run_evidence_gate,
+    run_factory_test,
+    stage_controlled_evidence_run,
+)
 from portfolio_runtime import import_portfolio  # noqa: E402
 from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
 from scripts.serve_control_deck_ms10 import MS10ControlDeckHandler, _read_json_body  # noqa: E402
 
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.0"
+    server_version = "DIOBusinessWorkbench/3.1"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -56,11 +62,13 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.0",
+                    "version": "3.1",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "production_studio": True,
                     "marketing_asset_factory": True,
+                    "fresh_controlled_evidence_runs": True,
+                    "factory_test_bench": True,
                     "evidence_gate": True,
                     "candidate_incarnations_promoted": False,
                 }
@@ -73,6 +81,8 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         if route not in {
             "/api/business/portfolio/import",
             "/api/business/production/marketing",
+            "/api/business/production/evidence-run",
+            "/api/business/production/factory-test",
             "/api/business/production/evidence-gate",
         }:
             super().do_POST()
@@ -87,6 +97,12 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             elif route == "/api/business/production/marketing":
                 result = create_marketing_pack(payload)
                 emit_event(EVENT_LOG, "production.marketing_pack_created", "action", "marketing_pack", result["run_id"], {"incarnation": result["incarnation"], "render_reel_requested": result["render_reel_requested"], "publication_authorized": False})
+            elif route == "/api/business/production/evidence-run":
+                result = stage_controlled_evidence_run(payload)
+                emit_event(EVENT_LOG, "production.controlled_evidence_run_staged", "action", "product_job", result["job_id"], {"incarnation": result["incarnation"], "lane": result["lane"], "next_action": result["next_action"], "controlled": True, "authority_created": False})
+            elif route == "/api/business/production/factory-test":
+                result = run_factory_test(payload)
+                emit_event(EVENT_LOG, "production.factory_test_ran", "info", "factory_test", result["run_id"], {"test_id": result["test_id"], "state": result["state"], "market_validation_claimed": False})
             else:
                 result = run_evidence_gate(payload)
                 emit_event(EVENT_LOG, "production.evidence_gate_ran", "action", "evidence_gate", result["run_id"], {"incarnation": result["incarnation"], "state": result["state"], "authority_created": False})
