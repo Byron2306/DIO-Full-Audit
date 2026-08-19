@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DIO MS-10 · Operator Surface Convergence</title>
+<style>
+:root{--bg:#05090c;--panel:#0c1419;--panel2:#111c22;--line:#25343c;--text:#edf4f5;--muted:#91a2aa;--gold:#e7bd67;--blue:#71d7ff;--green:#77dfa9;--amber:#ffc96d;--red:#ff7e77}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 0,#123246 0,transparent 27%),radial-gradient(circle at 92% 5%,#362710 0,transparent 25%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.shell{max-width:1680px;margin:auto;padding:22px}.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:900}.hero h1{font:700 clamp(34px,4vw,62px)/.98 Georgia,serif;margin:7px 0}.hero h1 span{color:var(--gold)}.hero p{color:var(--muted);max-width:920px;margin:0}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #41545e;background:#111c22;color:var(--text);padding:9px 12px;border-radius:8px;text-decoration:none;cursor:pointer}.btn:hover{border-color:#73909f}.btn.gold{border-color:#8c7139;color:var(--gold)}.grid{display:grid;gap:12px}.phase-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.kpis{grid-template-columns:repeat(6,minmax(0,1fr))}.two{grid-template-columns:1.1fr .9fr}.panel{background:linear-gradient(180deg,rgba(18,31,38,.94),rgba(9,16,20,.96));border:1px solid var(--line);border-radius:13px;padding:15px;box-shadow:0 18px 55px #0005}.panel h2{font:700 19px Georgia,serif;margin:0 0 4px}.panel p.note{margin:0 0 12px;color:var(--muted);font-size:12px}.phase,.kpi,.card{background:#091318;border:1px solid #21323a;border-radius:9px;padding:11px}.phase small,.kpi small,.card small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em}.phase b,.kpi b{display:block;margin-top:5px}.good{color:var(--green)}.active{color:var(--amber)}.bad{color:var(--red)}.muted{color:var(--muted)}.table{overflow:auto;max-height:430px;border:1px solid var(--line);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:820px;background:#091318}th,td{padding:9px 10px;border-bottom:1px solid #1d2a31;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#122028;color:#a9bac1;font-size:9px;text-transform:uppercase;letter-spacing:.08em}td small{color:var(--muted)}.authority{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.auth{padding:10px;border:1px solid #4b2f2f;background:#1d1111;border-radius:8px}.auth small{color:#b98f8b}.auth b{display:block;color:var(--red);margin-top:4px}.section{margin-top:12px}.legacy{padding:0;overflow:hidden}.legacy-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.legacy iframe{display:block;width:100%;height:980px;border:0;background:#071015}.truth-law{border-left:3px solid var(--gold);padding:10px 12px;background:#17140d;color:#d9cda9;border-radius:6px;font-size:12px}.errorbox{color:var(--red);padding:16px}@media(max-width:1150px){.phase-grid{grid-template-columns:repeat(3,1fr)}.kpis{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.authority{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.shell{padding:12px}.hero{display:block}.actions{margin-top:12px}.phase-grid,.kpis,.authority{grid-template-columns:1fr}.legacy iframe{height:1200px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="hero">
+    <div><div class="kicker">DIO · MARKET SENSORIUM · MS-10</div><h1><span id="surfaceName">Operator</span> convergence.</h1><p>One truth-preserving surface over Market Sensorium, commercial time, rank transitions, Hivenance, competitive offers, market habitats, learned discovery and the existing operator controls. Projection does not create authority.</p></div>
+    <div class="actions"><button class="btn gold" id="refresh">Refresh truth</button><a class="btn" href="/state/market_sensorium/COMMERCIAL_COCKPIT.html" target="_blank">Standalone cockpit</a><a class="btn" id="otherSurface" href="#">Other surface</a></div>
+  </div>
+
+  <section class="panel"><h2>Sensorium phase chain</h2><p class="note">MS-2 remains observation-active until genuine temporal effect or a linked reply earns the stronger gate.</p><div id="phases" class="grid phase-grid"></div></section>
+
+  <section class="section grid kpis" id="kpis"></section>
+
+  <section class="section grid two">
+    <div class="panel"><h2>Commercial time</h2><p class="note">Coverage-bound mailbox truth. NO_REPLY_OBSERVED is not rejection or follow-up permission.</p><div id="timeCards" class="grid kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))"></div></div>
+    <div class="panel"><h2>Authority boundary</h2><p class="note">Sensorium may observe and recommend. It may not manufacture release authority.</p><div id="authority" class="authority"></div></div>
+  </section>
+
+  <section class="section grid two">
+    <div class="panel"><h2>Priority field</h2><p class="note">Ranked priority model output, never “best target”.</p><div class="table"><table><thead><tr><th>Rank</th><th>Organisation</th><th>Domain</th><th>Score</th><th>Identity</th><th>Silence</th></tr></thead><tbody id="rankRows"></tbody></table></div></div>
+    <div class="panel"><h2>Observed rank movement</h2><p class="note">World-state movement with preserved transition lineage.</p><div class="table"><table><thead><tr><th>Org</th><th>Domain</th><th>Move</th><th>Kind</th><th>Why</th></tr></thead><tbody id="moveRows"></tbody></table></div></div>
+  </section>
+
+  <section class="section grid two">
+    <div class="panel"><h2>Hivenance Commercial Phoenix</h2><p class="note">Selected hypotheses remain UNPROVED and route only bounded research tests.</p><div class="table"><table><thead><tr><th>Organisation</th><th>Domain</th><th>Rivals</th><th>Selected</th><th>Test</th><th>Truth</th></tr></thead><tbody id="hypRows"></tbody></table></div></div>
+    <div class="panel"><h2>Competitive offers</h2><p class="note">Advertised offers and asking prices are observations, not demand, realised price or WTP.</p><div class="table"><table><thead><tr><th>Seller</th><th>Domain</th><th>Offer</th><th>Price state</th><th>Observed price</th></tr></thead><tbody id="offerRows"></tbody></table></div></div>
+  </section>
+
+  <section class="section grid two">
+    <div class="panel"><h2>Market habitats</h2><p class="note">Public visibility stays separate from membership, posting and DM authority.</p><div class="table"><table><thead><tr><th>Habitat</th><th>Kind</th><th>Domain</th><th>Permission</th><th>Read</th><th>Action</th></tr></thead><tbody id="habitatRows"></tbody></table></div></div>
+    <div class="panel"><h2>Learned discovery plan</h2><p class="note">Evidence-adaptive next questions. Query selection is not market truth.</p><div class="table"><table><thead><tr><th>Domain</th><th>Kind</th><th>Query</th><th>Novelty</th></tr></thead><tbody id="queryRows"></tbody></table></div></div>
+  </section>
+
+  <section class="section panel"><h2>MS-9 autonomic soak</h2><p class="note">Bounded multi-cycle read-only proof, not long-duration endurance or commercial validation.</p><div id="soak" class="grid kpis"></div><div class="truth-law" id="law">Loading final gauntlet truth…</div></section>
+
+  <section class="section panel legacy"><div class="legacy-head"><div><h2 id="legacyTitle">Existing operator surface</h2><p class="note" style="margin:2px 0 0">Preserved intact beneath the new Sensorium truth plane.</p></div><a class="btn" id="legacyOpen" target="_blank">Open legacy surface</a></div><iframe id="legacyFrame" title="Existing DIO operator surface"></iframe></section>
+</div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id); const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const isMarket=location.port==="8770" || new URLSearchParams(location.search).get("surface")==="market";
+const legacy=isMarket?"/market_dashboard/index.html":"/dashboard/index.html";
+$("surfaceName").textContent=isMarket?"Market Command":"Control Deck"; $("legacyTitle").textContent=isMarket?"Existing Market Command Wave 2":"Existing Control Deck"; $("legacyFrame").src=legacy; $("legacyOpen").href=legacy; $("otherSurface").textContent=isMarket?"Control Deck :8765":"Market Command :8770"; $("otherSurface").href=isMarket?"http://127.0.0.1:8765/":"http://127.0.0.1:8770/";
+function phaseClass(v){v=String(v||"");return v.includes("VERIFIED")?"good":v.includes("ACTIVE")?"active":"bad"}
+function td(v){return `<td>${esc(v)}</td>`}
+async function getJSON(path){const r=await fetch(path,{cache:"no-store"});if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);return r.json()}
+function render(cockpit,soak){
+ const phases=cockpit.phase_status||{}; $("phases").innerHTML=Object.entries(phases).map(([k,v])=>`<div class="phase"><small>${esc(k)}</small><b class="${phaseClass(v.acceptance)}">${esc(v.acceptance||"UNAVAILABLE")}</b><small>${esc(v.truth_class||"")}</small></div>`).join("");
+ const ranks=cockpit.ranked_targets||[], moves=cockpit.rank_movements||[], hyps=cockpit.hypotheses||[], offers=cockpit.offers||[], habitats=cockpit.habitats||[], queries=cockpit.learned_queries||[];
+ const kpis=[["Ranked targets",ranks.length],["Rank movements",moves.length],["Hypothesis sets",hyps.length],["Competitive offers",offers.length],["Habitats",habitats.length],["Learned queries",queries.length]]; $("kpis").innerHTML=kpis.map(x=>`<div class="kpi"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("");
+ const ct=cockpit.commercial_time||{}; const times=[["Coverage",ct.coverage_state],["Replies",ct.reply_observed??0],["No reply observed",ct.no_reply_observed??0],["Penalized",ct.temporal_penalized_targets??0],["Continuous from",ct.continuous_from||""],["Last sync",ct.last_successful_sync_at||""]]; $("timeCards").innerHTML=times.map(x=>`<div class="kpi"><small>${esc(x[0])}</small><b>${esc(x[1])}</b></div>`).join("");
+ const auth=cockpit.authority||{}; const authKeys=["outreach","publication","spend","membership","posting","dm","commerce","followup_from_silence"]; $("authority").innerHTML=authKeys.map(k=>`<div class="auth"><small>${esc(k.replaceAll("_"," "))}</small><b>${esc(auth[k]||"NOT_AUTHORISED")}</b></div>`).join("");
+ $("rankRows").innerHTML=ranks.slice(0,30).map(r=>`<tr>${td(r.current_rank)}${td(r.organisation)}${td(r.domain_id)}${td(r.current_score)}${td(r.identity_state||"")}${td(r.silence_state||"")}</tr>`).join("");
+ $("moveRows").innerHTML=moves.slice(0,20).map(r=>`<tr>${td(r.organisation)}${td(r.domain_id)}${td(`${r.previous_rank}->${r.current_rank}`)}${td(r.transition_kind)}${td((r.explanation_factors||[]).join(", "))}</tr>`).join("");
+ $("hypRows").innerHTML=hyps.slice(0,20).map(r=>`<tr>${td(r.organisation)}${td(r.domain_id)}${td(r.rival_count)}${td(r.selected_hypothesis_type)}${td((r.selected_test||{}).test_kind||"")}${td(r.truth_state)}</tr>`).join("");
+ $("offerRows").innerHTML=offers.slice(0,20).map(r=>`<tr>${td(r.seller)}${td(r.domain_id)}${td(r.headline)}${td(r.price_state)}${td(r.price_value==null?"not observed":`${r.price_value} ${r.price_currency||""}`)}</tr>`).join("");
+ $("habitatRows").innerHTML=habitats.slice(0,20).map(r=>`<tr>${td(r.name)}${td(r.habitat_kind)}${td(r.domain_id)}${td(r.permission)}${td(r.read_authority)}${td(r.recommended_action)}</tr>`).join("");
+ $("queryRows").innerHTML=queries.slice(0,8).map(r=>`<tr>${td(r.domain_id)}${td(r.query_kind)}${td(r.query)}${td(r.novelty_score)}</tr>`).join("");
+ const t=soak.ms9_truth||{}; const soakK=[["Acceptance",soak.ms9_acceptance],["Cycles",t.cycles_observed??0],["Public",t.public_read_cycles??0],["Mail",t.mail_read_cycles??0],["Learned execution",t.learned_query_execution_cycles??0],["Cockpit verified",t.ms8_verified_cycles??0]]; $("soak").innerHTML=soakK.map(x=>`<div class="kpi"><small>${esc(x[0])}</small><b class="${phaseClass(x[1])}">${esc(x[1])}</b></div>`).join("");
+ $("law").textContent=`History failures ${(t.immutable_history_failure_cycles||[]).length} · semantic failures ${(t.semantic_failure_cycles||[]).length} · authority/truth failures ${(t.authority_or_truth_failure_cycles||[]).length} · unsupported silence ${(t.unsupported_silence_cycles||[]).length} · query-plan changes ${t.query_batch_changes??0}. Market demand, WTP, commercial success and execution authority remain unclaimed.`;
+}
+async function refresh(){try{const [cockpit,soak]=await Promise.all([getJSON("/state/market_sensorium/COMMERCIAL_COCKPIT.json"),getJSON("/state/market_sensorium/MARKET_SENSORIUM_MS9_RECEIPT.json")]);render(cockpit,soak)}catch(e){document.querySelector(".shell").insertAdjacentHTML("afterbegin",`<div class="errorbox">${esc(e.message)}</div>`)}}
+$("refresh").addEventListener("click",refresh); refresh();
+</script>
+</body></html>
