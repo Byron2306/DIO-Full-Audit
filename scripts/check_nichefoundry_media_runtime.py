@@ -2,17 +2,19 @@
 from __future__ import annotations
 
 import json
-import os
 import shutil
 from pathlib import Path
 
+from dio_secrets import load_secret_env
 from scripts.build_campaign_media import CampaignMediaError, resolve_piper_binary, resolve_piper_model
 from scripts.build_multichannel_campaign_factory import FOUNDRY, MUSIC, MUSIC_ATTRIBUTION
 
 
 def main() -> int:
+    loaded = load_secret_env(overwrite=False)
     checks: dict[str, object] = {
         "nichefoundry_root": str(FOUNDRY.resolve()),
+        "loaded_media_env": sorted(key for key in loaded if key.startswith("PIPER_") or key.startswith("DIO_CAMPAIGN_MUSIC")),
         "ffmpeg": shutil.which("ffmpeg") or "",
         "ffprobe": shutil.which("ffprobe") or "",
         "music_bed": str(MUSIC.resolve()),
