@@ -1,6 +1,6 @@
 {
   "schema": "dio.professional_evidence.routes.v1",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "policy": {
     "customer_packet_must_be_literal": true,
     "examiner_truth_must_be_withheld": true,
@@ -11,6 +11,8 @@
     "vesper_channel": "web_chat",
     "vesper_must_precede_product_execution": true,
     "vesper_packet_fingerprint_must_match_product_packet": true,
+    "vesper_quarantine_must_feed_product_source_bytes": true,
+    "executor_rematerialization_after_vesper": "REFUSE",
     "whatsapp_required": false,
     "telegram_required": false,
     "missing_full_pipeline_adapter": "REFUSE",
