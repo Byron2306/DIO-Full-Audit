@@ -43,21 +43,27 @@
     "incarnation_crosswalk": "config/atlas/dio_meta_incarnation_crosswalk.csv",
     "profile_crosswalk": "config/atlas/dio_meta_profile_crosswalk.csv",
     "capability_signatures": "config/atlas/dio_atlas_capability_signatures.csv",
-    "pivot_gauntlet": "config/atlas/dio_atlas_pivot_gauntlet.csv"
+    "pivot_gauntlet": "config/atlas/dio_atlas_pivot_gauntlet.csv",
+    "job_morphologies": "config/atlas/dio_atlas_job_morphologies.csv"
   },
   "minimums": {
     "source_federation": 12,
     "work_primitives": 50,
     "universal_domain_nodes": 200,
-    "pivot_gauntlet_tasks": 30
+    "pivot_gauntlet_tasks": 30,
+    "job_morphology_templates": 20,
+    "derived_candidate_incarnations": 500,
+    "derived_domain_coverage_ratio": 1.0
   },
   "exact_portfolio_bindings": {
-    "incarnations": 53,
+    "legacy_incarnations": 53,
     "profile_rows": 43,
     "canonical_work_patterns": 12,
     "candidate_work_patterns": 1,
     "execution_grade_m1_capability_signatures": 4
   },
+  "legacy_portfolio_is_generated_candidate_universe": false,
+  "derived_candidate_registry_is_execution_registry": false,
   "capability_cost_is_first_class": true,
   "full_external_taxonomy_ingestion_required_for_m4_0": false,
   "federation_envelope_may_reference_not_yet_ingested_sources": true,
@@ -65,5 +71,7 @@
   "source_knowledge_may_create_authority": false,
   "analogical_resolution_may_execute": false,
   "negative_learning_may_execute_pivot": false,
+  "derived_candidate_may_claim_market_demand": false,
+  "derived_candidate_may_claim_execution_truth": false,
   "m4_0_is_foundation_not_final_verification": true
 }
