@@ -1,11 +1,11 @@
 [Unit]
-Description=DIO localhost control deck
+Description=DIO localhost control deck — MS-10 Sensorium convergence
 After=network.target
 
 [Service]
 Type=simple
 WorkingDirectory=/home/byron/DIO-Full-Audit
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/serve_control_deck.py --host 127.0.0.1 --port 8765
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/serve_control_deck_ms10.py --host 127.0.0.1 --port 8765
 Restart=on-failure
 RestartSec=3
 Environment=PYTHONUNBUFFERED=1
