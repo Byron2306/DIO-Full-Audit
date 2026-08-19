@@ -8,6 +8,13 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.edge_tts_runtime import configure_edge_tts_environment
+
+# Production Studio runs as a user systemd service, whose PATH may omit
+# ~/.local/bin even when an interactive shell can resolve edge-tts. Hydrate the
+# explicit executable binding before the v3 factory imports its media executor.
+configure_edge_tts_environment()
+
 from scripts import build_multichannel_campaign_factory_v3 as _v3
 from scripts.lingua_music_projection import select_projection_music
 
