@@ -10,6 +10,9 @@ M2-4 compiles a complete market intention and observation contract while keeping
 Market Command in local DRAFT/HELD planning state. Phase M2-5 exercises
 source-bound controlled positive, negative and no-response observation paths
 through Market Command and Sensorium without claiming real market validation.
+Phase M2-6 binds customer identity, payment evidence and acceptance evidence as
+distinct lineages and exercises the structural WTP gate without claiming real
+WTP from controlled fixtures.
 """
 
 from .constitution import (
@@ -84,6 +87,15 @@ from .observation import (
     exercise_controlled_observation_scenarios,
     phase5_market_observation_receipt,
 )
+from .lineage import (
+    CommercialLineageError,
+    CommercialLineageEvidence,
+    DEFAULT_LINEAGE_CONFIG,
+    LINEAGE_SCHEMA_FILE,
+    M2_PHASE6_EXIT_TOKEN,
+    exercise_controlled_lineage_scenarios,
+    phase6_customer_payment_lineage_receipt,
+)
 
 __all__ = [
     "AUTHORITY_SCHEMA_FILE",
@@ -91,9 +103,11 @@ __all__ = [
     "DEFAULT_AUTHORITY_CONFIG",
     "DEFAULT_CONFIG",
     "DEFAULT_EPISODE_CONFIG",
+    "DEFAULT_LINEAGE_CONFIG",
     "DEFAULT_OBSERVATION_CONFIG",
     "DEFAULT_PROJECTION_CONFIG",
     "EPISODE_SCHEMA_FILE",
+    "LINEAGE_SCHEMA_FILE",
     "OBSERVATION_EPISODE_SCHEMA_FILE",
     "M2_PHASE0_EXIT_TOKEN",
     "M2_PHASE1_EXIT_TOKEN",
@@ -101,6 +115,7 @@ __all__ = [
     "M2_PHASE3_EXIT_TOKEN",
     "M2_PHASE4_EXIT_TOKEN",
     "M2_PHASE5_EXIT_TOKEN",
+    "M2_PHASE6_EXIT_TOKEN",
     "REQUIRED_ANCHOR_IDS",
     "REQUIRED_LAWS",
     "CommercialAuthorityError",
@@ -109,6 +124,8 @@ __all__ = [
     "CommercialClaimState",
     "CommercialConstitutionError",
     "CommercialEffect",
+    "CommercialLineageError",
+    "CommercialLineageEvidence",
     "CommercialObservationEpisode",
     "CommercialObservationError",
     "CommercialProjection",
@@ -139,11 +156,13 @@ __all__ = [
     "compile_reference_market_episode",
     "evaluate_buyer_draft",
     "evaluate_non_authority_influences",
+    "exercise_controlled_lineage_scenarios",
     "exercise_controlled_observation_scenarios",
     "phase1_contract_receipt",
     "phase2_projection_receipt",
     "phase3_authority_receipt",
     "phase4_market_episode_receipt",
     "phase5_market_observation_receipt",
+    "phase6_customer_payment_lineage_receipt",
     "validate_commercial_constitution",
 ]
