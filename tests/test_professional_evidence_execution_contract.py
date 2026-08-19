@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from portfolio_runtime import ROOT
 from products.professional_evidence_executor import BLOCKED, FAIL, PASS
@@ -16,13 +15,15 @@ def test_only_three_truthful_case_states_exist() -> None:
     assert {PASS, FAIL, BLOCKED} == {"PASS_FULL_PIPELINE", "FAIL_EXECUTION", "BLOCKED_FULL_PIPELINE_GAP"}
 
 
-def test_all_53_routes_have_an_execution_branch() -> None:
+def test_all_53_routes_are_covered_by_exact_or_grouped_dispatch() -> None:
     routes = json.loads(ROUTES.read_text(encoding="utf-8"))["routes"]
     source = EXECUTOR.read_text(encoding="utf-8")
     assert len(routes) == 53
+    grouped_prefixes = ("sophia_raw_", "vamp_raw_")
     route_names = {str(row["route"]) for row in routes.values()}
     for route_name in route_names:
-        assert route_name in source, f"route missing from professional executor: {route_name}"
+        covered = route_name in source or any(route_name.startswith(prefix) and f'route_name.startswith("{prefix}")' in source for prefix in grouped_prefixes)
+        assert covered, f"route missing from professional executor: {route_name}"
 
 
 def test_executor_does_not_import_golden_fixture_execution_helpers() -> None:
