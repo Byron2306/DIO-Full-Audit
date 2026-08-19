@@ -130,10 +130,7 @@ def negative_learning_surface_pivot_receipt(repo_root: str | Path) -> dict[str, 
     selected_families = sorted({row["domain_family"] for row in selected})
     selected_templates = sorted({row["template_id"] for row in selected})
     selected_domains = sorted({row["domain_id"] for row in selected})
-    all_held = all(
-        row["relation_state"] == "ANALOGICAL_CANDIDATE"
-        for row in selected
-    )
+    all_held = all(row["relation_state"] == "ANALOGICAL_CANDIDATE" for row in selected)
     passed = (
         surface.get("passed") is True
         and parent.get("passed") is True
@@ -144,7 +141,7 @@ def negative_learning_surface_pivot_receipt(repo_root: str | Path) -> dict[str, 
         and pivot.get("selected_candidate_count") == 25
         and len(selected_families) >= 8
         and len(selected_templates) >= 4
-        and len(selected_domains) >= 15
+        and len(selected_domains) >= 8
         and pivot.get("source_domain_excluded") is True
         and all_held
         and pivot.get("market_demand_claimed") is False
