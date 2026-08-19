@@ -40,6 +40,24 @@ def _prepare_vesper_preflight(incarnation: str, output_root: Path, *, now: str) 
     return binding, chat_root
 
 
+def _vesper_artifacts(case_root: Path, copied_chat: Path) -> list[dict[str, Any]]:
+    artifacts = []
+    for path in sorted(copied_chat.rglob("*")):
+        if not path.is_file():
+            continue
+        artifacts.append(
+            {
+                "path": str(path.relative_to(case_root)),
+                "sha256": sha256(path),
+                "bytes": path.stat().st_size,
+                "proof_role": "vesper_web_chat_front_door",
+            }
+        )
+    if not artifacts:
+        raise RuntimeError("Vesper web-chat proof directory is empty")
+    return artifacts
+
+
 def execute_customer_case_via_vesper(
     incarnation: str,
     output_root: Path,
@@ -105,6 +123,7 @@ def execute_customer_case_via_vesper(
         shutil.rmtree(copied_chat)
     shutil.copytree(chat_root, copied_chat)
     binding_path = copied_chat / "VESPER_WEB_CHAT_BINDING.json"
+    vesper_artifacts = _vesper_artifacts(case_root, copied_chat)
     if not binding_path.is_file():
         product_receipt = {
             **product_receipt,
@@ -124,10 +143,13 @@ def execute_customer_case_via_vesper(
         and binding.get("telegram_used") is False
         and product_packet_fingerprint == binding.get("packet_fingerprint")
         and binding_path.is_file()
+        and bool(vesper_artifacts)
     )
     if status == PASS and not front_door_verified:
         status = FAIL
 
+    product_artifacts = list(product_receipt.get("artifacts") or [])
+    combined_artifacts = product_artifacts + vesper_artifacts
     combined = {
         **product_receipt,
         "schema": SCHEMA,
@@ -140,6 +162,9 @@ def execute_customer_case_via_vesper(
         "vesper_binding_artifact": str(binding_path.relative_to(case_root)) if binding_path.is_file() else None,
         "vesper_binding_sha256": sha256(binding_path) if binding_path.is_file() else None,
         "vesper_handoff_state": binding.get("handoff_state"),
+        "vesper_artifact_count": len(vesper_artifacts),
+        "vesper_artifacts": vesper_artifacts,
+        "artifacts": combined_artifacts,
         "whatsapp_used": False,
         "telegram_used": False,
         "sequence": ["VESPER_WEB_CHAT_INTAKE", "PRODUCT_EXECUTION", "HUMAN_REVIEW_GATE"],
@@ -164,11 +189,19 @@ def execute_customer_case_via_vesper(
                 "channel": "web_chat",
                 "vesper_conversation_id": binding.get("conversation_id"),
                 "vesper_binding_fingerprint": binding.get("binding_fingerprint"),
+                "vesper_artifact_count": len(vesper_artifacts),
+                "vesper_artifacts": vesper_artifacts,
+                "artifacts": list(outer.get("artifacts") or []) + vesper_artifacts,
                 "whatsapp_used": False,
                 "telegram_used": False,
             }
         )
         write_json(outer_path, outer)
+    # The copied Vesper bytes are now part of the final case; the preflight copy
+    # is disposable and must not become a second source of truth.
+    preflight_case = output_root / "_vesper_front_door" / slug(incarnation)
+    if preflight_case.exists():
+        shutil.rmtree(preflight_case)
     return combined
 
 
