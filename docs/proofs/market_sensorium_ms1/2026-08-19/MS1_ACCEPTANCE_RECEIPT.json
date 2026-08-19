@@ -1,0 +1,595 @@
+{
+  "schema": "dio.market_sensorium.cycle_receipt.v1",
+  "started_at": "2026-08-19T06:12:07+00:00",
+  "completed_at": "2026-08-19T06:12:09+00:00",
+  "mode": "read_only",
+  "summary": {
+    "baseline": {
+      "schema": "dio.market_sensorium.baseline_compiler_receipt.v1",
+      "domain_count": 189,
+      "per_domain": 5,
+      "candidate_count": 945,
+      "coverage_ratio": 1.0,
+      "basis_counts": {
+        "EXPLICIT_DOMAIN": 0,
+        "TAG_MATCH": 616,
+        "FAMILY_FALLBACK": 329
+      },
+      "family_fallback_only_domain_count": 15,
+      "family_fallback_only_domains": [
+        "D108",
+        "D202",
+        "D206",
+        "D207",
+        "D210",
+        "D215",
+        "D608",
+        "D805",
+        "D808",
+        "D810",
+        "D1402",
+        "D1511",
+        "D1604",
+        "D1710",
+        "D1715"
+      ],
+      "authority_created": false,
+      "market_demand_claimed": false,
+      "best_target_claimed": false,
+      "baseline_priors_only": true,
+      "digest": "sha256:b93da3f427d41a4e30a8b6a534beced01ff6cf65d7c46a1c01badf9068ceacd4"
+    },
+    "prospects": {
+      "receipt": "/home/byron/DIO-Full-Audit/campaigns/dio_market_loop/wave4/REGISTRY_IMPORT_RECEIPT.json",
+      "validated_counts": {
+        "buyer_unit_targets": 426,
+        "campaign_hypotheses": 150,
+        "contact_enrichment_queue": 250,
+        "current_public_routes": 14,
+        "product_opportunities": 4834,
+        "proof_asset_matrix": 5
+      },
+      "sent": 8,
+      "targets": 426,
+      "silence_WEAK_NEGATIVE_SIGNAL": 8,
+      "silence_NO_CONTACT": 418
+    },
+    "live_signals": {
+      "campaign_signal_files": 5,
+      "relevant_public_signal_records": 28,
+      "unresolved_discovery_candidates_observed": 22,
+      "market_habitat_observations": 123
+    },
+    "domain_discovery": {
+      "domain_signal_files": 8,
+      "public_signal_records": {
+        "youtube": 0,
+        "google_news_rss": 23
+      },
+      "unresolved_discovery_candidates_observed": 23,
+      "market_habitat_observations": 23,
+      "targets_created": 0,
+      "market_demand_claimed": false,
+      "authority_created": false,
+      "external_effects": false
+    },
+    "discovery_resolution": {
+      "resolver_version": "MS-1.2_REVALIDATED_SOURCE_AWARE",
+      "candidates_examined": 51,
+      "candidates_resolved": 8,
+      "unique_resolved_target_hypotheses": 6,
+      "targets_created": 0,
+      "targets_refreshed": 11,
+      "unresolved_remaining": 40,
+      "rejected_entity_resolutions": 5,
+      "revalidated_existing_candidates": 2,
+      "revalidated_post_resolution_candidates": 13,
+      "invalidated_this_cycle": 5,
+      "invalidated_examples": [
+        {
+          "candidate_id": "DISC-303187E96E92373DD0",
+          "target_id": "DISC-TGT-91A8DB5EE444E7DEDE",
+          "organisation": "ANALYSIS",
+          "reason": "ACRONYM_SHAPE_REJECTED"
+        },
+        {
+          "candidate_id": "DISC-3E50BDE28BB7AED1C6",
+          "target_id": "DISC-TGT-0FBCB207D42B7C21BB",
+          "organisation": "ROGE-2025",
+          "reason": "ACRONYM_SHAPE_REJECTED"
+        },
+        {
+          "candidate_id": "DISC-4DE4D1AFEE3BE42D2E",
+          "target_id": "DISC-TGT-4C98EF688FC797FBF0",
+          "organisation": "SAFDA",
+          "reason": "YOUTUBE_BARE_ACRONYM_UNCORROBORATED"
+        },
+        {
+          "candidate_id": "DISC-885776A80BA6A1FDF5",
+          "target_id": "DISC-TGT-F13575A471F2C3D9C1",
+          "organisation": "LITERATURE",
+          "reason": "ACRONYM_SHAPE_REJECTED"
+        },
+        {
+          "candidate_id": "DISC-B71EA6587586AFC5E9",
+          "target_id": "DISC-TGT-4B851AE55532FE21CC",
+          "organisation": "ENGHL",
+          "reason": "GENERIC_OR_CONTENT_TOKEN_REJECTED"
+        }
+      ],
+      "resolution_evidence_counts": {
+        "HEADLINE_ORGANISATION_FORM_MARKER": 1,
+        "HEADLINE_SUBJECT_ACRONYM": 7
+      },
+      "source_role_observations": 49,
+      "identity_relevance_decoupled": true,
+      "publisher_auto_promoted": false,
+      "youtube_bare_acronym_auto_promoted": false,
+      "strict_revalidation_complete": true,
+      "entity_role_confusion": 0,
+      "buyer_units_verified": 0,
+      "leads_created": 0,
+      "market_demand_claimed": false,
+      "authority_created": false,
+      "external_effects": false
+    },
+    "seed_supersession": {
+      "discovered_targets_ranked": 6,
+      "seed_targets_outranked": 23,
+      "domains_with_seed_supersession": 5,
+      "seed_supersession_observed": true,
+      "examples": [
+        {
+          "domain_id": "D202",
+          "discovered_target_id": "DISC-TGT-365CF6D2211C715186",
+          "discovered_organisation": "PAMA",
+          "discovered_rank": 2,
+          "discovered_score": 0.406287,
+          "outranked_seed_target_id": "BASE-FDEF6662563329B500",
+          "outranked_seed_organisation": "Sasol",
+          "outranked_seed_rank": 3,
+          "authority_created": false
+        },
+        {
+          "domain_id": "D902",
+          "discovered_target_id": "DISC-TGT-37DE60A4AF5E54CDAB",
+          "discovered_organisation": "IEB",
+          "discovered_rank": 141,
+          "discovered_score": 0.434785,
+          "outranked_seed_target_id": "BASE-80B32E3226246E2006",
+          "outranked_seed_organisation": "Curro Holdings",
+          "outranked_seed_rank": 142,
+          "authority_created": false
+        },
+        {
+          "domain_id": "D1506",
+          "discovered_target_id": "DISC-TGT-3DB683220120824567",
+          "discovered_organisation": "Stellenbosch University",
+          "discovered_rank": 30,
+          "discovered_score": 0.418286,
+          "outranked_seed_target_id": "BASE-F082493F3D82825065",
+          "outranked_seed_organisation": "Adcorp",
+          "outranked_seed_rank": 31,
+          "authority_created": false
+        },
+        {
+          "domain_id": "D1511",
+          "discovered_target_id": "DISC-TGT-788F2693954F0AFE87",
+          "discovered_organisation": "SAPS",
+          "discovered_rank": 3,
+          "discovered_score": 0.406287,
+          "outranked_seed_target_id": "BASE-39DA348A8431368520",
+          "outranked_seed_organisation": "MTN Group",
+          "outranked_seed_rank": 4,
+          "authority_created": false
+        },
+        {
+          "domain_id": "D1511",
+          "discovered_target_id": "DISC-TGT-D4CA44918A732A6526",
+          "discovered_organisation": "NSFAS",
+          "discovered_rank": 2,
+          "discovered_score": 0.406287,
+          "outranked_seed_target_id": "BASE-39DA348A8431368520",
+          "outranked_seed_organisation": "MTN Group",
+          "outranked_seed_rank": 4,
+          "authority_created": false
+        },
+        {
+          "domain_id": "D906",
+          "discovered_target_id": "DISC-TGT-FC61A5A0ABD766CD77",
+          "discovered_organisation": "IEB",
+          "discovered_rank": 1,
+          "discovered_score": 0.427785,
+          "outranked_seed_target_id": "BASE-8FB0DC8D2ADBCD1ED4",
+          "outranked_seed_organisation": "Curro Holdings",
+          "outranked_seed_rank": 2,
+          "authority_created": false
+        }
+      ],
+      "interpretation": "Fresh source-bound discovered target hypotheses outranked one or more curated seed priors.",
+      "best_target_claimed": false,
+      "market_demand_claimed": false,
+      "authority_created": false
+    },
+    "hivenance": {
+      "agent_receipts": 5,
+      "council_decisions": {
+        "TEST": 4,
+        "REFINE": 1
+      }
+    },
+    "store": {
+      "targets": 1382,
+      "observations": 5263,
+      "habitats": 176,
+      "offers": 0,
+      "discovery_candidates": 59,
+      "unresolved_discoveries": 40,
+      "rank_receipts": 6872,
+      "needs_you_habitats": 0,
+      "silent_targets": 8,
+      "authority_created": false,
+      "external_effects": false
+    },
+    "ranked_targets": 1377,
+    "rank_movers": [
+      {
+        "target_id": "BASE-0B7B53C51FABDDCB40",
+        "organisation": "Gift of the Givers Foundation",
+        "domain_id": "D1708",
+        "previous_rank": 37,
+        "current_rank": 35,
+        "rank_delta": 2,
+        "score": 0.3945,
+        "causes": [
+          "+domain_fit:0.099",
+          "+morphology_fit:0.086",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.043",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-FE38A5CDF6C052FC4C",
+        "organisation": "Human Sciences Research Council",
+        "domain_id": "D1708",
+        "previous_rank": 38,
+        "current_rank": 36,
+        "rank_delta": 2,
+        "score": 0.3711,
+        "causes": [
+          "+domain_fit:0.090",
+          "+morphology_fit:0.077",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.039",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-3D2D3FF7C61238DE30",
+        "organisation": "National Research Foundation",
+        "domain_id": "D1708",
+        "previous_rank": 39,
+        "current_rank": 37,
+        "rank_delta": 2,
+        "score": 0.3477,
+        "causes": [
+          "+domain_fit:0.080",
+          "+morphology_fit:0.067",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.035",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-68FD40F631468541AB",
+        "organisation": "South African Medical Research Council",
+        "domain_id": "D1708",
+        "previous_rank": 40,
+        "current_rank": 38,
+        "rank_delta": 2,
+        "score": 0.3243,
+        "causes": [
+          "+domain_fit:0.070",
+          "+morphology_fit:0.058",
+          "+capability_fit:0.054",
+          "+buyer_role_confidence:0.035",
+          "+organisation_fit:0.031"
+        ]
+      },
+      {
+        "target_id": "BASE-BA6751A1AAE3CE8885",
+        "organisation": "Agricultural Research Council",
+        "domain_id": "D108",
+        "previous_rank": 3,
+        "current_rank": 2,
+        "rank_delta": 1,
+        "score": 0.3945,
+        "causes": [
+          "+domain_fit:0.099",
+          "+morphology_fit:0.086",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.043",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-D88CAC624799CC4EBF",
+        "organisation": "Mintek",
+        "domain_id": "D108",
+        "previous_rank": 4,
+        "current_rank": 3,
+        "rank_delta": 1,
+        "score": 0.3711,
+        "causes": [
+          "+domain_fit:0.090",
+          "+morphology_fit:0.077",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.039",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-84F34337BDED3C580A",
+        "organisation": "Council for Geoscience",
+        "domain_id": "D108",
+        "previous_rank": 5,
+        "current_rank": 4,
+        "rank_delta": 1,
+        "score": 0.3477,
+        "causes": [
+          "+domain_fit:0.080",
+          "+morphology_fit:0.067",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.035",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-F21AB89FCC9F4D528C",
+        "organisation": "Afrimat",
+        "domain_id": "D108",
+        "previous_rank": 6,
+        "current_rank": 5,
+        "rank_delta": 1,
+        "score": 0.3243,
+        "causes": [
+          "+domain_fit:0.070",
+          "+morphology_fit:0.058",
+          "+capability_fit:0.054",
+          "+buyer_role_confidence:0.035",
+          "+organisation_fit:0.031"
+        ]
+      },
+      {
+        "target_id": "BASE-8F65EB8D3893787B28",
+        "organisation": "Gift of the Givers Foundation",
+        "domain_id": "D1712",
+        "previous_rank": 49,
+        "current_rank": 48,
+        "rank_delta": 1,
+        "score": 0.4179,
+        "causes": [
+          "+domain_fit:0.109",
+          "+morphology_fit:0.096",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.048",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-3A1896332E8E476277",
+        "organisation": "Bowmans",
+        "domain_id": "D1712",
+        "previous_rank": 50,
+        "current_rank": 49,
+        "rank_delta": 1,
+        "score": 0.3945,
+        "causes": [
+          "+domain_fit:0.099",
+          "+morphology_fit:0.086",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.043",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-864F3640E36ABE1A4D",
+        "organisation": "Council on Higher Education",
+        "domain_id": "D1712",
+        "previous_rank": 51,
+        "current_rank": 50,
+        "rank_delta": 1,
+        "score": 0.3711,
+        "causes": [
+          "+domain_fit:0.090",
+          "+morphology_fit:0.077",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.039",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-745C51933AF1F15D7C",
+        "organisation": "Deloitte Africa",
+        "domain_id": "D1712",
+        "previous_rank": 52,
+        "current_rank": 51,
+        "rank_delta": 1,
+        "score": 0.3477,
+        "causes": [
+          "+domain_fit:0.080",
+          "+morphology_fit:0.067",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.035",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-B91D6E0148B528FA5B",
+        "organisation": "Independent Examinations Board",
+        "domain_id": "D1712",
+        "previous_rank": 53,
+        "current_rank": 52,
+        "rank_delta": 1,
+        "score": 0.3243,
+        "causes": [
+          "+domain_fit:0.070",
+          "+morphology_fit:0.058",
+          "+capability_fit:0.054",
+          "+buyer_role_confidence:0.035",
+          "+organisation_fit:0.031"
+        ]
+      },
+      {
+        "target_id": "BASE-C05D10893D0B934ED8",
+        "organisation": "ADvTECH Schools",
+        "domain_id": "D906",
+        "previous_rank": 4,
+        "current_rank": 3,
+        "rank_delta": 1,
+        "score": 0.3945,
+        "causes": [
+          "+domain_fit:0.099",
+          "+morphology_fit:0.086",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.043",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-E8DA749C3058CF7572",
+        "organisation": "Council on Higher Education",
+        "domain_id": "D906",
+        "previous_rank": 5,
+        "current_rank": 4,
+        "rank_delta": 1,
+        "score": 0.3711,
+        "causes": [
+          "+domain_fit:0.090",
+          "+morphology_fit:0.077",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.039",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-470A56D3AF4E9C9BA9",
+        "organisation": "Grow ECD",
+        "domain_id": "D906",
+        "previous_rank": 6,
+        "current_rank": 5,
+        "rank_delta": 1,
+        "score": 0.3477,
+        "causes": [
+          "+domain_fit:0.080",
+          "+morphology_fit:0.067",
+          "+capability_fit:0.054",
+          "+organisation_fit:0.035",
+          "+buyer_role_confidence:0.035"
+        ]
+      },
+      {
+        "target_id": "BASE-170F4AA67B70EE90EC",
+        "organisation": "Independent Examinations Board",
+        "domain_id": "D906",
+        "previous_rank": 7,
+        "current_rank": 6,
+        "rank_delta": 1,
+        "score": 0.3243,
+        "causes": [
+          "+domain_fit:0.070",
+          "+morphology_fit:0.058",
+          "+capability_fit:0.054",
+          "+buyer_role_confidence:0.035",
+          "+organisation_fit:0.031"
+        ]
+      }
+    ],
+    "public_refresh": {
+      "state": "not_requested"
+    },
+    "domain_public_refresh": {
+      "state": "not_requested"
+    },
+    "mail_ingress_refresh": {
+      "state": "not_requested"
+    },
+    "authority_created": false,
+    "external_effects": false,
+    "market_demand_claimed": false,
+    "best_target_claimed": false
+  },
+  "authority_created": false,
+  "external_effects": false,
+  "receipt_digest": "sha256:e955e025fd1926d82612d67f2eb33df9393c64f9bafbf8e9027a5452e5f9e9f7",
+  "cycle_id": "MSC-7EBBDB4AD3B2E64A22",
+  "acceptance": "DIO_MARKET_SENSORIUM_READ_ONLY_CYCLE_READY",
+  "ms1_acceptance": "DIO_MARKET_SENSORIUM_DISCOVERY_RESOLUTION_AND_SEED_SUPERSESSION_VERIFIED",
+  "baseline_compiler": {
+    "schema": "dio.market_sensorium.baseline_compiler_receipt.v1",
+    "domain_count": 189,
+    "per_domain": 5,
+    "candidate_count": 945,
+    "coverage_ratio": 1.0,
+    "basis_counts": {
+      "EXPLICIT_DOMAIN": 0,
+      "TAG_MATCH": 616,
+      "FAMILY_FALLBACK": 329
+    },
+    "family_fallback_only_domain_count": 15,
+    "family_fallback_only_domains": [
+      "D108",
+      "D202",
+      "D206",
+      "D207",
+      "D210",
+      "D215",
+      "D608",
+      "D805",
+      "D808",
+      "D810",
+      "D1402",
+      "D1511",
+      "D1604",
+      "D1710",
+      "D1715"
+    ],
+    "authority_created": false,
+    "market_demand_claimed": false,
+    "best_target_claimed": false,
+    "baseline_priors_only": true,
+    "digest": "sha256:b93da3f427d41a4e30a8b6a534beced01ff6cf65d7c46a1c01badf9068ceacd4",
+    "output_path": "state/market_sensorium/domain_baseline_candidates.csv",
+    "output_exists": true
+  },
+  "state_db": "state/market_sensorium/market_sensorium.sqlite",
+  "publication": "not_authorised",
+  "outreach": "not_authorised",
+  "spend": "not_authorised",
+  "join": "not_authorised",
+  "dm": "not_authorised",
+  "ms1_implementation": "DIO_MARKET_SENSORIUM_STRICT_SOURCE_AWARE_REVALIDATION_IMPLEMENTED",
+  "ms1_real_entity_resolution_observed": true,
+  "ms1_seed_supersession_observed": true,
+  "ms1_strict_revalidation_complete": true,
+  "ms1_entity_role_confusion": 0,
+  "ms1_truth": {
+    "resolver_version": "MS-1.2_REVALIDATED_SOURCE_AWARE",
+    "candidates_resolved": 8,
+    "unique_resolved_target_hypotheses": 6,
+    "rejected_entity_resolutions": 5,
+    "invalidated_this_cycle": 5,
+    "seed_targets_outranked": 23,
+    "domains_with_seed_supersession": 5,
+    "strict_revalidation_complete": true,
+    "entity_role_confusion": 0,
+    "publisher_auto_promoted": false,
+    "youtube_bare_acronym_auto_promoted": false,
+    "buyer_units_verified": 0,
+    "leads_created": 0,
+    "best_target_claimed": false,
+    "market_demand_claimed": false,
+    "authority_created": false
+  }
+}

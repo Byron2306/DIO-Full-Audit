@@ -1,6 +1,6 @@
 # DIO Market Sensorium MS-1.2 — Strict Entity Revalidation
 
-Status: IMPLEMENTED / LOCAL VALINOR REAL-DATA VERIFICATION REQUIRED
+Status: VERIFIED — DIO_MARKET_SENSORIUM_DISCOVERY_RESOLUTION_AND_SEED_SUPERSESSION_VERIFIED
 
 ## Why MS-1.2 exists
 
@@ -113,3 +113,29 @@ jq '{
 ```
 
 Do not refresh public sources before this bounded run. The already captured corpus is sufficient to prove that the contaminated MS-1.1 belief state can be corrected and that seed supersession survives after correction.
+
+## Verified real-data result — 2026-08-19
+
+MS-1.2 passed the bounded Valinor real-data verification.
+
+- strict revalidation complete: `true`
+- entity-role confusion: `0`
+- candidates resolved: `8`
+- unique resolved target hypotheses: `6`
+- rejected prior entity resolutions: `5`
+- seed targets outranked: `23`
+- domains with seed supersession: `5`
+- publisher auto-promoted: `false`
+- YouTube bare acronym auto-promoted: `false`
+- buyer units verified: `0`
+- leads created: `0`
+- market demand claimed: `false`
+- authority created: `false`
+
+Acceptance:
+
+`DIO_MARKET_SENSORIUM_DISCOVERY_RESOLUTION_AND_SEED_SUPERSESSION_VERIFIED`
+
+Frozen proof:
+
+`docs/proofs/market_sensorium_ms1/2026-08-19/MS1_ACCEPTANCE_RECEIPT.json`
