@@ -344,6 +344,7 @@ def validate_commercial_constitution(
         "commercial_learning_direct_execution_allowed": False,
         "new_runtime_engine_created": False,
         "external_effects": False,
+        "authority_created": False,
         "authority_widened": False,
         "m2_final_acceptance": config.get("m2_final_acceptance"),
         "m2_final_verified": False,
