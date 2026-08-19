@@ -1,6 +1,6 @@
 # DIO Market Sensorium Implementation
 
-Status: IMPLEMENTED FOUNDATION / LOCAL VALINOR VERIFICATION REQUIRED
+Status: IMPLEMENTED FOUNDATION + MS-1 DISCOVERY RESOLUTION / LOCAL VALINOR VERIFICATION REQUIRED
 
 This implementation turns the Market Sensorium design into a read-only, temporal market-intelligence loop. It does not grant send, publish, spend, join, DM, payment, purchase or deployment authority.
 
@@ -54,6 +54,35 @@ The default batch is eight domains per cycle, with up to five YouTube and five G
 
 A public search hit does not automatically become a target or lead.
 
+### MS-1 discovery resolution and seed supersession
+
+`market_sensorium/resolution.py` adds a conservative resolver between public discovery and ranking.
+
+A discovery may become a **rankable discovered target hypothesis** only when source-bound evidence can establish an organisation identity. The resolver currently accepts:
+
+- explicit organisation/company/institution/employer fields supplied by the governed source record; or
+- a conservative organisation-form marker in a sufficiently relevant headline, such as `University`, `Foundation`, `Council`, `Trust`, `Association`, `Institute`, `Authority`, `Board`, `Group`, `Holdings`, and related forms.
+
+The resolver deliberately does **not** treat a news publisher or URL host by itself as the buyer organisation. Google News publisher suffixes are stripped before headline resolution so a publisher is not promoted merely because it appears after ` - ` in a title.
+
+A resolved organisation remains:
+
+`DISCOVERED_ORGANISATION_BUYER_UNIT_PENDING`
+
+with buyer unit state:
+
+`UNRESOLVED_BUYER_UNIT`
+
+It is not a lead, verified buyer unit, consent state, demand claim or outreach permission.
+
+Resolved discoveries are converted into `TargetFeatures` and participate in the same domain-local ranking as curated baselines and the historical Wave 4 prospect registry. The cycle now emits a `seed_supersession` section showing whether fresh discovered target hypotheses actually outranked curated seed priors, which seeds were displaced, and in which ATLAS domains. This is an observational ranking result only. `best_target_claimed` remains false.
+
+Expected MS-1 acceptance label:
+
+`DIO_MARKET_SENSORIUM_DISCOVERY_RESOLUTION_READY`
+
+This label means the resolution/ranking machinery executed. It does not mean seed supersession occurred in the current world-state. The stronger proof is `seed_supersession.seed_supersession_observed=true` with source-bound examples.
+
 ### Existing campaign sensing and Hivenance Phoenix
 
 The cycle also ingests the existing Wave 4 `LIVE_MARKET_SIGNALS.json` observations and `HIVENANCE_MARKET_AGENTS.json` receipts. Hivenance remains the hypothesis engine: observations can alter test/refine/hold hypotheses and priority, but do not create market truth or authority.
@@ -77,7 +106,8 @@ PYTHONNOUSERSITE=1 \
 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 \
 -m pytest -q \
   tests/test_market_sensorium.py \
-  tests/test_market_sensorium_queries.py
+  tests/test_market_sensorium_queries.py \
+  tests/test_market_sensorium_resolution.py
 
 PYTHONNOUSERSITE=1 \
 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 \
@@ -96,8 +126,25 @@ PYTHONNOUSERSITE=1 \
 scripts/run_market_sensorium_cycle.py --refresh-public --refresh-mail
 ```
 
-The expected acceptance labels are `DIO_MARKET_SENSORIUM_BASELINE_CANDIDATES_READY` and `DIO_MARKET_SENSORIUM_READ_ONLY_CYCLE_READY`. They are not considered locally proven until the Valinor run produces them.
+The expected foundation acceptance labels are `DIO_MARKET_SENSORIUM_BASELINE_CANDIDATES_READY` and `DIO_MARKET_SENSORIUM_READ_ONLY_CYCLE_READY`. MS-1 additionally emits `DIO_MARKET_SENSORIUM_DISCOVERY_RESOLUTION_READY`. They are not considered locally proven until the Valinor run produces them.
+
+For MS-1, inspect these receipt fields after the cycle:
+
+```text
+summary.discovery_resolution.candidates_resolved
+summary.discovery_resolution.unique_resolved_target_hypotheses
+summary.discovery_resolution.targets_created
+summary.discovery_resolution.unresolved_remaining
+summary.seed_supersession.discovered_targets_ranked
+summary.seed_supersession.seed_targets_outranked
+summary.seed_supersession.domains_with_seed_supersession
+summary.seed_supersession.seed_supersession_observed
+summary.seed_supersession.examples
+summary.rank_movers
+```
+
+The desired strong result is not a fixed count. It is at least one defensible source-bound discovered organisation entering the ranking and, if the current evidence warrants it, outranking a weaker curated seed with an explainable rank receipt.
 
 ## Proof boundary
 
-Market Sensorium may learn **where to look, what to compare, which hypothesis deserves attention and why a rank changed**. It may not turn observation into capability, demand, consent, revenue, market validation or authority.
+Market Sensorium may learn **where to look, what to compare, which hypothesis deserves attention and why a rank changed**. It may resolve a public discovery into a rankable organisation hypothesis when the source evidence supports that identity. It may not turn observation into capability, verified buyer-unit identity, lead status, demand, consent, revenue, market validation or authority.
