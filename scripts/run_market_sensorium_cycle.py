@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT))
 
 import market_sensorium.cycle as cycle_module  # noqa: E402
 from market_sensorium.commercial_phoenix import install_commercial_phoenix_runtime  # noqa: E402
+from market_sensorium.competitive_offers import observe_competitive_offers  # noqa: E402
 from market_sensorium.mail_refresh import refresh_mail_ingress_with_coverage  # noqa: E402
 from market_sensorium.rank_transitions import install_rank_transition_runtime  # noqa: E402
 from market_sensorium.revalidation import (  # noqa: E402
@@ -24,8 +25,9 @@ from market_sensorium.temporal_ingest import ingest_existing_prospects_temporal 
 # time. MS-3 wraps the existing rank API to preserve prior state and construct
 # source-bound dynamic rank-transition receipts. MS-4 wraps that completed MS-3
 # pass and forms rival, source-bound Hivenance commercial hypotheses whose selected
-# tests are read-only research only. None of these replacements creates outbound
-# authority or market truth.
+# tests are read-only research only. MS-5 then observes provider-owned public offer
+# evidence and explicit asking-price language without promoting either to demand,
+# willingness to pay, seller-to-target identity, or execution authority.
 cycle_module.resolve_discovery_candidates = resolve_discovery_candidates_revalidated
 cycle_module.ingest_existing_prospects = ingest_existing_prospects_temporal
 install_rank_transition_runtime(cycle_module.MarketSensoriumStore)
@@ -276,6 +278,70 @@ def _apply_ms4_gate(receipt: dict) -> dict:
     return receipt
 
 
+def _apply_ms5_gate(receipt: dict) -> dict:
+    """Apply the source-bound competitive-offer and advertised-price gate."""
+    summary = receipt.get("summary") or {}
+    offers = summary.get("competitive_offers") or {}
+
+    observed = int(offers.get("source_bound_offer_observations") or 0)
+    canonical = int(offers.get("canonical_competitive_offers") or 0)
+    sellers = int(offers.get("unique_sellers_observed_this_run") or 0)
+    prices = int(offers.get("explicit_advertised_price_observations") or 0)
+    price_errors = int(offers.get("price_normalization_errors") or 0)
+    provider_confusion = int(offers.get("provider_role_confusion") or 0)
+    source_bound = bool(offers.get("source_bound", False))
+    authority = bool(offers.get("authority_created", False))
+    external = bool(offers.get("external_effects", False))
+    demand = bool(offers.get("market_demand_claimed", False))
+    wtp = bool(offers.get("willingness_to_pay_proved", False))
+    realised = bool(offers.get("advertised_price_is_realised_price", False))
+    market_price = bool(offers.get("advertised_price_is_market_price", False))
+
+    if receipt.get("ms4_acceptance") != "DIO_MARKET_SENSORIUM_HIVENANCE_COMMERCIAL_PHOENIX_V2_VERIFIED":
+        gate = "PENDING_VERIFIED_MS4_RECEIPT"
+    elif observed <= 0 or canonical <= 0:
+        gate = "PENDING_COMPETITIVE_OFFER_EVIDENCE"
+    elif sellers < 2:
+        gate = "PENDING_MULTI_SELLER_COMPETITIVE_EVIDENCE"
+    elif provider_confusion > 0 or bool(offers.get("publisher_auto_promoted_to_seller", False)):
+        gate = "REFUSE_SELLER_SOURCE_ROLE_CONFUSION"
+    elif not source_bound:
+        gate = "PENDING_SOURCE_BOUND_COMPETITIVE_OFFER_EVIDENCE"
+    elif price_errors > 0:
+        gate = "REFUSE_ADVERTISED_PRICE_NORMALIZATION_ERROR"
+    elif prices <= 0:
+        gate = "PENDING_EXPLICIT_ADVERTISED_PRICE_EVIDENCE"
+    elif authority or external or demand or wtp or realised or market_price:
+        gate = "REFUSE_OFFER_PRICE_TRUTH_OR_AUTHORITY_INFLATION"
+    else:
+        gate = "DIO_MARKET_SENSORIUM_COMPETITIVE_OFFER_INTELLIGENCE_VERIFIED"
+
+    receipt["ms5_implementation"] = "DIO_MARKET_SENSORIUM_COMPETITIVE_OFFER_INTELLIGENCE_IMPLEMENTED"
+    receipt["ms5_acceptance"] = gate
+    receipt["ms5_truth"] = {
+        "source_bound_offer_observations": observed,
+        "canonical_competitive_offers": canonical,
+        "unique_sellers_observed_this_run": sellers,
+        "explicit_advertised_price_observations": prices,
+        "price_state_counts": offers.get("price_state_counts") or {},
+        "price_normalization_errors": price_errors,
+        "provider_role_confusion": provider_confusion,
+        "multi_source_dedupe_groups": int(offers.get("multi_source_dedupe_groups") or 0),
+        "persisted_competitive_offer_events": int(offers.get("persisted_competitive_offer_events") or 0),
+        "legacy_offer_observation_count": int(offers.get("legacy_offer_observation_count") or 0),
+        "advertised_offer_is_demand": False,
+        "advertised_price_is_market_price": False,
+        "advertised_price_is_realised_price": False,
+        "willingness_to_pay_proved": False,
+        "commercial_success_proved": False,
+        "seller_promoted_to_target": False,
+        "market_demand_claimed": False,
+        "best_offer_claimed": False,
+        "authority_created": False,
+    }
+    return receipt
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run the read-only DIO Market Sensorium cycle with temporal memory, ATLAS baselines and Hivenance observations."
@@ -299,6 +365,15 @@ def main() -> int:
     receipt = _apply_ms2_gate(receipt)
     receipt = _apply_ms3_gate(receipt)
     receipt = _apply_ms4_gate(receipt)
+
+    db_path = ROOT / "state" / "market_sensorium" / "market_sensorium.sqlite"
+    with cycle_module.MarketSensoriumStore(db_path) as store:
+        offers = observe_competitive_offers(ROOT, store)
+    receipt.setdefault("summary", {})["competitive_offers"] = offers
+    receipt.setdefault("summary", {}).setdefault("store", {})["offers"] = int(
+        offers.get("legacy_offer_observation_count") or 0
+    )
+    receipt = _apply_ms5_gate(receipt)
 
     receipt_path = ROOT / "state" / "market_sensorium" / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
     receipt_path.write_text(
