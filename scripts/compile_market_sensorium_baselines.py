@@ -13,7 +13,7 @@ from market_sensorium.baselines import compile_baselines, write_baselines  # noq
 
 def main() -> int:
     source = ROOT / "config" / "atlas" / "dio_atlas_universal_domain_registry.csv"
-    organisations = ROOT / "config" / "market_sensorium" / "seed_organisations.csv"
+    organisations = ROOT / "config" / "market_sensorium" / "seeds"
     output = ROOT / "state" / "market_sensorium" / "domain_baseline_candidates.csv"
     rows, receipt = compile_baselines(source, organisations, per_domain=5)
     write_baselines(output, rows)
