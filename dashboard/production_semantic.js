@@ -4,6 +4,100 @@
   let semanticBrief = null;
   let initialised = false;
 
+  const PRODUCT_DIRECTORY = 'https://dioworkflows.co.za/products/';
+  const VESPER_PRESENCE = '/dashboard/vesper-intake.html';
+
+  const PUBLIC_PRODUCT_SLUGS = {
+    'AuditProof':'auditproof',
+    'DossierOps':'dossierops',
+    'GrantProof':'grantproof',
+    'PromotionProof':'promotionproof',
+    'TenderProof':'tenderproof',
+    'VendorProof':'vendorproof',
+    'AssuranceRoom':'assuranceroom',
+    'CPDProof':'cpdproof',
+    'HOMS Accreditation':'homs-accreditation',
+    'HOMS Moderate':'homs-moderate',
+    'ImpactProof':'impactproof',
+    'ProjectProof':'projectproof',
+    'Sophia Integrity':'sophia-integrity',
+    'Sophia Research':'sophia-research',
+    'Agent Authority':'agent-authority',
+    'ControlDrift':'controldrift',
+    'DIO AI Assurance':'dio-ai-assurance',
+    'DIO RegOps':'dio-regops',
+    'AI IncidentRoom':'ai-incidentroom',
+    'CertificationProof':'certificationproof',
+    'ChangeProof':'changeproof',
+    'ContractProof':'contractproof',
+    'CriticalAI Assurance':'criticalai-assurance',
+    'CyberAssurance':'cyberassurance',
+    'DORA Vendor Assurance':'dora-vendor-assurance',
+    'DiligenceRoom':'diligenceroom',
+    'DonorProof':'donorproof',
+    'HOMS Curriculum':'homs-curriculum',
+    'IncidentProof':'incidentproof',
+    'ModelProof':'modelproof',
+    'PermitProof':'permitproof',
+    'PolicyProof':'policyproof',
+    'ProgrammeProof':'programmeproof',
+    'QualityProof':'qualityproof',
+    'ReleaseProof':'releaseproof',
+    'Sophia Supervisor':'sophia-supervisor',
+    'Sophia Tutor':'sophia-tutor',
+    'SupplierCyberProof':'suppliercyberproof',
+  };
+
+  const LOCAL_PRODUCT_ROUTES = {
+    'HOMS Assess':'/sites/homs/',
+    'HOMS Exam':'/sites/homs/',
+    'HOMS Learning Studio':'/sites/homs/learning-studio/',
+    'Sophia Review':'/sites/sophia/',
+    'VAMP Performance':'/sites/vamp/',
+    'Evidex EvidenceOps':'/sites/evidex/',
+    'Document Studio Edit':'/sites/document-studio/',
+    'Document Studio Localize':'/sites/document-studio/',
+    'Document Studio Publish':'/sites/document-studio/',
+    'Accessible Publish':'/sites/document-studio/',
+    'Vesper Desk':VESPER_PRESENCE,
+  };
+
+  function productPresence(name) {
+    if (!name) return {href:PRODUCT_DIRECTORY, label:'OPEN PRODUCT DIRECTORY', kind:'directory'};
+    if (PUBLIC_PRODUCT_SLUGS[name]) {
+      return {
+        href:`${PRODUCT_DIRECTORY}${encodeURIComponent(PUBLIC_PRODUCT_SLUGS[name])}/`,
+        label:'OPEN PUBLIC PRODUCT PAGE',
+        kind:'public',
+      };
+    }
+    if (LOCAL_PRODUCT_ROUTES[name]) {
+      return {
+        href:LOCAL_PRODUCT_ROUTES[name],
+        label:name === 'Vesper Desk' ? 'OPEN VESPER PRESENCE' : 'OPEN PRODUCT SITE',
+        kind:'local',
+      };
+    }
+    return {href:PRODUCT_DIRECTORY, label:'OPEN PRODUCT DIRECTORY', kind:'directory'};
+  }
+
+  function renderProductPresence() {
+    const panel = byId('productPresencePanel');
+    if (!panel) return;
+    const incarnation = byId('incarnation')?.value || '';
+    const route = productPresence(incarnation);
+    const selected = incarnation ? `<b>${esc2(incarnation)}</b>` : '<b>No incarnation selected</b>';
+    const primaryTarget = /^https?:\/\//i.test(route.href) ? '_blank' : '_blank';
+    const primary = `<a class="btn small ${route.kind === 'public' ? 'green' : route.kind === 'local' ? 'blue' : 'gold'}" target="${primaryTarget}" rel="noreferrer" href="${esc2(route.href)}">${esc2(route.label)}</a>`;
+    const directory = route.href === PRODUCT_DIRECTORY ? '' : `<a class="btn small gold" target="_blank" rel="noreferrer" href="${PRODUCT_DIRECTORY}">ALL DIO PRODUCTS</a>`;
+    const vesper = incarnation === 'Vesper Desk' ? '' : `<a class="btn small" target="_blank" href="${VESPER_PRESENCE}">VESPER PRESENCE</a>`;
+    panel.innerHTML = `
+      <b>Product presence</b><br>
+      <span style="color:var(--muted)">${selected} · launch the product surface without leaving Production Studio.</span>
+      <div class="actions" style="margin-top:8px">${primary}${directory}${vesper}</div>
+      <div style="margin-top:7px;color:var(--muted);font-size:10px">Public individual page when a live 38-product offer exists; otherwise the real local product surface or the canonical DIO product directory. No synthetic product URL is invented.</div>`;
+  }
+
   function ensureSemanticUI() {
     if (initialised || !byId('marketingForm') || !byId('customFields')) return;
     initialised = true;
@@ -22,6 +116,13 @@
     semantic.innerHTML = '<b>DIO semantic brief</b><br><span style="color:var(--muted)">Choose an incarnation. ATLAS + portfolio semantics + current exact-domain Sensorium/Hivenance evidence will build the audience, pain, outcome and CTA. You do not need to type them.</span>';
     custom.parentNode.insertBefore(semantic, custom);
 
+    const presence = document.createElement('div');
+    presence.id = 'productPresencePanel';
+    presence.className = 'truth';
+    presence.style.marginTop = '10px';
+    semantic.parentNode.insertBefore(presence, semantic.nextSibling);
+    renderProductPresence();
+
     const advanced = document.createElement('details');
     advanced.style.marginTop = '10px';
     advanced.innerHTML = `
@@ -33,13 +134,14 @@
     custom.parentNode.insertBefore(advanced, byId('renderReel')?.closest('.check') || custom.nextSibling);
 
     const style = document.createElement('style');
-    style.textContent = `#semanticBriefPanel b{color:var(--gold)} #semanticBriefPanel .sem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px} #semanticBriefPanel .sem-cell{border:1px solid #4a4128;border-radius:6px;padding:8px;background:#0d110e} #semanticBriefPanel .sem-cell small{display:block;color:var(--muted);text-transform:uppercase;font-size:9px;margin-bottom:3px}@media(max-width:800px){#semanticBriefPanel .sem-grid{grid-template-columns:1fr}}`;
+    style.textContent = `#semanticBriefPanel b,#productPresencePanel b{color:var(--gold)} #semanticBriefPanel .sem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px} #semanticBriefPanel .sem-cell{border:1px solid #4a4128;border-radius:6px;padding:8px;background:#0d110e} #semanticBriefPanel .sem-cell small{display:block;color:var(--muted);text-transform:uppercase;font-size:9px;margin-bottom:3px}@media(max-width:800px){#semanticBriefPanel .sem-grid{grid-template-columns:1fr}}`;
     document.head.appendChild(style);
 
     const originalChange = byId('incarnation').onchange;
     byId('incarnation').onchange = async event => {
       if (typeof originalChange === 'function') originalChange.call(byId('incarnation'), event);
       custom.style.display = 'none';
+      renderProductPresence();
       await loadSemanticBrief();
     };
 
@@ -56,6 +158,7 @@
     ensureSemanticUI();
     const incarnation = byId('incarnation')?.value || '';
     const panel = byId('semanticBriefPanel');
+    renderProductPresence();
     if (!incarnation || !panel) return;
     panel.innerHTML = '<b>DIO semantic brief</b><br><span style="color:var(--muted)">Resolving ATLAS, portfolio and current market-intelligence context…</span>';
     try {
@@ -131,6 +234,7 @@
       setTimeout(waitForPortfolio, 180);
       return;
     }
+    renderProductPresence();
     loadSemanticBrief();
   }
 
