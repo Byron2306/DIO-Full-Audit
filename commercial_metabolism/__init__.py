@@ -12,7 +12,8 @@ source-bound controlled positive, negative and no-response observation paths
 through Market Command and Sensorium without claiming real market validation.
 Phase M2-6 binds customer identity, payment evidence and acceptance evidence as
 distinct lineages and exercises the structural WTP gate without claiming real
-WTP from controlled fixtures.
+WTP from controlled fixtures. Phase M2-7 settles those controlled commercial
+evidence worlds before BEAST may append evidence-only market crystals.
 """
 
 from .constitution import (
@@ -96,6 +97,15 @@ from .lineage import (
     exercise_controlled_lineage_scenarios,
     phase6_customer_payment_lineage_receipt,
 )
+from .settlement import (
+    CommercialSettlementBundle,
+    CommercialSettlementError,
+    DEFAULT_SETTLEMENT_CONFIG,
+    M2_PHASE7_EXIT_TOKEN,
+    SETTLEMENT_BUNDLE_SCHEMA_FILE,
+    phase7_commercial_settlement_receipt,
+    settle_and_crystallize_controlled_commercial_evidence,
+)
 
 __all__ = [
     "AUTHORITY_SCHEMA_FILE",
@@ -106,9 +116,11 @@ __all__ = [
     "DEFAULT_LINEAGE_CONFIG",
     "DEFAULT_OBSERVATION_CONFIG",
     "DEFAULT_PROJECTION_CONFIG",
+    "DEFAULT_SETTLEMENT_CONFIG",
     "EPISODE_SCHEMA_FILE",
     "LINEAGE_SCHEMA_FILE",
     "OBSERVATION_EPISODE_SCHEMA_FILE",
+    "SETTLEMENT_BUNDLE_SCHEMA_FILE",
     "M2_PHASE0_EXIT_TOKEN",
     "M2_PHASE1_EXIT_TOKEN",
     "M2_PHASE2_EXIT_TOKEN",
@@ -116,6 +128,7 @@ __all__ = [
     "M2_PHASE4_EXIT_TOKEN",
     "M2_PHASE5_EXIT_TOKEN",
     "M2_PHASE6_EXIT_TOKEN",
+    "M2_PHASE7_EXIT_TOKEN",
     "REQUIRED_ANCHOR_IDS",
     "REQUIRED_LAWS",
     "CommercialAuthorityError",
@@ -130,6 +143,8 @@ __all__ = [
     "CommercialObservationError",
     "CommercialProjection",
     "CommercialProjectionError",
+    "CommercialSettlementBundle",
+    "CommercialSettlementError",
     "ChannelAccessState",
     "ChannelState",
     "CommercialContext",
@@ -164,5 +179,7 @@ __all__ = [
     "phase4_market_episode_receipt",
     "phase5_market_observation_receipt",
     "phase6_customer_payment_lineage_receipt",
+    "phase7_commercial_settlement_receipt",
+    "settle_and_crystallize_controlled_commercial_evidence",
     "validate_commercial_constitution",
 ]
