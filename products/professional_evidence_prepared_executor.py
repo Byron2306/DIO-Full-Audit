@@ -14,6 +14,14 @@ from products.professional_evidence_final_compat import install_final_gauntlet_c
 # boundaries.
 install_final_gauntlet_compat()
 
+from products.professional_evidence_red13_compat import install_red13_compat
+
+# The first 13-product kill-list run exposed five second-order seams after the
+# initial compatibility layer. Install those repairs before _route_execute is
+# imported by value here. They preserve the same Vesper byte custody, blind
+# examiner and external-release constitution.
+install_red13_compat()
+
 from products.professional_evidence_executor import (
     BLOCKED,
     FAIL,
