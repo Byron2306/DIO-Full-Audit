@@ -7,7 +7,7 @@ from http import HTTPStatus
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 import sys
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -21,21 +21,13 @@ from operator_production import (  # noqa: E402
     run_factory_test,
 )
 from portfolio_runtime import import_portfolio  # noqa: E402
+from semantic_marketing import PROFILE_COMPATIBILITY, semantic_marketing_brief  # noqa: E402
 from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
 from scripts.serve_control_deck_ms10 import MS10ControlDeckHandler, _read_json_body  # noqa: E402
 
-PROFILE_COMPATIBILITY = {
-    "EVIDEX_PACK": {"Evidex EvidenceOps"},
-    "HOMS_ASSESS": {"HOMS Assess"},
-    "HOMS_LEARNING": {"HOMS Learning Studio"},
-    "SOPHIA_REVIEW": {"Sophia Review"},
-    "VAMP_ACADEMIC": {"VAMP Performance"},
-    "DOCUMENT_STUDIO": {"Document Studio Edit", "Document Studio Localize", "Document Studio Publish"},
-}
-
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.3"
+    server_version = "DIOBusinessWorkbench/3.4"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -57,11 +49,86 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         page = page.replace(youtube, youtube + tiktok, 1)
         self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
 
+    def _serve_production_page(self) -> None:
+        page = (ROOT / "dashboard" / "production.html").read_text(encoding="utf-8")
+        injection = '<script src="/dashboard/production_semantic.js"></script>'
+        if injection not in page:
+            page = page.replace("</body>", injection + "</body>", 1)
+        self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
+
+    @staticmethod
+    def _merge_semantic_marketing(payload: dict) -> tuple[dict, dict]:
+        merged = dict(payload)
+        incarnation = str(merged.get("incarnation") or "").strip()
+        if not incarnation:
+            raise ValueError("Select a canonical incarnation before creating marketing assets")
+        brief = semantic_marketing_brief(incarnation)
+        requested_profile = str(merged.get("profile_id") or "").strip()
+
+        if requested_profile:
+            allowed = PROFILE_COMPATIBILITY.get(requested_profile)
+            if not allowed or incarnation not in allowed:
+                raise ValueError(
+                    f"Marketing profile {requested_profile} is not evidence-compatible with {incarnation}. "
+                    "Let DIO generate the semantic brief for this incarnation instead."
+                )
+            if not str(merged.get("audience_id") or "").strip() and brief.get("profile_id") == requested_profile:
+                merged["audience_id"] = brief.get("audience_id") or ""
+        elif brief.get("profile_id"):
+            merged["profile_id"] = brief["profile_id"]
+            merged["audience_id"] = brief.get("audience_id") or ""
+        else:
+            for key, value in (brief.get("brief") or {}).items():
+                if not str(merged.get(key) or "").strip():
+                    merged[key] = value
+            if not str(merged.get("source_image") or "").strip() and brief.get("source_image"):
+                merged["source_image"] = brief["source_image"]
+            if not str(merged.get("proof_asset") or "").strip() and brief.get("proof_asset"):
+                merged["proof_asset"] = brief["proof_asset"]
+        return merged, brief
+
+    @staticmethod
+    def _bind_semantic_receipt(result: dict, brief: dict) -> None:
+        output_dir = Path(str(result.get("output_dir") or ""))
+        if not output_dir.is_dir():
+            return
+        brief_path = output_dir / "SEMANTIC_MARKETING_BRIEF.json"
+        brief_path.write_text(json.dumps(brief, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+        result["semantic_brief_path"] = str(brief_path)
+        result["semantic_brief"] = brief
+        receipt_path = output_dir / "OPERATOR_MARKETING_RECEIPT.json"
+        if receipt_path.is_file():
+            try:
+                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                receipt = {}
+            if isinstance(receipt, dict):
+                receipt["semantic_brief_path"] = str(brief_path)
+                receipt["semantic_brief_truth_class"] = brief.get("truth_class")
+                receipt["semantic_generation_mode"] = brief.get("generation_mode")
+                receipt["observed_market_demand"] = False
+                receipt["best_audience_proved"] = False
+                receipt["authority_created"] = False
+                receipt_path.write_text(json.dumps(receipt, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
     def do_GET(self) -> None:
-        route = urlsplit(self.path).path
+        split = urlsplit(self.path)
+        route = split.path
+        if route in {"/dashboard/production.html", "/production"}:
+            self._serve_production_page()
+            return
+        if route == "/api/business/production/marketing-brief":
+            incarnation = str((parse_qs(split.query).get("incarnation") or [""])[0]).strip()
+            try:
+                self.send_json(semantic_marketing_brief(incarnation))
+            except ValueError as exc:
+                self.send_json({"error": "semantic_brief_blocked", "message": str(exc)}, HTTPStatus.BAD_REQUEST)
+            return
         if route == "/api/business/production/state":
             state = production_state()
             state["marketing"]["profile_compatibility"] = {key: sorted(value) for key, value in PROFILE_COMPATIBILITY.items()}
+            state["marketing"]["semantic_brief_endpoint"] = "/api/business/production/marketing-brief"
+            state["marketing"]["manual_pain_audience_required"] = False
             self.send_json(state)
             return
         if route == "/api/business/portfolio":
@@ -73,11 +140,13 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.3",
+                    "version": "3.4",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "production_studio": True,
                     "marketing_asset_factory": True,
+                    "semantic_marketing_briefs": True,
+                    "manual_pain_audience_required": False,
                     "fresh_controlled_evidence_runs": True,
                     "factory_test_bench": True,
                     "evidence_gate": True,
@@ -107,17 +176,24 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 result = import_portfolio(force=True)
                 emit_event(EVENT_LOG, "portfolio.runtime_imported", "info", "portfolio", "DIO-META-PORTFOLIO", {"canonical_incarnations": result.get("canonical_incarnation_count"), "candidate_incarnations_imported": 0})
             elif route == "/api/business/production/marketing":
-                profile_id = str(payload.get("profile_id") or "").strip()
-                incarnation = str(payload.get("incarnation") or "").strip()
-                if profile_id:
-                    allowed = PROFILE_COMPATIBILITY.get(profile_id)
-                    if not allowed or incarnation not in allowed:
-                        raise ValueError(
-                            f"Marketing profile {profile_id} is not evidence-compatible with {incarnation}. "
-                            "Use the custom evidence-bounded brief for this incarnation."
-                        )
+                payload, semantic_brief = self._merge_semantic_marketing(payload)
                 result = create_marketing_pack(payload)
-                emit_event(EVENT_LOG, "production.marketing_pack_created", "action", "marketing_pack", result["run_id"], {"incarnation": result["incarnation"], "render_reel_requested": result["render_reel_requested"], "publication_authorized": False})
+                self._bind_semantic_receipt(result, semantic_brief)
+                emit_event(
+                    EVENT_LOG,
+                    "production.marketing_pack_created",
+                    "action",
+                    "marketing_pack",
+                    result["run_id"],
+                    {
+                        "incarnation": result["incarnation"],
+                        "render_reel_requested": result["render_reel_requested"],
+                        "semantic_brief_truth_class": semantic_brief.get("truth_class"),
+                        "semantic_generation_mode": semantic_brief.get("generation_mode"),
+                        "publication_authorized": False,
+                        "market_demand_claimed": False,
+                    },
+                )
             elif route == "/api/business/production/evidence-run":
                 result = stage_controlled_evidence_run(payload)
                 emit_event(EVENT_LOG, "production.controlled_evidence_run_staged", "action", "product_job", result["job_id"], {"incarnation": result["incarnation"], "lane": result["lane"], "next_action": result["next_action"], "controlled": True, "authority_created": False})
@@ -144,6 +220,7 @@ def main() -> int:
     server = ThreadingHTTPServer((args.host, args.port), BusinessWorkbenchHandler)
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
     print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Production Studio ACTIVE")
+    print("Semantic marketing briefs: ACTIVE · manual audience/pain entry: NOT REQUIRED")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
