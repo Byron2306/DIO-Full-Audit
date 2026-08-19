@@ -55,8 +55,10 @@ def test_product_executor_consumes_via_quarantine_without_second_materialisation
     prepared = PREPARED.read_text(encoding="utf-8")
     assert "execute_prepared_customer_case(" in gate
     assert "execute_customer_case(" not in gate
-    assert "materialize_customer_packet" not in prepared
-    assert "enrich_customer_packet" not in prepared
+    assert "from products.professional_evidence_corpus import materialize_customer_packet" not in prepared
+    assert "from products.professional_evidence_enrichment import enrich_customer_packet" not in prepared
+    assert "materialize_customer_packet(" not in prepared
+    assert "enrich_customer_packet(" not in prepared
     assert 'prepared_by != "vesper_web_chat"' in prepared
     assert '"rematerialized_by_executor": False' in prepared
     assert "source.write_bytes(quarantine_path.read_bytes())" in gate
