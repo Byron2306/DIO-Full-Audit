@@ -246,10 +246,11 @@ def _query_candidates(
             item for item in habitats
             if item.get("seller_association_state") == "PROVIDER_OR_SELLER_ACTIVITY_OBSERVED"
         ]
-        suffix = " providers services" if provider_habitats else " associations channels publications"
+        suffix = "providers services" if provider_habitats else "associations channels publications"
+        platform_terms = " ".join(platforms[:2])
         add(
             "HABITAT_CORROBORATION",
-            f'"{name}" South Africa{suffix} {' '.join(platforms[:2])}'.strip(),
+            f'"{name}" South Africa {suffix} {platform_terms}'.strip(),
             "Public habitat evidence exists; seek independent recurring sources or providers instead of treating individual content URLs as durable habitats.",
             habitats[:8],
             min(0.90, 0.58 + 0.02 * len(habitats) + (0.08 if provider_habitats else 0.0)),
@@ -282,9 +283,10 @@ def _query_candidates(
         if not terms:
             terms = ["organisations", "services", "challenges"]
         unique_terms = list(dict.fromkeys(terms))[:5]
+        hivenance_terms = " ".join(unique_terms)
         add(
             "HIVENANCE_RESEARCH_TEST",
-            f'"{name}" South Africa {' '.join(unique_terms)}',
+            f'"{name}" South Africa {hivenance_terms}',
             "Hivenance has active bounded research questions in this domain; convert those unresolved questions into a read-only discovery query rather than treating the selected hypothesis as truth.",
             hivenance[:8],
             min(0.96, 0.72 + 0.01 * len(hivenance)),
@@ -414,7 +416,6 @@ def learn_discovery_queries(
                 ),
             )
 
-    # Select at most one query per domain, then cap exploration globally.
     best_by_domain: dict[str, dict[str, Any]] = {}
     for item in selected_pool:
         current = best_by_domain.get(item["domain_id"])
