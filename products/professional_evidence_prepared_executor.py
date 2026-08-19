@@ -22,6 +22,15 @@ from products.professional_evidence_red13_compat import install_red13_compat
 # examiner and external-release constitution.
 install_red13_compat()
 
+from products.professional_evidence_final3_compat import install_final3_compat
+
+# The remaining root-five run reduced the portfolio to three true seams:
+# Sophia's constitutional refusal vocabulary, the missing shared epistemic
+# spine module, and Campaign Lab cross-surface semantic distance. The shared
+# spine is restored in scripts/dio_epistemic_spine.py; install the two narrow
+# execution patches before _route_execute is bound below.
+install_final3_compat()
+
 from products.professional_evidence_executor import (
     BLOCKED,
     FAIL,
