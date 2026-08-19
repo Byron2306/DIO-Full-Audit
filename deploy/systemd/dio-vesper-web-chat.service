@@ -1,0 +1,14 @@
+[Unit]
+Description=DIO Vesper Web Chat Presence Core
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/DIO-Full-Audit
+Environment=PYTHONNOUSERSITE=1
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/serve_vesper_web_chat.py --host 127.0.0.1 --port 8770
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target
