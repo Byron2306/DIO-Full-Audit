@@ -11,6 +11,7 @@ from .core import MarketSensoriumStore, TargetFeatures, utc_now
 from .domain_discovery import ingest_domain_discovery_signals
 from .ingest import ingest_baselines, ingest_existing_prospects, ingest_hivenance_receipts, ingest_live_market_signals
 from .queries import mark_refreshed, select_domain_query_batch
+from .resolution import resolve_discovery_candidates
 
 
 class MarketSensoriumCycle:
@@ -170,17 +171,35 @@ class MarketSensoriumCycle:
             signal_summary = ingest_live_market_signals(self.root, store)
             domain_signal_summary = ingest_domain_discovery_signals(self.root, store)
             hivenance_summary = ingest_hivenance_receipts(self.root, store)
-            features = self._coalesce_features([*baseline_features, *prospect_features])
+
+            # MS-1: source-bound discoveries may become rankable organisation
+            # hypotheses only when the resolver can establish an organisation
+            # identity. Buyer-unit verification, lead status, demand and authority
+            # remain explicitly unproved.
+            discovered_features, resolution_summary = resolve_discovery_candidates(store)
+
+            features = self._coalesce_features([
+                *baseline_features,
+                *prospect_features,
+                *discovered_features,
+            ])
             rank_receipts = store.rank(features, observed_at=utc_now())
             rank_movers = sorted(
                 [r for r in rank_receipts if r.rank_delta not in {None, 0}],
                 key=lambda item: (-abs(item.rank_delta or 0), item.domain_id, item.current_rank),
             )[:50]
+            seed_supersession = self._seed_supersession(
+                rank_receipts,
+                baseline_features=baseline_features,
+                discovered_features=discovered_features,
+            )
             summary = {
                 "baseline": baseline_summary,
                 "prospects": prospect_summary,
                 "live_signals": signal_summary,
                 "domain_discovery": domain_signal_summary,
+                "discovery_resolution": resolution_summary,
+                "seed_supersession": seed_supersession,
                 "hivenance": hivenance_summary,
                 "store": store.summary(),
                 "ranked_targets": len(rank_receipts),
@@ -209,6 +228,7 @@ class MarketSensoriumCycle:
         receipt.update(
             {
                 "acceptance": "DIO_MARKET_SENSORIUM_READ_ONLY_CYCLE_READY",
+                "ms1_acceptance": "DIO_MARKET_SENSORIUM_DISCOVERY_RESOLUTION_READY",
                 "baseline_compiler": baseline_receipt,
                 "state_db": str(self.db_path.relative_to(self.root)),
                 "authority_created": False,
@@ -222,6 +242,68 @@ class MarketSensoriumCycle:
         )
         self.receipt_path.write_text(json.dumps(receipt, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
         return receipt
+
+    @staticmethod
+    def _seed_supersession(
+        rank_receipts: list[Any],
+        *,
+        baseline_features: list[TargetFeatures],
+        discovered_features: list[TargetFeatures],
+    ) -> dict[str, Any]:
+        baseline_ids = {item.target_id for item in baseline_features}
+        discovered_ids = {item.target_id for item in discovered_features}
+        receipt_by_id = {item.target_id: item for item in rank_receipts}
+        seeds_by_domain: dict[str, list[Any]] = {}
+        for item in rank_receipts:
+            if item.target_id in baseline_ids:
+                seeds_by_domain.setdefault(item.domain_id, []).append(item)
+
+        examples: list[dict[str, Any]] = []
+        outranked_seed_ids: set[str] = set()
+        domains: set[str] = set()
+        for target_id in sorted(discovered_ids):
+            discovered = receipt_by_id.get(target_id)
+            if discovered is None:
+                continue
+            worse_seeds = [
+                seed for seed in seeds_by_domain.get(discovered.domain_id, [])
+                if seed.current_rank > discovered.current_rank
+            ]
+            if not worse_seeds:
+                continue
+            worse_seeds.sort(key=lambda item: item.current_rank)
+            domains.add(discovered.domain_id)
+            outranked_seed_ids.update(seed.target_id for seed in worse_seeds)
+            first_seed = worse_seeds[0]
+            examples.append(
+                {
+                    "domain_id": discovered.domain_id,
+                    "discovered_target_id": discovered.target_id,
+                    "discovered_organisation": discovered.organisation,
+                    "discovered_rank": discovered.current_rank,
+                    "discovered_score": discovered.score,
+                    "outranked_seed_target_id": first_seed.target_id,
+                    "outranked_seed_organisation": first_seed.organisation,
+                    "outranked_seed_rank": first_seed.current_rank,
+                    "authority_created": False,
+                }
+            )
+
+        return {
+            "discovered_targets_ranked": sum(1 for target_id in discovered_ids if target_id in receipt_by_id),
+            "seed_targets_outranked": len(outranked_seed_ids),
+            "domains_with_seed_supersession": len(domains),
+            "seed_supersession_observed": bool(outranked_seed_ids),
+            "examples": examples[:20],
+            "interpretation": (
+                "Fresh source-bound discovered target hypotheses outranked one or more curated seed priors."
+                if outranked_seed_ids
+                else "No discovered target hypothesis outranked a curated seed prior in this observation set."
+            ),
+            "best_target_claimed": False,
+            "market_demand_claimed": False,
+            "authority_created": False,
+        }
 
     @staticmethod
     def _coalesce_features(items: list[TargetFeatures]) -> list[TargetFeatures]:
