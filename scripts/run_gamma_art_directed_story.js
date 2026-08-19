@@ -14,6 +14,8 @@ const {
   normalizeGammaImage
 } = require(path.join(NICHEFOUNDRY, 'lib', 'gamma_system.js'));
 
+const MAX_ADDITIONAL_INSTRUCTIONS = 4800;
+
 function loadEnv(filePath) {
   if (!fs.existsSync(filePath)) return;
   for (const rawLine of fs.readFileSync(filePath, 'utf8').split(/\r?\n/)) {
@@ -73,6 +75,12 @@ function currentReceipt(receiptPath, request) {
   }
 }
 
+function clipped(value, limit) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (text.length <= limit) return text;
+  return text.slice(0, Math.max(1, limit - 1)).trimEnd() + '…';
+}
+
 function artDirectionInstructions(request) {
   const direction = request.creative_direction || {};
   const art = direction.document_studio_art_language || {};
@@ -80,40 +88,45 @@ function artDirectionInstructions(request) {
   const antiPatterns = Array.isArray(direction.anti_patterns) ? direction.anti_patterns : [];
   const surface = String(direction.surface || request.surface || 'campaign_story');
   const tone = Array.isArray(direction.tone) ? direction.tone.join(', ') : String(direction.tone || '');
+
   const instructions = [
-    'THIS IS A VIDEO ART-DIRECTION JOB, NOT A PRESENTATION-DECK JOB.',
-    'Treat every card as a cinematic or editorial frame that will be animated in a narrated video.',
-    'The supplied input text is the COMPLETE visible copy budget. Do not add body paragraphs, bullets, governance prose, narration, explanatory labels, fake metrics or extra UI text.',
-    'Image first. One dominant visual idea per frame. Typography is a graphic element, not a container for exposition.',
-    'Do not repeat one layout. Each successive card must visibly change composition, scale, focal depth or image treatment according to its scene direction.',
-    'Do not use generic SaaS presentation furniture such as pale rounded rectangles, four-card grids, tiny footers, dashboard tiles or stock corporate gradient panels.',
-    'Do not render the visual instructions themselves as text.',
+    'VIDEO FRAME ART, NOT A PRESENTATION DECK. Image first; one dominant visual idea per frame.',
+    'Input text is the complete visible copy budget. Add no body paragraphs, bullets, governance prose, narration, fake metrics or UI text.',
+    'Successive cards must change composition, scale or focal treatment. Never repeat the same layout.',
+    'No SaaS cards, pale rounded boxes, dashboard tiles, tiny footers, generic corporate gradients or four-quadrant grids.',
+    'Do not render art-direction instructions as visible text.',
   ];
-  if (direction.audience_archetype) instructions.push(`Audience archetype: ${direction.audience_archetype}.`);
-  if (tone) instructions.push(`Rhetorical tone: ${tone}.`);
-  if (direction.pacing) instructions.push(`Narrative pacing: ${direction.pacing}.`);
-  if (art.aesthetic) instructions.push(`Aesthetic: ${art.aesthetic}.`);
-  if (art.palette_behavior) instructions.push(`Palette behaviour: ${art.palette_behavior}.`);
-  if (art.photography) instructions.push(`Photography / imagery language: ${art.photography}.`);
-  if (art.typography) instructions.push(`Typography: ${art.typography}.`);
-  if (art.texture) instructions.push(`Texture and material language: ${art.texture}.`);
-  if (art.proof_treatment) instructions.push(`Proof treatment: ${art.proof_treatment}.`);
-  if (art.rhythm) instructions.push(`Visual rhythm across the whole piece: ${art.rhythm}.`);
-  if (direction.visual_grammar) instructions.push(`LINGUA visual grammar: ${direction.visual_grammar}.`);
-  if (direction.motion_grammar) instructions.push(`Compose for later motion treatment: ${direction.motion_grammar}. Leave room for push-ins, pans and parallax.`);
-  if (surface === 'vertical_short') {
-    instructions.push('SHORT-FORM VERTICAL: central 9:16 crop-safe subject, very large readable display type, immediate focal hierarchy, no landscape-deck composition.');
-  } else if (surface === 'landscape_explainer') {
-    instructions.push('LANDSCAPE EXPLAINER: documentary/editorial 16:9 frames, cinematic depth, tactile evidence, human context and varied scale. Never default to a slide template.');
-  }
-  if (antiPatterns.length) instructions.push(`Forbidden visual patterns: ${antiPatterns.join(', ')}.`);
+  if (direction.audience_archetype) instructions.push(`Audience=${clipped(direction.audience_archetype, 80)}.`);
+  if (tone) instructions.push(`Tone=${clipped(tone, 180)}.`);
+  if (direction.pacing) instructions.push(`Pacing=${clipped(direction.pacing, 160)}.`);
+  if (art.aesthetic) instructions.push(`Aesthetic=${clipped(art.aesthetic, 220)}.`);
+  if (art.palette_behavior) instructions.push(`Palette=${clipped(art.palette_behavior, 220)}.`);
+  if (art.photography) instructions.push(`Imagery=${clipped(art.photography, 240)}.`);
+  if (art.typography) instructions.push(`Type=${clipped(art.typography, 200)}.`);
+  if (art.texture) instructions.push(`Texture=${clipped(art.texture, 160)}.`);
+  if (art.proof_treatment) instructions.push(`Proof=${clipped(art.proof_treatment, 220)}.`);
+  if (art.rhythm) instructions.push(`Rhythm=${clipped(art.rhythm, 220)}.`);
+  if (direction.visual_grammar) instructions.push(`Visual grammar=${clipped(direction.visual_grammar, 140)}.`);
+  if (direction.motion_grammar) instructions.push(`Compose for motion=${clipped(direction.motion_grammar, 140)}.`);
+  instructions.push(surface === 'vertical_short'
+    ? '9:16 short-form: crop-safe central focal hierarchy, sparse type, immediate comprehension.'
+    : '16:9 explainer: editorial/documentary depth, tactile evidence, human context, varied scale.');
+  if (antiPatterns.length) instructions.push(`Forbidden=${clipped(antiPatterns.join(', '), 420)}.`);
+
   sceneDirections.forEach((scene, index) => {
     instructions.push(
-      `CARD ${index + 1}: role=${scene.role}; layout=${scene.layout_family}; visible copy exactly="${scene.display_copy}"; visual subject=${scene.visual_subject}; composition=${scene.composition_rule}; later motion=${scene.motion_treatment}.`
+      `C${index + 1} role=${clipped(scene.role, 50)} layout=${clipped(scene.layout_family, 70)} copy="${clipped(scene.display_copy, 100)}" subject=${clipped(scene.visual_subject, 170)} motion=${clipped(scene.motion_treatment, 70)}.`
     );
   });
-  instructions.push('Human authority remains a semantic boundary in the story, but it must not become a corporate disclaimer slide or tiny legal footer.');
-  return instructions.join(' ');
+  instructions.push('Human authority may appear only as a natural story moment, never a disclaimer card.');
+
+  let result = instructions.join(' ');
+  if (result.length > MAX_ADDITIONAL_INSTRUCTIONS) {
+    // Deterministic final safety bound. Core and scene instructions are already compact;
+    // this prevents provider rejection if future fields expand.
+    result = result.slice(0, MAX_ADDITIONAL_INSTRUCTIONS - 1).trimEnd() + '…';
+  }
+  return result;
 }
 
 async function main() {
@@ -140,6 +153,10 @@ async function main() {
     return;
   }
 
+  const additionalInstructions = artDirectionInstructions(request);
+  if (additionalInstructions.length > 5000) {
+    throw new Error(`Internal instruction bound failed: ${additionalInstructions.length} > 5000`);
+  }
   const body = {
     title: request.title,
     exportAs: 'png',
@@ -149,7 +166,7 @@ async function main() {
     numCards: Number(request.num_cards),
     cardSplit: 'inputTextBreaks',
     cardOptions: { dimensions: '16x9' },
-    additionalInstructions: artDirectionInstructions(request)
+    additionalInstructions
   };
   if (process.env.GAMMA_THEME_ID) body.themeId = process.env.GAMMA_THEME_ID;
 
@@ -205,10 +222,13 @@ async function main() {
     generation_id: generationId,
     gamma_url: completed.gammaUrl || completed.url || null,
     export_url_recorded: true,
+    additional_instructions_chars: additionalInstructions.length,
     card_count: cards.length,
     cards,
     governance: {
       synthetic_media: true,
+      optional_visual_candidate: true,
+      required_for_media: false,
       document_studio_art_direction_bound: true,
       beast_visual_memory_bound: true,
       visual_review_required: true,
@@ -219,7 +239,7 @@ async function main() {
     }
   };
   writeJson(receiptPath, receipt);
-  process.stdout.write(JSON.stringify({ state: 'ready', cached: false, receipt: receiptPath, generation_id: generationId, surface: request.surface || null, art_direction_hash: request.art_direction_hash }) + '\n');
+  process.stdout.write(JSON.stringify({ state: 'ready', cached: false, receipt: receiptPath, generation_id: generationId, surface: request.surface || null, art_direction_hash: request.art_direction_hash, additional_instructions_chars: additionalInstructions.length }) + '\n');
 }
 
 main().catch((error) => {
