@@ -100,11 +100,14 @@ def test_short_form_and_explainer_are_distinct_lawful_projections() -> None:
         assert "source_bound_proof" in story["semantic_guardrails"]["must_preserve"]
 
 
-def test_active_campaign_factory_routes_to_v3_and_removes_single_music_constant() -> None:
+def test_active_campaign_factory_routes_to_v3_through_visual_spine() -> None:
     active = (ROOT / "scripts" / "build_multichannel_campaign_factory.py").read_text(encoding="utf-8")
     v3 = (ROOT / "scripts" / "build_multichannel_campaign_factory_v3.py").read_text(encoding="utf-8")
+    spine = (ROOT / "scripts" / "nichefoundry_visual_spine.py").read_text(encoding="utf-8")
     assert "build_multichannel_campaign_factory_v3 import *" in active
-    assert operator_production.build_family.__module__ == "scripts.build_multichannel_campaign_factory_v3"
+    assert "install_visual_spine(_v3)" in active
+    assert operator_production.build_family.__module__ == "scripts.nichefoundry_visual_spine"
+    assert getattr(operator_production.build_family, "_dio_visual_spine_wrapper", False) is True
     assert "MUSIC = FOUNDRY /" not in active
     assert "MUSIC = FOUNDRY /" not in v3
     assert "_music_catalog" in v3
@@ -113,20 +116,25 @@ def test_active_campaign_factory_routes_to_v3_and_removes_single_music_constant(
     assert '"vertical_short"' in v3
     assert '"landscape_explainer"' in v3
     assert "cross_archetype_collisions" in v3
+    assert '"primary_compositor": "document_studio_local_compositor"' in spine
+    assert '"gamma_required_for_media": False' in spine
 
 
-def test_gamma_and_media_executors_consume_projection_instead_of_fixed_skin() -> None:
-    gamma = (ROOT / "scripts" / "run_gamma_story.js").read_text(encoding="utf-8")
+def test_visual_and_media_executors_consume_projection_without_gamma_dependency() -> None:
+    gamma = (ROOT / "scripts" / "run_gamma_art_directed_story.js").read_text(encoding="utf-8")
+    local = (ROOT / "adapters" / "document_studio" / "local_media_compositor.py").read_text(encoding="utf-8")
+    spine = (ROOT / "scripts" / "nichefoundry_visual_spine.py").read_text(encoding="utf-8")
     media = (ROOT / "scripts" / "build_campaign_media_v3.py").read_text(encoding="utf-8")
-    assert "function creativeInstructions(request)" in gamma
-    assert "Audience archetype:" in gamma
-    assert "SHORT-FORM VERTICAL" in gamma
-    assert "LANDSCAPE EXPLAINER" in gamma
-    assert "semantic invariant, not a mandatory corporate disclaimer slide" in gamma
+    assert "MAX_ADDITIONAL_INSTRUCTIONS = 4800" in gamma
+    assert "optional_visual_candidate" in gamma
+    assert "render_story_frames" in local
+    assert "document_studio_local_compositor" in local
+    assert '"gamma_required_for_media": False' in spine
+    assert "DIO_GAMMA_VISUAL_CANDIDATE" in spine
+    assert "render_cinematic_format" in spine
     assert "edge_tts" in media
     assert "piper_local" in media
     assert "nichefoundry.dio_campaign_production_request.v3" in media
-    assert "semantic_law_preserved" in media
 
 
 def test_projection_preflight_is_directly_invokable_and_checks_historical_voice() -> None:
