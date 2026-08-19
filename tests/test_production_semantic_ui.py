@@ -68,18 +68,24 @@ def test_vesper_presence_is_bound_to_exact_selected_incarnation() -> None:
     assert "The Vesper link is separately bound to this exact incarnation" in source
 
 
-def test_production_studio_defaults_to_full_narrated_media() -> None:
+def test_production_studio_defaults_to_lingua_projected_full_media() -> None:
     source = _source()
     assert "toggle.checked = true" in source
-    assert "full_narrated_media" in source
-    assert "Gamma cards + local Piper voice + rights-recorded music + vertical reel MP4 + landscape explainer MP4" in source
-    assert "Full media production is the default" in source
+    assert "lingua_projected_full_media" in source
+    assert "audience-conditioned Gamma direction + selected narrator + rights-recorded music or intentional silence" in source
+    assert "LINGUA semantic law now drives the creative skin" in source
+    assert "Denotation + Affordance + Prohibition" in source
+    assert "Vertical short-form and landscape explainer are independent lawful projections" in source
 
 
-def test_production_studio_surfaces_media_state_instead_of_silent_card_only_success() -> None:
+def test_production_studio_surfaces_projection_and_media_state() -> None:
     source = _source()
+    assert "family.voice || family.piper" in source
     assert "Gamma: ${media.states.gamma}" in source
-    assert "Piper: ${media.states.piper}" in source
+    assert "Voice: ${media.states.voice}" in source
     assert "Vertical reel: ${media.states.reel}" in source
     assert "Landscape explainer: ${media.states.explainer}" in source
+    assert "Creative archetype: ${projection.archetype" in source
+    assert "Vertical arc: ${projection.shortArc" in source
+    assert "Explainer arc: ${projection.longArc" in source
     assert "full narrated media did not complete" in source
