@@ -33,8 +33,18 @@ def _write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
 
 
-def _apply_approved_visual_crystals(art: dict[str, Any], memory: dict[str, Any]) -> dict[str, Any]:
-    """Apply only allow-listed representational fields from human-approved BEAST crystals."""
+def _negative_design_text(row: Any) -> str:
+    if isinstance(row, dict):
+        for key in ("detail", "failure_category", "pattern", "failure_code", "reason"):
+            value = str(row.get(key) or "").strip()
+            if value:
+                return value
+        return json.dumps(row, sort_keys=True, ensure_ascii=True)
+    return str(row).strip()
+
+
+def _apply_visual_memory(art: dict[str, Any], memory: dict[str, Any]) -> dict[str, Any]:
+    """Apply human-approved BEAST style fields and active negative patterns only."""
     updated = json.loads(json.dumps(art))
     language = dict(updated.get("art_language") or {})
     applied: list[dict[str, Any]] = []
@@ -45,7 +55,18 @@ def _apply_approved_visual_crystals(art: dict[str, Any], memory: dict[str, Any])
             language.update(accepted)
             applied.append({"credit_id": row.get("credit_id"), "fields": sorted(accepted)})
     updated["art_language"] = language
+
+    anti_patterns = list(updated.get("anti_patterns") or [])
+    memory_negatives: list[str] = []
+    for row in memory.get("negative_patterns") or []:
+        text = _negative_design_text(row)
+        if text and text not in anti_patterns:
+            anti_patterns.append(text)
+            memory_negatives.append(text)
+    updated["anti_patterns"] = anti_patterns
+
     updated.setdefault("beast_visual_memory", {})["applied_crystals"] = applied
+    updated["beast_visual_memory"]["applied_negative_patterns"] = memory_negatives
     updated["beast_visual_memory"]["authority"] = "representational_context_only"
     core = {key: value for key, value in updated.items() if key != "art_direction_hash"}
     updated["art_direction_hash"] = _hash(core)
@@ -62,7 +83,7 @@ def build_art_directed_gamma_request(story: dict[str, Any], directory: Path) -> 
         surface=surface,
         visual_grammar=visual_grammar,
     )
-    art = _apply_approved_visual_crystals(build_art_direction(story, beast_memory=memory), memory)
+    art = _apply_visual_memory(build_art_direction(story, beast_memory=memory), memory)
     art_path = directory / f"DOCUMENT_STUDIO_ART_DIRECTION_{surface.upper()}.json"
     _write_json(art_path, art)
 
