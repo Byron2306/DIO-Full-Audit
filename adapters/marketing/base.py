@@ -8,6 +8,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any, Callable
 
+from dio_secrets import load_secret_env
+
 
 class AdapterError(RuntimeError):
     pass
@@ -58,6 +60,7 @@ def stdlib_transport(method: str, url: str, headers: dict[str, str], params: dic
 
 
 def env_required(*names: str) -> dict[str, str]:
+    load_secret_env(overwrite=False)
     values = {name: os.environ.get(name, "") for name in names}
     missing = [name for name, value in values.items() if not value]
     if missing:
