@@ -17,44 +17,58 @@ def test_business_root_routes_to_business_workbench():
     source = text("scripts/serve_control_deck_ms10.py")
     assert 'self.path = "/dashboard/business.html"' in source
     assert "DIO BUSINESS" in source
+    assert "/api/business/artifact" in source
+    assert "/api/business/lead/update" in source
 
 
 def test_market_root_routes_to_market_workbench():
     source = text("scripts/serve_market_command_ms10.py")
     assert 'self.path = "/dashboard/market.html"' in source
     assert "DIO MARKET" in source
+    assert "/api/market/products" in source
 
 
-def test_business_exposes_required_operator_domains_and_public_links():
+def test_business_exposes_human_authority_full_portfolio_and_public_links():
     page = text("dashboard/business.html")
     for marker in (
-        "My approvals",
-        "Products & jobs",
+        "My operating authority",
+        "What needs me now?",
+        "Jobs and actual work",
+        "Full product portfolio",
         "Leads / CRM",
         "Email command",
         "Invoices, payments & transactions",
         "Sites & channels",
-        "Full operator console",
         "facebook.com/profile.php?id=61593271043069",
         "linkedin.com/company/139354569/admin/dashboard/",
         "youtube.com/@DIOworkflows",
-        "sites/evidex/",
-        "sites/homs/",
-        "sites/sophia/",
-        "sites/vamp/",
-        "sites/document-studio/",
+        "product_portfolio",
+        "incarnations",
+        "/api/control/policy",
+        "/api/control/lead/action",
+        "/api/control/mail/action",
+        "/api/business/lead/update",
+        "/api/business/artifact",
     ):
         assert marker in page
 
 
-def test_market_keeps_market_command_and_sensorium_in_one_surface():
+def test_market_exposes_guided_campaign_lifecycle_and_sensorium():
     page = text("dashboard/market.html")
     for marker in (
-        "Campaign operations",
-        "Market Sensorium",
-        "Channel & adapter readiness",
-        "Full Market Command",
-        "/market_dashboard/index.html",
+        "The campaign journey",
+        "WHAT NOW?",
+        "Market authority",
+        "Campaign content",
+        "Sensorium + Hivenance",
+        "Channels & adapters",
+        "/api/market/campaigns",
+        "/approve",
+        "/activate",
+        "/measure",
+        "/settle",
+        "/api/market/content/",
+        "/api/market/policy",
         "/state/market_sensorium/COMMERCIAL_COCKPIT.json",
     ):
         assert marker in page
