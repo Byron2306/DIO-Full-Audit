@@ -1,0 +1,19 @@
+[Unit]
+Description=DIO Market Sensorium read-only discovery cycle
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=byron
+WorkingDirectory=/home/byron/DIO-Full-Audit
+Environment=PYTHONNOUSERSITE=1
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/run_market_sensorium_cycle.py --refresh-public
+Nice=10
+
+# The cycle is observation-only by contract. External effects remain gated in DIO.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/home/byron/DIO-Full-Audit/state /home/byron/DIO-Full-Audit/campaigns /home/byron/DIO-Full-Audit/telemetry
