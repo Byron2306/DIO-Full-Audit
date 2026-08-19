@@ -150,7 +150,7 @@ No MS-4 receipt proves willingness to pay, customer acceptance, market demand, p
 Strong acceptance requires:
 
 ```text
-MS-3 is VERIFIED
+persisted source receipt says MS-3 VERIFIED
 real rank movements feed Phoenix
 one rival hypothesis set per movement
 at least three rival explanations per set
@@ -170,6 +170,7 @@ Strong token:
 
 Important refusal/pending states include:
 
+- `PENDING_VERIFIED_MS3_RECEIPT`
 - `PENDING_MS3_DYNAMIC_RANK_INPUT`
 - `PENDING_REAL_RANK_MOVEMENT_INPUT`
 - `REFUSE_NON_RIVAL_COMMERCIAL_HYPOTHESIS_SET`
@@ -193,23 +194,21 @@ PYTHONNOUSERSITE=1 \
   tests/test_market_sensorium_ms4_gate.py
 ```
 
-Then run one fresh live Sensorium cycle:
+For the **initial MS-4 proof**, do not manufacture another world-state change. The verified MS-3 transition ledger already exists and is the correct input. Run:
 
 ```bash
 PYTHONNOUSERSITE=1 \
 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 \
-scripts/run_market_sensorium_cycle.py \
-  --refresh-public \
-  --refresh-mail \
+scripts/run_market_sensorium_ms4.py \
   | tee /tmp/dio-ms4-live.json
 ```
+
+This runner requires the persisted `MARKET_SENSORIUM_CYCLE_RECEIPT.json` to carry the strong MS-3 acceptance token and then reasons over the persisted MS-3 rank-transition ledger. It writes `state/market_sensorium/MARKET_SENSORIUM_MS4_RECEIPT.json` and performs no external effect.
 
 Use the compact inspection view:
 
 ```bash
 jq '{
-  ms1: .ms1_acceptance,
-  ms2: .ms2_acceptance,
   ms3: .ms3_acceptance,
   ms4: .ms4_acceptance,
   ms4_truth: .ms4_truth,
@@ -229,5 +228,7 @@ jq '{
   ][0:3]
 }' /tmp/dio-ms4-live.json
 ```
+
+After initial verification, normal `scripts/run_market_sensorium_cycle.py` runs MS-4 automatically after the MS-3 rank pass. If no new rank movement occurs, the current cycle's MS-3 gate may correctly remain pending; that does not erase the separately persisted verified MS-3 or MS-4 receipts.
 
 A high research-priority score remains only a routing score. It is never a probability of truth or a commercial success score.
