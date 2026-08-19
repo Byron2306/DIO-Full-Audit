@@ -56,6 +56,8 @@ def select_domain_query_batch(
     history = load_history(history_path)
     past = history.get("domains") or {}
     weak = weak_domain_ids or set()
+    if learned_plan_path is None:
+        learned_plan_path = Path(history_path).parent / "LEARNED_DISCOVERY_QUERY_PLAN.json"
     learned_plan = load_learned_plan(learned_plan_path)
     learned_items = [
         item for item in learned_plan.get("domains") or []
@@ -73,7 +75,6 @@ def select_domain_query_batch(
     selected: list[tuple[dict[str, str], dict[str, Any] | None]] = []
     seen: set[str] = set()
 
-    # Learned selection order is already evidence-ranked by MS-7. Preserve it.
     for item in learned_items:
         domain_id = str(item.get("domain_id") or "")
         if domain_id in seen or len(selected) >= cap:
@@ -81,7 +82,6 @@ def select_domain_query_batch(
         selected.append((by_id[domain_id], item))
         seen.add(domain_id)
 
-    # Fill any unused slots with the prior bounded rotating scheduler.
     for row in sorted(domains, key=order):
         if len(selected) >= cap:
             break
