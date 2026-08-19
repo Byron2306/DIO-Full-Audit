@@ -14,10 +14,13 @@ from urllib.parse import parse_qs, quote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from commerce.invoices import create_invoice, issue_invoice, list_invoices, load_invoice  # noqa: E402
+from scripts.manage_mail_intent import create_intent_from_payload  # noqa: E402
 from scripts.serve_control_deck import (  # noqa: E402
     ControlDeckHandler,
     EVENT_LOG,
     emit_event,
+    load_policy,
     read_json,
     utc_now,
     write_json,
@@ -75,8 +78,18 @@ def _directory_html(path: Path) -> bytes:
 <main><h1>DIO output</h1><p>{html.escape(str(path))}</p><div class="list">{body}</div></main>""".encode("utf-8")
 
 
+def _read_json_body(handler: ControlDeckHandler, maximum: int = 32768) -> dict:
+    length = int(handler.headers.get("Content-Length", "0"))
+    if length < 2 or length > maximum:
+        raise ValueError(f"Business request must be between 2 and {maximum} bytes")
+    payload = json.loads(handler.rfile.read(length))
+    if not isinstance(payload, dict):
+        raise ValueError("Business request must be a JSON object")
+    return payload
+
+
 class MS10ControlDeckHandler(ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/2.0"
+    server_version = "DIOBusinessWorkbench/2.1"
 
     def _send_bytes(self, body: bytes, content_type: str, filename: str | None = None) -> None:
         self.send_response(HTTPStatus.OK)
@@ -126,11 +139,8 @@ class MS10ControlDeckHandler(ControlDeckHandler):
         self._send_bytes(target.read_bytes(), content_type, target.name)
 
     def _update_lead(self) -> None:
-        length = int(self.headers.get("Content-Length", "0"))
-        if length < 2 or length > 16384:
-            raise ValueError("Lead update must be between 2 and 16384 bytes")
-        payload = json.loads(self.rfile.read(length))
-        if not isinstance(payload, dict) or payload.get("confirmed") is not True:
+        payload = _read_json_body(self, 16384)
+        if payload.get("confirmed") is not True:
             raise ValueError("Lead update requires explicit operator confirmation")
         lead_id = str(payload.get("lead_id") or "").upper()
         if not lead_id or not lead_id.replace("-", "").isalnum():
@@ -162,13 +172,86 @@ class MS10ControlDeckHandler(ControlDeckHandler):
         )
         self.send_json({"status": "completed", "action": "update", "result": lead})
 
+    def _create_invoice(self) -> None:
+        payload = _read_json_body(self)
+        issue = payload.get("issue") is True
+        if issue and load_policy().get("invoice_authority") != "issue":
+            raise ValueError("Invoice issue is held by invoice_authority=draft_only; enable invoice issue in BUSINESS first")
+        invoice = create_invoice(ROOT, payload, issue=issue, operator="DIO operator via BUSINESS")
+        emit_event(
+            EVENT_LOG,
+            "invoice.issued" if issue else "invoice.drafted",
+            "action" if issue else "info",
+            "invoice",
+            invoice["invoice_id"],
+            {
+                "state": invoice["state"],
+                "total_minor": invoice["total_minor"],
+                "currency": invoice["currency"],
+                "lead_id": invoice["lineage"].get("lead_id"),
+                "job_id": invoice["lineage"].get("job_id"),
+            },
+            invoice["lineage"].get("job_id") or invoice["lineage"].get("lead_id"),
+        )
+        self.send_json({"status": "completed", "invoice": invoice})
+
+    def _issue_invoice(self) -> None:
+        payload = _read_json_body(self)
+        if payload.get("confirmed") is not True:
+            raise ValueError("Invoice issue requires explicit operator confirmation")
+        if load_policy().get("invoice_authority") != "issue":
+            raise ValueError("Invoice issue is held by invoice_authority=draft_only; enable invoice issue in BUSINESS first")
+        invoice_id = str(payload.get("invoice_id") or "")
+        invoice = issue_invoice(ROOT, invoice_id, operator="DIO operator via BUSINESS")
+        emit_event(EVENT_LOG, "invoice.issued", "action", "invoice", invoice_id, {"total_minor": invoice["total_minor"], "currency": invoice["currency"]}, invoice_id)
+        self.send_json({"status": "completed", "invoice": invoice})
+
+    def _prepare_invoice_mail(self) -> None:
+        payload = _read_json_body(self)
+        if payload.get("confirmed") is not True:
+            raise ValueError("Invoice email preparation requires explicit operator confirmation")
+        invoice = load_invoice(ROOT, str(payload.get("invoice_id") or ""))
+        if invoice["state"] != "issued":
+            raise ValueError("Only an issued invoice may be prepared for email")
+        recipient = str(invoice["customer"].get("email") or "").strip()
+        if not recipient:
+            raise ValueError("Invoice customer email is missing")
+        amount = f"{invoice['currency']} {invoice['total_minor'] / 100:,.2f}"
+        intent = create_intent_from_payload(
+            {
+                "purpose": "invoice",
+                "recipient": recipient,
+                "subject": f"DIO Workflows invoice {invoice['invoice_id']}",
+                "body": (
+                    f"Hello {invoice['customer']['name']},\n\n"
+                    f"Please find invoice {invoice['invoice_id']} attached for {amount}, due {invoice['due_date']}.\n\n"
+                    "The invoice records the agreed DIO Workflows service and payment reference. "
+                    "Please reply to this message if any billing detail needs correction before payment.\n\n"
+                    "Regards,\nDIO Workflows"
+                ),
+                "attachments": [invoice["document_path"]],
+                "risk": "routine",
+                "lead_id": invoice["lineage"].get("lead_id"),
+                "job_id": invoice["lineage"].get("job_id"),
+                "order_id": invoice["lineage"].get("order_id"),
+                "product": "dio_invoice",
+            },
+            ROOT / "state" / "mail_intents",
+            EVENT_LOG,
+        )
+        emit_event(EVENT_LOG, "invoice.mail_prepared", "action", "invoice", invoice["invoice_id"], {"mail_intent_id": intent["mail_intent_id"]}, invoice["invoice_id"])
+        self.send_json({"status": "completed", "invoice_id": invoice["invoice_id"], "mail_intent": intent})
+
     def do_GET(self) -> None:
         route = urlsplit(self.path).path
         if route == "/api/business/artifact":
             self._serve_artifact()
             return
+        if route == "/api/business/invoices":
+            self.send_json({"schema": "dio.business.invoice_list.v1", "invoices": list_invoices(ROOT)})
+            return
         if route == "/api/business/health":
-            self.send_json({"ok": True, "service": "dio-business", "version": "2.0", "artifact_gateway": True, "lead_editing": True})
+            self.send_json({"ok": True, "service": "dio-business", "version": "2.1", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True})
             return
         if route == "/":
             self.path = "/dashboard/business.html"
@@ -176,10 +259,16 @@ class MS10ControlDeckHandler(ControlDeckHandler):
 
     def do_POST(self) -> None:
         route = urlsplit(self.path).path
-        if route == "/api/business/lead/update":
+        business_routes = {
+            "/api/business/lead/update": self._update_lead,
+            "/api/business/invoice/create": self._create_invoice,
+            "/api/business/invoice/issue": self._issue_invoice,
+            "/api/business/invoice/mail": self._prepare_invoice_mail,
+        }
+        if route in business_routes:
             try:
-                self._update_lead()
-            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                business_routes[route]()
+            except (OSError, RuntimeError, ValueError, json.JSONDecodeError) as exc:
                 self.send_json({"error": "business_action_blocked", "message": str(exc)}, HTTPStatus.BAD_REQUEST)
             return
         super().do_POST()
@@ -194,7 +283,7 @@ def main() -> int:
         raise ValueError("DIO BUSINESS must bind to localhost")
     server = ThreadingHTTPServer((args.host, args.port), MS10ControlDeckHandler)
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
-    print("Human operator workbench: ACTIVE · artifact gateway ACTIVE · existing action plane preserved")
+    print("Human operator workbench: ACTIVE · artifact gateway ACTIVE · invoice desk ACTIVE")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
