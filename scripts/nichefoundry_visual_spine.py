@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from adapters.document_studio.art_direction import build_art_direction
+from adapters.document_studio.visual_qa import validate_visual_contract
 from scripts.beast_visual_memory import resolve_visual_memory
 from scripts.cinematic_motion_renderer import render_cinematic_format
 
@@ -137,6 +138,42 @@ def run_art_directed_gamma(path: Path) -> tuple[str, str]:
     return "ready", ""
 
 
+def render_art_directed_campaign_media(
+    request_path: Path,
+    *,
+    nichefoundry_root: Path | None = None,
+) -> dict[str, Any]:
+    from scripts import build_campaign_media_v3 as media_v3
+
+    if nichefoundry_root is None:
+        receipt = media_v3.render_campaign_media_v3(request_path)
+    else:
+        receipt = media_v3.render_campaign_media_v3(request_path, nichefoundry_root=nichefoundry_root)
+    request = json.loads(request_path.read_text(encoding="utf-8"))
+    errors = validate_visual_contract(request, receipt)
+    if errors:
+        raise media_v3.CampaignMediaError(
+            "Document Studio visual QA refused projected media: " + "; ".join(errors)
+        )
+    receipt["art_direction_hash"] = request.get("art_direction_hash")
+    receipt["document_studio_visual_qa"] = {
+        "state": "PASS",
+        "errors": [],
+        "art_direction_hash": request.get("art_direction_hash"),
+        "layout_diversity": "PASS",
+        "visible_copy_budget": "PASS",
+        "narration_as_card_copy": "REFUSE",
+        "static_slide_deck": "REFUSE",
+        "motion_execution": "PASS",
+        "human_visual_release": "NEEDS_YOU",
+    }
+    receipt.setdefault("governance", {})["document_studio_art_direction_bound"] = True
+    receipt["governance"]["beast_visual_memory_bound"] = True
+    receipt["governance"]["human_visual_release"] = "NEEDS_YOU"
+    _write_json(request_path.parent / "media" / "CAMPAIGN_MEDIA_RECEIPT.json", receipt)
+    return receipt
+
+
 def install_visual_spine(factory_module: Any) -> None:
     """Install the governed visual spine into the active v3 factory without forking it."""
     from scripts import build_campaign_media_v3 as media_v3
@@ -144,4 +181,4 @@ def install_visual_spine(factory_module: Any) -> None:
     factory_module.build_gamma_story_request = build_art_directed_gamma_request
     factory_module._run_gamma = run_art_directed_gamma
     media_v3._render_projected_format = render_cinematic_format
-    factory_module.render_campaign_media_v3 = media_v3.render_campaign_media_v3
+    factory_module.render_campaign_media_v3 = render_art_directed_campaign_media
