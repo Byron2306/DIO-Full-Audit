@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import os
+import shutil
+from pathlib import Path
+
+from scripts.build_campaign_media import CampaignMediaError, resolve_piper_binary, resolve_piper_model
+from scripts.build_multichannel_campaign_factory import FOUNDRY, MUSIC, MUSIC_ATTRIBUTION
+
+
+def main() -> int:
+    checks: dict[str, object] = {
+        "nichefoundry_root": str(FOUNDRY.resolve()),
+        "ffmpeg": shutil.which("ffmpeg") or "",
+        "ffprobe": shutil.which("ffprobe") or "",
+        "music_bed": str(MUSIC.resolve()),
+        "music_bed_exists": MUSIC.is_file(),
+        "music_attribution": str(MUSIC_ATTRIBUTION.resolve()),
+        "music_attribution_exists": MUSIC_ATTRIBUTION.is_file(),
+        "piper_binary": "",
+        "piper_model": "",
+        "piper_model_config_exists": False,
+        "ready": False,
+        "errors": [],
+    }
+    errors = checks["errors"]
+    assert isinstance(errors, list)
+
+    try:
+        binary = resolve_piper_binary(FOUNDRY)
+        checks["piper_binary"] = str(binary)
+    except CampaignMediaError as exc:
+        errors.append(str(exc))
+
+    try:
+        model = resolve_piper_model(FOUNDRY)
+        checks["piper_model"] = str(model)
+        checks["piper_model_config_exists"] = Path(str(model) + ".json").is_file()
+    except CampaignMediaError as exc:
+        errors.append(str(exc))
+
+    if not checks["ffmpeg"]:
+        errors.append("ffmpeg is not on PATH")
+    if not checks["ffprobe"]:
+        errors.append("ffprobe is not on PATH")
+    if not checks["music_bed_exists"]:
+        errors.append("configured rights-recorded music bed is missing")
+    if not checks["music_attribution_exists"]:
+        errors.append("configured music attribution record is missing")
+
+    checks["ready"] = not errors
+    checks["contract"] = {
+        "gamma_cards": "REQUIRED",
+        "voice_provider": "piper_local",
+        "remote_tts_fallback": False,
+        "rights_recorded_music": "REQUIRED",
+        "vertical_reel_mp4": "REQUIRED",
+        "landscape_explainer_mp4": "REQUIRED",
+        "publication": "HELD",
+        "spend": "DISABLED",
+    }
+    print(json.dumps(checks, indent=2, ensure_ascii=True))
+    return 0 if checks["ready"] else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
