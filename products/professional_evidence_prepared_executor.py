@@ -31,6 +31,13 @@ from products.professional_evidence_final3_compat import install_final3_compat
 # execution patches before _route_execute is bound below.
 install_final3_compat()
 
+from products.professional_evidence_sophia_boundary_probe import install_sophia_boundary_probe
+
+# Sophia Tutor is the sole remaining failure. Instrument its final learner-visible
+# authorship check without altering the pass predicate so one focused rerun exposes
+# the exact response and missing signal instead of producing another opaque refusal.
+install_sophia_boundary_probe()
+
 from products.professional_evidence_executor import (
     BLOCKED,
     FAIL,
