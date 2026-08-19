@@ -1,0 +1,31 @@
+{
+  "schema": "dio.m2.projection_adaptation_config.v1",
+  "required_parent_acceptance": "DIO_M2_COMMERCIAL_SETTLEMENT_READY",
+  "reference_product": "funding_proposal_studio",
+  "projection_config": "config/m2_phase2_commercial_projection.json",
+  "learning_doctrine": "docs/NICHEFOUNDRY_LINGUA_COMMERCIAL_LEARNING.md",
+  "candidate_source_version": "1.1.0-candidate",
+  "learning_observed_at": "2026-08-18T04:00:00+00:00",
+  "negative_ttl_days": 14,
+  "negative_scenarios": {
+    "verified_payment_without_acceptance": {
+      "failure_category": "commercial_acceptance_not_observed",
+      "failure_code": "PAYMENT_WITHOUT_ACCEPTANCE",
+      "detail": "A verified-payment-shaped controlled lineage did not include independent customer acceptance in the exact commercial context."
+    },
+    "independent_acceptance_without_payment": {
+      "failure_category": "commercial_payment_not_verified",
+      "failure_code": "ACCEPTANCE_WITHOUT_PAYMENT",
+      "detail": "Independent-customer-acceptance-shaped controlled lineage did not include verified payment in the exact commercial context."
+    }
+  },
+  "controlled_evidence_only": true,
+  "operator_approval_required": true,
+  "operator_approval_recorded": false,
+  "real_market_evidence_claimed": false,
+  "claim_upgrade_allowed": false,
+  "reusable_credit_allowed": false,
+  "semantic_crystal_allowed": false,
+  "direct_learning_to_execution": false,
+  "product_global_invalidation_allowed": false
+}
