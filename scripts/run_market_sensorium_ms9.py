@@ -147,22 +147,12 @@ def main() -> int:
             timeout_seconds=args.timeout_seconds,
         )
         if cycle_error is not None:
+            # A transport/runtime failure means the requested soak did not complete.
+            # It is not evidence of semantic drift because no settled cycle exists
+            # to inspect. Preserve the error separately and leave the strong gate
+            # pending on the missing cycle count.
             errors.append({"iteration": iteration, **cycle_error})
-            with MarketSensoriumStore(DB_PATH) as store:
-                snapshot = capture_soak_snapshot(
-                    ROOT,
-                    store,
-                    session_id=session_id,
-                    iteration=iteration,
-                    baseline=baseline,
-                    cycle_receipt={},
-                    ms7_receipt={},
-                    ms8_receipt={},
-                )
-            snapshot["cycle_error"] = cycle_error
-            snapshots.append(snapshot)
-            _append_jsonl(MS9_LEDGER, snapshot)
-            _write_json(session_root / f"cycle-{iteration:02d}.json", snapshot)
+            _write_json(session_root / f"cycle-{iteration:02d}-ERROR.json", errors[-1])
             break
 
         # The public cycle used the plan that existed at cycle start. Re-learn only
