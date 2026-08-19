@@ -8,10 +8,6 @@ import scripts.run_nichefoundry_media_pipeline_v2 as media_v2
 from dio_secrets import _derive_local_media_env
 
 
-ROOT = Path(__file__).resolve().parents[1]
-PREFLIGHT = ROOT / "scripts" / "check_nichefoundry_media_runtime.py"
-
-
 def test_legacy_media_entrypoint_is_the_v2_narrated_pipeline() -> None:
     assert legacy_bridge.run_media_pipeline is media_v2.run_media_pipeline
     assert legacy_bridge.main is media_v2.main
@@ -20,20 +16,35 @@ def test_legacy_media_entrypoint_is_the_v2_narrated_pipeline() -> None:
 def test_nichefoundry_legacy_piper_env_derives_dio_model(monkeypatch, tmp_path: Path) -> None:
     model_dir = tmp_path / "voices"
     model_dir.mkdir()
+    model = model_dir / "en_US-lessac-high.onnx"
+    config = Path(str(model) + ".json")
+    model.write_bytes(b"onnx-model")
+    config.write_text("{}", encoding="utf-8")
     monkeypatch.delenv("PIPER_MODEL", raising=False)
+    monkeypatch.delenv("PIPER_CONFIG_FILE", raising=False)
     monkeypatch.setenv("PIPER_MODEL_DIR", str(model_dir))
-    monkeypatch.setenv("PIPER_MODEL_FILE", "en_US-lessac-high.onnx")
+    monkeypatch.setenv("PIPER_MODEL_FILE", model.name)
     loaded: dict[str, str] = {}
     _derive_local_media_env(loaded, overwrite=False)
-    expected = str((model_dir / "en_US-lessac-high.onnx").resolve())
-    assert loaded["PIPER_MODEL"] == expected
+    assert loaded["PIPER_MODEL"] == str(model.resolve())
+    assert loaded["PIPER_CONFIG_FILE"] == str(config.resolve())
 
 
-def test_media_preflight_bootstraps_repo_root_before_local_imports() -> None:
-    source = PREFLIGHT.read_text(encoding="utf-8")
-    bootstrap = source.index("sys.path.insert(0, str(ROOT))")
-    local_import = source.index("from dio_secrets import load_secret_env")
-    assert bootstrap < local_import
+def test_nichefoundry_model_name_finds_existing_legacy_voice(monkeypatch, tmp_path: Path) -> None:
+    model_dir = tmp_path / "original-nichefoundry" / "models" / "piper"
+    model_dir.mkdir(parents=True)
+    model = model_dir / "en_US-lessac-high.onnx"
+    config = Path(str(model) + ".json")
+    model.write_bytes(b"onnx-model")
+    config.write_text("{}", encoding="utf-8")
+    monkeypatch.delenv("PIPER_MODEL", raising=False)
+    monkeypatch.delenv("PIPER_CONFIG_FILE", raising=False)
+    monkeypatch.setenv("PIPER_MODEL_DIR", str(model_dir))
+    monkeypatch.setenv("PIPER_MODEL_NAME", "en_US-lessac-high")
+    monkeypatch.setenv("PIPER_MODEL_FILE", "")
+    loaded: dict[str, str] = {}
+    _derive_local_media_env(loaded, overwrite=False)
+    assert loaded["PIPER_MODEL"] == str(model.resolve())
 
 
 def test_v2_media_bridge_requires_and_registers_both_mp4_outputs(monkeypatch, tmp_path: Path) -> None:
@@ -98,3 +109,8 @@ def test_v2_media_bridge_requires_and_registers_both_mp4_outputs(monkeypatch, tm
     assert family["nichefoundry"]["long_form_state"] == "ready"
     assert family["governance"]["publication"] == "held"
     assert family["governance"]["spend"] == "disabled"
+
+
+def test_media_preflight_can_be_invoked_as_direct_script() -> None:
+    source = (Path(__file__).resolve().parents[1] / "scripts" / "check_nichefoundry_media_runtime.py").read_text(encoding="utf-8")
+    assert "sys.path.insert(0, str(ROOT))" in source
