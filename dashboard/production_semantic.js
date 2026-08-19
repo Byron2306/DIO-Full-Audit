@@ -10,8 +10,6 @@
     ? `${VESPER_PRESENCE}?incarnation=${encodeURIComponent(incarnation)}`
     : VESPER_PRESENCE;
 
-  // Exact product surfaces only. Do not substitute a family site for a
-  // different incarnation and never fall back to the conjoined DIO catalogue.
   const EXACT_PRODUCT_SITES = {
     'HOMS Assess':'https://byron2306.github.io/HOMS-page/',
     'Sophia Review':'https://byron2306.github.io/Sophia-AI-page/',
@@ -28,14 +26,7 @@
   function productPresence(name) {
     if (!name) return {href:'', label:'', kind:'held'};
     const href = EXACT_PRODUCT_SITES[name] || '';
-    if (!href) {
-      return {
-        href:'',
-        label:'',
-        kind:'held',
-        note:'No exact standalone product site is registered for this incarnation yet.',
-      };
-    }
+    if (!href) return {href:'', label:'', kind:'held', note:'No exact standalone product site is registered for this incarnation yet.'};
     return {
       href,
       label:name === 'Vesper Desk' ? 'OPEN VESPER PRESENCE' : 'OPEN EXACT PRODUCT SITE',
@@ -66,12 +57,12 @@
     const toggle = byId('renderReel');
     if (!toggle) return;
     toggle.checked = true;
-    toggle.dataset.productionDefault = 'full_narrated_media';
+    toggle.dataset.productionDefault = 'lingua_projected_full_media';
     const label = toggle.closest('.check');
     if (label) {
       for (const node of label.childNodes) {
         if (node.nodeType === Node.TEXT_NODE) {
-          node.textContent = ' Render full narrated video pack: Gamma cards + local Piper voice + rights-recorded music + vertical reel MP4 + landscape explainer MP4';
+          node.textContent = ' Render full LINGUA-projected video pack: audience-conditioned Gamma direction + selected narrator + rights-recorded music or intentional silence + vertical reel MP4 + landscape explainer MP4';
         }
       }
     }
@@ -80,18 +71,42 @@
   function mediaTruth(result) {
     const family = result?.family || {};
     const gamma = family.gamma || {};
-    const piper = family.piper || {};
+    const voice = family.voice || family.piper || {};
     const niche = family.nichefoundry || {};
     const requested = Boolean(result?.render_reel_requested);
     const states = {
       gamma: gamma.state || (requested ? 'unknown' : 'not_requested'),
-      piper: piper.state || (requested ? 'unknown' : 'not_requested'),
+      voice: voice.state || (requested ? 'unknown' : 'not_requested'),
       reel: niche.reel_state || (requested ? 'unknown' : 'not_requested'),
       explainer: niche.long_form_state || (requested ? 'unknown' : 'not_requested'),
     };
     const ready = !requested || Object.values(states).every(value => value === 'ready');
     const errors = [gamma.error, niche.reel_error].filter(Boolean);
-    return {requested, ready, states, errors, assets: family.assets || {}};
+    return {
+      requested,
+      ready,
+      states,
+      errors,
+      assets: family.assets || {},
+      providers: voice.providers || (voice.provider ? [voice.provider] : []),
+      projection: family.creative_projection || {},
+      story: family.story || {},
+      semanticLaw: family.semantic_law || {},
+    };
+  }
+
+  function projectionSummary(media) {
+    const variants = media.story?.variants || {};
+    const shortArc = variants.vertical_short?.arc_family || '';
+    const longArc = variants.landscape_explainer?.arc_family || '';
+    return {
+      archetype: media.projection?.audience_archetype || '',
+      shortArc,
+      longArc,
+      semanticLaw: media.semanticLaw?.semantic_law_hash || '',
+      projectionHash: media.projection?.projection_hash || '',
+      fingerprint: media.projection?.creative_fingerprint || '',
+    };
   }
 
   function ensureSemanticUI() {
@@ -110,7 +125,7 @@
     semantic.id = 'semanticBriefPanel';
     semantic.className = 'truth';
     semantic.style.marginTop = '10px';
-    semantic.innerHTML = '<b>DIO semantic brief</b><br><span style="color:var(--muted)">Choose an incarnation. ATLAS + portfolio semantics + current exact-domain Sensorium/Hivenance evidence will build the audience, pain, outcome and CTA. You do not need to type them.</span>';
+    semantic.innerHTML = '<b>DIO semantic brief</b><br><span style="color:var(--muted)">Choose an incarnation. ATLAS + portfolio semantics + current exact-domain Sensorium/Hivenance evidence will build the audience, pain, outcome and CTA. LINGUA then projects that source-bound meaning into audience-native media.</span>';
     custom.parentNode.insertBefore(semantic, custom);
 
     const presence = document.createElement('div');
@@ -124,7 +139,7 @@
     mediaContract.id = 'mediaProductionContract';
     mediaContract.className = 'truth';
     mediaContract.style.marginTop = '10px';
-    mediaContract.innerHTML = '<b>Full media production is the default</b><br><span style="color:var(--muted)">A normal Production Studio marketing run must cross the whole internal media boundary: Gamma visuals → local Piper narration → rights-recorded music mix → 1080×1920 reel MP4 + 1920×1080 explainer MP4. Publication and spend remain held. Uncheck the media option only when you deliberately want cards/copy without video.</span>';
+    mediaContract.innerHTML = '<b>LINGUA semantic law now drives the creative skin</b><br><span style="color:var(--muted)">A normal Production Studio media run preserves Denotation + Affordance + Prohibition while Projection chooses an audience/channel-native story arc, scene count, Gamma art direction, narrator profile, music family, pacing and visual grammar. Vertical short-form and landscape explainer are independent lawful projections. Publication and spend remain held.</span>';
     presence.parentNode.insertBefore(mediaContract, presence.nextSibling);
 
     const advanced = document.createElement('details');
@@ -135,7 +150,7 @@
         <div class="field"><label>Source image path override</label><input id="semanticSourceImage" placeholder="DIO chooses a configured/default source image"></div>
         <div class="field"><label>Evidence / proof asset override</label><input id="semanticProofAsset" placeholder="Normally blank; DIO binds product proof when available, otherwise the portfolio evidence boundary"></div>
       </div>
-      <div style="margin-top:6px;color:var(--muted);font-size:10px">A narrated video does not require invented execution proof. If no product proof object exists, the campaign is bound to the canonical portfolio/semantic evidence boundary and must remain hypothesis-labelled.</div>`;
+      <div style="margin-top:6px;color:var(--muted);font-size:10px">Creative projection may change the skin dramatically. It may not invent proof, market validation, certification, publication authority or a stronger product claim.</div>`;
     custom.parentNode.insertBefore(advanced, byId('renderReel')?.closest('.check') || custom.nextSibling);
 
     const style = document.createElement('style');
@@ -193,7 +208,7 @@
           <div class="sem-cell"><small>Bounded outcome</small>${esc2(brief.outcome || 'Not resolved')}</div>
           <div class="sem-cell"><small>CTA</small>${esc2(brief.cta || 'Not resolved')}</div>
         </div>
-        <div style="margin-top:8px;color:var(--muted);font-size:10px">Evidence binding: ${esc2(evidenceBinding)} · ATLAS domains: ${esc2((data.evidence_basis?.atlas_domain_names || []).join(', ') || 'none')} · exact current Sensorium matches: targets ${Number(counts.ranked_targets||0)}, hypotheses ${Number(counts.hypotheses||0)}, offers ${Number(counts.offers||0)}, habitats ${Number(counts.habitats||0)}. Hypothesis ≠ demand. Audience selection ≠ buyer proof.</div>`;
+        <div style="margin-top:8px;color:var(--muted);font-size:10px">Evidence binding: ${esc2(evidenceBinding)} · ATLAS domains: ${esc2((data.evidence_basis?.atlas_domain_names || []).join(', ') || 'none')} · exact current Sensorium matches: targets ${Number(counts.ranked_targets||0)}, hypotheses ${Number(counts.hypotheses||0)}, offers ${Number(counts.offers||0)}, habitats ${Number(counts.habitats||0)}. Hypothesis ≠ demand. Audience selection ≠ buyer proof. LINGUA projection ≠ authority promotion.</div>`;
     } catch (error) {
       semanticBrief = null;
       panel.innerHTML = `<b style="color:var(--red)">Semantic brief blocked</b><br>${esc2(error.message)}`;
@@ -216,9 +231,9 @@
       confirmed: true,
     };
     const mediaMode = payload.render_reel
-      ? 'Full narrated media will be required: Gamma + local Piper + rights-recorded music + reel MP4 + landscape explainer MP4.'
-      : 'You have explicitly disabled video rendering; only cards/copy/story assets will be produced.';
-    if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\n${mediaMode}\n\nAudience, pain, outcome and CTA will come from the semantic brief. Publication and spend remain held.`)) return;
+      ? 'Full media will be required: LINGUA semantic law + audience-conditioned vertical story + independent landscape explainer + Gamma art direction + selected narrator + rights-recorded music or intentional silence + both MP4 outputs.'
+      : 'You have explicitly disabled video rendering; LINGUA story/copy/projection assets will still be produced.';
+    if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\n${mediaMode}\n\nAudience, pain, outcome and CTA come from the semantic brief. Creative skin comes from LINGUA Projection. Publication and spend remain held.`)) return;
     try {
       const response = await fetch('/api/business/production/marketing', {
         method: 'POST',
@@ -231,14 +246,16 @@
       const brief = result.semantic_brief || semanticBrief || {};
       const output = result.output_dir || '';
       const media = mediaTruth(result);
-      const statusText = `Gamma: ${media.states.gamma}\nPiper: ${media.states.piper}\nVertical reel: ${media.states.reel}\nLandscape explainer: ${media.states.explainer}`;
+      const projection = projectionSummary(media);
+      const statusText = `Gamma: ${media.states.gamma}\nVoice: ${media.states.voice}${media.providers.length ? ` (${media.providers.join(', ')})` : ''}\nVertical reel: ${media.states.reel}\nLandscape explainer: ${media.states.explainer}`;
+      const projectionText = `Creative archetype: ${projection.archetype || 'not reported'}\nVertical arc: ${projection.shortArc || 'not reported'}\nExplainer arc: ${projection.longArc || 'not reported'}\nSemantic law: ${projection.semanticLaw || 'not reported'}\nProjection: ${projection.projectionHash || 'not reported'}\nCreative fingerprint: ${projection.fingerprint || 'not reported'}`;
       const mediaError = media.errors.length ? `\nMedia error: ${media.errors.join(' | ')}` : '';
-      byId('marketingResult').innerHTML = `RUN ${esc2(result.run_id || '')}\nProduct: ${esc2(result.incarnation || incarnation)}\nSemantic mode: ${esc2(brief.generation_mode || '')}\nTruth class: ${esc2(brief.truth_class || '')}\nAudience: ${esc2(brief.brief?.audience_name || '')}\nFull media requested: ${media.requested}\n${esc2(statusText)}${esc2(mediaError)}\n\n<a class="btn small green" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(output)}">OPEN MARKETING OUTPUTS</a>${result.semantic_brief_path ? ` <a class="btn small blue" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(result.semantic_brief_path)}">OPEN SEMANTIC BRIEF</a>` : ''}`;
+      byId('marketingResult').innerHTML = `RUN ${esc2(result.run_id || '')}\nProduct: ${esc2(result.incarnation || incarnation)}\nSemantic mode: ${esc2(brief.generation_mode || '')}\nTruth class: ${esc2(brief.truth_class || '')}\nAudience: ${esc2(brief.brief?.audience_name || '')}\nFull media requested: ${media.requested}\n\n${esc2(projectionText)}\n\n${esc2(statusText)}${esc2(mediaError)}\n\n<a class="btn small green" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(output)}">OPEN MARKETING OUTPUTS</a>${result.semantic_brief_path ? ` <a class="btn small blue" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(result.semantic_brief_path)}">OPEN SEMANTIC BRIEF</a>` : ''}`;
       if (media.requested && !media.ready) {
-        const detail = media.errors.join(' | ') || `Gamma=${media.states.gamma}, Piper=${media.states.piper}, reel=${media.states.reel}, explainer=${media.states.explainer}`;
-        throw new Error(`Marketing cards were created, but full narrated media did not complete: ${detail}`);
+        const detail = media.errors.join(' | ') || `Gamma=${media.states.gamma}, Voice=${media.states.voice}, reel=${media.states.reel}, explainer=${media.states.explainer}`;
+        throw new Error(`Marketing projection was created, but full narrated media did not complete: ${detail}`);
       }
-      if (typeof toast === 'function') toast(`${incarnation}: marketing pack + narrated media created`);
+      if (typeof toast === 'function') toast(`${incarnation}: LINGUA-projected marketing pack + narrated media created`);
     } catch (error) {
       if (typeof toast === 'function') toast(error.message, true);
       else alert(error.message);
