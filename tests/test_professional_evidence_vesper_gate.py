@@ -83,6 +83,8 @@ def test_professional_routes_constitution_declares_53_canonical_products_and_ves
     assert policy["vesper_channel"] == "web_chat"
     assert policy["vesper_must_precede_product_execution"] is True
     assert policy["vesper_packet_fingerprint_must_match_product_packet"] is True
+    assert policy["vesper_quarantine_must_feed_product_source_bytes"] is True
+    assert policy["executor_rematerialization_after_vesper"] == "REFUSE"
     assert policy["whatsapp_required"] is False
     assert policy["telegram_required"] is False
     assert policy["missing_vesper_front_door"] == "REFUSE"
