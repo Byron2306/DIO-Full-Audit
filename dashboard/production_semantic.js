@@ -4,81 +4,70 @@
   let semanticBrief = null;
   let initialised = false;
 
-  const PRODUCT_DIRECTORY = 'https://dioworkflows.co.za/products/';
   const VESPER_PRESENCE = '/dashboard/vesper-intake.html';
+  const SEMANTIC_BOUNDARY_ASSET = 'config/atlas/dio_meta_incarnation_crosswalk.csv';
 
-  const PUBLIC_PRODUCT_SLUGS = {
-    'AuditProof':'auditproof',
-    'DossierOps':'dossierops',
-    'GrantProof':'grantproof',
-    'PromotionProof':'promotionproof',
-    'TenderProof':'tenderproof',
-    'VendorProof':'vendorproof',
-    'AssuranceRoom':'assuranceroom',
-    'CPDProof':'cpdproof',
-    'HOMS Accreditation':'homs-accreditation',
-    'HOMS Moderate':'homs-moderate',
-    'ImpactProof':'impactproof',
-    'ProjectProof':'projectproof',
-    'Sophia Integrity':'sophia-integrity',
-    'Sophia Research':'sophia-research',
-    'Agent Authority':'agent-authority',
-    'ControlDrift':'controldrift',
-    'DIO AI Assurance':'dio-ai-assurance',
-    'DIO RegOps':'dio-regops',
-    'AI IncidentRoom':'ai-incidentroom',
-    'CertificationProof':'certificationproof',
-    'ChangeProof':'changeproof',
-    'ContractProof':'contractproof',
-    'CriticalAI Assurance':'criticalai-assurance',
-    'CyberAssurance':'cyberassurance',
-    'DORA Vendor Assurance':'dora-vendor-assurance',
-    'DiligenceRoom':'diligenceroom',
-    'DonorProof':'donorproof',
-    'HOMS Curriculum':'homs-curriculum',
-    'IncidentProof':'incidentproof',
-    'ModelProof':'modelproof',
-    'PermitProof':'permitproof',
-    'PolicyProof':'policyproof',
-    'ProgrammeProof':'programmeproof',
-    'QualityProof':'qualityproof',
-    'ReleaseProof':'releaseproof',
-    'Sophia Supervisor':'sophia-supervisor',
-    'Sophia Tutor':'sophia-tutor',
-    'SupplierCyberProof':'suppliercyberproof',
+  // Exact standalone/public product-family surfaces only. Deliberately no
+  // fallback to the large shared DIO product catalogue.
+  const EXACT_PRODUCT_SITES = {
+    'HOMS Assess':'https://byron2306.github.io/HOMS-page/',
+    'HOMS Exam':'https://byron2306.github.io/HOMS-page/',
+    'HOMS Moderate':'https://byron2306.github.io/HOMS-page/',
+    'HOMS Curriculum':'https://byron2306.github.io/HOMS-page/',
+    'HOMS Learning Studio':'https://byron2306.github.io/HOMS-page/',
+    'HOMS Accreditation':'https://byron2306.github.io/HOMS-page/',
+
+    'Sophia Review':'https://byron2306.github.io/Sophia-AI-page/',
+    'Sophia Research':'https://byron2306.github.io/Sophia-AI-page/',
+    'Sophia Supervisor':'https://byron2306.github.io/Sophia-AI-page/',
+    'Sophia Integrity':'https://byron2306.github.io/Sophia-AI-page/',
+    'Sophia Tutor':'https://byron2306.github.io/Sophia-AI-page/',
+
+    'VAMP Performance':'https://byron2306.github.io/VAMP-site/',
+    'PromotionProof':'https://byron2306.github.io/VAMP-site/',
+    'CPDProof':'https://byron2306.github.io/VAMP-site/',
+    'ProjectProof':'https://byron2306.github.io/VAMP-site/',
+    'ImpactProof':'https://byron2306.github.io/VAMP-site/',
+
+    'Evidex EvidenceOps':'https://byron2306.github.io/Evidex-page/',
+
+    'Market Radar':'https://byron2306.github.io/NicheFoundry/',
+    'Opportunity Foundry':'https://byron2306.github.io/NicheFoundry/',
+    'Offer Lab':'https://byron2306.github.io/NicheFoundry/',
+    'Campaign Lab':'https://byron2306.github.io/NicheFoundry/',
   };
 
   const LOCAL_PRODUCT_ROUTES = {
-    'HOMS Assess':'/sites/homs/',
-    'HOMS Exam':'/sites/homs/',
-    'HOMS Learning Studio':'/sites/homs/learning-studio/',
-    'Sophia Review':'/sites/sophia/',
-    'VAMP Performance':'/sites/vamp/',
-    'Evidex EvidenceOps':'/sites/evidex/',
     'Document Studio Edit':'/sites/document-studio/',
     'Document Studio Localize':'/sites/document-studio/',
     'Document Studio Publish':'/sites/document-studio/',
     'Accessible Publish':'/sites/document-studio/',
+    'DossierOps':'/sites/document-studio/',
     'Vesper Desk':VESPER_PRESENCE,
   };
 
   function productPresence(name) {
-    if (!name) return {href:PRODUCT_DIRECTORY, label:'OPEN PRODUCT DIRECTORY', kind:'directory'};
-    if (PUBLIC_PRODUCT_SLUGS[name]) {
+    if (!name) return {href:'', label:'', kind:'held'};
+    if (EXACT_PRODUCT_SITES[name]) {
       return {
-        href:`${PRODUCT_DIRECTORY}${encodeURIComponent(PUBLIC_PRODUCT_SLUGS[name])}/`,
-        label:'OPEN PUBLIC PRODUCT PAGE',
+        href:EXACT_PRODUCT_SITES[name],
+        label:'OPEN EXACT PRODUCT SITE',
         kind:'public',
       };
     }
     if (LOCAL_PRODUCT_ROUTES[name]) {
       return {
         href:LOCAL_PRODUCT_ROUTES[name],
-        label:name === 'Vesper Desk' ? 'OPEN VESPER PRESENCE' : 'OPEN PRODUCT SITE',
+        label:name === 'Vesper Desk' ? 'OPEN VESPER PRESENCE' : 'OPEN EXACT PRODUCT SITE',
         kind:'local',
       };
     }
-    return {href:PRODUCT_DIRECTORY, label:'OPEN PRODUCT DIRECTORY', kind:'directory'};
+    return {
+      href:'',
+      label:'',
+      kind:'held',
+      note:'No standalone product site is registered for this incarnation yet.',
+    };
   }
 
   function renderProductPresence() {
@@ -87,15 +76,15 @@
     const incarnation = byId('incarnation')?.value || '';
     const route = productPresence(incarnation);
     const selected = incarnation ? `<b>${esc2(incarnation)}</b>` : '<b>No incarnation selected</b>';
-    const primaryTarget = /^https?:\/\//i.test(route.href) ? '_blank' : '_blank';
-    const primary = `<a class="btn small ${route.kind === 'public' ? 'green' : route.kind === 'local' ? 'blue' : 'gold'}" target="${primaryTarget}" rel="noreferrer" href="${esc2(route.href)}">${esc2(route.label)}</a>`;
-    const directory = route.href === PRODUCT_DIRECTORY ? '' : `<a class="btn small gold" target="_blank" rel="noreferrer" href="${PRODUCT_DIRECTORY}">ALL DIO PRODUCTS</a>`;
+    const primary = route.href
+      ? `<a class="btn small ${route.kind === 'public' ? 'green' : 'blue'}" target="_blank" rel="noreferrer" href="${esc2(route.href)}">${esc2(route.label)}</a>`
+      : '<span style="color:var(--muted);font-size:10px">No standalone site registered. Shared catalogue fallback intentionally disabled.</span>';
     const vesper = incarnation === 'Vesper Desk' ? '' : `<a class="btn small" target="_blank" href="${VESPER_PRESENCE}">VESPER PRESENCE</a>`;
     panel.innerHTML = `
       <b>Product presence</b><br>
-      <span style="color:var(--muted)">${selected} · launch the product surface without leaving Production Studio.</span>
-      <div class="actions" style="margin-top:8px">${primary}${directory}${vesper}</div>
-      <div style="margin-top:7px;color:var(--muted);font-size:10px">Public individual page when a live 38-product offer exists; otherwise the real local product surface or the canonical DIO product directory. No synthetic product URL is invented.</div>`;
+      <span style="color:var(--muted)">${selected} · launch the exact product surface when one is registered.</span>
+      <div class="actions" style="margin-top:8px">${primary}${vesper}</div>
+      <div style="margin-top:7px;color:var(--muted);font-size:10px">Production Studio no longer points an individual incarnation at the large conjoined DIO product catalogue. Exact standalone/public product-family site or exact local product surface only.</div>`;
   }
 
   function ensureSemanticUI() {
@@ -129,8 +118,9 @@
       <summary style="cursor:pointer;color:var(--muted);font-weight:800">Advanced asset overrides · normally leave closed</summary>
       <div class="twofields">
         <div class="field"><label>Source image path override</label><input id="semanticSourceImage" placeholder="DIO chooses a configured/default source image"></div>
-        <div class="field"><label>Actual proof asset override</label><input id="semanticProofAsset" placeholder="Only needed when a custom reel has no discoverable proof asset"></div>
-      </div>`;
+        <div class="field"><label>Evidence / proof asset override</label><input id="semanticProofAsset" placeholder="Normally blank; DIO binds product proof when available, otherwise the portfolio evidence boundary"></div>
+      </div>
+      <div style="margin-top:6px;color:var(--muted);font-size:10px">A reel does not require invented execution proof. If no product proof object exists, the campaign is bound to the canonical portfolio/semantic evidence boundary and must remain hypothesis-labelled.</div>`;
     custom.parentNode.insertBefore(advanced, byId('renderReel')?.closest('.check') || custom.nextSibling);
 
     const style = document.createElement('style');
@@ -178,6 +168,7 @@
         if (typeof updateProfile === 'function') updateProfile();
       }
       byId('customFields').style.display = 'none';
+      const evidenceBinding = data.proof_asset ? 'product proof asset' : 'canonical portfolio evidence boundary';
       panel.innerHTML = `
         <b>${esc2(data.truth_class || 'SEMANTIC_MARKETING_HYPOTHESIS')}</b>
         <span style="color:var(--muted)"> · ${esc2(data.generation_mode || '')}</span>
@@ -187,7 +178,7 @@
           <div class="sem-cell"><small>Bounded outcome</small>${esc2(brief.outcome || 'Not resolved')}</div>
           <div class="sem-cell"><small>CTA</small>${esc2(brief.cta || 'Not resolved')}</div>
         </div>
-        <div style="margin-top:8px;color:var(--muted);font-size:10px">ATLAS domains: ${esc2((data.evidence_basis?.atlas_domain_names || []).join(', ') || 'none')} · exact current Sensorium matches: targets ${Number(counts.ranked_targets||0)}, hypotheses ${Number(counts.hypotheses||0)}, offers ${Number(counts.offers||0)}, habitats ${Number(counts.habitats||0)}. Hypothesis ≠ demand. Audience selection ≠ buyer proof.</div>`;
+        <div style="margin-top:8px;color:var(--muted);font-size:10px">Evidence binding: ${esc2(evidenceBinding)} · ATLAS domains: ${esc2((data.evidence_basis?.atlas_domain_names || []).join(', ') || 'none')} · exact current Sensorium matches: targets ${Number(counts.ranked_targets||0)}, hypotheses ${Number(counts.hypotheses||0)}, offers ${Number(counts.offers||0)}, habitats ${Number(counts.habitats||0)}. Hypothesis ≠ demand. Audience selection ≠ buyer proof.</div>`;
     } catch (error) {
       semanticBrief = null;
       panel.innerHTML = `<b style="color:var(--red)">Semantic brief blocked</b><br>${esc2(error.message)}`;
@@ -198,16 +189,22 @@
     event.preventDefault();
     const incarnation = byId('incarnation')?.value || '';
     if (!incarnation) return;
+    const explicitProof = byId('semanticProofAsset')?.value || '';
+    const semanticProof = semanticBrief?.proof_asset || '';
     const payload = {
       incarnation,
       profile_id: byId('profile')?.value || '',
       audience_id: byId('profileAudience')?.value || '',
       render_reel: Boolean(byId('renderReel')?.checked),
       source_image: byId('semanticSourceImage')?.value || '',
-      proof_asset: byId('semanticProofAsset')?.value || '',
+      // Existing backend distinguishes a configured proof asset from the
+      // portfolio boundary by whether a path is present. For portfolio-only
+      // incarnations we deliberately bind the canonical crosswalk so rendered
+      // media remains source-bound without fabricating execution proof.
+      proof_asset: explicitProof || semanticProof || SEMANTIC_BOUNDARY_ASSET,
       confirmed: true,
     };
-    if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\nAudience, pain, outcome and CTA will come from the semantic brief. Publication and spend remain held.`)) return;
+    if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\nAudience, pain, outcome and CTA will come from the semantic brief. Reels bind to product proof when available, otherwise to the canonical portfolio evidence boundary. Publication and spend remain held.`)) return;
     try {
       const response = await fetch('/api/business/production/marketing', {
         method: 'POST',
