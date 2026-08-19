@@ -14,24 +14,24 @@ from scripts.serve_market_command import Handler  # noqa: E402
 
 
 class MS10MarketCommandHandler(Handler):
-    server_version = "DIOMarketCommandMS10/1.0"
+    server_version = "DIOMarketWorkbench/1.0"
 
     def do_GET(self) -> None:
         if urlsplit(self.path).path == "/":
-            self.path = "/dashboard/ms10.html?surface=market"
+            self.path = "/dashboard/market.html"
         super().do_GET()
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Serve DIO Market Command through the MS-10 Sensorium convergence surface")
+    parser = argparse.ArgumentParser(description="Serve DIO MARKET operator workbench")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8770)
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
-        raise ValueError("Market Command must bind to localhost")
+        raise ValueError("DIO MARKET must bind to localhost")
     server = ThreadingHTTPServer((args.host, args.port), MS10MarketCommandHandler)
-    print(f"DIO Market Command MS-10: http://{args.host}:{args.port}")
-    print("Sensorium truth plane: ACTIVE · Wave 2 controls preserved")
+    print(f"DIO MARKET: http://{args.host}:{args.port}")
+    print("Campaign action plane + Sensorium intelligence: ACTIVE")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
