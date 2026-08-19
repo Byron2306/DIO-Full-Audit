@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT))
 import market_sensorium.cycle as cycle_module  # noqa: E402
 from market_sensorium.commercial_phoenix import install_commercial_phoenix_runtime  # noqa: E402
 from market_sensorium.competitive_offers import observe_competitive_offers  # noqa: E402
+from market_sensorium.habitat_intelligence import observe_market_habitats  # noqa: E402
 from market_sensorium.mail_refresh import refresh_mail_ingress_with_coverage  # noqa: E402
 from market_sensorium.rank_transitions import install_rank_transition_runtime  # noqa: E402
 from market_sensorium.revalidation import (  # noqa: E402
@@ -19,15 +20,17 @@ from market_sensorium.revalidation import (  # noqa: E402
     resolve_discovery_candidates_revalidated,
 )
 from market_sensorium.temporal_ingest import ingest_existing_prospects_temporal  # noqa: E402
+from scripts.run_market_sensorium_ms6 import _apply_ms6_gate  # noqa: E402
 
 # Keep the cycle API stable while replacing its resolver with the stricter MS-1.2
 # evidence path and its prospect ingestion with MS-2 coverage-bound commercial
 # time. MS-3 wraps the existing rank API to preserve prior state and construct
 # source-bound dynamic rank-transition receipts. MS-4 wraps that completed MS-3
 # pass and forms rival, source-bound Hivenance commercial hypotheses whose selected
-# tests are read-only research only. MS-5 then observes provider-owned public offer
-# evidence and explicit asking-price language without promoting either to demand,
-# willingness to pay, seller-to-target identity, or execution authority.
+# tests are read-only research only. MS-5 observes provider-owned public offer
+# evidence and explicit asking-price language. MS-6 then classifies remembered
+# market habitats and their permission states without promoting public visibility
+# into membership, posting, DM, outreach or commercial authority.
 cycle_module.resolve_discovery_candidates = resolve_discovery_candidates_revalidated
 cycle_module.ingest_existing_prospects = ingest_existing_prospects_temporal
 install_rank_transition_runtime(cycle_module.MarketSensoriumStore)
@@ -369,11 +372,14 @@ def main() -> int:
     db_path = ROOT / "state" / "market_sensorium" / "market_sensorium.sqlite"
     with cycle_module.MarketSensoriumStore(db_path) as store:
         offers = observe_competitive_offers(ROOT, store)
+        habitats = observe_market_habitats(store)
     receipt.setdefault("summary", {})["competitive_offers"] = offers
+    receipt.setdefault("summary", {})["market_habitats"] = habitats
     receipt.setdefault("summary", {}).setdefault("store", {})["offers"] = int(
         offers.get("legacy_offer_observation_count") or 0
     )
     receipt = _apply_ms5_gate(receipt)
+    receipt = _apply_ms6_gate(receipt)
 
     receipt_path = ROOT / "state" / "market_sensorium" / "MARKET_SENSORIUM_CYCLE_RECEIPT.json"
     receipt_path.write_text(
