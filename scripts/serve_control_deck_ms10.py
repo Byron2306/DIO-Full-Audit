@@ -57,9 +57,6 @@ def _business_artifact_url(path: Path) -> str:
 
 
 def _directory_html(path: Path) -> bytes:
-    index = path / "index.html"
-    if index.is_file():
-        return index.read_bytes()
     rows = []
     parent = path.parent if _inside_allowed_root(path.parent) else None
     if parent is not None:
@@ -92,6 +89,20 @@ class MS10ControlDeckHandler(ControlDeckHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _redirect_repo_artifact(self, target: Path) -> bool:
+        repo_root = ROOT.resolve()
+        if not (target == repo_root or repo_root in target.parents):
+            return False
+        relative = target.relative_to(repo_root).as_posix()
+        location = "/" + quote(relative, safe="/")
+        if target.is_dir() and not location.endswith("/"):
+            location += "/"
+        self.send_response(HTTPStatus.FOUND)
+        self.send_header("Location", location)
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        return True
+
     def _serve_artifact(self) -> None:
         params = parse_qs(urlsplit(self.path).query)
         raw = (params.get("path") or [""])[0]
@@ -105,6 +116,8 @@ class MS10ControlDeckHandler(ControlDeckHandler):
                 {"error": "artifact_missing", "message": "The recorded output path does not currently exist.", "path": str(target)},
                 HTTPStatus.NOT_FOUND,
             )
+            return
+        if self._redirect_repo_artifact(target):
             return
         if target.is_dir():
             self._send_bytes(_directory_html(target), "text/html; charset=utf-8")
