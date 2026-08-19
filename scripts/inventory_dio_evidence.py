@@ -177,11 +177,34 @@ def summarise(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def compact_summary(summary: dict[str, Any], *, output: Path, roots: list[Path]) -> dict[str, Any]:
+    duplicates = list(summary.get("exact_duplicate_groups") or [])
+    tokens = list(summary.get("acceptance_tokens") or [])
+    distinct_tokens = sorted({str(row.get("token") or "") for row in tokens if row.get("token")})
+    duplicate_file_instances = sum(len(row.get("paths") or []) for row in duplicates)
+    schemas = dict(summary.get("schemas") or {})
+    top_schemas = dict(list(schemas.items())[:20])
+    return {
+        "output": str(output.resolve()),
+        "roots": [str(root.expanduser().resolve()) for root in roots],
+        "artifact_count": int(summary.get("artifact_count") or 0),
+        "evidence_classes": summary.get("evidence_classes") or {},
+        "schema_count": len(schemas),
+        "top_schemas": top_schemas,
+        "acceptance_token_occurrences": len(tokens),
+        "distinct_acceptance_tokens": distinct_tokens,
+        "exact_duplicate_group_count": len(duplicates),
+        "duplicate_file_instances": duplicate_file_instances,
+        "truth_boundary": summary.get("truth_boundary"),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Inventory scattered DIO proof/evidence artifacts without promoting their truth state")
     parser.add_argument("roots", nargs="*", type=Path, help="Roots to scan; defaults to known DIO/project roots that exist")
     parser.add_argument("--output", type=Path, default=Path("state/evidence_archaeology/DIO_EVIDENCE_ARCHAEOLOGY.json"))
     parser.add_argument("--max-file-mib", type=int, default=32, help="Skip individual files larger than this many MiB")
+    parser.add_argument("--print-full-summary", action="store_true", help="Print duplicate paths and all token occurrences instead of the compact terminal summary")
     args = parser.parse_args()
 
     roots = args.roots or [root for root in DEFAULT_ROOTS if root.is_dir()]
@@ -195,11 +218,12 @@ def main() -> int:
         print(f"  {len(found)} evidence-like artifacts", flush=True)
         rows.extend(found)
 
+    summary = summarise(rows)
     payload = {
         "schema": "dio.evidence_archaeology.inventory.v1",
         "generated_at": utc_now(),
         "roots": [str(root.expanduser().resolve()) for root in roots],
-        "summary": summarise(rows),
+        "summary": summary,
         "artifacts": sorted(rows, key=lambda row: (str(row.get("root") or ""), str(row.get("relative_path") or row.get("path") or ""))),
         "authority_created": False,
         "external_effects": False,
@@ -210,7 +234,9 @@ def main() -> int:
         output = Path.cwd() / output
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(json.dumps({"output": str(output.resolve()), **payload["summary"]}, indent=2, ensure_ascii=False))
+
+    terminal = {"output": str(output.resolve()), **summary} if args.print_full_summary else compact_summary(summary, output=output, roots=roots)
+    print(json.dumps(terminal, indent=2, ensure_ascii=False))
     return 0
 
 
