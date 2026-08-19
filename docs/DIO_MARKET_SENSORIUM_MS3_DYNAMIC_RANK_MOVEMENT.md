@@ -50,7 +50,7 @@ NO_MATERIAL_CHANGE
 INITIAL_RANK_ENTRY
 ```
 
-`UNEXPLAINED_RANK_MOVEMENT` is a refusal condition for final MS-3 acceptance.
+`UNEXPLAINED_RANK_MOVEMENT` is a refusal condition for final MS-3 acceptance. `SCORE_DRIVEN_RANK_MOVEMENT` is also refused by the live gate when no feature or relative-field change explains it, because a score-only movement can reflect a scoring-model change rather than a changed market world state.
 
 ## Relative-field truth
 
@@ -77,6 +77,7 @@ historical ranked state exists
 rank movement observed
 all rank movement source-bound
 unexplained rank movement = 0
+score-only rank movement = 0
 prior rank receipts preserved
 observation ledger unchanged by ranking
 market demand claimed = false
@@ -97,6 +98,7 @@ Refusal states include:
 
 - `REFUSE_RANK_HISTORY_OR_EVIDENCE_MUTATION`
 - `REFUSE_UNEXPLAINED_RANK_MOVEMENT`
+- `REFUSE_SCORE_ONLY_RANK_MOVEMENT`
 
 ## Verification
 
@@ -106,7 +108,8 @@ Run the deterministic proof tests first:
 PYTHONNOUSERSITE=1 \
 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 \
 -m pytest -q \
-  tests/test_market_sensorium_rank_transitions.py
+  tests/test_market_sensorium_rank_transitions.py \
+  tests/test_market_sensorium_ms3_gate.py
 ```
 
 Then run a live public refresh so MS-3 has a chance to observe a real world-state change rather than manufacturing one:
