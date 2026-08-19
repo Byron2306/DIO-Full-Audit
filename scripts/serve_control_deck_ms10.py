@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from commerce.invoices import create_invoice, issue_invoice, list_invoices, load_invoice  # noqa: E402
+from dio_secrets import load_secret_env, save_secret_values, secret_status  # noqa: E402
 from scripts.manage_mail_intent import create_intent_from_payload  # noqa: E402
 from scripts.serve_control_deck import (  # noqa: E402
     ControlDeckHandler,
@@ -89,7 +90,7 @@ def _read_json_body(handler: ControlDeckHandler, maximum: int = 32768) -> dict:
 
 
 class MS10ControlDeckHandler(ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/2.1"
+    server_version = "DIOBusinessWorkbench/2.2"
 
     def _send_bytes(self, body: bytes, content_type: str, filename: str | None = None) -> None:
         self.send_response(HTTPStatus.OK)
@@ -172,6 +173,26 @@ class MS10ControlDeckHandler(ControlDeckHandler):
         )
         self.send_json({"status": "completed", "action": "update", "result": lead})
 
+    def _save_secrets(self) -> None:
+        payload = _read_json_body(self, 65536)
+        if payload.get("confirmed") is not True:
+            raise ValueError("Saving credentials requires explicit operator confirmation")
+        values = payload.get("values")
+        if not isinstance(values, dict) or not values:
+            raise ValueError("Credential values must be a non-empty object")
+        result = save_secret_values(values)
+        load_secret_env(overwrite=True)
+        emit_event(
+            EVENT_LOG,
+            "business.secrets_updated",
+            "action",
+            "secret_vault",
+            "DIO-LOCAL-SECRETS",
+            {"changed_keys": result["changed"], "cleared_keys": result["cleared"], "values_logged": False},
+            "DIO-LOCAL-SECRETS",
+        )
+        self.send_json({"status": "completed", "save": result, "secret_status": secret_status()})
+
     def _create_invoice(self) -> None:
         payload = _read_json_body(self)
         issue = payload.get("issue") is True
@@ -250,8 +271,11 @@ class MS10ControlDeckHandler(ControlDeckHandler):
         if route == "/api/business/invoices":
             self.send_json({"schema": "dio.business.invoice_list.v1", "invoices": list_invoices(ROOT)})
             return
+        if route == "/api/business/secrets":
+            self.send_json(secret_status())
+            return
         if route == "/api/business/health":
-            self.send_json({"ok": True, "service": "dio-business", "version": "2.1", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True})
+            self.send_json({"ok": True, "service": "dio-business", "version": "2.2", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True, "secret_vault": True})
             return
         if route == "/":
             self.path = "/dashboard/business.html"
@@ -261,6 +285,7 @@ class MS10ControlDeckHandler(ControlDeckHandler):
         route = urlsplit(self.path).path
         business_routes = {
             "/api/business/lead/update": self._update_lead,
+            "/api/business/secrets": self._save_secrets,
             "/api/business/invoice/create": self._create_invoice,
             "/api/business/invoice/issue": self._issue_invoice,
             "/api/business/invoice/mail": self._prepare_invoice_mail,
@@ -281,9 +306,10 @@ def main() -> int:
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO BUSINESS must bind to localhost")
+    load_secret_env(overwrite=False)
     server = ThreadingHTTPServer((args.host, args.port), MS10ControlDeckHandler)
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
-    print("Human operator workbench: ACTIVE · artifact gateway ACTIVE · invoice desk ACTIVE")
+    print("Human operator workbench: ACTIVE · artifact gateway ACTIVE · invoice desk ACTIVE · secret vault ACTIVE")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
