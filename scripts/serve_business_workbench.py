@@ -24,9 +24,18 @@ from portfolio_runtime import import_portfolio  # noqa: E402
 from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
 from scripts.serve_control_deck_ms10 import MS10ControlDeckHandler, _read_json_body  # noqa: E402
 
+PROFILE_COMPATIBILITY = {
+    "EVIDEX_PACK": {"Evidex EvidenceOps"},
+    "HOMS_ASSESS": {"HOMS Assess"},
+    "HOMS_LEARNING": {"HOMS Learning Studio"},
+    "SOPHIA_REVIEW": {"Sophia Review"},
+    "VAMP_ACADEMIC": {"VAMP Performance"},
+    "DOCUMENT_STUDIO": {"Document Studio Edit", "Document Studio Localize", "Document Studio Publish"},
+}
+
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.1"
+    server_version = "DIOBusinessWorkbench/3.2"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -51,7 +60,9 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
     def do_GET(self) -> None:
         route = urlsplit(self.path).path
         if route == "/api/business/production/state":
-            self.send_json(production_state())
+            state = production_state()
+            state["marketing"]["profile_compatibility"] = {key: sorted(value) for key, value in PROFILE_COMPATIBILITY.items()}
+            self.send_json(state)
             return
         if route == "/api/business/portfolio":
             self.send_json(import_portfolio(force=False))
@@ -62,7 +73,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.1",
+                    "version": "3.2",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "production_studio": True,
@@ -70,6 +81,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                     "fresh_controlled_evidence_runs": True,
                     "factory_test_bench": True,
                     "evidence_gate": True,
+                    "marketing_profile_compatibility_enforced": True,
                     "candidate_incarnations_promoted": False,
                 }
             )
@@ -95,6 +107,15 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 result = import_portfolio(force=True)
                 emit_event(EVENT_LOG, "portfolio.runtime_imported", "info", "portfolio", "DIO-META-PORTFOLIO", {"canonical_incarnations": result.get("canonical_incarnation_count"), "candidate_incarnations_imported": 0})
             elif route == "/api/business/production/marketing":
+                profile_id = str(payload.get("profile_id") or "").strip()
+                incarnation = str(payload.get("incarnation") or "").strip()
+                if profile_id:
+                    allowed = PROFILE_COMPATIBILITY.get(profile_id)
+                    if not allowed or incarnation not in allowed:
+                        raise ValueError(
+                            f"Marketing profile {profile_id} is not evidence-compatible with {incarnation}. "
+                            "Use the custom evidence-bounded brief for this incarnation."
+                        )
                 result = create_marketing_pack(payload)
                 emit_event(EVENT_LOG, "production.marketing_pack_created", "action", "marketing_pack", result["run_id"], {"incarnation": result["incarnation"], "render_reel_requested": result["render_reel_requested"], "publication_authorized": False})
             elif route == "/api/business/production/evidence-run":
