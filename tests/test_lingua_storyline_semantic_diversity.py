@@ -47,7 +47,7 @@ def test_landscape_does_not_repeat_bounded_outcome_after_every_scene() -> None:
     story = project_story(law, projection, product, audience, "landscape_explainer")
     narration = "\n".join(str(scene["narration"]) for scene in story["scenes"])
     assert "The bounded outcome is:" not in narration
-    assert narration.count(audience["outcome"].rstrip(".")) == 1
+    assert narration.casefold().count(audience["outcome"].rstrip(".").casefold()) == 1
     assert story["semantic_diversity"] == {"state": "PASS", "errors": []}
     assert story["storyline_strategy"]["semantic_invariants_are_contract_not_refrain"] is True
     assert story["storyline_strategy"]["surface_specific_realisation"] is True
@@ -94,6 +94,22 @@ def test_semantic_diversity_gate_refuses_duplicate_substantive_sentences() -> No
     }
     errors = validate_story_semantic_diversity(story)
     assert any(error.startswith("duplicate_substantive_narration:") for error in errors)
+
+
+def test_semantic_diversity_gate_refuses_missing_landscape_outcome() -> None:
+    outcome = "A bounded outcome that must appear once."
+    story = {
+        "surface": "landscape_explainer",
+        "scenes": [
+            {"semantic_focus": "pain", "narration": "The workload is real and visible."},
+            {"semantic_focus": "promise", "narration": "The governed assist prepares reviewable work."},
+            {"semantic_focus": "outcome", "narration": "This scene accidentally forgot the canonical outcome."},
+            {"semantic_focus": "proof", "narration": "The evidence can be inspected."},
+            {"semantic_focus": "authority", "narration": "Human judgement remains final."},
+        ],
+    }
+    errors = validate_story_semantic_diversity(story, outcome=outcome)
+    assert "bounded_outcome_missing" in errors
 
 
 def test_active_factory_wires_semantic_anti_clone_planner() -> None:
