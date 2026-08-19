@@ -68,6 +68,24 @@ def _parse_external_env(path: Path) -> dict[str, str]:
     return values
 
 
+def _derive_local_media_env(loaded: dict[str, str], *, overwrite: bool) -> None:
+    """Bridge NicheFoundry's established Piper env names into DIO media contracts."""
+
+    if overwrite or not os.environ.get("PIPER_MODEL"):
+        model_dir = str(os.environ.get("PIPER_MODEL_DIR") or "").strip()
+        model_file = str(os.environ.get("PIPER_MODEL_FILE") or "").strip()
+        if model_dir and model_file:
+            model = str((Path(model_dir).expanduser() / model_file).resolve())
+            os.environ["PIPER_MODEL"] = model
+            loaded["PIPER_MODEL"] = model
+
+    if overwrite or not os.environ.get("PIPER_BIN"):
+        foundry_default = Path("/home/byron/Downloads/NicheFoundry_Phase11/.venv-piper/bin/piper")
+        if foundry_default.is_file():
+            os.environ["PIPER_BIN"] = str(foundry_default)
+            loaded["PIPER_BIN"] = str(foundry_default)
+
+
 def load_secret_env(*, overwrite: bool = False) -> dict[str, str]:
     loaded: dict[str, str] = {}
     registry = _registry()
@@ -81,6 +99,7 @@ def load_secret_env(*, overwrite: bool = False) -> dict[str, str]:
             if overwrite or not os.environ.get(key):
                 os.environ[key] = value
                 loaded[key] = value
+    _derive_local_media_env(loaded, overwrite=overwrite)
     return loaded
 
 
