@@ -150,7 +150,7 @@ def review_projection(packet: dict[str, Any], *, profile_id: str) -> dict[str, A
                 "sha256": sha256(register),
                 "target_requirement_keys": [key],
                 "relation": "supports",
-                "authority_grade": "customer_supplied_source",
+                "authority_grade": "source_backed",
                 "trust_state": "trusted_for_review",
                 "freshness_state": "current",
             }
@@ -216,7 +216,7 @@ def obligation_projection(packet: dict[str, Any], *, source_type: str, owner_rol
                 "sha256": source_digest,
                 "target_locators": [clause_id],
                 "relation": "supports",
-                "authority_grade": "customer_supplied_source",
+                "authority_grade": "source_backed",
                 "trust_state": "trusted_for_review",
                 "freshness_state": "current",
             }
@@ -230,7 +230,7 @@ def obligation_projection(packet: dict[str, Any], *, source_type: str, owner_rol
                 "sha256": sha256(packet["packet_dir"] / "SOURCES" / "03_exception_note.md"),
                 "target_locators": [clauses[-1]["clause_id"]],
                 "relation": "contradicts",
-                "authority_grade": "customer_supplied_source",
+                "authority_grade": "source_backed",
                 "trust_state": "trusted_for_review",
                 "freshness_state": "current",
             }
@@ -353,8 +353,10 @@ def ai_trust_projection(packet: dict[str, Any], *, source_type: str, intended_us
     rows = evidence_rows(packet)
     source_file = packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"
     packet_digest = packet["packet_fingerprint"].split(":")[-1]
+
     def fp(label: str) -> str:
         return "sha256:" + hashlib.sha256((packet_digest + ":" + label).encode("utf-8")).hexdigest()
+
     baseline_model = fp("baseline-model")
     baseline_prompt = fp("baseline-prompt")
     current_model = fp("current-model") if changed else baseline_model
@@ -429,6 +431,7 @@ __all__ = [
     "obligation_projection",
     "review_projection",
     "sha256",
+    "slug",
     "source_inventory",
     "write_json",
 ]
