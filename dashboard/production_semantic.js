@@ -62,7 +62,7 @@
     if (label) {
       for (const node of label.childNodes) {
         if (node.nodeType === Node.TEXT_NODE) {
-          node.textContent = ' Render full LINGUA-projected video pack: audience-conditioned Gamma direction + selected narrator + rights-recorded music or intentional silence + vertical reel MP4 + landscape explainer MP4';
+          node.textContent = ' Render full LINGUA-projected video pack: Document Studio art direction + local composition + BEAST visual memory + selected narrator + rights-recorded music or intentional silence + real motion + both MP4 outputs; Gamma is optional';
         }
       }
     }
@@ -74,24 +74,31 @@
     const voice = family.voice || family.piper || {};
     const niche = family.nichefoundry || {};
     const requested = Boolean(result?.render_reel_requested);
+    const gammaRequired = gamma.required_for_media !== false;
     const states = {
       gamma: gamma.state || (requested ? 'unknown' : 'not_requested'),
       voice: voice.state || (requested ? 'unknown' : 'not_requested'),
       reel: niche.reel_state || (requested ? 'unknown' : 'not_requested'),
       explainer: niche.long_form_state || (requested ? 'unknown' : 'not_requested'),
     };
-    const ready = !requested || Object.values(states).every(value => value === 'ready');
-    const errors = [gamma.error, niche.reel_error].filter(Boolean);
+    const requiredStates = [states.voice, states.reel, states.explainer];
+    if (gammaRequired) requiredStates.unshift(states.gamma);
+    const ready = !requested || requiredStates.every(value => value === 'ready');
+    const errors = [niche.reel_error, gammaRequired ? gamma.error : ''].filter(Boolean);
+    const warnings = gammaRequired ? [] : [gamma.error, ...((family.validation || {}).warnings || [])].filter(Boolean);
     return {
       requested,
       ready,
       states,
       errors,
+      warnings,
+      gammaRequired,
       assets: family.assets || {},
       providers: voice.providers || (voice.provider ? [voice.provider] : []),
       projection: family.creative_projection || {},
       story: family.story || {},
       semanticLaw: family.semantic_law || {},
+      visualPipeline: family.visual_pipeline || {},
     };
   }
 
@@ -139,7 +146,7 @@
     mediaContract.id = 'mediaProductionContract';
     mediaContract.className = 'truth';
     mediaContract.style.marginTop = '10px';
-    mediaContract.innerHTML = '<b>LINGUA semantic law now drives the creative skin</b><br><span style="color:var(--muted)">A normal Production Studio media run preserves Denotation + Affordance + Prohibition while Projection chooses an audience/channel-native story arc, scene count, Gamma art direction, narrator profile, music family, pacing and visual grammar. Vertical short-form and landscape explainer are independent lawful projections. Publication and spend remain held.</span>';
+    mediaContract.innerHTML = '<b>LINGUA meaning → Document Studio visual language → NicheFoundry motion</b><br><span style="color:var(--muted)">A normal media run preserves Denotation + Affordance + Prohibition while LINGUA selects the lawful audience story. Document Studio compiles the art direction and renders the primary local scene composition, BEAST contributes only governed visual memory, and NicheFoundry executes narrator, music and real motion. Gamma may be auditioned as an optional visual candidate but cannot block media. Publication and spend remain held.</span>';
     presence.parentNode.insertBefore(mediaContract, presence.nextSibling);
 
     const advanced = document.createElement('details');
@@ -231,9 +238,9 @@
       confirmed: true,
     };
     const mediaMode = payload.render_reel
-      ? 'Full media will be required: LINGUA semantic law + audience-conditioned vertical story + independent landscape explainer + Gamma art direction + selected narrator + rights-recorded music or intentional silence + both MP4 outputs.'
+      ? 'Full media will be required: LINGUA semantic law + audience-conditioned vertical story + independent landscape explainer + Document Studio local art direction/composition + BEAST visual memory + selected narrator + rights-recorded music or intentional silence + real motion + both MP4 outputs. Gamma is optional and cannot block the render.'
       : 'You have explicitly disabled video rendering; LINGUA story/copy/projection assets will still be produced.';
-    if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\n${mediaMode}\n\nAudience, pain, outcome and CTA come from the semantic brief. Creative skin comes from LINGUA Projection. Publication and spend remain held.`)) return;
+    if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\n${mediaMode}\n\nAudience, pain, outcome and CTA come from the semantic brief. Creative skin comes from LINGUA Projection + Document Studio art direction. Publication and spend remain held.`)) return;
     try {
       const response = await fetch('/api/business/production/marketing', {
         method: 'POST',
@@ -247,15 +254,18 @@
       const output = result.output_dir || '';
       const media = mediaTruth(result);
       const projection = projectionSummary(media);
-      const statusText = `Gamma: ${media.states.gamma}\nVoice: ${media.states.voice}${media.providers.length ? ` (${media.providers.join(', ')})` : ''}\nVertical reel: ${media.states.reel}\nLandscape explainer: ${media.states.explainer}`;
+      const gammaLabel = media.gammaRequired ? 'Gamma' : 'Gamma candidate';
+      const compositor = media.visualPipeline?.primary_compositor || 'not reported';
+      const statusText = `Primary compositor: ${compositor}\n${gammaLabel}: ${media.states.gamma}\nVoice: ${media.states.voice}${media.providers.length ? ` (${media.providers.join(', ')})` : ''}\nVertical reel: ${media.states.reel}\nLandscape explainer: ${media.states.explainer}`;
       const projectionText = `Creative archetype: ${projection.archetype || 'not reported'}\nVertical arc: ${projection.shortArc || 'not reported'}\nExplainer arc: ${projection.longArc || 'not reported'}\nSemantic law: ${projection.semanticLaw || 'not reported'}\nProjection: ${projection.projectionHash || 'not reported'}\nCreative fingerprint: ${projection.fingerprint || 'not reported'}`;
       const mediaError = media.errors.length ? `\nMedia error: ${media.errors.join(' | ')}` : '';
-      byId('marketingResult').innerHTML = `RUN ${esc2(result.run_id || '')}\nProduct: ${esc2(result.incarnation || incarnation)}\nSemantic mode: ${esc2(brief.generation_mode || '')}\nTruth class: ${esc2(brief.truth_class || '')}\nAudience: ${esc2(brief.brief?.audience_name || '')}\nFull media requested: ${media.requested}\n\n${esc2(projectionText)}\n\n${esc2(statusText)}${esc2(mediaError)}\n\n<a class="btn small green" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(output)}">OPEN MARKETING OUTPUTS</a>${result.semantic_brief_path ? ` <a class="btn small blue" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(result.semantic_brief_path)}">OPEN SEMANTIC BRIEF</a>` : ''}`;
+      const mediaWarning = media.warnings.length ? `\nNon-blocking visual-candidate warning: ${media.warnings.join(' | ')}` : '';
+      byId('marketingResult').innerHTML = `RUN ${esc2(result.run_id || '')}\nProduct: ${esc2(result.incarnation || incarnation)}\nSemantic mode: ${esc2(brief.generation_mode || '')}\nTruth class: ${esc2(brief.truth_class || '')}\nAudience: ${esc2(brief.brief?.audience_name || '')}\nFull media requested: ${media.requested}\n\n${esc2(projectionText)}\n\n${esc2(statusText)}${esc2(mediaError)}${esc2(mediaWarning)}\n\n<a class="btn small green" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(output)}">OPEN MARKETING OUTPUTS</a>${result.semantic_brief_path ? ` <a class="btn small blue" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(result.semantic_brief_path)}">OPEN SEMANTIC BRIEF</a>` : ''}`;
       if (media.requested && !media.ready) {
-        const detail = media.errors.join(' | ') || `Gamma=${media.states.gamma}, Voice=${media.states.voice}, reel=${media.states.reel}, explainer=${media.states.explainer}`;
-        throw new Error(`Marketing projection was created, but full narrated media did not complete: ${detail}`);
+        const detail = media.errors.join(' | ') || `Voice=${media.states.voice}, reel=${media.states.reel}, explainer=${media.states.explainer}${media.gammaRequired ? `, Gamma=${media.states.gamma}` : ''}`;
+        throw new Error(`Marketing projection was created, but required narrated media did not complete: ${detail}`);
       }
-      if (typeof toast === 'function') toast(`${incarnation}: LINGUA-projected marketing pack + narrated media created`);
+      if (typeof toast === 'function') toast(`${incarnation}: LINGUA + Document Studio art-directed marketing pack + narrated media created`);
     } catch (error) {
       if (typeof toast === 'function') toast(error.message, true);
       else alert(error.message);
