@@ -16,7 +16,9 @@ WTP from controlled fixtures. Phase M2-7 settles those controlled commercial
 evidence worlds before BEAST may append evidence-only market crystals. Phase
 M2-8 reuses LINGUA and BEAST learning organs to form a held commercial
 projection-adaptation candidate and context-bound negative observations without
-promoting controlled fixtures into reusable market truth.
+promoting controlled fixtures into reusable market truth. Phase M2-9 re-runs the
+commercial proof chain, attacks repeatability overclaims and verifies the complete
+metabolism without conflating framework verification with commercial success.
 """
 
 from .constitution import (
@@ -118,6 +120,16 @@ from .learning import (
     exercise_projection_adaptation,
     phase8_projection_adaptation_receipt,
 )
+from .final_verification import (
+    CommercialMetabolismFinalVerificationError,
+    DEFAULT_FINAL_CONFIG,
+    EXPECTED_PHASE_ACCEPTANCES,
+    FINAL_GATES,
+    FINAL_RECEIPT_SCHEMA_FILE,
+    M2_PHASE9_BLOCKED_TOKEN,
+    M2_PHASE9_EXIT_TOKEN,
+    phase9_final_verification_receipt,
+)
 
 __all__ = [
     "ADAPTATION_SCHEMA_FILE",
@@ -127,11 +139,15 @@ __all__ = [
     "DEFAULT_AUTHORITY_CONFIG",
     "DEFAULT_CONFIG",
     "DEFAULT_EPISODE_CONFIG",
+    "DEFAULT_FINAL_CONFIG",
     "DEFAULT_LINEAGE_CONFIG",
     "DEFAULT_OBSERVATION_CONFIG",
     "DEFAULT_PROJECTION_CONFIG",
     "DEFAULT_SETTLEMENT_CONFIG",
     "EPISODE_SCHEMA_FILE",
+    "EXPECTED_PHASE_ACCEPTANCES",
+    "FINAL_GATES",
+    "FINAL_RECEIPT_SCHEMA_FILE",
     "LINEAGE_SCHEMA_FILE",
     "OBSERVATION_EPISODE_SCHEMA_FILE",
     "SETTLEMENT_BUNDLE_SCHEMA_FILE",
@@ -144,6 +160,8 @@ __all__ = [
     "M2_PHASE6_EXIT_TOKEN",
     "M2_PHASE7_EXIT_TOKEN",
     "M2_PHASE8_EXIT_TOKEN",
+    "M2_PHASE9_BLOCKED_TOKEN",
+    "M2_PHASE9_EXIT_TOKEN",
     "REQUIRED_ANCHOR_IDS",
     "REQUIRED_LAWS",
     "CommercialAuthorityError",
@@ -155,6 +173,7 @@ __all__ = [
     "CommercialLearningError",
     "CommercialLineageError",
     "CommercialLineageEvidence",
+    "CommercialMetabolismFinalVerificationError",
     "CommercialObservationEpisode",
     "CommercialObservationError",
     "CommercialProjection",
@@ -199,6 +218,7 @@ __all__ = [
     "phase6_customer_payment_lineage_receipt",
     "phase7_commercial_settlement_receipt",
     "phase8_projection_adaptation_receipt",
+    "phase9_final_verification_receipt",
     "settle_and_crystallize_controlled_commercial_evidence",
     "validate_commercial_constitution",
 ]
