@@ -153,6 +153,7 @@ def _apply_ms3_gate(receipt: dict) -> dict:
         transitions.get("rank_movement_evidence_bound_transitions") or 0
     )
     unexplained = int(transitions.get("unexplained_rank_movements") or 0)
+    score_only = int(transitions.get("kind_SCORE_DRIVEN_RANK_MOVEMENT") or 0)
     history_preserved = bool(transitions.get("history_preserved", False))
     evidence_source_bound = bool(transitions.get("evidence_source_bound", False))
     evidence_mutated = bool(transitions.get("rank_learning_mutated_evidence", False))
@@ -163,6 +164,8 @@ def _apply_ms3_gate(receipt: dict) -> dict:
         gate = "REFUSE_RANK_HISTORY_OR_EVIDENCE_MUTATION"
     elif unexplained > 0:
         gate = "REFUSE_UNEXPLAINED_RANK_MOVEMENT"
+    elif score_only > 0:
+        gate = "REFUSE_SCORE_ONLY_RANK_MOVEMENT"
     elif movements <= 0:
         gate = "PENDING_DYNAMIC_RANK_MOVEMENT"
     elif not evidence_source_bound or movement_evidence_bound < movements:
@@ -179,6 +182,7 @@ def _apply_ms3_gate(receipt: dict) -> dict:
         "evidence_bound_transitions": evidence_bound,
         "rank_movement_evidence_bound_transitions": movement_evidence_bound,
         "unexplained_rank_movements": unexplained,
+        "score_only_rank_movements": score_only,
         "history_preserved": history_preserved,
         "rank_learning_mutated_evidence": evidence_mutated,
         "evidence_source_bound": evidence_source_bound,
