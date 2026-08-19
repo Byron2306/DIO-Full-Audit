@@ -57,14 +57,28 @@ from .incarnations import (
     CandidateIncarnation,
     JobMorphologyTemplate,
     RankedIncarnationPivot,
-    candidate_registry_receipt,
+    candidate_registry_receipt as _legacy_candidate_registry_receipt,
     compile_candidate_incarnations,
     eligible_domain_nodes,
     load_job_morphologies,
     materialize_candidate_registry_csv,
-    negative_learning_candidate_registry_receipt,
+    negative_learning_candidate_registry_receipt as _legacy_negative_learning_candidate_registry_receipt,
     rank_candidate_incarnations_from_negative_learning,
 )
+from .surface import (
+    ATLAS_SURFACE_BLOCKED,
+    ATLAS_SURFACE_PIVOT_BLOCKED,
+    ATLAS_SURFACE_PIVOT_TOKEN,
+    ATLAS_SURFACE_TOKEN,
+    candidate_surface_receipt,
+    negative_learning_surface_pivot_receipt,
+)
+
+# Public compatibility aliases now point at the truth-safe vast-surface receipts.
+# The original implementation functions remain importable from atlas.incarnations
+# for migration/debugging but are not the canonical package surface.
+candidate_registry_receipt = candidate_surface_receipt
+negative_learning_candidate_registry_receipt = negative_learning_surface_pivot_receipt
 
 __all__ = [
     "ATLAS_BLOCKED_TOKEN",
@@ -74,9 +88,14 @@ __all__ = [
     "ATLAS_FOUNDATION_TOKEN",
     "ATLAS_PIVOT_BLOCKED_TOKEN",
     "ATLAS_PIVOT_TOKEN",
+    "ATLAS_SURFACE_BLOCKED",
+    "ATLAS_SURFACE_PIVOT_BLOCKED",
+    "ATLAS_SURFACE_PIVOT_TOKEN",
+    "ATLAS_SURFACE_TOKEN",
     "AnalogicalResolution",
     "AtlasCapabilitySignature",
     "AtlasConstitutionError",
+    "AtlasIncarnationError",
     "AtlasPivotError",
     "AtlasRegistry",
     "AtlasRegistryError",
@@ -101,10 +120,10 @@ __all__ = [
     "REQUIRED_MECHANICAL_VERDICTS",
     "REQUIRED_RELATION_STATES",
     "RankedIncarnationPivot",
-    "AtlasIncarnationError",
     "atlas_foundation_receipt",
     "atlas_pivot_foundation_receipt",
     "candidate_registry_receipt",
+    "candidate_surface_receipt",
     "compile_candidate_incarnations",
     "compile_negative_learning_pivot",
     "eligible_domain_nodes",
@@ -112,6 +131,7 @@ __all__ = [
     "load_job_morphologies",
     "materialize_candidate_registry_csv",
     "negative_learning_candidate_registry_receipt",
+    "negative_learning_surface_pivot_receipt",
     "pivot_candidates",
     "rank_candidate_incarnations_from_negative_learning",
     "resolve_task",
