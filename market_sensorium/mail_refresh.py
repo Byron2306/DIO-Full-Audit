@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .core import utc_now
+from .mail_readiness import audit_mail_observation_readiness
 
 COVERAGE_RELATIVE_PATH = Path("state/microsoft_graph/mail_observation_coverage.json")
 DELTA_RELATIVE_PATH = Path("state/microsoft_graph/mail_delta.json")
@@ -33,34 +34,15 @@ def refresh_mail_ingress_with_coverage(root: Path) -> dict[str, Any]:
     Subsequent successful delta pulls extend the same continuous observation window.
     """
     root = Path(root).resolve()
-    config_path = root / "config" / "microsoft_graph.local.json"
     script = root / "scripts" / "sync_outlook_mail.py"
     coverage_path = root / COVERAGE_RELATIVE_PATH
     delta_path = root / DELTA_RELATIVE_PATH
 
-    if not config_path.is_file() or not script.is_file():
+    readiness = audit_mail_observation_readiness(root, python_executable=sys.executable)
+    if not readiness.get("ready_for_silent_pull"):
         return {
-            "state": "not_configured",
-            "coverage": {
-                "state": "NOT_CONFIGURED_OR_NOT_YET_OBSERVED",
-                "authority_created": False,
-            },
-            "authority_created": False,
-        }
-    try:
-        config = json.loads(config_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return {
-            "state": "config_invalid",
-            "coverage": {"state": "COVERAGE_STATE_INVALID", "authority_created": False},
-            "authority_created": False,
-        }
-    client_id = str(config.get("client_id") or "")
-    token_cache_raw = str(config.get("token_cache_path") or "")
-    token_cache = Path(token_cache_raw).expanduser() if token_cache_raw else None
-    if not client_id or client_id.startswith("REPLACE_") or token_cache is None or not token_cache.exists():
-        return {
-            "state": "not_configured",
+            "state": readiness.get("refresh_state") or "not_configured",
+            "readiness": readiness,
             "coverage": {
                 "state": "NOT_CONFIGURED_OR_NOT_YET_OBSERVED",
                 "authority_created": False,
@@ -83,6 +65,7 @@ def refresh_mail_ingress_with_coverage(root: Path) -> dict[str, Any]:
             "state": "failed",
             "returncode": completed.returncode,
             "error": (completed.stderr or completed.stdout)[-3000:],
+            "readiness": readiness,
             "coverage": {
                 **prior_coverage,
                 "state": prior_coverage.get("state") or "NOT_CONTINUOUS",
@@ -104,11 +87,7 @@ def refresh_mail_ingress_with_coverage(root: Path) -> dict[str, Any]:
         and bool(prior_coverage.get("continuous_from"))
         and bool(prior_delta.get("delta_link"))
     )
-    continuous_from = (
-        str(prior_coverage.get("continuous_from"))
-        if prior_continuous
-        else finished_at
-    )
+    continuous_from = str(prior_coverage.get("continuous_from")) if prior_continuous else finished_at
     coverage = {
         "schema": "dio.mail_observation_coverage.v1",
         "provider": "microsoft_graph",
@@ -130,6 +109,7 @@ def refresh_mail_ingress_with_coverage(root: Path) -> dict[str, Any]:
     return {
         "state": "refreshed",
         "receipt": receipt,
+        "readiness": readiness,
         "coverage": coverage,
         "coverage_path": str(COVERAGE_RELATIVE_PATH),
         "authority_created": False,
