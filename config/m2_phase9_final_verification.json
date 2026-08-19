@@ -1,0 +1,44 @@
+{
+  "schema": "dio.m2.final_verification_config.v1",
+  "required_parent_acceptance": "DIO_M2_PROJECTION_ADAPTATION_READY",
+  "required_m1_acceptance": "DIO_METAMORPHIC_SPINE_M1_VERIFIED",
+  "final_acceptance": "DIO_METAMORPHIC_COMMERCIAL_METABOLISM_VERIFIED",
+  "reference_product": "funding_proposal_studio",
+  "required_gates": [
+    "COMMERCIAL_CONTEXT_BOUND",
+    "MARKET_CRYSTAL_SCHEMA_VALID",
+    "CLAIM_EVIDENCE_BOUND",
+    "UNPROVEN_CLAIMS_REFUSED",
+    "CHANNEL_AUTHORITY_SEPARATE",
+    "SPEND_AUTHORITY_SEPARATE",
+    "PAYMENT_LINEAGE_BOUND",
+    "CUSTOMER_LINEAGE_BOUND",
+    "MARKET_RESPONSE_OBSERVED",
+    "NO_RESPONSE_CAN_BE_RECORDED",
+    "LOSS_CAN_BE_RECORDED",
+    "WORLD_SETTLEMENT_COMPLETE",
+    "LINGUA_PROJECTION_CAN_UPDATE",
+    "NEGATIVE_MARKET_LEARNING_CONTEXT_BOUND",
+    "NO_AUTHORITY_FROM_COMMERCIAL_SUCCESS",
+    "REPEATABILITY_NOT_OVERCLAIMED"
+  ],
+  "repeatability_adversary": {
+    "controlled_replay_count": 3,
+    "minimum_distinct_independent_customers_for_structural_repeatability": 3,
+    "cases": [
+      "single_structural_gain_not_repeatability",
+      "same_controlled_fixture_replay_not_distinct_market_repeatability",
+      "payment_without_acceptance_not_wtp",
+      "acceptance_without_payment_not_wtp",
+      "operator_self_paid_acceptance_not_wtp",
+      "closed_silence_recordable_without_global_failure",
+      "loss_recordable_without_global_failure",
+      "commercial_success_does_not_create_authority"
+    ]
+  },
+  "commercial_success_required_for_metabolism_verification": false,
+  "controlled_fixture_may_prove_market_validation": false,
+  "controlled_fixture_may_prove_repeatability": false,
+  "content_transform_dataflow_required_for_m2": false,
+  "content_transform_dataflow_reserved_for_m3": true
+}
