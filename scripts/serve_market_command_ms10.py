@@ -11,11 +11,12 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from dio_secrets import load_secret_env  # noqa: E402
 from scripts.serve_market_command import Handler  # noqa: E402
 
 
 class MS10MarketCommandHandler(Handler):
-    server_version = "DIOMarketWorkbench/2.0"
+    server_version = "DIOMarketWorkbench/2.1"
 
     def _product_choices(self) -> dict:
         path = ROOT / "state" / "product_portfolio" / "DIO_META_PORTFOLIO_ATLAS_IMPORT.json"
@@ -35,14 +36,36 @@ class MS10MarketCommandHandler(Handler):
             })
         return {"state": "imported", "count": len(products), "products": products}
 
+    def _serve_market_page(self) -> None:
+        page = (ROOT / "dashboard" / "market.html").read_text(encoding="utf-8")
+        page = page.replace(
+            '<div class="links"><button id="refresh"',
+            '<div class="links"><a class="btn gold" href="http://127.0.0.1:8765/dashboard/connections.html">Connections & Secrets</a><button id="refresh"',
+            1,
+        )
+        body = page.encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self) -> None:
         route = urlsplit(self.path).path
+        load_secret_env(overwrite=False)
         if route == "/api/market/products":
             self.send_json(self._product_choices())
             return
-        if route == "/":
-            self.path = "/dashboard/market.html"
+        if route in {"/", "/dashboard/market.html"}:
+            self._serve_market_page()
+            return
         super().do_GET()
+
+    def do_POST(self) -> None:
+        load_secret_env(overwrite=False)
+        super().do_POST()
 
 
 def main() -> int:
@@ -52,9 +75,10 @@ def main() -> int:
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO MARKET must bind to localhost")
+    load_secret_env(overwrite=False)
     server = ThreadingHTTPServer((args.host, args.port), MS10MarketCommandHandler)
     print(f"DIO MARKET: http://{args.host}:{args.port}")
-    print("Campaign journey + Sensorium intelligence: ACTIVE")
+    print("Campaign journey + Sensorium intelligence + central secret vault: ACTIVE")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
