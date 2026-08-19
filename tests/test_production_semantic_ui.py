@@ -18,10 +18,10 @@ def test_custom_reel_uses_source_bound_semantic_evidence_fallback() -> None:
     assert "portfolio evidence boundary" in source
 
 
-def test_product_presence_does_not_fallback_to_shared_catalogue() -> None:
+def test_product_presence_does_not_fallback_to_shared_or_family_catalogue() -> None:
     source = _source()
     assert "https://dioworkflows.co.za/products/" not in source
-    assert "Shared catalogue fallback intentionally disabled" in source
+    assert "no conjoined DIO catalogue and no neighbouring family-product page" in source
 
 
 def test_exact_standalone_product_sites_are_registered() -> None:
@@ -31,10 +31,27 @@ def test_exact_standalone_product_sites_are_registered() -> None:
         "Sophia Review": "https://byron2306.github.io/Sophia-AI-page/",
         "VAMP Performance": "https://byron2306.github.io/VAMP-site/",
         "Evidex EvidenceOps": "https://byron2306.github.io/Evidex-page/",
-        "Market Radar": "https://byron2306.github.io/NicheFoundry/",
+        "HOMS Learning Studio": "/sites/homs/learning-studio/",
     }
     for incarnation, url in expected.items():
         assert f"'{incarnation}':'{url}'" in source
+
+
+def test_neighbouring_family_incarnations_are_not_substituted() -> None:
+    source = _source()
+    for incarnation in (
+        "PromotionProof",
+        "CPDProof",
+        "ProjectProof",
+        "ImpactProof",
+        "Sophia Research",
+        "Sophia Supervisor",
+        "HOMS Exam",
+        "HOMS Moderate",
+        "Market Radar",
+        "Opportunity Foundry",
+    ):
+        assert f"'{incarnation}':" not in source
 
 
 def test_local_exact_surfaces_remain_available() -> None:
