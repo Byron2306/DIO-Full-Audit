@@ -90,7 +90,7 @@ def _read_json_body(handler: ControlDeckHandler, maximum: int = 32768) -> dict:
 
 
 class MS10ControlDeckHandler(ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/2.2"
+    server_version = "DIOBusinessWorkbench/2.3"
 
     def _send_bytes(self, body: bytes, content_type: str, filename: str | None = None) -> None:
         self.send_response(HTTPStatus.OK)
@@ -102,6 +102,20 @@ class MS10ControlDeckHandler(ControlDeckHandler):
             self.send_header("Content-Disposition", f'inline; filename="{filename.replace(chr(34), "")}"')
         self.end_headers()
         self.wfile.write(body)
+
+    def _serve_business_page(self) -> None:
+        page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
+        page = page.replace(
+            '<div class="topnav">',
+            '<div class="topnav"><a class="btn gold" href="/dashboard/connections.html">Connections & Secrets</a>',
+            1,
+        )
+        page = page.replace(
+            '<a class="btn" href="#presence">Sites & social</a>',
+            '<a class="btn" href="#presence">Sites & social</a><a class="btn" href="/dashboard/connections.html">Secrets & connections</a>',
+            1,
+        )
+        self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
 
     def _redirect_repo_artifact(self, target: Path) -> bool:
         repo_root = ROOT.resolve()
@@ -265,6 +279,9 @@ class MS10ControlDeckHandler(ControlDeckHandler):
 
     def do_GET(self) -> None:
         route = urlsplit(self.path).path
+        if route in {"/", "/dashboard/business.html"}:
+            self._serve_business_page()
+            return
         if route == "/api/business/artifact":
             self._serve_artifact()
             return
@@ -275,10 +292,8 @@ class MS10ControlDeckHandler(ControlDeckHandler):
             self.send_json(secret_status())
             return
         if route == "/api/business/health":
-            self.send_json({"ok": True, "service": "dio-business", "version": "2.2", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True, "secret_vault": True})
+            self.send_json({"ok": True, "service": "dio-business", "version": "2.3", "artifact_gateway": True, "lead_editing": True, "invoice_desk": True, "secret_vault": True, "connections_surface": True})
             return
-        if route == "/":
-            self.path = "/dashboard/business.html"
         super().do_GET()
 
     def do_POST(self) -> None:
