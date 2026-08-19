@@ -20,13 +20,32 @@ def _normalise(value: Any) -> str:
     return " ".join(re.sub(r"[^a-z0-9]+", " ", str(value or "").casefold()).split())
 
 
+def _word_matches(actual: str, expected: str) -> bool:
+    if actual == expected:
+        return True
+    # Very short role tokens such as HR must remain exact. Otherwise words
+    # such as "three" can accidentally become HR evidence.
+    if len(expected) <= 2:
+        return False
+    inflections = {expected + "s", expected + "es"}
+    if expected.endswith("y") and len(expected) > 2:
+        inflections.add(expected[:-1] + "ies")
+    return actual in inflections
+
+
 def _matches(text: str, needle: str) -> bool:
     candidate = _normalise(needle)
     if not candidate:
         return False
-    if " " in candidate:
-        return candidate in text
-    return candidate in set(text.split())
+    actual_words = text.split()
+    expected_words = candidate.split()
+    if len(expected_words) == 1:
+        return any(_word_matches(actual, expected_words[0]) for actual in actual_words)
+    width = len(expected_words)
+    return any(
+        all(_word_matches(actual, expected) for actual, expected in zip(actual_words[index : index + width], expected_words, strict=True))
+        for index in range(0, len(actual_words) - width + 1)
+    )
 
 
 def _classify(text: str) -> str | None:
