@@ -7,66 +7,36 @@
   const VESPER_PRESENCE = '/dashboard/vesper-intake.html';
   const SEMANTIC_BOUNDARY_ASSET = 'config/atlas/dio_meta_incarnation_crosswalk.csv';
 
-  // Exact standalone/public product-family surfaces only. Deliberately no
-  // fallback to the large shared DIO product catalogue.
+  // Exact product surfaces only. Do not substitute a family site for a
+  // different incarnation and never fall back to the conjoined DIO catalogue.
   const EXACT_PRODUCT_SITES = {
     'HOMS Assess':'https://byron2306.github.io/HOMS-page/',
-    'HOMS Exam':'https://byron2306.github.io/HOMS-page/',
-    'HOMS Moderate':'https://byron2306.github.io/HOMS-page/',
-    'HOMS Curriculum':'https://byron2306.github.io/HOMS-page/',
-    'HOMS Learning Studio':'https://byron2306.github.io/HOMS-page/',
-    'HOMS Accreditation':'https://byron2306.github.io/HOMS-page/',
-
     'Sophia Review':'https://byron2306.github.io/Sophia-AI-page/',
-    'Sophia Research':'https://byron2306.github.io/Sophia-AI-page/',
-    'Sophia Supervisor':'https://byron2306.github.io/Sophia-AI-page/',
-    'Sophia Integrity':'https://byron2306.github.io/Sophia-AI-page/',
-    'Sophia Tutor':'https://byron2306.github.io/Sophia-AI-page/',
-
     'VAMP Performance':'https://byron2306.github.io/VAMP-site/',
-    'PromotionProof':'https://byron2306.github.io/VAMP-site/',
-    'CPDProof':'https://byron2306.github.io/VAMP-site/',
-    'ProjectProof':'https://byron2306.github.io/VAMP-site/',
-    'ImpactProof':'https://byron2306.github.io/VAMP-site/',
-
     'Evidex EvidenceOps':'https://byron2306.github.io/Evidex-page/',
-
-    'Market Radar':'https://byron2306.github.io/NicheFoundry/',
-    'Opportunity Foundry':'https://byron2306.github.io/NicheFoundry/',
-    'Offer Lab':'https://byron2306.github.io/NicheFoundry/',
-    'Campaign Lab':'https://byron2306.github.io/NicheFoundry/',
-  };
-
-  const LOCAL_PRODUCT_ROUTES = {
+    'HOMS Learning Studio':'/sites/homs/learning-studio/',
     'Document Studio Edit':'/sites/document-studio/',
     'Document Studio Localize':'/sites/document-studio/',
     'Document Studio Publish':'/sites/document-studio/',
     'Accessible Publish':'/sites/document-studio/',
-    'DossierOps':'/sites/document-studio/',
     'Vesper Desk':VESPER_PRESENCE,
   };
 
   function productPresence(name) {
     if (!name) return {href:'', label:'', kind:'held'};
-    if (EXACT_PRODUCT_SITES[name]) {
+    const href = EXACT_PRODUCT_SITES[name] || '';
+    if (!href) {
       return {
-        href:EXACT_PRODUCT_SITES[name],
-        label:'OPEN EXACT PRODUCT SITE',
-        kind:'public',
-      };
-    }
-    if (LOCAL_PRODUCT_ROUTES[name]) {
-      return {
-        href:LOCAL_PRODUCT_ROUTES[name],
-        label:name === 'Vesper Desk' ? 'OPEN VESPER PRESENCE' : 'OPEN EXACT PRODUCT SITE',
-        kind:'local',
+        href:'',
+        label:'',
+        kind:'held',
+        note:'No exact standalone product site is registered for this incarnation yet.',
       };
     }
     return {
-      href:'',
-      label:'',
-      kind:'held',
-      note:'No standalone product site is registered for this incarnation yet.',
+      href,
+      label:name === 'Vesper Desk' ? 'OPEN VESPER PRESENCE' : 'OPEN EXACT PRODUCT SITE',
+      kind:/^https?:\/\//i.test(href) ? 'public' : 'local',
     };
   }
 
@@ -78,13 +48,13 @@
     const selected = incarnation ? `<b>${esc2(incarnation)}</b>` : '<b>No incarnation selected</b>';
     const primary = route.href
       ? `<a class="btn small ${route.kind === 'public' ? 'green' : 'blue'}" target="_blank" rel="noreferrer" href="${esc2(route.href)}">${esc2(route.label)}</a>`
-      : '<span style="color:var(--muted);font-size:10px">No standalone site registered. Shared catalogue fallback intentionally disabled.</span>';
+      : '<span style="color:var(--muted);font-size:10px">No exact standalone product site registered. No family or shared-catalogue substitution will be made.</span>';
     const vesper = incarnation === 'Vesper Desk' ? '' : `<a class="btn small" target="_blank" href="${VESPER_PRESENCE}">VESPER PRESENCE</a>`;
     panel.innerHTML = `
       <b>Product presence</b><br>
-      <span style="color:var(--muted)">${selected} · launch the exact product surface when one is registered.</span>
+      <span style="color:var(--muted)">${selected} · launch only the registered surface for this exact incarnation.</span>
       <div class="actions" style="margin-top:8px">${primary}${vesper}</div>
-      <div style="margin-top:7px;color:var(--muted);font-size:10px">Production Studio no longer points an individual incarnation at the large conjoined DIO product catalogue. Exact standalone/public product-family site or exact local product surface only.</div>`;
+      <div style="margin-top:7px;color:var(--muted);font-size:10px">Exact means exact: no conjoined DIO catalogue and no neighbouring family-product page. If this incarnation has no registered standalone surface yet, Production Studio says so instead of inventing a destination.</div>`;
   }
 
   function ensureSemanticUI() {
@@ -197,10 +167,6 @@
       audience_id: byId('profileAudience')?.value || '',
       render_reel: Boolean(byId('renderReel')?.checked),
       source_image: byId('semanticSourceImage')?.value || '',
-      // Existing backend distinguishes a configured proof asset from the
-      // portfolio boundary by whether a path is present. For portfolio-only
-      // incarnations we deliberately bind the canonical crosswalk so rendered
-      // media remains source-bound without fabricating execution proof.
       proof_asset: explicitProof || semanticProof || SEMANTIC_BOUNDARY_ASSET,
       confirmed: true,
     };
