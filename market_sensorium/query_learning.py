@@ -431,6 +431,10 @@ def learn_discovery_queries(
                 ),
             )
 
+    # First choose the strongest research driver inside each domain. This preserves
+    # the local identity-first law: a lower-priority commercial query cannot replace
+    # an unresolved-entity query for the same domain merely to make the portfolio
+    # look diverse.
     best_by_domain: dict[str, dict[str, Any]] = {}
     for item in selected_pool:
         current = best_by_domain.get(item["domain_id"])
@@ -449,7 +453,10 @@ def learn_discovery_queries(
         if current is None or key > current_key:
             best_by_domain[item["domain_id"]] = item
 
-    selected = sorted(
+    # Then select across domains. If one driver class would monopolise the entire
+    # bounded batch, reserve one slot for the strongest different *domain-primary*
+    # query. This is an exploration reserve, not a weakening of local precedence.
+    ordered_primary = sorted(
         best_by_domain.values(),
         key=lambda item: (
             -int(item["driver_precedence"]),
@@ -457,7 +464,44 @@ def learn_discovery_queries(
             -float(item["novelty_score"]),
             item["domain_id"],
         ),
-    )[: max(1, int(max_domains))]
+    )
+    limit = max(1, int(max_domains))
+    selected = list(ordered_primary[:limit])
+    available_primary_kind_counts = Counter(item["query_kind"] for item in ordered_primary)
+    portfolio_diversity_reserve_applied = False
+    portfolio_diversity_reserve_kind: str | None = None
+    dominant_query_kind = selected[0]["query_kind"] if selected else None
+
+    if (
+        limit >= 2
+        and selected
+        and len({item["query_kind"] for item in selected}) < 2
+        and len(available_primary_kind_counts) >= 2
+    ):
+        selected_domains = {item["domain_id"] for item in selected}
+        alternative = next(
+            (
+                item
+                for item in ordered_primary
+                if item["query_kind"] != dominant_query_kind
+                and item["domain_id"] not in selected_domains
+            ),
+            None,
+        )
+        if alternative is not None:
+            replace_index = next(
+                (
+                    index
+                    for index in range(len(selected) - 1, -1, -1)
+                    if selected[index]["query_kind"] == dominant_query_kind
+                ),
+                len(selected) - 1,
+            )
+            selected[replace_index] = alternative
+            primary_order = {item["domain_id"]: index for index, item in enumerate(ordered_primary)}
+            selected.sort(key=lambda item: primary_order[item["domain_id"]])
+            portfolio_diversity_reserve_applied = True
+            portfolio_diversity_reserve_kind = alternative["query_kind"]
 
     for item in selected:
         store.connection.execute("UPDATE learned_query_events SET selected=1 WHERE query_id=?", (item["query_id"],))
@@ -542,8 +586,13 @@ def learn_discovery_queries(
         "source_driver_total": source_driver_total,
         "query_kind_counts": dict(sorted(Counter(item["query_kind"] for item in selected).items())),
         "candidate_driver_counts": dict(sorted(driver_counts.items())),
-        "max_domains": max(1, int(max_domains)),
-        "bounded_exploration": len(selected) <= max(1, int(max_domains)),
+        "available_primary_query_kind_counts": dict(sorted(available_primary_kind_counts.items())),
+        "dominant_query_kind": dominant_query_kind,
+        "portfolio_diversity_reserve_applied": portfolio_diversity_reserve_applied,
+        "portfolio_diversity_reserve_kind": portfolio_diversity_reserve_kind,
+        "local_driver_precedence_preserved": True,
+        "max_domains": limit,
+        "bounded_exploration": len(selected) <= limit,
         "plan_path": str(plan_path.relative_to(root)),
         "query_execution_performed": False,
         "query_is_market_truth": False,
