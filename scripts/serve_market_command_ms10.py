@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 import sys
@@ -12,17 +11,15 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from dio_secrets import load_secret_env  # noqa: E402
+from portfolio_runtime import load_portfolio  # noqa: E402
 from scripts.serve_market_command import Handler  # noqa: E402
 
 
 class MS10MarketCommandHandler(Handler):
-    server_version = "DIOMarketWorkbench/2.1"
+    server_version = "DIOMarketWorkbench/2.2"
 
     def _product_choices(self) -> dict:
-        path = ROOT / "state" / "product_portfolio" / "DIO_META_PORTFOLIO_ATLAS_IMPORT.json"
-        if not path.is_file():
-            return {"state": "not_imported", "products": []}
-        registry = json.loads(path.read_text(encoding="utf-8"))
+        registry = load_portfolio(auto_import=True)
         products = []
         for row in registry.get("incarnations") or []:
             name = str(row.get("Incarnation") or row.get("Product") or row.get("name") or "").strip()
@@ -32,15 +29,23 @@ class MS10MarketCommandHandler(Handler):
                 "id": name,
                 "name": name,
                 "family": row.get("Suite") or row.get("Product Family") or row.get("Family") or "",
+                "primary_family": row.get("primary_family") or row.get("Product Family") or "",
                 "maturity": row.get("Maturity") or row.get("Readiness") or "",
+                "execution_truth_class": row.get("execution_truth_class") or "",
+                "portfolio_identity": "canonical_incarnation",
             })
-        return {"state": "imported", "count": len(products), "products": products}
+        return {
+            "state": "imported",
+            "count": len(products),
+            "candidate_incarnations_imported": registry.get("candidate_incarnations_imported", 0),
+            "products": products,
+        }
 
     def _serve_market_page(self) -> None:
         page = (ROOT / "dashboard" / "market.html").read_text(encoding="utf-8")
         page = page.replace(
             '<div class="links"><button id="refresh"',
-            '<div class="links"><a class="btn gold" href="http://127.0.0.1:8765/dashboard/connections.html">Connections & Secrets</a><button id="refresh"',
+            '<div class="links"><a class="btn green" href="http://127.0.0.1:8765/dashboard/production.html">Production Studio</a><a class="btn gold" href="http://127.0.0.1:8765/dashboard/connections.html">Connections & Secrets</a><button id="refresh"',
             1,
         )
         body = page.encode("utf-8")
@@ -76,9 +81,10 @@ def main() -> int:
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO MARKET must bind to localhost")
     load_secret_env(overwrite=False)
+    portfolio = load_portfolio(auto_import=True)
     server = ThreadingHTTPServer((args.host, args.port), MS10MarketCommandHandler)
     print(f"DIO MARKET: http://{args.host}:{args.port}")
-    print("Campaign journey + Sensorium intelligence + central secret vault: ACTIVE")
+    print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Campaign journey + Sensorium ACTIVE")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
