@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -69,6 +70,10 @@ def test_document_studio_art_direction_is_richer_than_formatting_profile() -> No
     assert all(left != right for left, right in zip(layouts, layouts[1:], strict=False))
     assert all(row["max_display_words"] <= 8 for row in art["scenes"])
     assert art["governance"]["beast_memory_can_mint_authority"] is False
+    assert art["governance"]["primary_visual_compositor"] == "document_studio_local_compositor"
+    assert art["governance"]["gamma_role"] == "optional_visual_candidate_only"
+    assert art["governance"]["gamma_required_for_media"] is False
+    assert art["governance"]["motion_and_media_executor"] == "nichefoundry"
     assert art["governance"]["human_visual_release"] == "NEEDS_YOU"
 
 
@@ -103,8 +108,11 @@ def test_visual_request_contains_sparse_copy_and_local_composition(tmp_path: Pat
     assert local_receipt["state"] == "ready"
     assert local_receipt["frame_count"] == 7
     assert local_receipt["governance"]["gamma_required"] is False
-    assert all(Path(row["path"]).is_file() for row in local_receipt["frames"])
+    paths = [Path(row["path"]) for row in local_receipt["frames"]]
+    assert all(path.is_file() for path in paths)
     assert len({row["layout_family"] for row in local_receipt["frames"]}) >= 6
+    digests = {hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
+    assert len(digests) >= 6
 
 
 def test_active_factory_installs_local_primary_visual_spine_and_real_motion() -> None:
