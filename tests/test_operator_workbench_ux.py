@@ -25,11 +25,31 @@ def test_business_has_direct_human_actions_not_only_embedded_console():
         "openLead(",
         "mailAction(",
         "Approve & SEND",
-        "Issue invoice / quote",
+        "Create checkout quote",
         "Promote to job",
+        "My operating authority",
     )
     for marker in required:
         assert marker in page
+    assert "Issue invoice / quote" not in page
+
+
+def test_business_has_real_invoice_journey():
+    page = text("dashboard/business.html")
+    server = text("scripts/serve_control_deck_ms10.py")
+    for marker in (
+        "+ New invoice",
+        "Save draft",
+        "Issue now",
+        "Open / print",
+        "Prepare email",
+        "/api/business/invoices",
+        "/api/business/invoice/create",
+        "/api/business/invoice/issue",
+        "/api/business/invoice/mail",
+    ):
+        assert marker in page or marker in server
+    assert "invoice_authority" in server
 
 
 def test_market_has_explicit_create_to_settle_workflow():
@@ -49,6 +69,7 @@ def test_market_has_explicit_create_to_settle_workflow():
         "Activate",
         "Record results",
         "Settle",
+        "WHAT NOW?",
     ):
         assert marker in page
 
