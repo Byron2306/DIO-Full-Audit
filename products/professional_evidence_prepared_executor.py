@@ -6,6 +6,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from products.professional_evidence_final_compat import install_final_gauntlet_compat
+
+# The Vesper prepared executor binds route helpers by value below. Install the
+# narrow final-gauntlet compatibility repairs first so those bindings resolve to
+# the current product contracts without weakening custody, examiner or release
+# boundaries.
+install_final_gauntlet_compat()
+
 from products.professional_evidence_executor import (
     BLOCKED,
     FAIL,
