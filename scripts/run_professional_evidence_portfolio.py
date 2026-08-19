@@ -12,8 +12,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from products.professional_evidence_corpus import validate_corpus  # noqa: E402
-from products.professional_evidence_executor import BLOCKED, FAIL, PASS, execute_customer_case  # noqa: E402
+from products.professional_evidence_executor import BLOCKED, FAIL, PASS  # noqa: E402
 from products.professional_evidence_projection import write_json  # noqa: E402
+from products.professional_evidence_vesper_gate import execute_customer_case_via_vesper  # noqa: E402
 
 
 ACCEPTANCE_TOKEN = "DIO_PROFESSIONAL_EVIDENCE_PORTFOLIO_53_VERIFIED"
@@ -22,6 +23,16 @@ DEFAULT_OUTPUT = ROOT / "state" / "professional_evidence" / "portfolio_v1"
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def _vesper_verified(row: dict) -> bool:
+    return (
+        row.get("vesper_web_chat_front_door_verified") is True
+        and row.get("chat_completed_before_product_execution") is True
+        and row.get("channel") == "web_chat"
+        and row.get("whatsapp_used") is False
+        and row.get("telegram_used") is False
+    )
 
 
 def run_portfolio(
@@ -44,9 +55,9 @@ def run_portfolio(
     output.mkdir(parents=True, exist_ok=True)
     results = []
     for index, incarnation in enumerate(selected, 1):
-        print(f"[{index:02d}/{len(selected):02d}] {incarnation}", flush=True)
+        print(f"[{index:02d}/{len(selected):02d}] Vesper -> {incarnation}", flush=True)
         try:
-            receipt = execute_customer_case(
+            receipt = execute_customer_case_via_vesper(
                 incarnation,
                 output,
                 operator_id=operator_id,
@@ -62,32 +73,62 @@ def run_portfolio(
                 "status": FAIL,
                 "executor": None,
                 "product_pipeline_executed": False,
+                "vesper_web_chat_front_door_verified": False,
+                "chat_completed_before_product_execution": False,
+                "channel": "web_chat",
+                "whatsapp_used": False,
+                "telegram_used": False,
                 "authority_created": False,
                 "external_effects": False,
                 "market_validation_claimed": False,
                 "error": f"HARNESS_ERROR {type(exc).__name__}: {exc}",
             }
         results.append(receipt)
-        print(f"    {receipt['status']}" + (f" :: {receipt.get('error')}" if receipt.get("error") else ""), flush=True)
+        vesper_state = "VESPER_PASS" if _vesper_verified(receipt) else "VESPER_FAIL"
+        print(
+            f"    {receipt['status']} · {vesper_state}"
+            + (f" :: {receipt.get('error')}" if receipt.get("error") else ""),
+            flush=True,
+        )
 
     counts = {
         PASS: sum(row.get("status") == PASS for row in results),
         FAIL: sum(row.get("status") == FAIL for row in results),
         BLOCKED: sum(row.get("status") == BLOCKED for row in results),
     }
+    vesper_verified_count = sum(_vesper_verified(row) for row in results)
     all_53_selected = len(selected) == 53 and set(selected) == set(canonical)
-    all_passed = all_53_selected and counts[PASS] == 53 and counts[FAIL] == 0 and counts[BLOCKED] == 0
+    all_vesper_verified = vesper_verified_count == len(selected)
+    all_passed = (
+        all_53_selected
+        and counts[PASS] == 53
+        and counts[FAIL] == 0
+        and counts[BLOCKED] == 0
+        and all_vesper_verified
+        and vesper_verified_count == 53
+    )
     receipt = {
-        "schema": "dio.professional_evidence.portfolio_receipt.v1",
+        "schema": "dio.professional_evidence.portfolio_receipt.v2",
         "generated_at": utc_now(),
         "canonical_portfolio_count": 53,
         "selected_count": len(selected),
         "all_53_selected": all_53_selected,
         "online_current_signal_refresh_enabled": online,
+        "required_front_door": "vesper_web_chat",
+        "vesper_web_chat_front_door_required": True,
+        "vesper_web_chat_verified_count": vesper_verified_count,
+        "all_selected_vesper_web_chat_verified": all_vesper_verified,
+        "whatsapp_required": False,
+        "telegram_required": False,
         "counts": counts,
         "all_full_pipeline_verified": all_passed,
         "acceptance_token": ACCEPTANCE_TOKEN if all_passed else None,
         "results": results,
+        "vesper_front_door_failure_list": [
+            {"incarnation": row.get("incarnation"), "error": row.get("error")}
+            for row in results
+            if not _vesper_verified(row)
+        ],
         "full_pipeline_gap_kill_list": [
             {"incarnation": row.get("incarnation"), "error": row.get("error")}
             for row in results
@@ -108,10 +149,11 @@ def run_portfolio(
         "media_spend": "REFUSE",
         "payment": "REFUSE",
         "claim_boundary": (
-            "A PASS proves the configured professional product pipeline processed a literal customer-shaped packet "
-            "into its bounded review-ready product artifact under the recorded human/release gates. It does not prove "
-            "customer acceptance, willingness to pay, professional certification, legal clearance, regulatory approval, "
-            "market demand, external delivery, or real-world domain action unless separately evidenced."
+            "A PASS proves Vesper Web Chat first bound the literal customer-shaped request and source files to the exact canonical "
+            "product handoff, after which the configured professional product pipeline processed that same packet into its bounded "
+            "review-ready product artifact under the recorded human/release gates. It does not prove customer acceptance, "
+            "willingness to pay, professional certification, legal clearance, regulatory approval, market demand, external "
+            "delivery, or real-world domain action unless separately evidenced."
         ),
     }
     write_json(output / "PROFESSIONAL_EVIDENCE_PORTFOLIO_RECEIPT.json", receipt)
@@ -119,25 +161,32 @@ def run_portfolio(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run the DIO 53-product Professional Evidence Portfolio Gauntlet")
+    parser = argparse.ArgumentParser(description="Run the DIO 53-product Professional Evidence Portfolio Gauntlet through Vesper Web Chat")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--only", action="append", default=[], help="Run one canonical incarnation; may be supplied repeatedly")
     parser.add_argument("--online", action="store_true", help="Allow current public-signal retrieval required by Market Radar/Opportunity Foundry")
     parser.add_argument("--operator-id", default="professional-evidence-harness")
-    parser.add_argument("--strict", action="store_true", help="Return non-zero unless every selected case passes; full acceptance still requires all 53")
+    parser.add_argument("--strict", action="store_true", help="Return non-zero unless every selected case passes Vesper + product execution; full acceptance still requires all 53")
     args = parser.parse_args()
     receipt = run_portfolio(args.output, only=args.only or None, online=args.online, operator_id=args.operator_id)
     summary = {
         "acceptance_token": receipt["acceptance_token"],
         "all_full_pipeline_verified": receipt["all_full_pipeline_verified"],
         "selected_count": receipt["selected_count"],
+        "vesper_web_chat_verified_count": receipt["vesper_web_chat_verified_count"],
         "counts": receipt["counts"],
+        "vesper_front_door_failure_list": receipt["vesper_front_door_failure_list"],
         "full_pipeline_gap_kill_list": receipt["full_pipeline_gap_kill_list"],
         "execution_failure_list": receipt["execution_failure_list"],
         "receipt": str(args.output.resolve() / "PROFESSIONAL_EVIDENCE_PORTFOLIO_RECEIPT.json"),
     }
     print(json.dumps(summary, indent=2, ensure_ascii=False))
-    selected_all_pass = receipt["counts"][FAIL] == 0 and receipt["counts"][BLOCKED] == 0 and receipt["counts"][PASS] == receipt["selected_count"]
+    selected_all_pass = (
+        receipt["counts"][FAIL] == 0
+        and receipt["counts"][BLOCKED] == 0
+        and receipt["counts"][PASS] == receipt["selected_count"]
+        and receipt["vesper_web_chat_verified_count"] == receipt["selected_count"]
+    )
     return 0 if (not args.strict or selected_all_pass) else 2
 
 
