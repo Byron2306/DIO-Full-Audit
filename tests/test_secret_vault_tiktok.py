@@ -31,6 +31,7 @@ def test_tiktok_ads_and_organic_are_separate_secret_contracts():
 
 def test_connections_page_has_tiktok_business_and_ads_manager_links():
     page = (ROOT / "dashboard" / "connections.html").read_text(encoding="utf-8")
+    server = (ROOT / "scripts" / "serve_control_deck_ms10.py").read_text(encoding="utf-8")
     for marker in (
         "https://business.tiktok.com/",
         "https://ads.tiktok.com/",
@@ -39,21 +40,25 @@ def test_connections_page_has_tiktok_business_and_ads_manager_links():
         "TIKTOK_ADVERTISER_ID",
     ):
         assert marker in page
+    assert "Connections & Secrets" in server
+    assert "TikTok Business" in server
+    assert "TikTok Ads" in server
 
 
-def test_secret_save_is_0600_and_status_never_returns_values(tmp_path, monkeypatch):
+def test_secret_save_is_0600_status_never_returns_values_and_round_trip_is_exact(tmp_path, monkeypatch):
     vault = tmp_path / "secrets" / "dio.env"
     monkeypatch.setattr(dio_secrets, "SECRET_FILE", vault)
     monkeypatch.delenv("TIKTOK_ACCESS_TOKEN", raising=False)
     monkeypatch.delenv("TIKTOK_ADVERTISER_ID", raising=False)
-    token = "VERY-SECRET-TOKEN-TEST-ONLY"
+    token = 'VERY-SECRET-"TOKEN"-WITH\\BACKSLASH-TEST-ONLY'
     result = dio_secrets.save_secret_values({
         "TIKTOK_ACCESS_TOKEN": token,
         "TIKTOK_ADVERTISER_ID": "1234567890",
     })
     assert result["mode"] == "0600"
     assert oct(vault.stat().st_mode & 0o777) == "0o600"
-    assert token in vault.read_text(encoding="utf-8")
+    assert token not in vault.read_text(encoding="utf-8")
+    assert dio_secrets._parse_env(vault)["TIKTOK_ACCESS_TOKEN"] == token
     status = dio_secrets.secret_status()
     encoded = json.dumps(status)
     assert token not in encoded
