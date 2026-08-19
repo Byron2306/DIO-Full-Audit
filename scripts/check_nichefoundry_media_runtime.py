@@ -3,7 +3,12 @@ from __future__ import annotations
 
 import json
 import shutil
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from dio_secrets import load_secret_env
 from scripts.build_campaign_media import CampaignMediaError, resolve_piper_binary, resolve_piper_model
