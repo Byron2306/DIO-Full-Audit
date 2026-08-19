@@ -55,6 +55,9 @@ function validateRequest(request) {
     throw new Error('Gamma story request num_cards must be an integer between 3 and 30.');
   }
   if (!request.output_dir) throw new Error('Gamma story request requires output_dir.');
+  if (request.projection_hash && !request.semantic_law_hash) {
+    throw new Error('A LINGUA projection must carry its semantic_law_hash.');
+  }
 }
 
 function currentReceipt(receiptPath, request) {
@@ -69,6 +72,36 @@ function currentReceipt(receiptPath, request) {
   } catch (_) {
     return null;
   }
+}
+
+function creativeInstructions(request) {
+  const direction = request.creative_direction || {};
+  const guardrails = request.semantic_guardrails || {};
+  const tone = Array.isArray(direction.tone) ? direction.tone.join(', ') : String(direction.tone || '');
+  const invariants = Array.isArray(guardrails.must_preserve) ? guardrails.must_preserve.join(', ') : '';
+  const prohibited = Array.isArray(guardrails.do_not_invent) ? guardrails.do_not_invent.join(', ') : '';
+  const surface = String(direction.surface || request.surface || 'campaign_story');
+  const instructions = [
+    'Create one coherent audience-native campaign story, not a generic presentation deck and not disconnected slides.',
+    'Keep the supplied scene order, source-bound claims, proof boundaries and call-to-action intent intact.',
+    'Do not fabricate clients, testimonials, private data, revenue figures, certifications, approvals or outcomes.',
+    'Avoid tiny body text. Prefer one strong visual idea, human context or concrete proof moment per card.',
+    'Do not force every card into the same dark corporate layout. Let composition, image choice, scale and visual rhythm follow the supplied creative direction.',
+  ];
+  if (direction.audience_archetype) instructions.push(`Audience archetype: ${direction.audience_archetype}.`);
+  if (tone) instructions.push(`Rhetorical tone: ${tone}.`);
+  if (direction.pacing) instructions.push(`Editing and visual pacing: ${direction.pacing}.`);
+  if (direction.visual_grammar) instructions.push(`Visual grammar: ${direction.visual_grammar}. Treat this as an art-direction constraint, not decorative metadata.`);
+  if (direction.motion_grammar) instructions.push(`Compose images to support this later motion treatment: ${direction.motion_grammar}.`);
+  if (surface === 'vertical_short') {
+    instructions.push('This is SHORT-FORM VERTICAL media. Use bold focal subjects, very little text, rapid visual comprehension and a strong central 9:16 crop-safe zone. Do not make it look like a widescreen boardroom presentation squeezed into a phone.');
+  } else if (surface === 'landscape_explainer') {
+    instructions.push('This is a LANDSCAPE EXPLAINER. Use editorial/documentary composition, evidence close-ups, diagrams or worked examples where useful. Do not merely enlarge or repeat the short-form visual composition.');
+  }
+  if (invariants) instructions.push(`Semantic invariants that must survive creative transformation: ${invariants}.`);
+  if (prohibited) instructions.push(`Prohibited semantic inventions: ${prohibited}.`);
+  instructions.push('Human authority is a semantic invariant, not a mandatory corporate disclaimer slide. Express it naturally in the supplied story moment.');
+  return instructions.join(' ');
 }
 
 async function main() {
@@ -104,14 +137,7 @@ async function main() {
     numCards: Number(request.num_cards),
     cardSplit: 'inputTextBreaks',
     cardOptions: { dimensions: '16x9' },
-    additionalInstructions: [
-      'Create one coherent commercial campaign story, not disconnected slides.',
-      'Keep the supplied scene order, claims, proof boundaries, and call to action intact.',
-      'Use cinematic professional visuals suitable for a narrated campaign video.',
-      'Do not fabricate clients, testimonials, private data, revenue figures, certifications, or outcomes.',
-      'Make human review and approval visually explicit where the supplied story requires it.',
-      'Avoid tiny body text. Prefer one strong visual idea and short readable display text per card.'
-    ].join(' ')
+    additionalInstructions: creativeInstructions(request)
   };
   if (process.env.GAMMA_THEME_ID) body.themeId = process.env.GAMMA_THEME_ID;
 
@@ -154,9 +180,13 @@ async function main() {
   }
 
   const receipt = {
-    schema: 'dio.gamma.campaign_story_receipt.v1',
+    schema: 'dio.gamma.campaign_story_receipt.v2',
     family_id: request.family_id,
+    surface: request.surface || null,
     request_hash: request.request_hash,
+    semantic_law_hash: request.semantic_law_hash || null,
+    projection_hash: request.projection_hash || null,
+    creative_direction: request.creative_direction || {},
     generated_at: new Date().toISOString(),
     state: 'ready',
     generation_id: generationId,
@@ -168,11 +198,13 @@ async function main() {
       synthetic_media: true,
       visual_review_required: true,
       publication: 'held_for_operator_approval',
-      market_validation_claimed: false
+      market_validation_claimed: false,
+      authority_created: false,
+      semantic_law_preserved: Boolean(request.semantic_law_hash && request.projection_hash)
     }
   };
   writeJson(receiptPath, receipt);
-  process.stdout.write(JSON.stringify({ state: 'ready', cached: false, receipt: receiptPath, generation_id: generationId }) + '\n');
+  process.stdout.write(JSON.stringify({ state: 'ready', cached: false, receipt: receiptPath, generation_id: generationId, surface: request.surface || null }) + '\n');
 }
 
 main().catch((error) => {
