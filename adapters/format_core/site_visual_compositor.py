@@ -13,18 +13,9 @@ from adapters.format_core.site_mixed_media import MIXED_MEDIA_SCHEMA, render_sit
 from adapters.format_core.site_native_illustration import SITE_ILLUSTRATION_RENDERER_VERSION
 from adapters.format_core.site_semantic_visual import compile_site_semantic_visual
 from adapters.format_core.site_visual_material import compile_site_visual_material_request
-from adapters.format_core.visual_composer import (
-    content_hash,
-    load_visual_profiles,
-    resolve_profile,
-    text_hash,
-)
-from adapters.format_core.visual_material_registry import (
-    REGISTRY_SCHEMA,
-    load_visual_material_registry,
-    material_index,
-)
-from adapters.format_core.visual_material_resolver import resolve_visual_material
+from adapters.format_core.visual_composer import content_hash, load_visual_profiles, resolve_profile, text_hash
+from adapters.format_core.visual_material_registry import REGISTRY_SCHEMA, load_visual_material_registry, material_index
+from adapters.format_core.visual_material_resolver import NONREPEATING_MATERIAL_KINDS, resolve_visual_material
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -67,13 +58,10 @@ def _safe_colour(value: Any) -> str | None:
 
 
 def _site_profiles(art: dict[str, Any]) -> dict[str, Any]:
-    """Resolve Format Core site law with bounded brand-accent overrides."""
     profiles = copy.deepcopy(load_visual_profiles())
-    profile = profiles["profiles"][PROFILE_ID]
-    palette = profile["palette"]
+    palette = profiles["profiles"][PROFILE_ID]["palette"]
     directed = dict(art.get("format_core_palette") or {})
-    mapping = {"accent": "accent", "accent_2": "warning", "muted": "muted", "line": "line"}
-    for source_key, target_key in mapping.items():
+    for source_key, target_key in {"accent": "accent", "accent_2": "warning", "muted": "muted", "line": "line"}.items():
         colour = _safe_colour(directed.get(source_key))
         if colour:
             palette[target_key] = colour
@@ -105,14 +93,15 @@ def render_site_visual_assets(
     material_root = (material_root or ROOT).resolve()
     registry = load_visual_material_registry(material_registry_path, root=material_root)
     materials = material_index(registry)
-
     output_dir.mkdir(parents=True, exist_ok=True)
     profiles = _site_profiles(art)
     resolved_profile = resolve_profile(PROFILE_ID, profiles)
+
     assets: list[dict[str, Any]] = []
     semantic_visuals: list[dict[str, Any]] = []
     material_requests: list[dict[str, Any]] = []
     material_resolutions: list[dict[str, Any]] = []
+    used_primary_material_ids: set[str] = set()
     linear_process_scene_count = 0
 
     for index, (semantic, directed) in enumerate(zip(scenes, art_scenes), 1):
@@ -129,10 +118,19 @@ def render_site_visual_assets(
         material_request = compile_site_visual_material_request(semantic_visual=spec, scene=semantic, directed=directed)
         if (material_request.get("source") or {}).get("role_selects_material") is not False:
             raise SiteFormatVisualCompositorError("Site material policy allowed role-selected material")
-        material_resolution = resolve_visual_material(material_request, registry, root=material_root)
+        material_resolution = resolve_visual_material(
+            material_request,
+            registry,
+            root=material_root,
+            exclude_material_ids=used_primary_material_ids,
+        )
         material = materials.get(str(material_resolution.get("selected_material_id") or ""))
         if not material:
             raise SiteFormatVisualCompositorError("material resolver selected an unknown registry material")
+        selected_material_id = str(material.get("material_id") or "")
+        selected_material_kind = str(material.get("material_kind") or "")
+        if selected_material_kind in NONREPEATING_MATERIAL_KINDS:
+            used_primary_material_ids.add(selected_material_id)
 
         rendered = render_site_visual_with_material(
             semantic_visual=spec,
@@ -173,7 +171,7 @@ def render_site_visual_assets(
         material_resolutions.append(material_resolution)
 
         native_mode = str((composition.get("binding") or {}).get("representational_mode") or "")
-        representational_mode = native_mode or f"mixed_media_{spec['visual_kind']}_{material['material_kind']}"
+        representational_mode = native_mode or f"mixed_media_{spec['visual_kind']}_{selected_material_kind}"
         license_row = dict(material.get("license") or {})
         approval_row = dict(material.get("approval") or {})
         assets.append(
@@ -190,9 +188,10 @@ def render_site_visual_assets(
                 "mixed_media": bool(rendered["mixed_media"]),
                 "material_request_hash": material_request.get("request_hash"),
                 "material_resolution_hash": material_resolution.get("resolution_hash"),
-                "selected_material_id": material.get("material_id"),
-                "selected_material_kind": material.get("material_kind"),
+                "selected_material_id": selected_material_id,
+                "selected_material_kind": selected_material_kind,
                 "material_fallback_used": material_resolution.get("fallback_used"),
+                "material_reuse_exclusion_count": material_resolution.get("excluded_reuse_candidate_count"),
                 "material_approval_state": approval_row.get("state"),
                 "material_license_status": license_row.get("status"),
                 "material_commercial_use": license_row.get("commercial_use"),
@@ -220,26 +219,24 @@ def render_site_visual_assets(
         )
 
     if linear_process_scene_count > PROCESS_SCENE_BUDGET:
-        raise SiteFormatVisualCompositorError(
-            f"Site visual grammar exceeded linear process budget: {linear_process_scene_count}>{PROCESS_SCENE_BUDGET}"
-        )
+        raise SiteFormatVisualCompositorError(f"Site visual grammar exceeded linear process budget: {linear_process_scene_count}>{PROCESS_SCENE_BUDGET}")
 
     kind_counts = dict(sorted(Counter(row["visual_kind"] for row in assets).items()))
     if len(kind_counts) < 6:
-        raise SiteFormatVisualCompositorError(
-            f"Site semantic visual compiler collapsed the page into too few visual kinds: {len(kind_counts)}"
-        )
+        raise SiteFormatVisualCompositorError(f"Site semantic visual compiler collapsed the page into too few visual kinds: {len(kind_counts)}")
     mode_counts = dict(sorted(Counter(row["representational_mode"] for row in assets).items()))
     if len(mode_counts) < MIN_REPRESENTATIONAL_MODES:
-        raise SiteFormatVisualCompositorError(
-            f"Site visual production collapsed the page into too few representational modes: {len(mode_counts)}<{MIN_REPRESENTATIONAL_MODES}"
-        )
+        raise SiteFormatVisualCompositorError(f"Site visual production collapsed the page into too few representational modes: {len(mode_counts)}<{MIN_REPRESENTATIONAL_MODES}")
     if any(row["semantic_visual_role_selects_geometry"] is not False for row in assets):
         raise SiteFormatVisualCompositorError("role-selected geometry leaked into Site visual assets")
     if any(row["material_commercial_use"] is not True for row in assets):
         raise SiteFormatVisualCompositorError("a selected visual material is not approved for commercial use")
     if any(row["material_approval_state"] not in {"SYSTEM", "APPROVED"} for row in assets):
         raise SiteFormatVisualCompositorError("an unapproved visual material reached Site production")
+
+    primary_ids = [row["selected_material_id"] for row in assets if row["selected_material_kind"] in NONREPEATING_MATERIAL_KINDS]
+    if len(primary_ids) != len(set(primary_ids)):
+        raise SiteFormatVisualCompositorError("a non-repeating primary visual material was reused on the same Site surface")
 
     material_kind_counts = dict(sorted(Counter(str(row["selected_material_kind"]) for row in assets).items()))
     mixed_media_scene_count = sum(bool(row["mixed_media"]) for row in assets)
@@ -269,6 +266,8 @@ def render_site_visual_assets(
         "mixed_media_scene_count": mixed_media_scene_count,
         "native_material_scene_count": native_scene_count,
         "fallback_material_scene_count": fallback_scene_count,
+        "primary_material_reuse_policy": "ONCE_PER_SITE_SURFACE",
+        "primary_material_reuse_pass": len(primary_ids) == len(set(primary_ids)),
         "all_selected_materials_commercially_allowed": all(row["material_commercial_use"] is True for row in assets),
         "all_selected_materials_approved": all(row["material_approval_state"] in {"SYSTEM", "APPROVED"} for row in assets),
         "external_material_authority": "REFUSE",
@@ -308,10 +307,4 @@ def render_site_visual_assets(
     return receipt
 
 
-__all__ = [
-    "MIN_REPRESENTATIONAL_MODES",
-    "PROCESS_SCENE_BUDGET",
-    "REQUIRED_ROLES",
-    "SiteFormatVisualCompositorError",
-    "render_site_visual_assets",
-]
+__all__ = ["MIN_REPRESENTATIONAL_MODES", "PROCESS_SCENE_BUDGET", "REQUIRED_ROLES", "SiteFormatVisualCompositorError", "render_site_visual_assets"]
