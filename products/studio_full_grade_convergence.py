@@ -3,13 +3,12 @@ from __future__ import annotations
 import hashlib
 import html
 import json
-import os
 import re
 import shutil
 from pathlib import Path
 from typing import Any
 
-from adapters.document_studio.art_direction import ANTI_PATTERNS, build_art_direction
+from adapters.document_studio.art_direction import build_art_direction
 from adapters.format_core.renderer import build_paragraph_semantic_content, render_semantic_asset
 from adapters.sophia.review_pipeline import run_review
 from lingua.product_projection import build_projection_plan
@@ -59,7 +58,6 @@ def _write_text(path: Path, value: str) -> None:
 
 
 def _base_native_closure(manifest_path: Path, output_dir: Path, root: Path) -> dict[str, Any]:
-    # Install the customer-visible upgrade first, then bind the current closure.
     from products.studio_launch_artifact_upgrade import install as install_launch_upgrade
     install_launch_upgrade()
     from products import studio_native_closure as closure
@@ -494,7 +492,7 @@ def _fixture_manuscript(manifest: dict[str, Any]) -> str:
         citation = str(source["citation"])
         match = re.match(r"^([A-Z][A-Za-z'’-]+).*?\(((?:19|20)\d{2}[a-z]?)\)", citation)
         if match:
-            citation_by_id[str(source["source_id"])] = f"{match.group(1)} ({match.group(2)})"
+            citation_by_id[str(source["source_id"])] = f"{match.group(1)}, {match.group(2)}"
 
     paragraphs = [f"# {contract['headline']}", "", str(contract["standfirst"]), ""]
     section_claims = [
@@ -579,8 +577,6 @@ def run_article_full_grade(
         manuscript_path = source_dir / "CONTROLLED_ARTICLE_MANUSCRIPT.md"
         _write_text(manuscript_path, _fixture_manuscript(manifest))
         input_truth = "CONTROLLED_FIXTURE"
-        # The controlled fixture contains no customer data, so remote review is safe to opt into
-        # for this gauntlet. Real customer manuscripts still require explicit approval.
         approved = True
     else:
         manuscript_path = manuscript_path.expanduser().resolve()
@@ -647,7 +643,6 @@ def run_article_full_grade(
     if format_receipt.get("status") != "rendered_review_candidate" or not (format_receipt.get("qa") or {}).get("passed"):
         raise StudioFullGradeError("Document Studio publication manufacturing failed review QA")
 
-    # Copy Sophia's human-readable review pack into the customer package.
     review_pack = publication_dir / "sophia_review"
     review_pack.mkdir(parents=True, exist_ok=True)
     for name in (
