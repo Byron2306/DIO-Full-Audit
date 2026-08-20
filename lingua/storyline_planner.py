@@ -52,6 +52,8 @@ SEMANTIC_FOCUS_BY_ROLE: dict[str, str] = {
     "authority_boundary": "authority",
     "decision_boundary": "authority",
     "trust_boundary": "authority",
+    "professional_authority": "authority",
+    "decision": "authority",
     "boundary": "authority",
     "cta": "cta",
 }
@@ -595,10 +597,24 @@ def validate_story_semantic_diversity(story: dict[str, Any], *, outcome: str = "
 
 
 def validate_cross_surface_semantic_distance(short_story: dict[str, Any], long_story: dict[str, Any]) -> list[str]:
-    """Refuse fake diversity where role names differ but realised copy is the same."""
+    """Refuse fake creative diversity while preserving exact authority invariants.
+
+    Human-authority language is constitutional content, not a mutable creative beat.
+    It may legitimately remain identical across short and long surfaces. Clone
+    scoring therefore measures only non-authority narrative scenes.
+    """
     errors: list[str] = []
-    short_screens = {_normalise(scene.get("screen_text", "")) for scene in short_story.get("scenes") or []}
-    long_screens = {_normalise(scene.get("screen_text", "")) for scene in long_story.get("scenes") or []}
+    short_creative = [
+        scene for scene in short_story.get("scenes") or []
+        if str(scene.get("semantic_focus") or "") != "authority"
+    ]
+    long_creative = [
+        scene for scene in long_story.get("scenes") or []
+        if str(scene.get("semantic_focus") or "") != "authority"
+    ]
+
+    short_screens = {_normalise(scene.get("screen_text", "")) for scene in short_creative}
+    long_screens = {_normalise(scene.get("screen_text", "")) for scene in long_creative}
     short_screens.discard("")
     long_screens.discard("")
     overlap = short_screens & long_screens
@@ -609,13 +625,13 @@ def validate_cross_surface_semantic_distance(short_story: dict[str, Any], long_s
 
     short_sentences = {
         _normalise(sentence)
-        for scene in short_story.get("scenes") or []
+        for scene in short_creative
         for sentence in _sentences(str(scene.get("narration") or ""))
         if len(_normalise(sentence).split()) >= 7
     }
     long_sentences = {
         _normalise(sentence)
-        for scene in long_story.get("scenes") or []
+        for scene in long_creative
         for sentence in _sentences(str(scene.get("narration") or ""))
         if len(_normalise(sentence).split()) >= 7
     }
@@ -682,7 +698,7 @@ def _realise_story(
             "promise": "transformation/workflow beat",
             "outcome": "one bounded deliverable/result beat only",
             "proof": "proof/evidence beat",
-            "authority": "human decision beat",
+            "authority": "human decision beat; invariant and excluded from cross-surface clone scoring",
             "cta": "final action beat",
         },
     }
