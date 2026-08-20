@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from products.site_full_grade_bridge_v2 import run_site_full_grade_v2
+from products.site_full_grade_bridge_v3 import run_site_full_grade_v3
 from products.studio_full_grade_convergence import (
     ACCEPTANCE_TOKEN,
     run_article_full_grade,
@@ -31,7 +31,7 @@ def main() -> int:
 
     out = args.output.expanduser().resolve()
     if args.only == "site":
-        result = run_site_full_grade_v2(
+        result = run_site_full_grade_v3(
             manifest_path=ROOT / "config/studio_harvest/site_studio.json",
             output_dir=out / "site_studio",
             root=ROOT,
@@ -50,7 +50,7 @@ def main() -> int:
         )
         passed = result.get("full_grade_state") == "PASS"
     else:
-        site = run_site_full_grade_v2(
+        site = run_site_full_grade_v3(
             manifest_path=ROOT / "config/studio_harvest/site_studio.json",
             output_dir=out / "site_studio",
             root=ROOT,
@@ -66,7 +66,7 @@ def main() -> int:
             gemini_model=args.gemini_model,
         )
         result = {
-            "schema": "dio.studio_full_grade_convergence_gauntlet_receipt.v2",
+            "schema": "dio.studio_full_grade_convergence_gauntlet_receipt.v3",
             "acceptance_token": ACCEPTANCE_TOKEN,
             "site_studio": site,
             "article_publication_studio": article,
