@@ -1,0 +1,60 @@
+{
+  "schema": "dio.format_core.visual_material_pack.v1",
+  "pack_id": "RESEARCH_CONSULTANCY_ALPHA",
+  "surface": "website",
+  "purpose": "Customer-facing research consultancy visual material pack with medium diversity and governed provenance.",
+  "minimum_distinct_material_kinds": 4,
+  "minimum_curated_primary_materials": 3,
+  "maximum_native_renderer_share": 0.5,
+  "remote_runtime_fetch": "REFUSE",
+  "automatic_publication": "REFUSE",
+  "human_visual_release": "NEEDS_YOU",
+  "slots": [
+    {
+      "slot_id": "EDITORIAL_RESEARCH_HERO",
+      "semantic_visual_kind": "research_workbench",
+      "allowed_material_kinds": ["curated_photo", "generated_editorial"],
+      "required_subject_any": ["research", "documents", "source material"],
+      "required_mood_any": ["editorial", "credible", "professional"],
+      "required": true
+    },
+    {
+      "slot_id": "HUMAN_REVIEW",
+      "semantic_visual_kind": "human_review_scene",
+      "allowed_material_kinds": ["curated_photo", "generated_editorial"],
+      "required_subject_any": ["human review", "documents", "professional judgement"],
+      "required_activity_any": ["reviewing documents"],
+      "required": true
+    },
+    {
+      "slot_id": "TACTILE_WORKFLOW",
+      "semantic_visual_kind": "method_map",
+      "allowed_material_kinds": ["curated_photo", "generated_editorial"],
+      "required_subject_any": ["professional workflow", "documents", "review"],
+      "required_activity_any": ["reviewing documents", "preparing a handoff"],
+      "required": true
+    },
+    {
+      "slot_id": "COMMUNICATION_ARTIFACT",
+      "semantic_visual_kind": "communication_outputs",
+      "allowed_material_kinds": ["artifact_render"],
+      "required_subject_any": ["report", "presentation", "public explanation"],
+      "required": true
+    },
+    {
+      "slot_id": "EVIDENCE_OR_PROVENANCE_ARTIFACT",
+      "semantic_visual_kind": "provenance_stack",
+      "allowed_material_kinds": ["artifact_render"],
+      "required_subject_any": ["provenance", "source lineage", "evidence"],
+      "required": true
+    },
+    {
+      "slot_id": "EDITORIAL_TEXTURE",
+      "semantic_visual_kind": "research_workbench",
+      "allowed_material_kinds": ["texture"],
+      "required_subject_any": ["paper", "document", "texture"],
+      "required": true,
+      "secondary_material": true
+    }
+  ]
+}
