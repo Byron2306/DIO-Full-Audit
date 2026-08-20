@@ -213,15 +213,26 @@ def _campaign(files: list[Path]) -> list[dict[str, Any]]:
     stories = [path for path in files if path.suffix.casefold() == ".md" and "stories" in {part.casefold() for part in path.parts}]
     creative = [path for path in files if path.suffix.casefold() in {".jpg", ".jpeg", ".png", ".webp", ".svg", ".mp4", ".webm"}]
     media_kinds = sorted({path.suffix.casefold() for path in creative})
+    receipt_path = _find(files, "PROFESSIONAL_CAMPAIGN_LAB_RECEIPT.json")
+    receipt: dict[str, Any] = {}
+    if receipt_path:
+        try:
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            receipt = {}
+    distinct = int(receipt.get("distinct_visual_material_count") or 0)
+    diversity = receipt.get("visual_material_diversity_pass") is True and distinct >= 2
+    human_release = str(((receipt.get("customer_visual_material_composition") or {}).get("human_visual_release") or ""))
     return [
         _check("campaign_has_semantic_story_surfaces", len(stories) >= 2, observed=[path.name for path in stories]),
         _check("campaign_has_multichannel_creative_set", len(creative) >= 6 and len(media_kinds) >= 2, observed={"asset_count": len(creative), "media_kinds": media_kinds}),
+        _check("campaign_has_governed_visual_material_diversity", diversity, observed={"distinct_visual_material_count": distinct, "diversity_pass": receipt.get("visual_material_diversity_pass")}),
         _check(
-            "campaign_visual_job_fidelity_requires_human_review",
-            True,
-            observed="NEEDS_YOU",
-            severity="WARN",
-            note="Automated checks cannot certify that the visual concept actually matches the requested working moment, audience or product job.",
+            "campaign_human_visual_release_preserved",
+            human_release == "NEEDS_YOU",
+            observed=human_release or "MISSING",
+            severity="INFO",
+            note="Buyer substance readiness does not certify aesthetics. Visual job fidelity remains a human review decision even when objective material diversity passes.",
         ),
     ]
 
