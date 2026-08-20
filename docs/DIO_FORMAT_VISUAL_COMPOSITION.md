@@ -64,6 +64,41 @@ This is enough to reproduce the core geometry HOMS already uses while remaining 
 
 A profile owns palette, typography and geometry tokens. Product semantics never hard-code a provider template. This is the direct antidote to Gamma template-card drift.
 
+## Site Studio integration
+
+Site Studio now consumes Format Core visual composition directly through:
+
+```text
+adapters/format_core/site_visual_compositor.py
+```
+
+The live `products/site_full_grade_bridge_v3.py` route keeps Site Studio as semantic owner while moving visual projection authority to Format Core:
+
+```text
+Site Studio story / semantic law
+        -> bounded art direction
+        -> Format Core site visual compositor
+        -> site_editorial_dark visual profile
+        -> eight deterministic role-bound SVG scenes
+        -> Site Studio HTML/CSS embedding
+        -> visual QA + proof manifest
+        -> human visual release
+```
+
+The authority contract is explicit:
+
+- `site_semantic_authority = DIO_SITE_STUDIO`
+- `geometry_authority = DIO_FORMAT_CORE`
+- `text_projection_authority = DIO_FORMAT_CORE`
+- `gamma_layout_authority = REFUSE`
+- `gamma_text_authority = REFUSE`
+- `gamma_role = OPTIONAL_IMAGE_MATERIAL_ONLY`
+- `human_visual_release = NEEDS_YOU`
+- `publication = REFUSE`
+- `authority_created = false`
+
+The former `adapters/document_studio/site_svg_compositor.py` remains only as legacy compatibility code while callers converge. New Site Studio full-grade receipts record `document_studio_svg_compositor = RETIRED_TO_FORMAT_CORE` rather than claiming that Document Studio still owns site geometry.
+
 ## Governance
 
 The composer validates before rendering and fails closed on:
@@ -80,9 +115,9 @@ The visual receipt records composition hash, profile hash, SVG hash, rasterizati
 
 ## Migration sequence
 
-1. Land the reusable composer, profiles, tests and golden proof without changing live products.
-2. Refactor HOMS visual primitives to call the Format Core composer while preserving the existing HOMS design law and output contract.
-3. Route Site Studio candidate composition through `site_editorial_dark` and compare it against the current canonical site and Gamma candidate.
+1. **DONE**: land the reusable composer, profiles, tests and golden proof without changing live products.
+2. **IN PROGRESS**: refactor HOMS visual primitives to call the Format Core composer while preserving the existing HOMS design law and output contract.
+3. **DONE, pending runtime proof**: route Site Studio composition through `site_editorial_dark` with Format Core as the authoritative visual projection layer.
 4. Promote additional product-specific visual profiles only after controlled visual proofs.
 5. Remove duplicated local SVG helpers once each caller is proven on the shared path.
 
