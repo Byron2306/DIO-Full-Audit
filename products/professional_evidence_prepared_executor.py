@@ -38,6 +38,16 @@ from products.professional_evidence_sophia_boundary_probe import install_sophia_
 # the exact response and missing signal instead of producing another opaque refusal.
 install_sophia_boundary_probe()
 
+from products.professional_evidence_customer_surface_compat import install_customer_surface_compat
+
+# Alpha customer-surface review exposed last-mile composition defects rather than
+# new domain-engine gaps: separate Sophia references were not bound into the local
+# audit, VAMP used a synthetic KPA outside its own profile vocabulary, HOMS Exam
+# stopped at Markdown, Evidex retained template metadata, and Campaign Lab reused a
+# single visual source. Install these composition repairs last so they wrap the
+# already-corrected governed product routes rather than replacing them.
+install_customer_surface_compat()
+
 from products.professional_evidence_executor import (
     BLOCKED,
     FAIL,
