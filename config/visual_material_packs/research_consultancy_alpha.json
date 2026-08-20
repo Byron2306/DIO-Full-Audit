@@ -19,11 +19,24 @@
       "required": true
     },
     {
-      "slot_id": "HUMAN_REVIEW",
-      "semantic_visual_kind": "human_review_scene",
-      "allowed_material_kinds": ["curated_photo", "generated_editorial"],
-      "required_subject_any": ["human review", "documents", "professional judgement"],
-      "required_activity_any": ["reviewing documents"],
+      "slot_id": "RESEARCH_STRATEGY_NATIVE",
+      "semantic_visual_kind": "decision_landscape",
+      "allowed_material_kinds": ["native_renderer"],
+      "required_subject_any": ["research strategy", "decision context", "uncertainty"],
+      "required": true
+    },
+    {
+      "slot_id": "EVIDENCE_SYNTHESIS_NATIVE",
+      "semantic_visual_kind": "evidence_network",
+      "allowed_material_kinds": ["native_renderer", "artifact_render"],
+      "required_subject_any": ["evidence", "claims", "synthesis"],
+      "required": true
+    },
+    {
+      "slot_id": "COMMUNICATION_ARTIFACT",
+      "semantic_visual_kind": "communication_outputs",
+      "allowed_material_kinds": ["artifact_render"],
+      "required_subject_any": ["report", "presentation", "public explanation"],
       "required": true
     },
     {
@@ -35,17 +48,25 @@
       "required": true
     },
     {
-      "slot_id": "COMMUNICATION_ARTIFACT",
-      "semantic_visual_kind": "communication_outputs",
-      "allowed_material_kinds": ["artifact_render"],
-      "required_subject_any": ["report", "presentation", "public explanation"],
-      "required": true
-    },
-    {
       "slot_id": "EVIDENCE_OR_PROVENANCE_ARTIFACT",
       "semantic_visual_kind": "provenance_stack",
       "allowed_material_kinds": ["artifact_render"],
       "required_subject_any": ["provenance", "source lineage", "evidence"],
+      "required": true
+    },
+    {
+      "slot_id": "HUMAN_REVIEW",
+      "semantic_visual_kind": "human_review_scene",
+      "allowed_material_kinds": ["curated_photo", "generated_editorial"],
+      "required_subject_any": ["human review", "documents", "professional judgement"],
+      "required_activity_any": ["reviewing documents"],
+      "required": true
+    },
+    {
+      "slot_id": "BOUNDED_CTA_NATIVE",
+      "semantic_visual_kind": "bounded_action",
+      "allowed_material_kinds": ["native_renderer"],
+      "required_subject_any": ["client intake", "bounded next step"],
       "required": true
     },
     {
