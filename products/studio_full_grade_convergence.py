@@ -10,7 +10,7 @@ from typing import Any
 
 from adapters.document_studio.art_direction import build_art_direction
 from adapters.format_core.renderer import build_paragraph_semantic_content, render_semantic_asset
-from adapters.sophia.review_pipeline import run_review
+from adapters.sophia.review_pipeline import extract_document_text, run_review
 from lingua.product_projection import build_projection_plan
 from lingua.semantic_law import build_semantic_law, validate_projection
 from lingua.storyline_planner import project_story
@@ -623,7 +623,7 @@ def run_article_full_grade(
             + ", ".join(key for key, passed in sophia_checks.items() if not passed)
         )
 
-    manuscript_text = manuscript_path.read_text(encoding="utf-8", errors="replace")
+    manuscript_text, _ = extract_document_text(manuscript_path)
     content = _article_semantic_content(
         manifest=manifest,
         manuscript_text=manuscript_text,
