@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -16,6 +17,8 @@ from scripts.edge_tts_runtime import configure_edge_tts_environment
 configure_edge_tts_environment()
 
 from scripts import build_multichannel_campaign_factory_v3 as _v3
+from lingua.product_projection import build_projection_plan
+from lingua.semantic_law import build_semantic_law, validate_projection
 from lingua.storyline_planner import project_story as project_story_semantic_anti_clone
 from scripts.gamma_primary_visual_bridge import install_gamma_primary_visual_bridge
 from scripts.lingua_music_projection import select_projection_music
@@ -46,6 +49,35 @@ install_visual_spine(_v3)
 install_gamma_primary_visual_bridge(_v3)
 
 from scripts.build_multichannel_campaign_factory_v3 import *  # noqa: E402,F401,F403
+
+
+# Production Studio v3 added an explicit channel_projection argument to
+# copy_package. Older native Studio executors legitimately call the public
+# factory wrapper with the original three-argument contract. Preserve that
+# contract by deriving the missing projection through the current LINGUA law,
+# rather than fabricating a tone or bypassing semantic governance.
+_copy_package_v3 = _v3.copy_package
+
+
+def copy_package(
+    product: dict[str, Any],
+    audience: dict[str, Any],
+    channel_id: str,
+    channel_projection: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if channel_projection is None:
+        law = build_semantic_law(product, audience)
+        projection = build_projection_plan(
+            law,
+            product,
+            audience,
+            {channel_id: {"format": "studio_native_activation"}},
+        )
+        errors = validate_projection(law, projection)
+        if errors:
+            raise ValueError("LINGUA channel projection invalid: " + "; ".join(errors))
+        channel_projection = dict(projection["channel_projections"][channel_id])
+    return _copy_package_v3(product, audience, channel_id, channel_projection)
 
 
 if __name__ == "__main__":
