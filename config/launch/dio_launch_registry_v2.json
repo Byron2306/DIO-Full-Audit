@@ -1,6 +1,6 @@
 {
   "schema": "dio.launch_registry.v2",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "as_of": "2026-08-20",
   "purpose": "Launch only DIO products with current execution proof and a customer-visible terminal artifact while preserving human release authority.",
   "laws": {
@@ -17,7 +17,7 @@
   "status_vocabulary": {
     "AVAILABLE_CONTROLLED_PILOT": "Execution-proved with a real customer-visible artifact contract. May be offered as a human-reviewed controlled pilot.",
     "PROOF_RUN_REQUIRED": "Product implementation exists, but the current expanded launch authority still requires a fresh proof run and artifact check.",
-    "ARTIFACT_GATE_PENDING": "Execution or class proof exists, but the new customer-visible artifact gate has not yet been satisfied for launch authority.",
+    "ARTIFACT_GATE_PENDING": "Execution proof is current and passed, but customer-visible artifact quality still requires explicit inspection before launch promotion.",
     "COMPOSITION_PROOF_REQUIRED": "Buyer-facing composition is defined over existing DIO organs but has not yet earned its own controlled composition execution proof.",
     "EXTERNAL_AUTHORITY_REVIEW_REQUIRED": "Composition is defined but current legal/regulatory authority material and human professional review are required before offering it as a controlled service.",
     "CANDIDATE": "Potential product or incarnation. Not launchable."
@@ -31,16 +31,7 @@
       "proof_class": "golden controlled document execution",
       "proof_ref": "docs/DOCUMENT_STUDIO_GOLDEN_PROOF.md",
       "public_surface": "sites/document-studio/index.html",
-      "customer_artifacts": [
-        "clean edited DOCX",
-        "visible redline DOCX",
-        "translated clean copy",
-        "bilingual review copy",
-        "rendered PDF",
-        "accessible HTML",
-        "change and QA evidence",
-        "review ZIP"
-      ],
+      "customer_artifacts": ["clean edited DOCX", "visible redline DOCX", "translated clean copy", "bilingual review copy", "rendered PDF", "accessible HTML", "change and QA evidence", "review ZIP"],
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
       "human_gate": "NEEDS_YOU",
@@ -54,12 +45,7 @@
       "proof_class": "professional evidence full-pipeline selective execution",
       "proof_ref": "docs/SOPHIA_TUTOR_PROFESSIONAL_PIPELINE_PROOF_2026-08-20.md",
       "public_surface": "sites/sophia/index.html",
-      "customer_artifacts": [
-        "grounded dialogic tutoring response",
-        "governed authorship-pressure response",
-        "Mandos and constitutional decision evidence",
-        "tutoring support pack"
-      ],
+      "customer_artifacts": ["grounded dialogic tutoring response", "governed authorship-pressure response", "Mandos and constitutional decision evidence", "tutoring support pack"],
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
       "human_gate": "NEEDS_YOU",
@@ -71,16 +57,9 @@
       "family": "design_studio",
       "status": "AVAILABLE_CONTROLLED_PILOT",
       "proof_class": "native multi-organ capability closure",
-      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-18.md",
+      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/site_studio.json",
-      "customer_artifacts": [
-        "positioning and site structure",
-        "responsive HTML site package",
-        "governed copy",
-        "evidence and claim proof",
-        "intake structure",
-        "human-held deployment receipt"
-      ],
+      "customer_artifacts": ["positioning and site structure", "responsive HTML site package", "governed copy", "evidence and claim proof", "intake structure", "human-held deployment receipt"],
       "artifact_entrypoint": "native_base/composition/marketfront/index.html",
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
@@ -94,14 +73,9 @@
       "family": "communication_studio",
       "status": "AVAILABLE_CONTROLLED_PILOT",
       "proof_class": "native multi-organ capability closure",
-      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-18.md",
+      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/professional_correspondence_studio.json",
-      "customer_artifacts": [
-        "response brief",
-        "reviewable correspondence draft",
-        "semantic custody evidence",
-        "release preparation receipt"
-      ],
+      "customer_artifacts": ["response brief", "reviewable correspondence draft", "semantic custody evidence", "release preparation receipt"],
       "artifact_entrypoint": "native_base/composition/correspondence/RESPONSE_BRIEF.html",
       "artifact_openable": true,
       "evidence_embedded_or_linked": true,
@@ -114,55 +88,33 @@
       "id": "finance_readiness_studio",
       "name": "DIO Finance Readiness Studio / EntrepreneurProof",
       "family": "entrepreneurial",
-      "status": "PROOF_RUN_REQUIRED",
+      "status": "ARTIFACT_GATE_PENDING",
+      "proof_class": "native multi-organ capability closure",
+      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/finance_readiness_studio.json",
+      "native_closure_fingerprint": "sha256:fd7d951054e761b538be8b75fea298cf9553eb5d9dade1afa234762dadf1f55d",
+      "artifact_entrypoint": "native_base/composition/finance/READINESS_REPORT.html",
       "required_artifacts": ["openable readiness report", "requirement-to-evidence gap map", "assumption boundary", "human decision boundary"]
     },
     {
       "id": "article_publication_studio",
       "name": "DIO Article / Publication Studio",
       "family": "publication",
-      "status": "PROOF_RUN_REQUIRED",
+      "status": "ARTIFACT_GATE_PENDING",
+      "proof_class": "native multi-organ capability closure",
+      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-20.md",
       "manifest_ref": "config/studio_harvest/article_publication_studio.json",
+      "native_closure_fingerprint": "sha256:37ddd015ed17ba4c8f99266736f7eed896fb9c886327ced2327dd0540a2cf105",
+      "artifact_entrypoint": "native_base/composition/publication/ARTICLE_DRAFT.html",
       "required_artifacts": ["openable article draft", "editorial proof", "source lineage", "human publication gate"]
     }
   ],
   "commercial_compositions_held": [
-    {
-      "id": "dio_launch_studio",
-      "name": "DIO Launch Studio",
-      "family": "design_studio",
-      "status": "COMPOSITION_PROOF_REQUIRED",
-      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
-    },
-    {
-      "id": "dio_report_pitch_studio",
-      "name": "DIO Report & Pitch Studio",
-      "family": "design_studio",
-      "status": "COMPOSITION_PROOF_REQUIRED",
-      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
-    },
-    {
-      "id": "dio_popia_readiness",
-      "name": "DIO POPIA Readiness",
-      "family": "legal_operations",
-      "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED",
-      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
-    },
-    {
-      "id": "dio_corporate_readiness",
-      "name": "DIO Corporate Readiness",
-      "family": "legal_operations",
-      "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED",
-      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
-    },
-    {
-      "id": "dio_contract_desk",
-      "name": "DIO Contract Desk",
-      "family": "legal_operations",
-      "status": "COMPOSITION_PROOF_REQUIRED",
-      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
-    }
+    {"id": "dio_launch_studio", "name": "DIO Launch Studio", "family": "design_studio", "status": "COMPOSITION_PROOF_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
+    {"id": "dio_report_pitch_studio", "name": "DIO Report & Pitch Studio", "family": "design_studio", "status": "COMPOSITION_PROOF_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
+    {"id": "dio_popia_readiness", "name": "DIO POPIA Readiness", "family": "legal_operations", "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
+    {"id": "dio_corporate_readiness", "name": "DIO Corporate Readiness", "family": "legal_operations", "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"},
+    {"id": "dio_contract_desk", "name": "DIO Contract Desk", "family": "legal_operations", "status": "COMPOSITION_PROOF_REQUIRED", "registry_ref": "config/dio_design_legal_commercial_incarnations.json"}
   ],
   "canonical_portfolio": {
     "registered_product_class_count": 53,
