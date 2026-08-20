@@ -1,0 +1,80 @@
+{
+  "schema": "dio.format_core.visual_profiles.v1",
+  "profiles": {
+    "dio_professional_visual": {
+      "name": "DIO Professional Visual",
+      "palette": {
+        "paper": "#f8faf7",
+        "surface": "#ffffff",
+        "surface_alt": "#eef3ef",
+        "ink": "#18212b",
+        "muted": "#5b6570",
+        "line": "#c9d3cc",
+        "accent": "#225c7a",
+        "accent_ink": "#ffffff",
+        "success": "#1f6b3a",
+        "warning": "#f3b64b",
+        "danger": "#b64a3d"
+      },
+      "typography": {
+        "font_family": "Inter, Arial, sans-serif",
+        "body_size": 18,
+        "heading_size": 34
+      },
+      "geometry": {
+        "radius": 14,
+        "line_width": 2
+      }
+    },
+    "caps_assessment_visual": {
+      "name": "CAPS Assessment Visual",
+      "palette": {
+        "paper": "#ffffff",
+        "surface": "#ffffff",
+        "surface_alt": "#e5e7eb",
+        "ink": "#18212b",
+        "muted": "#5b6570",
+        "line": "#18212b",
+        "accent": "#225c7a",
+        "accent_ink": "#ffffff",
+        "success": "#1f6b3a",
+        "warning": "#f3b64b",
+        "danger": "#b64a3d"
+      },
+      "typography": {
+        "font_family": "Arial, sans-serif",
+        "body_size": 16,
+        "heading_size": 28
+      },
+      "geometry": {
+        "radius": 0,
+        "line_width": 2
+      }
+    },
+    "site_editorial_dark": {
+      "name": "Site Editorial Dark",
+      "palette": {
+        "paper": "#0b1118",
+        "surface": "#111b25",
+        "surface_alt": "#182632",
+        "ink": "#f5f8fa",
+        "muted": "#aab7c3",
+        "line": "#29404f",
+        "accent": "#5fd1d8",
+        "accent_ink": "#071014",
+        "success": "#78d9a5",
+        "warning": "#f0b95b",
+        "danger": "#e36f62"
+      },
+      "typography": {
+        "font_family": "Inter, Arial, sans-serif",
+        "body_size": 18,
+        "heading_size": 42
+      },
+      "geometry": {
+        "radius": 16,
+        "line_width": 1.5
+      }
+    }
+  }
+}
