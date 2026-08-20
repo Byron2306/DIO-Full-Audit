@@ -57,6 +57,18 @@ SEMANTIC_FOCUS_BY_ROLE: dict[str, str] = {
 }
 
 
+VERTICAL_OUTCOME_ROLE: dict[str, str] = {
+    "learner_support": "result",
+    "education_practitioner": "transformation",
+    "academic_research": "evidence",
+    "assurance": "control_view",
+    "executive_operations": "after",
+    "public_programme": "mission",
+    "professional_services": "first_pass",
+    "general_professional": "workflow",
+}
+
+
 LANDSCAPE_OUTCOME_ROLE: dict[str, str] = {
     "learner_support": "result",
     "education_practitioner": "deliverable",
@@ -123,6 +135,251 @@ def _strip_bounded_outcome_echo(narration: str, outcome: str) -> str:
     pattern = re.compile(r"\s*The bounded outcome is:\s*" + re.escape(bounded) + r"\.?\s*$", re.IGNORECASE)
     text = pattern.sub("", text).strip()
     return text if not text or text.endswith((".", "!", "?")) else text + "."
+
+
+def _vertical_short_realisation(
+    row: dict[str, Any],
+    *,
+    product: dict[str, Any],
+    audience: dict[str, Any],
+    archetype: str,
+) -> dict[str, Any]:
+    """Realise short-form copy without inheriting legacy role aliases verbatim.
+
+    Short-form may compress the semantic law, but it still gets one designated
+    bounded-outcome beat. Other beats use pain, promise, proof or authority without
+    mechanically repeating the exact outcome or another scene's substantive line.
+    """
+    role = str(row.get("role") or "")
+    outcome_role = VERTICAL_OUTCOME_ROLE.get(archetype)
+    focus = "outcome" if role == outcome_role else SEMANTIC_FOCUS_BY_ROLE.get(role, role or "context")
+
+    name = _clean(product.get("short_name") or product.get("name") or "DIO")
+    audience_name = _clean(audience.get("name") or "the intended audience")
+    outcome = _clean(audience.get("outcome"))
+    pain = _source_without_outcome(
+        _clean(audience.get("pain")),
+        outcome,
+        "the work is harder to prepare and review than it needs to be",
+    )
+    promise = _source_without_outcome(
+        _clean(product.get("promise")),
+        outcome,
+        "prepare the supplied work through a governed, reviewable workflow",
+    )
+    proof = _source_without_outcome(
+        _clean(product.get("proof")),
+        outcome,
+        "the workflow leaves an inspectable evidence trail and review boundary",
+    )
+    cta = _source_without_outcome(
+        _clean(product.get("cta")),
+        outcome,
+        "start with one bounded case",
+    )
+
+    authority_by_archetype = {
+        "learner_support": "The learner keeps ownership of graded work, and the educator keeps assessment authority.",
+        "education_practitioner": "The system prepares the work for review; the educator remains the final professional authority.",
+        "academic_research": "The researcher remains the author, and scholarly judgement stays with the authorised human reviewer.",
+        "assurance": "Evidence can be organised and exceptions surfaced, but the assurance decision remains human.",
+        "executive_operations": "The workflow prepares the decision surface; consequential management judgement remains human.",
+        "public_programme": "The system can prepare evidence for review, but it cannot create donor, regulator or programme approval.",
+        "professional_services": "The professional remains accountable for the client-facing judgement, commitment and release.",
+        "general_professional": "The system prepares a bounded review state; the authorised human keeps judgement and release.",
+    }
+    authority = authority_by_archetype.get(archetype, authority_by_archetype["general_professional"])
+
+    role_copy: dict[str, tuple[str, str, str]] = {
+        "question": (
+            "Start with the real question",
+            f"For {audience_name}, the immediate learning friction is {_lower_first(pain).rstrip('.')}.",
+            "Open on the learner's actual task or confusion, not a generic product claim.",
+        ),
+        "relatable_problem": (
+            "Show where it gets sticky",
+            "The difficulty becomes expensive when the learner has to search across generic material before reaching something that fits the actual classroom context.",
+            "Use one recognisable learner obstacle and keep the grade, topic or task visible.",
+        ),
+        "simple_demo": (
+            "One useful move",
+            f"The useful intervention is concrete: {name} is used to {_lower_first(promise).rstrip('.')}.",
+            "Show one simple before-to-after teaching or learning move rather than a system diagram.",
+        ),
+        "result": (
+            "Make the result visible",
+            f"The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            "Show the learner-facing handoff as something that can still be reviewed, adapted or discussed.",
+        ),
+        "cold_open": (
+            "Start where the work hurts",
+            f"For {audience_name}, the pressure is immediate: {_lower_first(pain).rstrip('.')}.",
+            "Open in the real work moment before any product or architecture appears.",
+        ),
+        "recognition": (
+            "That friction compounds",
+            "This is not a one-off inconvenience. Repeated preparation, revision and checking keep pulling specialist attention away from the judgement only a professional can make.",
+            "Use a quick sequence of repeated work moments so the cost is visible rather than restated.",
+        ),
+        "transformation": (
+            "Change the preparation step",
+            (
+                f"{name} is used to {_lower_first(promise).rstrip('.')}. The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            ),
+            "Reveal the changed workflow through action and end on the concrete reviewable handoff.",
+        ),
+        "proof": (
+            "Put proof on screen",
+            f"The claim has to survive inspection: {_lower_first(proof).rstrip('.')}.",
+            "Use the real proof object, source trail or product surface rather than a fictional success metric.",
+        ),
+        "human_gate": (
+            "The human still decides",
+            authority,
+            "Make the human review or release point the visual anchor instead of a legal-disclaimer card.",
+        ),
+        "provocation": (
+            "Challenge the easy assumption",
+            f"The research problem starts here: {_lower_first(pain).rstrip('.')}.",
+            "Open with the contested scholarly question and keep source material physically present.",
+        ),
+        "source_problem": (
+            "Now trace the claim",
+            "The next question is provenance: which source supports which claim, where the argument stretches past the evidence, and what still needs scholarly judgement?",
+            "Move from manuscript claim to source detail so the traceability problem becomes visible.",
+        ),
+        "method": (
+            "Use a bounded method",
+            f"The method is practical: {name} is used to {_lower_first(promise).rstrip('.')}.",
+            "Show claims, sources and review notes being separated into an inspectable method.",
+        ),
+        "evidence": (
+            "What the researcher gets",
+            f"The bounded result is {_lower_first(outcome).rstrip('.')}. The supporting proof remains inspectable: {_lower_first(proof).rstrip('.')}.",
+            "Show the review artifact beside the source trail so utility and provenance are visible together.",
+        ),
+        "limitation": (
+            "Authorship stays put",
+            authority,
+            "End the scholarly sequence on the author's or reviewer's decision point.",
+        ),
+        "red_flag": (
+            "Start with the control question",
+            f"The review pressure is specific: {_lower_first(pain).rstrip('.')}.",
+            "Open on one concrete exception, missing trace or evidence conflict.",
+        ),
+        "consequence": (
+            "This is where time disappears",
+            "When the evidence trail is unclear, review time shifts from judgement to reconstruction, and small exceptions become harder to distinguish from real control failure.",
+            "Show review effort accumulating around one unresolved evidence path.",
+        ),
+        "evidence_gap": (
+            "Expose the gap",
+            f"{name} is used to {_lower_first(promise).rstrip('.')}.",
+            "Visually separate supplied evidence, missing evidence and contradiction states.",
+        ),
+        "control_view": (
+            "One reviewable control view",
+            f"The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            "Show the structured review surface with exceptions and provenance still visible.",
+        ),
+        "cost_of_friction": (
+            "Show the operating drag",
+            f"For {audience_name}, management time is being consumed by {_lower_first(pain).rstrip('.')}.",
+            "Lead with the operational cost and delayed decision rather than generic automation language.",
+        ),
+        "before": (
+            "Before",
+            "Before the governed assist, people are still reconstructing context across files, handoffs and revisions before they can make the decision they were actually hired to make.",
+            "Show the fragmented operating state with almost no explanatory text.",
+        ),
+        "after": (
+            "After",
+            f"The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            "Show the concise decision surface and retain the manager or reviewer in frame.",
+        ),
+        "decision": (
+            "Prepare, do not automate, the decision",
+            authority,
+            "Anchor the final beat on the human decision-maker.",
+        ),
+        "mission": (
+            "Start with the mission",
+            f"The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            "Open with the public or programme objective, then connect it to the evidence burden.",
+        ),
+        "evidence_problem": (
+            "The evidence is scattered",
+            f"The reporting pressure comes from {_lower_first(pain).rstrip('.')}.",
+            "Use field, programme and document context together so the evidence problem feels concrete.",
+        ),
+        "route": (
+            "Build the evidence route",
+            f"{name} is used to {_lower_first(promise).rstrip('.')}.",
+            "Show activity becoming a traceable review path rather than a glossy outcome montage.",
+        ),
+        "trust_boundary": (
+            "Trust still needs authority",
+            authority,
+            "Show provenance and human approval as separate trust signals.",
+        ),
+        "client_arrives": (
+            "The client sends everything",
+            f"The job begins with the client's actual mess: {_lower_first(pain).rstrip('.')}.",
+            "Open with authentic intake material, not a polished finished-state mockup.",
+        ),
+        "mess": (
+            "First, make it inspectable",
+            "The first professional win is not magic. It is turning inconsistent input into a structure someone can actually inspect without losing the client's meaning or constraints.",
+            "Use a quick mess-to-structure reveal with the original material still recognisable.",
+        ),
+        "first_pass": (
+            "A serious first pass",
+            f"The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            "Show the prepared client-facing work as reviewable, not automatically final.",
+        ),
+        "professional_authority": (
+            "Your judgement stays yours",
+            authority,
+            "Keep the practitioner visibly in control of the consequential decision.",
+        ),
+        "hook": (
+            "Start with the real job",
+            f"For {audience_name}, the immediate friction is {_lower_first(pain).rstrip('.')}.",
+            "Open with one concrete working moment and no architecture language.",
+        ),
+        "pain": (
+            "Name what keeps repeating",
+            "The recurring cost is not only the task itself. It is the repeated effort needed to reconstruct context, check the work and prepare something another person can safely review.",
+            "Use a second, distinct working moment so the problem develops instead of repeating the hook.",
+        ),
+        "workflow": (
+            "Show the useful change",
+            f"{name} is used to {_lower_first(promise).rstrip('.')}. The bounded result is {_lower_first(outcome).rstrip('.')}.",
+            "Show supplied material moving into a bounded review state with the handoff visible.",
+        ),
+        "cta": (
+            "Keep the next step small",
+            f"The next step is {_lower_first(cta).rstrip('.')}.",
+            "Close on one concrete action with no urgency fiction or automatic-release implication.",
+        ),
+    }
+
+    screen, narration, visual = role_copy.get(
+        role,
+        (
+            "Keep the story moving",
+            "This beat advances the short-form argument without repeating another scene's narration or bounded outcome.",
+            "Use one distinct, audience-specific visual action that advances the story.",
+        ),
+    )
+    updated = dict(row)
+    updated["screen_text"] = screen
+    updated["narration"] = narration
+    updated["visual"] = visual
+    updated["semantic_focus"] = focus
+    updated["realisation_mode"] = f"{archetype}_vertical_short_v2"
+    return updated
 
 
 def _education_landscape_realisation(
@@ -384,7 +641,14 @@ def _realise_story(
     scenes: list[dict[str, Any]] = []
     for scene in story.get("scenes") or []:
         row = dict(scene)
-        if surface == "landscape_explainer":
+        if surface == "vertical_short":
+            row = _vertical_short_realisation(
+                row,
+                product=product,
+                audience=audience,
+                archetype=archetype,
+            )
+        elif surface == "landscape_explainer":
             row["narration"] = _strip_bounded_outcome_echo(str(row.get("narration") or ""), outcome)
             if archetype == "education_practitioner":
                 row = _education_landscape_realisation(row, product=product, audience=audience)
@@ -397,13 +661,18 @@ def _realise_story(
                 )
         role = str(row.get("role") or "")
         if "semantic_focus" not in row:
-            outcome_role = LANDSCAPE_OUTCOME_ROLE.get(archetype) if surface == "landscape_explainer" else None
+            if surface == "vertical_short":
+                outcome_role = VERTICAL_OUTCOME_ROLE.get(archetype)
+            elif surface == "landscape_explainer":
+                outcome_role = LANDSCAPE_OUTCOME_ROLE.get(archetype)
+            else:
+                outcome_role = None
             row["semantic_focus"] = "outcome" if role == outcome_role else SEMANTIC_FOCUS_BY_ROLE.get(role, role or "context")
         scenes.append(row)
 
     story["scenes"] = scenes
     story["storyline_strategy"] = {
-        "schema": "dio.lingua.storyline_strategy.v2",
+        "schema": "dio.lingua.storyline_strategy.v3",
         "mode": "surface_specific_semantic_focus_allocation",
         "surface": surface,
         "semantic_invariants_are_contract_not_refrain": True,
