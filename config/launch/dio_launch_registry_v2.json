@@ -1,0 +1,181 @@
+{
+  "schema": "dio.launch_registry.v2",
+  "version": "2.0.0",
+  "as_of": "2026-08-20",
+  "purpose": "Launch only DIO products with current execution proof and a customer-visible terminal artifact while preserving human release authority.",
+  "laws": {
+    "receipt_alone_is_not_product": true,
+    "registered_is_not_available": true,
+    "launch_ready_requires_execution_proof": true,
+    "launch_ready_requires_customer_visible_artifact": true,
+    "launch_ready_requires_named_proof_source": true,
+    "external_release_remains_human_held": true,
+    "market_validation_is_not_claimed": true,
+    "commercial_validation_is_not_claimed_without_observed_customer_payment": true,
+    "canonical_53_is_not_the_complete_product_universe": true
+  },
+  "status_vocabulary": {
+    "AVAILABLE_CONTROLLED_PILOT": "Execution-proved with a real customer-visible artifact contract. May be offered as a human-reviewed controlled pilot.",
+    "PROOF_RUN_REQUIRED": "Product implementation exists, but the current expanded launch authority still requires a fresh proof run and artifact check.",
+    "ARTIFACT_GATE_PENDING": "Execution or class proof exists, but the new customer-visible artifact gate has not yet been satisfied for launch authority.",
+    "COMPOSITION_PROOF_REQUIRED": "Buyer-facing composition is defined over existing DIO organs but has not yet earned its own controlled composition execution proof.",
+    "EXTERNAL_AUTHORITY_REVIEW_REQUIRED": "Composition is defined but current legal/regulatory authority material and human professional review are required before offering it as a controlled service.",
+    "CANDIDATE": "Potential product or incarnation. Not launchable."
+  },
+  "launch_ready": [
+    {
+      "id": "document_studio",
+      "name": "DIO Document Studio",
+      "family": "document",
+      "status": "AVAILABLE_CONTROLLED_PILOT",
+      "proof_class": "golden controlled document execution",
+      "proof_ref": "docs/DOCUMENT_STUDIO_GOLDEN_PROOF.md",
+      "public_surface": "sites/document-studio/index.html",
+      "customer_artifacts": [
+        "clean edited DOCX",
+        "visible redline DOCX",
+        "translated clean copy",
+        "bilingual review copy",
+        "rendered PDF",
+        "accessible HTML",
+        "change and QA evidence",
+        "review ZIP"
+      ],
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true,
+      "human_gate": "NEEDS_YOU",
+      "external_release": "REFUSE"
+    },
+    {
+      "id": "sophia_tutor",
+      "name": "Sophia Tutor",
+      "family": "sophia",
+      "status": "AVAILABLE_CONTROLLED_PILOT",
+      "proof_class": "professional evidence full-pipeline selective execution",
+      "proof_ref": "docs/SOPHIA_TUTOR_PROFESSIONAL_PIPELINE_PROOF_2026-08-20.md",
+      "public_surface": "sites/sophia/index.html",
+      "customer_artifacts": [
+        "grounded dialogic tutoring response",
+        "governed authorship-pressure response",
+        "Mandos and constitutional decision evidence",
+        "tutoring support pack"
+      ],
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true,
+      "human_gate": "NEEDS_YOU",
+      "external_release": "REFUSE"
+    },
+    {
+      "id": "site_studio",
+      "name": "DIO Site Studio",
+      "family": "design_studio",
+      "status": "AVAILABLE_CONTROLLED_PILOT",
+      "proof_class": "native multi-organ capability closure",
+      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-18.md",
+      "manifest_ref": "config/studio_harvest/site_studio.json",
+      "customer_artifacts": [
+        "positioning and site structure",
+        "responsive HTML site package",
+        "governed copy",
+        "evidence and claim proof",
+        "intake structure",
+        "human-held deployment receipt"
+      ],
+      "artifact_entrypoint": "native_base/composition/marketfront/index.html",
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true,
+      "human_gate": "NEEDS_YOU",
+      "external_release": "REFUSE",
+      "launch_note": "Offer as a controlled redesign/build pilot. Public deployment remains separately authorised. Production-quality design QA remains mandatory per customer run."
+    },
+    {
+      "id": "professional_correspondence_studio",
+      "name": "DIO Professional Correspondence Studio",
+      "family": "communication_studio",
+      "status": "AVAILABLE_CONTROLLED_PILOT",
+      "proof_class": "native multi-organ capability closure",
+      "proof_ref": "docs/DIO_STUDIO_NATIVE_CLOSURE_PROOF_2026-08-18.md",
+      "manifest_ref": "config/studio_harvest/professional_correspondence_studio.json",
+      "customer_artifacts": [
+        "response brief",
+        "reviewable correspondence draft",
+        "semantic custody evidence",
+        "release preparation receipt"
+      ],
+      "artifact_entrypoint": "native_base/composition/correspondence/RESPONSE_BRIEF.html",
+      "artifact_openable": true,
+      "evidence_embedded_or_linked": true,
+      "human_gate": "NEEDS_YOU",
+      "external_release": "REFUSE"
+    }
+  ],
+  "near_launch": [
+    {
+      "id": "finance_readiness_studio",
+      "name": "DIO Finance Readiness Studio / EntrepreneurProof",
+      "family": "entrepreneurial",
+      "status": "PROOF_RUN_REQUIRED",
+      "manifest_ref": "config/studio_harvest/finance_readiness_studio.json",
+      "required_artifacts": ["openable readiness report", "requirement-to-evidence gap map", "assumption boundary", "human decision boundary"]
+    },
+    {
+      "id": "article_publication_studio",
+      "name": "DIO Article / Publication Studio",
+      "family": "publication",
+      "status": "PROOF_RUN_REQUIRED",
+      "manifest_ref": "config/studio_harvest/article_publication_studio.json",
+      "required_artifacts": ["openable article draft", "editorial proof", "source lineage", "human publication gate"]
+    }
+  ],
+  "commercial_compositions_held": [
+    {
+      "id": "dio_launch_studio",
+      "name": "DIO Launch Studio",
+      "family": "design_studio",
+      "status": "COMPOSITION_PROOF_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_report_pitch_studio",
+      "name": "DIO Report & Pitch Studio",
+      "family": "design_studio",
+      "status": "COMPOSITION_PROOF_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_popia_readiness",
+      "name": "DIO POPIA Readiness",
+      "family": "legal_operations",
+      "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_corporate_readiness",
+      "name": "DIO Corporate Readiness",
+      "family": "legal_operations",
+      "status": "EXTERNAL_AUTHORITY_REVIEW_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    },
+    {
+      "id": "dio_contract_desk",
+      "name": "DIO Contract Desk",
+      "family": "legal_operations",
+      "status": "COMPOSITION_PROOF_REQUIRED",
+      "registry_ref": "config/dio_design_legal_commercial_incarnations.json"
+    }
+  ],
+  "canonical_portfolio": {
+    "registered_product_class_count": 53,
+    "route_registry": "config/professional_evidence_portfolio/v1/routes.json",
+    "launch_rule": "Each canonical product class is promoted independently after a fresh professional-evidence pass plus customer-visible artifact verification. The count 53 is not a launch claim.",
+    "default_status_until_artifact_revalidation": "ARTIFACT_GATE_PENDING",
+    "already_promoted_to_launch_ready": ["Sophia Tutor", "Document Studio Edit", "Document Studio Localize"]
+  },
+  "truth": {
+    "available_product_count": 4,
+    "near_launch_count": 2,
+    "market_validation_claimed": false,
+    "commercial_validation_claimed": false,
+    "autonomous_external_release": false
+  }
+}
