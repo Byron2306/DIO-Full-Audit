@@ -6,7 +6,16 @@ from pathlib import Path
 from adapters.document_studio.art_direction import ANTI_PATTERNS
 from lingua.product_projection import build_projection_plan
 from lingua.semantic_law import build_semantic_law
-from products.studio_full_grade_convergence import _fixture_manuscript, _site_visual_qa
+from products.site_full_grade_bridge_v2 import (
+    _website_projection,
+    _website_semantic_qa,
+    _website_story,
+)
+from products.studio_full_grade_convergence import (
+    _fixture_manuscript,
+    _site_product_audience,
+    _site_visual_qa,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,6 +67,36 @@ def test_site_full_grade_qa_requires_design_law_and_rejects_saas_grid():
     )
     assert bad["passed"] is False
     assert bad["checks"]["saas_repeat_grid_not_hardcoded"] is False
+
+
+def test_site_uses_website_semantic_surface_not_campaign_explainer():
+    manifest = json.loads((ROOT / "config/studio_harvest/site_studio.json").read_text(encoding="utf-8"))
+    product, audience = _site_product_audience(manifest)
+    law = build_semantic_law(product, audience)
+    base = build_projection_plan(
+        law,
+        product,
+        audience,
+        {"WEBSITE": {"format": "responsive_proof_carrying_site"}},
+    )
+    projection = _website_projection(law=law, base_projection=base, manifest=manifest)
+    story = _website_story(
+        law=law,
+        projection=projection,
+        manifest=manifest,
+        product=product,
+        audience=audience,
+    )
+    qa = _website_semantic_qa(projection=projection, story=story)
+
+    assert projection["website_projection_is_campaign_reuse"] is False
+    assert "website" in projection["surfaces"]
+    assert story["surface"] == "website"
+    assert story["semantic_guardrails"]["campaign_story_reuse"] == "REFUSE"
+    assert qa["passed"] is True
+    assert len(set(qa["roles"])) == len(qa["roles"])
+    assert "proof" in qa["roles"]
+    assert "human_authority" in qa["roles"]
 
 
 def test_article_controlled_fixture_is_manuscript_shaped_and_reference_bound():
