@@ -261,7 +261,7 @@ def main() -> int:
                 studio_id=studio_id,
                 product_grade_row=row,
                 contract=contract,
-                root=ROOT,
+                root=product_grade_root / studio_id,
             )
         )
 
