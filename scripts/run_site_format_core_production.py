@@ -55,9 +55,15 @@ def main() -> int:
         "semantic_visual_schema": compositor_receipt.get("semantic_visual_schema"),
         "semantic_visual_compiler": compositor_receipt.get("semantic_visual_compiler"),
         "semantic_visual_count": compositor_receipt.get("semantic_visual_count"),
+        "illustration_renderer": compositor_receipt.get("illustration_renderer"),
+        "illustration_renderer_version": compositor_receipt.get("illustration_renderer_version"),
         "distinct_visual_kind_count": compositor_receipt.get("distinct_visual_kind_count"),
         "visual_kind_counts": compositor_receipt.get("visual_kind_counts"),
+        "distinct_representational_mode_count": compositor_receipt.get("distinct_representational_mode_count"),
+        "representational_mode_counts": compositor_receipt.get("representational_mode_counts"),
+        "representational_diversity_pass": compositor_receipt.get("representational_diversity_pass"),
         "role_geometry_selection": compositor_receipt.get("role_geometry_selection"),
+        "generic_node_link_default": compositor_receipt.get("generic_node_link_default"),
         "timeline_default": compositor_receipt.get("timeline_default"),
         "linear_process_scene_count": compositor_receipt.get("linear_process_scene_count"),
         "linear_process_scene_budget": compositor_receipt.get("linear_process_scene_budget"),
@@ -80,8 +86,12 @@ def main() -> int:
         and summary["semantic_visual_schema"] == "dio.format_core.semantic_visual.v1"
         and summary["semantic_visual_compiler"] == "DIO_FORMAT_CORE"
         and summary["semantic_visual_count"] == 8
+        and summary["illustration_renderer"] == "DIO_FORMAT_CORE_SITE_NATIVE"
         and int(summary["distinct_visual_kind_count"] or 0) >= 6
+        and int(summary["distinct_representational_mode_count"] or 0) >= 6
+        and summary["representational_diversity_pass"] is True
         and summary["role_geometry_selection"] == "REFUSE"
+        and summary["generic_node_link_default"] == "REFUSE"
         and summary["timeline_default"] == "REFUSE"
         and isinstance(process_count, int)
         and isinstance(process_budget, int)
