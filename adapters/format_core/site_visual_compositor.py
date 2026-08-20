@@ -8,9 +8,10 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from adapters.format_core.semantic_visual import (
-    SEMANTIC_VISUAL_SCHEMA,
-    semantic_visual_to_composition,
+from adapters.format_core.semantic_visual import SEMANTIC_VISUAL_SCHEMA
+from adapters.format_core.site_native_illustration import (
+    SITE_ILLUSTRATION_RENDERER_VERSION,
+    site_semantic_visual_to_composition,
 )
 from adapters.format_core.site_semantic_visual import compile_site_semantic_visual
 from adapters.format_core.visual_composer import (
@@ -26,6 +27,7 @@ WIDTH = 1280
 HEIGHT = 720
 PROFILE_ID = "site_editorial_dark"
 PROCESS_SCENE_BUDGET = 1
+MIN_REPRESENTATIONAL_MODES = 6
 REQUIRED_ROLES = (
     "site_hook",
     "service_1",
@@ -79,16 +81,16 @@ def _site_profiles(art: dict[str, Any]) -> dict[str, Any]:
 
 
 def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], output_dir: Path) -> dict[str, Any]:
-    """Compile website semantics into content-native Format Core visuals.
+    """Compile website semantics into content-native Format Core illustrations.
 
     Site Studio owns semantic story structure. Format Core first compiles every
-    scene into ``dio.format_core.semantic_visual.v1`` and only then selects a
-    renderer by ``visual_kind``. A scene role is preserved as provenance but is
-    explicitly forbidden from selecting geometry.
+    scene into ``dio.format_core.semantic_visual.v1``. Site-native semantic
+    kinds are then rendered as recognisable professional objects and situations
+    rather than generic diagram topology.
 
-    This is the HOMS visual law promoted into the shared organ: draw the thing
-    the content is about. External providers may contribute optional image
-    material, but never acquire semantic, geometry, text, selection, release or
+    A scene role is preserved as provenance and is explicitly forbidden from
+    selecting geometry. External providers may contribute optional image
+    material but never acquire semantic, geometry, text, selection, release or
     publication authority.
     """
     scenes = list(story.get("scenes") or [])
@@ -122,7 +124,7 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
         if (spec.get("source") or {}).get("role") != role:
             raise SiteFormatVisualCompositorError(f"semantic visual role provenance mismatch at index {index}")
 
-        composition = semantic_visual_to_composition(
+        composition = site_semantic_visual_to_composition(
             spec,
             profile_id=PROFILE_ID,
             width=WIDTH,
@@ -134,7 +136,7 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
                 "story_hash": story.get("story_hash"),
                 "art_direction_hash": art.get("art_direction_hash"),
                 "directed_layout_family": directed.get("layout_family"),
-                "selection_law": "semantic_visual_kind_before_geometry_role_is_provenance_only",
+                "selection_law": "semantic_visual_kind_to_object_native_illustration_role_is_provenance_only",
             },
         )
         process_components = sum(component.get("kind") == "process" for component in composition["components"])
@@ -149,6 +151,9 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
         path = output_dir / f"{index:02d}-{role.replace('_', '-')}.svg"
         path.write_text(svg, encoding="utf-8")
         semantic_visuals.append(spec)
+        representational_mode = str((composition.get("binding") or {}).get("representational_mode") or "")
+        if not representational_mode:
+            raise SiteFormatVisualCompositorError(f"Site illustration omitted representational mode at index {index}")
         assets.append(
             {
                 "scene_id": semantic.get("scene_id"),
@@ -157,12 +162,14 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
                 "directed_layout_family": directed.get("layout_family"),
                 "visual_kind": spec["visual_kind"],
                 "visual_family": spec["visual_kind"],
+                "representational_mode": representational_mode,
+                "illustration_renderer_version": (composition.get("binding") or {}).get("illustration_renderer_version"),
+                "display_copy": directed.get("display_copy"),
+                "visual_subject": directed.get("visual_subject"),
                 "semantic_intent": spec["semantic_intent"],
                 "semantic_visual_schema": spec["schema"],
                 "semantic_visual_hash": spec["semantic_visual_hash"],
                 "semantic_visual_role_selects_geometry": (spec.get("source") or {}).get("role_selects_geometry"),
-                "display_copy": directed.get("display_copy"),
-                "visual_subject": directed.get("visual_subject"),
                 "path": path.name,
                 "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                 "bytes": path.stat().st_size,
@@ -188,12 +195,17 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
         raise SiteFormatVisualCompositorError(
             f"Site semantic visual compiler collapsed the page into too few visual kinds: {len(kind_counts)}"
         )
+    mode_counts = dict(sorted(Counter(row["representational_mode"] for row in assets).items()))
+    if len(mode_counts) < MIN_REPRESENTATIONAL_MODES:
+        raise SiteFormatVisualCompositorError(
+            f"Site illustration renderer collapsed the page into too few representational modes: {len(mode_counts)}<{MIN_REPRESENTATIONAL_MODES}"
+        )
     if any(row["semantic_visual_role_selects_geometry"] is not False for row in assets):
         raise SiteFormatVisualCompositorError("role-selected geometry leaked into Site visual assets")
 
     receipt = {
-        "schema": "dio.format_core.site_visual_compositor_receipt.v3",
-        "source": "homs_semantic_visual_discipline_promoted_into_format_core",
+        "schema": "dio.format_core.site_visual_compositor_receipt.v4",
+        "source": "homs_object_native_semantic_visual_discipline_promoted_into_format_core",
         "surface": "website",
         "story_hash": story.get("story_hash"),
         "art_direction_hash": art.get("art_direction_hash"),
@@ -205,17 +217,24 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
         "semantic_visual_count": len(semantic_visuals),
         "semantic_visual_hashes": [row["semantic_visual_hash"] for row in semantic_visuals],
         "semantic_visual_compiler": "DIO_FORMAT_CORE",
+        "illustration_renderer": "DIO_FORMAT_CORE_SITE_NATIVE",
+        "illustration_renderer_version": SITE_ILLUSTRATION_RENDERER_VERSION,
         "all_scene_roles_bound": tuple(row["role"] for row in assets) == REQUIRED_ROLES,
         "visual_kind_counts": kind_counts,
         "visual_family_counts": kind_counts,
         "distinct_visual_kind_count": len(kind_counts),
         "distinct_visual_family_count": len(kind_counts),
+        "representational_mode_counts": mode_counts,
+        "distinct_representational_mode_count": len(mode_counts),
+        "minimum_representational_mode_count": MIN_REPRESENTATIONAL_MODES,
+        "representational_diversity_pass": len(mode_counts) >= MIN_REPRESENTATIONAL_MODES,
         "linear_process_scene_count": linear_process_scene_count,
         "linear_process_scene_budget": PROCESS_SCENE_BUDGET,
         "linear_process_budget_pass": linear_process_scene_count <= PROCESS_SCENE_BUDGET,
         "timeline_default": "REFUSE",
+        "generic_node_link_default": "REFUSE",
         "role_geometry_selection": "REFUSE",
-        "selection_law": "semantic_intent_to_visual_kind_to_renderer_to_svg",
+        "selection_law": "semantic_intent_to_visual_kind_to_object_native_renderer_to_svg",
         "format_core_visual_composition": "PASS",
         "site_semantic_authority": "DIO_SITE_STUDIO",
         "geometry_authority": "DIO_FORMAT_CORE",
@@ -233,6 +252,7 @@ def render_site_visual_assets(*, story: dict[str, Any], art: dict[str, Any], out
 
 
 __all__ = [
+    "MIN_REPRESENTATIONAL_MODES",
     "PROCESS_SCENE_BUDGET",
     "REQUIRED_ROLES",
     "SiteFormatVisualCompositorError",
