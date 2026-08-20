@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from adapters.format_core.site_visual_compositor import REQUIRED_ROLES, render_site_visual_assets
+from adapters.format_core.site_visual_compositor import (
+    PROCESS_SCENE_BUDGET,
+    REQUIRED_ROLES,
+    render_site_visual_assets,
+)
 
 
 def _inputs() -> tuple[dict, dict]:
@@ -41,7 +45,7 @@ def test_site_visuals_are_owned_by_format_core(tmp_path: Path) -> None:
     story, art = _inputs()
     receipt = render_site_visual_assets(story=story, art=art, output_dir=tmp_path / "svg")
 
-    assert receipt["schema"] == "dio.format_core.site_visual_compositor_receipt.v1"
+    assert receipt["schema"] == "dio.format_core.site_visual_compositor_receipt.v2"
     assert receipt["format_core_visual_composition"] == "PASS"
     assert receipt["site_semantic_authority"] == "DIO_SITE_STUDIO"
     assert receipt["geometry_authority"] == "DIO_FORMAT_CORE"
@@ -59,6 +63,24 @@ def test_site_visuals_are_owned_by_format_core(tmp_path: Path) -> None:
     assert all((tmp_path / "svg" / row["path"]).is_file() for row in receipt["assets"])
 
 
+def test_site_visual_grammar_refuses_timeline_obsession(tmp_path: Path) -> None:
+    story, art = _inputs()
+    receipt = render_site_visual_assets(story=story, art=art, output_dir=tmp_path / "svg")
+
+    assert receipt["timeline_default"] == "REFUSE"
+    assert receipt["linear_process_scene_budget"] == PROCESS_SCENE_BUDGET == 1
+    assert receipt["linear_process_scene_count"] == 1
+    assert receipt["linear_process_budget_pass"] is True
+    assert receipt["distinct_visual_family_count"] == len(REQUIRED_ROLES)
+
+    process_roles = [row["role"] for row in receipt["assets"] if row["process_component_count"]]
+    assert process_roles == ["method"]
+    assert receipt["assets"][0]["visual_family"] == "editorial_problem_field"
+    assert next(row for row in receipt["assets"] if row["role"] == "service_2")["visual_family"] == "evidence_constellation"
+    assert next(row for row in receipt["assets"] if row["role"] == "service_3")["visual_family"] == "split_accountable_handoff"
+    assert next(row for row in receipt["assets"] if row["role"] == "cta")["visual_family"] == "single_focal_action"
+
+
 def test_site_visual_composition_is_deterministic(tmp_path: Path) -> None:
     story, art = _inputs()
     first = render_site_visual_assets(story=story, art=art, output_dir=tmp_path / "first")
@@ -66,6 +88,7 @@ def test_site_visual_composition_is_deterministic(tmp_path: Path) -> None:
 
     assert first["profile_hash"] == second["profile_hash"]
     assert first["compositor_fingerprint"] == second["compositor_fingerprint"]
+    assert first["visual_family_counts"] == second["visual_family_counts"]
     assert [row["composition_hash"] for row in first["assets"]] == [row["composition_hash"] for row in second["assets"]]
     assert [row["svg_hash"] for row in first["assets"]] == [row["svg_hash"] for row in second["assets"]]
     assert [row["sha256"] for row in first["assets"]] == [row["sha256"] for row in second["assets"]]
