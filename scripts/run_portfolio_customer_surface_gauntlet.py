@@ -144,7 +144,7 @@ def main() -> int:
             "and build a blind customer-surface review portal."
         )
     )
-    parser.add_argument("--wave", choices=["alpha", "canonical53", "full57"], default="alpha")
+    parser.add_argument("--wave", choices=["alpha", "repair5", "canonical53", "full57"], default="alpha")
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--online", action="store_true", help="Enable public-signal retrieval for canonical routes that support it.")
     parser.add_argument("--strict", action="store_true", help="Return non-zero if every selected product is not engineering-ready for blind buyer review.")
