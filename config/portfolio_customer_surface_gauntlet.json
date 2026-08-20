@@ -1,0 +1,147 @@
+{
+  "schema": "dio.portfolio.customer_surface_gauntlet.v1",
+  "acceptance_token": "DIO_PORTFOLIO_CUSTOMER_SURFACES_READY_NEEDS_YOU",
+  "claim_boundary": "Customer-surface engineering readiness proves that governed product routes emit substantial buyer-facing artifacts and preserve authority boundaries. It does not prove buyer acceptance, willingness to pay, publication authority or market validation.",
+  "waves": {
+    "alpha": {
+      "canonical": [
+        "HOMS Exam",
+        "HOMS Learning Studio",
+        "Sophia Review",
+        "VAMP Performance",
+        "Evidex EvidenceOps",
+        "Document Studio Localize",
+        "Campaign Lab"
+      ],
+      "studios": ["site_studio"]
+    },
+    "canonical53": {
+      "canonical": "__ALL_CANONICAL__",
+      "studios": []
+    },
+    "full57": {
+      "canonical": "__ALL_CANONICAL__",
+      "studios": [
+        "site_studio",
+        "professional_correspondence_studio",
+        "finance_readiness_studio",
+        "article_publication_studio"
+      ]
+    }
+  },
+  "artifact_gate": {
+    "minimum_bytes": 300,
+    "max_review_artifacts_per_product": 3,
+    "max_review_copy_bytes": 26214400,
+    "supported_suffixes": [
+      ".html", ".htm", ".pdf", ".docx", ".pptx", ".xlsx",
+      ".svg", ".png", ".jpg", ".jpeg", ".webp", ".mp4", ".webm",
+      ".md", ".csv", ".txt", ".zip"
+    ],
+    "preferred_suffix_order": [
+      ".html", ".pdf", ".docx", ".pptx", ".xlsx", ".svg", ".png",
+      ".jpg", ".jpeg", ".webp", ".mp4", ".webm", ".md", ".csv", ".txt", ".zip"
+    ],
+    "internal_name_tokens": [
+      "receipt", "manifest", "request", "binding", "trace", "qa", "quality_assurance",
+      "execution_error", "error_log", "checkpoint", "fingerprint", "examiner", "telemetry"
+    ],
+    "source_like_tokens": ["source_booklet", "source_pack", "raw_input", "fixture", "input_only"]
+  },
+  "family_surface_policies": [
+    {
+      "policy_id": "education_deliverable",
+      "match_any": ["HOMS"],
+      "surface_label": "education deliverable",
+      "preferred_suffixes": [".pdf", ".docx", ".html", ".svg", ".png", ".md"],
+      "buyer_review_dimensions": ["instructional fidelity", "curriculum/task fidelity", "professional presentation", "edit burden", "would use"]
+    },
+    {
+      "policy_id": "academic_review_deliverable",
+      "match_any": ["Sophia"],
+      "surface_label": "academic review deliverable",
+      "preferred_suffixes": [".pdf", ".docx", ".html", ".md"],
+      "buyer_review_dimensions": ["source fidelity", "scholarly usefulness", "human authorship boundary", "professional presentation", "would use"]
+    },
+    {
+      "policy_id": "performance_evidence_deliverable",
+      "match_any": ["VAMP"],
+      "surface_label": "performance evidence deliverable",
+      "preferred_suffixes": [".pdf", ".xlsx", ".html", ".md", ".csv"],
+      "buyer_review_dimensions": ["evidence usefulness", "decision usefulness", "traceability", "professional presentation", "would use"]
+    },
+    {
+      "policy_id": "document_deliverable",
+      "match_any": ["Document Studio", "Format Core"],
+      "surface_label": "professional document deliverable",
+      "preferred_suffixes": [".docx", ".pdf", ".html", ".md", ".txt"],
+      "buyer_review_dimensions": ["meaning preservation", "language/document quality", "edit burden", "professional presentation", "would use"]
+    },
+    {
+      "policy_id": "market_deliverable",
+      "match_any": ["NicheFoundry", "Hivenance"],
+      "surface_label": "market and campaign deliverable",
+      "preferred_suffixes": [".html", ".pdf", ".pptx", ".png", ".svg", ".md", ".csv"],
+      "buyer_review_dimensions": ["market-job fidelity", "commercial usefulness", "creative quality", "professional presentation", "would use"]
+    },
+    {
+      "policy_id": "operator_desk_deliverable",
+      "match_any": ["Vesper"],
+      "surface_label": "operator desk deliverable",
+      "preferred_suffixes": [".html", ".md", ".txt", ".pdf"],
+      "buyer_review_dimensions": ["intake clarity", "authority clarity", "actionability", "professional presentation", "would use"]
+    },
+    {
+      "policy_id": "ai_assurance_deliverable",
+      "match_any": ["BEAST", "Seraph", "ARDA", "META Authority", "META Assurance"],
+      "surface_label": "AI and digital assurance deliverable",
+      "preferred_suffixes": [".html", ".pdf", ".docx", ".xlsx", ".md", ".csv"],
+      "buyer_review_dimensions": ["control usefulness", "evidence sufficiency", "authority clarity", "professional presentation", "would use"]
+    },
+    {
+      "policy_id": "evidence_assurance_deliverable",
+      "match_any": ["Evidex", "META", "Legalis", "VendorProof", "Room"],
+      "surface_label": "evidence and assurance deliverable",
+      "preferred_suffixes": [".html", ".pdf", ".docx", ".xlsx", ".md", ".csv", ".zip"],
+      "buyer_review_dimensions": ["evidence sufficiency", "traceability", "decision usefulness", "professional presentation", "would use"]
+    }
+  ],
+  "default_surface_policy": {
+    "policy_id": "general_professional_deliverable",
+    "surface_label": "professional customer deliverable",
+    "preferred_suffixes": [".html", ".pdf", ".docx", ".xlsx", ".pptx", ".md", ".csv", ".txt", ".zip"],
+    "buyer_review_dimensions": ["buyer-job fidelity", "correctness and trust", "edit burden", "professional presentation", "would use"]
+  },
+  "studio_policies": {
+    "site_studio": {
+      "name": "Site Studio",
+      "surface_label": "customer website",
+      "required_primary_suffixes": [".html"],
+      "requires_customer_visual_pack": true
+    },
+    "professional_correspondence_studio": {
+      "name": "Professional Correspondence Studio",
+      "surface_label": "professional correspondence",
+      "required_primary_suffixes": [".docx", ".pdf", ".html", ".md", ".txt"]
+    },
+    "finance_readiness_studio": {
+      "name": "Finance Readiness Studio",
+      "surface_label": "finance readiness pack",
+      "required_primary_suffixes": [".xlsx", ".pdf", ".docx", ".html", ".csv"]
+    },
+    "article_publication_studio": {
+      "name": "Article & Publication Studio",
+      "surface_label": "publication-ready article draft",
+      "required_primary_suffixes": [".docx", ".pdf", ".html", ".md"]
+    }
+  },
+  "authority_contract": {
+    "human_release": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE",
+    "commercial_validation": "UNPROVED",
+    "customer_grade_claimed": false
+  }
+}
