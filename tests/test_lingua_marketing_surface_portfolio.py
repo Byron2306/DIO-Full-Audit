@@ -73,6 +73,23 @@ def test_homs_learning_parents_short_form_outcome_is_not_repeated() -> None:
     assert next(scene for scene in short_story["scenes"] if scene["role"] == "question")["semantic_focus"] != "outcome"
 
 
+def test_evidex_professional_authority_invariant_is_not_treated_as_creative_clone() -> None:
+    payload = _matrix()
+    product = next(row for row in payload["products"] if row["id"] == "EVIDEX_PACK")
+    audience = next(row for row in product["audiences"] if row["id"] == "professional_consultants")
+    law = build_semantic_law(product, audience)
+    projection = build_projection_plan(law, product, audience, payload.get("channels") or {})
+
+    short_story = project_story(law, projection, product, audience, "vertical_short")
+    long_story = project_story(law, projection, product, audience, "landscape_explainer")
+
+    short_authority = [scene for scene in short_story["scenes"] if scene.get("semantic_focus") == "authority"]
+    long_authority = [scene for scene in long_story["scenes"] if scene.get("semantic_focus") == "authority"]
+    assert short_authority
+    assert long_authority
+    assert validate_cross_surface_semantic_distance(short_story, long_story) == []
+
+
 def test_document_studio_government_localize_regression() -> None:
     payload = _matrix()
     product = next(row for row in payload["products"] if row["id"] == "DOCUMENT_STUDIO")
