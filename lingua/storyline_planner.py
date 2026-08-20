@@ -498,6 +498,44 @@ def _generic_landscape_realisation(
     }
     authority = authority_by_archetype.get(archetype, authority_by_archetype["general_professional"])
 
+    authority_role_copy: dict[str, tuple[str, str, str]] = {
+        "human_role": (
+            "Keep the human role visible",
+            "The learner can use the prepared material, but the educator still owns assessment, adaptation and classroom release.",
+            "Show the learner using the material while the educator remains visibly responsible for review and release.",
+        ),
+        "limitations": (
+            "State what the review cannot take over",
+            "The review may surface source, reference and argument problems, but it cannot replace the researcher's interpretation, authorship or final scholarly claim.",
+            "Show issue annotations stopping at a clear authorship boundary rather than flowing into automatic rewriting or submission.",
+        ),
+        "reviewer_role": (
+            "Make the scholarly decision-maker explicit",
+            "The researcher remains the author; the authorised human reviewer decides which revisions are accepted and what claims ultimately stand.",
+            "End on a human review moment where proposed changes are accepted, rejected or revised by the authorised reviewer.",
+        ),
+        "authority_boundary": (
+            "Keep approval outside the system",
+            "The system may organise evidence, exceptions and a review state, but approval, sign-off and external release remain with the authorised professional.",
+            "Show the prepared review surface stopping at a separate human approval step.",
+        ),
+        "decision_boundary": (
+            "Prepare the decision, do not take it",
+            "The workflow may prepare the management view, but consequential judgement and release remain with the authorised decision-maker.",
+            "End on the manager reviewing the prepared decision surface before any consequential action occurs.",
+        ),
+        "trust_boundary": (
+            "Traceability is not approval",
+            "Evidence can be made reviewable and traceable, but donor, regulator and programme approval still comes only through the authorised human process.",
+            "Separate the provenance trail from the human approval or submission step in the final visual.",
+        ),
+        "boundary": (
+            "Stop at the human boundary",
+            "The workflow may prepare a bounded review state; judgement, commitment and release remain with the authorised human.",
+            "Show the system handing off to a human reviewer rather than completing the consequential action itself.",
+        ),
+    }
+
     realised: dict[str, tuple[str, str, str]] = {
         "pain": (
             "Begin with the working reality",
@@ -545,12 +583,15 @@ def _generic_landscape_realisation(
             "Close on a single concrete action and avoid urgency fiction, inflated outcome claims or automatic-release language.",
         ),
     }
-    screen, narration, visual = realised.get(
-        focus,
-        (
-            "Keep the explanation moving",
-            "This beat adds context needed to understand the workflow without repeating the short-form campaign language.",
-            "Use a distinct explanatory visual that advances the argument rather than cloning an earlier scene.",
+    screen, narration, visual = authority_role_copy.get(
+        role,
+        realised.get(
+            focus,
+            (
+                "Keep the explanation moving",
+                "This beat adds context needed to understand the workflow without repeating the short-form campaign language.",
+                "Use a distinct explanatory visual that advances the argument rather than cloning an earlier scene.",
+            ),
         ),
     )
     updated = dict(row)
@@ -558,7 +599,7 @@ def _generic_landscape_realisation(
     updated["narration"] = narration
     updated["visual"] = visual
     updated["semantic_focus"] = focus
-    updated["realisation_mode"] = f"{archetype}_landscape_documentary_v2"
+    updated["realisation_mode"] = f"{archetype}_landscape_documentary_v3"
     return updated
 
 
@@ -686,7 +727,7 @@ def _realise_story(
 
     story["scenes"] = scenes
     story["storyline_strategy"] = {
-        "schema": "dio.lingua.storyline_strategy.v3",
+        "schema": "dio.lingua.storyline_strategy.v4",
         "mode": "surface_specific_semantic_focus_allocation",
         "surface": surface,
         "semantic_invariants_are_contract_not_refrain": True,
@@ -698,7 +739,7 @@ def _realise_story(
             "promise": "transformation/workflow beat",
             "outcome": "one bounded deliverable/result beat only",
             "proof": "proof/evidence beat",
-            "authority": "human decision beat; invariant and excluded from cross-surface clone scoring",
+            "authority": "role-specific human boundary beats; invariant and excluded from cross-surface clone scoring",
             "cta": "final action beat",
         },
     }
