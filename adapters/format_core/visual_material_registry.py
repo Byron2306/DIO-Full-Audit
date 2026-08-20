@@ -103,7 +103,7 @@ def validate_visual_material(material: dict[str, Any], *, root: Path | None = No
 
     external = kind in {"curated_photo", "curated_illustration", "texture", "icon"}
     if external and approval_state != "APPROVED":
-        errors.append("external curated material must be APPROVED before selection")
+        warnings.append("external curated material is catalogued but not selectable until APPROVED")
     if external and license_state not in {"COMMERCIAL_ALLOWED", "PUBLIC_DOMAIN"}:
         errors.append("external curated material requires COMMERCIAL_ALLOWED or PUBLIC_DOMAIN license")
     if kind == "generated_editorial" and license_state != "DIO_GENERATED":
@@ -209,6 +209,8 @@ def material_data_uri(material: dict[str, Any], *, root: Path) -> str:
     validation = validate_visual_material(material, root=root)
     if not validation["passed"]:
         raise VisualMaterialRegistryError("Material is not renderable: " + "; ".join(validation["errors"]))
+    if not validation["selectable"]:
+        raise VisualMaterialRegistryError("Material is catalogued but not approved for rendering")
     if validation["material_kind"] not in FILE_MATERIAL_KINDS:
         raise VisualMaterialRegistryError("native_renderer does not expose image bytes")
     relative = _safe_relative_path((material.get("payload") or {}).get("path"))
