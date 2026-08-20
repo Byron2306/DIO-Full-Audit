@@ -1,16 +1,19 @@
 from __future__ import annotations
 
+import re
 from typing import Any
 
-from adapters.format_core.visual_material_registry import (
-    MATERIAL_KINDS,
-    content_hash,
-    validate_visual_material,
-)
+from adapters.format_core.visual_material_registry import MATERIAL_KINDS, content_hash, validate_visual_material
 
 
 REQUEST_SCHEMA = "dio.format_core.visual_material_request.v1"
 RESOLUTION_SCHEMA = "dio.format_core.visual_material_resolution.v1"
+NONREPEATING_MATERIAL_KINDS = {
+    "artifact_render",
+    "curated_photo",
+    "curated_illustration",
+    "generated_editorial",
+}
 
 
 class VisualMaterialResolutionError(RuntimeError):
@@ -21,8 +24,12 @@ def _clean(value: Any) -> str:
     return " ".join(str(value or "").split()).strip()
 
 
+def _token(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", _clean(value).casefold()).strip()
+
+
 def _norm_set(values: Any) -> set[str]:
-    return {_clean(value).casefold() for value in values or [] if _clean(value)}
+    return {_token(value) for value in values or [] if _token(value)}
 
 
 def validate_visual_material_request(request: dict[str, Any]) -> dict[str, Any]:
@@ -67,8 +74,8 @@ def _candidate_score(material: dict[str, Any], request: dict[str, Any], preferen
     request_composition = dict(request.get("composition") or {})
     material_composition = dict(material.get("composition") or {})
     for key, weight in (("orientation", 18), ("subject_bias", 14), ("negative_space", 14)):
-        requested = _clean(request_composition.get(key)).casefold()
-        actual = _clean(material_composition.get(key)).casefold()
+        requested = _token(request_composition.get(key))
+        actual = _token(material_composition.get(key))
         if requested and actual and requested == actual:
             composition_score += weight
     if request_composition.get("crop_safe") is True and material_composition.get("crop_safe") is True:
@@ -84,7 +91,13 @@ def _candidate_score(material: dict[str, Any], request: dict[str, Any], preferen
     return sum(breakdown.values()), breakdown
 
 
-def resolve_visual_material(request: dict[str, Any], registry: dict[str, Any], *, root=None) -> dict[str, Any]:
+def resolve_visual_material(
+    request: dict[str, Any],
+    registry: dict[str, Any],
+    *,
+    root=None,
+    exclude_material_ids: set[str] | None = None,
+) -> dict[str, Any]:
     validation = validate_visual_material_request(request)
     if not validation["passed"]:
         raise VisualMaterialResolutionError("Invalid visual material request: " + "; ".join(validation["errors"]))
@@ -93,14 +106,20 @@ def resolve_visual_material(request: dict[str, Any], registry: dict[str, Any], *
     surface = _clean(request.get("surface"))
     preferences = [str(value) for value in request.get("preferred_material_kinds") or []]
     preference_lookup = {kind: index for index, kind in enumerate(preferences)}
+    excluded = set(exclude_material_ids or set())
 
     evaluated: list[dict[str, Any]] = []
+    excluded_reuse_count = 0
     for material in registry.get("materials") or []:
         material = dict(material)
         material_validation = validate_visual_material(material, root=root)
         if not material_validation["selectable"]:
             continue
         kind = str(material.get("material_kind") or "")
+        material_id = str(material.get("material_id") or "")
+        if kind in NONREPEATING_MATERIAL_KINDS and material_id in excluded:
+            excluded_reuse_count += 1
+            continue
         if kind not in preference_lookup:
             continue
         if visual_kind not in set(material.get("semantic_visual_kinds") or []):
@@ -112,7 +131,7 @@ def resolve_visual_material(request: dict[str, Any], registry: dict[str, Any], *
             continue
         evaluated.append(
             {
-                "material_id": material["material_id"],
+                "material_id": material_id,
                 "material_kind": kind,
                 "score": score,
                 "score_breakdown": breakdown,
@@ -135,6 +154,7 @@ def resolve_visual_material(request: dict[str, Any], registry: dict[str, Any], *
         "semantic_visual_kind": visual_kind,
         "surface": surface,
         "candidate_count": len(evaluated),
+        "excluded_reuse_candidate_count": excluded_reuse_count,
         "selected_material_id": selected["material_id"],
         "selected_material_kind": selected["material_kind"],
         "selected_score": selected["score"],
@@ -143,7 +163,8 @@ def resolve_visual_material(request: dict[str, Any], registry: dict[str, Any], *
         "preferred_kind_satisfied": selected["material_kind"] == first_preference,
         "fallback_used": selected["material_kind"] != first_preference,
         "candidate_summary": evaluated,
-        "selection_law": "semantic_visual_kind_then_medium_policy_then_governed_metadata_score",
+        "selection_law": "semantic_visual_kind_then_medium_policy_then_governed_metadata_score_no_repeated_primary_material",
+        "reuse_policy": "nonrepeating_primary_material_once_per_surface",
         "authority_created": False,
         "external_material_layout_authority": "REFUSE",
         "automatic_publication": "REFUSE",
@@ -152,6 +173,7 @@ def resolve_visual_material(request: dict[str, Any], registry: dict[str, Any], *
 
 
 __all__ = [
+    "NONREPEATING_MATERIAL_KINDS",
     "REQUEST_SCHEMA",
     "RESOLUTION_SCHEMA",
     "VisualMaterialResolutionError",
