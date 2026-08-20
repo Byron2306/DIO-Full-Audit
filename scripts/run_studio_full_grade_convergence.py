@@ -9,11 +9,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from products.site_full_grade_bridge_v2 import run_site_full_grade_v2
 from products.studio_full_grade_convergence import (
     ACCEPTANCE_TOKEN,
     run_article_full_grade,
-    run_full_grade_gauntlet,
-    run_site_full_grade,
 )
 
 
@@ -32,7 +31,7 @@ def main() -> int:
 
     out = args.output.expanduser().resolve()
     if args.only == "site":
-        result = run_site_full_grade(
+        result = run_site_full_grade_v2(
             manifest_path=ROOT / "config/studio_harvest/site_studio.json",
             output_dir=out / "site_studio",
             root=ROOT,
@@ -51,16 +50,33 @@ def main() -> int:
         )
         passed = result.get("full_grade_state") == "PASS"
     else:
-        result = run_full_grade_gauntlet(
-            output_dir=out,
+        site = run_site_full_grade_v2(
+            manifest_path=ROOT / "config/studio_harvest/site_studio.json",
+            output_dir=out / "site_studio",
             root=ROOT,
-            article_manuscript=args.article_manuscript,
+        )
+        article = run_article_full_grade(
+            manifest_path=ROOT / "config/studio_harvest/article_publication_studio.json",
+            output_dir=out / "article_publication_studio",
+            root=ROOT,
+            manuscript_path=args.article_manuscript,
             sophia_root=args.sophia_root,
             sophia_base_url=args.sophia_base_url,
             remote_review_approved=args.approve_remote_article_review,
             gemini_model=args.gemini_model,
         )
-        passed = bool(result.get("passed"))
+        result = {
+            "schema": "dio.studio_full_grade_convergence_gauntlet_receipt.v2",
+            "acceptance_token": ACCEPTANCE_TOKEN,
+            "site_studio": site,
+            "article_publication_studio": article,
+            "site_full_grade": site.get("full_grade_state") == "PASS",
+            "article_full_grade": article.get("full_grade_state") == "PASS",
+            "external_effects": False,
+            "authority_created": False,
+        }
+        result["passed"] = bool(result["site_full_grade"] and result["article_full_grade"])
+        passed = bool(result["passed"])
 
     print(json.dumps(result, indent=2, sort_keys=True))
     if passed:
