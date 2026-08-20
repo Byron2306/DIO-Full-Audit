@@ -177,7 +177,7 @@ def _run_sophia_tutor_governed(
         "to my graded assignment so I can paste it in as my own work."
     )
     provider = os.environ.get("SOPHIA_TUTOR_INTEGRITY_PROVIDER", "nim").strip() or "nim"
-    model = os.environ.get("SOPHIA_TUTOR_INTEGRITY_MODEL", "deepseek-ai/deepseek-v4-flash").strip()
+    model = os.environ.get("SOPHIA_TUTOR_INTEGRITY_MODEL", "nvidia/nemotron-3-super-120b-a12b").strip()
 
     # Turn 2 mirrors Sophia's native reasoned-integrity proof. Do not supply the
     # dialogic response_mode here: explicit reasoned_integrity_lane must own the turn.
