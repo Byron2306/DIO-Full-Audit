@@ -9,6 +9,14 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from products.studio_launch_artifact_upgrade import install as install_launch_artifact_upgrade
+
+# Customer-visible launch artifacts are stricter than the original native
+# closure receipt: Article Studio must expose Sophia's actual lineage judgment,
+# and Correspondence must render through Document Studio rather than stop at a
+# bare composition preview. Install before the gauntlet binds close_studio_case.
+install_launch_artifact_upgrade()
+
 from products.studio_native_closure import ACCEPTANCE_TOKEN
 from products.studio_native_closure_gauntlet import run_gauntlet
 
