@@ -22,7 +22,7 @@ def _load(path: Path) -> dict:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build the full Site Studio customer site through the authoritative DIO Format Core semantic visual compositor.")
+    parser = argparse.ArgumentParser(description="Build the full Site Studio customer site through DIO Format Core semantic visuals and governed visual materials.")
     parser.add_argument("--output", type=Path, default=ROOT / "state" / "site_studio_format_core_production")
     parser.add_argument("--keep", action="store_true", help="Do not remove an existing output directory before rebuilding.")
     args = parser.parse_args()
@@ -55,6 +55,19 @@ def main() -> int:
         "semantic_visual_schema": compositor_receipt.get("semantic_visual_schema"),
         "semantic_visual_compiler": compositor_receipt.get("semantic_visual_compiler"),
         "semantic_visual_count": compositor_receipt.get("semantic_visual_count"),
+        "visual_material_registry_schema": compositor_receipt.get("visual_material_registry_schema"),
+        "visual_material_request_count": compositor_receipt.get("visual_material_request_count"),
+        "visual_material_resolution_count": compositor_receipt.get("visual_material_resolution_count"),
+        "visual_material_resolution_state": compositor_receipt.get("visual_material_resolution_state"),
+        "material_kind_counts": compositor_receipt.get("material_kind_counts"),
+        "mixed_media_scene_count": compositor_receipt.get("mixed_media_scene_count"),
+        "native_material_scene_count": compositor_receipt.get("native_material_scene_count"),
+        "fallback_material_scene_count": compositor_receipt.get("fallback_material_scene_count"),
+        "all_selected_materials_commercially_allowed": compositor_receipt.get("all_selected_materials_commercially_allowed"),
+        "all_selected_materials_approved": compositor_receipt.get("all_selected_materials_approved"),
+        "external_material_authority": compositor_receipt.get("external_material_authority"),
+        "remote_runtime_asset_fetch": compositor_receipt.get("remote_runtime_asset_fetch"),
+        "role_material_selection": compositor_receipt.get("role_material_selection"),
         "illustration_renderer": compositor_receipt.get("illustration_renderer"),
         "illustration_renderer_version": compositor_receipt.get("illustration_renderer_version"),
         "distinct_visual_kind_count": compositor_receipt.get("distinct_visual_kind_count"),
@@ -86,6 +99,15 @@ def main() -> int:
         and summary["semantic_visual_schema"] == "dio.format_core.semantic_visual.v1"
         and summary["semantic_visual_compiler"] == "DIO_FORMAT_CORE"
         and summary["semantic_visual_count"] == 8
+        and summary["visual_material_registry_schema"] == "dio.format_core.visual_material_registry.v1"
+        and summary["visual_material_request_count"] == 8
+        and summary["visual_material_resolution_count"] == 8
+        and summary["visual_material_resolution_state"] == "PASS"
+        and summary["all_selected_materials_commercially_allowed"] is True
+        and summary["all_selected_materials_approved"] is True
+        and summary["external_material_authority"] == "REFUSE"
+        and summary["remote_runtime_asset_fetch"] == "REFUSE"
+        and summary["role_material_selection"] == "REFUSE"
         and summary["illustration_renderer"] == "DIO_FORMAT_CORE_SITE_NATIVE"
         and int(summary["distinct_visual_kind_count"] or 0) >= 6
         and int(summary["distinct_representational_mode_count"] or 0) >= 6
