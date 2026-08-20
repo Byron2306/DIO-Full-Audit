@@ -30,37 +30,24 @@ def _load(path: Path) -> dict[str, Any]:
 
 
 def _escape_attr(value: str) -> str:
-    return (
-        value.replace("&", "&amp;")
-        .replace('"', "&quot;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-    )
+    return value.replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def _figure(asset: dict[str, Any], *, class_name: str = "dio-svg-scene") -> str:
+    material_kind = str(asset.get("selected_material_kind") or "native_renderer").replace("_", " ")
     return (
-        f'<figure class="{class_name}" data-dio-role="{asset["role"]}">'
+        f'<figure class="{class_name}" data-dio-role="{asset["role"]}" data-dio-material="{_escape_attr(material_kind)}">'
         f'<img src="assets/svg/{asset["path"]}" alt="{_escape_attr(str(asset.get("alt_text") or asset["role"]))}" loading="lazy">'
-        '<figcaption>Deterministic Format Core SVG · Site Studio semantics · DIO-owned geometry</figcaption>'
+        f'<figcaption>Governed Format Core composition · {material_kind} · Site Studio semantics</figcaption>'
         '</figure>'
     )
 
 
 def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict[str, Any]:
     assets = {str(row["role"]): row for row in compositor.get("assets") or []}
-    required = {
-        "site_hook",
-        "service_1",
-        "service_2",
-        "service_3",
-        "method",
-        "proof",
-        "human_authority",
-        "cta",
-    }
+    required = {"site_hook", "service_1", "service_2", "service_3", "method", "proof", "human_authority", "cta"}
     if set(assets) != required:
-        raise SiteFullGradeV3Error(f"Format Core SVG roles do not match website contract: {sorted(assets)}")
+        raise SiteFullGradeV3Error(f"Format Core visual roles do not match website contract: {sorted(assets)}")
 
     index_path = package_dir / "index.html"
     css_path = package_dir / "styles.css"
@@ -92,7 +79,7 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
     html = html.replace(intake_marker, _figure(assets["cta"], class_name="dio-svg-cta") + intake_marker, 1)
 
     css += """
-/* DIO Format Core deterministic SVG scene layer. */
+/* DIO Format Core governed visual scene layer. */
 .dio-svg-hero,.dio-svg-scene,.dio-svg-cta{width:min(1180px,calc(100% - 40px));margin:34px auto 0;position:relative;overflow:hidden;background:#0b1118;border:1px solid #ffffff20;border-radius:16px}
 .dio-svg-hero{margin-top:48px}.dio-svg-scene{margin-bottom:42px}.dio-svg-cta{margin:72px auto}
 .dio-svg-hero img,.dio-svg-scene img,.dio-svg-cta img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
@@ -105,12 +92,13 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
 
     embedded = [f'assets/svg/{row["path"]}' in html for row in compositor.get("assets") or []]
     return {
-        "schema": "dio.site_studio.format_core_svg_embedding_qa.v1",
+        "schema": "dio.site_studio.format_core_visual_embedding_qa.v2",
         "passed": all(embedded) and html.count("data-dio-role=") == 8,
-        "all_svg_assets_embedded": all(embedded),
+        "all_visual_assets_embedded": all(embedded),
         "embedded_role_count": html.count("data-dio-role="),
         "visual_projection_authority": "DIO_FORMAT_CORE",
         "site_semantic_authority": "DIO_SITE_STUDIO",
+        "external_material_authority": "REFUSE",
         "gamma_layout_authority": "REFUSE",
         "gamma_text_authority": "REFUSE",
         "human_visual_release": "NEEDS_YOU",
@@ -126,50 +114,53 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
     checks.update(
         {
             "deterministic_format_core_scene_assets": compositor.get("scene_count") == 8,
-            "svg_assets_embedded": embedding_qa.get("passed") is True,
-            "format_core_owns_svg_geometry": all(
-                row.get("geometry_authority") == "DIO_FORMAT_CORE" for row in compositor.get("assets") or []
-            ),
-            "format_core_owns_svg_text_projection": all(
-                row.get("text_authority") == "DIO_FORMAT_CORE" for row in compositor.get("assets") or []
-            ),
+            "visual_assets_embedded": embedding_qa.get("passed") is True,
+            "format_core_owns_visual_geometry": all(row.get("geometry_authority") == "DIO_FORMAT_CORE" for row in compositor.get("assets") or []),
+            "format_core_owns_visual_text_projection": all(row.get("text_authority") == "DIO_FORMAT_CORE" for row in compositor.get("assets") or []),
             "site_studio_owns_semantics": compositor.get("site_semantic_authority") == "DIO_SITE_STUDIO",
             "format_core_visual_composition_pass": compositor.get("format_core_visual_composition") == "PASS",
+            "visual_material_resolution_pass": compositor.get("visual_material_resolution_state") == "PASS",
+            "visual_materials_commercially_allowed": compositor.get("all_selected_materials_commercially_allowed") is True,
+            "visual_materials_approved": compositor.get("all_selected_materials_approved") is True,
+            "external_material_authority_refused": compositor.get("external_material_authority") == "REFUSE",
+            "remote_runtime_asset_fetch_refused": compositor.get("remote_runtime_asset_fetch") == "REFUSE",
+            "role_material_selection_refused": compositor.get("role_material_selection") == "REFUSE",
             "gamma_layout_authority_refused": compositor.get("gamma_layout_authority") == "REFUSE",
             "gamma_text_authority_refused": compositor.get("gamma_text_authority") == "REFUSE",
         }
     )
-    visual_qa["schema"] = "dio.site_studio_full_grade_visual_qa.v3"
+    visual_qa["schema"] = "dio.site_studio_full_grade_visual_qa.v4"
     visual_qa["checks"] = checks
     visual_qa["passed"] = all(checks.values())
-    visual_qa["svg_scene_asset_count"] = compositor.get("scene_count")
+    visual_qa["visual_scene_asset_count"] = compositor.get("scene_count")
     visual_qa["format_core_visual_profile_id"] = compositor.get("profile_id")
     visual_qa["format_core_visual_profile_hash"] = compositor.get("profile_hash")
     visual_qa["format_core_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    visual_qa["material_kind_counts"] = compositor.get("material_kind_counts")
+    visual_qa["mixed_media_scene_count"] = compositor.get("mixed_media_scene_count")
     _write_json(visual_qa_path, visual_qa)
     if not visual_qa["passed"]:
         raise SiteFullGradeV3Error(
-            "Format Core-enhanced Site visual QA refused: "
-            + ", ".join(key for key, passed in checks.items() if not passed)
+            "Format Core-enhanced Site visual QA refused: " + ", ".join(key for key, passed in checks.items() if not passed)
         )
 
     manifest_path = proof_dir / "SITE_PROOF_MANIFEST.json"
     manifest = _load(manifest_path)
     artifact_rows = []
     for path in sorted(p for p in package_dir.rglob("*") if p.is_file() and p.name != "SITE_PROOF_MANIFEST.json"):
-        artifact_rows.append(
-            {
-                "path": str(path.relative_to(package_dir)),
-                "sha256": _sha(path),
-                "bytes": path.stat().st_size,
-            }
-        )
-    manifest["schema"] = "dio.site_studio.full_grade_proof_manifest.v4"
+        artifact_rows.append({"path": str(path.relative_to(package_dir)), "sha256": _sha(path), "bytes": path.stat().st_size})
+    manifest["schema"] = "dio.site_studio.full_grade_proof_manifest.v5"
     manifest["artifacts"] = artifact_rows
     manifest["format_core_visual_compositor"] = "PASS"
     manifest["format_core_visual_profile_id"] = compositor.get("profile_id")
     manifest["format_core_visual_profile_hash"] = compositor.get("profile_hash")
     manifest["format_core_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    manifest["visual_material_registry_schema"] = compositor.get("visual_material_registry_schema")
+    manifest["material_kind_counts"] = compositor.get("material_kind_counts")
+    manifest["mixed_media_scene_count"] = compositor.get("mixed_media_scene_count")
+    manifest["all_selected_materials_commercially_allowed"] = compositor.get("all_selected_materials_commercially_allowed")
+    manifest["all_selected_materials_approved"] = compositor.get("all_selected_materials_approved")
+    manifest["external_material_authority"] = "REFUSE"
     manifest["site_semantic_authority"] = "DIO_SITE_STUDIO"
     manifest["visual_projection_authority"] = "DIO_FORMAT_CORE"
     manifest["document_studio_svg_compositor"] = "RETIRED_TO_FORMAT_CORE"
@@ -182,11 +173,17 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
 
     receipt_path = output_dir / "SITE_STUDIO_FULL_GRADE_RECEIPT.json"
     receipt = _load(receipt_path)
-    receipt["schema"] = "dio.site_studio.full_grade_receipt.v4"
+    receipt["schema"] = "dio.site_studio.full_grade_receipt.v5"
     receipt["format_core_visual_compositor"] = "PASS"
     receipt["format_core_visual_profile_id"] = compositor.get("profile_id")
     receipt["format_core_visual_profile_hash"] = compositor.get("profile_hash")
     receipt["format_core_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    receipt["visual_material_registry_schema"] = compositor.get("visual_material_registry_schema")
+    receipt["material_kind_counts"] = compositor.get("material_kind_counts")
+    receipt["mixed_media_scene_count"] = compositor.get("mixed_media_scene_count")
+    receipt["all_selected_materials_commercially_allowed"] = compositor.get("all_selected_materials_commercially_allowed")
+    receipt["all_selected_materials_approved"] = compositor.get("all_selected_materials_approved")
+    receipt["external_material_authority"] = "REFUSE"
     receipt["site_semantic_authority"] = "DIO_SITE_STUDIO"
     receipt["visual_projection_authority"] = "DIO_FORMAT_CORE"
     receipt["document_studio_svg_compositor"] = "RETIRED_TO_FORMAT_CORE"
@@ -201,7 +198,7 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
 
 
 def run_site_full_grade_v3(*, manifest_path: Path, output_dir: Path, root: Path) -> dict[str, Any]:
-    """Run Site Studio full grade with Format Core as the authoritative visual projection organ."""
+    """Run Site Studio full grade with Format Core as semantic visual and material projection organ."""
     output_dir = output_dir.resolve()
     run_site_full_grade_v2(manifest_path=manifest_path, output_dir=output_dir, root=root)
 
@@ -210,19 +207,10 @@ def run_site_full_grade_v3(*, manifest_path: Path, output_dir: Path, root: Path)
     story = _load(proof_dir / "SITE_STORY_ARCHITECTURE.json")
     art = _load(proof_dir / "DOCUMENT_STUDIO_SITE_ART_DIRECTION.json")
     svg_dir = package_dir / "assets" / "svg"
-    compositor = render_site_visual_assets(story=story, art=art, output_dir=svg_dir)
+    compositor = render_site_visual_assets(story=story, art=art, output_dir=svg_dir, material_root=root)
     _write_json(proof_dir / "FORMAT_CORE_SITE_VISUAL_COMPOSITOR_RECEIPT.json", compositor)
     embedding_qa = _inject_svg_assets(package_dir=package_dir, compositor=compositor)
     _write_json(proof_dir / "SITE_FORMAT_CORE_VISUAL_EMBEDDING_QA.json", embedding_qa)
     if not embedding_qa["passed"]:
-        raise SiteFullGradeV3Error("Site Format Core SVG embedding QA refused the generated website")
+        raise SiteFullGradeV3Error("Site Format Core visual embedding QA refused the generated website")
     return _refresh_full_grade_proof(output_dir=output_dir, compositor=compositor, embedding_qa=embedding_qa)
-
-
-__all__ = [
-    "SiteFullGradeV3Error",
-    "run_site_full_grade_v3",
-    "_website_projection",
-    "_website_semantic_qa",
-    "_website_story",
-]
