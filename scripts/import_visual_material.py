@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -12,6 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from adapters.format_core.visual_material_optimizer import (  # noqa: E402
+    DEFAULT_MAX_EDGE,
+    DEFAULT_WEBP_QUALITY,
+    VisualMaterialOptimizerError,
+    optimize_visual_material,
+)
 from adapters.format_core.visual_material_registry import (  # noqa: E402
     DEFAULT_REGISTRY_PATH,
     MATERIAL_KINDS,
@@ -56,6 +61,8 @@ def main() -> int:
     parser.add_argument("--subject-bias", choices=["left", "right", "center", "top", "bottom", "balanced"], default="balanced")
     parser.add_argument("--negative-space", choices=["left", "right", "top", "bottom", "balanced", "none"], default="none")
     parser.add_argument("--crop-safe", action="store_true")
+    parser.add_argument("--max-edge", type=int, default=DEFAULT_MAX_EDGE, help="Photo-like material maximum output edge before WebP embedding.")
+    parser.add_argument("--quality", type=int, default=DEFAULT_WEBP_QUALITY, help="Photo-like WebP quality.")
     parser.add_argument("--registry", type=Path, default=DEFAULT_REGISTRY_PATH)
     args = parser.parse_args()
 
@@ -73,24 +80,31 @@ def main() -> int:
     if args.material_id in existing:
         raise SystemExit(f"material_id already exists: {args.material_id}")
 
-    destination_dir = ROOT / "assets" / "visual_materials" / _slug(args.kind)
-    destination_dir.mkdir(parents=True, exist_ok=True)
-    destination = destination_dir / f"{_slug(args.material_id)}{source.suffix.casefold()}"
-    if destination.exists():
-        raise SystemExit(f"Destination already exists: {destination}")
-    shutil.copy2(source, destination)
-
     license_status = args.license_status or _default_license(args.kind)
     external = args.kind in {"curated_photo", "curated_illustration", "texture", "icon"}
     if external and license_status not in {"COMMERCIAL_ALLOWED", "PUBLIC_DOMAIN"}:
-        destination.unlink(missing_ok=True)
         raise SystemExit("Curated external material requires COMMERCIAL_ALLOWED or PUBLIC_DOMAIN license status")
     if external and not args.source_url:
-        destination.unlink(missing_ok=True)
         raise SystemExit("Curated external material requires --source-url for provenance")
     if external and not args.provider:
-        destination.unlink(missing_ok=True)
         raise SystemExit("Curated external material requires --provider")
+
+    destination_dir = ROOT / "assets" / "visual_materials" / _slug(args.kind)
+    destination_dir.mkdir(parents=True, exist_ok=True)
+    destination_seed = destination_dir / f"{_slug(args.material_id)}{source.suffix.casefold()}"
+    if destination_seed.exists() or destination_seed.with_suffix(".webp").exists():
+        raise SystemExit(f"Destination already exists for material: {args.material_id}")
+    try:
+        optimization = optimize_visual_material(
+            source,
+            destination_seed,
+            material_kind=args.kind,
+            max_edge=args.max_edge,
+            quality=args.quality,
+        )
+    except VisualMaterialOptimizerError as exc:
+        raise SystemExit(str(exc)) from exc
+    destination = Path(optimization["path"])
 
     relative = destination.relative_to(ROOT).as_posix()
     material = {
@@ -123,6 +137,10 @@ def main() -> int:
             "path": relative,
             "sha256": sha256_file(destination),
             "bytes": destination.stat().st_size,
+            "optimized_for_web": bool(optimization["optimized"]),
+            "format": optimization["format"],
+            "max_edge": optimization["max_edge"],
+            "quality": optimization["quality"],
         },
         "provenance": {
             "source_url": args.source_url or None,
@@ -146,6 +164,8 @@ def main() -> int:
         "approval_state": material["approval"]["state"],
         "license_status": license_status,
         "payload": relative,
+        "payload_bytes": material["payload"]["bytes"],
+        "optimized_for_web": material["payload"]["optimized_for_web"],
         "sha256": material["payload"]["sha256"],
         "registry": str(registry_path),
         "registry_material_count": validation["material_count"],
