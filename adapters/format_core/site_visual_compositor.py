@@ -10,9 +10,9 @@ from typing import Any
 
 from adapters.format_core.semantic_visual import (
     SEMANTIC_VISUAL_SCHEMA,
-    compile_site_semantic_visual,
     semantic_visual_to_composition,
 )
+from adapters.format_core.site_semantic_visual import compile_site_semantic_visual
 from adapters.format_core.visual_composer import (
     content_hash,
     load_visual_profiles,
