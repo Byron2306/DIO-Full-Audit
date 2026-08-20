@@ -3,10 +3,10 @@ from __future__ import annotations
 from adapters.format_core.semantic_visual import (
     HOMS_NATIVE_VISUAL_KINDS,
     SEMANTIC_VISUAL_SCHEMA,
-    compile_site_semantic_visual,
     semantic_visual_to_composition,
     validate_semantic_visual,
 )
+from adapters.format_core.site_semantic_visual import compile_site_semantic_visual
 from adapters.format_core.visual_composer import validate_composition
 
 
