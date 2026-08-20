@@ -4,6 +4,7 @@ from pathlib import Path
 
 from adapters.format_core.semantic_visual import SEMANTIC_VISUAL_SCHEMA
 from adapters.format_core.site_visual_compositor import (
+    MIN_REPRESENTATIONAL_MODES,
     PROCESS_SCENE_BUDGET,
     REQUIRED_ROLES,
     render_site_visual_assets,
@@ -106,14 +107,16 @@ def test_site_visuals_are_owned_by_format_core(tmp_path: Path) -> None:
     story, art = _inputs()
     receipt = render_site_visual_assets(story=story, art=art, output_dir=tmp_path / "svg")
 
-    assert receipt["schema"] == "dio.format_core.site_visual_compositor_receipt.v3"
+    assert receipt["schema"] == "dio.format_core.site_visual_compositor_receipt.v4"
     assert receipt["semantic_visual_schema"] == SEMANTIC_VISUAL_SCHEMA
     assert receipt["semantic_visual_compiler"] == "DIO_FORMAT_CORE"
+    assert receipt["illustration_renderer"] == "DIO_FORMAT_CORE_SITE_NATIVE"
     assert receipt["format_core_visual_composition"] == "PASS"
     assert receipt["site_semantic_authority"] == "DIO_SITE_STUDIO"
     assert receipt["geometry_authority"] == "DIO_FORMAT_CORE"
     assert receipt["text_projection_authority"] == "DIO_FORMAT_CORE"
     assert receipt["role_geometry_selection"] == "REFUSE"
+    assert receipt["generic_node_link_default"] == "REFUSE"
     assert receipt["scene_count"] == 8
     assert receipt["semantic_visual_count"] == 8
     assert receipt["all_scene_roles_bound"] is True
@@ -126,31 +129,53 @@ def test_site_visuals_are_owned_by_format_core(tmp_path: Path) -> None:
     assert all(row["geometry_authority"] == "DIO_FORMAT_CORE" for row in receipt["assets"])
     assert all(row["text_authority"] == "DIO_FORMAT_CORE" for row in receipt["assets"])
     assert all(row["semantic_visual_role_selects_geometry"] is False for row in receipt["assets"])
+    assert all(row["representational_mode"] for row in receipt["assets"])
     assert all((tmp_path / "svg" / row["path"]).is_file() for row in receipt["assets"])
 
 
-def test_site_visual_grammar_is_semantic_not_shape_swapping(tmp_path: Path) -> None:
+def test_site_visual_grammar_is_object_native_not_shape_swapping(tmp_path: Path) -> None:
     story, art = _inputs()
     receipt = render_site_visual_assets(story=story, art=art, output_dir=tmp_path / "svg")
 
     assert receipt["timeline_default"] == "REFUSE"
+    assert receipt["generic_node_link_default"] == "REFUSE"
     assert receipt["linear_process_scene_budget"] == PROCESS_SCENE_BUDGET == 1
     assert receipt["linear_process_scene_count"] == 0
     assert receipt["linear_process_budget_pass"] is True
     assert receipt["distinct_visual_kind_count"] == len(REQUIRED_ROLES)
+    assert receipt["distinct_representational_mode_count"] == len(REQUIRED_ROLES)
+    assert receipt["distinct_representational_mode_count"] >= MIN_REPRESENTATIONAL_MODES
+    assert receipt["representational_diversity_pass"] is True
 
     expected = {
-        "site_hook": "research_workbench",
-        "service_1": "decision_landscape",
-        "service_2": "evidence_network",
-        "service_3": "communication_outputs",
-        "method": "method_map",
-        "proof": "provenance_stack",
-        "human_authority": "human_review_scene",
-        "cta": "bounded_action",
+        "site_hook": ("research_workbench", "top_down_object_scene"),
+        "service_1": ("decision_landscape", "professional_planning_artifact"),
+        "service_2": ("evidence_network", "evidence_matrix_artifact"),
+        "service_3": ("communication_outputs", "multi_artifact_scene"),
+        "method": ("method_map", "annotated_workspace_scene"),
+        "proof": ("provenance_stack", "inspectable_ledger_scene"),
+        "human_authority": ("human_review_scene", "human_review_object_scene"),
+        "cta": ("bounded_action", "client_intake_object_scene"),
     }
-    assert {row["role"]: row["visual_kind"] for row in receipt["assets"]} == expected
+    assert {
+        row["role"]: (row["visual_kind"], row["representational_mode"])
+        for row in receipt["assets"]
+    } == expected
     assert all(row["process_component_count"] == 0 for row in receipt["assets"])
+
+    # The regression target is the user's rejected output family: eight sparse
+    # node/link diagrams with circles as the dominant representational device.
+    # Object-native scenes should instead contain concrete artifact vocabulary.
+    svg_text = "\n".join((tmp_path / "svg" / row["path"]).read_text(encoding="utf-8") for row in receipt["assets"])
+    for required_term in [
+        "EVIDENCE SYNTHESIS MATRIX",
+        "RESEARCH STRATEGY CANVAS",
+        "PROVENANCE LEDGER",
+        "AUTHORISED HUMAN",
+        "PUBLIC EXPLANATION",
+        "ONE REAL JOB",
+    ]:
+        assert required_term in svg_text
 
 
 def test_site_visual_composition_is_deterministic(tmp_path: Path) -> None:
@@ -161,6 +186,7 @@ def test_site_visual_composition_is_deterministic(tmp_path: Path) -> None:
     assert first["profile_hash"] == second["profile_hash"]
     assert first["compositor_fingerprint"] == second["compositor_fingerprint"]
     assert first["visual_kind_counts"] == second["visual_kind_counts"]
+    assert first["representational_mode_counts"] == second["representational_mode_counts"]
     assert first["semantic_visual_hashes"] == second["semantic_visual_hashes"]
     assert [row["composition_hash"] for row in first["assets"]] == [row["composition_hash"] for row in second["assets"]]
     assert [row["svg_hash"] for row in first["assets"]] == [row["svg_hash"] for row in second["assets"]]
