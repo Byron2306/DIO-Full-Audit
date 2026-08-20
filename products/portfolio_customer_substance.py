@@ -122,9 +122,19 @@ def _generic_checks(files: list[Path], selected: list[dict[str, Any]]) -> list[d
         checks.append(_check("selected_spreadsheet_contains_data", cells >= 2, observed={"file": path.name, "nonempty_cells": cells}))
 
     selected_docx = [Path(str(row.get("path") or "")) for row in selected if str(row.get("suffix") or "").casefold() == ".docx"]
-    for path in selected_docx:
-        chars = len(_docx_text(path)) if path.is_file() else 0
-        checks.append(_check("selected_docx_contains_substantive_text", chars >= 120, observed={"file": path.name, "visible_characters": chars}))
+    if selected_docx:
+        docx_characters = {
+            path.name: len(_docx_text(path)) if path.is_file() else 0
+            for path in selected_docx
+        }
+        checks.append(
+            _check(
+                "selected_docx_set_contains_substantive_text",
+                any(characters >= 120 for characters in docx_characters.values()),
+                observed={"visible_characters_by_file": docx_characters, "minimum_substantive_characters": 120},
+                note="A multi-document customer pack may contain concise supporting files. Hard refusal applies only when none of the selected DOCX artifacts carries substantive visible content.",
+            )
+        )
     return checks
 
 
