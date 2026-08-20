@@ -223,9 +223,7 @@ def _vertical_short_realisation(
         ),
         "transformation": (
             "Change the preparation step",
-            (
-                f"{name} is used to {_lower_first(promise).rstrip('.')}. The bounded result is {_lower_first(outcome).rstrip('.')}.",
-            ),
+            f"{name} is used to {_lower_first(promise).rstrip('.')}. The bounded result is {_lower_first(outcome).rstrip('.')}.",
             "Reveal the changed workflow through action and end on the concrete reviewable handoff.",
         ),
         "proof": (
