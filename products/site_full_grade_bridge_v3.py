@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from adapters.document_studio.site_svg_compositor import render_site_svg_assets
+from adapters.format_core.site_visual_compositor import render_site_visual_assets
 from products.site_full_grade_bridge_v2 import (
     _website_projection,
     _website_semantic_qa,
@@ -29,21 +29,21 @@ def _load(path: Path) -> dict[str, Any]:
     return value
 
 
-def _figure(asset: dict[str, Any], *, class_name: str = "dio-svg-scene") -> str:
-    return (
-        f'<figure class="{class_name}" data-dio-role="{asset["role"]}">'
-        f'<img src="assets/svg/{asset["path"]}" alt="{_escape_attr(str(asset.get("alt_text") or asset["role"]))}" loading="lazy">'
-        '<figcaption>Deterministic Document Studio SVG · DIO owns text and geometry</figcaption>'
-        '</figure>'
-    )
-
-
 def _escape_attr(value: str) -> str:
     return (
         value.replace("&", "&amp;")
         .replace('"', "&quot;")
         .replace("<", "&lt;")
         .replace(">", "&gt;")
+    )
+
+
+def _figure(asset: dict[str, Any], *, class_name: str = "dio-svg-scene") -> str:
+    return (
+        f'<figure class="{class_name}" data-dio-role="{asset["role"]}">'
+        f'<img src="assets/svg/{asset["path"]}" alt="{_escape_attr(str(asset.get("alt_text") or asset["role"]))}" loading="lazy">'
+        '<figcaption>Deterministic Format Core SVG · Site Studio semantics · DIO-owned geometry</figcaption>'
+        '</figure>'
     )
 
 
@@ -60,7 +60,7 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
         "cta",
     }
     if set(assets) != required:
-        raise SiteFullGradeV3Error(f"SVG compositor roles do not match website contract: {sorted(assets)}")
+        raise SiteFullGradeV3Error(f"Format Core SVG roles do not match website contract: {sorted(assets)}")
 
     index_path = package_dir / "index.html"
     css_path = package_dir / "styles.css"
@@ -92,11 +92,11 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
     html = html.replace(intake_marker, _figure(assets["cta"], class_name="dio-svg-cta") + intake_marker, 1)
 
     css += """
-/* DIO deterministic SVG scene layer, generalized from the HOMS vector-composition pattern. */
-.dio-svg-hero,.dio-svg-scene,.dio-svg-cta{width:min(1180px,calc(100% - 40px));margin:34px auto 0;position:relative;overflow:hidden;background:#0b1115;border:1px solid #ffffff20}
+/* DIO Format Core deterministic SVG scene layer. */
+.dio-svg-hero,.dio-svg-scene,.dio-svg-cta{width:min(1180px,calc(100% - 40px));margin:34px auto 0;position:relative;overflow:hidden;background:#0b1118;border:1px solid #ffffff20;border-radius:16px}
 .dio-svg-hero{margin-top:48px}.dio-svg-scene{margin-bottom:42px}.dio-svg-cta{margin:72px auto}
-.dio-svg-hero img,.dio-svg-scene img,.dio-svg-cta img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
-.dio-svg-hero figcaption,.dio-svg-scene figcaption,.dio-svg-cta figcaption{position:absolute;left:14px;bottom:12px;padding:7px 10px;background:#071014d9;color:#d9e5e4;font:800 .62rem/1.2 ui-sans-serif,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;border-left:3px solid #22d3c5}
+.dio-svg-hero img,.dio-svg-scene img,.dio-svg-cta img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.dio-svg-hero figcaption,.dio-svg-scene figcaption,.dio-svg-cta figcaption{position:absolute;left:14px;bottom:12px;padding:7px 10px;background:#071014e8;color:#d9e5e4;font:800 .62rem/1.2 ui-sans-serif,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;border-left:3px solid #5fd1d8}
 .split-band>.dio-svg-scene,.proof-band>.dio-svg-scene{border-color:#18202430}
 @media(max-width:820px){.dio-svg-hero,.dio-svg-scene,.dio-svg-cta{width:min(100% - 24px,1180px);margin-top:24px}.dio-svg-hero figcaption,.dio-svg-scene figcaption,.dio-svg-cta figcaption{position:static;background:#091216;padding:9px 10px}.dio-svg-hero img,.dio-svg-scene img,.dio-svg-cta img{aspect-ratio:4/3}}
 """
@@ -105,10 +105,12 @@ def _inject_svg_assets(*, package_dir: Path, compositor: dict[str, Any]) -> dict
 
     embedded = [f'assets/svg/{row["path"]}' in html for row in compositor.get("assets") or []]
     return {
-        "schema": "dio.site_studio.svg_embedding_qa.v1",
+        "schema": "dio.site_studio.format_core_svg_embedding_qa.v1",
         "passed": all(embedded) and html.count("data-dio-role=") == 8,
         "all_svg_assets_embedded": all(embedded),
         "embedded_role_count": html.count("data-dio-role="),
+        "visual_projection_authority": "DIO_FORMAT_CORE",
+        "site_semantic_authority": "DIO_SITE_STUDIO",
         "gamma_layout_authority": "REFUSE",
         "gamma_text_authority": "REFUSE",
         "human_visual_release": "NEEDS_YOU",
@@ -123,27 +125,31 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
     checks = dict(visual_qa.get("checks") or {})
     checks.update(
         {
-            "deterministic_svg_scene_assets": compositor.get("scene_count") == 8,
+            "deterministic_format_core_scene_assets": compositor.get("scene_count") == 8,
             "svg_assets_embedded": embedding_qa.get("passed") is True,
-            "document_studio_owns_svg_geometry": all(
-                row.get("geometry_authority") == "DIO_DOCUMENT_STUDIO" for row in compositor.get("assets") or []
+            "format_core_owns_svg_geometry": all(
+                row.get("geometry_authority") == "DIO_FORMAT_CORE" for row in compositor.get("assets") or []
             ),
-            "document_studio_owns_svg_text": all(
-                row.get("text_authority") == "DIO_DOCUMENT_STUDIO" for row in compositor.get("assets") or []
+            "format_core_owns_svg_text_projection": all(
+                row.get("text_authority") == "DIO_FORMAT_CORE" for row in compositor.get("assets") or []
             ),
+            "site_studio_owns_semantics": compositor.get("site_semantic_authority") == "DIO_SITE_STUDIO",
+            "format_core_visual_composition_pass": compositor.get("format_core_visual_composition") == "PASS",
             "gamma_layout_authority_refused": compositor.get("gamma_layout_authority") == "REFUSE",
             "gamma_text_authority_refused": compositor.get("gamma_text_authority") == "REFUSE",
         }
     )
-    visual_qa["schema"] = "dio.site_studio_full_grade_visual_qa.v2"
+    visual_qa["schema"] = "dio.site_studio_full_grade_visual_qa.v3"
     visual_qa["checks"] = checks
     visual_qa["passed"] = all(checks.values())
     visual_qa["svg_scene_asset_count"] = compositor.get("scene_count")
-    visual_qa["svg_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    visual_qa["format_core_visual_profile_id"] = compositor.get("profile_id")
+    visual_qa["format_core_visual_profile_hash"] = compositor.get("profile_hash")
+    visual_qa["format_core_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
     _write_json(visual_qa_path, visual_qa)
     if not visual_qa["passed"]:
         raise SiteFullGradeV3Error(
-            "SVG-enhanced Site visual QA refused: "
+            "Format Core-enhanced Site visual QA refused: "
             + ", ".join(key for key, passed in checks.items() if not passed)
         )
 
@@ -158,11 +164,15 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
                 "bytes": path.stat().st_size,
             }
         )
-    manifest["schema"] = "dio.site_studio.full_grade_proof_manifest.v3"
+    manifest["schema"] = "dio.site_studio.full_grade_proof_manifest.v4"
     manifest["artifacts"] = artifact_rows
-    manifest["document_studio_svg_compositor"] = "PASS"
-    manifest["svg_scene_asset_count"] = compositor.get("scene_count")
-    manifest["svg_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    manifest["format_core_visual_compositor"] = "PASS"
+    manifest["format_core_visual_profile_id"] = compositor.get("profile_id")
+    manifest["format_core_visual_profile_hash"] = compositor.get("profile_hash")
+    manifest["format_core_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    manifest["site_semantic_authority"] = "DIO_SITE_STUDIO"
+    manifest["visual_projection_authority"] = "DIO_FORMAT_CORE"
+    manifest["document_studio_svg_compositor"] = "RETIRED_TO_FORMAT_CORE"
     manifest["gamma_visual_role"] = "OPTIONAL_IMAGE_MATERIAL_ONLY"
     manifest["gamma_layout_authority"] = "REFUSE"
     manifest["gamma_text_authority"] = "REFUSE"
@@ -172,10 +182,14 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
 
     receipt_path = output_dir / "SITE_STUDIO_FULL_GRADE_RECEIPT.json"
     receipt = _load(receipt_path)
-    receipt["schema"] = "dio.site_studio.full_grade_receipt.v3"
-    receipt["document_studio_svg_compositor"] = "PASS"
-    receipt["svg_scene_asset_count"] = compositor.get("scene_count")
-    receipt["svg_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    receipt["schema"] = "dio.site_studio.full_grade_receipt.v4"
+    receipt["format_core_visual_compositor"] = "PASS"
+    receipt["format_core_visual_profile_id"] = compositor.get("profile_id")
+    receipt["format_core_visual_profile_hash"] = compositor.get("profile_hash")
+    receipt["format_core_compositor_fingerprint"] = compositor.get("compositor_fingerprint")
+    receipt["site_semantic_authority"] = "DIO_SITE_STUDIO"
+    receipt["visual_projection_authority"] = "DIO_FORMAT_CORE"
+    receipt["document_studio_svg_compositor"] = "RETIRED_TO_FORMAT_CORE"
     receipt["gamma_visual_role"] = "OPTIONAL_IMAGE_MATERIAL_ONLY"
     receipt["gamma_layout_authority"] = "REFUSE"
     receipt["gamma_text_authority"] = "REFUSE"
@@ -187,7 +201,7 @@ def _refresh_full_grade_proof(*, output_dir: Path, compositor: dict[str, Any], e
 
 
 def run_site_full_grade_v3(*, manifest_path: Path, output_dir: Path, root: Path) -> dict[str, Any]:
-    """Run Site Studio v2, then bind deterministic HOMS-derived SVG composition into the canonical artifact."""
+    """Run Site Studio full grade with Format Core as the authoritative visual projection organ."""
     output_dir = output_dir.resolve()
     run_site_full_grade_v2(manifest_path=manifest_path, output_dir=output_dir, root=root)
 
@@ -196,12 +210,12 @@ def run_site_full_grade_v3(*, manifest_path: Path, output_dir: Path, root: Path)
     story = _load(proof_dir / "SITE_STORY_ARCHITECTURE.json")
     art = _load(proof_dir / "DOCUMENT_STUDIO_SITE_ART_DIRECTION.json")
     svg_dir = package_dir / "assets" / "svg"
-    compositor = render_site_svg_assets(story=story, art=art, output_dir=svg_dir)
-    _write_json(proof_dir / "DOCUMENT_STUDIO_SVG_COMPOSITOR_RECEIPT.json", compositor)
+    compositor = render_site_visual_assets(story=story, art=art, output_dir=svg_dir)
+    _write_json(proof_dir / "FORMAT_CORE_SITE_VISUAL_COMPOSITOR_RECEIPT.json", compositor)
     embedding_qa = _inject_svg_assets(package_dir=package_dir, compositor=compositor)
-    _write_json(proof_dir / "SITE_SVG_EMBEDDING_QA.json", embedding_qa)
+    _write_json(proof_dir / "SITE_FORMAT_CORE_VISUAL_EMBEDDING_QA.json", embedding_qa)
     if not embedding_qa["passed"]:
-        raise SiteFullGradeV3Error("Site SVG embedding QA refused the generated website")
+        raise SiteFullGradeV3Error("Site Format Core SVG embedding QA refused the generated website")
     return _refresh_full_grade_proof(output_dir=output_dir, compositor=compositor, embedding_qa=embedding_qa)
 
 
