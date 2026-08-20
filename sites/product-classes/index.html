@@ -3,71 +3,170 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DIO Product Class Registry</title>
+  <title>DIO Launch Registry</title>
   <style>
-    :root { --ink:#14202e; --muted:#5d6a78; --line:#c8d3df; --paper:#f7f9fc; --brand:#0d3b66; --warn:#fff3cd; }
+    :root {
+      --ink:#101820; --muted:#637083; --line:#d7dee7; --paper:#f5f7fa; --panel:#ffffff;
+      --brand:#0d3b66; --brand2:#145da0; --gold:#d6a84b; --green:#0b6b45; --green-bg:#eaf7f0;
+      --amber:#875b00; --amber-bg:#fff7df; --held:#7d3040; --held-bg:#fff0f2;
+    }
     * { box-sizing:border-box; }
-    body { margin:0; font-family:Arial, Helvetica, sans-serif; color:var(--ink); background:var(--paper); }
-    header { padding:22px 5vw; background:white; border-bottom:1px solid var(--line); display:flex; gap:18px; align-items:center; justify-content:space-between; }
-    header img { height:50px; }
-    a { color:var(--brand); font-weight:700; }
-    .hero { padding:42px 5vw 24px; background:white; display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:28px; align-items:center; }
-    .hero h1 { color:var(--brand); margin:0 0 12px; font-size:clamp(2rem,4vw,4.4rem); line-height:1; }
-    .hero p { font-size:1.08rem; line-height:1.55; max-width:800px; }
-    .hero img { width:100%; max-height:220px; object-fit:contain; }
-    main { padding:28px 5vw 60px; }
-    .notice { max-width:1100px; padding:16px 18px; background:var(--warn); border:1px solid #e5c07b; line-height:1.5; margin-bottom:28px; }
-    .proven { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin:0 0 34px; }
-    .proven a { background:white; border:1px solid var(--line); padding:16px; text-decoration:none; border-radius:5px; }
-    table { width:100%; max-width:1200px; border-collapse:collapse; background:white; }
-    th,td { border:1px solid var(--line); padding:10px; text-align:left; vertical-align:top; }
-    th { background:#eaf1f8; }
-    .held { color:#7a4d00; font-weight:700; }
-    small { color:var(--muted); }
-    @media(max-width:900px) { .hero,.proven { grid-template-columns:1fr; } }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:var(--paper); }
+    a { color:inherit; }
+    header { padding:18px 5vw; background:#081828; color:white; display:flex; justify-content:space-between; align-items:center; gap:20px; position:sticky; top:0; z-index:10; }
+    header img { height:44px; max-width:210px; object-fit:contain; }
+    header nav { display:flex; gap:18px; flex-wrap:wrap; }
+    header a { text-decoration:none; font-weight:700; }
+    .hero { padding:76px 5vw 56px; color:white; background:radial-gradient(circle at 80% 20%, #1a5790 0, #0d3b66 30%, #071a2c 72%); }
+    .hero-inner { max-width:1180px; display:grid; grid-template-columns:minmax(0,1.5fr) minmax(280px,.7fr); gap:44px; align-items:end; }
+    .kicker { color:#f2c66d; font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:.8rem; }
+    h1 { margin:10px 0 18px; font-size:clamp(2.7rem,6vw,6.2rem); line-height:.92; letter-spacing:-.045em; }
+    .hero p { max-width:780px; font-size:1.15rem; line-height:1.65; color:#dfeaf6; }
+    .truth-card { border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.08); padding:22px; border-radius:14px; backdrop-filter:blur(6px); }
+    .truth-card strong { display:block; font-size:2rem; margin-bottom:8px; }
+    main { max-width:1280px; margin:auto; padding:42px 5vw 80px; }
+    .law { background:#101d2b; color:#f4f7fb; border-radius:14px; padding:24px 26px; margin-bottom:42px; display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; }
+    .law b { color:#f2c66d; font-size:1.05rem; }
+    .law p { margin:4px 0 0; line-height:1.55; color:#ccd8e5; }
+    section { margin-top:48px; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:18px; }
+    .section-head h2 { margin:0; font-size:clamp(1.8rem,3vw,2.8rem); letter-spacing:-.03em; }
+    .section-head p { margin:0; color:var(--muted); max-width:650px; line-height:1.5; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px; box-shadow:0 6px 24px rgba(20,32,46,.045); }
+    .card h3 { margin:10px 0 10px; font-size:1.45rem; }
+    .card p { color:var(--muted); line-height:1.55; }
+    .badge { display:inline-flex; align-items:center; gap:7px; padding:6px 10px; border-radius:999px; font-size:.76rem; font-weight:850; letter-spacing:.04em; text-transform:uppercase; }
+    .ready { color:var(--green); background:var(--green-bg); }
+    .near { color:var(--amber); background:var(--amber-bg); }
+    .held { color:var(--held); background:var(--held-bg); }
+    .artifacts { margin:16px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px 12px; }
+    .artifacts li { color:#39485a; font-size:.9rem; padding-left:16px; position:relative; }
+    .artifacts li::before { content:"✓"; color:var(--green); font-weight:900; position:absolute; left:0; }
+    .meta { margin-top:18px; padding-top:16px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:.82rem; }
+    .meta a { color:var(--brand2); font-weight:800; text-decoration:none; }
+    .estate { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .estate article { background:white; border:1px solid var(--line); border-radius:12px; padding:20px; }
+    .estate h3 { margin:0 0 8px; }
+    .estate p { margin:0; color:var(--muted); line-height:1.5; }
+    .count { font-size:2.25rem; font-weight:900; color:var(--brand); margin-bottom:5px; }
+    .error { padding:18px; border:1px solid #d98b8b; background:#fff1f1; color:#7b2020; border-radius:10px; }
+    .loading { color:var(--muted); padding:18px 0; }
+    footer { padding:32px 5vw 48px; background:#071522; color:#aebdca; line-height:1.55; }
+    footer strong { color:white; }
+    @media(max-width:900px) {
+      .hero-inner,.grid,.estate { grid-template-columns:1fr; }
+      .artifacts { grid-template-columns:1fr; }
+      header { position:static; align-items:flex-start; }
+      header nav { justify-content:flex-end; }
+    }
   </style>
 </head>
 <body>
 <header>
   <a href="https://byron2306.github.io/DIO-Workflows/"><img src="assets/dio-logo.png" alt="DIO Workflows"></a>
-  <a href="https://byron2306.github.io/DIO-Workflows/">Main DIO site</a>
+  <nav>
+    <a href="#available">Available now</a>
+    <a href="#near">Next to launch</a>
+    <a href="#estate">Product universe</a>
+    <a href="https://byron2306.github.io/DIO-Workflows/">Main DIO site</a>
+  </nav>
 </header>
+
 <section class="hero">
-  <div>
-    <h1>DIO Product Class Registry</h1>
-    <p>The atlas is broad. The evidence boundary is narrower. Product classes listed here are registered profile extensions until their typed fulfilment routes have executed successfully and produced public-safe proof.</p>
+  <div class="hero-inner">
+    <div>
+      <div class="kicker">DIO Launch Authority</div>
+      <h1>Ship what is proven.</h1>
+      <p>DIO contains more products than the original 53-class professional evidence portfolio. This registry separates what can be offered now from what is still proving its customer-visible artifact, composition, or authority boundary.</p>
+    </div>
+    <div class="truth-card">
+      <strong id="ready-count">...</strong>
+      <span>controlled-pilot products available under the current launch authority</span>
+    </div>
   </div>
-  <img src="assets/dio-banner.png" alt="DIO banner">
 </section>
-<main>
-  <div class="notice"><strong>Why there are no individual “Request Pilot” pages here:</strong> structural packaging is not execution proof. DIO will not present a profile extension as a live product merely because a page, ZIP or synthetic demonstration exists. Human approval is necessary, but human approval cannot substitute for missing execution evidence.</div>
 
-  <h2>Existing public product surfaces</h2>
-  <div class="proven">
-    <a href="../evidex/index.html">Evidex<br><small>EvidenceOps</small></a>
-    <a href="../homs/index.html">HOMS<br><small>Assessment and education</small></a>
-    <a href="../sophia/index.html">Sophia<br><small>Academic review</small></a>
-    <a href="../vamp/index.html">VAMP<br><small>Performance evidence</small></a>
-    <a href="../document-studio/index.html">Document Studio<br><small>Edit, localize, publish</small></a>
+<main>
+  <div class="law">
+    <b>Launch law</b>
+    <p><strong>Receipts prove custody. Artifacts prove product.</strong> A product is not marked available merely because it has a route, profile, JSON receipt, or attractive page. Launch authority requires execution proof, an openable customer artifact, named evidence, and human-held external release.</p>
   </div>
 
-  <h2>Registered profile extensions</h2>
-  <table>
-    <thead><tr><th>Product class</th><th>Suggested composition</th><th>Current evidence</th><th>Next gate</th></tr></thead>
-    <tbody id="rows"></tbody>
-  </table>
+  <section id="available">
+    <div class="section-head">
+      <div><div class="kicker" style="color:var(--green)">Available now</div><h2>Controlled pilots we can stand behind</h2></div>
+      <p>These products have a named proof source and a customer-visible artifact contract. External publication, sending, regulated decisions, and commitments remain human-authorised.</p>
+    </div>
+    <div id="ready-grid" class="grid"><div class="loading">Loading launch registry...</div></div>
+  </section>
+
+  <section id="near">
+    <div class="section-head">
+      <div><div class="kicker" style="color:var(--amber)">Next to launch</div><h2>Built, but still earning the launch badge</h2></div>
+      <p>These are deliberately held until the fresh proof run produces the actual customer-facing artifact and the expanded launch gate accepts it.</p>
+    </div>
+    <div id="near-grid" class="grid"></div>
+  </section>
+
+  <section id="estate">
+    <div class="section-head">
+      <div><div class="kicker" style="color:var(--brand2)">The wider organism</div><h2>The product universe is bigger than 53</h2></div>
+      <p>The 53-product registry remains the canonical professional evidence class set. New Professional Intelligence Studios and commercial incarnations sit above and across those reusable organs.</p>
+    </div>
+    <div class="estate">
+      <article><div class="count">53</div><h3>Canonical product classes</h3><p>Governed professional evidence routes across education, research, evidence operations, assurance, regulation, documents, market intelligence and Vesper.</p></article>
+      <article><div class="count" id="studio-count">...</div><h3>Launch and near-launch Studios</h3><p>Buyer-legible compositions such as Site Studio, correspondence, finance readiness and publication.</p></article>
+      <article><div class="count" id="held-count">...</div><h3>Held commercial compositions</h3><p>Design and Legal Operations products that remain visible but cannot quietly promote themselves before their own proof and authority gates pass.</p></article>
+    </div>
+    <div id="held-grid" class="grid" style="margin-top:18px"></div>
+  </section>
 </main>
+
+<footer>
+  <strong>DIO Workflows</strong><br>
+  Product execution proof is not market validation, professional certification, legal authority, guaranteed commercial outcome, or autonomous release authority. Controlled pilots remain human-reviewed.
+</footer>
+
 <script>
-const classes = [
-  ["AuditProof","Evidex"],["DossierOps","Document Studio"],["GrantProof","Evidex"],["PromotionProof","VAMP"],["TenderProof","Evidex"],["VendorProof","Evidex"],
-  ["AssuranceRoom","Evidex"],["CPDProof","VAMP"],["HOMS Accreditation","HOMS"],["HOMS Moderate","HOMS"],["ImpactProof","Evidex"],["ProjectProof","Evidex"],
-  ["Sophia Integrity","Sophia"],["Sophia Research","Sophia"],["Agent Authority","META Authority profile"],["ControlDrift","META Assurance profile"],["DIO AI Assurance","AI assurance composition"],["DIO RegOps","boundary-heavy composition"],
-  ["AI IncidentRoom","META Room / Assurance"],["CertificationProof","Evidex"],["ChangeProof","Assurance composition"],["ContractProof","Evidex via governed Vesper intake"],["CriticalAI Assurance","Assurance composition"],["CyberAssurance","Assurance composition"],
-  ["DORA Vendor Assurance","boundary-heavy composition"],["DiligenceRoom","Evidex"],["DonorProof","Evidex"],["HOMS Curriculum","HOMS"],["IncidentProof","Assurance composition"],["ModelProof","AI assurance composition"],
-  ["PermitProof","boundary-heavy composition"],["PolicyProof","Evidex"],["ProgrammeProof","Evidex"],["QualityProof","Evidex"],["ReleaseProof","META Authority / Assurance"],["Sophia Supervisor","Sophia"],
-  ["Sophia Tutor","Sophia"],["SupplierCyberProof","Assurance composition"]
-];
-document.querySelector("#rows").innerHTML = classes.map(([name,composition]) => `<tr><td><strong>${name}</strong></td><td>${composition}</td><td><span class="held">structural/profile only</span></td><td>Approve typed route → controlled execution → reviewed artifact → public-safe proof</td></tr>`).join("");
+const registryUrl = "../../config/launch/dio_launch_registry_v2.json";
+
+function proofLink(ref) {
+  if (!ref) return "";
+  return `<a href="../../${ref}">View proof</a>`;
+}
+function card(row, mode) {
+  const badge = mode === "ready" ? "ready" : mode === "near" ? "near" : "held";
+  const label = mode === "ready" ? "Available controlled pilot" : mode === "near" ? "Proof run required" : row.status.replaceAll("_", " ");
+  const artifacts = (row.customer_artifacts || row.required_artifacts || []).map(x => `<li>${x}</li>`).join("");
+  const note = row.launch_note ? `<p><strong>Launch note:</strong> ${row.launch_note}</p>` : "";
+  return `<article class="card" id="${row.id}">
+    <span class="badge ${badge}">${label}</span>
+    <h3>${row.name}</h3>
+    <p>${row.proof_class ? `Proof: ${row.proof_class}.` : "This product remains deliberately held until its next proof boundary is satisfied."}</p>
+    ${note}
+    ${artifacts ? `<ul class="artifacts">${artifacts}</ul>` : ""}
+    <div class="meta"><span>${row.family || "DIO product"}</span><span>${proofLink(row.proof_ref)}</span></div>
+  </article>`;
+}
+
+fetch(registryUrl)
+  .then(r => { if (!r.ok) throw new Error(`registry HTTP ${r.status}`); return r.json(); })
+  .then(data => {
+    const ready = data.launch_ready || [];
+    const near = data.near_launch || [];
+    const held = data.commercial_compositions_held || [];
+    document.querySelector("#ready-count").textContent = ready.length;
+    document.querySelector("#studio-count").textContent = ready.length + near.length;
+    document.querySelector("#held-count").textContent = held.length;
+    document.querySelector("#ready-grid").innerHTML = ready.map(x => card(x, "ready")).join("");
+    document.querySelector("#near-grid").innerHTML = near.map(x => card(x, "near")).join("");
+    document.querySelector("#held-grid").innerHTML = held.map(x => card(x, "held")).join("");
+  })
+  .catch(err => {
+    document.querySelector("#ready-grid").innerHTML = `<div class="error">Launch registry could not be loaded: ${err.message}. No product should be promoted from this page until the registry is available.</div>`;
+  });
 </script>
 </body>
 </html>
