@@ -90,6 +90,23 @@ def test_evidex_professional_authority_invariant_is_not_treated_as_creative_clon
     assert validate_cross_surface_semantic_distance(short_story, long_story) == []
 
 
+def test_sophia_academic_long_form_authority_roles_are_distinct() -> None:
+    payload = _matrix()
+    product = next(row for row in payload["products"] if row["id"] == "SOPHIA_REVIEW")
+    audience = next(row for row in product["audiences"] if row["id"] == "postgraduate_students")
+    law = build_semantic_law(product, audience)
+    projection = build_projection_plan(law, product, audience, payload.get("channels") or {})
+
+    long_story = project_story(law, projection, product, audience, "landscape_explainer")
+    authority = [scene for scene in long_story["scenes"] if scene.get("semantic_focus") == "authority"]
+
+    assert {scene["role"] for scene in authority} == {"limitations", "reviewer_role"}
+    narrations = [_normalise(str(scene.get("narration") or "")) for scene in authority]
+    assert len(narrations) == 2
+    assert len(set(narrations)) == 2
+    assert validate_story_semantic_diversity(long_story, outcome=audience["outcome"]) == []
+
+
 def test_document_studio_government_localize_regression() -> None:
     payload = _matrix()
     product = next(row for row in payload["products"] if row["id"] == "DOCUMENT_STUDIO")
