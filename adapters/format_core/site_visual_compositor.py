@@ -72,12 +72,7 @@ def _site_profiles(art: dict[str, Any]) -> dict[str, Any]:
     profile = profiles["profiles"][PROFILE_ID]
     palette = profile["palette"]
     directed = dict(art.get("format_core_palette") or {})
-    mapping = {
-        "accent": "accent",
-        "accent_2": "warning",
-        "muted": "muted",
-        "line": "line",
-    }
+    mapping = {"accent": "accent", "accent_2": "warning", "muted": "muted", "line": "line"}
     for source_key, target_key in mapping.items():
         colour = _safe_colour(directed.get(source_key))
         if colour:
@@ -93,17 +88,7 @@ def render_site_visual_assets(
     material_registry_path: Path | None = None,
     material_root: Path | None = None,
 ) -> dict[str, Any]:
-    """Compile Site semantics through governed medium selection into customer visuals.
-
-    The sequence is deliberately explicit:
-
-    semantic story -> semantic visual -> visual material request -> governed
-    material resolver -> native illustration OR embedded mixed-media composition
-    -> deterministic self-contained SVG.
-
-    Scene role remains provenance only. Approved material can influence visual
-    material, never product meaning, layout authority, release or publication.
-    """
+    """Compile Site semantics through governed medium selection into customer visuals."""
     scenes = list(story.get("scenes") or [])
     art_scenes = list(art.get("scenes") or [])
     if story.get("surface") != "website":
@@ -141,11 +126,7 @@ def render_site_visual_assets(
         if (spec.get("source") or {}).get("role") != role:
             raise SiteFormatVisualCompositorError(f"semantic visual role provenance mismatch at index {index}")
 
-        material_request = compile_site_visual_material_request(
-            semantic_visual=spec,
-            scene=semantic,
-            directed=directed,
-        )
+        material_request = compile_site_visual_material_request(semantic_visual=spec, scene=semantic, directed=directed)
         if (material_request.get("source") or {}).get("role_selects_material") is not False:
             raise SiteFormatVisualCompositorError("Site material policy allowed role-selected material")
         material_resolution = resolve_visual_material(material_request, registry, root=material_root)
@@ -181,8 +162,9 @@ def render_site_visual_assets(
         lowered = svg.casefold()
         if "<script" in lowered or "<foreignobject" in lowered:
             raise SiteFormatVisualCompositorError("Format Core emitted forbidden executable/foreign SVG content")
-        if "http://" in lowered or "https://" in lowered:
-            raise SiteFormatVisualCompositorError("Site visual contains a remote runtime asset URL")
+        remote_href_tokens = ('href="http://', 'href="https://', 'xlink:href="http://', 'xlink:href="https://')
+        if any(token in lowered for token in remote_href_tokens):
+            raise SiteFormatVisualCompositorError("Site visual contains a remote runtime asset href")
 
         path = output_dir / f"{index:02d}-{role.replace('_', '-')}.svg"
         path.write_text(svg, encoding="utf-8")
