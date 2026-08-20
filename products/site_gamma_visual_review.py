@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+VISUAL_PLATE_MODE = "visual_plate_only"
 
 
 class SiteGammaVisualReviewError(RuntimeError):
@@ -55,16 +56,22 @@ def build_site_gamma_request(*, site_root: Path, gamma_output_dir: Path) -> dict
     scenes = list(art.get("scenes") or [])
     if len(scenes) < 3:
         raise SiteGammaVisualReviewError("Site art direction exposes too few scenes for Gamma review")
-    blocks = [f"# {str(scene.get('display_copy') or '').strip()}" for scene in scenes]
-    if any(block == "#" for block in blocks):
-        raise SiteGammaVisualReviewError("Site art direction contains an empty display-copy scene")
+    if any(not str(scene.get("visual_subject") or "").strip() for scene in scenes):
+        raise SiteGammaVisualReviewError("Site art direction contains an empty visual subject")
+
+    blocks = []
+    for scene in scenes:
+        subject = " ".join(str(scene.get("visual_subject") or "").split())
+        blocks.append(subject)
 
     direction = dict(story.get("creative_direction") or {})
     payload = {
         "schema": "dio.gamma.campaign_story_request.v1",
         "family_id": str(story.get("family_id") or "site:site_studio"),
         "surface": "website",
-        "title": str(story.get("title") or "DIO Site Studio visual candidate"),
+        "output_mode": VISUAL_PLATE_MODE,
+        "intended_consumer": "document_studio_site_compositor",
+        "title": "DIO Site Studio source-visual candidates",
         "story_hash": story["story_hash"],
         "semantic_law_hash": law["semantic_law_hash"],
         "projection_hash": projection["projection_hash"],
@@ -85,6 +92,22 @@ def build_site_gamma_request(*, site_root: Path, gamma_output_dir: Path) -> dict
             "format_core_profile_hash": art.get("format_core_profile_hash"),
             "beast_visual_memory": art.get("beast_visual_memory") or {},
         },
+        "visual_plate_contract": {
+            "gamma_role": "source_visual_candidate_generator_only",
+            "typography_authority": "REFUSE",
+            "layout_authority": "REFUSE",
+            "page_composition_authority": "REFUSE",
+            "visible_text": "REFUSE",
+            "headings": "REFUSE",
+            "captions": "REFUSE",
+            "logos_and_brand_marks": "REFUSE",
+            "presentation_chrome": "REFUSE",
+            "white_or_pale_slide_canvas": "REFUSE",
+            "card_inside_card": "REFUSE",
+            "full_bleed_visual_plate_requested": True,
+            "document_studio_owns_visible_copy": True,
+            "document_studio_owns_layout": True,
+        },
         "semantic_guardrails": story.get("semantic_guardrails") or {},
         "output_dir": str(gamma_output_dir.resolve()),
         "release": {
@@ -94,9 +117,10 @@ def build_site_gamma_request(*, site_root: Path, gamma_output_dir: Path) -> dict
         },
         "visual_source_policy": {
             "canonical_site": "customer/FULL_GRADE_SITE",
-            "gamma": "synthetic_visual_candidate_only",
+            "gamma": "synthetic_source_visual_candidate_only",
             "automatic_selection": False,
             "human_visual_review_required": True,
+            "pixel_text_free_verification": "HUMAN_REVIEW_REQUIRED",
         },
     }
     payload["request_hash"] = _fingerprint(payload)
@@ -105,6 +129,9 @@ def build_site_gamma_request(*, site_root: Path, gamma_output_dir: Path) -> dict
 
 def validate_gamma_candidate(*, request: dict[str, Any], receipt: dict[str, Any]) -> dict[str, Any]:
     cards = list(receipt.get("cards") or [])
+    contract = request.get("visual_plate_contract") or {}
+    generated = receipt.get("generation_contract") or {}
+    governance = receipt.get("governance") or {}
     checks = {
         "state_ready": receipt.get("state") == "ready",
         "request_hash_bound": receipt.get("request_hash") == request.get("request_hash"),
@@ -114,22 +141,40 @@ def validate_gamma_candidate(*, request: dict[str, Any], receipt: dict[str, Any]
         "scene_count_exact": len(cards) == int(request.get("num_cards") or 0),
         "all_cards_exist": bool(cards) and all(Path(str(row.get("path") or "")).is_file() for row in cards),
         "all_cards_synthetic": bool(cards) and all(row.get("synthetic") is True for row in cards),
-        "all_cards_require_review": bool(cards) and all(row.get("publication_status") == "visual_review_required" for row in cards),
-        "publication_held": (receipt.get("governance") or {}).get("publication") == "held_for_operator_approval",
-        "authority_not_created": (receipt.get("governance") or {}).get("authority_created") is False,
-        "optional_candidate_only": (receipt.get("governance") or {}).get("optional_visual_candidate") is True,
+        "all_cards_require_review": bool(cards) and all(
+            row.get("publication_status") == "visual_review_required" for row in cards
+        ),
+        "visual_plate_mode": request.get("output_mode") == VISUAL_PLATE_MODE,
+        "document_studio_is_consumer": request.get("intended_consumer") == "document_studio_site_compositor",
+        "typography_authority_refused": contract.get("typography_authority") == "REFUSE",
+        "layout_authority_refused": contract.get("layout_authority") == "REFUSE",
+        "visible_text_refused": contract.get("visible_text") == "REFUSE",
+        "document_studio_owns_visible_copy": contract.get("document_studio_owns_visible_copy") is True,
+        "document_studio_owns_layout": contract.get("document_studio_owns_layout") is True,
+        "gamma_execution_visual_plate_mode": generated.get("output_mode") == VISUAL_PLATE_MODE,
+        "gamma_text_mode_not_preserve": generated.get("text_mode") != "preserve",
+        "gamma_theme_not_applied": generated.get("theme_applied") is False,
+        "publication_held": governance.get("publication") == "held_for_operator_approval",
+        "authority_not_created": governance.get("authority_created") is False,
+        "optional_candidate_only": governance.get("optional_visual_candidate") is True,
     }
+    passed = all(checks.values())
     return {
-        "schema": "dio.site_studio.gamma_visual_candidate_qa.v1",
+        "schema": "dio.site_studio.gamma_visual_candidate_qa.v2",
         "checks": checks,
-        "passed": all(checks.values()),
-        "candidate_state": "READY_NEEDS_YOU" if all(checks.values()) else "REFUSE",
+        "passed": passed,
+        "candidate_state": "READY_NEEDS_YOU" if passed else "REFUSE",
+        "transport_and_request_policy_qa": "PASS" if passed else "REFUSE",
+        "pixel_text_free_verified": False,
+        "pixel_visual_quality": "HUMAN_REVIEW_REQUIRED",
         "human_visual_release": "NEEDS_YOU",
         "automatic_promotion": "REFUSE",
     }
 
 
-def _inject_gamma_review_site(*, canonical_site: Path, review_site: Path, receipt: dict[str, Any], art: dict[str, Any]) -> Path:
+def _inject_gamma_review_site(
+    *, canonical_site: Path, review_site: Path, receipt: dict[str, Any], art: dict[str, Any]
+) -> Path:
     if review_site.exists():
         shutil.rmtree(review_site)
     shutil.copytree(canonical_site, review_site)
@@ -145,22 +190,21 @@ def _inject_gamma_review_site(*, canonical_site: Path, review_site: Path, receip
         copied.append(target)
 
     index_path = review_site / "index.html"
-    html = index_path.read_text(encoding="utf-8")
+    page = index_path.read_text(encoding="utf-8")
     banner = (
-        '<div class="gamma-review-banner">GAMMA VISUAL CANDIDATE · SYNTHETIC MEDIA · '
-        'HUMAN VISUAL REVIEW REQUIRED · NOT PUBLISHED</div>'
+        '<div class="gamma-review-banner">GAMMA SOURCE-VISUAL CANDIDATES · '
+        'TYPOGRAPHY & LAYOUT OWNED BY DIO · HUMAN VISUAL REVIEW REQUIRED · NOT PUBLISHED</div>'
     )
-    html = html.replace("<body>", "<body>" + banner, 1)
+    page = page.replace("<body>", "<body>" + banner, 1)
 
-    hero_alt = str((scenes[0] if scenes else {}).get("visual_subject") or "Synthetic website visual candidate")
+    hero_alt = str((scenes[0] if scenes else {}).get("visual_subject") or "Synthetic source visual candidate")
     hero = (
         f'<figure class="gamma-hero-visual"><img src="assets/gamma/01.png" alt="{_escape_attr(hero_alt)}">'
-        '<figcaption>Gamma candidate 01 · review before selection</figcaption></figure>'
+        '<figcaption>Source visual 01 · Gamma synthetic candidate · DIO composition retained</figcaption></figure>'
     )
-    html = html.replace("</header>", hero + "</header>", 1)
+    page = page.replace("</header>", hero + "</header>", 1)
 
-    scene_card_indexes = list(range(2, min(len(copied), 7) + 1))
-    scene_iter = iter(scene_card_indexes)
+    scene_iter = iter(range(2, min(len(copied), 7) + 1))
 
     def repl(match: re.Match[str]) -> str:
         try:
@@ -168,25 +212,25 @@ def _inject_gamma_review_site(*, canonical_site: Path, review_site: Path, receip
         except StopIteration:
             return match.group(0)
         scene = scenes[card_index - 1] if card_index - 1 < len(scenes) else {}
-        alt = _escape_attr(str(scene.get("visual_subject") or "Synthetic website visual candidate"))
+        alt = _escape_attr(str(scene.get("visual_subject") or "Synthetic source visual candidate"))
         media = (
             f'<figure class="gamma-scene-visual"><img src="assets/gamma/{card_index:02d}.png" alt="{alt}">'
-            f'<figcaption>Gamma candidate {card_index:02d} · synthetic · human review required</figcaption></figure>'
+            f'<figcaption>Source visual {card_index:02d} · synthetic · human review required</figcaption></figure>'
         )
         return match.group(0) + media
 
-    html = re.sub(r'(<section class="scene [^"]+">)', repl, html)
+    page = re.sub(r'(<section class="scene [^"]+">)', repl, page)
 
     if len(copied) >= 8:
         scene = scenes[7] if len(scenes) > 7 else {}
-        alt = _escape_attr(str(scene.get("visual_subject") or "Synthetic website CTA visual candidate"))
+        alt = _escape_attr(str(scene.get("visual_subject") or "Synthetic CTA source visual candidate"))
         cta_media = (
             f'<figure class="gamma-cta-visual"><img src="assets/gamma/08.png" alt="{alt}">'
-            '<figcaption>Gamma candidate 08 · synthetic · human review required</figcaption></figure>'
+            '<figcaption>Source visual 08 · synthetic · human review required</figcaption></figure>'
         )
-        html = html.replace('<section class="intake"', cta_media + '<section class="intake"', 1)
+        page = page.replace('<section class="intake"', cta_media + '<section class="intake"', 1)
 
-    index_path.write_text(html, encoding="utf-8")
+    index_path.write_text(page, encoding="utf-8")
     css_path = review_site / "styles.css"
     css = css_path.read_text(encoding="utf-8")
     css += """
@@ -231,10 +275,13 @@ def run_site_gamma_visual_review(*, site_root: Path, generate: bool, root: Path 
 
     if not generate:
         return {
-            "schema": "dio.site_studio.gamma_visual_review_receipt.v1",
+            "schema": "dio.site_studio.gamma_visual_review_receipt.v2",
             "state": "REQUEST_READY_NOT_GENERATED",
             "request": str(request_path),
             "gamma_external_call_executed": False,
+            "gamma_output_mode": VISUAL_PLATE_MODE,
+            "typography_authority": "REFUSE",
+            "layout_authority": "REFUSE",
             "canonical_site_unchanged": True,
             "human_visual_release": "NEEDS_YOU",
             "publication": "REFUSE",
@@ -251,7 +298,8 @@ def run_site_gamma_visual_review(*, site_root: Path, generate: bool, root: Path 
     )
     if completed.returncode != 0:
         raise SiteGammaVisualReviewError(
-            "Gamma Site visual generation failed: " + (completed.stderr or completed.stdout or "unknown error")[-3000:]
+            "Gamma Site visual generation failed: "
+            + (completed.stderr or completed.stdout or "unknown error")[-3000:]
         )
 
     receipt_path = gamma_root / "generation" / "GAMMA_STORY_RECEIPT.json"
@@ -260,7 +308,7 @@ def run_site_gamma_visual_review(*, site_root: Path, generate: bool, root: Path 
     _write_json(gamma_root / "GAMMA_SITE_VISUAL_QA.json", qa)
     if not qa["passed"]:
         raise SiteGammaVisualReviewError(
-            "Gamma visual candidate QA refused: "
+            "Gamma source-visual candidate QA refused: "
             + ", ".join(key for key, passed in qa["checks"].items() if not passed)
         )
 
@@ -274,7 +322,7 @@ def run_site_gamma_visual_review(*, site_root: Path, generate: bool, root: Path 
     )
 
     review_receipt = {
-        "schema": "dio.site_studio.gamma_visual_review_receipt.v1",
+        "schema": "dio.site_studio.gamma_visual_review_receipt.v2",
         "state": "READY_NEEDS_YOU",
         "canonical_full_grade_fingerprint": canonical_receipt.get("full_grade_fingerprint"),
         "semantic_law_hash": request.get("semantic_law_hash"),
@@ -284,7 +332,13 @@ def run_site_gamma_visual_review(*, site_root: Path, generate: bool, root: Path 
         "gamma_request_hash": request.get("request_hash"),
         "gamma_generation_id": gamma_receipt.get("generation_id"),
         "gamma_card_count": len(gamma_receipt.get("cards") or []),
-        "gamma_candidate_qa": "PASS",
+        "gamma_output_mode": VISUAL_PLATE_MODE,
+        "gamma_transport_and_request_policy_qa": "PASS",
+        "pixel_text_free_verified": False,
+        "pixel_visual_quality": "HUMAN_REVIEW_REQUIRED",
+        "typography_authority": "REFUSE",
+        "layout_authority": "REFUSE",
+        "document_studio_composition_authority": "REQUIRED",
         "review_site": str(review_entrypoint.relative_to(site_root)),
         "canonical_site_unchanged": True,
         "automatic_selection": "REFUSE",
@@ -299,6 +353,7 @@ def run_site_gamma_visual_review(*, site_root: Path, generate: bool, root: Path 
 
 __all__ = [
     "SiteGammaVisualReviewError",
+    "VISUAL_PLATE_MODE",
     "build_site_gamma_request",
     "validate_gamma_candidate",
     "run_site_gamma_visual_review",
