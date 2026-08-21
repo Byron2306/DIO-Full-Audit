@@ -11,7 +11,7 @@
   "products": {
     "HOMS Exam": {
       "route": "homs_raw_exam",
-      "native_engine": "scripts.run_hymark_exam_builder.run_builder",
+      "native_engine": "scripts.run_hymark_history_source_first.run_builder",
       "native_receipt_schema": "knowedge.hymark_exam_builder_receipt.v1",
       "required_outputs": [
         "first_exam",
@@ -44,7 +44,9 @@
         ["answer", "response", "credit", "award"]
       ],
       "require_distinct_opportunities": true,
-      "customer_source_booklet_required": true
+      "customer_source_booklet_required": true,
+      "invented_source_provenance_allowed": false,
+      "described_missing_visual_allowed": false
     },
     "VAMP Performance": {
       "route": "vamp_raw_performance",
