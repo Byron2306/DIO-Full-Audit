@@ -1,0 +1,9 @@
+# DIO native HyMark execution contract.
+# Important: bson is provided by pymongo. Do not install the standalone bson package.
+pymongo>=4.6
+python-dotenv>=1.0
+fastapi>=0.110
+openai>=1.30
+python-docx>=1.1
+python-multipart>=0.0.9
+PyPDF2>=3.0
