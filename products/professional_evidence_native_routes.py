@@ -22,6 +22,11 @@ DEFAULT_HYMARK_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secre
 DEFAULT_HYMARK_RUNTIME_REQUIREMENTS = ROOT / "config" / "homs_native_runtime_requirements.txt"
 
 
+def _interpreter_path(path: Path) -> Path:
+    """Make an interpreter path absolute without resolving virtualenv symlinks."""
+    return Path(os.path.abspath(os.fspath(path.expanduser())))
+
+
 def load_native_contract(path: Path | None = None) -> dict[str, Any]:
     contract_path = Path(path or NATIVE_CONTRACT_PATH)
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
@@ -204,7 +209,7 @@ def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -
     request = _homs_exam_request(packet, source_booklet)
     write_json(request_path, request)
 
-    native_python = Path(os.environ.get("HOMS_EXAM_PYTHON") or DEFAULT_HYMARK_NATIVE_PYTHON).expanduser().resolve()
+    native_python = _interpreter_path(Path(os.environ.get("HOMS_EXAM_PYTHON") or DEFAULT_HYMARK_NATIVE_PYTHON))
     backend = Path(os.environ.get("HOMS_HYMARK_BACKEND") or DEFAULT_HYMARK_BACKEND).expanduser().resolve()
     secret_file = Path(os.environ.get("HOMS_SECRET_FILE") or DEFAULT_HYMARK_SECRET_FILE).expanduser().resolve()
     if not native_python.is_file():
