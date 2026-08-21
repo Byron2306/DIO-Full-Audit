@@ -1,0 +1,39 @@
+{
+  "schema": "dio.professional_evidence.native_engine_contract.v1",
+  "version": "1.0.0",
+  "policy": {
+    "native_engine_substitution": "REFUSE",
+    "surrogate_fallback_allowed": false,
+    "typed_projection_allowed": true,
+    "projection_must_preserve_vesper_custody": true,
+    "native_receipt_required": true,
+    "native_output_identity_required": true
+  },
+  "routes": {
+    "homs_raw_exam": {
+      "incarnation": "HOMS Exam",
+      "native_engine": "scripts.run_hymark_exam_builder.run_builder",
+      "required_native_receipt_schema": "knowedge.hymark_exam_builder_receipt.v1",
+      "required_outputs": [
+        "first_exam",
+        "first_memo",
+        "second_exam",
+        "second_memo",
+        "review_zip"
+      ],
+      "customer_source_binding_required": true
+    },
+    "vamp_raw_performance": {
+      "incarnation": "VAMP Performance",
+      "native_engine": "adapters.vamp.snapshot_pipeline.build_snapshot",
+      "required_native_status": "ready_for_human_review",
+      "customer_source_binding_required": true
+    },
+    "evidex_raw": {
+      "incarnation": "Evidex EvidenceOps",
+      "native_engine": "scripts.run_evidex_jobs.run_evidex",
+      "required_native_returncode": 0,
+      "customer_source_binding_required": true
+    }
+  }
+}
