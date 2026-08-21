@@ -33,6 +33,19 @@ def _packet(tmp_path: Path) -> dict:
     }
 
 
+def test_interpreter_path_preserves_virtualenv_symlink(tmp_path: Path) -> None:
+    system_python = tmp_path / "system-python"
+    system_python.write_text("placeholder", encoding="utf-8")
+    venv_python = tmp_path / "venv" / "bin" / "python"
+    venv_python.parent.mkdir(parents=True)
+    venv_python.symlink_to(system_python)
+
+    normalized = native._interpreter_path(venv_python)
+
+    assert normalized == venv_python.absolute()
+    assert normalized != system_python.resolve()
+
+
 def test_homs_native_request_preserves_customer_scope_and_source_hash(tmp_path: Path, monkeypatch) -> None:
     packet = _packet(tmp_path)
     monkeypatch.setattr(native, "evidence_rows", lambda packet: packet["evidence_register"])
