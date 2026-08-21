@@ -25,9 +25,9 @@ install_sophia_boundary_probe()
 from products.professional_evidence_customer_surface_compat import install_customer_surface_compat
 
 # Legacy compatibility remains installed for routes that still require it, but
-# mature canonical products are dispatched through the explicit native-route
-# law below. Native routing executes before the generic/compat route and may not
-# silently fall back to a weaker implementation.
+# mature canonical products are dispatched through explicit native-route laws
+# before the generic/compat route. Native routing may not silently fall back to
+# a weaker implementation.
 install_customer_surface_compat()
 
 from products.professional_evidence_executor import (
@@ -40,6 +40,10 @@ from products.professional_evidence_executor import (
     _load_routes,
     _route_execute,
     _trace_customer_records,
+)
+from products.professional_evidence_native_rich_routes import (
+    RICH_NATIVE_NOT_HANDLED,
+    execute_rich_native_route,
 )
 from products.professional_evidence_native_routes import (
     NATIVE_ENGINE_ROUTES,
@@ -108,16 +112,28 @@ def execute_prepared_customer_case(
     result: dict[str, Any] = {}
     error = ""
     try:
-        native_result = execute_native_route(
+        rich_result = execute_rich_native_route(
             packet,
             execution_dir,
             incarnation=incarnation,
             route=route,
             operator_id=operator_id,
             now=now,
-            online=online,
-            generic_executor=_route_execute,
         )
+        if rich_result is RICH_NATIVE_NOT_HANDLED:
+            native_result = execute_native_route(
+                packet,
+                execution_dir,
+                incarnation=incarnation,
+                route=route,
+                operator_id=operator_id,
+                now=now,
+                online=online,
+                generic_executor=_route_execute,
+            )
+        else:
+            native_result = rich_result
+
         if native_result is NATIVE_ROUTE_NOT_HANDLED:
             if native_required:
                 raise RuntimeError(
