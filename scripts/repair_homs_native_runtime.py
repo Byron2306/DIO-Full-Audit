@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -21,6 +22,21 @@ REQUIRED_IMPORTS = (
     "multipart",
     "PyPDF2",
 )
+
+
+def native_env(python: Path) -> dict[str, str]:
+    env = dict(os.environ)
+    for key in list(env):
+        if key in {
+            "VIRTUAL_ENV",
+            "VIRTUAL_ENV_PROMPT",
+            "PYTHONHOME",
+            "PYTHONPATH",
+            "PYTHONNOUSERSITE",
+        } or key.startswith("CONDA_") or key.startswith("_CE_"):
+            env.pop(key, None)
+    env["PATH"] = f"{python.parent}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    return env
 
 
 def run_import_audit(python: Path) -> dict[str, object]:
@@ -43,7 +59,7 @@ for name in mods:
         }
 print(json.dumps(results, sort_keys=True))
 '''
-    env = __import__("os").environ.copy()
+    env = native_env(python)
     env["DIO_HOMS_REQUIRED_IMPORTS"] = json.dumps(REQUIRED_IMPORTS)
     completed = subprocess.run(
         [str(python), "-c", code],
@@ -85,7 +101,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 print("HOMS_NATIVE_BACKEND_IMPORT_OK")
 '''
-    env = __import__("os").environ.copy()
+    env = native_env(python)
     env["DIO_HOMS_BACKEND"] = str(backend)
     completed = subprocess.run(
         [str(python), "-c", code],
@@ -99,6 +115,22 @@ print("HOMS_NATIVE_BACKEND_IMPORT_OK")
         "ok": completed.returncode == 0,
         "stdout": (completed.stdout or "")[-2000:],
         "stderr": (completed.stderr or "")[-2000:],
+    }
+
+
+def run_pip_check(python: Path) -> dict[str, object]:
+    completed = subprocess.run(
+        [str(python), "-m", "pip", "check"],
+        text=True,
+        capture_output=True,
+        check=False,
+        env=native_env(python),
+        timeout=120,
+    )
+    return {
+        "ok": completed.returncode == 0,
+        "stdout": (completed.stdout or "")[-3000:],
+        "stderr": (completed.stderr or "")[-3000:],
     }
 
 
@@ -127,6 +159,7 @@ def main() -> int:
             text=True,
             capture_output=True,
             check=False,
+            env=native_env(python),
             timeout=900,
         )
         install_result = {
@@ -142,7 +175,13 @@ def main() -> int:
     imports = dict(audit.get("imports") or {})
     failed_imports = [name for name, row in imports.items() if not bool((row or {}).get("ok"))]
     backend_check = run_backend_import(python, backend) if not failed_imports and audit.get("audit_process_ok") else {"ok": False, "skipped": True}
-    passed = bool(audit.get("audit_process_ok")) and not failed_imports and bool(backend_check.get("ok"))
+    pip_check = run_pip_check(python)
+    passed = (
+        bool(audit.get("audit_process_ok"))
+        and not failed_imports
+        and bool(backend_check.get("ok"))
+        and bool(pip_check.get("ok"))
+    )
 
     result = {
         "schema": "dio.homs.native_runtime_preflight.v1",
@@ -154,6 +193,8 @@ def main() -> int:
         "imports": imports,
         "failed_imports": failed_imports,
         "backend_import": backend_check,
+        "pip_check": pip_check,
+        "environment_isolated": True,
         "passed": passed,
     }
     print(json.dumps(result, indent=2, sort_keys=True))
