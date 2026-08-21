@@ -1,0 +1,50 @@
+{
+  "schema": "dio.native_product_quality_contract.v1",
+  "policy": {
+    "native_identity_must_match": true,
+    "surrogate_fallback_allowed": false,
+    "artifact_quality_required_before_site_promotion": true,
+    "commercial_validation": "UNPROVED",
+    "external_release": "REFUSE",
+    "human_release": "NEEDS_YOU"
+  },
+  "products": {
+    "HOMS Exam": {
+      "route": "homs_raw_exam",
+      "native_engine": "scripts.run_hymark_exam_builder.run_builder",
+      "native_receipt_schema": "knowedge.hymark_exam_builder_receipt.v1",
+      "required_outputs": [
+        "first_exam",
+        "first_memo",
+        "second_exam",
+        "second_memo",
+        "review_zip"
+      ],
+      "minimum_bytes": {
+        "first_exam": 20000,
+        "first_memo": 20000,
+        "second_exam": 20000,
+        "second_memo": 20000,
+        "review_zip": 30000
+      },
+      "minimum_words": {
+        "first_exam": 700,
+        "first_memo": 450,
+        "second_exam": 700,
+        "second_memo": 450
+      },
+      "exam_signal_groups": [
+        ["source", "sources"],
+        ["question", "questions"],
+        ["mark", "marks"]
+      ],
+      "memo_signal_groups": [
+        ["memorandum", "memo", "marking guide"],
+        ["mark", "marks"],
+        ["answer", "response", "credit", "award"]
+      ],
+      "require_distinct_opportunities": true,
+      "customer_source_booklet_required": true
+    }
+  }
+}
