@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Callable
 
@@ -18,6 +19,7 @@ NATIVE_CONTRACT_PATH = ROOT / "config" / "professional_evidence_portfolio" / "v1
 DEFAULT_HYMARK_NATIVE_PYTHON = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/homs_production/venv/bin/python")
 DEFAULT_HYMARK_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
 DEFAULT_HYMARK_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
+DEFAULT_HYMARK_RUNTIME_REQUIREMENTS = ROOT / "config" / "homs_native_runtime_requirements.txt"
 
 
 def load_native_contract(path: Path | None = None) -> dict[str, Any]:
@@ -38,6 +40,60 @@ NATIVE_ENGINE_ROUTES = {
     route_name: str(row["native_engine"])
     for route_name, row in (_NATIVE_CONTRACT.get("routes") or {}).items()
 }
+
+
+def _isolated_native_env(native_python: Path) -> dict[str, str]:
+    env = dict(os.environ)
+    for key in list(env):
+        if key in {
+            "VIRTUAL_ENV",
+            "VIRTUAL_ENV_PROMPT",
+            "PYTHONHOME",
+            "PYTHONPATH",
+            "PYTHONNOUSERSITE",
+        } or key.startswith("CONDA_") or key.startswith("_CE_"):
+            env.pop(key, None)
+    env["PATH"] = f"{native_python.parent}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    return env
+
+
+def _preflight_hymark_runtime(native_python: Path, backend: Path) -> dict[str, Any]:
+    command = [
+        sys.executable,
+        str(ROOT / "scripts" / "repair_homs_native_runtime.py"),
+        "--python",
+        str(native_python),
+        "--backend",
+        str(backend),
+        "--requirements",
+        str(DEFAULT_HYMARK_RUNTIME_REQUIREMENTS),
+    ]
+    completed = subprocess.run(
+        command,
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=180,
+    )
+    stdout = (completed.stdout or "").strip()
+    payload: dict[str, Any] = {}
+    if stdout:
+        try:
+            payload = json.loads(stdout)
+        except Exception:
+            payload = {"raw_stdout": stdout[-4000:]}
+    if completed.returncode != 0 or payload.get("passed") is not True:
+        repair = (
+            f"{sys.executable} {ROOT / 'scripts' / 'repair_homs_native_runtime.py'} "
+            f"--python {native_python} --backend {backend} --install"
+        )
+        diagnostics = json.dumps(payload, ensure_ascii=False, sort_keys=True)[-5000:] if payload else (completed.stderr or stdout or "no diagnostic output")[-5000:]
+        raise RuntimeError(
+            "HOMS native HyMark runtime preflight failed before generation. "
+            f"Repair the isolated runtime once with: {repair}. Diagnostics: {diagnostics}"
+        )
+    return payload
 
 
 def _request_document_text(packet: dict[str, Any]) -> str:
@@ -156,6 +212,8 @@ def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -
     if not backend.is_file():
         raise FileNotFoundError(f"HOMS native HyMark backend missing: {backend}")
 
+    runtime_preflight = _preflight_hymark_runtime(native_python, backend)
+
     native_root = execution_dir / "hymark_native"
     command = [
         str(native_python),
@@ -189,12 +247,13 @@ def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -
         text=True,
         capture_output=True,
         check=False,
+        env=_isolated_native_env(native_python),
         timeout=900,
     )
     if completed.returncode != 0:
         raise RuntimeError(
             "HOMS native HyMark runtime failed: "
-            + (completed.stderr or completed.stdout or "no diagnostic output")[-2000:]
+            + (completed.stderr or completed.stdout or "no diagnostic output")[-4000:]
         )
 
     receipt_paths = sorted(native_root.rglob("HYMARK_EXAM_BUILDER_RECEIPT.json"))
@@ -213,6 +272,7 @@ def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -
         "route": "homs_raw_exam",
         "native_engine": NATIVE_ENGINE_ROUTES["homs_raw_exam"],
         "native_runtime_python": str(native_python),
+        "native_runtime_preflight": runtime_preflight,
         "native_receipt_schema": receipt.get("schema"),
         "native_receipt_path": str(receipt_paths[0]),
         "native_job_id": receipt.get("job_id"),
