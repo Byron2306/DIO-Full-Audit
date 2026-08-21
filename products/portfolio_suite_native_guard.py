@@ -12,11 +12,13 @@ from products.portfolio_suite_studio import (
     build_suite_model,
     render_suite_site,
 )
+from products.site_visual_diversity import audit_suite_visual_diversity
 
 
 SCHEMA = "dio.portfolio.suite_native_quality_guard.v1"
 QUALITY_SCHEMA = "dio.native_product_quality_receipt.v1"
 SITE_QUALITY_PENDING = "NATIVE_ARTIFACT_QUALITY_NOT_VERIFIED"
+VISUAL_DIVERSITY_PENDING = "SITE_VISUAL_GEOMETRY_DIVERSITY_NOT_VERIFIED"
 
 
 def _canonical(value: Any) -> bytes:
@@ -65,9 +67,6 @@ def _selected_native_artifacts(receipt: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         rows.append((str(artifact_id), row, path))
 
-    # Prefer larger, substantive customer outputs without assuming that every
-    # native product looks like HOMS. HOMS exposes exams/memos, VAMP exposes
-    # snapshot/ledger/coverage artifacts, and Evidex exposes its evidence pack.
     rows.sort(key=lambda item: (-int(item[1].get("bytes") or item[2].stat().st_size), item[0]))
     selected: list[dict[str, Any]] = []
     for artifact_id, row, path in rows[:8]:
@@ -153,8 +152,6 @@ def apply_native_quality_guard(
                 if SITE_QUALITY_PENDING not in blockers:
                     blockers.append(SITE_QUALITY_PENDING)
                 product["critical_blockers"] = blockers
-                # Do not let Site Studio showcase a weaker customer-surface artifact
-                # while the native product's artifact quality remains unverified.
                 source_surface = customer_rows.get(incarnation)
                 if source_surface is not None:
                     gate = dict(source_surface.get("customer_surface_gate") or {})
@@ -215,6 +212,15 @@ def build_and_render_guarded_suite_site(
         bundle_artifacts=bundle_artifacts,
     )
 
+    visual_root = Path(result["customer_site"]) / "assets" / "svg"
+    visual_diversity = audit_suite_visual_diversity(visual_root)
+    visual_receipt_path = Path(output_dir).resolve() / "proof" / "SITE_VISUAL_DIVERSITY_RECEIPT.json"
+    visual_receipt_path.parent.mkdir(parents=True, exist_ok=True)
+    visual_receipt_path.write_text(
+        json.dumps(visual_diversity, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
     proof_root = Path(output_dir).resolve() / "proof" / "input_evidence" / "native_artifact_quality"
     proof_root.mkdir(parents=True, exist_ok=True)
     for receipt in native_quality_receipts:
@@ -227,9 +233,21 @@ def build_and_render_guarded_suite_site(
     receipt = dict(result["receipt"])
     receipt["native_artifact_quality_guard"] = guard
     receipt["native_artifact_quality_receipt_count"] = len(native_quality_receipts)
-    # A preview may still be rendered for review, but it cannot carry the suite
-    # build acceptance token until every buyer-facing product has artifact proof.
-    if guard["site_acceptance_allowed"] is not True:
+    receipt["site_visual_diversity"] = {
+        "acceptance_token": visual_diversity.get("acceptance_token"),
+        "visual_diversity_verified": visual_diversity.get("visual_diversity_verified"),
+        "svg_asset_count": visual_diversity.get("svg_asset_count"),
+        "unique_geometry_count": visual_diversity.get("unique_geometry_count"),
+        "unique_geometry_ratio": visual_diversity.get("unique_geometry_ratio"),
+        "receipt": str(visual_receipt_path),
+    }
+    receipt["site_visual_diversity_verified"] = visual_diversity.get("visual_diversity_verified") is True
+
+    final_acceptance_allowed = (
+        guard["site_acceptance_allowed"] is True
+        and visual_diversity.get("site_acceptance_allowed") is True
+    )
+    if not final_acceptance_allowed:
         receipt["acceptance_token"] = None
     receipt["receipt_fingerprint"] = _fingerprint({k: v for k, v in receipt.items() if k != "receipt_fingerprint"})
     result["receipt"] = receipt
@@ -239,12 +257,15 @@ def build_and_render_guarded_suite_site(
     )
     result["guard"] = guard
     result["guarded_customer_surface_receipt"] = guarded_customer
+    result["visual_diversity"] = visual_diversity
+    result["visual_diversity_receipt_path"] = visual_receipt_path
     return result
 
 
 __all__ = [
     "SCHEMA",
     "SITE_QUALITY_PENDING",
+    "VISUAL_DIVERSITY_PENDING",
     "apply_native_quality_guard",
     "build_and_render_guarded_suite_site",
 ]
