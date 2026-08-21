@@ -27,6 +27,10 @@ REQUIRED_IMPORTS = (
 )
 
 
+def phase(message: str) -> None:
+    print(f"[homs-runtime] {message}", flush=True)
+
+
 def interpreter_path(path: Path) -> Path:
     """Return an absolute interpreter path without resolving venv symlinks.
 
@@ -121,13 +125,14 @@ def bootstrap_python() -> Path:
 def create_managed_venv(venv_root: Path) -> dict[str, object]:
     venv_root = venv_root.expanduser().resolve()
     if venv_root.exists():
+        phase(f"Removing invalid HyMark runtime at {venv_root}")
         shutil.rmtree(venv_root)
     venv_root.parent.mkdir(parents=True, exist_ok=True)
     bootstrap = bootstrap_python()
+    phase(f"Creating isolated HyMark virtual environment with {bootstrap}")
     completed = subprocess.run(
         [str(bootstrap), "-m", "venv", str(venv_root)],
         text=True,
-        capture_output=True,
         check=False,
         timeout=180,
     )
@@ -135,8 +140,6 @@ def create_managed_venv(venv_root: Path) -> dict[str, object]:
         "bootstrap_python": str(bootstrap),
         "venv_root": str(venv_root),
         "returncode": completed.returncode,
-        "stdout_tail": (completed.stdout or "")[-3000:],
-        "stderr_tail": (completed.stderr or "")[-3000:],
     }
     if completed.returncode != 0:
         return {**result, "created": False}
@@ -263,6 +266,7 @@ def main() -> int:
     if not requirements.is_file():
         raise SystemExit(f"Native HyMark requirements contract missing: {requirements}")
 
+    phase(f"Inspecting native interpreter {requested_python}")
     requested_inspection = inspect_python(requested_python)
     runtime_created = None
     python = requested_python
@@ -291,6 +295,7 @@ def main() -> int:
         }, indent=2, sort_keys=True))
         return 2
 
+    phase(f"Using isolated HyMark interpreter {python}")
     active_inspection = inspect_python(python)
     if active_inspection.get("is_venv") is not True or active_inspection.get("pyvenv_cfg_exists") is not True:
         print(json.dumps({
@@ -304,19 +309,15 @@ def main() -> int:
 
     install_result = None
     if args.install:
+        phase("Bootstrapping pip/setuptools/wheel (live output follows)")
         completed = subprocess.run(
-            [str(python), "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"],
+            [str(python), "-m", "pip", "install", "--disable-pip-version-check", "--upgrade", "pip", "setuptools", "wheel"],
             text=True,
-            capture_output=True,
             check=False,
             env=native_env(python),
             timeout=300,
         )
-        bootstrap_result = {
-            "returncode": completed.returncode,
-            "stdout_tail": (completed.stdout or "")[-3000:],
-            "stderr_tail": (completed.stderr or "")[-3000:],
-        }
+        bootstrap_result = {"returncode": completed.returncode}
         if completed.returncode != 0:
             print(json.dumps({
                 "installed": False,
@@ -326,19 +327,15 @@ def main() -> int:
             }, indent=2, sort_keys=True))
             return 2
 
+        phase(f"Installing declared HyMark runtime dependencies from {requirements} (live output follows)")
         completed = subprocess.run(
-            [str(python), "-m", "pip", "install", "-r", str(requirements)],
+            [str(python), "-m", "pip", "install", "--disable-pip-version-check", "-r", str(requirements)],
             text=True,
-            capture_output=True,
             check=False,
             env=native_env(python),
             timeout=900,
         )
-        install_result = {
-            "returncode": completed.returncode,
-            "stdout_tail": (completed.stdout or "")[-3000:],
-            "stderr_tail": (completed.stderr or "")[-3000:],
-        }
+        install_result = {"returncode": completed.returncode}
         if completed.returncode != 0:
             print(json.dumps({
                 "installed": False,
@@ -348,10 +345,21 @@ def main() -> int:
             }, indent=2, sort_keys=True))
             return 2
 
+    phase("Auditing required Python imports")
     audit = run_import_audit(python)
     imports = dict(audit.get("imports") or {})
     failed_imports = [name for name, row in imports.items() if not bool((row or {}).get("ok"))]
-    backend_check = run_backend_import(python, backend) if not failed_imports and audit.get("audit_process_ok") else {"ok": False, "skipped": True}
+
+    if failed_imports:
+        phase("Import audit failed: " + ", ".join(failed_imports))
+        backend_check = {"ok": False, "skipped": True}
+    elif audit.get("audit_process_ok"):
+        phase("Importing the actual HyMark backend")
+        backend_check = run_backend_import(python, backend)
+    else:
+        backend_check = {"ok": False, "skipped": True}
+
+    phase("Running pip dependency consistency check")
     pip_check = run_pip_check(python)
     passed = (
         bool(audit.get("audit_process_ok"))
@@ -360,6 +368,7 @@ def main() -> int:
         and bool(pip_check.get("ok"))
     )
 
+    phase("PASS" if passed else "REFUSE")
     result = {
         "schema": "dio.homs.native_runtime_preflight.v2",
         "python": str(python),
