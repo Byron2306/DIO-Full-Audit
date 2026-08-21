@@ -17,7 +17,10 @@ import re
 from pathlib import Path
 from typing import Any
 
-import run_hymark_history_source_first_core as _core
+try:
+    from scripts import run_hymark_history_source_first_core as _core
+except ModuleNotFoundError:
+    import run_hymark_history_source_first_core as _core
 
 _ORIGINAL_PLAN_ERRORS = _core._plan_errors
 _ORIGINAL_GENERATION_PROMPT = _core._generation_prompt
