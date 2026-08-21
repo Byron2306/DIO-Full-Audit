@@ -252,64 +252,152 @@ def _cluster_products(products: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _suite_story(suite: dict[str, Any], model: dict[str, Any]) -> dict[str, Any]:
+    # Portfolio suite pages deliberately expose eight different semantic jobs.
+    # Format Core still chooses geometry from meaning, never from scene role.
     scenes = [
         {
             "scene_id": f"{suite['suite_id']}_hook",
             "role": "site_hook",
             "semantic_focus": "problem_and_category",
             "screen_text": str(suite["name"]),
-            "narration": str(suite["promise"]),
-            "visual": "Open on the real professional work context for this suite, with source material and human judgement visible rather than decorative software chrome.",
+            "narration": (
+                f"{suite['promise']} "
+                "Frame complex questions by keeping evidence needs and decision "
+                "contexts visible before choosing the work route."
+            ),
+            "visual": (
+                "Show the decision context as evidence, stakeholder, uncertainty "
+                "and authority dimensions on one professional planning surface."
+            ),
         }
     ]
+
+    cluster_semantics = [
+        {
+            "prefix": "Evidence synthesis",
+            "narration": (
+                "Compare source fragments, claims and contradictions across these "
+                "execution-verified product jobs while preserving tensions that "
+                "still require review."
+            ),
+            "visual": (
+                "Show source fragments being compared and synthesised into an "
+                "inspectable evidence field. Claims and contradictions remain "
+                "visible rather than being flattened into a dashboard."
+            ),
+        },
+        {
+            "prefix": "Decision communication",
+            "narration": (
+                "Translate governed meaning from these product jobs into distinct "
+                "professional communication outputs while preserving the evidence "
+                "and authority boundary."
+            ),
+            "visual": (
+                "Show one governed meaning projected into distinct professional "
+                "communication artifacts such as reports, presentations and "
+                "public-facing explanations."
+            ),
+        },
+        {
+            "prefix": "Working surface",
+            "narration": (
+                "Keep the actual source material, uncertainty, decision question "
+                "and prepared review artifact visible while these products do "
+                "their work."
+            ),
+            "visual": (
+                "Show the actual professional research workbench with source "
+                "material, annotations, uncertainty and a reviewable artifact. "
+                "Avoid generic software chrome."
+            ),
+        },
+    ]
+
     for index, cluster in enumerate(suite["clusters"], 1):
         names = list(cluster["products"])
+        semantic = cluster_semantics[index - 1]
+
         scenes.append(
             {
                 "scene_id": f"{suite['suite_id']}_service_{index}",
                 "role": f"service_{index}",
                 "semantic_focus": f"service_{index}",
-                "screen_text": f"{cluster['label']} work",
-                "narration": f"{len(names)} execution-verified products connect to the ATLAS {cluster['label']} work pattern: {', '.join(names)}.",
-                "visual": f"Show tangible evidence objects and working materials associated with {cluster['label']} work. Keep the composition grounded in professional practice and avoid generic dashboard UI.",
+                "screen_text": f"{semantic['prefix']} · {cluster['label']}",
+                "narration": (
+                    f"{len(names)} execution-verified products connect to the "
+                    f"ATLAS {cluster['label']} work pattern: {', '.join(names)}. "
+                    f"{semantic['narration']}"
+                ),
+                "visual": semantic["visual"],
             }
         )
+
     scenes.extend(
         [
             {
                 "scene_id": f"{suite['suite_id']}_method",
                 "role": "method",
                 "semantic_focus": "method",
-                "screen_text": "One governed execution law",
-                "narration": "Every canonical product is routed through the same Vesper-first custody and authority boundaries before its own governed executor produces a reviewable artifact.",
-                "visual": "Show the handoff from customer material to governed execution to reviewable artifact as real work objects, not a decorative node-link diagram.",
+                "screen_text": "From question to reviewable handoff",
+                "narration": (
+                    "The work begins with the decision context, binds supplied "
+                    "material, exposes uncertainty and routes it through the same "
+                    "Vesper-first custody and authority boundaries before producing "
+                    "a reviewable handoff."
+                ),
+                "visual": (
+                    "Show the method as a spatial working system from decision "
+                    "context through supplied material and uncertainty to the "
+                    "reviewable handoff. Do not use a decorative timeline."
+                ),
             },
             {
                 "scene_id": f"{suite['suite_id']}_proof",
                 "role": "proof",
                 "semantic_focus": "proof",
-                "screen_text": "Three conditions. Every product.",
-                "narration": f"The canonical evidence receipt records {model['execution_verified_journey_count']} verified journeys with normal, messy and adversarial input conditions.",
-                "visual": "Make the execution receipt and resulting review artifacts the visual protagonists, with normal, messy and adversarial evidence visibly distinct.",
+                "screen_text": "Inspect the trail behind the claim",
+                "narration": (
+                    f"The canonical evidence receipt records "
+                    f"{model['execution_verified_journey_count']} verified journeys "
+                    "with normal, messy and adversarial input conditions."
+                ),
+                "visual": (
+                    "Make source lineage, the execution receipt and resulting "
+                    "review artifacts the proof object. Normal, messy and "
+                    "adversarial evidence must remain visibly distinguishable."
+                ),
             },
             {
                 "scene_id": f"{suite['suite_id']}_authority",
                 "role": "human_authority",
                 "semantic_focus": "authority",
-                "screen_text": "Authority stays human",
+                "screen_text": "Professional judgement stays human",
                 "narration": str(model["claim_boundary"]),
-                "visual": "Show a human reviewer actively exercising judgement over a prepared evidence artifact. Authority must be visible in the work, not buried in disclaimer text.",
+                "visual": (
+                    "Show a human review moment over a prepared evidence artifact. "
+                    "Professional judgement and release authority are visibly "
+                    "exercised by the reviewer."
+                ),
             },
             {
                 "scene_id": f"{suite['suite_id']}_cta",
                 "role": "cta",
                 "semantic_focus": "bounded_next_step",
-                "screen_text": "Inspect products and proof",
-                "narration": "Review the individual product jobs, evidence surfaces and current readiness states before any external release.",
-                "visual": "Resolve on a calm inspectable handoff: a product artifact, its evidence trail and one clear human next action with generous negative space.",
+                "screen_text": "Start with one real job",
+                "narration": (
+                    "Take one bounded next step: inspect the product job, its "
+                    "customer artifact, its evidence trail and its current "
+                    "readiness state before external release."
+                ),
+                "visual": (
+                    "Resolve on one calm concrete next action built around one "
+                    "real job, one evidence object and one bounded start."
+                ),
             },
         ]
     )
+
     core = {
         "schema": "dio.site_studio.portfolio_suite_story.v1",
         "family_id": f"portfolio-suite:{suite['suite_id']}",
@@ -318,7 +406,9 @@ def _suite_story(suite: dict[str, Any], model: dict[str, Any]) -> dict[str, Any]
         "semantic_law_hash": model["model_fingerprint"],
         "projection_hash": model["model_fingerprint"],
         "creative_direction": {
-            "audience_archetype": str(suite.get("audience_archetype") or "general_professional"),
+            "audience_archetype": str(
+                suite.get("audience_archetype") or "general_professional"
+            ),
             "tone": ["credible", "evidence_bound", "professional"],
             "pacing": "progressive_scroll",
             "visual_grammar": "proof_carrying_portfolio_editorial",
@@ -333,7 +423,6 @@ def _suite_story(suite: dict[str, Any], model: dict[str, Any]) -> dict[str, Any]
         "scenes": scenes,
     }
     return {**core, "story_hash": _fingerprint(core)}
-
 
 def _suite_state(products: list[dict[str, Any]]) -> str:
     statuses = {str(row.get("production_readiness_status") or "") for row in products}
