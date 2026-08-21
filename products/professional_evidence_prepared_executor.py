@@ -50,6 +50,7 @@ from products.professional_evidence_native_routes import (
     NATIVE_ROUTE_NOT_HANDLED,
     execute_native_route,
 )
+from products.professional_evidence_restored_homs import run_restored_homs_exam
 from products.professional_evidence_projection import binding_receipt, load_packet, write_json
 
 
@@ -112,27 +113,34 @@ def execute_prepared_customer_case(
     result: dict[str, Any] = {}
     error = ""
     try:
-        rich_result = execute_rich_native_route(
-            packet,
-            execution_dir,
-            incarnation=incarnation,
-            route=route,
-            operator_id=operator_id,
-            now=now,
-        )
-        if rich_result is RICH_NATIVE_NOT_HANDLED:
-            native_result = execute_native_route(
+        if route_name == "homs_raw_exam" and incarnation == "HOMS Exam":
+            native_result = run_restored_homs_exam(
+                packet,
+                execution_dir,
+                now=now,
+            )
+        else:
+            rich_result = execute_rich_native_route(
                 packet,
                 execution_dir,
                 incarnation=incarnation,
                 route=route,
                 operator_id=operator_id,
                 now=now,
-                online=online,
-                generic_executor=_route_execute,
             )
-        else:
-            native_result = rich_result
+            if rich_result is RICH_NATIVE_NOT_HANDLED:
+                native_result = execute_native_route(
+                    packet,
+                    execution_dir,
+                    incarnation=incarnation,
+                    route=route,
+                    operator_id=operator_id,
+                    now=now,
+                    online=online,
+                    generic_executor=_route_execute,
+                )
+            else:
+                native_result = rich_result
 
         if native_result is NATIVE_ROUTE_NOT_HANDLED:
             if native_required:
