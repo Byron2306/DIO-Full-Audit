@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MANAGED_VENV = Path.home() / ".cache" / "dio" / "homs-native"
+DEFAULT_MANAGED_VENV = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/homs_production/venv")
 DEFAULT_PYTHON = DEFAULT_MANAGED_VENV / "bin" / "python"
 DEFAULT_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
 DEFAULT_REQUIREMENTS = ROOT / "config" / "homs_native_runtime_requirements.txt"
