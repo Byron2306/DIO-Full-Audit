@@ -1,6 +1,6 @@
 {
   "schema": "dio.professional_evidence.native_engine_contract.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "policy": {
     "native_engine_substitution": "REFUSE",
     "surrogate_fallback_allowed": false,
@@ -12,7 +12,7 @@
   "routes": {
     "homs_raw_exam": {
       "incarnation": "HOMS Exam",
-      "native_engine": "scripts.run_hymark_exam_builder.run_builder",
+      "native_engine": "scripts.run_hymark_history_source_first.run_builder",
       "required_native_receipt_schema": "knowedge.hymark_exam_builder_receipt.v1",
       "required_outputs": [
         "first_exam",
@@ -21,7 +21,11 @@
         "second_memo",
         "review_zip"
       ],
-      "customer_source_binding_required": true
+      "customer_source_binding_required": true,
+      "customer_source_text_locked_before_question_generation": true,
+      "source_bank_federation": "deliverables/homs_core_source_bank_curated/HOMS_CORE_SOURCE_BANK_CURATED.json",
+      "described_missing_visual_allowed": false,
+      "invented_source_provenance_allowed": false
     },
     "vamp_raw_performance": {
       "incarnation": "VAMP Performance",
