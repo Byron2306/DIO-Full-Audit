@@ -73,7 +73,7 @@ The speaker argues that separate development is necessary to preserve distinct c
 
 The statement calls for disciplined defiance of selected discriminatory laws and emphasises mass participation, non-violent protest and political organisation.
 
-### Customer provenance controls
+### Customer note — provenance controls
 
 - The customer did not supply a publication date for Source A. Do not invent one.
 - Do not invent authors, publication titles, source dates, quotations, captions or source authority beyond the labels above.
