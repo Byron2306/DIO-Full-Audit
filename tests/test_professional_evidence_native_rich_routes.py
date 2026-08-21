@@ -16,7 +16,13 @@ def _write_sources(packet_dir: Path, names: list[str]) -> None:
     for index, name in enumerate(names, 1):
         path = sources / name
         if path.suffix == ".csv":
-            path.write_text("id,value\n1,test\n", encoding="utf-8")
+            # Keep each synthetic source byte-distinct. The Evidex contract is
+            # deliberately testing a genuinely multi-artifact customer folder,
+            # not several filenames that contain identical placeholder bytes.
+            path.write_text(
+                f"source_id,source_name,value\nS-{index:02d},{name},customer-source-{index:02d}\n",
+                encoding="utf-8",
+            )
         else:
             path.write_text(f"customer source {index}: {name}\n", encoding="utf-8")
 
