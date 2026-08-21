@@ -8,44 +8,26 @@ from typing import Any
 
 from products.professional_evidence_final_compat import install_final_gauntlet_compat
 
-# The Vesper prepared executor binds route helpers by value below. Install the
-# narrow final-gauntlet compatibility repairs first so those bindings resolve to
-# the current product contracts without weakening custody, examiner or release
-# boundaries.
 install_final_gauntlet_compat()
 
 from products.professional_evidence_red13_compat import install_red13_compat
 
-# The first 13-product kill-list run exposed five second-order seams after the
-# initial compatibility layer. Install those repairs before _route_execute is
-# imported by value here. They preserve the same Vesper byte custody, blind
-# examiner and external-release constitution.
 install_red13_compat()
 
 from products.professional_evidence_final3_compat import install_final3_compat
 
-# The remaining root-five run reduced the portfolio to three true seams:
-# Sophia's constitutional refusal vocabulary, the missing shared epistemic
-# spine module, and Campaign Lab cross-surface semantic distance. The shared
-# spine is restored in scripts/dio_epistemic_spine.py; install the two narrow
-# execution patches before _route_execute is bound below.
 install_final3_compat()
 
 from products.professional_evidence_sophia_boundary_probe import install_sophia_boundary_probe
 
-# Sophia Tutor is the sole remaining failure. Instrument its final learner-visible
-# authorship check without altering the pass predicate so one focused rerun exposes
-# the exact response and missing signal instead of producing another opaque refusal.
 install_sophia_boundary_probe()
 
 from products.professional_evidence_customer_surface_compat import install_customer_surface_compat
 
-# Alpha customer-surface review exposed last-mile composition defects rather than
-# new domain-engine gaps: separate Sophia references were not bound into the local
-# audit, VAMP used a synthetic KPA outside its own profile vocabulary, HOMS Exam
-# stopped at Markdown, Evidex retained template metadata, and Campaign Lab reused a
-# single visual source. Install these composition repairs last so they wrap the
-# already-corrected governed product routes rather than replacing them.
+# Legacy compatibility remains installed for routes that still require it, but
+# mature canonical products are dispatched through the explicit native-route
+# law below. Native routing executes before the generic/compat route and may not
+# silently fall back to a weaker implementation.
 install_customer_surface_compat()
 
 from products.professional_evidence_executor import (
@@ -58,6 +40,11 @@ from products.professional_evidence_executor import (
     _load_routes,
     _route_execute,
     _trace_customer_records,
+)
+from products.professional_evidence_native_routes import (
+    NATIVE_ENGINE_ROUTES,
+    NATIVE_ROUTE_NOT_HANDLED,
+    execute_native_route,
 )
 from products.professional_evidence_projection import binding_receipt, load_packet, write_json
 
@@ -80,10 +67,9 @@ def execute_prepared_customer_case(
 ) -> dict[str, Any]:
     """Execute an already-materialised literal customer packet in place.
 
-    This function deliberately does not call materialize_customer_packet or
-    enrich_customer_packet. The caller owns source capture. In the production
-    gauntlet that caller is Vesper Web Chat, which quarantines and rehydrates
-    the exact source bytes before this executor is allowed to run.
+    Vesper owns source capture and byte custody. Mature native engines may receive
+    a typed projection of those bytes, but the prepared executor refuses silent
+    replacement by a weaker surrogate implementation.
     """
     now = now or utc_now()
     route = (_load_routes().get("routes") or {}).get(incarnation)
@@ -115,11 +101,14 @@ def execute_prepared_customer_case(
     write_json(projection_dir / "CUSTOMER_PACKET_BINDING.json", binding)
     trace = _trace_customer_records(packet, projection_dir / "CUSTOMER_FACT_TRACE.json")
 
+    route_name = str(route.get("route") or "")
+    native_required = route_name in NATIVE_ENGINE_ROUTES
+
     status = FAIL
     result: dict[str, Any] = {}
     error = ""
     try:
-        result = _route_execute(
+        native_result = execute_native_route(
             packet,
             execution_dir,
             incarnation=incarnation,
@@ -127,7 +116,35 @@ def execute_prepared_customer_case(
             operator_id=operator_id,
             now=now,
             online=online,
+            generic_executor=_route_execute,
         )
+        if native_result is NATIVE_ROUTE_NOT_HANDLED:
+            if native_required:
+                raise RuntimeError(
+                    f"{incarnation} requires native engine {NATIVE_ENGINE_ROUTES[route_name]} but native dispatch did not handle it"
+                )
+            result = _route_execute(
+                packet,
+                execution_dir,
+                incarnation=incarnation,
+                route=route,
+                operator_id=operator_id,
+                now=now,
+                online=online,
+            )
+        else:
+            result = dict(native_result)
+
+        if native_required:
+            expected_engine = NATIVE_ENGINE_ROUTES[route_name]
+            observed_engine = str(result.get("native_engine_identity") or result.get("executor") or "")
+            if expected_engine not in observed_engine:
+                raise RuntimeError(
+                    f"{incarnation} native routing identity mismatch: expected {expected_engine}, observed {observed_engine or '<none>'}"
+                )
+            if result.get("surrogate_fallback_used") is True:
+                raise RuntimeError(f"{incarnation} illegally used a surrogate fallback")
+
         blind = _blind_review(case_root, result, trace)
         if not blind["passed"]:
             raise RuntimeError("blind professional evidence review failed")
@@ -154,6 +171,12 @@ def execute_prepared_customer_case(
         "terminal_artifact_kind": result.get("terminal_artifact_kind"),
         "product_pipeline_executed": result.get("product_pipeline_executed") is True,
         "domain_action_executed": result.get("domain_action_executed") is True,
+        "native_engine_required": native_required,
+        "native_engine_expected": NATIVE_ENGINE_ROUTES.get(route_name),
+        "native_engine_identity": result.get("native_engine_identity"),
+        "native_capability_preserved": result.get("native_capability_preserved") is True if native_required else None,
+        "surrogate_fallback_allowed": False if native_required else None,
+        "surrogate_fallback_used": result.get("surrogate_fallback_used") is True if native_required else None,
         "prepared_by": prepared_by,
         "rematerialized_by_executor": False,
         "examiner_data_used_during_execution": False,
