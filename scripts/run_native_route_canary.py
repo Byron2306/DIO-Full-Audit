@@ -5,6 +5,7 @@ import argparse
 import json
 import shutil
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +14,10 @@ if str(ROOT) not in sys.path:
 
 from products.professional_evidence_native_routes import NATIVE_ENGINE_ROUTES, load_native_contract  # noqa: E402
 from products.professional_evidence_vesper_gate import execute_customer_case_via_vesper  # noqa: E402
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
 def main() -> int:
@@ -43,6 +48,7 @@ def main() -> int:
         args.product,
         output,
         operator_id=args.operator_id,
+        now=utc_now(),
         online=args.online,
     )
 
