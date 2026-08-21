@@ -28,7 +28,8 @@ REQUIRED_IMPORTS = (
 
 
 def phase(message: str) -> None:
-    print(f"[homs-runtime] {message}", flush=True)
+    # Progress belongs on stderr so callers can parse stdout as one JSON object.
+    print(f"[homs-runtime] {message}", file=sys.stderr, flush=True)
 
 
 def interpreter_path(path: Path) -> Path:
@@ -134,6 +135,8 @@ def create_managed_venv(venv_root: Path) -> dict[str, object]:
         [str(bootstrap), "-m", "venv", str(venv_root)],
         text=True,
         check=False,
+        stdout=sys.stderr,
+        stderr=sys.stderr,
         timeout=180,
     )
     result = {
@@ -315,6 +318,8 @@ def main() -> int:
             text=True,
             check=False,
             env=native_env(python),
+            stdout=sys.stderr,
+            stderr=sys.stderr,
             timeout=300,
         )
         bootstrap_result = {"returncode": completed.returncode}
@@ -333,6 +338,8 @@ def main() -> int:
             text=True,
             check=False,
             env=native_env(python),
+            stdout=sys.stderr,
+            stderr=sys.stderr,
             timeout=900,
         )
         install_result = {"returncode": completed.returncode}
