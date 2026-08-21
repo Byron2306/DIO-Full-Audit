@@ -53,6 +53,8 @@ def _evaluate_education_product(tmp_path: Path, monkeypatch, *, marker_visible: 
 
     baseline = tmp_path / "baseline.md"
     unseen = tmp_path / "unseen.md"
+    product_dir = tmp_path / "product"
+    product_dir.mkdir(parents=True, exist_ok=True)
     baseline.write_text(_long_case_text(base_case), encoding="utf-8")
     unseen.write_text(
         _long_case_text(unseen_case, marker=mutation["marker"] if marker_visible else "MARKER-OMITTED") + " unseen distinct output",
@@ -81,7 +83,7 @@ def _evaluate_education_product(tmp_path: Path, monkeypatch, *, marker_visible: 
             "surface_policy_id": "education_deliverable",
             "customer_surface_gate": {"selected": [baseline_row]},
         },
-        product_dir=tmp_path / "product",
+        product_dir=product_dir,
         contract=contract,
         surface_contract=load_surface_contract(),
         online=False,
