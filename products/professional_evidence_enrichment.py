@@ -61,23 +61,24 @@ def enrich_customer_packet(incarnation: str, packet_dir: Path) -> dict[str, Any]
         }))
         added.append(_write(sources / "source_pack.md", """# Grade 11 History customer source pack
 
-## Source A — political meeting leaflet, 1950s
+## Source A — customer-supplied teaching extract on pass controls and political mobilisation, 1950s
 
-A reproduced classroom extract from a political meeting leaflet argues that racial classification and pass controls were restructuring everyday citizenship and calls for organised resistance.
+The extract presents racial classification and pass controls as measures that reached deeply into everyday life. It argues that rules governing movement, residence and employment were not experienced as isolated administrative requirements but as connected controls that shaped where African people could live, work and travel. The writer links these controls to a broader political system in which rights were distributed unequally and opposition was increasingly organised through meetings, petitions, campaigns and collective action. The extract emphasises that resistance depended on ordinary participation as well as formal political leadership. It also suggests that repeated encounters with permits, police checks and restrictions could turn personal grievances into wider political demands. The overall message is that apartheid-era controls affected both daily experience and political mobilisation, encouraging organisations to connect specific discriminatory laws with larger questions of citizenship, rights and representation.
 
-## Source B — parliamentary speech extract, 1948
+## Source B — customer-supplied teaching extract summarising a parliamentary defence of apartheid, 1948
 
-The speaker argues that separate development is necessary to preserve distinct communities and frames the policy as administrative order rather than coercion.
+The extract presents the argument of a speaker defending racial separation as a policy of order and preservation. The speaker claims that communities have different histories, interests and social institutions and argues that government should recognise those differences rather than encourage political and social integration. Separation is described as a way to reduce conflict, protect distinct identities and organise administration according to established racial categories. The speaker rejects the view that a single common political system would necessarily produce equality or stability and instead presents separate development as a practical response to South Africa's diversity. The language of the extract places emphasis on administration, community difference and political control while giving little attention to the unequal distribution of rights, land, economic opportunity or political power that opponents of apartheid identified as central consequences of the policy.
 
-## Source C — resistance organisation statement, 1952
+## Source C — customer-supplied teaching extract on organised defiance, 1952
 
-The statement calls for disciplined defiance of selected discriminatory laws and emphasises mass participation, non-violent protest and political organisation.
+The extract argues that opposition to discriminatory laws should be disciplined, organised and visible. It presents non-violent defiance as a way for large numbers of ordinary people to challenge selected laws publicly while demonstrating that resistance could extend beyond speeches and petitions. Participants are urged to act collectively, accept the risks attached to deliberate civil disobedience and avoid actions that would weaken the campaign's political purpose. The extract emphasises mass participation and coordination, suggesting that campaigns could build solidarity across communities and increase pressure on the state by exposing the practical operation of discriminatory legislation. At the same time, it presents organisation and political education as essential because isolated acts of protest would have less impact than coordinated action. The message links resistance to broader demands for political rights and portrays disciplined participation as both a protest method and a means of developing a wider movement.
 
 ### Customer note — provenance controls
 
-- The customer did not supply a publication date for Source A. Do not invent one.
-- Do not invent authors, publication titles, source dates, quotations, captions or source authority beyond the labels above.
-- These are teaching extracts supplied for question construction. Provenance gaps must remain visible to the educator during review rather than being silently filled.
+- These are customer-supplied classroom teaching extracts for controlled assessment construction. They are not presented as verbatim authenticated quotations from named historical figures.
+- The customer did not supply an author or publication date for Source A. Do not invent either.
+- Do not invent authors, publication titles, additional dates, quotations, captions or source authority beyond the labels above.
+- Provenance limitations must remain visible to the educator during review and may not be silently converted into stronger historical authority.
 """))
 
     elif incarnation == "HOMS Curriculum":
