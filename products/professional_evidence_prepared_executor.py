@@ -51,6 +51,7 @@ from products.professional_evidence_native_routes import (
     execute_native_route,
 )
 from products.professional_evidence_restored_homs import run_restored_homs_exam
+from products.professional_evidence_restored_rich import run_restored_evidex, run_restored_vamp
 from products.professional_evidence_projection import binding_receipt, load_packet, write_json
 
 
@@ -114,11 +115,11 @@ def execute_prepared_customer_case(
     error = ""
     try:
         if route_name == "homs_raw_exam" and incarnation == "HOMS Exam":
-            native_result = run_restored_homs_exam(
-                packet,
-                execution_dir,
-                now=now,
-            )
+            native_result = run_restored_homs_exam(packet, execution_dir, now=now)
+        elif route_name == "vamp_raw_performance" and incarnation == "VAMP Performance":
+            native_result = run_restored_vamp(packet, execution_dir, incarnation=incarnation)
+        elif route_name == "evidex_raw" and incarnation == "Evidex EvidenceOps":
+            native_result = run_restored_evidex(packet, execution_dir)
         else:
             rich_result = execute_rich_native_route(
                 packet,
