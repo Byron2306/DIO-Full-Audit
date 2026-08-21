@@ -63,7 +63,7 @@ def enrich_customer_packet(incarnation: str, packet_dir: Path) -> dict[str, Any]
 
 ## Source A — political meeting leaflet, 1950s
 
-A reproduced classroom extract from a political meeting leaflet argues that racial classification and pass controls were restructuring everyday citizenship and calls for organised resistance. The customer did not supply a publication date for this extract. **Do not invent one.**
+A reproduced classroom extract from a political meeting leaflet argues that racial classification and pass controls were restructuring everyday citizenship and calls for organised resistance.
 
 ## Source B — parliamentary speech extract, 1948
 
@@ -73,9 +73,11 @@ The speaker argues that separate development is necessary to preserve distinct c
 
 The statement calls for disciplined defiance of selected discriminatory laws and emphasises mass participation, non-violent protest and political organisation.
 
-### Customer note
+### Customer provenance controls
 
-These are teaching extracts supplied for question construction. They are not a licence to invent provenance beyond the labels above.
+- The customer did not supply a publication date for Source A. Do not invent one.
+- Do not invent authors, publication titles, source dates, quotations, captions or source authority beyond the labels above.
+- These are teaching extracts supplied for question construction. Provenance gaps must remain visible to the educator during review rather than being silently filled.
 """))
 
     elif incarnation == "HOMS Curriculum":
