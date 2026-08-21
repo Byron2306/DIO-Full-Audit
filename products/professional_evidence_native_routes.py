@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-import json
 import os
 import re
 import shutil
 from pathlib import Path
 from typing import Any, Callable
 
-from portfolio_runtime import ROOT
-from products.professional_evidence_projection import evidence_rows, sha256, write_json
+from products.professional_evidence_projection import evidence_rows, exception_text, sha256, write_json
 
 
 SCHEMA = "dio.professional_evidence.native_route_binding.v1"
@@ -24,15 +22,22 @@ NATIVE_ENGINE_ROUTES = {
 }
 
 
+def _request_document_text(packet: dict[str, Any]) -> str:
+    path = Path(str(packet.get("request_path") or "")) if packet.get("request_path") else Path(packet["packet_dir"]) / "CUSTOMER_REQUEST.md"
+    if path.is_file():
+        return path.read_text(encoding="utf-8", errors="replace")
+    return ""
+
+
 def _packet_text(packet: dict[str, Any]) -> str:
     intake = dict(packet.get("intake") or {})
     rows = evidence_rows(packet)
     return "\n".join(
         [
             str(intake.get("request") or ""),
-            str(intake.get("context") or ""),
+            _request_document_text(packet),
             *[str(row.get("customer_supplied_record") or "") for row in rows],
-            str(intake.get("exception") or ""),
+            exception_text(packet),
         ]
     )
 
@@ -64,7 +69,7 @@ def _homs_exam_request(packet: dict[str, Any], source_booklet: Path) -> dict[str
     source_text = source_booklet.read_text(encoding="utf-8", errors="replace")
     source_excerpt = source_text[:16000]
     customer_request = str(intake.get("request") or "").strip()
-    exception = str(intake.get("exception") or "").strip()
+    exception = exception_text(packet)
     return {
         "module_code": "DIO-HIST11",
         "module_name": f"Grade {grade} History",
