@@ -86,6 +86,8 @@ def _canonical_grade_rows(receipt: dict[str, Any] | None) -> dict[str, dict[str,
         return {}
     if receipt.get("schema") != "dio.portfolio.canonical_sellability_receipt.v1":
         raise PortfolioProductionReadinessError("canonical sellability receipt schema mismatch")
+    if not _verify_fingerprint(receipt, "receipt_fingerprint"):
+        raise PortfolioProductionReadinessError("canonical sellability receipt fingerprint mismatch")
     products = receipt.get("products") or {}
     if not isinstance(products, dict):
         raise PortfolioProductionReadinessError("canonical sellability products must be a mapping")
@@ -328,6 +330,7 @@ def evaluate_portfolio_production_readiness(
             "customer_surface_receipt_fingerprint": customer_surface_receipt.get("receipt_fingerprint"),
             "studio_sellability_portfolio_fingerprint": studio_sellability_receipt.get("portfolio_fingerprint"),
             "canonical_sellability_receipt_present": canonical_sellability_receipt is not None,
+            "canonical_sellability_receipt_fingerprint": (canonical_sellability_receipt or {}).get("receipt_fingerprint"),
         },
         "authority_created": False,
         "external_effects": False,
