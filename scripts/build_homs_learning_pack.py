@@ -720,28 +720,15 @@ def build_memo(request: dict[str, Any], output: Path, *, title: str, questions: 
     document.save(output)
 
 
-def convert_pdfs(docx_files: list[Path], pdf_dir: Path) -> list[Path]:
-    pdf_dir.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="homs_lo_profile_") as profile:
-        command = [
-            "libreoffice",
-            "--headless",
-            f"-env:UserInstallation=file://{profile}",
-            "--convert-to",
-            "pdf",
-            "--outdir",
-            str(pdf_dir),
-            *[str(path) for path in docx_files],
-        ]
-        completed = subprocess.run(command, capture_output=True, text=True, timeout=180)
-        if completed.returncode != 0:
-            raise RuntimeError((completed.stderr or completed.stdout or "LibreOffice conversion failed").strip())
-    pdfs = [pdf_dir / f"{path.stem}.pdf" for path in docx_files]
-    missing = [str(path) for path in pdfs if not path.exists()]
-    if missing:
-        raise RuntimeError("Missing converted PDFs: " + ", ".join(missing))
-    return pdfs
 
+def convert_pdfs(docx_files: list[Path], pdf_dir: Path) -> list[Path]:
+    from adapters.libreoffice_low_memory import convert_many_to_pdf
+
+    return convert_many_to_pdf(
+        docx_files,
+        pdf_dir,
+        profile_prefix="homs-lo-profile-",
+    )
 
 def caps_evidence() -> dict[str, Any]:
     if not CAPS_SOURCE.exists():
