@@ -45,6 +45,48 @@
       ],
       "require_distinct_opportunities": true,
       "customer_source_booklet_required": true
+    },
+    "VAMP Performance": {
+      "route": "vamp_raw_performance",
+      "native_engine": "adapters.vamp.snapshot_pipeline.build_snapshot",
+      "native_binding_schema": "dio.professional_evidence.vamp_native_binding.v1",
+      "required_artifacts": [
+        "VAMP_SNAPSHOT.json",
+        "VAMP_SNAPSHOT.md",
+        "EVIDENCE_LEDGER.json",
+        "OBJECTIVE_COVERAGE.json",
+        "VAMP_SNAPSHOT_RECEIPT.json"
+      ],
+      "minimum_metrics": {
+        "objectives_total": 3,
+        "evidence_records": 6,
+        "accepted_mappings": 2
+      },
+      "require_candidate_partial_or_gap": true,
+      "minimum_summary_words": 120,
+      "summary_signal_groups": [
+        ["coverage", "evidence-backed"],
+        ["candidate", "gaps", "gap", "partial"],
+        ["human review", "review"]
+      ],
+      "rating_must_remain_disabled": true,
+      "employment_decision_must_remain_absent": true
+    },
+    "Evidex EvidenceOps": {
+      "route": "evidex_raw",
+      "native_engine": "scripts.run_evidex_jobs.run_evidex",
+      "native_binding_schema": "dio.professional_evidence.evidex_native_binding.v1",
+      "minimum_customer_source_count": 10,
+      "minimum_output_file_count": 3,
+      "minimum_output_total_bytes": 12000,
+      "minimum_extractable_words": 650,
+      "output_signal_groups": [
+        ["evidence", "source", "provenance"],
+        ["claim", "claims"],
+        ["gap", "gaps", "missing", "unsupported"],
+        ["12", "fourteen", "14"]
+      ],
+      "contradiction_must_be_preserved": true
     }
   }
 }
