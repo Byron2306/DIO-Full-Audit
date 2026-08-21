@@ -19,7 +19,7 @@ from products.portfolio_production_readiness import (  # noqa: E402
 from products.product_grade_sellability_gauntlet import run_product_sellability_gauntlet  # noqa: E402
 
 
-def _run_full57(output: Path, *, online: bool) -> Path:
+def _run_full57(output: Path, *, online: bool, reuse_canonical_root: Path | None = None) -> Path:
     command = [
         sys.executable,
         str(ROOT / "scripts" / "run_portfolio_customer_surface_gauntlet.py"),
@@ -30,6 +30,8 @@ def _run_full57(output: Path, *, online: bool) -> Path:
     ]
     if online:
         command.append("--online")
+    if reuse_canonical_root is not None:
+        command.extend(["--reuse-canonical-root", str(reuse_canonical_root.resolve())])
     completed = subprocess.run(command, cwd=ROOT)
     receipt = output / "PORTFOLIO_CUSTOMER_SURFACE_GAUNTLET_RECEIPT.json"
     if completed.returncode != 0 or not receipt.is_file():
@@ -46,6 +48,12 @@ def main() -> int:
     )
     parser.add_argument("--output", type=Path, default=ROOT / "state" / "portfolio_production_readiness")
     parser.add_argument("--reuse-customer-surface-root", type=Path, default=None)
+    parser.add_argument(
+        "--reuse-canonical-root",
+        type=Path,
+        default=None,
+        help="Reuse an existing canonical 53×3 execution root while rebuilding the full57 customer-surface evidence.",
+    )
     parser.add_argument("--reuse-studio-sellability-root", type=Path, default=None)
     parser.add_argument("--canonical-sellability-receipt", type=Path, default=None)
     parser.add_argument("--online", action="store_true", help="Explicitly request current public-signal refresh (fresh runs already do this by default).")
@@ -55,6 +63,8 @@ def main() -> int:
 
     if args.online and args.offline:
         parser.error("--online and --offline cannot be used together")
+    if args.reuse_customer_surface_root and args.reuse_canonical_root:
+        parser.error("--reuse-customer-surface-root and --reuse-canonical-root are mutually exclusive")
     fresh_run_online = not args.offline
 
     output = args.output.resolve()
@@ -65,7 +75,12 @@ def main() -> int:
         if not customer_surface_path.is_file():
             raise RuntimeError(f"missing reused customer-surface receipt: {customer_surface_path}")
     else:
-        customer_surface_path = _run_full57(output / "full57_customer_surface", online=fresh_run_online)
+        reuse_canonical_root = args.reuse_canonical_root.resolve() if args.reuse_canonical_root else None
+        customer_surface_path = _run_full57(
+            output / "full57_customer_surface",
+            online=fresh_run_online,
+            reuse_canonical_root=reuse_canonical_root,
+        )
 
     if args.reuse_studio_sellability_root:
         studio_sellability_path = args.reuse_studio_sellability_root.resolve() / "PRODUCT_SELLABILITY_PORTFOLIO_RECEIPT.json"
@@ -103,6 +118,7 @@ def main() -> int:
         "canonical_buyer_needs_sellability_grade_count": receipt["canonical_buyer_needs_sellability_grade_count"],
         "family_sellability_backlog": receipt["family_sellability_backlog"],
         "commercial_validation": receipt["commercial_validation"],
+        "customer_surface_receipt": str(customer_surface_path),
         "receipt": str(receipt_path),
     }
     print(json.dumps(summary, indent=2, ensure_ascii=False))
