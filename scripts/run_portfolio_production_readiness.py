@@ -41,16 +41,21 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Measure DIO portfolio production readiness without collapsing buyer sellability, internal operational readiness, "
-            "or commercial validation into one claim."
+            "or commercial validation into one claim. Fresh production-readiness runs refresh public market signals by default."
         )
     )
     parser.add_argument("--output", type=Path, default=ROOT / "state" / "portfolio_production_readiness")
     parser.add_argument("--reuse-customer-surface-root", type=Path, default=None)
     parser.add_argument("--reuse-studio-sellability-root", type=Path, default=None)
     parser.add_argument("--canonical-sellability-receipt", type=Path, default=None)
-    parser.add_argument("--online", action="store_true")
+    parser.add_argument("--online", action="store_true", help="Explicitly request current public-signal refresh (fresh runs already do this by default).")
+    parser.add_argument("--offline", action="store_true", help="Diagnostic only: suppress current public-signal refresh; Market Radar/Opportunity Foundry may legitimately REFUSE.")
     parser.add_argument("--strict", action="store_true", help="Return non-zero until the complete evidence-scoped portfolio is production-ready.")
     args = parser.parse_args()
+
+    if args.online and args.offline:
+        parser.error("--online and --offline cannot be used together")
+    fresh_run_online = not args.offline
 
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -60,7 +65,7 @@ def main() -> int:
         if not customer_surface_path.is_file():
             raise RuntimeError(f"missing reused customer-surface receipt: {customer_surface_path}")
     else:
-        customer_surface_path = _run_full57(output / "full57_customer_surface", online=args.online)
+        customer_surface_path = _run_full57(output / "full57_customer_surface", online=fresh_run_online)
 
     if args.reuse_studio_sellability_root:
         studio_sellability_path = args.reuse_studio_sellability_root.resolve() / "PRODUCT_SELLABILITY_PORTFOLIO_RECEIPT.json"
