@@ -27,6 +27,17 @@ REQUIRED_IMPORTS = (
 )
 
 
+def interpreter_path(path: Path) -> Path:
+    """Return an absolute interpreter path without resolving venv symlinks.
+
+    A virtualenv's bin/python is commonly a symlink to the system interpreter.
+    Path.resolve() destroys the venv identity by replacing that path with
+    /usr/bin/pythonX.Y, causing sys.prefix and PEP 668 checks to behave as if
+    the system interpreter had been requested.
+    """
+    return Path(os.path.abspath(os.fspath(path.expanduser())))
+
+
 def native_env(python: Path) -> dict[str, str]:
     env = dict(os.environ)
     for key in list(env):
@@ -129,7 +140,7 @@ def create_managed_venv(venv_root: Path) -> dict[str, object]:
     }
     if completed.returncode != 0:
         return {**result, "created": False}
-    python = venv_root / "bin" / "python"
+    python = interpreter_path(venv_root / "bin" / "python")
     inspection = inspect_python(python)
     return {
         **result,
@@ -243,7 +254,7 @@ def main() -> int:
     parser.add_argument("--install", action="store_true", help="Create/repair the managed HyMark virtual environment and install the declared dependencies.")
     args = parser.parse_args()
 
-    requested_python = args.python.expanduser().resolve()
+    requested_python = interpreter_path(args.python)
     managed_venv = args.managed_venv.expanduser().resolve()
     backend = args.backend.expanduser().resolve()
     requirements = args.requirements.expanduser().resolve()
@@ -270,7 +281,7 @@ def main() -> int:
                 "managed_runtime": runtime_created,
             }, indent=2, sort_keys=True))
             return 2
-        python = Path(str(runtime_created["python"])).resolve()
+        python = interpreter_path(Path(str(runtime_created["python"])))
     elif not python.is_file():
         print(json.dumps({
             "installed": False,
