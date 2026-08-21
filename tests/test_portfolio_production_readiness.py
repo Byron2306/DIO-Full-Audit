@@ -91,13 +91,16 @@ def _canonical_sellability_receipt() -> dict:
         for incarnation in readiness.load_crosswalk()
         if incarnation not in internal
     }
-    return {
+    receipt = {
         "schema": "dio.portfolio.canonical_sellability_receipt.v1",
+        "canonical_buyer_count": len(products),
         "products": products,
         "authority_created": False,
         "external_effects": False,
         "commercial_validation": "UNPROVED",
     }
+    receipt["receipt_fingerprint"] = readiness._fingerprint(receipt)
+    return receipt
 
 
 def test_current_truth_keeps_47_canonical_buyer_products_unpromoted() -> None:
@@ -119,10 +122,11 @@ def test_current_truth_keeps_47_canonical_buyer_products_unpromoted() -> None:
 
 
 def test_complete_canonical_sellability_can_promote_the_portfolio_without_commercial_overclaim() -> None:
+    canonical = _canonical_sellability_receipt()
     receipt = readiness.evaluate_portfolio_production_readiness(
         customer_surface_receipt=_customer_surface_receipt(),
         studio_sellability_receipt=_studio_sellability_receipt(),
-        canonical_sellability_receipt=_canonical_sellability_receipt(),
+        canonical_sellability_receipt=canonical,
     )
 
     assert receipt["portfolio_production_ready"] is True
@@ -134,6 +138,7 @@ def test_complete_canonical_sellability_can_promote_the_portfolio_without_commer
     assert receipt["commercial_validation"] == "UNPROVED"
     assert receipt["authority_created"] is False
     assert receipt["external_effects"] is False
+    assert receipt["input_evidence"]["canonical_sellability_receipt_fingerprint"] == canonical["receipt_fingerprint"]
 
 
 def test_tampered_customer_surface_receipt_is_refused() -> None:
@@ -145,6 +150,19 @@ def test_tampered_customer_surface_receipt_is_refused() -> None:
         readiness.evaluate_portfolio_production_readiness(
             customer_surface_receipt=tampered,
             studio_sellability_receipt=_studio_sellability_receipt(),
+        )
+
+
+def test_tampered_canonical_sellability_receipt_is_refused_before_promotion() -> None:
+    tampered = _canonical_sellability_receipt()
+    first = next(iter(tampered["products"]))
+    tampered["products"][first]["sellability_status"] = "PRODUCT_SELLABILITY_REFUSE"
+
+    with pytest.raises(readiness.PortfolioProductionReadinessError, match="canonical sellability receipt fingerprint mismatch"):
+        readiness.evaluate_portfolio_production_readiness(
+            customer_surface_receipt=_customer_surface_receipt(),
+            studio_sellability_receipt=_studio_sellability_receipt(),
+            canonical_sellability_receipt=tampered,
         )
 
 
