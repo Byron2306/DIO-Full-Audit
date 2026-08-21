@@ -1,24 +1,38 @@
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
 from pathlib import Path
 from typing import Any, Callable
 
+from portfolio_runtime import ROOT
 from products.professional_evidence_projection import evidence_rows, exception_text, sha256, write_json
 
 
 SCHEMA = "dio.professional_evidence.native_route_binding.v1"
 NATIVE_ROUTE_NOT_HANDLED = object()
+NATIVE_CONTRACT_PATH = ROOT / "config" / "professional_evidence_portfolio" / "v1" / "native_engines.json"
 
-# These routes already have mature product engines. The portfolio adapter may
-# project Vesper-custodied input into their native contract, but may never
-# substitute a weaker implementation and inherit the mature product identity.
+
+def load_native_contract(path: Path | None = None) -> dict[str, Any]:
+    contract_path = Path(path or NATIVE_CONTRACT_PATH)
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    if contract.get("schema") != "dio.professional_evidence.native_engine_contract.v1":
+        raise RuntimeError("native engine routing contract schema mismatch")
+    policy = dict(contract.get("policy") or {})
+    if policy.get("native_engine_substitution") != "REFUSE":
+        raise RuntimeError("native engine contract must refuse substitution")
+    if policy.get("surrogate_fallback_allowed") is not False:
+        raise RuntimeError("native engine contract must forbid surrogate fallback")
+    return contract
+
+
+_NATIVE_CONTRACT = load_native_contract()
 NATIVE_ENGINE_ROUTES = {
-    "homs_raw_exam": "scripts.run_hymark_exam_builder.run_builder",
-    "vamp_raw_performance": "adapters.vamp.snapshot_pipeline.build_snapshot",
-    "evidex_raw": "scripts.run_evidex_jobs.run_evidex",
+    route_name: str(row["native_engine"])
+    for route_name, row in (_NATIVE_CONTRACT.get("routes") or {}).items()
 }
 
 
@@ -96,17 +110,16 @@ def _homs_exam_request(packet: dict[str, Any], source_booklet: Path) -> dict[str
 
 
 def _require_native_outputs(receipt: dict[str, Any]) -> dict[str, Path]:
-    if receipt.get("schema") != "knowedge.hymark_exam_builder_receipt.v1":
+    route_contract = dict((_NATIVE_CONTRACT.get("routes") or {}).get("homs_raw_exam") or {})
+    expected_schema = str(route_contract.get("required_native_receipt_schema") or "")
+    if receipt.get("schema") != expected_schema:
         raise RuntimeError("HOMS Exam native route returned the wrong receipt schema")
     if receipt.get("status") != "completed":
         raise RuntimeError(f"HOMS Exam native HyMark route did not complete: {receipt.get('status')}")
     outputs = dict(receipt.get("outputs") or {})
     required = {
-        "first_exam": Path(str(outputs.get("first_exam") or "")),
-        "first_memo": Path(str(outputs.get("first_memo") or "")),
-        "second_exam": Path(str(outputs.get("second_exam") or "")),
-        "second_memo": Path(str(outputs.get("second_memo") or "")),
-        "review_zip": Path(str(outputs.get("review_zip") or "")),
+        name: Path(str(outputs.get(name) or ""))
+        for name in route_contract.get("required_outputs") or []
     }
     missing = [name for name, path in required.items() if not path.is_file()]
     if missing:
@@ -269,9 +282,11 @@ def execute_native_route(
 
 
 __all__ = [
+    "NATIVE_CONTRACT_PATH",
     "NATIVE_ENGINE_ROUTES",
     "NATIVE_ROUTE_NOT_HANDLED",
     "SCHEMA",
     "_homs_exam_request",
     "execute_native_route",
+    "load_native_contract",
 ]
