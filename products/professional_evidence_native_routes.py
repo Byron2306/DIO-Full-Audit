@@ -4,6 +4,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Any, Callable
 
@@ -14,6 +15,9 @@ from products.professional_evidence_projection import evidence_rows, exception_t
 SCHEMA = "dio.professional_evidence.native_route_binding.v1"
 NATIVE_ROUTE_NOT_HANDLED = object()
 NATIVE_CONTRACT_PATH = ROOT / "config" / "professional_evidence_portfolio" / "v1" / "native_engines.json"
+DEFAULT_HYMARK_NATIVE_PYTHON = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/homs_production/venv/bin/python")
+DEFAULT_HYMARK_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
+DEFAULT_HYMARK_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
 
 
 def load_native_contract(path: Path | None = None) -> dict[str, Any]:
@@ -135,8 +139,6 @@ def _require_native_outputs(receipt: dict[str, Any]) -> dict[str, Path]:
 
 
 def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -> dict[str, Any]:
-    from scripts import run_hymark_exam_builder as hymark
-
     source_booklet = Path(packet["packet_dir"]) / "SOURCES" / "source_pack.md"
     if not source_booklet.is_file():
         raise RuntimeError("HOMS Exam native route requires the Vesper-custodied customer source booklet")
@@ -146,39 +148,59 @@ def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -
     request = _homs_exam_request(packet, source_booklet)
     write_json(request_path, request)
 
-    provider = os.environ.get("HOMS_PROVIDER", "nim")
-    model = os.environ.get("HOMS_MODEL", "")
-    secret_file = Path(os.environ.get("HOMS_SECRET_FILE") or hymark.DEFAULT_SECRET_FILE).expanduser().resolve()
-    backend = Path(os.environ.get("HOMS_HYMARK_BACKEND") or hymark.DEFAULT_HYMARK_BACKEND).expanduser().resolve()
+    native_python = Path(os.environ.get("HOMS_EXAM_PYTHON") or DEFAULT_HYMARK_NATIVE_PYTHON).expanduser().resolve()
+    backend = Path(os.environ.get("HOMS_HYMARK_BACKEND") or DEFAULT_HYMARK_BACKEND).expanduser().resolve()
+    secret_file = Path(os.environ.get("HOMS_SECRET_FILE") or DEFAULT_HYMARK_SECRET_FILE).expanduser().resolve()
+    if not native_python.is_file():
+        raise FileNotFoundError(f"HOMS native HyMark Python missing: {native_python}")
     if not backend.is_file():
         raise FileNotFoundError(f"HOMS native HyMark backend missing: {backend}")
 
     native_root = execution_dir / "hymark_native"
-    receipt = hymark.run_builder(
-        request_path,
-        native_root,
-        secret_file,
-        backend,
-        provider,
-        model,
+    command = [
+        str(native_python),
+        str(ROOT / "scripts" / "run_hymark_exam_builder.py"),
+        "--request",
+        str(request_path),
+        "--out",
+        str(native_root),
+        "--secret-file",
+        str(secret_file),
+        "--backend",
+        str(backend),
+        "--provider",
+        os.environ.get("HOMS_PROVIDER", "nim"),
+        "--subject-profile",
         "history",
-        None,
-        int(request["module_name"].split()[1]),
-        hymark.DEFAULT_GRADE_LADDER,
-        hymark.DEFAULT_CAPS_MANIFEST,
-        hymark.DEFAULT_CAPS_MATRIX,
-        hymark.DEFAULT_CAPS_ONTOLOGY,
-        hymark.DEFAULT_CAPS_ASSESSMENT_DESIGN,
-        hymark.DEFAULT_DESIGN_LAW,
+        "--grade",
+        str(int(request["module_name"].split()[1])),
+        "--preferred-language",
         "English",
-        3500,
-        False,
-        "auto",
-        None,
+        "--opportunities",
         "both",
-        None,
-        None,
+    ]
+    model = os.environ.get("HOMS_MODEL", "").strip()
+    if model:
+        command.extend(["--model", model])
+
+    completed = subprocess.run(
+        command,
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=900,
     )
+    if completed.returncode != 0:
+        raise RuntimeError(
+            "HOMS native HyMark runtime failed: "
+            + (completed.stderr or completed.stdout or "no diagnostic output")[-2000:]
+        )
+
+    receipt_paths = sorted(native_root.rglob("HYMARK_EXAM_BUILDER_RECEIPT.json"))
+    if len(receipt_paths) != 1:
+        raise RuntimeError(f"HOMS native HyMark route expected one native receipt, found {len(receipt_paths)}")
+    receipt = json.loads(receipt_paths[0].read_text(encoding="utf-8"))
     outputs = _require_native_outputs(receipt)
     job_dir = Path(str((receipt.get("outputs") or {}).get("job_dir") or ""))
     if not job_dir.is_dir():
@@ -190,7 +212,9 @@ def _run_hymark_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -
         "incarnation": "HOMS Exam",
         "route": "homs_raw_exam",
         "native_engine": NATIVE_ENGINE_ROUTES["homs_raw_exam"],
+        "native_runtime_python": str(native_python),
         "native_receipt_schema": receipt.get("schema"),
+        "native_receipt_path": str(receipt_paths[0]),
         "native_job_id": receipt.get("job_id"),
         "native_generation_backend": ((receipt.get("assessor") or {}).get("generation_backend")),
         "native_output_hashes": {name: sha256(path) for name, path in outputs.items()},
