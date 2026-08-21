@@ -55,20 +55,22 @@ def _quality_verified(receipt: dict[str, Any] | None) -> bool:
 
 def _selected_native_artifacts(receipt: dict[str, Any]) -> list[dict[str, Any]]:
     artifacts = dict(receipt.get("artifacts") or {})
-    preferred = (
-        "first_exam",
-        "first_memo",
-        "second_exam",
-        "second_memo",
-        "customer_source_booklet",
-        "review_zip",
-    )
-    selected: list[dict[str, Any]] = []
-    for name in preferred:
-        row = dict(artifacts.get(name) or {})
+    rows: list[tuple[str, dict[str, Any], Path]] = []
+    for artifact_id, raw in artifacts.items():
+        row = dict(raw or {})
+        if row.get("showcase") is False:
+            continue
         path = Path(str(row.get("path") or ""))
         if not row.get("exists") or not path.is_file():
             continue
+        rows.append((str(artifact_id), row, path))
+
+    # Prefer larger, substantive customer outputs without assuming that every
+    # native product looks like HOMS. HOMS exposes exams/memos, VAMP exposes
+    # snapshot/ledger/coverage artifacts, and Evidex exposes its evidence pack.
+    rows.sort(key=lambda item: (-int(item[1].get("bytes") or item[2].stat().st_size), item[0]))
+    selected: list[dict[str, Any]] = []
+    for artifact_id, row, path in rows[:8]:
         selected.append(
             {
                 "name": path.name,
@@ -76,13 +78,14 @@ def _selected_native_artifacts(receipt: dict[str, Any]) -> list[dict[str, Any]]:
                 "suffix": path.suffix.casefold(),
                 "bytes": int(row.get("bytes") or path.stat().st_size),
                 "sha256": row.get("sha256"),
-                "native_artifact_role": name,
+                "native_artifact_role": str(row.get("role") or artifact_id),
                 "native_quality_verified": True,
+                "word_count": row.get("word_count"),
             }
         )
-    if len(selected) < 4:
+    if len(selected) < 3:
         raise PortfolioSuiteStudioError(
-            f"native artifact quality receipt for {receipt.get('product')} does not expose enough showcase artifacts"
+            f"native artifact quality receipt for {receipt.get('product')} does not expose at least three showcase artifacts"
         )
     return selected
 
@@ -137,6 +140,8 @@ def apply_native_quality_guard(
                         "suffix": row["suffix"],
                         "bytes": row["bytes"],
                         "sha256": row["sha256"],
+                        "native_artifact_role": row["native_artifact_role"],
+                        "word_count": row.get("word_count"),
                     }
                     for row in gate["selected"]
                 ]
