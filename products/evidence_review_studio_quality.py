@@ -10,6 +10,7 @@ from products.evidence_review_studio import ENGINE_IDENTITY
 SCHEMA = "dio.evidence_review_studio.artifact_quality.v1"
 PASS_TOKEN = "DIO_EVIDENCE_REVIEW_STUDIO_ARTIFACT_QUALITY_VERIFIED"
 REFUSE_TOKEN = "DIO_EVIDENCE_REVIEW_STUDIO_ARTIFACT_QUALITY_REFUSED"
+DEFAULT_UNRESOLVED_REVIEW_STATES = {"CONTESTED", "PARTIAL", "UNKNOWN", "STALE"}
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -51,7 +52,11 @@ def audit_profile_studio(
     mapped_ids = {str(row.get("evidence_id") or "") for row in mapped_rows if str(row.get("evidence_id") or "")}
     provenance_ids = {str(row.get("evidence_id") or "") for row in provenance if str(row.get("evidence_id") or "")}
     observed_review_states = {str(value) for value in receipt.get("review_states") or [] if str(value)}
-    expected_review_states = {str(value) for value in (required_review_states or {"CONTESTED"}) if str(value)}
+    expected_review_states = {
+        str(value)
+        for value in (required_review_states if required_review_states is not None else DEFAULT_UNRESOLVED_REVIEW_STATES)
+        if str(value)
+    }
 
     checks = {
         "schema": receipt.get("schema") == "dio.evidence_review_studio.receipt.v1",
@@ -110,4 +115,10 @@ def audit_profile_studio(
     }
 
 
-__all__ = ["PASS_TOKEN", "REFUSE_TOKEN", "SCHEMA", "audit_profile_studio"]
+__all__ = [
+    "DEFAULT_UNRESOLVED_REVIEW_STATES",
+    "PASS_TOKEN",
+    "REFUSE_TOKEN",
+    "SCHEMA",
+    "audit_profile_studio",
+]
