@@ -1,0 +1,117 @@
+{
+  "schema": "dio.evidence_review.profile_pilot_spec.v1",
+  "profile_id": "programmeproof",
+  "display_name": "ProgrammeProof",
+  "expected_review_states": ["PARTIAL"],
+  "min_separate_records": 5,
+  "min_requirements": 3,
+  "min_issues": 1,
+  "required_authorities": [
+    "customer_source_owner",
+    "authorised_programme_reviewer"
+  ],
+  "evidence_input_labels": [
+    "Vesper-rehydrated customer source records",
+    "programme business-case and milestone records",
+    "benefit and budget evidence"
+  ],
+  "expected_outputs": [
+    "typed controlled programme evidence review pack",
+    "proof manifest",
+    "processing receipt"
+  ],
+  "sources": [
+    {
+      "filename": "programme_business_case.md",
+      "kind": "text",
+      "content": "# Programme business-case extract supplied by customer\n\nProgramme: Provincial Skills Office multi-year skills programme.\nApproved budget: R18.6 million.\nGovernance review: authorised committee review required.\n\nThe business case records approved programme context and budget authority already supplied by the customer. It does not establish future funding continuation, programme success, or completion of later milestones and benefits.\n"
+    },
+    {
+      "filename": "phase2_milestone_tracker.csv",
+      "kind": "csv",
+      "headers": ["milestone_id", "milestone", "due_date", "tracker_state", "completion_evidence", "customer_record_state"],
+      "rows": [
+        ["P2-MOB", "Phase 2 mobilisation", "15 July 2026", "AMBER", "", "milestone remains amber; completion evidence not supplied"]
+      ]
+    },
+    {
+      "filename": "benefits_register.csv",
+      "kind": "csv",
+      "headers": ["benefit_id", "period", "target", "verified_to_date", "customer_record_state"],
+      "rows": [
+        ["B3", "2026", "600 placements", "412 placements", "412 verified placements recorded to date; target not yet achieved in supplied evidence"]
+      ]
+    },
+    {
+      "filename": "budget_authorisation_extract.md",
+      "kind": "text",
+      "content": "# Budget authorisation extract supplied by customer\n\nApproved programme budget: R18.6 million.\nRecord role: budget-authorisation context for governance review.\n\nThis extract does not authorise additional expenditure, predict continued funding, or determine programme performance.\n"
+    },
+    {
+      "filename": "governance_review_note.md",
+      "kind": "text",
+      "content": "# Governance review note supplied by customer\n\nThe governance committee requires a traceable pack showing the mobilisation milestone state, benefit progress and approved budget context.\n\nThe committee remains responsible for continuation, approval, funding and programme-governance decisions. DIO must not convert an amber milestone into completion or a partial benefit result into future benefit achievement.\n"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_key": "PRG-01",
+      "statement": "Review Phase 2 mobilisation evidence and preserve the supplied amber state without inferring completion.",
+      "kind": "request",
+      "source_filename": "programme_business_case.md",
+      "source_anchor": "PHASE-2",
+      "mandatory": true
+    },
+    {
+      "requirement_key": "PRG-02",
+      "statement": "Present Benefit B3 progress against the supplied 2026 target while keeping verified-to-date results separate from future benefit achievement.",
+      "kind": "request",
+      "source_filename": "programme_business_case.md",
+      "source_anchor": "BENEFIT-B3",
+      "mandatory": true
+    },
+    {
+      "requirement_key": "PRG-03",
+      "statement": "Present the approved R18.6 million programme budget as governance context without issuing a funding, approval or continuation decision.",
+      "kind": "request",
+      "source_filename": "programme_business_case.md",
+      "source_anchor": "BUDGET",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_key": "BUSINESS-CASE",
+      "filename": "programme_business_case.md",
+      "targets": ["PRG-01", "PRG-02", "PRG-03"]
+    },
+    {
+      "evidence_key": "PHASE2-MILESTONE",
+      "filename": "phase2_milestone_tracker.csv",
+      "targets": ["PRG-01"]
+    },
+    {
+      "evidence_key": "BENEFIT-B3",
+      "filename": "benefits_register.csv",
+      "targets": ["PRG-02"]
+    },
+    {
+      "evidence_key": "BUDGET-AUTH",
+      "filename": "budget_authorisation_extract.md",
+      "targets": ["PRG-03"]
+    },
+    {
+      "evidence_key": "GOVERNANCE-NOTE",
+      "filename": "governance_review_note.md",
+      "targets": ["PRG-01", "PRG-02", "PRG-03"]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_key": "PRG-01",
+      "challenge_type": "missing_evidence",
+      "severity": "material",
+      "hypothesis": "Phase 2 mobilisation was due 15 July 2026 and the supplied tracker records AMBER, not complete. No completion or authorised acceptance evidence is supplied. Human programme review must preserve the amber state and must not promote it into completion."
+    }
+  ]
+}
