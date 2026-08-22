@@ -9,7 +9,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from scripts import run_hymark_history_source_first as source_first
+try:
+    from scripts import run_hymark_history_source_first as source_first
+except ModuleNotFoundError:
+    import run_hymark_history_source_first as source_first
 
 
 SCHEMA = source_first.SCHEMA
@@ -190,7 +193,6 @@ def repair_and_render(
         if errors:
             raise RuntimeError("targeted second-opportunity section repair failed: " + "; ".join(errors))
 
-    # Preserve every untouched block byte-for-byte at the semantic JSON level.
     affected = set(labels)
     original_sections = {str(row.get("source_label") or ""): row for row in original_plan.get("source_sections") or []}
     repaired_sections = {str(row.get("source_label") or ""): row for row in plan.get("source_sections") or []}
