@@ -4,6 +4,8 @@ import csv
 import json
 from pathlib import Path
 
+import pytest
+
 from products.evidence_review_profile_pilot import (
     build_profile_review_inputs,
     enrich_packet_from_profile_spec,
@@ -17,6 +19,8 @@ def test_qualityproof_spec_builds_source_bound_partial_review(tmp_path: Path) ->
     assert spec["product_id"] == "dio_qualityproof"
     assert spec["expected_review_states"] == ["PARTIAL"]
     assert spec["min_separate_records"] == 5
+    assert spec["default_requirement_kind"] == "request"
+    assert {row["kind"] for row in spec["requirements"]} == {"request"}
 
     packet_dir = tmp_path / "CUSTOMER_PACKET"
     (packet_dir / "SOURCES").mkdir(parents=True)
@@ -35,6 +39,7 @@ def test_qualityproof_spec_builds_source_bound_partial_review(tmp_path: Path) ->
     }
     inputs = build_profile_review_inputs(packet, spec)
     assert {row["requirement_key"] for row in inputs["requirements"]} == {"QP-01", "QP-02"}
+    assert {row["kind"] for row in inputs["requirements"]} == {"request"}
     assert len(inputs["evidence_inputs"]) == 5
     assert len(inputs["issues"]) == 2
     assert all(row["challenge_type"] == "missing_evidence" for row in inputs["issues"])
@@ -52,6 +57,26 @@ def test_qualityproof_spec_builds_source_bound_partial_review(tmp_path: Path) ->
     issue_text = " ".join(row["hypothesis"] for row in inputs["issues"])
     assert "25 August 2026" in issue_text
     assert "OP-019" in issue_text and "OP-020" in issue_text
+
+
+def test_profile_review_inputs_refuse_unsupported_requirement_kind(tmp_path: Path) -> None:
+    spec = load_profile_pilot_spec("qualityproof")
+    packet_dir = tmp_path / "CUSTOMER_PACKET"
+    (packet_dir / "SOURCES").mkdir(parents=True)
+    (packet_dir / "CUSTOMER_PACKET_MANIFEST.json").write_text(
+        json.dumps({"schema": "test", "files": [], "packet_fingerprint": "sha256:old"}),
+        encoding="utf-8",
+    )
+    manifest = enrich_packet_from_profile_spec(packet_dir, spec)
+    packet = {
+        "packet_dir": str(packet_dir),
+        "packet_fingerprint": manifest["packet_fingerprint"],
+        "manifest": manifest,
+    }
+    bad = json.loads(json.dumps(spec))
+    bad["requirements"][0]["kind"] = "quality_review"
+    with pytest.raises(RuntimeError, match="unsupported evidence-review requirement kind"):
+        build_profile_review_inputs(packet, bad)
 
 
 def test_qualityproof_profile_remains_unpromoted() -> None:
