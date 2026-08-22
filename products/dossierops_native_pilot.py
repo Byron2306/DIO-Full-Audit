@@ -27,6 +27,12 @@ _DATE_PATTERNS = (
 )
 _MONEY = re.compile(r"\bR\s?\d[\d,]*(?:\.\d{1,2})?\b", flags=re.I)
 _WORD = re.compile(r"\b[\w’'-]+\b", flags=re.UNICODE)
+_META_STATE_NAMES = {
+    "01_customer_context.md",
+    "02_evidence_register.csv",
+    "03_exception_note.md",
+    "case_file_index.csv",
+}
 
 
 def _fingerprint(value: Any) -> str:
@@ -48,17 +54,22 @@ def _word_count(text: str) -> int:
 
 
 def _record_class(path: Path, text: str) -> str:
+    name = path.name.casefold()
+    if name == "01_customer_context.md":
+        return "customer_context"
+    if name == "02_evidence_register.csv":
+        return "evidence_register"
+    if name == "03_exception_note.md":
+        return "exception_record"
+    if name == "case_file_index.csv":
+        return "case_index"
     blob = f"{path.name} {text[:1500]}".casefold()
     rules = (
-        ("agreement", ("agreement", "contract")),
         ("amendment", ("amendment",)),
+        ("agreement", ("agreement", "contract")),
         ("payment_schedule", ("payment", "outstanding", "invoice")),
         ("correspondence", ("email", "correspondence", "subject:")),
         ("meeting_note", ("meeting", "minutes", "note")),
-        ("case_index", ("case_file_index", "record_type,state")),
-        ("exception_record", ("exception", "open question", "gap")),
-        ("customer_context", ("customer context", "organisation", "buyer")),
-        ("evidence_register", ("evidence_register", "customer_supplied_record")),
     )
     for label, terms in rules:
         if any(term in blob for term in terms):
@@ -67,7 +78,9 @@ def _record_class(path: Path, text: str) -> str:
 
 
 def _record_state(path: Path, text: str) -> str:
-    """Classify visible source state without collapsing multiple records described in one file."""
+    """Classify visible source state without treating metadata containers as underlying records."""
+    if path.name.casefold() in _META_STATE_NAMES:
+        return "metadata_container_not_record_state"
     blob = f"{path.name} {text}".casefold()
     unsigned_marker = (
         "unsigned_draft" in blob
