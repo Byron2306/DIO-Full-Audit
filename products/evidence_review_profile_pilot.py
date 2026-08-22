@@ -280,9 +280,10 @@ def run_profile_native_pilot(
     studio_receipt = dict(result["receipt"])
     observed_states = {str(value) for value in studio_receipt.get("review_states") or []}
     expected_states = {str(value) for value in spec.get("expected_review_states") or []}
-    if not expected_states.intersection(observed_states):
+    if not expected_states.issubset(observed_states):
         raise RuntimeError(
-            f"{profile_id}: expected review state {sorted(expected_states)} absent from {sorted(observed_states)}"
+            f"{profile_id}: all expected review states {sorted(expected_states)} must be present; "
+            f"observed {sorted(observed_states)}"
         )
     if int(studio_receipt.get("issue_count") or 0) < int(spec.get("min_issues") or 1):
         raise RuntimeError(f"{profile_id}: profile pilot did not preserve the required evidence issues")
