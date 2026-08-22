@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from products.evidence_review import ALLOWED_REQUIREMENT_KINDS
 from products.evidence_review_studio import ENGINE_IDENTITY as STUDIO_ENGINE_IDENTITY, run_profile_evidence_studio
 from products.governed_case import new_case
 from products.professional_evidence_projection import sha256, write_json
@@ -44,8 +45,24 @@ def load_profile_pilot_spec(profile_id: str) -> dict[str, Any]:
     expected_states = {str(value) for value in spec.get("expected_review_states") or [] if str(value)}
     if not expected_states or not expected_states.issubset({"CONTESTED", "PARTIAL", "UNKNOWN", "STALE"}):
         raise RuntimeError(f"{profile_id}: pilot spec expected review states are invalid")
+
+    default_kind = str(profile.get("default_requirement_kind") or "request")
+    invalid_kinds = sorted(
+        {
+            str(row.get("kind") or default_kind)
+            for row in spec.get("requirements") or []
+            if str(row.get("kind") or default_kind) not in ALLOWED_REQUIREMENT_KINDS
+        }
+    )
+    if invalid_kinds:
+        raise RuntimeError(
+            f"{profile_id}: pilot spec uses unsupported evidence-review requirement kinds: {invalid_kinds}; "
+            f"allowed={sorted(ALLOWED_REQUIREMENT_KINDS)}"
+        )
+
     spec["product_id"] = profile["product_id"]
     spec["forbidden_outcomes"] = list(profile["forbidden_outcomes"])
+    spec["default_requirement_kind"] = default_kind
     return spec
 
 
@@ -111,6 +128,7 @@ def build_profile_review_inputs(packet: dict[str, Any], spec: dict[str, Any]) ->
     if missing:
         raise RuntimeError(f"{spec['profile_id']}: pilot source records missing: {missing}")
 
+    default_kind = str(spec.get("default_requirement_kind") or "request")
     requirements: list[dict[str, Any]] = []
     for row in spec.get("requirements") or []:
         filename = str(row.get("source_filename") or "")
@@ -119,12 +137,18 @@ def build_profile_review_inputs(packet: dict[str, Any], spec: dict[str, Any]) ->
         key = str(row.get("requirement_key") or "").strip()
         if not key:
             raise RuntimeError(f"{spec['profile_id']}: requirement key missing")
+        kind = str(row.get("kind") or default_kind)
+        if kind not in ALLOWED_REQUIREMENT_KINDS:
+            raise RuntimeError(
+                f"{spec['profile_id']}: unsupported evidence-review requirement kind {kind!r}; "
+                f"allowed={sorted(ALLOWED_REQUIREMENT_KINDS)}"
+            )
         anchor = str(row.get("source_anchor") or key)
         requirements.append(
             {
                 "requirement_key": key,
                 "statement": str(row.get("statement") or "").strip(),
-                "kind": str(row.get("kind") or "request"),
+                "kind": kind,
                 "source_ref": f"customer-packet://SOURCES/{filename}#{anchor}",
                 "mandatory": bool(row.get("mandatory", True)),
                 "dependency_requirement_keys": [str(value) for value in row.get("dependency_requirement_keys") or []],
