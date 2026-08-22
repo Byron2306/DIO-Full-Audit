@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -12,6 +11,7 @@ from products.native_product_quality import (
     _artifact_row,
     _base_receipt,
     _extract_text,
+    _fingerprint,
     _load_json,
     _signal_groups,
     _word_count,
@@ -118,7 +118,7 @@ def audit_dossierops(native_binding_path: Path, *, contract: dict[str, Any] | No
     for index, path in enumerate(rendered_existing, 1):
         artifacts[f"document_studio_render_{index:02d}"] = _artifact_row(path, _extract_text(path), role="document_studio_review_artifact")
 
-    return _base_receipt(
+    receipt = _base_receipt(
         product="DossierOps",
         spec=spec,
         source_path=native_binding_path,
@@ -138,6 +138,16 @@ def audit_dossierops(native_binding_path: Path, *, contract: dict[str, Any] | No
         },
         contract=contract,
     )
+    # Artifact quality is necessary but not sufficient for promotion. DossierOps
+    # remains a controlled, unpromoted pilot until the human-reviewed pilot is
+    # inspected and a later identity-promotion decision is explicitly earned.
+    receipt["pilot_artifact_quality_verified"] = receipt["artifact_quality_verified"]
+    receipt["site_promotion_allowed"] = False
+    receipt["promotion_performed"] = False
+    receipt["promotion_gate"] = "NEEDS_HUMAN_REVIEWED_PILOT"
+    receipt.pop("receipt_fingerprint", None)
+    receipt["receipt_fingerprint"] = _fingerprint(receipt)
+    return receipt
 
 
 __all__ = ["audit_dossierops", "ACCEPTANCE_TOKEN", "REFUSE_TOKEN", "SCHEMA"]
