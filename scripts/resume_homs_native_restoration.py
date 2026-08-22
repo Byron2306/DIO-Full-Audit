@@ -49,10 +49,11 @@ def _latest_completed_first_job(native_root: Path) -> Path:
     return max(candidates, key=lambda path: path.stat().st_mtime)
 
 
-def _run_second(
+def _run_second_from_saved_plan(
     *,
     case_root: Path,
     request_path: Path,
+    saved_job: Path,
     timeout_seconds: int,
 ) -> tuple[Path, dict, dict[str, Path]]:
     native_python = _interpreter_path(Path(os.environ.get("HOMS_EXAM_PYTHON") or DEFAULT_HYMARK_NATIVE_PYTHON))
@@ -71,9 +72,11 @@ def _run_second(
 
     command = [
         str(native_python),
-        str(ROOT / "scripts" / "run_hymark_history_source_first.py"),
+        str(ROOT / "scripts" / "repair_homs_second_from_saved_plan.py"),
         "--request",
         str(request_path),
+        "--saved-job",
+        str(saved_job),
         "--out",
         str(second_root),
         "--secret-file",
@@ -82,8 +85,6 @@ def _run_second(
         str(backend),
         "--provider",
         os.environ.get("HOMS_PROVIDER", "nim"),
-        "--opportunities",
-        "second",
     ]
     model = os.environ.get("HOMS_MODEL", "").strip()
     if model:
@@ -100,7 +101,7 @@ def _run_second(
     )
     if completed.returncode != 0:
         raise RuntimeError(
-            "second-opportunity HOMS resume failed: "
+            "second-opportunity saved-plan HOMS repair failed: "
             + (completed.stderr or completed.stdout or "no diagnostic output")[-7000:]
         )
     return load_opportunity_receipt(second_root, 2)
@@ -118,7 +119,12 @@ def resume(case_root: Path, *, timeout_seconds: int) -> dict:
 
     first_job = _latest_completed_first_job(native_root)
     first = synthesize_salvaged_first_receipt(first_job, request_path, source_booklet)
-    second = _run_second(case_root=case_root, request_path=request_path, timeout_seconds=timeout_seconds)
+    second = _run_second_from_saved_plan(
+        case_root=case_root,
+        request_path=request_path,
+        saved_job=first_job,
+        timeout_seconds=timeout_seconds,
+    )
 
     aggregate_dir = case_root / "EXECUTION" / "hymark_native_aggregate" / "HOMS-SOURCE-FIRST-SPLIT-AGGREGATE"
     aggregate_receipt_path, aggregate_receipt = aggregate_opportunities(
@@ -153,7 +159,8 @@ def resume(case_root: Path, *, timeout_seconds: int) -> dict:
         "customer_source_booklet_sha256": sha256(source_booklet),
         "split_execution": True,
         "first_opportunity_salvaged_from_interrupted_native_run": True,
-        "second_opportunity_executed_after_resume": True,
+        "second_opportunity_repaired_from_saved_plan": True,
+        "full_second_opportunity_regeneration": False,
         "historical_failed_outer_receipt_preserved": True,
         "native_capability_preserved": True,
         "surrogate_fallback_allowed": False,
@@ -173,7 +180,10 @@ def resume(case_root: Path, *, timeout_seconds: int) -> dict:
         "historical_failed_route_receipt": str(case_root / "PROFESSIONAL_EVIDENCE_RECEIPT.json"),
         "historical_failed_route_receipt_preserved": True,
         "first_opportunity_job": str(first_job),
+        "first_opportunity_salvaged": True,
         "second_opportunity_receipt": str(second[0]),
+        "second_opportunity_repaired_from_saved_plan": True,
+        "full_second_opportunity_regeneration": False,
         "aggregate_native_receipt": str(aggregate_receipt_path),
         "route_binding": str(route_binding_path),
         "quality_receipt": str(quality_path),
@@ -191,9 +201,9 @@ def resume(case_root: Path, *, timeout_seconds: int) -> dict:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Resume an interrupted HOMS source-first native restoration without regenerating a completed first opportunity.")
+    parser = argparse.ArgumentParser(description="Resume an interrupted HOMS source-first restoration from saved opportunity artifacts without regenerating completed work.")
     parser.add_argument("--case-root", type=Path, required=True)
-    parser.add_argument("--timeout-seconds", type=int, default=int(os.environ.get("HOMS_OPPORTUNITY_TIMEOUT_SECONDS", "1200")))
+    parser.add_argument("--timeout-seconds", type=int, default=int(os.environ.get("HOMS_OPPORTUNITY_TIMEOUT_SECONDS", "900")))
     args = parser.parse_args()
     payload = resume(args.case_root, timeout_seconds=args.timeout_seconds)
     print(json.dumps(payload, indent=2))
