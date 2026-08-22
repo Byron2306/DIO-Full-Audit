@@ -51,10 +51,39 @@ def _inventory(root: Path) -> list[dict[str, Any]]:
 
 
 def _normalize_preferred_terms(request: dict[str, Any]) -> dict[str, Any]:
-    """Normalize DossierOps terminology into Document Studio's structured term contract."""
+    """Map DossierOps wording controls onto the correct Document Studio rail.
+
+    Document Studio's ``preferred_terms`` contract is translation-specific: each
+    row describes a source-to-target terminology choice and release validation
+    expects the target term to appear in translation output. DossierOps currently
+    invokes ``technical_edit`` only, so its legacy wording list is not a
+    translation glossary. For that service we preserve the phrases as protected
+    source tokens and deliberately leave ``preferred_terms`` empty.
+
+    If this adapter is later reused for translation, structured terminology rows
+    are retained and legacy strings are normalized into source/target objects.
+    """
     normalized = dict(request)
+    service = str(normalized.get("service") or "").strip().casefold()
+    raw_terms = list(request.get("preferred_terms") or [])
+
+    if service == "technical_edit":
+        protected = [str(value).strip() for value in request.get("protected_tokens") or [] if str(value).strip()]
+        seen = set(protected)
+        for item in raw_terms:
+            if isinstance(item, dict):
+                term = str(item.get("source") or item.get("source_term") or item.get("target") or item.get("target_term") or "").strip()
+            else:
+                term = str(item or "").strip()
+            if term and term not in seen:
+                protected.append(term)
+                seen.add(term)
+        normalized["protected_tokens"] = protected
+        normalized["preferred_terms"] = []
+        return normalized
+
     rows: list[dict[str, Any]] = []
-    for item in request.get("preferred_terms") or []:
+    for item in raw_terms:
         if isinstance(item, dict):
             row = dict(item)
             source = str(row.get("source") or row.get("source_term") or "").strip()
@@ -85,6 +114,8 @@ def _document_studio_contract_runner(request: dict[str, Any], request_path: Path
     malformed = [row for row in normalized.get("preferred_terms") or [] if not isinstance(row, dict)]
     if malformed:
         raise RuntimeError("DossierOps Document Studio preferred_terms contract remained malformed after normalization")
+    if str(normalized.get("service") or "").strip().casefold() == "technical_edit" and normalized.get("preferred_terms"):
+        raise RuntimeError("DossierOps technical-edit request must not carry translation preferred_terms")
     write_json(request_path, normalized)
     return run_document_studio(normalized, request_path, output_root)
 
