@@ -73,7 +73,7 @@
     {
       "requirement_key": "QP-01",
       "statement": "Reconcile the supplied NCR-226 and CAPA-91 records and surface whether closure or effectiveness evidence is supplied.",
-      "kind": "quality_review",
+      "kind": "request",
       "source_filename": "quality_review_scope.md",
       "source_anchor": "QP-01",
       "mandatory": true
@@ -81,7 +81,7 @@
     {
       "requirement_key": "QP-02",
       "statement": "Reconcile retraining evidence for all 20 affected operators and surface missing records without inferring completion.",
-      "kind": "quality_review",
+      "kind": "request",
       "source_filename": "quality_review_scope.md",
       "source_anchor": "QP-02",
       "mandatory": true
