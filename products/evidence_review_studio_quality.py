@@ -42,15 +42,25 @@ def audit_profile_studio(
 
     forbidden = dict(receipt.get("forbidden_outcomes_created") or {})
     bundle = Path(str(receipt.get("bundle") or ""))
+    mapping = dict(receipt.get("requirement_evidence_source_map") or {})
+    provenance = list(receipt.get("evidence_provenance_index") or [])
+    requirement_count = int(receipt.get("requirement_count") or 0)
+    mapped_rows = [row for rows in mapping.values() for row in (rows or [])]
+    named_sources = [str(row.get("source_path") or row.get("source_ref") or "") for row in mapped_rows]
+
     checks = {
         "schema": receipt.get("schema") == "dio.evidence_review_studio.receipt.v1",
         "engine_identity": receipt.get("engine_identity") == ENGINE_IDENTITY,
         "profile_identity": receipt.get("profile_id") == expected_profile_id,
         "separately_supplied_records": int(receipt.get("separately_supplied_record_count") or 0) >= min_separate_records,
-        "requirements_substantive": int(receipt.get("requirement_count") or 0) >= min_requirements,
+        "requirements_substantive": requirement_count >= min_requirements,
         "issues_preserved": int(receipt.get("issue_count") or 0) >= min_issues,
         "open_questions_preserved": int(receipt.get("open_question_count") or 0) >= min_issues,
         "contested_state_present": "CONTESTED" in set(receipt.get("review_states") or []),
+        "named_evidence_mapping_present": receipt.get("named_evidence_mapping_present") is True,
+        "all_requirements_have_named_evidence": len(mapping) >= requirement_count > 0 and all(bool(rows) for rows in mapping.values()),
+        "named_evidence_uses_customer_source_refs": bool(named_sources) and all(name.startswith("SOURCES/") for name in named_sources),
+        "evidence_provenance_index_present": len(provenance) >= len(mapped_rows) and all(str(row.get("evidence_id") or "") and str(row.get("source_ref") or "") for row in provenance),
         "customer_assertions_not_self_supporting": receipt.get("customer_assertions_used_as_self_supporting_evidence") is False,
         "baseline_review_preserved": receipt.get("baseline_controlled_review_preserved") is True,
         "format_core_qa": receipt.get("format_core_qa_passed") is True,
