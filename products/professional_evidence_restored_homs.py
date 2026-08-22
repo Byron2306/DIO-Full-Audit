@@ -3,11 +3,13 @@ from __future__ import annotations
 import json
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any
 
 from portfolio_runtime import ROOT
+from products.homs_native_split import aggregate_opportunities, load_opportunity_receipt
 from products.professional_evidence_native_routes import (
     DEFAULT_HYMARK_BACKEND,
     DEFAULT_HYMARK_NATIVE_PYTHON,
@@ -149,6 +151,62 @@ def _harden_request(base: dict[str, Any], manifest: dict[str, Any]) -> dict[str,
     return request
 
 
+def _run_one_opportunity(
+    *,
+    opportunity: int,
+    request_path: Path,
+    native_root: Path,
+    native_python: Path,
+    backend: Path,
+    secret_file: Path,
+) -> tuple[Path, dict[str, Any], dict[str, Path]]:
+    label = "first" if opportunity == 1 else "second"
+    checkpoint_root = native_root / f"{label}_checkpoint"
+    if checkpoint_root.exists():
+        shutil.rmtree(checkpoint_root)
+    checkpoint_root.mkdir(parents=True, exist_ok=False)
+    command = [
+        str(native_python),
+        str(ROOT / "scripts" / "run_hymark_history_source_first.py"),
+        "--request",
+        str(request_path),
+        "--out",
+        str(checkpoint_root),
+        "--secret-file",
+        str(secret_file),
+        "--backend",
+        str(backend),
+        "--provider",
+        os.environ.get("HOMS_PROVIDER", "nim"),
+        "--opportunities",
+        label,
+    ]
+    model = os.environ.get("HOMS_MODEL", "").strip()
+    if model:
+        command.extend(["--model", model])
+    timeout = int(os.environ.get("HOMS_OPPORTUNITY_TIMEOUT_SECONDS", "1200"))
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+            env=_isolated_native_env(native_python),
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(
+            f"HOMS {label} opportunity timed out after {timeout}s; checkpoint files were preserved at {checkpoint_root}"
+        ) from exc
+    if completed.returncode != 0:
+        raise RuntimeError(
+            f"HOMS {label} opportunity failed: "
+            + (completed.stderr or completed.stdout or "no diagnostic output")[-7000:]
+        )
+    return load_opportunity_receipt(checkpoint_root, opportunity)
+
+
 def run_restored_homs_exam(packet: dict[str, Any], execution_dir: Path, *, now: str) -> dict[str, Any]:
     source_booklet = Path(packet["packet_dir"]) / "SOURCES" / "source_pack.md"
     if not source_booklet.is_file():
@@ -173,47 +231,31 @@ def run_restored_homs_exam(packet: dict[str, Any], execution_dir: Path, *, now: 
     runtime_preflight = _preflight_hymark_runtime(native_python, backend)
 
     native_root = execution_dir / "hymark_native"
-    command = [
-        str(native_python),
-        str(ROOT / "scripts" / "run_hymark_history_source_first.py"),
-        "--request",
-        str(request_path),
-        "--out",
-        str(native_root),
-        "--secret-file",
-        str(secret_file),
-        "--backend",
-        str(backend),
-        "--provider",
-        os.environ.get("HOMS_PROVIDER", "nim"),
-        "--opportunities",
-        "both",
-    ]
-    model = os.environ.get("HOMS_MODEL", "").strip()
-    if model:
-        command.extend(["--model", model])
-
-    completed = subprocess.run(
-        command,
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=False,
-        env=_isolated_native_env(native_python),
-        timeout=int(os.environ.get("HOMS_NATIVE_TIMEOUT_SECONDS", "1800")),
+    native_root.mkdir(parents=True, exist_ok=True)
+    first = _run_one_opportunity(
+        opportunity=1,
+        request_path=request_path,
+        native_root=native_root,
+        native_python=native_python,
+        backend=backend,
+        secret_file=secret_file,
     )
-    if completed.returncode != 0:
-        raise RuntimeError(
-            "HOMS source-first native runtime failed: "
-            + (completed.stderr or completed.stdout or "no diagnostic output")[-6000:]
-        )
-
-    receipt_paths = sorted(native_root.rglob("HYMARK_EXAM_BUILDER_RECEIPT.json"))
-    if len(receipt_paths) != 1:
-        raise RuntimeError(f"HOMS source-first route expected one native receipt, found {len(receipt_paths)}")
-    native_receipt = json.loads(receipt_paths[0].read_text(encoding="utf-8"))
-    if ((native_receipt.get("assessor") or {}).get("native_engine")) != ENGINE_IDENTITY:
-        raise RuntimeError("HOMS source-first receipt reported the wrong native engine identity")
+    second = _run_one_opportunity(
+        opportunity=2,
+        request_path=request_path,
+        native_root=native_root,
+        native_python=native_python,
+        backend=backend,
+        secret_file=secret_file,
+    )
+    aggregate_dir = native_root / "HOMS-SOURCE-FIRST-SPLIT-AGGREGATE"
+    aggregate_receipt_path, native_receipt = aggregate_opportunities(
+        first,
+        second,
+        aggregate_dir=aggregate_dir,
+        source_booklet=source_booklet,
+        request_path=request_path,
+    )
     outputs = _require_native_outputs(native_receipt)
 
     first_hash = sha256(outputs["first_exam"])
@@ -229,7 +271,7 @@ def run_restored_homs_exam(packet: dict[str, Any], execution_dir: Path, *, now: 
         "native_runtime_python": str(native_python),
         "native_runtime_preflight": runtime_preflight,
         "native_receipt_schema": native_receipt.get("schema"),
-        "native_receipt_path": str(receipt_paths[0]),
+        "native_receipt_path": str(aggregate_receipt_path),
         "native_job_id": native_receipt.get("job_id"),
         "native_generation_backend": ((native_receipt.get("assessor") or {}).get("generation_backend")),
         "native_output_hashes": {name: sha256(path) for name, path in outputs.items()},
@@ -238,6 +280,8 @@ def run_restored_homs_exam(packet: dict[str, Any], execution_dir: Path, *, now: 
         "source_federation": manifest,
         "source_matrix_and_bank_connected": True,
         "customer_source_text_locked_before_question_generation": True,
+        "split_opportunity_execution": True,
+        "checkpointed_opportunities": ["first", "second"],
         "described_missing_visual_allowed": False,
         "invented_source_provenance_allowed": False,
         "native_capability_preserved": True,
