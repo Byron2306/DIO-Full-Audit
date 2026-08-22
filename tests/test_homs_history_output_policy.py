@@ -37,7 +37,21 @@ def _pack() -> dict:
                         ],
                     },
                 ],
-            }
+            },
+            {
+                "title": "QUESTION 4: ESSAY",
+                "stimulus": "Choose ONE option.",
+                "questions": [
+                    {
+                        "question": "Discuss organised resistance during the 1950s.",
+                        "marks": 60,
+                        "memo": [
+                            "The Treason Trial (1956-1961) was a response to state repression",
+                            "The Defiance Campaign involved disciplined mass action.",
+                        ],
+                    }
+                ],
+            },
         ],
     }
 
@@ -62,3 +76,10 @@ def test_quote_memo_keeps_only_exact_source_text() -> None:
     assert memo == [
         "The language of the extract places emphasis on administration, community difference and political control."
     ]
+
+
+def test_treason_trial_is_not_described_as_resistance_response_to_repression() -> None:
+    pack = normalise_history_pack(_pack())
+    essay_memo = pack["sections"][1]["questions"][0]["memo"]
+    assert "response to state repression" not in essay_memo[0].casefold()
+    assert "state repression and prosecution" in essay_memo[0].casefold()
