@@ -18,6 +18,13 @@ TEACHING_EXTRACT_REPLACEMENTS = (
     ("intentions of apartheid policymakers", "arguments used to justify apartheid"),
 )
 
+HISTORY_FACT_REPLACEMENTS = (
+    (
+        "The Treason Trial (1956-1961) was a response to state repression",
+        "The Treason Trial (1956-1961) was an example of state repression and prosecution directed at anti-apartheid leaders",
+    ),
+)
+
 GENERIC_HISTORY_INSTRUCTION = (
     "Show all working where calculations, planning, diagrams or explanations are required."
 )
@@ -43,8 +50,15 @@ def _replace_case_insensitive(text: str, old: str, new: str) -> str:
     return re.sub(re.escape(old), new, str(text), flags=re.I)
 
 
-def _normalise_text(text: str) -> str:
+def _normalise_general_text(text: str) -> str:
     value = str(text)
+    for old, new in HISTORY_FACT_REPLACEMENTS:
+        value = _replace_case_insensitive(value, old, new)
+    return value
+
+
+def _normalise_teaching_extract_text(text: str) -> str:
+    value = _normalise_general_text(text)
     for old, new in TEACHING_EXTRACT_REPLACEMENTS:
         value = _replace_case_insensitive(value, old, new)
     return value
@@ -98,9 +112,9 @@ def normalise_history_pack(pack: dict[str, Any]) -> dict[str, Any]:
         teaching_extract = "teaching extract" in source_title.casefold()
         stimulus = str(section.get("stimulus") or "")
         for question in section.get("questions") or []:
-            if teaching_extract:
-                question["question"] = _normalise_text(str(question.get("question") or ""))
-                question["memo"] = [_normalise_text(str(item)) for item in question.get("memo") or []]
+            normaliser = _normalise_teaching_extract_text if teaching_extract else _normalise_general_text
+            question["question"] = normaliser(str(question.get("question") or ""))
+            question["memo"] = [normaliser(str(item)) for item in question.get("memo") or []]
 
             question_text = str(question.get("question") or "")
             if "quote from" in question_text.casefold():
@@ -121,6 +135,11 @@ def history_pack_errors(pack: dict[str, Any]) -> list[str]:
     title = str(pack.get("assessment_title") or "")
     if re.search(r"Grade\s+None\b", title, flags=re.I):
         errors.append("assessment title contains Grade None")
+
+    full_blob = json.dumps(pack, ensure_ascii=False).casefold()
+    for old, _new in HISTORY_FACT_REPLACEMENTS:
+        if old.casefold() in full_blob:
+            errors.append(f"historical factual wording requires correction: {old}")
 
     for section_index, section in enumerate(pack.get("sections") or [], 1):
         provenance = dict(section.get("source_provenance") or {})
