@@ -50,6 +50,45 @@ def _inventory(root: Path) -> list[dict[str, Any]]:
     ]
 
 
+def _normalize_preferred_terms(request: dict[str, Any]) -> dict[str, Any]:
+    """Normalize DossierOps terminology into Document Studio's structured term contract."""
+    normalized = dict(request)
+    rows: list[dict[str, Any]] = []
+    for item in request.get("preferred_terms") or []:
+        if isinstance(item, dict):
+            row = dict(item)
+            source = str(row.get("source") or row.get("source_term") or "").strip()
+            target = str(row.get("target") or row.get("target_term") or source).strip()
+            if source:
+                row["source"] = source
+                row["target"] = target or source
+                rows.append(row)
+            continue
+        term = str(item or "").strip()
+        if term:
+            rows.append(
+                {
+                    "source": term,
+                    "target": term,
+                    "note": "DossierOps controlled terminology; preserve wording unless human review changes it.",
+                }
+            )
+    normalized["preferred_terms"] = rows
+    return normalized
+
+
+def _document_studio_contract_runner(request: dict[str, Any], request_path: Path, output_root: Path) -> Path:
+    """Repair the DossierOps-to-Document-Studio request seam before real execution."""
+    from adapters.document_studio.pipeline import run_document_studio
+
+    normalized = _normalize_preferred_terms(request)
+    malformed = [row for row in normalized.get("preferred_terms") or [] if not isinstance(row, dict)]
+    if malformed:
+        raise RuntimeError("DossierOps Document Studio preferred_terms contract remained malformed after normalization")
+    write_json(request_path, normalized)
+    return run_document_studio(normalized, request_path, output_root)
+
+
 def run_checkpoint(output_root: Path) -> dict[str, Any]:
     output_root = Path(output_root).expanduser().resolve()
     output_root.mkdir(parents=True, exist_ok=True)
@@ -72,6 +111,7 @@ def run_checkpoint(output_root: Path) -> dict[str, Any]:
             execution_dir,
             operator_id="dossierops-native-pilot-checkpoint",
             now=created_at,
+            document_studio_runner=_document_studio_contract_runner,
         )
         blind = _blind_review(case_root, result, trace)
         binding_path = execution_dir / "DOSSIEROPS_NATIVE_ROUTE_BINDING.json"
