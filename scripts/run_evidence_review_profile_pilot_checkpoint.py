@@ -55,6 +55,11 @@ def _token(profile_id: str, passed: bool) -> str:
     return f"DIO_{stem}_NATIVE_PILOT_{'VERIFIED' if passed else 'REFUSED'}"
 
 
+def _explicit_state_contract_satisfied(expected_states: set[str], observed_states: set[str]) -> bool:
+    """Fail closed unless every explicitly required review state survived execution."""
+    return bool(expected_states) and expected_states.issubset(observed_states)
+
+
 def _prepare_vesper(output_root: Path, spec: dict[str, Any], *, now: str) -> tuple[dict[str, Any], Path, dict[str, Any]]:
     display_name = str(spec["display_name"])
     output_root = Path(output_root).resolve()
@@ -146,7 +151,7 @@ def run_checkpoint(output_root: Path, profile_id: str) -> dict[str, Any]:
             "surrogate_fallback_unused": result.get("surrogate_fallback_used") is False,
             "product_pipeline_executed": result.get("product_pipeline_executed") is True,
             "customer_assertions_not_self_supporting": receipt.get("customer_assertions_used_as_self_supporting_evidence") is False,
-            "expected_review_state_preserved": bool(expected_states.intersection(observed_states)),
+            "expected_review_state_preserved": _explicit_state_contract_satisfied(expected_states, observed_states),
             "declared_evidence_issues_preserved": int(receipt.get("issue_count") or 0) >= int(spec.get("min_issues") or 1),
             "blind_customer_fact_review": blind.get("passed") is True,
             "artifact_quality_verified": quality.get("acceptance_token") == QUALITY_PASS and quality.get("artifact_quality_verified") is True,
@@ -167,6 +172,8 @@ def run_checkpoint(output_root: Path, profile_id: str) -> dict[str, Any]:
             "created_at": created_at,
             "product": display_name,
             "profile_id": profile_id,
+            "review_state_contract": "ALL_EXPLICIT_STATES",
+            "expected_review_states": sorted(expected_states),
             "checks": checks,
             "vesper_binding": str(case_root / "VESPER_WEB_CHAT" / "VESPER_WEB_CHAT_BINDING.json"),
             "vesper_source_binding_count": len(source_bindings),
