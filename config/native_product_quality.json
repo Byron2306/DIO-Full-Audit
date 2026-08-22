@@ -89,6 +89,39 @@
         ["12", "fourteen", "14"]
       ],
       "contradiction_must_be_preserved": true
+    },
+    "DossierOps": {
+      "route": "dossierops_raw_composition",
+      "native_engine": "products.dossierops_native_pilot.run_dossierops_native_pilot",
+      "native_binding_schema": "dio.professional_evidence.dossierops_native_binding.v1",
+      "minimum_customer_source_count": 5,
+      "minimum_open_question_count": 3,
+      "minimum_review_brief_words": 700,
+      "minimum_document_studio_rendered_artifacts": 3,
+      "minimum_bundle_bytes": 20000,
+      "minimum_native_output_total_bytes": 50000,
+      "review_brief_signal_groups": [
+        ["signed agreement", "signed record"],
+        ["unsigned amendment", "unsigned draft"],
+        ["R426,000", "426,000"],
+        ["agreed in principle", "agreement-in-principle"],
+        ["open question", "open questions", "gap"],
+        ["human review", "NEEDS_YOU"],
+        ["legal sufficiency", "enforceability", "legal conclusion"]
+      ],
+      "document_studio_execution_required": true,
+      "signed_unsigned_distinction_required": true,
+      "forbidden_authority_outcomes": [
+        "dossier_completeness_certified",
+        "legal_sufficiency_determined",
+        "record_authenticity_attested",
+        "retention_disposal_authorized",
+        "external_submission_performed",
+        "final_release_performed",
+        "unsigned_amendment_promoted_to_executed"
+      ],
+      "identity_state_required": "controlled_pilot_unpromoted",
+      "canonical_portfolio_registration_required": false
     }
   }
 }
