@@ -42,7 +42,137 @@ def _source_by_label(sources: list[dict[str, str]], label: str) -> dict[str, str
     raise RuntimeError(f"locked HOMS sources have no source for {label}")
 
 
-def _repair_sections(
+def _sentence_points(text: str, count: int) -> list[str]:
+    sentences = [
+        re.sub(r"\s+", " ", sentence).strip(" -\n\t")
+        for sentence in re.split(r"(?<=[.!?])\s+", str(text or "").strip())
+        if re.sub(r"\s+", " ", sentence).strip(" -\n\t")
+    ]
+    points: list[str] = []
+    for sentence in sentences:
+        if len(sentence.split()) < 5:
+            continue
+        points.append(sentence)
+        if len(points) >= count:
+            break
+    return points
+
+
+def _merge_smallest_adjacent_pair(questions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if len(questions) < 2:
+        return questions
+    pair_index = min(
+        range(len(questions) - 1),
+        key=lambda index: int(questions[index].get("marks") or 0) + int(questions[index + 1].get("marks") or 0),
+    )
+    left = dict(questions[pair_index])
+    right = dict(questions[pair_index + 1])
+    left_q = str(left.get("question") or "").strip()
+    right_q = str(right.get("question") or "").strip()
+    merged = {
+        "question": f"Answer BOTH parts: (a) {left_q} (b) {right_q}",
+        "marks": int(left.get("marks") or 0) + int(right.get("marks") or 0),
+        "memo": [
+            *[str(item).strip() for item in left.get("memo") or [] if str(item).strip()],
+            *[str(item).strip() for item in right.get("memo") or [] if str(item).strip()],
+        ],
+        "dio_deterministic_merge": True,
+    }
+    return [*questions[:pair_index], merged, *questions[pair_index + 2 :]]
+
+
+def _repair_section_deterministically(section: dict[str, Any], source: dict[str, str]) -> tuple[dict[str, Any], list[str]]:
+    """Repair structural mark/count defects without asking a model to rewrite valid content."""
+    updated = json.loads(json.dumps(section))
+    questions = [dict(row) for row in updated.get("questions") or []]
+    actions: list[str] = []
+
+    while len(questions) > 10:
+        questions = _merge_smallest_adjacent_pair(questions)
+        actions.append("merged_smallest_adjacent_question_pair")
+
+    total = sum(int(question.get("marks") or 0) for question in questions)
+    deficit = 30 - total
+    if deficit > 0:
+        # Prefer adding a new, explicitly source-grounded question. This preserves
+        # the mark values and memo semantics of every existing generated question.
+        if len(questions) >= 10:
+            questions = _merge_smallest_adjacent_pair(questions)
+            actions.append("merged_pair_to_create_grounded_question_slot")
+        points = _sentence_points(source.get("content", ""), deficit)
+        if len(points) >= deficit and deficit <= 4 and len(questions) < 10:
+            number_word = {1: "ONE", 2: "TWO", 3: "THREE", 4: "FOUR"}[deficit]
+            questions.append(
+                {
+                    "question": f"Identify {number_word} distinct ideas or arguments presented in {source['label']}.",
+                    "marks": deficit,
+                    "memo": points[:deficit],
+                    "dio_deterministic_source_grounded_fill": True,
+                }
+            )
+            actions.append(f"added_source_grounded_{deficit}_mark_question")
+        else:
+            # Conservative fallback: only increase marks where the existing memo
+            # already contains more explicit answer points than the question's
+            # current allocation. No new historical claim is invented.
+            remaining = deficit
+            ranked = sorted(
+                range(len(questions)),
+                key=lambda index: len([item for item in questions[index].get("memo") or [] if str(item).strip()])
+                - int(questions[index].get("marks") or 0),
+                reverse=True,
+            )
+            for index in ranked:
+                if remaining <= 0:
+                    break
+                question = questions[index]
+                memo_count = len([item for item in question.get("memo") or [] if str(item).strip()])
+                marks = int(question.get("marks") or 0)
+                capacity = max(0, memo_count - marks)
+                if capacity <= 0:
+                    continue
+                add = min(capacity, remaining)
+                question["marks"] = marks + add
+                remaining -= add
+                actions.append(f"reallocated_{add}_marks_to_existing_explicit_memo_points")
+            if remaining:
+                raise RuntimeError(
+                    f"deterministic repair cannot fill {remaining} remaining marks for {source['label']} without inventing content"
+                )
+    elif deficit < 0:
+        raise RuntimeError(
+            f"deterministic repair refuses to remove {-deficit} marks from {source['label']}; provider review required"
+        )
+
+    updated["questions"] = questions
+    return updated, actions
+
+
+def _deterministic_repair(
+    *,
+    plan: dict[str, Any],
+    sources: list[dict[str, str]],
+    labels: list[str],
+    out_dir: Path,
+) -> tuple[dict[str, Any], list[str]]:
+    updated = json.loads(json.dumps(plan))
+    actions: list[str] = []
+    for index, section in enumerate(updated.get("source_sections") or []):
+        label = str(section.get("source_label") or "")
+        if label not in labels:
+            continue
+        repaired, section_actions = _repair_section_deterministically(
+            dict(section), _source_by_label(sources, label)
+        )
+        updated["source_sections"][index] = repaired
+        actions.extend(f"{label}:{action}" for action in section_actions)
+
+    path = out_dir / "HOMS_SOURCE_FIRST_DETERMINISTIC_SECTION_REPAIR.json"
+    path.write_text(json.dumps(updated, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return updated, actions
+
+
+def _repair_sections_with_provider(
     hymark: Any,
     *,
     plan: dict[str, Any],
@@ -102,7 +232,7 @@ Return strict JSON only:
         hymark,
         "You are a South African FET History assessment repair specialist. Repair only the named source-question blocks and return JSON only.",
         prompt,
-        max_tokens=3600,
+        max_tokens=2400,
         temperature=0.12 if attempt > 1 else 0.18,
     )
     returned = [dict(row) for row in repaired.get("source_sections") or [] if isinstance(row, dict)]
@@ -117,7 +247,7 @@ Return strict JSON only:
         if label in returned_by_label:
             updated["source_sections"][index] = returned_by_label[label]
 
-    path = out_dir / f"HOMS_SOURCE_FIRST_SECTION_REPAIR_ATTEMPT_{attempt}.json"
+    path = out_dir / f"HOMS_SOURCE_FIRST_PROVIDER_SECTION_REPAIR_ATTEMPT_{attempt}.json"
     path.write_text(json.dumps(updated, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return updated
 
@@ -164,11 +294,8 @@ def repair_and_render(
         if not labels or any(not error.startswith(tuple(labels)) for error in other_errors):
             raise RuntimeError("saved second plan requires broader-than-section repair: " + "; ".join(errors))
 
-    provider = source_first.configure_provider(secret_file, provider_name, model)
-    hymark = source_first.load_hymark_backend(backend_path)
-
     out_root.mkdir(parents=True, exist_ok=True)
-    job_id = f"hymark-history-source-first-resume-second-{datetime.now().strftime('%Y%m%dT%H%M%SZ')}"
+    job_id = f"hymark-history-source-first-resume-second-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
     job_dir = out_root / job_id
     job_dir.mkdir(parents=True, exist_ok=False)
     shutil.copy2(request_path, job_dir / "exam_builder_request.json")
@@ -176,22 +303,53 @@ def repair_and_render(
     shutil.copy2(locked_path, job_dir / "HOMS_LOCKED_CUSTOMER_SOURCES.json")
     shutil.copy2(saved_plan_path, job_dir / "HOMS_SAVED_SECOND_PLAN.json")
 
+    repair_mode = "saved_plan_already_valid"
+    deterministic_actions: list[str] = []
     if labels:
-        for attempt in (1, 2):
-            plan = _repair_sections(
-                hymark,
+        deterministic_error = ""
+        try:
+            plan, deterministic_actions = _deterministic_repair(
                 plan=plan,
                 sources=sources,
                 labels=labels,
-                errors=source_first._plan_errors(plan, sources),
-                attempt=attempt,
                 out_dir=job_dir,
             )
             errors = source_first._plan_errors(plan, sources)
-            if not errors:
-                break
-        if errors:
-            raise RuntimeError("targeted second-opportunity section repair failed: " + "; ".join(errors))
+            if errors:
+                deterministic_error = "; ".join(errors)
+                plan = json.loads(json.dumps(original_plan))
+        except RuntimeError as exc:
+            deterministic_error = str(exc)
+            plan = json.loads(json.dumps(original_plan))
+
+        if not deterministic_error:
+            repair_mode = "deterministic_structural_repair_no_provider"
+        else:
+            # Provider fallback is deliberately lazy. A model is contacted only
+            # when local transformations cannot preserve truth and mark integrity.
+            provider = source_first.configure_provider(secret_file, provider_name, model)
+            hymark = source_first.load_hymark_backend(backend_path)
+            for attempt in (1, 2):
+                plan = _repair_sections_with_provider(
+                    hymark,
+                    plan=plan,
+                    sources=sources,
+                    labels=labels,
+                    errors=source_first._plan_errors(plan, sources),
+                    attempt=attempt,
+                    out_dir=job_dir,
+                )
+                errors = source_first._plan_errors(plan, sources)
+                if not errors:
+                    break
+            if errors:
+                raise RuntimeError("targeted second-opportunity section repair failed: " + "; ".join(errors))
+            repair_mode = "provider_section_repair_fallback"
+    else:
+        provider = {"selected_provider": "not_required_saved_plan_valid"}
+
+    if repair_mode == "deterministic_structural_repair_no_provider":
+        provider = {"selected_provider": "not_required_deterministic_repair"}
 
     affected = set(labels)
     original_sections = {str(row.get("source_label") or ""): row for row in original_plan.get("source_sections") or []}
@@ -201,6 +359,10 @@ def repair_and_render(
             raise RuntimeError(f"targeted repair illegally altered untouched section {label}")
     if plan.get("essay") != original_plan.get("essay"):
         raise RuntimeError("targeted section repair illegally altered the accepted essay")
+
+    final_errors = source_first._plan_errors(plan, sources)
+    if final_errors:
+        raise RuntimeError("saved-plan repair remained invalid: " + "; ".join(final_errors))
 
     result = source_first._render_opportunity(
         job_dir=job_dir,
@@ -236,6 +398,8 @@ def repair_and_render(
             "saved_job": str(saved_job),
             "saved_plan": str(saved_plan_path),
             "affected_sections": labels,
+            "repair_mode": repair_mode,
+            "deterministic_actions": deterministic_actions,
             "source_c_preserved": "Source C" not in affected,
             "essay_preserved": True,
             "full_second_opportunity_regeneration": False,
