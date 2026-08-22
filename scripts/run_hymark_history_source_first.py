@@ -3,13 +3,18 @@ from __future__ import annotations
 
 """Production wrapper around the source-first History builder.
 
-The core builder is retained byte-for-byte in run_hymark_history_source_first_core.py.
-This wrapper narrows the repair policy without weakening source, mark, or provenance
+The retained core builder provides source locking, validation and rendering. This
+wrapper tightens planner/output policy without weakening source, mark or provenance
 controls:
 
 * 5-10 source-based subquestions are permitted when the section still totals 30.
 * A thin essay memorandum is repaired independently instead of regenerating an
   otherwise-valid source-question plan.
+* Grade metadata is hydrated before rendering.
+* Customer teaching extracts may not silently inherit primary/official-source
+  authority in learner questions or memoranda.
+* Quote-question memo answers must be exact locked-source text.
+* Generic cross-subject calculation instructions are removed from History output.
 """
 
 import json
@@ -22,11 +27,30 @@ try:
 except ModuleNotFoundError:
     import run_hymark_history_source_first_core as _core
 
+try:
+    from products.homs_history_output_policy import (
+        history_pack_errors,
+        hydrate_history_grade,
+        normalise_history_pack,
+        replace_docx_instruction,
+    )
+except ModuleNotFoundError:
+    from homs_history_output_policy import (  # type: ignore
+        history_pack_errors,
+        hydrate_history_grade,
+        normalise_history_pack,
+        replace_docx_instruction,
+    )
+
+
 _ORIGINAL_PLAN_ERRORS = _core._plan_errors
 _ORIGINAL_GENERATION_PROMPT = _core._generation_prompt
+_ORIGINAL_PACK_FROM_PLAN = _core._pack_from_plan
+_ORIGINAL_RENDER_OPPORTUNITY = _core._render_opportunity
 
 
 def _generation_prompt(request: dict[str, Any], sources: list[dict[str, str]], opportunity: int) -> str:
+    request = hydrate_history_grade(request)
     prompt = _ORIGINAL_GENERATION_PROMPT(request, sources, opportunity)
     prompt = prompt.replace(
         "Each source section should contain 5-8 substantive subquestions",
@@ -35,6 +59,13 @@ def _generation_prompt(request: dict[str, Any], sources: list[dict[str, str]], o
     prompt = prompt.replace(
         "Give a detailed marking outline for both alternatives.",
         "Give a detailed marking outline for both alternatives with at least 8 substantive historical content/argument points per option, plus argument/evidence/analysis/structure guidance.",
+    )
+    prompt += (
+        "\n\nSOURCE AUTHORITY LAW\n"
+        "- A customer-supplied teaching extract is not automatically an authenticated primary or official source.\n"
+        "- Do not call such an extract an official defence, official justification, official argument or direct evidence of policymakers' intentions unless its supplied provenance explicitly establishes that status.\n"
+        "- Questions may analyse arguments presented in the teaching extract and may test contextual historical knowledge when clearly framed as own knowledge.\n"
+        "- If a question asks the learner to quote from a source, the memorandum answer must reproduce exact words present in the locked source.\n"
     )
     return prompt
 
@@ -65,6 +96,7 @@ def _repair_essay_only(
     opportunity: int,
     opportunity_dir: Path,
 ) -> dict[str, Any]:
+    request = hydrate_history_grade(request)
     existing = dict(plan.get("essay") or {})
     prompt = f"""Repair ONLY the essay memorandum of this Grade {request.get('grade')} South African History examination.
 
@@ -88,6 +120,7 @@ NON-NEGOTIABLE RULES
 - marking_guidance must address argument, evidence, analysis/synthesis, factual accuracy and structure.
 - Do not invent a quotation, historian, author, publication, date, photograph, cartoon, map, graph or source provenance.
 - Do not refer to a fictional or reconstructed source.
+- Do not upgrade a customer teaching extract into an authenticated official or primary source.
 - Return strict JSON only in the form {{"essay": {{...}}}}.
 """
     repaired = _core.model_json(
@@ -108,6 +141,47 @@ NON-NEGOTIABLE RULES
     return updated
 
 
+def _pack_from_plan(
+    request: dict[str, Any],
+    sources: list[dict[str, str]],
+    plan: dict[str, Any],
+    opportunity: int,
+) -> dict[str, Any]:
+    hydrated = hydrate_history_grade(request)
+    pack = _ORIGINAL_PACK_FROM_PLAN(hydrated, sources, plan, opportunity)
+    pack = normalise_history_pack(pack)
+    errors = history_pack_errors(pack)
+    if errors:
+        raise RuntimeError("HOMS History output truth policy refused pack: " + "; ".join(errors))
+    return pack
+
+
+def _render_opportunity(
+    *,
+    job_dir: Path,
+    request: dict[str, Any],
+    sources: list[dict[str, str]],
+    plan: dict[str, Any],
+    opportunity: int,
+) -> dict[str, Any]:
+    result = _ORIGINAL_RENDER_OPPORTUNITY(
+        job_dir=job_dir,
+        request=hydrate_history_grade(request),
+        sources=sources,
+        plan=plan,
+        opportunity=opportunity,
+    )
+    suffix = "1stOpp" if opportunity == 1 else "2ndOpp"
+    opportunity_dir = job_dir / suffix
+    for path in opportunity_dir.glob("*.docx"):
+        replace_docx_instruction(path)
+    for key in ("exam", "memo"):
+        path = Path(str(result.get(key) or ""))
+        if path.is_file():
+            replace_docx_instruction(path)
+    return result
+
+
 def _generate_plan(
     hymark: Any,
     request: dict[str, Any],
@@ -115,6 +189,7 @@ def _generate_plan(
     opportunity: int,
     opportunity_dir: Path,
 ) -> dict[str, Any]:
+    request = hydrate_history_grade(request)
     system = (
         "You are an experienced South African FET History examiner. The source texts are immutable evidence objects. "
         "You write only rigorous source-based questions and specific marking memoranda. Return JSON only."
@@ -149,22 +224,21 @@ def _generate_plan(
     return plan
 
 
-# Patch the retained core in-process. run_builder() resolves these names from the
-# core module globals, so all of the original rendering/source-lock machinery is
-# retained unchanged.
 _core._generation_prompt = _generation_prompt
 _core._plan_errors = _plan_errors
 _core._generate_plan = _generate_plan
+_core._pack_from_plan = _pack_from_plan
+_core._render_opportunity = _render_opportunity
 
-# Re-export the core API so existing imports/tests keep working.
 for _name, _value in vars(_core).items():
     if not _name.startswith("__") and _name not in globals():
         globals()[_name] = _value
 
-# Explicitly expose the production overrides after the compatibility export.
 globals()["_generation_prompt"] = _generation_prompt
 globals()["_plan_errors"] = _plan_errors
 globals()["_generate_plan"] = _generate_plan
+globals()["_pack_from_plan"] = _pack_from_plan
+globals()["_render_opportunity"] = _render_opportunity
 run_builder = _core.run_builder
 main = _core.main
 ENGINE_IDENTITY = _core.ENGINE_IDENTITY
