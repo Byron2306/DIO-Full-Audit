@@ -23,6 +23,7 @@ def audit_profile_studio(
     min_separate_records: int = 4,
     min_requirements: int = 2,
     min_issues: int = 1,
+    required_review_states: set[str] | None = None,
 ) -> dict[str, Any]:
     receipt_path = Path(receipt_path).resolve()
     receipt = _load(receipt_path)
@@ -49,6 +50,8 @@ def audit_profile_studio(
     named_sources = [str(row.get("source_path") or row.get("source_ref") or "") for row in mapped_rows]
     mapped_ids = {str(row.get("evidence_id") or "") for row in mapped_rows if str(row.get("evidence_id") or "")}
     provenance_ids = {str(row.get("evidence_id") or "") for row in provenance if str(row.get("evidence_id") or "")}
+    observed_review_states = {str(value) for value in receipt.get("review_states") or [] if str(value)}
+    expected_review_states = {str(value) for value in (required_review_states or {"CONTESTED"}) if str(value)}
 
     checks = {
         "schema": receipt.get("schema") == "dio.evidence_review_studio.receipt.v1",
@@ -58,7 +61,7 @@ def audit_profile_studio(
         "requirements_substantive": requirement_count >= min_requirements,
         "issues_preserved": int(receipt.get("issue_count") or 0) >= min_issues,
         "open_questions_preserved": int(receipt.get("open_question_count") or 0) >= min_issues,
-        "contested_state_present": "CONTESTED" in set(receipt.get("review_states") or []),
+        "required_review_state_present": bool(expected_review_states) and bool(expected_review_states.intersection(observed_review_states)),
         "named_evidence_mapping_present": receipt.get("named_evidence_mapping_present") is True,
         "all_requirements_have_named_evidence": len(mapping) >= requirement_count > 0 and all(bool(rows) for rows in mapping.values()),
         "named_evidence_uses_customer_source_refs": bool(named_sources) and all(name.startswith("SOURCES/") for name in named_sources),
@@ -91,6 +94,8 @@ def audit_profile_studio(
         "acceptance_token": PASS_TOKEN if passed else REFUSE_TOKEN,
         "artifact_quality_verified": passed,
         "profile_id": expected_profile_id,
+        "required_review_states": sorted(expected_review_states),
+        "observed_review_states": sorted(observed_review_states),
         "checks": checks,
         "failed_quality_checks": [name for name, ok in checks.items() if not ok],
         "identity_state": "controlled_pilot_unpromoted",
