@@ -47,6 +47,8 @@ def audit_profile_studio(
     requirement_count = int(receipt.get("requirement_count") or 0)
     mapped_rows = [row for rows in mapping.values() for row in (rows or [])]
     named_sources = [str(row.get("source_path") or row.get("source_ref") or "") for row in mapped_rows]
+    mapped_ids = {str(row.get("evidence_id") or "") for row in mapped_rows if str(row.get("evidence_id") or "")}
+    provenance_ids = {str(row.get("evidence_id") or "") for row in provenance if str(row.get("evidence_id") or "")}
 
     checks = {
         "schema": receipt.get("schema") == "dio.evidence_review_studio.receipt.v1",
@@ -60,7 +62,7 @@ def audit_profile_studio(
         "named_evidence_mapping_present": receipt.get("named_evidence_mapping_present") is True,
         "all_requirements_have_named_evidence": len(mapping) >= requirement_count > 0 and all(bool(rows) for rows in mapping.values()),
         "named_evidence_uses_customer_source_refs": bool(named_sources) and all(name.startswith("SOURCES/") for name in named_sources),
-        "evidence_provenance_index_present": len(provenance) >= len(mapped_rows) and all(str(row.get("evidence_id") or "") and str(row.get("source_ref") or "") for row in provenance),
+        "evidence_provenance_index_present": bool(mapped_ids) and mapped_ids.issubset(provenance_ids) and all(str(row.get("source_ref") or "") for row in provenance),
         "customer_assertions_not_self_supporting": receipt.get("customer_assertions_used_as_self_supporting_evidence") is False,
         "baseline_review_preserved": receipt.get("baseline_controlled_review_preserved") is True,
         "format_core_qa": receipt.get("format_core_qa_passed") is True,
