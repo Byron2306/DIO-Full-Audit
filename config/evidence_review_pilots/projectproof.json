@@ -1,0 +1,115 @@
+{
+  "schema": "dio.evidence_review.profile_pilot_spec.v1",
+  "profile_id": "projectproof",
+  "display_name": "ProjectProof",
+  "expected_review_states": ["PARTIAL"],
+  "min_separate_records": 5,
+  "min_requirements": 2,
+  "min_issues": 1,
+  "required_authorities": [
+    "customer_source_owner",
+    "authorised_project_reviewer"
+  ],
+  "evidence_input_labels": [
+    "Vesper-rehydrated customer source records",
+    "project charter and milestone records",
+    "budget and RAID evidence"
+  ],
+  "expected_outputs": [
+    "typed controlled project evidence review pack",
+    "proof manifest",
+    "processing receipt"
+  ],
+  "sources": [
+    {
+      "filename": "project_charter.md",
+      "kind": "text",
+      "content": "# Project charter extract supplied by customer\n\nProject: Civic Data Lab quarterly delivery programme.\nMilestone M3 due date: 31 July 2026.\nGovernance boundary: milestone and deliverable acceptance remain with the authorised steering/funder reviewers.\n\nThe charter supplies scope and timing context. It does not itself establish that M3 was accepted, that the project succeeded, or that budget status is approved.\n"
+    },
+    {
+      "filename": "milestone_tracker.csv",
+      "kind": "csv",
+      "headers": ["milestone_id", "due_date", "tracker_state", "acceptance_record", "customer_record_state"],
+      "rows": [
+        ["M1", "31 May 2026", "complete", "ACC-M1", "tracker and acceptance reference supplied"],
+        ["M2", "30 June 2026", "complete", "ACC-M2", "tracker and acceptance reference supplied"],
+        ["M3", "31 July 2026", "complete", "", "tracker marks complete; no acceptance record supplied"]
+      ]
+    },
+    {
+      "filename": "m3_deliverable_index.md",
+      "kind": "text",
+      "content": "# M3 deliverable index supplied by customer\n\nMilestone: M3\nIndexed deliverable: quarterly project data package\nFolder state: deliverable files listed in customer folder\nAcceptance email or signed acceptance record: NOT SUPPLIED\n\nPresence of an indexed deliverable is not milestone acceptance and does not create funder acceptance authority.\n"
+    },
+    {
+      "filename": "budget_status.csv",
+      "kind": "csv",
+      "headers": ["measure", "value", "as_at", "customer_record_state"],
+      "rows": [
+        ["budget_burn_percent", "62", "31 July 2026", "customer-reported project status"],
+        ["elapsed_time_percent", "58", "31 July 2026", "customer-reported project status"]
+      ]
+    },
+    {
+      "filename": "raid_log.csv",
+      "kind": "csv",
+      "headers": ["item_id", "type", "state", "owner", "customer_record_state"],
+      "rows": [
+        ["R7", "risk", "OPEN", "Technical Lead", "open risk recorded in supplied RAID log"]
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_key": "PP-01",
+      "statement": "Review the supplied evidence for milestone M3 and keep tracker completion separate from authorised milestone or deliverable acceptance.",
+      "kind": "request",
+      "source_filename": "project_charter.md",
+      "source_anchor": "M3",
+      "mandatory": true
+    },
+    {
+      "requirement_key": "PP-02",
+      "statement": "Present supplied budget-burn, elapsed-time and open-risk records as project review evidence without issuing a project-success, budget or governance decision.",
+      "kind": "request",
+      "source_filename": "project_charter.md",
+      "source_anchor": "PROJECT-STATUS",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_key": "CHARTER",
+      "filename": "project_charter.md",
+      "targets": ["PP-01", "PP-02"]
+    },
+    {
+      "evidence_key": "MILESTONE-TRACKER",
+      "filename": "milestone_tracker.csv",
+      "targets": ["PP-01"]
+    },
+    {
+      "evidence_key": "M3-DELIVERABLE-INDEX",
+      "filename": "m3_deliverable_index.md",
+      "targets": ["PP-01"]
+    },
+    {
+      "evidence_key": "BUDGET-STATUS",
+      "filename": "budget_status.csv",
+      "targets": ["PP-02"]
+    },
+    {
+      "evidence_key": "RAID-R7",
+      "filename": "raid_log.csv",
+      "targets": ["PP-02"]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_key": "PP-01",
+      "challenge_type": "missing_evidence",
+      "severity": "material",
+      "hypothesis": "The supplied milestone tracker marks M3 complete and the deliverable is indexed, but no acceptance email, signed acceptance record or equivalent authorised acceptance evidence is supplied. Human project review must not promote tracker completion into milestone or deliverable acceptance."
+    }
+  ]
+}
