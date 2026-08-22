@@ -100,6 +100,7 @@ def test_partial_is_valid_unresolved_family_state(tmp_path: Path) -> None:
     assert quality["acceptance_token"] == PASS_TOKEN
     assert quality["artifact_quality_verified"] is True
     assert quality["checks"]["required_review_state_present"] is True
+    assert quality["review_state_contract"] == "ANY_UNRESOLVED_STATE"
     assert quality["observed_review_states"] == ["PARTIAL"]
 
 
@@ -115,4 +116,32 @@ def test_product_can_require_contested_state_explicitly(tmp_path: Path) -> None:
     )
     assert quality["acceptance_token"] == REFUSE_TOKEN
     assert quality["artifact_quality_verified"] is False
+    assert quality["review_state_contract"] == "ALL_EXPLICIT_STATES"
     assert quality["failed_quality_checks"] == ["required_review_state_present"]
+
+
+def test_explicit_multi_state_contract_requires_every_state(tmp_path: Path) -> None:
+    incomplete = _write_valid_receipt(tmp_path / "incomplete", review_states=["CONTESTED"])
+    refused = audit_profile_studio(
+        incomplete,
+        expected_profile_id="assuranceroom",
+        min_separate_records=4,
+        min_requirements=2,
+        min_issues=2,
+        required_review_states={"CONTESTED", "PARTIAL"},
+    )
+    assert refused["acceptance_token"] == REFUSE_TOKEN
+    assert refused["failed_quality_checks"] == ["required_review_state_present"]
+
+    complete = _write_valid_receipt(tmp_path / "complete", review_states=["CONTESTED", "PARTIAL", "SUPPORTED"])
+    passed = audit_profile_studio(
+        complete,
+        expected_profile_id="assuranceroom",
+        min_separate_records=4,
+        min_requirements=2,
+        min_issues=2,
+        required_review_states={"CONTESTED", "PARTIAL"},
+    )
+    assert passed["acceptance_token"] == PASS_TOKEN
+    assert passed["artifact_quality_verified"] is True
+    assert passed["review_state_contract"] == "ALL_EXPLICIT_STATES"
