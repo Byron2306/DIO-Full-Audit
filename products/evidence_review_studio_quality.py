@@ -52,11 +52,15 @@ def audit_profile_studio(
     mapped_ids = {str(row.get("evidence_id") or "") for row in mapped_rows if str(row.get("evidence_id") or "")}
     provenance_ids = {str(row.get("evidence_id") or "") for row in provenance if str(row.get("evidence_id") or "")}
     observed_review_states = {str(value) for value in receipt.get("review_states") or [] if str(value)}
-    expected_review_states = {
-        str(value)
-        for value in (required_review_states if required_review_states is not None else DEFAULT_UNRESOLVED_REVIEW_STATES)
-        if str(value)
-    }
+
+    if required_review_states is None:
+        expected_review_states = set(DEFAULT_UNRESOLVED_REVIEW_STATES)
+        required_review_state_ok = bool(expected_review_states.intersection(observed_review_states))
+        review_state_contract = "ANY_UNRESOLVED_STATE"
+    else:
+        expected_review_states = {str(value) for value in required_review_states if str(value)}
+        required_review_state_ok = bool(expected_review_states) and expected_review_states.issubset(observed_review_states)
+        review_state_contract = "ALL_EXPLICIT_STATES"
 
     checks = {
         "schema": receipt.get("schema") == "dio.evidence_review_studio.receipt.v1",
@@ -66,7 +70,7 @@ def audit_profile_studio(
         "requirements_substantive": requirement_count >= min_requirements,
         "issues_preserved": int(receipt.get("issue_count") or 0) >= min_issues,
         "open_questions_preserved": int(receipt.get("open_question_count") or 0) >= min_issues,
-        "required_review_state_present": bool(expected_review_states) and bool(expected_review_states.intersection(observed_review_states)),
+        "required_review_state_present": required_review_state_ok,
         "named_evidence_mapping_present": receipt.get("named_evidence_mapping_present") is True,
         "all_requirements_have_named_evidence": len(mapping) >= requirement_count > 0 and all(bool(rows) for rows in mapping.values()),
         "named_evidence_uses_customer_source_refs": bool(named_sources) and all(name.startswith("SOURCES/") for name in named_sources),
@@ -99,6 +103,7 @@ def audit_profile_studio(
         "acceptance_token": PASS_TOKEN if passed else REFUSE_TOKEN,
         "artifact_quality_verified": passed,
         "profile_id": expected_profile_id,
+        "review_state_contract": review_state_contract,
         "required_review_states": sorted(expected_review_states),
         "observed_review_states": sorted(observed_review_states),
         "checks": checks,
