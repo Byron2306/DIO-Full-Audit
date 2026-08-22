@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,6 +25,14 @@ def utc_now() -> str:
 def safe_name(value: str) -> str:
     cleaned = re.sub(r"[^A-Za-z0-9_.-]+", "_", value).strip("._")
     return cleaned[:90] or "job"
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def load_evidex_jobs(run_dir: Path) -> list[dict[str, Any]]:
@@ -56,54 +66,63 @@ def build_intake(job: dict[str, Any]) -> dict[str, Any]:
     contact_name, contact_email = infer_contact(str(item.get("sender") or ""))
     subject = str(item.get("subject") or "Evidence pack request")
     text = str(evidence.get("text_extract") or "")
+    context = dict(job.get("customer_context") or {})
+    reporting = dict(context.get("reporting_period") or {})
+    supplied_kpis = [dict(row) for row in job.get("kpis") or [] if isinstance(row, dict)]
+    supplied_gaps = [str(row) for row in job.get("known_gaps") or [] if str(row).strip()]
+
+    organization = str(context.get("organisation") or "").strip() or "Client organization to confirm"
+    start = str(reporting.get("start") or "").strip() or "To be confirmed"
+    end = str(reporting.get("end") or "").strip() or "To be confirmed"
+
+    kpis = supplied_kpis or [
+        {
+            "name": "Evidence request and source materials organized",
+            "target": "Complete evidence pack",
+            "actual": "Candidate evidence received",
+            "measurement": "Email request, listed attachments, and source notes",
+        }
+    ]
+    known_gaps = supplied_gaps or [
+        "Client organization, reporting period, donor template, and KPI list may need confirmation.",
+        f"Original route reason: {job['route']['reason']}",
+        f"Original evidence extract: {text[:500]}",
+    ]
 
     return {
         "client": {
-            "organization": "Client organization to confirm",
+            "organization": organization,
             "contact_name": contact_name,
             "contact_email": contact_email,
         },
         "pack": {
             "purpose": subject,
-            "donor": "To be confirmed",
-            "project_name": subject[:80] or "Evidence Pack",
-            "grant_id": job["job_id"],
-            "reporting_period": {
-                "start": "To be confirmed",
-                "end": "To be confirmed",
-            },
+            "donor": str(context.get("donor") or "To be confirmed"),
+            "project_name": str(context.get("project_name") or subject[:80] or "Evidence Pack"),
+            "grant_id": str(context.get("grant_id") or job["job_id"]),
+            "reporting_period": {"start": start, "end": end},
             "tone": "clear, conservative, audit-ready",
             "include_appendix": True,
         },
-        "kpis": [
-            {
-                "name": "Evidence request and source materials organized",
-                "target": "Complete evidence pack",
-                "actual": "Candidate evidence received",
-                "measurement": "Email request, listed attachments, and source notes",
-            }
-        ],
+        "kpis": kpis,
         "constraints": {
             "avoid_claims": [
                 "Do not claim outcomes that are not directly supported by supplied evidence.",
                 "Do not treat this generated pack as final until reviewed by the operator.",
+                "Preserve contradictions and provenance gaps rather than silently reconciling them.",
             ],
-            "known_gaps": [
-                "Client organization, reporting period, donor template, and KPI list may need confirmation.",
-                f"Original route reason: {job['route']['reason']}",
-                f"Original evidence extract: {text[:500]}",
-            ],
+            "known_gaps": known_gaps,
         },
         "billing": {
-            "client_type": "ngo",
+            "client_type": str(context.get("client_type") or "ngo"),
             "quantity": 1,
-            "currency": "ZAR",
+            "currency": str(context.get("currency") or "ZAR"),
             "service_name": "Evidex Evidence Pack",
         },
     }
 
 
-def write_source_file(job: dict[str, Any], uploads_dir: Path) -> None:
+def write_source_files(job: dict[str, Any], uploads_dir: Path) -> Path:
     item = first_input(job)
     evidence = first_evidence(job)
     body = f"""
@@ -129,7 +148,61 @@ Evidence extract
 {evidence.get("text_extract", "")}
 """.strip()
     uploads_dir.mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "autorelease_source_email.txt").write_text(body + "\n", encoding="utf-8")
+    source_email = uploads_dir / "autorelease_source_email.txt"
+    source_email.write_text(body + "\n", encoding="utf-8")
+
+    manifest_rows = [
+        {
+            "name": source_email.name,
+            "source_path": None,
+            "uploaded_path": str(source_email),
+            "sha256": _sha256(source_email),
+            "bytes": source_email.stat().st_size,
+            "source_role": "request_context",
+        }
+    ]
+    for index, raw in enumerate(job.get("source_files") or [], 1):
+        if not isinstance(raw, dict):
+            continue
+        source = Path(str(raw.get("path") or "")).expanduser().resolve()
+        if not source.is_file():
+            raise FileNotFoundError(f"Evidex customer source missing: {source}")
+        expected = str(raw.get("sha256") or "")
+        observed = _sha256(source)
+        if expected and observed != expected:
+            raise RuntimeError(f"Evidex customer source hash mismatch before native ingestion: {source.name}")
+        name = safe_name(str(raw.get("name") or source.name))
+        target = uploads_dir / name
+        if target.exists():
+            target = uploads_dir / f"{index:02d}_{name}"
+        shutil.copy2(source, target)
+        manifest_rows.append(
+            {
+                "name": target.name,
+                "source_path": str(source),
+                "uploaded_path": str(target),
+                "sha256": observed,
+                "bytes": target.stat().st_size,
+                "source_role": str(raw.get("source_role") or "customer_evidence"),
+            }
+        )
+
+    manifest = {
+        "schema": "dio.evidex.native_customer_source_manifest.v1",
+        "job_id": job["job_id"],
+        "source_count": len(manifest_rows),
+        "sources": manifest_rows,
+        "authority_created": False,
+        "external_effects": False,
+    }
+    manifest_path = uploads_dir.parent / "CUSTOMER_SOURCE_MANIFEST.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return manifest_path
+
+
+def write_source_file(job: dict[str, Any], uploads_dir: Path) -> None:
+    """Compatibility entry point retained for callers that expect the old name."""
+    write_source_files(job, uploads_dir)
 
 
 def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
@@ -143,7 +216,7 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
     intake = build_intake(job)
     intake_path = engine_dir / "intake.json"
     intake_path.write_text(json.dumps(intake, indent=2), encoding="utf-8")
-    write_source_file(job, uploads_dir)
+    source_manifest = write_source_files(job, uploads_dir)
 
     env = os.environ.copy()
     env["LLM_DISABLED"] = "1"
@@ -180,6 +253,8 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
         "stderr": result.stderr.strip(),
         "intake_path": str(intake_path),
         "uploads_dir": str(uploads_dir),
+        "customer_source_manifest": str(source_manifest),
+        "customer_source_count": len(list(uploads_dir.iterdir())),
         "output_dir": str(output_dir),
     }
     (job_dir / "EVIDEX_RUN_RECEIPT.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")

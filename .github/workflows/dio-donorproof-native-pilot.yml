@@ -1,0 +1,45 @@
+name: DIO DonorProof Native Pilot
+
+on:
+  pull_request:
+    paths:
+      - "config/evidence_review_pilots/donorproof.json"
+      - "products/evidence_review.py"
+      - "products/evidence_review_profile_pilot.py"
+      - "products/evidence_review_studio.py"
+      - "products/evidence_review_studio_quality.py"
+      - "scripts/run_evidence_review_profile_pilot_checkpoint.py"
+      - "tests/test_donorproof_profile_pilot.py"
+      - "tests/test_evidence_review_profile_pilot.py"
+      - "tests/test_evidence_review_studio_quality_states.py"
+      - ".github/workflows/dio-donorproof-native-pilot.yml"
+
+jobs:
+  inner-state-refusal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install focused test dependencies
+        run: python -m pip install --disable-pip-version-check pytest python-docx Pillow python-pptx
+      - name: Verify fail-closed explicit state contract
+        run: >-
+          python -m pytest -q
+          tests/test_evidence_review_profile_pilot.py::test_multi_state_profile_pilot_refuses_when_one_explicit_state_is_missing
+
+  donorproof-product-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install focused test dependencies
+        run: python -m pip install --disable-pip-version-check pytest python-docx Pillow python-pptx
+      - name: Verify DonorProof product and shared quality-state contracts
+        run: |
+          python -m pytest -q \
+            tests/test_donorproof_profile_pilot.py \
+            tests/test_evidence_review_studio_quality_states.py

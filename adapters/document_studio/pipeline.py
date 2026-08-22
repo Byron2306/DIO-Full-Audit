@@ -576,25 +576,15 @@ def create_bilingual_docx(
     document.save(path)
 
 
-def convert_to_pdf(paths: list[Path], out_dir: Path) -> list[Path]:
-    out_dir.mkdir(parents=True, exist_ok=True)
-    profile = Path(tempfile.mkdtemp(prefix="dio-docstudio-lo-"))
-    try:
-        command = [
-            "libreoffice", "--headless", f"-env:UserInstallation=file://{profile}",
-            "--convert-to", "pdf", "--outdir", str(out_dir), *[str(path) for path in paths],
-        ]
-        completed = subprocess.run(command, text=True, capture_output=True, check=False, timeout=120)
-        if completed.returncode != 0:
-            raise RuntimeError(f"LibreOffice conversion failed: {completed.stderr[-800:]}")
-    finally:
-        shutil.rmtree(profile, ignore_errors=True)
-    outputs = [out_dir / f"{path.stem}.pdf" for path in paths]
-    missing = [str(path) for path in outputs if not path.is_file()]
-    if missing:
-        raise FileNotFoundError("Missing converted PDFs: " + ", ".join(missing))
-    return outputs
 
+def convert_to_pdf(paths: list[Path], out_dir: Path) -> list[Path]:
+    from adapters.libreoffice_low_memory import convert_many_to_pdf
+
+    return convert_many_to_pdf(
+        paths,
+        out_dir,
+        profile_prefix="dio-docstudio-lo-",
+    )
 
 def create_proof_image(
     redline_pdf: Path,

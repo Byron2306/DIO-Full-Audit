@@ -1,0 +1,128 @@
+{
+  "schema": "dio.evidence_review.profile_pilot_spec.v1",
+  "profile_id": "donorproof",
+  "display_name": "DonorProof",
+  "expected_review_states": ["CONTESTED", "PARTIAL"],
+  "min_separate_records": 6,
+  "min_requirements": 2,
+  "min_issues": 2,
+  "required_authorities": [
+    "customer_source_owner",
+    "authorised_donor_reporting_reviewer"
+  ],
+  "evidence_input_labels": [
+    "Vesper-rehydrated customer source records",
+    "donor agreement and logframe records",
+    "completion and expenditure evidence"
+  ],
+  "expected_outputs": [
+    "typed controlled donor evidence review pack",
+    "proof manifest",
+    "processing receipt"
+  ],
+  "sources": [
+    {
+      "filename": "donor_agreement_logframe.md",
+      "kind": "text",
+      "content": "# Donor agreement and logframe extract supplied by customer\n\nReporting period: January-June 2026.\nIndicator I2 target: 40 rehabilitated water points.\nFinal donor acceptance, grant-compliance conclusions and approval of the donor report remain with authorised humans.\n\nThis record supplies the target and reporting boundary only. It does not establish the number of completed sites or approve any donor representation.\n"
+    },
+    {
+      "filename": "engineering_completion_summary.csv",
+      "kind": "csv",
+      "headers": ["indicator_id", "record_type", "verified_completed_sites", "period", "customer_record_state"],
+      "rows": [
+        ["I2", "engineering_completion_certificates_summary", "37", "January-June 2026", "37 completed sites supported by supplied engineering completion certificates"]
+      ]
+    },
+    {
+      "filename": "donor_narrative_draft.md",
+      "kind": "text",
+      "content": "# Semi-annual donor narrative draft supplied by customer\n\nIndicator I2 narrative claim: 41 rehabilitated water points completed during January-June 2026.\n\nThis is a draft narrative claim. It is not a donor-accepted representation and must be reconciled against the supplied engineering completion evidence before authorised reporting.\n"
+    },
+    {
+      "filename": "workstream2_expenditure_ledger.csv",
+      "kind": "csv",
+      "headers": ["workstream", "reported_total", "currency", "period", "customer_record_state"],
+      "rows": [
+        ["Workstream 2", "1842600", "ZAR", "January-June 2026", "customer-supplied expenditure ledger total"]
+      ]
+    },
+    {
+      "filename": "supplier_invoice_reference_register.csv",
+      "kind": "csv",
+      "headers": ["invoice_reference", "amount", "currency", "attachment_state", "customer_record_state"],
+      "rows": [
+        ["SUP-INV-MISSING", "96400", "ZAR", "NOT SUPPLIED", "invoice referenced by reporting records but no invoice attachment supplied"]
+      ]
+    },
+    {
+      "filename": "donor_review_note.md",
+      "kind": "text",
+      "content": "# Donor reporting review note supplied by customer\n\nThe customer requests a traceable semi-annual donor evidence pack. Engineering evidence supports 37 completed sites while the draft narrative states 41. A supplier invoice for R96,400 is referenced but the invoice itself is not supplied.\n\nDIO must preserve these review conditions and may not determine donor eligibility, award funding, certify grant compliance, record donor acceptance or approve the final donor report.\n"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_key": "DP-01",
+      "statement": "Reconcile Indicator I2 completion evidence against the donor narrative without selecting between the supplied 37-site evidence position and the 41-site draft claim.",
+      "kind": "request",
+      "source_filename": "donor_agreement_logframe.md",
+      "source_anchor": "I2",
+      "mandatory": true
+    },
+    {
+      "requirement_key": "DP-02",
+      "statement": "Reconcile the supplied Workstream 2 expenditure evidence and surface the referenced R96,400 supplier invoice as missing rather than treating the ledger reference as the invoice itself.",
+      "kind": "request",
+      "source_filename": "donor_review_note.md",
+      "source_anchor": "EXPENDITURE",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_key": "LOGFRAME",
+      "filename": "donor_agreement_logframe.md",
+      "targets": ["DP-01", "DP-02"]
+    },
+    {
+      "evidence_key": "ENGINEERING-37",
+      "filename": "engineering_completion_summary.csv",
+      "targets": ["DP-01"]
+    },
+    {
+      "evidence_key": "NARRATIVE-41",
+      "filename": "donor_narrative_draft.md",
+      "targets": ["DP-01"]
+    },
+    {
+      "evidence_key": "EXPENDITURE-LEDGER",
+      "filename": "workstream2_expenditure_ledger.csv",
+      "targets": ["DP-02"]
+    },
+    {
+      "evidence_key": "INVOICE-REFERENCE",
+      "filename": "supplier_invoice_reference_register.csv",
+      "targets": ["DP-02"]
+    },
+    {
+      "evidence_key": "REVIEW-NOTE",
+      "filename": "donor_review_note.md",
+      "targets": ["DP-01", "DP-02"]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_key": "DP-01",
+      "challenge_type": "contradiction",
+      "severity": "material",
+      "hypothesis": "The supplied engineering completion evidence supports 37 rehabilitated water points while the donor narrative draft claims 41 completed sites for the same reporting period. Human donor review must preserve the 37-versus-41 discrepancy instead of silently reconciling it."
+    },
+    {
+      "requirement_key": "DP-02",
+      "challenge_type": "missing_evidence",
+      "severity": "material",
+      "hypothesis": "The supplied reporting records reference a supplier invoice for R96,400, but the invoice attachment itself is not supplied. Human donor review must not treat the ledger or invoice-reference register as a substitute for the missing invoice."
+    }
+  ]
+}

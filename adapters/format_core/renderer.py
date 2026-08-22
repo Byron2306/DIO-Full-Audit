@@ -799,22 +799,18 @@ def _render_vtt(projected: dict[str, Any], path: Path) -> bool:
 
 
 def _convert_docx_to_pdf(docx_path: Path, pdf_dir: Path) -> Path:
-    pdf_dir.mkdir(parents=True, exist_ok=True)
-    profile = Path(tempfile.mkdtemp(prefix="dio-format-lo-"))
-    try:
-        completed = subprocess.run(
-            ["libreoffice", "--headless", f"-env:UserInstallation=file://{profile}", "--convert-to", "pdf", "--outdir", str(pdf_dir), str(docx_path)],
-            text=True, capture_output=True, check=False, timeout=120,
-        )
-        if completed.returncode != 0:
-            raise RuntimeError(f"LibreOffice PDF conversion failed: {completed.stderr[-800:]}")
-    finally:
-        shutil.rmtree(profile, ignore_errors=True)
-    output = pdf_dir / f"{docx_path.stem}.pdf"
-    if not output.is_file():
-        raise FileNotFoundError(f"Expected PDF was not generated: {output}")
-    return output
+    from adapters.libreoffice_low_memory import convert_many_to_pdf
 
+    produced = convert_many_to_pdf(
+        [docx_path],
+        pdf_dir,
+        profile_prefix="dio-format-lo-",
+    )
+    if len(produced) != 1:
+        raise RuntimeError(
+            f"Format Core expected one PDF, received {len(produced)}"
+        )
+    return produced[0]
 
 def _normalise_text(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip().casefold()

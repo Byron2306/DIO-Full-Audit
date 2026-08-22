@@ -1,0 +1,69 @@
+{
+  "schema": "dio.portfolio.suite_studio_contract.v1",
+  "suite_count": 6,
+  "suites": [
+    {
+      "suite_id": "education-research",
+      "name": "Education & Research",
+      "eyebrow": "Learning, assessment and scholarly integrity",
+      "promise": "Evidence-bound tools for assessment, curriculum, learning design, research review and academic decision support.",
+      "audience_archetype": "academic_research"
+    },
+    {
+      "suite_id": "enterprise-operations",
+      "name": "Enterprise Operations",
+      "eyebrow": "Performance and professional evidence",
+      "promise": "Turn operational, performance and professional records into reviewable evidence without inventing ratings or approvals.",
+      "audience_archetype": "executive_operations"
+    },
+    {
+      "suite_id": "public-programme-ops",
+      "name": "Public & Programme Ops",
+      "eyebrow": "Programmes, bids, grants and regulated work",
+      "promise": "Assemble obligations, delivery evidence and decision-ready packs while keeping submission and regulatory authority human-held.",
+      "audience_archetype": "public_programme"
+    },
+    {
+      "suite_id": "evidence-assurance",
+      "name": "Evidence & Assurance",
+      "eyebrow": "Claims, controls and defensible proof",
+      "promise": "Bind claims to source evidence, expose gaps and contradictions, and prepare inspectable assurance handoffs.",
+      "audience_archetype": "assurance"
+    },
+    {
+      "suite_id": "ai-digital-trust",
+      "name": "AI & Digital Trust",
+      "eyebrow": "Model, agent and cyber assurance",
+      "promise": "Build evidence-bound assurance around AI systems, releases, changes, incidents and digital controls without creating autonomous authority.",
+      "audience_archetype": "assurance"
+    },
+    {
+      "suite_id": "demand-presence",
+      "name": "Demand & Presence",
+      "eyebrow": "Documents, markets and governed presence",
+      "promise": "Produce professional documents, sense current markets, shape opportunities and campaigns, and route customer intake through governed presence rails.",
+      "audience_archetype": "professional_services"
+    }
+  ],
+  "studio_band": {
+    "title": "Production Studios",
+    "description": "Four full-grade Studios are portfolio production instruments. They remain separately governed from the 53 canonical ATLAS incarnations."
+  },
+  "status_copy": {
+    "BUYER_PRODUCTION_READY_BOUNDED": "Buyer production ready · bounded",
+    "INTERNAL_PRODUCTION_READY": "Internal production ready",
+    "NEEDS_SELLABILITY_GRADE": "Execution verified · sellability grade pending",
+    "REFUSE_PRODUCTION_READINESS": "Production readiness refused"
+  },
+  "suite_status_copy": {
+    "SUITE_PRODUCTION_READY_BOUNDED": "Suite production ready · bounded",
+    "ENGINEERING_VERIFIED_NEEDS_SELLABILITY": "Suite execution verified · sellability pending",
+    "REFUSE_SUITE_PRODUCTION": "Suite production readiness refused"
+  },
+  "build_acceptance_token": "DIO_PORTFOLIO_SUITE_SITE_BUILT_FROM_EVIDENCE",
+  "publication": "REFUSE",
+  "human_release": "NEEDS_YOU",
+  "authority_created": false,
+  "external_effects": false,
+  "claim_boundary": "Portfolio Suite Studio is a deterministic website projection of ATLAS suite membership and DIO evidence receipts. It may display execution, engineering, sellability and bounded production-readiness states exactly as proven by those receipts. It must not promote execution proof into buyer sellability, commercial validation, willingness to pay, ROI, autonomous release or market-scale claims."
+}

@@ -1,0 +1,131 @@
+{
+  "schema": "dio.evidence_review.profile_pilot_spec.v1",
+  "profile_id": "qualityproof",
+  "display_name": "QualityProof",
+  "expected_review_states": ["PARTIAL"],
+  "min_separate_records": 5,
+  "min_requirements": 2,
+  "min_issues": 2,
+  "required_authorities": [
+    "customer_source_owner",
+    "authorised_quality_reviewer"
+  ],
+  "evidence_input_labels": [
+    "Vesper-rehydrated customer source records",
+    "quality review records",
+    "NCR/CAPA and retraining evidence"
+  ],
+  "expected_outputs": [
+    "typed controlled quality evidence review pack",
+    "proof manifest",
+    "processing receipt"
+  ],
+  "sources": [
+    {
+      "filename": "quality_review_scope.md",
+      "kind": "text",
+      "content": "# Quality review scope supplied by customer\n\nReview item QP-01: reconcile NCR-226 and CAPA-91 records for management review. The supplied scope does not itself establish CAPA closure or quality acceptance.\n\nReview item QP-02: reconcile retraining evidence for all affected operators and surface missing records without inferring completion.\n\nThis is a management-review preparation asset only. DIO does not certify product or QMS compliance, close CAPA, issue a quality decision, score quality performance, submit material externally or release a final pack.\n"
+    },
+    {
+      "filename": "ncr_226.md",
+      "kind": "text",
+      "content": "# NCR-226 record supplied by customer\n\nNCR: NCR-226\nIssue: incorrect torque setting\nDiscovery date: 4 August 2026\nCustomer record state: nonconformance record supplied for management review\n\nThis record does not state that the nonconformance has been closed or that product or QMS compliance has been certified.\n"
+    },
+    {
+      "filename": "capa_91.md",
+      "kind": "text",
+      "content": "# CAPA-91 record supplied by customer\n\nCAPA: CAPA-91\nLinked NCR: NCR-226\nOwner: Quality Engineering Lead\nDue date: 25 August 2026\nCustomer record state: owner and due date recorded\nClosure evidence: NOT SUPPLIED\nIndependent verification of effectiveness: NOT SUPPLIED\n\nAn owner and due date do not establish CAPA closure or effectiveness.\n"
+    },
+    {
+      "filename": "retraining_register.csv",
+      "kind": "csv",
+      "headers": ["operator_id", "affected_by_ncr", "retraining_state", "evidence_state"],
+      "rows": [
+        ["OP-001", "yes", "complete", "record supplied"],
+        ["OP-002", "yes", "complete", "record supplied"],
+        ["OP-003", "yes", "complete", "record supplied"],
+        ["OP-004", "yes", "complete", "record supplied"],
+        ["OP-005", "yes", "complete", "record supplied"],
+        ["OP-006", "yes", "complete", "record supplied"],
+        ["OP-007", "yes", "complete", "record supplied"],
+        ["OP-008", "yes", "complete", "record supplied"],
+        ["OP-009", "yes", "complete", "record supplied"],
+        ["OP-010", "yes", "complete", "record supplied"],
+        ["OP-011", "yes", "complete", "record supplied"],
+        ["OP-012", "yes", "complete", "record supplied"],
+        ["OP-013", "yes", "complete", "record supplied"],
+        ["OP-014", "yes", "complete", "record supplied"],
+        ["OP-015", "yes", "complete", "record supplied"],
+        ["OP-016", "yes", "complete", "record supplied"],
+        ["OP-017", "yes", "complete", "record supplied"],
+        ["OP-018", "yes", "complete", "record supplied"],
+        ["OP-019", "yes", "not evidenced", "operator retraining record missing"],
+        ["OP-020", "yes", "not evidenced", "operator retraining record missing"]
+      ]
+    },
+    {
+      "filename": "internal_audit_extract.md",
+      "kind": "text",
+      "content": "# Internal-audit extract supplied by customer\n\nManagement review references NCR-226, CAPA-91 and affected-operator retraining evidence. The supplied extract does not record CAPA closure, effectiveness verification, product certification or QMS certification.\n"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_key": "QP-01",
+      "statement": "Reconcile the supplied NCR-226 and CAPA-91 records and surface whether closure or effectiveness evidence is supplied.",
+      "kind": "request",
+      "source_filename": "quality_review_scope.md",
+      "source_anchor": "QP-01",
+      "mandatory": true
+    },
+    {
+      "requirement_key": "QP-02",
+      "statement": "Reconcile retraining evidence for all 20 affected operators and surface missing records without inferring completion.",
+      "kind": "request",
+      "source_filename": "quality_review_scope.md",
+      "source_anchor": "QP-02",
+      "mandatory": true
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_key": "SCOPE",
+      "filename": "quality_review_scope.md",
+      "targets": ["QP-01", "QP-02"]
+    },
+    {
+      "evidence_key": "NCR-226",
+      "filename": "ncr_226.md",
+      "targets": ["QP-01"]
+    },
+    {
+      "evidence_key": "CAPA-91",
+      "filename": "capa_91.md",
+      "targets": ["QP-01", "QP-02"]
+    },
+    {
+      "evidence_key": "RETRAINING",
+      "filename": "retraining_register.csv",
+      "targets": ["QP-02"]
+    },
+    {
+      "evidence_key": "INTERNAL-AUDIT",
+      "filename": "internal_audit_extract.md",
+      "targets": ["QP-01", "QP-02"]
+    }
+  ],
+  "issues": [
+    {
+      "requirement_key": "QP-01",
+      "challenge_type": "missing_evidence",
+      "severity": "material",
+      "hypothesis": "CAPA-91 has an owner and due date of 25 August 2026, but no closure evidence or independent effectiveness-verification record is supplied. Human quality review must not treat CAPA ownership or scheduling as closure."
+    },
+    {
+      "requirement_key": "QP-02",
+      "challenge_type": "missing_evidence",
+      "severity": "material",
+      "hypothesis": "The supplied retraining register identifies 20 affected operators, records completed retraining evidence for 18, and has no retraining record for OP-019 or OP-020. Human quality review must preserve the two missing operator records."
+    }
+  ]
+}

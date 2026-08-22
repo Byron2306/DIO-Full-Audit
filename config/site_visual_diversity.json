@@ -1,0 +1,22 @@
+{
+  "schema": "dio.site_visual_diversity_contract.v1",
+  "minimum_unique_geometry_ratio_per_repeated_role": 0.67,
+  "maximum_identical_geometry_reuse_per_role": 2,
+  "minimum_unique_geometry_ratio_portfolio": 0.67,
+  "ignore_svg_elements": ["text", "tspan", "title", "desc"],
+  "ignore_svg_attributes": [
+    "id",
+    "class",
+    "style",
+    "fill",
+    "stroke",
+    "color",
+    "opacity",
+    "fill-opacity",
+    "stroke-opacity",
+    "font-family",
+    "font-size",
+    "font-weight",
+    "letter-spacing"
+  ]
+}

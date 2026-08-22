@@ -1,0 +1,29 @@
+{
+  "schema": "dio.portfolio.production_readiness_contract.v1",
+  "acceptance_token": "DIO_PORTFOLIO_PRODUCTION_READY",
+  "measurement_token": "DIO_PORTFOLIO_PRODUCTION_READINESS_MEASURED",
+  "canonical_surface_count": 53,
+  "studio_surface_count": 4,
+  "buyer_facing_surface_count": 51,
+  "internal_capability_count": 6,
+  "internal_capabilities": [
+    "Accessible Publish",
+    "Market Radar",
+    "Opportunity Foundry",
+    "Offer Lab",
+    "Campaign Lab",
+    "Vesper Desk"
+  ],
+  "studio_ids": [
+    "site_studio",
+    "professional_correspondence_studio",
+    "finance_readiness_studio",
+    "article_publication_studio"
+  ],
+  "required_studio_sellability_status": "PRODUCT_SELLABILITY_VERIFIED",
+  "required_studio_product_grade_status": "PRODUCT_GRADE_VERIFIED",
+  "claim_boundary": "Portfolio production readiness is evidence-scoped. Buyer-facing production-ready status requires controlled execution, a governed substantial customer surface, and an explicit sellability/ProductGrade proof for that surface. Internal operating capabilities are judged on controlled execution and authority safety, not storefront sellability. Commercial validation, willingness to pay, ROI, autonomous external release and market scale remain separate claims.",
+  "commercial_validation": "UNPROVED",
+  "authority_created": false,
+  "external_effects": false
+}

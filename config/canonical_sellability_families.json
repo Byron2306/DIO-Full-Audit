@@ -1,0 +1,103 @@
+{
+  "schema": "dio.portfolio.canonical_sellability_contract.v1",
+  "acceptance_token": "DIO_CANONICAL_SELLABILITY_VERIFIED",
+  "measurement_token": "DIO_CANONICAL_SELLABILITY_MEASURED",
+  "canonical_buyer_count": 47,
+  "threshold": 85,
+  "internal_capabilities": [
+    "Accessible Publish",
+    "Market Radar",
+    "Opportunity Foundry",
+    "Offer Lab",
+    "Campaign Lab",
+    "Vesper Desk"
+  ],
+  "dimensions": {
+    "controlled_execution": 15,
+    "baseline_buyer_artifact": 15,
+    "unseen_generalisation": 20,
+    "case_fidelity": 20,
+    "family_quality": 15,
+    "truth_and_authority": 10,
+    "delivery_professionalism": 5
+  },
+  "family_policies": {
+    "evidence_assurance_deliverable": {
+      "label": "evidence and assurance deliverable",
+      "minimum_words": 45,
+      "preferred_suffixes": [".html", ".pdf", ".docx", ".xlsx", ".md", ".csv", ".zip"],
+      "required_signal_groups": [
+        ["evidence", "requirement", "control", "obligation", "criterion", "policy", "contract", "audit", "vendor", "tender", "grant", "permit"],
+        ["gap", "exception", "contradiction", "trace", "source", "status", "missing"],
+        ["review", "human", "authority", "decision"]
+      ],
+      "minimum_signal_groups": 2
+    },
+    "ai_assurance_deliverable": {
+      "label": "AI and digital assurance deliverable",
+      "minimum_words": 45,
+      "preferred_suffixes": [".html", ".pdf", ".docx", ".xlsx", ".md", ".csv"],
+      "required_signal_groups": [
+        ["ai", "model", "agent", "cyber", "control", "incident", "drift", "release", "supplier"],
+        ["evidence", "assurance", "risk", "authority", "control", "trace", "change"],
+        ["human", "review", "authority", "release"]
+      ],
+      "minimum_signal_groups": 2
+    },
+    "performance_evidence_deliverable": {
+      "label": "performance evidence deliverable",
+      "minimum_words": 45,
+      "preferred_suffixes": [".pdf", ".xlsx", ".html", ".md", ".csv"],
+      "required_signal_groups": [
+        ["evidence", "objective", "performance", "project", "impact", "programme", "cpd", "promotion"],
+        ["gap", "status", "trace", "review", "progress", "requirement"],
+        ["human", "review", "decision", "committee"]
+      ],
+      "minimum_signal_groups": 2
+    },
+    "education_deliverable": {
+      "label": "education deliverable",
+      "minimum_words": 65,
+      "preferred_suffixes": [".pdf", ".docx", ".html", ".svg", ".png", ".md"],
+      "required_signal_groups": [
+        ["assessment", "curriculum", "learning", "learner", "exam", "moderation", "accreditation", "education"],
+        ["review", "educator", "teacher", "memo", "evidence", "alignment", "feedback"],
+        ["human", "judgement", "judgment", "approval", "review"]
+      ],
+      "minimum_signal_groups": 2
+    },
+    "academic_review_deliverable": {
+      "label": "academic review deliverable",
+      "minimum_words": 65,
+      "preferred_suffixes": [".pdf", ".docx", ".html", ".md"],
+      "required_signal_groups": [
+        ["source", "citation", "reference", "research", "claim", "evidence", "literature"],
+        ["review", "supervisor", "integrity", "synthesis", "gap", "uncertainty"],
+        ["author", "human", "candidate", "review"]
+      ],
+      "minimum_signal_groups": 2
+    },
+    "document_deliverable": {
+      "label": "professional document deliverable",
+      "minimum_words": 45,
+      "preferred_suffixes": [".docx", ".pdf", ".html", ".md", ".txt"],
+      "required_signal_groups": [
+        ["document", "edit", "local", "publish", "dossier", "review"],
+        ["meaning", "language", "source", "section", "content", "translation", "accessibility"],
+        ["review", "human", "release", "approval"]
+      ],
+      "minimum_signal_groups": 2
+    }
+  },
+  "unseen_case": {
+    "marker_prefix": "UCASE",
+    "marker_must_be_visible": true,
+    "baseline_organisation_must_not_leak": true,
+    "external_effects": false,
+    "authority_created": false
+  },
+  "claim_boundary": "Canonical sellability verification proves controlled execution, substantial buyer-readable artifacts, family-specific output signals, responsiveness to a genuinely unseen customer case, and preserved truth/authority boundaries. It does not prove customer acceptance, willingness to pay, ROI, legal or regulatory approval, autonomous external release, or repeatable commercial demand.",
+  "commercial_validation": "UNPROVED",
+  "authority_created": false,
+  "external_effects": false
+}
