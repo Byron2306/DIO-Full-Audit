@@ -67,10 +67,21 @@ def _record_class(path: Path, text: str) -> str:
 
 
 def _record_state(path: Path, text: str) -> str:
+    """Classify visible source state without collapsing multiple records described in one file."""
     blob = f"{path.name} {text}".casefold()
-    if "unsigned_draft" in blob or "unsigned draft" in blob or ("unsigned" in blob and "amendment" in blob):
+    unsigned_marker = (
+        "unsigned_draft" in blob
+        or "unsigned draft" in blob
+        or ("unsigned" in blob and "amendment" in blob)
+    )
+    signed_marker = "signed agreement" in blob or (
+        "signed" in blob and "agreement" in blob and "unsigned" not in blob
+    )
+    if signed_marker and unsigned_marker:
+        return "mixed_state_source_preserved"
+    if unsigned_marker:
         return "unsigned_draft"
-    if "signed agreement" in blob or ("signed" in blob and "agreement" in blob and "unsigned" not in blob):
+    if signed_marker:
         return "signed_record"
     if "draft" in blob:
         return "draft_or_working_record"
@@ -191,7 +202,7 @@ def build_open_questions(
     states = [str(row["record_state"]) for row in inventory]
     joined_claims = " ".join(str(row["customer_statement"]) for row in cross_reference).casefold()
 
-    if "unsigned_draft" in states or "unsigned amendment" in joined_claims:
+    if any(state in {"unsigned_draft", "mixed_state_source_preserved"} for state in states) or "unsigned amendment" in joined_claims:
         questions.append(
             {
                 "question_id": "DOS-Q-001",
@@ -222,7 +233,6 @@ def build_open_questions(
             }
         )
 
-    source_names = " ".join(files)
     for row in _listed_records(packet):
         item = row.get("item", "")
         record_type = row.get("record_type", "")
@@ -560,6 +570,17 @@ def run_dossierops_native_pilot(
     if not bundle_path.is_file():
         raise RuntimeError("DossierOps native pilot controlled dossier bundle missing")
 
+    source_truth_blob = " ".join(texts.values()).casefold()
+    review_truth_blob = review_brief.read_text(encoding="utf-8").casefold()
+    signed_unsigned_distinct = (
+        "signed agreement" in source_truth_blob
+        and ("unsigned draft" in source_truth_blob or "unsigned amendment" in source_truth_blob)
+        and "signed agreement" in review_truth_blob
+        and ("unsigned amendment" in review_truth_blob or "unsigned draft" in review_truth_blob)
+    )
+    if not signed_unsigned_distinct:
+        raise RuntimeError("DossierOps pilot failed to preserve signed agreement versus unsigned amendment state")
+
     native_outputs = [source_manifest_path, status_path, chronology_path, cross_path, questions_path, review_brief, doc_receipt_path, *rendered, bundle_path]
     binding = {
         "schema": BINDING_SCHEMA,
@@ -585,7 +606,7 @@ def run_dossierops_native_pilot(
             {"path": str(path), "sha256": sha256(path), "bytes": path.stat().st_size}
             for path in native_outputs if path.is_file()
         ],
-        "signed_and_unsigned_states_kept_distinct": any(row["record_state"] == "signed_record" for row in inventory) and any(row["record_state"] == "unsigned_draft" for row in inventory),
+        "signed_and_unsigned_states_kept_distinct": signed_unsigned_distinct,
         "unsigned_amendment_promoted_to_executed": False,
         "dossier_completeness_certified": False,
         "legal_sufficiency_determined": False,
