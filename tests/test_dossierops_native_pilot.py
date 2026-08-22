@@ -22,7 +22,7 @@ def _write_packet(root: Path) -> dict:
     sources = packet_dir / "SOURCES"
     sources.mkdir(parents=True)
     (sources / "01_customer_context.md").write_text(
-        "# Customer context\n\nOrganisation: Stonebridge Professional Services\nBuyer: Legal operations manager\nMixed case folder for counsel review.\n",
+        "# Customer context\n\nOrganisation: Stonebridge Professional Services\nBuyer: Legal operations manager\nMixed case folder with a signed agreement and draft working papers for counsel review.\n",
         encoding="utf-8",
     )
     with (sources / "02_evidence_register.csv").open("w", encoding="utf-8", newline="") as handle:
@@ -95,12 +95,21 @@ def test_record_state_preserves_mixed_signed_and_unsigned_source() -> None:
     assert _record_state(Path("agreement_extract.md"), text) == "mixed_state_source_preserved"
 
 
+def test_metadata_containers_do_not_inherit_record_state_from_described_records() -> None:
+    context = "The folder contains a signed agreement, correspondence and draft working papers."
+    index = "item,record_type,state\nAgreement,contract,signed\nAmendment,amendment,unsigned_draft\n"
+    assert _record_state(Path("01_customer_context.md"), context) == "metadata_container_not_record_state"
+    assert _record_state(Path("case_file_index.csv"), index) == "metadata_container_not_record_state"
+
+
 def test_open_questions_preserve_stonebridge_ambiguities(tmp_path: Path) -> None:
     packet = _write_packet(tmp_path)
     inventory, texts = inventory_customer_sources(packet)
     agreement = next(row for row in inventory if row["filename"] == "agreement_extract.md")
+    context = next(row for row in inventory if row["filename"] == "01_customer_context.md")
     assert agreement["record_state"] == "mixed_state_source_preserved"
     assert agreement["explicit_dates"] == ["3 February 2026", "18 April 2026"]
+    assert context["record_state"] == "metadata_container_not_record_state"
 
     from products.dossierops_native_pilot import _cross_reference
 
@@ -138,7 +147,10 @@ def test_native_pilot_builds_substantive_controlled_pack_without_promoting_ident
     assert quality["artifact_quality_verified"] is True, [
         name for name, passed in quality["checks"].items() if not passed
     ]
-    assert quality["site_promotion_allowed"] is True
+    assert quality["pilot_artifact_quality_verified"] is True
+    assert quality["site_promotion_allowed"] is False
+    assert quality["promotion_performed"] is False
+    assert quality["promotion_gate"] == "NEEDS_HUMAN_REVIEWED_PILOT"
     assert quality["identity_state"] == "controlled_pilot_unpromoted"
     assert quality["canonical_portfolio_registration"] is False
 
@@ -159,4 +171,6 @@ def test_quality_refuses_authority_drift(tmp_path: Path) -> None:
 
     quality = audit_dossierops(binding_path)
     assert quality["artifact_quality_verified"] is False
+    assert quality["pilot_artifact_quality_verified"] is False
+    assert quality["site_promotion_allowed"] is False
     assert quality["checks"]["forbidden_legal_sufficiency_determined_false"] is False
