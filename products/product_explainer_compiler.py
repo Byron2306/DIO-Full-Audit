@@ -286,9 +286,15 @@ def _one_liner_capabilities(value: Any) -> list[str]:
         if lowered.startswith("send "):
             result.append("receiving " + sentence[5:].strip())
         elif lowered.startswith("get back "):
-            result.append("returning " + sentence[9:].strip())
+            payload = sentence[9:].strip()
+            if payload.casefold().endswith(" back"):
+                payload = payload[:-5].rstrip()
+            result.append("returning " + payload)
         elif lowered.startswith("get "):
-            result.append("returning " + sentence[4:].strip())
+            payload = sentence[4:].strip()
+            if payload.casefold().endswith(" back"):
+                payload = payload[:-5].rstrip()
+            result.append("returning " + payload)
     return result
 
 
@@ -407,10 +413,35 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
         )
         pain = str(product_layer.get("pain") or "").strip()
         risk_boundary = str(product_layer.get("risk_boundary") or "").strip()
+        layer_capabilities = _one_liner_capabilities(product_layer.get("one_liner"))
+        distinctive_markers = (
+            "grade-aware",
+            "curriculum-aware",
+            "evidence-bound",
+            "source-bound",
+            "review-ready",
+            "governed",
+            "profile-driven",
+        )
+        distinctive_capability = next(
+            (
+                capability.removeprefix("returning ").rstrip(".")
+                for capability in layer_capabilities
+                if any(marker in capability.casefold() for marker in distinctive_markers)
+            ),
+            "",
+        )
+
         semantic_row: dict[str, Any] = {"_semantic_source": "product_layer"}
         if pain:
             semantic_row["Problem"] = pain
-        if risk_boundary:
+        if distinctive_capability and risk_boundary:
+            semantic_row["Differentiators"] = [
+                f"combining {distinctive_capability} with explicit human authority: {risk_boundary}"
+            ]
+        elif distinctive_capability:
+            semantic_row["Differentiators"] = [distinctive_capability]
+        elif risk_boundary:
             semantic_row["Differentiators"] = [
                 f"keeping human authority explicit: {risk_boundary}"
             ]
