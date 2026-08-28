@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from products.product_explainer_compiler import ProductExplainerError
 from products.product_explainer_pipeline import (
     build_explainer_script_package,
     build_media_production_request,
@@ -34,15 +35,9 @@ def _write_json(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def _receipt(
-    *,
-    product_id: str,
-    semantic_graduation: str,
-    missing: list[str],
-    render_state: str,
-    custody_artifacts: list[str] | None = None,
-    render_receipt: dict[str, Any] | None = None,
-) -> dict[str, Any]:
+def _receipt(*, product_id: str, semantic_graduation: str, missing: list[str], render_state: str,
+             custody_artifacts: list[str] | None = None, render_receipt: dict[str, Any] | None = None,
+             error: dict[str, Any] | None = None) -> dict[str, Any]:
     passed = semantic_graduation == "PASS"
     return {
         "schema": "dio.product_explainer.graduation_receipt.v1",
@@ -52,6 +47,7 @@ def _receipt(
         "custody_artifacts": list(custody_artifacts or []),
         "render_state": render_state,
         "render_receipt": render_receipt,
+        "error": error,
         "external_publication": "NEEDS_YOU",
         "media_spend": "REFUSE",
         "human_gate": "NEEDS_YOU",
@@ -59,24 +55,24 @@ def _receipt(
     }
 
 
-def run_graduation(
-    *,
-    product_id: str = "homs",
-    root: Path = ROOT,
-    output_dir: Path | None = None,
-    render: bool = False,
-    nichefoundry_root: Path | None = None,
-    provider: str = "auto",
-) -> dict[str, Any]:
+def run_graduation(*, product_id: str = "homs", root: Path = ROOT, output_dir: Path | None = None,
+                   render: bool = False, nichefoundry_root: Path | None = None, provider: str = "auto") -> dict[str, Any]:
     root = Path(root)
-    destination = (
-        Path(output_dir)
-        if output_dir is not None
-        else root / "state" / "product_explainer_graduation" / product_id.upper()
-    )
+    destination = Path(output_dir) if output_dir is not None else root / "state" / "product_explainer_graduation" / product_id.upper()
     destination.mkdir(parents=True, exist_ok=True)
 
-    compiled = compile_product_explainer(product_id, root=root, output_dir=destination)
+    try:
+        compiled = compile_product_explainer(product_id, root=root, output_dir=destination)
+    except ProductExplainerError as exc:
+        receipt = _receipt(
+            product_id=product_id.upper(),
+            semantic_graduation="REFUSE",
+            missing=[exc.code],
+            render_state="REFUSE" if render else "NOT_REQUESTED",
+            error={"code": exc.code, "message": str(exc), "details": exc.details},
+        )
+        _write_json(destination / "GRADUATION_RECEIPT.json", receipt)
+        return receipt
     if compiled.get("semantic_readiness") != "READY" or not compiled.get("manifest"):
         receipt = _receipt(
             product_id=product_id.upper(),
@@ -136,19 +132,13 @@ def run_graduation(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Compile and optionally render a governed DIO product explainer graduation package."
-    )
+    parser = argparse.ArgumentParser(description="Compile and optionally render a governed DIO product explainer graduation package.")
     parser.add_argument("--product", default="homs")
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--nichefoundry-root", type=Path)
-    parser.add_argument(
-        "--provider",
-        default="auto",
-        choices=["auto", "imported", "voicebox", "kokoro", "piper", "elevenlabs", "openvoice"],
-    )
+    parser.add_argument("--provider", default="auto", choices=["auto", "imported", "voicebox", "kokoro", "piper", "elevenlabs", "openvoice"])
     args = parser.parse_args()
     receipt = run_graduation(
         product_id=args.product,
