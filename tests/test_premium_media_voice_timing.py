@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import wave
 from pathlib import Path
+
+import pytest
 
 import products.premium_media_federation as federation
 
@@ -89,3 +92,97 @@ def test_prepare_episode_reallocates_fixed_story_budget_to_measured_voice(monkey
     assert targets["scene_06_result"] > 7
     assert result["timing"]["reconciliation"]["state"] == "VOICE_FIT_REBALANCED"
     assert result["timing"]["reconciliation"]["voice_profile"] == "vera_pocket_public"
+
+
+def test_presence_voice_import_records_measured_wav_duration(monkeypatch, tmp_path: Path):
+    script = {
+        "schema": "dio.product_explainer.script_package.v1",
+        "title": "HOMS",
+        "scenes": [
+            {
+                "scene_id": "scene_01_problem",
+                "narration": "Assessment work is fragmented.",
+                "target_duration_seconds": 7,
+            }
+        ],
+    }
+
+    def fake_build_voice_plan(**kwargs):
+        return {
+            "profile_id": "vera_pocket_public",
+            "backend": "pocket_tts",
+            "state": "ready_for_internal_render",
+            "reasons": [],
+        }
+
+    def fake_synthesize_voice(*, text, output_path, plan):
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        sample_rate = 16000
+        seconds = 1.25
+        with wave.open(str(output_path), "wb") as handle:
+            handle.setnchannels(1)
+            handle.setsampwidth(2)
+            handle.setframerate(sample_rate)
+            handle.writeframes(b"\x00\x00" * int(sample_rate * seconds))
+        return {
+            "profile_id": plan["profile_id"],
+            "backend": plan["backend"],
+            "external_action_executed": False,
+            "send_authorized": False,
+            "identity_authority_created": False,
+            "translation_authority_created": False,
+        }
+
+    monkeypatch.setattr(
+        federation,
+        "_presence_voice_functions",
+        lambda: (fake_build_voice_plan, fake_synthesize_voice),
+    )
+
+    receipt = federation._prepare_presence_core_voice_imports(
+        tmp_path / "episode",
+        script,
+        {
+            "voice": {
+                "render_mode": "presence_core_imported_audio",
+                "profile": "vera_pocket_public",
+            }
+        },
+    )
+
+    assert receipt is not None
+    assert receipt["assets"][0]["duration_seconds"] == pytest.approx(1.25, abs=0.01)
+
+
+def test_prepare_episode_refuses_when_measured_voice_cannot_fit_story_budget(monkeypatch, tmp_path: Path):
+    measured = [8.0, 8.0, 12.0, 12.0, 13.0, 11.0, 3.0]
+
+    def fake_voice_imports(episode_dir, script_package, production_request):
+        return {
+            "schema": "dio.vesper.media_voice_import.v1",
+            "voice_profile": "vera_pocket_public",
+            "backend": "pocket_tts",
+            "scene_count": len(measured),
+            "assets": [
+                {
+                    "scene_id": scene["scene_id"],
+                    "relative_path": f"imports/audio/{index:02d}.wav",
+                    "duration_seconds": duration,
+                }
+                for index, (scene, duration) in enumerate(zip(script_package["scenes"], measured), 1)
+            ],
+            "external_action_executed": False,
+            "send_authorized": False,
+            "identity_authority_created": False,
+            "translation_authority_created": False,
+        }
+
+    monkeypatch.setattr(federation, "_prepare_presence_core_voice_imports", fake_voice_imports)
+
+    with pytest.raises(federation.PremiumMediaError, match="cannot fit canonical timing budget"):
+        federation._prepare_episode(
+            _niche_root(tmp_path / "nf"),
+            tmp_path / "episode",
+            script_package=_script(),
+            production_request={"voice": {"render_mode": "presence_core_imported_audio"}},
+        )
