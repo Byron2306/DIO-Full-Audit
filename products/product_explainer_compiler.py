@@ -230,6 +230,73 @@ def _marketing_family_matches(product: dict[str, Any], product_key: str) -> bool
     return any(value == product_key or value.startswith(product_key) for value in values if value)
 
 
+def _load_optional_registry(path: Path, *, label: str) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ProductExplainerError(
+            "PRODUCT_TRUTH_INCOMPLETE",
+            f"invalid {label}: {path}",
+        ) from exc
+    if not isinstance(value, dict):
+        raise ProductExplainerError(
+            "PRODUCT_TRUTH_INCOMPLETE",
+            f"{label} must be a JSON object: {path}",
+        )
+    return value
+
+
+def _product_layer_for(registry: dict[str, Any] | None, product_key: str) -> dict[str, Any] | None:
+    if not registry:
+        return None
+    matches = [
+        row
+        for row in (registry.get("layers") or [])
+        if isinstance(row, dict) and _normalize_identifier(row.get("id")) == product_key
+    ]
+    if len(matches) > 1:
+        raise ProductExplainerError(
+            "PRODUCT_IDENTITY_AMBIGUOUS",
+            f"multiple product-layer definitions found for: {product_key}",
+        )
+    return matches[0] if matches else None
+
+
+def _product_layer_description(layer: dict[str, Any], canonical_name: str) -> str:
+    name = str(layer.get("name") or "").strip()
+    buyer = str(layer.get("primary_buyer") or "").strip()
+    descriptor = name
+    if canonical_name and name.casefold().startswith(canonical_name.casefold()):
+        descriptor = name[len(canonical_name) :].strip()
+    if descriptor and buyer:
+        return f"the {descriptor.lower()} for {buyer}"
+    if descriptor:
+        return f"the {descriptor.lower()}"
+    return str(layer.get("one_liner") or "").strip()
+
+
+def _one_liner_capabilities(value: Any) -> list[str]:
+    text = str(value or "").strip()
+    if not text:
+        return []
+    result: list[str] = []
+    for sentence in [part.strip() for part in text.split(".") if part.strip()]:
+        lowered = sentence.casefold()
+        if lowered.startswith("send "):
+            result.append("receiving " + sentence[5:].strip())
+        elif lowered.startswith("get back "):
+            result.append("returning " + sentence[9:].strip())
+        elif lowered.startswith("get "):
+            result.append("returning " + sentence[4:].strip())
+    return result
+
+
+def _humanize_artifact_type(value: Any) -> str:
+    return str(value or "").strip().replace("_", " ")
+
+
 def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, Any]:
     root = Path(root)
     product_key = _normalize_identifier(product_id)
@@ -301,24 +368,7 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
             },
         )
 
-    all_rows = [row for source in matched_sources for row in source["rows"]]
-    capabilities = _dedupe(
-        [
-            item
-            for row in all_rows
-            for key in ("Capabilities", "capabilities", "Work Patterns", "work_patterns")
-            for item in _as_string_list(row.get(key))
-        ]
-    )
-    outputs = _dedupe(
-        [
-            item
-            for row in all_rows
-            for key in ("Outputs", "outputs", "Deliverables", "deliverables")
-            for item in _as_string_list(row.get(key))
-        ]
-    )
-
+    all_rows = [dict(row) for source in matched_sources for row in source["rows"]]
     source_bindings: list[dict[str, Any]] = [
         {
             "path": _relative_path(source["path"], root),
@@ -328,6 +378,94 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
         for source in matched_sources
     ]
     identity_path = matched_sources[0]["path"]
+
+    product_layer_path = root / "config" / "product_layers.json"
+    product_layer_registry = _load_optional_registry(product_layer_path, label="product layer registry")
+    product_layer = _product_layer_for(product_layer_registry, product_key)
+    if product_layer is not None:
+        source_bindings.append(
+            {
+                "path": _relative_path(product_layer_path, root),
+                "sha256": _sha256_path(product_layer_path),
+                "role": "canonical_product_identity",
+                "authority": "product_semantic_registry",
+            }
+        )
+        pain = str(product_layer.get("pain") or "").strip()
+        risk_boundary = str(product_layer.get("risk_boundary") or "").strip()
+        semantic_row: dict[str, Any] = {"_semantic_source": "product_layer"}
+        if pain:
+            semantic_row["Problem"] = pain
+        if risk_boundary:
+            semantic_row["Differentiators"] = [
+                f"keeping human authority explicit: {risk_boundary}"
+            ]
+        if len(semantic_row) > 1:
+            all_rows.append(semantic_row)
+        if not descriptions:
+            layer_description = _product_layer_description(product_layer, canonical_name)
+            if layer_description:
+                descriptions.add(layer_description)
+
+    lingua_path = root / "config" / "lingua_product_routes.json"
+    lingua_registry = _load_optional_registry(lingua_path, label="Lingua product route registry")
+    lingua_route = None
+    if lingua_registry:
+        candidate = (lingua_registry.get("products") or {}).get(product_key)
+        if isinstance(candidate, dict):
+            lingua_route = candidate
+            source_bindings.append(
+                {
+                    "path": _relative_path(lingua_path, root),
+                    "sha256": _sha256_path(lingua_path),
+                    "role": "canonical_product_identity",
+                    "authority": "approved_lingua_route",
+                }
+            )
+
+    capabilities = _dedupe(
+        [
+            item
+            for row in all_rows
+            for key in ("Capabilities", "capabilities", "Work Patterns", "work_patterns")
+            for item in _as_string_list(row.get(key))
+        ]
+    )
+    if not capabilities and product_layer is not None:
+        capabilities = _dedupe(_one_liner_capabilities(product_layer.get("one_liner")))
+    if not capabilities and lingua_route is not None:
+        required_context = [
+            _humanize_artifact_type(value)
+            for value in _as_string_list(lingua_route.get("required_context"))
+        ]
+        artifact_types = [
+            _humanize_artifact_type(value)
+            for value in _as_string_list(lingua_route.get("artifact_types"))
+        ]
+        if required_context:
+            capabilities.append("resolving required context: " + ", ".join(required_context))
+        if artifact_types:
+            capabilities.append("producing artifact types: " + ", ".join(artifact_types))
+
+    outputs = _dedupe(
+        [
+            item
+            for row in all_rows
+            for key in ("Outputs", "outputs", "Deliverables", "deliverables")
+            for item in _as_string_list(row.get(key))
+        ]
+    )
+    if not outputs and lingua_route is not None:
+        outputs = _dedupe(
+            [
+                _humanize_artifact_type(value)
+                for value in _as_string_list(lingua_route.get("artifact_types"))
+            ]
+        )
+    if not outputs and product_layer is not None:
+        promise = str(product_layer.get("promise") or "").strip()
+        if promise:
+            outputs = [promise]
 
     audience_observations: list[dict[str, Any]] = []
     proof_assets: list[dict[str, Any]] = []
@@ -399,6 +537,8 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
         "outputs": outputs,
         "proof_assets": proof_assets,
         "audience_observations": audience_observations,
+        "product_layer": product_layer or {},
+        "lingua_route": lingua_route or {},
         "source_bindings": source_bindings,
     }
 
