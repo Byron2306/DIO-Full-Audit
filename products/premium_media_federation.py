@@ -43,19 +43,62 @@ def _sha(path: Path) -> str:
 
 
 def _wav_duration_seconds(path: Path) -> float:
-    import wave
+    import struct
 
     try:
-        with wave.open(str(path), "rb") as handle:
-            frame_rate = handle.getframerate()
-            frame_count = handle.getnframes()
-    except (OSError, wave.Error) as exc:
+        raw = path.read_bytes()
+    except OSError as exc:
         raise PremiumMediaError(f"invalid rendered voice WAV: {path}") from exc
 
-    if frame_rate <= 0:
-        raise PremiumMediaError(f"rendered voice WAV has invalid sample rate: {path}")
+    if len(raw) < 12 or raw[:4] != b"RIFF" or raw[8:12] != b"WAVE":
+        raise PremiumMediaError(f"invalid rendered voice WAV: {path}")
 
-    return round(frame_count / frame_rate, 6)
+    offset = 12
+    byte_rate: int | None = None
+    data_bytes: int | None = None
+
+    while offset + 8 <= len(raw):
+        chunk_id = raw[offset : offset + 4]
+        declared_size = struct.unpack_from("<I", raw, offset + 4)[0]
+        payload_start = offset + 8
+        available = len(raw) - payload_start
+        actual_size = min(declared_size, max(0, available))
+
+        if chunk_id == b"fmt ":
+            if actual_size < 16:
+                raise PremiumMediaError(f"rendered voice WAV has invalid fmt chunk: {path}")
+
+            (
+                _audio_format,
+                _channels,
+                sample_rate,
+                byte_rate,
+                block_align,
+                _bits_per_sample,
+            ) = struct.unpack_from("<HHIIHH", raw, payload_start)
+
+            if sample_rate <= 0 or byte_rate <= 0 or block_align <= 0:
+                raise PremiumMediaError(f"rendered voice WAV has invalid audio format: {path}")
+
+        elif chunk_id == b"data":
+            if byte_rate is None:
+                raise PremiumMediaError(f"rendered voice WAV data precedes fmt chunk: {path}")
+
+            # Pocket TTS emits a streaming-style header whose declared data
+            # length may greatly exceed the bytes actually written. Duration
+            # must therefore be derived from the payload physically present.
+            data_bytes = actual_size
+            break
+
+        if declared_size > available:
+            raise PremiumMediaError(f"rendered voice WAV contains a truncated chunk: {path}")
+
+        offset = payload_start + declared_size + (declared_size & 1)
+
+    if byte_rate is None or data_bytes is None:
+        raise PremiumMediaError(f"rendered voice WAV is missing fmt or data chunk: {path}")
+
+    return round(data_bytes / byte_rate, 6)
 
 
 def _fingerprint(value: Any) -> str:
