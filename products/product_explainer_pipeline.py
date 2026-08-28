@@ -180,15 +180,12 @@ def _build_explanation(truth: dict[str, Any]) -> dict[str, str]:
         problem = "Observed audience pain: " + problem[0].lower() + problem[1:]
 
     capabilities = [str(value) for value in truth.get("capabilities") or []]
-    how_sentence = _sentence_join(capabilities)
-    how_it_works = "It works by " + how_sentence[0].lower() + how_sentence[1:] if how_sentence else ""
+    how_it_works = "It works by " + _sentence_join(capabilities)[0].lower() + _sentence_join(capabilities)[1:] if capabilities else ""
 
-    why_sentence = _sentence_join(differentiators)
-    why_different = "Its distinguishing design is " + why_sentence[0].lower() + why_sentence[1:] if why_sentence else ""
+    why_different = "Its distinguishing design is " + _sentence_join(differentiators)[0].lower() + _sentence_join(differentiators)[1:] if differentiators else ""
 
     outputs = [str(value) for value in truth.get("outputs") or []]
-    output_sentence = _sentence_join(outputs)
-    buyer_result = "Users receive " + output_sentence[0].lower() + output_sentence[1:] if output_sentence else ""
+    buyer_result = "Users receive " + _sentence_join(outputs)[0].lower() + _sentence_join(outputs)[1:] if outputs else ""
 
     return {
         "what_it_is": what_it_is,
@@ -337,6 +334,7 @@ def build_media_production_request(
             "role": voice.get("role"),
             "profile": voice.get("profile"),
             "render_mode": voice.get("render_mode"),
+            "pronunciation": dict(voice.get("pronunciation") or {}),
         },
         "assets": {
             "proof_assets": list(manifest.get("proof_points") or []),
