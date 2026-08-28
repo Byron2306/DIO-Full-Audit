@@ -104,7 +104,6 @@ def load_media_style_profile(
 
     return profile, _fingerprint(profile)
 
-
 PORTFOLIO_EXACT_NAMES = (
     "DIO_META_PORTFOLIO_ATLAS_RUNTIME.json",
     "DIO_META_PORTFOLIO_ATLAS.json",
@@ -371,3 +370,16 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
         "audience_observations": audience_observations,
         "source_bindings": source_bindings,
     }
+
+
+# Public semantic/story interfaces live in a focused module; re-export them
+# here to preserve the canonical Product Explainer Compiler API.
+from .product_explainer_pipeline import (  # noqa: E402
+    ASSET_PREFERENCE,
+    REQUIRED_EXPLANATION_FIELDS,
+    build_claim_envelope,
+    build_explainer_script_package,
+    build_media_production_request,
+    compile_product_explainer,
+    semantic_challenge,
+)
