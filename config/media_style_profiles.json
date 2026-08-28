@@ -1,0 +1,73 @@
+{
+  "schema": "dio.media.style_profile_registry.v1",
+  "profiles": {
+    "DIO_CINEMATIC_BRAND_V1": {
+      "schema": "dio.media.style_profile.v1",
+      "profile_id": "DIO_CINEMATIC_BRAND_V1",
+      "golden_reference": {
+        "id": "DIO_LAUNCH_CINEMATIC_V1",
+        "master": "media/golden_references/dio_launch_cinematic_v1/master/DIO_LAUNCH_TRAILER_MASTER_V1.mp4",
+        "sha256": "BOUND_AT_RUNTIME"
+      },
+      "visual": {
+        "palette": {
+          "black": "#050607",
+          "gold": "#d9b66f",
+          "pale_gold": "#f1d79b",
+          "cream": "#f3efe7"
+        },
+        "grammar": [
+          "black glass",
+          "obsidian metal",
+          "monumental technological scale",
+          "controlled gold pathways",
+          "governance expressed geometrically",
+          "real product evidence before abstraction"
+        ],
+        "forbidden": [
+          "generic blue AI glow",
+          "humanoid robots",
+          "glowing brains",
+          "Matrix-style code rain",
+          "decorative HUD overload",
+          "fake product interfaces",
+          "generated scenes presented as proof"
+        ]
+      },
+      "typography": {
+        "brand_face": "Noto Serif Display",
+        "body_face": "Noto Serif",
+        "technical_face": "DejaVu Sans",
+        "wordmark": "media/golden_references/dio_launch_cinematic_v1/brand/dio-wordmark.svg",
+        "sigil": "media/golden_references/dio_launch_cinematic_v1/brand/dio-sigil.webp",
+        "silent_font_fallback": false
+      },
+      "voice": {
+        "role": "vesper_public",
+        "profile": "vera_pocket_public",
+        "render_mode": "presence_core_imported_audio",
+        "pronunciation": {"DIO": "Dio"}
+      },
+      "sound": {
+        "sonic_identity": "DIO_SONIC_IDENTITY_V1",
+        "music_policy": "original_local_or_rights_verified",
+        "forbidden": [
+          "generic corporate music",
+          "unverified commercial music"
+        ]
+      },
+      "motion": {
+        "default": "restrained cinematic push",
+        "hard_cut_for_claim_boundary": true,
+        "gold_bloom_for_verified_release": true,
+        "fade_through_black_for_state_change": true
+      },
+      "release": {
+        "automatic_local_render": true,
+        "automatic_external_publication": false,
+        "automatic_media_spend": false,
+        "human_release_required": true
+      }
+    }
+  }
+}

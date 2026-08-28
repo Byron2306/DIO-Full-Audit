@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.media.production_request.v2",
+  "type": "object",
+  "required": [
+    "schema",
+    "request_id",
+    "product_id",
+    "explainer_manifest",
+    "style_profile",
+    "production",
+    "voice",
+    "assets",
+    "release"
+  ],
+  "properties": {
+    "schema": {"const": "dio.media.production_request.v2"},
+    "request_id": {"type": "string", "minLength": 1},
+    "product_id": {"type": "string", "minLength": 1},
+    "explainer_manifest": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^sha256:"}
+      },
+      "additionalProperties": true
+    },
+    "style_profile": {
+      "type": "object",
+      "required": ["id", "sha256"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^sha256:"}
+      },
+      "additionalProperties": true
+    },
+    "production": {
+      "type": "object",
+      "required": ["kind", "target_seconds", "aspect_ratio", "resolution", "voice_required", "captions"],
+      "additionalProperties": true
+    },
+    "voice": {
+      "type": "object",
+      "required": ["role", "profile", "render_mode"],
+      "properties": {
+        "role": {"const": "vesper_public"},
+        "profile": {"const": "vera_pocket_public"},
+        "render_mode": {"const": "presence_core_imported_audio"}
+      },
+      "additionalProperties": true
+    },
+    "assets": {"type": "object"},
+    "release": {
+      "type": "object",
+      "required": ["local_render", "external_publication", "media_spend"],
+      "properties": {
+        "local_render": {"const": "ALLOW"},
+        "external_publication": {"const": "NEEDS_YOU"},
+        "media_spend": {"const": "REFUSE"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
