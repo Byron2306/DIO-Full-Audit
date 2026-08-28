@@ -175,6 +175,33 @@ def _canonical_name(row: dict[str, Any], product_key: str) -> str:
     return product_key
 
 
+def _family_name_from_incarnations(rows: list[dict[str, Any]], product_key: str) -> str | None:
+    """Return a display family name when every matched incarnation shares the exact queried token prefix."""
+    prefixes: list[str] = []
+    for row in rows:
+        incarnation = str(row.get("Incarnation") or "").strip()
+        if not incarnation:
+            return None
+        tokens = incarnation.split()
+        parts: list[str] = []
+        matched_prefix: str | None = None
+        for token in tokens:
+            parts.append(token)
+            display = " ".join(parts)
+            normalized = _normalize_identifier(display)
+            if normalized == product_key:
+                matched_prefix = display
+                break
+            if not product_key.startswith(normalized):
+                break
+        if matched_prefix is None:
+            return None
+        prefixes.append(matched_prefix)
+    if not prefixes or {_normalize_identifier(value) for value in prefixes} != {product_key}:
+        return None
+    return prefixes[0]
+
+
 def _as_string_list(value: Any) -> list[str]:
     if isinstance(value, str):
         return [value.strip()] if value.strip() else []
@@ -244,6 +271,8 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
         for row in source["rows"]
         if str(row.get("Suite") or "").strip()
     }
+    matched_rows = [row for source in matched_sources for row in source["rows"]]
+    family_name = _family_name_from_incarnations(matched_rows, product_key)
     if len(normalized_suite_names) == 1 and product_key in normalized_suite_names:
         canonical_name = next(
             str(row.get("Suite")).strip()
@@ -253,6 +282,8 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
         )
     elif len(normalized_names) == 1:
         canonical_name = next(iter(canonical_names))
+    elif family_name is not None:
+        canonical_name = family_name
     else:
         raise ProductExplainerError(
             "PRODUCT_IDENTITY_AMBIGUOUS",
