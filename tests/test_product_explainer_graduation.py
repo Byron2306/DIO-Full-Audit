@@ -145,3 +145,29 @@ def test_render_is_invoked_only_when_explicitly_requested(tmp_path, monkeypatch)
     assert calls[0]["script_package"]["title"] == "HOMS"
     assert calls[0]["production_request"]["request_id"] == "MPR-1"
     assert calls[0]["provider"] == "imported"
+
+
+def test_product_truth_error_is_captured_as_refusal_receipt(tmp_path, monkeypatch):
+    from scripts import run_product_explainer_graduation as runner
+    from products.product_explainer_compiler import ProductExplainerError
+
+    def fail(*args, **kwargs):
+        raise ProductExplainerError(
+            "PRODUCT_IDENTITY_UNRESOLVED",
+            "no canonical portfolio identity found",
+            {"product_id": "homs"},
+        )
+
+    monkeypatch.setattr(runner, "compile_product_explainer", fail)
+    receipt = runner.run_graduation(
+        product_id="homs",
+        root=tmp_path,
+        output_dir=tmp_path / "out",
+        render=False,
+    )
+
+    assert receipt["semantic_graduation"] == "REFUSE"
+    assert receipt["acceptance_token"] == "DIO_PRODUCT_EXPLAINER_GRADUATION_REFUSED"
+    assert receipt["missing"] == ["PRODUCT_IDENTITY_UNRESOLVED"]
+    assert receipt["error"]["code"] == "PRODUCT_IDENTITY_UNRESOLVED"
+    assert (tmp_path / "out" / "GRADUATION_RECEIPT.json").is_file()
