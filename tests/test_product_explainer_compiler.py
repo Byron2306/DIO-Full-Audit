@@ -283,6 +283,7 @@ def test_media_request_binds_explainer_style_and_voice(tmp_path: Path):
         "role": "vesper_public",
         "profile": "vera_pocket_public",
         "render_mode": "presence_core_imported_audio",
+        "pronunciation": {"DIO": "Dio"},
     }
     assert request["release"] == {
         "local_render": "ALLOW",
