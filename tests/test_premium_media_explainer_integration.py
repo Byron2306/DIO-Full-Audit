@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import wave
 from pathlib import Path
 
 import products.premium_media_federation as federation
@@ -196,7 +197,11 @@ def test_presence_core_voice_import_writes_nichefoundry_registry_and_preserves_a
 
     def fake_synthesize_voice(*, text, output_path, plan):
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_bytes(b"RIFF" + b"\x00" * 48)
+        with wave.open(str(output_path), "wb") as handle:
+            handle.setnchannels(1)
+            handle.setsampwidth(2)
+            handle.setframerate(16000)
+            handle.writeframes(b"\x00\x00" * 16000)
         return {
             "profile_id": plan["profile_id"],
             "backend": plan["backend"],

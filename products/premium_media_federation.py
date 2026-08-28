@@ -42,6 +42,22 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _wav_duration_seconds(path: Path) -> float:
+    import wave
+
+    try:
+        with wave.open(str(path), "rb") as handle:
+            frame_rate = handle.getframerate()
+            frame_count = handle.getnframes()
+    except (OSError, wave.Error) as exc:
+        raise PremiumMediaError(f"invalid rendered voice WAV: {path}") from exc
+
+    if frame_rate <= 0:
+        raise PremiumMediaError(f"rendered voice WAV has invalid sample rate: {path}")
+
+    return round(frame_count / frame_rate, 6)
+
+
 def _fingerprint(value: Any) -> str:
     raw = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
     return "sha256:" + hashlib.sha256(raw).hexdigest()
@@ -252,6 +268,7 @@ def _prepare_presence_core_voice_imports(
         if any(receipt.get(key) is not False for key in authority_keys):
             raise PremiumMediaError("Presence Core voice receipt attempted to create authority")
         audio_sha = _sha(output_path)
+        duration_seconds = _wav_duration_seconds(output_path)
         assets.append(
             {
                 "scene_id": scene_id,
@@ -267,6 +284,7 @@ def _prepare_presence_core_voice_imports(
                 "scene_id": scene_id,
                 "relative_path": relative_path,
                 "sha256": audio_sha,
+                "duration_seconds": duration_seconds,
                 "render_receipt": receipt,
             }
         )
@@ -324,6 +342,117 @@ def _prepare_original_local_music_import(
     return receipt
 
 
+def _reconcile_timing_with_voice(
+    timing: dict[str, Any],
+    voice_import: dict[str, Any] | None,
+    *,
+    canonical_budget_seconds: float,
+    buffer_seconds: float = 0.50,
+) -> dict[str, Any]:
+    if not voice_import:
+        return timing
+
+    scenes = timing.get("scenes") or []
+    assets = voice_import.get("assets") or []
+    if not scenes or not assets:
+        return timing
+
+    measured_by_scene: dict[str, float] = {}
+    for row in assets:
+        scene_id = str(row.get("scene_id") or "").strip()
+        duration = row.get("duration_seconds")
+        if scene_id and duration is not None:
+            measured_by_scene[scene_id] = float(duration)
+
+    if not measured_by_scene:
+        return timing
+
+    missing = [
+        str(scene.get("scene_id"))
+        for scene in scenes
+        if str(scene.get("scene_id")) not in measured_by_scene
+    ]
+    if missing:
+        raise PremiumMediaError(
+            "Presence Core voice timing evidence incomplete: " + ", ".join(missing)
+        )
+
+    budget = float(canonical_budget_seconds)
+    if budget <= 0:
+        raise PremiumMediaError("canonical timing budget must be positive")
+
+    original_targets = [
+        float(scene.get("target_duration_seconds") or 0.0)
+        for scene in scenes
+    ]
+    measured = [
+        measured_by_scene[str(scene.get("scene_id"))]
+        for scene in scenes
+    ]
+    minimum_targets = [
+        duration + float(buffer_seconds)
+        for duration in measured
+    ]
+
+    minimum_total = sum(minimum_targets)
+    if minimum_total > budget + 1e-9:
+        raise PremiumMediaError(
+            "measured voice cannot fit canonical timing budget: "
+            f"requires {minimum_total:.3f}s for {budget:.3f}s budget"
+        )
+
+    # Preserve the original story emphasis wherever spare time still exists.
+    # Scenes whose voice exceeds their original slot receive their measured
+    # minimum first. Remaining time is distributed according to surviving
+    # slack in the original timing plan.
+    spare_budget = budget - minimum_total
+    weights = [
+        max(0.0, original - minimum)
+        for original, minimum in zip(original_targets, minimum_targets)
+    ]
+    weight_total = sum(weights)
+
+    if weight_total <= 1e-12:
+        weights = [1.0 for _ in scenes]
+        weight_total = float(len(scenes))
+
+    targets = [
+        minimum + spare_budget * (weight / weight_total)
+        for minimum, weight in zip(minimum_targets, weights)
+    ]
+
+    # Millisecond precision keeps receipts readable while preserving the
+    # canonical total exactly.
+    targets = [round(value, 3) for value in targets]
+    correction = round(budget - sum(targets), 3)
+    if correction:
+        slack = [
+            target - minimum
+            for target, minimum in zip(targets, minimum_targets)
+        ]
+        index = max(range(len(targets)), key=lambda i: slack[i])
+        targets[index] = round(targets[index] + correction, 3)
+
+    changed = any(
+        abs(target - original) > 0.001
+        for target, original in zip(targets, original_targets)
+    )
+
+    for scene, duration, target in zip(scenes, measured, targets):
+        scene["measured_voice_seconds"] = round(duration, 3)
+        scene["target_duration_seconds"] = target
+
+    timing["reconciliation"] = {
+        "state": "VOICE_FIT_REBALANCED" if changed else "VOICE_FIT_UNCHANGED",
+        "voice_profile": voice_import.get("voice_profile"),
+        "canonical_budget_seconds": round(budget, 3),
+        "measured_voice_seconds": round(sum(measured), 3),
+        "minimum_required_seconds": round(minimum_total, 3),
+        "voice_buffer_seconds": round(float(buffer_seconds), 3),
+    }
+    return timing
+
+
 def _prepare_episode(
     niche_root: Path,
     episode_dir: Path,
@@ -376,6 +505,22 @@ def _prepare_episode(
         _write(episode_dir / name, value)
     music_import = _prepare_original_local_music_import(episode_dir, production_request)
     voice_import = _prepare_presence_core_voice_imports(episode_dir, script, production_request)
+
+    if voice_import:
+        canonical_budget = float(
+            script.get("target_seconds")
+            or sum(
+                float(row.get("target_duration_seconds") or 0.0)
+                for row in timing.get("scenes") or []
+            )
+        )
+        timing = _reconcile_timing_with_voice(
+            timing,
+            voice_import,
+            canonical_budget_seconds=canonical_budget,
+        )
+        _write(episode_dir / "timing_plan.json", timing)
+
     return {
         "pack": pack,
         "brief": brief,
