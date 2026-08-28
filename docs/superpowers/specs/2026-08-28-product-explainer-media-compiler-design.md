@@ -88,6 +88,22 @@ Production Media
 
 Market learning is a lens, never the author of product reality.
 
+### 4.1 Product source resolution
+
+The compiler must not search arbitrary JSON files and choose whichever one resembles a product record. Product identity is resolved by an explicit source resolver with deterministic precedence.
+
+Resolution order:
+
+1. a registered canonical product manifest or portfolio record explicitly marked authoritative for the requested product;
+2. the current self-hydrated portfolio runtime only when it carries a source/hash binding to the canonical portfolio source from which it was derived;
+3. product-specific registries may contribute capabilities, proof, outputs, and assets, but may not silently override canonical identity.
+
+Every resolved identity source must return at least `path`, `schema`, `sha256`, `source_type`, and the normalized `product_id`.
+
+If two candidates at the same authority level disagree on identity or core product definition, the compiler must emit `PRODUCT_IDENTITY_AMBIGUOUS` and refuse compilation. If a runtime record has lost its canonical source/hash binding, it is not authoritative and must not be silently trusted.
+
+This design deliberately does not hard-code one current filesystem path for ATLAS or the portfolio runtime. The implementation plan must bind the resolver to the current canonical adapters/files present in the working tree, while preserving this precedence and ambiguity behavior.
+
 ## 5. Canonical Contracts
 
 ### 5.1 ProductExplainerManifest
@@ -235,7 +251,7 @@ The compiler has nine stages.
 
 Input may be as small as a product identifier, for example `homs`.
 
-The compiler resolves that identifier to a canonical DIO product record. If identity cannot be established, compilation refuses.
+The compiler resolves that identifier to a canonical DIO product record through the source resolver defined in section 4.1. If identity cannot be established or is ambiguous, compilation refuses.
 
 ### Stage 2: Hydrate Truth
 
@@ -474,6 +490,7 @@ The compiler must fail closed with explicit typed states rather than collapsing 
 Required semantic failure categories include:
 
 - `PRODUCT_IDENTITY_UNRESOLVED`;
+- `PRODUCT_IDENTITY_AMBIGUOUS`;
 - `PRODUCT_TRUTH_INCOMPLETE`;
 - `SOURCE_BINDING_STALE`;
 - `EXPLAINER_SEMANTIC_READINESS_NEEDS_EVIDENCE`;
@@ -499,14 +516,15 @@ At minimum:
 
 1. Given HOMS and no operator creative brief, the compiler produces a complete `ProductExplainerManifest` from bound DIO sources.
 2. Missing canonical product identity refuses.
-3. Missing required product truth produces `NEEDS_EVIDENCE` rather than invented copy.
-4. Source hashes are persisted.
-5. A changed bound source invalidates stale explainer reuse.
-6. Market input may alter emphasis metadata but cannot mutate canonical product definition or claim envelope.
-7. Unsupported benefit claims are not promoted to allowed claims.
-8. Real proof assets outrank generated cinematic assets.
-9. External publication remains `NEEDS_YOU`.
-10. Media spend remains `REFUSE`.
+3. Conflicting identity sources at the same authority level produce `PRODUCT_IDENTITY_AMBIGUOUS`.
+4. Missing required product truth produces `NEEDS_EVIDENCE` rather than invented copy.
+5. Source hashes are persisted.
+6. A changed bound source invalidates stale explainer reuse.
+7. Market input may alter emphasis metadata but cannot mutate canonical product definition or claim envelope.
+8. Unsupported benefit claims are not promoted to allowed claims.
+9. Real proof assets outrank generated cinematic assets.
+10. External publication remains `NEEDS_YOU`.
+11. Media spend remains `REFUSE`.
 
 ### Media Style Profile tests
 
