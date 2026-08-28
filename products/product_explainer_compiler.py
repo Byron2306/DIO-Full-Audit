@@ -103,3 +103,271 @@ def load_media_style_profile(
             )
 
     return profile, _fingerprint(profile)
+
+
+PORTFOLIO_EXACT_NAMES = (
+    "DIO_META_PORTFOLIO_ATLAS_RUNTIME.json",
+    "DIO_META_PORTFOLIO_ATLAS.json",
+)
+
+
+def _normalize_identifier(value: Any) -> str:
+    return "".join(character for character in str(value or "").lower() if character.isalnum())
+
+
+def _sha256_path(path: Path) -> str:
+    path = Path(path)
+    if path.is_file():
+        return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    if path.is_dir():
+        digest = hashlib.sha256()
+        for child in sorted(item for item in path.rglob("*") if item.is_file()):
+            digest.update(str(child.relative_to(path)).encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(hashlib.sha256(child.read_bytes()).digest())
+        return "sha256:" + digest.hexdigest()
+    raise FileNotFoundError(path)
+
+
+def _relative_path(path: Path, root: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(Path(root).resolve()))
+    except ValueError:
+        return str(path.resolve())
+
+
+def _portfolio_candidates(root: Path) -> list[Path]:
+    base = Path(root) / "state" / "product_portfolio"
+    exact = [base / name for name in PORTFOLIO_EXACT_NAMES if (base / name).is_file()]
+    if exact:
+        return exact
+    return sorted(base.glob("DIO_META_PORTFOLIO_ATLAS*.json")) if base.is_dir() else []
+
+
+def _portfolio_rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for key in ("incarnations", "products", "candidates", "suites"):
+        value = payload.get(key)
+        if isinstance(value, list):
+            rows.extend(item for item in value if isinstance(item, dict))
+    return rows
+
+
+def _row_matches_product(row: dict[str, Any], product_key: str) -> bool:
+    fields = (
+        row.get("Suite"),
+        row.get("Incarnation"),
+        row.get("product_id"),
+        row.get("id"),
+        row.get("name"),
+    )
+    normalized = [_normalize_identifier(value) for value in fields if value]
+    return any(value == product_key or value.startswith(product_key) for value in normalized)
+
+
+def _canonical_name(row: dict[str, Any], product_key: str) -> str:
+    suite = str(row.get("Suite") or "").strip()
+    if suite and _normalize_identifier(suite) == product_key:
+        return suite
+    for key in ("canonical_name", "name", "Incarnation", "product_id", "id"):
+        value = str(row.get(key) or "").strip()
+        if value:
+            return value
+    return product_key
+
+
+def _as_string_list(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return [value.strip()] if value.strip() else []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    return []
+
+
+def _dedupe(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        marker = value.casefold()
+        if marker in seen:
+            continue
+        seen.add(marker)
+        result.append(value)
+    return result
+
+
+def _marketing_family_matches(product: dict[str, Any], product_key: str) -> bool:
+    values = [
+        _normalize_identifier(product.get("id")),
+        _normalize_identifier(product.get("name")),
+    ]
+    return any(value == product_key or value.startswith(product_key) for value in values if value)
+
+
+def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, Any]:
+    root = Path(root)
+    product_key = _normalize_identifier(product_id)
+    if not product_key:
+        raise ProductExplainerError("PRODUCT_IDENTITY_UNRESOLVED", "product identifier is empty")
+
+    matched_sources: list[dict[str, Any]] = []
+    for path in _portfolio_candidates(root):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ProductExplainerError(
+                "PRODUCT_TRUTH_INCOMPLETE",
+                f"invalid canonical portfolio source: {path}",
+            ) from exc
+        rows = [row for row in _portfolio_rows(payload) if _row_matches_product(row, product_key)]
+        if rows:
+            matched_sources.append({"path": path, "rows": rows})
+
+    if not matched_sources:
+        raise ProductExplainerError(
+            "PRODUCT_IDENTITY_UNRESOLVED",
+            f"no canonical portfolio identity found for product: {product_id}",
+        )
+
+    canonical_names: set[str] = set()
+    descriptions: set[str] = set()
+    for source in matched_sources:
+        for row in source["rows"]:
+            canonical_names.add(_canonical_name(row, product_key).strip())
+            description = str(row.get("Description") or row.get("description") or "").strip()
+            if description:
+                descriptions.add(description)
+
+    normalized_names = {_normalize_identifier(name) for name in canonical_names if name}
+    normalized_suite_names = {
+        _normalize_identifier(str(row.get("Suite") or ""))
+        for source in matched_sources
+        for row in source["rows"]
+        if str(row.get("Suite") or "").strip()
+    }
+    if len(normalized_suite_names) == 1 and product_key in normalized_suite_names:
+        canonical_name = next(
+            str(row.get("Suite")).strip()
+            for source in matched_sources
+            for row in source["rows"]
+            if _normalize_identifier(row.get("Suite")) == product_key
+        )
+    elif len(normalized_names) == 1:
+        canonical_name = next(iter(canonical_names))
+    else:
+        raise ProductExplainerError(
+            "PRODUCT_IDENTITY_AMBIGUOUS",
+            f"canonical portfolio sources disagree on product identity for: {product_id}",
+            {"sources": [_relative_path(source["path"], root) for source in matched_sources]},
+        )
+
+    if len(matched_sources) > 1 and len(descriptions) > 1:
+        raise ProductExplainerError(
+            "PRODUCT_IDENTITY_AMBIGUOUS",
+            f"canonical portfolio sources disagree on product definition for: {product_id}",
+            {
+                "sources": [_relative_path(source["path"], root) for source in matched_sources],
+                "descriptions": sorted(descriptions),
+            },
+        )
+
+    all_rows = [row for source in matched_sources for row in source["rows"]]
+    capabilities = _dedupe(
+        [
+            item
+            for row in all_rows
+            for key in ("Capabilities", "capabilities", "Work Patterns", "work_patterns")
+            for item in _as_string_list(row.get(key))
+        ]
+    )
+    outputs = _dedupe(
+        [
+            item
+            for row in all_rows
+            for key in ("Outputs", "outputs", "Deliverables", "deliverables")
+            for item in _as_string_list(row.get(key))
+        ]
+    )
+
+    source_bindings: list[dict[str, Any]] = [
+        {
+            "path": _relative_path(source["path"], root),
+            "sha256": _sha256_path(source["path"]),
+            "role": "canonical_product_identity",
+        }
+        for source in matched_sources
+    ]
+    identity_path = matched_sources[0]["path"]
+
+    audience_observations: list[dict[str, Any]] = []
+    proof_assets: list[dict[str, Any]] = []
+    marketing_path = root / "state" / "marketing_factory" / "CREATIVE_FAMILY_REGISTRY.json"
+    if marketing_path.is_file():
+        try:
+            marketing = json.loads(marketing_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ProductExplainerError(
+                "PRODUCT_TRUTH_INCOMPLETE",
+                f"invalid marketing supplement: {marketing_path}",
+            ) from exc
+        matching_families = [
+            family
+            for family in (marketing.get("families") or [])
+            if isinstance(family, dict)
+            and _marketing_family_matches(family.get("product") or {}, product_key)
+        ]
+        if matching_families:
+            source_bindings.append(
+                {
+                    "path": _relative_path(marketing_path, root),
+                    "sha256": _sha256_path(marketing_path),
+                    "role": "marketing_supplement",
+                }
+            )
+        seen_proof: set[str] = set()
+        for family in matching_families:
+            audience = family.get("audience") or {}
+            observation = {
+                "audience_id": audience.get("id"),
+                "audience": audience.get("name"),
+                "pain": audience.get("pain"),
+                "outcome": audience.get("outcome"),
+                "family_id": family.get("family_id"),
+            }
+            if any(value for value in observation.values()):
+                audience_observations.append(observation)
+            proof_value = str(family.get("proof_asset") or "").strip()
+            if not proof_value or proof_value in seen_proof:
+                continue
+            seen_proof.add(proof_value)
+            proof_path = Path(proof_value)
+            if not proof_path.is_absolute():
+                proof_path = root / proof_path
+            proof = {
+                "path": _relative_path(proof_path, root),
+                "exists": proof_path.exists(),
+                "sha256": _sha256_path(proof_path) if proof_path.exists() else None,
+            }
+            proof_assets.append(proof)
+            if proof_path.exists():
+                source_bindings.append(
+                    {
+                        "path": proof["path"],
+                        "sha256": proof["sha256"],
+                        "role": "proof_asset",
+                    }
+                )
+
+    return {
+        "product_id": product_key,
+        "canonical_name": canonical_name,
+        "description": next(iter(descriptions), ""),
+        "identity_source": _relative_path(identity_path, root),
+        "identity_sha256": _sha256_path(identity_path),
+        "portfolio_rows": all_rows,
+        "capabilities": capabilities,
+        "outputs": outputs,
+        "proof_assets": proof_assets,
+        "audience_observations": audience_observations,
+        "source_bindings": source_bindings,
+    }
