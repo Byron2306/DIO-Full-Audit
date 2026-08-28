@@ -20,7 +20,7 @@
 - Real product outputs, UI, screenshots, and evidence outrank generated explanatory diagrams and cinematic metaphors.
 - Generated imagery must never be represented as observed evidence, a real product screen, or a customer result.
 - `DIO_CINEMATIC_BRAND_V1` references canonical DIO assets and installed font family names; do not vendor or copy font files into the repository.
-- The approved Vesper public voice is `vera_pocket_public`; synthesis creates no send, identity, translation, or publication authority.
+- The approved Vesper public voice is `vera_pocket_public`; synthesis creates no send, identity, translation, publication, or spend authority.
 - An original local score is a first-class rights-safe media source, not a low-quality procedural fallback. Existing `procedural_music_fallback = REFUSE` semantics remain valid for fallback behavior.
 - The derivative compiler is out of scope until the canonical HOMS explainer graduation proof passes.
 - Do not switch branches, reset, stash, or discard the operator's current dirty worktree. Before implementation, inspect and preserve local unpushed Pocket TTS and launch-media changes.
@@ -135,6 +135,16 @@ Expected: import failure because `products.product_explainer_compiler` does not 
 - [ ] **Step 3: Implement the minimal profile loader and exception**
 
 ```python
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
 class ProductExplainerError(RuntimeError):
     def __init__(self, code: str, message: str, details: dict[str, Any] | None = None):
         super().__init__(message)
@@ -170,9 +180,57 @@ def load_media_style_profile(
     return profile, _fingerprint(profile)
 ```
 
-Create `DIO_CINEMATIC_BRAND_V1` using the approved palette `#050607`, `#d9b66f`, `#f1d79b`, `#f3efe7`; Noto Serif Display/Noto Serif/DejaVu Sans; the golden master under `media/golden_references/dio_launch_cinematic_v1/master/`; `brand/dio-wordmark.svg`; `brand/dio-sigil.webp`; `vera_pocket_public`; `DIO_SONIC_IDENTITY_V1`; and release booleans from the global constraints.
+Create `config/media_style_profiles.json` with this registry shape:
 
-The two JSON Schema files must require the exact top-level fields from the approved design. Set `additionalProperties` to `true` for v1 so the first implementation can add evidence metadata without schema churn, but require the authority/release fields and their safe enum/boolean values.
+```json
+{
+  "schema": "dio.media.style_profile_registry.v1",
+  "profiles": {
+    "DIO_CINEMATIC_BRAND_V1": {
+      "schema": "dio.media.style_profile.v1",
+      "profile_id": "DIO_CINEMATIC_BRAND_V1",
+      "golden_reference": {
+        "master": "media/golden_references/dio_launch_cinematic_v1/master/DIO_LAUNCH_TRAILER_MASTER_V1.mp4",
+        "sha256": "bind-at-runtime"
+      },
+      "visual": {
+        "palette": {
+          "black": "#050607",
+          "gold": "#d9b66f",
+          "pale_gold": "#f1d79b",
+          "cream": "#f3efe7"
+        }
+      },
+      "typography": {
+        "brand_face": "Noto Serif Display",
+        "body_face": "Noto Serif",
+        "technical_face": "DejaVu Sans",
+        "wordmark": "media/golden_references/dio_launch_cinematic_v1/brand/dio-wordmark.svg",
+        "sigil": "media/golden_references/dio_launch_cinematic_v1/brand/dio-sigil.webp",
+        "silent_font_fallback": false
+      },
+      "voice": {
+        "role": "vesper_public",
+        "profile": "vera_pocket_public",
+        "render_mode": "presence_core_import"
+      },
+      "sound": {
+        "sonic_identity": "DIO_SONIC_IDENTITY_V1",
+        "music_policy": "original_local_or_rights_verified"
+      },
+      "release": {
+        "automatic_local_render": true,
+        "automatic_external_publication": false,
+        "automatic_media_spend": false
+      }
+    }
+  }
+}
+```
+
+At load time, replace the sentinel `bind-at-runtime` with the actual SHA-256 of the master before fingerprinting the resolved profile. Do not write that runtime hash back into config unless a separate freeze action is later introduced.
+
+The two JSON Schema files must require the exact top-level fields from the approved design. Set `additionalProperties` to `true` for v1, but require the authority/release fields and their safe enum/boolean values. `media_production_request_v2.schema.json` must require a `voice` object containing `role`, `profile`, and `render_mode`, because Task 6 consumes these resolved voice fields directly.
 
 - [ ] **Step 4: Run tests and verify GREEN**
 
@@ -204,16 +262,27 @@ git commit -m "feat: add governed product explainer media contracts"
 
 **Interfaces:**
 - Produces: `resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, Any]`
-- Returned keys: `product_id`, `canonical_name`, `identity_source`, `identity_sha256`, `portfolio_rows`, `capabilities`, `outputs`, `proof_assets`, `audience_observations`, `source_bindings`.
+- Returned keys: `product_id`, `canonical_name`, `description`, `identity_source`, `identity_sha256`, `portfolio_rows`, `capabilities`, `outputs`, `proof_assets`, `audience_observations`, `source_bindings`.
 - Consumers: Task 3.
 
 - [ ] **Step 1: Write failing resolver tests with isolated fixtures**
 
 ```python
+from pathlib import Path
+import json
+import pytest
+
+from products.product_explainer_compiler import ProductExplainerError, resolve_product_truth
+
+
+def _write_json(path: Path, value: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value), encoding="utf-8")
+
+
 def test_resolver_uses_portfolio_for_identity_and_marketing_only_as_supplement(tmp_path: Path):
     portfolio = tmp_path / "state/product_portfolio/DIO_META_PORTFOLIO_ATLAS_RUNTIME.json"
-    portfolio.parent.mkdir(parents=True)
-    portfolio.write_text(json.dumps({
+    _write_json(portfolio, {
         "schema": "dio.meta_portfolio.runtime.v1",
         "incarnations": [{
             "Incarnation": "HOMS Assess",
@@ -222,47 +291,65 @@ def test_resolver_uses_portfolio_for_identity_and_marketing_only_as_supplement(t
             "Capabilities": ["assessment generation", "rubric-bound review"],
             "Outputs": ["assessment paper", "memorandum", "rubric"]
         }]
-    }))
+    })
     marketing = tmp_path / "state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json"
-    marketing.parent.mkdir(parents=True, exist_ok=True)
-    marketing.write_text(json.dumps({
+    _write_json(marketing, {
         "schema": "dio.marketing.creative_family_registry.v1",
         "families": [{
             "product": {"id": "HOMS_ASSESS", "name": "HOMS Assess"},
             "audience": {"pain": "Assessment preparation is repetitive.", "outcome": "Reviewable assessment outputs."},
             "proof_asset": "proof/homs.md"
         }]
-    }))
+    })
     (tmp_path / "proof").mkdir()
-    (tmp_path / "proof/homs.md").write_text("controlled HOMS proof")
+    (tmp_path / "proof/homs.md").write_text("controlled HOMS proof", encoding="utf-8")
 
     truth = resolve_product_truth("homs", root=tmp_path)
 
     assert truth["canonical_name"] == "HOMS"
+    assert truth["description"] == "Governed assessment production and review workflows"
     assert truth["identity_source"].endswith("DIO_META_PORTFOLIO_ATLAS_RUNTIME.json")
     assert truth["audience_observations"][0]["pain"] == "Assessment preparation is repetitive."
     assert truth["proof_assets"][0]["path"] == "proof/homs.md"
 
 
 def test_conflicting_canonical_sources_refuse(tmp_path: Path):
-    # two equally authoritative ATLAS files with different HOMS descriptions
-    ...
-```
+    base = tmp_path / "state/product_portfolio"
+    row_a = {
+        "Incarnation": "HOMS Assess",
+        "Suite": "HOMS",
+        "Description": "Governed assessment production",
+        "Capabilities": ["assessment generation"],
+        "Outputs": ["assessment paper"]
+    }
+    row_b = {
+        "Incarnation": "HOMS Assess",
+        "Suite": "HOMS",
+        "Description": "Automatic guaranteed assessment compliance",
+        "Capabilities": ["assessment generation"],
+        "Outputs": ["assessment paper"]
+    }
+    _write_json(base / "DIO_META_PORTFOLIO_ATLAS_RUNTIME.json", {"incarnations": [row_a]})
+    _write_json(base / "DIO_META_PORTFOLIO_ATLAS.json", {"incarnations": [row_b]})
 
-For the second test, create both `DIO_META_PORTFOLIO_ATLAS_RUNTIME.json` and `DIO_META_PORTFOLIO_ATLAS.json` in the fixture with the same `Suite: HOMS` but different non-empty `Description` values. Assert `ProductExplainerError.code == "PRODUCT_IDENTITY_AMBIGUOUS"`.
+    with pytest.raises(ProductExplainerError) as exc:
+        resolve_product_truth("homs", root=tmp_path)
+
+    assert exc.value.code == "PRODUCT_IDENTITY_AMBIGUOUS"
+```
 
 - [ ] **Step 2: Run targeted tests and verify RED**
 
 ```bash
 PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 \
--m pytest -q tests/test_product_explainer_compiler.py -k resolver
+-m pytest -q tests/test_product_explainer_compiler.py -k 'resolver or conflicting'
 ```
 
 Expected: FAIL because `resolve_product_truth` is absent.
 
 - [ ] **Step 3: Implement deterministic source discovery and projection**
 
-Use this exact authority order inside the compiler:
+Use this authority order inside the compiler:
 
 ```python
 PORTFOLIO_EXACT_NAMES = (
@@ -279,9 +366,9 @@ def _portfolio_candidates(root: Path) -> list[Path]:
     return sorted(base.glob("DIO_META_PORTFOLIO_ATLAS*.json")) if base.is_dir() else []
 ```
 
-Normalize candidate product IDs by lowercasing and removing punctuation. Match `homs` against `Suite`, `Incarnation`, `product_id`, `id`, and `name`. If multiple rows match and share one non-empty suite name, resolve to that suite. If authoritative candidates disagree on canonical name/description for the same normalized product, raise `PRODUCT_IDENTITY_AMBIGUOUS`.
+Normalize candidate product IDs by lowercasing and removing punctuation. Match `homs` against `Suite`, `Incarnation`, `product_id`, `id`, and `name`. If multiple rows match and share one non-empty suite name, resolve to that suite. If authoritative candidates disagree on canonical name or non-empty canonical description for the same normalized product, raise `PRODUCT_IDENTITY_AMBIGUOUS`.
 
-Read `state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json` only after canonical identity is established. Extract audience pain/outcome and proof paths only for matching HOMS/HOMS Assess/HOMS Learning family rows. Marketing registry values must never overwrite canonical name, description, capabilities, or outputs.
+Read `state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json` only after canonical identity is established. Extract audience pain/outcome and proof paths only for rows whose normalized product identity begins with or belongs to the resolved HOMS suite. Marketing registry values must never overwrite canonical name, description, capabilities, or outputs.
 
 Persist every consumed file in `source_bindings` as `{path, sha256, role}`.
 
@@ -312,15 +399,39 @@ git commit -m "feat: resolve product explainer truth from bound DIO sources"
 **Interfaces:**
 - Produces: `build_claim_envelope(truth: dict[str, Any]) -> dict[str, list[dict[str, Any]]]`
 - Produces: `compile_product_explainer(product_id: str, *, root: Path = ROOT, output_dir: Path | None = None, market_context: dict[str, Any] | None = None) -> dict[str, Any]`
-- Output contains `manifest`, `manifest_path`, `manifest_sha256`, `truth`, `semantic_readiness`.
+- Output contains `manifest`, `manifest_path`, `manifest_sha256`, `truth`, `semantic_readiness`, and `missing`.
 - Consumers: Task 4 and graduation runner.
 
 - [ ] **Step 1: Add failing tests for evidence refusal, source hashes, market immutability, and release authority**
 
 ```python
+def build_complete_homs_fixture(tmp_path: Path) -> Path:
+    _write_json(tmp_path / "state/product_portfolio/DIO_META_PORTFOLIO_ATLAS_RUNTIME.json", {
+        "incarnations": [{
+            "Incarnation": "HOMS Assess",
+            "Suite": "HOMS",
+            "Description": "Governed assessment production and review workflows",
+            "Capabilities": ["ingest assessment intent", "generate reviewable assessment outputs"],
+            "Outputs": ["assessment paper", "memorandum", "rubric"]
+        }]
+    })
+    _write_json(tmp_path / "state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json", {
+        "families": [{
+            "product": {"id": "HOMS_ASSESS", "name": "HOMS Assess"},
+            "audience": {"pain": "Assessment production spans repetitive preparation and review steps.", "outcome": "Reviewable assessment outputs."},
+            "proof_asset": "proof/homs.md"
+        }]
+    })
+    (tmp_path / "proof").mkdir()
+    (tmp_path / "proof/homs.md").write_text("HOMS controlled proof", encoding="utf-8")
+    return tmp_path
+
+
 def test_missing_required_truth_returns_needs_evidence(tmp_path: Path):
-    root = build_minimal_portfolio_fixture(tmp_path, description="")
-    result = compile_product_explainer("homs", root=root)
+    _write_json(tmp_path / "state/product_portfolio/DIO_META_PORTFOLIO_ATLAS_RUNTIME.json", {
+        "incarnations": [{"Incarnation": "HOMS Assess", "Suite": "HOMS", "Description": "", "Capabilities": [], "Outputs": []}]
+    })
+    result = compile_product_explainer("homs", root=tmp_path)
     assert result["semantic_readiness"] == "NEEDS_EVIDENCE"
     assert "what_it_is" in result["missing"]
 
@@ -345,8 +456,6 @@ def test_release_authority_stays_human(tmp_path: Path):
     assert result["manifest"]["authority"]["media_spend"] == "REFUSE"
 ```
 
-The fixture helper must create portfolio fields `Description`, `Capabilities`, and `Outputs`, plus a real proof file referenced by the supplemental marketing registry.
-
 - [ ] **Step 2: Run and verify RED**
 
 ```bash
@@ -356,7 +465,7 @@ PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/py
 
 - [ ] **Step 3: Implement deterministic explanation construction**
 
-Required readiness inputs are:
+Use these readiness fields:
 
 ```python
 REQUIRED_EXPLANATION_FIELDS = (
@@ -370,19 +479,15 @@ REQUIRED_EXPLANATION_FIELDS = (
 
 Construct them only from bound truth:
 
-- `what_it_is`: canonical name + canonical description.
-- `problem`: canonical product problem if present; otherwise summarize the set of bound audience `pain` observations as observations, never as proven outcomes.
+- `what_it_is`: canonical name plus canonical description.
+- `problem`: canonical product problem if present; otherwise summarize bound audience `pain` observations explicitly as observations.
 - `how_it_works`: canonical capabilities/work-patterns rendered as an ordered mechanism description.
-- `why_different`: only product-specific differentiators present in canonical truth plus DIO governance characteristics that are actually represented in source bindings; no competitive-superiority wording without evidence.
+- `why_different`: only product-specific differentiators present in canonical truth plus DIO governance characteristics actually represented in source bindings.
 - `buyer_result`: concrete outputs the user receives. Audience `outcome` strings remain `QUALIFIED` unless separately evidence-bound.
 
 `build_claim_envelope` creates objects with `text`, `class`, `source_paths`, and `reason`. Canonical capability/output statements with a bound product source are `DESCRIPTIVE`; proof-backed statements are `SUPPORTED`; marketing outcomes without direct outcome proof are `QUALIFIED`; claims containing unsupported certainty such as `guarantee`, `certify`, `always`, or `eliminate` are `FORBIDDEN` unless an explicit source-bound claim record marks them supported.
 
-When readiness is complete, write:
-
-`state/product_explainers/<normalized-product-id>/PRODUCT_EXPLAINER_MANIFEST.json`
-
-using stable sorted JSON and return its SHA-256.
+When readiness is complete, write `state/product_explainers/<normalized-product-id>/PRODUCT_EXPLAINER_MANIFEST.json` using stable sorted JSON and return its SHA-256.
 
 - [ ] **Step 4: Run the full compiler unit test file**
 
@@ -412,13 +517,40 @@ git commit -m "feat: compile evidence-bound product explainer manifests"
 - Produces: `build_media_production_request(explainer_result: dict[str, Any], *, root: Path = ROOT, style_profile_id: str = "DIO_CINEMATIC_BRAND_V1") -> dict[str, Any]`
 - Produces: `build_explainer_script_package(manifest: dict[str, Any]) -> dict[str, Any]`
 - Produces: `semantic_challenge(manifest: dict[str, Any], script_package: dict[str, Any]) -> dict[str, Any]`
+- Request `voice` is copied from the resolved style profile as `{role, profile, render_mode}`.
 - Request `release` is fixed to local `ALLOW`, external `NEEDS_YOU`, spend `REFUSE`.
 - Consumers: Task 6.
 
 - [ ] **Step 1: Write failing tests**
 
 ```python
-def test_media_request_binds_explainer_and_style_hashes(tmp_path: Path):
+def install_test_brand_profile(root: Path) -> None:
+    master = root / "media/golden_references/dio_launch_cinematic_v1/master/DIO_LAUNCH_TRAILER_MASTER_V1.mp4"
+    wordmark = root / "media/golden_references/dio_launch_cinematic_v1/brand/dio-wordmark.svg"
+    sigil = root / "media/golden_references/dio_launch_cinematic_v1/brand/dio-sigil.webp"
+    master.parent.mkdir(parents=True, exist_ok=True)
+    wordmark.parent.mkdir(parents=True, exist_ok=True)
+    master.write_bytes(b"video")
+    wordmark.write_text("<svg></svg>", encoding="utf-8")
+    sigil.write_bytes(b"webp")
+    _write_json(root / "config/media_style_profiles.json", {
+        "schema": "dio.media.style_profile_registry.v1",
+        "profiles": {
+            "DIO_CINEMATIC_BRAND_V1": {
+                "schema": "dio.media.style_profile.v1",
+                "profile_id": "DIO_CINEMATIC_BRAND_V1",
+                "golden_reference": {"master": str(master.relative_to(root)), "sha256": "bind-at-runtime"},
+                "visual": {"palette": {"black": "#050607", "gold": "#d9b66f"}},
+                "typography": {"brand_face": "Noto Serif Display", "body_face": "Noto Serif", "technical_face": "DejaVu Sans", "wordmark": str(wordmark.relative_to(root)), "sigil": str(sigil.relative_to(root)), "silent_font_fallback": False},
+                "voice": {"role": "vesper_public", "profile": "vera_pocket_public", "render_mode": "presence_core_import"},
+                "sound": {"sonic_identity": "DIO_SONIC_IDENTITY_V1", "music_policy": "original_local_or_rights_verified"},
+                "release": {"automatic_local_render": True, "automatic_external_publication": False, "automatic_media_spend": False}
+            }
+        }
+    })
+
+
+def test_media_request_binds_explainer_style_and_voice(tmp_path: Path):
     root = build_complete_homs_fixture(tmp_path)
     install_test_brand_profile(root)
     compiled = compile_product_explainer("homs", root=root)
@@ -426,6 +558,11 @@ def test_media_request_binds_explainer_and_style_hashes(tmp_path: Path):
     assert request["schema"] == "dio.media.production_request.v2"
     assert request["explainer_manifest"]["sha256"] == compiled["manifest_sha256"]
     assert request["style_profile"]["sha256"].startswith("sha256:")
+    assert request["voice"] == {
+        "role": "vesper_public",
+        "profile": "vera_pocket_public",
+        "render_mode": "presence_core_import",
+    }
     assert request["release"] == {
         "local_render": "ALLOW",
         "external_publication": "NEEDS_YOU",
@@ -460,7 +597,7 @@ PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/py
 
 Scene durations must sum to 55 seconds by default: `7, 7, 11, 11, 9, 7, 3`. Each scene includes `scene_id`, `story_beat`, `title`, `narration`, `screen_anchor`, `target_duration_seconds`, `claim_ids`, `source_ids`, and `asset_preference`.
 
-Asset preference is encoded exactly as:
+Use this asset order:
 
 ```python
 ASSET_PREFERENCE = [
@@ -473,6 +610,8 @@ ASSET_PREFERENCE = [
 ```
 
 The challenge must compare script sentences against the manifest claim envelope, reject forbidden certainty terms not present in allowed/supported claims, reject any scene with `asset_representation == "evidence"` when its asset provenance is generated, and reject CTA text that asserts unsupported price, availability, customer count, or certification.
+
+`build_media_production_request` must copy the resolved profile voice object into `request["voice"]`; Task 6 must not infer the voice from the profile ID a second time.
 
 - [ ] **Step 4: Run full compiler tests**
 
@@ -507,6 +646,13 @@ git commit -m "feat: build governed explainer production requests"
 - [ ] **Step 1: Write tests against the required local behavior before editing production files**
 
 ```python
+from pathlib import Path
+
+from presence_core.voice import build_voice_plan, synthesize_voice
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
 def test_vera_public_profile_is_internal_render_only():
     plan = build_voice_plan(
         root=ROOT,
@@ -518,9 +664,29 @@ def test_vera_public_profile_is_internal_render_only():
     assert plan["state"] == "ready_for_internal_render"
     assert plan["public_default_authorized"] is True
     assert plan["send_authority_created"] is False
-```
 
-Add one HTTP-mocked synthesis test that returns a minimal RIFF/WAV payload from `/tts` and asserts the receipt authority booleans remain false. Mock only HTTP transport; exercise the real routing function.
+
+def test_pocket_tts_receipt_creates_no_authority(monkeypatch, tmp_path: Path):
+    class Response:
+        content = b"RIFF" + b"0" * 64
+        def raise_for_status(self):
+            return None
+
+    monkeypatch.setattr("presence_core.voice.httpx.post", lambda *args, **kwargs: Response())
+    plan = {
+        "state": "ready_for_internal_render",
+        "backend": "pocket_tts",
+        "profile_id": "vera_pocket_public",
+        "voice_url": "vera",
+        "language": "English",
+        "delivery_mode": "measured",
+    }
+    receipt = synthesize_voice(text="Dio", output_path=tmp_path / "dio.wav", plan=plan)
+    assert receipt["external_action_executed"] is False
+    assert receipt["send_authorized"] is False
+    assert receipt["identity_authority_created"] is False
+    assert receipt["translation_authority_created"] is False
+```
 
 - [ ] **Step 2: Run tests**
 
@@ -529,7 +695,7 @@ PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/py
 -m pytest -q tests/test_vesper_pocket_tts.py
 ```
 
-If they PASS immediately, the local unpushed Pocket TTS patch is already sufficient: do not rewrite it. If they FAIL because the GitHub-baseline behavior is still present locally, implement the already-approved Pocket TTS backend/profile exactly as captured by the launch-trailer work.
+If they PASS immediately, the local unpushed Pocket TTS patch is already sufficient: do not rewrite it. If they FAIL because the GitHub-baseline behavior is still present locally, implement the approved Pocket TTS backend/profile exactly as captured by the launch-trailer work.
 
 - [ ] **Step 3: Verify the live local service separately**
 
@@ -567,7 +733,12 @@ git commit -m "test: bind Vesper Vera voice to governed media production"
 - [ ] **Step 1: Write failing integration tests around dependency injection**
 
 ```python
-def test_build_path_uses_supplied_explainer_script(monkeypatch, tmp_path: Path):
+from pathlib import Path
+
+import products.premium_media_federation as federation
+
+
+def test_federation_forwards_supplied_explainer_script(monkeypatch, tmp_path: Path):
     seen = {}
     script = {
         "schema": "dio.product_explainer.script_package.v1",
@@ -582,13 +753,50 @@ def test_build_path_uses_supplied_explainer_script(monkeypatch, tmp_path: Path):
             "source_ids": []
         }]
     }
-    # monkeypatch only heavyweight native boundaries; assert the real federation forwards `script` unchanged
-    ...
+
+    monkeypatch.setattr(federation, "build_media_incarnation", lambda output_dir: {"output_dir": str(output_dir)})
+    monkeypatch.setattr(federation, "resolve_nichefoundry_root", lambda value: tmp_path / "nf")
+
+    def fake_run(niche_root, episode_dir, provider, script_package):
+        seen["niche_script"] = script_package
+        final = episode_dir / "final.mp4"
+        thumb = episode_dir / "thumbnail.png"
+        final.parent.mkdir(parents=True, exist_ok=True)
+        final.write_bytes(b"video")
+        thumb.write_bytes(b"png")
+        return {
+            "providers": ["imported"],
+            "probe": {"streams": [{"sample_rate": "48000", "channels": 2}]},
+            "sound_design": {"music_identity": "test", "rights": {"state": "self_generated_bound"}, "scenes": [{"music_cue": "bed"}]},
+            "music_quality": {"hiss_detection": "PASS"},
+            "gamma": {"native_engine_invoked": True},
+            "native_render": {"final": str(final), "thumbnail": str(thumb), "qa": {"passed": True}},
+        }
+
+    monkeypatch.setattr(federation, "_run_nichefoundry", fake_run)
+
+    def fake_control(*, gamma_dir, script_package, output_dir, style_profile):
+        seen["document_script"] = script_package
+        return {"binding_state": "CONTROL_SURFACE_BOUND"}
+
+    monkeypatch.setattr(federation, "render_media_control_surface", fake_control)
+    monkeypatch.setattr(federation, "_corpus_census", lambda niche: {"engines": [], "full_corpus_native_execution": "REFUSE"})
+    monkeypatch.setattr(federation, "verify_premium_proof", lambda output_dir, proof: None)
+
+    result = federation.build_premium_media(output_dir=tmp_path / "out", script_package=script)
+
+    assert seen["niche_script"] is script
+    assert seen["document_script"] is script
+    assert result["receipt"]["external_publication"] == "REFUSE"
+
+
+def test_legacy_script_remains_available():
+    script = federation._script_package()
+    assert script["schema"] == "nichefoundry.script_package.v1.0"
+    assert script["scenes"]
 ```
 
-Complete the test by monkeypatching `_run_nichefoundry`, `build_media_incarnation`, and `render_media_control_surface` with deterministic local fakes that record `script_package`; do not mock `build_premium_media` itself. Assert Document Studio receives the exact supplied script object rather than `_script_package()`.
-
-Add a second test asserting the existing no-argument Phase 16 script path remains functional so older tests do not regress.
+The minimal native fake may need to create specific hash-bound files already required by `build_premium_media`. If the first RED run fails before reaching the script assertion because those files are missing, extend only the fake to create those exact files; do not weaken production integrity checks.
 
 - [ ] **Step 2: Run and verify RED**
 
@@ -612,19 +820,17 @@ document_studio = render_media_control_surface(
 )
 ```
 
-Update `_prepare_episode` and `_prepare_native_render_contract` to consume the passed script instead of calling `_script_package()` internally.
-
-Do not delete the legacy `_script_package()` in this task. It remains a compatibility fixture for the Phase 16 proof until HOMS graduation passes.
+Update `_prepare_episode` and `_prepare_native_render_contract` to consume the passed script instead of calling `_script_package()` internally. Do not delete the legacy `_script_package()` in this task.
 
 - [ ] **Step 4: Add the Vesper import adapter without teaching NicheFoundry a new backend**
 
-When `production_request.voice.profile == "vera_pocket_public"`, render each scene narration through Presence Core into `episode/imports/audio/` before `_resolve_premium_provider`. Then use NicheFoundry's existing `imported` provider path. Write `DIO_VOICE_IMPORT_RECEIPT.json` binding each scene audio hash to `vera_pocket_public` and backend `pocket_tts`.
+When `production_request["voice"]["profile"] == "vera_pocket_public"` and `production_request["voice"]["render_mode"] == "presence_core_import"`, call Presence Core once per scene narration, write each WAV beneath `episode/imports/audio/`, and write `DIO_VOICE_IMPORT_RECEIPT.json` with `{scene_id, profile_id, backend, audio_path, sha256}` rows. Then force NicheFoundry's selected provider to `imported` for that explainer episode.
 
-This deliberately avoids adding `pocket_tts` to NicheFoundry's provider enum. DIO owns voice identity; NicheFoundry consumes cleared imported audio.
+Use the public `build_voice_plan` and `synthesize_voice` functions. Do not duplicate Pocket TTS HTTP logic in the premium-media federation.
 
 - [ ] **Step 5: Distinguish original-local score from procedural fallback**
 
-If the production request binds a DIO-generated local score with its generator/hash receipt, expose:
+If `production_request["music"]` contains `{origin: "original_local", rights_state: "self_generated_bound", path, generator_receipt}`, expose:
 
 ```json
 {
@@ -634,11 +840,11 @@ If the production request binds a DIO-generated local score with its generator/h
 }
 ```
 
-If external music is supplied, retain the existing rights-evidence requirement. Do not weaken `music_rights_evidence` or hiss/loudness QA.
+If external music is supplied, retain the existing rights-evidence requirement. Do not weaken `music_rights_evidence`, hiss detection, or loudness QA.
 
 - [ ] **Step 6: Update gauntlet/runner arguments**
 
-Allow the gauntlet to accept optional `script_package` and `production_request` dictionaries and pass them to `build_premium_media`. Keep all existing acceptance keys. Add two new receipt keys:
+Allow the gauntlet to accept optional `script_package` and `production_request` dictionaries and pass them to `build_premium_media`. Keep all existing acceptance keys. Add:
 
 ```python
 "explainer_contract_binding": "PASS",
@@ -657,7 +863,13 @@ PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/py
   tests/test_premium_media_phase16_1_1.py
 ```
 
-If one of the two historical test filenames differs locally, use `find tests -maxdepth 1 -type f -iname '*premium*media*' -print` and run the existing Phase 16 premium-media test files that are present; do not silently skip regression coverage.
+If one historical filename differs locally, run:
+
+```bash
+find tests -maxdepth 1 -type f -iname '*premium*media*' -print
+```
+
+and include every existing Phase 16 premium-media test file returned by that command in the regression run.
 
 - [ ] **Step 8: Commit**
 
@@ -676,24 +888,28 @@ git commit -m "feat: feed product explainer contracts into premium media"
 **Files:**
 - Create: `scripts/run_product_explainer_graduation.py`
 - Modify: `tests/test_product_explainer_compiler.py`
-- Optional generated runtime outputs only: `state/product_explainers/homs/**`
 
 **Interfaces:**
-- CLI: `python -m scripts.run_product_explainer_graduation --product homs --output <path> [--render] [--nichefoundry-root <path>]`
-- Non-render mode compiles truth, manifest, request, script package, semantic challenge, and receipt.
-- `--render` additionally invokes premium media and binds the final video hash.
-- Acceptance token: `DIO_PRODUCT_EXPLAINER_GRADUATION_READY` only when all required gates pass.
+- Produces: `run_graduation(product_id: str, *, output_dir: Path, render: bool = False, nichefoundry_root: Path | None = None) -> dict[str, Any]`
+- Produces acceptance token only when all required semantic gates pass: `DIO_PRODUCT_EXPLAINER_GRADUATION_READY`.
 
-- [ ] **Step 1: Write the failing graduation receipt test**
+- [ ] **Step 1: Write the failing semantic-only graduation test**
 
 ```python
-def test_homs_graduation_receipt_keeps_publication_human(tmp_path: Path):
-    result = run_graduation(
-        product_id="homs",
-        root=build_complete_homs_fixture(tmp_path),
-        output_dir=tmp_path / "graduation",
+def test_graduation_without_render_proves_semantics_only(tmp_path: Path, monkeypatch):
+    from scripts import run_product_explainer_graduation as graduation
+
+    root = build_complete_homs_fixture(tmp_path / "root")
+    install_test_brand_profile(root)
+    monkeypatch.setattr(graduation, "ROOT", root)
+
+    result = graduation.run_graduation(
+        "homs",
+        output_dir=tmp_path / "out",
         render=False,
     )
+
+    assert result["acceptance_token"] == "DIO_PRODUCT_EXPLAINER_GRADUATION_READY"
     assert result["product_identity"] == "PASS"
     assert result["source_binding"] == "PASS"
     assert result["product_explanation"] == "PASS"
@@ -713,7 +929,7 @@ PYTHONNOUSERSITE=1 /home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/py
 
 - [ ] **Step 3: Implement `run_graduation` and CLI**
 
-The runner must write:
+The runner writes:
 
 ```text
 <output>/PRODUCT_EXPLAINER_MANIFEST.json
@@ -723,10 +939,12 @@ The runner must write:
 <output>/PRODUCT_EXPLAINER_GRADUATION_RECEIPT.json
 ```
 
-When `--render` succeeds, also write `FINAL_MEDIA_BINDING.json` with the premium-media final path and SHA-256. The receipt fields are:
+When `--render` succeeds, also write `FINAL_MEDIA_BINDING.json` with the premium-media final path and SHA-256.
+
+Use this receipt shape:
 
 ```python
-{
+receipt = {
     "acceptance_token": "DIO_PRODUCT_EXPLAINER_GRADUATION_READY",
     "product_identity": "PASS",
     "source_binding": "PASS",
@@ -771,7 +989,7 @@ cat /tmp/dio-homs-explainer/PRODUCT_EXPLAINER_GRADUATION_RECEIPT.json
 
 Expected: semantic gates PASS. If HOMS returns `NEEDS_EVIDENCE`, inspect the reported missing field and repair the authoritative HOMS product/portfolio source, not the generated manifest and not the compiler with HOMS-specific marketing prose.
 
-- [ ] **Step 6: Commit the runner and tests**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add scripts/run_product_explainer_graduation.py tests/test_product_explainer_compiler.py
@@ -785,7 +1003,6 @@ git commit -m "feat: add HOMS product explainer graduation runner"
 **Files:**
 - No new production code unless a failing test identifies a defect.
 - Generated evidence: `state/product_explainers/homs/graduation/**`
-- Generated final master under the graduation output directory.
 
 **Interfaces:**
 - Consumes all prior tasks.
@@ -803,7 +1020,7 @@ PYTHONNOUSERSITE=1 \
   tests/test_premium_media_explainer_integration.py
 ```
 
-Expected: PASS with no warnings promoted to errors.
+Expected: PASS.
 
 - [ ] **Step 2: Verify Pocket TTS and NicheFoundry prerequisites**
 
@@ -849,24 +1066,35 @@ MEDIA_SPEND ...................... REFUSE
 DIO_PRODUCT_EXPLAINER_GRADUATION_READY
 ```
 
-- [ ] **Step 4: Tamper-test the frozen final**
+- [ ] **Step 4: Tamper-test the final**
 
-Copy the completed graduation directory to `/tmp/dio-homs-explainer-tamper`, append `TAMPER` bytes to the final MP4, and run the same proof verifier used by premium media. Expected: integrity failure. Then re-run verification against the untouched original and expect PASS.
+```bash
+rm -rf /tmp/dio-homs-explainer-tamper
+cp -a state/product_explainers/homs/graduation /tmp/dio-homs-explainer-tamper
+FINAL="$(python3 - <<'PY'
+import json
+from pathlib import Path
+binding=json.loads(Path('/tmp/dio-homs-explainer-tamper/FINAL_MEDIA_BINDING.json').read_text())
+print(binding['path'])
+PY
+)"
+printf 'TAMPER' >> "$FINAL"
+```
+
+Run the same premium proof verifier against the tampered copy and require an integrity failure. Then verify the untouched original and require PASS. Do not change the verifier to accommodate the tamper test.
 
 - [ ] **Step 5: Human perceptual review remains explicit**
 
-Play the generated master locally. Do not change the receipt's public release state based on automated visual/audio QA. The human review result can create a separate approval receipt after inspection; until then publication remains `NEEDS_YOU`.
+Play the generated master locally. Do not change the receipt's public release state based on automated visual/audio QA. Human review may create a separate approval receipt after inspection; until then publication remains `NEEDS_YOU`.
 
-- [ ] **Step 6: Commit only source/test changes and compact receipts intentionally selected for version control**
-
-Do not blindly `git add state/`. Inspect generated sizes first:
+- [ ] **Step 6: Inspect generated sizes before any commit**
 
 ```bash
 du -ah state/product_explainers/homs/graduation | sort -h | tail -30
 git status --short
 ```
 
-Commit source/tests separately from large rendered media. If the final MP4 is intentionally versioned, verify it is below GitHub's single-file limit before adding it; otherwise keep the hash-bound receipt and local master path without inventing a remote artifact.
+Commit source/tests separately from large rendered media. If the final MP4 is intentionally versioned, verify it is below GitHub's single-file limit before adding it. Otherwise retain the hash-bound receipt and local master path.
 
 ## Final Verification
 
@@ -889,7 +1117,7 @@ PYTHONNOUSERSITE=1 \
   --render
 ```
 
-Acceptance requires all machine gates above plus the preserved authority state:
+Acceptance requires all machine gates plus:
 
 ```text
 LOCAL_RENDER = ALLOW
