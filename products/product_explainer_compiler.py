@@ -176,7 +176,6 @@ def _canonical_name(row: dict[str, Any], product_key: str) -> str:
 
 
 def _family_name_from_incarnations(rows: list[dict[str, Any]], product_key: str) -> str | None:
-    """Return a display family name when every matched incarnation shares the exact queried token prefix."""
     prefixes: list[str] = []
     for row in rows:
         incarnation = str(row.get("Incarnation") or "").strip()
@@ -295,6 +294,21 @@ def _one_liner_capabilities(value: Any) -> list[str]:
 
 def _humanize_artifact_type(value: Any) -> str:
     return str(value or "").strip().replace("_", " ")
+
+
+def _promise_outputs(value: Any) -> list[str]:
+    text = str(value or "").strip().rstrip(".")
+    if not text:
+        return []
+    pieces = [piece.strip() for piece in text.split(",") if piece.strip()]
+    if len(pieces) <= 1:
+        return [text]
+    result: list[str] = []
+    for piece in pieces:
+        if piece.casefold().startswith("and "):
+            piece = piece[4:].strip()
+        result.append(piece)
+    return _dedupe(result)
 
 
 def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, Any]:
@@ -455,6 +469,8 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
             for item in _as_string_list(row.get(key))
         ]
     )
+    if not outputs and product_layer is not None:
+        outputs = _promise_outputs(product_layer.get("promise"))
     if not outputs and lingua_route is not None:
         outputs = _dedupe(
             [
@@ -462,10 +478,6 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
                 for value in _as_string_list(lingua_route.get("artifact_types"))
             ]
         )
-    if not outputs and product_layer is not None:
-        promise = str(product_layer.get("promise") or "").strip()
-        if promise:
-            outputs = [promise]
 
     audience_observations: list[dict[str, Any]] = []
     proof_assets: list[dict[str, Any]] = []
@@ -543,8 +555,6 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
     }
 
 
-# Public semantic/story interfaces live in a focused module; re-export them
-# here to preserve the canonical Product Explainer Compiler API.
 from .product_explainer_pipeline import (  # noqa: E402
     ASSET_PREFERENCE,
     REQUIRED_EXPLANATION_FIELDS,
