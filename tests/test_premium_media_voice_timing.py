@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import struct
 import wave
 from pathlib import Path
 
@@ -152,6 +153,36 @@ def test_presence_voice_import_records_measured_wav_duration(monkeypatch, tmp_pa
 
     assert receipt is not None
     assert receipt["assets"][0]["duration_seconds"] == pytest.approx(1.25, abs=0.01)
+
+
+def test_wav_duration_uses_actual_pcm_payload_when_streaming_header_overstates_data(tmp_path: Path):
+    sample_rate = 24000
+    channels = 1
+    sample_width = 2
+    actual_seconds = 2.20
+    frame_count = int(sample_rate * actual_seconds)
+    payload = b"\x00\x00" * frame_count
+    path = tmp_path / "pocket_streaming.wav"
+
+    # Pocket TTS currently emits a streaming-style WAV header that advertises
+    # a 2,000,000,000-byte RIFF/data payload while writing a much shorter file.
+    declared_data_bytes = 2_000_000_000
+    byte_rate = sample_rate * channels * sample_width
+    block_align = channels * sample_width
+    header = (
+        b"RIFF"
+        + struct.pack("<I", declared_data_bytes + 36)
+        + b"WAVEfmt "
+        + struct.pack("<IHHIIHH", 16, 1, channels, sample_rate, byte_rate, block_align, 16)
+        + b"data"
+        + struct.pack("<I", declared_data_bytes)
+    )
+    path.write_bytes(header + payload)
+
+    with wave.open(str(path), "rb") as handle:
+        assert handle.getnframes() == 1_000_000_000
+
+    assert federation._wav_duration_seconds(path) == pytest.approx(actual_seconds, abs=0.01)
 
 
 def test_prepare_episode_refuses_when_measured_voice_cannot_fit_story_budget(monkeypatch, tmp_path: Path):
