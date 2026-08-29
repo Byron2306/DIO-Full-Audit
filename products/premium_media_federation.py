@@ -348,6 +348,252 @@ def _prepare_presence_core_voice_imports(
     return result
 
 
+def _prepare_dio_product_score(
+    episode_dir: Path,
+    production_request: dict[str, Any] | None,
+    *,
+    target_seconds: float,
+) -> dict[str, Any] | None:
+    """Derive a deterministic product score from the bound DIO sonic identity."""
+    import wave
+
+    sound = (production_request or {}).get("sound") or {}
+    if sound.get("music_origin") != "dio_product_score":
+        return None
+
+    sonic_identity = str(sound.get("sonic_identity") or "").strip()
+    if sonic_identity != "DIO_SONIC_IDENTITY_V1":
+        raise PremiumMediaError(
+            "DIO product score requires sonic identity DIO_SONIC_IDENTITY_V1"
+        )
+
+    music_direction = sound.get("music_direction") or {}
+    variant = str(music_direction.get("variant") or "").strip()
+    if variant != "institutional_glass":
+        raise PremiumMediaError(
+            f"unsupported DIO product score variant: {variant or 'missing'}"
+        )
+
+    source_value = str(
+        sound.get("source_path")
+        or music_direction.get("source_path")
+        or ""
+    ).strip()
+    if not source_value:
+        raise PremiumMediaError(
+            "DIO product score requires a bound sonic identity source path"
+        )
+
+    source = Path(source_value).expanduser()
+    if not source.is_absolute():
+        source = ROOT / source
+    if not source.is_file():
+        raise PremiumMediaError(
+            f"DIO sonic identity asset missing: {source_value}"
+        )
+
+    try:
+        target = float(target_seconds)
+    except (TypeError, ValueError) as exc:
+        raise PremiumMediaError(
+            "DIO product score target duration must be numeric"
+        ) from exc
+    if target <= 0:
+        raise PremiumMediaError(
+            "DIO product score target duration must be positive"
+        )
+
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        raise PremiumMediaError(
+            "ffmpeg is required for DIO product score generation"
+        )
+
+    declared_recipe = sound.get("score_recipe") or {}
+    if not isinstance(declared_recipe, dict):
+        raise PremiumMediaError("DIO product score recipe must be an object")
+    declared_recipe = json.loads(json.dumps(declared_recipe))
+
+    # Product-owned numeric arrangement controls. Defaults preserve the
+    # established institutional-glass rendering for legacy requests.
+    requested_render = declared_recipe.get("render") or {}
+    if not isinstance(requested_render, dict):
+        raise PremiumMediaError(
+            "DIO product score render recipe must be an object"
+        )
+
+    defaults = {
+        "motif_gain": 0.20,
+        "shadow_gain": 0.08,
+        "shadow_delay_ms": 180,
+        "shadow_pitch_ratio": 0.90,
+        "highpass_hz": 45,
+        "main_lowpass_hz": 5200,
+        "shadow_lowpass_hz": 1800,
+        "fade_in_seconds": min(0.35, target / 5.0),
+        "fade_out_seconds": min(0.75, target / 4.0),
+    }
+
+    integer_fields = {
+        "shadow_delay_ms",
+        "highpass_hz",
+        "main_lowpass_hz",
+        "shadow_lowpass_hz",
+    }
+    nonnegative_fields = {
+        "motif_gain",
+        "shadow_gain",
+        "shadow_delay_ms",
+        "fade_in_seconds",
+        "fade_out_seconds",
+    }
+
+    render_recipe = {}
+    for name, default in defaults.items():
+        raw = requested_render.get(name, default)
+        try:
+            value = float(raw)
+        except (TypeError, ValueError) as exc:
+            raise PremiumMediaError(
+                f"DIO product score render value must be numeric: {name}"
+            ) from exc
+
+        if name in nonnegative_fields:
+            if value < 0:
+                raise PremiumMediaError(
+                    f"DIO product score render value must be non-negative: {name}"
+                )
+        elif value <= 0:
+            raise PremiumMediaError(
+                f"DIO product score render value must be positive: {name}"
+            )
+
+        render_recipe[name] = (
+            int(value) if name in integer_fields else round(value, 6)
+        )
+
+    fade_in_seconds = float(render_recipe["fade_in_seconds"])
+    fade_out_seconds = float(render_recipe["fade_out_seconds"])
+    fade_out_start = max(0.0, target - fade_out_seconds)
+
+    recipe_fingerprint = _fingerprint(
+        {
+            "sonic_identity": sonic_identity,
+            "variant": variant,
+            "declared_recipe": declared_recipe,
+            "render_recipe": render_recipe,
+        }
+    )
+
+    target_path = episode_dir / "imports" / "music_bed.wav"
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+
+    shadow_rate = int(
+        48_000 * float(render_recipe["shadow_pitch_ratio"])
+    )
+    filter_complex = (
+        "[0:a]"
+        "aresample=48000,"
+        "aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,"
+        f"volume={render_recipe['motif_gain']},"
+        "asplit=2[main][shadow];"
+        "[main]"
+        f"highpass=f={render_recipe['highpass_hz']},"
+        f"lowpass=f={render_recipe['main_lowpass_hz']}"
+        "[mainf];"
+        "[shadow]"
+        f"asetrate={shadow_rate},"
+        "aresample=48000,"
+        f"adelay={render_recipe['shadow_delay_ms']}|"
+        f"{render_recipe['shadow_delay_ms']},"
+        f"lowpass=f={render_recipe['shadow_lowpass_hz']},"
+        f"volume={render_recipe['shadow_gain']}"
+        "[shadowf];"
+        "[mainf][shadowf]"
+        "amix=inputs=2:duration=longest:normalize=0,"
+        f"afade=t=in:st=0:d={fade_in_seconds:.6f},"
+        f"afade=t=out:st={fade_out_start:.6f}:d={fade_out_seconds:.6f}"
+        "[score]"
+    )
+
+    _run(
+        [
+            ffmpeg,
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            "-nostdin",
+            "-y",
+            "-stream_loop",
+            "-1",
+            "-i",
+            str(source),
+            "-filter_complex",
+            filter_complex,
+            "-map",
+            "[score]",
+            "-t",
+            f"{target:.6f}",
+            "-ar",
+            "48000",
+            "-ac",
+            "2",
+            "-c:a",
+            "pcm_s16le",
+            str(target_path),
+        ]
+    )
+
+    if not target_path.is_file() or target_path.stat().st_size <= 44:
+        raise PremiumMediaError(
+            "DIO product score generation produced no valid WAV output"
+        )
+
+    try:
+        with wave.open(str(target_path), "rb") as handle:
+            sample_rate = handle.getframerate()
+            channels = handle.getnchannels()
+            sample_width = handle.getsampwidth()
+            frame_count = handle.getnframes()
+    except (OSError, wave.Error) as exc:
+        raise PremiumMediaError(
+            "DIO product score output is not a valid PCM WAV"
+        ) from exc
+
+    if sample_rate != 48_000 or channels != 2 or sample_width != 2:
+        raise PremiumMediaError(
+            "DIO product score output must be 48 kHz stereo PCM16 WAV"
+        )
+
+    duration_seconds = frame_count / sample_rate
+    receipt = {
+        "schema": "dio.media.product_score.v1",
+        "music_origin": "dio_product_score",
+        "sonic_identity": sonic_identity,
+        "product_id": str(
+            (production_request or {}).get("product_id") or ""
+        ).strip().upper(),
+        "variant": variant,
+        "source_path": source_value,
+        "source_sha256": _sha(source),
+        "declared_recipe": declared_recipe,
+        "render_recipe": render_recipe,
+        "recipe_fingerprint": recipe_fingerprint,
+        "relative_path": str(target_path.relative_to(episode_dir)),
+        "output_sha256": _sha(target_path),
+        "duration_seconds": round(duration_seconds, 6),
+        "sample_rate": sample_rate,
+        "channels": channels,
+        "sample_width_bytes": sample_width,
+        "music_rights_state": "project_owned_derived_score",
+        "generic_music_fallback": "REFUSE",
+        "external_action_executed": False,
+        "publication_authority_created": False,
+    }
+    _write(episode_dir / "DIO_PRODUCT_SCORE_RECEIPT.json", receipt)
+    return receipt
+
+
 def _prepare_original_local_music_import(
     episode_dir: Path, production_request: dict[str, Any] | None
 ) -> dict[str, Any] | None:
@@ -560,8 +806,31 @@ def _prepare_episode(
         ("timing_plan.json", timing),
     ):
         _write(episode_dir / name, value)
-    music_import = _prepare_original_local_music_import(episode_dir, production_request)
-    voice_import = _prepare_presence_core_voice_imports(episode_dir, script, production_request)
+    sound = (production_request or {}).get("sound") or {}
+    if sound.get("music_origin") == "dio_product_score":
+        score_target_seconds = float(
+            script.get("target_seconds")
+            or sum(
+                float(row.get("target_duration_seconds") or 0.0)
+                for row in timing.get("scenes") or []
+            )
+        )
+        music_import = _prepare_dio_product_score(
+            episode_dir,
+            production_request,
+            target_seconds=score_target_seconds,
+        )
+    else:
+        music_import = _prepare_original_local_music_import(
+            episode_dir,
+            production_request,
+        )
+
+    voice_import = _prepare_presence_core_voice_imports(
+        episode_dir,
+        script,
+        production_request,
+    )
 
     if voice_import:
         canonical_budget = float(

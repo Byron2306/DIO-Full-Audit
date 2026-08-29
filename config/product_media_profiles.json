@@ -81,7 +81,18 @@
             "EDM drop",
             "trailer braam overload"
           ],
-          "mix_rule": "Narration remains dominant; music supports structure and never masks Vesper."
+          "mix_rule": "Narration remains dominant; music supports structure and never masks Vesper.",
+          "render": {
+            "motif_gain": 0.2,
+            "shadow_gain": 0.08,
+            "shadow_delay_ms": 180,
+            "shadow_pitch_ratio": 0.9,
+            "highpass_hz": 45,
+            "main_lowpass_hz": 5200,
+            "shadow_lowpass_hz": 1800,
+            "fade_in_seconds": 0.35,
+            "fade_out_seconds": 0.75
+          }
         }
       }
     }
