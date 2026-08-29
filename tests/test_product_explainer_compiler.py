@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import shutil
 import pytest
 
 from products.product_explainer_compiler import (
@@ -261,10 +262,20 @@ def install_test_brand_profile(root: Path) -> None:
     config_dir = root / "config"
     config_dir.mkdir(parents=True, exist_ok=True)
 
-    for name in ("media_style_profiles.json", "product_media_profiles.json"):
+    for name in (
+        "media_style_profiles.json",
+        "product_media_profiles.json",
+        "visual_asset_packs.json",
+    ):
         source = repo_root / "config" / name
         target = config_dir / name
         target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+    shutil.copytree(
+        repo_root / "media/product_asset_packs/homs_corpo_cult_v1",
+        root / "media/product_asset_packs/homs_corpo_cult_v1",
+    )
+
     master = root / "media/golden_references/dio_launch_cinematic_v1/master/DIO_LAUNCH_TRAILER_MASTER_V1.mp4"
     wordmark = root / "media/golden_references/dio_launch_cinematic_v1/brand/dio-wordmark.svg"
     sigil = root / "media/golden_references/dio_launch_cinematic_v1/brand/dio-sigil.webp"
