@@ -1,0 +1,89 @@
+{
+  "schema": "dio.product_media_profile_registry.v1",
+  "profiles": {
+    "HOMS": {
+      "schema": "dio.product_media_profile.v1",
+      "profile_id": "HOMS",
+      "scene_grammar": {
+        "problem": {
+          "visual_mode": "metaphor",
+          "direction": [
+            "Represent assessment overload as fragmented academic work entering a controlled DIO environment.",
+            "Use stacks, rubrics, marking queues, and unresolved work only as abstracted objects inside the DIO cinematic world, never as stock classroom photography."
+          ],
+          "motion": "restrained cinematic push"
+        },
+        "product_definition": {
+          "visual_mode": "metaphor",
+          "direction": [
+            "Reveal HOMS as an academic production desk inside a monumental black-glass DIO chamber.",
+            "Use structured document planes, review stations, and controlled gold routing to communicate organized academic production support."
+          ],
+          "motion": "measured architectural reveal"
+        },
+        "mechanism": {
+          "visual_mode": "hybrid",
+          "direction": [
+            "Show batches, rubrics, memoranda, grade constraints, and assessment briefs moving through distinct governed stages.",
+            "Reserve gold pathways for active verified routing and keep human review visibly separate from automated processing."
+          ],
+          "motion": "controlled lateral tracking through governed stages"
+        },
+        "proof": {
+          "visual_mode": "proof",
+          "direction": [
+            "Prioritize bound real HOMS outputs, screenshots, or evidence artifacts before generated abstraction.",
+            "If no real proof asset is available, show an explicit proof-required placeholder rather than fabricating an interface or result."
+          ],
+          "motion": "deliberate hold with minimal parallax"
+        },
+        "differentiation": {
+          "visual_mode": "metaphor",
+          "direction": [
+            "Express grade-aware support and human authority as separate chambers connected by controlled pathways.",
+            "Make the educator approval boundary visually unmistakable and avoid anthropomorphic AI imagery."
+          ],
+          "motion": "measured push toward human authority gate"
+        },
+        "result": {
+          "visual_mode": "metaphor",
+          "direction": [
+            "Resolve the fragmented work into clean reviewable academic outputs within the DIO environment.",
+            "Use order, alignment, and reduced visual noise to signal operational relief rather than exaggerated success claims."
+          ],
+          "motion": "slow convergence into ordered output"
+        },
+        "call_to_action": {
+          "visual_mode": "brand_end_card",
+          "direction": [
+            "Use the canonical DIO sigil and wordmark on black with restrained gold and cream typography.",
+            "Present HOMS and the canonical DIO website without decorative stock imagery or alternate branding."
+          ],
+          "motion": "fade through black into locked brand end card"
+        }
+      },
+      "score": {
+        "inherits": "DIO_SONIC_IDENTITY_V1",
+        "variant": "institutional_glass",
+        "source_path": "media/golden_references/dio_launch_cinematic_v1/sonic/DIO_SONIC_IDENTITY_V1.wav",
+        "recipe": {
+          "tone": "dark premium restrained institutional",
+          "texture": [
+            "low sustained harmonic bed",
+            "glassy restrained percussion",
+            "subtle procedural pulse",
+            "minimal low-register strings or synthetic equivalent"
+          ],
+          "avoid": [
+            "uplifting stock corporate music",
+            "ukulele",
+            "generic motivational piano",
+            "EDM drop",
+            "trailer braam overload"
+          ],
+          "mix_rule": "Narration remains dominant; music supports structure and never masks Vesper."
+        }
+      }
+    }
+  }
+}
