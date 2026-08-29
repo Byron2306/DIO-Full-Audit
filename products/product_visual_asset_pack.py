@@ -134,7 +134,17 @@ def load_visual_asset_pack(
             raise AssertionError("unreachable") from exc
 
         declared_size = (row.get("width"), row.get("height"))
-        if declared_size != PRODUCTION_SIZE or actual_size != PRODUCTION_SIZE:
+        composition_asset = row.get("composition_asset") is True
+        if composition_asset:
+            if (
+                not all(isinstance(value, int) and value > 0 for value in declared_size)
+                or declared_size != actual_size
+            ):
+                _fail(
+                    f"composition asset dimensions must match source image: {asset_id}",
+                    {"declared": declared_size, "actual": actual_size},
+                )
+        elif declared_size != PRODUCTION_SIZE or actual_size != PRODUCTION_SIZE:
             _fail(
                 f"visual asset must be 3840x2160: {asset_id}",
                 {"declared": declared_size, "actual": actual_size},
