@@ -62,6 +62,84 @@
           "motion": "fade through black into locked brand end card"
         }
       },
+      "visual_asset_pack": {
+        "pack_id": "HOMS_CORPO_CULT_V1",
+        "fallback": "REFUSE",
+        "scene_bindings": {
+          "problem": {
+            "background_asset_id": "HOMS_COMMAND_HALL",
+            "overlay_asset_ids": [
+              "DIO_EYE_DIVIDER",
+              "DIO_GILDED_TRACE_LONG",
+              "DIO_ICON_EVIDENCE",
+              "DIO_ICON_CONVERSATION",
+              "DIO_ICON_WORKFLOW"
+            ],
+            "gold_state": "ambient"
+          },
+          "product_definition": {
+            "background_asset_id": "HOMS_REACTOR_CHAMBER",
+            "overlay_asset_ids": [
+              "DIO_GILDED_ORBIT_RING",
+              "DIO_GILDED_PANEL_FRAME",
+              "DIO_ICON_EDUCATION",
+              "DIO_ICON_EVIDENCE"
+            ],
+            "gold_state": "active"
+          },
+          "mechanism": {
+            "background_asset_id": "HOMS_ACADEMIC_DESK",
+            "overlay_asset_ids": [
+              "DIO_GILDED_TRACE_LONG",
+              "DIO_GILDED_PANEL_FRAME",
+              "DIO_ICON_WORKFLOW",
+              "DIO_ICON_EVIDENCE",
+              "DIO_ICON_CONVERSATION"
+            ],
+            "gold_state": "active"
+          },
+          "proof": {
+            "background_asset_id": "HOMS_GOVERNANCE_WALL",
+            "overlay_asset_ids": [
+              "DIO_PANEL_FRAME",
+              "DIO_GILDED_CARD_FRAME",
+              "DIO_ICON_EVIDENCE",
+              "DIO_ICON_MEDIA",
+              "DIO_ICON_EDUCATION"
+            ],
+            "gold_state": "governed",
+            "proof_slot": [0.18, 0.18, 0.64, 0.64]
+          },
+          "differentiation": {
+            "background_asset_id": "HOMS_GOVERNANCE_WALL",
+            "overlay_asset_ids": [
+              "DIO_GILDED_TRACE_LONG",
+              "DIO_GILDED_ORBIT_RING",
+              "DIO_ICON_GOVERNANCE"
+            ],
+            "gold_state": "governed"
+          },
+          "result": {
+            "background_asset_id": "HOMS_COMMAND_HALL",
+            "overlay_asset_ids": [
+              "DIO_GILDED_TRACE_LONG",
+              "DIO_GILDED_ORBIT_RING",
+              "DIO_ICON_GROWTH",
+              "DIO_ICON_PARTNERSHIP"
+            ],
+            "gold_state": "active"
+          },
+          "call_to_action": {
+            "background_asset_id": "HOMS_ENDCARD",
+            "overlay_asset_ids": [
+              "DIO_EYE_PREMIUM",
+              "DIO_ORBIT_FRAME",
+              "DIO_GILDED_ORBIT_RING"
+            ],
+            "gold_state": "brand_end_card"
+          }
+        }
+      },
       "score": {
         "inherits": "DIO_SONIC_IDENTITY_V1",
         "variant": "institutional_glass",
