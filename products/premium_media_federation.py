@@ -521,6 +521,15 @@ def _prepare_episode(
             "audience": "Product audience",
         }
     )
+    brand_render_brief = (production_request or {}).get("brand_render_brief")
+    if brand_render_brief:
+        brief["brand_render_brief"] = json.loads(json.dumps(brand_render_brief))
+        brief["brand_profile_id"] = brand_render_brief.get("profile_id")
+        brief["visual_direction"] = brand_render_brief.get("visual_direction")
+        brief["forbidden_motifs"] = list(
+            brand_render_brief.get("forbidden_motifs") or []
+        )
+
     voice = (production_request or {}).get("voice") or {}
     pronunciation = voice.get("pronunciation") or {}
     if pronunciation:
@@ -646,7 +655,9 @@ def _prepare_native_render_contract(
                 "beat_name": scene["story_beat"],
                 "preview_path": asset["relative_path"],
                 "preview_asset_id": f"gamma_{scene['scene_id']}",
-                "motion_cue": "restrained documentary push",
+                "motion_cue": str(
+                    scene.get("motion_cue") or "restrained documentary push"
+                ),
                 "composition": "native_gamma_composition_preserved",
                 "claim_ids": scene.get("claim_ids", []),
                 "source_ids": scene.get("source_ids", []),
