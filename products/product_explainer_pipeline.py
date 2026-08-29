@@ -15,6 +15,10 @@ from .product_explainer_compiler import (
     load_media_style_profile,
     resolve_product_truth,
 )
+from .product_explainer_branding import (
+    compile_brand_render_brief,
+    load_product_media_profile,
+)
 
 REQUIRED_EXPLANATION_FIELDS = (
     "what_it_is",
@@ -304,12 +308,22 @@ def build_media_production_request(
     root = Path(root)
     profile, profile_sha = load_media_style_profile(style_profile_id, root=root, require_assets=True)
     manifest = explainer_result["manifest"]
+    product_profile, product_profile_sha = load_product_media_profile(
+        str(manifest["product_id"]),
+        root=root,
+    )
+    brand_render_brief = compile_brand_render_brief(
+        profile,
+        product_profile,
+        product_id=str(manifest["product_id"]),
+    )
     manifest_path = Path(str(explainer_result["manifest_path"]))
     manifest_ref = _relative_path(manifest_path, root) if manifest_path.is_absolute() else str(manifest_path)
     seed = {
         "product_id": manifest["product_id"],
         "explainer_sha256": explainer_result["manifest_sha256"],
         "style_profile_sha256": profile_sha,
+        "product_media_profile_sha256": product_profile_sha,
     }
     request_id = "MPR-" + _fingerprint(seed).split(":", 1)[1][:12].upper()
     voice = profile.get("voice") or {}
@@ -322,6 +336,11 @@ def build_media_production_request(
             "sha256": explainer_result["manifest_sha256"],
         },
         "style_profile": {"id": style_profile_id, "sha256": profile_sha},
+        "product_media_profile": {
+            "id": str(product_profile.get("profile_id") or manifest["product_id"]).upper(),
+            "sha256": product_profile_sha,
+        },
+        "brand_render_brief": brand_render_brief,
         "production": {
             "kind": "canonical_product_explainer",
             "target_seconds": int(manifest.get("target_seconds") or 55),
@@ -335,6 +354,13 @@ def build_media_production_request(
             "profile": voice.get("profile"),
             "render_mode": voice.get("render_mode"),
             "pronunciation": dict(voice.get("pronunciation") or {}),
+        },
+        "sound": {
+            "music_origin": "dio_product_score",
+            "sonic_identity": brand_render_brief["music_direction"]["inherits"],
+            "music_direction": brand_render_brief["music_direction"],
+            "score_recipe": dict((product_profile.get("score") or {}).get("recipe") or {}),
+            "source_path": (product_profile.get("score") or {}).get("source_path"),
         },
         "assets": {
             "proof_assets": list(manifest.get("proof_points") or []),

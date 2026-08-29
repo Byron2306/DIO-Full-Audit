@@ -586,12 +586,28 @@ def resolve_product_truth(product_id: str, *, root: Path = ROOT) -> dict[str, An
     }
 
 
-from .product_explainer_pipeline import (  # noqa: E402
-    ASSET_PREFERENCE,
-    REQUIRED_EXPLANATION_FIELDS,
-    build_claim_envelope,
-    build_explainer_script_package,
-    build_media_production_request,
-    compile_product_explainer,
-    semantic_challenge,
-)
+_PIPELINE_EXPORTS = {
+    "ASSET_PREFERENCE",
+    "REQUIRED_EXPLANATION_FIELDS",
+    "build_claim_envelope",
+    "build_explainer_script_package",
+    "build_media_production_request",
+    "compile_product_explainer",
+    "semantic_challenge",
+}
+
+
+def __getattr__(name: str):
+    """Lazily preserve the historical compiler API without a circular import."""
+    if name not in _PIPELINE_EXPORTS:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+    from . import product_explainer_pipeline as pipeline
+
+    value = getattr(pipeline, name)
+    globals()[name] = value
+    return value
+
+
+def __dir__() -> list[str]:
+    return sorted(set(globals()) | _PIPELINE_EXPORTS)
