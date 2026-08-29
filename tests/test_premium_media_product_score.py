@@ -147,3 +147,38 @@ def test_prepare_episode_routes_dio_product_score_into_imported_music_path(tmp_p
     assert result["music_import"]["duration_seconds"] == pytest.approx(3.0, abs=0.05)
     assert (episode / "imports/music_bed.wav").is_file()
     assert (episode / "DIO_PRODUCT_SCORE_RECEIPT.json").is_file()
+
+
+def test_prepare_dio_product_score_uses_numeric_product_recipe(tmp_path: Path) -> None:
+    source = tmp_path / "DIO_SONIC_IDENTITY_V1.wav"
+    _write_stereo_motif(source)
+
+    request = _request(source)
+    request["sound"]["score_recipe"]["render"] = {
+        "motif_gain": 0.17,
+        "shadow_gain": 0.05,
+        "shadow_delay_ms": 240,
+        "shadow_pitch_ratio": 0.93,
+        "highpass_hz": 55,
+        "main_lowpass_hz": 4700,
+        "shadow_lowpass_hz": 1500,
+        "fade_in_seconds": 0.25,
+        "fade_out_seconds": 0.60,
+    }
+
+    receipt = _prepare_dio_product_score(
+        tmp_path / "episode",
+        request,
+        target_seconds=5.0,
+    )
+
+    render = receipt["render_recipe"]
+    assert render["motif_gain"] == pytest.approx(0.17)
+    assert render["shadow_gain"] == pytest.approx(0.05)
+    assert render["shadow_delay_ms"] == 240
+    assert render["shadow_pitch_ratio"] == pytest.approx(0.93)
+    assert render["highpass_hz"] == 55
+    assert render["main_lowpass_hz"] == 4700
+    assert render["shadow_lowpass_hz"] == 1500
+    assert render["fade_in_seconds"] == pytest.approx(0.25)
+    assert render["fade_out_seconds"] == pytest.approx(0.60)
