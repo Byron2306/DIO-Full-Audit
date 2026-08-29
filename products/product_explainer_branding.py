@@ -181,3 +181,67 @@ def compile_brand_render_brief(
             "creates_media_spend_authority": False,
         },
     }
+
+
+def enrich_renderer_script(
+    script_package: dict[str, Any],
+    production_request: dict[str, Any],
+) -> dict[str, Any]:
+    """Create a renderer-facing copy without mutating semantic script truth."""
+    brand = production_request.get("brand_render_brief") or {}
+    if not isinstance(brand, dict):
+        raise ProductExplainerError(
+            "STYLE_PROFILE_INVALID",
+            "renderer enrichment requires a valid brand render brief",
+        )
+
+    profile_id = str(brand.get("profile_id") or "").strip()
+    visual_direction = str(brand.get("visual_direction") or "").strip()
+    scene_grammar = brand.get("scene_grammar") or {}
+    if not profile_id or not visual_direction or not isinstance(scene_grammar, dict):
+        raise ProductExplainerError(
+            "STYLE_PROFILE_INVALID",
+            "brand render brief is incomplete for renderer enrichment",
+        )
+
+    rendered = json.loads(json.dumps(script_package))
+    rendered["brand_profile_id"] = profile_id
+    rendered["representation_only"] = True
+
+    forbidden_motifs = [
+        str(value).strip()
+        for value in brand.get("forbidden_motifs") or []
+        if str(value).strip()
+    ]
+    default_motion = str((brand.get("motion") or {}).get("default") or "").strip()
+
+    for scene in rendered.get("scenes") or []:
+        beat = str(scene.get("story_beat") or "").strip()
+        grammar = scene_grammar.get(beat)
+        if not isinstance(grammar, dict):
+            raise ProductExplainerError(
+                "PRODUCT_MEDIA_PROFILE_INVALID",
+                f"no renderer scene grammar found for story beat: {beat}",
+            )
+
+        directions = [
+            str(value).strip()
+            for value in grammar.get("direction") or []
+            if str(value).strip()
+        ]
+        if not directions:
+            raise ProductExplainerError(
+                "PRODUCT_MEDIA_PROFILE_INVALID",
+                f"renderer scene grammar has no visual direction: {beat}",
+            )
+
+        scene["brand_profile_id"] = profile_id
+        scene["visual_mode"] = str(grammar.get("visual_mode") or "").strip()
+        scene["visual_requirements"] = [visual_direction, *directions]
+        scene["forbidden_motifs"] = list(forbidden_motifs)
+        scene["motion_cue"] = str(grammar.get("motion") or default_motion).strip()
+
+        if scene["visual_mode"] == "brand_end_card" or beat == "call_to_action":
+            scene["end_card"] = json.loads(json.dumps(brand.get("end_card") or {}))
+
+    return rendered
