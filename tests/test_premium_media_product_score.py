@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pytest
 
+import products.premium_media_federation as federation
 from products.premium_media_federation import _prepare_dio_product_score
 
 
@@ -99,3 +100,50 @@ def test_prepare_dio_product_score_derives_source_bound_homs_bed(tmp_path: Path)
         assert handle.getnchannels() == 2
         assert handle.getsampwidth() == 2
         assert handle.getnframes() / handle.getframerate() == pytest.approx(5.0, abs=0.05)
+
+
+def test_prepare_episode_routes_dio_product_score_into_imported_music_path(tmp_path: Path) -> None:
+    source = tmp_path / "DIO_SONIC_IDENTITY_V1.wav"
+    _write_stereo_motif(source)
+
+    niche = tmp_path / "niche"
+    pack = niche / "studios/builtin/practical_open_source.json"
+    pack.parent.mkdir(parents=True)
+    pack.write_text(
+        json.dumps({"studio": {"id": "practical_open_source"}, "samples": [{}]}),
+        encoding="utf-8",
+    )
+
+    script = {
+        "schema": "dio.product_explainer.script_package.v1",
+        "product_id": "HOMS",
+        "title": "HOMS",
+        "target_seconds": 3.0,
+        "scenes": [
+            {
+                "scene_id": "scene_01_problem",
+                "story_beat": "problem",
+                "title": "The problem",
+                "narration": "Assessment work is fragmented.",
+                "screen_anchor": "THE WORK IS FRAGMENTED",
+                "target_duration_seconds": 3.0,
+                "claim_ids": ["CLM-PROBLEM"],
+                "source_ids": ["portfolio.json"],
+            }
+        ],
+    }
+
+    episode = tmp_path / "episode"
+    result = federation._prepare_episode(
+        niche,
+        episode,
+        script_package=script,
+        production_request=_request(source),
+    )
+
+    assert result["music_import"] is not None
+    assert result["music_import"]["schema"] == "dio.media.product_score.v1"
+    assert result["music_import"]["generic_music_fallback"] == "REFUSE"
+    assert result["music_import"]["duration_seconds"] == pytest.approx(3.0, abs=0.05)
+    assert (episode / "imports/music_bed.wav").is_file()
+    assert (episode / "DIO_PRODUCT_SCORE_RECEIPT.json").is_file()
