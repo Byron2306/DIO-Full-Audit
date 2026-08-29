@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 
 from products.product_explainer_pipeline import (
@@ -45,11 +46,20 @@ def _install_media_profiles(root: Path) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     config_dir = root / "config"
     config_dir.mkdir(parents=True, exist_ok=True)
-    for name in ("media_style_profiles.json", "product_media_profiles.json"):
+    for name in (
+        "media_style_profiles.json",
+        "product_media_profiles.json",
+        "visual_asset_packs.json",
+    ):
         (config_dir / name).write_text(
             (repo_root / "config" / name).read_text(encoding="utf-8"),
             encoding="utf-8",
         )
+
+    shutil.copytree(
+        repo_root / "media/product_asset_packs/homs_corpo_cult_v1",
+        root / "media/product_asset_packs/homs_corpo_cult_v1",
+    )
 
     master = root / "media/golden_references/dio_launch_cinematic_v1/master/DIO_LAUNCH_TRAILER_MASTER_V1.mp4"
     wordmark = root / "media/golden_references/dio_launch_cinematic_v1/brand/dio-wordmark.svg"
