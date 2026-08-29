@@ -3,6 +3,9 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import subprocess
+import sys
+import warnings
 
 import pytest
 from PIL import Image
@@ -42,6 +45,21 @@ def _write_contaminated_rgba(path: Path, size: tuple[int, int] = (32, 16)) -> No
     image.save(path, format="PNG")
 
 
+def _write_minimal_source_bundle(source: Path) -> None:
+    for index, name in enumerate(PLATES, 1):
+        _write_plate(source / name, (index, index + 1, index + 2))
+    (source / "source_manifest.json").write_text(
+        json.dumps(
+            {
+                "schema": "dio.media.visual_asset_source_manifest.v1",
+                "pack_id": "HOMS_CORPO_CULT_V1",
+                "assets": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 def test_normalize_source_asset_cleans_low_alpha_rgb_without_altering_opaque_art(
     tmp_path: Path,
 ) -> None:
@@ -71,6 +89,22 @@ def test_normalize_source_asset_cleans_low_alpha_rgb_without_altering_opaque_art
         assert image.getpixel((1, 0)) == (0, 0, 0, 8)
         assert image.getpixel((2, 0)) == (217, 182, 111, 255)
         assert image.getpixel((3, 0)) == (241, 215, 155, 240)
+
+
+def test_normalize_source_asset_emits_no_pillow_deprecation_warning(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "source.png"
+    destination = tmp_path / "production/normalized.png"
+    _write_contaminated_rgba(source)
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", DeprecationWarning)
+        normalize_source_asset(
+            source,
+            destination,
+            require_alpha=True,
+        )
 
 
 def test_build_pack_reuses_curated_dio_assets_and_preserves_composition_aspect(
@@ -169,3 +203,31 @@ def test_build_pack_refuses_missing_required_architecture_plate(tmp_path: Path) 
     with pytest.raises(ProductExplainerError) as exc:
         build_pack(source, output)
     assert exc.value.code == "VISUAL_ASSET_PACK_INVALID"
+
+
+def test_asset_builder_cli_writes_pack(tmp_path: Path) -> None:
+    source = tmp_path / "incoming"
+    output = tmp_path / "pack"
+    _write_minimal_source_bundle(source)
+
+    repo_root = Path(__file__).resolve().parents[1]
+    script = repo_root / "scripts/build_homs_corpo_cult_asset_pack.py"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(script),
+            "--source-dir",
+            str(source),
+            "--output-dir",
+            str(output),
+        ],
+        cwd=repo_root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    assert (output / "pack.json").is_file()
+    manifest = json.loads((output / "pack.json").read_text(encoding="utf-8"))
+    assert manifest["pack_id"] == "HOMS_CORPO_CULT_V1"
