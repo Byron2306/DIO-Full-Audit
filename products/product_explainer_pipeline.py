@@ -19,6 +19,7 @@ from .product_explainer_branding import (
     compile_brand_render_brief,
     load_product_media_profile,
 )
+from .product_visual_asset_pack import load_visual_asset_pack
 
 REQUIRED_EXPLANATION_FIELDS = (
     "what_it_is",
@@ -317,6 +318,33 @@ def build_media_production_request(
         product_profile,
         product_id=str(manifest["product_id"]),
     )
+
+    visual_asset_pack_binding: dict[str, str] | None = None
+    visual_asset_profile = product_profile.get("visual_asset_pack") or {}
+    if visual_asset_profile:
+        if not isinstance(visual_asset_profile, dict):
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "product media visual asset pack binding must be an object",
+            )
+        pack_id = str(visual_asset_profile.get("pack_id") or "").strip().upper()
+        if not pack_id or visual_asset_profile.get("fallback") != "REFUSE":
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "product media visual asset pack binding is incomplete",
+            )
+        pack, pack_sha = load_visual_asset_pack(pack_id, root=root)
+        if str(pack.get("product_id") or "").strip().upper() != str(manifest["product_id"]).strip().upper():
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "visual asset pack product id does not match explainer product",
+            )
+        visual_asset_pack_binding = {
+            "id": str(pack["pack_id"]),
+            "sha256": pack_sha,
+            "fallback": "REFUSE",
+        }
+
     manifest_path = Path(str(explainer_result["manifest_path"]))
     manifest_ref = _relative_path(manifest_path, root) if manifest_path.is_absolute() else str(manifest_path)
     seed = {
@@ -325,9 +353,11 @@ def build_media_production_request(
         "style_profile_sha256": profile_sha,
         "product_media_profile_sha256": product_profile_sha,
     }
+    if visual_asset_pack_binding is not None:
+        seed["visual_asset_pack_sha256"] = visual_asset_pack_binding["sha256"]
     request_id = "MPR-" + _fingerprint(seed).split(":", 1)[1][:12].upper()
     voice = profile.get("voice") or {}
-    return {
+    request: dict[str, Any] = {
         "schema": "dio.media.production_request.v2",
         "request_id": request_id,
         "product_id": manifest["product_id"],
@@ -373,6 +403,9 @@ def build_media_production_request(
             "media_spend": "REFUSE",
         },
     }
+    if visual_asset_pack_binding is not None:
+        request["visual_asset_pack"] = visual_asset_pack_binding
+    return request
 
 
 def _manifest_source_ids(manifest: dict[str, Any]) -> list[str]:
