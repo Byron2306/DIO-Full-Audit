@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .product_explainer_compiler import ROOT, ProductExplainerError
+from .product_visual_asset_pack import load_visual_asset_pack, resolve_scene_asset_recipe
 
 
 REGISTRY_SCHEMA = "dio.product_media_profile_registry.v1"
@@ -133,6 +134,12 @@ def compile_brand_render_brief(
     motion = style_profile.get("motion") or {}
     typography = style_profile.get("typography") or {}
     score = product_profile.get("score") or {}
+    visual_asset_pack = product_profile.get("visual_asset_pack") or {}
+    if visual_asset_pack and not isinstance(visual_asset_pack, dict):
+        raise ProductExplainerError(
+            "PRODUCT_MEDIA_PROFILE_INVALID",
+            "product media visual asset pack binding must be an object",
+        )
 
     visual_direction = (
         "Render every scene inside the governed DIO cinematic world: "
@@ -140,7 +147,7 @@ def compile_brand_render_brief(
         + ". Preserve product truth and use generated imagery only as representation, never as observed proof."
     )
 
-    return {
+    brief: dict[str, Any] = {
         "schema": "dio.brand_render_brief.v1",
         "profile_id": profile_id,
         "product_id": str(product_id or "").strip().upper(),
@@ -181,11 +188,16 @@ def compile_brand_render_brief(
             "creates_media_spend_authority": False,
         },
     }
+    if visual_asset_pack:
+        brief["visual_asset_pack"] = json.loads(json.dumps(visual_asset_pack))
+    return brief
 
 
 def enrich_renderer_script(
     script_package: dict[str, Any],
     production_request: dict[str, Any],
+    *,
+    root: Path = ROOT,
 ) -> dict[str, Any]:
     """Create a renderer-facing copy without mutating semantic script truth."""
     brand = production_request.get("brand_render_brief") or {}
@@ -203,6 +215,37 @@ def enrich_renderer_script(
             "STYLE_PROFILE_INVALID",
             "brand render brief is incomplete for renderer enrichment",
         )
+
+    pack: dict[str, Any] | None = None
+    pack_profile: dict[str, Any] | None = None
+    requested_pack = production_request.get("visual_asset_pack")
+    if requested_pack:
+        if not isinstance(requested_pack, dict):
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "media production visual asset pack binding must be an object",
+            )
+        pack_id = str(requested_pack.get("id") or "").strip().upper()
+        expected_sha = str(requested_pack.get("sha256") or "").strip()
+        if not pack_id or not expected_sha or requested_pack.get("fallback") != "REFUSE":
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "media production visual asset pack binding is incomplete",
+            )
+        pack, actual_sha = load_visual_asset_pack(pack_id, root=Path(root))
+        if actual_sha != expected_sha:
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "media production visual asset pack fingerprint mismatch",
+                {"expected": expected_sha, "actual": actual_sha},
+            )
+        brand_pack = brand.get("visual_asset_pack") or {}
+        if not isinstance(brand_pack, dict):
+            raise ProductExplainerError(
+                "VISUAL_ASSET_PACK_INVALID",
+                "brand render brief visual asset pack binding must be an object",
+            )
+        pack_profile = {"visual_asset_pack": json.loads(json.dumps(brand_pack))}
 
     rendered = json.loads(json.dumps(script_package))
     rendered["brand_profile_id"] = profile_id
@@ -240,6 +283,13 @@ def enrich_renderer_script(
         scene["visual_requirements"] = [visual_direction, *directions]
         scene["forbidden_motifs"] = list(forbidden_motifs)
         scene["motion_cue"] = str(grammar.get("motion") or default_motion).strip()
+
+        if pack is not None and pack_profile is not None:
+            scene["visual_asset_recipe"] = resolve_scene_asset_recipe(
+                pack,
+                pack_profile,
+                beat,
+            )
 
         if scene["visual_mode"] == "brand_end_card" or beat == "call_to_action":
             scene["end_card"] = json.loads(json.dumps(brand.get("end_card") or {}))
