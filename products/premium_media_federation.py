@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from products.media_incarnation import MediaIncarnationError, build_media_incarnation, verify_media_proof
+from products.product_explainer_branding import enrich_renderer_script
 from adapters.document_studio.media_control import render_media_control_surface
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -505,7 +506,11 @@ def _prepare_episode(
 ) -> dict[str, Any]:
     episode_dir.mkdir(parents=True, exist_ok=True)
     pack = _load(niche_root / "studios/builtin/practical_open_source.json")
-    script = script_package if script_package is not None else _script_package()
+    semantic_script = script_package if script_package is not None else _script_package()
+    if production_request is not None and "brand_render_brief" in production_request:
+        script = enrich_renderer_script(semantic_script, production_request)
+    else:
+        script = semantic_script
     sample = (pack.get("samples") or [{}])[0]
     brief = dict(sample)
     brief.update(
