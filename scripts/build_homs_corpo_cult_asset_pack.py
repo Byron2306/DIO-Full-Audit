@@ -1,9 +1,15 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from PIL import Image
 
@@ -111,7 +117,7 @@ def normalize_source_asset(
     cleanup_pixels = 0
     if require_alpha:
         pixels: list[tuple[int, int, int, int]] = []
-        for red, green, blue, alpha in image.getdata():
+        for red, green, blue, alpha in image.get_flattened_data():
             if alpha <= LOW_ALPHA_CLEANUP_MAX and (red or green or blue):
                 pixels.append((0, 0, 0, alpha))
                 cleanup_pixels += 1
@@ -273,3 +279,16 @@ def build_pack(source_dir: Path, output_dir: Path) -> dict[str, object]:
         encoding="utf-8",
     )
     return manifest
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Build the governed HOMS visual asset pack")
+    parser.add_argument("--source-dir", required=True, type=Path)
+    parser.add_argument("--output-dir", required=True, type=Path)
+    args = parser.parse_args()
+    build_pack(args.source_dir, args.output_dir)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
