@@ -10,6 +10,7 @@ import pytest
 
 import products.premium_media_federation as federation
 from products.premium_media_federation import _prepare_dio_product_score
+from products.product_explainer_branding import load_product_media_profile
 
 
 def _write_stereo_motif(path: Path, *, seconds: float = 0.35) -> None:
@@ -182,3 +183,20 @@ def test_prepare_dio_product_score_uses_numeric_product_recipe(tmp_path: Path) -
     assert render["shadow_lowpass_hz"] == 1500
     assert render["fade_in_seconds"] == pytest.approx(0.25)
     assert render["fade_out_seconds"] == pytest.approx(0.60)
+
+
+def test_homs_profile_owns_numeric_product_score_recipe() -> None:
+    profile, _ = load_product_media_profile("HOMS")
+    render = profile["score"]["recipe"]["render"]
+
+    assert render == {
+        "motif_gain": 0.20,
+        "shadow_gain": 0.08,
+        "shadow_delay_ms": 180,
+        "shadow_pitch_ratio": 0.90,
+        "highpass_hz": 45,
+        "main_lowpass_hz": 5200,
+        "shadow_lowpass_hz": 1800,
+        "fade_in_seconds": 0.35,
+        "fade_out_seconds": 0.75,
+    }
