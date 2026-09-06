@@ -24,7 +24,10 @@ jobs:
           python-version: '3.11'
       - name: Install focused test dependencies
         run: python -m pip install --disable-pip-version-check pytest httpx
-      - name: Run Vesper conversation state contract
+      - name: Run Vesper conversation core contracts
         env:
           PYTHONPATH: .
-        run: python -m pytest -q tests/test_vesper_conversation_state.py
+        run: >-
+          python -m pytest -q
+          tests/test_vesper_conversation_state.py
+          tests/test_vesper_lingua_conversation.py
