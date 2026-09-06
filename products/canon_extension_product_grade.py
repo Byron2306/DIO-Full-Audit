@@ -7,6 +7,8 @@ from typing import Any
 
 BASELINE_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_BASELINE_MEASURED"
 VERIFIED_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_VERIFIED"
+PROOF_BASELINE_TOKEN = "DIO_CANON_EXTENSION_PROOF_BASELINE_MEASURED"
+PROOF_VERIFIED_TOKEN = "DIO_CANON_EXTENSION_PROOF_VERIFIED"
 PRODUCT_GRADE_VERIFIED = "PRODUCT_GRADE_VERIFIED"
 PRODUCT_GRADE_REFUSE = "PRODUCT_GRADE_REFUSE"
 PROOF_VERIFIED = "CANON_EXTENSION_PROOF_VERIFIED"
@@ -218,13 +220,16 @@ def run_canon_extension_product_grade_gauntlet(
         extensions[spec["slug"]] = row
     proof_verified = sum(1 for row in extensions.values() if row["proof_status"] == PROOF_VERIFIED)
     pg_verified = sum(1 for row in extensions.values() if row["status"] == PRODUCT_GRADE_VERIFIED)
+    all_proof = proof_verified == len(CANON_EXTENSIONS)
     all_pg = pg_verified == len(CANON_EXTENSIONS)
     receipt: dict[str, Any] = {
         "schema": "dio.product_grade.canon_extension_gauntlet_receipt.v1",
         "acceptance_token": VERIFIED_TOKEN if all_pg else BASELINE_TOKEN,
+        "proof_acceptance_token": PROOF_VERIFIED_TOKEN if all_proof else PROOF_BASELINE_TOKEN,
         "extension_count": len(CANON_EXTENSIONS),
         "canon_extension_proof_verified_count": proof_verified,
         "canon_extension_proof_refuse_count": len(CANON_EXTENSIONS) - proof_verified,
+        "all_canon_extension_proof_verified": all_proof,
         "product_grade_verified_count": pg_verified,
         "product_grade_refuse_count": len(CANON_EXTENSIONS) - pg_verified,
         "all_product_grade_verified": all_pg,
