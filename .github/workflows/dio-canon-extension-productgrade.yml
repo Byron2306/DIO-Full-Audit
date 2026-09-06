@@ -1,0 +1,28 @@
+name: DIO Canon Extension ProductGrade
+
+on:
+  push:
+    branches:
+      - agent/dio-canon-extension-productgrade-gauntlet
+  pull_request:
+    paths:
+      - 'products/canon_extension_product_grade.py'
+      - 'products/canon_extension_proof_seal.py'
+      - 'scripts/run_canon_extension_product_grade.py'
+      - 'scripts/seal_canon_extension_proofs.py'
+      - 'tests/test_canon_extension_product_grade.py'
+      - '.github/workflows/dio-canon-extension-productgrade.yml'
+
+jobs:
+  canon-extension-productgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependency
+        run: python -m pip install pytest
+      - name: Run canon extension ProductGrade tests
+        run: PYTHONNOUSERSITE=1 python -m pytest -q tests/test_canon_extension_product_grade.py
