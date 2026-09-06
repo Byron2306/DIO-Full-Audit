@@ -95,7 +95,7 @@ def test_profile_extension_is_explained_without_automatic_intake(tmp_path, monke
     assert second["authority"]["executed_external_action"] is False
 
 
-def test_two_candidate_correction_changes_focus_without_intake(tmp_path, monkeypatch):
+def test_ambiguous_other_one_clarifies_without_guessing_or_intake(tmp_path, monkeypatch):
     root = make_root(tmp_path)
     enable(monkeypatch)
     first = process_envelope(public_env("HOMS or Evidex?"), root, cfg())
@@ -104,7 +104,8 @@ def test_two_candidate_correction_changes_focus_without_intake(tmp_path, monkeyp
     assert second["conversation_id"] == first["conversation_id"]
     assert second["intake"] is None
     assert second["conversation"]["action_intent"] == "none"
-    assert len(second["conversation"]["candidate_products"]) == 1
+    assert second["conversation"]["conversation_act"] == "clarify"
+    assert second["conversation"]["clarification_needed"] is True
 
 
 def test_lingua_context_and_telemetry_are_bounded(tmp_path, monkeypatch):
