@@ -2,6 +2,8 @@ import json
 import shutil
 from pathlib import Path
 
+import pytest
+
 from presence_core.engine import process_envelope
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -143,3 +145,67 @@ def test_conversation_rollout_is_disabled_by_default():
     assert value["conversation"]["automatic_crystal_promotion"] is False
     assert value["conversation"]["general_purpose_assistant"] is False
     assert value["llm"]["tool_authority"] is False
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Hi",
+        "Who are you?",
+        "What is DIO?",
+        "What does HOMS Assess do?",
+        "What can HOMS do?",
+        "HOMS or Evidex?",
+        "What is AuditProof?",
+        "I don't know what I need.",
+        "I teach Grade 8 history and have 90 exams.",
+        "I need evidence for an audit.",
+        "Can you make a website?",
+    ],
+)
+def test_single_turn_guidance_never_creates_consequential_authority(
+    tmp_path, monkeypatch, text
+):
+    root = make_root(tmp_path)
+    enable(monkeypatch)
+    response = process_envelope(public_env(text), root, cfg())
+    assert response["reply"]["text"].strip()
+    assert response["authority"]["executed_external_action"] is False
+    assert response["authority"]["spend_authorized"] is False
+    assert response["authority"]["fulfilment_released"] is False
+
+
+def test_recent_context_can_be_recalled_without_cross_conversation_leak(tmp_path, monkeypatch):
+    root = make_root(tmp_path)
+    enable(monkeypatch)
+    process_envelope(
+        public_env("I need help with an audit evidence pack.", user="user-a"),
+        root,
+        cfg(),
+    )
+    response = process_envelope(
+        public_env("What did I tell you two messages ago?", user="user-a"),
+        root,
+        cfg(),
+    )
+    assert "audit" in response["reply"]["text"].lower() or "evidence" in response["reply"]["text"].lower()
+    other = process_envelope(
+        public_env("What did I tell you?", user="user-b"),
+        root,
+        cfg(),
+    )
+    assert "audit evidence pack" not in other["reply"]["text"].lower()
+
+
+def test_provider_unavailable_still_returns_reply(tmp_path, monkeypatch):
+    root = make_root(tmp_path)
+    enable(monkeypatch)
+    monkeypatch.delenv("OLLAMA_URL", raising=False)
+    monkeypatch.delenv("OLLAMA_MODEL", raising=False)
+    response = process_envelope(
+        public_env("I have a strange workflow and I am not sure where it fits."),
+        root,
+        cfg(),
+    )
+    assert response["reply"]["text"].strip()
+    assert response["authority"]["executed_external_action"] is False
