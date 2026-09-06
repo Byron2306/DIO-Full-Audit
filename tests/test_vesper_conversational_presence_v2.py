@@ -133,3 +133,13 @@ def test_disabled_feature_gate_preserves_legacy_public_path(tmp_path, monkeypatc
     response = process_envelope(public_env("Hi"), root, cfg())
     assert "conversation" not in response
     assert response["decision"]["intent"] in {"unknown", "general_info"}
+
+
+def test_conversation_rollout_is_disabled_by_default():
+    value = json.loads((REPO_ROOT / "config" / "presence.json").read_text())
+    assert value["conversation"]["enabled_by_default"] is False
+    assert value["conversation"]["recent_turn_limit"] == 6
+    assert value["conversation"]["provider_role"] == "bounded_synthesis_fallback"
+    assert value["conversation"]["automatic_crystal_promotion"] is False
+    assert value["conversation"]["general_purpose_assistant"] is False
+    assert value["llm"]["tool_authority"] is False
