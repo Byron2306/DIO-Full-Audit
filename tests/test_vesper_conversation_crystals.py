@@ -93,7 +93,7 @@ def vesper_crystal_registry(tmp_path):
 def test_verified_active_crystal_reuses_without_provider(tmp_path, vesper_crystal_registry):
     result = resolve_conversation_crystal(
         root=tmp_path,
-        text="could you tell me what dio is",
+        text="please tell me about dio",
         registry_path=vesper_crystal_registry,
     )
     assert result is not None
