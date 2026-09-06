@@ -331,6 +331,53 @@ def _resolve_other_one(text: str, state: Mapping[str, Any]) -> dict[str, Any] | 
     )
 
 
+def _resolve_recent_recall(
+    text: str,
+    recent_turns: Sequence[Mapping[str, Any]],
+    state: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    value = _normalized(text)
+    recall_patterns = (
+        r"\bwhat did i tell you\b",
+        r"\bwhat did i say\b",
+        r"\bwhat have i told you\b",
+        r"\bwhat was i saying\b",
+    )
+    if not any(re.search(pattern, value) for pattern in recall_patterns):
+        return None
+
+    user_turns = [
+        str(row.get("text") or "").strip()
+        for row in recent_turns
+        if str(row.get("role") or "").lower() == "user"
+        and str(row.get("text") or "").strip()
+    ]
+    candidates = [
+        str(item)
+        for item in (state.get("candidate_products") or [])
+        if str(item).strip()
+    ]
+    if not user_turns:
+        return _resolution(
+            "You haven’t given me an earlier request in this conversation that I can safely recall yet.",
+            conversation_act="answer",
+            candidate_products=candidates,
+            confidence=1.0,
+        )
+
+    previous = user_turns[-1][:600]
+    result = _resolution(
+        f"Earlier in this conversation, you told me: “{previous}”",
+        conversation_act="answer",
+        candidate_products=candidates,
+        confidence=1.0,
+    )
+    current_topic = state.get("current_topic")
+    if current_topic:
+        result["current_topic"] = str(current_topic)[:160]
+    return result
+
+
 def _resolve_comparison(text: str, knowledge: Mapping[str, Any]) -> dict[str, Any] | None:
     products = _named_products(text, knowledge)
     unique = list(dict.fromkeys(products))
@@ -425,6 +472,10 @@ def resolve_conversation(
     primitive = resolve_primitive(text, state)
     if primitive is not None:
         return validate_conversation_resolution(primitive, allowed)
+
+    recall = _resolve_recent_recall(text, recent_turns, state)
+    if recall is not None:
+        return validate_conversation_resolution(recall, allowed)
 
     try:
         from adapters.lingua.conversation_crystals import resolve_conversation_crystal
