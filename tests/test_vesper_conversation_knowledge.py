@@ -51,3 +51,23 @@ def test_unknown_question_returns_none_for_next_resolution_layer():
     project_root = Path(__file__).parents[1]
     knowledge = load_public_product_knowledge(project_root)
     assert answer_from_governed_knowledge("Can you explain quantum chromodynamics?", knowledge) is None
+
+
+def test_specific_incarnation_preserves_topic_and_route_boundary():
+    project_root = Path(__file__).parents[1]
+    knowledge = load_public_product_knowledge(project_root)
+    result = answer_from_governed_knowledge("What does HOMS Assess do?", knowledge)
+    assert result["current_topic"] == "homs_assess"
+    assert result["candidate_products"] == ["homs"]
+    assert result["route_auto_promotable"] is True
+    assert "HOMS Assess" in result["reply"]
+
+
+def test_profile_extension_is_explanatory_not_auto_promotable():
+    project_root = Path(__file__).parents[1]
+    knowledge = load_public_product_knowledge(project_root)
+    result = answer_from_governed_knowledge("What is AuditProof?", knowledge)
+    assert result["current_topic"] == "auditproof"
+    assert result["candidate_products"] == ["evidex"]
+    assert result["route_auto_promotable"] is False
+    assert result["action_intent"] == "none"
