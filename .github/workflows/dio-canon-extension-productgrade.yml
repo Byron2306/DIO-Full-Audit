@@ -15,6 +15,7 @@ on:
       - 'scripts/seal_canon_extension_proofs.py'
       - 'tests/test_canon_extension_product_grade.py'
       - 'tests/test_canon_extension_native_product_grade.py'
+      - 'tests/test_canon_extension_dual_bound_receipt.py'
       - '.github/workflows/dio-canon-extension-productgrade.yml'
 
 jobs:
@@ -33,3 +34,4 @@ jobs:
           PYTHONNOUSERSITE=1 python -m pytest -q
           tests/test_canon_extension_product_grade.py
           tests/test_canon_extension_native_product_grade.py
+          tests/test_canon_extension_dual_bound_receipt.py
