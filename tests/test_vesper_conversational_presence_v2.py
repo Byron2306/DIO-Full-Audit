@@ -120,7 +120,7 @@ def test_lingua_context_and_telemetry_are_bounded(tmp_path, monkeypatch):
         for line in (root / "telemetry" / "dio_events.jsonl").read_text().splitlines()
     ]
     resolved = next(
-        row for row in events if row["event_type"] == "presence.conversation_resolved"
+        row for row in events if row["event"] == "presence.conversation_resolved"
     )
     assert "Hi" not in json.dumps(resolved)
 
