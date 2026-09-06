@@ -10,6 +10,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from products.canon_extension_product_grade import (
+    PROOF_VERIFIED_TOKEN,
     VERIFIED_TOKEN,
     run_canon_extension_product_grade_gauntlet,
 )
@@ -26,9 +27,14 @@ def main() -> int:
         help="Output directory for canon-extension and supporting Studio ProductGrade receipts.",
     )
     parser.add_argument(
+        "--require-proof",
+        action="store_true",
+        help="Return non-zero unless all 15 canon extensions have verified receipt-bound canon proof.",
+    )
+    parser.add_argument(
         "--require-all",
         action="store_true",
-        help="Return non-zero unless all 15 canon extensions reach PRODUCT_GRADE_VERIFIED.",
+        help="Return non-zero unless all 15 canon extensions reach full PRODUCT_GRADE_VERIFIED.",
     )
     args = parser.parse_args()
     output_dir = Path(args.output).resolve()
@@ -42,9 +48,12 @@ def main() -> int:
         studio_product_grade_receipt=studio_receipt,
     )
     print(json.dumps(receipt, indent=2, sort_keys=True))
+    print(receipt["proof_acceptance_token"])
     print(receipt["acceptance_token"])
-    if args.require_all and receipt["acceptance_token"] != VERIFIED_TOKEN:
+    if args.require_proof and receipt["proof_acceptance_token"] != PROOF_VERIFIED_TOKEN:
         return 2
+    if args.require_all and receipt["acceptance_token"] != VERIFIED_TOKEN:
+        return 3
     return 0
 
 
