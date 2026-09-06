@@ -192,7 +192,7 @@ def test_clear_product_question_can_answer_without_provider(tmp_path):
     knowledge = retrieve_conversation_knowledge(root, "What can HOMS do?", {}, limit=4)
     answer = resolve_knowledge_answer("What can HOMS do?", knowledge)
     assert answer is not None
-    assert answer["source"] == "governed_knowledge"
+    assert answer["source"] == "knowledge"
     assert "homs" in answer["candidate_products"]
     assert answer["action_intent"] == "none"
     assert answer["authority_created"] is False
