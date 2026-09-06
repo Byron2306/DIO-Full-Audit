@@ -14,7 +14,16 @@ from products.canon_extension_product_grade import (
     VERIFIED_TOKEN,
     run_canon_extension_product_grade_gauntlet,
 )
+from products.canon_extension_summary import persist_verified_summary
 from products.product_grade_gauntlet import run_product_grade_gauntlet
+
+CANONICAL_SUMMARY_PATH = (
+    ROOT
+    / "state"
+    / "product_grade"
+    / "canon_extensions"
+    / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json"
+)
 
 
 def main() -> int:
@@ -47,9 +56,12 @@ def main() -> int:
         root=ROOT,
         studio_product_grade_receipt=studio_receipt,
     )
+    summary_persisted = persist_verified_summary(receipt, CANONICAL_SUMMARY_PATH)
     print(json.dumps(receipt, indent=2, sort_keys=True))
     print(receipt["proof_acceptance_token"])
     print(receipt["acceptance_token"])
+    if summary_persisted:
+        print(f"DIO_CANON_EXTENSION_CONTROL_DECK_SUMMARY_WRITTEN:{CANONICAL_SUMMARY_PATH}")
     if args.require_proof and receipt["proof_acceptance_token"] != PROOF_VERIFIED_TOKEN:
         return 2
     if args.require_all and receipt["acceptance_token"] != VERIFIED_TOKEN:

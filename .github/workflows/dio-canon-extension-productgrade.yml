@@ -4,15 +4,20 @@ on:
   push:
     branches:
       - agent/dio-canon-extension-productgrade-gauntlet
+      - agent/dio-control-deck-68-productgrade
   pull_request:
     paths:
+      - 'portfolio_runtime.py'
       - 'products/canon_extension_product_grade.py'
       - 'products/canon_extension_proof_seal.py'
       - 'products/canon_extension_native_profiles.py'
       - 'products/canon_extension_native_product_grade.py'
+      - 'products/canon_extension_summary.py'
       - 'scripts/run_canon_extension_product_grade.py'
       - 'scripts/run_canon_extension_native_product_grade.py'
       - 'scripts/seal_canon_extension_proofs.py'
+      - 'tests/test_portfolio_runtime_canon_extensions.py'
+      - 'tests/test_canon_extension_summary_persistence.py'
       - 'tests/test_canon_extension_product_grade.py'
       - 'tests/test_canon_extension_native_product_grade.py'
       - 'tests/test_canon_extension_dual_bound_receipt.py'
@@ -33,6 +38,8 @@ jobs:
       - name: Run canon extension ProductGrade tests
         run: >-
           PYTHONNOUSERSITE=1 python -m pytest -q
+          tests/test_portfolio_runtime_canon_extensions.py
+          tests/test_canon_extension_summary_persistence.py
           tests/test_canon_extension_product_grade.py
           tests/test_canon_extension_native_product_grade.py
           tests/test_canon_extension_dual_bound_receipt.py
