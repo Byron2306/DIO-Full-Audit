@@ -1,0 +1,35 @@
+name: Vesper Conversational Presence v2
+
+on:
+  push:
+    branches:
+      - agent/vesper-lingua-conversational-presence-v2-spec
+  pull_request:
+    paths:
+      - 'presence_core/**'
+      - 'adapters/lingua/**'
+      - 'config/**'
+      - 'tests/test_vesper_conversation_*.py'
+      - 'tests/test_vesper_conversational_presence_v2.py'
+      - '.github/workflows/vesper-conversational-presence-v2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  focused-vesper-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install focused test dependencies
+        run: python -m pip install --upgrade pip pytest httpx requests
+      - name: Run Vesper v2 integration RED GREEN gate
+        env:
+          PYTHONPATH: .
+          PYTHONNOUSERSITE: '1'
+        run: |
+          python -m pytest -q tests/test_vesper_conversational_presence_v2.py
