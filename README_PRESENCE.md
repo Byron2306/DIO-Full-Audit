@@ -143,6 +143,82 @@ python3 scripts/sync_vesper_presence_edge.py --watch
 
 Older deployment bundles may still be named `DIO_Lilith_Public_HF_Space_Wave2.zip` and `DIO_Lilith_Operator_HF_Space_Wave2.zip`. Those filenames are compatibility artifacts, not the canonical Presence identity or operator Telegram topology.
 
+## Vesper Conversational Presence v2
+
+Vesper's conversational cognition is a Lingua-first guide layer behind the existing Presence transport. It does not replace the browser, Cloudflare, D1, reconciler, signature, attachment-quarantine, policy or authority boundaries.
+
+```text
+public message
+    ↓
+Presence conversation custody
+    ↓
+Lingua conversational resolver
+    ├─ deterministic conversational primitives
+    ├─ bounded same-conversation recall
+    ├─ verified read-only BEAST semantic-crystal reuse
+    ├─ governed ATLAS + route-contract product knowledge
+    ├─ bounded Ollama-compatible synthesis fallback
+    └─ deterministic safe fallback
+    ↓
+ordinary conversation reply
+    or
+explicit typed action proposal
+    ↓
+deterministic action bridge
+    ↓
+authorize()
+    ↓
+existing held side-effect path
+```
+
+The governing invariant is:
+
+```text
+LANGUAGE != AUTHORITY
+```
+
+A model, Lingua answer frame, semantic crystal, recalled turn or fluent Vesper sentence may understand, explain, compare, clarify, infer and propose. None of those language paths can create send, spend, payment, publication, fulfilment, identity, professional, legal or release authority.
+
+The conversational guide is **disabled by default**. The machine-readable rollout policy lives in `config/presence.json`. Controlled testing enables it with:
+
+```bash
+DIO_PRESENCE_CONVERSATIONAL_GUIDE=1 \
+PYTHONPATH=. PYTHONNOUSERSITE=1 \
+python -m pytest -q tests/test_vesper_conversational_presence_v2.py
+```
+
+Provider synthesis reuses the existing Ollama-compatible transport. A fast Qwen-class or equivalent instruction model may be selected through `OLLAMA_MODEL` without giving the provider tools or mutation authority. Provider outage, timeout, malformed JSON or validation failure degrades to Lingua/local/fallback behavior rather than creating authority or breaking the public rail.
+
+Conversation continuity is bounded. Recent turns are stored per Presence conversation and capped by policy. Direct recall only consults the same conversation's bounded user-turn window. It does not search other visitors' conversations or grant a provider unrestricted repository memory.
+
+Product meaning is federated from existing DIO truth rather than a new chatbot catalogue. The conversational knowledge layer uses the ATLAS incarnation crosswalk, product-class route contract and bounded public enrichment. This preserves distinctions such as a named incarnation being explainable while its route remains non-auto-promotable.
+
+Verified BEAST semantic crystals are read-only in the live conversational path. A provider answer cannot promote itself into a crystal. Automatic crystal promotion is disabled.
+
+Before rollout, the focused regression wall is:
+
+```bash
+PYTHONPATH=. PYTHONNOUSERSITE=1 python -m pytest -q \
+  tests/test_vesper_conversation_state.py \
+  tests/test_vesper_lingua_conversation.py \
+  tests/test_vesper_conversation_knowledge.py \
+  tests/test_vesper_conversation_crystals.py \
+  tests/test_vesper_conversation_provider.py \
+  tests/test_vesper_conversation_action_bridge.py \
+  tests/test_vesper_conversational_presence_v2.py \
+  tests/test_presence_pa.py \
+  tests/test_presence_wave2_identity.py
+```
+
+The broader safety regression is:
+
+```bash
+PYTHONPATH=. PYTHONNOUSERSITE=1 \
+python -m pytest -q tests -k 'presence or lingua or vesper'
+```
+
+A green conversational test does not itself authorize production rollout. Production activation remains an explicit operator deployment decision after the focused and broader regression walls are green.
+
 ## Authority boundary
 
 DIO Presence may receive, classify, preserve semantic lineage, quarantine, create held intakes, expose explicitly bound minimal status, draft customer-facing responses and surface human attention.
