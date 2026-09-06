@@ -195,3 +195,27 @@ def test_cli_require_proof_succeeds_when_all_extension_proof_is_verified(monkeyp
         ],
     )
     assert runner.main() == 0
+
+
+def test_sealing_preserves_historical_gamma_receipt_and_rebinds_current_artifact(tmp_path):
+    from products.canon_extension_proof_seal import seal_receipt_bound_extension
+
+    _write_receipt_bound_case(tmp_path, "contract-desk", mutate=True)
+    spec = next(row for row in CANON_EXTENSIONS if row["slug"] == "contract-desk")
+    gamma = tmp_path / spec["proof_receipt"]
+    gamma_before = gamma.read_bytes()
+    seal = seal_receipt_bound_extension(spec=spec, root=tmp_path)
+
+    assert gamma.read_bytes() == gamma_before
+    assert seal["schema"] == "dio.canon_extension.proof_seal.v1"
+    assert seal["canon_id"] == spec["canon_id"]
+    assert seal["current_artifact_sha256"] == hashlib.sha256((tmp_path / spec["primary_artifact"]).read_bytes()).hexdigest()
+    assert seal["source_generation_receipt_sha256"] == hashlib.sha256(gamma_before).hexdigest()
+    assert seal["authority_created"] is False
+    assert seal["external_effects"] is False
+
+    row = evaluate_receipt_bound_extension(spec=spec, root=tmp_path)
+    assert row["proof_status"] == "CANON_EXTENSION_PROOF_VERIFIED"
+    assert row["artifact_hash_bound"] is True
+    assert row["generation_receipt_bound"] is True
+    assert row["proof_receipt"].endswith("CANON_EXTENSION_PROOF_RECEIPT.json")
