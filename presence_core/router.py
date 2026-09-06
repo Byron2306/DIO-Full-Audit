@@ -32,9 +32,6 @@ def detect_product(text: str, routes: list[dict[str,Any]]) -> tuple[str|None,flo
             priority=int(route.get("priority",10**6))
         except (TypeError,ValueError):
             priority=10**6
-        # Prefer more independent keyword evidence first. On a tie, the most
-        # specific phrase wins over a broad substring ("article studio" beats
-        # "article"). Route priority is only the final deterministic tie-break.
         score=(hits,longest_words,longest_chars,-priority)
         if score>best_score:
             best_score=score
@@ -89,3 +86,90 @@ def route_message(text: str, role: str, routes_path: Path) -> Decision:
     proposal=classify_with_ollama(text,[str(r.get("product")) for r in routes if r.get("product")])
     if proposal and proposal.get("confidence",0)>=0.7: return Decision(str(proposal["intent"]),proposal.get("product"),float(proposal["confidence"]),"ollama_advisory","bounded classifier proposal")
     return Decision("unknown",None,0.25,"deterministic","no safe classification")
+
+
+def _explicit_conversation_confirmation(text: str) -> bool:
+    low = " ".join(str(text or "").lower().split())
+    patterns = (
+        r"\byes\b.*\b(start|begin)\b",
+        r"\byes\b.*\bdo that\b",
+        r"\bgo ahead\b(?:.*\b(that|it)\b)?",
+        r"\b(start|begin) that\b",
+        r"\bplease (start|begin)\b",
+    )
+    return any(re.search(pattern, low) for pattern in patterns)
+
+
+def decision_from_conversation_action(
+    *,
+    resolution,
+    state,
+    text: str,
+    role: str,
+    routes_path: Path,
+) -> Decision | None:
+    action = str((resolution or {}).get("action_intent") or "none")
+    if action == "none":
+        return None
+
+    confidence = max(0.0, min(float((resolution or {}).get("confidence") or 0.0), 1.0))
+    product_raw = (resolution or {}).get("action_product")
+    product = str(product_raw).strip() if product_raw is not None else None
+    if product == "":
+        product = None
+
+    if action == "begin_intake":
+        if not product or not _explicit_conversation_confirmation(text):
+            return None
+        route_products = {
+            str(row.get("product"))
+            for row in load_routes(routes_path)
+            if row.get("product")
+        }
+        if product not in route_products:
+            return None
+        proposal = (state or {}).get("action_proposal")
+        if not isinstance(proposal, dict):
+            return None
+        if proposal.get("intent") != "begin_intake" or proposal.get("product") != product:
+            return None
+        selected = (state or {}).get("selected_product")
+        if selected is not None and str(selected) != product:
+            return None
+        return Decision(
+            "intake_request",
+            product,
+            confidence,
+            "conversation_bridge",
+            "explicit confirmation of pending conversational intake proposal",
+        )
+
+    if action == "status_lookup":
+        current = route_message(text, role, routes_path)
+        if current.intent != "status_request" or current.source != "deterministic":
+            return None
+        if product is not None and current.product not in {None, product}:
+            return None
+        return Decision(
+            "status_request",
+            product or current.product,
+            confidence,
+            "conversation_bridge",
+            "explicit current-turn status request",
+        )
+
+    if action == "operator_summary":
+        if role != "operator":
+            return None
+        current = route_message(text, role, routes_path)
+        if current.intent != "operator_summary" or current.source != "deterministic":
+            return None
+        return Decision(
+            "operator_summary",
+            None,
+            confidence,
+            "conversation_bridge",
+            "explicit operator summary request",
+        )
+
+    return None
