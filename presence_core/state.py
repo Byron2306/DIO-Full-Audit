@@ -313,3 +313,80 @@ def operator_summary(dio_root: Path, presence_root: Path) -> dict[str,Any]:
             "needs_you": len(needs),
         },
     }
+
+
+def conversation_state_path(root: Path, conv_id: str) -> Path:
+    return root / "conversation_state" / f"{safe(conv_id)}.json"
+
+
+def conversation_turns_path(root: Path, conv_id: str) -> Path:
+    return root / "conversation_turns" / f"{safe(conv_id)}.json"
+
+
+def load_conversation_state(root: Path, conversation_id: str) -> dict[str, Any]:
+    path = conversation_state_path(root, conversation_id)
+    if path.is_file():
+        return read_json(path)
+    return {
+        "schema": "dio.vesper.conversation_state.v1",
+        "conversation_id": conversation_id,
+        "turn_count": 0,
+        "current_need": None,
+        "current_topic": None,
+        "candidate_products": [],
+        "selected_product": None,
+        "last_user_act": None,
+        "last_vesper_act": None,
+        "open_question": None,
+        "known_constraints": [],
+        "action_proposal": None,
+        "last_route_intent": None,
+        "updated_at": now(),
+    }
+
+
+def save_conversation_state(root: Path, state: dict[str, Any]) -> dict[str, Any]:
+    if state.get("schema") != "dio.vesper.conversation_state.v1":
+        raise ValueError("unsupported Vesper conversation state schema")
+    conversation_id = str(state.get("conversation_id") or "").strip()
+    if not conversation_id:
+        raise ValueError("conversation_id is required")
+    forbidden = {"authority", "authorized", "spend_authorized", "fulfilment_released"}
+    if forbidden.intersection(state):
+        raise ValueError("conversation state cannot contain authority fields")
+    state["updated_at"] = now()
+    write_json(conversation_state_path(root, conversation_id), state)
+    return state
+
+
+def append_conversation_turn(
+    root: Path,
+    conversation_id: str,
+    *,
+    role: str,
+    text: str,
+    act: str | None = None,
+    product: str | None = None,
+    max_turns: int = 6,
+) -> list[dict[str, Any]]:
+    path = conversation_turns_path(root, conversation_id)
+    rows = read_json(path).get("turns", []) if path.is_file() else []
+    rows.append({
+        "role": role,
+        "text": str(text)[:4000],
+        "act": act,
+        "product": product,
+        "observed_at": now(),
+    })
+    rows = rows[-max(1, int(max_turns)):]
+    write_json(path, {
+        "schema": "dio.vesper.recent_turns.v1",
+        "conversation_id": conversation_id,
+        "turns": rows,
+    })
+    return rows
+
+
+def load_recent_conversation_turns(root: Path, conversation_id: str) -> list[dict[str, Any]]:
+    path = conversation_turns_path(root, conversation_id)
+    return list((read_json(path).get("turns") or [])) if path.is_file() else []
