@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from products.canon_extension_proof_seal import SEAL_FILENAME, SEAL_SCHEMA
+
 BASELINE_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_BASELINE_MEASURED"
 VERIFIED_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_VERIFIED"
 PROOF_BASELINE_TOKEN = "DIO_CANON_EXTENSION_PROOF_BASELINE_MEASURED"
@@ -74,6 +76,14 @@ def _top_level_failure(receipt: dict[str, Any]) -> bool:
     return False
 
 
+def _load_json(path: Path) -> dict[str, Any] | None:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def _native_receipt_checks(receipt: dict[str, Any], artifact_sha: str) -> list[str]:
     blockers: list[str] = []
     if receipt.get("status") != PRODUCT_GRADE_VERIFIED:
@@ -94,6 +104,35 @@ def _native_receipt_checks(receipt: dict[str, Any], artifact_sha: str) -> list[s
     return blockers
 
 
+def _verify_seal(
+    *,
+    seal_data: dict[str, Any],
+    spec: dict[str, Any],
+    artifact_sha: str,
+    generation_receipt_sha: str,
+) -> list[str]:
+    blockers: list[str] = []
+    if seal_data.get("schema") != SEAL_SCHEMA:
+        blockers.append("canon_proof_seal_schema_invalid")
+    if seal_data.get("status") != "PASS":
+        blockers.append("canon_proof_seal_not_pass")
+    if seal_data.get("canon_id") != spec["canon_id"] or seal_data.get("slug") != spec["slug"]:
+        blockers.append("canon_proof_seal_identity_mismatch")
+    if str(seal_data.get("primary_artifact") or "") != str(spec["primary_artifact"]):
+        blockers.append("canon_proof_seal_artifact_path_mismatch")
+    if str(seal_data.get("current_artifact_sha256") or "").removeprefix("sha256:") != artifact_sha:
+        blockers.append("canon_proof_seal_artifact_hash_mismatch")
+    if str(seal_data.get("source_generation_receipt") or "") != str(spec["proof_receipt"]):
+        blockers.append("canon_proof_seal_generation_receipt_path_mismatch")
+    if str(seal_data.get("source_generation_receipt_sha256") or "").removeprefix("sha256:") != generation_receipt_sha:
+        blockers.append("canon_proof_seal_generation_receipt_hash_mismatch")
+    if seal_data.get("authority_created") is not False:
+        blockers.append("canon_proof_seal_authority_created")
+    if seal_data.get("external_effects") is not False:
+        blockers.append("canon_proof_seal_external_effects")
+    return blockers
+
+
 def evaluate_receipt_bound_extension(
     *,
     spec: dict[str, Any],
@@ -102,7 +141,8 @@ def evaluate_receipt_bound_extension(
 ) -> dict[str, Any]:
     root = Path(root).resolve()
     artifact = (root / spec["primary_artifact"]).resolve()
-    proof = (root / spec["proof_receipt"]).resolve()
+    generation_receipt = (root / spec["proof_receipt"]).resolve()
+    seal_path = generation_receipt.parent / SEAL_FILENAME
     row: dict[str, Any] = {
         "canon_id": spec["canon_id"],
         "name": spec["name"],
@@ -112,38 +152,63 @@ def evaluate_receipt_bound_extension(
         "status": PRODUCT_GRADE_REFUSE,
         "critical_blockers": [],
         "primary_artifact": spec["primary_artifact"],
+        "generation_receipt": spec["proof_receipt"],
         "proof_receipt": spec["proof_receipt"],
         "artifact_hash_bound": False,
+        "generation_receipt_bound": False,
         "customers_will_pay": "UNPROVED",
         "verified_payment": "UNPROVED",
     }
-    if not artifact.is_relative_to(root) or not proof.is_relative_to(root):
+    if not artifact.is_relative_to(root) or not generation_receipt.is_relative_to(root) or not seal_path.is_relative_to(root):
         row["critical_blockers"].append("unsafe_evidence_path")
         return row
     if not artifact.is_file():
         row["critical_blockers"].append("primary_artifact_missing")
-    if not proof.is_file():
+    if not generation_receipt.is_file():
         row["critical_blockers"].append("proof_receipt_missing")
     if row["critical_blockers"]:
         return row
-    try:
-        proof_data = json.loads(proof.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
+
+    generation_data = _load_json(generation_receipt)
+    if generation_data is None:
         row["critical_blockers"].append("proof_receipt_invalid_json")
         return row
-    if not isinstance(proof_data, dict):
-        row["critical_blockers"].append("proof_receipt_not_object")
-        return row
-    if _top_level_failure(proof_data):
+    if _top_level_failure(generation_data):
         row["critical_blockers"].append("proof_receipt_reports_failure")
         return row
+
     artifact_sha = _sha(artifact)
+    generation_sha = _sha(generation_receipt)
     row["primary_artifact_sha256"] = artifact_sha
-    row["proof_receipt_fingerprint"] = _fingerprint(proof_data)
-    row["artifact_hash_bound"] = _receipt_binds_hash(proof_data, artifact_sha)
-    if not row["artifact_hash_bound"]:
-        row["critical_blockers"].append("artifact_not_hash_bound_to_receipt")
-        return row
+    row["generation_receipt_sha256"] = generation_sha
+    row["generation_receipt_fingerprint"] = _fingerprint(generation_data)
+
+    if seal_path.is_file():
+        seal_data = _load_json(seal_path)
+        if seal_data is None:
+            row["critical_blockers"].append("canon_proof_seal_invalid_json")
+            return row
+        seal_blockers = _verify_seal(
+            seal_data=seal_data,
+            spec=spec,
+            artifact_sha=artifact_sha,
+            generation_receipt_sha=generation_sha,
+        )
+        if seal_blockers:
+            row["critical_blockers"].extend(seal_blockers)
+            return row
+        row["proof_receipt"] = str(seal_path.relative_to(root))
+        row["proof_receipt_fingerprint"] = _fingerprint(seal_data)
+        row["artifact_hash_bound"] = True
+        row["generation_receipt_bound"] = True
+    else:
+        row["proof_receipt_fingerprint"] = _fingerprint(generation_data)
+        row["artifact_hash_bound"] = _receipt_binds_hash(generation_data, artifact_sha)
+        row["generation_receipt_bound"] = row["artifact_hash_bound"]
+        if not row["artifact_hash_bound"]:
+            row["critical_blockers"].append("artifact_not_hash_bound_to_receipt")
+            return row
+
     row["proof_status"] = PROOF_VERIFIED
     if native_product_grade_receipt is None:
         row["critical_blockers"].append("native_product_grade_not_run")
@@ -239,9 +304,11 @@ def run_canon_extension_product_grade_gauntlet(
         "commercial_validation": "UNPROVED",
         "claim_boundary": (
             "Canon-extension ProductGrade separates receipt-bound product proof from full native ProductGrade. "
-            "Only extensions with native execution integrity, BEAST mechanical checks, Lingua semantic custody, "
-            "unseen-input generalisation, current-artifact hash binding and held external authority may reach "
-            "PRODUCT_GRADE_VERIFIED. Real willingness to pay remains unproved until observed."
+            "Receipt-bound extensions may prove current-artifact provenance through a canon proof seal that binds "
+            "the current artifact bytes to the preserved historical generation receipt. Only extensions with native "
+            "execution integrity, BEAST mechanical checks, Lingua semantic custody, unseen-input generalisation, "
+            "current-artifact hash binding and held external authority may reach PRODUCT_GRADE_VERIFIED. Real "
+            "willingness to pay remains unproved until observed."
         ),
     }
     receipt["portfolio_fingerprint"] = _fingerprint(receipt)
