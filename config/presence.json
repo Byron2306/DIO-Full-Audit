@@ -52,8 +52,18 @@
       "identity": "anonymous_session_by_default"
     }
   },
+  "conversation": {
+    "schema": "dio.vesper.conversation_policy.v1",
+    "enabled_by_default": false,
+    "recent_turn_limit": 6,
+    "provider_role": "bounded_synthesis_fallback",
+    "semantic_crystal_reuse": "verified_read_only",
+    "automatic_crystal_promotion": false,
+    "general_purpose_assistant": false,
+    "knowledge_canon": "atlas_plus_route_contract_plus_public_enrichment"
+  },
   "llm": {
-    "role": "advisory_classifier_and_copy_drafter_only",
+    "role": "advisory_classifier_copy_drafter_and_bounded_conversation_synthesizer",
     "tool_authority": false
   }
 }
