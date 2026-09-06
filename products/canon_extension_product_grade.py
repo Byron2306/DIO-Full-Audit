@@ -15,6 +15,7 @@ PRODUCT_GRADE_VERIFIED = "PRODUCT_GRADE_VERIFIED"
 PRODUCT_GRADE_REFUSE = "PRODUCT_GRADE_REFUSE"
 PROOF_VERIFIED = "CANON_EXTENSION_PROOF_VERIFIED"
 PROOF_REFUSE = "CANON_EXTENSION_PROOF_REFUSE"
+NATIVE_V2_SCHEMA = "dio.product_grade.canon_extension_native.v2"
 
 _BASE = "state/product_portfolio/canon_extensions"
 
@@ -84,13 +85,67 @@ def _load_json(path: Path) -> dict[str, Any] | None:
     return value if isinstance(value, dict) else None
 
 
-def _native_receipt_checks(receipt: dict[str, Any], artifact_sha: str) -> list[str]:
+def _native_receipt_checks(
+    receipt: dict[str, Any],
+    artifact_sha: str,
+    *,
+    root: Path | None = None,
+    spec: dict[str, Any] | None = None,
+) -> list[str]:
     blockers: list[str] = []
     if receipt.get("status") != PRODUCT_GRADE_VERIFIED:
         blockers.append("native_product_grade_not_verified")
-    native_sha = str(receipt.get("primary_artifact_sha256") or "").removeprefix("sha256:")
-    if native_sha != artifact_sha:
-        blockers.append("native_product_grade_artifact_mismatch")
+
+    if receipt.get("schema") == NATIVE_V2_SCHEMA:
+        if root is None or spec is None:
+            blockers.append("native_product_grade_v2_context_missing")
+        else:
+            root = Path(root).resolve()
+            canon_sha = str(receipt.get("canon_artifact_sha256") or "").removeprefix("sha256:")
+            if canon_sha != artifact_sha:
+                blockers.append("native_product_grade_canon_artifact_mismatch")
+            if str(receipt.get("canon_artifact") or "") != str(spec["primary_artifact"]):
+                blockers.append("native_product_grade_canon_artifact_path_mismatch")
+
+            seal_path = ((root / spec["proof_receipt"]).resolve().parent / SEAL_FILENAME).resolve()
+            if not seal_path.is_relative_to(root) or not seal_path.is_file():
+                blockers.append("native_product_grade_canon_proof_missing")
+            else:
+                expected_seal_rel = str(seal_path.relative_to(root))
+                if str(receipt.get("canon_proof_receipt") or "") != expected_seal_rel:
+                    blockers.append("native_product_grade_canon_proof_path_mismatch")
+                seal_sha = str(receipt.get("canon_proof_receipt_sha256") or "").removeprefix("sha256:")
+                if seal_sha != _sha(seal_path):
+                    blockers.append("native_product_grade_canon_proof_mismatch")
+
+            customer_rel = str(receipt.get("customer_artifact") or "")
+            if not customer_rel:
+                blockers.append("native_product_grade_customer_artifact_missing")
+            else:
+                customer = (root / customer_rel).resolve()
+                canon = (root / spec["primary_artifact"]).resolve()
+                if not customer.is_relative_to(root):
+                    blockers.append("native_product_grade_customer_artifact_unsafe")
+                elif customer == canon:
+                    blockers.append("native_product_grade_customer_artifact_not_separate")
+                elif not customer.is_file():
+                    blockers.append("native_product_grade_customer_artifact_missing")
+                else:
+                    declared_customer_sha = str(receipt.get("customer_artifact_sha256") or "").removeprefix("sha256:")
+                    live_customer_sha = _sha(customer)
+                    if declared_customer_sha != live_customer_sha:
+                        blockers.append("native_product_grade_customer_artifact_mismatch")
+                    primary_sha = str(receipt.get("primary_artifact_sha256") or "").removeprefix("sha256:")
+                    if primary_sha != declared_customer_sha:
+                        blockers.append("native_product_grade_primary_customer_mismatch")
+
+            if receipt.get("commercial_validation") != "UNPROVED":
+                blockers.append("commercial_claim_boundary_changed")
+    else:
+        native_sha = str(receipt.get("primary_artifact_sha256") or "").removeprefix("sha256:")
+        if native_sha != artifact_sha:
+            blockers.append("native_product_grade_artifact_mismatch")
+
     if receipt.get("beast_mechanical_pass") is not True:
         blockers.append("beast_mechanical_pass_missing")
     if receipt.get("lingua_semantic_custody") is not True:
@@ -213,13 +268,22 @@ def evaluate_receipt_bound_extension(
     if native_product_grade_receipt is None:
         row["critical_blockers"].append("native_product_grade_not_run")
         return row
-    native_blockers = _native_receipt_checks(native_product_grade_receipt, artifact_sha)
+    native_blockers = _native_receipt_checks(
+        native_product_grade_receipt,
+        artifact_sha,
+        root=root,
+        spec=spec,
+    )
     if native_blockers:
         row["critical_blockers"].extend(native_blockers)
         return row
     row["status"] = PRODUCT_GRADE_VERIFIED
     row["critical_blockers"] = []
     row["native_product_grade_receipt_fingerprint"] = _fingerprint(native_product_grade_receipt)
+    if native_product_grade_receipt.get("schema") == NATIVE_V2_SCHEMA:
+        row["customer_artifact"] = native_product_grade_receipt.get("customer_artifact")
+        row["customer_artifact_sha256"] = native_product_grade_receipt.get("customer_artifact_sha256")
+        row["native_product_grade_schema"] = NATIVE_V2_SCHEMA
     return row
 
 
@@ -305,10 +369,10 @@ def run_canon_extension_product_grade_gauntlet(
         "claim_boundary": (
             "Canon-extension ProductGrade separates receipt-bound product proof from full native ProductGrade. "
             "Receipt-bound extensions may prove current-artifact provenance through a canon proof seal that binds "
-            "the current artifact bytes to the preserved historical generation receipt. Only extensions with native "
-            "execution integrity, BEAST mechanical checks, Lingua semantic custody, unseen-input generalisation, "
-            "current-artifact hash binding and held external authority may reach PRODUCT_GRADE_VERIFIED. Real "
-            "willingness to pay remains unproved until observed."
+            "the current artifact bytes to the preserved historical generation receipt. Native v2 ProductGrade "
+            "additionally binds a separate generated customer artifact to live BEAST mechanical checks, Lingua "
+            "semantic custody and unseen-input generalisation while external authority remains held. Real willingness "
+            "to pay remains unproved until observed."
         ),
     }
     receipt["portfolio_fingerprint"] = _fingerprint(receipt)
