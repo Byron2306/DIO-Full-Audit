@@ -82,11 +82,12 @@ def _write_text(path: Path, text: str) -> None:
 def _starter_files(selected_product: str) -> dict[str, str]:
     package = "dio_trust_dossier_studio"
     return {
-        f"{package}/__init__.py": "\"\"\"Controlled local starter package for DIO Trust Dossier Studio.\"\"\"\n\n__all__ = [\n    \"source_intake\",\n    \"claim_boundary_checker\",\n    \"evidence_spine_builder\",\n    \"dossier_renderer\",\n    \"receipt_emitter\",\n]\n",
+        f"{package}/__init__.py": "\"\"\"Controlled local starter package for DIO Trust Dossier Studio.\"\"\"\n\n__all__ = [\n    \"source_intake\",\n    \"claim_boundary_checker\",\n    \"evidence_spine_builder\",\n    \"dossier_renderer\",\n    \"human_gate_policy\",\n    \"receipt_emitter\",\n]\n",
         f"{package}/source_intake.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Mapping\n\n\n@dataclass(frozen=True)\nclass SourceReceipt:\n    source_id: str\n    source_type: str\n    source_hash: str\n    custody_note: str\n\n\ndef normalize_source(source: Mapping[str, str]) -> SourceReceipt:\n    source_id = source.get(\"source_id\", \"unbound_source\")\n    source_type = source.get(\"source_type\", \"unknown\")\n    source_hash = source.get(\"source_hash\", \"missing_hash\")\n    custody_note = source.get(\"custody_note\", \"human review required before external use\")\n    return SourceReceipt(source_id, source_type, source_hash, custody_note)\n",
         f"{package}/claim_boundary_checker.py": "from __future__ import annotations\n\nFORBIDDEN_CLAIM_TERMS = (\n    \"product-market fit\",\n    \"commercially validated\",\n    \"guarantees revenue\",\n    \"AGI\",\n    \"world-first\",\n    \"autonomous development\",\n)\n\n\ndef check_claim_boundary(text: str) -> dict[str, object]:\n    lowered = text.lower()\n    violations = [term for term in FORBIDDEN_CLAIM_TERMS if term.lower() in lowered]\n    return {\n        \"claim_boundary_passed\": not violations,\n        \"violations\": violations,\n        \"human_review_required\": True,\n    }\n",
         f"{package}/evidence_spine_builder.py": "from __future__ import annotations\n\nfrom typing import Iterable, Mapping\n\n\ndef build_evidence_spine(receipts: Iterable[Mapping[str, str]]) -> dict[str, object]:\n    bound = [dict(receipt) for receipt in receipts]\n    return {\n        \"evidence_spine_bound\": bool(bound),\n        \"receipt_count\": len(bound),\n        \"receipts\": bound,\n        \"external_validity_claim_authorized\": False,\n    }\n",
         f"{package}/dossier_renderer.py": "from __future__ import annotations\n\nfrom typing import Mapping\n\n\ndef render_trust_dossier(claim: str, evidence_spine: Mapping[str, object]) -> str:\n    return (\n        \"# DIO Trust Dossier Studio Draft\\n\\n\"\n        \"## Candidate claim\\n\\n\"\n        f\"{claim}\\n\\n\"\n        \"## Evidence posture\\n\\n\"\n        f\"Receipts bound: {evidence_spine.get('receipt_count', 0)}\\n\\n\"\n        \"## Required boundary\\n\\n\"\n        \"Internal controlled evidence only. Human review required before external use.\"\n    )\n",
+        f"{package}/human_gate_policy.py": "from __future__ import annotations\n\n\ndef human_gate_status() -> dict[str, object]:\n    return {\n        \"human_review_required\": True,\n        \"external_publication_authorized\": False,\n        \"product_capability_execution_authorized\": False,\n        \"authority_expansion_authorized\": False,\n    }\n",
         f"{package}/receipt_emitter.py": "from __future__ import annotations\n\nimport json\nfrom pathlib import Path\nfrom typing import Mapping\n\n\ndef emit_receipt(path: Path, payload: Mapping[str, object]) -> Path:\n    path.parent.mkdir(parents=True, exist_ok=True)\n    final_payload = dict(payload)\n    final_payload.setdefault(\"human_review_required\", True)\n    final_payload.setdefault(\"external_publication_authorized\", False)\n    path.write_text(json.dumps(final_payload, indent=2, sort_keys=True) + \"\\n\", encoding=\"utf-8\")\n    return path\n",
         "tests/test_acceptance_contract.py": "from dio_trust_dossier_studio.claim_boundary_checker import check_claim_boundary\nfrom dio_trust_dossier_studio.evidence_spine_builder import build_evidence_spine\n\n\ndef test_forbidden_product_market_fit_claim_is_blocked():\n    result = check_claim_boundary(\"DIO has product-market fit\")\n    assert result[\"claim_boundary_passed\"] is False\n    assert result[\"human_review_required\"] is True\n\n\ndef test_evidence_spine_never_authorizes_external_validity():\n    spine = build_evidence_spine([{\"source_id\": \"receipt-1\", \"source_hash\": \"abc\"}])\n    assert spine[\"evidence_spine_bound\"] is True\n    assert spine[\"external_validity_claim_authorized\"] is False\n",
         "README.md": f"# {selected_product} Controlled Starter Code\n\nThis folder is a local starter-code generation artifact produced under T16.\n\nIt is not product-market fit, commercial validation, autonomous development, deployment, publication, fulfilment, or professional approval.\n\nHuman review is required before any external use.\n",
@@ -108,13 +109,7 @@ def _write_starter_code(root: Path, selected_product: str) -> list[dict[str, str
     for relative_path, content in _starter_files(selected_product).items():
         target = root / relative_path
         _write_text(target, content)
-        manifest.append(
-            {
-                "relative_path": relative_path,
-                "kind": _file_kind(relative_path),
-                "sha256": _sha256_path(target),
-            }
-        )
+        manifest.append({"relative_path": relative_path, "kind": _file_kind(relative_path), "sha256": _sha256_path(target)})
     return manifest
 
 
