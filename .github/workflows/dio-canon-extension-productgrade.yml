@@ -10,13 +10,17 @@ on:
       - 'products/canon_extension_proof_seal.py'
       - 'products/canon_extension_native_profiles.py'
       - 'products/canon_extension_native_product_grade.py'
+      - 'products/canon_portfolio_product_grade.py'
+      - 'evidence/historical/PROFESSIONAL_EVIDENCE_53_X3_ANCHOR.json'
       - 'scripts/run_canon_extension_product_grade.py'
       - 'scripts/run_canon_extension_native_product_grade.py'
+      - 'scripts/run_canon_portfolio_product_grade.py'
       - 'scripts/seal_canon_extension_proofs.py'
       - 'tests/test_canon_extension_product_grade.py'
       - 'tests/test_canon_extension_native_product_grade.py'
       - 'tests/test_canon_extension_dual_bound_receipt.py'
       - 'tests/test_canon_extension_native_product_grade_cli.py'
+      - 'tests/test_canon_portfolio_68_product_grade.py'
       - '.github/workflows/dio-canon-extension-productgrade.yml'
 
 jobs:
@@ -37,3 +41,4 @@ jobs:
           tests/test_canon_extension_native_product_grade.py
           tests/test_canon_extension_dual_bound_receipt.py
           tests/test_canon_extension_native_product_grade_cli.py
+          tests/test_canon_portfolio_68_product_grade.py
