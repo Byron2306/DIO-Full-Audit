@@ -30,6 +30,9 @@ def _valid_t24_receipt() -> dict:
                 "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/dio-metamorphic-adaptation-fixture-experiment-digest-1/fixture_experiment_digest.json",
                 "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/dio-metamorphic-adaptation-transfer-claim-gate-fixture-1/transfer_claim_gate.json",
             ],
+            "T5": [
+                "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/dio-metamorphic-adaptation-market-command-sensorium-pivot-gauntlet-1/market_command_sensorium_pivot_outputs.jsonl",
+            ],
             "T7": [
                 "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/RECEIPT_PACK_MANIFEST.json",
                 "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/dio-metamorphic-adaptation-market-command-sensorium-pivot-marketing-proof-pack-1/market_command_marketing_proof_pack_receipt.json",
@@ -101,6 +104,31 @@ def test_t25_purifies_stage_sources_and_writes_breakthrough_ledger(tmp_path: Pat
     assert "T23: HTML proof surface dossier linking" in markdown
     assert "Not commercial validation" in markdown
     assert "Not AGI" in markdown
+
+
+def test_t25_decontaminates_t7_when_market_source_is_cross_stage(tmp_path: Path) -> None:
+    t24 = _valid_t24_receipt()
+    t24["tier_sources"]["T7"] = [
+        "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/RECEIPT_PACK_MANIFEST.json",
+        "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/dio-metamorphic-adaptation-adaptive-linguistic-pivot-gauntlet-1/adaptive_linguistic_pivot_gauntlet_receipt.json",
+    ]
+    t24["tier_sources"]["T5"] = [
+        "evidence/metamorphic_adaptation/full_receipt_pack_20260907T104807Z/dio-metamorphic-adaptation-market-command-sensorium-pivot-gauntlet-1/market_command_sensorium_pivot_outputs.jsonl",
+    ]
+    t24_path = tmp_path / "t24" / "receipt.json"
+    receipt_output = tmp_path / "t25" / "receipt.json"
+    markdown_output = tmp_path / "t25" / "ledger.md"
+    _write_json(t24_path, t24)
+
+    receipt = build_t25_stage_source_purification_breakthrough_ledger(
+        t24_receipt_path=t24_path,
+        receipt_output_path=receipt_output,
+        markdown_output_path=markdown_output,
+    )
+
+    assert receipt.status == T25_STAGE_SOURCE_PURIFICATION_BREAKTHROUGH_LEDGER_READY_TOKEN
+    assert receipt.primary_stage_sources["T7"].endswith("market_command_sensorium_pivot_outputs.jsonl")
+    assert "adaptive_linguistic" not in receipt.primary_stage_sources["T7"]
 
 
 def test_t25_refuses_when_t24_has_gaps(tmp_path: Path) -> None:
