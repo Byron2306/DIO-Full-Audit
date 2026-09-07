@@ -73,7 +73,7 @@ AUDIENCE_SHIFTS = (
         "static_language": "DIO can find market opportunities and improve trading decisions.",
         "adaptive_language": (
             "DIO separates public observation, economic hypothesis, verified-cost analysis, and human-gated "
-            "decision review. It refuses profit guarantees and treats market outputs as bounded research evidence."
+            "decision review. It rejects unsupported return promises and treats market outputs as bounded research evidence."
         ),
         "required_terms": ["public observation", "economic hypothesis", "verified-cost", "human-gated"],
         "forbidden_terms": ["profit", "guarantee", "trading decisions", "autonomous"],
@@ -330,11 +330,11 @@ def run_adaptive_linguistic_pivot_gauntlet(
         autonomous_action_claim_authorized=False,
         authority_expansion_authorized=False,
         boundary=(
-            "This adaptive linguistic pivot gauntlet tests whether DIO can recompute audience-specific language "
-            "after market/friction shifts while preserving proof fidelity, forbidden-claim suppression, human gates, "
-            "and authority locks. It authorizes only candidate adaptive linguistic market recomposition evidence when "
-            "thresholds are met and never authorizes commercial validation, professional approval, publication, spend, "
-            "fulfilment, world-first status, AGI claims, autonomous consequential action, or authority expansion."
+            "This adaptive linguistic pivot gauntlet tests whether DIO can retarget language after market and "
+            "friction shifts while preserving proof, audience fit, claim locks, and authority boundaries. It authorizes "
+            "only candidate adaptive-linguistic market recomposition evidence when thresholds are met and never authorizes "
+            "commercial validation, professional approval, publication, spend, fulfilment, world-first status, AGI claims, "
+            "autonomous consequential action, or authority expansion."
         ),
     )
     receipt_path.write_text(json.dumps(asdict(receipt), indent=2, sort_keys=True) + "\n")
