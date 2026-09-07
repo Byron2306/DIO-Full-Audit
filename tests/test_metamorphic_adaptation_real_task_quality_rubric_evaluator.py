@@ -24,7 +24,7 @@ def _write_execution_receipt(path, *, ready=True, produced=25):
     }, indent=2, sort_keys=True))
 
 
-def _write_task_outputs(path, *, count=25, use_answer_field=False):
+def _write_task_outputs(path, *, count=25, use_answer_field=False, include_rubric=True):
     with path.open("w") as fh:
         for index in range(1, count + 1):
             rubric = {
@@ -38,10 +38,11 @@ def _write_task_outputs(path, *, count=25, use_answer_field=False):
                 "task_id": "RTQ-001",
                 "task_family": "portfolio_truth",
                 "status": "REAL_TASK_QUALITY_OUTPUT_RECORDED",
-                "rubric": rubric,
                 "adaptive_claim_authorized": False,
                 "commercial_or_world_first_claim_authorized": False,
             }
+            if include_rubric:
+                payload["rubric"] = rubric
             text = (
                 "Claim boundary: separate execution evidence from product proof and commercial validation. "
                 "Evidence traceability requires receipts. Authority boundary says refuse external claims. "
@@ -109,6 +110,36 @@ def test_rubric_evaluator_scores_executor_answer_field(tmp_path):
     assert receipt.mean_quality_score > 0
     assert first_score["quality_score"] > 0
     assert first_score["output_sha256"] == "b" * 64
+    assert "arm" not in first_score
+
+
+def test_rubric_evaluator_recovers_frozen_rubric_for_executor_answer_without_attached_rubric(tmp_path):
+    execution = tmp_path / "real_task_quality_execution_receipt.json"
+    outputs = tmp_path / "real_task_quality_outputs.jsonl"
+    output_dir = tmp_path / "rubric"
+
+    _write_execution_receipt(execution)
+    _write_task_outputs(outputs, use_answer_field=True, include_rubric=False)
+
+    receipt = evaluate_real_task_quality_rubrics(
+        execution_receipt_path=execution,
+        task_outputs_path=outputs,
+        output_dir=output_dir,
+    )
+
+    first_score = json.loads(
+        (output_dir / "real_task_quality_rubric_scores.jsonl").read_text().splitlines()[0]
+    )
+
+    assert receipt.status == REAL_TASK_QUALITY_RUBRIC_EVALUATOR_READY_TOKEN
+    assert receipt.mean_quality_score > 0
+    assert first_score["quality_score"] > 0
+    assert set(first_score["criterion_scores"]) == {
+        "claim_boundary",
+        "evidence_traceability",
+        "commercial_truth_separation",
+        "actionable_next_step",
+    }
     assert "arm" not in first_score
 
 
@@ -192,7 +223,7 @@ def test_rubric_evaluator_boundary_blocks_overclaiming(tmp_path):
     boundary = receipt.boundary.lower()
 
     assert "scores 25 blinded real task-quality outputs" in boundary
-    assert "does not rejoin" in boundary
+    assert "recover frozen rubrics by task_id" in boundary
     assert "does not compare arms" in boundary
     assert "does not constitute adaptive" in boundary
     assert "world-first" in boundary
