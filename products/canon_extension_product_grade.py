@@ -7,8 +7,8 @@ from typing import Any
 
 from products.canon_extension_proof_seal import SEAL_FILENAME, SEAL_SCHEMA
 
-BASELINE_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_BASELINE_MEASURED"
-VERIFIED_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_VERIFIED"
+BASELINE_TOKEN = "DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_BASELINE_MEASURED"
+VERIFIED_TOKEN = "DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED"
 PROOF_BASELINE_TOKEN = "DIO_CANON_EXTENSION_PROOF_BASELINE_MEASURED"
 PROOF_VERIFIED_TOKEN = "DIO_CANON_EXTENSION_PROOF_VERIFIED"
 PRODUCT_GRADE_VERIFIED = "PRODUCT_GRADE_VERIFIED"
@@ -16,6 +16,8 @@ PRODUCT_GRADE_REFUSE = "PRODUCT_GRADE_REFUSE"
 PROOF_VERIFIED = "CANON_EXTENSION_PROOF_VERIFIED"
 PROOF_REFUSE = "CANON_EXTENSION_PROOF_REFUSE"
 NATIVE_V2_SCHEMA = "dio.product_grade.canon_extension_native.v2"
+NATIVE_V3_SCHEMA = "dio.product_grade.canon_extension_native.v3"
+VARIANT_NAMES = ("normal", "messy", "adversarial")
 
 _BASE = "state/product_portfolio/canon_extensions"
 
@@ -85,6 +87,63 @@ def _load_json(path: Path) -> dict[str, Any] | None:
     return value if isinstance(value, dict) else None
 
 
+def _v3_variant_checks(receipt: dict[str, Any], *, root: Path | None = None) -> list[str]:
+    blockers: list[str] = []
+    variants = receipt.get("variants")
+    if receipt.get("variant_count") != 3 or receipt.get("verified_variant_count") != 3 or receipt.get("refused_variant_count") != 0:
+        blockers.append("native_product_grade_3x_not_verified")
+    if not isinstance(variants, dict) or set(variants) != set(VARIANT_NAMES):
+        blockers.append("native_product_grade_variant_set_invalid")
+        return blockers
+
+    for name in VARIANT_NAMES:
+        row = variants.get(name)
+        if not isinstance(row, dict):
+            blockers.append(f"native_variant_{name}_missing")
+            continue
+        if row.get("passed") is not True or row.get("critical_blockers"):
+            blockers.append(f"native_variant_{name}_refused")
+        if row.get("external_effects") is not False:
+            blockers.append(f"native_variant_{name}_external_effects")
+        if row.get("authority_created") is not False:
+            blockers.append(f"native_variant_{name}_authority_created")
+        if not str(row.get("receipt_fingerprint") or "").startswith("sha256:"):
+            blockers.append(f"native_variant_{name}_fingerprint_missing")
+
+        if root is not None and row.get("customer_artifact"):
+            artifact = (root / str(row["customer_artifact"])).resolve()
+            if not artifact.is_relative_to(root) or not artifact.is_file():
+                blockers.append(f"native_variant_{name}_artifact_missing")
+            else:
+                declared = str(row.get("customer_artifact_sha256") or "").removeprefix("sha256:")
+                if declared != _sha(artifact):
+                    blockers.append(f"native_variant_{name}_artifact_mismatch")
+    return blockers
+
+
+def _v3_common_checks(receipt: dict[str, Any], *, root: Path | None = None) -> list[str]:
+    blockers: list[str] = []
+    if receipt.get("schema") != NATIVE_V3_SCHEMA:
+        blockers.append("native_product_grade_v3_required")
+        return blockers
+    if receipt.get("status") != PRODUCT_GRADE_VERIFIED:
+        blockers.append("native_product_grade_not_verified")
+    blockers.extend(_v3_variant_checks(receipt, root=root))
+    if receipt.get("beast_mechanical_pass") is not True:
+        blockers.append("beast_mechanical_pass_missing")
+    if receipt.get("lingua_semantic_custody") is not True:
+        blockers.append("lingua_semantic_custody_missing")
+    if receipt.get("unseen_input_generalisation") is not True:
+        blockers.append("unseen_input_generalisation_missing")
+    if receipt.get("external_effects") is not False:
+        blockers.append("external_effects_not_held")
+    if receipt.get("authority_created") is not False:
+        blockers.append("authority_created_not_false")
+    if receipt.get("commercial_validation") != "UNPROVED":
+        blockers.append("commercial_claim_boundary_changed")
+    return blockers
+
+
 def _native_receipt_checks(
     receipt: dict[str, Any],
     artifact_sha: str,
@@ -93,10 +152,37 @@ def _native_receipt_checks(
     spec: dict[str, Any] | None = None,
 ) -> list[str]:
     blockers: list[str] = []
+    schema = receipt.get("schema")
+
+    if schema == NATIVE_V3_SCHEMA:
+        blockers.extend(_v3_common_checks(receipt, root=root))
+        if root is None or spec is None:
+            blockers.append("native_product_grade_v3_context_missing")
+            return sorted(set(blockers))
+        root = Path(root).resolve()
+        canon_sha = str(receipt.get("canon_artifact_sha256") or "").removeprefix("sha256:")
+        if canon_sha != artifact_sha:
+            blockers.append("native_product_grade_canon_artifact_mismatch")
+        if str(receipt.get("canon_artifact") or "") != str(spec["primary_artifact"]):
+            blockers.append("native_product_grade_canon_artifact_path_mismatch")
+        primary_sha = str(receipt.get("primary_artifact_sha256") or "").removeprefix("sha256:")
+        if primary_sha != artifact_sha:
+            blockers.append("native_product_grade_primary_canon_mismatch")
+
+        seal_path = ((root / spec["proof_receipt"]).resolve().parent / SEAL_FILENAME).resolve()
+        if not seal_path.is_relative_to(root) or not seal_path.is_file():
+            blockers.append("native_product_grade_canon_proof_missing")
+        else:
+            if str(receipt.get("canon_proof_receipt") or "") != str(seal_path.relative_to(root)):
+                blockers.append("native_product_grade_canon_proof_path_mismatch")
+            if str(receipt.get("canon_proof_receipt_sha256") or "").removeprefix("sha256:") != _sha(seal_path):
+                blockers.append("native_product_grade_canon_proof_mismatch")
+        return sorted(set(blockers))
+
     if receipt.get("status") != PRODUCT_GRADE_VERIFIED:
         blockers.append("native_product_grade_not_verified")
 
-    if receipt.get("schema") == NATIVE_V2_SCHEMA:
+    if schema == NATIVE_V2_SCHEMA:
         if root is None or spec is None:
             blockers.append("native_product_grade_v2_context_missing")
         else:
@@ -156,7 +242,7 @@ def _native_receipt_checks(
         blockers.append("external_effects_not_held")
     if receipt.get("authority_created") is not False:
         blockers.append("authority_created_not_false")
-    return blockers
+    return sorted(set(blockers))
 
 
 def _verify_seal(
@@ -277,41 +363,103 @@ def evaluate_receipt_bound_extension(
     if native_blockers:
         row["critical_blockers"].extend(native_blockers)
         return row
+
     row["status"] = PRODUCT_GRADE_VERIFIED
     row["critical_blockers"] = []
     row["native_product_grade_receipt_fingerprint"] = _fingerprint(native_product_grade_receipt)
-    if native_product_grade_receipt.get("schema") == NATIVE_V2_SCHEMA:
+    schema = native_product_grade_receipt.get("schema")
+    if schema in {NATIVE_V2_SCHEMA, NATIVE_V3_SCHEMA}:
         row["customer_artifact"] = native_product_grade_receipt.get("customer_artifact")
         row["customer_artifact_sha256"] = native_product_grade_receipt.get("customer_artifact_sha256")
-        row["native_product_grade_schema"] = NATIVE_V2_SCHEMA
+        row["native_product_grade_schema"] = schema
+    if schema == NATIVE_V3_SCHEMA:
+        row["variant_count"] = native_product_grade_receipt.get("variant_count")
+        row["verified_variant_count"] = native_product_grade_receipt.get("verified_variant_count")
+        row["variant_receipt_fingerprints"] = {
+            name: (native_product_grade_receipt.get("variants") or {}).get(name, {}).get("receipt_fingerprint")
+            for name in VARIANT_NAMES
+        }
     return row
 
 
-def _evaluate_studio_extension(spec: dict[str, Any], studio_rows: dict[str, Any]) -> dict[str, Any]:
+def _evaluate_studio_extension(
+    spec: dict[str, Any],
+    studio_rows: dict[str, Any],
+    native_product_grade_receipt: dict[str, Any] | None,
+) -> dict[str, Any]:
     studio_id = spec["studio_id"]
     source = studio_rows.get(studio_id)
     blockers: list[str] = []
+    proof_blockers: list[str] = []
+
     if not isinstance(source, dict):
-        blockers.append("source_studio_product_grade_missing")
+        proof_blockers.append("source_studio_product_grade_missing")
         source = {}
-    elif source.get("status") != PRODUCT_GRADE_VERIFIED:
-        blockers.append("source_studio_product_grade_not_verified")
-    elif source.get("customers_will_pay") != "UNPROVED" or source.get("verified_payment") != "UNPROVED":
-        blockers.append("commercial_claim_boundary_changed")
-    verified = not blockers
-    return {
+    else:
+        if source.get("status") != PRODUCT_GRADE_VERIFIED:
+            proof_blockers.append("source_studio_product_grade_not_verified")
+        if source.get("critical_blockers"):
+            proof_blockers.append("source_studio_product_grade_blocked")
+        if source.get("customers_will_pay") != "UNPROVED" or source.get("verified_payment") != "UNPROVED":
+            proof_blockers.append("commercial_claim_boundary_changed")
+
+    proof_verified = not proof_blockers
+    blockers.extend(proof_blockers)
+    row: dict[str, Any] = {
         "canon_id": spec["canon_id"],
         "name": spec["name"],
         "slug": spec["slug"],
         "proof_kind": "studio_product_grade",
         "source_studio_id": studio_id,
-        "proof_status": PROOF_VERIFIED if verified else PROOF_REFUSE,
-        "status": PRODUCT_GRADE_VERIFIED if verified else PRODUCT_GRADE_REFUSE,
+        "proof_status": PROOF_VERIFIED if proof_verified else PROOF_REFUSE,
+        "status": PRODUCT_GRADE_REFUSE,
         "critical_blockers": blockers,
         "source_product_grade": source,
+        "source_studio_product_grade_fingerprint": source.get("receipt_fingerprint"),
         "customers_will_pay": "UNPROVED",
         "verified_payment": "UNPROVED",
     }
+
+    if not proof_verified:
+        return row
+    if native_product_grade_receipt is None:
+        row["critical_blockers"].append("native_product_grade_not_run")
+        return row
+
+    native_blockers = _v3_common_checks(native_product_grade_receipt)
+    if native_product_grade_receipt.get("slug") != spec["slug"]:
+        native_blockers.append("native_product_grade_identity_mismatch")
+    if native_product_grade_receipt.get("upstream_studio_id") != studio_id:
+        native_blockers.append("native_studio_id_mismatch")
+    expected_fingerprint = str(source.get("receipt_fingerprint") or "")
+    if str(native_product_grade_receipt.get("upstream_studio_product_grade_fingerprint") or "") != expected_fingerprint:
+        native_blockers.append("native_studio_provenance_fingerprint_mismatch")
+    if str(native_product_grade_receipt.get("upstream_studio_artifact") or "") != str(source.get("primary_artifact") or ""):
+        native_blockers.append("native_studio_artifact_path_mismatch")
+    native_source_sha = str(native_product_grade_receipt.get("upstream_studio_artifact_sha256") or "").removeprefix("sha256:")
+    source_sha = str(source.get("primary_artifact_sha256") or "").removeprefix("sha256:")
+    if native_source_sha != source_sha:
+        native_blockers.append("native_studio_artifact_hash_mismatch")
+
+    if native_blockers:
+        row["critical_blockers"].extend(sorted(set(native_blockers)))
+        return row
+
+    row.update(
+        {
+            "status": PRODUCT_GRADE_VERIFIED,
+            "critical_blockers": [],
+            "native_product_grade_schema": NATIVE_V3_SCHEMA,
+            "native_product_grade_receipt_fingerprint": _fingerprint(native_product_grade_receipt),
+            "variant_count": 3,
+            "verified_variant_count": 3,
+            "variant_receipt_fingerprints": {
+                name: (native_product_grade_receipt.get("variants") or {}).get(name, {}).get("receipt_fingerprint")
+                for name in VARIANT_NAMES
+            },
+        }
+    )
+    return row
 
 
 def _discover_native_receipt(root: Path, slug: str) -> dict[str, Any] | None:
@@ -338,45 +486,58 @@ def run_canon_extension_product_grade_gauntlet(
     studio_rows = studio_product_grade_receipt.get("studios") or {}
     explicit = native_product_grade_receipts or {}
     extensions: dict[str, Any] = {}
+
     for spec in CANON_EXTENSIONS:
+        native = explicit.get(spec["slug"])
+        if native is None:
+            native = _discover_native_receipt(root, spec["slug"])
         if spec["proof_kind"] == "studio_product_grade":
-            row = _evaluate_studio_extension(spec, studio_rows)
+            row = _evaluate_studio_extension(spec, studio_rows, native)
         else:
-            native = explicit.get(spec["slug"])
-            if native is None:
-                native = _discover_native_receipt(root, spec["slug"])
-            row = evaluate_receipt_bound_extension(spec=spec, root=root, native_product_grade_receipt=native)
+            row = evaluate_receipt_bound_extension(
+                spec=spec,
+                root=root,
+                native_product_grade_receipt=native,
+            )
         extensions[spec["slug"]] = row
+
     proof_verified = sum(1 for row in extensions.values() if row["proof_status"] == PROOF_VERIFIED)
     pg_verified = sum(1 for row in extensions.values() if row["status"] == PRODUCT_GRADE_VERIFIED)
     all_proof = proof_verified == len(CANON_EXTENSIONS)
     all_pg = pg_verified == len(CANON_EXTENSIONS)
+    verified_journeys = sum(int(row.get("verified_variant_count") or 0) for row in extensions.values())
+    controlled_journeys = len(CANON_EXTENSIONS) * 3
+    refused_journeys = controlled_journeys - verified_journeys
+
     receipt: dict[str, Any] = {
-        "schema": "dio.product_grade.canon_extension_gauntlet_receipt.v1",
-        "acceptance_token": VERIFIED_TOKEN if all_pg else BASELINE_TOKEN,
+        "schema": "dio.product_grade.canon_extension_gauntlet_receipt.v2",
+        "acceptance_token": VERIFIED_TOKEN if all_pg and verified_journeys == 45 else BASELINE_TOKEN,
         "proof_acceptance_token": PROOF_VERIFIED_TOKEN if all_proof else PROOF_BASELINE_TOKEN,
         "extension_count": len(CANON_EXTENSIONS),
+        "variants_per_extension": 3,
+        "controlled_journey_count": controlled_journeys,
+        "verified_journey_count": verified_journeys,
+        "refused_journey_count": refused_journeys,
         "canon_extension_proof_verified_count": proof_verified,
         "canon_extension_proof_refuse_count": len(CANON_EXTENSIONS) - proof_verified,
         "all_canon_extension_proof_verified": all_proof,
         "product_grade_verified_count": pg_verified,
         "product_grade_refuse_count": len(CANON_EXTENSIONS) - pg_verified,
-        "all_product_grade_verified": all_pg,
+        "all_product_grade_verified": all_pg and verified_journeys == 45,
         "extensions": extensions,
         "external_effects": False,
         "authority_created": False,
         "commercial_validation": "UNPROVED",
         "claim_boundary": (
-            "Canon-extension ProductGrade separates receipt-bound product proof from full native ProductGrade. "
-            "Receipt-bound extensions may prove current-artifact provenance through a canon proof seal that binds "
-            "the current artifact bytes to the preserved historical generation receipt. Native v2 ProductGrade "
-            "additionally binds a separate generated customer artifact to live BEAST mechanical checks, Lingua "
-            "semantic custody and unseen-input generalisation while external authority remains held. Real willingness "
-            "to pay remains unproved until observed."
+            "Canon-extension ProductGrade requires all fifteen canon extensions to carry their current proof provenance "
+            "and an independent native normal, messy, and adversarial ProductGrade receipt. The four Studio extensions "
+            "retain their existing Studio ProductGrade evidence as upstream provenance but are not exempt from native "
+            "3/3 execution. Capability proof remains distinct from willingness to pay, verified payment, and external authority."
         ),
     }
     receipt["portfolio_fingerprint"] = _fingerprint(receipt)
     (output_dir / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json").write_text(
-        json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        json.dumps(receipt, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
     )
     return receipt
