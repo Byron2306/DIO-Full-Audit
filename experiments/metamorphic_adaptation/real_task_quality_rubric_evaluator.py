@@ -48,6 +48,16 @@ def _sha256_path(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _output_text(item: dict) -> str:
+    """Return the blinded output text, tolerating both executor-era field names."""
+    return str(item.get("output_text") or item.get("answer") or "")
+
+
+def _output_sha256(item: dict) -> str | None:
+    value = item.get("output_sha256") or item.get("answer_sha256")
+    return str(value) if value is not None else None
+
+
 def _criterion_score(*, output_text: str, criterion: str) -> float:
     text = output_text.lower()
     tokens = criterion.lower().replace("_", " ").split()
@@ -74,7 +84,7 @@ def _criterion_score(*, output_text: str, criterion: str) -> float:
 
 
 def _score_output(item: dict) -> tuple[float, dict[str, float]]:
-    output_text = str(item.get("output_text", ""))
+    text = _output_text(item)
     rubric = item.get("rubric", {})
     if not isinstance(rubric, dict) or not rubric:
         return 0.0, {}
@@ -84,7 +94,7 @@ def _score_output(item: dict) -> tuple[float, dict[str, float]]:
     weight_total = 0.0
     for criterion, weight in rubric.items():
         numeric_weight = float(weight)
-        score = _criterion_score(output_text=output_text, criterion=str(criterion))
+        score = _criterion_score(output_text=text, criterion=str(criterion))
         criterion_scores[str(criterion)] = score
         weighted_total += score * numeric_weight
         weight_total += numeric_weight
@@ -161,7 +171,7 @@ def evaluate_real_task_quality_rubrics(
                 "status": "REAL_TASK_QUALITY_RUBRIC_SCORE_RECORDED",
                 "quality_score": total_score,
                 "criterion_scores": criterion_scores,
-                "output_sha256": item.get("output_sha256"),
+                "output_sha256": _output_sha256(item),
                 "adaptive_claim_authorized": False,
                 "commercial_or_world_first_claim_authorized": False,
                 "professional_approval_claim_authorized": False,
@@ -207,9 +217,10 @@ def evaluate_real_task_quality_rubrics(
         task_outputs_sha256=_sha256_path(task_outputs_path),
         boundary=(
             "This evaluator scores 25 blinded real task-quality outputs against the frozen rubrics. "
-            "It does not rejoin arm labels, does not compare arms, does not constitute adaptive "
-            "performance evidence, and does not authorize commercial validation, professional approval, "
-            "publication, spend, fulfilment, world-first, or authority expansion."
+            "It accepts either output_text or answer fields from compatible executors, does not rejoin "
+            "arm labels, does not compare arms, does not constitute adaptive performance evidence, and "
+            "does not authorize commercial validation, professional approval, publication, spend, "
+            "fulfilment, world-first, or authority expansion."
         ),
     )
     receipt_path.write_text(json.dumps(asdict(receipt), indent=2, sort_keys=True) + "\n")
