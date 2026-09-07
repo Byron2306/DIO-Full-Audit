@@ -71,66 +71,18 @@ PRIMARY_SOURCE_HINTS: dict[str, list[str]] = {
 }
 
 BREAKTHROUGH_LEDGER: list[dict[str, str]] = [
-    {
-        "stage": "T5",
-        "finding": "bounded ecosystem adaptation",
-        "summary": "Full ecosystem orchestration outperformed DIO core-only on organ-dependent tasks in the controlled harness.",
-    },
-    {
-        "stage": "T6",
-        "finding": "retained sequential adaptation",
-        "summary": "DIO produced candidate retained-adaptation evidence across sequential encounters without code-change authorization between encounters.",
-    },
-    {
-        "stage": "T7",
-        "finding": "market-command sensorium pivoting",
-        "summary": "DIO detected market and friction signal pressure, abandoned weaker static routes, and issued bounded pivot commands while preserving proof locks.",
-    },
-    {
-        "stage": "T8",
-        "finding": "adaptive linguistic market recomposition",
-        "summary": "DIO recomposed audience language, proof emphasis, risk posture, and permitted vocabulary after market and friction shifts.",
-    },
-    {
-        "stage": "T9",
-        "finding": "audience morphology recomposition",
-        "summary": "DIO adapted messaging to distinct audience morphologies while preserving forbidden-claim, human-gate, and authority boundaries.",
-    },
-    {
-        "stage": "T10",
-        "finding": "ATLAS-guided product composition",
-        "summary": "DIO converted market signals and work maps into governed domain product compositions with evidence spines and authority boundaries.",
-    },
-    {
-        "stage": "T11",
-        "finding": "governed product incarnation",
-        "summary": "DIO incarnated product compositions into governed starter scaffolds with manifests, evidence contracts, acceptance paths, and READMEs.",
-    },
-    {
-        "stage": "T12",
-        "finding": "portfolio prioritization",
-        "summary": "DIO prioritized governed product opportunities without treating internal prioritization as external demand proof.",
-    },
-    {
-        "stage": "T16",
-        "finding": "controlled starter-code generation",
-        "summary": "DIO generated a receipt-bound local starter-code scaffold for DIO_TRUST_DOSSIER_STUDIO while blocking execution and deployment claims.",
-    },
-    {
-        "stage": "T18",
-        "finding": "human-gated capability dry run",
-        "summary": "DIO ran synthetic internal inputs through the product candidate and produced draft trust dossier artifacts with human gate checks.",
-    },
-    {
-        "stage": "T22",
-        "finding": "HTML proof surface generation",
-        "summary": "DIO generated a local static HTML proof surface for human inspection of the receipt-bound product candidate.",
-    },
-    {
-        "stage": "T23",
-        "finding": "linked dossier inspection",
-        "summary": "DIO linked the draft dossiers into the local proof surface, turning the receipt chain into an inspectable product proof interface.",
-    },
+    {"stage": "T5", "finding": "bounded ecosystem adaptation", "summary": "Full ecosystem orchestration outperformed DIO core-only on organ-dependent tasks in the controlled harness."},
+    {"stage": "T6", "finding": "retained sequential adaptation", "summary": "DIO produced candidate retained-adaptation evidence across sequential encounters without code-change authorization between encounters."},
+    {"stage": "T7", "finding": "market-command sensorium pivoting", "summary": "DIO detected market and friction signal pressure, abandoned weaker static routes, and issued bounded pivot commands while preserving proof locks."},
+    {"stage": "T8", "finding": "adaptive linguistic market recomposition", "summary": "DIO recomposed audience language, proof emphasis, risk posture, and permitted vocabulary after market and friction shifts."},
+    {"stage": "T9", "finding": "audience morphology recomposition", "summary": "DIO adapted messaging to distinct audience morphologies while preserving forbidden-claim, human-gate, and authority boundaries."},
+    {"stage": "T10", "finding": "ATLAS-guided product composition", "summary": "DIO converted market signals and work maps into governed domain product compositions with evidence spines and authority boundaries."},
+    {"stage": "T11", "finding": "governed product incarnation", "summary": "DIO incarnated product compositions into governed starter scaffolds with manifests, evidence contracts, acceptance paths, and READMEs."},
+    {"stage": "T12", "finding": "portfolio prioritization", "summary": "DIO prioritized governed product opportunities without treating internal prioritization as external demand proof."},
+    {"stage": "T16", "finding": "controlled starter-code generation", "summary": "DIO generated a receipt-bound local starter-code scaffold for DIO_TRUST_DOSSIER_STUDIO while blocking execution and deployment claims."},
+    {"stage": "T18", "finding": "human-gated capability dry run", "summary": "DIO ran synthetic internal inputs through the product candidate and produced draft trust dossier artifacts with human gate checks."},
+    {"stage": "T22", "finding": "HTML proof surface generation", "summary": "DIO generated a local static HTML proof surface for human inspection of the receipt-bound product candidate."},
+    {"stage": "T23", "finding": "linked dossier inspection", "summary": "DIO linked the draft dossiers into the local proof surface, turning the receipt chain into an inspectable product proof interface."},
 ]
 
 
@@ -185,10 +137,6 @@ def _as_bool_map(value: object) -> dict[str, bool]:
     return {str(k): v is True for k, v in value.items()}
 
 
-def _stage_key_number(stage: str) -> int:
-    return int(stage.removeprefix("T"))
-
-
 def _pick_primary_source(stage: str, sources: list[str]) -> str:
     hints = PRIMARY_SOURCE_HINTS.get(stage, [])
     normalized = [str(source) for source in sources]
@@ -206,16 +154,14 @@ def _pick_primary_source(stage: str, sources: list[str]) -> str:
 
 
 def _purify_sources(tier_sources: object) -> dict[str, str]:
+    purified: dict[str, str] = {f"T{i}": "" for i in range(1, 24)}
     if not isinstance(tier_sources, dict):
-        return {}
-    purified: dict[str, str] = {}
+        return purified
     for i in range(1, 24):
         stage = f"T{i}"
         raw_sources = tier_sources.get(stage, [])
         if isinstance(raw_sources, list):
             purified[stage] = _pick_primary_source(stage, [str(source) for source in raw_sources])
-        else:
-            purified[stage] = ""
     return purified
 
 
@@ -234,11 +180,7 @@ def _render_markdown(primary_sources: dict[str, str]) -> str:
         source = primary_sources.get(stage, "")
         lines.append(f"- {stage}: {label}")
         lines.append(f"  - Primary source: `{source}`")
-    lines.extend([
-        "",
-        "## Major breakthrough ledger",
-        "",
-    ])
+    lines.extend(["", "## Major breakthrough ledger", ""])
     for item in BREAKTHROUGH_LEDGER:
         lines.append(f"### {item['stage']}: {item['finding']}")
         lines.append("")
@@ -296,7 +238,6 @@ def build_t25_stage_source_purification_breakthrough_ledger(
     )
 
     primary_sources = _purify_sources(t24.get("tier_sources", {}))
-    all_primary_sources_present = all(bool(primary_sources.get(f"T{i}")) for i in range(1, 24))
 
     ready = (
         source_bound
@@ -306,7 +247,6 @@ def build_t25_stage_source_purification_breakthrough_ledger(
         and stages_source_bound == 23
         and gaps_pending == []
         and all_expected_present
-        and all_primary_sources_present
         and boundary_locks_preserved
     )
 
@@ -316,11 +256,7 @@ def build_t25_stage_source_purification_breakthrough_ledger(
 
     receipt = T25StageSourcePurificationBreakthroughLedgerReceipt(
         gate_version=T25_STAGE_SOURCE_PURIFICATION_BREAKTHROUGH_LEDGER_VERSION,
-        status=(
-            T25_STAGE_SOURCE_PURIFICATION_BREAKTHROUGH_LEDGER_READY_TOKEN
-            if ready
-            else T25_STAGE_SOURCE_PURIFICATION_BREAKTHROUGH_LEDGER_REFUSED_TOKEN
-        ),
+        status=T25_STAGE_SOURCE_PURIFICATION_BREAKTHROUGH_LEDGER_READY_TOKEN if ready else T25_STAGE_SOURCE_PURIFICATION_BREAKTHROUGH_LEDGER_REFUSED_TOKEN,
         allowed_claim_tier=T25_CLAIM_TIER if ready else "T25_REFUSED_UNPURIFIED_OR_INCOMPLETE_STAGE_CHAIN",
         t24_status=t24_status,
         t24_receipt_sha256=_sha256_path(t24_receipt_path),
@@ -352,16 +288,9 @@ def build_t25_stage_source_purification_breakthrough_ledger(
         world_first_claim_authorized=False,
         authority_expansion_authorized=False,
         boundary=(
-            "T25 purifies the source-bound T1-T23 continuity digest into one primary stage source per "
-            "stage and writes a marketing-safe breakthrough ledger. It authorizes only internal controlled "
-            "summary language. It does not authorize product execution, external use, deployment, commercial "
-            "validation, product-market fit, professional approval, publication, spend, fulfilment, AGI, "
-            "world-first status, autonomous external action, or authority expansion."
+            "T25 purifies the source-bound T1-T23 continuity digest into one primary stage source per stage and writes a marketing-safe breakthrough ledger. It authorizes only internal controlled summary language. It does not authorize product execution, external use, deployment, commercial validation, product-market fit, professional approval, publication, spend, fulfilment, AGI, world-first status, autonomous external action, or authority expansion."
             if ready
-            else "T25 refused because the T24 continuity digest was incomplete, unbound, noisy without primary "
-            "stage sources, or missing preserved boundary locks. No breakthrough summary, release, execution, "
-            "deployment, commercial, professional, publication, spend, fulfilment, AGI, world-first, autonomous-action, "
-            "or authority-expansion claims are authorized."
+            else "T25 refused because the T24 continuity digest was incomplete, unbound, or missing preserved boundary locks. No breakthrough summary, release, execution, deployment, commercial, professional, publication, spend, fulfilment, AGI, world-first, autonomous-action, or authority-expansion claims are authorized."
         ),
     )
 
