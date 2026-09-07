@@ -51,7 +51,11 @@ PRIMARY_SOURCE_HINTS: dict[str, list[str]] = {
     "T4": ["real_task_quality_digest.json", "adaptive_evidence_verdict.json"],
     "T5": ["ecosystem_adaptive_evidence_verdict.json", "ecosystem_evidence_rehydration_receipt.json"],
     "T6": ["sequential_retained_ecosystem_gauntlet_receipt.json"],
-    "T7": ["market_command_marketing_proof_pack_receipt.json", "market_command_sensorium_pivot_gauntlet_receipt.json"],
+    "T7": [
+        "market_command_marketing_proof_pack_receipt.json",
+        "market_command_sensorium_pivot_gauntlet_receipt.json",
+        "market_command_sensorium_pivot_outputs.jsonl",
+    ],
     "T8": ["adaptive_linguistic_marketing_proof_pack_receipt.json", "adaptive_linguistic_pivot_gauntlet_receipt.json"],
     "T9": ["audience_morphology_recomposition_gauntlet_receipt.json"],
     "T10": ["atlas_product_marketing_proof_pack_receipt.json", "atlas_guided_product_composition_gauntlet_receipt.json"],
@@ -68,6 +72,12 @@ PRIMARY_SOURCE_HINTS: dict[str, list[str]] = {
     "T21": ["t21_human_decision_application_receipt.json"],
     "T22": ["t22_html_proof_surface_generation_receipt.json"],
     "T23": ["t23_html_proof_surface_dossier_linking_receipt.json"],
+}
+
+STAGE_SOURCE_BLOCKLIST: dict[str, list[str]] = {
+    "T7": ["adaptive_linguistic", "audience_morphology", "atlas_guided", "product_incarnation"],
+    "T8": ["market_command", "audience_morphology", "atlas_guided", "product_incarnation"],
+    "T9": ["market_command", "adaptive_linguistic", "atlas_guided", "product_incarnation"],
 }
 
 BREAKTHROUGH_LEDGER: list[dict[str, str]] = [
@@ -137,13 +147,32 @@ def _as_bool_map(value: object) -> dict[str, bool]:
     return {str(k): v is True for k, v in value.items()}
 
 
-def _pick_primary_source(stage: str, sources: list[str]) -> str:
+def _flatten_sources(tier_sources: object) -> list[str]:
+    if not isinstance(tier_sources, dict):
+        return []
+    flattened: list[str] = []
+    for raw_sources in tier_sources.values():
+        if isinstance(raw_sources, list):
+            flattened.extend(str(source) for source in raw_sources)
+    return flattened
+
+
+def _allowed_for_stage(stage: str, source: str) -> bool:
+    lowered = source.lower()
+    return not any(blocked in lowered for blocked in STAGE_SOURCE_BLOCKLIST.get(stage, []))
+
+
+def _pick_primary_source(stage: str, sources: list[str], all_sources: list[str] | None = None) -> str:
     hints = PRIMARY_SOURCE_HINTS.get(stage, [])
-    normalized = [str(source) for source in sources]
-    for hint in hints:
-        for source in normalized:
-            if source.endswith(hint):
-                return source
+    normalized = [str(source) for source in sources if _allowed_for_stage(stage, str(source))]
+    global_normalized = [str(source) for source in (all_sources or []) if _allowed_for_stage(stage, str(source))]
+
+    for candidate_pool in [normalized, global_normalized]:
+        for hint in hints:
+            for source in candidate_pool:
+                if source.endswith(hint):
+                    return source
+
     non_manifest = [source for source in normalized if not source.endswith("RECEIPT_PACK_MANIFEST.json")]
     receipt_like = [source for source in non_manifest if source.endswith("_receipt.json") or source.endswith("RECEIPT.json")]
     if receipt_like:
@@ -157,11 +186,12 @@ def _purify_sources(tier_sources: object) -> dict[str, str]:
     purified: dict[str, str] = {f"T{i}": "" for i in range(1, 24)}
     if not isinstance(tier_sources, dict):
         return purified
+    all_sources = _flatten_sources(tier_sources)
     for i in range(1, 24):
         stage = f"T{i}"
         raw_sources = tier_sources.get(stage, [])
         if isinstance(raw_sources, list):
-            purified[stage] = _pick_primary_source(stage, [str(source) for source in raw_sources])
+            purified[stage] = _pick_primary_source(stage, [str(source) for source in raw_sources], all_sources)
     return purified
 
 
