@@ -17,17 +17,30 @@ from products.canon_extension_native_product_grade import (
 
 EXPECTED_SLUGS = {
     "article-publication",
+    "article-publication-studio",
     "contract-desk",
     "corporate-readiness",
     "entrepreneurproof",
     "finance-readiness",
+    "finance-readiness-studio",
     "fundingfinder",
     "investorproof",
     "launch-studio",
     "popia-readiness",
     "professional-correspondence",
+    "professional-correspondence-studio",
     "report-pitch-studio",
+    "site-studio",
 }
+
+STUDIO_SLUGS = {
+    "article-publication-studio",
+    "finance-readiness-studio",
+    "professional-correspondence-studio",
+    "site-studio",
+}
+
+VARIANTS = ("normal", "messy", "adversarial")
 
 
 def _sha(path: Path) -> str:
@@ -83,28 +96,44 @@ def _seed_canon(root: Path, slug: str) -> tuple[Path, Path]:
     return artifact, proof
 
 
-def test_native_profile_registry_covers_exactly_the_eleven_receipt_bound_extensions() -> None:
+def test_native_profile_registry_covers_exactly_all_fifteen_extensions() -> None:
     assert {row["slug"] for row in NATIVE_CANON_EXTENSION_PROFILES} == EXPECTED_SLUGS
-    assert len(NATIVE_CANON_EXTENSION_PROFILES) == 11
-    assert {row["family"] for row in NATIVE_CANON_EXTENSION_PROFILES} == {
-        "publication_professional",
-        "readiness_assurance",
-        "opportunity_venture",
-        "launch_orchestration",
-    }
-    assert all(row["baseline_anchor"] != row["mutation_anchor"] for row in NATIVE_CANON_EXTENSION_PROFILES)
-    assert all(row["forbidden_claims"] for row in NATIVE_CANON_EXTENSION_PROFILES)
+    assert len(NATIVE_CANON_EXTENSION_PROFILES) == 15
+    for row in NATIVE_CANON_EXTENSION_PROFILES:
+        assert set(row["fixtures"]) == set(VARIANTS)
+        assert set(row["anchors"]) == set(VARIANTS)
+        assert row["forbidden_claims"]
+        assert row["adversarial_pressure"]
+        assert row["adversarial_expected_boundary"]
+
+
+def test_all_four_studio_extensions_have_native_profiles() -> None:
+    observed = {row["slug"] for row in NATIVE_CANON_EXTENSION_PROFILES}
+    assert STUDIO_SLUGS <= observed
 
 
 @pytest.mark.parametrize("slug", sorted(EXPECTED_SLUGS))
-def test_unseen_fixture_changes_semantic_anchor(slug: str) -> None:
+def test_three_fixtures_have_distinct_semantic_anchors(slug: str) -> None:
     profile = native_profile(slug)
-    baseline = "\n".join(row["text"] for row in build_semantic_rows(profile, profile["baseline"]))
-    unseen = "\n".join(row["text"] for row in build_semantic_rows(profile, profile["unseen"]))
-    assert profile["baseline_anchor"].casefold() in baseline.casefold()
-    assert profile["mutation_anchor"].casefold() in unseen.casefold()
-    assert profile["baseline_anchor"].casefold() not in unseen.casefold()
-    assert baseline != unseen
+    rendered: dict[str, str] = {}
+    for variant in VARIANTS:
+        fixture = profile["fixtures"][variant]
+        rendered[variant] = "\n".join(row["text"] for row in build_semantic_rows(profile, fixture))
+        assert profile["anchors"][variant].casefold() in rendered[variant].casefold()
+    assert len(set(rendered.values())) == 3
+    assert len({profile["anchors"][variant] for variant in VARIANTS}) == 3
+
+
+@pytest.mark.parametrize("slug", sorted(EXPECTED_SLUGS))
+def test_adversarial_fixture_declares_pressure_and_boundary(slug: str) -> None:
+    profile = native_profile(slug)
+    fixture = profile["fixtures"]["adversarial"]
+    assert fixture["adversarial_pressure"] == profile["adversarial_pressure"]
+    assert profile["adversarial_expected_boundary"]
+    assert all(
+        claim.casefold() not in profile["adversarial_expected_boundary"].casefold()
+        for claim in profile["forbidden_claims"]
+    )
 
 
 def test_native_case_dual_binds_canon_and_generated_customer_artifact(tmp_path: Path) -> None:
@@ -177,7 +206,7 @@ def test_native_case_refuses_when_canon_proof_is_missing(tmp_path: Path) -> None
     assert receipt["external_effects"] is False
 
 
-def test_native_batch_runs_all_eleven_cases(tmp_path: Path) -> None:
+def test_native_batch_runs_all_fifteen_cases(tmp_path: Path) -> None:
     root = tmp_path / "repo"
     root.mkdir()
     for slug in EXPECTED_SLUGS:
@@ -190,8 +219,8 @@ def test_native_batch_runs_all_eleven_cases(tmp_path: Path) -> None:
         beast_checker=_passing_beast,
     )
 
-    assert receipt["target_count"] == 11
-    assert receipt["verified_count"] == 11
+    assert receipt["target_count"] == 15
+    assert receipt["verified_count"] == 15
     assert receipt["refuse_count"] == 0
     assert receipt["all_verified"] is True
     assert receipt["acceptance_token"] == NATIVE_BATCH_VERIFIED_TOKEN
