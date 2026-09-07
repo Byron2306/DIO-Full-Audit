@@ -1,0 +1,112 @@
+{
+  "binding_version": "DIO_METAMORPHIC_ADAPTATION_NATIVE_BINDINGS_V1",
+  "principle": "Only repository-local, existing DIO entrypoints may be bound. Missing commands invalidate native execution instead of being invented.",
+
+  "adaptation_episodes": [
+    {
+      "episode_id": "media_generation",
+      "factor_pressure": ["semantic", "beast"],
+      "commands": [
+        {
+          "label": "media_incarnation_phase16_1",
+          "argv": ["python", "scripts/run_media_incarnation_phase16_1.py", "--output", "{run_output}/media_incarnation"]
+        },
+        {
+          "label": "premium_media_phase16_1_1",
+          "argv": ["python", "scripts/run_premium_media_phase16_1_1.py", "--output", "{run_output}/premium_media"]
+        }
+      ]
+    },
+    {
+      "episode_id": "market_sensorium_hivenance",
+      "factor_pressure": ["market"],
+      "commands": [
+        {
+          "label": "market_sensorium_cycle",
+          "argv": ["python", "scripts/run_market_sensorium_cycle.py"]
+        },
+        {
+          "label": "hivenance_market_command_import",
+          "argv": ["python", "scripts/import_hivenance_market_command.py"]
+        },
+        {
+          "label": "market_command_manage",
+          "argv": ["python", "scripts/manage_market_command.py"]
+        }
+      ]
+    },
+    {
+      "episode_id": "marketing_vesper_lingua_nichefoundry",
+      "factor_pressure": ["semantic", "market", "beast"],
+      "commands": [
+        {
+          "label": "dio_marketing_integration",
+          "argv": ["python", "scripts/run_dio_marketing_integration.py"]
+        },
+        {
+          "label": "lingua_marketing_learning",
+          "argv": ["python", "scripts/lingua_marketing_learning.py"]
+        },
+        {
+          "label": "vesper_persona_lab",
+          "argv": ["python", "scripts/build_vesper_persona_lab.py", "--output", "{run_output}/vesper_persona"]
+        },
+        {
+          "label": "nichefoundry_media_pipeline",
+          "argv": ["python", "scripts/run_nichefoundry_media_pipeline.py", "--output", "{run_output}/nichefoundry_media"]
+        }
+      ]
+    }
+  ],
+
+  "transfer_executors": [
+    {
+      "label": "professional_task_gauntlet",
+      "argv": ["python", "scripts/run_professional_task_gauntlet.py", "--output", "{run_output}/professional_task"]
+    },
+    {
+      "label": "product_incarnation_studio_phase16",
+      "argv": ["python", "scripts/run_product_incarnation_studio_phase16.py", "--output", "{run_output}/product_incarnation"]
+    },
+    {
+      "label": "product_grade",
+      "argv": ["python", "scripts/run_product_grade.py", "--output", "{run_output}/product_grade"]
+    }
+  ],
+
+  "state_roots": {
+    "semantic": [
+      "state/lingua",
+      "state/vesper",
+      "semantic_marketing.py"
+    ],
+    "market": [
+      "state/market_command",
+      "state/market_sensorium",
+      "state/hivenance",
+      "market_intelligence",
+      "campaigns"
+    ],
+    "beast": [
+      "state/beast",
+      "state/crystals",
+      "state/lingua/crystals"
+    ]
+  },
+
+  "authority_roots": [
+    "authority",
+    "governance",
+    "policies",
+    "config/authority",
+    "config/dio_presence_edge.public.json"
+  ],
+
+  "forbidden_native_shortcuts": [
+    "manual prompt editing between rounds",
+    "template edits after freeze",
+    "operator substitution for failed generation",
+    "post-hoc transfer task selection",
+    "authority expansion through learning"
+  ]
+}
