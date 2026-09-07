@@ -2,15 +2,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from experiments.metamorphic_adaptation.native_execution_plan import (
-    NativeExecutionPlan,
-    build_native_execution_plan,
-)
+from experiments.metamorphic_adaptation.native_execution_plan import build_native_execution_plan
 
 
 EXECUTOR_VERSION = "DIO_METAMORPHIC_ADAPTATION_NATIVE_EXECUTOR_V1"
@@ -42,10 +40,6 @@ class NativeExecutionReceipt:
     refusal_boundary: str
 
 
-def _sha256_text(value: str) -> str:
-    return hashlib.sha256(value.encode()).hexdigest()
-
-
 def _write_text(path: Path, value: str) -> str:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(value)
@@ -68,8 +62,6 @@ def execute_native_plan(
 
     plan_path = output_dir / "native_execution_plan.json"
     plan_path.write_text(json.dumps(asdict(plan), indent=2, sort_keys=True) + "\n")
-
-    stdout_dir = output_dir / "command_logs"
 
     results: list[NativeCommandResult] = []
 
@@ -107,26 +99,53 @@ def execute_native_plan(
         )
         return receipt
 
+    stdout_dir = output_dir / "command_logs"
+    repo_root = str(Path(".").resolve())
+
+    env = os.environ.copy()
+    existing_pythonpath = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = repo_root if not existing_pythonpath else f"{repo_root}:{existing_pythonpath}"
+
     for index, command in enumerate(plan.planned_commands, start=1):
         started = datetime.now(timezone.utc).isoformat()
 
-        completed = subprocess.run(
-            list(command.resolved_argv),
-            text=True,
-            capture_output=True,
-            timeout=timeout_seconds,
-            check=False,
-        )
+        try:
+            completed = subprocess.run(
+                list(command.resolved_argv),
+                text=True,
+                capture_output=True,
+                timeout=timeout_seconds,
+                check=False,
+                env=env,
+                cwd=repo_root,
+            )
+            ended = datetime.now(timezone.utc).isoformat()
+            stdout = completed.stdout
+            stderr = completed.stderr
+            exit_code = completed.returncode
+            refusal_reason = None
 
-        ended = datetime.now(timezone.utc).isoformat()
+        except subprocess.TimeoutExpired as exc:
+            ended = datetime.now(timezone.utc).isoformat()
+            stdout = exc.stdout or ""
+            stderr = exc.stderr or ""
+
+            if isinstance(stdout, bytes):
+                stdout = stdout.decode(errors="replace")
+            if isinstance(stderr, bytes):
+                stderr = stderr.decode(errors="replace")
+
+            stderr = stderr + f"\nNATIVE_COMMAND_TIMEOUT: command exceeded {timeout_seconds} seconds\n"
+            exit_code = 124
+            refusal_reason = f"Command timed out after {timeout_seconds} seconds."
 
         stdout_sha = _write_text(
             stdout_dir / f"{index:02d}_{command.label}.stdout.txt",
-            completed.stdout,
+            stdout,
         )
         stderr_sha = _write_text(
             stdout_dir / f"{index:02d}_{command.label}.stderr.txt",
-            completed.stderr,
+            stderr,
         )
 
         results.append(
@@ -135,11 +154,11 @@ def execute_native_plan(
                 command_group=command.command_group,
                 started_at_utc=started,
                 ended_at_utc=ended,
-                exit_code=completed.returncode,
+                exit_code=exit_code,
                 stdout_sha256=stdout_sha,
                 stderr_sha256=stderr_sha,
                 executed=True,
-                refusal_reason=None,
+                refusal_reason=refusal_reason,
             )
         )
 

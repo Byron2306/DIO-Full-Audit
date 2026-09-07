@@ -39,15 +39,16 @@ def _has_output_contract(command: NativeCommand) -> bool:
     if "--output" in argv and any("{run_output}" in part for part in argv):
         return True
 
-    observational_prefixes = (
+    observational_or_native_default_output = (
         "market_sensorium_cycle",
         "hivenance_market_command_import",
         "market_command_manage",
         "dio_marketing_integration",
         "lingua_marketing_learning",
+        "nichefoundry_media_pipeline",
     )
 
-    return command.label in observational_prefixes
+    return command.label in observational_or_native_default_output
 
 
 def _validate_resolved_argv(command: NativeCommand, run_output: Path, python_executable: str) -> tuple[str, ...]:

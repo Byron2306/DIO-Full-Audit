@@ -31,7 +31,7 @@
         },
         {
           "label": "market_command_manage",
-          "argv": ["python", "scripts/manage_market_command.py"]
+          "argv": ["python", "scripts/manage_market_command.py", "state"]
         }
       ]
     },
@@ -45,7 +45,7 @@
         },
         {
           "label": "lingua_marketing_learning",
-          "argv": ["python", "scripts/lingua_marketing_learning.py"]
+          "argv": ["python", "scripts/lingua_marketing_learning.py", "status"]
         },
         {
           "label": "vesper_persona_lab",
@@ -53,7 +53,7 @@
         },
         {
           "label": "nichefoundry_media_pipeline",
-          "argv": ["python", "scripts/run_nichefoundry_media_pipeline.py", "--output", "{run_output}/nichefoundry_media"]
+          "argv": ["python", "scripts/check_lingua_nichefoundry_projection_runtime.py"]
         }
       ]
     }
