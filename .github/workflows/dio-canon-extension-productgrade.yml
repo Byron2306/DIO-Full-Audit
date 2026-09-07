@@ -19,6 +19,7 @@ on:
       - 'tests/test_canon_extension_product_grade.py'
       - 'tests/test_canon_extension_native_product_grade.py'
       - 'tests/test_canon_extension_dual_bound_receipt.py'
+      - 'tests/test_canon_extension_15x3_promotion.py'
       - 'tests/test_canon_extension_native_product_grade_cli.py'
       - 'tests/test_canon_portfolio_68_product_grade.py'
       - '.github/workflows/dio-canon-extension-productgrade.yml'
@@ -40,5 +41,6 @@ jobs:
           tests/test_canon_extension_product_grade.py
           tests/test_canon_extension_native_product_grade.py
           tests/test_canon_extension_dual_bound_receipt.py
+          tests/test_canon_extension_15x3_promotion.py
           tests/test_canon_extension_native_product_grade_cli.py
           tests/test_canon_portfolio_68_product_grade.py
