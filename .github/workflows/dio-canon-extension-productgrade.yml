@@ -22,6 +22,7 @@ on:
       - 'tests/test_canon_extension_15x3_promotion.py'
       - 'tests/test_canon_extension_native_product_grade_cli.py'
       - 'tests/test_canon_portfolio_68_product_grade.py'
+      - 'tests/test_canon_portfolio_product_grade_cli.py'
       - '.github/workflows/dio-canon-extension-productgrade.yml'
 
 jobs:
@@ -44,3 +45,4 @@ jobs:
           tests/test_canon_extension_15x3_promotion.py
           tests/test_canon_extension_native_product_grade_cli.py
           tests/test_canon_portfolio_68_product_grade.py
+          tests/test_canon_portfolio_product_grade_cli.py
