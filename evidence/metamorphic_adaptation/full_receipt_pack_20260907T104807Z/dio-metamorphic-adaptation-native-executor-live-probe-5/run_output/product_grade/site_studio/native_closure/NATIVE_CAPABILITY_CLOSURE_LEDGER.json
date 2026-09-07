@@ -1,0 +1,154 @@
+{
+  "all_declared_capabilities_executed": true,
+  "native_organ_count": 7,
+  "new_engine_created": false,
+  "organ_execution_truth": "NATIVE_MULTI_ORGAN_EXECUTION_PROVED",
+  "organs": [
+    {
+      "engine_id": "nichefoundry",
+      "executed_capabilities": [
+        "market.position",
+        "media.creative.compose"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "scripts/build_multichannel_campaign_factory.py",
+        "scripts/nichefoundry_studio_adapter.py"
+      ],
+      "receipt_refs": [
+        "native/nichefoundry/NICHEFOUNDRY_NATIVE_COPY.json",
+        "closure/nichefoundry/NICHEFOUNDRY_STUDIO_EXECUTION.json"
+      ],
+      "required_capabilities": [
+        "market.position",
+        "media.creative.compose"
+      ]
+    },
+    {
+      "engine_id": "lingua",
+      "executed_capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/lingua/communicator.py"
+      ],
+      "receipt_refs": [
+        "native/lingua/LINGUA_NATIVE_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ]
+    },
+    {
+      "engine_id": "document_studio",
+      "executed_capabilities": [
+        "document.preview.render",
+        "document.sales_assets"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/format_core/renderer.py",
+        "adapters/document_studio/studio_sales.py"
+      ],
+      "receipt_refs": [
+        "native/document_studio/FORMAT_CORE_NORMALIZED_RECEIPT.json",
+        "closure/document_studio/DOCUMENT_STUDIO_SALES_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "document.preview.render",
+        "document.sales_assets"
+      ]
+    },
+    {
+      "engine_id": "evidex",
+      "executed_capabilities": [
+        "evidence.campaign.proof",
+        "evidence.intake.structure"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "scripts/run_evidex_jobs.py",
+        "adapters/evidex_studio.py"
+      ],
+      "receipt_refs": [
+        "native/evidex/EVIDEX_NATIVE_ADAPTER_RECEIPT.json",
+        "closure/evidex/EVIDEX_STUDIO_INTAKE.json",
+        "closure/evidex/EVIDEX_CAMPAIGN_PROOF.json"
+      ],
+      "required_capabilities": [
+        "evidence.campaign.proof",
+        "evidence.intake.structure"
+      ]
+    },
+    {
+      "engine_id": "vesper",
+      "executed_capabilities": [
+        "presence.release.prepare",
+        "storefront.route.bind"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "presence_core/router.py",
+        "presence_core/studio_release.py"
+      ],
+      "receipt_refs": [
+        "composition/operations/VESPER_ROUTE_RECEIPT.json",
+        "closure/presence/PRESENCE_STUDIO_RELEASE.json"
+      ],
+      "required_capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ]
+    },
+    {
+      "engine_id": "market_command",
+      "executed_capabilities": [
+        "campaign.plan"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "market_command/core.py"
+      ],
+      "receipt_refs": [
+        "native/market_command/MARKET_COMMAND_NATIVE_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "campaign.plan"
+      ]
+    },
+    {
+      "engine_id": "commercial_truth",
+      "executed_capabilities": [
+        "commercial.claim.boundary",
+        "commercial.measurement.contract"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "products/commercial_truth.py",
+        "products/commercial_truth_studio.py"
+      ],
+      "receipt_refs": [
+        "native/commercial_truth/COMMERCIAL_TRUTH_EVALUATION.json",
+        "closure/commercial_truth/COMMERCIAL_TRUTH_STUDIO.json"
+      ],
+      "required_capabilities": [
+        "commercial.measurement.contract",
+        "commercial.claim.boundary"
+      ]
+    }
+  ],
+  "partial_organ_count": 0,
+  "schema": "dio.studio_native_capability_closure_ledger.v1",
+  "source_bound_only_count": 0,
+  "studio_id": "site_studio"
+}

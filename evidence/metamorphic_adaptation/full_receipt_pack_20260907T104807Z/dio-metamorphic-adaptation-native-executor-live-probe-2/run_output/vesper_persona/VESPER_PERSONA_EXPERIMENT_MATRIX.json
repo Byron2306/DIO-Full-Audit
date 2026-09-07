@@ -1,0 +1,174 @@
+{
+  "schema": "dio.vesper.persona_experiment_matrix.v1",
+  "experiment_id": "VESPER-PERSONA-LAB-2026-08-A",
+  "created_at": "2026-09-07T02:29:52+00:00",
+  "cells": [
+    {
+      "cell_id": "A1",
+      "persona": "warm_professional",
+      "avatar": "human_sa_professional",
+      "voice": "openvoice2_sa_warm"
+    },
+    {
+      "cell_id": "A2",
+      "persona": "warm_professional",
+      "avatar": "digital_vesper",
+      "voice": "piper_neutral_control"
+    },
+    {
+      "cell_id": "A3",
+      "persona": "warm_professional",
+      "avatar": "vesper_sigil",
+      "voice": "openvoice2_sa_executive"
+    },
+    {
+      "cell_id": "B1",
+      "persona": "executive_concierge",
+      "avatar": "human_sa_professional",
+      "voice": "openvoice2_sa_executive"
+    },
+    {
+      "cell_id": "B2",
+      "persona": "executive_concierge",
+      "avatar": "digital_vesper",
+      "voice": "openvoice2_sa_warm"
+    },
+    {
+      "cell_id": "B3",
+      "persona": "executive_concierge",
+      "avatar": "vesper_sigil",
+      "voice": "piper_neutral_control"
+    },
+    {
+      "cell_id": "C1",
+      "persona": "evidence_specialist",
+      "avatar": "human_sa_professional",
+      "voice": "piper_neutral_control"
+    },
+    {
+      "cell_id": "C2",
+      "persona": "evidence_specialist",
+      "avatar": "digital_vesper",
+      "voice": "openvoice2_sa_executive"
+    },
+    {
+      "cell_id": "C3",
+      "persona": "evidence_specialist",
+      "avatar": "vesper_sigil",
+      "voice": "openvoice2_sa_warm"
+    }
+  ],
+  "personas": {
+    "warm_professional": {
+      "label": "Warm Professional",
+      "warmth": 0.78,
+      "formality": 0.62,
+      "energy": 0.56,
+      "humour": 0.32,
+      "directness": 0.68,
+      "technical_depth": 0.55,
+      "style": "approachable, competent, calm, practical, lightly warm; never gushy or over-familiar"
+    },
+    "executive_concierge": {
+      "label": "Executive Concierge",
+      "warmth": 0.52,
+      "formality": 0.84,
+      "energy": 0.48,
+      "humour": 0.12,
+      "directness": 0.86,
+      "technical_depth": 0.7,
+      "style": "polished, concise, premium professional-service tone, strong next-action clarity"
+    },
+    "evidence_specialist": {
+      "label": "Evidence Specialist",
+      "warmth": 0.46,
+      "formality": 0.76,
+      "energy": 0.42,
+      "humour": 0.08,
+      "directness": 0.82,
+      "technical_depth": 0.88,
+      "style": "precise, proof-first, transparent about uncertainty and authority boundaries"
+    }
+  },
+  "avatars": {
+    "human_sa_professional": {
+      "label": "Human Professional",
+      "design_class": "moderately_anthropomorphic"
+    },
+    "digital_vesper": {
+      "label": "Digital Vesper",
+      "design_class": "clearly_digital_humanoid"
+    },
+    "vesper_sigil": {
+      "label": "Vesper Sigil",
+      "design_class": "nonhuman_symbolic"
+    }
+  },
+  "voice_candidates": {
+    "openvoice2_sa_warm": {
+      "label": "SA Warm Measured",
+      "voice_profile_id": "openvoice2_sa_warm_candidate",
+      "hypothesis": "Light South African English identity, warm measured cadence, medium-low expressiveness, conversational but professional."
+    },
+    "openvoice2_sa_executive": {
+      "label": "SA Executive",
+      "voice_profile_id": "openvoice2_sa_executive_candidate",
+      "hypothesis": "Light South African English identity, slightly brisker cadence, restrained intonation, premium professional-service delivery."
+    },
+    "piper_neutral_control": {
+      "label": "Neutral Control",
+      "voice_profile_id": "piper_free_local_baseline",
+      "hypothesis": "Clearly synthetic neutral English control voice for separating voice-identity effects from persona/avatar effects."
+    }
+  },
+  "outcome_metrics": [
+    "task_completed",
+    "issue_resolved",
+    "qualified_intake",
+    "pilot_requested",
+    "paid_conversion",
+    "repeat_interaction",
+    "explicit_satisfaction",
+    "human_escalation",
+    "abandonment",
+    "complaint",
+    "mistaken_human_belief"
+  ],
+  "promotion": {
+    "minimum_sessions_per_cell": 30,
+    "minimum_distinct_days": 7,
+    "automatic_promotion": false,
+    "human_approval_required": true,
+    "winning_cell_may_be_scope_bound_by": [
+      "audience",
+      "channel",
+      "product",
+      "language"
+    ],
+    "forbid_if_mistaken_human_belief_rate_gt": 0.05,
+    "forbid_if_complaint_rate_gt": 0.1
+  },
+  "real_time_adaptation_boundary": {
+    "may_change": [
+      "brevity",
+      "proof_priority",
+      "question_count",
+      "humour",
+      "sales_pressure",
+      "jargon",
+      "voice_cadence"
+    ],
+    "may_not_change_mid_conversation": [
+      "avatar",
+      "voice_identity",
+      "persona_identity",
+      "ai_disclosure",
+      "authority_boundary"
+    ],
+    "emotion_diagnosis": false,
+    "personality_diagnosis": false,
+    "sensitive_attribute_inference": false
+  },
+  "automatic_promotion": false,
+  "human_approval_required": true
+}

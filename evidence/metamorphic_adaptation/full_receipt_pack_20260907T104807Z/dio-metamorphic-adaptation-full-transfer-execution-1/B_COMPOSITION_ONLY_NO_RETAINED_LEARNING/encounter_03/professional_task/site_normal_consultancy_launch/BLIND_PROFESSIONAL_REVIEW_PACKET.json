@@ -1,0 +1,50 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/encounter_03/professional_task/site_normal_consultancy_launch/customer_delivery/site/index.html",
+  "artifact_sha256": "617cf872deb9e1a84ce8ab31fee79876d2b2df674bf2319e6a696e4f09a5fc7b",
+  "automated_score": 100,
+  "automated_status": "PROFESSIONAL_TASK_VERIFIED",
+  "buyer": "Founder of a South African monitoring, evaluation and research consultancy",
+  "case_id": "site_normal_consultancy_launch",
+  "claim_boundary": "Blind review is human quality evidence, not verified payment.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "professional_correctness",
+      "scale": "1-5"
+    },
+    {
+      "name": "source_fidelity",
+      "scale": "1-5"
+    },
+    {
+      "name": "judgement_under_ambiguity",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "buyer_usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "job": "Turn the supplied founder notes, service list and project evidence into a production-ready professional website package.",
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.professional_task_blind_review_packet.v1",
+  "studio_id": "site_studio",
+  "tier": "normal"
+}

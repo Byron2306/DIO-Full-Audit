@@ -1,0 +1,99 @@
+{
+  "artifact_contract": {
+    "draft": {
+      "body_lines": [
+        "Dear Client,",
+        "Thank you for raising your concern regarding the invoice.",
+        "We have noted the points you have raised and will review the relevant scope, records and billing basis before responding on the substance of the dispute.",
+        "At this stage, this acknowledgement does not amend the invoice, concede liability, waive any rights, or create a settlement or refund commitment.",
+        "Once the review is complete, an authorised person will respond with the appropriate next step.",
+        "Kind regards,",
+        "Professional Services Team"
+      ],
+      "subject": "Re: Invoice query and review"
+    },
+    "kind": "correspondence",
+    "must_not_invent": [
+      "admission of fault",
+      "waiver",
+      "refund promise",
+      "discount promise",
+      "settlement agreement",
+      "legal conclusion"
+    ],
+    "must_preserve": [
+      "the client disputes invoice INV-2047",
+      "the signed scope and timesheets require review",
+      "no settlement has been authorised"
+    ],
+    "purpose": "Respond firmly and professionally to an invoice dispute while preserving factual and authority boundaries.",
+    "tone": [
+      "calm",
+      "firm",
+      "professional",
+      "non-adversarial"
+    ]
+  },
+  "authority": {
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "human_gate": "NEEDS_YOU",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "job": {
+    "buyer": "Professional services firm",
+    "expected_route": "professional_correspondence_studio",
+    "request": "Please draft a firm but professional reply to a client disputing invoice INV-2047 while we verify the signed scope and timesheets."
+  },
+  "name": "DIO Professional Correspondence Studio",
+  "required_organs": [
+    {
+      "capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "engine_id": "lingua",
+      "source_ref": "adapters/lingua/communicator.py"
+    },
+    {
+      "capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ],
+      "engine_id": "vesper",
+      "source_ref": "presence_core/router.py"
+    },
+    {
+      "capabilities": [
+        "outlook.mail.draft.prepare"
+      ],
+      "engine_id": "outlook_mail_core",
+      "source_ref": "scripts/manage_mail_intent.py"
+    },
+    {
+      "capabilities": [
+        "document.preview.render"
+      ],
+      "engine_id": "document_studio",
+      "source_ref": "adapters/document_studio/pipeline.py"
+    },
+    {
+      "capabilities": [
+        "evidence.intake.structure"
+      ],
+      "engine_id": "evidex",
+      "source_ref": "scripts/run_evidex_jobs.py"
+    },
+    {
+      "capabilities": [
+        "commercial.claim.boundary"
+      ],
+      "engine_id": "commercial_truth",
+      "source_ref": "products/commercial_truth.py"
+    }
+  ],
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_id": "professional_correspondence_studio",
+  "studio_version": "1.0.0"
+}

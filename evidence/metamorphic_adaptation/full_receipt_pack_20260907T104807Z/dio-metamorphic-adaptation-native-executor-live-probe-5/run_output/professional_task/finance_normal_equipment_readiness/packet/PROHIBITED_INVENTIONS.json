@@ -1,0 +1,26 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "approval prediction",
+      "patterns": [
+        "you will be approved",
+        "approval is guaranteed",
+        "lender will approve"
+      ]
+    },
+    {
+      "label": "affordability conclusion",
+      "patterns": [
+        "affordability is confirmed",
+        "you can afford"
+      ]
+    },
+    {
+      "label": "credit conclusion",
+      "patterns": [
+        "credit approved",
+        "creditworthy"
+      ]
+    }
+  ]
+}

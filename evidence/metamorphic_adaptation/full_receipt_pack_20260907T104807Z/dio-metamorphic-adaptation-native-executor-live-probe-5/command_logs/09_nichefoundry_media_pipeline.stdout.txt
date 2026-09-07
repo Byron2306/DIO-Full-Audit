@@ -1,0 +1,60 @@
+{
+  "nichefoundry_root": "/home/byron/Downloads/NicheFoundry_Phase11",
+  "active_factory": "LINGUA_PROJECTION_V3",
+  "semantic_law_schema": "dio.lingua.semantic_law.v1",
+  "projection_schema": "dio.lingua.product_projection.v1",
+  "teacher_audience_archetype": "education_practitioner",
+  "teacher_vertical_arc": "recognition_then_relief",
+  "teacher_voice_provider": "edge_tts",
+  "teacher_voice": "en-ZA-LeahNeural",
+  "teacher_music_family": "warm_upbeat",
+  "edge_tts_binary": "/home/byron/Downloads/NicheFoundry_Phase11/.venv-voicebox/bin/edge-tts",
+  "piper_binary": "/home/byron/Downloads/NicheFoundry_Phase11/.venv-piper/bin/piper",
+  "piper_model": "/home/byron/Downloads/NicheFoundry_Phase11/assets/piper/en_US-lessac-high/en_US-lessac-high.onnx",
+  "rights_recorded_music_count": 3,
+  "rights_recorded_music": [
+    {
+      "title": "Warm Sunset by MusicLFiles",
+      "artist": "MusicLFiles",
+      "licence": "BY 4.0",
+      "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/homs-learning-grade10-motion-one-dimension/imports/music_bed.ogg"
+    },
+    {
+      "title": "Soft Corporate by MusicLFiles",
+      "artist": "MusicLFiles",
+      "licence": "BY 4.0",
+      "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-evidex-evidence-pack-send-the-evidence-mess-get-back-a-review-ready-donor-audit-or-complia-b24cd1d6/imports/music_bed.ogg"
+    },
+    {
+      "title": "Warm Sunset by MusicLFiles",
+      "artist": "MusicLFiles",
+      "licence": "BY 4.0",
+      "path": "/home/byron/Downloads/NicheFoundry_Phase11/episodes/knowedge-homs-marking-relief-pack-send-the-batch-rubric-memo-and-marksheet-get-structured-marking-s-aec7fc9b/imports/music_bed.ogg"
+    }
+  ],
+  "loaded_media_env": [
+    "PIPER_BIN",
+    "PIPER_CONFIG_FILE",
+    "PIPER_MODEL",
+    "PIPER_MODEL_DIR",
+    "PIPER_MODEL_FILE",
+    "PIPER_MODEL_NAME"
+  ],
+  "ready_for_teacher_projection": true,
+  "errors": [],
+  "warnings": [],
+  "contract": {
+    "semantic_law": "REQUIRED",
+    "creative_projection": "REQUIRED",
+    "vertical_short_story": "AUDIENCE_CONDITIONED",
+    "landscape_explainer_story": "AUDIENCE_CONDITIONED_INDEPENDENT_PROJECTION",
+    "voice_selection": "LINGUA_PROJECTION",
+    "historical_teacher_voice": "en-ZA-LeahNeural",
+    "music_selection": "RIGHTS_RECORDED_CATALOG_OR_INTENTIONAL_SILENCE",
+    "gamma_direction": "LINGUA_PROJECTION_BOUND",
+    "publication": "HELD",
+    "spend": "DISABLED",
+    "market_validation": false,
+    "authority_created": false
+  }
+}

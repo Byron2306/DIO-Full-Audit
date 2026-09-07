@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/byron/DIO-Full-Audit/scripts/run_professional_task_gauntlet.py", line 7, in <module>
+    from products.professional_task_gauntlet import (
+    ...<2 lines>...
+    )
+  File "/home/byron/DIO-Full-Audit/products/professional_task_gauntlet.py", line 6, in <module>
+    from products.professional_task_evaluator import (
+    ...<3 lines>...
+    )
+  File "/home/byron/DIO-Full-Audit/products/professional_task_evaluator.py", line 9, in <module>
+    from products.product_grade_v2 import _internal_leaks
+  File "/home/byron/DIO-Full-Audit/products/product_grade_v2.py", line 13, in <module>
+    from products.studio_native_closure import close_studio_case, verify_native_closure_proof
+  File "/home/byron/DIO-Full-Audit/products/studio_native_closure.py", line 8, in <module>
+    from adapters.document_studio.studio_sales import (
+    ...<3 lines>...
+    )
+  File "/home/byron/DIO-Full-Audit/adapters/document_studio/studio_sales.py", line 7, in <module>
+    from adapters.format_core.renderer import build_paragraph_semantic_content, render_semantic_asset
+  File "/home/byron/DIO-Full-Audit/adapters/format_core/__init__.py", line 3, in <module>
+    from .renderer import build_paragraph_semantic_content, render_semantic_asset, semantic_content_from_lingua_object
+  File "/home/byron/DIO-Full-Audit/adapters/format_core/renderer.py", line 23, in <module>
+    from pptx import Presentation
+ModuleNotFoundError: No module named 'pptx'

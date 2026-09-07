@@ -1,0 +1,51 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "pilot"
+      ],
+      "label": "pilot framing"
+    },
+    {
+      "any_of": [
+        "32"
+      ],
+      "label": "intervention sample"
+    },
+    {
+      "any_of": [
+        "35"
+      ],
+      "label": "comparison sample"
+    },
+    {
+      "any_of": [
+        "self-management"
+      ],
+      "label": "self-management"
+    },
+    {
+      "any_of": [
+        "little or no change",
+        "several other",
+        "not every"
+      ],
+      "label": "limited dimensions"
+    },
+    {
+      "any_of": [
+        "Professor Lerato Khumalo",
+        "Lerato Khumalo"
+      ],
+      "label": "researcher"
+    },
+    {
+      "any_of": [
+        "non-randomised",
+        "nonrandomised",
+        "not randomised"
+      ],
+      "label": "non-randomised limitation"
+    }
+  ]
+}

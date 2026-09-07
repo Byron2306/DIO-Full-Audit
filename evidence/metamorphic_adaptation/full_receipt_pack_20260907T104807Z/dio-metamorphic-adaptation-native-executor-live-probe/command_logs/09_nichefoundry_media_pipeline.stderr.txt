@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/byron/DIO-Full-Audit/scripts/run_nichefoundry_media_pipeline.py", line 9, in <module>
+    from scripts.run_nichefoundry_media_pipeline_v2 import *  # noqa: F401,F403
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'scripts'

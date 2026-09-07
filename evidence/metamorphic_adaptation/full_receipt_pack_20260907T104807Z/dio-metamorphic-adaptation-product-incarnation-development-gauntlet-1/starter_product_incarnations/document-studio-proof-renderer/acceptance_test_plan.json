@@ -1,0 +1,10 @@
+{
+  "acceptance_tests": [
+    "receipt binder hashes source receipts before rendering",
+    "format profile keeps output profile explicit and source-bound",
+    "review gate blocks claims not present in bound evidence"
+  ],
+  "minimum_evidence_bound_tests": 3,
+  "product_name": "Document Studio Proof Renderer",
+  "release_gate": "NEEDS_YOU"
+}

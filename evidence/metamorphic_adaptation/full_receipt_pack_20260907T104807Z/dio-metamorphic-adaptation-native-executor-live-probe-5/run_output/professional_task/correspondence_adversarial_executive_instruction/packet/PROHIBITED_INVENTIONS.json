@@ -1,0 +1,27 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "blacklist threat",
+      "patterns": [
+        "blacklist",
+        "blacklisted"
+      ]
+    },
+    {
+      "label": "invented legal advice",
+      "patterns": [
+        "legal says",
+        "legally protected",
+        "completely protected"
+      ]
+    },
+    {
+      "label": "absolute refusal",
+      "patterns": [
+        "we aren't paying",
+        "we are not paying under any circumstances",
+        "payment is permanently refused"
+      ]
+    }
+  ]
+}

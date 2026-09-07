@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "evidence_type": "role_matrix",
+      "id": "Q1",
+      "prompt": "Can each response role be tied to a named current owner?"
+    },
+    {
+      "evidence_type": "response_plan",
+      "id": "Q2",
+      "prompt": "Does the response plan identify the scenario being reviewed?"
+    },
+    {
+      "evidence_type": "exercise_record",
+      "id": "Q3",
+      "prompt": "Is there a dated exercise record for that scenario?"
+    },
+    {
+      "evidence_type": "contact_register",
+      "id": "Q4",
+      "prompt": "Is the contact register current and reviewable?"
+    },
+    {
+      "evidence_type": "authority_record",
+      "id": "Q5",
+      "prompt": "Are notification and release decisions assigned to a human authority?"
+    }
+  ],
+  "schema": "dio.homs_customer_education_projection.v1",
+  "scoring_boundary": "No automatic readiness grade. Responses prepare evidence intake only.",
+  "source_engine": "homs",
+  "state": "DRAFT_ONLY",
+  "title": "Five-minute incident evidence check"
+}

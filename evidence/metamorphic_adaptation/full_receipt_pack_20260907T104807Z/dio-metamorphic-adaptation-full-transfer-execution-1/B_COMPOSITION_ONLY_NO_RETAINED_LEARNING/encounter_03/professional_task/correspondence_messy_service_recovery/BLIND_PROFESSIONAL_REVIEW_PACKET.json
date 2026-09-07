@@ -1,0 +1,50 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/encounter_03/professional_task/correspondence_messy_service_recovery/customer_delivery/correspondence/DRAFT_EMAIL.txt",
+  "artifact_sha256": "458dc55ff22f0ccf28dd2374e3575736b52637513cc501a26d11c5ad94a2e573",
+  "automated_score": 100,
+  "automated_status": "PROFESSIONAL_TASK_VERIFIED",
+  "buyer": "Client-service manager at a research consultancy",
+  "case_id": "correspondence_messy_service_recovery",
+  "claim_boundary": "Blind review is human quality evidence, not verified payment.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "professional_correctness",
+      "scale": "1-5"
+    },
+    {
+      "name": "source_fidelity",
+      "scale": "1-5"
+    },
+    {
+      "name": "judgement_under_ambiguity",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "buyer_usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "job": "Draft a service-recovery reply after a delayed report, using the incomplete investigation record without over-promising compensation.",
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.professional_task_blind_review_packet.v1",
+  "studio_id": "professional_correspondence_studio",
+  "tier": "messy"
+}

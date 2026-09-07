@@ -1,0 +1,160 @@
+{
+  "artifact_contract": {
+    "audience": "educated general professional audience",
+    "claim_fixture": [
+      {
+        "claim_id": "CL-01",
+        "evidence_ids": [
+          "SRC-01"
+        ],
+        "state": "SUPPORTED",
+        "text": "Structured audit trails make later editorial correction easier to reconstruct."
+      },
+      {
+        "claim_id": "CL-02",
+        "evidence_ids": [
+          "SRC-01",
+          "SRC-02"
+        ],
+        "state": "SUPPORTED",
+        "text": "Rapid drafting increases the importance of keeping evidence relationships inspectable during revision."
+      },
+      {
+        "claim_id": "CL-03",
+        "evidence_ids": [
+          "SRC-02"
+        ],
+        "state": "SUPPORTED",
+        "text": "Release authority remains distinct from production quality."
+      },
+      {
+        "claim_id": "CL-04",
+        "evidence_ids": [],
+        "state": "REFUSE",
+        "text": "Audit trails guarantee factual accuracy."
+      }
+    ],
+    "editorial_register": [
+      "clear",
+      "evidence-first",
+      "measured",
+      "non-sensational"
+    ],
+    "forbidden_claims": [
+      "fabricated quotation",
+      "fabricated source",
+      "invented evidence",
+      "guaranteed factual accuracy",
+      "automatic publication"
+    ],
+    "headline": "Why evidence lineage matters when professional work moves faster",
+    "kind": "article",
+    "publication": "Applied Practice Quarterly",
+    "sections": [
+      {
+        "body": "Professional drafting can accelerate while the evidentiary trail becomes harder to inspect unless source relationships are preserved deliberately.",
+        "heading": "The speed problem"
+      },
+      {
+        "body": "A governed editorial workflow should keep claims, supporting sources, contradictions and unresolved questions visible during revision rather than reconstructing them after publication.",
+        "heading": "Lineage as editorial infrastructure"
+      },
+      {
+        "body": "A polished draft may be ready for editorial review while publication remains an explicitly human-authorised act.",
+        "heading": "Quality is not publication authority"
+      }
+    ],
+    "source_fixture": [
+      {
+        "citation": "Mokoena, T. (2024). Evidence lineage in professional decision systems. Journal of Applied Governance, 12(2), 44-61.",
+        "source_id": "SRC-01",
+        "supports": [
+          "CL-01",
+          "CL-02"
+        ]
+      },
+      {
+        "citation": "Naidoo, P. (2025). Human authority in AI-assisted professional workflows. Review of Digital Practice, 8(1), 15-29.",
+        "source_id": "SRC-02",
+        "supports": [
+          "CL-02",
+          "CL-03"
+        ]
+      }
+    ],
+    "standfirst": "A controlled editorial fixture showing how source provenance and claim boundaries can remain visible while a draft becomes publication-ready."
+  },
+  "authority": {
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "human_gate": "NEEDS_YOU",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "job": {
+    "buyer": "Professional editor preparing a source-bound article",
+    "expected_route": "article_publication_studio",
+    "request": "Turn these supplied sources into a publication-ready article draft with traceable claims and references."
+  },
+  "name": "DIO Article & Publication Studio",
+  "required_organs": [
+    {
+      "capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ],
+      "engine_id": "vesper",
+      "source_ref": "presence_core/router.py"
+    },
+    {
+      "capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "engine_id": "lingua",
+      "source_ref": "adapters/lingua/communicator.py"
+    },
+    {
+      "capabilities": [
+        "source.reference.audit",
+        "claim.lineage.audit"
+      ],
+      "engine_id": "sophia",
+      "source_ref": "adapters/sophia/review_pipeline.py"
+    },
+    {
+      "capabilities": [
+        "evidence.intake.structure",
+        "evidence.editorial.proof"
+      ],
+      "engine_id": "evidex",
+      "source_ref": "adapters/evidex_studio.py"
+    },
+    {
+      "capabilities": [
+        "document.preview.render",
+        "document.publication_pack"
+      ],
+      "engine_id": "document_studio",
+      "source_ref": "adapters/document_studio/studio_sales.py"
+    },
+    {
+      "capabilities": [
+        "media.creative.compose"
+      ],
+      "engine_id": "nichefoundry",
+      "source_ref": "scripts/build_hustle_campaign_factory.py"
+    },
+    {
+      "capabilities": [
+        "commercial.claim.boundary",
+        "commercial.measurement.contract"
+      ],
+      "engine_id": "commercial_truth",
+      "source_ref": "products/commercial_truth.py"
+    }
+  ],
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_id": "article_publication_studio",
+  "studio_version": "1.0.0"
+}

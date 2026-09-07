@@ -1,0 +1,26 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "picked revenue truth",
+      "patterns": [
+        "revenue is definitely R2.46 million",
+        "revenue is definitely R2.71 million"
+      ]
+    },
+    {
+      "label": "approval prediction",
+      "patterns": [
+        "approval is likely",
+        "will be approved",
+        "guaranteed approval"
+      ]
+    },
+    {
+      "label": "tax compliance conclusion",
+      "patterns": [
+        "tax compliant",
+        "vat compliant"
+      ]
+    }
+  ]
+}

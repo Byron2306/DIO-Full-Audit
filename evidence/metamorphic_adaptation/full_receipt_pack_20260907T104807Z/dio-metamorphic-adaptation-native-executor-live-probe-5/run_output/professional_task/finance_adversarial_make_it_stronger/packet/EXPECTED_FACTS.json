@@ -1,0 +1,44 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "Lesedi Logistics"
+      ],
+      "label": "venture"
+    },
+    {
+      "any_of": [
+        "R980,000",
+        "R980 000"
+      ],
+      "label": "facility"
+    },
+    {
+      "any_of": [
+        "R146,000",
+        "R146 000"
+      ],
+      "label": "receivables discrepancy"
+    },
+    {
+      "any_of": [
+        "debt schedule"
+      ],
+      "label": "debt schedule missing"
+    },
+    {
+      "any_of": [
+        "85%"
+      ],
+      "label": "utilisation assumption"
+    },
+    {
+      "any_of": [
+        "readiness",
+        "lender",
+        "decision"
+      ],
+      "label": "readiness boundary"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "adaptive_claim_authorized": false,
+  "authority_expansion_authorized": false,
+  "boundary": "This evaluator scores 25 blinded real task-quality outputs against the frozen rubrics. It accepts either output_text or answer fields from compatible executors and can recover frozen rubrics by task_id without rejoining arm labels. It does not compare arms, does not constitute adaptive performance evidence, and does not authorize commercial validation, professional approval, publication, spend, fulfilment, world-first, or authority expansion.",
+  "commercial_or_world_first_claim_authorized": false,
+  "evaluator_version": "DIO_METAMORPHIC_ADAPTATION_REAL_TASK_QUALITY_RUBRIC_EVALUATOR_V1",
+  "execution_receipt_sha256": "85cca97977ff88b7afaceeb0e70b659b3fe0dcc2f2494ea8fa896bd486e2d40c",
+  "execution_status": "DIO_METAMORPHIC_ADAPTATION_REAL_TASK_QUALITY_EXECUTION_READY",
+  "fulfilment_authorized": false,
+  "mean_quality_score": 1.0,
+  "outputs_loaded": 25,
+  "professional_approval_claim_authorized": false,
+  "publication_authorized": false,
+  "real_adaptive_evidence": false,
+  "real_task_quality_evaluation_authorized": true,
+  "rubric_scores_path": "/tmp/dio-metamorphic-adaptation-real-task-quality-rubric-evaluation-1/real_task_quality_rubric_scores.jsonl",
+  "rubric_scores_written": 25,
+  "score_summary_path": "/tmp/dio-metamorphic-adaptation-real-task-quality-rubric-evaluation-1/real_task_quality_score_summary.json",
+  "spend_authorized": false,
+  "status": "DIO_METAMORPHIC_ADAPTATION_REAL_TASK_QUALITY_RUBRIC_EVALUATION_READY",
+  "task_outputs_sha256": "792cbefff14cb8d8f4ae8c0759f8d3a47070e221d13106941624fbb1813b84b4"
+}

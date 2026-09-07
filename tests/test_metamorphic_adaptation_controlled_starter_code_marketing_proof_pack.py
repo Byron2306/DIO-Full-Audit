@@ -1,0 +1,106 @@
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+from experiments.metamorphic_adaptation.controlled_starter_code_marketing_proof_pack import (
+    READY_TOKEN,
+    build_controlled_starter_code_marketing_proof_pack,
+)
+
+
+def _write_starter_code_receipt(path: Path) -> Path:
+    receipt = {
+        "status": "DIO_METAMORPHIC_ADAPTATION_CONTROLLED_STARTER_CODE_GENERATION_READY",
+        "gauntlet_version": "DIO_METAMORPHIC_ADAPTATION_CONTROLLED_STARTER_CODE_GENERATION_V1",
+        "allowed_claim_tier": "T16_CANDIDATE_CONTROLLED_LOCAL_STARTER_CODE_GENERATION_EVIDENCE",
+        "selected_product": "DIO_TRUST_DOSSIER_STUDIO",
+        "source_files_written": 6,
+        "test_files_written": 1,
+        "receipt_schema_files_written": 1,
+        "readmes_written": 1,
+        "starter_code_written": True,
+        "starter_code_claim_authorized": True,
+        "local_starter_code_generation_claim_authorized": True,
+        "controlled_starter_code_generation_evidence": True,
+        "controlled_starter_code_mean_score": 0.96,
+        "static_code_baseline_mean_score": 0.22,
+        "controlled_starter_code_minus_static_effect": 0.74,
+        "product_capability_execution_authorized": False,
+        "actual_execution_authorized": False,
+        "autonomous_development_authorized": False,
+        "commercial_validation_claim_authorized": False,
+        "product_market_fit_claim_authorized": False,
+        "agi_claim_authorized": False,
+        "world_first_claim_authorized": False,
+        "authority_expansion_authorized": False,
+        "publication_authorized": False,
+        "spend_authorized": False,
+        "fulfilment_authorized": False,
+    }
+    path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return path
+
+
+def test_pack_authorizes_only_safe_starter_code_language(tmp_path):
+    starter = _write_starter_code_receipt(tmp_path / "controlled_starter_code_generation_receipt.json")
+    receipt = build_controlled_starter_code_marketing_proof_pack(starter, tmp_path / "out")
+
+    assert receipt.status == READY_TOKEN
+    assert receipt.marketing_claim_tier == "T16_MARKETING_SAFE_CONTROLLED_LOCAL_STARTER_CODE_GENERATION"
+    assert receipt.selected_product == "DIO_TRUST_DOSSIER_STUDIO"
+    assert receipt.starter_code_marketing_language_authorized is True
+    assert receipt.starter_code_claim_authorized is True
+    assert receipt.starter_code_written is True
+    assert receipt.product_capability_execution_authorized is False
+    assert receipt.actual_execution_authorized is False
+    assert receipt.autonomous_development_authorized is False
+    assert receipt.product_market_fit_claim_authorized is False
+    assert receipt.allowed_public_claims_count == 7
+    assert receipt.forbidden_public_claims_count == 12
+    assert Path(receipt.starter_code_copy_path).exists()
+    assert Path(receipt.starter_code_claims_path).exists()
+
+    copy = Path(receipt.starter_code_copy_path).read_text(encoding="utf-8")
+    assert "controlled local starter-code generation" in copy
+    assert "not product capability execution" in copy
+    assert "No actual execution" in copy
+    assert "DIO_TRUST_DOSSIER_STUDIO" in copy
+
+
+def test_pack_refuses_wrong_starter_code_status(tmp_path):
+    bad = tmp_path / "bad.json"
+    bad.write_text(json.dumps({"status": "NOPE"}) + "\n", encoding="utf-8")
+
+    try:
+        build_controlled_starter_code_marketing_proof_pack(bad, tmp_path / "out")
+    except ValueError as exc:
+        assert "expected controlled starter code generation" in str(exc)
+    else:
+        raise AssertionError("expected ValueError")
+
+
+def test_cli_runner_writes_receipt(tmp_path):
+    starter = _write_starter_code_receipt(tmp_path / "controlled_starter_code_generation_receipt.json")
+    output = tmp_path / "pack"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/run_metamorphic_adaptation_controlled_starter_code_marketing_proof_pack.py",
+            "--controlled-starter-code-generation",
+            str(starter),
+            "--output",
+            str(output),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert READY_TOKEN in result.stdout
+    written = output / "controlled_starter_code_marketing_proof_pack_receipt.json"
+    assert written.exists()
+    payload = json.loads(written.read_text(encoding="utf-8"))
+    assert payload["status"] == READY_TOKEN
+    assert payload["actual_execution_authorized"] is False

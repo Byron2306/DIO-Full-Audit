@@ -1,0 +1,122 @@
+{
+  "all_declared_capabilities_executed": true,
+  "native_organ_count": 6,
+  "new_engine_created": false,
+  "organ_execution_truth": "NATIVE_MULTI_ORGAN_EXECUTION_PROVED",
+  "organs": [
+    {
+      "engine_id": "lingua",
+      "executed_capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/lingua/communicator.py"
+      ],
+      "receipt_refs": [
+        "native/lingua/LINGUA_NATIVE_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ]
+    },
+    {
+      "engine_id": "vesper",
+      "executed_capabilities": [
+        "presence.release.prepare",
+        "storefront.route.bind"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "presence_core/router.py",
+        "presence_core/studio_release.py"
+      ],
+      "receipt_refs": [
+        "composition/operations/VESPER_ROUTE_RECEIPT.json",
+        "closure/presence/PRESENCE_STUDIO_RELEASE.json"
+      ],
+      "required_capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ]
+    },
+    {
+      "engine_id": "outlook_mail_core",
+      "executed_capabilities": [
+        "outlook.mail.draft.prepare"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "scripts/manage_mail_intent.py"
+      ],
+      "receipt_refs": [
+        "native/outlook_mail_core/OUTLOOK_NATIVE_DRAFT_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "outlook.mail.draft.prepare"
+      ]
+    },
+    {
+      "engine_id": "document_studio",
+      "executed_capabilities": [
+        "document.preview.render"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/format_core/renderer.py"
+      ],
+      "receipt_refs": [
+        "native/document_studio/FORMAT_CORE_NORMALIZED_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "document.preview.render"
+      ]
+    },
+    {
+      "engine_id": "evidex",
+      "executed_capabilities": [
+        "evidence.intake.structure"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/evidex_studio.py"
+      ],
+      "receipt_refs": [
+        "closure/evidex/EVIDEX_STUDIO_INTAKE.json"
+      ],
+      "required_capabilities": [
+        "evidence.intake.structure"
+      ]
+    },
+    {
+      "engine_id": "commercial_truth",
+      "executed_capabilities": [
+        "commercial.claim.boundary"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "products/commercial_truth.py",
+        "products/commercial_truth_studio.py"
+      ],
+      "receipt_refs": [
+        "native/commercial_truth/COMMERCIAL_TRUTH_EVALUATION.json",
+        "closure/commercial_truth/COMMERCIAL_TRUTH_STUDIO.json"
+      ],
+      "required_capabilities": [
+        "commercial.claim.boundary"
+      ]
+    }
+  ],
+  "partial_organ_count": 0,
+  "schema": "dio.studio_native_capability_closure_ledger.v1",
+  "source_bound_only_count": 0,
+  "studio_id": "professional_correspondence_studio"
+}

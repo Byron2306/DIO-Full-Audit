@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/byron/DIO-Full-Audit/scripts/run_premium_media_phase16_1_1.py", line 12, in <module>
+    from products.premium_media_federation import ACCEPTANCE_TOKEN
+  File "/home/byron/DIO-Full-Audit/products/premium_media_federation.py", line 14, in <module>
+    from products.media_incarnation import MediaIncarnationError, build_media_incarnation, verify_media_proof
+  File "/home/byron/DIO-Full-Audit/products/media_incarnation.py", line 12, in <module>
+    from PIL import Image,ImageDraw,ImageFont
+ModuleNotFoundError: No module named 'PIL'

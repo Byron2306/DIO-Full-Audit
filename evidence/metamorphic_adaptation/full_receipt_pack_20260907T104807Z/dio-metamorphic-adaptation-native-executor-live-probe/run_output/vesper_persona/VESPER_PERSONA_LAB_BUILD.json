@@ -1,0 +1,30 @@
+{
+  "schema": "dio.vesper.persona_lab_build.v1",
+  "built_at": "2026-09-07T02:21:35+00:00",
+  "experiment_id": "VESPER-PERSONA-LAB-2026-08-A",
+  "avatar_request_count": 3,
+  "avatar_requests": [
+    {
+      "avatar_id": "human_sa_professional",
+      "request_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/vesper_persona/avatars/human_sa_professional/NICHEFOUNDRY_AVATAR_REQUEST.json",
+      "request_id": "VESPER-AVATAR-42061DD68A914F71"
+    },
+    {
+      "avatar_id": "digital_vesper",
+      "request_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/vesper_persona/avatars/digital_vesper/NICHEFOUNDRY_AVATAR_REQUEST.json",
+      "request_id": "VESPER-AVATAR-B50175D113139D26"
+    },
+    {
+      "avatar_id": "vesper_sigil",
+      "request_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/vesper_persona/avatars/vesper_sigil/NICHEFOUNDRY_AVATAR_REQUEST.json",
+      "request_id": "VESPER-AVATAR-888CCD8CF08DED13"
+    }
+  ],
+  "matrix_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/vesper_persona/VESPER_PERSONA_EXPERIMENT_MATRIX.json",
+  "voice_reference_script_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/vesper_persona/VESPER_VOICE_REFERENCE_SCRIPT.json",
+  "external_actions_executed": false,
+  "assets_generated": false,
+  "publication_authorized": false,
+  "spend_authorized": false,
+  "build_sha256": "819c8969d75f48366e75aa6cde4e5c8c82b6dc3df20d37afb8b3f7d1dcbd079d"
+}

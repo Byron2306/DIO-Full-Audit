@@ -1,0 +1,29 @@
+{
+  "adaptive_claim_authorized": false,
+  "arms": [
+    "A_STATELESS_RESET",
+    "B_COMPOSITION_ONLY_NO_RETAINED_LEARNING",
+    "C_SEMANTIC_RETAINED",
+    "D_MARKET_RETAINED",
+    "E_FULL_SEMANTIC_MARKET_BEAST"
+  ],
+  "blind_evaluation_required": true,
+  "boundary": "This manifest authorizes staging of a controlled transfer run only. It does not execute the run by default and does not authorize any adaptive-composition, commercial, professional, publication, spend, fulfilment, world-first, or authority-expansion claim.",
+  "commercial_or_world_first_claim_authorized": false,
+  "encounter_count": 5,
+  "execute_by_default": false,
+  "factorial_analysis_required": true,
+  "frozen_input_required": true,
+  "manifest_version": "DIO_METAMORPHIC_ADAPTATION_CONTROLLED_TRANSFER_MANIFEST_V1",
+  "output_artifacts": [
+    "controlled_transfer_manifest.json",
+    "encounter_receipts.jsonl",
+    "blind_evaluation_receipt.json",
+    "factorial_analysis_receipt.json",
+    "transfer_claim_gate.json"
+  ],
+  "readiness_digest_sha256": "279701da4fb69c7c0b7ebc033653a1720c46dfdd5a799e33507963cfa2c1eef8",
+  "readiness_digest_status": "DIO_METAMORPHIC_ADAPTATION_NATIVE_READINESS_DIGEST_READY",
+  "status": "DIO_METAMORPHIC_ADAPTATION_CONTROLLED_TRANSFER_MANIFEST_READY",
+  "transfer_run_authorized": true
+}

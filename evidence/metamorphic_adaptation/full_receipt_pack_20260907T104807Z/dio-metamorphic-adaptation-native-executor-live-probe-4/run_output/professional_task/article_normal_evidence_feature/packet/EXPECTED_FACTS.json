@@ -1,0 +1,45 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "two structured remote days",
+        "two remote days"
+      ],
+      "label": "hybrid arrangement"
+    },
+    {
+      "any_of": [
+        "no statistically significant decline",
+        "no significant decline"
+      ],
+      "label": "output finding"
+    },
+    {
+      "any_of": [
+        "observational",
+        "cannot establish",
+        "caused"
+      ],
+      "label": "retention limitation"
+    },
+    {
+      "any_of": [
+        "61%"
+      ],
+      "label": "manager concern statistic"
+    },
+    {
+      "any_of": [
+        "47%"
+      ],
+      "label": "practice-change statistic"
+    },
+    {
+      "any_of": [
+        "Dr Amina Patel",
+        "Amina Patel"
+      ],
+      "label": "expert"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "gauntlet_version": "DIO_METAMORPHIC_ADAPTATION_ATLAS_GUIDED_PRODUCT_COMPOSITION_GAUNTLET_V1",
+  "opportunities": [
+    {
+      "adaptive_product": {
+        "atlas_work_map": [
+          "curriculum alignment",
+          "assessment evidence",
+          "moderation workflow",
+          "review receipt",
+          "human approval gate"
+        ],
+        "description": "A governed education product that composes assessment packs, moderation traces, reviewer-ready receipts, curriculum alignment notes, and leadership-visible risk controls for human approval.",
+        "forbidden_terms": [
+          "accredited",
+          "replaces teachers",
+          "guarantee",
+          "autonomous"
+        ],
+        "grade": "DEVELOPMENT_READY_DOMAIN_INCARNATION",
+        "name": "HOMS Moderation Evidence Studio",
+        "required_terms": [
+          "assessment packs",
+          "moderation",
+          "receipts",
+          "risk controls",
+          "human approval"
+        ]
+      },
+      "audience_morphology": "school leadership and education governance buyer",
+      "domain": "education governance",
+      "market_signal": "teachers need resources, but buyers need moderation evidence, auditability, and leadership-visible risk controls",
+      "niche": "assessment moderation and evidence packs",
+      "opportunity_id": "ATLAS-PROD-001",
+      "static_product": {
+        "description": "Creates classroom activities and worksheets for teachers.",
+        "grade": "UTILITY_PROTOTYPE",
+        "name": "Teacher Resource Generator",
+        "terms": [
+          "activities",
+          "worksheets"
+        ]
+      }
+    },
+    {
+      "adaptive_product": {
+        "atlas_work_map": [
+          "risk register",
+          "evaluation receipt",
+          "claim lock",
+          "authority boundary",
+          "release gate"
+        ],
+        "description": "A proof-bound dossier product that binds AI task scope, model-risk notes, evaluation receipts, claim locks, authority limits, and human-gated release decisions.",
+        "forbidden_terms": [
+          "AGI",
+          "autonomous",
+          "world-first",
+          "guarantee"
+        ],
+        "grade": "DEVELOPMENT_READY_DOMAIN_INCARNATION",
+        "name": "DIO Trust Dossier Studio",
+        "required_terms": [
+          "proof-bound",
+          "evaluation receipts",
+          "claim locks",
+          "authority limits",
+          "human-gated"
+        ]
+      },
+      "audience_morphology": "risk-sensitive compliance leader",
+      "domain": "AI trust and compliance",
+      "market_signal": "AI buyers fear autonomy, hallucination, audit failure, and unbounded claims",
+      "niche": "internal AI system evidence dossiers",
+      "opportunity_id": "ATLAS-PROD-002",
+      "static_product": {
+        "description": "Automates complex AI work for teams.",
+        "grade": "UTILITY_PROTOTYPE",
+        "name": "AI Automation Toolkit",
+        "terms": [
+          "automates",
+          "complex work"
+        ]
+      }
+    },
+    {
+      "adaptive_product": {
+        "atlas_work_map": [
+          "proof pack",
+          "audience constraint",
+          "channel surface",
+          "brand safety",
+          "publication gate"
+        ],
+        "description": "A campaign product factory that turns proof packs, audience constraints, brand-safe variants, channel rules, claim locks, and publication gates into human-approved campaign incarnations.",
+        "forbidden_terms": [
+          "viral",
+          "publishes automatically",
+          "guarantee",
+          "autonomous"
+        ],
+        "grade": "DEVELOPMENT_READY_DOMAIN_INCARNATION",
+        "name": "NicheFoundry Campaign Incarnation Studio",
+        "required_terms": [
+          "proof packs",
+          "audience constraints",
+          "claim locks",
+          "publication gates",
+          "human-approved"
+        ]
+      },
+      "audience_morphology": "agency and studio operations buyer",
+      "domain": "niche creator operations",
+      "market_signal": "creative buyers need repeatable campaign surfaces without unsafe publication or claim drift",
+      "niche": "campaign incarnation governance",
+      "opportunity_id": "ATLAS-PROD-003",
+      "static_product": {
+        "description": "Creates ads, videos, posts, and campaign assets quickly.",
+        "grade": "UTILITY_PROTOTYPE",
+        "name": "Ad Asset Generator",
+        "terms": [
+          "ads",
+          "videos",
+          "posts"
+        ]
+      }
+    },
+    {
+      "adaptive_product": {
+        "atlas_work_map": [
+          "instrument binding",
+          "analysis plan",
+          "source receipt",
+          "ethics note",
+          "review dossier"
+        ],
+        "description": "A research evidence product that binds instruments, analysis plans, source receipts, statistical boundaries, ethics notes, and reviewer-facing dossier outputs.",
+        "forbidden_terms": [
+          "publish automatically",
+          "guarantee acceptance",
+          "fabricate",
+          "autonomous"
+        ],
+        "grade": "DEVELOPMENT_READY_DOMAIN_INCARNATION",
+        "name": "Evidex Research Dossier Studio",
+        "required_terms": [
+          "instruments",
+          "analysis plans",
+          "source receipts",
+          "ethics notes",
+          "reviewer-facing"
+        ]
+      },
+      "audience_morphology": "academic reviewer and research lead",
+      "domain": "research evidence production",
+      "market_signal": "research users need traceable method, instruments, analysis boundaries, and publication-ready evidence discipline",
+      "niche": "study-to-dossier academic evidence workflows",
+      "opportunity_id": "ATLAS-PROD-004",
+      "static_product": {
+        "description": "Helps write papers and summarize research data.",
+        "grade": "UTILITY_PROTOTYPE",
+        "name": "Research Writing Assistant",
+        "terms": [
+          "write papers",
+          "summarize"
+        ]
+      }
+    },
+    {
+      "adaptive_product": {
+        "atlas_work_map": [
+          "public observation",
+          "economic hypothesis",
+          "verified cost",
+          "temporal validation",
+          "human review"
+        ],
+        "description": "A risk-governed analytics product that separates public observation, economic hypothesis, verified-cost analysis, temporal validation, and human-gated decision review.",
+        "forbidden_terms": [
+          "profit",
+          "guarantee",
+          "autonomous trading",
+          "financial advice"
+        ],
+        "grade": "DEVELOPMENT_READY_DOMAIN_INCARNATION",
+        "name": "Hivenance Signal Evidence Lab",
+        "required_terms": [
+          "public observation",
+          "economic hypothesis",
+          "verified-cost",
+          "temporal validation",
+          "human-gated"
+        ]
+      },
+      "audience_morphology": "risk-governed analytics evaluator",
+      "domain": "market analytics research",
+      "market_signal": "market users need observation and hypothesis discipline, not profit promises or execution authority",
+      "niche": "risk-governed signal evaluation",
+      "opportunity_id": "ATLAS-PROD-005",
+      "static_product": {
+        "description": "Finds market opportunities and improves trading decisions.",
+        "grade": "UTILITY_PROTOTYPE",
+        "name": "Trading Opportunity Finder",
+        "terms": [
+          "opportunities",
+          "trading decisions"
+        ]
+      }
+    },
+    {
+      "adaptive_product": {
+        "atlas_work_map": [
+          "source custody",
+          "profile rendering",
+          "format validation",
+          "deterministic receipt",
+          "delivery gate"
+        ],
+        "description": "A governed document product that binds source custody, profile-controlled rendering, format validation, deterministic receipts, and human-approved delivery gates.",
+        "forbidden_terms": [
+          "perfect",
+          "guarantee",
+          "autonomous delivery",
+          "legally certified"
+        ],
+        "grade": "DEVELOPMENT_READY_DOMAIN_INCARNATION",
+        "name": "Document Studio Proof Renderer",
+        "required_terms": [
+          "source custody",
+          "profile-controlled",
+          "format validation",
+          "deterministic receipts",
+          "delivery gates"
+        ]
+      },
+      "audience_morphology": "technical evaluator and operations buyer",
+      "domain": "document operations",
+      "market_signal": "document conversion buyers need deterministic structure, custody, profile control, and repeatable proof",
+      "niche": "format-safe document transformation and proof receipts",
+      "opportunity_id": "ATLAS-PROD-006",
+      "static_product": {
+        "description": "Converts documents between formats.",
+        "grade": "UTILITY_PROTOTYPE",
+        "name": "Document Converter",
+        "terms": [
+          "converts",
+          "formats"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "audience": "Operations, risk and programme leaders responsible for evidence-heavy incident readiness",
+  "campaign_id": "CMP-IRP-PHASE16-CONTROLLED",
+  "channels": [
+    {
+      "channel": "generated_marketfront",
+      "state": "PREVIEW_ONLY"
+    },
+    {
+      "channel": "linkedin_organic",
+      "state": "DRAFT_ONLY"
+    },
+    {
+      "channel": "email",
+      "state": "DRAFT_ONLY"
+    },
+    {
+      "channel": "youtube_short",
+      "state": "STORYBOARD_ONLY"
+    },
+    {
+      "channel": "paid_media",
+      "state": "REFUSE"
+    }
+  ],
+  "external_send": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "measurement": [
+    "page_view",
+    "offer_detail_view",
+    "intake_draft_prepared",
+    "sample_download_intent",
+    "human_contact_requested"
+  ],
+  "objective": "Observe qualified interest in a controlled readiness-evidence review.",
+  "offer_state": "controlled_internal_pilot",
+  "product_id": "dio_incidentreadinessproof",
+  "publication": "REFUSE",
+  "schema": "dio.market_command_campaign_projection.v1",
+  "source_engine": "market_command",
+  "spend_authority": "REFUSE"
+}

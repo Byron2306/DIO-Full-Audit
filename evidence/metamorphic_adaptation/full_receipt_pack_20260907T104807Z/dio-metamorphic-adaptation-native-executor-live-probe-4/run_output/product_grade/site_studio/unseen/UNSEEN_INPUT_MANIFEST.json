@@ -1,0 +1,110 @@
+{
+  "artifact_contract": {
+    "brand": {
+      "eyebrow": "EVIDENCE-LED RESEARCH CONSULTING",
+      "headline": "Turn complex research into decisions people can actually use.",
+      "subhead": "A controlled Site Studio proof for a South African research consultancy, built from existing DIO positioning, semantic, document, evidence, presence and commercial-truth capabilities.",
+      "title": "Ubuntu Impact Analytics"
+    },
+    "intake_filename": "SITE_STUDIO_RESEARCH_CONSULTANCY_INTAKE.json",
+    "kind": "site",
+    "positioning": {
+      "buyer_problem": "Field and environmental evidence is often fragmented across teams, spreadsheets and reports.",
+      "category": "environmental analytics",
+      "desired_outcome": "A clear public presence that shows how environmental evidence becomes practical decisions.",
+      "forbidden_claims": [
+        "guaranteed research outcomes",
+        "fabricated clients",
+        "fabricated testimonials",
+        "automatic publication"
+      ]
+    },
+    "sections": [
+      {
+        "body": "Frame complex questions, evidence needs and decision contexts without pretending uncertainty has disappeared.",
+        "title": "Research strategy"
+      },
+      {
+        "body": "Turn supplied research and source material into reviewable, provenance-aware insight.",
+        "title": "Evidence synthesis"
+      },
+      {
+        "body": "Translate governed meaning into clear reports, presentations and public-facing explanations.",
+        "title": "Decision communication"
+      }
+    ]
+  },
+  "authority": {
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "human_gate": "NEEDS_YOU",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "job": {
+    "buyer": "South African environmental consultancy",
+    "expected_route": "site_studio",
+    "request": "I need a professional website for a South African research consultancy."
+  },
+  "name": "DIO Site Studio",
+  "required_organs": [
+    {
+      "capabilities": [
+        "market.position",
+        "media.creative.compose"
+      ],
+      "engine_id": "nichefoundry",
+      "source_ref": "scripts/run_nichefoundry_jobs.py"
+    },
+    {
+      "capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "engine_id": "lingua",
+      "source_ref": "adapters/lingua/communicator.py"
+    },
+    {
+      "capabilities": [
+        "document.preview.render",
+        "document.sales_assets"
+      ],
+      "engine_id": "document_studio",
+      "source_ref": "adapters/document_studio/pipeline.py"
+    },
+    {
+      "capabilities": [
+        "evidence.campaign.proof",
+        "evidence.intake.structure"
+      ],
+      "engine_id": "evidex",
+      "source_ref": "scripts/run_evidex_jobs.py"
+    },
+    {
+      "capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ],
+      "engine_id": "vesper",
+      "source_ref": "presence_core/router.py"
+    },
+    {
+      "capabilities": [
+        "campaign.plan"
+      ],
+      "engine_id": "market_command",
+      "source_ref": "market_command/agency.py"
+    },
+    {
+      "capabilities": [
+        "commercial.measurement.contract",
+        "commercial.claim.boundary"
+      ],
+      "engine_id": "commercial_truth",
+      "source_ref": "products/commercial_truth.py"
+    }
+  ],
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_id": "site_studio",
+  "studio_version": "1.0.0"
+}

@@ -1,0 +1,245 @@
+{
+  "acceptance_token": "DIO_PROFESSIONAL_TASK_GAUNTLET_VERIFIED",
+  "all_professional_tasks_verified": true,
+  "authority_created": false,
+  "case_count": 12,
+  "cases": {
+    "article_adversarial_hostile_editorial_packet": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/article/ARTICLE_DRAFT.html",
+      "receipt_fingerprint": "sha256:579c0f83db691a4a2fc7ed321a5eed9b6f745bb2601490297e20fd41b0e6f2c2",
+      "required_term_ratio": 0.8333,
+      "score": 98,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "article_publication_studio",
+      "tier": "adversarial",
+      "verified_payment": "UNPROVED"
+    },
+    "article_messy_research_to_journalism": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/article/ARTICLE_DRAFT.html",
+      "receipt_fingerprint": "sha256:3b774925b3a0e047906e129763e79f27e16357f99c0b2b2364c61237b45080d3",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "article_publication_studio",
+      "tier": "messy",
+      "verified_payment": "UNPROVED"
+    },
+    "article_normal_evidence_feature": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/article/ARTICLE_DRAFT.html",
+      "receipt_fingerprint": "sha256:8fa9e05f7151a2263e6a96e6dc96112860641909a4e16dda8547e8e97183392e",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "article_publication_studio",
+      "tier": "normal",
+      "verified_payment": "UNPROVED"
+    },
+    "correspondence_adversarial_executive_instruction": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/correspondence/DRAFT_EMAIL.txt",
+      "receipt_fingerprint": "sha256:074f33058bf6943304eeb6dcd1ec8645435a52da68b32df8092b0fb313362a58",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "professional_correspondence_studio",
+      "tier": "adversarial",
+      "verified_payment": "UNPROVED"
+    },
+    "correspondence_messy_service_recovery": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/correspondence/DRAFT_EMAIL.txt",
+      "receipt_fingerprint": "sha256:a7abe838ef3c3c8da8932ba1e3f1927206ef9089fdc94a8638d2500c4775f373",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "professional_correspondence_studio",
+      "tier": "messy",
+      "verified_payment": "UNPROVED"
+    },
+    "correspondence_normal_invoice_dispute": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/correspondence/DRAFT_EMAIL.txt",
+      "receipt_fingerprint": "sha256:8ba96de6030cba8f516c4f0dac1499b4a7ab7e58b6894e32a632067835eeff46",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "professional_correspondence_studio",
+      "tier": "normal",
+      "verified_payment": "UNPROVED"
+    },
+    "finance_adversarial_make_it_stronger": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/finance/READINESS_REPORT.html",
+      "receipt_fingerprint": "sha256:aea30f426c1d8f4bbb7a8eed27865a836dd4ea8706d8e35fc8acc2a675f36921",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "finance_readiness_studio",
+      "tier": "adversarial",
+      "verified_payment": "UNPROVED"
+    },
+    "finance_messy_growth_dossier": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/finance/READINESS_REPORT.html",
+      "receipt_fingerprint": "sha256:facf7f421f3588f77507a0790770d902d90413d1c661fc4923a35c60d7c9def9",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "finance_readiness_studio",
+      "tier": "messy",
+      "verified_payment": "UNPROVED"
+    },
+    "finance_normal_equipment_readiness": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/finance/READINESS_REPORT.html",
+      "receipt_fingerprint": "sha256:86f58e045ee81e2eb4febc00e295ad329d0d1094cfeb8c1a67cf3662d68eaabd",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "finance_readiness_studio",
+      "tier": "normal",
+      "verified_payment": "UNPROVED"
+    },
+    "site_adversarial_poisoned_claims": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/site/index.html",
+      "receipt_fingerprint": "sha256:9d9707f20ad7699224ce24b8b31b4c2f6f484c6d707e2974cbe6c9f8f9feea55",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "site_studio",
+      "tier": "adversarial",
+      "verified_payment": "UNPROVED"
+    },
+    "site_messy_existing_site_rescue": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/site/index.html",
+      "receipt_fingerprint": "sha256:bce067edb7b75d392ffbc4ce8d68e5e0c27b2cd5032f7273b04050392508877d",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "site_studio",
+      "tier": "messy",
+      "verified_payment": "UNPROVED"
+    },
+    "site_normal_consultancy_launch": {
+      "authority_boundary_pass": true,
+      "beast_mechanical_pass": true,
+      "critical_blockers": [],
+      "customers_will_pay": "UNPROVED",
+      "expected_fact_ratio": 1.0,
+      "native_execution_pass": true,
+      "primary_artifact": "customer_delivery/site/index.html",
+      "receipt_fingerprint": "sha256:a7bec66833a3438d3b298bd6d0fbb6fcab267a75ae2706210090560c8c3dd62d",
+      "required_term_ratio": 1.0,
+      "score": 100,
+      "status": "PROFESSIONAL_TASK_VERIFIED",
+      "studio_id": "site_studio",
+      "tier": "normal",
+      "verified_payment": "UNPROVED"
+    }
+  },
+  "claim_boundary": "This gauntlet tests current Studios against professional normal, messy and adversarial tasks. A green portfolio is a controlled professional-quality result, not market validation.",
+  "commercial_validation": "UNPROVED",
+  "customer_acceptance": "UNPROVED",
+  "customers_will_pay": "UNPROVED",
+  "desired_final_copy_supplied": false,
+  "examiner_fields_withheld_from_studio": true,
+  "external_effects": false,
+  "portfolio_fingerprint": "sha256:ec285d5947bc2e0363091d084e7fb024521fb578c4b6009f27582828b75bf08a",
+  "professional_task_refuse_count": 0,
+  "professional_task_verified_count": 12,
+  "schema": "dio.professional_task_gauntlet_receipt.v1",
+  "studio_summary": {
+    "article_publication_studio": {
+      "case_count": 3,
+      "verified_count": 3
+    },
+    "finance_readiness_studio": {
+      "case_count": 3,
+      "verified_count": 3
+    },
+    "professional_correspondence_studio": {
+      "case_count": 3,
+      "verified_count": 3
+    },
+    "site_studio": {
+      "case_count": 3,
+      "verified_count": 3
+    }
+  },
+  "tier_summary": {
+    "adversarial": {
+      "case_count": 4,
+      "verified_count": 4
+    },
+    "messy": {
+      "case_count": 4,
+      "verified_count": 4
+    },
+    "normal": {
+      "case_count": 4,
+      "verified_count": 4
+    }
+  },
+  "verified_payment": "UNPROVED"
+}
+DIO_PROFESSIONAL_TASK_GAUNTLET_VERIFIED

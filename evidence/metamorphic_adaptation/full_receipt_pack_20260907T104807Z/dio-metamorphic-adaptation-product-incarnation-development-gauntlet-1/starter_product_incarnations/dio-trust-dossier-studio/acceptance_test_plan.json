@@ -1,0 +1,10 @@
+{
+  "acceptance_tests": [
+    "dossier binds every claim to a source receipt",
+    "risk register records unsupported external validation as refused",
+    "renderer outputs a human-review-only dossier surface"
+  ],
+  "minimum_evidence_bound_tests": 3,
+  "product_name": "DIO Trust Dossier Studio",
+  "release_gate": "NEEDS_YOU"
+}

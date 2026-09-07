@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/byron/DIO-Full-Audit/scripts/run_professional_task_gauntlet.py", line 7, in <module>
+    from products.professional_task_gauntlet import (
+    ...<2 lines>...
+    )
+  File "/home/byron/DIO-Full-Audit/products/professional_task_gauntlet.py", line 6, in <module>
+    from products.professional_task_evaluator import (
+    ...<3 lines>...
+    )
+  File "/home/byron/DIO-Full-Audit/products/professional_task_evaluator.py", line 9, in <module>
+    from products.product_grade_v2 import _internal_leaks
+  File "/home/byron/DIO-Full-Audit/products/product_grade_v2.py", line 13, in <module>
+    from products.studio_native_closure import close_studio_case, verify_native_closure_proof
+  File "/home/byron/DIO-Full-Audit/products/studio_native_closure.py", line 21, in <module>
+    from products.studio_native_activation import activate_studio_case, verify_native_execution_proof
+  File "/home/byron/DIO-Full-Audit/products/studio_native_activation.py", line 18, in <module>
+    from products.studio_harvest import build_studio_case
+  File "/home/byron/DIO-Full-Audit/products/studio_harvest.py", line 9, in <module>
+    from presence_core.router import route_message
+  File "/home/byron/DIO-Full-Audit/presence_core/router.py", line 6, in <module>
+    from .llm import classify_with_ollama
+  File "/home/byron/DIO-Full-Audit/presence_core/llm.py", line 4, in <module>
+    import httpx
+ModuleNotFoundError: No module named 'httpx'

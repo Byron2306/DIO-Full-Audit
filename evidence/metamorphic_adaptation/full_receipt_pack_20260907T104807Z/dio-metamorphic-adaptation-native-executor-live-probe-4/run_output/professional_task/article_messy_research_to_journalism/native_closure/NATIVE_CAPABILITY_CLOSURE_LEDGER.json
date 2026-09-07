@@ -1,0 +1,151 @@
+{
+  "all_declared_capabilities_executed": true,
+  "native_organ_count": 7,
+  "new_engine_created": false,
+  "organ_execution_truth": "NATIVE_MULTI_ORGAN_EXECUTION_PROVED",
+  "organs": [
+    {
+      "engine_id": "vesper",
+      "executed_capabilities": [
+        "presence.release.prepare",
+        "storefront.route.bind"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "presence_core/router.py",
+        "presence_core/studio_release.py"
+      ],
+      "receipt_refs": [
+        "composition/operations/VESPER_ROUTE_RECEIPT.json",
+        "closure/presence/PRESENCE_STUDIO_RELEASE.json"
+      ],
+      "required_capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ]
+    },
+    {
+      "engine_id": "lingua",
+      "executed_capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/lingua/communicator.py"
+      ],
+      "receipt_refs": [
+        "native/lingua/LINGUA_NATIVE_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ]
+    },
+    {
+      "engine_id": "sophia",
+      "executed_capabilities": [
+        "claim.lineage.audit",
+        "source.reference.audit"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/sophia/studio_editorial.py"
+      ],
+      "receipt_refs": [
+        "native/sophia/SOPHIA_ARTICLE_LINEAGE.json"
+      ],
+      "required_capabilities": [
+        "source.reference.audit",
+        "claim.lineage.audit"
+      ]
+    },
+    {
+      "engine_id": "evidex",
+      "executed_capabilities": [
+        "evidence.editorial.proof",
+        "evidence.intake.structure"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/evidex_studio.py"
+      ],
+      "receipt_refs": [
+        "native/evidex/EVIDEX_ARTICLE_INTAKE.json",
+        "closure/evidex/EVIDEX_STUDIO_INTAKE.json",
+        "closure/evidex/EVIDEX_EDITORIAL_PROOF.json"
+      ],
+      "required_capabilities": [
+        "evidence.intake.structure",
+        "evidence.editorial.proof"
+      ]
+    },
+    {
+      "engine_id": "document_studio",
+      "executed_capabilities": [
+        "document.preview.render",
+        "document.publication_pack"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "adapters/format_core/renderer.py",
+        "adapters/document_studio/studio_sales.py"
+      ],
+      "receipt_refs": [
+        "native/document_studio/FORMAT_CORE_NORMALIZED_RECEIPT.json",
+        "closure/document_studio/DOCUMENT_STUDIO_PUBLICATION_PACK_RECEIPT.json"
+      ],
+      "required_capabilities": [
+        "document.preview.render",
+        "document.publication_pack"
+      ]
+    },
+    {
+      "engine_id": "nichefoundry",
+      "executed_capabilities": [
+        "media.creative.compose"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "scripts/nichefoundry_studio_adapter.py"
+      ],
+      "receipt_refs": [
+        "native/nichefoundry/NICHEFOUNDRY_ARTICLE_CREATIVE.json"
+      ],
+      "required_capabilities": [
+        "media.creative.compose"
+      ]
+    },
+    {
+      "engine_id": "commercial_truth",
+      "executed_capabilities": [
+        "commercial.claim.boundary",
+        "commercial.measurement.contract"
+      ],
+      "execution_state": "NATIVE_EXECUTED",
+      "missing_capabilities": [],
+      "provider_refs": [
+        "products/commercial_truth.py",
+        "products/commercial_truth_studio.py"
+      ],
+      "receipt_refs": [
+        "native/commercial_truth/COMMERCIAL_TRUTH_EVALUATION.json",
+        "closure/commercial_truth/COMMERCIAL_TRUTH_STUDIO.json"
+      ],
+      "required_capabilities": [
+        "commercial.claim.boundary",
+        "commercial.measurement.contract"
+      ]
+    }
+  ],
+  "partial_organ_count": 0,
+  "schema": "dio.studio_native_capability_closure_ledger.v1",
+  "source_bound_only_count": 0,
+  "studio_id": "article_publication_studio"
+}

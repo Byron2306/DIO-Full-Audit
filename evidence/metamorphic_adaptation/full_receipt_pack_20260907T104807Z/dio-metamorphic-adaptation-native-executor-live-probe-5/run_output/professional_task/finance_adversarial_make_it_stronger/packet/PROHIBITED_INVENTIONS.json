@@ -1,0 +1,26 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "hidden lower receivables",
+      "patterns": [
+        "R418,000 receivables confirmed",
+        "receivables are R418,000 with no discrepancy"
+      ]
+    },
+    {
+      "label": "approval prediction",
+      "patterns": [
+        "bank will say yes",
+        "will be approved",
+        "approval guaranteed"
+      ]
+    },
+    {
+      "label": "affordability conclusion",
+      "patterns": [
+        "affordability confirmed",
+        "can afford the facility"
+      ]
+    }
+  ]
+}

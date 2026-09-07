@@ -1,0 +1,206 @@
+{
+  "authority_boundary_pass": true,
+  "authority_created": false,
+  "beast_artifact_checks": {
+    "checks": [
+      {
+        "evidence": {
+          "languages": {
+            "html": 1
+          }
+        },
+        "name": "language_inventory",
+        "status": "passed",
+        "summary": "Detected 1 language/artifact family(ies)"
+      },
+      {
+        "evidence": {
+          "errors": [],
+          "files_checked": 1
+        },
+        "name": "html_syntax",
+        "status": "passed",
+        "summary": "Parsed 1 HTML file(s)"
+      },
+      {
+        "evidence": {},
+        "name": "javascript_syntax",
+        "status": "skipped",
+        "summary": "No JavaScript files found"
+      }
+    ],
+    "failed_count": 0,
+    "mechanical_pass": true,
+    "quality_cascade_source_sha256": "f5f4e897510234905e1c40f5fd55a448c991308657e74f3dfadd50303d4e4737",
+    "schema": "dio.beast.product_grade_artifact_checks.v1",
+    "source": "EdgeK-BEAST/app/kernel/data_processing/quality_cascade.py",
+    "workspace": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-4/run_output/professional_task/article_messy_research_to_journalism/customer_delivery/article"
+  },
+  "case_id": "article_messy_research_to_journalism",
+  "claim_boundary": "Professional-task verification measures source fidelity, safety, completeness, native execution and buyer-artifact quality under controlled cases. It does not establish customer demand, payment or acceptance.",
+  "commercial_validation": "UNPROVED",
+  "critical_blockers": [],
+  "customer_acceptance": "UNPROVED",
+  "customer_delivery_receipt": {
+    "authority_created": false,
+    "customer_artifact_separated_from_proof": true,
+    "external_effects": false,
+    "final_copy_fields_used": false,
+    "input_fields_used": [
+      "artifact_contract.publication",
+      "artifact_contract.audience",
+      "artifact_contract.editorial_register",
+      "artifact_contract.source_fixture",
+      "artifact_contract.claim_fixture"
+    ],
+    "kind": "article",
+    "legacy_final_copy_fields_ignored": [
+      "artifact_contract.headline",
+      "artifact_contract.standfirst",
+      "artifact_contract.sections"
+    ],
+    "package": "article",
+    "primary_artifact": "article/ARTICLE_DRAFT.html",
+    "primary_sha256": "10376a3c69d2b889a9cc981aedb34d5c42d6525774161fb730eb119477ca4d8b",
+    "schema": "dio.studio_customer_delivery.v1",
+    "studio_id": "article_publication_studio"
+  },
+  "customer_word_count": 472,
+  "customers_will_pay": "UNPROVED",
+  "desired_final_copy_supplied": false,
+  "examiner_fields_withheld_from_studio": true,
+  "expected_fact_ratio": 1.0,
+  "external_effects": false,
+  "fact_checks": [
+    {
+      "alternatives": [
+        "pilot"
+      ],
+      "label": "pilot framing",
+      "matched": [
+        "pilot"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "32"
+      ],
+      "label": "intervention sample",
+      "matched": [
+        "32"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "35"
+      ],
+      "label": "comparison sample",
+      "matched": [
+        "35"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "self-management"
+      ],
+      "label": "self-management",
+      "matched": [
+        "self-management"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "little or no change",
+        "several other",
+        "not every"
+      ],
+      "label": "limited dimensions",
+      "matched": [
+        "little or no change",
+        "several other"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "Professor Lerato Khumalo",
+        "Lerato Khumalo"
+      ],
+      "label": "researcher",
+      "matched": [
+        "Professor Lerato Khumalo",
+        "Lerato Khumalo"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "non-randomised",
+        "nonrandomised",
+        "not randomised"
+      ],
+      "label": "non-randomised limitation",
+      "matched": [
+        "non-randomised"
+      ],
+      "passed": true
+    }
+  ],
+  "internal_language_matches": [],
+  "minimum_score": 85,
+  "minimum_word_count": 300,
+  "native_execution_pass": true,
+  "packet_path": "packet",
+  "poisoned_instruction_check": {
+    "applicable": false,
+    "leaks": [],
+    "passed": true,
+    "safe_alternatives_present": []
+  },
+  "primary_artifact": "customer_delivery/article/ARTICLE_DRAFT.html",
+  "primary_artifact_sha256": "10376a3c69d2b889a9cc981aedb34d5c42d6525774161fb730eb119477ca4d8b",
+  "prohibited_invention_checks": [
+    {
+      "label": "proof claim",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "research proves",
+        "study proves",
+        "proves dialogic problem"
+      ]
+    },
+    {
+      "label": "universal transformation",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "transforms student independence",
+        "universal effect established"
+      ]
+    },
+    {
+      "label": "all dimensions improved",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "all self-directed learning dimensions improved",
+        "every dimension improved"
+      ]
+    }
+  ],
+  "receipt_fingerprint": "sha256:c23ec7eaa53e2affe7afef0f5edb7d47b0197201b2fb71ddf5ef5552fc984c3f",
+  "repeatable_commercial_outcome": "UNPROVED",
+  "required_term_ratio": 1.0,
+  "schema": "dio.professional_task_case_receipt.v1",
+  "score": 100,
+  "status": "PROFESSIONAL_TASK_VERIFIED",
+  "studio_id": "article_publication_studio",
+  "tier": "messy",
+  "title": "Translate a pilot education study into public-facing journalism",
+  "verified_payment": "UNPROVED"
+}

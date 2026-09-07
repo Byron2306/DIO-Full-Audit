@@ -1,0 +1,142 @@
+{
+  "adaptive_claim_authorized": false,
+  "command_results": [
+    {
+      "command_group": "media_generation",
+      "ended_at_utc": "2026-09-07T02:33:01.110235+00:00",
+      "executed": true,
+      "exit_code": 124,
+      "label": "media_incarnation_phase16_1",
+      "refusal_reason": "Command timed out after 20 seconds.",
+      "started_at_utc": "2026-09-07T02:32:41.084603+00:00",
+      "stderr_sha256": "9ee3261147541aae61387487b2c448702c90aef45c61befeca7fd8b100335657",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command_group": "media_generation",
+      "ended_at_utc": "2026-09-07T02:33:21.188561+00:00",
+      "executed": true,
+      "exit_code": 124,
+      "label": "premium_media_phase16_1_1",
+      "refusal_reason": "Command timed out after 20 seconds.",
+      "started_at_utc": "2026-09-07T02:33:01.150835+00:00",
+      "stderr_sha256": "9ee3261147541aae61387487b2c448702c90aef45c61befeca7fd8b100335657",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "ended_at_utc": "2026-09-07T02:33:32.844929+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "market_sensorium_cycle",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:21.189416+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "fd6cad74ebf81b43b6c1631b0e81683fcfde8c70b30041628acc4d7cf566ec3e"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "ended_at_utc": "2026-09-07T02:33:33.026702+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "hivenance_market_command_import",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:32.845891+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "71d68fb91866ebd9ee45c0f8bad07d0f49551ad48c73b9d09c687abae44ac6c7"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "ended_at_utc": "2026-09-07T02:33:33.299360+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "market_command_manage",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:33.027183+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "8eac4adb035e90abdbcfcca498204ddbcc38a8caa3f2ed94612d1959f3d6a7f4"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "ended_at_utc": "2026-09-07T02:33:34.738377+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "dio_marketing_integration",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:33.300292+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "fc5751d6fe6ee0f7c26e8d5c6aaa4d840b83c62d415425bc25755c1dfbcce51f"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "ended_at_utc": "2026-09-07T02:33:34.968389+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "lingua_marketing_learning",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:34.739094+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "342d6a5a9ea24d3bf9542341396ef4ca780fe3e1a4ebcc5287b9cf30e01790f2"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "ended_at_utc": "2026-09-07T02:33:35.175161+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "vesper_persona_lab",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:34.969240+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c389fb35a0ec06b4e64958613c87f250a2ddc4d663efde74c7f77e75eb7b5086"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "ended_at_utc": "2026-09-07T02:33:35.467228+00:00",
+      "executed": true,
+      "exit_code": 1,
+      "label": "nichefoundry_media_pipeline",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:35.175707+00:00",
+      "stderr_sha256": "6f96cf7ea853a83044db2c4c7fa52cdf384c8b3bccb67a000c365483e58fe7e8",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command_group": "transfer",
+      "ended_at_utc": "2026-09-07T02:33:35.969113+00:00",
+      "executed": true,
+      "exit_code": 1,
+      "label": "professional_task_gauntlet",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:35.467718+00:00",
+      "stderr_sha256": "4ee3bd50cefe505d20a416cecaf63469c8bc4ecefe1554ede59d8e89a93ea7ef",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command_group": "transfer",
+      "ended_at_utc": "2026-09-07T02:33:38.076773+00:00",
+      "executed": true,
+      "exit_code": 0,
+      "label": "product_incarnation_studio_phase16",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:35.969396+00:00",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a0c0ff737f5fb9fef636a18c7f13c8e3a255d6ecdbc7927f8c9a67f2f9243a7b"
+    },
+    {
+      "command_group": "transfer",
+      "ended_at_utc": "2026-09-07T02:33:38.410542+00:00",
+      "executed": true,
+      "exit_code": 1,
+      "label": "product_grade",
+      "refusal_reason": null,
+      "started_at_utc": "2026-09-07T02:33:38.077285+00:00",
+      "stderr_sha256": "909e987e8cda10f860dddf7b596e1bd4013ed7e9d121aa9b94e44d9aca6afb2d",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "execute_requested": true,
+  "executor_version": "DIO_METAMORPHIC_ADAPTATION_NATIVE_EXECUTOR_V1",
+  "plan_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-3/native_execution_plan.json",
+  "refusal_boundary": "Native commands were executed and their outputs were hashed, but execution alone does not authorize an adaptive-composition claim. Claim authorization requires transfer evaluation, lineage review, blind scoring and factorial analysis.",
+  "status": "DIO_METAMORPHIC_ADAPTATION_NATIVE_EXECUTION_COMPLETED"
+}

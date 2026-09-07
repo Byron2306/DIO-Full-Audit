@@ -1,0 +1,99 @@
+{
+  "claim_locks": {
+    "agi_claim_authorized": false,
+    "authority_expansion_authorized": false,
+    "autonomous_action_claim_authorized": false,
+    "autonomous_development_authorized": false,
+    "commercial_validation_claim_authorized": false,
+    "fulfilment_authorized": false,
+    "product_market_fit_claim_authorized": false,
+    "professional_approval_claim_authorized": false,
+    "publication_authorized": false,
+    "spend_authorized": false,
+    "world_first_claim_authorized": false
+  },
+  "selected_product": "DIO_TRUST_DOSSIER_STUDIO",
+  "sprint_goal": "Convert the governed next-build candidate into a proof-bound MVP sprint path without claiming external validation.",
+  "work_packages": [
+    {
+      "acceptance_gates": [
+        "manifest_schema_valid",
+        "audience_scope_bound",
+        "authority_boundary_present",
+        "external_validation_refused"
+      ],
+      "evidence_receipts": [
+        "manifest_hash",
+        "schema_validation_receipt",
+        "claim_lock_receipt"
+      ],
+      "id": "T13-WP1",
+      "name": "Trust dossier manifest compiler",
+      "purpose": "Compile product identity, intended audience, evidence scope, authority boundary, and output contract into a deterministic dossier manifest."
+    },
+    {
+      "acceptance_gates": [
+        "source_receipts_bound",
+        "proof_pack_hashes_bound",
+        "forbidden_claims_preserved",
+        "stale_evidence_flag_available"
+      ],
+      "evidence_receipts": [
+        "evidence_spine_hash",
+        "source_binding_receipt",
+        "forbidden_claim_lock_receipt"
+      ],
+      "id": "T13-WP2",
+      "name": "Evidence spine binder",
+      "purpose": "Bind source receipts, prior proof packs, product claims, disclaimers, and forbidden claims into a dossier evidence spine."
+    },
+    {
+      "acceptance_gates": [
+        "summary_present",
+        "proof_numbers_present",
+        "boundary_warnings_present",
+        "human_review_required"
+      ],
+      "evidence_receipts": [
+        "render_receipt",
+        "dossier_sha256",
+        "human_gate_receipt"
+      ],
+      "id": "T13-WP3",
+      "name": "Dossier renderer surface",
+      "purpose": "Render a human-reviewable dossier draft with claim-safe executive summary, proof numbers, source hashes, and boundary warnings."
+    },
+    {
+      "acceptance_gates": [
+        "allowed_claims_matched",
+        "forbidden_claims_absent",
+        "commercial_validation_refused",
+        "authority_expansion_refused"
+      ],
+      "evidence_receipts": [
+        "claim_audit_receipt",
+        "forbidden_term_scan",
+        "authority_lock_receipt"
+      ],
+      "id": "T13-WP4",
+      "name": "Claim audit evaluator",
+      "purpose": "Evaluate generated dossier language against allowed claims, forbidden claims, authority locks, and marketing-safe boundaries."
+    },
+    {
+      "acceptance_gates": [
+        "local_demo_only",
+        "no_external_action",
+        "no_publication",
+        "receipt_bundle_written"
+      ],
+      "evidence_receipts": [
+        "demo_run_receipt",
+        "receipt_bundle_manifest",
+        "external_action_refusal_receipt"
+      ],
+      "id": "T13-WP5",
+      "name": "Sprint demo harness",
+      "purpose": "Provide a deterministic local demo harness that exercises manifest compile, evidence bind, render, and claim audit without publication."
+    }
+  ]
+}

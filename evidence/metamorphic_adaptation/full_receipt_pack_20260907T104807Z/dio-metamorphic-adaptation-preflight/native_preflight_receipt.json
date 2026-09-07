@@ -1,0 +1,10 @@
+{
+  "dry_run_report_path": "/tmp/dio-metamorphic-adaptation-preflight/native_dry_run_report.json",
+  "dry_run_report_sha256": "fd6efc9291b64a2be9ba1d332fa1a0f1c35ed1bec5b8d34612c49a6d63f63a67",
+  "full_native_execution_allowed": false,
+  "manifest_path": "/tmp/dio-metamorphic-adaptation-preflight/confirmatory_manifest.json",
+  "manifest_sha256": "9bb7f99a7ea935396d2eeba56c9f7d66f3fd0690a111be5cbcc97c7a08c3ee92",
+  "preflight_version": "DIO_METAMORPHIC_ADAPTATION_NATIVE_PREFLIGHT_V1",
+  "refusal_boundary": "This preflight proves only manifest, binding and dry-run custody readiness. It does not execute adaptation episodes, does not perform transfer evaluation, and does not authorize an adaptive-composition claim.",
+  "status": "DIO_METAMORPHIC_ADAPTATION_NATIVE_PREFLIGHT_READY"
+}

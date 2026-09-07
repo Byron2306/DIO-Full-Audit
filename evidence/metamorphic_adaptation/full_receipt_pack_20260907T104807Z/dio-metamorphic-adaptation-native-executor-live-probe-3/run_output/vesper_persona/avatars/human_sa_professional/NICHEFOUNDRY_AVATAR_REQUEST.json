@@ -1,0 +1,64 @@
+{
+  "schema": "dio.nichefoundry.vesper_avatar_request.v1",
+  "request_id": "VESPER-AVATAR-42061DD68A914F71",
+  "created_at": "2026-09-07T02:33:35+00:00",
+  "experiment_id": "VESPER-PERSONA-LAB-2026-08-A",
+  "product": "vesper",
+  "asset_role": "public_presence_avatar_experiment",
+  "avatar_id": "human_sa_professional",
+  "label": "Human Professional",
+  "design_class": "moderately_anthropomorphic",
+  "creative_brief": {
+    "visual_hypothesis": "A recognisably South African professional woman in her late 30s to early 40s, warm but composed, contemporary consulting aesthetic, understated styling, credible rather than glamorous.",
+    "expression_policy": "soft attentive half-smile; no exaggerated friendliness",
+    "background_policy": "clean bright professional environment with subtle South African architectural/light cues; no flags or tourism symbolism",
+    "photorealism": "high_but_not_impersonating_real_person",
+    "brand_feel": [
+      "clean commercial professional",
+      "South African market-native without tourism symbolism",
+      "credible in education, SME, NGO, GRC and AI-governance contexts",
+      "bright ivory/graphite/teal family with restrained amber accent"
+    ]
+  },
+  "deliverables": [
+    {
+      "kind": "profile_avatar",
+      "size": "1024x1024",
+      "format": "png"
+    },
+    {
+      "kind": "webchat_portrait",
+      "size": "1024x1280",
+      "format": "png"
+    },
+    {
+      "kind": "social_profile",
+      "size": "1080x1080",
+      "format": "png"
+    },
+    {
+      "kind": "reel_intro_frame",
+      "size": "1080x1920",
+      "format": "png"
+    }
+  ],
+  "identity_constraints": {
+    "name": "Vesper",
+    "role": "DIO Presence Core",
+    "must_disclose_ai": true,
+    "must_not_resemble_or_impersonate_specific_real_person": true,
+    "must_not_claim_human_identity": true,
+    "face_is_rendering_only": true
+  },
+  "experiment_constraints": {
+    "stable_for_conversation": true,
+    "no_mid_conversation_avatar_swap": true,
+    "human_review_before_public_default": true,
+    "automatic_publication": false,
+    "automatic_spend": false
+  },
+  "release": {
+    "state": "held",
+    "human_approval_required": true
+  }
+}

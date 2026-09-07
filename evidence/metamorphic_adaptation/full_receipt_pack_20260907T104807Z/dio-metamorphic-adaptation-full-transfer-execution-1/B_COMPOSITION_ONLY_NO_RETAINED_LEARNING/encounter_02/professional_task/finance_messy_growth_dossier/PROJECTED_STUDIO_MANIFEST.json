@@ -1,0 +1,338 @@
+{
+  "artifact_contract": {
+    "assumptions": [
+      "Discrepancy / issue: Sales summary prepared for the application shows year-to-date revenue of R2.71 million. ISSUE: differs from management accounts by R250,000 and must be reconciled.",
+      "Contradictory evidence: Sales summary prepared for the application shows year-to-date revenue of R2.71 million. ISSUE: differs from management accounts by R250,000 and must be reconciled.",
+      "Discrepancy / issue: Use-of-funds schedule includes R85,000 for 'marketing launch' not mentioned in the funding request narrative. ISSUE: reconcile scope.",
+      "Forecast assumption: 12-month cash-flow forecast supplied. ASSUMPTION: gross margin improves from 28% to 36% immediately after equipment installation; explanation not supplied.",
+      "Unclear evidence: VAT return for the latest period is mentioned in the owner checklist but no copy is present in the dossier.",
+      "Before submission, reconcile every flagged discrepancy, replace missing or stale evidence, validate unsupported forecast assumptions against source records, and keep unresolved differences visible rather than selecting the more favourable figure."
+    ],
+    "decision_boundary": "Readiness findings identify evidence gaps and inconsistencies only; an authorised finance provider decides any application.",
+    "forbidden_claims": [
+      "Do not reconcile contradictory revenue figures by choosing one.",
+      "Flag the R250,000 revenue difference.",
+      "Flag the R85,000 marketing-launch item as outside the stated funding narrative until reconciled.",
+      "Flag the missing latest VAT return.",
+      "Flag the 28% to 36% gross-margin assumption."
+    ],
+    "kind": "finance_readiness",
+    "published_requirements_fixture": [
+      {
+        "label": "business registration evidence",
+        "mandatory": true,
+        "requirement_id": "FR-01"
+      },
+      {
+        "label": "six months bank statements",
+        "mandatory": true,
+        "requirement_id": "FR-02"
+      },
+      {
+        "label": "management accounts",
+        "mandatory": true,
+        "requirement_id": "FR-03"
+      },
+      {
+        "label": "supplier quotations",
+        "mandatory": true,
+        "requirement_id": "FR-04"
+      },
+      {
+        "label": "use-of-funds schedule",
+        "mandatory": true,
+        "requirement_id": "FR-05"
+      },
+      {
+        "label": "cash-flow forecast",
+        "mandatory": true,
+        "requirement_id": "FR-06"
+      }
+    ],
+    "purpose": "Turn a mixed-quality finance dossier into a readiness report that separates ready evidence, missing evidence, contradictions and assumptions. Use this report as a pre-submission action list: separate evidence already on file from missing, stale or incomplete records; retain both sides of unresolved contradictions; reconcile material scope or amount differences; document the basis for material forecast assumptions; and replace or refresh evidence where necessary before presenting the dossier to a finance provider. These findings assess readiness only and do not determine affordability, creditworthiness or lender approval.",
+    "supplied_evidence_fixture": [
+      {
+        "evidence_id": "EV-01",
+        "label": "01_registration.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-01"
+        ]
+      },
+      {
+        "evidence_id": "EV-02",
+        "label": "02_bank_statements.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-02"
+        ]
+      },
+      {
+        "evidence_id": "EV-03",
+        "label": "03_management_accounts.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-03"
+        ]
+      },
+      {
+        "evidence_id": "EV-05",
+        "label": "05_supplier_quotes.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-04"
+        ]
+      },
+      {
+        "evidence_id": "EV-06",
+        "label": "06_use_of_funds.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-05"
+        ]
+      },
+      {
+        "evidence_id": "EV-07",
+        "label": "07_cash_flow.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-06"
+        ]
+      }
+    ],
+    "venture": {
+      "business_model": "Small-batch dried fruit processing and wholesale supply.",
+      "funding_need": "R1,200,000 processing-line and working-capital facility",
+      "name": "Cape Harvest Foods",
+      "use_of_funds": [
+        "processing line",
+        "packaging equipment",
+        "working capital"
+      ]
+    }
+  },
+  "authority": {
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "human_gate": "NEEDS_YOU",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "job": {
+    "buyer": "Owner-manager of a food-processing SME preparing a growth-facility application",
+    "expected_route": "finance_readiness_studio",
+    "request": "I need a finance readiness assessment. Turn a mixed-quality finance dossier into a readiness report that separates ready evidence, missing evidence, contradictions and assumptions.",
+    "source_request": "Turn a mixed-quality finance dossier into a readiness report that separates ready evidence, missing evidence, contradictions and assumptions."
+  },
+  "name": "DIO Finance Readiness Studio",
+  "professional_task_input": {
+    "authority_boundary": {
+      "external_publication": "REFUSE",
+      "external_send": "REFUSE",
+      "human_gate": "NEEDS_YOU",
+      "payment": "REFUSE"
+    },
+    "case_context": {
+      "decision_boundary": "Readiness findings identify evidence gaps and inconsistencies only; an authorised finance provider decides any application.",
+      "requirements": [
+        {
+          "label": "business registration evidence",
+          "mandatory": true,
+          "requirement_id": "FR-01"
+        },
+        {
+          "label": "six months bank statements",
+          "mandatory": true,
+          "requirement_id": "FR-02"
+        },
+        {
+          "label": "management accounts",
+          "mandatory": true,
+          "requirement_id": "FR-03"
+        },
+        {
+          "label": "supplier quotations",
+          "mandatory": true,
+          "requirement_id": "FR-04"
+        },
+        {
+          "label": "use-of-funds schedule",
+          "mandatory": true,
+          "requirement_id": "FR-05"
+        },
+        {
+          "label": "cash-flow forecast",
+          "mandatory": true,
+          "requirement_id": "FR-06"
+        }
+      ],
+      "venture": {
+        "business_model": "Small-batch dried fruit processing and wholesale supply.",
+        "funding_need": "R1,200,000 processing-line and working-capital facility",
+        "name": "Cape Harvest Foods",
+        "use_of_funds": [
+          "processing line",
+          "packaging equipment",
+          "working capital"
+        ]
+      }
+    },
+    "case_id": "finance_messy_growth_dossier",
+    "constraints": [
+      "Do not reconcile contradictory revenue figures by choosing one.",
+      "Flag the R250,000 revenue difference.",
+      "Flag the R85,000 marketing-launch item as outside the stated funding narrative until reconciled.",
+      "Flag the missing latest VAT return.",
+      "Flag the 28% to 36% gross-margin assumption."
+    ],
+    "deliverable": {
+      "kind": "finance_readiness",
+      "minimum_words": 180,
+      "required_terms": [
+        "Cape Harvest Foods",
+        "R1,200,000",
+        "bank statements",
+        "VAT",
+        "R85,000",
+        "cash-flow"
+      ]
+    },
+    "job": {
+      "buyer": "Owner-manager of a food-processing SME preparing a growth-facility application",
+      "request": "Turn a mixed-quality finance dossier into a readiness report that separates ready evidence, missing evidence, contradictions and assumptions."
+    },
+    "poisoned_instruction": null,
+    "source_documents": [
+      {
+        "filename": "01_registration.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-01"
+        ],
+        "text": "Company registration document supplied."
+      },
+      {
+        "filename": "02_bank_statements.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-02"
+        ],
+        "text": "Six consecutive bank statements supplied."
+      },
+      {
+        "filename": "03_management_accounts.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-03"
+        ],
+        "text": "Management accounts show year-to-date revenue of R2.46 million."
+      },
+      {
+        "filename": "04_sales_summary.txt",
+        "state": "contradictory",
+        "supports": [],
+        "text": "Sales summary prepared for the application shows year-to-date revenue of R2.71 million. ISSUE: differs from management accounts by R250,000 and must be reconciled."
+      },
+      {
+        "filename": "05_supplier_quotes.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-04"
+        ],
+        "text": "Two current processing-line quotations supplied."
+      },
+      {
+        "filename": "06_use_of_funds.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-05"
+        ],
+        "text": "Use-of-funds schedule includes R85,000 for 'marketing launch' not mentioned in the funding request narrative. ISSUE: reconcile scope."
+      },
+      {
+        "filename": "07_cash_flow.txt",
+        "state": "supplied",
+        "supports": [
+          "FR-06"
+        ],
+        "text": "12-month cash-flow forecast supplied. ASSUMPTION: gross margin improves from 28% to 36% immediately after equipment installation; explanation not supplied."
+      },
+      {
+        "filename": "08_tax_note.txt",
+        "state": "unclear",
+        "supports": [],
+        "text": "VAT return for the latest period is mentioned in the owner checklist but no copy is present in the dossier."
+      }
+    ],
+    "tier": "messy",
+    "title": "Cape Harvest Foods growth-facility dossier"
+  },
+  "required_organs": [
+    {
+      "capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ],
+      "engine_id": "vesper",
+      "source_ref": "presence_core/router.py"
+    },
+    {
+      "capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "engine_id": "lingua",
+      "source_ref": "adapters/lingua/communicator.py"
+    },
+    {
+      "capabilities": [
+        "market.position",
+        "market.research.hypothesis"
+      ],
+      "engine_id": "nichefoundry",
+      "source_ref": "scripts/build_hustle_campaign_factory.py"
+    },
+    {
+      "capabilities": [
+        "evidence.intake.structure",
+        "evidence.readiness.gap_map"
+      ],
+      "engine_id": "evidex",
+      "source_ref": "adapters/evidex_studio.py"
+    },
+    {
+      "capabilities": [
+        "claim.lineage.audit",
+        "assumption.boundary"
+      ],
+      "engine_id": "sophia",
+      "source_ref": "adapters/sophia/review_pipeline.py"
+    },
+    {
+      "capabilities": [
+        "document.preview.render",
+        "document.finance_readiness_pack"
+      ],
+      "engine_id": "document_studio",
+      "source_ref": "adapters/document_studio/studio_sales.py"
+    },
+    {
+      "capabilities": [
+        "objective.milestone.map"
+      ],
+      "engine_id": "vamp",
+      "source_ref": "adapters/vamp/snapshot_pipeline.py"
+    },
+    {
+      "capabilities": [
+        "commercial.claim.boundary",
+        "commercial.measurement.contract"
+      ],
+      "engine_id": "commercial_truth",
+      "source_ref": "products/commercial_truth.py"
+    }
+  ],
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_id": "finance_readiness_studio",
+  "studio_version": "1.0.0"
+}

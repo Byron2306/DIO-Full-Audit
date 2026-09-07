@@ -1,0 +1,46 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/run_output/product_grade/site_studio/customer_delivery/site/index.html",
+  "artifact_sha256": "74067cb7d53d36bc861f5faeccec186373ef81f8eafcda4a44101f65e6dcf81c",
+  "automated_product_grade_score": 100,
+  "automated_product_grade_status": "PRODUCT_GRADE_VERIFIED",
+  "blind_review_required": true,
+  "buyer_job": "I need a professional website for a South African research consultancy.",
+  "claim_boundary": "Blind buyer review is usefulness evidence, not verified payment or commercial validation.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "target_buyer_fit",
+      "scale": "1-5"
+    },
+    {
+      "name": "correctness_and_trust",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.product_grade.blind_buyer_review_packet.v2",
+  "studio_id": "site_studio",
+  "studio_name": "DIO Site Studio",
+  "target_buyer": "South African research consultancy"
+}

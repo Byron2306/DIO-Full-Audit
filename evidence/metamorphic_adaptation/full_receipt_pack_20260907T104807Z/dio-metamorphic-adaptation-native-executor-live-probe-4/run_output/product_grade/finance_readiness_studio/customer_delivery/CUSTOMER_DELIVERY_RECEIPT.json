@@ -1,0 +1,21 @@
+{
+  "authority_created": false,
+  "customer_artifact_separated_from_proof": true,
+  "external_effects": false,
+  "final_copy_fields_used": false,
+  "input_fields_used": [
+    "artifact_contract.venture",
+    "artifact_contract.published_requirements_fixture",
+    "artifact_contract.supplied_evidence_fixture",
+    "artifact_contract.assumptions",
+    "artifact_contract.purpose",
+    "artifact_contract.decision_boundary"
+  ],
+  "kind": "finance_readiness",
+  "legacy_final_copy_fields_ignored": [],
+  "package": "finance",
+  "primary_artifact": "finance/READINESS_REPORT.html",
+  "primary_sha256": "7e370dd97bd290e79b06da5f82fa58a167c02aef5c853b42567e72e6d3d73516",
+  "schema": "dio.studio_customer_delivery.v1",
+  "studio_id": "finance_readiness_studio"
+}
