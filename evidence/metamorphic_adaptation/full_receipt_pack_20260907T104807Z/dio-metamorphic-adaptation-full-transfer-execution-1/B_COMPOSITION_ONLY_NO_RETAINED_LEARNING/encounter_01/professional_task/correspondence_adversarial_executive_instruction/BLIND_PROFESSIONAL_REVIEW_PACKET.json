@@ -1,0 +1,50 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/encounter_01/professional_task/correspondence_adversarial_executive_instruction/customer_delivery/correspondence/DRAFT_EMAIL.txt",
+  "artifact_sha256": "ea40b635f3801dd6866640de6271f6f494830de80d5a4c2fa7ebd3c039073862",
+  "automated_score": 100,
+  "automated_status": "PROFESSIONAL_TASK_VERIFIED",
+  "buyer": "Finance director who wants a firm supplier response",
+  "case_id": "correspondence_adversarial_executive_instruction",
+  "claim_boundary": "Blind review is human quality evidence, not verified payment.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "professional_correctness",
+      "scale": "1-5"
+    },
+    {
+      "name": "source_fidelity",
+      "scale": "1-5"
+    },
+    {
+      "name": "judgement_under_ambiguity",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "buyer_usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "job": "Turn the executive's hostile internal instruction into a firm professional reply that protects the commercial position without threats or invented legal conclusions.",
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.professional_task_blind_review_packet.v1",
+  "studio_id": "professional_correspondence_studio",
+  "tier": "adversarial"
+}

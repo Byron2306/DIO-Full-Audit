@@ -1,0 +1,208 @@
+{
+  "boundary": "Could-execute classification is not execution authorization. Human gates and authority locks remain binding.",
+  "capabilities": [
+    {
+      "authority_boundary": "May write local manifest artifacts only",
+      "capability_id": "manifest_writer",
+      "capability_name": "Write governed product manifests",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "selected_product",
+        "rehearsal_receipt_sha256"
+      ],
+      "execution_readiness": "CAN_EXECUTE_NOW",
+      "may_execute_without_human": true,
+      "organ_or_surface": "Product Incarnation Studio",
+      "required_config_condition": "Selected product identifier bound",
+      "required_human_gate": "Human reviews before promotion beyond scaffold",
+      "required_local_condition": "Writable local output directory"
+    },
+    {
+      "authority_boundary": "May write local evidence contracts, not certify evidence externally",
+      "capability_id": "evidence_contract_writer",
+      "capability_name": "Write evidence contract skeletons",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "receipt_schema_plan",
+        "acceptance_gate_map"
+      ],
+      "execution_readiness": "CAN_EXECUTE_NOW",
+      "may_execute_without_human": true,
+      "organ_or_surface": "Evidex",
+      "required_config_condition": "Evidence receipt schema bound",
+      "required_human_gate": "Human approves evidence claims before external use",
+      "required_local_condition": "Writable local output directory"
+    },
+    {
+      "authority_boundary": "May write local acceptance plans only",
+      "capability_id": "acceptance_plan_writer",
+      "capability_name": "Write acceptance test plans",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "work_packages",
+        "gate_ids"
+      ],
+      "execution_readiness": "CAN_EXECUTE_NOW",
+      "may_execute_without_human": true,
+      "organ_or_surface": "BEAST",
+      "required_config_condition": "Sprint work packages bound",
+      "required_human_gate": "Human approves tests before treating them as release gates",
+      "required_local_condition": "Writable local output directory"
+    },
+    {
+      "authority_boundary": "May write local README drafts, not publish them",
+      "capability_id": "readme_writer",
+      "capability_name": "Write local README scaffold",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "claim_locks",
+        "safe_positioning_line"
+      ],
+      "execution_readiness": "CAN_EXECUTE_NOW",
+      "may_execute_without_human": true,
+      "organ_or_surface": "Document Studio",
+      "required_config_condition": "Marketing-safe claim pack bound",
+      "required_human_gate": "Human reviews public wording before publication",
+      "required_local_condition": "Writable local output directory"
+    },
+    {
+      "authority_boundary": "May report local test output, not infer commercial readiness",
+      "capability_id": "local_pytest_runner",
+      "capability_name": "Run local pytest verification",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "test_plan",
+        "local_environment"
+      ],
+      "execution_readiness": "COULD_EXECUTE_WITH_LOCAL_DEPENDENCY",
+      "may_execute_without_human": false,
+      "organ_or_surface": "BEAST",
+      "required_config_condition": "Test paths selected",
+      "required_human_gate": "Human explicitly runs or approves local test execution",
+      "required_local_condition": "Python environment with pytest installed and user execution approval"
+    },
+    {
+      "authority_boundary": "May write local starter code only after gate approval",
+      "capability_id": "starter_module_writer",
+      "capability_name": "Write starter Python module skeletons",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "implementation_rehearsal_plan",
+        "human_gate"
+      ],
+      "execution_readiness": "COULD_EXECUTE_WITH_LOCAL_DEPENDENCY",
+      "may_execute_without_human": false,
+      "organ_or_surface": "Product Incarnation Studio",
+      "required_config_condition": "Module names and public APIs bound",
+      "required_human_gate": "Human approves transition from rehearsal to starter code generation",
+      "required_local_condition": "Writable repository path and explicit human approval to create code files"
+    },
+    {
+      "authority_boundary": "May write local test skeletons only after gate approval",
+      "capability_id": "starter_test_writer",
+      "capability_name": "Write starter test skeletons",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "acceptance_test_plan",
+        "human_gate"
+      ],
+      "execution_readiness": "COULD_EXECUTE_WITH_LOCAL_DEPENDENCY",
+      "may_execute_without_human": false,
+      "organ_or_surface": "BEAST",
+      "required_config_condition": "Acceptance gate identifiers bound",
+      "required_human_gate": "Human approves starter test generation",
+      "required_local_condition": "Writable repository test path and explicit human approval"
+    },
+    {
+      "authority_boundary": "May draft only, never send autonomously",
+      "capability_id": "outlook_draft_surface",
+      "capability_name": "Prepare outbound email draft surface",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "recipient_source",
+        "draft_only_receipt",
+        "human_review_required"
+      ],
+      "execution_readiness": "COULD_EXECUTE_WITH_CONFIG",
+      "may_execute_without_human": false,
+      "organ_or_surface": "Vesper / Outlook Smart Bot",
+      "required_config_condition": "Recipient, purpose, consent, and draft-only mode configured",
+      "required_human_gate": "Human reviews and sends manually",
+      "required_local_condition": "Draft-only mail connector available"
+    },
+    {
+      "authority_boundary": "May observe and summarize public signals, not claim demand proof",
+      "capability_id": "market_signal_refresh",
+      "capability_name": "Refresh public market/friction signals",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "source_allowlist",
+        "timestamp",
+        "signal_receipts"
+      ],
+      "execution_readiness": "COULD_EXECUTE_WITH_CONFIG",
+      "may_execute_without_human": false,
+      "organ_or_surface": "Market Sensorium",
+      "required_config_condition": "Source allowlist and recency policy configured",
+      "required_human_gate": "Human reviews signal interpretation before build commitment",
+      "required_local_condition": "Configured public signal sources"
+    },
+    {
+      "authority_boundary": "DIO may prepare assets, not publish autonomously",
+      "capability_id": "external_publication",
+      "capability_name": "Publish public product page or campaign",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "human_publication_approval",
+        "safe_claim_pack"
+      ],
+      "execution_readiness": "HUMAN_GATE_REQUIRED",
+      "may_execute_without_human": false,
+      "organ_or_surface": "Document Studio / NicheFoundry",
+      "required_config_condition": "Human-approved copy and destination configured",
+      "required_human_gate": "Human explicitly publishes after review",
+      "required_local_condition": "Publication surface available"
+    },
+    {
+      "authority_boundary": "May prepare sandbox probe only, not claim revenue or validation",
+      "capability_id": "commercial_checkout_probe",
+      "capability_name": "Prepare controlled checkout validation probe",
+      "could_execute": true,
+      "evidence_required_before_execution": [
+        "sandbox_mode_receipt",
+        "no_real_customer_claim"
+      ],
+      "execution_readiness": "HUMAN_GATE_REQUIRED",
+      "may_execute_without_human": false,
+      "organ_or_surface": "Commercial Truth Layer",
+      "required_config_condition": "No real charge, no fulfilment, no customer promise configured",
+      "required_human_gate": "Human approves any sandbox checkout test",
+      "required_local_condition": "Sandbox payment/test mode available"
+    },
+    {
+      "authority_boundary": "REFUSE autonomous external action, spending, publication, contact, and fulfilment",
+      "capability_id": "publish_campaign",
+      "capability_name": "Autonomously publish, spend, contact, or fulfil campaign",
+      "could_execute": false,
+      "evidence_required_before_execution": [
+        "refusal_receipt"
+      ],
+      "execution_readiness": "AUTHORITY_REFUSED",
+      "may_execute_without_human": false,
+      "organ_or_surface": "NicheFoundry / External surfaces",
+      "required_config_condition": "Not permitted by authority boundary",
+      "required_human_gate": "Human authority cannot be bypassed",
+      "required_local_condition": "Not applicable"
+    }
+  ],
+  "readiness_statuses": [
+    "CAN_EXECUTE_NOW",
+    "COULD_EXECUTE_WITH_LOCAL_DEPENDENCY",
+    "COULD_EXECUTE_WITH_CONFIG",
+    "HUMAN_GATE_REQUIRED",
+    "AUTHORITY_REFUSED",
+    "NOT_IMPLEMENTED_YET"
+  ],
+  "selected_product": "DIO_TRUST_DOSSIER_STUDIO",
+  "status": "DIO_METAMORPHIC_ADAPTATION_CAPABILITY_EXECUTION_READINESS_MAP_READY"
+}

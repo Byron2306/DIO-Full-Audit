@@ -1,0 +1,139 @@
+{
+  "command_checks": [
+    {
+      "command_group": "media_generation",
+      "has_output_contract": true,
+      "label": "media_incarnation_phase16_1",
+      "resolved_argv": [
+        "python",
+        "scripts/run_media_incarnation_phase16_1.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/preflight/run_output_custody/media_incarnation"
+      ],
+      "script_path": "scripts/run_media_incarnation_phase16_1.py"
+    },
+    {
+      "command_group": "media_generation",
+      "has_output_contract": true,
+      "label": "premium_media_phase16_1_1",
+      "resolved_argv": [
+        "python",
+        "scripts/run_premium_media_phase16_1_1.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/preflight/run_output_custody/premium_media"
+      ],
+      "script_path": "scripts/run_premium_media_phase16_1_1.py"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "has_output_contract": true,
+      "label": "market_sensorium_cycle",
+      "resolved_argv": [
+        "python",
+        "scripts/run_market_sensorium_cycle.py"
+      ],
+      "script_path": "scripts/run_market_sensorium_cycle.py"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "has_output_contract": true,
+      "label": "hivenance_market_command_import",
+      "resolved_argv": [
+        "python",
+        "scripts/import_hivenance_market_command.py"
+      ],
+      "script_path": "scripts/import_hivenance_market_command.py"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "has_output_contract": true,
+      "label": "market_command_manage",
+      "resolved_argv": [
+        "python",
+        "scripts/manage_market_command.py",
+        "state"
+      ],
+      "script_path": "scripts/manage_market_command.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "has_output_contract": true,
+      "label": "dio_marketing_integration",
+      "resolved_argv": [
+        "python",
+        "scripts/run_dio_marketing_integration.py"
+      ],
+      "script_path": "scripts/run_dio_marketing_integration.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "has_output_contract": true,
+      "label": "lingua_marketing_learning",
+      "resolved_argv": [
+        "python",
+        "scripts/lingua_marketing_learning.py",
+        "status"
+      ],
+      "script_path": "scripts/lingua_marketing_learning.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "has_output_contract": true,
+      "label": "vesper_persona_lab",
+      "resolved_argv": [
+        "python",
+        "scripts/build_vesper_persona_lab.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/preflight/run_output_custody/vesper_persona"
+      ],
+      "script_path": "scripts/build_vesper_persona_lab.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "has_output_contract": true,
+      "label": "nichefoundry_media_pipeline",
+      "resolved_argv": [
+        "python",
+        "scripts/check_lingua_nichefoundry_projection_runtime.py"
+      ],
+      "script_path": "scripts/check_lingua_nichefoundry_projection_runtime.py"
+    },
+    {
+      "command_group": "transfer",
+      "has_output_contract": true,
+      "label": "professional_task_gauntlet",
+      "resolved_argv": [
+        "python",
+        "scripts/run_professional_task_gauntlet.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/preflight/run_output_custody/professional_task"
+      ],
+      "script_path": "scripts/run_professional_task_gauntlet.py"
+    },
+    {
+      "command_group": "transfer",
+      "has_output_contract": true,
+      "label": "product_incarnation_studio_phase16",
+      "resolved_argv": [
+        "python",
+        "scripts/run_product_incarnation_studio_phase16.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/preflight/run_output_custody/product_incarnation"
+      ],
+      "script_path": "scripts/run_product_incarnation_studio_phase16.py"
+    },
+    {
+      "command_group": "transfer",
+      "has_output_contract": true,
+      "label": "product_grade",
+      "resolved_argv": [
+        "python",
+        "scripts/run_product_grade.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/preflight/run_output_custody/product_grade"
+      ],
+      "script_path": "scripts/run_product_grade.py"
+    }
+  ],
+  "status": "NATIVE_DRY_RUN_VALIDATED"
+}

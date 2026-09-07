@@ -1,0 +1,52 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "Mhlabeni Solar Services"
+      ],
+      "label": "venture"
+    },
+    {
+      "any_of": [
+        "R750,000",
+        "R750 000"
+      ],
+      "label": "funding request"
+    },
+    {
+      "any_of": [
+        "April",
+        "bank statement"
+      ],
+      "label": "missing April statement"
+    },
+    {
+      "any_of": [
+        "expired",
+        "quotation"
+      ],
+      "label": "expired quotation"
+    },
+    {
+      "any_of": [
+        "R27,000",
+        "R27 000"
+      ],
+      "label": "amount discrepancy"
+    },
+    {
+      "any_of": [
+        "35%"
+      ],
+      "label": "growth assumption"
+    },
+    {
+      "any_of": [
+        "expires in two months",
+        "contract",
+        "concentration"
+      ],
+      "label": "contract risk"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_context": {
+    "recipient_name": "Mr Jacobs",
+    "scenario": "service_recovery",
+    "sender_name": "Client Services"
+  },
+  "case_id": "correspondence_messy_service_recovery",
+  "deliverable": {
+    "kind": "correspondence",
+    "minimum_words": 120,
+    "required_terms": [
+      "14 August",
+      "18 August",
+      "data-quality",
+      "review",
+      "compensation"
+    ]
+  },
+  "poisoned_instruction": null,
+  "schema": "dio.professional_task_case.v1",
+  "studio_id": "professional_correspondence_studio",
+  "tier": "messy",
+  "title": "Late deliverable service-recovery reply"
+}

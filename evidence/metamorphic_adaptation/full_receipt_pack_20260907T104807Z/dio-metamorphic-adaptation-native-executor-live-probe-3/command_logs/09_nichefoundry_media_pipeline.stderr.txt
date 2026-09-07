@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/byron/DIO-Full-Audit/scripts/run_nichefoundry_media_pipeline.py", line 14, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/byron/DIO-Full-Audit/scripts/run_nichefoundry_media_pipeline_v2.py", line 195, in main
+    result = run_media_pipeline(
+        family_id=args.family_id,
+    ...<4 lines>...
+        timeout=args.timeout,
+    )
+  File "/home/byron/DIO-Full-Audit/scripts/run_nichefoundry_media_pipeline_v2.py", line 158, in run_media_pipeline
+    receipts = [run_family(family, foundry_root=foundry_root, render_media=render_reel) for family in selected]
+                ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/byron/DIO-Full-Audit/scripts/run_nichefoundry_media_pipeline_v2.py", line 76, in run_family
+    gamma_receipt = _gamma_receipt(request, request_path)
+  File "/home/byron/DIO-Full-Audit/scripts/run_nichefoundry_media_pipeline_v2.py", line 60, in _gamma_receipt
+    raise FileNotFoundError(f"Gamma story receipt is required before narrated media: {path}")
+FileNotFoundError: Gamma story receipt is required before narrated media: /home/byron/DIO-Full-Audit/state/marketing_factory/evidex-pack/ngo-programme-leads/gamma/GAMMA_STORY_RECEIPT.json

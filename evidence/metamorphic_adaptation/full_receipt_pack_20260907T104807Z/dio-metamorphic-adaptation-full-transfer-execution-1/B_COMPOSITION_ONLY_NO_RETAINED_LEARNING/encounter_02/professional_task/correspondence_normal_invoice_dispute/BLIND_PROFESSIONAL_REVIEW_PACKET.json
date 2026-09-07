@@ -1,0 +1,50 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/encounter_02/professional_task/correspondence_normal_invoice_dispute/customer_delivery/correspondence/DRAFT_EMAIL.txt",
+  "artifact_sha256": "e083e8f7fbba0757b14b51cea8f8cc8ea80d1b738fc22c91f9eee14fc204ed5c",
+  "automated_score": 100,
+  "automated_status": "PROFESSIONAL_TASK_VERIFIED",
+  "buyer": "Operations director at a professional services firm",
+  "case_id": "correspondence_normal_invoice_dispute",
+  "claim_boundary": "Blind review is human quality evidence, not verified payment.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "professional_correctness",
+      "scale": "1-5"
+    },
+    {
+      "name": "source_fidelity",
+      "scale": "1-5"
+    },
+    {
+      "name": "judgement_under_ambiguity",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "buyer_usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "job": "Draft a firm, relationship-preserving reply to the client disputing invoice INV-8421 while the signed scope and additional-hours record are reviewed.",
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.professional_task_blind_review_packet.v1",
+  "studio_id": "professional_correspondence_studio",
+  "tier": "normal"
+}

@@ -1,0 +1,44 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "PO-771"
+      ],
+      "label": "purchase order"
+    },
+    {
+      "any_of": [
+        "R62,400",
+        "R62 400"
+      ],
+      "label": "amount"
+    },
+    {
+      "any_of": [
+        "30 September"
+      ],
+      "label": "due date"
+    },
+    {
+      "any_of": [
+        "supporting documents"
+      ],
+      "label": "missing documents"
+    },
+    {
+      "any_of": [
+        "review",
+        "on hold"
+      ],
+      "label": "review status"
+    },
+    {
+      "any_of": [
+        "provide",
+        "send",
+        "confirm"
+      ],
+      "label": "constructive next step"
+    }
+  ]
+}

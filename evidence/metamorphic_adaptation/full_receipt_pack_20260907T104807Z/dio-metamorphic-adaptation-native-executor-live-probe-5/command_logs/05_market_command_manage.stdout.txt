@@ -1,0 +1,1959 @@
+{
+  "schema": "dio.market_command.state.v2",
+  "generated_at": "2026-09-07T02:41:12+00:00",
+  "policy": {
+    "paid_media": "hold",
+    "organic_publication": "approval_required",
+    "agency_spend": "hold",
+    "personalised_outreach": "hold",
+    "automatic_spend": "off"
+  },
+  "campaigns": [
+    {
+      "campaign_id": "MKT-B3FB86BF5CB7",
+      "created_at": "2026-08-09T15:32:43+00:00",
+      "updated_at": "2026-08-09T15:37:13+00:00",
+      "product_line_id": "HOMS_ASSESS",
+      "offer_id": null,
+      "name": "HOMS South Africa agency pilot",
+      "audience": "South African secondary-school educators, academic managers and assessment teams",
+      "channel_id": "SA_MEDIA_BUY",
+      "mode": "experiment",
+      "objective": "qualified controlled-pilot enquiries",
+      "landing_page": "sites/homs/index.html",
+      "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "creative_brief": "Lead with bounded marking relief and assessment-pack proof. Do not claim autonomous marking or Grade 1-12 coverage.",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "approved",
+      "approval_state": "approved",
+      "publication_state": "approved",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "mkt-b3fb86bf5cb7",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "sa_media_buy"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {},
+        "source_lineage": {},
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/homs/index.html?utm_campaign=mkt-b3fb86bf5cb7&utm_content=proof-led&utm_medium=organic&utm_source=sa_media_buy",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": null
+    },
+    {
+      "campaign_id": "MCF-22FA748868D6",
+      "created_at": "2026-08-09T13:58:31+00:00",
+      "updated_at": "2026-08-09T15:37:23+00:00",
+      "product_line_id": "EVIDEX_PACK",
+      "offer_id": "evidence_pack",
+      "name": "Evidex Evidence Pack | Monitoring, evaluation and grant managers",
+      "audience": "Monitoring, evaluation and grant managers",
+      "channel_id": "FACEBOOK_PAGE",
+      "mode": "experiment",
+      "objective": "Validate a proof-led audience and offer hypothesis with attributable enquiries.",
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "creative_brief": "state/marketing_factory/evidex-pack/monitoring-evaluation/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "active",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "mcf-22fa748868d6",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "facebook_page"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {},
+        "source_lineage": {
+          "creative_family": "EVIDEX_PACK--monitoring_evaluation",
+          "factory_registry": "state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/evidex/index.html?utm_campaign=mcf-22fa748868d6&utm_content=proof-led&utm_medium=organic&utm_source=facebook_page",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": null
+    },
+    {
+      "campaign_id": "MCF-AB16C0952468",
+      "created_at": "2026-08-09T13:58:21+00:00",
+      "updated_at": "2026-08-09T15:37:25+00:00",
+      "product_line_id": "EVIDEX_PACK",
+      "offer_id": "evidence_pack",
+      "name": "Evidex Evidence Pack | NGO and NPO programme leads",
+      "audience": "NGO and NPO programme leads",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "mode": "experiment",
+      "objective": "Validate a proof-led audience and offer hypothesis with attributable enquiries.",
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "creative_brief": "state/marketing_factory/evidex-pack/ngo-programme-leads/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "active",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "mcf-ab16c0952468",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "linkedin_organic"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {},
+        "source_lineage": {
+          "creative_family": "EVIDEX_PACK--ngo_programme_leads",
+          "factory_registry": "state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/evidex/index.html?utm_campaign=mcf-ab16c0952468&utm_content=proof-led&utm_medium=organic&utm_source=linkedin_organic",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": null
+    },
+    {
+      "campaign_id": "MCF-FA478994C7E5",
+      "created_at": "2026-08-09T13:55:48+00:00",
+      "updated_at": "2026-08-09T15:37:27+00:00",
+      "product_line_id": "EVIDEX_PACK",
+      "offer_id": "evidence_pack",
+      "name": "Evidex Evidence Pack | NGO and NPO programme leads",
+      "audience": "NGO and NPO programme leads",
+      "channel_id": "FACEBOOK_PAGE",
+      "mode": "experiment",
+      "objective": "Validate a proof-led audience and offer hypothesis with attributable enquiries.",
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "creative_brief": "state/marketing_factory/evidex-pack/ngo-programme-leads/NICHEFOUNDRY_PRODUCTION_REQUEST.json",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "active",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "mcf-fa478994c7e5",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "facebook_page"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {},
+        "source_lineage": {
+          "creative_family": "EVIDEX_PACK--ngo_programme_leads",
+          "factory_registry": "state/marketing_factory/CREATIVE_FAMILY_REGISTRY.json"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/evidex/index.html?utm_campaign=mcf-fa478994c7e5&utm_content=proof-led&utm_medium=organic&utm_source=facebook_page",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": null
+    },
+    {
+      "campaign_id": "CMP-E96BD8B1464A",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "updated_at": "2026-08-09T12:22:04+00:00",
+      "product_line_id": "EVIDEX_PACK",
+      "offer_id": "EVIDEX-PILOT-PACK",
+      "name": "Evidex Evidence Pack proof experiment",
+      "audience": "South African NGO, NPO, M&E, grant and programme teams",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "mode": "public_proof_content_only",
+      "objective": "qualified_pilot_conversation",
+      "landing_page": "sites/evidex/index.html",
+      "proof_asset": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "creative_brief": "If NASCEE is shown 'Golden Evidex transaction: source intake -> evidence pack -> human approval -> payment/delivery receipt with provenance.', then the M&E/grants/compliance decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "settled",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "cmp-e96bd8b1464a",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "linkedin_organic"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {
+          "content_generation": "allowed",
+          "electronic_sales_outreach": "blocked",
+          "personalised_outreach": "blocked",
+          "publication": "operator_approval_required",
+          "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded.",
+          "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH"
+        },
+        "source_lineage": {
+          "hypothesis_id": "W4-HYP-0011",
+          "observation_id": "OBS-CA5604D16952",
+          "path": "campaigns/dio_market_loop/wave4/campaigns/evidex-cmp-e96bd8b1464a/HIVENANCE_HYPOTHESIS.json",
+          "system": "hivenance_phoenix"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/evidex/index.html?utm_campaign=cmp-e96bd8b1464a&utm_content=proof-led&utm_medium=organic&utm_source=linkedin_organic",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": {
+        "decision": "continue",
+        "confidence": "low",
+        "rationale": "Insufficient evidence. Continue the bounded experiment.",
+        "settled_at": "2026-08-09T12:22:04+00:00"
+      }
+    },
+    {
+      "campaign_id": "CMP-D3E55414C7B5",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "updated_at": "2026-08-09T12:21:57+00:00",
+      "product_line_id": "HOMS_ASSESS",
+      "offer_id": "HOMS-ASSESSMENT-PILOT",
+      "name": "HOMS Assessment Desk proof experiment",
+      "audience": "South African independent-school academic leaders, assessment coordinators and educators",
+      "channel_id": "SA_MEDIA_BUY",
+      "mode": "reviewed_channel_submission",
+      "objective": "qualified_pilot_conversation",
+      "landing_page": "sites/homs/index.html",
+      "proof_asset": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "creative_brief": "If ISASA is shown 'Cross-phase live proof: Grade 3 Mathematics activity-style pack vs Grade 10 Dance Studies performance task, each with memo/rubric and educator approval.', then the Academic/curriculum decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "settled",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "cmp-d3e55414c7b5",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "sa_media_buy"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {
+          "content_generation": "allowed",
+          "electronic_sales_outreach": "blocked",
+          "personalised_outreach": "blocked",
+          "publication": "operator_approval_required",
+          "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded.",
+          "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH"
+        },
+        "source_lineage": {
+          "hypothesis_id": "W4-HYP-0002",
+          "observation_id": "OBS-93FF3ACF15C0",
+          "path": "campaigns/dio_market_loop/wave4/campaigns/homs-cmp-d3e55414c7b5/HIVENANCE_HYPOTHESIS.json",
+          "system": "hivenance_phoenix"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/homs/index.html?utm_campaign=cmp-d3e55414c7b5&utm_content=proof-led&utm_medium=organic&utm_source=sa_media_buy",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": {
+        "decision": "continue",
+        "confidence": "low",
+        "rationale": "Insufficient evidence. Continue the bounded experiment.",
+        "settled_at": "2026-08-09T12:21:57+00:00"
+      }
+    },
+    {
+      "campaign_id": "CMP-759637B3FCA3",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "updated_at": "2026-08-09T12:21:50+00:00",
+      "product_line_id": "SOPHIA_LEARN",
+      "offer_id": "HOMS-ONE-TOPIC-COMPANION-PILOT",
+      "name": "HOMS Learning Studio proof experiment",
+      "audience": "South African schools, tutors, extra-class providers and education publishers",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "mode": "operator_reviewed_partnership_request",
+      "objective": "qualified_pilot_conversation",
+      "landing_page": "sites/homs_learning/index.html",
+      "proof_asset": "config/media_layers.json",
+      "creative_brief": "If Publishers Association of South Africa (PASA) is shown 'One-topic companion proof: beautiful guided-learning pack + visual resource + practice sheet + HOMS assessment/memo from the same curriculum spine.', then the Curriculum/content decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "settled",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "cmp-759637b3fca3",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "linkedin_organic"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {
+          "content_generation": "allowed",
+          "electronic_sales_outreach": "blocked",
+          "personalised_outreach": "blocked",
+          "publication": "operator_approval_required",
+          "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded.",
+          "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH"
+        },
+        "source_lineage": {
+          "hypothesis_id": "W4-HYP-0003",
+          "observation_id": "OBS-A70CFEB1405E",
+          "path": "campaigns/dio_market_loop/wave4/campaigns/homs_learning-cmp-759637b3fca3/HIVENANCE_HYPOTHESIS.json",
+          "system": "hivenance_phoenix"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/homs_learning/index.html?utm_campaign=cmp-759637b3fca3&utm_content=proof-led&utm_medium=organic&utm_source=linkedin_organic",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": {
+        "decision": "continue",
+        "confidence": "low",
+        "rationale": "Insufficient evidence. Continue the bounded experiment.",
+        "settled_at": "2026-08-09T12:21:50+00:00"
+      }
+    },
+    {
+      "campaign_id": "CMP-D3F941CEA4BD",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "updated_at": "2026-08-09T12:22:18+00:00",
+      "product_line_id": "SOPHIA_REVIEW",
+      "offer_id": "SOPHIA-SECTION-REVIEW-PILOT",
+      "name": "Sophia Academic Review Desk proof experiment",
+      "audience": "Postgraduate students, supervisors, writing centres and research groups",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "mode": "operator_reviewed_partnership_request",
+      "objective": "qualified_pilot_conversation",
+      "landing_page": "sites/sophia/index.html",
+      "proof_asset": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "creative_brief": "If HELTASA is shown 'Authorship-safe research audit: source-fit/citation/format/literature-review critique before-and-after report, with no ghostwriting.', then the Postgraduate/research-support decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "settled",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "cmp-d3f941cea4bd",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "linkedin_organic"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {
+          "content_generation": "allowed",
+          "electronic_sales_outreach": "blocked",
+          "personalised_outreach": "blocked",
+          "publication": "operator_approval_required",
+          "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded.",
+          "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH"
+        },
+        "source_lineage": {
+          "hypothesis_id": "W4-HYP-0014",
+          "observation_id": "OBS-A2FD8F099F2A",
+          "path": "campaigns/dio_market_loop/wave4/campaigns/sophia-cmp-d3f941cea4bd/HIVENANCE_HYPOTHESIS.json",
+          "system": "hivenance_phoenix"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/sophia/index.html?utm_campaign=cmp-d3f941cea4bd&utm_content=proof-led&utm_medium=organic&utm_source=linkedin_organic",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": {
+        "decision": "continue",
+        "confidence": "low",
+        "rationale": "Insufficient evidence. Continue the bounded experiment.",
+        "settled_at": "2026-08-09T12:22:18+00:00"
+      }
+    },
+    {
+      "campaign_id": "CMP-C6283E8E7122",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "updated_at": "2026-08-09T12:22:25+00:00",
+      "product_line_id": "VAMP_ACADEMIC",
+      "offer_id": "VAMP-EVIDENCE-SNAPSHOT-PILOT",
+      "name": "VAMP Performance Evidence Desk proof experiment",
+      "audience": "Academic staff, HR administrators, department heads and performance coordinators",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "mode": "public_proof_content_only",
+      "objective": "qualified_pilot_conversation",
+      "landing_page": "sites/vamp/index.html",
+      "proof_asset": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "creative_brief": "If Institute of People Management (IPM) is shown 'Fake staff annual-review case: agreement + approved Outlook/file evidence -> KPA/task mapping -> gaps -> human-reviewed performance snapshot.', then the HR/performance-management decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.",
+      "budget_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "settled",
+      "approval_state": "approved",
+      "publication_state": "released",
+      "experiment_window_days": 14,
+      "utm": {
+        "utm_campaign": "cmp-c6283e8e7122",
+        "utm_content": "proof-led",
+        "utm_medium": "organic",
+        "utm_source": "linkedin_organic"
+      },
+      "governance": {
+        "operator_created": true,
+        "personalised_outreach_allowed": false,
+        "proof_required": true,
+        "publication_requires_approval": true,
+        "source_gates": {
+          "content_generation": "allowed",
+          "electronic_sales_outreach": "blocked",
+          "personalised_outreach": "blocked",
+          "publication": "operator_approval_required",
+          "reason": "Research and proof-content generation are allowed; no valid electronic sales permission is recorded.",
+          "registry_outreach_gate": "NO_AUTOMATED_SALES_OUTREACH"
+        },
+        "source_lineage": {
+          "hypothesis_id": "W4-HYP-0075",
+          "observation_id": "OBS-67BAA9D1A863",
+          "path": "campaigns/dio_market_loop/wave4/campaigns/vamp-cmp-c6283e8e7122/HIVENANCE_HYPOTHESIS.json",
+          "system": "hivenance_phoenix"
+        },
+        "spend_requires_release": false
+      },
+      "tracked_url": "sites/vamp/index.html?utm_campaign=cmp-c6283e8e7122&utm_content=proof-led&utm_medium=organic&utm_source=linkedin_organic",
+      "metrics": {
+        "impressions": 0,
+        "reach": 0,
+        "clicks": 0,
+        "enquiries": 0,
+        "qualified_leads": 0,
+        "orders": 0,
+        "paid_orders": 0,
+        "spend_minor": 0,
+        "revenue_minor": 0,
+        "manual_minutes": 0,
+        "ctr": null,
+        "lead_conversion": null,
+        "roas": null,
+        "cac_minor": null
+      },
+      "settlement": {
+        "decision": "continue",
+        "confidence": "low",
+        "rationale": "Insufficient evidence. Continue the bounded experiment.",
+        "settled_at": "2026-08-09T12:22:25+00:00"
+      }
+    }
+  ],
+  "content_items": [
+    {
+      "content_id": "CNT-22FA748868D6",
+      "campaign_id": "MCF-22FA748868D6",
+      "created_at": "2026-08-09T13:58:31+00:00",
+      "channel_id": "FACEBOOK_PAGE",
+      "format": "page_post",
+      "hook": "Mapped indicators, claims and\u2026",
+      "body": "Claims, indicators and source files are difficult to reconcile before reporting deadlines. Evidex prepares the work for\u2026",
+      "asset_path": "state/marketing_factory/evidex-pack/monitoring-evaluation/assets/square_1080.jpg",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-MCF-22FA748868D6",
+      "content_hash": "sha256:545fb8b82b0d0da76cea0715da693705237385ea223e9407ae27abc2fa4747dc",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-AB16C0952468",
+      "campaign_id": "MCF-AB16C0952468",
+      "created_at": "2026-08-09T13:58:21+00:00",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "format": "professional_post",
+      "hook": "A donor-ready evidence trail that a human can verify.",
+      "body": "Reporting evidence is scattered across folders, email and staff memory. Evidex prepares a donor-ready evidence trail that a human can verify. Human\u2026",
+      "asset_path": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/landscape_1200x628.jpg",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-MCF-AB16C0952468",
+      "content_hash": "sha256:a398def9a86fab806d2221183698c8b13f80ca214ed4cdd692694c4f7eaf3f64",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-FA478994C7E5",
+      "campaign_id": "MCF-FA478994C7E5",
+      "created_at": "2026-08-09T13:55:48+00:00",
+      "channel_id": "FACEBOOK_PAGE",
+      "format": "page_post",
+      "hook": "A donor-ready evidence trail that a\u2026",
+      "body": "Reporting evidence is scattered across folders, email and staff memory. Evidex prepares the work for human review. Request\u2026",
+      "asset_path": "state/marketing_factory/evidex-pack/ngo-programme-leads/assets/square_1080.jpg",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-MCF-FA478994C7E5",
+      "content_hash": "sha256:c7a61fa9b20ed54a4bf40794c391bab4a7bfe44ebe58111228ec4d31d9be8505",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-E96BD8B1464A",
+      "campaign_id": "CMP-E96BD8B1464A",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "format": "proof_campaign",
+      "hook": "Your funder wants proof. The proof is spread across folders, spreadsheets and email. Evidex turns that evidence mess into a review-ready pack.",
+      "body": "A controlled messy-input-to-evidence-pack case with mapped claims, provenance, human review, delivery state and business telemetry.\n\nIf NASCEE is shown 'Golden Evidex transaction: source intake -> evidence pack -> human approval -> payment/delivery receipt with provenance.', then the M&E/grants/compliance decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Review the golden case and nominate one bounded evidence-pack pilot.",
+      "asset_path": "campaigns/phase3/evidex/golden_case/GOLDEN_EVIDEX_CASE.md",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-CMP-E96BD8B1464A",
+      "content_hash": "sha256:72ead375d0bf6b356a9d41d7751dc2aac197f3cde56fcbd92b2699d2a77f8047",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-D3E55414C7B5",
+      "campaign_id": "CMP-D3E55414C7B5",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "channel_id": "SA_MEDIA_BUY",
+      "format": "proof_campaign",
+      "hook": "One curriculum spine should not produce eight identical-looking papers. Watch HOMS change the assessment architecture with the subject.",
+      "body": "Eight Grade 12 Term 3 subject packs with separate memoranda, source-grounded papers, embedded media and educator approval boundaries.\n\nIf ISASA is shown 'Cross-phase live proof: Grade 3 Mathematics activity-style pack vs Grade 10 Dance Studies performance task, each with memo/rubric and educator approval.', then the Academic/curriculum decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Review the tight-eight proof and request one subject-and-grade pilot.",
+      "asset_path": "deliverables/homs_fet_tight8_release_candidates/FET_TIGHT8_FINAL_RELEASE",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-CMP-D3E55414C7B5",
+      "content_hash": "sha256:b6e2b2714df6a591f50dc51cbb798ba42d1bf6be758f16d185ca2ed56dda68ff",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-759637B3FCA3",
+      "campaign_id": "CMP-759637B3FCA3",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "format": "proof_campaign",
+      "hook": "One curriculum spine should drive the explanation, activity, worksheet, assessment, memo and optional video lesson.",
+      "body": "HOMS assessment and CAPS controls plus NicheFoundry media production can be combined; a connected one-topic guide, activity, worksheet, assessment, memo and video proof remains the release gate.\n\nIf Publishers Association of South Africa (PASA) is shown 'One-topic companion proof: beautiful guided-learning pack + visual resource + practice sheet + HOMS assessment/memo from the same curriculum spine.', then the Curriculum/content decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Nominate one subject, grade, term and topic for a controlled companion-pack pilot.",
+      "asset_path": "config/media_layers.json",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-CMP-759637B3FCA3",
+      "content_hash": "sha256:92bb6200df030f652a54193e1b00bff0b93c9a0e11c6c10317b20f36c983a52a",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-D3F941CEA4BD",
+      "campaign_id": "CMP-D3F941CEA4BD",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "format": "proof_campaign",
+      "hook": "Academic AI should show an author what to strengthen, not write the work for them.",
+      "body": "Grounded Gemini reviewer commentary, technical citation audit and claim-to-source ledger with human approval and academic-integrity boundaries.\n\nIf HELTASA is shown 'Authorship-safe research audit: source-fit/citation/format/literature-review critique before-and-after report, with no ghostwriting.', then the Postgraduate/research-support decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Request one bounded manuscript-section review.",
+      "asset_path": "deliverables/sophia_commercial/SOPHIA-DEMO-001",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-CMP-D3F941CEA4BD",
+      "content_hash": "sha256:bc2150c6440608c3d4a08472832ced2c63828fe66683e6e7f90df2b04026f91b",
+      "language_state": "source_ready"
+    },
+    {
+      "content_id": "CNT-C6283E8E7122",
+      "campaign_id": "CMP-C6283E8E7122",
+      "created_at": "2026-08-09T12:02:20+00:00",
+      "channel_id": "LINKEDIN_ORGANIC",
+      "format": "proof_campaign",
+      "hook": "Performance review panic starts when evidence was never collected as evidence.",
+      "body": "A controlled private proof mapped 190 evidence records to performance objectives, retained review candidates and exposed evidence gaps without making a rating decision.\n\nIf Institute of People Management (IPM) is shown 'Fake staff annual-review case: agreement + approved Outlook/file evidence -> KPA/task mapping -> gaps -> human-reviewed performance snapshot.', then the HR/performance-management decision-maker is more likely to request a bounded pilot because the offer addresses a specific workflow pain without surrendering human authority.\n\nCall to action: Request one task-agreement and evidence snapshot pilot.",
+      "asset_path": "deliverables/vamp_commercial/VAMP-COMMERCIAL-PRIVATE-001",
+      "state": "approved",
+      "approval_state": "approved",
+      "external_url": null,
+      "source_language": "English",
+      "target_language": null,
+      "semantic_object_id": "MARKET-CMP-C6283E8E7122",
+      "content_hash": "sha256:124ec067cc91a0a61c112efabe88fc8b8749fd6084ee78865a4858db1e7f4292",
+      "language_state": "source_ready"
+    }
+  ],
+  "media_buys": [
+    {
+      "media_buy_id": "BUY-76A8EE97F753",
+      "created_at": "2026-08-09T15:32:50+00:00",
+      "updated_at": "2026-08-09T15:32:50+00:00",
+      "vendor_id": "ADCLICK_AFRICA",
+      "product_line_id": "HOMS_ASSESS",
+      "campaign_id": "MKT-B3FB86BF5CB7",
+      "placement": "A minimum viable, measurable South African digital lead-generation pilot for HOMS Assessment Desk",
+      "quote_minor": 0,
+      "approved_cap_minor": 0,
+      "currency": "ZAR",
+      "state": "research",
+      "approval_state": "pending",
+      "start_date": null,
+      "end_date": null,
+      "quote_reference": null,
+      "invoice_reference": null,
+      "creative_spec": "Lead with bounded marking relief and assessment-pack proof. Do not claim autonomous marking or Grade 1-12 coverage.",
+      "result_reference": null,
+      "notes": "Governed agency RFQ package: /home/byron/Downloads/KnowEdge_AutoRelease_Suite/state/market_command/procurement/MKT-B3FB86BF5CB7/ADCLICK_AFRICA/MEDIA_BUY_BRIEF.md"
+    }
+  ],
+  "attention": [
+    {
+      "severity": "action",
+      "kind": "campaign",
+      "entity_id": "MKT-B3FB86BF5CB7",
+      "title": "HOMS South Africa agency pilot",
+      "detail": "Approved campaign is still held from publication/spend"
+    }
+  ],
+  "totals": {
+    "spend_minor": 0,
+    "revenue_minor": 0,
+    "qualified_leads": 0,
+    "paid_orders": 0
+  },
+  "catalogs": {
+    "channels": {
+      "schema": "dio.marketing_channels.v2",
+      "channels": [
+        {
+          "id": "META_ADS",
+          "name": "Meta Ads",
+          "family": "paid_social",
+          "surfaces": [
+            "Facebook",
+            "Instagram",
+            "Messenger",
+            "WhatsApp",
+            "Audience Network"
+          ],
+          "adapter_mode": "api_read_first",
+          "capabilities": [
+            "campaign_management",
+            "ad_management",
+            "insights"
+          ],
+          "publication_gate": "future_write_adapter_not_enabled",
+          "credential_state": "read_credentials_required",
+          "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+          "source_url": "https://www.postman.com/meta/facebook-marketing-api/overview",
+          "write_authority": "blocked_by_dio_wave2"
+        },
+        {
+          "id": "FACEBOOK_PAGE",
+          "name": "Facebook Page Organic",
+          "family": "organic_social",
+          "surfaces": [
+            "Facebook Page"
+          ],
+          "adapter_mode": "api_read_optional_manual_publish",
+          "capabilities": [
+            "page_posts",
+            "page_insights"
+          ],
+          "publication_gate": "human_approval_required",
+          "credential_state": "manual_ready_api_optional",
+          "notes": "DIO can read Page post evidence when API credentials are configured. Approved publication remains in Meta Business Suite.",
+          "source_url": "https://developers.facebook.com/docs/graph-api/reference/page/feed/",
+          "write_authority": "human_business_suite_publish"
+        },
+        {
+          "id": "INSTAGRAM_ORGANIC",
+          "name": "Instagram Organic",
+          "family": "organic_social_visual",
+          "surfaces": [
+            "Instagram feed",
+            "Instagram Reels"
+          ],
+          "adapter_mode": "api_read_optional_manual_publish",
+          "capabilities": [
+            "media_insights",
+            "reel_insights",
+            "manual_result_import"
+          ],
+          "publication_gate": "human_approval_required",
+          "credential_state": "manual_ready_api_optional",
+          "notes": "DIO reads connected professional-account evidence when available. Publishing remains an approved Business Suite action.",
+          "source_url": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/",
+          "write_authority": "human_business_suite_publish"
+        },
+        {
+          "id": "GOOGLE_ADS",
+          "name": "Google Ads",
+          "family": "paid_search_display_video",
+          "surfaces": [
+            "Search",
+            "Display",
+            "YouTube"
+          ],
+          "adapter_mode": "api_read_first",
+          "capabilities": [
+            "campaign_management",
+            "reporting",
+            "conversion_tracking"
+          ],
+          "publication_gate": "future_write_adapter_not_enabled",
+          "credential_state": "read_credentials_required",
+          "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+          "source_url": "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+          "write_authority": "blocked_by_dio_wave2"
+        },
+        {
+          "id": "REDDIT_ADS",
+          "name": "Reddit Ads",
+          "family": "paid_social_community",
+          "surfaces": [
+            "Reddit"
+          ],
+          "adapter_mode": "api_read_first",
+          "capabilities": [
+            "campaign_management",
+            "creative_management",
+            "reporting",
+            "conversion_signals"
+          ],
+          "publication_gate": "future_write_adapter_not_enabled",
+          "credential_state": "read_credentials_required",
+          "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+          "source_url": "https://ads-api.reddit.com/docs/v3/",
+          "write_authority": "blocked_by_dio_wave2"
+        },
+        {
+          "id": "REDDIT_ORGANIC",
+          "name": "Reddit Organic",
+          "family": "community",
+          "surfaces": [
+            "Subreddits"
+          ],
+          "adapter_mode": "human_publish_only",
+          "capabilities": [
+            "content_brief",
+            "community_research",
+            "manual_result_import"
+          ],
+          "publication_gate": "human_review_and_subreddit_rules",
+          "credential_state": "not_required",
+          "notes": "Never automate cross-subreddit promotion. DIO can prepare useful, community-specific material and record outcomes.",
+          "source_url": "https://www.reddit.com/"
+        },
+        {
+          "id": "TIKTOK_ADS",
+          "name": "TikTok Ads",
+          "family": "paid_video",
+          "surfaces": [
+            "TikTok"
+          ],
+          "adapter_mode": "api_read_first",
+          "capabilities": [
+            "campaign_management",
+            "creative_assets",
+            "audiences",
+            "performance_data"
+          ],
+          "publication_gate": "future_write_adapter_not_enabled",
+          "credential_state": "read_credentials_required",
+          "notes": "Wave 2 can import/report platform performance after credentials are configured. Campaign/ad/budget mutation endpoints are intentionally absent.",
+          "source_url": "https://business-api.tiktok.com/portal",
+          "write_authority": "blocked_by_dio_wave2"
+        },
+        {
+          "id": "TIKTOK_ORGANIC",
+          "name": "TikTok Organic",
+          "family": "organic_short_video",
+          "surfaces": [
+            "TikTok"
+          ],
+          "adapter_mode": "nichefoundry_plus_human_publish",
+          "capabilities": [
+            "short_video_brief",
+            "caption",
+            "manual_result_import"
+          ],
+          "publication_gate": "human_approval_required",
+          "credential_state": "manual_ready",
+          "notes": "NicheFoundry prepares the bounded creative package. Publication and the resulting URL remain explicit operator actions.",
+          "source_url": "https://developers.tiktok.com/products/content-posting-api/",
+          "write_authority": "human_publish_only"
+        },
+        {
+          "id": "LINKEDIN_DISCOVERY",
+          "name": "LinkedIn Professional Intelligence",
+          "family": "professional_discovery",
+          "surfaces": [
+            "LinkedIn"
+          ],
+          "adapter_mode": "connected_discovery",
+          "capabilities": [
+            "buyer_role_search",
+            "professional_identity_verification"
+          ],
+          "publication_gate": "not_applicable",
+          "credential_state": "connected",
+          "notes": "Current ChatGPT connector is discovery-only. Publishing and messaging remain manual.",
+          "source_url": "https://www.linkedin.com/"
+        },
+        {
+          "id": "LINKEDIN_ORGANIC",
+          "name": "LinkedIn Founder Content",
+          "family": "organic_professional",
+          "surfaces": [
+            "LinkedIn personal profile",
+            "LinkedIn Page"
+          ],
+          "adapter_mode": "api_read_optional_human_publish",
+          "capabilities": [
+            "founder_post_brief",
+            "proof_story",
+            "manual_result_import"
+          ],
+          "publication_gate": "human_approval_required",
+          "credential_state": "manual_ready_api_optional",
+          "notes": "Use founder-led proof marketing. Organization analytics activate only with approved LinkedIn API access; publication remains human-controlled.",
+          "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api",
+          "write_authority": "human_publish_only"
+        },
+        {
+          "id": "YOUTUBE_ORGANIC",
+          "name": "YouTube",
+          "family": "organic_video",
+          "surfaces": [
+            "YouTube",
+            "YouTube Shorts"
+          ],
+          "adapter_mode": "nichefoundry_oauth_plus_api_read",
+          "capabilities": [
+            "video_brief",
+            "thumbnail",
+            "description",
+            "utm_link",
+            "public_video_statistics",
+            "oauth_upload_transport"
+          ],
+          "publication_gate": "human_approval_required",
+          "credential_state": "configured_in_nichefoundry",
+          "notes": "NicheFoundry owns approved upload transport. Market Command reads video evidence and binds each video ID to campaign lineage.",
+          "source_url": "https://developers.google.com/youtube/v3/docs/videos/list",
+          "write_authority": "nichefoundry_operator_approval"
+        },
+        {
+          "id": "WHATSAPP_BUSINESS",
+          "name": "WhatsApp Business",
+          "family": "permissioned_conversation",
+          "surfaces": [
+            "WhatsApp Business"
+          ],
+          "adapter_mode": "approved_conversation_only",
+          "capabilities": [
+            "approved_reply_copy",
+            "conversation_attribution",
+            "manual_result_import"
+          ],
+          "publication_gate": "explicit_conversation_or_opt_in_required",
+          "credential_state": "manual_ready",
+          "notes": "Translation does not create permission. DIO may prepare a response only for an existing conversation or recorded opt-in.",
+          "source_url": "https://developers.facebook.com/docs/whatsapp/",
+          "write_authority": "approved_conversation_only"
+        },
+        {
+          "id": "OUTLOOK_PERMISSIONED",
+          "name": "Outlook Permissioned Email",
+          "family": "owned_email",
+          "surfaces": [
+            "Outlook"
+          ],
+          "adapter_mode": "dio_mail_core",
+          "capabilities": [
+            "approved_drafts",
+            "customer_operations",
+            "existing_customer_followup"
+          ],
+          "publication_gate": "dio_mail_intent_approval",
+          "credential_state": "configured_separately",
+          "notes": "Electronic marketing remains subject to DIO consent/existing-customer gates and POPIA controls.",
+          "source_url": "https://learn.microsoft.com/en-us/graph/api/resources/mail-api-overview"
+        },
+        {
+          "id": "SA_MEDIA_BUY",
+          "name": "South African Publisher / Agency Media Buy",
+          "family": "external_media",
+          "surfaces": [
+            "publisher banners",
+            "newsletters",
+            "sponsored content",
+            "agency-managed media",
+            "events"
+          ],
+          "adapter_mode": "manual_media_buy",
+          "capabilities": [
+            "quote",
+            "brief",
+            "creative_spec",
+            "approval",
+            "invoice",
+            "result_import"
+          ],
+          "publication_gate": "approved_media_buy_required",
+          "credential_state": "not_required",
+          "notes": "Turns any local publisher or agency into a governed DIO channel even when no API exists.",
+          "source_url": "https://iabsa.net/members/"
+        }
+      ]
+    },
+    "sa_media": {
+      "schema": "dio.sa_media_marketplace.v1",
+      "verified_at": "2026-08-08",
+      "vendors": [
+        {
+          "id": "BIZCOMMUNITY",
+          "name": "Bizcommunity",
+          "type": "publisher_b2b",
+          "best_for": [
+            "HOMS",
+            "Sophia",
+            "VAMP",
+            "Evidex",
+            "DIO thought leadership"
+          ],
+          "inventory": [
+            "industry website banners",
+            "industry newsletters",
+            "promoted content",
+            "press office",
+            "sponsorship",
+            "promo mailers"
+          ],
+          "public_rate_summary": "2026 public rate card includes website CPM placements and newsletter placements; industry-specific promoted content is also publicly priced.",
+          "rate_state": "public_current_verify_at_booking",
+          "source_url": "https://www.bizcommunity.com/advertise/rates",
+          "booking_mode": "manual_media_buy",
+          "priority": "very_high"
+        },
+        {
+          "id": "BROAD_MEDIA",
+          "name": "Broad Media / BusinessTech / MyBroadband",
+          "type": "publisher_network",
+          "best_for": [
+            "DIO",
+            "VAMP",
+            "Sophia institutional",
+            "B2B technology positioning"
+          ],
+          "inventory": [
+            "sponsored articles",
+            "display",
+            "campaign packages",
+            "social amplification",
+            "business and technology publications"
+          ],
+          "public_rate_summary": "Quote required; Broad Media operates BusinessTech, MyBroadband, TopAuto and Daily Investor.",
+          "rate_state": "quote_required",
+          "source_url": "https://broadmedia.co.za/",
+          "booking_mode": "manual_media_buy",
+          "priority": "high"
+        },
+        {
+          "id": "SME_SA",
+          "name": "SME South Africa",
+          "type": "publisher_sme",
+          "best_for": [
+            "Evidex",
+            "DIO services",
+            "small-business workflow automation"
+          ],
+          "inventory": [
+            "website banners",
+            "sponsored content",
+            "newsletter sponsorship",
+            "social promotion",
+            "lead generation"
+          ],
+          "public_rate_summary": "Advertising packages are offered; current page describes targeted B2B founder reach and measurable reporting. Quote required.",
+          "rate_state": "quote_required",
+          "source_url": "https://smesouthafrica.co.za/advertise-with-us/",
+          "booking_mode": "manual_media_buy",
+          "priority": "high"
+        },
+        {
+          "id": "ARENA_TIMESLIVE",
+          "name": "Arena Holdings / TimesLIVE",
+          "type": "publisher_network",
+          "best_for": [
+            "broad South African awareness",
+            "executive and professional audiences"
+          ],
+          "inventory": [
+            "digital display",
+            "publisher campaigns",
+            "sponsored content"
+          ],
+          "public_rate_summary": "Current Adroom pages expose audience/readership and downloadable rate cards; quote/rate-card verification required per placement.",
+          "rate_state": "rate_card_verify",
+          "source_url": "https://adroom.arena.africa/advertise/readership/digital/timeslive-co-za/",
+          "booking_mode": "manual_media_buy",
+          "priority": "medium"
+        },
+        {
+          "id": "MAIL_GUARDIAN",
+          "name": "Mail & Guardian",
+          "type": "publisher_news",
+          "best_for": [
+            "Sophia",
+            "education and research thought leadership",
+            "institutional awareness"
+          ],
+          "inventory": [
+            "advertising enquiries",
+            "digital and print opportunities"
+          ],
+          "public_rate_summary": "Advertise enquiry route is public; placement pricing requires a quote.",
+          "rate_state": "quote_required",
+          "source_url": "https://pressoffice.mg.co.za/advertise",
+          "booking_mode": "manual_media_buy",
+          "priority": "medium"
+        },
+        {
+          "id": "ADSPACE24",
+          "name": "Adspace24 / Media24",
+          "type": "publisher_sales_house",
+          "best_for": [
+            "national and regional South African reach",
+            "education and consumer campaigns"
+          ],
+          "inventory": [
+            "digital",
+            "content marketing",
+            "television",
+            "Media24 brands"
+          ],
+          "public_rate_summary": "Public rates/specs page currently exposes a downloadable 2025 rate card; obtain a current quote before approval.",
+          "rate_state": "stale_public_rate_verify",
+          "source_url": "https://www.adspace24.co.za/rates-and-specs",
+          "booking_mode": "manual_media_buy",
+          "priority": "medium"
+        },
+        {
+          "id": "ISASA_BULLETIN",
+          "name": "ISASA Weekly Bulletin",
+          "type": "vertical_member_channel",
+          "best_for": [
+            "HOMS",
+            "Sophia Learn"
+          ],
+          "inventory": [
+            "reviewed member bulletin submission"
+          ],
+          "public_rate_summary": "Use the reviewed submission/partnership route; do not assume paid placement or endorsement.",
+          "rate_state": "channel_submission",
+          "source_url": "https://www.isasa.org/weekly-bulletin-submission/",
+          "booking_mode": "manual_submission",
+          "priority": "very_high"
+        },
+        {
+          "id": "IAB_SA_NETWORK",
+          "name": "IAB South Africa network",
+          "type": "industry_network",
+          "best_for": [
+            "agency sourcing",
+            "publisher sourcing",
+            "adtech sourcing",
+            "industry credibility"
+          ],
+          "inventory": [
+            "member discovery",
+            "industry events",
+            "agency and publisher ecosystem"
+          ],
+          "public_rate_summary": "Not an ad-buy channel itself. Use the current member directory to identify verified local agencies, publishers and adtech partners.",
+          "rate_state": "network_discovery",
+          "source_url": "https://iabsa.net/members/",
+          "booking_mode": "partner_discovery",
+          "priority": "high"
+        }
+      ]
+    },
+    "agencies": {
+      "schema": "dio.agency_partner_registry.v2",
+      "verified_at": "2026-08-09",
+      "qualification_model": {
+        "dimensions": [
+          "service_fit",
+          "measurement_fit",
+          "small_pilot_fit",
+          "route_readiness"
+        ],
+        "maximum_each": 25,
+        "warning": "Scores rank suitability for a bounded DIO pilot, not agency quality. Minimum spend, availability, references and commercial terms still require a current quotation."
+      },
+      "sources": [
+        {
+          "name": "IAB South Africa member directory",
+          "url": "https://iabsa.net/members/",
+          "use": "current ecosystem discovery only; membership is not an endorsement"
+        }
+      ],
+      "partners": [
+        {
+          "id": "ADCLICK_AFRICA",
+          "name": "Adclick Africa",
+          "kind": "independent_media_agency",
+          "status": "public_route_verified",
+          "tier": "pilot_shortlist",
+          "source_url": "https://adclickafrica.com/paid-media/",
+          "inquiry": {
+            "mode": "email",
+            "email": "info@adclickafrica.com",
+            "url": "https://adclickafrica.com/paid-media/",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "paid media strategy",
+            "Google Ads",
+            "social ads",
+            "programmatic",
+            "banner advertising",
+            "campaign reporting"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP",
+            "DIO Lingua"
+          ],
+          "scale_fit": "official site states a full spectrum of budget sizes; verify the actual minimum viable pilot",
+          "measurement": [
+            "planning",
+            "buying",
+            "tracking",
+            "unified reporting"
+          ],
+          "scores": {
+            "service_fit": 24,
+            "measurement_fit": 24,
+            "small_pilot_fit": 23,
+            "route_readiness": 25,
+            "total": 96
+          },
+          "risk_notes": [
+            "Request a channel-by-channel net media and fee split.",
+            "Do not treat self-reported campaign scale as independently verified performance."
+          ]
+        },
+        {
+          "id": "PLUS27_DIGITAL",
+          "name": "Plus27 Digital",
+          "kind": "performance_marketing_agency",
+          "status": "public_route_verified",
+          "tier": "pilot_shortlist",
+          "source_url": "https://plus27digital.com/",
+          "inquiry": {
+            "mode": "email",
+            "email": "info@plus27digital.com",
+            "url": "https://plus27digital.com/",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "Google Ads",
+            "Meta Ads",
+            "LinkedIn Ads",
+            "TikTok Ads",
+            "programmatic",
+            "tracking and analytics",
+            "SEO"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP",
+            "DIO Lingua"
+          ],
+          "scale_fit": "free initial consultation and no long contracts are stated publicly; minimum pilot spend remains unverified",
+          "measurement": [
+            "GA4",
+            "GTM",
+            "consent mode",
+            "enhanced conversions",
+            "transparent reporting"
+          ],
+          "scores": {
+            "service_fit": 24,
+            "measurement_fit": 24,
+            "small_pilot_fit": 22,
+            "route_readiness": 25,
+            "total": 95
+          },
+          "risk_notes": [
+            "Ask whether setup fees make a very small paid test uneconomic.",
+            "Require DIO UTM and outcome reconciliation in the quote."
+          ]
+        },
+        {
+          "id": "MARK1",
+          "name": "Mark1",
+          "kind": "integrated_media_agency",
+          "status": "public_route_verified",
+          "tier": "pilot_shortlist",
+          "source_url": "https://mark1.co.za/",
+          "inquiry": {
+            "mode": "email",
+            "email": "info@mark1.co.za",
+            "url": "https://mark1.co.za/contact/",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "media planning and buying",
+            "creative",
+            "real-time analytics"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP"
+          ],
+          "scale_fit": "official site says it serves both boutique startups and blue-chip organisations; verify pilot minimum",
+          "measurement": [
+            "real-time analytics",
+            "data-led planning",
+            "revenue-oriented positioning"
+          ],
+          "scores": {
+            "service_fit": 23,
+            "measurement_fit": 23,
+            "small_pilot_fit": 21,
+            "route_readiness": 25,
+            "total": 92
+          },
+          "risk_notes": [
+            "Request an explicit small-pilot scope rather than an open-ended retainer."
+          ]
+        },
+        {
+          "id": "ROGERWILCO",
+          "name": "Rogerwilco",
+          "kind": "performance_and_digital_agency",
+          "status": "public_route_verified",
+          "tier": "pilot_shortlist",
+          "source_url": "https://www.rogerwilco.co.za/content-hub/paid-media",
+          "inquiry": {
+            "mode": "email",
+            "email": "query@rogerwilco.co.za",
+            "url": "https://www.rogerwilco.co.za/contact",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "Google Ads",
+            "Meta Ads",
+            "LinkedIn Ads",
+            "TikTok Ads",
+            "programmatic",
+            "conversion optimisation"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP"
+          ],
+          "scale_fit": "quote required; minimum engagement is not public",
+          "measurement": [
+            "tracking",
+            "reporting",
+            "conversion optimisation"
+          ],
+          "scores": {
+            "service_fit": 24,
+            "measurement_fit": 23,
+            "small_pilot_fit": 18,
+            "route_readiness": 25,
+            "total": 90
+          },
+          "risk_notes": [
+            "Confirm the minimum engagement and management-fee structure before ranking against smaller specialists."
+          ]
+        },
+        {
+          "id": "DARKSTAR",
+          "name": "Darkstar",
+          "kind": "media_buying_agency",
+          "status": "public_route_verified",
+          "tier": "pilot_shortlist",
+          "source_url": "https://darkstarjhb.co.za/",
+          "inquiry": {
+            "mode": "contact_form",
+            "email": null,
+            "url": "https://darkstarjhb.co.za/#contact",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "digital",
+            "TV",
+            "radio",
+            "print",
+            "social media",
+            "audience segmentation"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP"
+          ],
+          "scale_fit": "bespoke and consultative positioning; minimum pilot spend is not public",
+          "measurement": [
+            "weekly reporting",
+            "cross-media analytics",
+            "ROI optimisation"
+          ],
+          "scores": {
+            "service_fit": 22,
+            "measurement_fit": 23,
+            "small_pilot_fit": 19,
+            "route_readiness": 18,
+            "total": 82
+          },
+          "risk_notes": [
+            "Public contact addresses are obfuscated on the site, so use the verified form instead of guessing an address."
+          ]
+        },
+        {
+          "id": "INTIMEDIA",
+          "name": "IntiMedia",
+          "kind": "owner_managed_media_agency",
+          "status": "public_route_verified",
+          "tier": "pilot_shortlist",
+          "source_url": "https://www.intimedia.co.za/",
+          "inquiry": {
+            "mode": "contact_form",
+            "email": null,
+            "url": "https://www.intimedia.co.za/",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "media strategy",
+            "TV",
+            "radio",
+            "outdoor",
+            "print",
+            "digital"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP"
+          ],
+          "scale_fit": "owner-managed and SME-oriented positioning; current minimum must be confirmed",
+          "measurement": [
+            "media planning",
+            "cross-channel delivery"
+          ],
+          "scores": {
+            "service_fit": 20,
+            "measurement_fit": 18,
+            "small_pilot_fit": 22,
+            "route_readiness": 17,
+            "total": 77
+          },
+          "risk_notes": [
+            "Confirm digital attribution detail and reporting fields before appointment."
+          ]
+        },
+        {
+          "id": "ENTITY_Y",
+          "name": "Entity Y",
+          "kind": "performance_marketing_agency",
+          "status": "public_route_verified",
+          "tier": "specialist",
+          "source_url": "https://www.entityy.co.za/",
+          "inquiry": {
+            "mode": "email",
+            "email": "info@entityy.co.za",
+            "url": "https://www.entityy.co.za/",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "paid media",
+            "retention marketing",
+            "Google",
+            "Meta",
+            "TikTok",
+            "ecommerce growth"
+          ],
+          "best_for_products": [
+            "HOMS",
+            "Sophia",
+            "DIO Lingua"
+          ],
+          "scale_fit": "strong ecommerce and scale orientation; fit for low-ticket professional services needs proof",
+          "measurement": [
+            "performance reporting",
+            "revenue optimisation"
+          ],
+          "scores": {
+            "service_fit": 20,
+            "measurement_fit": 22,
+            "small_pilot_fit": 16,
+            "route_readiness": 25,
+            "total": 83
+          },
+          "risk_notes": [
+            "Revenue and spend figures on the site are agency-reported, not DIO-verified.",
+            "Ask for a service-business pilot rather than assuming ecommerce case studies transfer."
+          ]
+        },
+        {
+          "id": "AMA_MEDIA",
+          "name": "AMA Media",
+          "kind": "full_service_media_agency",
+          "status": "public_route_verified",
+          "tier": "specialist",
+          "source_url": "https://amamedia.co.za/what-we-do/",
+          "inquiry": {
+            "mode": "email",
+            "email": "info@amamedia.co.za",
+            "url": "https://amamedia.co.za/contact-us/",
+            "permission": "single_rfq_only"
+          },
+          "services": [
+            "media strategy",
+            "media buying",
+            "attribution",
+            "performance marketing",
+            "OOH",
+            "pan-African placement"
+          ],
+          "best_for_products": [
+            "DIO",
+            "HOMS",
+            "Evidex",
+            "Sophia",
+            "VAMP"
+          ],
+          "scale_fit": "large-scale buying position suggests a later-stage partner; ask whether a micro-pilot is viable",
+          "measurement": [
+            "attribution modelling",
+            "web traffic reporting",
+            "ROI reporting",
+            "media auditing"
+          ],
+          "scores": {
+            "service_fit": 23,
+            "measurement_fit": 24,
+            "small_pilot_fit": 12,
+            "route_readiness": 25,
+            "total": 84
+          },
+          "risk_notes": [
+            "Treat the public buying-volume claim as self-reported.",
+            "Do not approach until DIO has repeatable conversion evidence or a clearly bounded pilot."
+          ]
+        },
+        {
+          "id": "INCUBETA",
+          "name": "Incubeta South Africa",
+          "kind": "enterprise_digital_agency",
+          "status": "public_route_verified",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://incubeta.com/za/capabilities/digital-media/",
+          "inquiry": {
+            "mode": "contact_form",
+            "email": null,
+            "url": "https://incubeta.com/contact/",
+            "permission": "rfq_after_scale_proof"
+          },
+          "services": [
+            "paid search",
+            "paid social",
+            "programmatic",
+            "marketing intelligence",
+            "unified measurement"
+          ],
+          "best_for_products": [
+            "DIO portfolio after product-market proof"
+          ],
+          "scale_fit": "enterprise benchmark; not preferred for DIO's first low-budget tests",
+          "measurement": [
+            "unified measurement",
+            "marketing intelligence"
+          ],
+          "scores": {
+            "service_fit": 24,
+            "measurement_fit": 25,
+            "small_pilot_fit": 6,
+            "route_readiness": 15,
+            "total": 70
+          },
+          "risk_notes": [
+            "Likely engagement-size mismatch for the present stage."
+          ]
+        },
+        {
+          "id": "OGILVY_SA",
+          "name": "Ogilvy South Africa",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 2,
+            "route_readiness": 2,
+            "total": 24
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "JOE_PUBLIC",
+          "name": "Joe Public",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 2,
+            "route_readiness": 2,
+            "total": 24
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "ACCENTURE_SONG",
+          "name": "Accenture Song",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 1,
+            "route_readiness": 2,
+            "total": 23
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "VML_SA",
+          "name": "VML South Africa",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 2,
+            "route_readiness": 2,
+            "total": 24
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "MACHINE",
+          "name": "Machine_",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 2,
+            "route_readiness": 2,
+            "total": 24
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "HOORAH",
+          "name": "Hoorah Digital",
+          "kind": "agency_or_media_partner",
+          "status": "directory_verified_research_only",
+          "tier": "research_only",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "unqualified"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 5,
+            "route_readiness": 2,
+            "total": 27
+          },
+          "risk_notes": [
+            "Qualify services, route and minimum engagement before outreach."
+          ]
+        },
+        {
+          "id": "JELLYFISH",
+          "name": "Jellyfish Online Marketing (SA)",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 2,
+            "route_readiness": 2,
+            "total": 24
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "DIGITAS_LIQUORICE",
+          "name": "Digitas Liquorice",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 2,
+            "route_readiness": 2,
+            "total": 24
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        },
+        {
+          "id": "WPP_MEDIA",
+          "name": "WPP Media",
+          "kind": "enterprise_agency",
+          "status": "directory_verified_research_only",
+          "tier": "enterprise_benchmark",
+          "source_url": "https://iabsa.net/members/",
+          "inquiry": {
+            "mode": "research",
+            "email": null,
+            "url": "https://iabsa.net/members/",
+            "permission": "none_recorded"
+          },
+          "services": [],
+          "best_for_products": [
+            "portfolio after scale proof"
+          ],
+          "scale_fit": "unverified",
+          "measurement": [],
+          "scores": {
+            "service_fit": 10,
+            "measurement_fit": 10,
+            "small_pilot_fit": 1,
+            "route_readiness": 2,
+            "total": 23
+          },
+          "risk_notes": [
+            "No DIO-qualified public RFQ route yet."
+          ]
+        }
+      ],
+      "warning": "A public enquiry route authorises one relevant request for quotation, not bulk outreach, endorsement, booking or spend. DIO must verify the route immediately before use and retain operator approval for send and spend."
+    },
+    "policy": {
+      "schema": "dio.market_command.config.v2",
+      "currency": "ZAR",
+      "default_experiment_window_days": 14,
+      "max_experiment_budget_minor": 0,
+      "require_approved_content_for_activation": true,
+      "promotion_min_qualified_leads": 5,
+      "promotion_min_paid_orders": 2,
+      "promotion_min_roas": 1.5,
+      "kill_min_spend_minor": 50000,
+      "revise_min_clicks": 50,
+      "principles": [
+        "DIO owns campaign truth; channels are adapters.",
+        "Wave 2 platform integrations are read-first. Ad creation, budget mutation and publication APIs are not exposed.",
+        "No spend without an explicit operator budget release.",
+        "No publication without proof binding and human approval.",
+        "No automated personal DMs or unsolicited bulk electronic sales outreach.",
+        "External media and agencies are first-class manual media-buy adapters.",
+        "Platform metrics are observations; verified leads, orders and payments remain DIO commercial truth.",
+        "Campaign decisions must be based on measured outcomes, not vanity metrics alone."
+      ],
+      "wave": 2,
+      "read_first_channels": [
+        "META_ADS",
+        "GOOGLE_ADS",
+        "REDDIT_ADS",
+        "TIKTOK_ADS"
+      ],
+      "write_capable_channel_adapters": false,
+      "control_token_env": "DIO_MARKET_CONTROL_TOKEN"
+    }
+  }
+}

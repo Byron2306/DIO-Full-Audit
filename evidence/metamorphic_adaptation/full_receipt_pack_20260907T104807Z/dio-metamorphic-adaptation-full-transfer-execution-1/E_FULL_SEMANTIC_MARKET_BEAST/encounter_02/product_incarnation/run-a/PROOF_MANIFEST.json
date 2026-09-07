@@ -1,0 +1,102 @@
+{
+  "artifacts": [
+    {
+      "bytes": 956,
+      "path": "marketfront/app.js",
+      "sha256": "5e85899048123f9d0c2f77a0ddbc04c8ca720c1385a07873fb81fb3743c2be82"
+    },
+    {
+      "bytes": 3237,
+      "path": "marketfront/index.html",
+      "sha256": "28b983bd9d5af6fc9c6b7deeec1e9632cfec2a27f03fd2a1687e2c5ad6625303"
+    },
+    {
+      "bytes": 2411,
+      "path": "marketfront/styles.css",
+      "sha256": "a92b6f45f0a409b768dba5cc7924e684dd4781ee59fe9e0ce2c16c535fb1f0f9"
+    },
+    {
+      "bytes": 761,
+      "path": "operations/COMMERCIAL_MEASUREMENT_CONTRACT.json",
+      "sha256": "73ee1b95f84fea4aa85f5971413ef25b5228b56dd8622703569679870d3ef019"
+    },
+    {
+      "bytes": 5442,
+      "path": "operations/CORPUS_BINDING_RECEIPT.json",
+      "sha256": "484b0b8ac32f26fbda5325a43c2dd9ca042b0adedcda694742db6deaafe5a3cf"
+    },
+    {
+      "bytes": 322,
+      "path": "operations/EVIDEX_CAMPAIGN_PROOF.json",
+      "sha256": "1cd780442017c5dc331d363dc7cbc197cd6a6062ead3ca31aa238843cf727b10"
+    },
+    {
+      "bytes": 385,
+      "path": "operations/OUTLOOK_DRAFT.json",
+      "sha256": "08c766e9e48f3afafae3fc5260d2d06342ea5cd9596a72d2f95df7c27bad1451"
+    },
+    {
+      "bytes": 254,
+      "path": "operations/PRESENCE_RELEASE.json",
+      "sha256": "94f6a2f7147b5c3dc4e55caa0b9bf872abf846532ed75544daaf77280db6078e"
+    },
+    {
+      "bytes": 343,
+      "path": "operations/VESPER_FULFILMENT.json",
+      "sha256": "85b99a2d7cffcce6502d85e2fe4dea38359d392884e493ff1d815ae9e45e1e3a"
+    },
+    {
+      "bytes": 2551,
+      "path": "sales/PRODUCT_BRIEF.docx",
+      "sha256": "f649e10146766dd240d54ab770fa67e00463f322eb46c586fe8e791de6b09b95"
+    },
+    {
+      "bytes": 3219,
+      "path": "sales/PRODUCT_BRIEF.html",
+      "sha256": "69afca92cf7569b54cbcde3e2bc647d542d16b8feddba5276f55157de65a7d2c"
+    },
+    {
+      "bytes": 44948,
+      "path": "sales/PRODUCT_BRIEF.pdf",
+      "sha256": "5a5003fc36f3c1b9eb7c71d308c937e87b562bcb1062959824416ba2d5b5d3e1"
+    },
+    {
+      "bytes": 1099,
+      "path": "strategy/CAMPAIGN_PLAN.json",
+      "sha256": "e237e2857dfec0853a69853b59376cd8670e8ec951f2d9a2f6fb602ea9562f02"
+    },
+    {
+      "bytes": 1350,
+      "path": "strategy/CLAIM_REVIEW.json",
+      "sha256": "0a802157fcdf0ba67b02bcc7046dbb639b09da7d977fd9b0971d3ea78571a128"
+    },
+    {
+      "bytes": 1013,
+      "path": "strategy/CUSTOMER_EDUCATION.json",
+      "sha256": "4984e1054fedeb569d11464d9c3dcc6ab7fa116bede503eecf3b52f1d4a98659"
+    },
+    {
+      "bytes": 1914,
+      "path": "strategy/MEDIA_CREATIVE_KIT.json",
+      "sha256": "730f2dcb67f19e24e4b0ede77e888faf5b52b40e51e69eadfee2db399fe6335c"
+    },
+    {
+      "bytes": 1310,
+      "path": "strategy/POSITIONING_BRIEF.json",
+      "sha256": "67b734389106905084a3ceee331058a9b9e39d4cc33a6c21e5d15cec7021de5c"
+    }
+  ],
+  "authority_created": false,
+  "corpus_registry_sha256": "0432d5ff6e3b7c425b682b0c49a1304e723e94f830af17ef8f8421df72a77c20",
+  "engine_count": 10,
+  "external_effects": false,
+  "external_publication": "REFUSE",
+  "external_send": "REFUSE",
+  "factory_spec_sha256": "824c00b74544d014cee7d41914e38757b1b823f1f39ddc4d99e55f777732a4d4",
+  "media_spend": "REFUSE",
+  "payment": "REFUSE",
+  "product_id": "dio_incidentreadinessproof",
+  "proof_fingerprint": "sha256:dc736f2d2ca8f2cae5966cbc3a73154087e130aa8afc58303f61c07a58985372",
+  "schema": "dio.product_incarnation_proof_manifest.v1",
+  "studio_version": "1.0.0"
+}

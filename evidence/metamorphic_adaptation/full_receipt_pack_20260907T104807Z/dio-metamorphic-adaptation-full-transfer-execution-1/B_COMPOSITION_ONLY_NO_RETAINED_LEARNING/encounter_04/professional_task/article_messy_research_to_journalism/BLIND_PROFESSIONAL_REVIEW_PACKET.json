@@ -1,0 +1,50 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/encounter_04/professional_task/article_messy_research_to_journalism/customer_delivery/article/ARTICLE_DRAFT.html",
+  "artifact_sha256": "10376a3c69d2b889a9cc981aedb34d5c42d6525774161fb730eb119477ca4d8b",
+  "automated_score": 100,
+  "automated_status": "PROFESSIONAL_TASK_VERIFIED",
+  "buyer": "University communications editor",
+  "case_id": "article_messy_research_to_journalism",
+  "claim_boundary": "Blind review is human quality evidence, not verified payment.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "professional_correctness",
+      "scale": "1-5"
+    },
+    {
+      "name": "source_fidelity",
+      "scale": "1-5"
+    },
+    {
+      "name": "judgement_under_ambiguity",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "buyer_usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "job": "Turn the supplied pilot-study abstract, supplementary table note, press-release draft and researcher interview into an accurate public-facing article.",
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.professional_task_blind_review_packet.v1",
+  "studio_id": "article_publication_studio",
+  "tier": "messy"
+}

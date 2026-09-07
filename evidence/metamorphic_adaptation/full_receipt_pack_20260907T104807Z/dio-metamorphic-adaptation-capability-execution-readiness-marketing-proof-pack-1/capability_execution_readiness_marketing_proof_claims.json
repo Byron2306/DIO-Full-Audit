@@ -1,0 +1,40 @@
+{
+  "approved_public_claims": [
+    "DIO produced T15 candidate evidence of capability execution readiness mapping in an internal controlled gauntlet.",
+    "DIO mapped 12 selected-product capabilities for DIO_TRUST_DOSSIER_STUDIO by execution-readiness state under the tested harness.",
+    "DIO classified 4 capabilities as can execute now, 3 as could execute with local dependencies, and 2 as could execute with configuration.",
+    "DIO classified 2 capabilities as human-gate required and 1 as authority-refused.",
+    "DIO identified 11 capabilities as could-execute in a bounded readiness sense while keeping actual execution unauthorized.",
+    "The T15 evidence supports bounded language about capability readiness, not actual execution, starter code completion, autonomous development, product-market fit, or commercial validation.",
+    "The readiness signal preserved human gates and blocked actual-execution, starter-code, AGI, world-first, autonomous-development, commercial-validation, and authority-expansion claims."
+  ],
+  "forbidden_public_claims": [
+    "DIO executed the selected-product capabilities",
+    "DIO completed starter code from the readiness map",
+    "DIO has proven product-market fit",
+    "DIO is commercially validated",
+    "DIO guarantees viable products, sales, revenue, or buyer outcomes",
+    "DIO can autonomously build, publish, sell, spend, contact, or fulfil products",
+    "DIO can make legal, medical, financial, or professional decisions",
+    "DIO is AGI",
+    "DIO is conscious or sentient",
+    "DIO has world-first status",
+    "DIO may expand its own authority from could-execute readiness evidence",
+    "DIO can skip human review because a capability could execute"
+  ],
+  "marketing_claim_tier": "T15_MARKETING_SAFE_CAPABILITY_EXECUTION_READINESS_MAP",
+  "required_disclaimers": [
+    "Internal controlled gauntlet evidence only.",
+    "Candidate capability-readiness evidence, not actual execution.",
+    "Could-execute does not mean authorized-to-execute.",
+    "No actual execution.",
+    "Not starter code completion.",
+    "Not product-market fit.",
+    "Not commercial validation.",
+    "Not autonomous development.",
+    "Not AGI.",
+    "Not professional approval.",
+    "Not world-first status.",
+    "No autonomous external action, spending, publication, fulfilment, contact, or authority expansion."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "events": [
+    {
+      "claim_ceiling": "OBSERVED",
+      "event": "page_view"
+    },
+    {
+      "claim_ceiling": "OBSERVED",
+      "event": "offer_detail_view"
+    },
+    {
+      "claim_ceiling": "OBSERVED",
+      "event": "intake_draft_prepared"
+    },
+    {
+      "claim_ceiling": "OBSERVED",
+      "event": "human_contact_requested"
+    }
+  ],
+  "market_validation_claimed": false,
+  "payment_enabled": false,
+  "product_id": "dio_incidentreadinessproof",
+  "revenue_claimed": false,
+  "schema": "dio.commercial_measurement_contract.v1",
+  "source_engine": "commercial_truth",
+  "unsupported_inferences": [
+    "qualified demand",
+    "verified payment",
+    "attributed revenue",
+    "customer value",
+    "repeatability",
+    "economic proof"
+  ]
+}

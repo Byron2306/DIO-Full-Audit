@@ -1,0 +1,45 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "18%"
+      ],
+      "label": "municipal figure"
+    },
+    {
+      "any_of": [
+        "23%"
+      ],
+      "label": "survey figure"
+    },
+    {
+      "any_of": [
+        "74"
+      ],
+      "label": "survey sample"
+    },
+    {
+      "any_of": [
+        "not directly comparable",
+        "different things",
+        "different measures"
+      ],
+      "label": "not directly comparable"
+    },
+    {
+      "any_of": [
+        "maintenance",
+        "pressure-management",
+        "package"
+      ],
+      "label": "bundled measures"
+    },
+    {
+      "any_of": [
+        "Dr Thabo Mokoena",
+        "Thabo Mokoena"
+      ],
+      "label": "expert"
+    }
+  ]
+}

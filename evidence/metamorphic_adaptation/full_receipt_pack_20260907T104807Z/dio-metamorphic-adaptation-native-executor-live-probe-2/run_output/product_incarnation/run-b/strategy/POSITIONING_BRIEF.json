@@ -1,0 +1,35 @@
+{
+  "audience": {
+    "job_to_be_done": "Show me what is evidenced, stale, missing and human-dependent before I rely on the plan.",
+    "pain": "Plans, role matrices, exercises and contact registers exist in different places and age at different speeds.",
+    "primary": "Operations, risk and programme leaders responsible for evidence-heavy incident readiness"
+  },
+  "category": "governed evidence-readiness review",
+  "differentiator": "Independent evidence, currency, authority and release states remain visible.",
+  "external_validation": false,
+  "forbidden_claims": [
+    "certified readiness",
+    "guaranteed recovery",
+    "automatic authority",
+    "incident_proof",
+    "guaranteed_recovery",
+    "certified_resilience"
+  ],
+  "message_pillars": [
+    "See what is evidenced.",
+    "See what is stale.",
+    "See what still needs a human decision."
+  ],
+  "offer": {
+    "cta": "Prepare a controlled review",
+    "external_delivery": false,
+    "name": "Incident Readiness Evidence Review",
+    "payment_enabled": false,
+    "price_display": "Pilot pricing requires human confirmation",
+    "state": "controlled_internal_pilot"
+  },
+  "product_id": "dio_incidentreadinessproof",
+  "schema": "dio.nichefoundry_positioning_projection.v1",
+  "source_engine": "nichefoundry",
+  "state": "HYPOTHESIS"
+}

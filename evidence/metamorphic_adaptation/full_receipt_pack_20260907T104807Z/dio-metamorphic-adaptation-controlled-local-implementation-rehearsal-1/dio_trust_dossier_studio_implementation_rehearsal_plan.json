@@ -1,0 +1,68 @@
+{
+  "human_approval_required_before_implementation": true,
+  "modules": [
+    {
+      "acceptance_gates": [
+        "manifest_has_product_identity",
+        "manifest_has_source_hash",
+        "missing_required_fields_refuse",
+        "authority_boundary_present"
+      ],
+      "module": "trust_dossier_manifest_loader",
+      "purpose": "Load source-bound dossier manifests and verify required identity, scope, evidence, and authority fields.",
+      "receipt_schema": "manifest_loader_receipt",
+      "test_skeleton": "test_manifest_loader_rejects_missing_source_hash"
+    },
+    {
+      "acceptance_gates": [
+        "evidence_items_have_hashes",
+        "claim_to_evidence_map_complete",
+        "unsupported_claims_refuse",
+        "source_paths_are_recorded"
+      ],
+      "module": "trust_dossier_evidence_binder",
+      "purpose": "Bind claims to evidence receipts without allowing unsupported professional, commercial, or world-first claims.",
+      "receipt_schema": "evidence_binding_receipt",
+      "test_skeleton": "test_evidence_binder_blocks_unbound_claims"
+    },
+    {
+      "acceptance_gates": [
+        "external_publication_refused",
+        "professional_approval_not_claimed",
+        "human_gate_required",
+        "authority_never_expands_from_score"
+      ],
+      "module": "trust_dossier_authority_gate",
+      "purpose": "Classify permitted, human-gated, and refused actions for generated trust dossiers.",
+      "receipt_schema": "authority_gate_receipt",
+      "test_skeleton": "test_authority_gate_preserves_human_review"
+    },
+    {
+      "acceptance_gates": [
+        "local_render_only",
+        "dossier_sections_declared",
+        "forbidden_claims_listed",
+        "output_paths_are_local"
+      ],
+      "module": "trust_dossier_renderer_plan",
+      "purpose": "Plan Markdown and JSON dossier rendering surfaces without publishing or sending externally.",
+      "receipt_schema": "renderer_plan_receipt",
+      "test_skeleton": "test_renderer_plan_is_local_only"
+    },
+    {
+      "acceptance_gates": [
+        "all_module_receipts_required",
+        "digest_hashes_inputs",
+        "human_review_checkpoint_present",
+        "no_commercial_validation_claim"
+      ],
+      "module": "trust_dossier_acceptance_digest",
+      "purpose": "Aggregate rehearsal receipts into a bounded acceptance digest for human review.",
+      "receipt_schema": "acceptance_digest_receipt",
+      "test_skeleton": "test_acceptance_digest_requires_all_receipts"
+    }
+  ],
+  "rehearsal_only": true,
+  "selected_product": "DIO_TRUST_DOSSIER_STUDIO",
+  "starter_code_written": false
+}

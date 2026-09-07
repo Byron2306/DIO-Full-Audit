@@ -1,0 +1,26 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "causal strategy claim",
+      "patterns": [
+        "strategy caused the improvement",
+        "strategy caused the reduction",
+        "caused business disruption to fall"
+      ]
+    },
+    {
+      "label": "single nearly-quarter claim",
+      "patterns": [
+        "cuts business disruption by nearly a quarter",
+        "cut business disruption by nearly a quarter"
+      ]
+    },
+    {
+      "label": "merged statistic",
+      "patterns": [
+        "both sources show a 23% reduction",
+        "the true reduction was 23%"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "actual_product_execution_authorized": false,
+  "artifacts": [
+    {
+      "input_id": "synthetic-trust-dossier-001",
+      "kind": "draft_dossier",
+      "relative_path": "draft_dossiers/synthetic-trust-dossier-001.md",
+      "sha256": "53f1b38ec51f1fadd32c8aea9f7e280d84a10bde0c68d035f9b32960ef119970",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-001",
+      "kind": "dry_run_receipt",
+      "relative_path": "receipts/synthetic-trust-dossier-001_receipt.json",
+      "sha256": "f23a9dfbc3a326769a08a1ef4df8423ed67861f4fc97adfd57117cd94eaf0d2e",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-001",
+      "kind": "human_gate",
+      "relative_path": "human_gates/synthetic-trust-dossier-001_human_gate.json",
+      "sha256": "0f95d6e2f8338a5124e5644f7424d72dd9a85af36613bcce13198b92486cbf0a",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-002",
+      "kind": "draft_dossier",
+      "relative_path": "draft_dossiers/synthetic-trust-dossier-002.md",
+      "sha256": "4cb44242537a627070397b631cf355886458474403bbbc806ee8781f717555d9",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-002",
+      "kind": "dry_run_receipt",
+      "relative_path": "receipts/synthetic-trust-dossier-002_receipt.json",
+      "sha256": "8d1ed4a923afd38eb336e9a8b301ee0c50874054a74e929fb6d0cf47583f3d7f",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-002",
+      "kind": "human_gate",
+      "relative_path": "human_gates/synthetic-trust-dossier-002_human_gate.json",
+      "sha256": "6bdd160871f660cb580cac4387d2416ab18b0f6b23606b5bae0fd6aa65006be2",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-003",
+      "kind": "draft_dossier",
+      "relative_path": "draft_dossiers/synthetic-trust-dossier-003.md",
+      "sha256": "a74a6c41cc582aed7fe0f95615796b49a8d3a68607e0f9bbe973644b1314e519",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-003",
+      "kind": "dry_run_receipt",
+      "relative_path": "receipts/synthetic-trust-dossier-003_receipt.json",
+      "sha256": "a3b13315430a71b20af5a64fbc09b2b8fa5efb0468bd99435f340c8363c5a6b9",
+      "synthetic_only": true
+    },
+    {
+      "input_id": "synthetic-trust-dossier-003",
+      "kind": "human_gate",
+      "relative_path": "human_gates/synthetic-trust-dossier-003_human_gate.json",
+      "sha256": "d939947859465efa45e80e7754b84f1de453c41471183226c7cadfcaa3b0e5a7",
+      "synthetic_only": true
+    }
+  ],
+  "external_use_authorized": false,
+  "human_review_required": true,
+  "selected_product": "DIO_TRUST_DOSSIER_STUDIO",
+  "synthetic_only": true
+}

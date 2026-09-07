@@ -1,0 +1,10 @@
+{
+  "acceptance_tests": [
+    "manifest declares audience, authority, evidence, and maturity tier",
+    "evidence contract refuses unsupported accreditation claims",
+    "review gate blocks external publication without human approval"
+  ],
+  "minimum_evidence_bound_tests": 3,
+  "product_name": "HOMS Moderation Evidence Studio",
+  "release_gate": "NEEDS_YOU"
+}

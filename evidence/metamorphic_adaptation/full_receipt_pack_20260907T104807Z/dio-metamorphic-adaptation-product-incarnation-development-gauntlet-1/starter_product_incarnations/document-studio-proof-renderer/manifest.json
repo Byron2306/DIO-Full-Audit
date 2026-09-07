@@ -1,0 +1,18 @@
+{
+  "authority_mode": "HUMAN_GATED",
+  "claim_boundary": "Internal starter incarnation scaffold only; not product-market fit or commercial validation.",
+  "core_job": "render evidence-bound documents from receipts, manifests, and review gates",
+  "domain": "document_governance",
+  "external_release": "NEEDS_YOU",
+  "maturity_tier": "STARTER_INCARNATION_SPEC",
+  "product_name": "Document Studio Proof Renderer",
+  "required_modules": [
+    "manifest",
+    "receipt_binder",
+    "format_profile",
+    "review_gate",
+    "export_surface"
+  ],
+  "slug": "document-studio-proof-renderer",
+  "target_buyer": "technical evaluator and repo-governance buyer"
+}

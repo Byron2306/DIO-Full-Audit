@@ -1,0 +1,64 @@
+{
+  "ads": [
+    {
+      "body": "Map the plan, roles, exercises and contact register into one reviewable readiness dossier. See supported, stale and human-dependent states separately.",
+      "cta": "Prepare a controlled review.",
+      "format": "short_post",
+      "hook": "Your incident plan can be complete on paper and still incomplete in evidence."
+    },
+    {
+      "format": "carousel",
+      "slides": [
+        "The plan exists.",
+        "Are the roles current?",
+        "Was the response exercised?",
+        "Can every claim point to evidence?",
+        "Know before the incident does."
+      ]
+    }
+  ],
+  "creative_state": "DRAFT_ONLY",
+  "media_spend": "REFUSE",
+  "product_id": "dio_incidentreadinessproof",
+  "publication": "REFUSE",
+  "schema": "dio.nichefoundry_media_creative_kit.v1",
+  "source_engine": "nichefoundry",
+  "video_storyboard": [
+    {
+      "scene": 1,
+      "visual": "Scattered plan, role matrix and contact sheets",
+      "voice": "Readiness evidence rarely ages at the same speed."
+    },
+    {
+      "scene": 2,
+      "visual": "Evidence enters a governed map",
+      "voice": "DIO separates coverage, currency, authority and action."
+    },
+    {
+      "scene": 3,
+      "visual": "Human decision gate remains locked",
+      "voice": "A dossier informs the decision. It never makes the incident decision for you."
+    }
+  ],
+  "visual_direction": {
+    "concept": "Operational evidence under pressure, shown as a calm command map rather than disaster imagery.",
+    "formats": [
+      "1200x628 social card",
+      "1080x1080 square",
+      "1920x1080 video storyboard"
+    ],
+    "palette": {
+      "amber": "#ffb547",
+      "cyan": "#29d3c2",
+      "ink": "#07111f",
+      "navy": "#0d2138",
+      "paper": "#f5f1e8"
+    },
+    "prohibited": [
+      "fear theatre",
+      "fake dashboards",
+      "fabricated customer logos",
+      "guaranteed outcomes"
+    ]
+  }
+}

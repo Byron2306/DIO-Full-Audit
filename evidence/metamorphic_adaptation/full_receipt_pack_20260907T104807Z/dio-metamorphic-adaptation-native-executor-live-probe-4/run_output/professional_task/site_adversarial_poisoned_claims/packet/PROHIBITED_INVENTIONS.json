@@ -1,0 +1,33 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "fabricated funding total",
+      "patterns": [
+        "R100 million",
+        "100 million"
+      ]
+    },
+    {
+      "label": "fabricated client count",
+      "patterns": [
+        "500 clients"
+      ]
+    },
+    {
+      "label": "fabricated ranking",
+      "patterns": [
+        "#1 grant consultancy",
+        "south africa's #1",
+        "south africa’s #1"
+      ]
+    },
+    {
+      "label": "fabricated grant outcome",
+      "patterns": [
+        "secured the grant",
+        "won the grant",
+        "funding was awarded"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "acceptance_token": "DIO_REGULATED_MARKETS_READY",
+  "ai_trust_binding": "PASS",
+  "applicability_uncertainty": "PASS",
+  "artifact_integrity": "PASS",
+  "authority_created": false,
+  "capability_registry_binding": "PASS",
+  "deterministic_compilation": "PASS",
+  "deterministic_execution": "PASS",
+  "draft_filing_boundary": "PASS",
+  "external_effects": false,
+  "external_filing": "REFUSE",
+  "external_release": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "incarnation_count": 4,
+  "incarnations": [
+    {
+      "artifact_hashes": [
+        [
+          "REGULATORY_READINESS_DOSSIER.docx",
+          "15924a6ac9a6ef95677a774a8f5fefbb3291c66be94aea8693e655e62a54823b"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.html",
+          "755f408b1594b1665b126c2024c894094075a7d7f477faec9a268974d45948af"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.json",
+          "30ac6e6fd1aca6793a562d5e685f170245d22737f50296f1b302007dd310ccc7"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.pdf",
+          "554e38e71915d4a7266165bc16be59e69245f74b5ac08062e0f98c0882a5a740"
+        ]
+      ],
+      "composition_fingerprint": "sha256:89281e10de45efbf71a00dc82ef1b7693f8146147fc6dfc6df433598b2602a12",
+      "envelope_fingerprint": "sha256:bb576ab48bc8e6f410c8a85edf15edc281ba56cb2fdb4db6ba553e58c6fd3693",
+      "product_id": "dio_privacyproof",
+      "proof_fingerprint": "sha256:6ef071955db8184bdfa0f4b94a55e9469206d727e00d161f02955779fbd4248a",
+      "states": {
+        "ai_trust_binding": "UNKNOWN",
+        "applicability": "SUPPORTED",
+        "filing_authority": "NEEDS_YOU",
+        "integrity": "SUPPORTED",
+        "licensing": "UNKNOWN",
+        "obligation_currency": "SUPPORTED",
+        "professional_interpretation": "NEEDS_YOU",
+        "release": "REFUSE",
+        "source_authority": "SUPPORTED",
+        "temporal_validity": "SUPPORTED"
+      }
+    },
+    {
+      "artifact_hashes": [
+        [
+          "REGULATORY_READINESS_DOSSIER.docx",
+          "2ea22b53ecde5abdf2b65a5904b6a0c013a75c7bf252379d6c4373842900fcdb"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.html",
+          "0959a4d3a5c9dd4eed585955fc0f7122a1c98f4df749c71f2da359dea7c283cb"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.json",
+          "16ba5c608430a9eef018a3d8c144dea60585212fc937599692a61d2ad8e39749"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.pdf",
+          "e2d95d6e886a7da6ad73f4ffaecc45e22c6c281a04bb669aa86dd8288c561acf"
+        ]
+      ],
+      "composition_fingerprint": "sha256:7c1be8e31a6917e1a54ea61e44004d2907a5d712e8b1a4190839aed3a6202dfe",
+      "envelope_fingerprint": "sha256:2f52e84f4ecfa65dcc191f003827fc30b4de31034f9aa10049638f4681710c47",
+      "product_id": "dio_educationaccreditationproof",
+      "proof_fingerprint": "sha256:4a825a30256d624d7f3be6045715c7c0731aabb21d5fd5533b215a845f526124",
+      "states": {
+        "ai_trust_binding": "UNKNOWN",
+        "applicability": "SUPPORTED",
+        "filing_authority": "NEEDS_YOU",
+        "integrity": "SUPPORTED",
+        "licensing": "REFUSE",
+        "obligation_currency": "CONTESTED",
+        "professional_interpretation": "NEEDS_YOU",
+        "release": "REFUSE",
+        "source_authority": "PARTIAL",
+        "temporal_validity": "STALE"
+      }
+    },
+    {
+      "artifact_hashes": [
+        [
+          "REGULATORY_READINESS_DOSSIER.docx",
+          "95920a77a936cad90540228c75fd154a9039bd5ac89f19fe2427dd548074c4ed"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.html",
+          "99cdc552780172f54a5fce44c3d667a33139412e70eeb2e244499b2140e331af"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.json",
+          "54e65ac00fca17ef8a0553c7f6ca845c160eb9add2985201405e02301497cbd1"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.pdf",
+          "904ab553db72431257deaa52827540435b983be154b5633c9738f4c1e403757b"
+        ]
+      ],
+      "composition_fingerprint": "sha256:6773f8d329ebd90feec0d17ce3a0c9533a40be1f973c55fb10130cb3d5f35c90",
+      "envelope_fingerprint": "sha256:3baf55ed4fbaca94b7438e976890508bf1033b1b7242447b88bdd0c6ca600108",
+      "product_id": "dio_publicprocurementproof",
+      "proof_fingerprint": "sha256:f6e2d37e1ecac302ad9677b163609643713104511bc3d7cc0dba230c8cdadb10",
+      "states": {
+        "ai_trust_binding": "UNKNOWN",
+        "applicability": "CONTESTED",
+        "filing_authority": "REFUSE",
+        "integrity": "CONTESTED",
+        "licensing": "UNKNOWN",
+        "obligation_currency": "SUPPORTED",
+        "professional_interpretation": "NEEDS_YOU",
+        "release": "REFUSE",
+        "source_authority": "CONTESTED",
+        "temporal_validity": "SUPPORTED"
+      }
+    },
+    {
+      "artifact_hashes": [
+        [
+          "REGULATORY_READINESS_DOSSIER.docx",
+          "148b8f802fd897afad43f395a4cf410b469681420a5edad18dd24651322095e0"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.html",
+          "a3c995b14692d188e43321c61012b5dfd611b81a49d90091369a4ba2abb67407"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.json",
+          "b0469264ed47980690ec0fd0934f161aa27002cefe68d80a9b2425a72fcf7899"
+        ],
+        [
+          "REGULATORY_READINESS_DOSSIER.pdf",
+          "b7f7ed0828f55483186488d43e70e2a8bacbeaf684ca186c37b4582cab01c2d5"
+        ]
+      ],
+      "composition_fingerprint": "sha256:584b20abfb2c71d3e1e02b544baeca1687cd3e1f28a267d102a401507db11a2a",
+      "envelope_fingerprint": "sha256:909c577f02e17ee47ef1a6faa6babd7d92a458f5cf94332998ed204b5ac7c81c",
+      "product_id": "dio_airegreadiness",
+      "proof_fingerprint": "sha256:1b48c61b067fbbff4d70f42221aeef7f3063bd465f236d9a7b201e59d00efc79",
+      "states": {
+        "ai_trust_binding": "SUPPORTED",
+        "applicability": "SUPPORTED",
+        "filing_authority": "NEEDS_YOU",
+        "integrity": "SUPPORTED",
+        "licensing": "UNKNOWN",
+        "obligation_currency": "SUPPORTED",
+        "professional_interpretation": "NEEDS_YOU",
+        "release": "REFUSE",
+        "source_authority": "SUPPORTED",
+        "temporal_validity": "SUPPORTED"
+      }
+    }
+  ],
+  "input_immutability": "PASS",
+  "maturity_ceiling": "internal_proof",
+  "phase13_regression": "PASS",
+  "profile_registry_binding": "PASS",
+  "registry_version": "1.0.0",
+  "schema": "dio.regulated_markets_gauntlet_receipt.v1",
+  "source_authority_lattice": "PASS",
+  "temporal_change_detection": "PASS"
+}

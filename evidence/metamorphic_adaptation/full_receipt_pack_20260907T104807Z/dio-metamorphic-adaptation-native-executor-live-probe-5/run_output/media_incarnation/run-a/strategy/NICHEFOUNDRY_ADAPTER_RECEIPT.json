@@ -1,0 +1,98 @@
+{
+  "binding_state": "DIO_ADAPTER_EXECUTION",
+  "job": {
+    "evidence": [
+      {
+        "text_extract": "Incident readiness evidence review for operations and risk leaders."
+      }
+    ],
+    "inputs": [
+      {
+        "attachment_names": "none",
+        "sender": "phase16.1@local",
+        "subject": "DIO IncidentReadinessProof campaign"
+      }
+    ],
+    "job_id": "NF-IRP-PHASE16-1",
+    "route": {
+      "confidence": 1.0,
+      "reason": "Phase 16.1 governed media incarnation"
+    }
+  },
+  "live_adapter_invoked": true,
+  "native_engine_invoked": false,
+  "native_engine_ref": "Byron2306/NicheFoundry",
+  "opportunity": {
+    "angle": "Show a concrete before/after workflow: messy evidence, email, or document batch becomes a review-ready pack with human approval preserved.",
+    "content_role": "commercial_intent",
+    "operator_notes": "Generated from AutoRelease job NF-IRP-PHASE16-1 at 2026-08-16T12:00:00+00:00. Route reason: Phase 16.1 governed media incarnation",
+    "series_hint": "Evidence-first AI workflows for busy professionals",
+    "signals": {
+      "audience_demand": 0.72,
+      "content_gap": 0.64,
+      "evidence_availability": 0.78,
+      "freshness_risk": 0.1,
+      "monetization_alignment": 0.9,
+      "policy_risk": 0.25,
+      "production_burden": 0.32,
+      "series_potential": 0.85,
+      "visual_potential": 0.58
+    },
+    "source_hints": [
+      "Local AutoRelease routed job",
+      "KnowEdge portfolio productization report",
+      "Existing product README and demo outputs"
+    ],
+    "title": "KnowEdge Evidence Automation Suite: workflow pain-to-pack campaign",
+    "topic": "KnowEdge Evidence Automation Suite productized service campaign",
+    "viewer_job": "help me understand whether this workflow can save me time without losing control"
+  },
+  "request": {
+    "approval_required": true,
+    "created_at": "2026-08-16T12:00:00+00:00",
+    "do_not_generate": [
+      "fake testimonials",
+      "unverified revenue claims",
+      "guaranteed outcomes",
+      "private client data"
+    ],
+    "job_id": "NF-IRP-PHASE16-1",
+    "nichefoundry_root": "/home/byron/Downloads/NicheFoundry_Phase11",
+    "opportunity": {
+      "angle": "Show a concrete before/after workflow: messy evidence, email, or document batch becomes a review-ready pack with human approval preserved.",
+      "content_role": "commercial_intent",
+      "operator_notes": "Generated from AutoRelease job NF-IRP-PHASE16-1 at 2026-08-16T12:00:00+00:00. Route reason: Phase 16.1 governed media incarnation",
+      "series_hint": "Evidence-first AI workflows for busy professionals",
+      "signals": {
+        "audience_demand": 0.72,
+        "content_gap": 0.64,
+        "evidence_availability": 0.78,
+        "freshness_risk": 0.1,
+        "monetization_alignment": 0.9,
+        "policy_risk": 0.25,
+        "production_burden": 0.32,
+        "series_potential": 0.85,
+        "visual_potential": 0.58
+      },
+      "source_hints": [
+        "Local AutoRelease routed job",
+        "KnowEdge portfolio productization report",
+        "Existing product README and demo outputs"
+      ],
+      "title": "KnowEdge Evidence Automation Suite: workflow pain-to-pack campaign",
+      "topic": "KnowEdge Evidence Automation Suite productized service campaign",
+      "viewer_job": "help me understand whether this workflow can save me time without losing control"
+    },
+    "recommended_studio": "practical_open_source",
+    "requested_outputs": [
+      "landing_page_outline",
+      "five_short_posts",
+      "newsletter_draft",
+      "short_video_script",
+      "lead_magnet_outline",
+      "editorial_approval_checklist"
+    ],
+    "schema": "knowedge.nichefoundry_campaign_request.v1"
+  },
+  "source_ref": "scripts/run_nichefoundry_jobs.py"
+}

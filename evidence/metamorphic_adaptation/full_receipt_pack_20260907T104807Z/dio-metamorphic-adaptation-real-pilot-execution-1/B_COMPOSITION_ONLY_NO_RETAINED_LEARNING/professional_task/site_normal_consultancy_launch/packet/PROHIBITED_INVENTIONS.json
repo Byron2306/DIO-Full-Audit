@@ -1,0 +1,28 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "fabricated testimonial",
+      "patterns": [
+        "testimonial from",
+        "what our clients say",
+        "5-star"
+      ]
+    },
+    {
+      "label": "fabricated scale claim",
+      "patterns": [
+        "500 clients",
+        "hundreds of clients",
+        "south africa's leading",
+        "south africa’s leading"
+      ]
+    },
+    {
+      "label": "fabricated certification",
+      "patterns": [
+        "certified evaluation",
+        "iso certified"
+      ]
+    }
+  ]
+}

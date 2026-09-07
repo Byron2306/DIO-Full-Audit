@@ -1,0 +1,171 @@
+{
+  "artifact_contract": {
+    "assumptions": [
+      "Projected monthly revenue grows after equipment acquisition.",
+      "Working-capital requirement is limited to three months.",
+      "No lender approval, affordability or underwriting outcome is known."
+    ],
+    "decision_boundary": "DIO assesses finance readiness and published fit. The lender, investor or authorised financial decision maker decides approval.",
+    "forbidden_claims": [
+      "guaranteed finance approval",
+      "guaranteed affordability",
+      "lender underwriting score",
+      "credit bureau conclusion",
+      "regulated investment or financial advice"
+    ],
+    "kind": "finance_readiness",
+    "published_requirements_fixture": [
+      {
+        "label": "business registration evidence",
+        "mandatory": true,
+        "requirement_id": "FR-01"
+      },
+      {
+        "label": "recent bank statements",
+        "mandatory": true,
+        "requirement_id": "FR-02"
+      },
+      {
+        "label": "management accounts or financial statements",
+        "mandatory": true,
+        "requirement_id": "FR-03"
+      },
+      {
+        "label": "use-of-funds breakdown",
+        "mandatory": true,
+        "requirement_id": "FR-04"
+      },
+      {
+        "label": "repayment or cash-flow assumptions",
+        "mandatory": true,
+        "requirement_id": "FR-05"
+      }
+    ],
+    "purpose": "Assess evidence completeness and published-fit readiness without making a lending decision.",
+    "supplied_evidence_fixture": [
+      {
+        "evidence_id": "EV-01",
+        "label": "company registration record",
+        "state": "supplied",
+        "supports": [
+          "FR-01"
+        ]
+      },
+      {
+        "evidence_id": "EV-02",
+        "label": "three months bank statements",
+        "state": "supplied",
+        "supports": [
+          "FR-02"
+        ]
+      },
+      {
+        "evidence_id": "EV-03",
+        "label": "equipment quotations and use-of-funds schedule",
+        "state": "supplied",
+        "supports": [
+          "FR-04"
+        ]
+      },
+      {
+        "evidence_id": "EV-04",
+        "label": "management accounts",
+        "state": "supplied",
+        "supports": [
+          "FR-03"
+        ]
+      }
+    ],
+    "venture": {
+      "business_model": "Installation and maintenance services for small commercial solar systems.",
+      "funding_need": "R500,000 vehicle, tools and working-capital facility",
+      "name": "Mhlabeni Solar Services",
+      "use_of_funds": [
+        "service vehicle",
+        "installation tools",
+        "working capital"
+      ]
+    }
+  },
+  "authority": {
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "human_gate": "NEEDS_YOU",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "job": {
+    "buyer": "South African small-business owner preparing a funding application",
+    "expected_route": "finance_readiness_studio",
+    "request": "Assess whether my business evidence is ready for a finance application and show me what is missing."
+  },
+  "name": "DIO Finance Readiness Studio",
+  "required_organs": [
+    {
+      "capabilities": [
+        "storefront.route.bind",
+        "presence.release.prepare"
+      ],
+      "engine_id": "vesper",
+      "source_ref": "presence_core/router.py"
+    },
+    {
+      "capabilities": [
+        "communication.meaning.register",
+        "communication.render.bound"
+      ],
+      "engine_id": "lingua",
+      "source_ref": "adapters/lingua/communicator.py"
+    },
+    {
+      "capabilities": [
+        "market.position",
+        "market.research.hypothesis"
+      ],
+      "engine_id": "nichefoundry",
+      "source_ref": "scripts/build_hustle_campaign_factory.py"
+    },
+    {
+      "capabilities": [
+        "evidence.intake.structure",
+        "evidence.readiness.gap_map"
+      ],
+      "engine_id": "evidex",
+      "source_ref": "adapters/evidex_studio.py"
+    },
+    {
+      "capabilities": [
+        "claim.lineage.audit",
+        "assumption.boundary"
+      ],
+      "engine_id": "sophia",
+      "source_ref": "adapters/sophia/review_pipeline.py"
+    },
+    {
+      "capabilities": [
+        "document.preview.render",
+        "document.finance_readiness_pack"
+      ],
+      "engine_id": "document_studio",
+      "source_ref": "adapters/document_studio/studio_sales.py"
+    },
+    {
+      "capabilities": [
+        "objective.milestone.map"
+      ],
+      "engine_id": "vamp",
+      "source_ref": "adapters/vamp/snapshot_pipeline.py"
+    },
+    {
+      "capabilities": [
+        "commercial.claim.boundary",
+        "commercial.measurement.contract"
+      ],
+      "engine_id": "commercial_truth",
+      "source_ref": "products/commercial_truth.py"
+    }
+  ],
+  "schema": "dio.professional_intelligence_studio.v1",
+  "studio_id": "finance_readiness_studio",
+  "studio_version": "1.0.0"
+}

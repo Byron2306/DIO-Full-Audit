@@ -1,0 +1,34 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "liability concession",
+      "patterns": [
+        "we accept liability",
+        "we admit fault",
+        "our error caused"
+      ]
+    },
+    {
+      "label": "refund promise",
+      "patterns": [
+        "we will refund",
+        "credit note will be issued",
+        "we will reverse the charge"
+      ]
+    },
+    {
+      "label": "variation invented",
+      "patterns": [
+        "approved variation",
+        "authorised variation"
+      ]
+    },
+    {
+      "label": "threat",
+      "patterns": [
+        "legal action against you",
+        "collections immediately"
+      ]
+    }
+  ]
+}

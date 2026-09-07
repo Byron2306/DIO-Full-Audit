@@ -1,0 +1,51 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "Cape Harvest Foods"
+      ],
+      "label": "venture"
+    },
+    {
+      "any_of": [
+        "R1,200,000",
+        "R1 200 000"
+      ],
+      "label": "facility"
+    },
+    {
+      "any_of": [
+        "R250,000",
+        "R250 000"
+      ],
+      "label": "revenue contradiction"
+    },
+    {
+      "any_of": [
+        "R85,000",
+        "R85 000"
+      ],
+      "label": "marketing item"
+    },
+    {
+      "any_of": [
+        "VAT"
+      ],
+      "label": "VAT evidence"
+    },
+    {
+      "any_of": [
+        "28%",
+        "36%"
+      ],
+      "label": "margin assumption"
+    },
+    {
+      "any_of": [
+        "cash-flow",
+        "cash flow"
+      ],
+      "label": "cash flow"
+    }
+  ]
+}

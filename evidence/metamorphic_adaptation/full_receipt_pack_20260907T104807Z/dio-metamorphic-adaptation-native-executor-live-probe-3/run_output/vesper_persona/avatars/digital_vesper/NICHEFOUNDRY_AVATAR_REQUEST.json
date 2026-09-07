@@ -1,0 +1,64 @@
+{
+  "schema": "dio.nichefoundry.vesper_avatar_request.v1",
+  "request_id": "VESPER-AVATAR-B50175D113139D26",
+  "created_at": "2026-09-07T02:33:35+00:00",
+  "experiment_id": "VESPER-PERSONA-LAB-2026-08-A",
+  "product": "vesper",
+  "asset_role": "public_presence_avatar_experiment",
+  "avatar_id": "digital_vesper",
+  "label": "Digital Vesper",
+  "design_class": "clearly_digital_humanoid",
+  "creative_brief": {
+    "visual_hypothesis": "Elegant clearly synthetic female-presenting digital concierge, South African professional visual grammar, refined graphite/ivory/teal palette, expressive eyes, subtle geometric light accents, unmistakably AI.",
+    "expression_policy": "calm attentive expression; restrained warmth",
+    "background_policy": "bright minimal digital-professional space, subtle data geometry",
+    "photorealism": "stylised_realism",
+    "brand_feel": [
+      "clean commercial professional",
+      "South African market-native without tourism symbolism",
+      "credible in education, SME, NGO, GRC and AI-governance contexts",
+      "bright ivory/graphite/teal family with restrained amber accent"
+    ]
+  },
+  "deliverables": [
+    {
+      "kind": "profile_avatar",
+      "size": "1024x1024",
+      "format": "png"
+    },
+    {
+      "kind": "webchat_portrait",
+      "size": "1024x1280",
+      "format": "png"
+    },
+    {
+      "kind": "social_profile",
+      "size": "1080x1080",
+      "format": "png"
+    },
+    {
+      "kind": "reel_intro_frame",
+      "size": "1080x1920",
+      "format": "png"
+    }
+  ],
+  "identity_constraints": {
+    "name": "Vesper",
+    "role": "DIO Presence Core",
+    "must_disclose_ai": true,
+    "must_not_resemble_or_impersonate_specific_real_person": true,
+    "must_not_claim_human_identity": true,
+    "face_is_rendering_only": true
+  },
+  "experiment_constraints": {
+    "stable_for_conversation": true,
+    "no_mid_conversation_avatar_swap": true,
+    "human_review_before_public_default": true,
+    "automatic_publication": false,
+    "automatic_spend": false
+  },
+  "release": {
+    "state": "held",
+    "human_approval_required": true
+  }
+}

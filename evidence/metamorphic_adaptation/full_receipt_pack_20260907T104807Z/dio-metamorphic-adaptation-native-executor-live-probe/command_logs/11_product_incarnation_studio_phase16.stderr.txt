@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/byron/DIO-Full-Audit/scripts/run_product_incarnation_studio_phase16.py", line 14, in <module>
+    if __name__=="__main__":raise SystemExit(main())
+                                             ~~~~^^
+  File "/home/byron/DIO-Full-Audit/scripts/run_product_incarnation_studio_phase16.py", line 11, in main
+    r=run_gauntlet(output_dir=p.parse_args().output)
+  File "/home/byron/DIO-Full-Audit/products/incarnation_studio_gauntlet.py", line 28, in run_gauntlet
+    phase15=run_phase15_gauntlet(output_dir=output_dir/"phase15-regression")
+  File "/home/byron/DIO-Full-Audit/products/self_expanding_factory_gauntlet.py", line 40, in run_gauntlet
+    phase14=run_phase14_gauntlet(output_dir=output_dir/"phase14-regression")
+  File "/home/byron/DIO-Full-Audit/products/regulated_markets_gauntlet.py", line 39, in run_gauntlet
+    phase13 = run_phase13_gauntlet(output_dir=output_dir/"phase13-regression")
+  File "/home/byron/DIO-Full-Audit/products/ai_trust_gauntlet.py", line 75, in run_gauntlet
+    first = run_ai_trust(entry["product_id"], payload, output_dir=output_dir / entry["slug"] / "run-a",
+                         operator_id="human.phase13_gauntlet", now=registry["fixed_evaluation_time"])
+  File "/home/byron/DIO-Full-Audit/products/ai_trust/runner.py", line 181, in run_ai_trust
+    "PDF": ("AI_TRUST_DOSSIER.pdf", _pdf(envelope, definition["title"])),
+                                    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/byron/DIO-Full-Audit/products/ai_trust/runner.py", line 99, in _pdf
+    from reportlab import rl_config
+ModuleNotFoundError: No module named 'reportlab'

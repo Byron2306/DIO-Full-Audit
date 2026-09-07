@@ -1,0 +1,26 @@
+{
+  "prohibited_inventions": [
+    {
+      "label": "compensation promise",
+      "patterns": [
+        "25% reduction will",
+        "we will reduce the fee",
+        "we approve the fee reduction"
+      ]
+    },
+    {
+      "label": "unconfirmed error",
+      "patterns": [
+        "the source tables were wrong",
+        "we found an error in the source tables"
+      ]
+    },
+    {
+      "label": "client blame",
+      "patterns": [
+        "your data caused",
+        "the client caused"
+      ]
+    }
+  ]
+}

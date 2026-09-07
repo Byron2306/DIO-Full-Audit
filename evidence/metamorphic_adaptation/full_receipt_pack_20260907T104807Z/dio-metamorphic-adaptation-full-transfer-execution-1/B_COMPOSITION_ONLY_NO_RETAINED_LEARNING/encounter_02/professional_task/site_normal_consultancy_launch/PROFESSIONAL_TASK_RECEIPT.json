@@ -1,0 +1,200 @@
+{
+  "authority_boundary_pass": true,
+  "authority_created": false,
+  "beast_artifact_checks": {
+    "checks": [
+      {
+        "evidence": {
+          "languages": {
+            "css": 1,
+            "html": 1
+          }
+        },
+        "name": "language_inventory",
+        "status": "passed",
+        "summary": "Detected 2 language/artifact family(ies)"
+      },
+      {
+        "evidence": {
+          "errors": [],
+          "files_checked": 1
+        },
+        "name": "html_syntax",
+        "status": "passed",
+        "summary": "Parsed 1 HTML file(s)"
+      },
+      {
+        "evidence": {},
+        "name": "javascript_syntax",
+        "status": "skipped",
+        "summary": "No JavaScript files found"
+      }
+    ],
+    "failed_count": 0,
+    "mechanical_pass": true,
+    "quality_cascade_source_sha256": "f5f4e897510234905e1c40f5fd55a448c991308657e74f3dfadd50303d4e4737",
+    "schema": "dio.beast.product_grade_artifact_checks.v1",
+    "source": "EdgeK-BEAST/app/kernel/data_processing/quality_cascade.py",
+    "workspace": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/encounter_02/professional_task/site_normal_consultancy_launch/customer_delivery/site"
+  },
+  "case_id": "site_normal_consultancy_launch",
+  "claim_boundary": "Professional-task verification measures source fidelity, safety, completeness, native execution and buyer-artifact quality under controlled cases. It does not establish customer demand, payment or acceptance.",
+  "commercial_validation": "UNPROVED",
+  "critical_blockers": [],
+  "customer_acceptance": "UNPROVED",
+  "customer_delivery_receipt": {
+    "authority_created": false,
+    "customer_artifact_separated_from_proof": true,
+    "external_effects": false,
+    "final_copy_fields_used": false,
+    "input_fields_used": [
+      "artifact_contract.brand.title",
+      "artifact_contract.positioning.category",
+      "artifact_contract.positioning.buyer_problem",
+      "artifact_contract.positioning.desired_outcome",
+      "job.buyer",
+      "professional_task_input.source_documents",
+      "professional_task_input.case_context",
+      "professional_task_input.constraints"
+    ],
+    "kind": "site",
+    "legacy_final_copy_fields_ignored": [
+      "artifact_contract.brand.headline",
+      "artifact_contract.brand.subhead",
+      "artifact_contract.sections"
+    ],
+    "package": "site",
+    "primary_artifact": "site/index.html",
+    "primary_sha256": "617cf872deb9e1a84ce8ab31fee79876d2b2df674bf2319e6a696e4f09a5fc7b",
+    "schema": "dio.studio_customer_delivery.v1",
+    "studio_id": "site_studio"
+  },
+  "customer_word_count": 331,
+  "customers_will_pay": "UNPROVED",
+  "desired_final_copy_supplied": false,
+  "examiner_fields_withheld_from_studio": true,
+  "expected_fact_ratio": 1.0,
+  "external_effects": false,
+  "fact_checks": [
+    {
+      "alternatives": [
+        "Mahlangu Evidence & Evaluation"
+      ],
+      "label": "business identity",
+      "matched": [
+        "Mahlangu Evidence & Evaluation"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "programme evaluation"
+      ],
+      "label": "service programme evaluation",
+      "matched": [
+        "programme evaluation"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "survey design"
+      ],
+      "label": "service survey design",
+      "matched": [
+        "survey design"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "evidence synthesis"
+      ],
+      "label": "service evidence synthesis",
+      "matched": [
+        "evidence synthesis"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "12 years",
+        "twelve years"
+      ],
+      "label": "founder experience",
+      "matched": [
+        "12 years"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "Start a conversation",
+        "Discuss your project",
+        "enquiry"
+      ],
+      "label": "target enquiry action",
+      "matched": [
+        "Start a conversation",
+        "Discuss your project",
+        "enquiry"
+      ],
+      "passed": true
+    }
+  ],
+  "internal_language_matches": [],
+  "minimum_score": 85,
+  "minimum_word_count": 180,
+  "native_execution_pass": true,
+  "packet_path": "packet",
+  "poisoned_instruction_check": {
+    "applicable": false,
+    "leaks": [],
+    "passed": true,
+    "safe_alternatives_present": []
+  },
+  "primary_artifact": "customer_delivery/site/index.html",
+  "primary_artifact_sha256": "617cf872deb9e1a84ce8ab31fee79876d2b2df674bf2319e6a696e4f09a5fc7b",
+  "prohibited_invention_checks": [
+    {
+      "label": "fabricated testimonial",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "testimonial from",
+        "what our clients say",
+        "5-star"
+      ]
+    },
+    {
+      "label": "fabricated scale claim",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "500 clients",
+        "hundreds of clients",
+        "south africa's leading",
+        "south africa’s leading"
+      ]
+    },
+    {
+      "label": "fabricated certification",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "certified evaluation",
+        "iso certified"
+      ]
+    }
+  ],
+  "receipt_fingerprint": "sha256:67b1b0dd6041d0e0025a7559329a129d964ecd6dcdc4ce6aa48403083dc8dd36",
+  "repeatable_commercial_outcome": "UNPROVED",
+  "required_term_ratio": 1.0,
+  "schema": "dio.professional_task_case_receipt.v1",
+  "score": 100,
+  "status": "PROFESSIONAL_TASK_VERIFIED",
+  "studio_id": "site_studio",
+  "tier": "normal",
+  "title": "Mahlangu Evidence & Evaluation consultancy launch",
+  "verified_payment": "UNPROVED"
+}

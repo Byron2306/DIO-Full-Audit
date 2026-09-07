@@ -1,0 +1,21 @@
+{
+  "authority_created": false,
+  "envelope_fingerprint": "sha256:ed879ae891fa4cbad1a48befbf5c13b3561a761c0c9c04066fa2e559032b80d5",
+  "evaluated_at": "2026-08-16T12:00:00+00:00",
+  "executor_id": "factory_generated_internal_runner_v1",
+  "external_effects": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "operator_id": "human.phase15_gauntlet",
+  "product_id": "dio_incidentreadinessproof",
+  "proof_fingerprint": "sha256:3bbdd509f49b681810eb80a4c868c59a84a28b6b792acfdb510f352e5334ca2a",
+  "schema": "dio.generated_product_execution_receipt.v1",
+  "states": {
+    "action_boundary": "REFUSE",
+    "evidence_coverage": "SUPPORTED",
+    "evidence_currency": "STALE",
+    "human_authority": "NEEDS_YOU",
+    "integrity": "SUPPORTED",
+    "release": "REFUSE"
+  }
+}

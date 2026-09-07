@@ -1,0 +1,215 @@
+{
+  "claims": {
+    "adaptive_claim_authorized": false,
+    "authority_expansion_authorized": false,
+    "commercial_or_world_first_claim_authorized": false,
+    "fulfilment_authorized": false,
+    "professional_approval_claim_authorized": false,
+    "publication_authorized": false,
+    "spend_authorized": false
+  },
+  "hypothesis": "DIO ecosystem adaptability should be tested as organ-mediated orchestration across BEAST, Sophia, Evidex, Hivenance, Market Sensorium, Lingua, Legalis, Document Studio, NicheFoundry, HOMS, and DIO Core, not as isolated synthetic DIO output generation.",
+  "organs": [
+    {
+      "capabilities": [
+        "plan",
+        "route",
+        "bind_receipts",
+        "refuse_overclaim"
+      ],
+      "forbidden_claims": [
+        "authority_expansion",
+        "world_first",
+        "commercial_validation"
+      ],
+      "organ_id": "DIO_CORE",
+      "required_receipts": [
+        "lineage",
+        "claim_boundary",
+        "execution_gate"
+      ],
+      "role": "governed_orchestration_kernel"
+    },
+    {
+      "capabilities": [
+        "semantic_normalization",
+        "claim_language_repair",
+        "rubric_alignment"
+      ],
+      "forbidden_claims": [
+        "new_authority",
+        "professional_approval"
+      ],
+      "organ_id": "LINGUA",
+      "required_receipts": [
+        "semantic_trace",
+        "boundary_terms"
+      ],
+      "role": "semantic_cortex_and_boundary_language"
+    },
+    {
+      "capabilities": [
+        "codebase_scoping",
+        "root_cause_analysis",
+        "bounded_patch_plan"
+      ],
+      "forbidden_claims": [
+        "unverified_fix",
+        "production_readiness"
+      ],
+      "organ_id": "BEAST",
+      "required_receipts": [
+        "file_scope",
+        "test_scope",
+        "patch_boundary"
+      ],
+      "role": "repo_context_and_quality_governor"
+    },
+    {
+      "capabilities": [
+        "claim_critique",
+        "evidence_gap_detection",
+        "boundary_review"
+      ],
+      "forbidden_claims": [
+        "final_approval",
+        "professional_opinion"
+      ],
+      "organ_id": "SOPHIA",
+      "required_receipts": [
+        "critique",
+        "gap_list",
+        "claim_tier"
+      ],
+      "role": "reflective_evidence_and_claim_reviewer"
+    },
+    {
+      "capabilities": [
+        "receipt_chain",
+        "evidence_repair",
+        "provenance_binding"
+      ],
+      "forbidden_claims": [
+        "invented_evidence",
+        "external_validation"
+      ],
+      "organ_id": "EVIDEX",
+      "required_receipts": [
+        "source_hash",
+        "lineage_hash",
+        "missing_evidence"
+      ],
+      "role": "proof_lineage_and_receipt_engine"
+    },
+    {
+      "capabilities": [
+        "market_observation",
+        "cost_boundary",
+        "hypothesis_scoring"
+      ],
+      "forbidden_claims": [
+        "profit_guarantee",
+        "investment_advice",
+        "execution_authority"
+      ],
+      "organ_id": "HIVENANCE",
+      "required_receipts": [
+        "market_snapshot",
+        "fee_boundary",
+        "no_trade_claim"
+      ],
+      "role": "market_observation_and_economic_hypothesis_engine"
+    },
+    {
+      "capabilities": [
+        "source_bound_signal",
+        "market_rank_context",
+        "staleness_detection"
+      ],
+      "forbidden_claims": [
+        "current_world_truth_without_source",
+        "buyer_validation"
+      ],
+      "organ_id": "MARKET_SENSORIUM",
+      "required_receipts": [
+        "source_url_or_hash",
+        "timestamp",
+        "staleness_boundary"
+      ],
+      "role": "public_world_signal_binder"
+    },
+    {
+      "capabilities": [
+        "allow_refuse_needs_you",
+        "obligation_mapping",
+        "external_effect_detection"
+      ],
+      "forbidden_claims": [
+        "legal_advice",
+        "regulatory_clearance"
+      ],
+      "organ_id": "LEGALIS",
+      "required_receipts": [
+        "authority_basis",
+        "human_gate",
+        "external_effect_boundary"
+      ],
+      "role": "authority_and_obligation_gate"
+    },
+    {
+      "capabilities": [
+        "document_transform",
+        "evidence_packaging",
+        "format_control"
+      ],
+      "forbidden_claims": [
+        "content_truth_without_source",
+        "publication_authority"
+      ],
+      "organ_id": "DOCUMENT_STUDIO",
+      "required_receipts": [
+        "input_hash",
+        "render_profile",
+        "output_hash"
+      ],
+      "role": "governed_deliverable_composer"
+    },
+    {
+      "capabilities": [
+        "buyer_facing_translation",
+        "asset_plan",
+        "audience_hypothesis"
+      ],
+      "forbidden_claims": [
+        "sales_validation",
+        "ad_platform_approval"
+      ],
+      "organ_id": "NICHEFOUNDRY",
+      "required_receipts": [
+        "audience_hypothesis",
+        "claim_boundary",
+        "asset_receipt"
+      ],
+      "role": "marketfront_and_media_incarnation_composer"
+    },
+    {
+      "capabilities": [
+        "curriculum_context",
+        "assessment_context",
+        "learner_support_pattern"
+      ],
+      "forbidden_claims": [
+        "institutional_approval",
+        "learner_outcome_guarantee"
+      ],
+      "organ_id": "HOMS",
+      "required_receipts": [
+        "education_context",
+        "assessment_boundary",
+        "human_moderation_gate"
+      ],
+      "role": "education_and_learning_product_context"
+    }
+  ],
+  "registry_version": "DIO_METAMORPHIC_ADAPTATION_ECOSYSTEM_ORGAN_CAPABILITY_REGISTRY_V1"
+}

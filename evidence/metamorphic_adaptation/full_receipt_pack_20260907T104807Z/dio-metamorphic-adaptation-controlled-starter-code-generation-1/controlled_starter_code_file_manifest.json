@@ -1,0 +1,52 @@
+{
+  "files_written": [
+    {
+      "kind": "source",
+      "relative_path": "dio_trust_dossier_studio/__init__.py",
+      "sha256": "a8f69654f82d95d375412d810dfaad311c312328986b0c858645acb8f66a809e"
+    },
+    {
+      "kind": "source",
+      "relative_path": "dio_trust_dossier_studio/source_intake.py",
+      "sha256": "fc1fbd32c67e83c6b024adf8f3ea2eea9d5244a8ef340450bb59d29ff352dec6"
+    },
+    {
+      "kind": "source",
+      "relative_path": "dio_trust_dossier_studio/claim_boundary_checker.py",
+      "sha256": "c07c5a69709e8f243726968faf0e7d78df5196e221afdba898b35dc7ed9c9a6e"
+    },
+    {
+      "kind": "source",
+      "relative_path": "dio_trust_dossier_studio/evidence_spine_builder.py",
+      "sha256": "7b480b1eaf03010e3c4893ddb9258d5a7f5ba7bff00948d72885d2c4ed4d871e"
+    },
+    {
+      "kind": "source",
+      "relative_path": "dio_trust_dossier_studio/dossier_renderer.py",
+      "sha256": "d702fe00d4c94c338aa5df6c6f079c7e0cf991a6d40012edd21ea74fba03c0ed"
+    },
+    {
+      "kind": "source",
+      "relative_path": "dio_trust_dossier_studio/human_gate_policy.py",
+      "sha256": "c4168e5e281085d9a2d3c6ed25ac80e02ed26e4ff095f3fe1a83fadb8d54ad5f"
+    },
+    {
+      "kind": "receipt_schema",
+      "relative_path": "dio_trust_dossier_studio/receipt_emitter.py",
+      "sha256": "aaacb8e0945a3534215162cb769e267bc22f59a0162a5e6ee03dad3641d9e624"
+    },
+    {
+      "kind": "test",
+      "relative_path": "tests/test_acceptance_contract.py",
+      "sha256": "65802abac07e013749072cb21b69f821da906e8899481fdeb4925f1a384c740e"
+    },
+    {
+      "kind": "readme",
+      "relative_path": "README.md",
+      "sha256": "1a863a9b784514db07fb8664a430e349ff6d5781a803177c713460929d8abf15"
+    }
+  ],
+  "human_review_required": true,
+  "product_capability_execution_authorized": false,
+  "selected_product": "DIO_TRUST_DOSSIER_STUDIO"
+}

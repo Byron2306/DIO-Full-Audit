@@ -1,0 +1,521 @@
+{
+  "ECO-BLIND-0001": {
+    "arm_id": "A_DIO_CORE_ONLY",
+    "enabled_organs": [
+      "DIO_CORE"
+    ],
+    "missing_organs": [
+      "BEAST",
+      "LINGUA"
+    ],
+    "required_organs": [
+      "BEAST",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "repo_failure_governance",
+    "task_id": "ECO-001"
+  },
+  "ECO-BLIND-0002": {
+    "arm_id": "A_DIO_CORE_ONLY",
+    "enabled_organs": [
+      "DIO_CORE"
+    ],
+    "missing_organs": [
+      "EVIDEX",
+      "SOPHIA"
+    ],
+    "required_organs": [
+      "EVIDEX",
+      "SOPHIA",
+      "DIO_CORE"
+    ],
+    "task_family": "evidence_lineage_repair",
+    "task_id": "ECO-002"
+  },
+  "ECO-BLIND-0003": {
+    "arm_id": "A_DIO_CORE_ONLY",
+    "enabled_organs": [
+      "DIO_CORE"
+    ],
+    "missing_organs": [
+      "HIVENANCE",
+      "LEGALIS",
+      "MARKET_SENSORIUM"
+    ],
+    "required_organs": [
+      "MARKET_SENSORIUM",
+      "HIVENANCE",
+      "LEGALIS",
+      "DIO_CORE"
+    ],
+    "task_family": "market_signal_translation",
+    "task_id": "ECO-003"
+  },
+  "ECO-BLIND-0004": {
+    "arm_id": "A_DIO_CORE_ONLY",
+    "enabled_organs": [
+      "DIO_CORE"
+    ],
+    "missing_organs": [
+      "EVIDEX",
+      "LEGALIS",
+      "SOPHIA"
+    ],
+    "required_organs": [
+      "LEGALIS",
+      "SOPHIA",
+      "EVIDEX",
+      "DIO_CORE"
+    ],
+    "task_family": "authority_gate_decision",
+    "task_id": "ECO-004"
+  },
+  "ECO-BLIND-0005": {
+    "arm_id": "A_DIO_CORE_ONLY",
+    "enabled_organs": [
+      "DIO_CORE"
+    ],
+    "missing_organs": [
+      "DOCUMENT_STUDIO",
+      "HOMS",
+      "LINGUA",
+      "NICHEFOUNDRY"
+    ],
+    "required_organs": [
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "governed_deliverable_incarnation",
+    "task_id": "ECO-005"
+  },
+  "ECO-BLIND-0006": {
+    "arm_id": "B_DIO_CORE_LINGUA",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA"
+    ],
+    "missing_organs": [
+      "BEAST"
+    ],
+    "required_organs": [
+      "BEAST",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "repo_failure_governance",
+    "task_id": "ECO-001"
+  },
+  "ECO-BLIND-0007": {
+    "arm_id": "B_DIO_CORE_LINGUA",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA"
+    ],
+    "missing_organs": [
+      "EVIDEX",
+      "SOPHIA"
+    ],
+    "required_organs": [
+      "EVIDEX",
+      "SOPHIA",
+      "DIO_CORE"
+    ],
+    "task_family": "evidence_lineage_repair",
+    "task_id": "ECO-002"
+  },
+  "ECO-BLIND-0008": {
+    "arm_id": "B_DIO_CORE_LINGUA",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA"
+    ],
+    "missing_organs": [
+      "HIVENANCE",
+      "LEGALIS",
+      "MARKET_SENSORIUM"
+    ],
+    "required_organs": [
+      "MARKET_SENSORIUM",
+      "HIVENANCE",
+      "LEGALIS",
+      "DIO_CORE"
+    ],
+    "task_family": "market_signal_translation",
+    "task_id": "ECO-003"
+  },
+  "ECO-BLIND-0009": {
+    "arm_id": "B_DIO_CORE_LINGUA",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA"
+    ],
+    "missing_organs": [
+      "EVIDEX",
+      "LEGALIS",
+      "SOPHIA"
+    ],
+    "required_organs": [
+      "LEGALIS",
+      "SOPHIA",
+      "EVIDEX",
+      "DIO_CORE"
+    ],
+    "task_family": "authority_gate_decision",
+    "task_id": "ECO-004"
+  },
+  "ECO-BLIND-0010": {
+    "arm_id": "B_DIO_CORE_LINGUA",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA"
+    ],
+    "missing_organs": [
+      "DOCUMENT_STUDIO",
+      "HOMS",
+      "NICHEFOUNDRY"
+    ],
+    "required_organs": [
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "governed_deliverable_incarnation",
+    "task_id": "ECO-005"
+  },
+  "ECO-BLIND-0011": {
+    "arm_id": "C_DIO_BEAST_CONTEXT",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "BEAST",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "repo_failure_governance",
+    "task_id": "ECO-001"
+  },
+  "ECO-BLIND-0012": {
+    "arm_id": "C_DIO_BEAST_CONTEXT",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST"
+    ],
+    "missing_organs": [
+      "EVIDEX",
+      "SOPHIA"
+    ],
+    "required_organs": [
+      "EVIDEX",
+      "SOPHIA",
+      "DIO_CORE"
+    ],
+    "task_family": "evidence_lineage_repair",
+    "task_id": "ECO-002"
+  },
+  "ECO-BLIND-0013": {
+    "arm_id": "C_DIO_BEAST_CONTEXT",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST"
+    ],
+    "missing_organs": [
+      "HIVENANCE",
+      "LEGALIS",
+      "MARKET_SENSORIUM"
+    ],
+    "required_organs": [
+      "MARKET_SENSORIUM",
+      "HIVENANCE",
+      "LEGALIS",
+      "DIO_CORE"
+    ],
+    "task_family": "market_signal_translation",
+    "task_id": "ECO-003"
+  },
+  "ECO-BLIND-0014": {
+    "arm_id": "C_DIO_BEAST_CONTEXT",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST"
+    ],
+    "missing_organs": [
+      "EVIDEX",
+      "LEGALIS",
+      "SOPHIA"
+    ],
+    "required_organs": [
+      "LEGALIS",
+      "SOPHIA",
+      "EVIDEX",
+      "DIO_CORE"
+    ],
+    "task_family": "authority_gate_decision",
+    "task_id": "ECO-004"
+  },
+  "ECO-BLIND-0015": {
+    "arm_id": "C_DIO_BEAST_CONTEXT",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST"
+    ],
+    "missing_organs": [
+      "DOCUMENT_STUDIO",
+      "HOMS",
+      "NICHEFOUNDRY"
+    ],
+    "required_organs": [
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "governed_deliverable_incarnation",
+    "task_id": "ECO-005"
+  },
+  "ECO-BLIND-0016": {
+    "arm_id": "D_DIO_DOMAIN_ORGANS",
+    "enabled_organs": [
+      "DIO_CORE",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS"
+    ],
+    "missing_organs": [
+      "BEAST",
+      "LINGUA"
+    ],
+    "required_organs": [
+      "BEAST",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "repo_failure_governance",
+    "task_id": "ECO-001"
+  },
+  "ECO-BLIND-0017": {
+    "arm_id": "D_DIO_DOMAIN_ORGANS",
+    "enabled_organs": [
+      "DIO_CORE",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "EVIDEX",
+      "SOPHIA",
+      "DIO_CORE"
+    ],
+    "task_family": "evidence_lineage_repair",
+    "task_id": "ECO-002"
+  },
+  "ECO-BLIND-0018": {
+    "arm_id": "D_DIO_DOMAIN_ORGANS",
+    "enabled_organs": [
+      "DIO_CORE",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "MARKET_SENSORIUM",
+      "HIVENANCE",
+      "LEGALIS",
+      "DIO_CORE"
+    ],
+    "task_family": "market_signal_translation",
+    "task_id": "ECO-003"
+  },
+  "ECO-BLIND-0019": {
+    "arm_id": "D_DIO_DOMAIN_ORGANS",
+    "enabled_organs": [
+      "DIO_CORE",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "LEGALIS",
+      "SOPHIA",
+      "EVIDEX",
+      "DIO_CORE"
+    ],
+    "task_family": "authority_gate_decision",
+    "task_id": "ECO-004"
+  },
+  "ECO-BLIND-0020": {
+    "arm_id": "D_DIO_DOMAIN_ORGANS",
+    "enabled_organs": [
+      "DIO_CORE",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS"
+    ],
+    "missing_organs": [
+      "DOCUMENT_STUDIO",
+      "HOMS",
+      "LINGUA",
+      "NICHEFOUNDRY"
+    ],
+    "required_organs": [
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "governed_deliverable_incarnation",
+    "task_id": "ECO-005"
+  },
+  "ECO-BLIND-0021": {
+    "arm_id": "E_FULL_ECOSYSTEM_ORCHESTRATION",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS",
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "BEAST",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "repo_failure_governance",
+    "task_id": "ECO-001"
+  },
+  "ECO-BLIND-0022": {
+    "arm_id": "E_FULL_ECOSYSTEM_ORCHESTRATION",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS",
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "EVIDEX",
+      "SOPHIA",
+      "DIO_CORE"
+    ],
+    "task_family": "evidence_lineage_repair",
+    "task_id": "ECO-002"
+  },
+  "ECO-BLIND-0023": {
+    "arm_id": "E_FULL_ECOSYSTEM_ORCHESTRATION",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS",
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "MARKET_SENSORIUM",
+      "HIVENANCE",
+      "LEGALIS",
+      "DIO_CORE"
+    ],
+    "task_family": "market_signal_translation",
+    "task_id": "ECO-003"
+  },
+  "ECO-BLIND-0024": {
+    "arm_id": "E_FULL_ECOSYSTEM_ORCHESTRATION",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS",
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "LEGALIS",
+      "SOPHIA",
+      "EVIDEX",
+      "DIO_CORE"
+    ],
+    "task_family": "authority_gate_decision",
+    "task_id": "ECO-004"
+  },
+  "ECO-BLIND-0025": {
+    "arm_id": "E_FULL_ECOSYSTEM_ORCHESTRATION",
+    "enabled_organs": [
+      "DIO_CORE",
+      "LINGUA",
+      "BEAST",
+      "SOPHIA",
+      "EVIDEX",
+      "HIVENANCE",
+      "MARKET_SENSORIUM",
+      "LEGALIS",
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS"
+    ],
+    "missing_organs": [],
+    "required_organs": [
+      "DOCUMENT_STUDIO",
+      "NICHEFOUNDRY",
+      "HOMS",
+      "LINGUA",
+      "DIO_CORE"
+    ],
+    "task_family": "governed_deliverable_incarnation",
+    "task_id": "ECO-005"
+  }
+}

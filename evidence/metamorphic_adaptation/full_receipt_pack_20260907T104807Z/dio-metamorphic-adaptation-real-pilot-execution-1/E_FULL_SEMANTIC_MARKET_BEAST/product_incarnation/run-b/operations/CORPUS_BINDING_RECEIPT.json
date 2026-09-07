@@ -1,0 +1,145 @@
+{
+  "bindings": [
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "evidence.campaign.proof",
+        "evidence.intake.structure"
+      ],
+      "engine_id": "evidex",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Evidex",
+      "phase16_role": "Bind evidence promises and campaign claims to inspectable proof.",
+      "source_ref": "scripts/run_evidex_jobs.py",
+      "source_sha256": "d40d1308ff3d8d1dbaf22e305907017cc83b11f8241688dbf5c56b6d038c3451"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "onboarding.assessment.compose",
+        "customer.education.structure"
+      ],
+      "engine_id": "homs",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "HOMS",
+      "phase16_role": "Create buyer education and readiness self-assessment drafts.",
+      "source_ref": "scripts/run_homs_jobs.py",
+      "source_sha256": "7054e1fbfb159d58f5263ebc67dff4e2a128d2ae1cacab45fd26560ca0e3894d"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "marketing.claim.review",
+        "source.claim.trace"
+      ],
+      "engine_id": "sophia",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Sophia",
+      "phase16_role": "Challenge marketing claims and preserve evidence/claim boundaries.",
+      "source_ref": "scripts/run_sophia_review.py",
+      "source_sha256": "8d93d0b5e72647cd2a377310ddd5768a822f73571984b075a1034cbe0b014f0a"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "document.sales_assets",
+        "document.preview.render"
+      ],
+      "engine_id": "document_studio",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Document Studio",
+      "phase16_role": "Project the offer into professional brochure and preview formats.",
+      "source_ref": "adapters/document_studio/pipeline.py",
+      "source_sha256": "6903b0068736bd4ee04a57a7942e93c411982f6db460afed0ed9258638d230fc"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "market.position",
+        "media.creative.compose"
+      ],
+      "engine_id": "nichefoundry",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "NicheFoundry",
+      "phase16_role": "Generate audience hypothesis, offer angle and governed creative queue.",
+      "source_ref": "scripts/run_nichefoundry_jobs.py",
+      "source_sha256": "f61bf7ecf1db0c11bef9fdae646b2583bd2b731b12fe4d77fc1cab90e6b512b1"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "campaign.plan",
+        "media.procurement.prepare"
+      ],
+      "engine_id": "market_command",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Market Command",
+      "phase16_role": "Create measured campaign and media plans without authorising spend.",
+      "source_ref": "market_command/agency.py",
+      "source_sha256": "5def699bc364bb460dadf66926e717cf66d7a1e5468ebefad1be1a7e6ec91a2b"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "fulfilment.attachment.prepare",
+        "fulfilment.proof.bind"
+      ],
+      "engine_id": "vesper",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Vesper",
+      "phase16_role": "Define attachment intake and proof-delivery journey.",
+      "source_ref": "products/phase11_1.py",
+      "source_sha256": "dac25fddb7acc6a1b037c2d0ffc597d1a893eb102b380bacb8fe3b61530ecb0a"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "outlook.mail.draft.prepare"
+      ],
+      "engine_id": "outlook_mail_core",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Outlook Mail Core",
+      "phase16_role": "Prepare customer and campaign mail drafts without sending.",
+      "source_ref": "scripts/manage_mail_intent.py",
+      "source_sha256": "cb0387459bc6230ae093bff50a06d77bf1a012d0cd7c79cd6423b3f4629399b3"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "presence.release.prepare",
+        "storefront.route.bind"
+      ],
+      "engine_id": "presence_core",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Presence Core",
+      "phase16_role": "Prepare deployable presence package with human publication gate.",
+      "source_ref": "presence_core/engine.py",
+      "source_sha256": "5c301e29c85ce15ea2a44091104741b5c440609cae1bcd41e459a5fbddffeb23"
+    },
+    {
+      "binding_state": "SOURCE_BOUND",
+      "capabilities": [
+        "commercial.measurement.contract",
+        "commercial.claim.boundary"
+      ],
+      "engine_id": "commercial_truth",
+      "execution_mode": "DETERMINISTIC_PROJECTION",
+      "live_adapter_invoked": false,
+      "name": "Commercial Truth",
+      "phase16_role": "Define measurement without inventing demand, revenue or validation.",
+      "source_ref": "products/commercial_truth.py",
+      "source_sha256": "ab9632a01214af1e97a726dd68bb3e47a5072aa08875ed51a349930778dc01f7"
+    }
+  ],
+  "bound_at": "2026-08-16T12:00:00+00:00",
+  "schema": "dio.corpus_binding_receipt.v1"
+}

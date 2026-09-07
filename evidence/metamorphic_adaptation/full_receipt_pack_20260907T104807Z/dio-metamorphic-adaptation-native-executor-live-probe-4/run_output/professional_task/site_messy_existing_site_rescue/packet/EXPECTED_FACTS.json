@@ -1,0 +1,43 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "Ubuntu Fieldworks"
+      ],
+      "label": "business identity"
+    },
+    {
+      "any_of": [
+        "field sampling"
+      ],
+      "label": "field sampling"
+    },
+    {
+      "any_of": [
+        "GIS",
+        "map preparation"
+      ],
+      "label": "gis service"
+    },
+    {
+      "any_of": [
+        "compliance documentation"
+      ],
+      "label": "compliance documentation"
+    },
+    {
+      "any_of": [
+        "Limpopo",
+        "Polokwane"
+      ],
+      "label": "location"
+    },
+    {
+      "any_of": [
+        "water-quality",
+        "18 monitoring points"
+      ],
+      "label": "case example"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-real-pilot-execution-1/B_COMPOSITION_ONLY_NO_RETAINED_LEARNING/professional_task/article_adversarial_hostile_editorial_packet/customer_delivery/article/ARTICLE_DRAFT.html",
+  "artifact_sha256": "8e5ff26a39cda11222a067a8907635da0ac4d172b31b25e992ada5b737195478",
+  "automated_score": 98,
+  "automated_status": "PROFESSIONAL_TASK_VERIFIED",
+  "buyer": "Features editor commissioning a climate-resilience business article",
+  "case_id": "article_adversarial_hostile_editorial_packet",
+  "claim_boundary": "Blind review is human quality evidence, not verified payment.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "professional_correctness",
+      "scale": "1-5"
+    },
+    {
+      "name": "source_fidelity",
+      "scale": "1-5"
+    },
+    {
+      "name": "judgement_under_ambiguity",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "buyer_usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "job": "Produce an evidence-backed feature from conflicting sources. The commissioning note pushes a stronger headline than the supplied evidence supports.",
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.professional_task_blind_review_packet.v1",
+  "studio_id": "article_publication_studio",
+  "tier": "adversarial"
+}

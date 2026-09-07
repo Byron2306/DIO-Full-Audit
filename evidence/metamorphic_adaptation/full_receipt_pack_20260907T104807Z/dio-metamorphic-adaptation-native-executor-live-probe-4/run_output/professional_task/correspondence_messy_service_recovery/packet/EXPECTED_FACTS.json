@@ -1,0 +1,43 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "14 August"
+      ],
+      "label": "promised date"
+    },
+    {
+      "any_of": [
+        "18 August"
+      ],
+      "label": "delay date"
+    },
+    {
+      "any_of": [
+        "data-quality",
+        "data quality"
+      ],
+      "label": "data quality issue"
+    },
+    {
+      "any_of": [
+        "review",
+        "investigation"
+      ],
+      "label": "investigation/review"
+    },
+    {
+      "any_of": [
+        "compensation",
+        "fee reduction"
+      ],
+      "label": "compensation request acknowledged"
+    },
+    {
+      "any_of": [
+        "20 August"
+      ],
+      "label": "next update"
+    }
+  ]
+}

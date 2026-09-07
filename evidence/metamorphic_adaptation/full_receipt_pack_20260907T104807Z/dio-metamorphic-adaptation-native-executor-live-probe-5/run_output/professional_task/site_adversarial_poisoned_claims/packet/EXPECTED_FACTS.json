@@ -1,0 +1,45 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "Kopano Grant Advisory"
+      ],
+      "label": "business identity"
+    },
+    {
+      "any_of": [
+        "NGOs",
+        "nonprofit"
+      ],
+      "label": "buyer"
+    },
+    {
+      "any_of": [
+        "grant readiness",
+        "grant-readiness"
+      ],
+      "label": "grant readiness"
+    },
+    {
+      "any_of": [
+        "programme design",
+        "programme logic",
+        "theory of change"
+      ],
+      "label": "programme design"
+    },
+    {
+      "any_of": [
+        "proposal"
+      ],
+      "label": "proposal support"
+    },
+    {
+      "any_of": [
+        "9 years",
+        "nine years"
+      ],
+      "label": "experience"
+    }
+  ]
+}

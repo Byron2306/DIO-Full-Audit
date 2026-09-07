@@ -1,0 +1,198 @@
+{
+  "audience_morphologies": [
+    {
+      "cta_permission": "review_receipts_only",
+      "forbidden_terms": [
+        "autonomous",
+        "guarantee",
+        "world-first",
+        "agi",
+        "automate complex"
+      ],
+      "jargon_tolerance": "medium",
+      "market_signal": "autonomy wording increases legal review friction",
+      "morphology_id": "MORPH-001",
+      "name": "risk_sensitive_compliance_gatekeeper",
+      "proof_appetite": "receipt_first",
+      "recomposed_language": "DIO is receipt-first orchestration infrastructure for governed AI work. It keeps authority limits, human review, risk controls, and claim boundaries visible before consequential action.",
+      "required_terms": [
+        "receipt-first",
+        "authority limits",
+        "human review",
+        "risk controls"
+      ],
+      "risk_sensitivity": "very_high",
+      "static_language": "DIO is an autonomous AI platform that can automate complex business work."
+    },
+    {
+      "cta_permission": "request_a_briefing",
+      "forbidden_terms": [
+        "guarantee",
+        "world-first",
+        "agi",
+        "fully autonomous",
+        "replaces teams"
+      ],
+      "jargon_tolerance": "low",
+      "market_signal": "executives need strategic compression without technical fog",
+      "morphology_id": "MORPH-002",
+      "name": "time_poor_executive_sponsor",
+      "proof_appetite": "executive_summary",
+      "recomposed_language": "DIO gives leaders a governed command layer for AI-enabled work: faster assessment, clearer proof, safer handoffs, and human-gated decisions without technical fog.",
+      "required_terms": [
+        "leaders",
+        "governed command layer",
+        "clearer proof",
+        "human-gated decisions"
+      ],
+      "risk_sensitivity": "high",
+      "static_language": "DIO coordinates organs, manifests, semantic gates, receipts, and typed authority surfaces."
+    },
+    {
+      "cta_permission": "inspect_the_receipt_chain",
+      "forbidden_terms": [
+        "breakthrough",
+        "guarantee",
+        "production-proven",
+        "world-first",
+        "agi"
+      ],
+      "jargon_tolerance": "high",
+      "market_signal": "technical evaluators distrust vision without reproducible traces",
+      "morphology_id": "MORPH-003",
+      "name": "technical_evaluator",
+      "proof_appetite": "hashes_tests_and_receipts",
+      "recomposed_language": "DIO exposes test-bound claims, source-bound receipts, hash-linked artifacts, branch-scoped runners, and authority locks so evaluators can inspect the proof chain.",
+      "required_terms": [
+        "test-bound",
+        "source-bound receipts",
+        "hash-linked",
+        "authority locks"
+      ],
+      "risk_sensitivity": "high",
+      "static_language": "DIO is a breakthrough intelligence organism for product and market execution."
+    },
+    {
+      "cta_permission": "read_method_note",
+      "forbidden_terms": [
+        "proves adaptive intelligence",
+        "guarantee",
+        "world-first",
+        "agi",
+        "transform work"
+      ],
+      "jargon_tolerance": "medium",
+      "market_signal": "reviewers require bounded claims, method traceability, and limitations",
+      "morphology_id": "MORPH-004",
+      "name": "academic_reviewer",
+      "proof_appetite": "method_and_limitations",
+      "recomposed_language": "DIO reports bounded internal evidence with explicit method traceability, limitations, comparison arms, and non-authority claims for scholarly review.",
+      "required_terms": [
+        "bounded internal evidence",
+        "method traceability",
+        "limitations",
+        "comparison arms"
+      ],
+      "risk_sensitivity": "very_high",
+      "static_language": "DIO proves adaptive intelligence and can transform work across industries."
+    },
+    {
+      "cta_permission": "try_a_sample_pack",
+      "forbidden_terms": [
+        "replace",
+        "guarantee",
+        "accredited",
+        "autonomous",
+        "fully automated"
+      ],
+      "jargon_tolerance": "low",
+      "market_signal": "teachers need practical value without replacement anxiety",
+      "morphology_id": "MORPH-005",
+      "name": "teacher_practitioner",
+      "proof_appetite": "examples_and_guardrails",
+      "recomposed_language": "DIO helps teachers prepare evidence-bound learning assets, examples, rubrics, and support materials while preserving teacher judgement and classroom context.",
+      "required_terms": [
+        "teachers",
+        "evidence-bound",
+        "rubrics",
+        "teacher judgement"
+      ],
+      "risk_sensitivity": "medium",
+      "static_language": "DIO can replace repetitive teaching preparation with AI-generated resources."
+    },
+    {
+      "cta_permission": "review_campaign_surface",
+      "forbidden_terms": [
+        "viral",
+        "automatically",
+        "guarantee",
+        "autonomous",
+        "publish without review"
+      ],
+      "jargon_tolerance": "medium",
+      "market_signal": "agencies need scalable campaign variants with brand and claim control",
+      "morphology_id": "MORPH-006",
+      "name": "agency_operations_buyer",
+      "proof_appetite": "workflow_and_approval",
+      "recomposed_language": "DIO composes campaign variants from proof packs, audience constraints, brand controls, claim locks, and human-approved publication gates.",
+      "required_terms": [
+        "campaign variants",
+        "proof packs",
+        "brand controls",
+        "claim locks"
+      ],
+      "risk_sensitivity": "high",
+      "static_language": "DIO can generate viral ads, posts, videos, and campaign assets automatically."
+    },
+    {
+      "cta_permission": "inspect_research_boundary",
+      "forbidden_terms": [
+        "profit",
+        "profitable",
+        "trading decisions",
+        "guarantee",
+        "autonomous"
+      ],
+      "jargon_tolerance": "medium",
+      "market_signal": "profit language is unsafe without verified external performance",
+      "morphology_id": "MORPH-007",
+      "name": "risk_governed_market_analytics_evaluator",
+      "proof_appetite": "risk_and_observation_boundary",
+      "recomposed_language": "DIO separates public observation, economic hypothesis, verified-cost analysis, and human-gated review, framing market outputs as bounded research evidence.",
+      "required_terms": [
+        "public observation",
+        "economic hypothesis",
+        "verified-cost",
+        "bounded research evidence"
+      ],
+      "risk_sensitivity": "very_high",
+      "static_language": "DIO improves trading decisions and finds profitable market opportunities."
+    },
+    {
+      "cta_permission": "choose_a_reference_workflow",
+      "forbidden_terms": [
+        "any idea",
+        "launch-ready",
+        "sell it",
+        "guarantee",
+        "autonomous"
+      ],
+      "jargon_tolerance": "medium",
+      "market_signal": "founders need opportunity language connected to execution constraints",
+      "morphology_id": "MORPH-008",
+      "name": "founder_operator",
+      "proof_appetite": "roadmap_and_gate",
+      "recomposed_language": "DIO turns product ideas into governed reference workflows with scoped build steps, evidence receipts, market-signal checks, and launch claims held behind human gates.",
+      "required_terms": [
+        "governed reference workflows",
+        "scoped build steps",
+        "evidence receipts",
+        "human gates"
+      ],
+      "risk_sensitivity": "medium",
+      "static_language": "DIO can turn any idea into a launch-ready product and sell it."
+    }
+  ],
+  "boundary": "Audience morphologies bind proof appetite, risk sensitivity, jargon tolerance, CTA permission, required language, and forbidden language. They do not authorize manipulation, autonomous external action, commercial validation, world-first claims, or authority expansion.",
+  "registry_version": "DIO_METAMORPHIC_ADAPTATION_AUDIENCE_MORPHOLOGY_RECOMPOSITION_GAUNTLET_V1"
+}

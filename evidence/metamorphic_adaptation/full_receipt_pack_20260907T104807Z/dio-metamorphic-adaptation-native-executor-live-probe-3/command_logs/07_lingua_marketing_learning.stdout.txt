@@ -1,0 +1,13 @@
+{
+  "schema": "dio.lingua.commercial_learning_status.v1",
+  "status": "operational",
+  "candidates": 0,
+  "positive_candidates_waiting_for_operator": 0,
+  "approved_patterns": 0,
+  "negative_patterns_observing": 0,
+  "negative_patterns_active": 0,
+  "learning_loop": "market evidence -> Lingua candidate -> human approval -> BEAST crystal -> held draft reuse",
+  "direct_learning_to_execution": false,
+  "automatic_publication": false,
+  "automatic_spend": false
+}

@@ -1,0 +1,172 @@
+{
+  "execute_by_default": false,
+  "plan_version": "DIO_METAMORPHIC_ADAPTATION_NATIVE_EXECUTION_PLAN_V1",
+  "planned_commands": [
+    {
+      "command_group": "media_generation",
+      "factor_pressure": [
+        "semantic",
+        "beast"
+      ],
+      "label": "media_incarnation_phase16_1",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_media_incarnation_phase16_1.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/media_incarnation"
+      ],
+      "script_path": "scripts/run_media_incarnation_phase16_1.py"
+    },
+    {
+      "command_group": "media_generation",
+      "factor_pressure": [
+        "semantic",
+        "beast"
+      ],
+      "label": "premium_media_phase16_1_1",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_premium_media_phase16_1_1.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/premium_media"
+      ],
+      "script_path": "scripts/run_premium_media_phase16_1_1.py"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "factor_pressure": [
+        "market"
+      ],
+      "label": "market_sensorium_cycle",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_market_sensorium_cycle.py"
+      ],
+      "script_path": "scripts/run_market_sensorium_cycle.py"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "factor_pressure": [
+        "market"
+      ],
+      "label": "hivenance_market_command_import",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/import_hivenance_market_command.py"
+      ],
+      "script_path": "scripts/import_hivenance_market_command.py"
+    },
+    {
+      "command_group": "market_sensorium_hivenance",
+      "factor_pressure": [
+        "market"
+      ],
+      "label": "market_command_manage",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/manage_market_command.py"
+      ],
+      "script_path": "scripts/manage_market_command.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "factor_pressure": [
+        "semantic",
+        "market",
+        "beast"
+      ],
+      "label": "dio_marketing_integration",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_dio_marketing_integration.py"
+      ],
+      "script_path": "scripts/run_dio_marketing_integration.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "factor_pressure": [
+        "semantic",
+        "market",
+        "beast"
+      ],
+      "label": "lingua_marketing_learning",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/lingua_marketing_learning.py"
+      ],
+      "script_path": "scripts/lingua_marketing_learning.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "factor_pressure": [
+        "semantic",
+        "market",
+        "beast"
+      ],
+      "label": "vesper_persona_lab",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/build_vesper_persona_lab.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/vesper_persona"
+      ],
+      "script_path": "scripts/build_vesper_persona_lab.py"
+    },
+    {
+      "command_group": "marketing_vesper_lingua_nichefoundry",
+      "factor_pressure": [
+        "semantic",
+        "market",
+        "beast"
+      ],
+      "label": "nichefoundry_media_pipeline",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_nichefoundry_media_pipeline.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/nichefoundry_media"
+      ],
+      "script_path": "scripts/run_nichefoundry_media_pipeline.py"
+    },
+    {
+      "command_group": "transfer",
+      "factor_pressure": [],
+      "label": "professional_task_gauntlet",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_professional_task_gauntlet.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/professional_task"
+      ],
+      "script_path": "scripts/run_professional_task_gauntlet.py"
+    },
+    {
+      "command_group": "transfer",
+      "factor_pressure": [],
+      "label": "product_incarnation_studio_phase16",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_product_incarnation_studio_phase16.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/product_incarnation"
+      ],
+      "script_path": "scripts/run_product_incarnation_studio_phase16.py"
+    },
+    {
+      "command_group": "transfer",
+      "factor_pressure": [],
+      "label": "product_grade",
+      "resolved_argv": [
+        "/home/byron/DIO-Full-Audit/.venv/bin/python",
+        "scripts/run_product_grade.py",
+        "--output",
+        "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output/product_grade"
+      ],
+      "script_path": "scripts/run_product_grade.py"
+    }
+  ],
+  "preflight_receipt_path": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/preflight/native_preflight_receipt.json",
+  "refusal_boundary": "This plan expands native DIO commands but does not execute them. Execution requires an explicit operator action and remains separate from any adaptive-composition claim.",
+  "run_output": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe/run_output",
+  "status": "DIO_METAMORPHIC_ADAPTATION_NATIVE_EXECUTION_PLAN_READY"
+}

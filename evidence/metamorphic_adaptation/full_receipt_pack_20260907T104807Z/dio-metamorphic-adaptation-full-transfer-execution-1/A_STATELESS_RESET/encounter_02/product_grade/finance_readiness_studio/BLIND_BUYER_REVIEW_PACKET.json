@@ -1,0 +1,46 @@
+{
+  "artifact_path": "/tmp/dio-metamorphic-adaptation-full-transfer-execution-1/A_STATELESS_RESET/encounter_02/product_grade/finance_readiness_studio/customer_delivery/finance/READINESS_REPORT.html",
+  "artifact_sha256": "7e370dd97bd290e79b06da5f82fa58a167c02aef5c853b42567e72e6d3d73516",
+  "automated_product_grade_score": 100,
+  "automated_product_grade_status": "PRODUCT_GRADE_VERIFIED",
+  "blind_review_required": true,
+  "buyer_job": "Assess whether my business evidence is ready for a finance application and show me what is missing.",
+  "claim_boundary": "Blind buyer review is usefulness evidence, not verified payment or commercial validation.",
+  "critical_blockers": [],
+  "dimensions": [
+    {
+      "name": "target_buyer_fit",
+      "scale": "1-5"
+    },
+    {
+      "name": "correctness_and_trust",
+      "scale": "1-5"
+    },
+    {
+      "name": "edit_burden",
+      "note": "5 means little or no editing required",
+      "scale": "1-5"
+    },
+    {
+      "name": "usefulness",
+      "scale": "1-5"
+    },
+    {
+      "name": "presentation_quality",
+      "scale": "1-5"
+    },
+    {
+      "name": "would_use",
+      "scale": "yes/no"
+    },
+    {
+      "name": "would_request_paid_pilot",
+      "scale": "yes/no/price-dependent"
+    }
+  ],
+  "reviewer_should_not_grade_dio_receipts": true,
+  "schema": "dio.product_grade.blind_buyer_review_packet.v2",
+  "studio_id": "finance_readiness_studio",
+  "studio_name": "DIO Finance Readiness Studio",
+  "target_buyer": "South African small-business owner preparing a funding application"
+}

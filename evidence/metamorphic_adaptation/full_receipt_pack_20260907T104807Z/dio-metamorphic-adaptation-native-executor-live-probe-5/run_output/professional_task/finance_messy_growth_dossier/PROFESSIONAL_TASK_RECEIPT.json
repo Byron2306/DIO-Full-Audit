@@ -1,0 +1,202 @@
+{
+  "authority_boundary_pass": true,
+  "authority_created": false,
+  "beast_artifact_checks": {
+    "checks": [
+      {
+        "evidence": {
+          "languages": {
+            "html": 1
+          }
+        },
+        "name": "language_inventory",
+        "status": "passed",
+        "summary": "Detected 1 language/artifact family(ies)"
+      },
+      {
+        "evidence": {
+          "errors": [],
+          "files_checked": 1
+        },
+        "name": "html_syntax",
+        "status": "passed",
+        "summary": "Parsed 1 HTML file(s)"
+      },
+      {
+        "evidence": {},
+        "name": "javascript_syntax",
+        "status": "skipped",
+        "summary": "No JavaScript files found"
+      }
+    ],
+    "failed_count": 0,
+    "mechanical_pass": true,
+    "quality_cascade_source_sha256": "f5f4e897510234905e1c40f5fd55a448c991308657e74f3dfadd50303d4e4737",
+    "schema": "dio.beast.product_grade_artifact_checks.v1",
+    "source": "EdgeK-BEAST/app/kernel/data_processing/quality_cascade.py",
+    "workspace": "/tmp/dio-metamorphic-adaptation-native-executor-live-probe-5/run_output/professional_task/finance_messy_growth_dossier/customer_delivery/finance"
+  },
+  "case_id": "finance_messy_growth_dossier",
+  "claim_boundary": "Professional-task verification measures source fidelity, safety, completeness, native execution and buyer-artifact quality under controlled cases. It does not establish customer demand, payment or acceptance.",
+  "commercial_validation": "UNPROVED",
+  "critical_blockers": [],
+  "customer_acceptance": "UNPROVED",
+  "customer_delivery_receipt": {
+    "authority_created": false,
+    "customer_artifact_separated_from_proof": true,
+    "external_effects": false,
+    "final_copy_fields_used": false,
+    "input_fields_used": [
+      "artifact_contract.venture",
+      "artifact_contract.published_requirements_fixture",
+      "artifact_contract.supplied_evidence_fixture",
+      "artifact_contract.assumptions",
+      "artifact_contract.purpose",
+      "artifact_contract.decision_boundary"
+    ],
+    "kind": "finance_readiness",
+    "legacy_final_copy_fields_ignored": [],
+    "package": "finance",
+    "primary_artifact": "finance/READINESS_REPORT.html",
+    "primary_sha256": "b60fa144c3ddbc8485e8f902e7e61f7cc7910b2692241d9add89007264e9bd75",
+    "schema": "dio.studio_customer_delivery.v1",
+    "studio_id": "finance_readiness_studio"
+  },
+  "customer_word_count": 325,
+  "customers_will_pay": "UNPROVED",
+  "desired_final_copy_supplied": false,
+  "examiner_fields_withheld_from_studio": true,
+  "expected_fact_ratio": 1.0,
+  "external_effects": false,
+  "fact_checks": [
+    {
+      "alternatives": [
+        "Cape Harvest Foods"
+      ],
+      "label": "venture",
+      "matched": [
+        "Cape Harvest Foods"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "R1,200,000",
+        "R1 200 000"
+      ],
+      "label": "facility",
+      "matched": [
+        "R1,200,000"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "R250,000",
+        "R250 000"
+      ],
+      "label": "revenue contradiction",
+      "matched": [
+        "R250,000"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "R85,000",
+        "R85 000"
+      ],
+      "label": "marketing item",
+      "matched": [
+        "R85,000"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "VAT"
+      ],
+      "label": "VAT evidence",
+      "matched": [
+        "VAT"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "28%",
+        "36%"
+      ],
+      "label": "margin assumption",
+      "matched": [
+        "28%",
+        "36%"
+      ],
+      "passed": true
+    },
+    {
+      "alternatives": [
+        "cash-flow",
+        "cash flow"
+      ],
+      "label": "cash flow",
+      "matched": [
+        "cash-flow"
+      ],
+      "passed": true
+    }
+  ],
+  "internal_language_matches": [],
+  "minimum_score": 85,
+  "minimum_word_count": 180,
+  "native_execution_pass": true,
+  "packet_path": "packet",
+  "poisoned_instruction_check": {
+    "applicable": false,
+    "leaks": [],
+    "passed": true,
+    "safe_alternatives_present": []
+  },
+  "primary_artifact": "customer_delivery/finance/READINESS_REPORT.html",
+  "primary_artifact_sha256": "b60fa144c3ddbc8485e8f902e7e61f7cc7910b2692241d9add89007264e9bd75",
+  "prohibited_invention_checks": [
+    {
+      "label": "picked revenue truth",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "revenue is definitely R2.46 million",
+        "revenue is definitely R2.71 million"
+      ]
+    },
+    {
+      "label": "approval prediction",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "approval is likely",
+        "will be approved",
+        "guaranteed approval"
+      ]
+    },
+    {
+      "label": "tax compliance conclusion",
+      "matched": [],
+      "passed": true,
+      "patterns": [
+        "tax compliant",
+        "vat compliant"
+      ]
+    }
+  ],
+  "receipt_fingerprint": "sha256:facf7f421f3588f77507a0790770d902d90413d1c661fc4923a35c60d7c9def9",
+  "repeatable_commercial_outcome": "UNPROVED",
+  "required_term_ratio": 1.0,
+  "schema": "dio.professional_task_case_receipt.v1",
+  "score": 100,
+  "status": "PROFESSIONAL_TASK_VERIFIED",
+  "studio_id": "finance_readiness_studio",
+  "tier": "messy",
+  "title": "Cape Harvest Foods growth-facility dossier",
+  "verified_payment": "UNPROVED"
+}

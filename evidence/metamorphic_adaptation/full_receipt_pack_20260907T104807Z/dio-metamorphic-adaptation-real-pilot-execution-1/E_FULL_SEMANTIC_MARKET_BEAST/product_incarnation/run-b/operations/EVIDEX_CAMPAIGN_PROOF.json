@@ -1,0 +1,12 @@
+{
+  "claims_review_ref": "strategy/CLAIM_REVIEW.json",
+  "proof_requirements": [
+    "source-bound product claims",
+    "artifact hashes",
+    "forbidden claims retained",
+    "release boundary visible"
+  ],
+  "schema": "dio.evidex_campaign_proof_projection.v1",
+  "source_engine": "evidex",
+  "state": "INTERNAL_PROOF"
+}

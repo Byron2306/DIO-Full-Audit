@@ -1,0 +1,42 @@
+{
+  "expected_facts": [
+    {
+      "any_of": [
+        "INV-8421"
+      ],
+      "label": "invoice reference"
+    },
+    {
+      "any_of": [
+        "120"
+      ],
+      "label": "signed scope"
+    },
+    {
+      "any_of": [
+        "143"
+      ],
+      "label": "timesheet total"
+    },
+    {
+      "any_of": [
+        "R38,500",
+        "R38 500"
+      ],
+      "label": "disputed amount"
+    },
+    {
+      "any_of": [
+        "review"
+      ],
+      "label": "review boundary"
+    },
+    {
+      "any_of": [
+        "meeting",
+        "call"
+      ],
+      "label": "meeting next step"
+    }
+  ]
+}
