@@ -94,7 +94,9 @@ def _build_manifest(t21: dict, t21_sha256: str) -> dict:
         "evidence_chain": ["T16", "T17", "T18", "T19", "T20", "T21", "T22"],
         "t21_receipt_sha256": t21_sha256,
         "human_decision_applied": str(t21.get("human_decision_applied", "")),
-        "human_approval_state_after_decision": str(t21.get("human_approval_state_after_decision", "")),
+        "human_approval_state_after_decision": str(
+            t21.get("human_approval_state_after_decision", "")
+        ),
         "synthetic_dry_run_evidence": _bool(t21.get("synthetic_dry_run_evidence")),
         "synthetic_inputs_processed": _as_int(t21.get("synthetic_inputs_processed")),
         "draft_dossiers_written": _as_int(t21.get("draft_dossiers_written")),
@@ -156,11 +158,19 @@ def _render_html(manifest: dict) -> str:
     row_html = "\n".join(
         f"<tr><th>{label}</th><td>{value}</td></tr>" for label, value in rows
     )
+    boundary_facts = "\n".join(
+        [
+            "Actual product execution authorized: false",
+            "External deployment authorized: false",
+            "Commercial validation authorized: false",
+            "Authority expansion authorized: false",
+        ]
+    )
     return f"""<!doctype html>
-<html lang=\"en\">
+<html lang="en">
 <head>
-  <meta charset=\"utf-8\" />
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{selected_product} · DIO T22 HTML Proof Surface</title>
   <style>
     :root {{ color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }}
@@ -174,20 +184,21 @@ def _render_html(manifest: dict) -> str:
     th, td {{ padding: 13px 15px; border-bottom: 1px solid #253047; text-align: left; vertical-align: top; }}
     th {{ color: #aab7d4; width: 38%; font-weight: 650; }}
     .lock {{ margin-top: 28px; padding: 18px; border-radius: 18px; background: #161b27; border: 1px solid #2d3a56; color: #dbeafe; }}
-    code {{ color: #fef3c7; }}
+    pre {{ white-space: pre-wrap; margin: 14px 0 0; color: #fef3c7; }}
   </style>
 </head>
 <body>
 <main>
-  <section class=\"card\">
-    <div class=\"eyebrow\">DIO Metamorphic Adaptation · T22</div>
+  <section class="card">
+    <div class="eyebrow">DIO Metamorphic Adaptation · T22</div>
     <h1>{selected_product}</h1>
     <p>DIO generated this local, receipt-bound static HTML proof surface for a human-gated product candidate. It is a readable proof surface, not a deployed product, commercial validation event, autonomous execution event, or authority-expansion event.</p>
-    <table aria-label=\"DIO proof facts\">
+    <table aria-label="DIO proof facts">
       {row_html}
     </table>
-    <div class=\"lock\">
+    <div class="lock">
       <strong>Boundary lock:</strong> This proof surface may be inspected locally. It does not authorize actual product execution, external use, deployment, publication, spend, fulfilment, product-market-fit claims, commercial validation, professional approval, AGI claims, world-first claims, or authority expansion.
+      <pre>{boundary_facts}</pre>
     </div>
   </section>
 </main>
