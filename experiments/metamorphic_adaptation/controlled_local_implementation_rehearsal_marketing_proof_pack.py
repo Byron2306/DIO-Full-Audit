@@ -149,7 +149,7 @@ DIO does not merely plan a selected product sprint. It can rehearse the local im
 - Candidate implementation-rehearsal evidence, not starter code completion.
 - Not product-market fit.
 - Not commercial validation.
-- Not autonomous development.
+- No autonomous development.
 - Not AGI.
 - Not professional approval.
 - Not world-first status.
@@ -187,7 +187,7 @@ def build_controlled_implementation_rehearsal_marketing_proof_pack(
             "Candidate implementation-rehearsal evidence, not starter code completion.",
             "Not product-market fit.",
             "Not commercial validation.",
-            "Not autonomous development.",
+            "No autonomous development.",
             "Not AGI.",
             "Not professional approval.",
             "Not world-first status.",
