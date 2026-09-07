@@ -86,7 +86,7 @@ def test_missing_proof_fails_closed(tmp_path):
     assert row["critical_blockers"]
 
 
-def test_first_portfolio_run_truthfully_reports_15_proof_candidates_but_only_4_productgrade(tmp_path):
+def test_first_portfolio_run_truthfully_reports_15_proof_candidates_and_zero_native_productgrade(tmp_path):
     for spec in CANON_EXTENSIONS:
         if spec["proof_kind"] == "receipt_bound":
             _write_receipt_bound_case(tmp_path, spec["slug"])
@@ -100,8 +100,8 @@ def test_first_portfolio_run_truthfully_reports_15_proof_candidates_but_only_4_p
     assert receipt["all_canon_extension_proof_verified"] is True
     assert receipt["extension_count"] == 15
     assert receipt["canon_extension_proof_verified_count"] == 15
-    assert receipt["product_grade_verified_count"] == 4
-    assert receipt["product_grade_refuse_count"] == 11
+    assert receipt["product_grade_verified_count"] == 0
+    assert receipt["product_grade_refuse_count"] == 15
     assert receipt["all_product_grade_verified"] is False
     assert receipt["commercial_validation"] == "UNPROVED"
     assert receipt["authority_created"] is False
