@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            experiments
+            tests
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -24,4 +28,5 @@ jobs:
         run: |
           python -m pytest -q \
             tests/test_metamorphic_adaptation_contracts.py \
-            tests/test_metamorphic_adaptation_freeze_state.py
+            tests/test_metamorphic_adaptation_freeze_state.py \
+            tests/test_metamorphic_adaptation_atlas.py
