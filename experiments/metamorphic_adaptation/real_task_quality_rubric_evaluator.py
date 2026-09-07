@@ -12,6 +12,40 @@ REAL_TASK_QUALITY_RUBRIC_EVALUATOR_READY_TOKEN = "DIO_METAMORPHIC_ADAPTATION_REA
 REAL_TASK_QUALITY_RUBRIC_EVALUATOR_REFUSED_TOKEN = "DIO_METAMORPHIC_ADAPTATION_REAL_TASK_QUALITY_RUBRIC_EVALUATION_REFUSED"
 
 
+FROZEN_RUBRICS_BY_TASK_ID = {
+    "RTQ-001": {
+        "claim_boundary": 0.25,
+        "evidence_traceability": 0.25,
+        "commercial_truth_separation": 0.25,
+        "actionable_next_step": 0.25,
+    },
+    "RTQ-002": {
+        "buyer_clarity": 0.25,
+        "technical_fidelity": 0.25,
+        "boundary_preservation": 0.25,
+        "specific_use_case_fit": 0.25,
+    },
+    "RTQ-003": {
+        "missing_evidence_detection": 0.3,
+        "minimal_safe_repair": 0.3,
+        "no_invented_evidence": 0.25,
+        "operator_clarity": 0.15,
+    },
+    "RTQ-004": {
+        "authority_classification": 0.25,
+        "external_effect_detection": 0.25,
+        "correct_gate_decision": 0.3,
+        "receipt_language": 0.2,
+    },
+    "RTQ-005": {
+        "encounter_comparison": 0.25,
+        "adaptive_evidence_thresholding": 0.3,
+        "false_positive_resistance": 0.25,
+        "claim_tier_precision": 0.2,
+    },
+}
+
+
 @dataclass(frozen=True)
 class RealTaskQualityRubricEvaluationReceipt:
     evaluator_version: str
@@ -58,6 +92,22 @@ def _output_sha256(item: dict) -> str | None:
     return str(value) if value is not None else None
 
 
+def _rubric_for_output(item: dict) -> dict[str, float]:
+    """Return an attached rubric, or recover the frozen rubric by task_id.
+
+    Early executor outputs intentionally carried only blind task metadata and answer
+    text, so the evaluator must be able to recover the frozen scoring rubric from
+    the task identifier without rejoining arm labels.
+    """
+    attached = item.get("rubric")
+    if isinstance(attached, dict) and attached:
+        return {str(key): float(value) for key, value in attached.items()}
+
+    task_id = str(item.get("task_id", ""))
+    recovered = FROZEN_RUBRICS_BY_TASK_ID.get(task_id, {})
+    return {str(key): float(value) for key, value in recovered.items()}
+
+
 def _criterion_score(*, output_text: str, criterion: str) -> float:
     text = output_text.lower()
     tokens = criterion.lower().replace("_", " ").split()
@@ -75,6 +125,9 @@ def _criterion_score(*, output_text: str, criterion: str) -> float:
             "commercial",
             "authority",
             "next step",
+            "next action",
+            "human-gate",
+            "external validation",
         )
         if marker in text
     )
@@ -85,8 +138,8 @@ def _criterion_score(*, output_text: str, criterion: str) -> float:
 
 def _score_output(item: dict) -> tuple[float, dict[str, float]]:
     text = _output_text(item)
-    rubric = item.get("rubric", {})
-    if not isinstance(rubric, dict) or not rubric:
+    rubric = _rubric_for_output(item)
+    if not rubric:
         return 0.0, {}
 
     criterion_scores: dict[str, float] = {}
@@ -217,10 +270,10 @@ def evaluate_real_task_quality_rubrics(
         task_outputs_sha256=_sha256_path(task_outputs_path),
         boundary=(
             "This evaluator scores 25 blinded real task-quality outputs against the frozen rubrics. "
-            "It accepts either output_text or answer fields from compatible executors, does not rejoin "
-            "arm labels, does not compare arms, does not constitute adaptive performance evidence, and "
-            "does not authorize commercial validation, professional approval, publication, spend, "
-            "fulfilment, world-first, or authority expansion."
+            "It accepts either output_text or answer fields from compatible executors and can recover "
+            "frozen rubrics by task_id without rejoining arm labels. It does not compare arms, does not "
+            "constitute adaptive performance evidence, and does not authorize commercial validation, "
+            "professional approval, publication, spend, fulfilment, world-first, or authority expansion."
         ),
     )
     receipt_path.write_text(json.dumps(asdict(receipt), indent=2, sort_keys=True) + "\n")
