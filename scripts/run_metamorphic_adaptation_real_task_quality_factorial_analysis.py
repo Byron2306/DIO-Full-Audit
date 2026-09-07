@@ -19,14 +19,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Analyze real task-quality blind scores by transfer arm."
     )
-    parser.add_argument("--blind-scoring-receipt", required=True)
+    parser.add_argument("--scoring-receipt", required=True)
     parser.add_argument("--blind-scores", required=True)
     parser.add_argument("--label-join", required=True)
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
     receipt = analyze_real_task_quality_scores(
-        blind_scoring_receipt_path=Path(args.blind_scoring_receipt),
+        scoring_receipt_path=Path(args.scoring_receipt),
         blind_scores_path=Path(args.blind_scores),
         label_join_path=Path(args.label_join),
         output_dir=Path(args.output),
