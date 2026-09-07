@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -14,7 +15,13 @@ from products.canon_extension_native_product_grade import (
     NATIVE_BATCH_VERIFIED_TOKEN,
     run_native_product_grade_batch,
 )
-from products.product_grade_gauntlet import run_product_grade_gauntlet
+
+
+def run_product_grade_gauntlet(**kwargs: Any) -> dict[str, Any]:
+    """Load the heavier Studio ProductGrade stack only when a real run needs it."""
+    from products.product_grade_gauntlet import run_product_grade_gauntlet as _run
+
+    return _run(**kwargs)
 
 
 def main() -> int:
