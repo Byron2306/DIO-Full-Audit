@@ -1,0 +1,28 @@
+name: DIO Android
+
+on:
+  push:
+    branches:
+      - agent/dio-android-native-client
+    paths:
+      - 'android/dio-mobile/**'
+      - 'tests/test_dio_android_contract.py'
+      - '.github/workflows/dio-android.yml'
+  pull_request:
+    paths:
+      - 'android/dio-mobile/**'
+      - 'tests/test_dio_android_contract.py'
+      - '.github/workflows/dio-android.yml'
+
+jobs:
+  android-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install contract test runner
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Run Android repository contract
+        run: PYTHONNOUSERSITE=1 python -m pytest -q tests/test_dio_android_contract.py
