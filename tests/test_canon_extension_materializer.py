@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from products.canon_extension_materializer import (
     MATERIALIZATION_FILENAME,
     MATERIALIZED_TOKEN,
@@ -11,6 +13,7 @@ from products.canon_extension_materializer import (
 )
 from products.canon_extension_native_profiles import native_profile
 from products.canon_extension_product_grade import CANON_EXTENSIONS
+from products.canon_extension_proof_seal import CanonExtensionProofSealError, seal_receipt_bound_extension
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -103,3 +106,24 @@ def test_materialization_receipt_binds_exact_native_profile(tmp_path: Path) -> N
         canonical = json.dumps(profile, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
         expected = "sha256:" + hashlib.sha256(canonical).hexdigest()
         assert receipt["profile_fingerprint"] == expected
+
+
+def test_sealer_refuses_after_materialized_artifact_tamper(tmp_path: Path) -> None:
+    _seed_anchor(tmp_path)
+    batch = materialize_receipt_bound_extensions(root=tmp_path)
+    assert batch["acceptance_token"] == MATERIALIZED_TOKEN
+
+    spec = next(row for row in CANON_EXTENSIONS if row["slug"] == "contract-desk")
+    materialized_spec = dict(spec)
+    materialized_spec["proof_receipt"] = str(
+        Path(spec["primary_artifact"]).parent / MATERIALIZATION_FILENAME
+    )
+
+    seal = seal_receipt_bound_extension(spec=materialized_spec, root=tmp_path)
+    assert seal["status"] == "PASS"
+
+    artifact = tmp_path / spec["primary_artifact"]
+    artifact.write_text(artifact.read_text(encoding="utf-8") + "\nTAMPERED\n", encoding="utf-8")
+
+    with pytest.raises(CanonExtensionProofSealError, match="does not bind current artifact sha256"):
+        seal_receipt_bound_extension(spec=materialized_spec, root=tmp_path)
