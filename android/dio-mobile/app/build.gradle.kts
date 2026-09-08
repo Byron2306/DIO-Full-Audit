@@ -39,6 +39,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
+    implementation("com.google.code.gson:gson:2.14.0")
     implementation("com.hierynomus:sshj:0.40.0")
 
     testImplementation("junit:junit:4.13.2")
