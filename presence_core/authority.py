@@ -87,7 +87,7 @@ def bind_external_action_receipt(
     authority["presence_identity"] = dict(VESPER_IDENTITY)
     authority["external_reply_authority"] = receipt
     authority["executed_external_action"] = bool(sent)
-    authority["external_action_type"] = "telegram_reply" if sent else None
+    authority["external_action_type"] = str(receipt.get("external_action_type") or "telegram_reply") if sent else None
     result["authority"] = authority
     result["core_reply_sent"] = bool(sent)
     if error:
