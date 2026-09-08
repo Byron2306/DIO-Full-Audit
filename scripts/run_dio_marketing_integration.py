@@ -218,13 +218,22 @@ def target_market_type(target: dict[str, str], product: dict[str, Any] | None = 
     return value
 
 
+def market_outreach_allowed(target: dict[str, str], config: dict[str, Any], product: dict[str, Any]) -> bool:
+    permission_allowed = outreach_allowed(target, config)
+    if target_market_type(target, product) != "investor":
+        return permission_allowed
+    legalis_verdict = str(target.get("legalis_verdict") or "").strip().upper()
+    return permission_allowed and legalis_verdict == "ALLOW"
+
+
 def build_observation(
     archive_path: Path,
     archive_hash: str,
     hypothesis: dict[str, str],
     target: dict[str, str],
+    product: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    target_type = target_market_type(target)
+    target_type = target_market_type(target, product)
     registry_wave = target.get("registry_wave") or "wave4"
     observation_id = stable_id("OBS", [registry_wave, hypothesis["hypothesis_id"], archive_hash])
     market = {
@@ -241,6 +250,12 @@ def build_observation(
         "timing_score": float_value(target.get("timing_score")),
         "seasonal_urgency": target.get("seasonal_urgency"),
         "seasonal_trigger": target.get("seasonal_trigger"),
+    }
+    controls = {
+        "outreach_state": target.get("outreach_state") or "Research only",
+        "consent_status": target.get("consent_status") or "Not recorded",
+        "do_not_contact": target.get("do_not_contact") or "No",
+        "high_score_is_permission": False,
     }
     if target_type == "investor":
         market = {
@@ -261,6 +276,7 @@ def build_observation(
                 "capital_use_fit_score": float_value(target.get("capital_use_fit_score")),
             }
         )
+        controls["legalis_verdict"] = target.get("legalis_verdict") or "not_evaluated"
     return {
         "schema": "dio.market_observation.v1",
         "observation_id": observation_id,
@@ -278,12 +294,7 @@ def build_observation(
         "product_line_id": hypothesis["product_line_id"],
         "market": market,
         "signals": signals,
-        "controls": {
-            "outreach_state": target.get("outreach_state") or "Research only",
-            "consent_status": target.get("consent_status") or "Not recorded",
-            "do_not_contact": target.get("do_not_contact") or "No",
-            "high_score_is_permission": False,
-        },
+        "controls": controls,
     }
 
 
@@ -299,24 +310,27 @@ def build_hypothesis_record(
     market_type = target_market_type(target, product)
     registry_wave = target.get("registry_wave") or config.get("active_registry_wave") or "wave4"
     campaign_id = stable_id("CMP", [registry_wave, hypothesis["hypothesis_id"], product_layer])
-    direct_allowed = outreach_allowed(target, config)
+    permission_allowed = outreach_allowed(target, config)
+    direct_allowed = market_outreach_allowed(target, config, product)
     audience = {
         "public_segment": product["generic_audience"],
         "internal_research_organisation": hypothesis.get("organisation"),
         "internal_buyer_unit": hypothesis.get("buyer_unit"),
         "personalisation_allowed": direct_allowed,
     }
+    if direct_allowed:
+        gate_reason = "Registry records a valid outreach permission basis."
+    elif market_type == "investor" and permission_allowed:
+        gate_reason = "Registry permission exists, but DIO Legalis has not returned ALLOW for the investor outreach prerequisite."
+    else:
+        gate_reason = "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
     gates = {
         "content_generation": "allowed",
         "publication": "operator_approval_required",
         "personalised_outreach": "allowed" if direct_allowed else "blocked",
         "electronic_sales_outreach": "allowed" if direct_allowed else "blocked",
         "registry_outreach_gate": hypothesis.get("outreach_gate"),
-        "reason": (
-            "Registry records a valid outreach permission basis."
-            if direct_allowed
-            else "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
-        ),
+        "reason": gate_reason,
     }
     record: dict[str, Any] = {
         "schema": "dio.hivenance.marketing_hypothesis.v1",
@@ -384,6 +398,7 @@ def build_hypothesis_record(
         record["gates"].update(
             {
                 "legalis": "required_before_external_action",
+                "legalis_verdict": target.get("legalis_verdict") or "not_evaluated",
                 "capitalroom": "required_for_diligence",
                 "investment_authority": "human_only",
             }
@@ -924,7 +939,7 @@ def main() -> int:
             product,
             config["route_priority"],
         )
-        observation = build_observation(archive_path, archive_hash, hypothesis, target)
+        observation = build_observation(archive_path, archive_hash, hypothesis, target, product)
         record = build_hypothesis_record(config, archive_hash, hypothesis, target, product, observation)
         registration_path = registry_dir / f"{record['hypothesis_id']}.json"
         if registration_path.exists():
