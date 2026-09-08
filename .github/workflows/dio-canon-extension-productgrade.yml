@@ -12,12 +12,14 @@ on:
       - 'products/canon_extension_native_product_grade.py'
       - 'products/canon_extension_materializer.py'
       - 'products/canon_portfolio_product_grade.py'
+      - 'products/product_grade_gauntlet.py'
       - 'evidence/historical/PROFESSIONAL_EVIDENCE_53_X3_ANCHOR.json'
       - 'scripts/materialize_canon_extensions.py'
       - 'scripts/run_canon_extension_product_grade.py'
       - 'scripts/run_canon_extension_native_product_grade.py'
       - 'scripts/run_canon_portfolio_product_grade.py'
       - 'scripts/seal_canon_extension_proofs.py'
+      - 'tests/test_product_grade_gauntlet_artifact_paths.py'
       - 'tests/test_canon_extension_materializer.py'
       - 'tests/test_canon_extension_product_grade.py'
       - 'tests/test_canon_extension_native_product_grade.py'
@@ -44,6 +46,7 @@ jobs:
       - name: Run canon extension ProductGrade tests
         run: >-
           PYTHONNOUSERSITE=1 python -m pytest -q
+          tests/test_product_grade_gauntlet_artifact_paths.py
           tests/test_canon_extension_materializer.py
           tests/test_canon_extension_product_grade.py
           tests/test_canon_extension_native_product_grade.py
