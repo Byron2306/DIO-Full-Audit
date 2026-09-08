@@ -96,6 +96,7 @@ jobs:
         run: >-
           PYTHONNOUSERSITE=1 python scripts/run_canon_extension_product_grade.py
           --output state/product_grade/canon_extension_aggregate
+          --studio-receipt state/product_grade/studio_product_grade_support/PRODUCT_GRADE_PORTFOLIO_RECEIPT.json
           --require-proof
           --require-all
 
@@ -115,12 +116,14 @@ jobs:
 
           materialized = json.loads(Path('state/product_portfolio/canon_extensions/CANON_EXTENSION_MATERIALIZATION_BATCH_RECEIPT.json').read_text())
           native = json.loads(Path('state/product_grade/canon_extensions/NATIVE_CANON_EXTENSION_PRODUCT_GRADE_BATCH_RECEIPT.json').read_text())
+          studios = json.loads(Path('state/product_grade/studio_product_grade_support/PRODUCT_GRADE_PORTFOLIO_RECEIPT.json').read_text())
           extensions = json.loads(Path('state/product_grade/canon_extension_aggregate/CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json').read_text())
           portfolio = json.loads(Path('state/product_grade/canon_portfolio/CANON_PORTFOLIO_68_X3_PRODUCT_GRADE_RECEIPT.json').read_text())
 
           assert materialized['acceptance_token'] == 'DIO_CANON_EXTENSION_11_MATERIALIZED'
           assert materialized['materialized_count'] == 11
           assert materialized['refuse_count'] == 0
+          assert studios['acceptance_token'] == 'DIO_PRODUCT_GRADE_VERIFIED'
           assert native['acceptance_token'] == 'DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED'
           assert native['verified_journey_count'] == 45
           assert native['product_grade_verified_count'] == 15
@@ -150,6 +153,7 @@ jobs:
             state/product_portfolio/canon_extensions/**/CANON_EXTENSION_MATERIALIZATION_RECEIPT.json
             state/product_portfolio/canon_extensions/**/CANON_EXTENSION_PROOF_RECEIPT.json
             state/product_portfolio/canon_extensions/CANON_EXTENSION_MATERIALIZATION_BATCH_RECEIPT.json
+            state/product_grade/studio_product_grade_support/**/*.json
             state/product_grade/canon_extensions/**/variants/**/customer_delivery/index.html
             state/product_grade/canon_extensions/**/*.json
             state/product_grade/canon_extension_aggregate/**/*.json
