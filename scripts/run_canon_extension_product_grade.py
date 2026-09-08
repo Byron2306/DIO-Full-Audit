@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -34,6 +35,16 @@ def activate_materialized_provenance() -> None:
         )
 
 
+def _load_studio_receipt(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"invalid Studio ProductGrade receipt: {path}") from exc
+    if not isinstance(value, dict):
+        raise SystemExit(f"Studio ProductGrade receipt must be a JSON object: {path}")
+    return value
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run truth-bound ProductGrade verification across all 15 DIO canon extensions."
@@ -42,6 +53,14 @@ def main() -> int:
         "--output",
         required=True,
         help="Output directory for canon-extension and supporting Studio ProductGrade receipts.",
+    )
+    parser.add_argument(
+        "--studio-receipt",
+        type=Path,
+        help=(
+            "Existing upstream PRODUCT_GRADE_PORTFOLIO_RECEIPT.json to consume exactly. "
+            "When supplied, Studio ProductGrade is not rerun."
+        ),
     )
     parser.add_argument(
         "--require-proof",
@@ -56,10 +75,13 @@ def main() -> int:
     args = parser.parse_args()
     activate_materialized_provenance()
     output_dir = Path(args.output).resolve()
-    studio_receipt = run_product_grade_gauntlet(
-        output_dir=output_dir / "studio_product_grade",
-        root=ROOT,
-    )
+    if args.studio_receipt is not None:
+        studio_receipt = _load_studio_receipt(args.studio_receipt.expanduser().resolve())
+    else:
+        studio_receipt = run_product_grade_gauntlet(
+            output_dir=output_dir / "studio_product_grade",
+            root=ROOT,
+        )
     receipt = run_canon_extension_product_grade_gauntlet(
         output_dir=output_dir,
         root=ROOT,
