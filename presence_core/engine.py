@@ -12,7 +12,18 @@ from .identity import load_status_binding, bound_order_status
 from .llm import draft_with_ollama
 from .policy import authorize
 from .router import route_message
-from .state import load_or_create_conversation, update_conversation, create_intake, create_needs_you, list_needs_you, operator_summary
+from .state import (
+    append_conversation_turn,
+    create_intake,
+    create_needs_you,
+    list_needs_you,
+    load_conversation_state,
+    load_or_create_conversation,
+    load_recent_conversation_turns,
+    operator_summary,
+    save_conversation_state,
+    update_conversation,
+)
 from .voice import build_voice_plan
 
 PRODUCT_COPY={
@@ -156,6 +167,8 @@ def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],
 def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->dict[str,Any]:
     presence_root=dio_root/str(cfg.get('state_root','state/presence')); event_log=dio_root/str(cfg.get('event_log','telemetry/dio_events.jsonl')); routes_path=dio_root/str(cfg.get('routes_path','config/routes.json'))
     role=_role(envelope); conv=load_or_create_conversation(presence_root,envelope,role); text=str(envelope.get('text') or '').strip(); correlation=conv['conversation_id']
+    conversation_state=load_conversation_state(presence_root,correlation)
+    recent_turns=load_recent_conversation_turns(presence_root,correlation)
     metadata=envelope.get('metadata') or {}
     interaction=observe_interaction(
         state_root=dio_root/'state'/'lingua',
@@ -213,12 +226,31 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         else:
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
-    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record); reply=draft_with_ollama(decision,facts,fallback,interaction,persona)
+    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record)
+    draft_turns=[*recent_turns,{'role':'user','text':text,'act':decision.get('intent'),'product':decision.get('product')}]
+    reply=draft_with_ollama(
+        decision,
+        facts,
+        fallback,
+        interaction,
+        persona,
+        conversation_state=conversation_state,
+        recent_turns=draft_turns,
+    )
     try:
         reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
     except Exception as exc:
         lingua={'schema':'dio.lingua.communication_receipt.v1','state':'registration_failed','error':str(exc)[:300],'external_action_executed':False,'send_authorized':False,'authority_created':False}
         emit_event(event_log,'presence.lingua_registration_failed','warning','presence_conversation',correlation,{'error':str(exc)[:180]},correlation)
+    append_conversation_turn(presence_root,correlation,role='user',text=text,act=decision.get('intent'),product=decision.get('product'))
+    append_conversation_turn(presence_root,correlation,role='vesper',text=reply,act=decision.get('intent'),product=decision.get('product'))
+    conversation_state['turn_count']=int(conversation_state.get('turn_count',0))+1
+    conversation_state['last_route_intent']=decision.get('intent')
+    if decision.get('product'):
+        product=str(decision['product'])
+        conversation_state['candidate_products']=[product]
+        conversation_state['selected_product']=product
+    save_conversation_state(presence_root,conversation_state)
     update_conversation(presence_root,conv,decision['intent'],decision.get('product'))
-    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses,'interaction':interaction,'persona':persona,'lingua':lingua}
+    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id')),'conversation_turn_count':conversation_state.get('turn_count')},correlation)
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses,'interaction':interaction,'persona':persona,'lingua':lingua,'conversation_state':conversation_state}
