@@ -14,6 +14,8 @@ on:
       - 'tests/test_vesper_lingua_conversation.py'
       - 'tests/test_vesper_conversational_presence_v2.py'
       - 'tests/test_vesper_voice.py'
+      - 'tests/test_vesper_telegram_voice.py'
+      - 'scripts/serve_presence_bridge.py'
       - '.github/workflows/vesper-conversational-presence-v2.yml'
 
 jobs:
@@ -38,3 +40,4 @@ jobs:
           tests/test_vesper_conversation_knowledge.py
           tests/test_vesper_conversation_crystals.py
           tests/test_vesper_voice.py
+          tests/test_vesper_telegram_voice.py
