@@ -15,7 +15,9 @@ on:
       - 'tests/test_vesper_conversational_presence_v2.py'
       - 'tests/test_vesper_voice.py'
       - 'tests/test_vesper_telegram_voice.py'
+      - 'tests/test_vesper_voice_ingress.py'
       - 'scripts/serve_presence_bridge.py'
+      - 'scripts/sync_vesper_presence_edge.py'
       - '.github/workflows/vesper-conversational-presence-v2.yml'
 
 jobs:
@@ -41,3 +43,4 @@ jobs:
           tests/test_vesper_conversation_crystals.py
           tests/test_vesper_voice.py
           tests/test_vesper_telegram_voice.py
+          tests/test_vesper_voice_ingress.py
