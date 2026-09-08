@@ -1,5 +1,5 @@
 from __future__ import annotations
-import json, os
+import json, os, re
 from typing import Any
 import httpx
 from adapters.lingua.interaction_regulator import llm_style_instruction
@@ -18,6 +18,11 @@ _CONTEXT_STATE_FIELDS=(
     "known_constraints",
     "action_proposal",
     "last_route_intent",
+)
+
+_COMPLETED_EXTERNAL_ACTION_RE=re.compile(
+    r"\b(?:i|we)\s+(?:(?:have|['’]ve)\s+)?(?:charged|sent|published|approved|released|refunded|delivered|submitted|filed|fulfilled|fulfilled)\b",
+    re.IGNORECASE,
 )
 
 
@@ -40,6 +45,10 @@ def _bounded_conversation_context(
         if text:
             turns.append({"role":role,"text":text})
     return state,turns
+
+
+def _draft_preserves_authority_boundary(text: str) -> bool:
+    return _COMPLETED_EXTERNAL_ACTION_RE.search(str(text or "")) is None
 
 
 def classify_with_ollama(text: str, products: list[str]) -> dict[str,Any]|None:
@@ -87,5 +96,11 @@ def draft_with_ollama(
           f"Interaction regulation: {json.dumps(interaction or {}, sort_keys=True)}\n"
           "Write one concise, natural customer-facing reply that continues the conversation while preserving the authoritative facts.")
     try:
-        r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":user}],"stream":False,"think":False,"options":{"temperature":0.2}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15"))); r.raise_for_status(); text=((r.json().get("message") or {}).get("content") or "").strip(); return text[:4000] or fallback
-    except Exception: return fallback
+        r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":user}],"stream":False,"think":False,"options":{"temperature":0.2}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15")))
+        r.raise_for_status()
+        text=((r.json().get("message") or {}).get("content") or "").strip()[:4000]
+        if not text or not _draft_preserves_authority_boundary(text):
+            return fallback
+        return text
+    except Exception:
+        return fallback
