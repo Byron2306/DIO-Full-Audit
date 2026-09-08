@@ -24,13 +24,17 @@ class RegistrySelectionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.config = integration.load_json(ROOT / "config/dio_marketing_integration.json")
-        cls.wave = integration.WaveArchive(ROOT / cls.config["active_registry_archive"])
+        archive_path = ROOT / cls.config["active_registry_archive"]
+        if not archive_path.exists():
+            raise unittest.SkipTest("Local prospect registry archive is not committed to the repository.")
+        cls.wave = integration.WaveArchive(archive_path)
         cls.hypotheses = cls.wave.csv("campaign_hypotheses.csv")
         cls.targets = integration.target_index(cls.wave.csv("buyer_unit_targets.csv"))
 
     @classmethod
     def tearDownClass(cls):
-        cls.wave.close()
+        if hasattr(cls, "wave"):
+            cls.wave.close()
 
     def choose(self, product_line):
         product = self.config["product_lines"][product_line]
@@ -87,6 +91,11 @@ class RegistrySelectionTests(unittest.TestCase):
             self.assertEqual(3, len(lineage))
             self.assertEqual(["wave4"], [item["schema"].split(".")[-2] for item in lineage if item["active"]])
             self.assertTrue((Path(temporary) / "REGISTRY_WAVE_LINEAGE.json").exists())
+
+
+class InvestorMarketClassTests(unittest.TestCase):
+    def setUp(self):
+        self.config = integration.load_json(ROOT / "config/dio_marketing_integration.json")
 
     def test_investor_market_class_is_registered_but_dormant_until_an_investor_registry_exists(self):
         capital = self.config["product_lines"]["DIO_CAPITAL"]
