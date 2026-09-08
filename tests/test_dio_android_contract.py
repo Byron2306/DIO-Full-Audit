@@ -19,8 +19,11 @@ def test_android_project_is_pinned_and_dio_scoped():
 
 
 def test_android_dependencies_are_pinned_for_dio_v1():
+    root_build = (ANDROID / "build.gradle.kts").read_text(encoding="utf-8")
     app = (ANDROID / "app" / "build.gradle.kts").read_text(encoding="utf-8")
 
+    assert 'id("org.jetbrains.kotlin.plugin.compose") version "2.3.21" apply false' in root_build
+    assert 'id("org.jetbrains.kotlin.plugin.compose")' in app
     assert 'androidx.compose:compose-bom:2026.08.00' in app
     assert 'androidx.activity:activity-compose:1.13.0' in app
     assert 'com.hierynomus:sshj:0.40.0' in app
