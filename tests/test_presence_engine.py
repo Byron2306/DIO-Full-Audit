@@ -167,6 +167,8 @@ def test_presence_feeds_verified_beast_crystal_into_cortex_context(tmp_path, mon
         }
 
     def fake_post(url, json, timeout):
+        if json.get('format') == 'json':
+            return _Response('{"intent":"general_info","product":null,"confidence":0.5}')
         prompts.append(json['messages'][1]['content'])
         return _Response('Yes. DIO keeps the conversational layer separate from governed execution authority.')
 
