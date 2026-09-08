@@ -41,6 +41,15 @@ def test_public_edge_cannot_spoof_operator_even_with_allowlisted_user(tmp_path,m
     assert r['role']=='public' and r['decision']['intent']!='operator_summary'
 
 
+def test_presence_response_does_not_expose_internal_conversation_state(tmp_path, monkeypatch):
+    root = make_root(tmp_path)
+    monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
+    cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
+    response = process_envelope({'channel':'telegram','external_user_id':'123','text':'Tell me about HOMS','message_type':'text'}, root, cfg)
+    assert 'conversation_state' not in response
+    assert (root/'state/presence'/'conversation_state'/f"{response['conversation_id']}.json").is_file()
+
+
 def test_presence_core_feeds_prior_exchange_to_ollama_draft(tmp_path, monkeypatch):
     root = make_root(tmp_path)
     monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
