@@ -3,13 +3,14 @@ import json
 from pathlib import Path
 from typing import Any
 from adapters.lingua.communicator import register_communication, requested_language
+from adapters.lingua.conversation_knowledge import retrieve_conversation_knowledge
 from adapters.lingua.interaction_regulator import observe_interaction
 from adapters.lingua.persona_lab import assign_persona
 from .attachments import AttachmentError, validate_and_store_attachment
 from .config import operator_ids
 from .events import emit_event
 from .identity import load_status_binding, bound_order_status
-from .llm import draft_with_ollama
+from .llm import draft_with_cortex
 from .policy import authorize
 from .router import route_message
 from .state import (
@@ -227,8 +228,9 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
     fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record)
+    knowledge=retrieve_conversation_knowledge(dio_root,text,conversation_state)
     draft_turns=[*recent_turns,{'role':'user','text':text,'act':decision.get('intent'),'product':decision.get('product')}]
-    reply=draft_with_ollama(
+    reply=draft_with_cortex(
         decision,
         facts,
         fallback,
@@ -236,6 +238,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         persona,
         conversation_state=conversation_state,
         recent_turns=draft_turns,
+        governed_context=knowledge,
     )
     try:
         reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
