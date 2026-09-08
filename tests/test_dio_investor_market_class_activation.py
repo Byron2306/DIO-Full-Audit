@@ -21,11 +21,11 @@ class InvestorActivationTests(unittest.TestCase):
         self.config = integration.load_json(ROOT / "config/dio_marketing_integration.json")
         self.capital = self.config["product_lines"]["DIO_CAPITAL"]
 
-    def hypothesis(self):
+    def hypothesis(self, prospect_id="INV-001", hypothesis_id="INV-ACT-001", attack_score="4.0"):
         return {
-            "hypothesis_id": "INV-ACT-001",
+            "hypothesis_id": hypothesis_id,
             "product_line_id": "DIO_CAPITAL",
-            "prospect_id": "INV-001",
+            "prospect_id": prospect_id,
             "organisation": "Example Ventures",
             "buyer_unit": "AI infrastructure partner",
             "hypothesis": "Governed proof earns a diligence conversation.",
@@ -33,12 +33,14 @@ class InvestorActivationTests(unittest.TestCase):
             "success_event": "investor_meeting",
             "kill_condition": "No qualified engagement after the evidence window.",
             "outreach_gate": "permission_required",
+            "attack_score": attack_score,
+            "rank": "1",
         }
 
-    def target(self):
+    def target(self, prospect_id="INV-001", route_state="PARTNERSHIP_ROUTE_AVAILABLE"):
         return {
-            "target_id": "INV-TGT-001",
-            "prospect_id": "INV-001",
+            "target_id": f"INV-TGT-{prospect_id}",
+            "prospect_id": prospect_id,
             "product_line_id": "DIO_CAPITAL",
             "organisation": "Example Ventures",
             "investor_type": "seed VC",
@@ -50,8 +52,14 @@ class InvestorActivationTests(unittest.TestCase):
             "thesis_fit_score": "4.8",
             "proof_fit_score": "5.0",
             "capital_use_fit_score": "4.6",
+            "stage_fit_score": "4.5",
+            "cheque_fit_score": "4.4",
+            "geography_fit_score": "4.0",
             "timing_score": "4.2",
-            "route_state": "PARTNERSHIP_ROUTE_AVAILABLE",
+            "recent_signal_score": "4.0",
+            "fund_deployment_score": "4.1",
+            "route_freshness_score": "4.4",
+            "route_state": route_state,
             "outreach_state": "Research only",
             "consent_status": "Not recorded",
             "do_not_contact": "No",
@@ -107,6 +115,105 @@ class InvestorActivationTests(unittest.TestCase):
         self.assertEqual("allowed", record["gates"]["electronic_sales_outreach"])
         self.assertEqual("ALLOW", record["gates"]["legalis_verdict"])
         self.assertEqual("operator_approval_required", record["gates"]["publication"])
+
+    def test_existing_route_priority_remains_primary_for_investor_selection(self):
+        route_candidate = self.hypothesis("INV-ROUTE", "INV-H-ROUTE", attack_score="1.0")
+        fit_candidate = self.hypothesis("INV-FIT", "INV-H-FIT", attack_score="5.0")
+        route_target = self.target("INV-ROUTE", "PARTNERSHIP_ROUTE_AVAILABLE")
+        fit_target = self.target("INV-FIT", "RESEARCH_ONLY")
+        route_target.update(
+            {
+                "thesis_fit_score": "1.0",
+                "proof_fit_score": "1.0",
+                "capital_use_fit_score": "1.0",
+                "stage_fit_score": "1.0",
+                "cheque_fit_score": "1.0",
+                "geography_fit_score": "1.0",
+                "timing_score": "1.0",
+            }
+        )
+        targets = integration.target_index([route_target, fit_target])
+
+        selected, selected_target = integration.choose_hypothesis(
+            "DIO_CAPITAL",
+            [route_candidate, fit_candidate],
+            targets,
+            self.capital,
+            self.config["route_priority"],
+            self.config,
+        )
+
+        self.assertEqual("INV-H-ROUTE", selected["hypothesis_id"])
+        self.assertEqual("PARTNERSHIP_ROUTE_AVAILABLE", selected_target["route_state"])
+
+    def test_investor_fit_and_timing_supplement_route_ties(self):
+        weak = self.hypothesis("INV-WEAK", "INV-H-WEAK", attack_score="5.0")
+        strong = self.hypothesis("INV-STRONG", "INV-H-STRONG", attack_score="1.0")
+        weak_target = self.target("INV-WEAK")
+        strong_target = self.target("INV-STRONG")
+        weak_target.update(
+            {
+                "thesis_fit_score": "2.0",
+                "proof_fit_score": "2.0",
+                "capital_use_fit_score": "2.0",
+                "stage_fit_score": "2.0",
+                "cheque_fit_score": "2.0",
+                "geography_fit_score": "2.0",
+                "timing_score": "2.0",
+                "recent_signal_score": "2.0",
+                "fund_deployment_score": "2.0",
+                "route_freshness_score": "2.0",
+            }
+        )
+        targets = integration.target_index([weak_target, strong_target])
+
+        selected, _ = integration.choose_hypothesis(
+            "DIO_CAPITAL",
+            [weak, strong],
+            targets,
+            self.capital,
+            self.config["route_priority"],
+            self.config,
+        )
+
+        self.assertEqual("INV-H-STRONG", selected["hypothesis_id"])
+
+    def test_investor_strategy_explains_who_when_and_what_pitch(self):
+        target = self.target()
+        target["investment_thesis"] = (
+            "governed AI infrastructure, enterprise orchestration, compliance, AI safety and auditability"
+        )
+        target["recent_signal_score"] = "4.8"
+        target["fund_deployment_score"] = "4.7"
+        target["route_freshness_score"] = "4.9"
+
+        strategy = integration.build_investor_strategy(target, self.capital, self.config)
+
+        self.assertGreaterEqual(strategy["fit_score"], 85.0)
+        self.assertGreaterEqual(strategy["timing_score"], 85.0)
+        self.assertEqual("APPROACH_NOW", strategy["timing_decision"])
+        self.assertEqual("governed_ai_infrastructure", strategy["pitch_thesis"]["id"])
+        self.assertIn("route", strategy["explanation"])
+        self.assertIn("fit", strategy["explanation"])
+        self.assertIn("timing", strategy["explanation"])
+
+    def test_investor_record_carries_strategy_into_market_command(self):
+        target = self.target()
+        target["investment_thesis"] = "venture studio, product factory, repeatable product creation"
+        observation = integration.build_observation(
+            Path("investor_registry.json"), "abc123", self.hypothesis(), target, self.capital
+        )
+        record = integration.build_hypothesis_record(
+            self.config, "abc123", self.hypothesis(), target, self.capital, observation
+        )
+
+        self.assertEqual("investor", record["audience"]["market_type"])
+        self.assertEqual("product_factory", record["investor_strategy"]["pitch_thesis"]["id"])
+        self.assertIn(record["investor_strategy"]["timing_decision"], {"APPROACH_NOW", "WATCH", "HOLD"})
+        self.assertEqual(
+            record["investor_strategy"]["pitch_thesis"]["hook"],
+            record["experiment"]["public_hook"],
+        )
 
 
 if __name__ == "__main__":
