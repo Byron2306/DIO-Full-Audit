@@ -142,3 +142,34 @@ def test_ollama_draft_rejects_completed_external_action_claim(monkeypatch):
     )
 
     assert result == fallback
+
+
+def test_cortex_can_fail_over_from_ollama_to_huggingface(monkeypatch):
+    monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
+    monkeypatch.setenv("DIO_PRESENCE_LLM_PROVIDER", "auto")
+    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
+    monkeypatch.setenv("HF_TOKEN", "hf_test_token")
+    monkeypatch.setenv("DIO_PRESENCE_HF_MODEL", "Qwen/Qwen3.5-9B:preferred")
+    calls = []
+
+    def fake_post(url, json, timeout, headers=None):
+        calls.append((url, json, headers))
+        if url.startswith("http://ollama.test"):
+            raise RuntimeError("local model unavailable")
+        return _Response({"choices": [{"message": {"content": "Yes. We can keep this conversational while DIO preserves the verified facts."}}]})
+
+    monkeypatch.setattr(llm.httpx, "post", fake_post)
+
+    result = llm.draft_with_cortex(
+        {"intent": "general_info", "product": None, "confidence": 0.9},
+        "public_capabilities=bounded",
+        "I can explain DIO and help route your request.",
+        recent_turns=[{"role": "user", "text": "Can we just talk this through naturally?"}],
+    )
+
+    assert result.startswith("Yes. We can keep this conversational")
+    assert calls[0][0] == "http://ollama.test/api/chat"
+    assert calls[1][0] == "https://router.huggingface.co/v1/chat/completions"
+    assert calls[1][1]["model"] == "Qwen/Qwen3.5-9B:preferred"
+    assert calls[1][2]["Authorization"] == "Bearer hf_test_token"
