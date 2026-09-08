@@ -26,3 +26,17 @@ jobs:
         run: python -m pip install --disable-pip-version-check pytest
       - name: Run Android repository contract
         run: PYTHONNOUSERSITE=1 python -m pytest -q tests/test_dio_android_contract.py
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Install pinned Android SDK
+        run: sdkmanager 'platforms;android-37' 'build-tools;36.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.6.0'
+      - name: Compile Android scaffold
+        working-directory: android/dio-mobile
+        run: gradle --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
