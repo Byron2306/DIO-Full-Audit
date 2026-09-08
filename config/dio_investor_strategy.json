@@ -1,0 +1,164 @@
+{
+  "schema": "dio.investor_strategy.v1",
+  "score_scale": {
+    "input_min": 0.0,
+    "input_max": 5.0,
+    "output_min": 0.0,
+    "output_max": 100.0
+  },
+  "fit_weights": {
+    "thesis_fit_score": 0.25,
+    "proof_fit_score": 0.2,
+    "capital_use_fit_score": 0.2,
+    "stage_fit_score": 0.15,
+    "cheque_fit_score": 0.1,
+    "geography_fit_score": 0.1
+  },
+  "timing_weights": {
+    "timing_score": 0.35,
+    "recent_signal_score": 0.3,
+    "fund_deployment_score": 0.2,
+    "route_freshness_score": 0.15
+  },
+  "timing_thresholds": {
+    "approach_now_fit": 70.0,
+    "approach_now_timing": 75.0,
+    "watch_fit": 55.0,
+    "watch_timing": 50.0
+  },
+  "pitch_theses": [
+    {
+      "id": "governed_ai_infrastructure",
+      "name": "Governed AI Infrastructure",
+      "keywords": [
+        "governed ai",
+        "ai infrastructure",
+        "orchestration",
+        "enterprise automation",
+        "compliance",
+        "auditability",
+        "ai safety",
+        "deterministic",
+        "trust"
+      ],
+      "hook": "DIO is governed AI execution infrastructure: one inspectable orchestration layer that can compose products while preserving proof, refusal and human authority.",
+      "proof_focus": [
+        "DIO CapitalRoom",
+        "deterministic execution receipts",
+        "Legalis gates",
+        "Sophia and Seraph review/refusal proof"
+      ]
+    },
+    {
+      "id": "product_factory",
+      "name": "Product Factory / Venture Studio OS",
+      "keywords": [
+        "product factory",
+        "venture studio",
+        "repeatable product creation",
+        "product generation",
+        "portfolio",
+        "incarnations",
+        "venture building",
+        "company creation"
+      ],
+      "hook": "DIO turns shared governed capabilities into repeatable product incarnations, making the investment thesis the factory and its declining marginal cost of creating the next evidence-bound product.",
+      "proof_focus": [
+        "68-product canon-extension truth",
+        "Product Compiler",
+        "META Product Layer",
+        "Product Incarnation Studio"
+      ]
+    },
+    {
+      "id": "vertical_saas_portfolio",
+      "name": "Vertical SaaS Portfolio",
+      "keywords": [
+        "vertical saas",
+        "enterprise software",
+        "workflow software",
+        "b2b saas",
+        "industry software",
+        "vertical software"
+      ],
+      "hook": "DIO already expresses the same governed organism through multiple vertical workflow products, creating several commercial wedges without rebuilding the intelligence stack each time.",
+      "proof_focus": [
+        "HOMS",
+        "Evidex",
+        "VAMP",
+        "Document Studio",
+        "portfolio crosswalk"
+      ]
+    },
+    {
+      "id": "evidence_regtech",
+      "name": "Evidence-first RegTech / Trust",
+      "keywords": [
+        "regtech",
+        "compliance software",
+        "governance",
+        "risk",
+        "audit",
+        "evidence",
+        "regulated",
+        "trust"
+      ],
+      "hook": "DIO makes consequential AI work inspectable by binding claims, evidence, prerequisites and refusals into governed execution receipts rather than treating trust as a policy paragraph.",
+      "proof_focus": [
+        "Evidex provenance",
+        "Legalis",
+        "AI & Digital Trust gates",
+        "regulated-market refusal proof"
+      ]
+    },
+    {
+      "id": "education_wedge",
+      "name": "Education Wedge into Governed AI",
+      "keywords": [
+        "edtech",
+        "education",
+        "schools",
+        "assessment",
+        "learning",
+        "academic"
+      ],
+      "hook": "HOMS provides a concrete education wedge into DIO: assessment and learning workflows demonstrate how one governed architecture can become domain-specific without surrendering educator authority.",
+      "proof_focus": [
+        "HOMS Assessment Desk",
+        "HOMS Learning Studio",
+        "grade-aware proof",
+        "educator approval boundaries"
+      ]
+    },
+    {
+      "id": "emerging_market_ai",
+      "name": "Emerging-market AI Infrastructure",
+      "keywords": [
+        "africa",
+        "african",
+        "emerging market",
+        "south africa",
+        "global south",
+        "impact"
+      ],
+      "hook": "DIO is being built from South African workflow realities outward: governed AI infrastructure that can serve education, evidence and professional-service markets locally while remaining composition-driven globally.",
+      "proof_focus": [
+        "South African product profiles",
+        "local-market prospect intelligence",
+        "multilingual Document Studio",
+        "governed expansion architecture"
+      ]
+    }
+  ],
+  "fallback_pitch_thesis": {
+    "id": "governed_product_organism",
+    "name": "Governed Product Organism",
+    "hook": "DIO is a governed product-generation organism whose value lies in reusable intelligence, evidence and execution infrastructure rather than any single application.",
+    "proof_focus": [
+      "DIO CapitalRoom",
+      "portfolio truth",
+      "governed execution",
+      "Product Factory"
+    ]
+  }
+}
