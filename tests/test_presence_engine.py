@@ -55,6 +55,8 @@ def test_presence_core_feeds_prior_exchange_to_ollama_draft(tmp_path, monkeypatc
     ])
 
     def fake_post(url, json, timeout):
+        if json.get('format') == 'json':
+            return _Response('{"intent":"general_info","product":null,"confidence":0.5}')
         prompts.append(json['messages'][1]['content'])
         return _Response(next(replies))
 
