@@ -8,10 +8,12 @@ on:
     paths:
       - 'presence_core/**'
       - 'adapters/lingua/**'
+      - 'config/vesper_voice_profiles.json'
       - 'tests/test_presence_engine.py'
       - 'tests/test_vesper_conversation_*.py'
       - 'tests/test_vesper_lingua_conversation.py'
       - 'tests/test_vesper_conversational_presence_v2.py'
+      - 'tests/test_vesper_voice.py'
       - '.github/workflows/vesper-conversational-presence-v2.yml'
 
 jobs:
@@ -35,3 +37,4 @@ jobs:
           tests/test_vesper_lingua_conversation.py
           tests/test_vesper_conversation_knowledge.py
           tests/test_vesper_conversation_crystals.py
+          tests/test_vesper_voice.py
