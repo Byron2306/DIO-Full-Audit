@@ -19,10 +19,28 @@ ALLOWED_BINDS = {"127.0.0.1", "localhost", "::1"}
 ALLOWED_CLIENTS = {"127.0.0.1", "::1"}
 ALLOWED_HOSTS = {"127.0.0.1", "localhost", "::1", "[::1]"}
 PAGE = ROOT / "dashboard" / "dio-launcher.html"
+PWA_ASSETS = {
+    "/manifest.webmanifest": (
+        ROOT / "dashboard" / "dio-mobile.webmanifest",
+        "application/manifest+json; charset=utf-8",
+    ),
+    "/sw.js": (
+        ROOT / "dashboard" / "dio-mobile-sw.js",
+        "application/javascript; charset=utf-8",
+    ),
+    "/dio-mobile-icon-192.png": (
+        ROOT / "dashboard" / "dio-mobile-icon-192.png",
+        "image/png",
+    ),
+    "/dio-mobile-icon-512.png": (
+        ROOT / "dashboard" / "dio-mobile-icon-512.png",
+        "image/png",
+    ),
+}
 
 
 class LauncherHandler(BaseHTTPRequestHandler):
-    server_version = "DIOLocalLauncher/1.0"
+    server_version = "DIOLocalLauncher/1.1"
 
     def log_message(self, fmt: str, *args) -> None:
         print(f"[dio-launcher] {self.address_string()} {fmt % args}")
@@ -44,7 +62,10 @@ class LauncherHandler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
-        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:")
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:",
+        )
         self.end_headers()
         self.wfile.write(body)
 
@@ -66,8 +87,19 @@ class LauncherHandler(BaseHTTPRequestHandler):
         if route in {"/", "/dashboard/dio-launcher.html"}:
             self._send_bytes(PAGE.read_bytes(), "text/html; charset=utf-8")
             return
+        if route in PWA_ASSETS:
+            path, content_type = PWA_ASSETS[route]
+            self._send_bytes(path.read_bytes(), content_type)
+            return
         if route == "/heartbeat":
-            self._send_json({"ok": True, "service": "dio-local-launcher", "read_only": True})
+            self._send_json(
+                {
+                    "ok": True,
+                    "service": "dio-local-launcher",
+                    "read_only": True,
+                    "mobile_pwa": True,
+                }
+            )
             return
         self._send_json({"error": "not_found"}, HTTPStatus.NOT_FOUND)
 
