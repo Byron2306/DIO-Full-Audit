@@ -5,6 +5,7 @@ plugins {
 android {
     namespace = "za.co.dioworkflows.mobile"
     compileSdk = 37
+    compileSdkMinor = 0
 
     defaultConfig {
         applicationId = "za.co.dioworkflows.mobile"

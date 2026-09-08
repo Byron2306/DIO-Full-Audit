@@ -32,10 +32,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Inspect Android 17 preview SDK catalog
-        run: sdkmanager --list --channel=3 | grep -Ei 'cinnamon|android-37|build-tools;37' || true
-      - name: Install pinned Android SDK
-        run: sdkmanager --channel=3 'platforms;android-37' 'build-tools;36.0.0'
+      - name: Install pinned Android 17.0 SDK
+        run: sdkmanager 'platforms;android-37.0' 'build-tools;37.0.0'
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.6.0'
