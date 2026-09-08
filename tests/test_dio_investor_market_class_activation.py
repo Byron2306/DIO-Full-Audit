@@ -13,7 +13,10 @@ def load_module(name, relative_path):
     return module
 
 
-integration = load_module("dio_marketing_integration_activation", "scripts/run_dio_marketing_integration.py")
+integration = load_module(
+    "dio_investor_marketing_integration_activation",
+    "scripts/run_dio_investor_marketing_integration.py",
+)
 
 
 class InvestorActivationTests(unittest.TestCase):
