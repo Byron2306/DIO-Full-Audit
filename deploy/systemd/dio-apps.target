@@ -1,0 +1,7 @@
+[Unit]
+Description=DIO local application surfaces
+Wants=dio-launcher.service dio-control-deck.service dio-goldeneye.service dio-market-command.service
+After=dio-launcher.service dio-control-deck.service dio-goldeneye.service dio-market-command.service
+
+[Install]
+WantedBy=default.target
