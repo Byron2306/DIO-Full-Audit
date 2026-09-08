@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
-from products.canon_extension_summary import persist_verified_summary
+from products.canon_extension_summary import persist_verified_summary, summary_is_publishable
+
+ROOT = Path(__file__).resolve().parents[1]
+CANONICAL_RECEIPT = ROOT / "state" / "product_grade" / "canon_extensions" / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json"
 
 
 def _verified_receipt() -> dict:
