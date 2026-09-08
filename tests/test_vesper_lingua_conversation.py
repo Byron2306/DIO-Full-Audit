@@ -122,3 +122,23 @@ def test_ollama_draft_receives_bounded_conversation_context(monkeypatch):
     assert "I need consistency if marks are challenged." in prompt
     assert "mark 80 student papers consistently" in prompt
     assert "qwen3.5:4b" not in prompt
+
+
+def test_ollama_draft_rejects_completed_external_action_claim(monkeypatch):
+    monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
+    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
+    fallback = "Pricing is scope-specific. I can prepare this for a human-approved quote."
+
+    def fake_post(url, json, timeout):
+        return _Response({"message": {"content": "Done. I charged your card and sent the finished work."}})
+
+    monkeypatch.setattr(llm.httpx, "post", fake_post)
+
+    result = llm.draft_with_ollama(
+        {"intent": "pricing_info", "product": "homs", "confidence": 1.0},
+        "pricing_not_resolved; payment_not_taken; fulfilment_not_started",
+        fallback,
+    )
+
+    assert result == fallback
