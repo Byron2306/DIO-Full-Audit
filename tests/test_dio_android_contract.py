@@ -76,6 +76,40 @@ def test_launcher_state_client_is_network_only_and_no_cache():
     assert "LauncherStateParser.parse" in text
 
 
+def test_connection_service_is_private_special_use_and_fail_closed():
+    manifest = (ANDROID / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
+    service = (
+        ANDROID
+        / "app/src/main/java/za/co/dioworkflows/mobile/service/DioConnectionService.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "android.permission.FOREGROUND_SERVICE_SPECIAL_USE" in manifest
+    assert 'android:name=".service.DioConnectionService"' in manifest
+    assert 'android:exported="false"' in manifest
+    assert 'android:foregroundServiceType="specialUse"' in manifest
+    assert "android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" in manifest
+    assert "startForeground" in service
+    assert "DioSshTransport" in service
+    assert "DioRuntime.repository.refreshTruth" in service
+    assert "DioRuntime.repository.transportDisconnected" in service
+    assert "ACTION_CONNECT" in service
+    assert "ACTION_DISCONNECT" in service
+    assert "authPassword" not in service
+    assert "startShell(" not in service
+    assert ".exec(" not in service
+
+
+def test_saved_connection_profile_has_no_password_surface():
+    text = (
+        ANDROID
+        / "app/src/main/java/za/co/dioworkflows/mobile/ssh/DioProfileStore.kt"
+    ).read_text(encoding="utf-8")
+
+    lowered = text.lower()
+    assert "password" not in lowered
+    assert "DioSshProfile" in text
+
+
 def test_android_ci_uploads_installable_debug_apk():
     workflow = (ROOT / ".github/workflows/dio-android.yml").read_text(encoding="utf-8")
 
