@@ -33,3 +33,40 @@ def test_android_manifest_does_not_create_public_dio_listener():
     assert "0.0.0.0" not in manifest
     assert "android.permission.INTERNET" in manifest
     assert "android.permission.FOREGROUND_SERVICE" in manifest
+
+
+def test_private_key_storage_is_keystore_wrapped_and_not_plain_preferences():
+    text = (
+        ANDROID
+        / "app/src/main/java/za/co/dioworkflows/mobile/security/SecureIdentityStore.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "AndroidKeyStore" in text
+    assert "AES/GCM/NoPadding" in text
+    assert "setKeySize(256)" in text
+    assert "KeyGenParameterSpec" in text
+    assert 'putString("private' not in text
+    assert 'putString("ssh_private' not in text
+
+
+def test_android_ssh_transport_never_uses_permissive_or_shell_auth_patterns():
+    text = (
+        ANDROID
+        / "app/src/main/java/za/co/dioworkflows/mobile/ssh/DioSshTransport.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "PromiscuousVerifier" not in text
+    assert "StrictHostKeyChecking=no" not in text
+    assert "authPassword" not in text
+    assert "startShell(" not in text
+    assert ".exec(" not in text
+    assert "addHostKeyVerifier" in text
+    assert "DioForwardPlan.REQUIRED" in text
+
+
+def test_android_ci_uploads_installable_debug_apk():
+    workflow = (ROOT / ".github/workflows/dio-android.yml").read_text(encoding="utf-8")
+
+    assert "actions/upload-artifact@v4" in workflow
+    assert "dio-android-debug-apk" in workflow
+    assert "app/build/outputs/apk/debug/app-debug.apk" in workflow
