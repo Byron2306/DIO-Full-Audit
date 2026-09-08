@@ -111,13 +111,16 @@ def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[st
 
 
 def seal_all_receipt_bound_extensions(*, root: Path) -> dict[str, Any]:
+    from products.canon_extension_materializer import MATERIALIZATION_FILENAME
     from products.canon_extension_product_grade import CANON_EXTENSIONS
 
     root = Path(root).resolve()
     seals: dict[str, Any] = {}
     failures: dict[str, str] = {}
     targets = [row for row in CANON_EXTENSIONS if row["proof_kind"] == "receipt_bound"]
-    for spec in targets:
+    for source_spec in targets:
+        spec = dict(source_spec)
+        spec["proof_receipt"] = str(Path(str(spec["primary_artifact"])).parent / MATERIALIZATION_FILENAME)
         try:
             seals[str(spec["slug"])] = seal_receipt_bound_extension(spec=spec, root=root)
         except CanonExtensionProofSealError as exc:
