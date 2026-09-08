@@ -58,6 +58,19 @@ jobs:
         run: |
           echo "HISTORICAL_53_ANCHOR_SHA256=$(sha256sum evidence/historical/PROFESSIONAL_EVIDENCE_53_X3_ANCHOR.json | awk '{print $1}')" >> "$GITHUB_ENV"
 
+      - name: Materialize 11 receipt-bound canon extensions
+        run: PYTHONNOUSERSITE=1 python scripts/materialize_canon_extensions.py --require-all
+
+      - name: Verify 11 canon materializations exist
+        shell: bash
+        run: |
+          SITE_COUNT="$(find state/product_portfolio/canon_extensions -path '*/site/index.html' -type f | wc -l)"
+          RECEIPT_COUNT="$(find state/product_portfolio/canon_extensions -name 'CANON_EXTENSION_MATERIALIZATION_RECEIPT.json' -type f | wc -l)"
+          echo "CANON_EXTENSION_SITE_COUNT=$SITE_COUNT"
+          echo "CANON_EXTENSION_MATERIALIZATION_RECEIPT_COUNT=$RECEIPT_COUNT"
+          test "$SITE_COUNT" -eq 11
+          test "$RECEIPT_COUNT" -eq 11
+
       - name: Seal current receipt-bound canon-extension artifacts
         run: PYTHONNOUSERSITE=1 python scripts/seal_canon_extension_proofs.py --require-all
 
@@ -66,6 +79,13 @@ jobs:
           PYTHONNOUSERSITE=1 python scripts/run_canon_extension_native_product_grade.py
           --output state/product_grade/canon_extensions
           --require-all
+
+      - name: Verify 45 buyer artifacts exist
+        shell: bash
+        run: |
+          BUYER_COUNT="$(find state/product_grade/canon_extensions -path '*/variants/*/customer_delivery/index.html' -type f | wc -l)"
+          echo "CANON_EXTENSION_BUYER_ARTIFACT_COUNT=$BUYER_COUNT"
+          test "$BUYER_COUNT" -eq 45
 
       - name: Aggregate all 15 canon extensions
         run: >-
@@ -88,10 +108,14 @@ jobs:
           import json
           from pathlib import Path
 
+          materialized = json.loads(Path('state/product_portfolio/canon_extensions/CANON_EXTENSION_MATERIALIZATION_BATCH_RECEIPT.json').read_text())
           native = json.loads(Path('state/product_grade/canon_extensions/NATIVE_CANON_EXTENSION_PRODUCT_GRADE_BATCH_RECEIPT.json').read_text())
           extensions = json.loads(Path('state/product_grade/canon_extension_aggregate/CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json').read_text())
           portfolio = json.loads(Path('state/product_grade/canon_portfolio/CANON_PORTFOLIO_68_X3_PRODUCT_GRADE_RECEIPT.json').read_text())
 
+          assert materialized['acceptance_token'] == 'DIO_CANON_EXTENSION_11_MATERIALIZED'
+          assert materialized['materialized_count'] == 11
+          assert materialized['refuse_count'] == 0
           assert native['acceptance_token'] == 'DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED'
           assert native['verified_journey_count'] == 45
           assert native['product_grade_verified_count'] == 15
@@ -104,21 +128,26 @@ jobs:
           assert portfolio['verified_journey_count'] == 204
           assert portfolio['product_grade_verified_count'] == 68
           assert portfolio['historical_53_receipt_mutated'] is False
+          print('DIO_CANON_EXTENSION_11_MATERIALIZED')
           print('DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED')
           print('DIO_CANON_PORTFOLIO_68_X3_PRODUCT_GRADE_VERIFIED')
           print('DIO_PORTFOLIO_PRODUCT_GRADE_VERIFIED products=68 journeys=204')
           PY
           test "$(sha256sum evidence/historical/PROFESSIONAL_EVIDENCE_53_X3_ANCHOR.json | awk '{print $1}')" = "$HISTORICAL_53_ANCHOR_SHA256"
 
-      - name: Upload ProductGrade evidence receipts
+      - name: Upload ProductGrade evidence and buyer artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dio-canon-68x3-productgrade-evidence
           path: |
+            state/product_portfolio/canon_extensions/**/site/index.html
+            state/product_portfolio/canon_extensions/**/CANON_EXTENSION_MATERIALIZATION_RECEIPT.json
+            state/product_portfolio/canon_extensions/**/CANON_EXTENSION_PROOF_RECEIPT.json
+            state/product_portfolio/canon_extensions/CANON_EXTENSION_MATERIALIZATION_BATCH_RECEIPT.json
+            state/product_grade/canon_extensions/**/variants/**/customer_delivery/index.html
             state/product_grade/canon_extensions/**/*.json
             state/product_grade/canon_extension_aggregate/**/*.json
             state/product_grade/canon_portfolio/**/*.json
-            state/product_portfolio/canon_extensions/**/CANON_EXTENSION_PROOF_RECEIPT.json
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 30
