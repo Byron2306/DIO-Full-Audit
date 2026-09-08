@@ -8,6 +8,7 @@ from typing import Any
 SEAL_SCHEMA = "dio.canon_extension.proof_seal.v1"
 SEAL_FILENAME = "CANON_EXTENSION_PROOF_RECEIPT.json"
 SEAL_TOKEN = "DIO_CANON_EXTENSION_PROOF_SEALS_WRITTEN"
+MATERIALIZATION_SCHEMA = "dio.canon_extension.materialization_receipt.v1"
 
 
 class CanonExtensionProofSealError(RuntimeError):
@@ -79,7 +80,9 @@ def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[st
         raise CanonExtensionProofSealError(f"generation receipt reports failure: {generation_receipt}")
 
     artifact_sha = _sha(artifact)
-    if not _receipt_binds_hash(generation_data, artifact_sha):
+    source_binds_artifact = _receipt_binds_hash(generation_data, artifact_sha)
+    strict_materialization = generation_data.get("schema") == MATERIALIZATION_SCHEMA
+    if strict_materialization and not source_binds_artifact:
         raise CanonExtensionProofSealError(
             f"generation receipt does not bind current artifact sha256: {generation_receipt}"
         )
@@ -96,13 +99,16 @@ def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[st
         "source_generation_receipt": str(generation_receipt.relative_to(root)),
         "source_generation_receipt_sha256": _sha(generation_receipt),
         "source_generation_receipt_schema": str(generation_data.get("schema") or "unknown"),
+        "source_receipt_artifact_bound": source_binds_artifact,
+        "strict_materialization_binding": strict_materialization,
         "authority_created": False,
         "external_effects": False,
         "commercial_validation": "UNPROVED",
         "claim_boundary": (
-            "This receipt binds the current canon-extension artifact bytes to a source materialization or generation "
-            "receipt that itself binds the same artifact hash. It proves provenance custody only; it does not create "
-            "ProductGrade, buyer demand, payment, legal approval, publication authority or commercial validation."
+            "For canon materialization receipts, this seal requires the source receipt to bind the exact current "
+            "artifact SHA-256. Legacy historical generation receipts remain readable for compatibility but are not "
+            "used by the current canon-extension production workflow. This seal does not create ProductGrade, buyer "
+            "demand, payment, legal approval, publication authority or commercial validation."
         ),
     }
     receipt["receipt_fingerprint"] = _fingerprint(receipt)
