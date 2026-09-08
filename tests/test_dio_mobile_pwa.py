@@ -46,6 +46,16 @@ def test_launcher_page_registers_mobile_shell_without_weakening_truth_gate():
     assert "caches.match(request)" not in worker.split("function networkOnlyTruth", 1)[1].split("}", 1)[0]
 
 
+def test_mobile_disconnect_clears_previous_ready_truth():
+    page = (DASHBOARD / "dio-launcher.html").read_text(encoding="utf-8")
+
+    assert "function renderUnavailable(error)" in page
+    assert "card.classList.remove('ready')" in page
+    assert "document.getElementById('truth-panel').classList.remove('verified')" in page
+    assert "text('truth-state','Truth gate held')" in page
+    assert "renderUnavailable(error)" in page
+
+
 def test_launcher_server_serves_only_bounded_pwa_assets():
     server = (ROOT / "scripts" / "serve_dio_launcher.py").read_text(encoding="utf-8")
 
