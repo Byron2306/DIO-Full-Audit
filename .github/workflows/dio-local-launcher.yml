@@ -7,25 +7,35 @@ on:
     paths:
       - 'dio_launcher.py'
       - 'dashboard/dio-launcher.html'
+      - 'dashboard/dio-mobile.webmanifest'
+      - 'dashboard/dio-mobile-sw.js'
+      - 'dashboard/dio-mobile-icon-*.png'
       - 'scripts/serve_dio_launcher.py'
       - 'scripts/launch_dio_apps.py'
       - 'scripts/install_dio_launcher.py'
+      - 'scripts/android/**'
       - 'deploy/systemd/dio-*.service'
       - 'deploy/systemd/dio-apps.target'
       - 'deploy/desktop/dio-apps.desktop'
       - 'tests/test_dio_local_launcher.py'
+      - 'tests/test_dio_mobile_pwa.py'
       - '.github/workflows/dio-local-launcher.yml'
   pull_request:
     paths:
       - 'dio_launcher.py'
       - 'dashboard/dio-launcher.html'
+      - 'dashboard/dio-mobile.webmanifest'
+      - 'dashboard/dio-mobile-sw.js'
+      - 'dashboard/dio-mobile-icon-*.png'
       - 'scripts/serve_dio_launcher.py'
       - 'scripts/launch_dio_apps.py'
       - 'scripts/install_dio_launcher.py'
+      - 'scripts/android/**'
       - 'deploy/systemd/dio-*.service'
       - 'deploy/systemd/dio-apps.target'
       - 'deploy/desktop/dio-apps.desktop'
       - 'tests/test_dio_local_launcher.py'
+      - 'tests/test_dio_mobile_pwa.py'
       - '.github/workflows/dio-local-launcher.yml'
 
 jobs:
@@ -38,5 +48,8 @@ jobs:
           python-version: '3.11'
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
-      - name: Run local launcher contract
-        run: PYTHONNOUSERSITE=1 python -m pytest -q tests/test_dio_local_launcher.py
+      - name: Run local launcher and mobile contracts
+        run: >-
+          PYTHONNOUSERSITE=1 python -m pytest -q
+          tests/test_dio_local_launcher.py
+          tests/test_dio_mobile_pwa.py
