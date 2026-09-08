@@ -116,3 +116,49 @@ def test_android_ci_uploads_installable_debug_apk():
     assert "actions/upload-artifact@v4" in workflow
     assert "dio-android-debug-apk" in workflow
     assert "app/build/outputs/apk/debug/app-debug.apk" in workflow
+
+
+def test_native_operator_ui_is_activity_backed_and_live_truth_only():
+    manifest = (ANDROID / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
+    activity = (
+        ANDROID / "app/src/main/java/za/co/dioworkflows/mobile/MainActivity.kt"
+    ).read_text(encoding="utf-8")
+    setup = (
+        ANDROID / "app/src/main/java/za/co/dioworkflows/mobile/ui/SetupScreen.kt"
+    ).read_text(encoding="utf-8")
+    home = (
+        ANDROID / "app/src/main/java/za/co/dioworkflows/mobile/ui/DioHomeScreen.kt"
+    ).read_text(encoding="utf-8")
+
+    assert 'android:name=".MainActivity"' in manifest
+    assert 'android.intent.action.MAIN' in manifest
+    assert 'android.intent.category.LAUNCHER' in manifest
+    assert "DioRuntime.repository.state" in activity
+    assert "SecureIdentityStore" in activity
+    assert "HostKeyPinStore" in activity
+    assert "DioConnectionService.ACTION_CONNECT" in activity
+    assert "DioConnectionService.ACTION_DISCONNECT" in activity
+    assert "password" not in setup.lower()
+    assert "portfolio.baseCount" in home
+    assert "portfolio.extensionCount" in home
+    assert "portfolio.totalCount" in home
+    assert '"53 + 15 = 68"' not in home
+
+
+def test_embedded_webview_is_bounded_to_dio_navigation_policy():
+    surface = (
+        ANDROID / "app/src/main/java/za/co/dioworkflows/mobile/ui/DioSurfaceScreen.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "DioNavigationPolicy.isInternal" in surface
+    assert "allowFileAccess = false" in surface
+    assert "allowContentAccess = false" in surface
+    assert "addJavascriptInterface" not in surface
+    assert "WebViewClient" in surface
+
+
+def test_android_ci_runs_instrumentation_contracts():
+    workflow = (ROOT / ".github/workflows/dio-android.yml").read_text(encoding="utf-8")
+
+    assert "android-emulator-runner" in workflow
+    assert ":app:connectedDebugAndroidTest" in workflow
