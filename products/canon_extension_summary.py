@@ -8,16 +8,36 @@ from typing import Any
 
 EXTENSION_SCHEMA = "dio.product_grade.canon_extension_gauntlet_receipt.v1"
 PRODUCT_GRADE_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_VERIFIED"
+EXTENSION_15_X3_SCHEMA = "dio.product_grade.canon_extension_gauntlet_receipt.v2"
+PRODUCT_GRADE_15_X3_TOKEN = "DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED"
 PROOF_TOKEN = "DIO_CANON_EXTENSION_PROOF_VERIFIED"
 PRODUCT_GRADE_STATUS = "PRODUCT_GRADE_VERIFIED"
 PROOF_STATUS = "CANON_EXTENSION_PROOF_VERIFIED"
 
 
-def summary_is_publishable(receipt: dict[str, Any]) -> bool:
-    extensions = receipt.get("extensions")
-    if not (
+def _has_supported_summary_provenance(receipt: dict[str, Any]) -> bool:
+    if (
         receipt.get("schema") == EXTENSION_SCHEMA
         and receipt.get("acceptance_token") == PRODUCT_GRADE_TOKEN
+    ):
+        return True
+    return (
+        receipt.get("schema") == EXTENSION_15_X3_SCHEMA
+        and receipt.get("acceptance_token") == PRODUCT_GRADE_15_X3_TOKEN
+        and receipt.get("variants_per_extension") == 3
+        and receipt.get("controlled_journey_count") == 45
+        and receipt.get("verified_journey_count") == 45
+        and receipt.get("refused_journey_count") == 0
+        and receipt.get("product_grade_refuse_count") == 0
+        and receipt.get("canon_extension_proof_refuse_count") == 0
+    )
+
+
+def summary_is_publishable(receipt: dict[str, Any]) -> bool:
+    extensions = receipt.get("extensions")
+    is_15_x3 = receipt.get("schema") == EXTENSION_15_X3_SCHEMA
+    if not (
+        _has_supported_summary_provenance(receipt)
         and receipt.get("proof_acceptance_token") == PROOF_TOKEN
         and receipt.get("extension_count") == 15
         and receipt.get("product_grade_verified_count") == 15
@@ -49,6 +69,13 @@ def summary_is_publishable(receipt: dict[str, Any]) -> bool:
             or bool(row.get("critical_blockers"))
             or row.get("customers_will_pay") != "UNPROVED"
             or row.get("verified_payment") != "UNPROVED"
+            or (
+                is_15_x3
+                and (
+                    row.get("variant_count") != 3
+                    or row.get("verified_variant_count") != 3
+                )
+            )
         ):
             return False
         seen_ids.add(canon_id)
