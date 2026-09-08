@@ -53,3 +53,12 @@ def test_summary_refuses_commercial_or_authority_overclaim(tmp_path):
     receipt["authority_created"] = True
     assert persist_verified_summary(receipt, target) is False
     assert not target.exists()
+
+
+def test_committed_canon_extension_summary_is_publishable():
+    assert CANONICAL_RECEIPT.is_file()
+    receipt = json.loads(CANONICAL_RECEIPT.read_text(encoding="utf-8"))
+
+    assert summary_is_publishable(receipt) is True
+    assert receipt["extension_count"] == 15
+    assert len(receipt["extensions"]) == 15
