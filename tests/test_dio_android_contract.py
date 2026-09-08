@@ -64,6 +64,18 @@ def test_android_ssh_transport_never_uses_permissive_or_shell_auth_patterns():
     assert "DioForwardPlan.REQUIRED" in text
 
 
+def test_launcher_state_client_is_network_only_and_no_cache():
+    text = (
+        ANDROID
+        / "app/src/main/java/za/co/dioworkflows/mobile/truth/LauncherStateClient.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "http://127.0.0.1:8764/api/launcher/state" in text
+    assert "useCaches = false" in text
+    assert 'setRequestProperty("Cache-Control", "no-cache, no-store")' in text
+    assert "LauncherStateParser.parse" in text
+
+
 def test_android_ci_uploads_installable_debug_apk():
     workflow = (ROOT / ".github/workflows/dio-android.yml").read_text(encoding="utf-8")
 
