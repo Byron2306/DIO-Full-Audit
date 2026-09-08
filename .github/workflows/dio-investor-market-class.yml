@@ -4,8 +4,10 @@ on:
   pull_request:
     paths:
       - 'config/dio_marketing_integration.json'
+      - 'config/dio_investor_strategy.json'
       - 'config/product_layers.json'
       - 'scripts/run_dio_marketing_integration.py'
+      - 'scripts/run_dio_investor_marketing_integration.py'
       - 'scripts/settle_dio_marketing_campaign.py'
       - 'tests/test_dio_marketing_integration.py'
       - 'tests/test_dio_investor_market_class_activation.py'
