@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 from typing import Any
 from adapters.lingua.communicator import register_communication, requested_language
+from adapters.lingua.conversation_crystals import resolve_conversation_crystal
 from adapters.lingua.conversation_knowledge import retrieve_conversation_knowledge
 from adapters.lingua.interaction_regulator import observe_interaction
 from adapters.lingua.persona_lab import assign_persona
@@ -229,6 +230,10 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
     fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record)
     knowledge=retrieve_conversation_knowledge(dio_root,text,conversation_state)
+    governed_context=dict(knowledge)
+    crystal=resolve_conversation_crystal(root=dio_root,text=text)
+    if crystal and crystal.get('provider_called') is False and crystal.get('authority_created') is False:
+        governed_context['verified_semantic_crystal']=crystal
     draft_turns=[*recent_turns,{'role':'user','text':text,'act':decision.get('intent'),'product':decision.get('product')}]
     reply=draft_with_cortex(
         decision,
@@ -238,7 +243,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         persona,
         conversation_state=conversation_state,
         recent_turns=draft_turns,
-        governed_context=knowledge,
+        governed_context=governed_context,
     )
     try:
         reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
