@@ -4,9 +4,11 @@ on:
   pull_request:
     paths:
       - 'config/dio_marketing_integration.json'
+      - 'config/product_layers.json'
       - 'scripts/run_dio_marketing_integration.py'
       - 'scripts/settle_dio_marketing_campaign.py'
       - 'tests/test_dio_marketing_integration.py'
+      - 'tests/test_dio_investor_market_class_activation.py'
       - '.github/workflows/dio-investor-market-class.yml'
   workflow_dispatch:
 
@@ -19,4 +21,6 @@ jobs:
         with:
           python-version: '3.11'
       - name: Run investor market class tests
-        run: python -m unittest tests.test_dio_marketing_integration -v
+        run: |
+          python -m unittest tests.test_dio_marketing_integration -v
+          python -m unittest tests.test_dio_investor_market_class_activation -v
