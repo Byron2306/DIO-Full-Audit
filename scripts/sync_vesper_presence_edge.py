@@ -165,6 +165,71 @@ def telegram_download_attachment(token: str, file_id: str, file_name: str, mime_
     }
 
 
+def transcribe_voice_with_hf(attachment: dict[str, Any]) -> dict[str, Any]:
+    """Transcribe a voice note as read-only semantic input. This creates no DIO authority."""
+    token = os.getenv("HF_TOKEN", "").strip()
+    if not token:
+        raise TransientPresenceError("HF_TOKEN is required when DIO_PRESENCE_VOICE_TRANSCRIPTION=hf.")
+    model = os.getenv("DIO_PRESENCE_ASR_MODEL", "openai/whisper-large-v3-turbo").strip()
+    if not model or any(char.isspace() for char in model):
+        raise PermanentPresenceError("DIO_PRESENCE_ASR_MODEL is invalid.")
+    try:
+        audio = base64.b64decode(str(attachment.get("content_b64") or ""), validate=True)
+    except Exception as exc:
+        raise PermanentPresenceError("Telegram voice payload is not valid base64.") from exc
+    if not audio:
+        raise PermanentPresenceError("Telegram voice payload is empty.")
+    declared_sha = str(attachment.get("sha256") or "").lower()
+    audio_sha = hashlib.sha256(audio).hexdigest()
+    if declared_sha and declared_sha != audio_sha:
+        raise PermanentPresenceError("Telegram voice SHA-256 mismatch before transcription.")
+    endpoint = os.getenv(
+        "DIO_PRESENCE_ASR_URL",
+        f"https://router.huggingface.co/hf-inference/models/{model}",
+    ).strip()
+    if not endpoint.startswith("https://"):
+        raise PermanentPresenceError("DIO_PRESENCE_ASR_URL must use HTTPS.")
+    mime_type = str(attachment.get("mime_type") or "audio/ogg").split(";", 1)[0].strip().lower()
+    request = Request(
+        endpoint,
+        data=audio,
+        method="POST",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": mime_type,
+            "User-Agent": "DIO-Vesper-ASR/1.0",
+        },
+    )
+    try:
+        with urlopen(request, timeout=60) as response:
+            payload = json.loads(response.read())
+    except HTTPError as exc:
+        detail = exc.read().decode("utf-8", "replace")[:300]
+        raise TransientPresenceError(f"Hugging Face voice transcription returned HTTP {exc.code}: {detail}") from exc
+    except (URLError, TimeoutError, json.JSONDecodeError) as exc:
+        raise TransientPresenceError(f"Hugging Face voice transcription is unavailable: {exc}") from exc
+    text = str((payload or {}).get("text") or "").strip()
+    if not text:
+        raise TransientPresenceError("Hugging Face voice transcription returned no text.")
+    truncated = len(text) > 4000
+    if truncated:
+        text = text[:4000]
+    return {
+        "schema": "dio.vesper.voice_transcription.v1",
+        "text": text,
+        "provider": "hf-inference",
+        "model": model,
+        "audio_sha256": audio_sha,
+        "audio_bytes": len(audio),
+        "mime_type": mime_type,
+        "truncated": truncated,
+        "authority_created": False,
+        "external_processing": True,
+        "execution_authority_created": False,
+        "send_authority_created": False,
+    }
+
+
 def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
     body_text = event.get("body_text")
     if not isinstance(body_text, str) or not body_text:
@@ -191,6 +256,8 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
     text = str(message.get("text") or message.get("caption") or "").strip()
     message_type = "text"
     attachment = None
+    voice_source = None
+    voice_transcription = None
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
 
     if message.get("document"):
@@ -221,13 +288,37 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
         message_type = "voice"
         voice = message["voice"]
         if not token:
-            raise TransientPresenceError("TELEGRAM_BOT_TOKEN is required locally to reconcile Telegram attachments.")
+            raise TransientPresenceError("TELEGRAM_BOT_TOKEN is required locally to reconcile Telegram voice notes.")
         file_id = str(voice.get("file_id") or "")
         if not file_id:
             raise PermanentPresenceError("Telegram voice note is missing file_id.")
-        attachment = telegram_download_attachment(token, file_id, "telegram-voice.ogg", voice.get("mime_type") or "audio/ogg")
-        if not text:
-            text = "I sent a voice note. Please quarantine it for human review; do not infer a transcript."
+        downloaded_voice = telegram_download_attachment(
+            token,
+            file_id,
+            "telegram-voice.ogg",
+            voice.get("mime_type") or "audio/ogg",
+        )
+        voice_source = {
+            "provider": downloaded_voice.get("provider"),
+            "provider_file_id": downloaded_voice.get("provider_file_id"),
+            "file_name": downloaded_voice.get("file_name"),
+            "mime_type": downloaded_voice.get("mime_type"),
+            "file_size": downloaded_voice.get("file_size"),
+            "sha256": downloaded_voice.get("sha256"),
+            "custody": "provider_authenticated_ephemeral_download_for_voice_input",
+            "document_attachment": False,
+        }
+        attachment = None
+        transcription_mode = os.getenv("DIO_PRESENCE_VOICE_TRANSCRIPTION", "").strip().lower()
+        if transcription_mode == "hf":
+            voice_transcription = transcribe_voice_with_hf(downloaded_voice)
+            if not text:
+                text = str(voice_transcription.get("text") or "").strip()
+        elif transcription_mode in {"", "0", "false", "off", "none"}:
+            if not text:
+                text = "I sent a voice note, but voice transcription is not enabled on this Vesper runtime."
+        else:
+            raise PermanentPresenceError(f"Unsupported DIO_PRESENCE_VOICE_TRANSCRIPTION mode: {transcription_mode}")
     elif not text:
         raise PermanentPresenceError("Telegram message type is not yet supported by the Presence reconciler.")
 
@@ -237,6 +328,17 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
     if text.startswith("/start "):
         start_payload = text.split(" ", 1)[1].strip() or None
 
+    metadata = {
+        "telegram_update_id": str(update.get("update_id") or event.get("update_id") or ""),
+        "telegram_chat_id": chat_id,
+        "telegram_start_payload": start_payload,
+        "custody": "cloudflare_d1_provider_authenticated_transport_only",
+    }
+    if voice_source:
+        metadata["voice_source"] = voice_source
+    if voice_transcription:
+        metadata["voice_transcription"] = voice_transcription
+
     return {
         "schema": "dio.presence_ingress.v2",
         "channel": "telegram",
@@ -245,12 +347,7 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
         "source_message_id": source_message_id,
         "message_type": message_type,
         "text": text,
-        "metadata": {
-            "telegram_update_id": str(update.get("update_id") or event.get("update_id") or ""),
-            "telegram_chat_id": chat_id,
-            "telegram_start_payload": start_payload,
-            "custody": "cloudflare_d1_provider_authenticated_transport_only",
-        },
+        "metadata": metadata,
         "attachment": attachment,
     }
 
