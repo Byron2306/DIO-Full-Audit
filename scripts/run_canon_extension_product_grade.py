@@ -9,12 +9,29 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from products.canon_extension_materializer import MATERIALIZATION_FILENAME
 from products.canon_extension_product_grade import (
+    CANON_EXTENSIONS,
     PROOF_VERIFIED_TOKEN,
     VERIFIED_TOKEN,
     run_canon_extension_product_grade_gauntlet,
 )
 from products.product_grade_gauntlet import run_product_grade_gauntlet
+
+
+def activate_materialized_provenance() -> None:
+    """Point receipt-bound production specs at truthful current materialization receipts.
+
+    The tuple entries are mutable dictionaries. Tests may still exercise historical
+    Gamma-style fixture receipts directly, while the production CLI always evaluates
+    the current deterministic materialization chain.
+    """
+    for spec in CANON_EXTENSIONS:
+        if spec.get("proof_kind") != "receipt_bound":
+            continue
+        spec["proof_receipt"] = str(
+            Path(str(spec["primary_artifact"])).parent / MATERIALIZATION_FILENAME
+        )
 
 
 def main() -> int:
@@ -37,6 +54,7 @@ def main() -> int:
         help="Return non-zero unless all 15 canon extensions reach full PRODUCT_GRADE_VERIFIED.",
     )
     args = parser.parse_args()
+    activate_materialized_provenance()
     output_dir = Path(args.output).resolve()
     studio_receipt = run_product_grade_gauntlet(
         output_dir=output_dir / "studio_product_grade",
