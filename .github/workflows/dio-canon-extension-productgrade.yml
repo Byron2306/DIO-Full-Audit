@@ -20,6 +20,7 @@ on:
       - 'scripts/run_canon_portfolio_product_grade.py'
       - 'scripts/seal_canon_extension_proofs.py'
       - 'tests/test_product_grade_gauntlet_artifact_paths.py'
+      - 'tests/test_canon_extension_aggregate_cli_provenance.py'
       - 'tests/test_canon_extension_materializer.py'
       - 'tests/test_canon_extension_product_grade.py'
       - 'tests/test_canon_extension_native_product_grade.py'
@@ -47,6 +48,7 @@ jobs:
         run: >-
           PYTHONNOUSERSITE=1 python -m pytest -q
           tests/test_product_grade_gauntlet_artifact_paths.py
+          tests/test_canon_extension_aggregate_cli_provenance.py
           tests/test_canon_extension_materializer.py
           tests/test_canon_extension_product_grade.py
           tests/test_canon_extension_native_product_grade.py
