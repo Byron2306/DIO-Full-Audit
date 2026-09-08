@@ -5,8 +5,19 @@
     "role": "DIO Presence Core",
     "voice_identity_is_rendering_only": true
   },
-  "default_public_profile": null,
+  "default_public_profile": "vera_pocket_public",
   "profiles": {
+    "vera_pocket_public": {
+      "backend": "pocket_tts",
+      "cost_class": "free_local",
+      "model": "vera",
+      "voice_url": "vera",
+      "language": "English",
+      "accent_claim": null,
+      "public_brand_state": "approved",
+      "review_required_before_default": false,
+      "notes": "Approved Vesper public voice using Pocket TTS built-in Vera. Synthesis is rendering only and creates no send, identity, translation, spend, fulfilment, or release authority."
+    },
     "piper_free_local_baseline": {
       "backend": "piper_http",
       "cost_class": "free_local",
