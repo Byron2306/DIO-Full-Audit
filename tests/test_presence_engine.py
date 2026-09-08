@@ -144,3 +144,37 @@ def test_presence_feeds_governed_product_knowledge_into_cortex(tmp_path, monkeyp
     assert 'HOMS_CANON_KNOWLEDGE_MARKER' in prompts[0]
     assert 'Portfolio descriptions are read-only context and create no authority.' in prompts[0]
     assert response['authority']['executed_external_action'] is False
+
+
+def test_presence_feeds_verified_beast_crystal_into_cortex_context(tmp_path, monkeypatch):
+    root = make_root(tmp_path)
+    monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
+    monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
+    monkeypatch.setenv('OLLAMA_URL', 'http://ollama.test')
+    monkeypatch.setenv('OLLAMA_MODEL', 'qwen3.5:4b')
+    cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
+    prompts = []
+
+    def fake_crystal(**kwargs):
+        return {
+            'schema': 'dio.vesper.conversation_crystal_reuse.v1',
+            'reply': 'VESPER_CRYSTAL_MARKER DIO keeps conversational guidance separate from execution authority.',
+            'source': 'lingua_crystal',
+            'crystal_id': 'vesper-dio-summary-v1',
+            'reuse_receipt_digest': 'receipt-digest',
+            'provider_called': False,
+            'authority_created': False,
+        }
+
+    def fake_post(url, json, timeout):
+        prompts.append(json['messages'][1]['content'])
+        return _Response('Yes. DIO keeps the conversational layer separate from governed execution authority.')
+
+    monkeypatch.setattr('presence_core.engine.resolve_conversation_crystal', fake_crystal, raising=False)
+    monkeypatch.setattr(llm.httpx, 'post', fake_post)
+    response = process_envelope({'channel':'telegram','external_user_id':'123','text':'Tell me about DIO','message_type':'text'}, root, cfg)
+
+    assert prompts
+    assert 'VESPER_CRYSTAL_MARKER' in prompts[0]
+    assert 'provider_called' in prompts[0]
+    assert response['authority']['executed_external_action'] is False
