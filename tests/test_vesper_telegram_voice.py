@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from presence_core.authority import bind_external_action_receipt
 from presence_core.telegram_transport import send_telegram_reply
 
 
@@ -220,3 +221,20 @@ def test_reply_gate_blocks_voice_render_and_transport(tmp_path: Path, monkeypatc
     assert sent is False
     assert error == "external_reply_switch_disabled"
     assert receipt["authorized"] is False
+
+
+def test_outer_authority_receipt_preserves_voice_action_type() -> None:
+    result = _result()
+    receipt = {
+        "schema": "dio.vesper.external_reply_authority.v1",
+        "authorized": True,
+        "external_action_type": "telegram_voice_reply",
+        "delivery_mode": "voice",
+        "spend_authorized": False,
+        "fulfilment_release_authorized": False,
+    }
+    bind_external_action_receipt(result, receipt, sent=True)
+
+    assert result["core_reply_sent"] is True
+    assert result["authority"]["executed_external_action"] is True
+    assert result["authority"]["external_action_type"] == "telegram_voice_reply"
