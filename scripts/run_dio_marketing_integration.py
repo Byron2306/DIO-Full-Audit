@@ -211,21 +211,80 @@ def route_mode(target: dict[str, str]) -> str:
     return "public_proof_content_only"
 
 
+def target_market_type(target: dict[str, str], product: dict[str, Any] | None = None) -> str:
+    value = str(target.get("target_type") or (product or {}).get("target_type") or "buyer").strip().lower()
+    if value not in {"buyer", "investor"}:
+        raise ValueError(f"Unsupported market target type: {value}")
+    return value
+
+
+def market_outreach_allowed(target: dict[str, str], config: dict[str, Any], product: dict[str, Any]) -> bool:
+    permission_allowed = outreach_allowed(target, config)
+    if target_market_type(target, product) != "investor":
+        return permission_allowed
+    legalis_verdict = str(target.get("legalis_verdict") or "").strip().upper()
+    return permission_allowed and legalis_verdict == "ALLOW"
+
+
 def build_observation(
     archive_path: Path,
     archive_hash: str,
     hypothesis: dict[str, str],
     target: dict[str, str],
+    product: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    observation_id = stable_id("OBS", ["wave4", hypothesis["hypothesis_id"], archive_hash])
+    target_type = target_market_type(target, product)
+    registry_wave = target.get("registry_wave") or "wave4"
+    observation_id = stable_id("OBS", [registry_wave, hypothesis["hypothesis_id"], archive_hash])
+    market = {
+        "organisation": hypothesis.get("organisation"),
+        "segment": target.get("segment"),
+        "province_or_reach": target.get("province_or_reach"),
+        "buyer_unit": hypothesis.get("buyer_unit"),
+    }
+    signals = {
+        "attack_score": float_value(hypothesis.get("attack_score")),
+        "route_state": target.get("route_state") or "RESEARCH_ONLY",
+        "route_mode": route_mode(target),
+        "proof_readiness_score": float_value(target.get("proof_readiness_score")),
+        "timing_score": float_value(target.get("timing_score")),
+        "seasonal_urgency": target.get("seasonal_urgency"),
+        "seasonal_trigger": target.get("seasonal_trigger"),
+    }
+    controls = {
+        "outreach_state": target.get("outreach_state") or "Research only",
+        "consent_status": target.get("consent_status") or "Not recorded",
+        "do_not_contact": target.get("do_not_contact") or "No",
+        "high_score_is_permission": False,
+    }
+    if target_type == "investor":
+        market = {
+            "target_type": "investor",
+            "organisation": hypothesis.get("organisation") or target.get("organisation"),
+            "investor_type": target.get("investor_type"),
+            "stage": target.get("stage"),
+            "typical_cheque": target.get("typical_cheque"),
+            "geography": target.get("geography") or target.get("province_or_reach"),
+            "investment_thesis": target.get("investment_thesis"),
+            "partner": target.get("partner"),
+            "target_role": hypothesis.get("buyer_unit") or target.get("buyer_unit"),
+        }
+        signals.update(
+            {
+                "thesis_fit_score": float_value(target.get("thesis_fit_score")),
+                "proof_fit_score": float_value(target.get("proof_fit_score")),
+                "capital_use_fit_score": float_value(target.get("capital_use_fit_score")),
+            }
+        )
+        controls["legalis_verdict"] = target.get("legalis_verdict") or "not_evaluated"
     return {
         "schema": "dio.market_observation.v1",
         "observation_id": observation_id,
         "observed_at": target.get("contact_verified_date") or "2026-08-08",
         "recorded_at": utc_now(),
         "source": {
-            "kind": "prospect_registry_wave",
-            "wave": "wave4",
+            "kind": "investor_registry_wave" if target_type == "investor" else "prospect_registry_wave",
+            "wave": registry_wave,
             "archive": str(archive_path),
             "archive_sha256": archive_hash,
             "registry_hypothesis_id": hypothesis["hypothesis_id"],
@@ -233,27 +292,9 @@ def build_observation(
             "source_reference": target.get("contact_source"),
         },
         "product_line_id": hypothesis["product_line_id"],
-        "market": {
-            "organisation": hypothesis.get("organisation"),
-            "segment": target.get("segment"),
-            "province_or_reach": target.get("province_or_reach"),
-            "buyer_unit": hypothesis.get("buyer_unit"),
-        },
-        "signals": {
-            "attack_score": float_value(hypothesis.get("attack_score")),
-            "route_state": target.get("route_state") or "RESEARCH_ONLY",
-            "route_mode": route_mode(target),
-            "proof_readiness_score": float_value(target.get("proof_readiness_score")),
-            "timing_score": float_value(target.get("timing_score")),
-            "seasonal_urgency": target.get("seasonal_urgency"),
-            "seasonal_trigger": target.get("seasonal_trigger"),
-        },
-        "controls": {
-            "outreach_state": target.get("outreach_state") or "Research only",
-            "consent_status": target.get("consent_status") or "Not recorded",
-            "do_not_contact": target.get("do_not_contact") or "No",
-            "high_score_is_permission": False,
-        },
+        "market": market,
+        "signals": signals,
+        "controls": controls,
     }
 
 
@@ -266,9 +307,32 @@ def build_hypothesis_record(
     observation: dict[str, Any],
 ) -> dict[str, Any]:
     product_layer = product["product_layer"]
-    campaign_id = stable_id("CMP", ["wave4", hypothesis["hypothesis_id"], product_layer])
-    direct_allowed = outreach_allowed(target, config)
-    return {
+    market_type = target_market_type(target, product)
+    registry_wave = target.get("registry_wave") or config.get("active_registry_wave") or "wave4"
+    campaign_id = stable_id("CMP", [registry_wave, hypothesis["hypothesis_id"], product_layer])
+    permission_allowed = outreach_allowed(target, config)
+    direct_allowed = market_outreach_allowed(target, config, product)
+    audience = {
+        "public_segment": product["generic_audience"],
+        "internal_research_organisation": hypothesis.get("organisation"),
+        "internal_buyer_unit": hypothesis.get("buyer_unit"),
+        "personalisation_allowed": direct_allowed,
+    }
+    if direct_allowed:
+        gate_reason = "Registry records a valid outreach permission basis."
+    elif market_type == "investor" and permission_allowed:
+        gate_reason = "Registry permission exists, but DIO Legalis has not returned ALLOW for the investor outreach prerequisite."
+    else:
+        gate_reason = "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
+    gates = {
+        "content_generation": "allowed",
+        "publication": "operator_approval_required",
+        "personalised_outreach": "allowed" if direct_allowed else "blocked",
+        "electronic_sales_outreach": "allowed" if direct_allowed else "blocked",
+        "registry_outreach_gate": hypothesis.get("outreach_gate"),
+        "reason": gate_reason,
+    }
+    record: dict[str, Any] = {
         "schema": "dio.hivenance.marketing_hypothesis.v1",
         "hypothesis_id": hypothesis["hypothesis_id"],
         "campaign_id": campaign_id,
@@ -276,7 +340,7 @@ def build_hypothesis_record(
         "registered_by": "dio_registry_hivenance_bridge",
         "immutable": True,
         "source": {
-            "registry_wave": "wave4",
+            "registry_wave": registry_wave,
             "registry_hypothesis_id": hypothesis["hypothesis_id"],
             "target_id": target.get("target_id"),
             "observation_id": observation["observation_id"],
@@ -288,12 +352,7 @@ def build_hypothesis_record(
             "public_name": product["public_name"],
             "offer_id": product["offer_id"],
         },
-        "audience": {
-            "public_segment": product["generic_audience"],
-            "internal_research_organisation": hypothesis.get("organisation"),
-            "internal_buyer_unit": hypothesis.get("buyer_unit"),
-            "personalisation_allowed": direct_allowed,
-        },
+        "audience": audience,
         "hypothesis": hypothesis["hypothesis"],
         "experiment": {
             "mode": route_mode(target),
@@ -302,24 +361,13 @@ def build_hypothesis_record(
             "proof_summary": product["proof_summary"],
             "public_hook": product["public_hook"],
             "cta": product["public_cta"],
-            "success_event": hypothesis.get("success_event") or "qualified_pilot_conversation",
+            "success_event": hypothesis.get("success_event") or product.get("success_event") or "qualified_pilot_conversation",
             "kill_condition": hypothesis.get("kill_condition"),
             "window_days": int(config["default_experiment_window_days"]),
             "budget_cap_minor": int(config["default_paid_budget_cap_minor"]),
             "currency": config["currency"],
         },
-        "gates": {
-            "content_generation": "allowed",
-            "publication": "operator_approval_required",
-            "personalised_outreach": "allowed" if direct_allowed else "blocked",
-            "electronic_sales_outreach": "allowed" if direct_allowed else "blocked",
-            "registry_outreach_gate": hypothesis.get("outreach_gate"),
-            "reason": (
-                "Registry records a valid outreach permission basis."
-                if direct_allowed
-                else "Research and proof-content generation are allowed; no valid electronic sales permission is recorded."
-            ),
-        },
+        "gates": gates,
         "settlement": {
             "state": "unstarted",
             "decision": "pending",
@@ -327,6 +375,36 @@ def build_hypothesis_record(
             "decision_path": "HIVENANCE_SETTLEMENT.json",
         },
     }
+    if market_type == "investor":
+        record["product"]["target_type"] = "investor"
+        record["audience"].update(
+            {
+                "market_type": "investor",
+                "investor_type": target.get("investor_type"),
+                "stage": target.get("stage"),
+                "typical_cheque": target.get("typical_cheque"),
+                "geography": target.get("geography"),
+                "investment_thesis": target.get("investment_thesis"),
+                "partner": target.get("partner"),
+            }
+        )
+        record["composition"] = {
+            "products": list(product.get("composition") or []),
+            "readiness": "InvestorProof",
+            "pitch": "Report & Pitch Studio",
+            "proof_room": "DIO CapitalRoom",
+            "prerequisite_gate": "DIO Legalis",
+        }
+        record["gates"].update(
+            {
+                "legalis": "required_before_external_action",
+                "legalis_verdict": target.get("legalis_verdict") or "not_evaluated",
+                "capitalroom": "required_for_diligence",
+                "investment_authority": "human_only",
+            }
+        )
+        record["settlement"]["mode"] = "capital_funnel"
+    return record
 
 
 def write_immutable(path: Path, record: dict[str, Any]) -> str:
@@ -334,7 +412,7 @@ def write_immutable(path: Path, record: dict[str, Any]) -> str:
         write_json(path, record)
         return "registered"
     existing = load_json(path)
-    stable_keys = ["schema", "hypothesis_id", "campaign_id", "source", "product", "audience", "hypothesis", "experiment", "gates"]
+    stable_keys = ["schema", "hypothesis_id", "campaign_id", "source", "product", "audience", "hypothesis", "experiment", "gates", "composition"]
     if any(existing.get(key) != record.get(key) for key in stable_keys):
         raise RuntimeError(f"Immutable hypothesis collision at {path}")
     return "already_registered"
@@ -382,22 +460,35 @@ def sync_hivenance_marketing_register(
 def build_foundry_opportunity(record: dict[str, Any]) -> dict[str, Any]:
     experiment = record["experiment"]
     product = record["product"]
+    investor = record.get("audience", {}).get("market_type") == "investor"
     route_risk = 0.2 if experiment["mode"] in {"self_serve_listing", "reviewed_channel_submission"} else 0.42
     return {
-        "title": f"{product['public_name']}: proof before promises",
-        "topic": f"{product['public_name']} proof-led pilot campaign for {record['audience']['public_segment']}",
-        "angle": f"{experiment['public_hook']} Show the real proof artifact, the human approval boundary and the bounded pilot offer.",
-        "viewer_job": f"decide whether {product['public_name']} can solve this workflow pain without surrendering professional control",
+        "title": f"{product['public_name']}: {'proof before valuation' if investor else 'proof before promises'}",
+        "topic": (
+            f"{product['public_name']} evidence-led capital thesis for {record['audience']['public_segment']}"
+            if investor
+            else f"{product['public_name']} proof-led pilot campaign for {record['audience']['public_segment']}"
+        ),
+        "angle": (
+            f"{experiment['public_hook']} Show CapitalRoom proof, the product-factory thesis, explicit unearned claims and the governed diligence path."
+            if investor
+            else f"{experiment['public_hook']} Show the real proof artifact, the human approval boundary and the bounded pilot offer."
+        ),
+        "viewer_job": (
+            "decide whether DIO merits a diligence conversation without treating architecture proof as revenue or product-market-fit proof"
+            if investor
+            else f"decide whether {product['public_name']} can solve this workflow pain without surrendering professional control"
+        ),
         "source_hints": [
             experiment["proof_asset"],
             f"DIO immutable hypothesis {record['hypothesis_id']}",
-            "DIO Prospect Intelligence Wave 4",
+            "DIO investor target registry" if investor else "DIO Prospect Intelligence Wave 4",
         ],
-        "series_hint": "Proof-bearing workflow services for South African education and evidence teams",
-        "content_role": "commercial_intent",
+        "series_hint": "DIO capital proof and governed diligence" if investor else "Proof-bearing workflow services for South African education and evidence teams",
+        "content_role": "capital_intent" if investor else "commercial_intent",
         "signals": {
             "series_potential": 0.72,
-            "visual_potential": 0.9 if product["product_layer"] == "homs" else 0.78,
+            "visual_potential": 0.82 if investor else (0.9 if product["product_layer"] == "homs" else 0.78),
             "monetization_alignment": 0.88,
             "evidence_availability": 0.95,
             "production_burden": 0.2,
@@ -511,24 +602,58 @@ def build_metadata(record: dict[str, Any], product: dict[str, Any], storyboard: 
 
 
 def build_editorial(record: dict[str, Any], storyboard: dict[str, Any]) -> dict[str, Any]:
+    rules = [
+        "No publication before PHASE3_APPROVAL.json records operator approval.",
+        "No prospect name or contact detail in public creative.",
+        "No direct electronic sales outreach while the registry gate is blocked.",
+        "No fake metrics, testimonials, endorsements or guaranteed outcomes.",
+        "The human approval boundary must remain visible.",
+    ]
+    if record.get("audience", {}).get("market_type") == "investor":
+        rules.extend(
+            [
+                "CapitalRoom proof must not be translated into revenue, valuation, product-market-fit or funding claims that have not been earned.",
+                "Legalis prerequisite review remains required before any externally consequential investor action.",
+            ]
+        )
     return {
         "schema": "knowedge.phase3.editorial_review.v1",
         "campaign_id": record["campaign_id"],
         "episode_id": storyboard["episode_id"],
         "created_at": utc_now(),
         "status": "operator_review_required",
-        "blocking_rules": [
-            "No publication before PHASE3_APPROVAL.json records operator approval.",
-            "No prospect name or contact detail in public creative.",
-            "No direct electronic sales outreach while the registry gate is blocked.",
-            "No fake metrics, testimonials, endorsements or guaranteed outcomes.",
-            "The human approval boundary must remain visible.",
-        ],
+        "blocking_rules": rules,
         "review_files": ["CAMPAIGN_PACK.md", "storyboard.json", "visual_plan.json", "metadata_package.json", "foundry_opportunity.json"],
     }
 
 
 def measurement_template(record: dict[str, Any]) -> dict[str, Any]:
+    if record.get("audience", {}).get("market_type") == "investor":
+        return {
+            "schema": "dio.marketing.measurement.v1",
+            "market_type": "investor",
+            "campaign_id": record["campaign_id"],
+            "measurement_window": {"started_at": None, "ended_at": None},
+            "acquisition": {"impressions": 0, "profile_engagements": 0, "proof_room_visits": 0},
+            "capital_funnel": {
+                "replies": 0,
+                "introductions": 0,
+                "meetings": 0,
+                "follow_ups": 0,
+                "diligence_entries": 0,
+                "partner_meetings": 0,
+                "ic_reviews": 0,
+                "term_sheets": 0,
+                "passes": 0,
+            },
+            "governance": {
+                "outreach_attempts": 0,
+                "blocked_outreach_attempts": 0,
+                "permission_failures": 0,
+                "publication_approved": False,
+                "unresolved_incidents": 0,
+            },
+        }
     return {
         "schema": "dio.marketing.measurement.v1",
         "campaign_id": record["campaign_id"],
@@ -544,6 +669,8 @@ def measurement_template(record: dict[str, Any]) -> dict[str, Any]:
 
 def campaign_markdown(record: dict[str, Any], target: dict[str, str], product: dict[str, Any]) -> str:
     direct = record["gates"]["electronic_sales_outreach"]
+    investor = record.get("audience", {}).get("market_type") == "investor"
+    internal_role_label = "Investor role" if investor else "Buyer unit"
     return f"""# DIO Campaign: {record['product']['public_name']}
 
 Campaign: `{record['campaign_id']}`  
@@ -569,7 +696,7 @@ Attributed destination: `{attributed_url(record, product)}`
 ## Internal Route Evidence
 
 - Research organisation: {record['audience']['internal_research_organisation']}
-- Buyer unit: {record['audience']['internal_buyer_unit']}
+- {internal_role_label}: {record['audience']['internal_buyer_unit']}
 - Route state: {target.get('route_state') or 'RESEARCH_ONLY'}
 - Experiment mode: {record['experiment']['mode']}
 - Attack score: {target.get('attack_score') or 'not supplied'}
@@ -812,7 +939,7 @@ def main() -> int:
             product,
             config["route_priority"],
         )
-        observation = build_observation(archive_path, archive_hash, hypothesis, target)
+        observation = build_observation(archive_path, archive_hash, hypothesis, target, product)
         record = build_hypothesis_record(config, archive_hash, hypothesis, target, product, observation)
         registration_path = registry_dir / f"{record['hypothesis_id']}.json"
         if registration_path.exists():
