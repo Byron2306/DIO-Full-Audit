@@ -1,0 +1,40 @@
+name: DIO Local Launcher
+
+on:
+  push:
+    branches:
+      - agent/dio-control-deck-68-productgrade
+    paths:
+      - 'dio_launcher.py'
+      - 'dashboard/dio-launcher.html'
+      - 'scripts/serve_dio_launcher.py'
+      - 'scripts/launch_dio_apps.py'
+      - 'scripts/install_dio_launcher.py'
+      - 'deploy/systemd/dio-*.service'
+      - 'deploy/systemd/dio-apps.target'
+      - 'deploy/desktop/dio-apps.desktop'
+      - 'tests/test_dio_local_launcher.py'
+      - '.github/workflows/dio-local-launcher.yml'
+  pull_request:
+    paths:
+      - 'dio_launcher.py'
+      - 'dashboard/dio-launcher.html'
+      - 'scripts/serve_dio_launcher.py'
+      - 'scripts/launch_dio_apps.py'
+      - 'scripts/install_dio_launcher.py'
+      - 'deploy/systemd/dio-*.service'
+      - 'deploy/systemd/dio-apps.target'
+      - 'deploy/desktop/dio-apps.desktop'
+      - 'tests/test_dio_local_launcher.py'
+      - '.github/workflows/dio-local-launcher.yml'
+
+jobs:
+  launcher-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run local launcher contract
+        run: PYTHONNOUSERSITE=1 python -m pytest -q tests/test_dio_local_launcher.py
