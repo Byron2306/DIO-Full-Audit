@@ -78,6 +78,19 @@ def test_piper_render_is_internal_only(tmp_path: Path, monkeypatch) -> None:
     assert Path(receipt["audio_path"]).is_file()
 
 
+def test_vera_is_vspers_default_public_voice() -> None:
+    plan = build_voice_plan(
+        root=Path("."),
+        language="English",
+        interaction={"delivery_policy": {"mode": "warm_professional"}},
+    )
+    assert plan["profile_id"] == "vera_pocket_public"
+    assert plan["backend"] == "pocket_tts"
+    assert plan["voice_url"] == "vera"
+    assert plan["public_default_authorized"] is True
+    assert plan["send_authority_created"] is False
+
+
 def test_proven_vera_pocket_profile_is_public_render_only() -> None:
     plan = build_voice_plan(
         root=Path("."),
