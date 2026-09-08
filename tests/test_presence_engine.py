@@ -80,3 +80,33 @@ def test_presence_core_feeds_prior_exchange_to_ollama_draft(tmp_path, monkeypatc
     assert 'Tell me about HOMS' in prompts[1]
     assert 'HOMS helps prepare governed assessment work for educator review.' in prompts[1]
     assert 'Would that help with 80 papers?' in prompts[1]
+
+
+def test_presence_engine_uses_huggingface_cortex_provider(tmp_path, monkeypatch):
+    root = make_root(tmp_path)
+    monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
+    monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
+    monkeypatch.setenv('DIO_PRESENCE_LLM_PROVIDER', 'hf')
+    monkeypatch.setenv('HF_TOKEN', 'hf_test_token')
+    monkeypatch.setenv('DIO_PRESENCE_HF_MODEL', 'Qwen/Qwen3.5-9B:deepinfra')
+    monkeypatch.delenv('OLLAMA_URL', raising=False)
+    monkeypatch.delenv('OLLAMA_MODEL', raising=False)
+    cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
+    calls = []
+
+    class _HFResponse:
+        def raise_for_status(self):
+            return None
+        def json(self):
+            return {'choices': [{'message': {'content': 'For that HOMS workflow, I can explain the governed assessment path naturally.'}}]}
+
+    def fake_post(url, json, timeout, headers=None):
+        calls.append((url, json, headers))
+        return _HFResponse()
+
+    monkeypatch.setattr(llm.httpx, 'post', fake_post)
+
+    response = process_envelope({'channel':'telegram','external_user_id':'123','text':'Tell me about HOMS','message_type':'text'}, root, cfg)
+
+    assert response['reply']['text'].startswith('For that HOMS workflow')
+    assert calls and calls[0][0] == 'https://router.huggingface.co/v1/chat/completions'
