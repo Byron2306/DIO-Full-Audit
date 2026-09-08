@@ -39,7 +39,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install test and ProductGrade runtime dependencies
-        run: python -m pip install pytest 'jsonschema>=4.23,<5' -r requirements-format-core.txt
+        run: python -m pip install pytest 'jsonschema>=4.23,<5' 'httpx==0.28.1' -r requirements-format-core.txt
 
       - name: Run canon extension ProductGrade tests
         run: >-
