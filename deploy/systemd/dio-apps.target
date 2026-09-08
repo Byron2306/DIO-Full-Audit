@@ -1,0 +1,7 @@
+[Unit]
+Description=DIO Local Applications
+Wants=dio-control-deck.service dio-goldeneye.service dio-market-command.service
+After=dio-control-deck.service dio-goldeneye.service dio-market-command.service
+
+[Install]
+WantedBy=default.target

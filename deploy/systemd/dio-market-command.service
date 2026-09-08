@@ -1,6 +1,7 @@
 [Unit]
 Description=DIO MARKET operator workbench
 After=network-online.target
+PartOf=dio-apps.target
 
 [Service]
 Type=simple

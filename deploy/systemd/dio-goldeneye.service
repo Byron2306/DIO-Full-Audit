@@ -1,0 +1,16 @@
+[Unit]
+Description=DIO GoldenEye MS-10
+After=network.target
+PartOf=dio-apps.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/DIO-Full-Audit
+ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/serve_goldeneye_ms10.py --host 127.0.0.1 --port 8766
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONNOUSERSITE=1
+
+[Install]
+WantedBy=dio-apps.target

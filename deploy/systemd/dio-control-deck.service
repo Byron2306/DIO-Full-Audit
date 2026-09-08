@@ -1,6 +1,7 @@
 [Unit]
 Description=DIO BUSINESS operator workbench + Production Studio
 After=network.target
+PartOf=dio-apps.target
 
 [Service]
 Type=simple
