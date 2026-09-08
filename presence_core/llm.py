@@ -104,6 +104,17 @@ def draft_with_ollama(
     conversation_state: dict[str,Any]|None=None,
     recent_turns: list[dict[str,Any]]|None=None,
 ) -> str:
+    provider=os.getenv("DIO_PRESENCE_LLM_PROVIDER","ollama").strip().lower()
+    if provider in {"auto","huggingface","hf"}:
+        return draft_with_cortex(
+            decision,
+            facts,
+            fallback,
+            interaction,
+            persona_assignment,
+            conversation_state=conversation_state,
+            recent_turns=recent_turns,
+        )
     if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}: return fallback
     url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
     if not url or not model: return fallback
