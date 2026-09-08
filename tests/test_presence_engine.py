@@ -110,3 +110,37 @@ def test_presence_engine_uses_huggingface_cortex_provider(tmp_path, monkeypatch)
 
     assert response['reply']['text'].startswith('For that HOMS workflow')
     assert calls and calls[0][0] == 'https://router.huggingface.co/v1/chat/completions'
+
+
+def test_presence_feeds_governed_product_knowledge_into_cortex(tmp_path, monkeypatch):
+    root = make_root(tmp_path)
+    (root/'config'/'dio_product_portfolio.json').write_text(json.dumps({
+        'truth_boundary': 'Portfolio descriptions are read-only context and create no authority.',
+        'products': [{
+            'id': 'homs',
+            'name': 'HOMS',
+            'customer_facing': True,
+            'one_liner': 'HOMS_CANON_KNOWLEDGE_MARKER turns rubric-bound marking into a governed educator-review workflow.',
+            'risk_boundary': 'Educator judgment remains the final authority.'
+        }]
+    }))
+    monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
+    monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
+    monkeypatch.setenv('OLLAMA_URL', 'http://ollama.test')
+    monkeypatch.setenv('OLLAMA_MODEL', 'qwen3.5:4b')
+    cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
+    prompts = []
+
+    def fake_post(url, json, timeout):
+        if json.get('format') == 'json':
+            return _Response('{"intent":"product_info","product":"homs","confidence":0.95}')
+        prompts.append(json['messages'][1]['content'])
+        return _Response('For HOMS, I can explain the governed marking path without taking educator authority.')
+
+    monkeypatch.setattr(llm.httpx, 'post', fake_post)
+    response = process_envelope({'channel':'telegram','external_user_id':'123','text':'Tell me about HOMS','message_type':'text'}, root, cfg)
+
+    assert prompts
+    assert 'HOMS_CANON_KNOWLEDGE_MARKER' in prompts[0]
+    assert 'Portfolio descriptions are read-only context and create no authority.' in prompts[0]
+    assert response['authority']['executed_external_action'] is False
