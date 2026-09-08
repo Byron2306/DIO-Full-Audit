@@ -2,6 +2,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from products.canon_extension_product_grade import (
     BASELINE_TOKEN,
     VERIFIED_TOKEN,
@@ -22,7 +24,7 @@ def _write_receipt_bound_case(root: Path, slug: str, *, mutate=False):
     artifact.write_text("<html><body><h1>Buyer-facing governed artifact</h1></body></html>\n", encoding="utf-8")
     digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
     receipt.write_text(json.dumps({
-        "schema": "fixture.gamma.receipt.v1",
+        "schema": "fixture.materialization.receipt.v1",
         "status": "PASS",
         "artifact": artifact.name,
         "artifact_sha256": digest,
@@ -197,25 +199,16 @@ def test_cli_require_proof_succeeds_when_all_extension_proof_is_verified(monkeyp
     assert runner.main() == 0
 
 
-def test_sealing_preserves_historical_gamma_receipt_and_rebinds_current_artifact(tmp_path):
-    from products.canon_extension_proof_seal import seal_receipt_bound_extension
+def test_sealing_refuses_when_current_artifact_no_longer_matches_source_receipt(tmp_path):
+    from products.canon_extension_proof_seal import CanonExtensionProofSealError, seal_receipt_bound_extension
 
     _write_receipt_bound_case(tmp_path, "contract-desk", mutate=True)
     spec = next(row for row in CANON_EXTENSIONS if row["slug"] == "contract-desk")
-    gamma = tmp_path / spec["proof_receipt"]
-    gamma_before = gamma.read_bytes()
-    seal = seal_receipt_bound_extension(spec=spec, root=tmp_path)
+    source = tmp_path / spec["proof_receipt"]
+    source_before = source.read_bytes()
 
-    assert gamma.read_bytes() == gamma_before
-    assert seal["schema"] == "dio.canon_extension.proof_seal.v1"
-    assert seal["canon_id"] == spec["canon_id"]
-    assert seal["current_artifact_sha256"] == hashlib.sha256((tmp_path / spec["primary_artifact"]).read_bytes()).hexdigest()
-    assert seal["source_generation_receipt_sha256"] == hashlib.sha256(gamma_before).hexdigest()
-    assert seal["authority_created"] is False
-    assert seal["external_effects"] is False
+    with pytest.raises(CanonExtensionProofSealError, match="does not bind current artifact sha256"):
+        seal_receipt_bound_extension(spec=spec, root=tmp_path)
 
-    row = evaluate_receipt_bound_extension(spec=spec, root=tmp_path)
-    assert row["proof_status"] == "CANON_EXTENSION_PROOF_VERIFIED"
-    assert row["artifact_hash_bound"] is True
-    assert row["generation_receipt_bound"] is True
-    assert row["proof_receipt"].endswith("CANON_EXTENSION_PROOF_RECEIPT.json")
+    assert source.read_bytes() == source_before
+    assert not (source.parent / "CANON_EXTENSION_PROOF_RECEIPT.json").exists()
