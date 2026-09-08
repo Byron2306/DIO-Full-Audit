@@ -44,6 +44,25 @@ def _reports_failure(receipt: dict[str, Any]) -> bool:
     return False
 
 
+def _all_strings(value: Any) -> list[str]:
+    out: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            out.append(str(key))
+            out.extend(_all_strings(child))
+    elif isinstance(value, list):
+        for child in value:
+            out.extend(_all_strings(child))
+    elif value is not None:
+        out.append(str(value))
+    return out
+
+
+def _receipt_binds_hash(receipt: dict[str, Any], digest: str) -> bool:
+    expected = {digest.casefold(), f"sha256:{digest}".casefold()}
+    return any(text.strip().casefold() in expected for text in _all_strings(receipt))
+
+
 def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[str, Any]:
     root = Path(root).resolve()
     artifact = (root / str(spec["primary_artifact"])).resolve()
@@ -59,6 +78,12 @@ def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[st
     if _reports_failure(generation_data):
         raise CanonExtensionProofSealError(f"generation receipt reports failure: {generation_receipt}")
 
+    artifact_sha = _sha(artifact)
+    if not _receipt_binds_hash(generation_data, artifact_sha):
+        raise CanonExtensionProofSealError(
+            f"generation receipt does not bind current artifact sha256: {generation_receipt}"
+        )
+
     seal_path = generation_receipt.parent / SEAL_FILENAME
     receipt: dict[str, Any] = {
         "schema": SEAL_SCHEMA,
@@ -67,7 +92,7 @@ def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[st
         "name": str(spec["name"]),
         "slug": str(spec["slug"]),
         "primary_artifact": str(artifact.relative_to(root)),
-        "current_artifact_sha256": _sha(artifact),
+        "current_artifact_sha256": artifact_sha,
         "source_generation_receipt": str(generation_receipt.relative_to(root)),
         "source_generation_receipt_sha256": _sha(generation_receipt),
         "source_generation_receipt_schema": str(generation_data.get("schema") or "unknown"),
@@ -75,9 +100,9 @@ def seal_receipt_bound_extension(*, spec: dict[str, Any], root: Path) -> dict[st
         "external_effects": False,
         "commercial_validation": "UNPROVED",
         "claim_boundary": (
-            "This receipt binds the current canon-extension artifact bytes to the preserved historical generation "
-            "receipt. It proves provenance custody only; it does not create ProductGrade, buyer demand, payment, "
-            "legal approval, publication authority or commercial validation."
+            "This receipt binds the current canon-extension artifact bytes to a source materialization or generation "
+            "receipt that itself binds the same artifact hash. It proves provenance custody only; it does not create "
+            "ProductGrade, buyer demand, payment, legal approval, publication authority or commercial validation."
         ),
     }
     receipt["receipt_fingerprint"] = _fingerprint(receipt)
