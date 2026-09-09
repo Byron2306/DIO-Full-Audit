@@ -58,6 +58,9 @@ def make_root(tmp_path):
                             "name": "HOMS Marking Relief",
                             "promise": "Receive structured draft marks, feedback, and an educator review pack.",
                             "price": "R950-R1,800 pilot",
+                            "invoice_id": "PRIVATE-INV-1",
+                            "payment_state": "paid",
+                            "payment_link": "https://private.invalid/pay",
                         }
                     ],
                     "proof": ["Controlled marking batches produced review packs."],
@@ -137,7 +140,7 @@ def make_root(tmp_path):
     return root
 
 
-def test_public_knowledge_projects_base_product_without_price_leak(tmp_path):
+def test_public_knowledge_projects_governed_offer_prices_without_private_commercial_state(tmp_path):
     root = make_root(tmp_path)
     knowledge = load_public_product_knowledge(root)
     homs = knowledge["homs"]
@@ -146,8 +149,18 @@ def test_public_knowledge_projects_base_product_without_price_leak(tmp_path):
     assert homs["one_liner"] == "Assessment work, prepared for educator review."
     assert "educator" in homs["risk_boundary"].lower()
     assert homs["artifact_types"] == ["assessment", "memorandum", "educator_feedback"]
-    assert "offers" not in homs
-    assert "price" not in json.dumps(homs).lower()
+    assert homs["public_offers"] == [
+        {
+            "id": "marking_relief",
+            "name": "HOMS Marking Relief",
+            "promise": "Receive structured draft marks, feedback, and an educator review pack.",
+            "price": "R950-R1,800 pilot",
+        }
+    ]
+    serialized = json.dumps(homs).lower()
+    assert "private-inv-1" not in serialized
+    assert "payment_state" not in serialized
+    assert "payment_link" not in serialized
 
 
 def test_public_knowledge_projects_new_portfolio_product_without_authority_fields(tmp_path):

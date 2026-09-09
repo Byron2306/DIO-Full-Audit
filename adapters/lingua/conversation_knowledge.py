@@ -25,6 +25,8 @@ PUBLIC_PORTFOLIO_FIELDS = {
     "expected_outputs",
 }
 
+PUBLIC_OFFER_FIELDS = ("id", "name", "promise", "price")
+
 
 def _read_json(path: Path, default: Any) -> Any:
     try:
@@ -52,15 +54,32 @@ def _dedupe_strings(values: Any) -> list[str]:
     return result
 
 
+def _public_offer(raw: Mapping[str, Any]) -> dict[str, str] | None:
+    """Project only deliberately public offer copy; never invoice/payment state."""
+    projected: dict[str, str] = {}
+    for field in PUBLIC_OFFER_FIELDS:
+        value = _clean_text(raw.get(field))
+        if value:
+            projected[field] = value
+    if not projected.get("id") and not projected.get("name"):
+        return None
+    return projected
+
+
 def _campaign_product(product_id: str, row: Mapping[str, Any]) -> dict[str, Any]:
     offers = row.get("offers") or []
     promises: list[str] = []
+    public_offers: list[dict[str, str]] = []
     if isinstance(offers, list):
         for offer in offers:
-            if isinstance(offer, Mapping):
-                promise = _clean_text(offer.get("promise"))
-                if promise and promise not in promises:
-                    promises.append(promise)
+            if not isinstance(offer, Mapping):
+                continue
+            promise = _clean_text(offer.get("promise"))
+            if promise and promise not in promises:
+                promises.append(promise)
+            public_offer = _public_offer(offer)
+            if public_offer is not None:
+                public_offers.append(public_offer)
 
     boundaries = _dedupe_strings(row.get("claim_boundaries"))
     projected: dict[str, Any] = {
@@ -72,6 +91,7 @@ def _campaign_product(product_id: str, row: Mapping[str, Any]) -> dict[str, Any]
         "risk_boundary": " ".join(boundaries),
         "proof": _dedupe_strings(row.get("proof")),
         "audiences": _dedupe_strings(row.get("audiences")),
+        "public_offers": public_offers,
     }
     return {key: value for key, value in projected.items() if value not in (None, "", [])}
 
@@ -206,6 +226,12 @@ def _terms(row: Mapping[str, Any]) -> list[str]:
             value = _normalized(item)
             if value:
                 values.append(value)
+    for offer in row.get("public_offers") or []:
+        if isinstance(offer, Mapping):
+            for field in ("id", "name", "promise", "price"):
+                value = _normalized(offer.get(field))
+                if value:
+                    values.append(value)
     return values
 
 

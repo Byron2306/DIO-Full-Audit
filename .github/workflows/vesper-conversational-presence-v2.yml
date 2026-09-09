@@ -7,10 +7,23 @@ on:
   pull_request:
     paths:
       - 'presence_core/**'
+      - 'products/commercial_pricing_registry.py'
+      - 'products/hivenance_commercial_pricing.py'
       - 'adapters/lingua/**'
       - 'config/vesper_voice_profiles.json'
+      - 'config/atlas/dio_meta_incarnation_crosswalk.csv'
       - 'tests/test_presence_engine.py'
       - 'tests/test_vesper_conversation_*.py'
+      - 'tests/test_vesper_customer_cases.py'
+      - 'tests/test_vesper_operator_truth.py'
+      - 'tests/test_vesper_commercial_pricing.py'
+      - 'tests/test_vesper_commercial_pricing_registry.py'
+      - 'tests/test_vesper_hivenance_commercial.py'
+      - 'tests/test_vesper_evidex_invoice_bridge.py'
+      - 'tests/test_vesper_outlook_case_reconciliation.py'
+      - 'tests/test_vesper_commercial_needs_you.py'
+      - 'tests/test_vesper_operator_case_views.py'
+      - 'tests/test_vesper_commercial_transcript_gauntlet.py'
       - 'tests/test_vesper_lingua_conversation.py'
       - 'tests/test_vesper_conversational_presence_v2.py'
       - 'tests/test_vesper_voice.py'
@@ -44,3 +57,13 @@ jobs:
           tests/test_vesper_voice.py
           tests/test_vesper_telegram_voice.py
           tests/test_vesper_voice_ingress.py
+          tests/test_vesper_customer_cases.py
+          tests/test_vesper_operator_truth.py
+          tests/test_vesper_commercial_pricing.py
+          tests/test_vesper_commercial_pricing_registry.py
+          tests/test_vesper_hivenance_commercial.py
+          tests/test_vesper_evidex_invoice_bridge.py
+          tests/test_vesper_outlook_case_reconciliation.py
+          tests/test_vesper_commercial_needs_you.py
+          tests/test_vesper_operator_case_views.py
+          tests/test_vesper_commercial_transcript_gauntlet.py
