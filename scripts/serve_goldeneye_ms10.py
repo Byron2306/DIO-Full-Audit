@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 import sys
@@ -13,14 +14,56 @@ sys.path.insert(0, str(ROOT))
 from scripts.serve_control_deck import ControlDeckHandler  # noqa: E402
 from scripts.serve_market_command_ms10 import sensorium_state  # noqa: E402
 
+CAPITAL_SUPPORT_PRIORITY = ROOT / "state" / "market_capital" / "rankings" / "CAPITAL_SUPPORT_PRIORITY.json"
+
+
+def capital_support_priority_state() -> dict:
+    if not CAPITAL_SUPPORT_PRIORITY.is_file():
+        return {
+            "schema": "dio.goldeneye.capital_support_priority.v1",
+            "state": "EMPTY",
+            "items": [],
+            "opportunity_count": 0,
+            "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
+            "message": "No capital or support opportunities ranked yet.",
+            "authority_created": False,
+            "external_effects": False,
+        }
+    try:
+        payload = json.loads(CAPITAL_SUPPORT_PRIORITY.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {
+            "schema": "dio.goldeneye.capital_support_priority.v1",
+            "state": "UNAVAILABLE",
+            "items": [],
+            "opportunity_count": 0,
+            "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
+            "message": f"Capital/support priority state unreadable: {exc}",
+            "authority_created": False,
+            "external_effects": False,
+        }
+    if not isinstance(payload, dict):
+        payload = {"items": []}
+    payload.setdefault("schema", "dio.goldeneye.capital_support_priority.v1")
+    payload.setdefault("state", "PRESENT" if payload.get("items") else "EMPTY")
+    payload.setdefault("items", [])
+    payload.setdefault("opportunity_count", len(payload.get("items") or []))
+    payload["truth_class"] = "RANKED_PRIORITY_MODEL_OUTPUT"
+    payload["authority_created"] = False
+    payload["external_effects"] = False
+    return payload
+
 
 class GoldenEyeMS10Handler(ControlDeckHandler):
-    server_version = "DIOGoldenEyeMS10/1.0"
+    server_version = "DIOGoldenEyeMS10/1.1"
 
     def do_GET(self) -> None:
         route = urlsplit(self.path).path
         if route == "/api/goldeneye/sensorium":
             self.send_json(sensorium_state())
+            return
+        if route == "/api/goldeneye/capital-support":
+            self.send_json(capital_support_priority_state())
             return
         if route == "/":
             self.path = "/dashboard/goldeneye-ms10.html"
@@ -36,7 +79,7 @@ def main() -> int:
         raise ValueError("GoldenEye must bind to localhost")
     server = ThreadingHTTPServer((args.host, args.port), GoldenEyeMS10Handler)
     print(f"DIO GoldenEye MS-10: http://{args.host}:{args.port}")
-    print("Current-repo portfolio state + canonical Market Sensorium truth plane; current-epoch MS-9 soak receipt is optional for page hydration")
+    print("Current-repo portfolio state + canonical Market Sensorium truth plane + read-only Capital & Support priority field")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
