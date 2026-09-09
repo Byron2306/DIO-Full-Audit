@@ -4,10 +4,11 @@ from __future__ import annotations
 import argparse
 import html
 import json
+from http import HTTPStatus
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 import sys
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -22,6 +23,7 @@ from scripts.serve_market_command import Handler  # noqa: E402
 SENSORIUM_STATE_PATH = ROOT / "state" / "market_sensorium" / "COMMERCIAL_COCKPIT.json"
 SENSORIUM_DB_PATH = ROOT / "state" / "market_sensorium" / "market_sensorium.sqlite"
 SENSORIUM_UNAVAILABLE = "SENSORIUM_UNAVAILABLE"
+CAPITAL_SUPPORT_DRAFTS = ROOT / "state" / "market_capital" / "drafts"
 
 
 def sensorium_state() -> dict:
@@ -62,6 +64,52 @@ def sensorium_state() -> dict:
     }
 
 
+def capital_support_draft_state(opportunity_id: str) -> tuple[dict, HTTPStatus]:
+    value = str(opportunity_id or "").strip()
+    if not value:
+        return ({
+            "schema": "dio.market_capital.outreach_bundle.v1",
+            "state": "BAD_REQUEST",
+            "message": "opportunity_id is required",
+            "send_authority": False,
+            "authority_created": False,
+        }, HTTPStatus.BAD_REQUEST)
+    safe = "".join(ch if ch.isalnum() or ch in "._-" else "-" for ch in value).strip("-._")
+    path = CAPITAL_SUPPORT_DRAFTS / f"{safe}.json"
+    if not path.is_file():
+        return ({
+            "schema": "dio.market_capital.outreach_bundle.v1",
+            "state": "EMPTY",
+            "opportunity_id": value,
+            "message": "No draft outreach bundle exists for this opportunity yet.",
+            "truth_class": "DRAFT_RECOMMENDATION",
+            "send_authority": False,
+            "authority_created": False,
+            "external_effects": False,
+        }, HTTPStatus.OK)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return ({
+            "schema": "dio.market_capital.outreach_bundle.v1",
+            "state": "UNAVAILABLE",
+            "opportunity_id": value,
+            "message": f"Draft outreach bundle unreadable: {type(exc).__name__}",
+            "truth_class": "DRAFT_RECOMMENDATION",
+            "send_authority": False,
+            "authority_created": False,
+            "external_effects": False,
+        }, HTTPStatus.OK)
+    if not isinstance(payload, dict):
+        payload = {}
+    payload["truth_class"] = "DRAFT_RECOMMENDATION"
+    payload["send_authority"] = False
+    payload["authority_created"] = False
+    payload["external_effects"] = False
+    payload.setdefault("state", "DRAFT_READY")
+    return payload, HTTPStatus.OK
+
+
 def patch_market_dashboard(page: str) -> str:
     """Keep Market Command usable while preserving the canonical rich Sensorium cockpit link."""
     old = (
@@ -74,7 +122,7 @@ def patch_market_dashboard(page: str) -> str:
 
 
 class MS10MarketCommandHandler(Handler):
-    server_version = "DIOMarketWorkbench/2.3"
+    server_version = "DIOMarketWorkbench/2.4"
 
     def _product_choices(self) -> dict:
         registry = load_portfolio(auto_import=True)
@@ -134,13 +182,19 @@ class MS10MarketCommandHandler(Handler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:
-        route = urlsplit(self.path).path
+        split = urlsplit(self.path)
+        route = split.path
         load_secret_env(overwrite=False)
         if route == "/api/market/products":
             self.send_json(self._product_choices())
             return
         if route == "/api/market/sensorium":
             self.send_json(sensorium_state())
+            return
+        if route == "/api/market/capital-support/draft":
+            opportunity_id = str((parse_qs(split.query).get("opportunity_id") or [""])[0]).strip()
+            payload, status = capital_support_draft_state(opportunity_id)
+            self.send_json(payload, status)
             return
         if route == "/sensorium-evidence":
             self._serve_sensorium_evidence()
