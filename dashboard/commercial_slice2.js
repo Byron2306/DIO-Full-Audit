@@ -1,7 +1,6 @@
 (() => {
   "use strict";
 
-  const STATE_URL = "/api/business/commercial/state";
   const CASE_URL = "/api/business/commercial/case?case_id=";
 
   function esc(value) {
@@ -117,7 +116,9 @@
   async function refreshCommercialSlice2() {
     ensureSurface();
     try {
-      const state = await json(STATE_URL);
+      const response = await fetch("/api/business/commercial/state", { cache: "no-store" });
+      if (!response.ok) throw new Error(`/api/business/commercial/state: HTTP ${response.status}`);
+      const state = await response.json();
       render(state);
     } catch (error) {
       const rows = document.getElementById("slice2CaseRows");
