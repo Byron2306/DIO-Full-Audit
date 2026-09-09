@@ -9,6 +9,7 @@ from urllib.parse import quote
 
 
 LEGACY_HOST_AUDIT_PENDING = "LEGACY_HOST_AUDIT_PENDING"
+LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")
 
 
 def artifact_url(raw: str) -> str:
@@ -19,6 +20,34 @@ def artifact_url(raw: str) -> str:
     if value.startswith("http://") or value.startswith("https://"):
         return value
     return "/api/business/artifact?path=" + quote(value, safe="")
+
+
+def resolve_legacy_artifact_path(raw: str, root: Path) -> Path | None:
+    """Map a recorded legacy KnowEdge path to the same relative artifact under this live DIO root.
+
+    The compatibility mapping is deliberately narrow: only paths beneath the historical
+    KnowEdge suite root are eligible, the resolved replacement must remain beneath the
+    supplied live root, and the replacement must already exist. Nothing is created and no
+    wider filesystem authority is granted.
+    """
+    value = str(raw or "").strip()
+    if not value:
+        return None
+    candidate = Path(value).expanduser()
+    if not candidate.is_absolute():
+        return None
+    try:
+        relative = candidate.relative_to(LEGACY_KNOWEDGE_ROOT)
+    except ValueError:
+        return None
+
+    live_root = Path(root).resolve()
+    target = (live_root / relative).resolve()
+    if target != live_root and live_root not in target.parents:
+        return None
+    if not target.exists():
+        return None
+    return target
 
 
 def runtime_readiness(root: Path) -> dict[str, Any]:
