@@ -13,6 +13,7 @@ on:
       - 'tests/test_vesper_operator_*.py'
       - 'tests/test_vesper_evidex_invoice_bridge.py'
       - 'tests/test_vesper_outlook_case_reconciliation.py'
+      - 'tests/test_slice1_cockpit_contracts.py'
       - 'tests/test_slice2_commercial_spine_contracts.py'
       - '.github/workflows/dio-slice2-commercial-spine.yml'
   workflow_dispatch:
@@ -28,8 +29,8 @@ jobs:
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest httpx
       - name: Check Python syntax
-        run: python -m py_compile presence_core/*.py products/*.py
-      - name: Run current Slice 2 contracts
+        run: python -m py_compile presence_core/*.py products/*.py scripts/serve_presence_bridge.py scripts/serve_business_workbench.py
+      - name: Run Slice 2 commercial spine and Slice 1 cockpit regression
         run: |
           PYTHONNOUSERSITE=1 python -m pytest -q \
             tests/test_vesper_customer_cases.py \
@@ -40,4 +41,8 @@ jobs:
             tests/test_vesper_outlook_case_reconciliation.py \
             tests/test_vesper_operator_case_views.py \
             tests/test_vesper_operator_truth.py \
-            tests/test_vesper_commercial_transcript_gauntlet.py
+            tests/test_vesper_commercial_transcript_gauntlet.py \
+            tests/test_slice2_commercial_spine_contracts.py \
+            tests/test_slice1_cockpit_contracts.py
+      - name: Acceptance token
+        run: echo DIO_SLICE_2_COMMERCIAL_SPINE_CI_VERIFIED
