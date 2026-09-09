@@ -1,6 +1,8 @@
 package za.co.dioworkflows.mobile.ssh
 
+import net.schmizz.sshj.common.SecurityUtils
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class DioSshAlgorithmPolicyTest {
@@ -18,5 +20,11 @@ class DioSshAlgorithmPolicyTest {
             listOf("diffie-hellman-group14-sha256"),
             DioSshAlgorithmPolicy.keyExchangeNames(),
         )
+    }
+
+    @Test
+    fun androidTransportUsesPlatformJceInsteadOfForcingBouncyCastle() {
+        DioSshAlgorithmPolicy.config()
+        assertNull(SecurityUtils.getSecurityProvider())
     }
 }
