@@ -64,6 +64,19 @@ def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     assert "Artifact path is outside the approved DIO output roots" in gateway
 
 
+def test_artifact_gateway_actually_uses_narrow_legacy_remap() -> None:
+    gateway = read("scripts/serve_control_deck_ms10.py")
+    assert "resolve_legacy_artifact_path" in gateway
+    assert "resolve_legacy_artifact_path(raw, ROOT)" in gateway
+    assert "legacy_target" in gateway
+
+
+def test_sensorium_evidence_defensively_normalizes_malformed_lists() -> None:
+    source = read("scripts/serve_market_command_ms10.py")
+    assert 'isinstance(ranked_value, list)' in source
+    assert 'isinstance(hypotheses_value, list)' in source
+
+
 def test_slice1_preserves_stronger_v2_68_product_receipt_contract() -> None:
     source = read("portfolio_runtime.py")
     assert 'EXTENSION_SCHEMA_V2 = "dio.product_grade.canon_extension_gauntlet_receipt.v2"' in source
