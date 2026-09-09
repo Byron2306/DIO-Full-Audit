@@ -21,10 +21,15 @@ _CONTEXT_STATE_FIELDS=(
 )
 
 _ACTOR_PREFIX=r"\b(?:i|we)\s+(?:(?:have|['’]ve|will(?:\s+now)?|am|are|['’]m|['’]re)\s+)?"
+_PROCESS_ACTION=r"(?:process(?:ed|ing)?|analy[sz](?:e|ed|ing)|pars(?:e|ed|ing)|open(?:ed|ing)?)"
+_PROCESS_CLAIM_RE=re.compile(
+    rf"(?:{_ACTOR_PREFIX}{_PROCESS_ACTION}\b|\b(?:i|we)\b[^.!?\n]{{0,180}}\bwill(?:\s+now)?\s+{_PROCESS_ACTION}\b)",
+    re.IGNORECASE,
+)
 
 _ACTION_CLAIM_RULES=(
     (
-        re.compile(_ACTOR_PREFIX+r"(?:process(?:ed|ing)?|analy[sz](?:e|ed|ing)|pars(?:e|ed|ing)|open(?:ed|ing)?)\b",re.IGNORECASE),
+        _PROCESS_CLAIM_RE,
         re.compile(r"(?:attachment_processed\s*=\s*true|processing_state\s*=\s*(?:processing|processed|complete|completed)|\bstate\s*=\s*(?:processing|processed|complete|completed)\b)",re.IGNORECASE),
     ),
     (
