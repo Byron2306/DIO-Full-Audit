@@ -12,6 +12,7 @@ from urllib.parse import parse_qs, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from cockpit_runtime import atlas_projection, patch_advanced_dashboard, runtime_readiness  # noqa: E402
 from dio_secrets import load_secret_env  # noqa: E402
 from operator_evidence_intake import stage_controlled_evidence_run  # noqa: E402
 from operator_production import (  # noqa: E402
@@ -22,6 +23,7 @@ from operator_production import (  # noqa: E402
 )
 from portfolio_runtime import import_portfolio  # noqa: E402
 from semantic_marketing import PROFILE_COMPATIBILITY, semantic_marketing_brief  # noqa: E402
+from scripts.build_operator_dashboard import build_dashboard_state  # noqa: E402
 from scripts.serve_control_deck import EVENT_LOG, emit_event  # noqa: E402
 from scripts.serve_control_deck_ms10 import MS10ControlDeckHandler, _read_json_body  # noqa: E402
 
@@ -30,7 +32,7 @@ SEMANTIC_BOUNDARY_ASSET = "config/atlas/dio_meta_incarnation_crosswalk.csv"
 
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.5"
+    server_version = "DIOBusinessWorkbench/3.6"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -50,14 +52,24 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             '<a class="card launch social" target="_blank" rel="noreferrer" href="https://ads.tiktok.com/"><small>Advertising</small><b>TikTok Ads</b><span>Ads Manager</span></a>'
         )
         page = page.replace(youtube, youtube + tiktok, 1)
+        injection = '<script src="/dashboard/atlas_slice1.js"></script>'
+        if injection not in page:
+            page = page.replace("</body>", injection + "</body>", 1)
         self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
 
     def _serve_production_page(self) -> None:
         page = (ROOT / "dashboard" / "production.html").read_text(encoding="utf-8")
-        injection = '<script src="/dashboard/production_semantic.js"></script>'
-        if injection not in page:
-            page = page.replace("</body>", injection + "</body>", 1)
+        for injection in (
+            '<script src="/dashboard/production_semantic.js"></script>',
+            '<script src="/dashboard/production_slice1.js"></script>',
+        ):
+            if injection not in page:
+                page = page.replace("</body>", injection + "</body>", 1)
         self._send_bytes(page.encode("utf-8"), "text/html; charset=utf-8")
+
+    def _serve_advanced_page(self) -> None:
+        page = (ROOT / "dashboard" / "index.html").read_text(encoding="utf-8")
+        self._send_bytes(patch_advanced_dashboard(page).encode("utf-8"), "text/html; charset=utf-8")
 
     @staticmethod
     def _merge_semantic_marketing(payload: dict) -> tuple[dict, dict]:
@@ -89,10 +101,6 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             if not str(merged.get("proof_asset") or "").strip() and brief.get("proof_asset"):
                 merged["proof_asset"] = brief["proof_asset"]
 
-            # A rendered campaign is still a marketing hypothesis. When the
-            # incarnation does not have an execution-proof object, bind media
-            # to the canonical portfolio evidence boundary rather than
-            # inventing proof or refusing the render entirely.
             if not str(merged.get("proof_asset") or "").strip():
                 merged["proof_asset"] = SEMANTIC_BOUNDARY_ASSET
                 brief["evidence_binding"] = {
@@ -139,6 +147,12 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         if route in {"/dashboard/production.html", "/production"}:
             self._serve_production_page()
             return
+        if route == "/dashboard/index.html":
+            self._serve_advanced_page()
+            return
+        if route == "/api/business/atlas":
+            self.send_json(atlas_projection(ROOT, build_dashboard_state()))
+            return
         if route == "/api/business/production/marketing-brief":
             incarnation = str((parse_qs(split.query).get("incarnation") or [""])[0]).strip()
             try:
@@ -152,6 +166,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             state["marketing"]["semantic_brief_endpoint"] = "/api/business/production/marketing-brief"
             state["marketing"]["manual_pain_audience_required"] = False
             state["marketing"]["semantic_boundary_media_fallback"] = True
+            state["runtime_readiness"] = runtime_readiness(ROOT)
             self.send_json(state)
             return
         if route == "/api/business/portfolio":
@@ -159,11 +174,12 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             return
         if route == "/api/business/health":
             portfolio = import_portfolio(force=False)
+            readiness = runtime_readiness(ROOT)
             self.send_json(
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.5",
+                    "version": "3.6",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "production_studio": True,
@@ -174,8 +190,11 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                     "fresh_controlled_evidence_runs": True,
                     "factory_test_bench": True,
                     "evidence_gate": True,
+                    "artifact_gateway": True,
+                    "atlas_surface": True,
                     "marketing_profile_compatibility_enforced": True,
                     "candidate_incarnations_promoted": False,
+                    "runtime_readiness": readiness,
                 }
             )
             return
