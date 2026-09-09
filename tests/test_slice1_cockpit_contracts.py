@@ -77,6 +77,7 @@ def test_goldeneye_hydrates_when_ms9_receipt_is_missing() -> None:
     assert 'j("/state/market_sensorium/COMMERCIAL_COCKPIT.json")' in source
     assert 'j("/state/market_sensorium/MARKET_SENSORIUM_MS9_RECEIPT.json")' in source
     assert 'const soak=' in source
+    assert 'PENDING_CURRENT_EPOCH_MS9_RECEIPT' in source
     assert 'renderPortfolio(state);render(c,soak)' in source
 
 
