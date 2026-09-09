@@ -90,6 +90,14 @@ def test_goldeneye_uses_live_sensorium_projection_instead_of_missing_static_cock
     assert "send_json(sensorium_state())" in server
 
 
+def test_goldeneye_sensorium_render_does_not_depend_on_control_state() -> None:
+    source = read("dashboard/goldeneye-ms10.html")
+    assert 'if(cockpitResult.status!=="fulfilled")throw cockpitResult.reason' in source
+    assert 'const state=stateResult.status==="fulfilled"?stateResult.value:{product_portfolio:{state:"CONTROL_STATE_UNAVAILABLE",summary:{}}}' in source
+    assert 'renderPortfolio(state);render(c,soak)' in source
+    assert 'if(stateResult.status!=="fulfilled")throw stateResult.reason' not in source
+
+
 def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     source = read("cockpit_runtime.py")
     assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source
