@@ -1,0 +1,35 @@
+name: DIO Slice 2 Commercial Spine
+
+on:
+  pull_request:
+    paths:
+      - 'presence_core/**'
+      - 'products/**'
+      - 'scripts/serve_presence_bridge.py'
+      - 'scripts/serve_business_workbench.py'
+      - 'dashboard/commercial_slice2.js'
+      - 'tests/test_vesper_customer_cases.py'
+      - 'tests/test_vesper_commercial_*.py'
+      - 'tests/test_vesper_operator_*.py'
+      - 'tests/test_vesper_evidex_invoice_bridge.py'
+      - 'tests/test_vesper_outlook_case_reconciliation.py'
+      - 'tests/test_slice2_commercial_spine_contracts.py'
+      - '.github/workflows/dio-slice2-commercial-spine.yml'
+  workflow_dispatch:
+
+jobs:
+  slice2-commercial-spine:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test runner
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Check Python syntax
+        run: python -m py_compile presence_core/*.py
+      - name: Run current Slice 2 contracts
+        run: |
+          PYTHONNOUSERSITE=1 python -m pytest -q \
+            tests/test_vesper_customer_cases.py
