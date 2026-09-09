@@ -15,15 +15,19 @@ from presence_core.authority import (
 )
 from presence_core.engine import process_envelope
 from presence_core.identity import create_status_binding, revoke_binding
+from presence_core.operator_views import case_detail_view, case_list_view, commercial_pipeline_view
 from presence_core.signing import verify_body, SignatureError
 from presence_core.state import list_needs_you, operator_summary, read_json, safe
 
-app=FastAPI(title='DIO Presence Bridge',version='2.0.0',docs_url=None,redoc_url=None)
+app=FastAPI(title='DIO Presence Bridge',version='2.1.0',docs_url=None,redoc_url=None)
 CFG=load_config(); REPLAY:dict[str,float]={}
 
 def bearer_ok(auth:str|None)->bool:
     token=os.getenv('DIO_PRESENCE_OPERATOR_TOKEN','')
     return bool(token and auth==f'Bearer {token}')
+
+def presence_state_root()->Path:
+    return ROOT/CFG.get('state_root','state/presence')
 
 def prune():
     cutoff=time.time()-600
@@ -69,13 +73,14 @@ def health():
     return {
         'ok': True,
         'service': 'dio-presence-bridge',
-        'version': '2.0.0',
+        'version': '2.1.0',
         'presence_identity': 'Vesper',
         'automatic_external_actions': False,
         'telegram_reply_switch_enabled': core_telegram_replies_enabled(),
         'telegram_reply_authority': 'explicit_environment_gate',
         'attachment_mode': 'quarantine_only',
         'public_status': 'verified_binding_only',
+        'operator_case_api': True,
     }
 
 @app.post('/api/presence/ingress')
@@ -126,17 +131,36 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
 @app.get('/api/presence/needs-you')
 def needs_you(authorization:str|None=Header(default=None)):
     if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
-    return {'items':list_needs_you(ROOT/CFG.get('state_root','state/presence'),50)}
+    return {'items':list_needs_you(presence_state_root(),50)}
 
 @app.get('/api/presence/operator-summary')
 def summary(authorization:str|None=Header(default=None)):
     if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
-    return operator_summary(ROOT,ROOT/CFG.get('state_root','state/presence'))
+    result=operator_summary(ROOT,presence_state_root())
+    result['customer_cases']=commercial_pipeline_view(presence_state_root())
+    return result
+
+@app.get('/api/presence/cases')
+def cases(authorization:str|None=Header(default=None),limit:int=100):
+    if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
+    return JSONResponse(case_list_view(presence_state_root(),min(max(int(limit),1),500)),headers={'Cache-Control':'no-store'})
+
+@app.get('/api/presence/cases/{case_id}')
+def case_detail(case_id:str,authorization:str|None=Header(default=None)):
+    if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
+    try: result=case_detail_view(presence_state_root(),case_id)
+    except KeyError: raise HTTPException(404,'Customer case not found.')
+    return JSONResponse(result,headers={'Cache-Control':'no-store'})
+
+@app.get('/api/presence/commercial-pipeline')
+def commercial_pipeline(authorization:str|None=Header(default=None)):
+    if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
+    return JSONResponse(commercial_pipeline_view(presence_state_root()),headers={'Cache-Control':'no-store'})
 
 @app.get('/api/presence/conversations')
 def conversations(authorization:str|None=Header(default=None)):
     if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
-    root=ROOT/CFG.get('state_root','state/presence')/'conversations'; out=[]
+    root=presence_state_root()/'conversations'; out=[]
     for p in sorted(root.glob('*.json'),key=lambda x:x.stat().st_mtime,reverse=True) if root.exists() else []:
         try:
             x=read_json(p); out.append({k:x.get(k) for k in ('conversation_id','channel','display_name','updated_at','message_count','last_intent','last_product')})
@@ -148,17 +172,17 @@ async def bind_identity(request:Request,authorization:str|None=Header(default=No
     if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
     p=await request.json(); conversation_id=str(p.get('conversation_id') or ''); order_ids=p.get('order_ids') or []; method=str(p.get('verification_method') or '')
     if not conversation_id or not isinstance(order_ids,list) or not method: raise HTTPException(422,'conversation_id, order_ids[], and verification_method are required.')
-    conv=ROOT/CFG.get('state_root','state/presence')/'conversations'/f'{conversation_id}.json'
+    conv=presence_state_root()/'conversations'/f'{conversation_id}.json'
     if not conv.exists(): raise HTTPException(404,'Conversation not found.')
     missing=[oid for oid in order_ids if not (ROOT/'state'/'commerce'/'orders'/f'{safe(str(oid))}.json').exists()]
     if missing: raise HTTPException(422,f'Order ids not found in local commerce state: {missing}')
-    binding=create_status_binding(ROOT/CFG.get('state_root','state/presence'),conversation_id,[str(x) for x in order_ids],method,'operator_api')
+    binding=create_status_binding(presence_state_root(),conversation_id,[str(x) for x in order_ids],method,'operator_api')
     return JSONResponse(binding,headers={'Cache-Control':'no-store'})
 
 @app.delete('/api/presence/identity-bindings/{conversation_id}')
 def revoke_identity(conversation_id:str,authorization:str|None=Header(default=None)):
     if not bearer_ok(authorization): raise HTTPException(401,'Operator token required.')
-    try: return revoke_binding(ROOT/CFG.get('state_root','state/presence'),conversation_id)
+    try: return revoke_binding(presence_state_root(),conversation_id)
     except Exception as exc: raise HTTPException(404,str(exc))
 
 def main():
