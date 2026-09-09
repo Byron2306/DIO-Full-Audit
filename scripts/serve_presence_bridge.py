@@ -4,12 +4,10 @@ import argparse, json, os, sys, time
 from pathlib import Path
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
-import requests
 import uvicorn
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
 from presence_core.config import load_config
 from presence_core.authority import (
-    authorize_external_reply,
     bind_external_action_receipt,
     telegram_reply_switch_enabled,
 )
@@ -17,6 +15,7 @@ from presence_core.engine import process_envelope
 from presence_core.identity import create_status_binding, revoke_binding
 from presence_core.signing import verify_body, SignatureError
 from presence_core.state import list_needs_you, operator_summary, read_json, safe
+from presence_core.telegram_transport import send_telegram_reply, telegram_voice_reply_switch_enabled
 
 app=FastAPI(title='DIO Presence Bridge',version='2.0.0',docs_url=None,redoc_url=None)
 CFG=load_config(); REPLAY:dict[str,float]={}
@@ -37,32 +36,12 @@ def send_telegram_reply_from_core(
     envelope: dict,
     result: dict,
 ) -> tuple[bool, str | None, dict]:
-    receipt = authorize_external_reply(envelope, result)
-    if not receipt["authorized"]:
-        return False, ",".join(receipt["reasons"]) or "external_reply_not_authorized", receipt
-
-    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
-    chat_id = ((envelope.get("metadata") or {}).get("telegram_chat_id"))
-    text = (((result.get("reply") or {}).get("text")) or "").strip()
-    if not token or not chat_id or not text:
-        receipt = dict(receipt)
-        receipt["authorized"] = False
-        receipt["reasons"] = list(receipt.get("reasons") or []) + ["missing_token_chat_or_text"]
-        return False, "missing_token_chat_or_text", receipt
-
-    response = requests.post(
-        f"https://api.telegram.org/bot{token}/sendMessage",
-        json={"chat_id": chat_id, "text": text[:4096]},
-        timeout=12,
+    return send_telegram_reply(
+        envelope,
+        result,
+        root=ROOT,
+        state_root=ROOT/CFG.get('state_root','state/presence'),
     )
-    response.raise_for_status()
-    payload = response.json()
-    if not payload.get("ok"):
-        receipt = dict(receipt)
-        receipt["authorized"] = False
-        receipt["reasons"] = list(receipt.get("reasons") or []) + ["telegram_api_error"]
-        return False, str(payload.get("description") or "telegram_api_error"), receipt
-    return True, None, receipt
 
 @app.get('/api/presence/health')
 def health():
@@ -73,7 +52,9 @@ def health():
         'presence_identity': 'Vesper',
         'automatic_external_actions': False,
         'telegram_reply_switch_enabled': core_telegram_replies_enabled(),
+        'telegram_voice_reply_switch_enabled': telegram_voice_reply_switch_enabled(),
         'telegram_reply_authority': 'explicit_environment_gate',
+        'telegram_voice_renderer': 'vera_pocket_public',
         'attachment_mode': 'quarantine_only',
         'public_status': 'verified_binding_only',
     }

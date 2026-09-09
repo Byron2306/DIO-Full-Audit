@@ -4,6 +4,18 @@ from adapters.lingua.conversation import (
     resolve_primitive,
     validate_conversation_resolution,
 )
+from presence_core import llm
+
+
+class _Response:
+    def __init__(self, payload):
+        self._payload = payload
+
+    def raise_for_status(self):
+        return None
+
+    def json(self):
+        return self._payload
 
 
 def test_plain_hi_is_a_greeting_not_unknown():
@@ -71,3 +83,93 @@ def test_handoff_offer_creates_pending_proposal_not_action():
     })
     assert updated["action_proposal"] == {"intent": "begin_intake", "product": "homs"}
     assert updated["selected_product"] == "homs"
+
+
+def test_ollama_draft_receives_bounded_conversation_context(monkeypatch):
+    monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
+    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
+    captured = {}
+
+    def fake_post(url, json, timeout):
+        captured["url"] = url
+        captured["payload"] = json
+        return _Response({"message": {"content": "That sounds like a marking-workflow problem. HOMS is the likely fit."}})
+
+    monkeypatch.setattr(llm.httpx, "post", fake_post)
+
+    result = llm.draft_with_ollama(
+        {"intent": "product_info", "product": "homs", "confidence": 0.92},
+        "product=homs; educator_review_required=true",
+        "HOMS can help with governed assessment work.",
+        interaction=None,
+        persona_assignment=None,
+        conversation_state={
+            "current_need": "mark 80 student papers consistently",
+            "selected_product": "homs",
+            "action_proposal": None,
+        },
+        recent_turns=[
+            {"role": "user", "text": "I have 80 student papers to mark."},
+            {"role": "vesper", "text": "We can narrow down the right assessment workflow."},
+            {"role": "user", "text": "I need consistency if marks are challenged."},
+        ],
+    )
+
+    assert result.startswith("That sounds like")
+    prompt = captured["payload"]["messages"][1]["content"]
+    assert "I have 80 student papers to mark." in prompt
+    assert "I need consistency if marks are challenged." in prompt
+    assert "mark 80 student papers consistently" in prompt
+    assert "qwen3.5:4b" not in prompt
+
+
+def test_ollama_draft_rejects_completed_external_action_claim(monkeypatch):
+    monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
+    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
+    fallback = "Pricing is scope-specific. I can prepare this for a human-approved quote."
+
+    def fake_post(url, json, timeout):
+        return _Response({"message": {"content": "Done. I charged your card and sent the finished work."}})
+
+    monkeypatch.setattr(llm.httpx, "post", fake_post)
+
+    result = llm.draft_with_ollama(
+        {"intent": "pricing_info", "product": "homs", "confidence": 1.0},
+        "pricing_not_resolved; payment_not_taken; fulfilment_not_started",
+        fallback,
+    )
+
+    assert result == fallback
+
+
+def test_cortex_can_fail_over_from_ollama_to_huggingface(monkeypatch):
+    monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
+    monkeypatch.setenv("DIO_PRESENCE_LLM_PROVIDER", "auto")
+    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
+    monkeypatch.setenv("HF_TOKEN", "hf_test_token")
+    monkeypatch.setenv("DIO_PRESENCE_HF_MODEL", "Qwen/Qwen3.5-9B:preferred")
+    calls = []
+
+    def fake_post(url, json, timeout, headers=None):
+        calls.append((url, json, headers))
+        if url.startswith("http://ollama.test"):
+            raise RuntimeError("local model unavailable")
+        return _Response({"choices": [{"message": {"content": "Yes. We can keep this conversational while DIO preserves the verified facts."}}]})
+
+    monkeypatch.setattr(llm.httpx, "post", fake_post)
+
+    result = llm.draft_with_cortex(
+        {"intent": "general_info", "product": None, "confidence": 0.9},
+        "public_capabilities=bounded",
+        "I can explain DIO and help route your request.",
+        recent_turns=[{"role": "user", "text": "Can we just talk this through naturally?"}],
+    )
+
+    assert result.startswith("Yes. We can keep this conversational")
+    assert calls[0][0] == "http://ollama.test/api/chat"
+    assert calls[1][0] == "https://router.huggingface.co/v1/chat/completions"
+    assert calls[1][1]["model"] == "Qwen/Qwen3.5-9B:preferred"
+    assert calls[1][2]["Authorization"] == "Bearer hf_test_token"

@@ -62,6 +62,11 @@ def build_voice_plan(
     else:
         if profile.get("language") != language:
             reasons.append("voice_language_mismatch")
+        elif backend == "pocket_tts":
+            if not (profile.get("voice_url") or profile.get("model")):
+                reasons.append("pocket_voice_not_assigned")
+            else:
+                state = "ready_for_internal_render"
         elif backend == "piper_http":
             if not profile.get("model"):
                 reasons.append("voice_model_not_assigned")
@@ -90,6 +95,7 @@ def build_voice_plan(
         "profile_id": profile_id,
         "backend": backend,
         "model": (profile or {}).get("model"),
+        "voice_url": (profile or {}).get("voice_url"),
         "source_model": (profile or {}).get("source_model"),
         "language": language,
         "state": state,
@@ -109,6 +115,48 @@ def build_voice_plan(
         "identity_locked": True,
         "send_authority_created": False,
         "public_default_authorized": bool(profile and profile.get("public_brand_state") == "approved"),
+    }
+
+
+def synthesize_pocket_tts(
+    *,
+    text: str,
+    output_path: Path,
+    plan: dict[str, Any],
+    base_url: str | None = None,
+    timeout: float = 30.0,
+) -> dict[str, Any]:
+    """Render a local WAV through Pocket TTS. Rendering never creates send authority."""
+    text = str(text or "").strip()
+    if not text:
+        raise ValueError("voice render requires text")
+    voice_url = str(plan.get("voice_url") or plan.get("model") or "").strip()
+    if not voice_url:
+        raise RuntimeError("Pocket TTS voice is not assigned")
+    endpoint = (base_url or os.getenv("DIO_VESPER_POCKET_TTS_URL") or "http://127.0.0.1:8000").rstrip("/") + "/tts"
+    response = httpx.post(endpoint, data={"text": text, "voice_url": voice_url}, timeout=timeout)
+    response.raise_for_status()
+    audio = bytes(response.content)
+    if len(audio) < 44 or not audio.startswith(b"RIFF"):
+        raise RuntimeError("Pocket TTS response is not a WAV payload")
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_bytes(audio)
+    return {
+        "schema": "dio.vesper.voice_render_receipt.v1",
+        "rendered_at": _now(),
+        "profile_id": plan.get("profile_id"),
+        "backend": "pocket_tts",
+        "voice_url": voice_url,
+        "language": plan.get("language"),
+        "delivery_mode": plan.get("delivery_mode"),
+        "audio_path": str(output_path),
+        "audio_sha256": _sha256_bytes(audio),
+        "audio_bytes": len(audio),
+        "external_action_executed": False,
+        "send_authorized": False,
+        "identity_authority_created": False,
+        "translation_authority_created": False,
     }
 
 
@@ -175,6 +223,8 @@ def synthesize_voice(
     if plan.get("state") != "ready_for_internal_render":
         raise RuntimeError("voice plan is not renderable: " + ",".join(plan.get("reasons") or []))
     backend = plan.get("backend")
+    if backend == "pocket_tts":
+        return synthesize_pocket_tts(text=text, output_path=output_path, plan=plan, timeout=timeout)
     if backend == "piper_http":
         return synthesize_piper_http(text=text, output_path=output_path, plan=plan, base_url=piper_url, timeout=timeout)
     if backend != "openvoice2_piper":
