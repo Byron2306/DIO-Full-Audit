@@ -4,6 +4,9 @@ from pathlib import Path
 from presence_core.commercial_pricing import recommend_quote, reference_offers
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 def _write(path: Path, payload):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -154,4 +157,44 @@ def test_structured_history_may_narrow_inside_governed_band_but_not_escape_it(tm
     assert 350 <= result["recommended_amount"] <= 750
     assert result["recommended_amount"] in {600, 625, 650}
     assert result["comparables_used"] == 2
+    assert result["authority_created"] is False
+
+
+def test_everyday_sophia_integrity_can_receive_bounded_registry_estimate():
+    result = recommend_quote(
+        ROOT,
+        product_id="sophia_integrity",
+        scope={"buyer_class": "C0", "page_count": 18, "requested_depth": "bounded_review"},
+    )
+    assert result["mode"] == "registry_estimate"
+    assert result["pricing_state"] == "HYPOTHESIS"
+    assert result["min_amount"] == 750
+    assert result["max_amount"] == 3500
+    assert 750 <= result["recommended_amount"] <= 3500
+    assert result["estimate_not_invoice"] is True
+    assert result["authority_created"] is False
+
+
+def test_same_sophia_product_escalates_when_buyer_scope_is_institutional():
+    result = recommend_quote(
+        ROOT,
+        product_id="sophia_integrity",
+        scope={"buyer_class": "C4", "manuscript_count": 380, "page_count": 7600},
+    )
+    assert result["mode"] == "needs_operator"
+    assert result["reason"] == "enterprise_or_industrial_scope"
+    assert result["reference_band_zar"] == {"min": 750, "max": 3500}
+    assert result["enterprise_pricing_mode"] == "setup_plus_volume"
+    assert result["authority_created"] is False
+
+
+def test_high_value_ai_assurance_remains_operator_priced_from_registry():
+    result = recommend_quote(
+        ROOT,
+        product_id="dio_ai_assurance",
+        scope={"buyer_class": "C2", "ai_system_count": 1},
+    )
+    assert result["mode"] == "needs_operator"
+    assert result["reason"] == "registry_operator_review"
+    assert result["reference_band_zar"]["min"] >= 5000
     assert result["authority_created"] is False
