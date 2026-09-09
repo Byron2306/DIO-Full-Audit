@@ -22,6 +22,8 @@ on:
       - 'tests/test_vesper_evidex_invoice_bridge.py'
       - 'tests/test_vesper_outlook_case_reconciliation.py'
       - 'tests/test_vesper_commercial_needs_you.py'
+      - 'tests/test_vesper_operator_case_views.py'
+      - 'tests/test_vesper_commercial_transcript_gauntlet.py'
       - 'tests/test_vesper_lingua_conversation.py'
       - 'tests/test_vesper_conversational_presence_v2.py'
       - 'tests/test_vesper_voice.py'
@@ -63,3 +65,5 @@ jobs:
           tests/test_vesper_evidex_invoice_bridge.py
           tests/test_vesper_outlook_case_reconciliation.py
           tests/test_vesper_commercial_needs_you.py
+          tests/test_vesper_operator_case_views.py
+          tests/test_vesper_commercial_transcript_gauntlet.py
