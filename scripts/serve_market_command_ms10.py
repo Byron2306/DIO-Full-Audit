@@ -13,11 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from dio_secrets import load_secret_env  # noqa: E402
+from market_sensorium.cockpit import build_commercial_cockpit  # noqa: E402
+from market_sensorium.core import MarketSensoriumStore  # noqa: E402
 from portfolio_runtime import load_portfolio  # noqa: E402
 from scripts.serve_market_command import Handler  # noqa: E402
 
 
 SENSORIUM_STATE_PATH = ROOT / "state" / "market_sensorium" / "COMMERCIAL_COCKPIT.json"
+SENSORIUM_DB_PATH = ROOT / "state" / "market_sensorium" / "market_sensorium.sqlite"
 SENSORIUM_UNAVAILABLE = "SENSORIUM_UNAVAILABLE"
 
 
@@ -29,6 +32,26 @@ def sensorium_state() -> dict:
             value = None
         if isinstance(value, dict):
             return value
+
+    # The current cloud evidence epoch may legitimately have pending MS gates while
+    # still containing useful live ranked targets, offers, habitats and other
+    # read-only evidence. Runtime visibility must not require replaying the historic
+    # MS-8 verification gate. build_commercial_cockpit preserves the pending phase
+    # statuses and creates no outreach, publication, spend or other authority.
+    if SENSORIUM_DB_PATH.is_file():
+        try:
+            with MarketSensoriumStore(SENSORIUM_DB_PATH) as store:
+                return build_commercial_cockpit(ROOT, store)
+        except Exception as exc:
+            return {
+                "schema": "dio.market_sensorium.cockpit_unavailable.v1",
+                "state": SENSORIUM_UNAVAILABLE,
+                "ranked_targets": [],
+                "hypotheses": [],
+                "message": f"Live Sensorium projection could not be built: {type(exc).__name__}",
+                "authority_created": False,
+            }
+
     return {
         "schema": "dio.market_sensorium.cockpit_unavailable.v1",
         "state": SENSORIUM_UNAVAILABLE,

@@ -53,6 +53,16 @@ def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() ->
     assert "authority_created" in source
 
 
+def test_sensorium_live_projection_is_visible_without_replaying_ms8_gate() -> None:
+    source = read("scripts/serve_market_command_ms10.py")
+    assert "MarketSensoriumStore" in source
+    assert "build_commercial_cockpit" in source
+    assert "SENSORIUM_DB_PATH" in source
+    assert "if SENSORIUM_DB_PATH.is_file():" in source
+    assert "build_commercial_cockpit(ROOT, store)" in source
+    assert "current cloud evidence epoch" in source
+
+
 def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     source = read("cockpit_runtime.py")
     assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source
