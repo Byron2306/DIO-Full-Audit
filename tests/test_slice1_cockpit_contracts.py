@@ -43,6 +43,20 @@ def test_atlas_slice_is_read_only_and_preserves_existing_registry() -> None:
     assert "electronic sales authority" in source
 
 
+def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() -> None:
+    source = read("dashboard/market.html")
+    assert "SENSORIUM_UNAVAILABLE" in source
+    assert "Promise.allSettled" in source
+    assert "Promise.all([fetch('/api/market/state'" not in source
+
+
+def test_business_artifact_gateway_uses_guarded_legacy_path_resolution() -> None:
+    source = read("scripts/serve_control_deck_ms10.py")
+    assert "resolve_legacy_artifact_path" in source
+    assert "legacy_target" in source
+    assert "Artifact path is outside the approved DIO output roots" in source
+
+
 def test_slice1_preserves_stronger_v2_68_product_receipt_contract() -> None:
     source = read("portfolio_runtime.py")
     assert 'EXTENSION_SCHEMA_V2 = "dio.product_grade.canon_extension_gauntlet_receipt.v2"' in source
