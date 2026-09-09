@@ -28,8 +28,10 @@ jobs:
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
       - name: Check Python syntax
-        run: python -m py_compile presence_core/*.py
+        run: python -m py_compile presence_core/*.py products/*.py
       - name: Run current Slice 2 contracts
         run: |
           PYTHONNOUSERSITE=1 python -m pytest -q \
-            tests/test_vesper_customer_cases.py
+            tests/test_vesper_customer_cases.py \
+            tests/test_vesper_commercial_pricing.py \
+            tests/test_vesper_commercial_pricing_registry.py
