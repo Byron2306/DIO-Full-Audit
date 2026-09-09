@@ -16,6 +16,13 @@ EXTENSION_RECEIPT_PATH = (
     ROOT
     / "state"
     / "product_grade"
+    / "canon_extension_aggregate"
+    / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json"
+)
+LEGACY_EXTENSION_RECEIPT_PATH = (
+    ROOT
+    / "state"
+    / "product_grade"
     / "canon_extensions"
     / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json"
 )
@@ -76,12 +83,21 @@ def _lane(primary_family: str) -> dict[str, Any]:
     return {"lane": "PACKAGE_GATE_ONLY", "job_api": None, "fresh_intake": "verified_output_required"}
 
 
+def _active_extension_receipt_path() -> Path:
+    if EXTENSION_RECEIPT_PATH.is_file():
+        return EXTENSION_RECEIPT_PATH
+    if LEGACY_EXTENSION_RECEIPT_PATH.is_file():
+        return LEGACY_EXTENSION_RECEIPT_PATH
+    return EXTENSION_RECEIPT_PATH
+
+
 def _load_extension_summary() -> tuple[str, dict[str, Any] | None, str]:
-    if not EXTENSION_RECEIPT_PATH.is_file():
+    receipt_path = _active_extension_receipt_path()
+    if not receipt_path.is_file():
         return "MISSING", None, "missing"
-    receipt_sha = _sha256(EXTENSION_RECEIPT_PATH)
+    receipt_sha = _sha256(receipt_path)
     try:
-        value = json.loads(EXTENSION_RECEIPT_PATH.read_text(encoding="utf-8"))
+        value = json.loads(receipt_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return "INVALID", None, receipt_sha
     if not isinstance(value, dict):
@@ -144,10 +160,11 @@ def _load_extension_summary() -> tuple[str, dict[str, Any] | None, str]:
 
 
 def _relative_summary_path() -> str:
+    receipt_path = _active_extension_receipt_path()
     try:
-        return str(EXTENSION_RECEIPT_PATH.resolve().relative_to(ROOT.resolve()))
+        return str(receipt_path.resolve().relative_to(ROOT.resolve()))
     except ValueError:
-        return str(EXTENSION_RECEIPT_PATH)
+        return str(receipt_path)
 
 
 def _extension_rows(receipt: dict[str, Any]) -> list[dict[str, Any]]:
@@ -199,6 +216,7 @@ def import_portfolio(*, force: bool = False) -> dict[str, Any]:
         raise FileNotFoundError(f"Canonical portfolio crosswalk not found: {CROSSWALK}")
     source_sha = _sha256(CROSSWALK)
     extension_state, extension_receipt, extension_sha = _load_extension_summary()
+    extension_path = _active_extension_receipt_path()
     source_fingerprint = _fingerprint(
         {
             "base_crosswalk": source_sha,
@@ -253,7 +271,7 @@ def import_portfolio(*, force: bool = False) -> dict[str, Any]:
         "generated_at": utc_now(),
         "source": {"path": str(CROSSWALK), "sha256": source_sha, "kind": "canonical_incarnation_crosswalk"},
         "extension_source": {
-            "path": str(EXTENSION_RECEIPT_PATH),
+            "path": str(extension_path),
             "sha256": extension_sha if extension_sha != "missing" else None,
             "state": extension_state,
             "kind": "canon_extension_product_grade_summary",
