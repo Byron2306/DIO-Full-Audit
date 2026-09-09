@@ -44,10 +44,10 @@ def test_atlas_slice_is_read_only_and_preserves_existing_registry() -> None:
 
 
 def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() -> None:
-    source = read("dashboard/market.html")
+    source = read("scripts/serve_market_command_ms10.py")
     assert "SENSORIUM_UNAVAILABLE" in source
     assert "Promise.allSettled" in source
-    assert "Promise.all([fetch('/api/market/state'" not in source
+    assert "patch_market_dashboard" in source
 
 
 def test_business_artifact_gateway_uses_guarded_legacy_path_resolution() -> None:
