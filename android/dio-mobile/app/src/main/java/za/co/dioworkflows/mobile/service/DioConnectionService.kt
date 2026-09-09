@@ -69,9 +69,11 @@ class DioConnectionService : Service() {
         disconnectTransportOnly()
         DioRuntime.repository.transportDisconnected()
         DioRuntime.clearUntrustedFingerprint()
+        DioRuntime.clearConnectionError()
 
         val profile = DioProfileStore.from(this).load()
         if (profile == null) {
+            DioRuntime.reportConnectionError("No saved SSH profile")
             disconnectInternal(stopService = true)
             return
         }
@@ -95,9 +97,16 @@ class DioConnectionService : Service() {
                 REFRESH_SECONDS,
                 TimeUnit.SECONDS,
             )
-        } catch (_: Exception) {
+        } catch (error: Exception) {
+            DioRuntime.reportConnectionError(connectionErrorMessage(error))
             disconnectInternal(stopService = true)
         }
+    }
+
+    private fun connectionErrorMessage(error: Exception): String {
+        val type = error::class.java.simpleName.ifBlank { "Connection error" }
+        val detail = error.message?.trim().orEmpty()
+        return if (detail.isBlank()) type else "$type: $detail"
     }
 
     private fun refreshOrFailClosed() {
@@ -105,6 +114,7 @@ class DioConnectionService : Service() {
         if (active?.isHealthy() == true) {
             DioRuntime.repository.refreshTruth(transportConnected = true)
         } else {
+            DioRuntime.reportConnectionError("DIO SSH session became unhealthy")
             disconnectInternal(stopService = true)
         }
     }
