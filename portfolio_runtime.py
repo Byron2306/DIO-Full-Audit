@@ -21,7 +21,9 @@ EXTENSION_RECEIPT_PATH = (
 )
 
 EXTENSION_SCHEMA = "dio.product_grade.canon_extension_gauntlet_receipt.v1"
+EXTENSION_SCHEMA_V2 = "dio.product_grade.canon_extension_gauntlet_receipt.v2"
 EXTENSION_PRODUCT_GRADE_TOKEN = "DIO_CANON_EXTENSION_PRODUCT_GRADE_VERIFIED"
+EXTENSION_PRODUCT_GRADE_TOKEN_V2 = "DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED"
 EXTENSION_PROOF_TOKEN = "DIO_CANON_EXTENSION_PROOF_VERIFIED"
 EXTENSION_PRODUCT_GRADE_STATUS = "PRODUCT_GRADE_VERIFIED"
 EXTENSION_PROOF_STATUS = "CANON_EXTENSION_PROOF_VERIFIED"
@@ -86,9 +88,21 @@ def _load_extension_summary() -> tuple[str, dict[str, Any] | None, str]:
         return "INVALID", None, receipt_sha
 
     extensions = value.get("extensions")
+    schema_contract_verified = (
+        (
+            value.get("schema") == EXTENSION_SCHEMA
+            and value.get("acceptance_token") == EXTENSION_PRODUCT_GRADE_TOKEN
+        )
+        or (
+            value.get("schema") == EXTENSION_SCHEMA_V2
+            and value.get("acceptance_token") == EXTENSION_PRODUCT_GRADE_TOKEN_V2
+            and value.get("controlled_journey_count") == 45
+            and value.get("verified_journey_count") == 45
+            and value.get("refused_journey_count") == 0
+        )
+    )
     verified = (
-        value.get("schema") == EXTENSION_SCHEMA
-        and value.get("acceptance_token") == EXTENSION_PRODUCT_GRADE_TOKEN
+        schema_contract_verified
         and value.get("proof_acceptance_token") == EXTENSION_PROOF_TOKEN
         and value.get("extension_count") == 15
         and value.get("product_grade_verified_count") == 15
