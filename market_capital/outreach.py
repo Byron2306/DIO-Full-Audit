@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from lingua.capital_outreach import build_capital_outreach_projection
+
 from .models import validate_opportunity_type
 
 
@@ -36,15 +38,6 @@ def _name(opportunity: dict[str, Any]) -> str:
     ).strip()
 
 
-def _opening(opportunity_type: str, organisation: str, pitch_family: str) -> str:
-    pitch = pitch_family.replace("_", " ").lower() if pitch_family else "the relevant DIO proof-backed proposition"
-    if opportunity_type == "PATRONAGE":
-        return f"I’m exploring whether {organisation}'s audience might value supporting {pitch}."
-    if opportunity_type in {"GRANT", "DONOR", "PRIZE", "ACCELERATOR"}:
-        return f"I’m reaching out because {organisation} appears relevant to {pitch}, based on publicly available programme information."
-    return f"I’m reaching out because {organisation} appears potentially aligned with {pitch}, based on public information."
-
-
 def build_outreach_bundle(opportunity: dict[str, Any], atlas_fit: dict[str, Any], hypothesis: dict[str, Any]) -> dict[str, Any]:
     opportunity_type = validate_opportunity_type(str(opportunity.get("opportunity_type") or ""))
     opportunity_id = str(opportunity.get("opportunity_id") or "").strip()
@@ -55,6 +48,7 @@ def build_outreach_bundle(opportunity: dict[str, Any], atlas_fit: dict[str, Any]
     proofs = [str(x) for x in (atlas_fit.get("proof_bundle") or [])[:8] if str(x).strip()]
     pitch_family = str(atlas_fit.get("recommended_pitch_family") or hypothesis.get("family") or "").strip()
     hypothesis_statement = str(hypothesis.get("statement") or "").strip()
+    recommended_channel = CHANNEL_BY_TYPE[opportunity_type]
 
     safe_claims = [
         "DIO has a governed, evidence-bound product portfolio and documented engineering proof where cited.",
@@ -68,8 +62,17 @@ def build_outreach_bundle(opportunity: dict[str, Any], atlas_fit: dict[str, Any]
         "Do not imply a personal relationship or private contact route that was not publicly observed or operator-provided.",
     ]
 
+    lingua_projection = build_capital_outreach_projection(
+        opportunity=opportunity,
+        organisation=organisation,
+        products=products,
+        proofs=proofs,
+        pitch_family=pitch_family,
+        recommended_channel=recommended_channel,
+    )
+    opening = str(lingua_projection["selected_hook"])
+
     subject = f"DIO | {pitch_family.replace('_', ' ').title() if pitch_family else 'evidence-backed fit'}"
-    opening = _opening(opportunity_type, organisation, pitch_family)
     wedge = ", ".join(products[:3]) or "a narrow DIO capability wedge"
     proof_text = ", ".join(proofs[:3]) or "the relevant verified proof assets"
     draft = (
@@ -86,13 +89,14 @@ def build_outreach_bundle(opportunity: dict[str, Any], atlas_fit: dict[str, Any]
         "opportunity_type": opportunity_type,
         "organisation": organisation,
         "campaign_objective": OBJECTIVE_BY_TYPE[opportunity_type],
-        "recommended_channel": CHANNEL_BY_TYPE[opportunity_type],
+        "recommended_channel": recommended_channel,
         "draft_subject": subject,
         "draft_opening": opening,
         "draft_outreach": draft,
         "pitch_angle": hypothesis_statement or pitch_family,
         "recommended_product_wedge": products,
         "recommended_proof_bundle": proofs,
+        "lingua_projection": lingua_projection,
         "safe_claims": safe_claims,
         "claims_to_avoid": claims_to_avoid,
         "assets_to_prepare": proofs,
