@@ -64,6 +64,7 @@ private fun DioOperatorApp() {
 
     val appState by DioRuntime.repository.state.collectAsState()
     val untrustedFingerprint by DioRuntime.untrustedFingerprint.collectAsState()
+    val connectionError by DioRuntime.connectionError.collectAsState()
 
     val configured =
         savedProfile != null && publicIdentity != null && pinnedFingerprint != null
@@ -99,6 +100,7 @@ private fun DioOperatorApp() {
                 publicIdentity = publicIdentity,
                 untrustedFingerprint = untrustedFingerprint,
                 pinnedFingerprint = pinnedFingerprint,
+                connectionError = connectionError,
                 onCreateIdentity = {
                     publicIdentity = identityStore.createIdentity()
                 },
@@ -115,17 +117,20 @@ private fun DioOperatorApp() {
                         publicIdentity = identityStore.createIdentity()
                     }
                     DioRuntime.clearUntrustedFingerprint()
+                    DioRuntime.clearConnectionError()
                     startConnection(context)
                 },
                 onTrustHost = { fingerprint ->
                     hostKeyPinStore.pin(fingerprint)
                     pinnedFingerprint = fingerprint
                     DioRuntime.clearUntrustedFingerprint()
+                    DioRuntime.clearConnectionError()
                 },
                 onResetTrust = {
                     stopConnection(context)
                     hostKeyPinStore.clear()
                     pinnedFingerprint = null
+                    DioRuntime.clearConnectionError()
                 },
                 onContinue = {
                     if (savedProfile != null && publicIdentity != null && pinnedFingerprint != null) {
