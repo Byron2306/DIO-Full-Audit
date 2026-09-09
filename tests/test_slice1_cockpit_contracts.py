@@ -63,6 +63,24 @@ def test_sensorium_live_projection_is_visible_without_replaying_ms8_gate() -> No
     assert "current cloud evidence epoch" in source
 
 
+def test_market_command_evidence_link_uses_canonical_rich_sensorium_cockpit() -> None:
+    page = read("dashboard/market.html")
+    patcher = read("scripts/serve_market_command_ms10.py")
+    assert 'href="/state/market_sensorium/COMMERCIAL_COCKPIT.html">Evidence cockpit</a>' in page
+    assert 'href="/sensorium-evidence">Evidence cockpit</a>' not in patcher
+
+
+def test_goldeneye_hydrates_when_ms9_receipt_is_missing() -> None:
+    source = read("dashboard/goldeneye-ms10.html")
+    assert "Promise.allSettled" in source
+    assert 'j("/api/control/state")' in source
+    assert 'j("/state/market_sensorium/COMMERCIAL_COCKPIT.json")' in source
+    assert 'j("/state/market_sensorium/MARKET_SENSORIUM_MS9_RECEIPT.json")' in source
+    assert 'const soak=' in source
+    assert 'PENDING_CURRENT_EPOCH_MS9_RECEIPT' in source
+    assert 'renderPortfolio(state);render(c,soak)' in source
+
+
 def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     source = read("cockpit_runtime.py")
     assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source

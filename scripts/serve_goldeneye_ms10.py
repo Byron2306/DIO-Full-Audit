@@ -31,7 +31,7 @@ def main() -> int:
         raise ValueError("GoldenEye must bind to localhost")
     server = ThreadingHTTPServer((args.host, args.port), GoldenEyeMS10Handler)
     print(f"DIO GoldenEye MS-10: http://{args.host}:{args.port}")
-    print("Current-repo portfolio state + canonical Market Sensorium truth plane")
+    print("Current-repo portfolio state + canonical Market Sensorium truth plane; current-epoch MS-9 soak receipt is optional for page hydration")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
