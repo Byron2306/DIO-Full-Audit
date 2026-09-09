@@ -13,9 +13,9 @@ class DioSshAlgorithmPolicyTest {
     }
 
     @Test
-    fun androidTransportAvoidsCurve25519AndUsesNistP256KeyExchange() {
+    fun androidTransportAvoidsCurveAndUsesGroup14Sha256KeyExchange() {
         assertEquals(
-            listOf("ecdh-sha2-nistp256"),
+            listOf("diffie-hellman-group14-sha256"),
             DioSshAlgorithmPolicy.keyExchangeNames(),
         )
     }
