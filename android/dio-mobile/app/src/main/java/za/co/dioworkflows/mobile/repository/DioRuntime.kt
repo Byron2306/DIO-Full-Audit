@@ -12,11 +12,22 @@ object DioRuntime {
     private val mutableUntrustedFingerprint = MutableStateFlow<String?>(null)
     val untrustedFingerprint: StateFlow<String?> = mutableUntrustedFingerprint.asStateFlow()
 
+    private val mutableConnectionError = MutableStateFlow<String?>(null)
+    val connectionError: StateFlow<String?> = mutableConnectionError.asStateFlow()
+
     fun reportUntrustedFingerprint(value: String) {
         mutableUntrustedFingerprint.value = value
     }
 
     fun clearUntrustedFingerprint() {
         mutableUntrustedFingerprint.value = null
+    }
+
+    fun reportConnectionError(value: String) {
+        mutableConnectionError.value = value
+    }
+
+    fun clearConnectionError() {
+        mutableConnectionError.value = null
     }
 }
