@@ -13,6 +13,18 @@ def test_artifact_url_routes_local_paths_through_governed_gateway() -> None:
     assert cockpit_runtime.artifact_url("https://example.com/proof") == "https://example.com/proof"
 
 
+def test_legacy_knowedge_artifact_path_maps_only_to_live_control_deck_equivalent(tmp_path: Path) -> None:
+    target = tmp_path / "deliverables" / "homs_outlook_bot_csv_dry_run" / "homs" / "homs-123"
+    target.mkdir(parents=True)
+    legacy = "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/homs_outlook_bot_csv_dry_run/homs/homs-123"
+    resolved = cockpit_runtime.resolve_legacy_artifact_path(legacy, tmp_path)
+    assert resolved == target.resolve()
+
+    missing = "/home/byron/Downloads/KnowEdge_AutoRelease_Suite/deliverables/does-not-exist"
+    assert cockpit_runtime.resolve_legacy_artifact_path(missing, tmp_path) is None
+    assert cockpit_runtime.resolve_legacy_artifact_path("/etc/passwd", tmp_path) is None
+
+
 def test_runtime_readiness_never_exposes_secret_values(tmp_path: Path, monkeypatch) -> None:
     (tmp_path / "cross_folder_variants" / "NicheFoundry_Phase11").mkdir(parents=True)
     monkeypatch.setenv("HF_TOKEN", "SECRET-MUST-NOT-LEAK")
