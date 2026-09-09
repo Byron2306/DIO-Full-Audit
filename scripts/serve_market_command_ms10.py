@@ -101,8 +101,10 @@ class MS10MarketCommandHandler(Handler):
     def _serve_sensorium_evidence(self) -> None:
         state = sensorium_state()
         status = str(state.get("state") or "PRESENT")
-        ranked = list(state.get("ranked_targets") or [])
-        hypotheses = list(state.get("hypotheses") or state.get("hivenance_hypotheses") or [])
+        ranked_value = state.get("ranked_targets")
+        ranked = list(ranked_value) if isinstance(ranked_value, list) else []
+        hypotheses_value = state.get("hypotheses") or state.get("hivenance_hypotheses")
+        hypotheses = list(hypotheses_value) if isinstance(hypotheses_value, list) else []
         message = str(state.get("message") or "Sensorium evidence projection loaded.")
         body = f"""<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>DIO Sensorium Evidence</title><style>body{{margin:0;background:#050809;color:#edf4f3;font:14px/1.5 system-ui}}main{{max-width:900px;margin:auto;padding:24px}}.panel{{background:#0b1317;border:1px solid #26363e;border-radius:10px;padding:18px;margin-top:14px}}.state{{font-size:26px;font-weight:800;color:#efc36b}}code,pre{{white-space:pre-wrap;word-break:break-word;color:#a9d7e8}}a{{color:#e4b85f}}</style></head><body><main><a href=\"/\">← Market Command</a><h1>Sensorium + HiveNance Evidence Cockpit</h1><div class=\"panel\"><div class=\"state\">{html.escape(status)}</div><p>{html.escape(message)}</p><p>Ranked targets: <b>{len(ranked)}</b> · hypotheses: <b>{len(hypotheses)}</b></p><p>This surface is read-only and creates no outreach, publication, spend, or other external authority.</p></div><div class=\"panel\"><h2>Evidence projection</h2><pre>{html.escape(json.dumps(state, indent=2, ensure_ascii=True))}</pre></div></main></body></html>""".encode("utf-8")
         self.send_response(200)
