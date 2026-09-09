@@ -35,4 +35,6 @@ jobs:
             tests/test_vesper_customer_cases.py \
             tests/test_vesper_commercial_pricing.py \
             tests/test_vesper_commercial_pricing_registry.py \
-            tests/test_vesper_commercial_needs_you.py
+            tests/test_vesper_commercial_needs_you.py \
+            tests/test_vesper_evidex_invoice_bridge.py \
+            tests/test_vesper_outlook_case_reconciliation.py
