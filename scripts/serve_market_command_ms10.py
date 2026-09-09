@@ -63,12 +63,7 @@ def sensorium_state() -> dict:
 
 
 def patch_market_dashboard(page: str) -> str:
-    """Keep Market Command usable when the optional Sensorium projection is absent."""
-    page = page.replace(
-        'href="/state/market_sensorium/COMMERCIAL_COCKPIT.html">Evidence cockpit</a>',
-        'href="/sensorium-evidence">Evidence cockpit</a>',
-        1,
-    )
+    """Keep Market Command usable while preserving the canonical rich Sensorium cockpit link."""
     old = (
         "async function refresh(){const b=$('refresh');b.disabled=true;b.textContent='Refreshing…';try{const [mr,cr,pr]=await Promise.all([fetch('/api/market/state',{cache:'no-store'}),fetch('/state/market_sensorium/COMMERCIAL_COCKPIT.json',{cache:'no-store'}),fetch('/api/market/products',{cache:'no-store'})]);if(!mr.ok||!cr.ok)throw new Error(`market ${mr.status}, sensorium ${cr.status}`);MARKET=await mr.json();COCKPIT=await cr.json();PRODUCTS=pr.ok?(await pr.json()).products||[]:[];populateProducts();render(MARKET,COCKPIT)}catch(e){toast(`Market state failed: ${e.message}`,true)}finally{b.disabled=false;b.textContent='Refresh'}}$('refresh').onclick=refresh;refresh();"
     )
