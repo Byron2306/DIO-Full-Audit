@@ -1,26 +1,20 @@
 package za.co.dioworkflows.mobile.ssh
 
 import com.hierynomus.sshj.key.KeyAlgorithms
+import com.hierynomus.sshj.transport.kex.DHGroups
 import net.schmizz.sshj.DefaultConfig
-import net.schmizz.sshj.transport.kex.ECDHNistP
+import net.schmizz.sshj.common.SecurityUtils
 
-/**
- * Android-safe SSH algorithm policy for the DIO mobile transport.
- *
- * The spine exposes a pinned RSA host key, so DIO Mobile deliberately negotiates
- * modern RSA-SHA2 host-key algorithms. Android's SSHJ Curve25519 path closes before
- * sending SSH2_MSG_KEX_ECDH_INIT on the target device, so the transport also pins
- * key exchange to the JCE-friendly NIST P-256 ECDH implementation.
- */
 object DioSshAlgorithmPolicy {
     fun algorithmNames(): List<String> =
         listOf("rsa-sha2-512", "rsa-sha2-256")
 
     fun keyExchangeNames(): List<String> =
-        listOf("ecdh-sha2-nistp256")
+        listOf("diffie-hellman-group14-sha256")
 
-    fun config(): DefaultConfig =
-        DefaultConfig().apply {
+    fun config(): DefaultConfig {
+        SecurityUtils.setRegisterBouncyCastle(false)
+        return DefaultConfig().apply {
             setKeyAlgorithms(
                 listOf(
                     KeyAlgorithms.RSASHA512(),
@@ -29,8 +23,9 @@ object DioSshAlgorithmPolicy {
             )
             setKeyExchangeFactories(
                 listOf(
-                    ECDHNistP.Factory256(),
+                    DHGroups.Group14SHA256(),
                 ),
             )
         }
+    }
 }
