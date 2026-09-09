@@ -41,7 +41,7 @@ class DioSshTransport(
         profile: DioSshProfile,
         onUntrustedFingerprint: (String) -> Unit,
     ): TransportSession {
-        val client = SSHClient()
+        val client = SSHClient(DioSshAlgorithmPolicy.config())
         client.connectTimeout = CONNECT_TIMEOUT_MS
         client.timeout = SOCKET_TIMEOUT_MS
         client.addHostKeyVerifier(pinnedVerifier(onUntrustedFingerprint))
