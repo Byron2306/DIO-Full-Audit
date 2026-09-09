@@ -43,6 +43,20 @@ def test_atlas_slice_is_read_only_and_preserves_existing_registry() -> None:
     assert "electronic sales authority" in source
 
 
+def test_slice1_preserves_stronger_v2_68_product_receipt_contract() -> None:
+    source = read("portfolio_runtime.py")
+    assert 'EXTENSION_SCHEMA_V2 = "dio.product_grade.canon_extension_gauntlet_receipt.v2"' in source
+    assert 'EXTENSION_PRODUCT_GRADE_TOKEN_V2 = "DIO_CANON_EXTENSION_15_X3_PRODUCT_GRADE_VERIFIED"' in source
+    assert 'value.get("controlled_journey_count") == 45' in source
+    assert 'value.get("verified_journey_count") == 45' in source
+    assert 'value.get("refused_journey_count") == 0' in source
+    assert 'value.get("extension_count") == 15' in source
+    assert 'value.get("product_grade_verified_count") == 15' in source
+    assert 'value.get("commercial_validation") == "UNPROVED"' in source
+    assert 'value.get("authority_created") is False' in source
+    assert 'value.get("external_effects") is False' in source
+
+
 def test_no_slice1_code_creates_public_listener_or_legacy_host_claim() -> None:
     combined = "\n".join(
         read(path)
