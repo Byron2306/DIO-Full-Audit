@@ -102,6 +102,25 @@ def test_connection_service_is_private_special_use_and_fail_closed():
     assert ".exec(" not in service
 
 
+def test_connection_failures_are_visible_in_setup_ui():
+    service = (
+        ANDROID
+        / "app/src/main/java/za/co/dioworkflows/mobile/service/DioConnectionService.kt"
+    ).read_text(encoding="utf-8")
+    activity = (
+        ANDROID / "app/src/main/java/za/co/dioworkflows/mobile/MainActivity.kt"
+    ).read_text(encoding="utf-8")
+    setup = (
+        ANDROID / "app/src/main/java/za/co/dioworkflows/mobile/ui/SetupScreen.kt"
+    ).read_text(encoding="utf-8")
+
+    assert "DioRuntime.reportConnectionError" in service
+    assert "DioRuntime.clearConnectionError" in service
+    assert "DioRuntime.connectionError" in activity
+    assert "connectionError = connectionError" in activity
+    assert "Connection error" in setup
+
+
 def test_saved_connection_profile_has_no_password_surface():
     text = (
         ANDROID
