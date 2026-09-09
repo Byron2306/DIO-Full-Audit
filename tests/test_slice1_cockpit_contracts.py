@@ -63,6 +63,25 @@ def test_sensorium_live_projection_is_visible_without_replaying_ms8_gate() -> No
     assert "current cloud evidence epoch" in source
 
 
+def test_sensorium_evidence_page_restores_operator_tables_not_raw_json_only() -> None:
+    source = read("scripts/serve_market_command_ms10.py")
+    for heading in (
+        "Phase status",
+        "Ranked targets",
+        "Rank movements",
+        "HiveNance hypotheses",
+        "Competitive offers",
+        "Market habitats",
+        "Learned queries",
+        "Raw evidence JSON",
+    ):
+        assert heading in source
+    assert "<table" in source
+    assert "<details" in source
+    assert "section_counts" in source
+    assert "This surface is read-only" in source
+
+
 def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     source = read("cockpit_runtime.py")
     assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source
