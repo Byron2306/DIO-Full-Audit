@@ -48,13 +48,20 @@ def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() ->
     assert "SENSORIUM_UNAVAILABLE" in source
     assert "Promise.allSettled" in source
     assert "patch_market_dashboard" in source
+    assert 'route == "/api/market/sensorium"' in source
+    assert 'route == "/sensorium-evidence"' in source
+    assert "authority_created" in source
 
 
-def test_business_artifact_gateway_uses_guarded_legacy_path_resolution() -> None:
-    source = read("scripts/serve_control_deck_ms10.py")
-    assert "resolve_legacy_artifact_path" in source
-    assert "legacy_target" in source
-    assert "Artifact path is outside the approved DIO output roots" in source
+def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
+    source = read("cockpit_runtime.py")
+    assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source
+    assert "def resolve_legacy_artifact_path" in source
+    assert "candidate.relative_to(LEGACY_KNOWEDGE_ROOT)" in source
+    assert "if not target.exists():" in source
+    assert "return None" in source
+    gateway = read("scripts/serve_control_deck_ms10.py")
+    assert "Artifact path is outside the approved DIO output roots" in gateway
 
 
 def test_slice1_preserves_stronger_v2_68_product_receipt_contract() -> None:
