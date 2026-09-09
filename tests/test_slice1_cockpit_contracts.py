@@ -64,9 +64,10 @@ def test_sensorium_live_projection_is_visible_without_replaying_ms8_gate() -> No
 
 
 def test_market_command_evidence_link_uses_canonical_rich_sensorium_cockpit() -> None:
-    source = read("scripts/serve_market_command_ms10.py")
-    assert 'href="/state/market_sensorium/COMMERCIAL_COCKPIT.html">Evidence cockpit</a>' in source
-    assert 'href="/sensorium-evidence">Evidence cockpit</a>' not in source
+    page = read("dashboard/market.html")
+    patcher = read("scripts/serve_market_command_ms10.py")
+    assert 'href="/state/market_sensorium/COMMERCIAL_COCKPIT.html">Evidence cockpit</a>' in page
+    assert 'href="/sensorium-evidence">Evidence cockpit</a>' not in patcher
 
 
 def test_goldeneye_hydrates_when_ms9_receipt_is_missing() -> None:
