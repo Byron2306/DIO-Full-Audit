@@ -11,13 +11,18 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from scripts.serve_control_deck import ControlDeckHandler  # noqa: E402
+from scripts.serve_market_command_ms10 import sensorium_state  # noqa: E402
 
 
 class GoldenEyeMS10Handler(ControlDeckHandler):
     server_version = "DIOGoldenEyeMS10/1.0"
 
     def do_GET(self) -> None:
-        if urlsplit(self.path).path == "/":
+        route = urlsplit(self.path).path
+        if route == "/api/goldeneye/sensorium":
+            self.send_json(sensorium_state())
+            return
+        if route == "/":
             self.path = "/dashboard/goldeneye-ms10.html"
         super().do_GET()
 

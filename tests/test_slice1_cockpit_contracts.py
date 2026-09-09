@@ -74,11 +74,20 @@ def test_goldeneye_hydrates_when_ms9_receipt_is_missing() -> None:
     source = read("dashboard/goldeneye-ms10.html")
     assert "Promise.allSettled" in source
     assert 'j("/api/control/state")' in source
-    assert 'j("/state/market_sensorium/COMMERCIAL_COCKPIT.json")' in source
     assert 'j("/state/market_sensorium/MARKET_SENSORIUM_MS9_RECEIPT.json")' in source
     assert 'const soak=' in source
     assert 'PENDING_CURRENT_EPOCH_MS9_RECEIPT' in source
     assert 'renderPortfolio(state);render(c,soak)' in source
+
+
+def test_goldeneye_uses_live_sensorium_projection_instead_of_missing_static_cockpit() -> None:
+    page = read("dashboard/goldeneye-ms10.html")
+    server = read("scripts/serve_goldeneye_ms10.py")
+    assert 'j("/api/goldeneye/sensorium")' in page
+    assert 'j("/state/market_sensorium/COMMERCIAL_COCKPIT.json")' not in page
+    assert 'route == "/api/goldeneye/sensorium"' in server
+    assert "sensorium_state" in server
+    assert "send_json(sensorium_state())" in server
 
 
 def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
