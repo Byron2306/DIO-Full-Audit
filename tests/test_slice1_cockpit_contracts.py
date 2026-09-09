@@ -55,4 +55,4 @@ def test_no_slice1_code_creates_public_listener_or_legacy_host_claim() -> None:
     )
     assert "LEGACY_HOST_AUDIT_PENDING" in combined
     assert "0.0.0.0" not in combined
-    assert "file://" not in read("cockpit_runtime.py")
+    assert '`/api/business/artifact?path=${encodeURIComponent(p)}`' in read("cockpit_runtime.py")
