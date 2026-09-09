@@ -15,10 +15,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +36,7 @@ fun SetupScreen(
     publicIdentity: PublicIdentity?,
     untrustedFingerprint: String?,
     pinnedFingerprint: String?,
+    connectionError: String?,
     onCreateIdentity: () -> Unit,
     onCopyPublicKey: (String) -> Unit,
     onProbeHost: (String, Int, String) -> Unit,
@@ -153,6 +154,16 @@ fun SetupScreen(
                     onClick = { onProbeHost(host.trim(), parsedPort!!, username.trim()) },
                 ) {
                     Text("Save & check host fingerprint")
+                }
+
+                connectionError?.let { error ->
+                    SelectionContainer {
+                        Text(
+                            text = "Connection error: $error",
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
                 }
 
                 pinnedFingerprint?.let { pinned ->
