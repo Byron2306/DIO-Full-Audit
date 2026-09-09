@@ -13,6 +13,7 @@ on:
       - 'tests/test_vesper_conversation_*.py'
       - 'tests/test_vesper_customer_cases.py'
       - 'tests/test_vesper_operator_truth.py'
+      - 'tests/test_vesper_commercial_pricing.py'
       - 'tests/test_vesper_lingua_conversation.py'
       - 'tests/test_vesper_conversational_presence_v2.py'
       - 'tests/test_vesper_voice.py'
@@ -48,3 +49,4 @@ jobs:
           tests/test_vesper_voice_ingress.py
           tests/test_vesper_customer_cases.py
           tests/test_vesper_operator_truth.py
+          tests/test_vesper_commercial_pricing.py
