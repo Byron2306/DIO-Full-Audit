@@ -53,7 +53,7 @@ def test_market_command_does_not_let_missing_sensorium_kill_basic_hydration() ->
     assert "authority_created" in source
 
 
-def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
+def test_legacy_artifact_compatibility_is_narrow_existing_and_wired_to_gateway() -> None:
     source = read("cockpit_runtime.py")
     assert 'LEGACY_KNOWEDGE_ROOT = Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite")' in source
     assert "def resolve_legacy_artifact_path" in source
@@ -61,6 +61,8 @@ def test_legacy_artifact_compatibility_is_narrow_and_existing_only() -> None:
     assert "if not target.exists():" in source
     assert "return None" in source
     gateway = read("scripts/serve_control_deck_ms10.py")
+    assert "from cockpit_runtime import resolve_legacy_artifact_path" in gateway
+    assert "resolve_legacy_artifact_path(raw, ROOT)" in gateway
     assert "Artifact path is outside the approved DIO output roots" in gateway
 
 
