@@ -1,5 +1,5 @@
 from __future__ import annotations
-import json
+import json, os
 from pathlib import Path
 from typing import Any
 from adapters.lingua.communicator import register_communication, requested_language
@@ -99,16 +99,31 @@ def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,s
         top='; '.join(f"{x['needs_you_id']}: {x['summary'][:110]}" for x in needs[:5]); return f'You have {len(needs)} open Needs You item(s). Top items: {top}',f'needs_you={len(needs)}'
     if intent=='intake_request' and intake:
         suffix=f" I also quarantined attachment {attachment['attachment_id']} for human review; it has not been opened or parsed." if attachment else ''
+        if role=='operator':
+            return (f"Operator intake captured for {product.upper()} as {intake['intake_id']}; it is in human review. "
+                    f"No charge, fulfilment start, or delivery commitment exists yet.{suffix}"),f"intake={intake['intake_id']}; state=pending_operator_review; role=operator"
         return f"I’ve captured this as a {product.upper()} intake ({intake['intake_id']}) and placed it in human review. I haven’t charged you, started fulfilment, or promised a delivery time yet.{suffix}",f"intake={intake['intake_id']}; state=pending_operator_review"
     if intent=='attachment_received' and attachment:
-        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined"
-    if intent=='pricing_info': return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
+        if role=='operator':
+            return (f"Operator rail: received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. "
+                    "Nothing has been opened, parsed, processed, or trusted yet."),f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false; role=operator"
+        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false"
+    if intent=='pricing_info':
+        if role=='operator': return 'Operator pricing view: no deterministic price is bound to this turn yet. I can surface governed offer bands and scope evidence, but I will not invent a number.','pricing_not_resolved; role=operator'
+        return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
     if intent=='status_request' and statuses is not None: return _status_text(statuses)
     if intent=='status_request': return 'I can help with status, but this conversation has not yet been identity-bound to an order by DIO. I’ve put the request in the human queue rather than exposing customer information to an unverified chat.','public_status_lookup=identity_binding_required'
     if intent=='translation_info': return 'Yes. DIO’s localisation path is designed to translate structured meaning before final rendering, so terminology, grade level and layout can be checked rather than blindly translating a finished document. Human language review remains available as a gate.','translation=structured_meaning_first'
     if intent=='formatting_info': return 'Yes. DIO Format treats presentation as a governed render step: templates, document geometry, headings, tables, references, PowerPoint masters and delivery profiles can be applied without rewriting the underlying content.','formatting=render_layer'
-    if intent=='product_info' and product: return PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.'),f'product={product}'
-    if intent=='general_info': return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
+    if intent=='product_info' and product:
+        copy=PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.')
+        if role=='operator': return f"Operator view: {copy}",f'product={product}'
+        return copy,f'product={product}'
+    if intent=='general_info':
+        if role=='operator':
+            return ("You’re on Vesper’s operator rail. DIO is the governed operating system behind the product, evidence, commercial, market, and execution rails I brief you on. "
+                    "I can surface jobs, customer work, mail, payments, Needs You decisions, campaigns, and current system truth without selling DIO back to you."),'role=operator; operator_capabilities=bounded'
+        return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
     return 'I’m not confident enough to route that safely yet. Tell me whether this is about HOMS, Evidex, Sophia, VAMP, translation/formatting, an uploaded file, or an existing DIO job and I’ll put it on the right rail.','classification=unresolved'
 
 def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None)->tuple[str,dict[str,Any]]:
@@ -231,6 +246,18 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record)
     knowledge=retrieve_conversation_knowledge(dio_root,text,conversation_state)
     governed_context=dict(knowledge)
+    governed_context['role']=role
+    governed_context['audience']=str(metadata.get('audience') or ('operator' if role=='operator' else 'public'))
+    runtime={
+        'host':os.getenv('DIO_PRESENCE_RUNTIME_HOST'),
+        'runtime_role':os.getenv('DIO_PRESENCE_RUNTIME_ROLE'),
+        'region':os.getenv('DIO_PRESENCE_RUNTIME_REGION'),
+        'deployment_mode':os.getenv('DIO_PRESENCE_DEPLOYMENT_MODE'),
+    }
+    runtime={key:value for key,value in runtime.items() if value}
+    if runtime:
+        runtime['authority_created']=False
+        governed_context['runtime']=runtime
     crystal=resolve_conversation_crystal(root=dio_root,text=text)
     if crystal and crystal.get('provider_called') is False and crystal.get('authority_created') is False:
         governed_context['verified_semantic_crystal']=crystal
