@@ -92,7 +92,8 @@ def _source_classes(root: Path, discovery_receipts: list[dict[str, Any]]) -> set
     try:
         registry = load_capital_sources(root)
     except (FileNotFoundError, ValueError):
-        return participating
+        # Fail closed: source IDs are not source classes.
+        return set()
     return {
         registry[source_id].source_class
         for source_id in participating
@@ -112,13 +113,34 @@ def build_acceptance_receipt(
     submissions = sum(int(receipt.get("submission_actions_executed") or 0) for receipt in discovery_receipts)
     financial = sum(int(receipt.get("financial_actions_executed") or 0) for receipt in discovery_receipts)
     classes = _source_classes(root, discovery_receipts)
+    counts = census.snapshot_counts()
+    if synthetic_records > 0:
+        acceptance_state = "SYNTHETIC_RECORDS_PRESENT"
+    elif contacts > 0 or submissions > 0 or financial > 0:
+        acceptance_state = "EXTERNAL_EFFECTS_DETECTED"
+    elif int(counts.get("organisations") or 0) <= 0 or int(counts.get("opportunities") or 0) <= 0:
+        acceptance_state = "INSUFFICIENT_CENSUS_DATA"
+    elif len(classes) < 3:
+        acceptance_state = "INSUFFICIENT_SOURCE_DIVERSITY"
+    else:
+        acceptance_state = "ACCEPTED"
     receipt = {
         "schema": "dio.market_capital.census_acceptance_receipt.v1",
         "census_version": "1",
         "generated_at": _now(),
         "database": str(census.path),
-        "counts": census.snapshot_counts(),
+        "counts": counts,
         "source_classes": sorted(classes),
+        "acceptance_state": acceptance_state,
+        "acceptance_requirements": {
+            "minimum_source_classes": 3,
+            "requires_organisations": True,
+            "requires_opportunities": True,
+            "synthetic_records_allowed": 0,
+            "external_contacts_allowed": 0,
+            "submission_actions_allowed": 0,
+            "financial_actions_allowed": 0,
+        },
         "source_class_count": len(classes),
         "discovery_cycle_count": len(discovery_receipts),
         "synthetic_records": synthetic_records,
