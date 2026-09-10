@@ -36,6 +36,11 @@ def sensorium_state() -> dict:
         if isinstance(value, dict):
             return value
 
+    # The current cloud evidence epoch may legitimately have pending MS gates while
+    # still containing useful live ranked targets, offers, habitats and other
+    # read-only evidence. Runtime visibility must not require replaying the historic
+    # MS-8 verification gate. build_commercial_cockpit preserves the pending phase
+    # statuses and creates no outreach, publication, spend or other authority.
     if SENSORIUM_DB_PATH.is_file():
         try:
             with MarketSensoriumStore(SENSORIUM_DB_PATH) as store:
