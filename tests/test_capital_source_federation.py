@@ -12,6 +12,23 @@ def test_source_registry_contains_multiple_source_strata():
     assert {"OPEN_FUNDING_DATA", "FIRST_PARTY_PROGRAMME", "INVESTOR_ECOSYSTEM", "PHILANTHROPY", "PATRONAGE"} <= classes
 
 
+def test_implemented_open_data_adapters_are_executable_in_registry():
+    sources = load_capital_sources(Path("."))
+    implemented = {
+        "SRC-GRANTS-GOV",
+        "SRC-CORDIS",
+        "SRC-360GIVING",
+        "SRC-CROSSREF-FUNDERS",
+        "SRC-USASPENDING",
+        "SRC-PROPUBLICA-NONPROFITS",
+    }
+    for source_id in implemented:
+        source = sources[source_id]
+        assert source.status == "READY"
+        assert source.on_demand_enabled is True
+        assert_source_usable(source)
+
+
 def test_blocked_source_cannot_execute_discovery():
     source = CapitalSource(
         source_id="X",
