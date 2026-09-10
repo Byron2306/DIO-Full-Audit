@@ -1,7 +1,7 @@
 # DIO Capital & Support Intelligence Census — Design
 
 **Date:** 2026-09-10  
-**Status:** APPROVED DESIGN, implementation not yet started  
+**Status:** ARCHITECTURE APPROVED; written spec awaiting user review  
 **Parent capability:** Slice 3 Capital & Support Atlas  
 **Base branch:** `agent/dio-control-deck-68-productgrade`
 
