@@ -55,7 +55,21 @@ def capital_support_priority_state() -> dict:
 
 
 class GoldenEyeMS10Handler(ControlDeckHandler):
-    server_version = "DIOGoldenEyeMS10/1.1"
+    server_version = "DIOGoldenEyeMS10/1.2"
+
+    def _serve_goldeneye_page(self) -> None:
+        page = (ROOT / "dashboard" / "goldeneye-ms10.html").read_text(encoding="utf-8")
+        injection = '<script src="/dashboard/goldeneye_capital_slice3.js"></script>'
+        if injection not in page:
+            page = page.replace("</body>", injection + "</body>", 1)
+        body = page.encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        self.wfile.write(body)
 
     def do_GET(self) -> None:
         route = urlsplit(self.path).path
@@ -65,8 +79,9 @@ class GoldenEyeMS10Handler(ControlDeckHandler):
         if route == "/api/goldeneye/capital-support":
             self.send_json(capital_support_priority_state())
             return
-        if route == "/":
-            self.path = "/dashboard/goldeneye-ms10.html"
+        if route in {"/", "/dashboard/goldeneye-ms10.html"}:
+            self._serve_goldeneye_page()
+            return
         super().do_GET()
 
 
