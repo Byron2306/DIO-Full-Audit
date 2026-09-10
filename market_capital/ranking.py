@@ -46,42 +46,80 @@ def _next_action(total: float, route: float, freshness: float, row: dict[str, An
     return "HOLD"
 
 
-def rank_capital_opportunities(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    scored: list[dict[str, Any]] = []
-    for raw in records:
-        row = dict(raw)
-        opportunity_type = validate_opportunity_type(str(row.get("opportunity_type") or ""))
-        type_fit, type_components = _type_fit_score(opportunity_type, dict(row.get("type_fit") or {}))
-        atlas = _score(row.get("atlas_fit_score") if row.get("atlas_fit_score") is not None else row.get("fit_score"))
-        timing = _score(row.get("timing_score"))
-        route = _score(row.get("route_quality"))
-        freshness = _score(row.get("evidence_freshness"))
-        total = round(0.25 * atlas + 0.45 * type_fit + 0.12 * timing + 0.10 * route + 0.08 * freshness, 2)
-        output = {
-            **row,
-            "opportunity_type": opportunity_type,
-            "priority_score": total,
-            "score_components": {
-                "atlas_fit": atlas,
-                "type_specific_fit": round(type_fit, 2),
-                "type_specific_detail": type_components,
-                "timing": timing,
-                "route_quality": route,
-                "evidence_freshness": freshness,
-            },
-            "next_action": _next_action(total, route, freshness, row),
-            "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
-            "fundability": "UNPROVED",
-            "willingness_to_fund": "UNPROVED",
-            "authority_created": False,
-            "external_effects": False,
-        }
-        scored.append(output)
+def _component_changes(row: dict[str, Any], current: dict[str, Any]) -> list[str]:
+    previous = dict(row.get("prior_score_components") or {})
+    changes: list[str] = []
+    if not previous:
+        return changes
+    for key, value in current.items():
+        if isinstance(value, dict):
+            continue
+        if key not in previous:
+            continue
+        before = _score(previous.get(key))
+        after = _score(value)
+        delta = round(after - before, 2)
+        if delta:
+            changes.append(f"{key} changed from {before:.2f} to {after:.2f} ({delta:+.2f}).")
+    return changes
 
-    scored.sort(key=lambda item: (float(item.get("priority_score") or 0), float(item.get("evidence_freshness") or 0)), reverse=True)
+
+def score_opportunity(record: dict[str, Any]) -> dict[str, Any]:
+    """Score one opportunity using the type-specific GoldenEye vocabulary.
+
+    The returned score is a ranked-priority model output only. It never asserts
+    funding intent, fundability, willingness to pay, contact authority, or any
+    external-action authority.
+    """
+    row = dict(record)
+    opportunity_type = validate_opportunity_type(str(row.get("opportunity_type") or ""))
+    type_fit, type_components = _type_fit_score(opportunity_type, dict(row.get("type_fit") or {}))
+    atlas = _score(row.get("atlas_fit_score") if row.get("atlas_fit_score") is not None else row.get("fit_score"))
+    timing = _score(row.get("timing_score"))
+    route = _score(row.get("route_quality"))
+    freshness = _score(row.get("evidence_freshness"))
+    total = round(0.25 * atlas + 0.45 * type_fit + 0.12 * timing + 0.10 * route + 0.08 * freshness, 2)
+
+    # Keep the historical nested detail for compatibility while exposing the
+    # type-specific vocabulary at the top level for transparent comparisons.
+    score_components: dict[str, Any] = {
+        **type_components,
+        "atlas_fit": atlas,
+        "type_specific_fit": round(type_fit, 2),
+        "type_specific_detail": type_components,
+        "timing": timing,
+        "route_quality": route,
+        "evidence_freshness": freshness,
+    }
+    changes = _component_changes(row, score_components)
+    return {
+        **row,
+        "opportunity_type": opportunity_type,
+        "priority_score": total,
+        "score_components": score_components,
+        "component_changes": changes,
+        "next_action": _next_action(total, route, freshness, row),
+        "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
+        "fundability": "UNPROVED",
+        "willingness_to_fund": "UNPROVED",
+        "authority_created": False,
+        "external_effects": False,
+    }
+
+
+def rank_capital_opportunities(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    scored = [score_opportunity(raw) for raw in records]
+    scored.sort(
+        key=lambda item: (
+            float(item.get("priority_score") or 0),
+            float(item.get("evidence_freshness") or 0),
+        ),
+        reverse=True,
+    )
     for index, row in enumerate(scored, start=1):
         prior = row.get("prior_rank")
         row["rank"] = index
+        explanations = list(row.get("component_changes") or [])
         if prior is None:
             row["rank_movement"] = 0
             row["rank_movement_reason"] = "No prior rank supplied; current position is model priority only."
@@ -97,8 +135,12 @@ def rank_capital_opportunities(records: list[dict[str, Any]]) -> list[dict[str, 
                 direction = f"fell {abs(movement)}"
             else:
                 direction = "held position"
-            row["rank_movement_reason"] = (
+            base_reason = (
                 f"{direction} from the supplied prior rank based on Atlas fit, type-specific fit, timing, route quality, and evidence freshness; "
                 "rank movement is not funding intent."
             )
+            if any("freshness" in item.lower() for item in explanations):
+                base_reason += " Evidence freshness changed and contributed to the current model inputs."
+            row["rank_movement_reason"] = base_reason
+        row["movement_explanations"] = explanations or [row["rank_movement_reason"]]
     return scored
