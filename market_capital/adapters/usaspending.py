@@ -20,8 +20,14 @@ class USASpendingAdapter(SourceAdapter):
 
     def discover(self, plan_slice: dict[str, Any]) -> DiscoveryBatch:
         limit = max(1, int(plan_slice.get("limit") or 25))
+        query = str(plan_slice.get("query") or "").strip()
+        filters = {
+            "award_type_codes": ["02", "03", "04", "05"],
+        }
+        if query:
+            filters["keywords"] = [query]
         body = {
-            "filters": {"keywords": [str(plan_slice.get("query") or "").strip()]},
+            "filters": filters,
             "fields": ["Award ID", "Recipient Name", "Award Amount", "Awarding Agency", "Start Date", "End Date", "Description"],
             "limit": limit,
             "page": int(plan_slice.get("page") or 1),
