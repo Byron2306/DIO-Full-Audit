@@ -53,25 +53,54 @@ def _seed_census(tmp_path: Path):
     return census
 
 
-def test_acceptance_requires_multi_source_non_synthetic_census(tmp_path):
+def _install_source_registry(tmp_path: Path) -> None:
+    source = ROOT / "config" / "atlas" / "dio_capital_source_federation.csv"
+    target = tmp_path / "config" / "atlas" / "dio_capital_source_federation.csv"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def _receipt_for_sources(tmp_path: Path, source_ids: list[str]):
+    _install_source_registry(tmp_path)
     census = _seed_census(tmp_path)
-    receipt = build_acceptance_receipt(
+    return build_acceptance_receipt(
         root=tmp_path,
         census=census,
         discovery_receipts=[
             {"source_results": {
-                "SRC-GRANTS-GOV": {"state": "READY", "persisted": 1},
-                "SRC-CORDIS": {"state": "READY", "persisted": 1},
-                "SRC-360GIVING": {"state": "READY", "persisted": 1},
+                source_id: {"state": "READY", "persisted": 1}
+                for source_id in source_ids
             }, "synthetic_fallback_records": 0,
              "external_contacts_sent": 0,
              "submission_actions_executed": 0,
              "financial_actions_executed": 0}
         ],
     )
+
+
+def test_acceptance_does_not_confuse_three_sources_with_three_source_classes(tmp_path):
+    receipt = _receipt_for_sources(
+        tmp_path,
+        ["SRC-GRANTS-GOV", "SRC-CORDIS", "SRC-360GIVING"],
+    )
+    assert receipt["source_classes"] == ["OPEN_FUNDING_DATA"]
+    assert receipt["source_class_count"] == 1
+    assert receipt["acceptance_state"] == "INSUFFICIENT_SOURCE_DIVERSITY"
+
+
+def test_acceptance_requires_multi_class_non_synthetic_census(tmp_path):
+    receipt = _receipt_for_sources(
+        tmp_path,
+        [
+            "SRC-GRANTS-GOV",
+            "SRC-INVESTOR-PUBLIC-WEB",
+            "SRC-PHILANTHROPY-PUBLIC-WEB",
+        ],
+    )
     assert receipt["counts"]["organisations"] > 0
     assert receipt["counts"]["opportunities"] > 0
     assert receipt["source_class_count"] >= 3
+    assert receipt["acceptance_state"] == "ACCEPTED"
     assert receipt["synthetic_records"] == 0
     assert receipt["external_contacts_sent"] == 0
     assert receipt["submission_actions_executed"] == 0
