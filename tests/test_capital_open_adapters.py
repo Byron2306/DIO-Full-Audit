@@ -134,3 +134,25 @@ def test_360giving_global_mode_discovers_funders_then_historical_grants():
     assert relationship.payload["funder_name"] == "Example Foundation"
     assert relationship.payload["recipient_name"] == "Example Education Trust"
     assert relationship.payload["future_funding_intent"] == "UNPROVED"
+
+
+def test_cordis_default_uses_public_eurio_sparql_without_credentials():
+    http = FixtureHttp({
+        "head": {"vars": ["id", "title", "start", "end"]},
+        "results": {
+            "bindings": [{
+                "id": {"type": "literal", "value": "101234567"},
+                "title": {"type": "literal", "value": "Responsible AI Infrastructure"},
+                "start": {"type": "literal", "value": "2025-01-01"},
+                "end": {"type": "literal", "value": "2027-12-31"},
+            }]
+        },
+    })
+    batch = CordisAdapter(http=http).discover({"query": "responsible AI", "limit": 5})
+    method, url, params = http.calls[0]
+    assert method == "GET"
+    assert url == "https://cordis.europa.eu/datalab/sparql"
+    assert "SELECT" in params["query"]
+    assert "LIMIT 5" in params["query"]
+    assert batch.observations[0].payload["award_id"] == "101234567"
+    assert batch.observations[0].payload["future_funding_intent"] == "UNPROVED"
