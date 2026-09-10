@@ -2,6 +2,7 @@
   'use strict';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmt = value => value === null || value === undefined || value === '' ? '—' : String(value);
+  const LEGACY_DRAFT_ENDPOINT = '/api/market/capital-support/draft';
 
   function ensurePanel() {
     let panel = document.getElementById('market-capital-support-slice3');
@@ -61,6 +62,25 @@
     });
   }
 
+  async function loadLegacyDraft(opportunityId) {
+    const response = await fetch(`${LEGACY_DRAFT_ENDPOINT}?opportunity_id=${encodeURIComponent(opportunityId)}`, {cache: 'no-store'});
+    if (!response.ok) throw new Error(`draft ${response.status}`);
+    const draft = await response.json();
+    return {
+      opportunity_id: opportunityId,
+      opportunity_type: draft.opportunity_type,
+      organisation: draft.organisation,
+      action_recommendation: {
+        recommendation: 'DRAFT_READY',
+        truth_class: 'DRAFT_RECOMMENDATION',
+        outreach_bundle: draft,
+        send_authority: false,
+        authority_created: false,
+      },
+      draft,
+    };
+  }
+
   async function loadRecommendation(opportunityId) {
     if (!opportunityId) return;
     try {
@@ -68,10 +88,17 @@
       if (!response.ok) throw new Error(`recommendations ${response.status}`);
       const state = await response.json();
       const row = (state.items || []).find(item => item.opportunity_id === opportunityId);
-      if (!row) throw new Error('recommendation not found');
-      renderRecommendation(row);
+      if (row) {
+        renderRecommendation(row);
+        return;
+      }
+      renderRecommendation(await loadLegacyDraft(opportunityId));
     } catch (error) {
-      document.getElementById('market-capital-draft').textContent = `Recommendation unavailable: ${error.message}`;
+      try {
+        renderRecommendation(await loadLegacyDraft(opportunityId));
+      } catch (legacyError) {
+        document.getElementById('market-capital-draft').textContent = `Recommendation unavailable: ${error.message}; legacy draft unavailable: ${legacyError.message}`;
+      }
     }
   }
 
