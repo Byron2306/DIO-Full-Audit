@@ -9,6 +9,7 @@ on:
       - 'dashboard/capital_support_slice3.js'
       - 'cockpit_runtime.py'
       - 'tests/test_slice3_*.py'
+      - 'tests/test_capital_*.py'
       - 'tests/test_slice2_commercial_spine_contracts.py'
       - 'tests/test_slice1_cockpit_contracts.py'
       - '.github/workflows/dio-slice3-capital-support-atlas.yml'
@@ -41,11 +42,11 @@ jobs:
         shell: bash
         run: |
           set -e
-          TESTS=$(find tests -maxdepth 1 -type f -name 'test_slice3_*.py' -print | sort)
+          TESTS=$(find tests -maxdepth 1 -type f \( -name 'test_slice3_*.py' -o -name 'test_capital_*.py' \) -print | sort)
           if [ -n "$TESTS" ]; then
             PYTHONNOUSERSITE=1 python -m pytest -q $TESTS tests/test_slice2_commercial_spine_contracts.py tests/test_slice1_cockpit_contracts.py
           else
-            echo 'No Slice 3 tests present yet'
+            echo 'No Slice 3/capital tests present yet'
           fi
       - name: Acceptance token
         run: echo DIO_SLICE_3_CAPITAL_SUPPORT_ATLAS_CI_VERIFIED
