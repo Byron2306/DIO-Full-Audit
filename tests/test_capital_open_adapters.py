@@ -101,3 +101,36 @@ def test_propublica_adapter_emits_nonprofit_identity_without_donor_inference():
     assert row.payload["ein"] == "142007220"
     assert row.payload["donor_status"] == "UNPROVED"
     assert row.payload["funding_intent"] == "UNPROVED"
+
+
+class RoutedFixtureHttp:
+    def __init__(self, responses):
+        self.responses = responses
+        self.calls = []
+
+    def get_json(self, url, *, params=None, timeout=20.0, headers=None):
+        self.calls.append(("GET", url, params))
+        return self.responses[url]
+
+
+def test_360giving_global_mode_discovers_funders_then_historical_grants():
+    org_url = "https://api.threesixtygiving.org/api/v1/org/"
+    grants_url = "https://api.threesixtygiving.org/api/v1/org/GB-CHC-1000000/grants_made/"
+    http = RoutedFixtureHttp({
+        org_url: {
+            "results": [{
+                "org_id": "GB-CHC-1000000",
+                "name": "Example Foundation",
+                "funder": {"aggregate": {"grants": 1}},
+                "grants_made": grants_url,
+            }]
+        },
+        grants_url: load_fixture("giving360_grants.json"),
+    })
+    batch = Giving360Adapter(http=http).discover({"limit": 10})
+    assert [call[1] for call in http.calls] == [org_url, grants_url]
+    assert any(row.entity_type == "RELATIONSHIP" for row in batch.observations)
+    relationship = next(row for row in batch.observations if row.entity_type == "RELATIONSHIP")
+    assert relationship.payload["funder_name"] == "Example Foundation"
+    assert relationship.payload["recipient_name"] == "Example Education Trust"
+    assert relationship.payload["future_funding_intent"] == "UNPROVED"
