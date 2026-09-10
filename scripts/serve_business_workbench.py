@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT))
 
 from cockpit_runtime import atlas_projection, patch_advanced_dashboard, runtime_readiness  # noqa: E402
 from dio_secrets import load_secret_env  # noqa: E402
+from market_capital.cockpit import capital_support_cockpit  # noqa: E402
 from operator_evidence_intake import stage_controlled_evidence_run  # noqa: E402
 from operator_production import (  # noqa: E402
     create_marketing_pack,
@@ -61,7 +62,7 @@ def _commercial_state() -> dict:
 
 
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
-    server_version = "DIOBusinessWorkbench/3.7"
+    server_version = "DIOBusinessWorkbench/3.8"
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
@@ -84,6 +85,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         for injection in (
             '<script src="/dashboard/atlas_slice1.js"></script>',
             '<script src="/dashboard/commercial_slice2.js"></script>',
+            '<script src="/dashboard/capital_support_slice3.js"></script>',
         ):
             if injection not in page:
                 page = page.replace("</body>", injection + "</body>", 1)
@@ -188,6 +190,9 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             except (OSError, ValueError, json.JSONDecodeError) as exc:
                 self.send_json({"error": "commercial_state_unavailable", "message": str(exc), "authority_created": False}, HTTPStatus.SERVICE_UNAVAILABLE)
             return
+        if route == "/api/business/capital-support":
+            self.send_json(capital_support_cockpit(ROOT))
+            return
         if route == "/api/business/commercial/case":
             case_id = str((parse_qs(split.query).get("case_id") or [""])[0]).strip()
             if not case_id:
@@ -227,11 +232,13 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                 {
                     "ok": True,
                     "service": "dio-business",
-                    "version": "3.7",
+                    "version": "3.8",
                     "portfolio_auto_import": True,
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "commercial_spine": True,
                     "commercial_state_endpoint": "/api/business/commercial/state",
+                    "capital_support_surface": True,
+                    "capital_support_endpoint": "/api/business/capital-support",
                     "production_studio": True,
                     "marketing_asset_factory": True,
                     "semantic_marketing_briefs": True,
@@ -315,6 +322,7 @@ def main() -> int:
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
     print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Production Studio ACTIVE")
     print("Commercial spine: ACTIVE · same canonical customer-case projection · no browser authority secrets")
+    print("Capital & Support cockpit: ACTIVE · read-only strategic/ranking/draft projection")
     print("Semantic marketing briefs: ACTIVE · manual audience/pain entry: NOT REQUIRED")
     try:
         server.serve_forever()
