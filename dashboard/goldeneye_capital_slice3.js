@@ -2,6 +2,7 @@
   'use strict';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmt = value => value === null || value === undefined || value === '' ? '—' : String(value);
+  const LABEL = 'Capital & Support';
 
   function ensurePanel() {
     let panel = document.getElementById('capital-support-priority');
@@ -10,7 +11,7 @@
     panel.id = 'capital-support-priority';
     panel.className = 'panel';
     panel.innerHTML = `
-      <h2>Capital &amp; Support priority</h2>
+      <h2>${esc(LABEL)} priority</h2>
       <p class="note">Typed capital/support ranking with recommendation, route truth and movement explanation. Ranking is guidance, never funding intent.</p>
       <div id="capital-support-kpis" class="grid kpis"></div>
       <div class="table" style="margin-top:10px;overflow:auto"><table style="min-width:1180px"><thead><tr><th>Rank</th><th>Type</th><th>Target</th><th>Priority</th><th>Fit</th><th>Timing</th><th>Route</th><th>Freshness</th><th>Recommendation</th><th>Movement</th></tr></thead><tbody id="capital-support-ranks"></tbody></table></div>
