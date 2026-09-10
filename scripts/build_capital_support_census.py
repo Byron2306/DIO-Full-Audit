@@ -19,10 +19,12 @@ from market_capital.adapters.giving360 import Giving360Adapter
 from market_capital.adapters.grants_gov import GrantsGovAdapter
 from market_capital.adapters.propublica_nonprofits import ProPublicaNonprofitsAdapter
 from market_capital.adapters.usaspending import USASpendingAdapter
+from market_capital.adapters.verified_public_web import VerifiedPublicResearchAdapter
 from market_capital.atlas_search import build_search_signature
 from market_capital.census import CapitalCensus
 from market_capital.discovery_planner import build_discovery_plan
 from market_capital.discovery_runner import run_discovery_cycle
+from market_capital.public_research import decorate_plan_with_public_research, load_public_research_registry
 from market_capital.sources import load_capital_sources
 
 
@@ -38,6 +40,10 @@ def _machine_adapters() -> dict[str, Any]:
         "SRC-CROSSREF-FUNDERS": CrossrefFundersAdapter(),
         "SRC-USASPENDING": USASpendingAdapter(),
         "SRC-PROPUBLICA-NONPROFITS": ProPublicaNonprofitsAdapter(),
+        "SRC-FIRST-PARTY-PROGRAMME": VerifiedPublicResearchAdapter(),
+        "SRC-INVESTOR-PUBLIC-WEB": VerifiedPublicResearchAdapter(),
+        "SRC-PHILANTHROPY-PUBLIC-WEB": VerifiedPublicResearchAdapter(),
+        "SRC-PATRONAGE-PUBLIC-WEB": VerifiedPublicResearchAdapter(),
     }
 
 
@@ -152,6 +158,18 @@ def build_census(*, root: Path, cycle_budget: int, mode: str, global_scope: bool
 
     sources = load_capital_sources(root)
     plan = build_discovery_plan(signatures, sources, max(1, int(cycle_budget)))
+    research_rows = load_public_research_registry(root)
+    theme_terms = sorted({
+        str(term).strip().casefold()
+        for signature in signatures
+        for term in (
+            list(signature.get("impact_themes") or [])
+            + list(signature.get("domain_names") or [])
+            + list(signature.get("capital_archetypes") or [])
+        )
+        if str(term or "").strip()
+    })
+    plan = decorate_plan_with_public_research(plan, research_rows, theme_terms=theme_terms)
     cycle = run_discovery_cycle(
         root=root,
         census=census,
