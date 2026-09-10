@@ -56,11 +56,14 @@ class CapitalCensus:
         payload = _json(record)
         with self.connect() as conn:
             existing = conn.execute(
-                f"SELECT first_observed_at FROM {table} WHERE {id_field}=?",
+                f"SELECT first_observed_at, last_observed_at FROM {table} WHERE {id_field}=?",
                 (entity_id,),
             ).fetchone()
-            if existing and existing["first_observed_at"]:
-                first_observed = existing["first_observed_at"]
+            if existing:
+                if existing["first_observed_at"]:
+                    first_observed = existing["first_observed_at"]
+                if last_observed is None and existing["last_observed_at"]:
+                    last_observed = existing["last_observed_at"]
             names = [id_field, *columns.keys(), "payload_json", "first_observed_at", "last_observed_at"]
             values = [entity_id, *columns.values(), payload, first_observed, last_observed]
             placeholders = ",".join("?" for _ in names)
