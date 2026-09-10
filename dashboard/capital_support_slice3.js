@@ -2,6 +2,7 @@
   'use strict';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const fmt = value => value === null || value === undefined || value === '' ? '—' : String(value);
+  const LABEL = 'Capital & Support';
 
   function section() {
     let node = document.getElementById('capital-support-slice3');
@@ -10,7 +11,7 @@
     node.id = 'capital-support-slice3';
     node.className = 'panel';
     node.innerHTML = `
-      <h2>Capital &amp; Support</h2>
+      <h2>${LABEL}</h2>
       <p class="note">Sensorium discovery → Atlas fit → HiveNance hypothesis → GoldenEye priority → LINGUA hook → Market Command draft. Read-only here. No send, submission, commitment or funding authority.</p>
       <div id="capital-support-summary" class="grid"></div>
       <div id="capital-support-types" class="grid" style="margin-top:10px"></div>
@@ -54,7 +55,7 @@
       render(await response.json());
     } catch (error) {
       section();
-      document.getElementById('capital-support-items').innerHTML = `<tr><td colspan="10">Capital &amp; Support projection unavailable: ${esc(error.message)}</td></tr>`;
+      document.getElementById('capital-support-items').innerHTML = `<tr><td colspan="10">${esc(LABEL)} projection unavailable: ${esc(error.message)}</td></tr>`;
     }
   }
 
