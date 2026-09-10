@@ -87,6 +87,10 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
         draft = drafts.get(opportunity_id) or {}
         source = opportunity_by_id.get(opportunity_id) or {}
         score_components = dict(row.get("score_components") or {})
+        recommendation = dict(row.get("action_recommendation") or {})
+        recommendation_draft = recommendation.get("outreach_bundle") if isinstance(recommendation, dict) else None
+        if not draft and isinstance(recommendation_draft, dict):
+            draft = recommendation_draft
         items.append({
             "rank": row.get("rank"),
             "opportunity_id": opportunity_id,
@@ -97,6 +101,7 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
             "atlas_fit_score": score_components.get("atlas_fit") if score_components else fit.get("fit_score"),
             "timing_score": score_components.get("timing"),
             "route_quality": score_components.get("route_quality"),
+            "route_state": row.get("route_state") or (recommendation.get("reasoning") or {}).get("route_state"),
             "evidence_freshness": score_components.get("evidence_freshness"),
             "next_action": row.get("next_action"),
             "rank_movement": row.get("rank_movement"),
@@ -104,6 +109,7 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
             "movement_explanations": list(row.get("movement_explanations") or []),
             "leading_hypothesis": row.get("leading_hypothesis") or (hypothesis_items[0] if hypothesis_items else None),
             "atlas_fit": fit,
+            "action_recommendation": recommendation,
             "draft": draft,
             "lingua_projection": draft.get("lingua_projection") if isinstance(draft, dict) else None,
             "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
@@ -112,7 +118,7 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
         })
 
     high_fit = sum(1 for row in ranked if float(row.get("priority_score") or 0) >= 70)
-    draft_ready = sum(1 for row in ranked if str(row.get("next_action") or "") == "DRAFT_READY")
+    draft_ready = sum(1 for row in ranked if bool((row.get("action_recommendation") or {}).get("draft_available")) or str(row.get("next_action") or "") == "DRAFT_READY")
     if not ranked:
         draft_ready = len(drafts)
 
