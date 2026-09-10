@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from presence_core.authority import authorize_external_reply
 from presence_core.policy import authorize
 from presence_core.router import route_message
 
@@ -43,6 +44,36 @@ def test_capital_queries_are_operator_read_only_intents():
     ):
         assert authorize("operator", intent) == (True, "allowed")
         assert authorize("public", intent)[0] is False
+
+
+def test_capital_operator_replies_are_safe_external_reply_intents(monkeypatch):
+    monkeypatch.setenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
+    envelope = {"channel": "telegram"}
+    for intent in (
+        "capital_priority",
+        "capital_explain",
+        "capital_draft",
+        "capital_grants",
+        "capital_patronage",
+    ):
+        result = {
+            "decision": {"intent": intent},
+            "reply": {"text": "Read-only capital guidance."},
+            "authority": {
+                "spend_authorized": False,
+                "fulfilment_released": False,
+                "attachment_processed": False,
+                "send_authorized": False,
+                "submission_authorized": False,
+                "financial_commitment_authorized": False,
+            },
+        }
+        receipt = authorize_external_reply(envelope, result)
+        assert receipt["authorized"] is True
+        assert "intent_not_reply_authorized" not in receipt["reasons"]
+        assert receipt["spend_authorized"] is False
+        assert receipt["fulfilment_release_authorized"] is False
+        assert receipt["attachment_processing_authorized"] is False
 
 
 def test_existing_presence_engine_is_the_capital_query_runtime():
