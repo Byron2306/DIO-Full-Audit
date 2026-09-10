@@ -1,0 +1,14 @@
+[Unit]
+Description=DIO bounded daily Capital and Support census discovery
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/srv/dio/control-deck
+ExecStart=/usr/bin/python3 /srv/dio/control-deck/scripts/build_capital_support_census.py --root /srv/dio/control-deck --mode daily --global --cycle-budget 500
+ExecStart=/usr/bin/python3 /srv/dio/control-deck/scripts/export_capital_support_census.py --root /srv/dio/control-deck
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target
