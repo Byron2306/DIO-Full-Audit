@@ -32,9 +32,6 @@ def detect_product(text: str, routes: list[dict[str,Any]]) -> tuple[str|None,flo
             priority=int(route.get("priority",10**6))
         except (TypeError,ValueError):
             priority=10**6
-        # Prefer more independent keyword evidence first. On a tie, the most
-        # specific phrase wins over a broad substring ("article studio" beats
-        # "article"). Route priority is only the final deterministic tie-break.
         score=(hits,longest_words,longest_chars,-priority)
         if score>best_score:
             best_score=score
@@ -63,10 +60,27 @@ def _looks_like_product_request(low: str, product: str|None) -> bool:
     )
     return candidate.startswith(imperative_verbs)
 
+def _route_capital_operator(low: str) -> Decision | None:
+    if low.startswith("explain_recommendation") or ("ranked" in low and any(x in low for x in ("why", "explain"))):
+        return Decision("capital_explain",None,0.99,"deterministic","operator capital rank explanation")
+    if any(x in low for x in ("draft an email", "draft email", "draft outreach", "write an email")) and any(x in low for x in ("opp-", "fund", "invest", "grant", "sponsor", "donor", "patron")):
+        return Decision("capital_draft",None,0.99,"deterministic","operator governed capital draft")
+    if any(x in low for x in ("patreon", "patronage", "patron proposition", "supporter tier")):
+        return Decision("capital_patronage",None,0.99,"deterministic","operator patronage proposition query")
+    if "grant" in low and any(x in low for x in ("find", "show", "which", "education", "oer", "funding")):
+        return Decision("capital_grants",None,0.99,"deterministic","operator grant discovery query")
+    if any(x in low for x in ("who should i approach", "who should we approach", "funding priority", "capital priority", "best funding targets", "who should i contact")):
+        return Decision("capital_priority",None,0.99,"deterministic","operator capital priority query")
+    return None
+
 def route_message(text: str, role: str, routes_path: Path) -> Decision:
     low=" ".join(text.lower().split()); routes=load_routes(routes_path); product,pconf=detect_product(low,routes)
     if low in {"/help","help","commands","/commands"}:
         return Decision("help",None,0.99,"deterministic","help command")
+    if role=="operator":
+        capital=_route_capital_operator(low)
+        if capital is not None:
+            return capital
     if role=="operator" and (low in {"/start","/morning","/summary","/status","morning lilith","morning vesper","status vesper","status"} or any(x in low for x in ["what's happening","whats happening","give me the summary","system summary"])):
         return Decision("operator_summary",None,0.99,"deterministic","operator summary phrase")
     if role=="operator" and (low in {"/market","/campaigns","/marketing"} or any(x in low for x in ["campaign status","market command","marketing status","campaign summary","lead engine"])):
