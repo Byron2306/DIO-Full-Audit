@@ -61,14 +61,30 @@ def _looks_like_product_request(low: str, product: str|None) -> bool:
     return candidate.startswith(imperative_verbs)
 
 def _route_capital_operator(low: str) -> Decision | None:
+    capital_words=("capital","funding","fund","investor","investment","grant","donor","sponsor","patron","accelerator","prize","opportunity","opportunities")
+    has_capital=any(x in low for x in capital_words) or "opp-" in low
+    if ("missing proof" in low or ("proof" in low and "missing" in low)) and "opp-" in low:
+        return Decision("capital_missing_proof",None,0.99,"deterministic","operator capital proof-gap query")
+    if "opp-" in low and any(x in low for x in ("move in rank","moved in rank","rank move","rank movement","ranking change","rank change")):
+        return Decision("capital_rank_move",None,0.99,"deterministic","operator capital rank-movement explanation")
+    if has_capital and any(x in low for x in ("deadline","deadlines","due soon","closing soon","close soon")):
+        return Decision("capital_deadlines",None,0.99,"deterministic","operator capital deadline query")
+    if has_capital and "domain" in low:
+        return Decision("capital_find_domain",None,0.99,"deterministic","operator Atlas-domain capital query")
+    geography_terms=("south africa","africa","global","worldwide","europe","european union","united states","usa","united kingdom","uk","asia","latin america","middle east")
+    if has_capital and any(term in low for term in geography_terms) and any(x in low for x in ("find","show","which","targets","opportunities")):
+        return Decision("capital_find_geography",None,0.99,"deterministic","operator geography capital query")
     if low.startswith("explain_recommendation") or ("ranked" in low and any(x in low for x in ("why", "explain"))):
         return Decision("capital_explain",None,0.99,"deterministic","operator capital rank explanation")
-    if any(x in low for x in ("draft an email", "draft email", "draft outreach", "write an email")) and any(x in low for x in ("opp-", "fund", "invest", "grant", "sponsor", "donor", "patron")):
+    if any(x in low for x in ("draft an email", "draft email", "draft outreach", "write an email")) and has_capital:
         return Decision("capital_draft",None,0.99,"deterministic","operator governed capital draft")
     if any(x in low for x in ("patreon", "patronage", "patron proposition", "supporter tier")):
         return Decision("capital_patronage",None,0.99,"deterministic","operator patronage proposition query")
     if "grant" in low and any(x in low for x in ("find", "show", "which", "education", "oer", "funding")):
         return Decision("capital_grants",None,0.99,"deterministic","operator grant discovery query")
+    generic_type_terms=("investor","donor","sponsor","accelerator","prize")
+    if any(term in low for term in generic_type_terms) and any(x in low for x in ("find","show","which","opportunities","targets")):
+        return Decision("capital_find_type",None,0.99,"deterministic","operator capital type query")
     if any(x in low for x in ("who should i approach", "who should we approach", "funding priority", "capital priority", "best funding targets", "who should i contact")):
         return Decision("capital_priority",None,0.99,"deterministic","operator capital priority query")
     return None
