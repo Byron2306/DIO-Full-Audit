@@ -120,7 +120,7 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
     opportunity_count = int(census_projection.get("total_rankable_opportunities") or 0) if census_projection else (len(ranked) if ranked else len(opportunities))
     state = "PRESENT" if opportunity_count else "EMPTY"
     return {
-        "schema": "dio.business.capital_support_cockpit.v2",
+        "schema": "dio.business.capital_support_cockpit.v1",
         "state": state,
         "summary": {
             "opportunity_count": opportunity_count,
