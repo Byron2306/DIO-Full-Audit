@@ -66,8 +66,6 @@ def _load_product_rows(root: Path) -> dict[str, dict[str, Any]]:
                 "execution_truth_class": str(raw.get("execution_truth_class") or "").strip(),
             }
 
-    # Canon extensions have stable slugs/canon IDs in the frozen ProductGrade receipt.
-    # They are admitted only when the receipt is present and explicitly exposes an identity.
     receipt_candidates = (
         Path(root) / "state" / "product_grade" / "canon_extension_aggregate" / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json",
         Path(root) / "state" / "product_grade" / "canon_extensions" / "CANON_EXTENSION_PRODUCT_GRADE_RECEIPT.json",
@@ -107,6 +105,16 @@ def _load_product_rows(root: Path) -> dict[str, dict[str, Any]]:
     return products
 
 
+def _ai_profile() -> dict[str, list[str]]:
+    return {
+        "capital_types": ["INVESTOR", "SPONSOR", "ACCELERATOR", "PRIZE"],
+        "capital_archetypes": ["venture_capital", "corporate_venture", "responsible_ai_fund", "regtech_investor", "ai_accelerator"],
+        "impact_themes": ["responsible_ai", "digital_trust", "governance", "enterprise_risk", "technology_infrastructure"],
+        "query_families": ["FUND_THESIS", "PORTFOLIO_SIMILARITY", "RECENT_FUND_SIGNAL", "ACCELERATOR_CALL", "INNOVATION_PRIZE", "PUBLIC_ROUTE"],
+        "source_class_preferences": ["INVESTOR_ECOSYSTEM", "FIRST_PARTY_PROGRAMME", "OPEN_FUNDING_DATA"],
+    }
+
+
 def _capital_profile(product: dict[str, Any], domain_rows: dict[str, dict[str, str]]) -> dict[str, list[str]]:
     suite = str(product.get("suite") or "").casefold()
     family = str(product.get("primary_family") or "").casefold()
@@ -116,6 +124,9 @@ def _capital_profile(product: dict[str, Any], domain_rows: dict[str, dict[str, s
     )
     haystack = f"{suite} {family} {domain_text} {str(product.get('incarnation') or '').casefold()}"
 
+    # Canonical suite identity has stronger semantic weight than incidental domain vocabulary.
+    if "ai & digital trust" in suite:
+        return _ai_profile()
     if any(token in haystack for token in ("education", "learning", "assessment", "teacher", "academic", "curriculum")):
         return {
             "capital_types": ["GRANT", "DONOR", "SPONSOR", "PATRONAGE", "ACCELERATOR", "PRIZE"],
@@ -125,13 +136,7 @@ def _capital_profile(product: dict[str, Any], domain_rows: dict[str, dict[str, s
             "source_class_preferences": ["PHILANTHROPY", "OPEN_FUNDING_DATA", "FIRST_PARTY_PROGRAMME", "PATRONAGE"],
         }
     if any(token in haystack for token in ("ai", "digital trust", "cyber", "authority", "assurance", "regops", "regulatory")):
-        return {
-            "capital_types": ["INVESTOR", "SPONSOR", "ACCELERATOR", "PRIZE"],
-            "capital_archetypes": ["venture_capital", "corporate_venture", "responsible_ai_fund", "regtech_investor", "ai_accelerator"],
-            "impact_themes": ["responsible_ai", "digital_trust", "governance", "enterprise_risk", "technology_infrastructure"],
-            "query_families": ["FUND_THESIS", "PORTFOLIO_SIMILARITY", "RECENT_FUND_SIGNAL", "ACCELERATOR_CALL", "INNOVATION_PRIZE", "PUBLIC_ROUTE"],
-            "source_class_preferences": ["INVESTOR_ECOSYSTEM", "FIRST_PARTY_PROGRAMME", "OPEN_FUNDING_DATA"],
-        }
+        return _ai_profile()
     if any(token in haystack for token in ("evidence", "audit", "compliance", "quality", "proof")):
         return {
             "capital_types": ["INVESTOR", "SPONSOR", "ACCELERATOR", "PRIZE", "GRANT"],
@@ -181,9 +186,7 @@ def build_search_signature(root: Path, product_ids: list[str]) -> dict[str, Any]
 
     domain_ids = _dedupe(domain_id for row in records for domain_id in row.get("domain_ids") or [])
     work_patterns = _dedupe(work for row in records for work in row.get("work_pattern_ids") or [])
-    domain_families = _dedupe(
-        domains.get(domain_id, {}).get("domain_family", "") for domain_id in domain_ids
-    )
+    domain_families = _dedupe(domains.get(domain_id, {}).get("domain_family", "") for domain_id in domain_ids)
     domain_names = _dedupe(domains.get(domain_id, {}).get("domain_name", "") for domain_id in domain_ids)
 
     profiles = [_capital_profile(record, domains) for record in records]
@@ -194,11 +197,9 @@ def build_search_signature(root: Path, product_ids: list[str]) -> dict[str, Any]
     source_preferences = _dedupe(item for profile in profiles for item in profile["source_class_preferences"])
 
     proof_assets = _dedupe(
-        [
-            f"portfolio:{record['product_id']}:{record['execution_truth_class']}"
-            for record in records
-            if record.get("execution_truth_class")
-        ]
+        f"portfolio:{record['product_id']}:{record['execution_truth_class']}"
+        for record in records
+        if record.get("execution_truth_class")
     )
     maturity = _dedupe(record.get("maturity", "") for record in records)
     funding_use_cases = _dedupe(
@@ -287,7 +288,6 @@ def compile_discovery_plan(
         for source in source_registry.values()
         if source.status == "READY" and source.source_class in preferred_classes
     ]
-    # Internal evidence is useful for revalidation but should not displace public discovery.
     candidates.sort(key=lambda source: (source.access_mode == "INTERNAL", preferred_classes.index(source.source_class), source.source_id))
 
     allocations: list[dict[str, Any]] = []
