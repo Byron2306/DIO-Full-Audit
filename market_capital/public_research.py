@@ -90,3 +90,30 @@ def pages_for_source(
             },
         })
     return pages
+
+
+def decorate_plan_with_public_research(
+    plan: dict,
+    rows: Iterable[PublicResearchSeed],
+    *,
+    theme_terms: Iterable[str] = (),
+) -> dict:
+    """Attach bounded seed pages only to public-web allocations.
+
+    This does not create observations. It only supplies navigation candidates
+    to adapters that must verify the live page before emitting evidence.
+    """
+    decorated = dict(plan)
+    allocations: list[dict] = []
+    for raw in list(plan.get("source_allocations") or []):
+        allocation = dict(raw)
+        source_id = str(allocation.get("source_id") or "").strip()
+        budget = max(0, int(allocation.get("budget") or 0))
+        pages = pages_for_source(rows, source_id, limit=budget, theme_terms=theme_terms)
+        if pages:
+            allocation["pages"] = pages
+        allocations.append(allocation)
+    decorated["source_allocations"] = allocations
+    decorated["authority_created"] = False
+    decorated["external_effects"] = False
+    return decorated
