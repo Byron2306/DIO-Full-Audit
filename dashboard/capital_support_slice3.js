@@ -12,10 +12,10 @@
     node.className = 'panel';
     node.innerHTML = `
       <h2>${LABEL}</h2>
-      <p class="note">Sensorium discovery → Atlas fit → HiveNance hypothesis → GoldenEye priority → LINGUA hook → Market Command draft. Read-only here. No send, submission, commitment or funding authority.</p>
+      <p class="note">Sensorium discovery → Atlas fit → HiveNance hypothesis → GoldenEye priority → governed recommendation → LINGUA draft. Read-only here. No send, submission, commitment or funding authority.</p>
       <div id="capital-support-summary" class="grid"></div>
       <div id="capital-support-types" class="grid" style="margin-top:10px"></div>
-      <div class="table" style="margin-top:10px;overflow:auto"><table style="width:100%;min-width:980px"><thead><tr><th>Rank</th><th>Type</th><th>Target</th><th>Priority</th><th>Atlas fit</th><th>Timing</th><th>Route</th><th>Next</th><th>LINGUA</th><th>Product / proof wedge</th></tr></thead><tbody id="capital-support-items"></tbody></table></div>
+      <div class="table" style="margin-top:10px;overflow:auto"><table style="width:100%;min-width:1180px"><thead><tr><th>Rank</th><th>Type</th><th>Target</th><th>Priority</th><th>Atlas fit</th><th>Timing</th><th>Route</th><th>Recommendation</th><th>Rank movement</th><th>Product / proof wedge</th></tr></thead><tbody id="capital-support-items"></tbody></table></div>
       <div id="capital-support-truth" class="law" style="margin-top:10px"></div>`;
     const anchor = document.querySelector('#commercial-spine-slice2, #commercial, main, .app') || document.body;
     if (anchor.id === 'commercial-spine-slice2' && anchor.parentNode) anchor.parentNode.insertBefore(node, anchor);
@@ -23,11 +23,23 @@
     return node;
   }
 
+  function ensureAtlasCensusScript() {
+    if (document.querySelector('script[data-atlas-capital-census]')) return;
+    const script = document.createElement('script');
+    script.src = '/dashboard/atlas_capital_census.js';
+    script.dataset.atlasCapitalCensus = 'true';
+    document.head.appendChild(script);
+  }
+
   function render(state) {
     section();
+    ensureAtlasCensusScript();
     const summary = state.summary || {};
     const cards = [
       ['Opportunities', summary.opportunity_count ?? 0],
+      ['Census organisations', summary.census_organisations ?? 0],
+      ['Census people', summary.census_people ?? 0],
+      ['Census relationships', summary.census_relationships ?? 0],
       ['High fit', summary.high_fit ?? 0],
       ['Draft ready', summary.draft_ready ?? 0],
       ['Engaged cases', summary.engaged_cases ?? 0],
@@ -39,13 +51,14 @@
     document.getElementById('capital-support-items').innerHTML = rows.length ? rows.map(row => {
       const fit = row.atlas_fit || {};
       const draft = row.draft || {};
-      const lingua = row.lingua_projection || {};
+      const recommendation = row.action_recommendation || {};
       const products = (fit.primary_products || draft.recommended_product_wedge || []).slice(0,3).join(', ');
       const proofs = (fit.proof_bundle || draft.recommended_proof_bundle || []).slice(0,3).join(', ');
       const wedge = [products, proofs].filter(Boolean).join(' | ');
-      return `<tr><td>${esc(fmt(row.rank))}</td><td>${esc(fmt(row.opportunity_type))}</td><td><b>${esc(fmt(row.organisation))}</b><br><small>${esc(fmt(row.title || row.opportunity_id))}</small></td><td>${esc(fmt(row.priority_score))}</td><td>${esc(fmt(row.atlas_fit_score))}</td><td>${esc(fmt(row.timing_score))}</td><td>${esc(fmt(row.route_quality))}</td><td>${esc(fmt(row.next_action))}</td><td>${esc(fmt(lingua.selected_approach || lingua.selected_hook || '—'))}</td><td>${esc(fmt(wedge))}</td></tr>`;
+      const movement = row.rank_movement === null || row.rank_movement === undefined ? '—' : `${row.rank_movement > 0 ? '+' : ''}${row.rank_movement}`;
+      return `<tr><td>${esc(fmt(row.rank))}</td><td>${esc(fmt(row.opportunity_type))}</td><td><b>${esc(fmt(row.organisation))}</b><br><small>${esc(fmt(row.title || row.opportunity_id))}</small></td><td>${esc(fmt(row.priority_score))}</td><td>${esc(fmt(row.atlas_fit_score))}</td><td>${esc(fmt(row.timing_score))}</td><td>${esc(fmt(row.route_quality))}</td><td>${esc(fmt(recommendation.recommendation || row.next_action))}</td><td>${esc(movement)}<br><small>${esc(fmt(row.rank_movement_reason))}</small></td><td>${esc(fmt(wedge))}</td></tr>`;
     }).join('') : `<tr><td colspan="10">${esc(state.message || 'No capital or support opportunities ranked yet.')}</td></tr>`;
-    document.getElementById('capital-support-truth').textContent = 'Rankings are model priority, not market demand or funding intent. Atlas fit is strategic fit only. LINGUA may change lawful expression, never claim truth. External authority remains false.';
+    document.getElementById('capital-support-truth').textContent = `Rankings and recommendations are model outputs, not market demand or funding intent. authority_created=${Boolean(state.authority_created)}. External authority remains false.`;
   }
 
   async function refresh() {
