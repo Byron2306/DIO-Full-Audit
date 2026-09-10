@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from dio_secrets import load_secret_env  # noqa: E402
+from market_capital.cockpit import capital_support_cockpit  # noqa: E402
 from market_sensorium.cockpit import build_commercial_cockpit  # noqa: E402
 from market_sensorium.core import MarketSensoriumStore  # noqa: E402
 from portfolio_runtime import load_portfolio  # noqa: E402
@@ -35,11 +36,6 @@ def sensorium_state() -> dict:
         if isinstance(value, dict):
             return value
 
-    # The current cloud evidence epoch may legitimately have pending MS gates while
-    # still containing useful live ranked targets, offers, habitats and other
-    # read-only evidence. Runtime visibility must not require replaying the historic
-    # MS-8 verification gate. build_commercial_cockpit preserves the pending phase
-    # statuses and creates no outreach, publication, spend or other authority.
     if SENSORIUM_DB_PATH.is_file():
         try:
             with MarketSensoriumStore(SENSORIUM_DB_PATH) as store:
@@ -111,7 +107,6 @@ def capital_support_draft_state(opportunity_id: str) -> tuple[dict, HTTPStatus]:
 
 
 def patch_market_dashboard(page: str) -> str:
-    """Keep Market Command usable while preserving the canonical rich Sensorium cockpit link."""
     old = (
         "async function refresh(){const b=$('refresh');b.disabled=true;b.textContent='Refreshing…';try{const [mr,cr,pr]=await Promise.all([fetch('/api/market/state',{cache:'no-store'}),fetch('/state/market_sensorium/COMMERCIAL_COCKPIT.json',{cache:'no-store'}),fetch('/api/market/products',{cache:'no-store'})]);if(!mr.ok||!cr.ok)throw new Error(`market ${mr.status}, sensorium ${cr.status}`);MARKET=await mr.json();COCKPIT=await cr.json();PRODUCTS=pr.ok?(await pr.json()).products||[]:[];populateProducts();render(MARKET,COCKPIT)}catch(e){toast(`Market state failed: ${e.message}`,true)}finally{b.disabled=false;b.textContent='Refresh'}}$('refresh').onclick=refresh;refresh();"
     )
@@ -122,7 +117,7 @@ def patch_market_dashboard(page: str) -> str:
 
 
 class MS10MarketCommandHandler(Handler):
-    server_version = "DIOMarketWorkbench/2.4"
+    server_version = "DIOMarketWorkbench/2.5"
 
     def _product_choices(self) -> dict:
         registry = load_portfolio(auto_import=True)
@@ -155,6 +150,9 @@ class MS10MarketCommandHandler(Handler):
             1,
         )
         page = patch_market_dashboard(page)
+        injection = '<script src="/dashboard/market_capital_support_slice3.js"></script>'
+        if injection not in page:
+            page = page.replace("</body>", injection + "</body>", 1)
         body = page.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -190,6 +188,9 @@ class MS10MarketCommandHandler(Handler):
             return
         if route == "/api/market/sensorium":
             self.send_json(sensorium_state())
+            return
+        if route == "/api/market/capital-support":
+            self.send_json(capital_support_cockpit(ROOT))
             return
         if route == "/api/market/capital-support/draft":
             opportunity_id = str((parse_qs(split.query).get("opportunity_id") or [""])[0]).strip()
