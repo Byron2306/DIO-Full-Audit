@@ -48,9 +48,10 @@ def test_cordis_historical_project_is_evidence_not_future_intent():
         "mode": "historical_awards",
         "query": "responsible AI",
         "limit": 5,
-        "data_url": "https://cordis.europa.eu/open-data/export.json",
+        "data_url": "https://fixture.test/cordis.json",
     })
     row = batch.observations[0]
+    assert http.calls[0][1] == "https://fixture.test/cordis.json"
     assert row.entity_type == "RELATIONSHIP"
     assert row.payload["truth_class"] == "HISTORICAL_AWARD_OBSERVATION"
     assert row.payload["future_funding_intent"] == "UNPROVED"
@@ -60,6 +61,9 @@ def test_360giving_historical_grant_preserves_funder_recipient_and_amount():
     http = FixtureHttp(load_fixture("giving360_grants.json"))
     batch = Giving360Adapter(http=http).discover({"org_id": "GB-CHC-1000000", "direction": "made", "limit": 10})
     row = batch.observations[0]
+    assert http.calls[0][1] == "https://api.threesixtygiving.org/api/v1/org/GB-CHC-1000000/grants_made/"
+    assert (http.calls[0][2] or {}).get("limit") == 10
+    assert "org_id" not in (http.calls[0][2] or {})
     assert row.entity_type == "RELATIONSHIP"
     assert row.payload["funder_name"] == "Example Foundation"
     assert row.payload["recipient_name"] == "Example Education Trust"
@@ -81,6 +85,9 @@ def test_usaspending_adapter_emits_historical_award_not_open_grant():
     http = FixtureHttp(load_fixture("usaspending_awards.json"))
     batch = USASpendingAdapter(http=http).discover({"query": "artificial intelligence", "limit": 5})
     row = batch.observations[0]
+    request_body = http.calls[0][2]
+    assert request_body["filters"]["award_type_codes"]
+    assert "" not in request_body["filters"].get("keywords", [])
     assert row.entity_type == "RELATIONSHIP"
     assert row.payload["truth_class"] == "HISTORICAL_AWARD_OBSERVATION"
     assert row.payload["future_funding_intent"] == "UNPROVED"
