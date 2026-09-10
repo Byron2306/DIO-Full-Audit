@@ -8,6 +8,7 @@ from .atlas_fit import build_capital_support_fit
 from .census import CapitalCensus
 from .hypotheses import generate_hypotheses
 from .ranking import rank_capital_opportunities
+from .recommendations import build_action_recommendation
 
 
 def _opportunity_records(census: CapitalCensus) -> list[dict[str, Any]]:
@@ -68,13 +69,16 @@ def capital_support_projection(
 
     The census remains the registry of record. If a repository root is supplied,
     existing Atlas and HiveNance functions enrich the rows before GoldenEye ranks
-    them. No separate fit or hypothesis engine is introduced here.
+    them. Governed action recommendations are derived from ranked model output and
+    create no send, submission, or financial authority.
     """
     cap = max(0, int(limit))
     records = _opportunity_records(census)
     if root is not None:
         records = [_enrich_with_existing_organs(Path(root), row) for row in records]
     ranked = rank_capital_opportunities(records) if records else []
+    for row in ranked:
+        row["action_recommendation"] = build_action_recommendation(row)
     counts = census.snapshot_counts()
     return {
         "schema": "dio.market_capital.census_projection.v1",
