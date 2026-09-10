@@ -27,19 +27,25 @@ def test_control_deck_exposes_and_injects_slice3_capital_support_ui():
     source = Path("scripts/serve_business_workbench.py").read_text(encoding="utf-8")
     assert '"/api/business/capital-support"' in source
     assert 'dashboard/capital_support_slice3.js' in source
+    ui = Path("dashboard/capital_support_slice3.js").read_text(encoding="utf-8")
+    assert "/api/business/capital-support" in ui
+    assert "Capital & Support" in ui
 
 
-def test_goldeneye_page_renders_capital_support_priority_plane():
-    page = Path("dashboard/goldeneye-ms10.html").read_text(encoding="utf-8")
-    assert "Capital & Support" in page
-    assert "/api/goldeneye/capital-support" in page
-    assert "capital-support-priority" in page
+def test_goldeneye_injects_capital_support_priority_plane():
+    source = Path("scripts/serve_goldeneye_ms10.py").read_text(encoding="utf-8")
+    assert 'dashboard/goldeneye_capital_slice3.js' in source
+    ui = Path("dashboard/goldeneye_capital_slice3.js").read_text(encoding="utf-8")
+    assert "Capital & Support" in ui
+    assert "/api/goldeneye/capital-support" in ui
+    assert "capital-support-priority" in ui
 
 
 def test_market_command_injects_capital_support_draft_ui():
     source = Path("scripts/serve_market_command_ms10.py").read_text(encoding="utf-8")
     assert 'dashboard/market_capital_support_slice3.js' in source
     ui = Path("dashboard/market_capital_support_slice3.js").read_text(encoding="utf-8")
+    assert "/api/market/capital-support" in ui
     assert "/api/market/capital-support/draft" in ui
     assert "LINGUA" in ui
     assert "send_authority" in ui
