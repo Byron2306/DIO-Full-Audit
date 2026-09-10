@@ -12,6 +12,26 @@ def test_census_keeps_organisation_person_and_opportunity_separate(tmp_path: Pat
     assert db.snapshot_counts() == {"organisations": 1, "people": 1, "opportunities": 1, "assertions": 0, "relationships": 0}
 
 
+def test_entity_updates_preserve_first_and_do_not_erase_last_observed(tmp_path: Path):
+    db = CapitalCensus(tmp_path / "capital.sqlite")
+    db.initialize()
+    db.upsert_organisation({
+        "organisation_id": "ORG-1",
+        "canonical_name": "Example Foundation",
+        "observed_at": "2026-09-09T10:00:00Z",
+    })
+    db.upsert_organisation({
+        "organisation_id": "ORG-1",
+        "canonical_name": "Example Foundation Updated",
+    })
+    with db.connect() as conn:
+        row = conn.execute(
+            "SELECT first_observed_at, last_observed_at FROM organisations WHERE organisation_id='ORG-1'"
+        ).fetchone()
+    assert row["first_observed_at"] == "2026-09-09T10:00:00Z"
+    assert row["last_observed_at"] == "2026-09-09T10:00:00Z"
+
+
 def test_assertion_preserves_truth_and_provenance(tmp_path: Path):
     db = CapitalCensus(tmp_path / "capital.sqlite")
     db.initialize()
