@@ -61,6 +61,21 @@ def _commercial_state() -> dict:
     }
 
 
+def _capital_support_view(view: str) -> dict:
+    state = capital_support_cockpit(ROOT)
+    projected = dict(state)
+    projected["view"] = view
+    if view == "recommendations":
+        projected["items"] = [
+            row for row in state.get("items", [])
+            if isinstance(row.get("action_recommendation"), dict)
+        ]
+        projected["recommendation_count"] = len(projected["items"])
+    projected["authority_created"] = False
+    projected["external_effects"] = False
+    return projected
+
+
 class BusinessWorkbenchHandler(MS10ControlDeckHandler):
     server_version = "DIOBusinessWorkbench/3.8"
 
@@ -193,6 +208,12 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
         if route == "/api/business/capital-support":
             self.send_json(capital_support_cockpit(ROOT))
             return
+        if route == "/api/business/capital-support/census":
+            self.send_json(_capital_support_view("census"))
+            return
+        if route == "/api/business/capital-support/recommendations":
+            self.send_json(_capital_support_view("recommendations"))
+            return
         if route == "/api/business/commercial/case":
             case_id = str((parse_qs(split.query).get("case_id") or [""])[0]).strip()
             if not case_id:
@@ -239,6 +260,8 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                     "commercial_state_endpoint": "/api/business/commercial/state",
                     "capital_support_surface": True,
                     "capital_support_endpoint": "/api/business/capital-support",
+                    "capital_support_census_endpoint": "/api/business/capital-support/census",
+                    "capital_support_recommendations_endpoint": "/api/business/capital-support/recommendations",
                     "production_studio": True,
                     "marketing_asset_factory": True,
                     "semantic_marketing_briefs": True,

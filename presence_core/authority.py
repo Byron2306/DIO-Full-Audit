@@ -26,6 +26,19 @@ SAFE_EXTERNAL_REPLY_INTENTS = {
     "mail_summary",
     "job_summary",
     "needs_you",
+    # Capital & Support operator queries are reply-safe because the runtime
+    # separately hard-codes zero send/submission/financial authority.
+    "capital_priority",
+    "capital_explain",
+    "capital_draft",
+    "capital_grants",
+    "capital_patronage",
+    "capital_find_type",
+    "capital_find_domain",
+    "capital_find_geography",
+    "capital_deadlines",
+    "capital_rank_move",
+    "capital_missing_proof",
 }
 
 

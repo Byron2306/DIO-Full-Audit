@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .census import CapitalCensus
 from .models import OPPORTUNITY_TYPES
+from .projection import capital_support_projection
 
 
 def _read_json(path: Path, default: Any) -> Any:
@@ -30,8 +32,16 @@ def _json_files(path: Path) -> list[dict[str, Any]]:
 def capital_support_cockpit(root: Path) -> dict[str, Any]:
     root = Path(root)
     capital_root = root / "state" / "market_capital"
+    census_path = capital_root / "census" / "capital_support.sqlite"
+    census_projection: dict[str, Any] = {}
+    if census_path.is_file():
+        census = CapitalCensus(census_path)
+        census.initialize()
+        census_projection = capital_support_projection(census, limit=50, root=root)
+
     priority = _read_json(capital_root / "rankings" / "CAPITAL_SUPPORT_PRIORITY.json", {})
-    ranked = list(priority.get("items") or []) if isinstance(priority, dict) else []
+    legacy_ranked = list(priority.get("items") or []) if isinstance(priority, dict) else []
+    ranked = list(census_projection.get("items") or []) or legacy_ranked
 
     opportunities = _json_files(capital_root / "opportunities")
     opportunity_by_id = {
@@ -71,12 +81,16 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
     items: list[dict[str, Any]] = []
     for row in ranked:
         opportunity_id = str(row.get("opportunity_id") or "").strip()
-        fit = fits.get(opportunity_id) or {}
+        fit = dict(row.get("atlas_fit") or fits.get(opportunity_id) or {})
         hypothesis_set = hypotheses.get(opportunity_id) or {}
-        hypothesis_items = list(hypothesis_set.get("items") or [])
+        hypothesis_items = list(row.get("hypotheses") or hypothesis_set.get("items") or [])
         draft = drafts.get(opportunity_id) or {}
         source = opportunity_by_id.get(opportunity_id) or {}
         score_components = dict(row.get("score_components") or {})
+        recommendation = dict(row.get("action_recommendation") or {})
+        recommendation_draft = recommendation.get("outreach_bundle") if isinstance(recommendation, dict) else None
+        if not draft and isinstance(recommendation_draft, dict):
+            draft = recommendation_draft
         items.append({
             "rank": row.get("rank"),
             "opportunity_id": opportunity_id,
@@ -87,10 +101,15 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
             "atlas_fit_score": score_components.get("atlas_fit") if score_components else fit.get("fit_score"),
             "timing_score": score_components.get("timing"),
             "route_quality": score_components.get("route_quality"),
+            "route_state": row.get("route_state") or (recommendation.get("reasoning") or {}).get("route_state"),
             "evidence_freshness": score_components.get("evidence_freshness"),
             "next_action": row.get("next_action"),
+            "rank_movement": row.get("rank_movement"),
+            "rank_movement_reason": row.get("rank_movement_reason"),
+            "movement_explanations": list(row.get("movement_explanations") or []),
             "leading_hypothesis": row.get("leading_hypothesis") or (hypothesis_items[0] if hypothesis_items else None),
             "atlas_fit": fit,
+            "action_recommendation": recommendation,
             "draft": draft,
             "lingua_projection": draft.get("lingua_projection") if isinstance(draft, dict) else None,
             "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
@@ -99,11 +118,12 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
         })
 
     high_fit = sum(1 for row in ranked if float(row.get("priority_score") or 0) >= 70)
-    draft_ready = sum(1 for row in ranked if str(row.get("next_action") or "") == "DRAFT_READY")
+    draft_ready = sum(1 for row in ranked if bool((row.get("action_recommendation") or {}).get("draft_available")) or str(row.get("next_action") or "") == "DRAFT_READY")
     if not ranked:
         draft_ready = len(drafts)
 
-    opportunity_count = len(ranked) if ranked else len(opportunities)
+    census_counts = dict(census_projection.get("census_counts") or {})
+    opportunity_count = int(census_projection.get("total_rankable_opportunities") or 0) if census_projection else (len(ranked) if ranked else len(opportunities))
     state = "PRESENT" if opportunity_count else "EMPTY"
     return {
         "schema": "dio.business.capital_support_cockpit.v1",
@@ -113,10 +133,15 @@ def capital_support_cockpit(root: Path) -> dict[str, Any]:
             "high_fit": high_fit,
             "draft_ready": draft_ready,
             "engaged_cases": engaged_cases,
+            "census_organisations": int(census_counts.get("organisations") or 0),
+            "census_people": int(census_counts.get("people") or 0),
+            "census_relationships": int(census_counts.get("relationships") or 0),
+            "projection_count": len(items),
         },
+        "census_counts": census_counts,
         "by_type": by_type,
         "items": items,
-        "message": "No capital or support opportunities ranked yet." if state == "EMPTY" else "Capital & Support priority field loaded.",
+        "message": "No capital or support opportunities ranked yet." if state == "EMPTY" else "Capital & Support census priority field loaded.",
         "truth_class": "RANKED_PRIORITY_MODEL_OUTPUT",
         "authority_created": False,
         "external_effects": False,
