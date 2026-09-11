@@ -130,6 +130,13 @@ def _terms(opportunity: dict[str, Any]) -> set[str]:
         if isinstance(raw, str):
             raw = [raw]
         values.extend(str(item or "") for item in raw)
+    # Live public sources often expose domain evidence in prose rather than
+    # pre-normalized tags. Treat observed descriptive text as evidence input,
+    # not as a claim of fit or funding intent.
+    for field in ("title", "description", "objective", "programme", "program"):
+        text = str(opportunity.get(field) or "").strip()
+        if text:
+            values.append(text)
     joined = " ".join(values).casefold()
     terms = {item.strip().casefold() for item in values if str(item or "").strip()}
     terms.update(token for token in joined.replace("/", " ").replace("-", " ").split() if token)
