@@ -12,6 +12,7 @@ from .events import emit_event
 from .identity import load_status_binding, bound_order_status
 from .llm import draft_with_ollama
 from .policy import authorize
+from .pricing_governance import pricing_operator_query
 from .router import route_message
 from .state import load_or_create_conversation, update_conversation, create_intake, create_needs_you, list_needs_you, operator_summary
 from .voice import build_voice_plan
@@ -67,7 +68,7 @@ def _operator_brief_text(summary:dict[str,Any], focus:str='full')->str:
             f"{summary.get('incidents',{}).get('open_or_recorded',0)} recorded incident(s). Top actions: {first_actions}. "
             "I have not sent, approved, released, published, spent, or processed attachments.")
 
-def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None,capital=None)->tuple[str,str]:
+def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None,capital=None,pricing=None)->tuple[str,str]:
     intent=decision['intent']; product=decision.get('product')
     if intent=='help':
         if role=='operator':
@@ -96,6 +97,8 @@ def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,s
         if role=='operator':
             return (f"Operator rail: received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. Nothing has been opened, parsed, processed, or trusted yet."),f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false; role=operator"
         return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false"
+    if intent=='pricing_info' and pricing:
+        return str(pricing.get('text') or 'Pricing intelligence resolved.'),json.dumps(pricing,sort_keys=True)
     if intent=='pricing_info':
         if role=='operator': return 'Operator pricing view: no deterministic price is bound to this turn yet. I can surface governed offer bands and scope evidence, but I will not invent a number.','pricing_not_resolved; role=operator'
         return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
@@ -210,9 +213,11 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     voice_profile_id=((persona.get('package') or {}).get('voice_profile_id'))
     voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,requested_profile=voice_profile_id)
     emit_event(event_log,'presence.persona_assigned','info','vesper_persona',persona['assignment_id'],{'experimental_assignment':persona.get('experimental_assignment'),'cell_id':((persona.get('package') or {}).get('cell_id')),'persona_id':((persona.get('package') or {}).get('persona_id')),'avatar_id':((persona.get('package') or {}).get('avatar_id')),'voice_profile_id':voice_profile_id,'stable_for_conversation':True},correlation)
-    summary=None; needs=None; intake=None; statuses=None; capital=None
+    summary=None; needs=None; intake=None; statuses=None; capital=None; pricing=None
     if decision['intent'] in CAPITAL_INTENTS:
         capital=capital_query(dio_root,decision['intent'],text)
+    elif decision['intent']=='pricing_info' and role=='operator':
+        pricing=pricing_operator_query(dio_root,state_root=presence_root,text=text,product_hint=decision.get('product'))
     elif decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
     elif decision['intent']=='intake_request' and decision.get('product'):
@@ -230,7 +235,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         else:
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
-    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record,capital)
+    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record,capital,pricing=pricing)
     governed_context={'role':role,'audience':str(metadata.get('audience') or ('operator' if role=='operator' else 'public')),'authority_created':False}
     reply=draft_with_ollama(decision,facts,fallback,interaction,persona,governed_context)
     try:
@@ -240,4 +245,4 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         emit_event(event_log,'presence.lingua_registration_failed','warning','presence_conversation',correlation,{'error':str(exc)[:180]},correlation)
     update_conversation(presence_root,conv,decision['intent'],decision.get('product'))
     emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'interaction':interaction,'persona':persona,'lingua':lingua}
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'interaction':interaction,'persona':persona,'lingua':lingua}
