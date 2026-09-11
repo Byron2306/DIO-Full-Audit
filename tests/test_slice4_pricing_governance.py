@@ -280,3 +280,53 @@ def test_vesper_operator_pricing_reply_consumes_pricing_governance_context():
     assert "pricing_operator_query" in source
     assert "pricing=pricing" in source
     assert "intent=='pricing_info' and pricing" in source
+
+
+def test_every_pricing_product_exposes_three_governed_commercial_tiers():
+    intelligence = build_pricing_intelligence(ROOT, cases=[])
+
+    assert intelligence["tier_policy"]["tier_ids"] == [
+        "individual_professional",
+        "team_department",
+        "enterprise_programme",
+    ]
+
+    for row in intelligence["products"]:
+        tiers = row["commercial_tiers"]
+        assert len(tiers) == 3
+        assert [tier["tier_id"] for tier in tiers] == intelligence["tier_policy"]["tier_ids"]
+
+        band = row["governed_reference_band_zar"]
+        for tier in tiers:
+            assert tier["market_validation"] == "UNPROVED"
+            assert tier["quote_issue_authority"] is False
+            assert tier["band_mutation_authority"] is False
+            if tier["available"]:
+                assert band["min"] <= tier["reference_amount_zar"] <= band["max"]
+            else:
+                assert tier["reference_amount_zar"] is None
+
+
+def test_sophia_integrity_tiers_span_individual_team_and_enterprise():
+    intelligence = build_pricing_intelligence(ROOT, cases=[])
+    row = next(item for item in intelligence["products"] if item["product_id"] == "sophia_integrity")
+    tiers = {tier["tier_id"]: tier for tier in row["commercial_tiers"]}
+
+    assert tiers["individual_professional"]["available"] is True
+    assert tiers["individual_professional"]["reference_amount_zar"] == 750
+    assert tiers["team_department"]["available"] is True
+    assert tiers["team_department"]["reference_amount_zar"] == 2100
+    assert tiers["enterprise_programme"]["available"] is True
+    assert tiers["enterprise_programme"]["reference_amount_zar"] == 3500
+
+
+def test_control_deck_pricing_cockpit_hydrates_tiers_per_product():
+    browser = (ROOT / "dashboard" / "pricing_slice4.js").read_text(encoding="utf-8")
+    for token in (
+        "Commercial tiers",
+        "Individual / Professional",
+        "Team / Department",
+        "Enterprise / Programme",
+        "commercial_tiers",
+    ):
+        assert token in browser

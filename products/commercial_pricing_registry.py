@@ -15,6 +15,69 @@ BUYER_CLASS_LABELS = {
     "C5": "industrial_regulated_programme",
 }
 
+COMMERCIAL_TIER_POLICY: tuple[dict[str, Any], ...] = (
+    {
+        "tier_id": "individual_professional",
+        "label": "Individual / Professional",
+        "buyer_classes": ("C0", "C1"),
+        "reference_position": 0.0,
+    },
+    {
+        "tier_id": "team_department",
+        "label": "Team / Department",
+        "buyer_classes": ("C2", "C3"),
+        "reference_position": 0.5,
+    },
+    {
+        "tier_id": "enterprise_programme",
+        "label": "Enterprise / Programme",
+        "buyer_classes": ("C4", "C5"),
+        "reference_position": 1.0,
+    },
+)
+
+
+def _tier_reference_amount(low: int, high: int, position: float) -> int:
+    if position <= 0:
+        return int(low)
+    if position >= 1:
+        return int(high)
+    value = low + ((high - low) * position)
+    rounded = int(round(value / 50.0) * 50)
+    return max(int(low), min(int(high), rounded))
+
+
+def _commercial_tiers(rule: dict[str, Any]) -> list[dict[str, Any]]:
+    buyer_classes = set(rule["buyer_classes"])
+    band = dict(rule["reference_band_zar"])
+    low = int(band["min"])
+    high = int(band["max"])
+    tiers: list[dict[str, Any]] = []
+    for definition in COMMERCIAL_TIER_POLICY:
+        tier_classes = list(definition["buyer_classes"])
+        eligible = [code for code in tier_classes if code in buyer_classes]
+        available = bool(eligible)
+        tiers.append({
+            "tier_id": definition["tier_id"],
+            "label": definition["label"],
+            "buyer_classes": tier_classes,
+            "eligible_buyer_classes": eligible,
+            "buyer_class_labels": [BUYER_CLASS_LABELS[code] for code in eligible],
+            "available": available,
+            "reference_amount_zar": (
+                _tier_reference_amount(low, high, float(definition["reference_position"]))
+                if available
+                else None
+            ),
+            "pricing_truth": "GOVERNED_REFERENCE_POINT",
+            "market_validation": "UNPROVED",
+            "quote_issue_authority": False,
+            "invoice_issue_authority": False,
+            "band_mutation_authority": False,
+            "external_effects": False,
+        })
+    return tiers
+
 
 def _rule(
     buyer_classes: str,
@@ -171,6 +234,7 @@ def _product_row(*, name: str, canon_source: str, suite: str, family: str, sourc
         **rule,
         "buyer_class_labels": [BUYER_CLASS_LABELS[x] for x in rule["buyer_classes"]],
         "quote_authority": _quote_authority(rule),
+        "commercial_tiers": _commercial_tiers(rule),
         "pricing_state": "HYPOTHESIS",
         "commercial_validation": "UNPROVED",
         "customers_will_pay": "UNPROVED",
@@ -215,6 +279,19 @@ def build_commercial_pricing_registry(root: Path) -> dict[str, Any]:
         "historical_53_count": 53,
         "canon_extension_count": 15,
         "buyer_classes": BUYER_CLASS_LABELS,
+        "tier_policy": {
+            "tier_ids": [tier["tier_id"] for tier in COMMERCIAL_TIER_POLICY],
+            "tiers": [
+                {
+                    "tier_id": tier["tier_id"],
+                    "label": tier["label"],
+                    "buyer_classes": list(tier["buyer_classes"]),
+                    "reference_position": tier["reference_position"],
+                }
+                for tier in COMMERCIAL_TIER_POLICY
+            ],
+            "truth_boundary": "Tier prices are governed reference points within each product band, not validated willingness-to-pay claims.",
+        },
         "products": rows,
         "pricing_truth_boundary": "Reference bands are governed commercial hypotheses. They do not prove market fit or willingness to pay. HiveNance may propose refinements from settled outcomes, but no direct learning-to-quote-authority path exists.",
         "authority_created": False,
