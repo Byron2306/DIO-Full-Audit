@@ -7,6 +7,7 @@ from statistics import median
 from typing import Any
 
 from products.commercial_pricing_registry import build_commercial_pricing_registry
+from .customer_cases import list_cases, load_case, update_case
 
 
 TRUTH_CLASS = "PRICING_HYPOTHESIS_AND_SETTLED_EVIDENCE"
@@ -221,3 +222,75 @@ def build_pricing_intelligence(
         "authority_created": False,
         "external_effects": False,
     }
+
+
+def apply_commercial_proof_to_case(
+    state_root: Path,
+    case_id: str,
+    receipt: Mapping[str, Any],
+) -> dict[str, Any]:
+    if str(receipt.get("schema") or "") != "dio.commercial_proof_gauntlet_receipt.v1.1":
+        raise ValueError("unsupported commercial proof receipt schema")
+
+    state_root = Path(state_root)
+    case = load_case(state_root, case_id)
+    if case is None:
+        raise ValueError(f"customer case not found: {case_id}")
+
+    case_product = _norm(case.get("product_id"))
+    receipt_product = _norm(receipt.get("product_id"))
+    if case_product and receipt_product and case_product != receipt_product:
+        raise ValueError(
+            f"commercial proof product mismatch: case={case_product}; receipt={receipt_product}"
+        )
+
+    payment = dict(receipt.get("payment") or {})
+    acceptance = dict(receipt.get("customer_acceptance") or {})
+    verified_payment = _state(payment.get("verified_payment")) == "PROVED"
+
+    patch = {
+        "commercial": {
+            "payment_state": "verified" if verified_payment else str(
+                (case.get("commercial") or {}).get("payment_state") or "unverified"
+            ),
+            "willingness_to_pay": payment.get("willingness_to_pay") or "UNPROVED",
+            "wtp_corroboration": payment.get("wtp_corroboration"),
+            "commercial_validation": receipt.get("commercial_validation") or "UNPROVED",
+            "customer_acceptance": acceptance.get("commercial_customer_acceptance") or acceptance.get("state"),
+            "independent_customer": acceptance.get("independent_customer") is True,
+            "customer_originated": acceptance.get("customer_originated") is True,
+            "acceptance_source_kind": acceptance.get("source_kind"),
+            "acceptance_source_message_id": acceptance.get("source_message_id"),
+            "commercial_proof_receipt_fingerprint": receipt.get("receipt_fingerprint"),
+        },
+        "authority_created": False,
+    }
+    updated = update_case(
+        state_root,
+        case,
+        patch=patch,
+        evidence_ref=f"commercial_proof:{receipt.get('receipt_fingerprint') or 'unfingerprinted'}",
+    )
+    return {
+        "schema": "dio.pricing_evidence_projection.v1",
+        "case_id": case_id,
+        "product_id": updated.get("product_id"),
+        "pricing_evidence_projected": True,
+        "willingness_to_pay": (updated.get("commercial") or {}).get("willingness_to_pay"),
+        "commercial_validation": (updated.get("commercial") or {}).get("commercial_validation"),
+        "authority_created": False,
+        "external_effects": False,
+    }
+
+
+def build_pricing_intelligence_from_state(
+    root: Path,
+    *,
+    state_root: Path,
+    limit: int = 10000,
+) -> dict[str, Any]:
+    cases = list_cases(Path(state_root), max(1, int(limit)))
+    intelligence = build_pricing_intelligence(Path(root), cases=cases)
+    intelligence["canonical_state_root"] = str(Path(state_root))
+    intelligence["customer_case_count"] = len(cases)
+    return intelligence
