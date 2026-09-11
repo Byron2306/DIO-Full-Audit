@@ -173,6 +173,7 @@ def build_pricing_intelligence(
             "pricing_model": profile.get("pricing_model"),
             "primary_scope_unit": profile.get("primary_scope_unit"),
             "governed_reference_band_zar": {"min": low, "max": high},
+            "commercial_tiers": [dict(tier) for tier in (profile.get("commercial_tiers") or [])],
             "recommended_amount_zar": recommended,
             "verified_independent_wtp_count": clean_count,
             "in_band_verified_wtp_count": len(inside),
@@ -214,6 +215,7 @@ def build_pricing_intelligence(
         "schema": "dio.pricing_intelligence.v1",
         "truth_class": TRUTH_CLASS,
         "product_count": len(products),
+        "tier_policy": dict(registry.get("tier_policy") or {}),
         "products": products,
         "pricing_truth_boundary": (
             "Settled independent-customer evidence may refine recommendations inside the governed reference band. "
