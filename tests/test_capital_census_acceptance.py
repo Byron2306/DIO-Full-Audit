@@ -161,3 +161,47 @@ def test_slice3_workflow_requires_final_census_gate_and_browser_checks():
         "dashboard/atlas_capital_census.js",
     ):
         assert f"node --check {script}" in workflow
+
+
+def test_recommendation_export_preserves_scoring_evidence(tmp_path):
+    from market_capital.census import CapitalCensus
+
+    census_root = tmp_path / "state" / "market_capital" / "census"
+    census = CapitalCensus(census_root / "capital_support.sqlite")
+    census.initialize()
+    census.upsert_organisation({
+        "organisation_id": "ORG-INV",
+        "canonical_name": "Example Ventures",
+    })
+    census.upsert_opportunity({
+        "opportunity_id": "OPP-INV",
+        "organisation_id": "ORG-INV",
+        "opportunity_type": "INVESTOR",
+        "title": "Responsible AI infrastructure investment",
+        "atlas_fit_score": 88,
+        "type_fit": {"thesis": 91, "proof": 82},
+        "timing_score": 78,
+        "route_state": "PUBLIC_ROUTE_VERIFIED",
+        "route_quality": 85,
+        "evidence_freshness": 96,
+        "observed_at": "2026-09-11T06:00:00Z",
+    })
+    (census_root / "source_health.json").write_text(
+        json.dumps({"sources": {}}),
+        encoding="utf-8",
+    )
+
+    export_census(root=tmp_path, census=census)
+    exported = json.loads(
+        (census_root / "recommendations.json").read_text(encoding="utf-8")
+    )
+    row = exported["items"][0]
+
+    assert row["organisation"] == "Example Ventures"
+    assert row["organisation_name"] == "Example Ventures"
+    assert row["route_state"] == "PUBLIC_ROUTE_VERIFIED"
+    assert row["route_quality"] == 85
+    assert row["evidence_freshness"] == 96
+    assert row["timing_score"] == 78
+    assert row["type_fit"]["thesis"] == 91
+    assert row["score_components"]["route_quality"] == 85
