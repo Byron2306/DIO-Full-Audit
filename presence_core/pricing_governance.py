@@ -294,3 +294,123 @@ def build_pricing_intelligence_from_state(
     intelligence["canonical_state_root"] = str(Path(state_root))
     intelligence["customer_case_count"] = len(cases)
     return intelligence
+
+
+def _resolve_pricing_product(
+    products: list[dict[str, Any]],
+    *,
+    text: str,
+    product_hint: str | None,
+) -> dict[str, Any] | None:
+    low = _norm(text).casefold()
+
+    # Prefer the exact canonical name or product id present in the operator's
+    # wording. Broad Vesper family hints are only a fallback.
+    exact: list[tuple[int, dict[str, Any]]] = []
+    for row in products:
+        name = _norm(row.get("name")).casefold()
+        product_id = _norm(row.get("product_id")).casefold()
+        candidates = {name, product_id, product_id.replace("_", " ")}
+        for candidate in candidates:
+            if candidate and candidate in low:
+                exact.append((len(candidate), row))
+    if exact:
+        exact.sort(key=lambda pair: pair[0], reverse=True)
+        return exact[0][1]
+
+    hint = _norm(product_hint).casefold()
+    aliases = {
+        "evidex": "evidex_evidenceops",
+        "vamp": "vamp_performance",
+        "document_studio": "document_studio_edit",
+    }
+    if hint in aliases:
+        target = aliases[hint]
+        return next((row for row in products if row.get("product_id") == target), None)
+
+    # A broad family hint must not silently choose among multiple products.
+    family_prefix = {"sophia": "sophia_", "homs": "homs_"}
+    prefix = family_prefix.get(hint)
+    if prefix:
+        family = [row for row in products if str(row.get("product_id") or "").startswith(prefix)]
+        if len(family) == 1:
+            return family[0]
+    return None
+
+
+def pricing_operator_query(
+    root: Path,
+    *,
+    state_root: Path,
+    text: str,
+    product_hint: str | None = None,
+) -> dict[str, Any]:
+    intelligence = build_pricing_intelligence_from_state(
+        Path(root),
+        state_root=Path(state_root),
+    )
+    row = _resolve_pricing_product(
+        list(intelligence.get("products") or []),
+        text=text,
+        product_hint=product_hint,
+    )
+    if row is None:
+        return {
+            "schema": "dio.operator_pricing_query.v1",
+            "state": "NEEDS_PRODUCT_RESOLUTION",
+            "text": (
+                "I can show the governed pricing intelligence, but this request does not resolve to one "
+                "canonical product strongly enough for me to choose a price on your behalf."
+            ),
+            "product_id": None,
+            "product_name": None,
+            "authority_created": False,
+            "external_effects": False,
+        }
+
+    band = dict(row.get("governed_reference_band_zar") or {})
+    low = int(band.get("min") or 0)
+    high = int(band.get("max") or low)
+    recommended = int(row.get("recommended_amount_zar") or low)
+    clean = int(row.get("verified_independent_wtp_count") or 0)
+    experiment = dict(row.get("next_experiment") or {})
+    name = str(row.get("name") or row.get("product_id") or "Product")
+    pricing_state = str(row.get("pricing_state") or "HYPOTHESIS")
+    review = row.get("operator_review_required") is True
+
+    text_answer = (
+        f"{name}: governed reference band R{low:,}–R{high:,}; current bounded recommendation "
+        f"R{recommended:,}; {clean} verified independent willingness-to-pay observation(s); "
+        f"pricing state {pricing_state}. "
+    )
+    if experiment.get("test_amount_zar") is not None:
+        text_answer += (
+            f"Next bounded experiment: R{int(experiment['test_amount_zar']):,}. "
+        )
+    if review:
+        text_answer += "Operator review is required for this product/scope. "
+    text_answer += (
+        "This is pricing intelligence, not quote authority; I have not issued, sent, invoiced, "
+        "or changed the governed reference band."
+    )
+
+    return {
+        "schema": "dio.operator_pricing_query.v1",
+        "state": "RESOLVED",
+        "product_id": row.get("product_id"),
+        "product_name": name,
+        "governed_reference_band_zar": {"min": low, "max": high},
+        "recommended_amount_zar": recommended,
+        "verified_independent_wtp_count": clean,
+        "pricing_state": pricing_state,
+        "pricing_confidence": row.get("pricing_confidence"),
+        "operator_review_required": review,
+        "next_experiment": experiment,
+        "text": text_answer,
+        "truth_class": TRUTH_CLASS,
+        "quote_issue_authority": False,
+        "invoice_issue_authority": False,
+        "band_mutation_authority": False,
+        "authority_created": False,
+        "external_effects": False,
+    }
