@@ -38,7 +38,7 @@
       <div class="truthbox">No automatic band change, quote issue, invoice issue, or external send authority. authority_created=false on this read surface.</div>
       <div style="height:10px"></div>
       <div class="table"><table><thead><tr>
-        <th>Product</th><th>Band</th><th>Recommendation</th><th>WTP evidence</th><th>State</th><th>Next experiment</th>
+        <th>Product</th><th>Band</th><th>Commercial tiers</th><th>Recommendation</th><th>WTP evidence</th><th>State</th><th>Next experiment</th>
       </tr></thead><tbody id="slice4PricingRows"></tbody></table></div>
     `;
     if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(section, anchor.nextSibling);
@@ -76,9 +76,22 @@
     document.getElementById("slice4PricingRows").innerHTML = rows.map(row => {
       const band = row.governed_reference_band_zar || {};
       const experiment = row.next_experiment || {};
+      const commercial_tiers = row.commercial_tiers || [];
+      const tierLabels = {
+        individual_professional: "Individual / Professional",
+        team_department: "Team / Department",
+        enterprise_programme: "Enterprise / Programme",
+      };
+      const tiersHtml = commercial_tiers.map(tier => {
+        const label = tierLabels[tier.tier_id] || tier.label || tier.tier_id;
+        const amount = tier.available ? money(tier.reference_amount_zar) : "not offered";
+        const state = tier.available ? "" : " · unavailable";
+        return `<div><b>${esc(label)}</b><br><small>${esc(amount)}${esc(state)}</small></div>`;
+      }).join("");
       return `<tr>
         <td><b>${esc(row.name || row.product_id)}</b><br><small>${esc(row.product_id)}</small></td>
         <td>${esc(money(band.min))} – ${esc(money(band.max))}</td>
+        <td>${tiersHtml}</td>
         <td class="money">${esc(money(row.recommended_amount_zar))}</td>
         <td>${esc(row.verified_independent_wtp_count || 0)} <small>clean</small></td>
         <td><span class="status">${esc(row.pricing_state || "HYPOTHESIS")}</span>${row.operator_review_required ? ' <span class="pill">review</span>' : ""}</td>
@@ -95,7 +108,7 @@
       render(await response.json());
     } catch (error) {
       const rows = document.getElementById("slice4PricingRows");
-      if (rows) rows.innerHTML = `<tr><td colspan="6"><div class="empty">Pricing governance unavailable: ${esc(error.message)}</div></td></tr>`;
+      if (rows) rows.innerHTML = `<tr><td colspan="7"><div class="empty">Pricing governance unavailable: ${esc(error.message)}</div></td></tr>`;
       const count = document.getElementById("slice4PricingCount");
       if (count) count.textContent = "unavailable";
     }
