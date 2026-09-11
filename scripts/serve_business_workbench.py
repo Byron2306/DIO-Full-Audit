@@ -25,6 +25,7 @@ from operator_production import (  # noqa: E402
 )
 from portfolio_runtime import import_portfolio  # noqa: E402
 from presence_core.operator_views import case_detail_view, case_list_view, commercial_pipeline_view  # noqa: E402
+from presence_core.pricing_governance import build_pricing_intelligence_from_state  # noqa: E402
 from presence_core.state import list_needs_you  # noqa: E402
 from products.commercial_pricing_registry import build_commercial_pricing_registry  # noqa: E402
 from semantic_marketing import PROFILE_COMPATIBILITY, semantic_marketing_brief  # noqa: E402
@@ -101,6 +102,7 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             '<script src="/dashboard/atlas_slice1.js"></script>',
             '<script src="/dashboard/commercial_slice2.js"></script>',
             '<script src="/dashboard/capital_support_slice3.js"></script>',
+            '<script src="/dashboard/pricing_slice4.js"></script>',
         ):
             if injection not in page:
                 page = page.replace("</body>", injection + "</body>", 1)
@@ -205,6 +207,9 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
             except (OSError, ValueError, json.JSONDecodeError) as exc:
                 self.send_json({"error": "commercial_state_unavailable", "message": str(exc), "authority_created": False}, HTTPStatus.SERVICE_UNAVAILABLE)
             return
+        if route == "/api/business/pricing":
+            self.send_json(build_pricing_intelligence_from_state(ROOT, state_root=_presence_state_root()))
+            return
         if route == "/api/business/capital-support":
             self.send_json(capital_support_cockpit(ROOT))
             return
@@ -258,6 +263,8 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
                     "canonical_incarnations": portfolio.get("canonical_incarnation_count", 0),
                     "commercial_spine": True,
                     "commercial_state_endpoint": "/api/business/commercial/state",
+                    "pricing_governance": True,
+                    "pricing_governance_endpoint": "/api/business/pricing",
                     "capital_support_surface": True,
                     "capital_support_endpoint": "/api/business/capital-support",
                     "capital_support_census_endpoint": "/api/business/capital-support/census",
@@ -345,6 +352,7 @@ def main() -> int:
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
     print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Production Studio ACTIVE")
     print("Commercial spine: ACTIVE · same canonical customer-case projection · no browser authority secrets")
+    print("Pricing governance: ACTIVE · evidence-bound recommendations · no automatic price authority")
     print("Capital & Support cockpit: ACTIVE · read-only strategic/ranking/draft projection")
     print("Semantic marketing briefs: ACTIVE · manual audience/pain entry: NOT REQUIRED")
     try:
