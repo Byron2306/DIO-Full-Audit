@@ -252,3 +252,31 @@ def test_control_deck_exposes_read_only_slice4_pricing_cockpit():
     assert "/api/business/pricing" in browser
     assert "Reference bands remain governed hypotheses" in browser
     assert "authority_created" in browser
+
+
+def test_operator_pricing_query_uses_same_governed_intelligence(tmp_path):
+    from presence_core.pricing_governance import pricing_operator_query
+
+    result = pricing_operator_query(
+        ROOT,
+        state_root=tmp_path / "presence",
+        text="What should I charge for Sophia Integrity?",
+        product_hint="sophia",
+    )
+
+    assert result["product_id"] == "sophia_integrity"
+    assert result["product_name"] == "Sophia Integrity"
+    assert result["governed_reference_band_zar"] == {"min": 750, "max": 3500}
+    assert 750 <= result["recommended_amount_zar"] <= 3500
+    assert result["verified_independent_wtp_count"] == 0
+    assert result["next_experiment"]["quote_issue_authority"] is False
+    assert "Sophia Integrity" in result["text"]
+    assert "governed" in result["text"].lower()
+    assert result["authority_created"] is False
+
+
+def test_vesper_operator_pricing_reply_consumes_pricing_governance_context():
+    source = (ROOT / "presence_core" / "engine.py").read_text(encoding="utf-8")
+    assert "pricing_operator_query" in source
+    assert "pricing=pricing" in source
+    assert "intent=='pricing_info' and pricing" in source
