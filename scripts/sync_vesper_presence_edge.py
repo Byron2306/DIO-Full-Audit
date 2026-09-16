@@ -19,6 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from presence_core.signing import sign_body
+from presence_core.voice import synthesize_voice
+from presence_core.telegram_transport import normalize_spoken_text
 
 DEFAULT_CONFIG = ROOT / "config" / "dio_presence_edge.staging.json"
 
@@ -33,6 +35,135 @@ class PermanentPresenceError(PresenceEdgeError):
 
 class TransientPresenceError(PresenceEdgeError):
     pass
+
+
+def web_reply_outbox_dir() -> Path:
+    return ROOT / "state" / "presence" / "web_reply_outbox"
+
+
+def web_reply_outbox_path(event_id: int) -> Path:
+    if event_id < 1:
+        raise ValueError("Web reply outbox event_id must be positive.")
+
+    return web_reply_outbox_dir() / f"event-{event_id}.json"
+
+
+def save_web_reply_outbox(
+    *,
+    event_id: int,
+    conversation_id: str,
+    result: dict[str, Any],
+) -> Path:
+    conversation_id = str(conversation_id or "").strip()
+
+    if event_id < 1:
+        raise ValueError("Web reply outbox event_id must be positive.")
+
+    if not conversation_id:
+        raise ValueError(
+            "Web reply outbox conversation_id is required."
+        )
+
+    if not isinstance(result, dict):
+        raise ValueError(
+            "Web reply outbox result must be an object."
+        )
+
+    directory = web_reply_outbox_dir()
+    directory.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    path = web_reply_outbox_path(event_id)
+    temp_path = path.with_suffix(".json.tmp")
+
+    payload = {
+        "schema":
+            "dio.vesper.web_reply_outbox.v1",
+        "event_id":
+            event_id,
+        "conversation_id":
+            conversation_id,
+        "result":
+            result,
+    }
+
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+
+    with temp_path.open(
+        "w",
+        encoding="utf-8",
+    ) as handle:
+        handle.write(encoded)
+        handle.flush()
+        os.fsync(handle.fileno())
+
+    os.replace(
+        temp_path,
+        path,
+    )
+
+    return path
+
+
+def load_web_reply_outbox(
+    event_id: int,
+) -> dict[str, Any] | None:
+    path = web_reply_outbox_path(event_id)
+
+    if not path.exists():
+        return None
+
+    try:
+        payload = json.loads(
+            path.read_text(
+                encoding="utf-8"
+            )
+        )
+    except (
+        OSError,
+        json.JSONDecodeError,
+    ) as exc:
+        raise PermanentPresenceError(
+            "Web reply outbox record is unreadable."
+        ) from exc
+
+    if (
+        payload.get("schema")
+        != "dio.vesper.web_reply_outbox.v1"
+        or int(payload.get("event_id") or 0)
+        != event_id
+        or not str(
+            payload.get("conversation_id") or ""
+        ).strip()
+        or not isinstance(
+            payload.get("result"),
+            dict,
+        )
+    ):
+        raise PermanentPresenceError(
+            "Web reply outbox record is invalid."
+        )
+
+    return payload
+
+
+def delete_web_reply_outbox(
+    event_id: int,
+) -> bool:
+    path = web_reply_outbox_path(event_id)
+
+    try:
+        path.unlink()
+        return True
+    except FileNotFoundError:
+        return False
 
 
 def read_config(path: Path) -> dict[str, Any]:
@@ -114,6 +245,34 @@ def acknowledge(base_url: str, token: str, path: str, ids: list[int], status: st
     if error:
         payload["error"] = error[:500]
     return edge_request(base_url + path, token, method="POST", payload=payload)
+
+
+def cleanup_web_reply_outbox_after_ack(
+    event_ids: list[int],
+    ack: dict[str, Any] | None,
+) -> list[int]:
+    if not event_ids:
+        return []
+
+    acknowledged = int(
+        (ack or {}).get(
+            "acknowledged",
+            0,
+        )
+    )
+
+    if acknowledged != len(event_ids):
+        return []
+
+    deleted = []
+
+    for event_id in event_ids:
+        if delete_web_reply_outbox(
+            event_id
+        ):
+            deleted.append(event_id)
+
+    return deleted
 
 
 def telegram_api_json(token: str, method: str, params: dict[str, str]) -> dict[str, Any]:
@@ -231,6 +390,17 @@ def transcribe_voice_with_hf(attachment: dict[str, Any]) -> dict[str, Any]:
 
 
 def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
+    # Historical single-bot events predate durable bot_surface.
+    # They belong to the existing operator surface.
+    bot_surface = str(
+        event.get("bot_surface") or "operator"
+    ).strip().lower()
+
+    if bot_surface not in {"public", "operator"}:
+        raise PermanentPresenceError(
+            "Telegram custody event has invalid bot_surface."
+        )
+
     body_text = event.get("body_text")
     if not isinstance(body_text, str) or not body_text:
         raise PermanentPresenceError("Telegram custody event is missing its raw provider body.")
@@ -258,7 +428,22 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
     attachment = None
     voice_source = None
     voice_transcription = None
-    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+    if bot_surface == "public":
+        token = os.getenv(
+            "DIO_TELEGRAM_PUBLIC_BOT_TOKEN",
+            "",
+        )
+    else:
+        token = (
+            os.getenv(
+                "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+                "",
+            )
+            or os.getenv(
+                "TELEGRAM_BOT_TOKEN",
+                "",
+            )
+        )
 
     if message.get("document"):
         message_type = "document"
@@ -331,6 +516,7 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
     metadata = {
         "telegram_update_id": str(update.get("update_id") or event.get("update_id") or ""),
         "telegram_chat_id": chat_id,
+        "telegram_bot_surface": bot_surface,
         "telegram_start_payload": start_payload,
         "custody": "cloudflare_d1_provider_authenticated_transport_only",
     }
@@ -353,22 +539,524 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
 
 
 def locally_sign_telegram_event(event: dict[str, Any]) -> dict[str, Any]:
-    secret = os.getenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", "")
-    if not secret:
-        raise TransientPresenceError("DIO_PRESENCE_OPERATOR_SHARED_SECRET is required locally for Telegram reconciliation.")
     envelope = telegram_to_envelope(event)
-    body = json.dumps(envelope, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+
+    bot_surface = str(
+        ((envelope.get("metadata") or {}).get(
+            "telegram_bot_surface"
+        ))
+        or "operator"
+    ).strip().lower()
+
+    external_user_id = str(
+        envelope.get("external_user_id") or ""
+    )
+
+    if bot_surface == "public":
+        key_id = "public-edge"
+
+        secret = os.getenv(
+            "DIO_PRESENCE_PUBLIC_SHARED_SECRET",
+            "",
+        )
+
+        if not secret:
+            raise TransientPresenceError(
+                "DIO_PRESENCE_PUBLIC_SHARED_SECRET "
+                "is required for public Telegram "
+                "reconciliation."
+            )
+
+    elif bot_surface == "operator":
+        operator_ids = {
+            value.strip()
+            for value in os.getenv(
+                "DIO_OPERATOR_TELEGRAM_IDS",
+                "",
+            ).split(",")
+            if value.strip()
+        }
+
+        if (
+            not external_user_id
+            or external_user_id not in operator_ids
+        ):
+            raise PermanentPresenceError(
+                "Telegram sender is not allowlisted "
+                "for the DIO operator surface."
+            )
+
+        key_id = "operator-edge"
+
+        secret = os.getenv(
+            "DIO_PRESENCE_OPERATOR_SHARED_SECRET",
+            "",
+        )
+
+        if not secret:
+            raise TransientPresenceError(
+                "DIO_PRESENCE_OPERATOR_SHARED_SECRET "
+                "is required for operator Telegram "
+                "reconciliation."
+            )
+
+    else:
+        raise PermanentPresenceError(
+            "Unsupported Telegram bot surface."
+        )
+
+    body = json.dumps(
+        envelope,
+        separators=(",", ":"),
+        ensure_ascii=True,
+    ).encode("utf-8")
+
     timestamp = str(int(time.time()))
-    update_id = str(event.get("update_id") or "unknown")
-    nonce = f"tg_{update_id}_{hashlib.sha256(body).hexdigest()[:24]}"
-    signature = sign_body(secret, timestamp, nonce, body)
+
+    update_id = str(
+        event.get("update_id") or "unknown"
+    )
+
+    nonce = (
+        f"tg_{bot_surface}_{update_id}_"
+        f"{hashlib.sha256(body).hexdigest()[:24]}"
+    )
+
+    signature = sign_body(
+        secret,
+        timestamp,
+        nonce,
+        body,
+    )
+
     return {
-        "key_id": "operator-edge",
+        "key_id": key_id,
         "signature": signature,
         "signed_timestamp": timestamp,
         "nonce": nonce,
         "body_text": body.decode("utf-8"),
     }
+
+
+
+def prepare_web_semantic_envelope(
+    event: dict[str, Any],
+    envelope: dict[str, Any],
+) -> dict[str, Any]:
+    """Convert web transport custody into semantic input before signing.
+
+    Browser audio is transport input only. It creates no authority.
+    """
+    result = dict(envelope)
+    metadata = dict(result.get("metadata") or {})
+
+    message_type = str(
+        result.get("message_type") or "text"
+    ).strip().lower()
+
+    if message_type not in {"voice", "audio"}:
+        return result
+
+    voice_input = metadata.get("voice_input")
+
+    if not isinstance(voice_input, dict):
+        raise PermanentPresenceError(
+            "Web voice event is missing voice_input custody."
+        )
+
+    content_b64 = str(
+        voice_input.get("content_b64") or ""
+    ).strip()
+
+    mime_type = str(
+        voice_input.get("mime_type") or ""
+    ).split(";", 1)[0].strip().lower()
+
+    allowed = {
+        "audio/webm",
+        "audio/ogg",
+        "audio/mp4",
+        "audio/mpeg",
+        "audio/wav",
+        "audio/x-wav",
+    }
+
+    if mime_type not in allowed:
+        raise PermanentPresenceError(
+            f"Unsupported web voice MIME type: {mime_type}"
+        )
+
+    attachment = {
+        "content_b64": content_b64,
+        "mime_type": mime_type,
+    }
+
+    transcription = transcribe_voice_with_hf(
+        attachment
+    )
+
+    text = str(
+        transcription.get("text") or ""
+    ).strip()
+
+    if not text:
+        raise TransientPresenceError(
+            "Web voice transcription returned no text."
+        )
+
+    metadata.pop("voice_input", None)
+
+    metadata["voice_source"] = {
+        "provider": "web",
+        "mime_type": mime_type,
+        "file_size": transcription.get(
+            "audio_bytes"
+        ),
+        "sha256": transcription.get(
+            "audio_sha256"
+        ),
+        "custody":
+            "cloudflare_d1_transport_only",
+        "authority_created": False,
+    }
+
+    metadata["voice_transcription"] = (
+        transcription
+    )
+
+    result["text"] = text
+    result["message_type"] = "voice"
+    result["metadata"] = metadata
+
+    return result
+
+
+def render_web_voice_reply(
+    *,
+    event_id: int,
+    result: dict[str, Any],
+) -> dict[str, Any]:
+    """Attach Vera audio as presentation-only web output."""
+    reply = result.get("reply") or {}
+
+    if not isinstance(reply, dict):
+        return result
+
+    if not reply.get("voice_eligible"):
+        return result
+
+    plan = reply.get("voice_plan") or {}
+
+    if (
+        not isinstance(plan, dict)
+        or plan.get("state")
+        != "ready_for_internal_render"
+    ):
+        return result
+
+    text = str(
+        reply.get("text") or ""
+    ).strip()
+
+    if not text:
+        return result
+
+    spoken_text = normalize_spoken_text(text)
+
+    outbox = (
+        ROOT
+        / "state"
+        / "presence"
+        / "voice_outbox"
+    )
+
+    outbox.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    wav_path = (
+        outbox
+        / f"vesper-web-{event_id}.wav"
+    )
+
+    receipt = synthesize_voice(
+        text=spoken_text,
+        output_path=wav_path,
+        plan=dict(plan),
+        timeout=30.0,
+    )
+
+    audio = wav_path.read_bytes()
+
+    max_bytes = int(
+        os.getenv(
+            "DIO_PRESENCE_WEB_VOICE_REPLY_MAX_BYTES",
+            "3145728",
+        )
+    )
+
+    reply = dict(reply)
+
+    if len(audio) > max_bytes:
+        reply["audio"] = {
+            "state": "text_only",
+            "reason":
+                "voice_reply_exceeds_web_limit",
+            "presentation_only": True,
+            "authority_created": False,
+        }
+    else:
+        reply["audio"] = {
+            "state": "ready",
+            "mime_type": "audio/wav",
+            "content_b64": base64.b64encode(
+                audio
+            ).decode("ascii"),
+            "profile_id": receipt.get(
+                "profile_id"
+            ),
+            "backend": receipt.get(
+                "backend"
+            ),
+            "audio_sha256": receipt.get(
+                "audio_sha256"
+            ),
+            "audio_bytes": len(audio),
+            "spoken_text_normalized":
+                spoken_text != text,
+            "presentation_only": True,
+            "authority_created": False,
+        }
+
+    rendered = dict(result)
+    rendered["reply"] = reply
+
+    return rendered
+
+def locally_sign_web_event(
+    event: dict[str, Any],
+) -> dict[str, Any]:
+    body_text = event.get("body_text")
+
+    if not isinstance(body_text, str) or not body_text:
+        raise PermanentPresenceError(
+            "Web Presence event is missing body_text."
+        )
+
+    try:
+        envelope = json.loads(body_text)
+    except json.JSONDecodeError as exc:
+        raise PermanentPresenceError(
+            "Web Presence event body is invalid JSON."
+        ) from exc
+
+    if not isinstance(envelope, dict):
+        raise PermanentPresenceError(
+            "Web Presence envelope must be an object."
+        )
+
+    if envelope.get("channel") != "webchat":
+        raise PermanentPresenceError(
+            "Web Presence channel must be webchat."
+        )
+
+    if any(
+        field in envelope
+        for field in (
+            "role",
+            "_trusted_edge_role",
+            "_trusted_edge_key_id",
+        )
+    ):
+        raise PermanentPresenceError(
+            "Web Presence envelope attempted to supply authority fields."
+        )
+
+    external_user_id = str(
+        envelope.get("external_user_id") or ""
+    ).strip()
+
+    if not external_user_id.startswith("WEB-"):
+        raise PermanentPresenceError(
+            "Web Presence external user id is invalid."
+        )
+
+    conversation_id = str(
+        event.get("conversation_id") or ""
+    ).strip()
+
+    metadata = envelope.get("metadata") or {}
+
+    if not isinstance(metadata, dict):
+        raise PermanentPresenceError(
+            "Web Presence metadata must be an object."
+        )
+
+    if (
+        str(metadata.get("web_conversation_id") or "").strip()
+        != conversation_id
+    ):
+        raise PermanentPresenceError(
+            "Web Presence conversation provenance does not match custody."
+        )
+
+    secret = os.getenv(
+        "DIO_PRESENCE_PUBLIC_SHARED_SECRET",
+        "",
+    ).strip()
+
+    if not secret:
+        raise TransientPresenceError(
+            "DIO_PRESENCE_PUBLIC_SHARED_SECRET "
+            "is required for web reconciliation."
+        )
+
+    envelope = prepare_web_semantic_envelope(
+        event,
+        envelope,
+    )
+
+    body_text = json.dumps(
+        envelope,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+
+    body = body_text.encode("utf-8")
+    timestamp = str(int(time.time()))
+
+    event_id = str(
+        event.get("id") or "unknown"
+    )
+
+    nonce = (
+        f"web_{event_id}_"
+        f"{hashlib.sha256(body).hexdigest()[:24]}"
+    )
+
+    signature = sign_body(
+        secret,
+        timestamp,
+        nonce,
+        body,
+    )
+
+    return {
+        "key_id": "public-edge",
+        "signature": signature,
+        "signed_timestamp": timestamp,
+        "nonce": nonce,
+        "body_text": body_text,
+    }
+
+
+def sync_web_event_batch(
+    *,
+    events: list[dict[str, Any]],
+    core_url: str,
+    base_url: str,
+    token: str,
+    reply_path: str,
+) -> tuple[
+    list[int],
+    list[int],
+    list[int],
+    list[str],
+]:
+    processed: list[int] = []
+    rejected: list[int] = []
+    deferred: list[int] = []
+    rejection_messages: list[str] = []
+
+    for event in events:
+        event_id = int(event.get("id") or 0)
+
+        if event_id < 1:
+            continue
+
+        conversation_id = str(
+            event.get("conversation_id") or ""
+        ).strip()
+
+        if not conversation_id:
+            rejected.append(event_id)
+            rejection_messages.append(
+                f"{event_id}:missing conversation_id"
+            )
+            continue
+
+        try:
+            stored = load_web_reply_outbox(event_id)
+
+            if stored is not None:
+                if (
+                    stored["conversation_id"]
+                    != conversation_id
+                ):
+                    raise PermanentPresenceError(
+                        "Web reply outbox conversation mismatch."
+                    )
+
+                result = stored["result"]
+
+            else:
+                outgoing = locally_sign_web_event(event)
+
+                result = forward_to_core(
+                    outgoing,
+                    core_url,
+                    replay_is_success=True,
+                )
+
+                if result.get("duplicate_delivery"):
+                    raise TransientPresenceError(
+                        "Core replay detected without "
+                        "durable web reply outbox."
+                    )
+
+                result = render_web_voice_reply(
+                    event_id=event_id,
+                    result=result,
+                )
+
+                save_web_reply_outbox(
+                    event_id=event_id,
+                    conversation_id=conversation_id,
+                    result=result,
+                )
+
+            edge_request(
+                base_url + reply_path,
+                token,
+                method="POST",
+                payload={
+                    "event_id": event_id,
+                    "conversation_id": conversation_id,
+                    "result": result,
+                },
+            )
+
+            processed.append(event_id)
+
+        except PermanentPresenceError as exc:
+            rejected.append(event_id)
+            rejection_messages.append(
+                f"{event_id}:{exc}"
+            )
+
+        except (
+            TransientPresenceError,
+            PresenceEdgeError,
+        ):
+            deferred.append(event_id)
+
+    return (
+        processed,
+        rejected,
+        deferred,
+        rejection_messages,
+    )
 
 
 def sync_event_batch(
@@ -430,10 +1118,73 @@ def sync_once(config: dict[str, Any]) -> dict[str, Any]:
     telegram_processed_ack = acknowledge(base_url, token, telegram_ack_path, tp, "processed")
     telegram_rejected_ack = acknowledge(base_url, token, telegram_ack_path, tr, "failed", "; ".join(tm) if tm else "telegram_presence_rejected")
 
-    processed = len(sp) + len(tp)
-    rejected = len(sr) + len(tr)
-    deferred = len(sd) + len(td)
-    received = len(signed_events) + len(telegram_events)
+    web_path = str(
+        config.get(
+            "web_event_api_path",
+            "/api/presence/web-events",
+        )
+    )
+
+    web_ack_path = str(
+        config.get(
+            "web_ack_api_path",
+            "/api/presence/web-events/ack",
+        )
+    )
+
+    web_reply_path = str(
+        config.get(
+            "web_reply_api_path",
+            "/api/presence/web-replies",
+        )
+    )
+
+    web_batch = edge_request(
+        base_url + web_path + "?limit=100",
+        token,
+    )
+
+    web_events = (
+        web_batch.get("events") or []
+    )
+
+    wp, wr, wd, wm = sync_web_event_batch(
+        events=web_events,
+        core_url=core_url,
+        base_url=base_url,
+        token=token,
+        reply_path=web_reply_path,
+    )
+
+    web_processed_ack = acknowledge(
+        base_url,
+        token,
+        web_ack_path,
+        wp,
+        "processed",
+    )
+
+    cleanup_web_reply_outbox_after_ack(
+        wp,
+        web_processed_ack,
+    )
+
+    web_rejected_ack = acknowledge(
+        base_url,
+        token,
+        web_ack_path,
+        wr,
+        "failed",
+        "; ".join(wm)
+        if wm
+        else "web_presence_rejected",
+    )
+
+
+    processed = len(sp) + len(tp) + len(wp)
+    rejected = len(sr) + len(tr) + len(wr)
+    deferred = len(sd) + len(td) + len(wd)
+    received = len(signed_events) + len(telegram_events) + len(web_events)
     return {
         "schema": "dio.vesper.presence_edge_sync.v2",
         "status": "processed" if processed or rejected else ("deferred" if deferred else "idle"),
@@ -441,13 +1192,18 @@ def sync_once(config: dict[str, Any]) -> dict[str, Any]:
         "processed": processed,
         "rejected": rejected,
         "deferred": deferred,
-        "processed_acknowledged": int((signed_processed_ack or {}).get("acknowledged", 0)) + int((telegram_processed_ack or {}).get("acknowledged", 0)),
-        "rejected_acknowledged": int((signed_rejected_ack or {}).get("acknowledged", 0)) + int((telegram_rejected_ack or {}).get("acknowledged", 0)),
+        "processed_acknowledged": int((signed_processed_ack or {}).get("acknowledged", 0)) + int((telegram_processed_ack or {}).get("acknowledged", 0)) + int((web_processed_ack or {}).get("acknowledged", 0)),
+        "rejected_acknowledged": int((signed_rejected_ack or {}).get("acknowledged", 0)) + int((telegram_rejected_ack or {}).get("acknowledged", 0)) + int((web_rejected_ack or {}).get("acknowledged", 0)),
         "signed_received": len(signed_events),
         "telegram_received": len(telegram_events),
         "telegram_processed": len(tp),
         "telegram_rejected": len(tr),
         "telegram_deferred": len(td),
+        "web_received": len(web_events),
+        "web_processed": len(wp),
+        "web_rejected": len(wr),
+        "web_deferred": len(wd),
+        "web_signing_authority": "local_public_edge_only",
         "authority": "presence_core_only",
         "cloudflare_role": "provider_authenticated_durable_transport_custody",
         "telegram_signing_authority": "local_reconciler_only",

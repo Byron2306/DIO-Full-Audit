@@ -45,11 +45,42 @@ async function requirePullToken(request, env) {
   if (!await secretsEqual(supplied, env.DIO_PRESENCE_EDGE_TOKEN)) throw new HttpError(401, "unauthorized");
 }
 
-async function requireTelegramWebhookSecret(request, env) {
-  if (!env.TELEGRAM_WEBHOOK_SECRET) throw new HttpError(503, "telegram_webhook_not_configured");
-  const supplied = request.headers.get("x-telegram-bot-api-secret-token") || "";
-  if (!await secretsEqual(supplied, env.TELEGRAM_WEBHOOK_SECRET)) throw new HttpError(401, "invalid_telegram_webhook_secret");
+async function requireTelegramWebhookSecret(request, env, botSurface) {
+  let expected;
+
+  if (botSurface === "public") {
+    expected = env.TELEGRAM_PUBLIC_WEBHOOK_SECRET;
+  } else if (botSurface === "operator") {
+    expected =
+      env.TELEGRAM_OPERATOR_WEBHOOK_SECRET
+      || env.TELEGRAM_WEBHOOK_SECRET;
+  } else {
+    throw new HttpError(
+      400,
+      "invalid_telegram_bot_surface",
+    );
+  }
+
+  if (!expected) {
+    throw new HttpError(
+      503,
+      `${botSurface}_telegram_webhook_not_configured`,
+    );
+  }
+
+  const supplied =
+    request.headers.get(
+      "x-telegram-bot-api-secret-token",
+    ) || "";
+
+  if (!await secretsEqual(supplied, expected)) {
+    throw new HttpError(
+      401,
+      "invalid_telegram_webhook_secret",
+    );
+  }
 }
+
 
 function readPresenceHeaders(request, env, nowSeconds = Math.floor(Date.now() / 1000)) {
   const signature = request.headers.get("x-dio-presence-signature") || "";
@@ -132,27 +163,866 @@ async function queuePresence(request, env) {
   }, 202);
 }
 
-async function queueTelegram(request, env) {
-  await requireTelegramWebhookSecret(request, env);
-  const { bodyText, updateId } = await readTelegramBody(request);
-  const bodyHash = await sha256(bodyText);
-  const eventKey = `telegram:${updateId}:${bodyHash}`;
-  const receivedAt = new Date().toISOString();
-  const result = await env.DIO_DB.prepare(
-    `INSERT OR IGNORE INTO telegram_presence_events
-      (event_key, update_id, body_text, received_at)
+
+const WEB_PUBLIC_ORIGIN =
+  "https://dioworkflows.co.za";
+
+const WEB_PUBLIC_WWW_ORIGIN =
+  "https://www.dioworkflows.co.za";
+
+const WEB_ALLOWED_ORIGINS = new Set([
+  WEB_PUBLIC_ORIGIN,
+  WEB_PUBLIC_WWW_ORIGIN,
+]);
+
+function webCorsHeaders(request) {
+  const origin =
+    request.headers.get("origin") || "";
+
+  if (!WEB_ALLOWED_ORIGINS.has(origin)) {
+    return {};
+  }
+
+  return {
+    "access-control-allow-origin": origin,
+    "access-control-allow-methods":
+      "GET, POST, OPTIONS",
+    "access-control-allow-headers":
+      "Content-Type, X-Vesper-Session-Token",
+    "access-control-max-age": "600",
+    "vary": "Origin",
+  };
+}
+
+function webJsonResponse(
+  request,
+  body,
+  status = 200,
+) {
+  return new Response(
+    JSON.stringify(body),
+    {
+      status,
+      headers: {
+        "content-type":
+          "application/json; charset=utf-8",
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff",
+        ...webCorsHeaders(request),
+      },
+    },
+  );
+}
+
+function randomHex(bytes = 16) {
+  const data = new Uint8Array(bytes);
+  crypto.getRandomValues(data);
+
+  return [...data]
+    .map(
+      (byte) =>
+        byte.toString(16).padStart(2, "0"),
+    )
+    .join("");
+}
+
+async function requireWebSession(
+  request,
+  env,
+  conversationId,
+) {
+  const token =
+    request.headers.get(
+      "x-vesper-session-token",
+    ) || "";
+
+  if (!token) {
+    throw new HttpError(
+      401,
+      "vesper_session_token_required",
+    );
+  }
+
+  const tokenHash =
+    await sha256(token);
+
+  const row =
+    await env.DIO_DB.prepare(
+      `SELECT
+         conversation_id,
+         external_user_id,
+         surface
+       FROM web_presence_sessions
+       WHERE conversation_id = ?
+         AND session_token_hash = ?
+       LIMIT 1`
+    ).bind(
+      conversationId,
+      tokenHash,
+    ).first();
+
+  if (!row) {
+    throw new HttpError(
+      403,
+      "invalid_vesper_session",
+    );
+  }
+
+  return row;
+}
+
+async function createWebSession(
+  request,
+  env,
+) {
+  const origin =
+    request.headers.get("origin") || "";
+
+  if (!WEB_ALLOWED_ORIGINS.has(origin)) {
+    throw new HttpError(
+      403,
+      "web_origin_refused",
+    );
+  }
+
+  let payload = {};
+
+  try {
+    payload = await request.json();
+  } catch {
+    throw new HttpError(
+      400,
+      "invalid_json",
+    );
+  }
+
+  const surface =
+    String(
+      payload?.surface || "dio_web",
+    )
+      .trim()
+      .slice(0, 80)
+    || "dio_web";
+
+  const conversationId =
+    `VWC-${randomHex(8).toUpperCase()}`;
+
+  const externalUserId =
+    `WEB-${randomHex(16).toUpperCase()}`;
+
+  const sessionToken =
+    randomHex(32);
+
+  const sessionTokenHash =
+    await sha256(sessionToken);
+
+  const now =
+    new Date().toISOString();
+
+  await env.DIO_DB.prepare(
+    `INSERT INTO web_presence_sessions
+      (
+        conversation_id,
+        session_token_hash,
+        external_user_id,
+        surface,
+        created_at,
+        last_seen_at
+      )
+     VALUES (?, ?, ?, ?, ?, ?)`
+  ).bind(
+    conversationId,
+    sessionTokenHash,
+    externalUserId,
+    surface,
+    now,
+    now,
+  ).run();
+
+  return webJsonResponse(
+    request,
+    {
+      schema:
+        "dio.vesper.web_session.v1",
+      session: {
+        conversation_id:
+          conversationId,
+        session_token:
+          sessionToken,
+        surface,
+        authority_created: false,
+        external_effects: false,
+      },
+    },
+    201,
+  );
+}
+
+async function queueWebMessage(
+  request,
+  env,
+) {
+  const origin =
+    request.headers.get("origin") || "";
+
+  if (!WEB_ALLOWED_ORIGINS.has(origin)) {
+    throw new HttpError(
+      403,
+      "web_origin_refused",
+    );
+  }
+
+  let payload;
+
+  try {
+    payload = await request.json();
+  } catch {
+    throw new HttpError(
+      400,
+      "invalid_json",
+    );
+  }
+
+  const conversationId =
+    String(
+      payload?.conversation_id || "",
+    ).trim();
+
+  const text =
+    String(
+      payload?.message || "",
+    ).trim();
+
+  if (
+    !/^VWC-[A-F0-9]{16}$/.test(
+      conversationId,
+    )
+  ) {
+    throw new HttpError(
+      400,
+      "invalid_web_conversation_id",
+    );
+  }
+
+  if (!text) {
+    throw new HttpError(
+      422,
+      "message_required",
+    );
+  }
+
+  if (text.length > 4000) {
+    throw new HttpError(
+      413,
+      "message_too_large",
+    );
+  }
+
+  if (
+    Array.isArray(
+      payload?.attachments,
+    )
+    && payload.attachments.length > 0
+  ) {
+    throw new HttpError(
+      409,
+      "web_attachments_not_enabled",
+    );
+  }
+
+  const session =
+    await requireWebSession(
+      request,
+      env,
+      conversationId,
+    );
+
+  const incarnationHint =
+    String(
+      payload?.incarnation_hint || "",
+    )
+      .trim()
+      .slice(0, 160)
+    || null;
+
+  const envelope = {
+    channel: "webchat",
+    external_user_id:
+      session.external_user_id,
+    text,
+    message_type: "text",
+    metadata: {
+      web_conversation_id:
+        conversationId,
+      web_surface:
+        session.surface,
+      incarnation_hint:
+        incarnationHint,
+    },
+  };
+
+  const bodyText =
+    JSON.stringify(envelope);
+
+  const bodyHash =
+    await sha256(bodyText);
+
+  const eventKey =
+    `web:${conversationId}:`
+    + `${randomHex(8)}:${bodyHash}`;
+
+  const now =
+    new Date().toISOString();
+
+  await env.DIO_DB.prepare(
+    `INSERT INTO web_presence_events
+      (
+        event_key,
+        conversation_id,
+        body_text,
+        received_at
+      )
+     VALUES (?, ?, ?, ?)`
+  ).bind(
+    eventKey,
+    conversationId,
+    bodyText,
+    now,
+  ).run();
+
+  await env.DIO_DB.prepare(
+    `UPDATE web_presence_sessions
+     SET last_seen_at = ?
+     WHERE conversation_id = ?`
+  ).bind(
+    now,
+    conversationId,
+  ).run();
+
+  return webJsonResponse(
+    request,
+    {
+      schema:
+        "dio.vesper.web_message_receipt.v1",
+      state: "queued",
+      conversation_id:
+        conversationId,
+      custody:
+        "cloudflare_d1_transport_only",
+      authority: "none",
+      attachments_enabled: false,
+    },
+    202,
+  );
+}
+
+async function queueWebVoice(
+  request,
+  env,
+) {
+  const origin =
+    request.headers.get("origin") || "";
+
+  if (!WEB_ALLOWED_ORIGINS.has(origin)) {
+    throw new HttpError(
+      403,
+      "web_origin_refused",
+    );
+  }
+
+  let payload;
+
+  try {
+    payload = await request.json();
+  } catch {
+    throw new HttpError(
+      400,
+      "invalid_json",
+    );
+  }
+
+  const conversationId =
+    String(
+      payload?.conversation_id || "",
+    ).trim();
+
+  if (
+    !/^VWC-[A-F0-9]{16}$/.test(
+      conversationId,
+    )
+  ) {
+    throw new HttpError(
+      400,
+      "invalid_web_conversation_id",
+    );
+  }
+
+  const session =
+    await requireWebSession(
+      request,
+      env,
+      conversationId,
+    );
+
+  const contentB64 =
+    String(
+      payload?.audio_b64 || "",
+    ).trim();
+
+  const mimeType =
+    String(
+      payload?.mime_type || "",
+    )
+      .split(";", 1)[0]
+      .trim()
+      .toLowerCase();
+
+  const allowedMime = new Set([
+    "audio/webm",
+    "audio/ogg",
+    "audio/mp4",
+    "audio/mpeg",
+    "audio/wav",
+    "audio/x-wav",
+  ]);
+
+  if (!allowedMime.has(mimeType)) {
+    throw new HttpError(
+      415,
+      "unsupported_web_voice_type",
+    );
+  }
+
+  if (!contentB64) {
+    throw new HttpError(
+      422,
+      "web_voice_required",
+    );
+  }
+
+  if (
+    !/^[A-Za-z0-9+/]+={0,2}$/.test(
+      contentB64,
+    )
+  ) {
+    throw new HttpError(
+      422,
+      "invalid_web_voice_base64",
+    );
+  }
+
+  const estimatedBytes =
+    Math.floor(
+      contentB64.length * 3 / 4,
+    );
+
+  const maxBytes = 2097152;
+
+  if (estimatedBytes > maxBytes) {
+    throw new HttpError(
+      413,
+      "web_voice_too_large",
+    );
+  }
+
+  const incarnationHint =
+    String(
+      payload?.incarnation_hint || "",
+    )
+      .trim()
+      .slice(0, 160)
+    || null;
+
+  const envelope = {
+    channel: "webchat",
+    external_user_id:
+      session.external_user_id,
+    text:
+      "Web voice input awaiting local transcription.",
+    message_type: "voice",
+    metadata: {
+      web_conversation_id:
+        conversationId,
+      web_surface:
+        session.surface,
+      incarnation_hint:
+        incarnationHint,
+      voice_input: {
+        content_b64:
+          contentB64,
+        mime_type:
+          mimeType,
+        custody:
+          "cloudflare_d1_transport_only",
+        authority_created:
+          false,
+      },
+    },
+  };
+
+  const bodyText =
+    JSON.stringify(envelope);
+
+  const bodyHash =
+    await sha256(bodyText);
+
+  const eventKey =
+    `web:${conversationId}:voice:`
+    + `${randomHex(8)}:${bodyHash}`;
+
+  const now =
+    new Date().toISOString();
+
+  await env.DIO_DB.prepare(
+    `INSERT INTO web_presence_events
+      (
+        event_key,
+        conversation_id,
+        body_text,
+        received_at
+      )
      VALUES (?, ?, ?, ?)`,
-  ).bind(eventKey, updateId, bodyText, receivedAt).run();
-  const inserted = Number(result.meta?.changes || 0) > 0;
+  ).bind(
+    eventKey,
+    conversationId,
+    bodyText,
+    now,
+  ).run();
+
+  await env.DIO_DB.prepare(
+    `UPDATE web_presence_sessions
+     SET last_seen_at = ?
+     WHERE conversation_id = ?`,
+  ).bind(
+    now,
+    conversationId,
+  ).run();
+
+  return webJsonResponse(
+    request,
+    {
+      schema:
+        "dio.vesper.web_voice_receipt.v1",
+      state: "queued",
+      conversation_id:
+        conversationId,
+      mime_type:
+        mimeType,
+      estimated_audio_bytes:
+        estimatedBytes,
+      custody:
+        "cloudflare_d1_transport_only",
+      transcription_authority:
+        "local_reconciler_only",
+      authority: "none",
+    },
+    202,
+  );
+}
+
+
+async function webReplies(
+  request,
+  env,
+  url,
+) {
+  const origin =
+    request.headers.get("origin") || "";
+
+  if (!WEB_ALLOWED_ORIGINS.has(origin)) {
+    throw new HttpError(
+      403,
+      "web_origin_refused",
+    );
+  }
+
+  const conversationId =
+    String(
+      url.searchParams.get(
+        "conversation_id",
+      ) || "",
+    ).trim();
+
+  await requireWebSession(
+    request,
+    env,
+    conversationId,
+  );
+
+  const after =
+    Number.parseInt(
+      url.searchParams.get("after")
+        || "0",
+      10,
+    );
+
+  const cursor =
+    Number.isInteger(after)
+    && after > 0
+      ? after
+      : 0;
+
+  const result =
+    await env.DIO_DB.prepare(
+      `SELECT
+         id,
+         body_text,
+         created_at
+       FROM web_presence_replies
+       WHERE conversation_id = ?
+         AND id > ?
+       ORDER BY id ASC
+       LIMIT 50`
+    ).bind(
+      conversationId,
+      cursor,
+    ).all();
+
+  const rows =
+    (result.results || []).map(
+      (row) => {
+        let payload = {};
+
+        try {
+          payload =
+            JSON.parse(row.body_text);
+        } catch {}
+
+        return {
+          id: row.id,
+          sequence: row.id,
+          created_at:
+            row.created_at,
+          reply: {
+            text:
+              payload?.reply?.text
+              ?? payload?.text
+              ?? "",
+              audio:
+                payload?.reply?.audio
+                ?? null,
+          },
+        };
+      },
+    );
+
+  return webJsonResponse(
+    request,
+    {
+      schema:
+        "dio.vesper.web_reply_batch.v1",
+      conversation_id:
+        conversationId,
+      replies: rows,
+      next_after:
+        rows.length
+          ? rows[
+              rows.length - 1
+            ].id
+          : cursor,
+    },
+  );
+}
+
+async function pullWebEvents(
+  request,
+  env,
+  url,
+) {
+  await requirePullToken(
+    request,
+    env,
+  );
+
+  const requested =
+    Number.parseInt(
+      url.searchParams.get("limit")
+        || "50",
+      10,
+    );
+
+  const limit =
+    Number.isFinite(requested)
+      ? Math.min(
+          Math.max(requested, 1),
+          MAX_PULL_LIMIT,
+        )
+      : 50;
+
+  const result =
+    await env.DIO_DB.prepare(
+      `SELECT
+         id,
+         event_key,
+         conversation_id,
+         body_text,
+         received_at,
+         attempts
+       FROM web_presence_events
+       WHERE status = 'pending'
+       ORDER BY id ASC
+       LIMIT ?`
+    ).bind(limit).all();
+
   return jsonResponse({
-    schema: "dio.presence.telegram_edge_receipt.v1",
-    state: "queued",
-    duplicate: !inserted,
-    custody: "cloudflare_d1_provider_authenticated_transport_only",
-    authority: "none",
-    signing_authority: "local_dio_presence_reconciler_only",
+    schema:
+      "dio.vesper.web_event_batch.v1",
+    events:
+      result.results || [],
   });
 }
+
+async function acknowledgeWebEvents(
+  request,
+  env,
+) {
+  return acknowledgeTable(
+    request,
+    env,
+    "web_presence_events",
+  );
+}
+
+async function storeWebReply(
+  request,
+  env,
+) {
+  await requirePullToken(
+    request,
+    env,
+  );
+
+  let payload;
+
+  try {
+    payload =
+      await request.json();
+  } catch {
+    throw new HttpError(
+      400,
+      "invalid_json",
+    );
+  }
+
+  const eventId =
+    Number(payload?.event_id);
+
+  const conversationId =
+    String(
+      payload?.conversation_id || "",
+    ).trim();
+
+  const result =
+    payload?.result;
+
+  if (
+    !Number.isInteger(eventId)
+    || eventId < 1
+    || !/^VWC-[A-F0-9]{16}$/.test(
+      conversationId,
+    )
+    || !result
+    || typeof result !== "object"
+  ) {
+    throw new HttpError(
+      422,
+      "invalid_web_reply",
+    );
+  }
+
+  const now =
+    new Date().toISOString();
+
+  const inserted =
+    await env.DIO_DB.prepare(
+      `INSERT OR IGNORE INTO web_presence_replies
+        (
+          source_event_id,
+          conversation_id,
+          body_text,
+          created_at
+        )
+       VALUES (?, ?, ?, ?)`
+    ).bind(
+      eventId,
+      conversationId,
+      JSON.stringify(result),
+      now,
+    ).run();
+
+  return jsonResponse({
+    schema:
+      "dio.vesper.web_reply_receipt.v1",
+    stored:
+      Number(
+        inserted.meta?.changes
+        || 0,
+      ) > 0,
+    duplicate:
+      Number(
+        inserted.meta?.changes
+        || 0,
+      ) === 0,
+    event_id:
+      eventId,
+    conversation_id:
+      conversationId,
+  });
+}
+
+
+async function queueTelegram(request, env, botSurface) {
+  if (!["public", "operator"].includes(botSurface)) {
+    throw new HttpError(
+      400,
+      "invalid_telegram_bot_surface",
+    );
+  }
+
+  await requireTelegramWebhookSecret(
+    request,
+    env,
+    botSurface,
+  );
+
+  const { bodyText, updateId } =
+    await readTelegramBody(request);
+
+  const bodyHash = await sha256(bodyText);
+
+  const eventKey =
+    `telegram:${botSurface}:${updateId}:${bodyHash}`;
+
+  const receivedAt = new Date().toISOString();
+
+  const result = await env.DIO_DB.prepare(
+    `INSERT OR IGNORE INTO telegram_presence_events
+       (event_key, bot_surface, update_id, body_text, received_at)
+     VALUES (?, ?, ?, ?, ?)`,
+  ).bind(
+    eventKey,
+    botSurface,
+    updateId,
+    bodyText,
+    receivedAt,
+  ).run();
+
+  const inserted =
+    Number(result.meta?.changes || 0) > 0;
+
+  return jsonResponse({
+    schema: "dio.presence.telegram_edge_receipt.v2",
+    state: "queued",
+    bot_surface: botSurface,
+    duplicate: !inserted,
+    custody:
+      "cloudflare_d1_provider_authenticated_transport_only",
+    authority: "none",
+    signing_authority:
+      "local_dio_presence_reconciler_only",
+  });
+}
+
 
 async function pullPresenceEvents(request, env, url) {
   await requirePullToken(request, env);
@@ -176,7 +1046,7 @@ async function pullTelegramEvents(request, env, url) {
   const requested = Number.parseInt(url.searchParams.get("limit") || "50", 10);
   const limit = Number.isFinite(requested) ? Math.min(Math.max(requested, 1), MAX_PULL_LIMIT) : 50;
   const result = await env.DIO_DB.prepare(
-    `SELECT id, event_key, update_id, body_text, received_at, attempts
+    `SELECT id, event_key, bot_surface, update_id, body_text, received_at, attempts
        FROM telegram_presence_events
       WHERE status = 'pending'
       ORDER BY id ASC
@@ -235,8 +1105,151 @@ async function route(request, env) {
       external_reply_authority: false,
     });
   }
-  if (request.method === "POST" && url.pathname === "/telegram/webhook") {
-    return queueTelegram(request, env);
+
+  if (
+    request.method === "OPTIONS"
+    && url.pathname.startsWith(
+      "/api/vesper/web/",
+    )
+  ) {
+    const origin =
+      request.headers.get("origin")
+      || "";
+
+
+    if (
+      !WEB_ALLOWED_ORIGINS.has(origin)
+    ) {
+      return jsonResponse(
+        {
+          error:
+            "web_origin_refused",
+        },
+        403,
+      );
+    }
+
+    return new Response(
+      null,
+      {
+        status: 204,
+        headers:
+          webCorsHeaders(request),
+      },
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname
+      === "/api/vesper/web/session"
+  ) {
+    return createWebSession(
+      request,
+      env,
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname
+      === "/api/vesper/web/voice"
+  ) {
+    return queueWebVoice(
+      request,
+      env,
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname
+      === "/api/vesper/web/message"
+  ) {
+    return queueWebMessage(
+      request,
+      env,
+    );
+  }
+
+  if (
+    request.method === "GET"
+    && url.pathname
+      === "/api/vesper/web/replies"
+  ) {
+    return webReplies(
+      request,
+      env,
+      url,
+    );
+  }
+
+  if (
+    request.method === "GET"
+    && url.pathname
+      === "/api/presence/web-events"
+  ) {
+    return pullWebEvents(
+      request,
+      env,
+      url,
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname
+      === "/api/presence/web-events/ack"
+  ) {
+    return acknowledgeWebEvents(
+      request,
+      env,
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname
+      === "/api/presence/web-replies"
+  ) {
+    return storeWebReply(
+      request,
+      env,
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname === "/telegram/public/webhook"
+  ) {
+    return queueTelegram(
+      request,
+      env,
+      "public",
+    );
+  }
+
+  if (
+    request.method === "POST"
+    && url.pathname === "/telegram/operator/webhook"
+  ) {
+    return queueTelegram(
+      request,
+      env,
+      "operator",
+    );
+  }
+
+  // Transitional historical operator route.
+  if (
+    request.method === "POST"
+    && url.pathname === "/telegram/webhook"
+  ) {
+    return queueTelegram(
+      request,
+      env,
+      "operator",
+    );
   }
   if (request.method === "POST" && url.pathname === "/api/presence/ingress") {
     return queuePresence(request, env);
@@ -261,7 +1274,24 @@ export default {
     try {
       return await route(request, env);
     } catch (error) {
-      if (error instanceof HttpError) return jsonResponse({ error: error.code }, error.status);
+      if (error instanceof HttpError) {
+        const url = new URL(request.url);
+
+        if (
+          url.pathname.startsWith("/api/vesper/web/")
+        ) {
+          return webJsonResponse(
+            request,
+            { error: error.code },
+            error.status,
+          );
+        }
+
+        return jsonResponse(
+          { error: error.code },
+          error.status,
+        );
+      }
       console.error("Unhandled presence edge error", error);
       return jsonResponse({ error: "internal_error" }, 500);
     }

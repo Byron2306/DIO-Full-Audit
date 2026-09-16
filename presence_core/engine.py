@@ -5,14 +5,19 @@ from typing import Any
 from adapters.lingua.communicator import register_communication, requested_language
 from adapters.lingua.conversation_crystals import resolve_conversation_crystal
 from adapters.lingua.conversation_knowledge import retrieve_conversation_knowledge
+from adapters.lingua.semantic_context import build_current_semantic_context
+from adapters.lingua.conversation_semantics import resolve_conversation_semantics
 from adapters.lingua.interaction_regulator import observe_interaction
 from adapters.lingua.persona_lab import assign_persona
 from .attachments import AttachmentError, validate_and_store_attachment
+from .capital_queries import CAPITAL_INTENTS, capital_query
+from .commercial_grounding import build_commercial_grounding, commercial_facts, commercial_fallback, should_ground_commercial
 from .config import operator_ids
 from .events import emit_event
 from .identity import load_status_binding, bound_order_status
 from .llm import draft_with_cortex
 from .policy import authorize
+from .pricing_governance import pricing_operator_query
 from .router import route_message
 from .state import (
     append_conversation_turn,
@@ -79,15 +84,17 @@ def _operator_brief_text(summary:dict[str,Any], focus:str='full')->str:
             f"{summary.get('incidents',{}).get('open_or_recorded',0)} recorded incident(s). Top actions: {first_actions}. "
             "I have not sent, approved, released, published, spent, or processed attachments.")
 
-def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None)->tuple[str,str]:
+def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,statuses=None,attachment=None,capital=None,pricing=None)->tuple[str,str]:
     intent=decision['intent']; product=decision.get('product')
     if intent=='help':
         if role=='operator':
             return ("Operator commands: /status, /market, /commerce, /mail, /jobs, /needs, /help. "
-                    "Plain-language equivalents also work: market command, paid orders, pending mail, delivery drafts, attention queue. "
-                    "I am read-only here: I can brief and route, but I cannot send mail, publish, spend, approve, release fulfilment, or process attachments."), 'operator_help'
+                    "Plain-language equivalents also work: market command, paid orders, pending mail, delivery drafts, attention queue, capital priorities, grants, patronage and governed draft review. "
+                    "I am read-only here: I can brief and route, but I cannot send mail, publish, spend, approve, release fulfilment, submit applications, accept funds, or process attachments."), 'operator_help'
         return ("I can explain DIO, HOMS, Evidex, Sophia, VAMP and Document Studio; capture a request; receive bounded uploads into quarantine; "
                 "and explain translation or formatting. I cannot take payment, release work, or disclose private order status from an unverified chat."), 'public_help'
+    if intent in CAPITAL_INTENTS and capital:
+        return str(capital.get('text') or 'Capital & Support query completed.'),json.dumps(capital,sort_keys=True)
     if intent=='operator_summary' and summary:
         return _operator_brief_text(summary),json.dumps(summary,sort_keys=True)
     if intent in {'campaign_summary','revenue_summary','mail_summary','job_summary'} and summary:
@@ -99,16 +106,30 @@ def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,s
         top='; '.join(f"{x['needs_you_id']}: {x['summary'][:110]}" for x in needs[:5]); return f'You have {len(needs)} open Needs You item(s). Top items: {top}',f'needs_you={len(needs)}'
     if intent=='intake_request' and intake:
         suffix=f" I also quarantined attachment {attachment['attachment_id']} for human review; it has not been opened or parsed." if attachment else ''
+        if role=='operator':
+            return (f"Operator intake captured for {product.upper()} as {intake['intake_id']}; it is in human review. No charge, fulfilment start, or delivery commitment exists yet.{suffix}"),f"intake={intake['intake_id']}; state=pending_operator_review; role=operator"
         return f"I’ve captured this as a {product.upper()} intake ({intake['intake_id']}) and placed it in human review. I haven’t charged you, started fulfilment, or promised a delivery time yet.{suffix}",f"intake={intake['intake_id']}; state=pending_operator_review"
     if intent=='attachment_received' and attachment:
-        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined"
-    if intent=='pricing_info': return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
+        if role=='operator':
+            return (f"Operator rail: received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. Nothing has been opened, parsed, processed, or trusted yet."),f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false; role=operator"
+        return f"I received {attachment['original_file_name']} and quarantined it as {attachment['attachment_id']}. DIO has not opened, parsed, executed, or trusted the file. A human can review and attach it to the right workflow.",f"attachment={attachment['attachment_id']}; state=quarantined; attachment_processed=false"
+    if intent=='pricing_info' and pricing:
+        return str(pricing.get('text') or 'Pricing intelligence resolved.'),json.dumps(pricing,sort_keys=True)
+    if intent=='pricing_info':
+        if role=='operator': return 'Operator pricing view: no deterministic price is bound to this turn yet. I can surface governed offer bands and scope evidence, but I will not invent a number.','pricing_not_resolved; role=operator'
+        return 'Pricing is product- and scope-specific. I can capture what you need and prepare it for a human-approved quote rather than inventing a number at you.','pricing_not_resolved'
     if intent=='status_request' and statuses is not None: return _status_text(statuses)
     if intent=='status_request': return 'I can help with status, but this conversation has not yet been identity-bound to an order by DIO. I’ve put the request in the human queue rather than exposing customer information to an unverified chat.','public_status_lookup=identity_binding_required'
     if intent=='translation_info': return 'Yes. DIO’s localisation path is designed to translate structured meaning before final rendering, so terminology, grade level and layout can be checked rather than blindly translating a finished document. Human language review remains available as a gate.','translation=structured_meaning_first'
     if intent=='formatting_info': return 'Yes. DIO Format treats presentation as a governed render step: templates, document geometry, headings, tables, references, PowerPoint masters and delivery profiles can be applied without rewriting the underlying content.','formatting=render_layer'
-    if intent=='product_info' and product: return PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.'),f'product={product}'
-    if intent=='general_info': return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
+    if intent=='product_info' and product:
+        copy=PRODUCT_COPY.get(product,'I can explain that DIO workflow or capture an intake for it.')
+        if role=='operator': return f"Operator view: {copy}",f'product={product}'
+        return copy,f'product={product}'
+    if intent=='general_info':
+        if role=='operator':
+            return ("You’re on Vesper’s operator rail. DIO is the governed operating system behind the product, evidence, commercial, market, and execution rails I brief you on. I can surface jobs, customer work, mail, payments, Needs You decisions, campaigns, and current system truth without selling DIO back to you."),'role=operator; operator_capabilities=bounded'
+        return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
     return 'I’m not confident enough to route that safely yet. Tell me whether this is about HOMS, Evidex, Sophia, VAMP, translation/formatting, an uploaded file, or an existing DIO job and I’ll put it on the right rail.','classification=unresolved'
 
 def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None)->tuple[str,dict[str,Any]]:
@@ -181,6 +202,13 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         source_message_id=str(envelope.get('source_message_id') or metadata.get('source_message_id') or '') or None,
     )
     policy=interaction.get('delivery_policy') or {}
+
+    semantic_continuity=resolve_conversation_semantics(
+        text=text,
+        conversation_state=conversation_state,
+        recent_turns=recent_turns,
+        interaction=interaction,
+    )
     emit_event(event_log,'presence.message_received','info','presence_conversation',correlation,{'channel':envelope.get('channel'),'role':role,'message_type':envelope.get('message_type','text'),'campaign_hint':(conv.get('attribution') or {}).get('campaign_hint')},correlation)
     emit_event(event_log,'presence.interaction_observed','info','lingua_interaction',interaction['observation_id'],{'delivery_mode':policy.get('mode'),'sales_pressure_allowed':policy.get('sales_pressure_allowed'),'humour_allowed':policy.get('humour_allowed'),'proof_priority':policy.get('proof_priority'),'emotion_diagnosed':False,'personality_diagnosed':False},correlation)
     attachment_record=None
@@ -196,6 +224,135 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
     ok,reason=authorize(role,decision['intent'])
     if not ok: decision={'intent':'unknown','product':None,'confidence':1.0,'source':'policy','reason':reason}
+
+    commercial=None
+    if should_ground_commercial(
+        role=role,
+        intent=decision['intent'],
+        text=text,
+        attachment_present=bool(attachment_record),
+    ):
+        try:
+            # Explicit product context remains authoritative.
+            # Lingua owns defeasible conversational continuity.
+            explicit_incarnation_hint=(
+                str(
+                    metadata.get('incarnation_hint')
+                    or envelope.get('incarnation_hint')
+                    or ''
+                ).strip()
+                or None
+            )
+
+            semantic_referent=(
+                str(
+                    (
+                        semantic_continuity.get('active_referent')
+                        or {}
+                    ).get('value')
+                    or ''
+                ).strip()
+                or None
+            )
+
+            # Persisted buyer scope is defeasible context only.
+            # Explicit evidence in the current message still wins.
+            persisted_tier_hint=None
+
+            for constraint in reversed(
+                list(
+                    conversation_state.get(
+                        'known_constraints'
+                    )
+                    or []
+                )
+            ):
+                if isinstance(constraint,str):
+                    prefix='buyer_scope:'
+                    if constraint.startswith(prefix):
+                        persisted_tier_hint=(
+                            constraint[len(prefix):].strip()
+                            or None
+                        )
+                        break
+
+                elif isinstance(constraint,dict):
+                    if constraint.get('kind') == 'buyer_scope':
+                        persisted_tier_hint=(
+                            str(
+                                constraint.get('value')
+                                or ''
+                            ).strip()
+                            or None
+                        )
+                        break
+
+            if explicit_incarnation_hint:
+                commercial=build_commercial_grounding(
+                    dio_root,
+                    text,
+                    incarnation_hint=explicit_incarnation_hint,
+                    context_tier_hint=persisted_tier_hint,
+                )
+            elif (
+                semantic_continuity.get('relation')
+                == 'CONTINUATION'
+                and semantic_continuity.get(
+                    'retain_active_referent'
+                ) is True
+                and semantic_referent
+            ):
+                commercial=build_commercial_grounding(
+                    dio_root,
+                    text,
+                    incarnation_hint=semantic_referent,
+                    context_tier_hint=persisted_tier_hint,
+                )
+            else:
+                commercial=build_commercial_grounding(
+                    dio_root,
+                    text,
+                    incarnation_hint=None,
+                    context_tier_hint=persisted_tier_hint,
+                )
+
+            emit_event(
+                event_log,
+                'presence.commercial_grounding_resolved',
+                'info',
+                'presence_conversation',
+                correlation,
+                {
+                    'state':commercial.get('state'),
+                    'product':(
+                        (commercial.get('product') or {}).get('name')
+                    ),
+                    'clarification_required':commercial.get(
+                        'clarification_required'
+                    ),
+                    'authority_created':False,
+                },
+                correlation,
+            )
+        except Exception as exc:
+            commercial={
+                'schema':'dio.vesper.commercial_grounding.v1',
+                'state':'UNAVAILABLE',
+                'reason':str(exc)[:300],
+                'product':None,
+                'pricing':None,
+                'authority_created':False,
+                'external_effects':False,
+            }
+            emit_event(
+                event_log,
+                'presence.commercial_grounding_failed',
+                'warning',
+                'presence_conversation',
+                correlation,
+                {'error':str(exc)[:180]},
+                correlation,
+            )
     explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
     target_language=requested_language(text,str(explicit_language) if explicit_language else None)
     persona=assign_persona(
@@ -204,14 +361,22 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         role=role,
         channel=str(envelope.get('channel') or 'conversation'),
         audience=str(metadata.get('audience') or ('operator' if role=='operator' else 'public')),
-        product=str(decision.get('product') or '') or None,
+        product=str(
+            ((commercial or {}).get('product') or {}).get('name')
+            or decision.get('product')
+            or ''
+        ) or None,
         language=target_language,
     )
     voice_profile_id=((persona.get('package') or {}).get('voice_profile_id'))
     voice_plan=build_voice_plan(root=dio_root,language=target_language,interaction=interaction,requested_profile=voice_profile_id)
     emit_event(event_log,'presence.persona_assigned','info','vesper_persona',persona['assignment_id'],{'experimental_assignment':persona.get('experimental_assignment'),'cell_id':((persona.get('package') or {}).get('cell_id')),'persona_id':((persona.get('package') or {}).get('persona_id')),'avatar_id':((persona.get('package') or {}).get('avatar_id')),'voice_profile_id':voice_profile_id,'stable_for_conversation':True},correlation)
-    summary=None; needs=None; intake=None; statuses=None
-    if decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
+    summary=None; needs=None; intake=None; statuses=None; capital=None; pricing=None
+    if decision['intent'] in CAPITAL_INTENTS:
+        capital=capital_query(dio_root,decision['intent'],text)
+    elif decision['intent']=='pricing_info' and role=='operator':
+        pricing=pricing_operator_query(dio_root,state_root=presence_root,text=text,product_hint=decision.get('product'))
+    elif decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
     elif decision['intent']=='intake_request' and decision.get('product'):
         intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
@@ -228,16 +393,215 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         else:
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
-    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record)
-    knowledge=retrieve_conversation_knowledge(dio_root,text,conversation_state)
+    fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record,capital,pricing=pricing)
+
+    grounded_facts=facts
+    if commercial is not None:
+        grounded_facts=(
+            facts
+            + '\n'
+            + commercial_facts(commercial)
+        )
+        if decision['intent'] in {
+            'unknown',
+            'product_info',
+            'pricing_info',
+        }:
+            grounded_fallback=commercial_fallback(
+                commercial,
+                intent=decision['intent'],
+            )
+            if grounded_fallback:
+                fallback=grounded_fallback
+
+    knowledge=retrieve_conversation_knowledge(
+        dio_root,
+        text,
+        conversation_state,
+    )
+
     governed_context=dict(knowledge)
-    crystal=resolve_conversation_crystal(root=dio_root,text=text)
-    if crystal and crystal.get('provider_called') is False and crystal.get('authority_created') is False:
-        governed_context['verified_semantic_crystal']=crystal
-    draft_turns=[*recent_turns,{'role':'user','text':text,'act':decision.get('intent'),'product':decision.get('product')}]
+
+    semantic_world_state={
+        'role':role,
+        'audience':str(
+            metadata.get('audience')
+            or (
+                'operator'
+                if role=='operator'
+                else 'public'
+            )
+        ),
+        'commercial_state':str(
+            (commercial or {}).get('state')
+            or 'NONE'
+        ),
+    }
+
+    semantic_capabilities={
+        'semantic_continuity':bool(
+            semantic_continuity
+        ),
+        'commercial_grounding':bool(
+            commercial is not None
+        ),
+        'pricing_registry_read':bool(
+            commercial is not None
+            and str(
+                (commercial or {}).get('state')
+                or ''
+            )=='RESOLVED'
+        ),
+        'operator_rail':bool(
+            role=='operator'
+        ),
+    }
+
+    commercial_semantic_state=str(
+        (commercial or {}).get('state')
+        or 'NONE'
+    )
+
+    if (
+        commercial_semantic_state
+        == 'NEEDS_CLARIFICATION'
+    ):
+        commercial_semantic_state='AMBIGUOUS'
+
+    commercial_product_resolved=bool(
+        (
+            (commercial or {})
+            .get('product')
+            or {}
+        ).get('name')
+    )
+
+    semantic_evidence={
+        'relation':str(
+            semantic_continuity.get(
+                'relation'
+            )
+            or 'UNRESOLVED'
+        ),
+        'speech_act':str(
+            semantic_continuity.get(
+                'speech_act'
+            )
+            or 'UNRESOLVED'
+        ),
+        'commercial_resolution':
+            commercial_semantic_state,
+        'product_resolved':
+            commercial_product_resolved,
+    }
+
+    semantic_policy={
+        'semantic_policy_version':
+            'vesper.semantic-policy.v1',
+        'authority_created':False,
+        'quote_issue_authority':False,
+        'external_send_authority':False,
+        'spend_authority':False,
+        'fulfilment_release_authority':False,
+    }
+
+    semantic_temporal_scope={
+        'scope':'current_request',
+        'semantic_context_version':
+            'dio.vesper.semantic_context.v1',
+    }
+
+    current_semantic_context=(
+        build_current_semantic_context(
+            role=role,
+            text=text,
+            semantic_continuity=
+                semantic_continuity,
+            conversation_state=
+                conversation_state,
+            commercial=commercial or {},
+            decision=decision,
+            world_state=
+                semantic_world_state,
+            capabilities=
+                semantic_capabilities,
+            evidence=
+                semantic_evidence,
+            policy=
+                semantic_policy,
+            temporal_scope=
+                semantic_temporal_scope,
+        )
+    )
+
+    crystal=resolve_conversation_crystal(
+        root=dio_root,
+        text=text,
+        role=role,
+        semantic_context=
+            current_semantic_context,
+    )
+
+    if (
+        crystal
+        and crystal.get('provider_called') is False
+        and crystal.get('authority_created') is False
+        and crystal.get('external_effects') is False
+    ):
+        governed_context[
+            'verified_semantic_crystal'
+        ]=crystal
+
+    governed_context[
+        'current_semantic_context'
+    ]={
+        'schema':
+            current_semantic_context.get(
+                'schema'
+            ),
+        'semantic_domain':
+            current_semantic_context.get(
+                'semantic_domain'
+            ),
+        'semantic_match_digest':
+            current_semantic_context.get(
+                'semantic_match_digest'
+            ),
+        'authority_created':False,
+        'external_effects':False,
+    }
+
+    governed_context.update({
+        'role':role,
+        'audience':str(
+            metadata.get('audience')
+            or ('operator' if role=='operator' else 'public')
+        ),
+        'customer_message':text[:2500],
+        'semantic_continuity':semantic_continuity,
+        'commercial_truth':commercial,
+        'authority_created':False,
+    })
+
+    resolved_product=str(
+        ((commercial or {}).get('product') or {}).get('name')
+        or decision.get('product')
+        or ''
+    ) or None
+
+    draft_turns=[
+        *recent_turns,
+        {
+            'role':'user',
+            'text':text,
+            'act':decision.get('intent'),
+            'product':resolved_product,
+        },
+    ]
+
     reply=draft_with_cortex(
         decision,
-        facts,
+        grounded_facts,
         fallback,
         interaction,
         persona,
@@ -250,15 +614,90 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     except Exception as exc:
         lingua={'schema':'dio.lingua.communication_receipt.v1','state':'registration_failed','error':str(exc)[:300],'external_action_executed':False,'send_authorized':False,'authority_created':False}
         emit_event(event_log,'presence.lingua_registration_failed','warning','presence_conversation',correlation,{'error':str(exc)[:180]},correlation)
-    append_conversation_turn(presence_root,correlation,role='user',text=text,act=decision.get('intent'),product=decision.get('product'))
-    append_conversation_turn(presence_root,correlation,role='vesper',text=reply,act=decision.get('intent'),product=decision.get('product'))
-    conversation_state['turn_count']=int(conversation_state.get('turn_count',0))+1
+    append_conversation_turn(
+        presence_root,
+        correlation,
+        role='user',
+        text=text,
+        act=decision.get('intent'),
+        product=resolved_product,
+    )
+    append_conversation_turn(
+        presence_root,
+        correlation,
+        role='vesper',
+        text=reply,
+        act=decision.get('intent'),
+        product=resolved_product,
+    )
+
+    conversation_state['turn_count']=int(
+        conversation_state.get('turn_count',0)
+    )+1
     conversation_state['last_route_intent']=decision.get('intent')
-    if decision.get('product'):
-        product=str(decision['product'])
-        conversation_state['candidate_products']=[product]
-        conversation_state['selected_product']=product
-    save_conversation_state(presence_root,conversation_state)
-    update_conversation(presence_root,conv,decision['intent'],decision.get('product'))
-    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id')),'conversation_turn_count':conversation_state.get('turn_count')},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':attachment_record,'intake':intake,'status':statuses,'interaction':interaction,'persona':persona,'lingua':lingua}
+
+    commercial_pricing=(
+        (commercial or {}).get('pricing')
+        or {}
+    )
+
+    commercial_selected_tier=(
+        commercial_pricing.get('selected_tier')
+        or {}
+    )
+
+    if (
+        commercial_pricing.get('tier_basis')
+        == 'EXPLICIT_MESSAGE'
+        and commercial_selected_tier.get('tier_id')
+    ):
+        buyer_scope_value=str(
+            commercial_selected_tier.get('tier_id')
+        ).strip()
+
+        constraints=[
+            constraint
+            for constraint in (
+                conversation_state.get(
+                    'known_constraints'
+                )
+                or []
+            )
+            if not (
+                isinstance(constraint,str)
+                and constraint.startswith(
+                    'buyer_scope:'
+                )
+            )
+            and not (
+                isinstance(constraint,dict)
+                and constraint.get('kind')
+                    == 'buyer_scope'
+            )
+        ]
+
+        constraints.append(
+            'buyer_scope:' + buyer_scope_value
+        )
+
+        conversation_state[
+            'known_constraints'
+        ]=constraints
+
+    if resolved_product:
+        conversation_state['candidate_products']=[resolved_product]
+        conversation_state['selected_product']=resolved_product
+
+    save_conversation_state(
+        presence_root,
+        conversation_state,
+    )
+
+    update_conversation(
+        presence_root,
+        conv,
+        decision['intent'],
+        resolved_product,
+    )
+    emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'commercial':commercial,'interaction':interaction,'persona':persona,'lingua':lingua}

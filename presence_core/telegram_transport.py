@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import re
 import subprocess
 import uuid
 from pathlib import Path
@@ -17,13 +18,66 @@ def _enabled(name: str) -> bool:
     return str(os.getenv(name, "0")).strip().lower() in {"1", "true", "yes", "on"}
 
 
-def telegram_voice_reply_switch_enabled() -> bool:
-    """Voice replies are opt-in even when ordinary Telegram replies are enabled."""
-    return _enabled("DIO_PRESENCE_TELEGRAM_VOICE_REPLIES")
+def telegram_voice_reply_switch_enabled(
+    bot_surface: str | None = None,
+) -> bool:
+    """Voice replies are opt-in and surface-scoped.
+
+    Public Telegram may use the approved Vera public voice independently
+    of the operator surface. The historical global switch remains a
+    compatibility fallback only.
+    """
+    surface = str(bot_surface or "").strip().lower()
+
+    if surface == "public":
+        return _enabled(
+            "DIO_PRESENCE_PUBLIC_TELEGRAM_VOICE_REPLIES"
+        )
+
+    if surface == "operator":
+        return _enabled(
+            "DIO_PRESENCE_OPERATOR_TELEGRAM_VOICE_REPLIES"
+        )
+
+    return _enabled(
+        "DIO_PRESENCE_TELEGRAM_VOICE_REPLIES"
+    )
 
 
 def _sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
+
+
+def normalize_spoken_text(text: str) -> str:
+    """Normalize display-oriented text for speech only.
+
+    This does not change canonical reply text, pricing truth, or authority.
+    """
+    value = str(text or "")
+
+    # South African rand forms:
+    # R350, R 350, R1,800, R 1 800, ZAR 350
+    value = re.sub(
+        r"\bZAR\s+([0-9]+(?:[ ,][0-9]{3})*(?:\.\d{1,2})?)\b",
+        r"\1 rand",
+        value,
+        flags=re.IGNORECASE,
+    )
+
+    value = re.sub(
+        r"(?<![A-Za-z])R\s*([0-9]+(?:[ ,][0-9]{3})*(?:\.\d{1,2})?)\b",
+        r"\1 rand",
+        value,
+    )
+
+    # Percent signs are often read unnaturally by TTS engines.
+    value = re.sub(
+        r"\b([0-9]+(?:\.\d+)?)\s*%",
+        r"\1 percent",
+        value,
+    )
+
+    return value
 
 
 def convert_wav_to_telegram_voice(wav_path: Path, ogg_path: Path) -> dict[str, Any]:
@@ -116,8 +170,48 @@ def send_telegram_reply(
     if not receipt["authorized"]:
         return False, ",".join(receipt["reasons"]) or "external_reply_not_authorized", receipt
 
-    token = str(os.getenv("TELEGRAM_BOT_TOKEN", ""))
-    chat_id = str(((envelope.get("metadata") or {}).get("telegram_chat_id")) or "")
+    metadata = envelope.get("metadata") or {}
+
+    bot_surface = str(
+        metadata.get("telegram_bot_surface")
+        or "operator"
+    ).strip().lower()
+
+    if bot_surface == "public":
+        token = str(
+            os.getenv(
+                "DIO_TELEGRAM_PUBLIC_BOT_TOKEN",
+                "",
+            )
+        )
+
+    elif bot_surface == "operator":
+        token = str(
+            os.getenv(
+                "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+                "",
+            )
+            or os.getenv(
+                "TELEGRAM_BOT_TOKEN",
+                "",
+            )
+        )
+
+    else:
+        failed = _failed_receipt(
+            receipt,
+            "invalid_telegram_bot_surface",
+        )
+        return (
+            False,
+            "invalid_telegram_bot_surface",
+            failed,
+        )
+
+    chat_id = str(
+        metadata.get("telegram_chat_id")
+        or ""
+    )
     reply = result.get("reply") or {}
     text = str(reply.get("text") or "").strip()
     if not token or not chat_id or not text:
@@ -125,7 +219,9 @@ def send_telegram_reply(
         return False, "missing_token_chat_or_text", failed
 
     wants_voice = bool(
-        telegram_voice_reply_switch_enabled()
+        telegram_voice_reply_switch_enabled(
+            bot_surface
+        )
         and reply.get("voice_eligible")
         and (reply.get("voice_plan") or {}).get("state") == "ready_for_internal_render"
     )
@@ -141,11 +237,15 @@ def send_telegram_reply(
     ogg_path = outbox / f"{stem}.ogg"
 
     try:
+        spoken_text = normalize_spoken_text(text)
         render_receipt = synthesize_voice(
-            text=text,
+            text=spoken_text,
             output_path=wav_path,
             plan=plan,
             timeout=timeout,
+        )
+        render_receipt["spoken_text_normalized"] = (
+            spoken_text != text
         )
         encoding_receipt = convert_wav_to_telegram_voice(wav_path, ogg_path)
     except Exception as exc:

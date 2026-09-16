@@ -134,18 +134,20 @@ def test_telegram_text_update_becomes_operator_signable_presence_envelope():
 
 
 def test_telegram_local_signing_keeps_dio_shared_secret_off_cloudflare(monkeypatch):
+    monkeypatch.setenv("DIO_OPERATOR_TELEGRAM_IDS", "42")
     module = load_module()
     monkeypatch.setenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", "x" * 40)
     signed = module.locally_sign_telegram_event(telegram_event())
     assert signed["key_id"] == "operator-edge"
     assert len(signed["signature"]) == 64
-    assert signed["nonce"].startswith("tg_123_")
+    assert signed["nonce"].startswith("tg_operator_123_")
     envelope = json.loads(signed["body_text"])
     assert envelope["external_user_id"] == "42"
     assert "DIO_PRESENCE_OPERATOR_SHARED_SECRET" not in signed["body_text"]
 
 
 def test_missing_local_operator_secret_is_retryable(monkeypatch):
+    monkeypatch.setenv("DIO_OPERATOR_TELEGRAM_IDS", "42")
     module = load_module()
     monkeypatch.delenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", raising=False)
     with pytest.raises(module.TransientPresenceError):
@@ -162,3 +164,580 @@ def test_replay_409_can_close_telegram_delivery_without_duplicate_processing(mon
     monkeypatch.setattr(module, "urlopen", fake_urlopen)
     result = module.forward_to_core(event, "http://127.0.0.1:8787", replay_is_success=True)
     assert result["duplicate_delivery"] is True
+
+
+def web_voice_event() -> dict:
+    audio = b"synthetic-web-audio"
+    return {
+        "id": 17,
+        "event_key": "web:VWC-0123456789ABCDEF:voice:test",
+        "conversation_id": "VWC-0123456789ABCDEF",
+        "body_text": json.dumps(
+            {
+                "channel": "webchat",
+                "external_user_id":
+                    "WEB-0123456789ABCDEF0123456789ABCDEF",
+                "text":
+                    "Web voice input awaiting local transcription.",
+                "message_type": "voice",
+                "metadata": {
+                    "web_conversation_id":
+                        "VWC-0123456789ABCDEF",
+                    "web_surface": "dio_web",
+                    "voice_input": {
+                        "content_b64":
+                            __import__("base64")
+                            .b64encode(audio)
+                            .decode("ascii"),
+                        "mime_type": "audio/webm",
+                        "custody":
+                            "cloudflare_d1_transport_only",
+                        "authority_created": False,
+                    },
+                },
+            },
+            separators=(",", ":"),
+        ),
+        "received_at": "2026-09-15T12:00:00Z",
+        "attempts": 0,
+    }
+
+
+def test_web_voice_transcription_replaces_transport_audio_before_signing(
+    monkeypatch,
+):
+    module = load_module()
+
+    monkeypatch.setenv(
+        "DIO_PRESENCE_PUBLIC_SHARED_SECRET",
+        "p" * 40,
+    )
+
+    def fake_transcribe(attachment):
+        assert attachment["mime_type"] == "audio/webm"
+        assert attachment["content_b64"]
+
+        return {
+            "schema":
+                "dio.vesper.voice_transcription.v1",
+            "text":
+                "What would HOMS Assess cost for 80 students?",
+            "provider": "hf-inference",
+            "model":
+                "openai/whisper-large-v3-turbo",
+            "audio_sha256": "b" * 64,
+            "audio_bytes": 19,
+            "mime_type": "audio/webm",
+            "truncated": False,
+            "authority_created": False,
+            "external_processing": True,
+            "execution_authority_created": False,
+            "send_authority_created": False,
+        }
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_hf",
+        fake_transcribe,
+    )
+
+    signed = module.locally_sign_web_event(
+        web_voice_event()
+    )
+
+    assert signed["key_id"] == "public-edge"
+    assert len(signed["signature"]) == 64
+
+    envelope = json.loads(
+        signed["body_text"]
+    )
+
+    assert envelope["channel"] == "webchat"
+    assert envelope["message_type"] == "voice"
+
+    assert envelope["text"] == (
+        "What would HOMS Assess cost for 80 students?"
+    )
+
+    metadata = envelope["metadata"]
+
+    assert "voice_input" not in metadata
+    assert "content_b64" not in signed["body_text"]
+
+    assert metadata["voice_source"]["provider"] == "web"
+    assert (
+        metadata["voice_source"]["custody"]
+        == "cloudflare_d1_transport_only"
+    )
+    assert (
+        metadata["voice_source"]["authority_created"]
+        is False
+    )
+
+    assert (
+        metadata["voice_transcription"]
+        ["authority_created"]
+        is False
+    )
+
+
+def test_web_voice_client_authority_fields_are_refused(
+    monkeypatch,
+):
+    module = load_module()
+
+    monkeypatch.setenv(
+        "DIO_PRESENCE_PUBLIC_SHARED_SECRET",
+        "p" * 40,
+    )
+
+    event = web_voice_event()
+    envelope = json.loads(event["body_text"])
+
+    envelope["role"] = "operator"
+    envelope["_trusted_edge_key_id"] = (
+        "operator-edge"
+    )
+
+    event["body_text"] = json.dumps(
+        envelope,
+        separators=(",", ":"),
+    )
+
+    with pytest.raises(
+        module.PermanentPresenceError,
+    ):
+        module.locally_sign_web_event(event)
+
+
+def test_web_voice_reply_is_presentation_only_and_preserves_canonical_text(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+
+    monkeypatch.setattr(
+        module,
+        "ROOT",
+        tmp_path,
+    )
+
+    captured = {}
+
+    def fake_synthesize_voice(
+        *,
+        text,
+        output_path,
+        plan,
+        timeout,
+    ):
+        captured["text"] = text
+        captured["plan"] = plan
+        captured["timeout"] = timeout
+
+        output_path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+        output_path.write_bytes(
+            b"RIFFsynthetic-wav"
+        )
+
+        return {
+            "profile_id":
+                "vera_pocket_public",
+            "backend": "pocket_tts",
+            "audio_sha256": "c" * 64,
+            "authority_created": False,
+        }
+
+    monkeypatch.setattr(
+        module,
+        "synthesize_voice",
+        fake_synthesize_voice,
+    )
+
+    canonical = (
+        "Pricing sits between R350 and R1,800."
+    )
+
+    result = {
+        "schema":
+            "dio.presence_response.v2",
+        "reply": {
+            "text": canonical,
+            "voice_eligible": True,
+            "voice_plan": {
+                "state":
+                    "ready_for_internal_render",
+                "profile_id":
+                    "vera_pocket_public",
+                "backend":
+                    "pocket_tts",
+            },
+        },
+    }
+
+    rendered = module.render_web_voice_reply(
+        event_id=17,
+        result=result,
+    )
+
+    assert (
+        rendered["reply"]["text"]
+        == canonical
+    )
+
+    assert (
+        captured["text"]
+        == "Pricing sits between 350 rand and 1,800 rand."
+    )
+
+    audio = rendered["reply"]["audio"]
+
+    assert audio["state"] == "ready"
+    assert audio["mime_type"] == "audio/wav"
+    assert (
+        audio["profile_id"]
+        == "vera_pocket_public"
+    )
+    assert audio["backend"] == "pocket_tts"
+    assert audio["presentation_only"] is True
+    assert audio["authority_created"] is False
+    assert (
+        audio["spoken_text_normalized"]
+        is True
+    )
+    assert audio["content_b64"]
+
+
+def test_non_voice_web_message_never_invokes_transcription(
+    monkeypatch,
+):
+    module = load_module()
+
+    def refuse_transcription(_attachment):
+        raise AssertionError(
+            "Text web message invoked ASR"
+        )
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_hf",
+        refuse_transcription,
+    )
+
+    envelope = {
+        "channel": "webchat",
+        "external_user_id":
+            "WEB-0123456789ABCDEF0123456789ABCDEF",
+        "text": "Tell me about Evidex.",
+        "message_type": "text",
+        "metadata": {
+            "web_conversation_id":
+                "VWC-0123456789ABCDEF",
+            "web_surface": "dio_web",
+        },
+    }
+
+    result = (
+        module.prepare_web_semantic_envelope(
+            {
+                "id": 18,
+                "conversation_id":
+                    "VWC-0123456789ABCDEF",
+            },
+            envelope,
+        )
+    )
+
+    assert result == envelope
+
+
+def test_web_reply_outbox_round_trip_is_exact(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+
+    monkeypatch.setattr(
+        module,
+        "ROOT",
+        tmp_path,
+    )
+
+    result = {
+        "schema":
+            "dio.presence_response.v2",
+        "reply": {
+            "text":
+                "Canonical reply.",
+        },
+        "authority": {
+            "executed_external_action":
+                False,
+        },
+    }
+
+    path = module.save_web_reply_outbox(
+        event_id=17,
+        conversation_id=
+            "VWC-0123456789ABCDEF",
+        result=result,
+    )
+
+    assert path.exists()
+
+    loaded = module.load_web_reply_outbox(
+        17
+    )
+
+    assert loaded == {
+        "schema":
+            "dio.vesper.web_reply_outbox.v1",
+        "event_id":
+            17,
+        "conversation_id":
+            "VWC-0123456789ABCDEF",
+        "result":
+            result,
+    }
+
+
+def test_web_reply_outbox_delete_is_idempotent(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+
+    monkeypatch.setattr(
+        module,
+        "ROOT",
+        tmp_path,
+    )
+
+    module.save_web_reply_outbox(
+        event_id=18,
+        conversation_id=
+            "VWC-0123456789ABCDEF",
+        result={
+            "reply": {
+                "text":
+                    "Stored once.",
+            }
+        },
+    )
+
+    assert (
+        module.delete_web_reply_outbox(18)
+        is True
+    )
+
+    assert (
+        module.delete_web_reply_outbox(18)
+        is False
+    )
+
+
+def test_web_reply_outbox_rejects_corruption(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+
+    monkeypatch.setattr(
+        module,
+        "ROOT",
+        tmp_path,
+    )
+
+    path = module.web_reply_outbox_path(
+        19
+    )
+
+    path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    path.write_text(
+        '{"schema":"wrong"}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(
+        module.PermanentPresenceError
+    ):
+        module.load_web_reply_outbox(
+            19
+        )
+
+
+def test_web_reply_retry_uses_outbox_without_reexecuting_core(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+
+    event = {
+        "id": 21,
+        "conversation_id": "VWC-0123456789ABCDEF",
+    }
+
+    original = {
+        "schema": "dio.presence_response.v2",
+        "reply": {"text": "Original canonical reply."},
+    }
+
+    core_calls = []
+    deliveries = []
+
+    monkeypatch.setattr(
+        module,
+        "locally_sign_web_event",
+        lambda event: {"body_text": "{}"},
+    )
+
+    def fake_core(*args, **kwargs):
+        core_calls.append(1)
+        return original
+
+    def fake_edge(url, token, method="GET", payload=None):
+        deliveries.append(payload)
+        if len(deliveries) == 1:
+            raise module.PresenceEdgeError(
+                "synthetic reply delivery failure"
+            )
+        return {"stored": True}
+
+    monkeypatch.setattr(
+        module,
+        "forward_to_core",
+        fake_core,
+    )
+    monkeypatch.setattr(
+        module,
+        "render_web_voice_reply",
+        lambda **kwargs: kwargs["result"],
+    )
+    monkeypatch.setattr(
+        module,
+        "edge_request",
+        fake_edge,
+    )
+
+    first = module.sync_web_event_batch(
+        events=[event],
+        core_url="http://127.0.0.1:8787",
+        base_url="https://edge.example",
+        token="test",
+        reply_path="/api/presence/web-replies",
+    )
+
+    assert first[2] == [21]
+    assert len(core_calls) == 1
+
+    second = module.sync_web_event_batch(
+        events=[event],
+        core_url="http://127.0.0.1:8787",
+        base_url="https://edge.example",
+        token="test",
+        reply_path="/api/presence/web-replies",
+    )
+
+    assert second[0] == [21]
+    assert second[2] == []
+    assert len(core_calls) == 1
+    assert deliveries[0] == deliveries[1]
+    assert deliveries[1]["result"] == original
+
+
+def test_web_reply_outbox_deleted_only_after_full_ack(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+
+    monkeypatch.setattr(
+        module,
+        "ROOT",
+        tmp_path,
+    )
+
+    for event_id in (31, 32):
+        module.save_web_reply_outbox(
+            event_id=event_id,
+            conversation_id=
+                "VWC-0123456789ABCDEF",
+            result={
+                "reply": {
+                    "text":
+                        f"Reply {event_id}.",
+                },
+            },
+        )
+
+    deleted = (
+        module.cleanup_web_reply_outbox_after_ack(
+            [31, 32],
+            {"acknowledged": 2},
+        )
+    )
+
+    assert deleted == [31, 32]
+
+    assert (
+        module.load_web_reply_outbox(31)
+        is None
+    )
+
+    assert (
+        module.load_web_reply_outbox(32)
+        is None
+    )
+
+
+def test_web_reply_outbox_preserved_on_partial_ack(
+    monkeypatch,
+    tmp_path,
+):
+    module = load_module()
+
+    monkeypatch.setattr(
+        module,
+        "ROOT",
+        tmp_path,
+    )
+
+    for event_id in (33, 34):
+        module.save_web_reply_outbox(
+            event_id=event_id,
+            conversation_id=
+                "VWC-0123456789ABCDEF",
+            result={
+                "reply": {
+                    "text":
+                        f"Reply {event_id}.",
+                },
+            },
+        )
+
+    deleted = (
+        module.cleanup_web_reply_outbox_after_ack(
+            [33, 34],
+            {"acknowledged": 1},
+        )
+    )
+
+    assert deleted == []
+
+    assert (
+        module.load_web_reply_outbox(33)
+        is not None
+    )
+
+    assert (
+        module.load_web_reply_outbox(34)
+        is not None
+    )

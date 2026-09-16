@@ -17,11 +17,24 @@ def identity_hash(channel: str, external_user_id: str) -> str:
 def conversation_id(channel: str, external_user_id: str) -> str: return "CONV-"+identity_hash(channel,external_user_id)[:20].upper()
 
 def conversation_path(root: Path, conv_id: str) -> Path: return root/"conversations"/f"{safe(conv_id)}.json"
+
+def conversation_identity_scope(envelope: dict[str,Any]) -> str:
+    channel=str(envelope["channel"])
+    if channel!="telegram":
+        return channel
+    surface=str((envelope.get("metadata") or {}).get("telegram_bot_surface") or "operator").strip().lower()
+    if surface=="operator":
+        return "telegram"
+    if surface=="public":
+        return "telegram:public"
+    raise ValueError(f"unsupported telegram_bot_surface: {surface!r}")
+
 def load_or_create_conversation(root: Path, envelope: dict[str,Any], role: str) -> dict[str,Any]:
-    channel=str(envelope["channel"]); uid=str(envelope["external_user_id"]); cid=conversation_id(channel,uid); path=conversation_path(root,cid)
+    channel=str(envelope["channel"]); uid=str(envelope["external_user_id"]); identity_scope=conversation_identity_scope(envelope); cid=conversation_id(identity_scope,uid); path=conversation_path(root,cid)
     if path.exists(): conv=read_json(path)
     else:
-        conv={"schema":"dio.presence_conversation.v1","conversation_id":cid,"channel":channel,"external_user_ref_hash":identity_hash(channel,uid),"role":role,"display_name":envelope.get("display_name"),"created_at":now(),"updated_at":now(),"message_count":0,"last_intent":None,"last_product":None,"attribution":{"campaign_hint":None}}
+        conv={"schema":"dio.presence_conversation.v1","conversation_id":cid,"channel":channel,"external_user_ref_hash":identity_hash(identity_scope,uid),"role":role,"display_name":envelope.get("display_name"),"created_at":now(),"updated_at":now(),"message_count":0,"last_intent":None,"last_product":None,"attribution":{"campaign_hint":None}}
+    conv["role"]=role
     hint=((envelope.get("metadata") or {}).get("telegram_start_payload"))
     if hint and not (conv.get("attribution") or {}).get("campaign_hint"): conv.setdefault("attribution",{})["campaign_hint"]=hint
     conv["updated_at"]=now(); conv["message_count"]=int(conv.get("message_count",0))+1; write_json(path,conv); return conv
