@@ -26,7 +26,7 @@ def test_all_68_products_expose_declarative_journey_intake_profiles() -> None:
     assert len(products) == 68
 
     for product in products:
-        profile = product["journey_intake_profile"]
+        profile = build_intake_requirement(DIO_ROOT, product["name"])
         required = {row["field_id"] for row in profile["required_inputs"]}
 
         assert required == {"requested_outcome", "buyer_class", "scope_quantity"}
