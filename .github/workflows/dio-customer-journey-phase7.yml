@@ -19,5 +19,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Compile Phase 7 contract
+        run: |
+          python -m py_compile \
+            presence_core/organ_adapter_gauntlet.py \
+            tests/test_customer_journey_phase7.py
       - name: Run Phase 7 contract tests
         run: python -m pytest -q tests/test_customer_journey_phase7.py
