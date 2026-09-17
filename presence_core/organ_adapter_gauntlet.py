@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 
 VERIFIED_NATIVE = "VERIFIED_NATIVE"
@@ -292,4 +292,112 @@ def validate_execution_evidence(
         "authority_created": False,
         "release_authority": False,
         "external_send_authority": False,
+    }
+
+
+ExecutionRunner = Callable[..., Mapping[str, Any]]
+
+
+def execute_verified_family(
+    family_id: str,
+    *,
+    request: Mapping[str, Any],
+    execution_profile: Mapping[str, Any],
+    runner: ExecutionRunner,
+) -> dict[str, Any]:
+    """Execute one Phase 7 family behind the universal Phase 4 adapter seam.
+
+    The runner is not trusted. Its output becomes a Phase 4 adapter result only
+    after fresh execution evidence is bound to the exact canonical fulfilment
+    request and execution-profile hashes and passes the Phase 7 authority and
+    artifact-custody checks.
+    """
+
+    if family_id not in ORGAN_FAMILIES:
+        raise ValueError(f"unknown Phase 7 organ family: {family_id}")
+    binding = ORGAN_FAMILIES[family_id]
+    if binding["execution_class"] not in {"native", "external_repo"}:
+        raise ValueError(f"Phase 7 family {family_id} is not executable in this environment")
+    if not callable(runner):
+        raise ValueError("Phase 7 family runner must be callable")
+
+    if request.get("schema") != "dio.fulfilment_request.v1":
+        raise ValueError("canonical Phase 4 fulfilment request is required")
+    if execution_profile.get("schema") != "dio.fulfilment_execution_profile.v1":
+        raise ValueError("canonical Phase 4 execution profile is required")
+
+    request_hash = str(request.get("fulfilment_request_sha256") or "")
+    profile_hash = str(execution_profile.get("execution_profile_sha256") or "")
+    if not _is_sha256(request_hash):
+        raise ValueError("canonical fulfilment_request_sha256 is required")
+    if not _is_sha256(profile_hash):
+        raise ValueError("canonical execution_profile_sha256 is required")
+    if str(request.get("execution_profile_sha256") or "") != profile_hash:
+        raise ValueError("fulfilment request and execution profile are not bound")
+    if str(request.get("adapter_id") or "") != str(binding["adapter_id"]):
+        raise ValueError("fulfilment request adapter does not match Phase 7 family")
+    if str(request.get("adapter_version") or "") != str(binding["adapter_version"]):
+        raise ValueError("fulfilment request adapter version does not match Phase 7 family")
+    if str(execution_profile.get("adapter_id") or "") != str(binding["adapter_id"]):
+        raise ValueError("execution profile adapter does not match Phase 7 family")
+    if str(execution_profile.get("adapter_version") or "") != str(binding["adapter_version"]):
+        raise ValueError("execution profile adapter version does not match Phase 7 family")
+
+    evidence = runner(
+        family=family_id,
+        binding=deepcopy(binding),
+        request=deepcopy(dict(request)),
+        execution_profile=deepcopy(dict(execution_profile)),
+    )
+    if not isinstance(evidence, Mapping):
+        raise ValueError("Phase 7 family runner must return execution evidence")
+
+    verdict = validate_execution_evidence(
+        family_id,
+        evidence,
+        expected_request_sha256=request_hash,
+        expected_profile_sha256=profile_hash,
+    )
+    if verdict["verdict"] != VERIFIED_NATIVE:
+        reasons = ",".join(verdict.get("reasons") or ["unverified_execution"])
+        raise ValueError(f"Phase 7 execution evidence refused: {reasons}")
+
+    artifacts: list[dict[str, Any]] = []
+    for row in evidence.get("artifacts") or []:
+        artifact = dict(row)
+        path = Path(str(artifact.get("path") or "")).expanduser()
+        file_name = str(artifact.get("file_name") or path.name or artifact["artifact_id"])
+        kind = str(artifact["kind"])
+        mime_type = str(
+            artifact.get("mime_type")
+            or (kind if "/" in kind else "application/octet-stream")
+        )
+        artifacts.append(
+            {
+                **artifact,
+                "file_name": file_name,
+                "mime_type": mime_type,
+                "release_state": "HELD",
+                "release_authority": False,
+                "external_send_authority": False,
+                "authority_created": False,
+            }
+        )
+
+    return {
+        "status": "COMPLETED",
+        "artifacts": artifacts,
+        "evidence_refs": list(evidence.get("evidence_refs") or [])
+        + [f"phase7-verdict:{family_id}:VERIFIED_NATIVE"],
+        "organ_steps": [
+            {
+                "organ_family": family_id,
+                "adapter_id": binding["adapter_id"],
+                "adapter_version": binding["adapter_version"],
+                "state": VERIFIED_NATIVE,
+            }
+        ],
+        "release_authority": False,
+        "external_send_authority": False,
+        "authority_created": False,
     }
