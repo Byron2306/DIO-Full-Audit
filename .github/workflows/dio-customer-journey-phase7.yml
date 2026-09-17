@@ -251,3 +251,62 @@ jobs:
           assert all(p.is_file() and p.stat().st_size > 0 for p in required), required
           print("DOCUMENT_STUDIO_OLLAMA_PIPELINE_EXECUTED")
           PY
+
+
+  sophia-main-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Byron2306/Sophia-AI
+          ref: c1aa915560599f7d6cef0ff41e6a7b0787334376
+          path: external/sophia
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+      - name: Start Ollama and pull tiny Qwen
+        run: |
+          ollama serve >/tmp/ollama.log 2>&1 &
+          for i in {1..30}; do
+            curl -fsS http://127.0.0.1:11434/api/tags >/dev/null && break
+            sleep 1
+          done
+          ollama pull qwen2.5:0.5b
+      - name: Start canonical Sophia 7070
+        env:
+          PRESENCE_PORT: '7070'
+          OLLAMA_URL: http://127.0.0.1:11434
+          OLLAMA_MODEL: qwen2.5:0.5b
+        working-directory: external/sophia
+        run: |
+          python arda_os/backend/services/presence_server.py >/tmp/sophia-presence.log 2>&1 &
+          for i in {1..45}; do
+            curl -fsS http://127.0.0.1:7070/api/health >/dev/null && break
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:7070/api/health >/dev/null
+      - name: Execute live Sophia specialist review
+        working-directory: external/sophia
+        run: python tests/run_dio_product_review_live.py /tmp/sophia-live-review.json
+      - name: Seal Sophia witness through DIO Phase 7
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          witness = Path("/tmp/sophia-live-review.json")
+          assert witness.is_file() and witness.stat().st_size > 0
+          ref = "external-repo:Byron2306/Sophia-AI@c1aa915560599f7d6cef0ff41e6a7b0787334376"
+          evidence = seal_native_execution(
+              "sophia_review",
+              fulfilment_request_sha256="2"*64,
+              execution_profile_sha256="3"*64,
+              artifacts=[{"artifact_id":"sophia-live-review","kind":"application/json","path":witness}],
+              evidence_refs=[ref, "ollama-model:qwen2.5:0.5b", "presence-port:7070"],
+          )
+          verdict = validate_execution_evidence("sophia_review", evidence, expected_request_sha256="2"*64, expected_profile_sha256="3"*64)
+          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
+          print("SOPHIA_REVIEW_VERIFIED_NATIVE")
+          PY
