@@ -141,7 +141,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Byron2306/NicheFoundry
-          ref: 25fef4bd5bfd1258758963b374ef192fc469c14f
+          ref: 7528d8cdee17c5b6fbe35236b71b8e2191bb108a
           path: external/nichefoundry
       - uses: actions/setup-node@v4
         with:
@@ -165,7 +165,7 @@ jobs:
               fulfilment_request_sha256="f"*64,
               execution_profile_sha256="1"*64,
               artifacts=[{"artifact_id": f"niche-{p.stem}", "kind": "application/json", "path": p} for p in artifacts],
-              evidence_refs=["external-repo:Byron2306/NicheFoundry@25fef4bd5bfd1258758963b374ef192fc469c14f"],
+              evidence_refs=["external-repo:Byron2306/NicheFoundry@7528d8cdee17c5b6fbe35236b71b8e2191bb108a"],
           )
           verdict = validate_execution_evidence("nichefoundry_campaign", evidence, expected_request_sha256="f"*64, expected_profile_sha256="1"*64)
           assert verdict["verdict"] == VERIFIED_NATIVE, verdict
