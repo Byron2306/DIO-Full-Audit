@@ -158,7 +158,7 @@ def test_seal_native_execution_refuses_non_native_family_and_missing_files(tmp_p
     missing = tmp_path / "missing.json"
     with pytest.raises(ValueError, match="not a permitted native execution binding"):
         seal_native_execution(
-            "sophia_review",
+            "document_studio",
             fulfilment_request_sha256="a" * 64,
             execution_profile_sha256="b" * 64,
             artifacts=[{"artifact_id": "evidence", "kind": "application/json", "path": missing}],
