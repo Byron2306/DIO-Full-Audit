@@ -43,7 +43,7 @@ def test_phase7_registry_freezes_exactly_eight_representative_families() -> None
         assert binding["adapter_id"]
         assert binding["adapter_version"]
         assert binding["source_path"]
-        assert binding["execution_class"] in {"native", "host_bound", "unbound"}
+        assert binding["execution_class"] in {"native", "external_repo", "host_bound", "unbound"}
         assert binding["verdict"] in {VERIFIED_NATIVE, NEEDS_HOST, NEEDS_BINDING, REFUSE}
         assert binding["authority_created"] is False
         assert binding["external_send_authority"] is False
@@ -156,9 +156,9 @@ def test_seal_native_execution_hashes_current_artifact_bytes(tmp_path: Path) -> 
 
 def test_seal_native_execution_refuses_non_native_family_and_missing_files(tmp_path: Path) -> None:
     missing = tmp_path / "missing.json"
-    with pytest.raises(ValueError, match="not repository-native"):
+    with pytest.raises(ValueError, match="not a permitted native execution binding"):
         seal_native_execution(
-            "evidex_evidence",
+            "sophia_review",
             fulfilment_request_sha256="a" * 64,
             execution_profile_sha256="b" * 64,
             artifacts=[{"artifact_id": "evidence", "kind": "application/json", "path": missing}],
