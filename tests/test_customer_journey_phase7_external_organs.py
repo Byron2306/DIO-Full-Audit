@@ -250,7 +250,7 @@ def test_real_nichefoundry_main_repo_renders_held_media_pack(tmp_path: Path) -> 
         [
             "node",
             "scripts/backend_autopilot.js",
-            "Rosetta Stone inscription and what it reveals about ancient Egyptian governance",
+            "Rosetta Stone",
             "history_under_glass",
             "--render",
             "--provider",
