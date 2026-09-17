@@ -312,3 +312,26 @@ def test_real_nichefoundry_main_repo_renders_held_media_pack(tmp_path: Path) -> 
     assert verdict["verdict"] == VERIFIED_NATIVE
     assert all(item["release_state"] == "HELD" for item in evidence["artifacts"])
     assert all(item["size_bytes"] > 0 for item in evidence["artifacts"])
+
+@pytest.mark.parametrize("family_id", list(PINNED))
+def test_external_repo_evidence_refuses_missing_exact_repository_commit(
+    tmp_path: Path,
+    family_id: str,
+) -> None:
+    artifact = tmp_path / f"{family_id}-unpinned.json"
+    artifact.write_text('{"current":true}\n', encoding="utf-8")
+    evidence = seal_native_execution(
+        family_id,
+        fulfilment_request_sha256="7" * 64,
+        execution_profile_sha256="8" * 64,
+        artifacts=[{"artifact_id": "artifact", "kind": "application/json", "path": artifact}],
+        evidence_refs=["external-repo:wrong/repo@0000000000000000000000000000000000000000"],
+    )
+    verdict = validate_execution_evidence(
+        family_id,
+        evidence,
+        expected_request_sha256="7" * 64,
+        expected_profile_sha256="8" * 64,
+    )
+    assert verdict["verdict"] != VERIFIED_NATIVE
+    assert "external_repository_pin_mismatch" in verdict["reasons"]
