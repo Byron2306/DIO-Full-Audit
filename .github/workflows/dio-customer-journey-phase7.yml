@@ -1,5 +1,9 @@
 name: DIO Customer Journey Phase 7
 
+concurrency:
+  group: dio-customer-journey-phase7-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
