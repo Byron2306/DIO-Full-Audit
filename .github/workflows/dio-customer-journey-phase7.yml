@@ -148,7 +148,7 @@ jobs:
           node-version: '24'
       - name: Execute canonical NicheFoundry backend autopilot
         working-directory: external/nichefoundry
-        run: node scripts/backend_autopilot.js "Roman inscriptions reveal everyday life" history_under_glass
+        run: node scripts/backend_autopilot.js "Dinosaur" puzzle_planet
       - name: Seal NicheFoundry campaign artifacts through DIO Phase 7
         run: |
           python - <<'PY'
