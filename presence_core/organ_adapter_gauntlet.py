@@ -25,6 +25,8 @@ def _binding(
     verdict: str,
     *,
     host_capability: str | None = None,
+    repository: str | None = None,
+    repository_commit: str | None = None,
     note: str,
 ) -> dict[str, Any]:
     return {
@@ -36,6 +38,8 @@ def _binding(
         "source_path": source_path,
         "execution_class": execution_class,
         "host_capability": host_capability,
+        "repository": repository,
+        "repository_commit": repository_commit,
         "verdict": verdict,
         "note": note,
         "authority_created": False,
@@ -58,10 +62,11 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     ),
     "evidex_evidence": _binding(
         "evidex_evidence", "C", "Evidex Evidence Pack",
-        "dio.organ.evidex_evidence", "scripts/run_evidex_jobs.py",
-        "host_bound", NEEDS_HOST,
-        host_capability="evidex_runtime",
-        note="The repository adapter invokes the external /home/byron/Evidex runtime; GitHub-hosted CI cannot counterfeit that execution.",
+        "dio.organ.evidex_evidence", "src/evidence_pack_engine/cli.py",
+        "external_repo", NEEDS_BINDING,
+        repository="Byron2306/Evidex",
+        repository_commit="c2754b37ca32e803d84e733b5d59207fdcb17841",
+        note="The canonical Evidex repository exposes a deterministic evidence_pack_engine CLI and is pinned for fresh Phase 7 execution proof.",
     ),
     "vamp_snapshot": _binding(
         "vamp_snapshot", "C", "VAMP Performance Evidence Snapshot",
@@ -71,15 +76,19 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     ),
     "homs_assessment": _binding(
         "homs_assessment", "A", "HOMS Assess",
-        "dio.organ.homs_assessment", "scripts/run_homs_jobs.py",
-        "unbound", NEEDS_BINDING,
-        note="Current repository path prepares HOMS request/marking packs and explicitly stops before the HOMS backend.",
+        "dio.organ.homs_assessment", "main.py",
+        "external_repo", NEEDS_BINDING,
+        repository="Byron2306/NoEdge-Multi-Hymark",
+        repository_commit="a3ea3f627d860fc7b13e2d95f6632f914938c8de",
+        note="The canonical HOMS repository exposes the real WorkflowEngine and CLI; the commit is pinned for current Phase 7 execution proof.",
     ),
     "homs_learning": _binding(
         "homs_learning", "A", "HOMS Learning Studio",
-        "dio.organ.homs_learning", "adapters/homs/README.md",
-        "unbound", NEEDS_BINDING,
-        note="No current Journey-bound learning-organ execution entrypoint has been proven.",
+        "dio.organ.homs_learning", "Marker/homs/core/learning_agent.py",
+        "external_repo", NEEDS_BINDING,
+        repository="Byron2306/NoEdge-Multi-Hymark",
+        repository_commit="a3ea3f627d860fc7b13e2d95f6632f914938c8de",
+        note="HOMS Learning is implemented inside the canonical WorkflowEngine; the same pinned run must prove persisted learning artifacts separately from assessment output.",
     ),
     "document_studio": _binding(
         "document_studio", "E", "DIO Document Studio",
@@ -90,9 +99,11 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     ),
     "nichefoundry_campaign": _binding(
         "nichefoundry_campaign", "G", "NicheFoundry Campaign Pack",
-        "dio.organ.nichefoundry_campaign", "scripts/run_nichefoundry_jobs.py",
-        "unbound", NEEDS_BINDING,
-        note="The current runner records prepared_request_only and does not execute the NicheFoundry production pipeline.",
+        "dio.organ.nichefoundry_campaign", "scripts/backend_autopilot.js",
+        "external_repo", NEEDS_BINDING,
+        repository="Byron2306/NicheFoundry",
+        repository_commit="25fef4bd5bfd1258758963b374ef192fc469c14f",
+        note="The canonical NicheFoundry repository exposes backend_autopilot.js for real episode/campaign package generation and is pinned for Phase 7 proof.",
     ),
     "obligation_assurance": _binding(
         "obligation_assurance", "D", "Obligation / Assurance Core",
@@ -119,8 +130,9 @@ def inspect_family(
         capability = row.get("host_capability")
         row["host_available"] = bool(capability and capability in host_capabilities)
         row["verdict"] = NEEDS_BINDING if row["host_available"] else NEEDS_HOST
-    elif row["execution_class"] == "unbound":
+    elif row["execution_class"] in {"unbound", "external_repo"}:
         row["host_available"] = False
+        row["external_repository_required"] = row["execution_class"] == "external_repo"
         row["verdict"] = NEEDS_BINDING
     else:
         row["host_available"] = True
@@ -163,8 +175,8 @@ def seal_native_execution(
     if family_id not in ORGAN_FAMILIES:
         raise ValueError(f"unknown Phase 7 organ family: {family_id}")
     binding = ORGAN_FAMILIES[family_id]
-    if binding["execution_class"] != "native":
-        raise ValueError(f"Phase 7 family {family_id} is not repository-native")
+    if binding["execution_class"] not in {"native", "external_repo"}:
+        raise ValueError(f"Phase 7 family {family_id} is not a permitted native execution binding")
     if not _is_sha256(fulfilment_request_sha256):
         raise ValueError("fulfilment_request_sha256 must be a SHA-256 digest")
     if not _is_sha256(execution_profile_sha256):
