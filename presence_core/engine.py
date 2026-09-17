@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
 from typing import Any
 from adapters.lingua.communicator import register_communication, requested_language
@@ -12,12 +13,26 @@ from adapters.lingua.persona_lab import assign_persona
 from .attachments import AttachmentError, validate_and_store_attachment
 from .capital_queries import CAPITAL_INTENTS, capital_query
 from .commercial_grounding import build_commercial_grounding, commercial_facts, commercial_fallback, should_ground_commercial
+from .commerce import commercial_surface_state
 from .config import operator_ids
+from .customer_cases import (
+    CASE_STAGES,
+    create_or_attach_case,
+    create_successor_case,
+    find_case_for_conversation,
+    load_case,
+    update_case,
+)
+from .customer_quotes import (
+    evaluate_bounded_quote_authority,
+    issue_bounded_quote,
+)
 from .events import emit_event
 from .identity import load_status_binding, bound_order_status
 from .llm import draft_with_cortex
 from .policy import authorize
 from .pricing_governance import pricing_operator_query
+from products.commercial_pricing_registry import canonical_product_name
 from .router import route_message
 from .state import (
     append_conversation_turn,
@@ -32,6 +47,319 @@ from .state import (
     update_conversation,
 )
 from .voice import build_voice_plan
+
+
+
+def _is_affirmative_continuation(text: str) -> bool:
+    """
+    True only for short confirmation language.
+
+    This may retain an already-selected canonical product.
+    It does not itself select a product or create authority.
+    """
+    return bool(
+        re.fullmatch(
+            r"\s*(?:"
+            r"yes(?:\s+please)?|"
+            r"please\s+do|"
+            r"go\s+ahead|"
+            r"proceed|"
+            r"continue|"
+            r"sure|"
+            r"ok(?:ay)?"
+            r")\s*[.!]?\s*",
+            str(text or ""),
+            re.IGNORECASE,
+        )
+    )
+
+
+def _is_price_acceptance(text: str) -> bool:
+    """
+    Detect explicit customer acceptance of an already-governed
+    PRICE_RECOMMENDED case.
+
+    This signal never creates authority by itself. It only permits the
+    bounded quote-authority policy to be evaluated.
+    """
+    value = str(text or "").strip().lower()
+
+    if not value:
+        return False
+
+    if _is_affirmative_continuation(value):
+        return True
+
+    acceptance_terms = (
+        "i accept",
+        "accept the price",
+        "accept this price",
+        "happy with the price",
+        "happy with that price",
+        "happy with the r",
+        "please proceed",
+        "go ahead",
+        "let's proceed",
+        "lets proceed",
+    )
+
+    return any(term in value for term in acceptance_terms)
+
+
+def _bind_live_customer_case(
+    *,
+    presence_root: Path,
+    conv: dict[str, Any],
+    correlation: str,
+    envelope: dict[str, Any],
+    attachment_record: dict[str, Any] | None,
+    commercial: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    """
+    Bind live Presence custody/routing truth into the canonical customer-case spine.
+
+    This creates no quote, payment, fulfilment, parsing, execution or release authority.
+    """
+    metadata = envelope.get("metadata") or {}
+
+    external_user_id = str(
+        conv.get("external_user_id")
+        or envelope.get("external_user_id")
+        or metadata.get("external_user_id")
+        or envelope.get("sender_id")
+        or metadata.get("sender_id")
+        or f"conversation:{correlation}"
+    )
+
+    resolved_product = str(
+        ((commercial or {}).get("product") or {}).get("name")
+        or ""
+    ).strip() or None
+
+    # Do not create empty commercial cases for every casual public turn.
+    # Attachment custody or a deterministic product resolution is sufficient.
+    if attachment_record is None and resolved_product is None:
+        return None
+
+    case = create_or_attach_case(
+        presence_root,
+        conversation_id=correlation,
+        channel=str(envelope.get("channel") or conv.get("channel") or "conversation"),
+        external_user_id=external_user_id,
+        product_id=resolved_product,
+        contact_email=(
+            str(metadata.get("email") or "").strip()
+            or None
+        ),
+        customer_id=(
+            str(conv.get("customer_id") or metadata.get("customer_id") or "").strip()
+            or None
+        ),
+    )
+
+    if attachment_record is not None:
+        incoming_sha = str(
+            attachment_record.get("sha256") or ""
+        ).strip().lower()
+
+        scope = case.get("scope") or {}
+        scoped_sha = str(
+            scope.get("scope_scan_sha256") or ""
+        ).strip().lower()
+
+        commercial_state = case.get("commercial") or {}
+
+        has_derived_truth = bool(scope) or (
+            str(
+                commercial_state.get("quote_state")
+                or "not_prepared"
+            )
+            != "not_prepared"
+        )
+
+        if (
+            incoming_sha
+            and scoped_sha
+            and incoming_sha != scoped_sha
+            and has_derived_truth
+        ):
+            case = create_successor_case(
+                presence_root,
+                case,
+                conversation_id=correlation,
+                source_sha256=incoming_sha,
+            )
+
+    patch: dict[str, Any] = {}
+
+    # Product routing may remain defeasible during early intake.
+    # Once governed scope/commercial truth exists, the case product
+    # identity is immutable. A later conversational product change
+    # must not rewrite an already-derived customer case.
+    product_rebind_stages = {
+        "NEW_LEAD",
+        "QUALIFIED",
+        "INTAKE_OPEN",
+        "FILES_RECEIVED_QUARANTINED",
+    }
+
+    case_stage = str(
+        case.get("stage") or "NEW_LEAD"
+    ).strip()
+
+    if (
+        resolved_product
+        and resolved_product != case.get("product_id")
+        and case_stage in product_rebind_stages
+    ):
+        history = list(case.get("product_history") or [])
+        prior = str(case.get("product_id") or "").strip()
+
+        if prior and prior not in history:
+            history.append(prior)
+
+        if resolved_product not in history:
+            history.append(resolved_product)
+
+        patch["product_id"] = resolved_product
+        patch["product_history"] = history
+
+    attachments = list(case.get("attachments") or [])
+
+    candidate_records = []
+    if attachment_record is not None:
+        candidate_records.append(attachment_record)
+
+    # Deployment/backfill continuity:
+    # recover prior quarantined attachments already bound to this conversation.
+    #
+    # Successor cases must not resurrect attachments already owned by
+    # predecessor lineage.
+    predecessor_attachment_ids: set[str] = set()
+    predecessor_id = str(
+        case.get("predecessor_case_id") or ""
+    ).strip()
+    visited_predecessors: set[str] = set()
+
+    while (
+        predecessor_id
+        and predecessor_id not in visited_predecessors
+    ):
+        visited_predecessors.add(predecessor_id)
+
+        predecessor_case = load_case(
+            presence_root,
+            predecessor_id,
+        )
+        if predecessor_case is None:
+            break
+
+        for predecessor_attachment in (
+            predecessor_case.get("attachments") or []
+        ):
+            if not isinstance(
+                predecessor_attachment,
+                dict,
+            ):
+                continue
+
+            predecessor_attachment_id = str(
+                predecessor_attachment.get(
+                    "attachment_id"
+                )
+                or ""
+            ).strip()
+
+            if predecessor_attachment_id:
+                predecessor_attachment_ids.add(
+                    predecessor_attachment_id
+                )
+
+        predecessor_id = str(
+            predecessor_case.get(
+                "predecessor_case_id"
+            )
+            or ""
+        ).strip()
+
+    quarantine_root = presence_root / "quarantine"
+    if quarantine_root.exists():
+        for metadata_path in sorted(quarantine_root.glob("*/ATTACHMENT.json")):
+            try:
+                row = json.loads(metadata_path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if str(row.get("conversation_id") or "") != correlation:
+                continue
+
+            if (
+                str(row.get("attachment_id") or "")
+                in predecessor_attachment_ids
+            ):
+                continue
+
+            if not any(
+                str(existing.get("attachment_id") or "") == str(row.get("attachment_id") or "")
+                for existing in candidate_records
+                if isinstance(existing, dict)
+            ):
+                candidate_records.append(row)
+
+    for candidate in candidate_records:
+        aid = str(candidate.get("attachment_id") or "")
+        if not aid or any(
+            isinstance(row, dict) and str(row.get("attachment_id") or "") == aid
+            for row in attachments
+        ):
+            continue
+
+        attachments.append(
+            {
+                "attachment_id": aid,
+                "conversation_id": correlation,
+                "state": "quarantined",
+                "sha256": candidate.get("sha256"),
+                "size_bytes": candidate.get("size_bytes"),
+                "original_file_name": candidate.get("original_file_name"),
+                "mime_type": candidate.get("mime_type"),
+                "safe_to_parse": False,
+                "safe_to_execute": False,
+            }
+        )
+
+    if attachments != list(case.get("attachments") or []):
+        patch["attachments"] = attachments
+
+    current_stage = str(case.get("stage") or "NEW_LEAD")
+    stage = None
+
+    if attachments:
+        try:
+            current_index = CASE_STAGES.index(current_stage)
+            quarantine_index = CASE_STAGES.index("FILES_RECEIVED_QUARANTINED")
+        except ValueError:
+            current_index = quarantine_index = 0
+
+        if current_index < quarantine_index:
+            stage = "FILES_RECEIVED_QUARANTINED"
+
+    if not patch and stage is None:
+        return case
+
+    evidence_bits = []
+    if attachment_record is not None:
+        evidence_bits.append(f"attachment:{attachment_record['attachment_id']}")
+    if resolved_product:
+        evidence_bits.append(f"product:{resolved_product}")
+
+    return update_case(
+        presence_root,
+        case,
+        stage=stage,
+        patch=patch,
+        evidence_ref=";".join(evidence_bits) or f"conversation:{correlation}",
+    )
+
 
 PRODUCT_COPY={
 'homs':'HOMS turns curriculum intent into governed educator-ready work: assessments, marking support, lesson plans, slides, worksheets and lesson media. Educator approval remains the authority gate.',
@@ -225,6 +553,40 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     ok,reason=authorize(role,decision['intent'])
     if not ok: decision={'intent':'unknown','product':None,'confidence':1.0,'source':'policy','reason':reason}
 
+    current_customer_case = find_case_for_conversation(
+        presence_root,
+        correlation,
+    )
+
+    active_case_product = None
+    if current_customer_case is not None:
+        active_case_stage = str(
+            current_customer_case.get("stage") or ""
+        ).strip()
+
+        active_commercial_stages = {
+            "PRICE_RECOMMENDED",
+            "QUOTE_READY",
+            "NEEDS_YOU",
+            "INVOICE_DRAFTED",
+            "INVOICE_SEND_APPROVAL",
+            "INVOICE_SENT",
+            "PAYMENT_PENDING",
+            "PAYMENT_VERIFIED",
+            "WORK_QUEUED",
+            "PROCESSING",
+            "REVIEW_READY",
+            "RELEASE_APPROVAL",
+        }
+
+        if active_case_stage in active_commercial_stages:
+            active_case_product = str(
+                current_customer_case.get(
+                    "product_id"
+                )
+                or ""
+            ).strip() or None
+
     commercial=None
     if should_ground_commercial(
         role=role,
@@ -295,6 +657,28 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
                     context_tier_hint=persisted_tier_hint,
                 )
             elif (
+                decision.get("product")
+                and str(decision.get("product")).strip()
+            ):
+                explicit_product_name = canonical_product_name(
+                    dio_root,
+                    str(decision.get("product")).strip(),
+                )
+
+                commercial=build_commercial_grounding(
+                    dio_root,
+                    text,
+                    incarnation_hint=explicit_product_name,
+                    context_tier_hint=persisted_tier_hint,
+                )
+            elif active_case_product:
+                commercial=build_commercial_grounding(
+                    dio_root,
+                    text,
+                    incarnation_hint=active_case_product,
+                    context_tier_hint=persisted_tier_hint,
+                )
+            elif (
                 semantic_continuity.get('relation')
                 == 'CONTINUATION'
                 and semantic_continuity.get(
@@ -306,6 +690,20 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
                     dio_root,
                     text,
                     incarnation_hint=semantic_referent,
+                    context_tier_hint=persisted_tier_hint,
+                )
+            elif (
+                _is_affirmative_continuation(text)
+                and str(
+                    conversation_state.get('selected_product') or ''
+                ).strip()
+            ):
+                commercial=build_commercial_grounding(
+                    dio_root,
+                    text,
+                    incarnation_hint=str(
+                        conversation_state.get('selected_product')
+                    ).strip(),
                     context_tier_hint=persisted_tier_hint,
                 )
             else:
@@ -353,6 +751,124 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
                 {'error':str(exc)[:180]},
                 correlation,
             )
+    customer_case=_bind_live_customer_case(
+        presence_root=presence_root,
+        conv=conv,
+        correlation=correlation,
+        envelope=envelope,
+        attachment_record=attachment_record,
+        commercial=commercial,
+    )
+    if customer_case is not None:
+        emit_event(
+            event_log,
+            'presence.customer_case_bound',
+            'info',
+            'customer_case',
+            customer_case['case_id'],
+            {
+                'conversation_id':correlation,
+                'product_id':customer_case.get('product_id'),
+                'attachment_ids':[
+                    row.get('attachment_id')
+                    for row in (customer_case.get('attachments') or [])
+                    if isinstance(row,dict)
+                ],
+                'stage':customer_case.get('stage'),
+                'customer_id':customer_case.get('customer_id'),
+                'authority_created':False,
+            },
+            correlation,
+        )
+
+    # Customer acceptance is evidence of willingness to proceed, not
+    # authority by itself. For an already governed PRICE_RECOMMENDED
+    # case, evaluate the separately defined bounded quote policy.
+    if (
+        role == "public"
+        and isinstance(customer_case, dict)
+        and str(customer_case.get("stage") or "")
+        == "PRICE_RECOMMENDED"
+        and _is_price_acceptance(text)
+    ):
+        bounded_quote_authority = (
+            evaluate_bounded_quote_authority(
+                dio_root,
+                customer_case,
+            )
+        )
+
+        emit_event(
+            event_log,
+            "presence.bounded_quote_authority_evaluated",
+            "info",
+            "customer_case",
+            customer_case["case_id"],
+            {
+                "decision": bounded_quote_authority.get(
+                    "decision"
+                ),
+                "reason": bounded_quote_authority.get(
+                    "reason"
+                ),
+                "buyer_class": bounded_quote_authority.get(
+                    "buyer_class"
+                ),
+                "amount_zar": bounded_quote_authority.get(
+                    "amount_zar"
+                ),
+                "autonomous_ceiling_zar":
+                    bounded_quote_authority.get(
+                        "autonomous_ceiling_zar"
+                    ),
+                "authority_created": False,
+            },
+            correlation,
+        )
+
+        if (
+            bounded_quote_authority.get("decision")
+            == "ALLOW"
+        ):
+            stable_quote_id = (
+                "DIO-Q-"
+                + str(customer_case["case_id"])
+                .removeprefix("CASE-")
+            )
+
+            issued_quote = issue_bounded_quote(
+                dio_root,
+                presence_root,
+                case_id=customer_case["case_id"],
+                quote_id=stable_quote_id,
+            )
+
+            customer_case = load_case(
+                presence_root,
+                customer_case["case_id"],
+            )
+
+            emit_event(
+                event_log,
+                "presence.bounded_quote_issued",
+                "action",
+                "customer_quote",
+                issued_quote["quote_id"],
+                {
+                    "case_id": issued_quote["case_id"],
+                    "amount": issued_quote["amount"],
+                    "currency": issued_quote["currency"],
+                    "approval_mode": (
+                        issued_quote.get("approval")
+                        or {}
+                    ).get("mode"),
+                    "payment_authority_created": False,
+                    "fulfilment_authority_created": False,
+                    "release_authority_created": False,
+                },
+                correlation,
+            )
+
     explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
     target_language=requested_language(text,str(explicit_language) if explicit_language else None)
     persona=assign_persona(
@@ -609,6 +1125,142 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         recent_turns=draft_turns,
         governed_context=governed_context,
     )
+    commercial_action=commercial_surface_state(customer_case)
+
+    # Once an immutable quote exists, issued case truth outranks generic
+    # product-tier pricing representation.
+    quote_ready_reply = None
+
+    if (
+        role == "public"
+        and isinstance(customer_case, dict)
+        and str(customer_case.get("stage") or "")
+        == "QUOTE_READY"
+    ):
+        case_commercial = (
+            customer_case.get("commercial") or {}
+        )
+
+        case_product = str(
+            customer_case.get("product_id") or ""
+        ).strip()
+
+        quoted_amount = case_commercial.get("amount")
+        quote_id = str(
+            case_commercial.get("quote_id") or ""
+        ).strip()
+
+        scope = customer_case.get("scope") or {}
+        scope_quantity = (
+            scope.get("quantity")
+            or case_commercial.get("scope_quantity")
+        )
+
+        scope_unit = str(
+            scope.get("primary_scope_unit")
+            or case_commercial.get("scope_unit")
+            or ""
+        ).strip()
+
+        if (
+            case_product
+            and isinstance(quoted_amount, int)
+            and quoted_amount > 0
+            and quote_id
+        ):
+            scope_text = ""
+
+            if scope_quantity and scope_unit:
+                scope_text = (
+                    f" and bound to the governed "
+                    f"{scope_quantity} {scope_unit} scope"
+                )
+
+            quote_ready_reply = (
+                f"Your {case_product} quote is now issued at "
+                f"R{quoted_amount:,}{scope_text}. "
+                "No payment has been received yet. "
+                "Fulfilment and release remain locked until "
+                "their separate governed authority steps."
+            )
+
+    if quote_ready_reply is not None:
+        reply = quote_ready_reply
+
+    # A governed case-specific recommendation outranks generic product
+    # reference pricing for a continuation of that same priced case.
+    #
+    # This is representation of existing case truth only. It creates
+    # no quote, payment, spend, fulfilment, send, or release authority.
+    case_price_reply = None
+
+    if (
+        role == "public"
+        and decision.get("intent") == "pricing_info"
+        and isinstance(customer_case, dict)
+        and str(customer_case.get("stage") or "") == "PRICE_RECOMMENDED"
+    ):
+        case_product = str(
+            customer_case.get("product_id") or ""
+        ).strip()
+
+        grounded_product = str(
+            ((commercial or {}).get("product") or {}).get("name")
+            or ""
+        ).strip()
+
+        case_commercial = customer_case.get("commercial") or {}
+        recommended_amount = case_commercial.get(
+            "recommended_amount_zar"
+        )
+
+        if (
+            case_product
+            and grounded_product == case_product
+            and isinstance(recommended_amount, int)
+            and recommended_amount > 0
+        ):
+            case_price_reply = (
+                f"The current recommendation for this {case_product} "
+                f"case is R{recommended_amount:,}. "
+                "I've kept that recommendation bound to this case. "
+                "It is not yet an issued quote or invoice, and your "
+                "message does not create payment, fulfilment, or release "
+                "authority. A separate authorised quote step is still "
+                "required before payment can proceed."
+            )
+
+    if case_price_reply is not None:
+        reply = case_price_reply
+
+    if (
+        role == 'public'
+        and isinstance(commercial_action, dict)
+        and commercial_action.get('state') == 'PAYMENT_PENDING'
+    ):
+        quoted=(
+            (commercial_action.get('quoted') or {}).get('display')
+            or ''
+        )
+        settlement=(
+            (commercial_action.get('settlement') or {}).get('display')
+            or ''
+        )
+        checkout_url=(
+            ((commercial_action.get('checkout') or {}).get('approval_url'))
+            or ''
+        )
+
+        if quoted and settlement and checkout_url:
+            reply=(
+                reply.rstrip()
+                + '\n\n'
+                + f'Your approved quote is {quoted}. '
+                + f'PayPal will process the settlement as {settlement}.'
+                + '\n'
+                + f'Pay securely with PayPal: {checkout_url}'
+            )
+
     try:
         reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
     except Exception as exc:
@@ -700,4 +1352,4 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         resolved_product,
     )
     emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'commercial':commercial,'interaction':interaction,'persona':persona,'lingua':lingua}
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'commercial':commercial,'commercial_action':commercial_action,'interaction':interaction,'persona':persona,'lingua':lingua}

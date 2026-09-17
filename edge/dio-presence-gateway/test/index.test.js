@@ -1562,3 +1562,356 @@ test(
     );
   },
 );
+
+test(
+  "web message queues one bounded attachment without authority",
+  async () => {
+    const db = new FakeDB();
+
+    const env = {
+      DIO_DB: db,
+      DIO_PRESENCE_EDGE_TOKEN:
+        "pull-secret",
+    };
+
+    const created =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/session",
+          {
+            method: "POST",
+            body: {
+              surface: "dio_web",
+            },
+          },
+        ),
+        env,
+      );
+
+    const session =
+      (await created.json())
+        .session;
+
+    const contentB64 =
+      Buffer.from("small evidence file")
+        .toString("base64");
+
+    const response =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/message",
+          {
+            method: "POST",
+            token:
+              session.session_token,
+            body: {
+              conversation_id:
+                session.conversation_id,
+              message:
+                "Please route this evidence.",
+              attachments: [
+                {
+                  file_name:
+                    "evidence.txt",
+                  mime_type:
+                    "text/plain",
+                  content_b64:
+                    contentB64,
+                },
+              ],
+              role: "operator",
+              key_id:
+                "operator-edge",
+            },
+          },
+        ),
+        env,
+      );
+
+    assert.equal(
+      response.status,
+      202,
+    );
+
+    assert.equal(
+      db.webEvents.length,
+      1,
+    );
+
+    const envelope =
+      JSON.parse(
+        db.webEvents[0]
+          .body_text,
+      );
+
+    const attachment =
+      envelope.metadata
+        .web_attachment_input;
+
+    assert.equal(
+      attachment.file_name,
+      "evidence.txt",
+    );
+
+    assert.equal(
+      attachment.mime_type,
+      "text/plain",
+    );
+
+    assert.equal(
+      attachment.custody,
+      "cloudflare_d1_transport_only",
+    );
+
+    assert.equal(
+      attachment.authority_created,
+      false,
+    );
+
+    assert.equal(
+      "role" in envelope,
+      false,
+    );
+
+    assert.equal(
+      "key_id" in envelope,
+      false,
+    );
+
+    const receipt =
+      await response.json();
+
+    assert.equal(
+      receipt.authority,
+      "none",
+    );
+
+    assert.equal(
+      receipt.attachments_enabled,
+      true,
+    );
+
+    assert.equal(
+      receipt.attachment_count,
+      1,
+    );
+  },
+);
+
+test(
+  "web message refuses more than one attachment",
+  async () => {
+    const db = new FakeDB();
+
+    const env = {
+      DIO_DB: db,
+      DIO_PRESENCE_EDGE_TOKEN:
+        "pull-secret",
+    };
+
+    const created =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/session",
+          {
+            method: "POST",
+            body: {
+              surface: "dio_web",
+            },
+          },
+        ),
+        env,
+      );
+
+    const session =
+      (await created.json())
+        .session;
+
+    const file = {
+      file_name: "x.txt",
+      mime_type: "text/plain",
+      content_b64:
+        Buffer.from("x")
+          .toString("base64"),
+    };
+
+    const response =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/message",
+          {
+            method: "POST",
+            token:
+              session.session_token,
+            body: {
+              conversation_id:
+                session.conversation_id,
+              message: "Two files.",
+              attachments: [
+                file,
+                file,
+              ],
+            },
+          },
+        ),
+        env,
+      );
+
+    assert.equal(
+      response.status,
+      413,
+    );
+
+    assert.equal(
+      db.webEvents.length,
+      0,
+    );
+  },
+);
+
+test(
+  "web message refuses attachment above transport limit",
+  async () => {
+    const db = new FakeDB();
+
+    const env = {
+      DIO_DB: db,
+      DIO_PRESENCE_EDGE_TOKEN:
+        "pull-secret",
+    };
+
+    const created =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/session",
+          {
+            method: "POST",
+            body: {
+              surface: "dio_web",
+            },
+          },
+        ),
+        env,
+      );
+
+    const session =
+      (await created.json())
+        .session;
+
+    const oversized =
+      Buffer.alloc(
+        2097153,
+        1,
+      ).toString("base64");
+
+    const response =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/message",
+          {
+            method: "POST",
+            token:
+              session.session_token,
+            body: {
+              conversation_id:
+                session.conversation_id,
+              message:
+                "Oversized file.",
+              attachments: [
+                {
+                  file_name:
+                    "large.bin",
+                  mime_type:
+                    "application/octet-stream",
+                  content_b64:
+                    oversized,
+                },
+              ],
+            },
+          },
+        ),
+        env,
+      );
+
+    assert.equal(
+      response.status,
+      413,
+    );
+
+    assert.equal(
+      db.webEvents.length,
+      0,
+    );
+  },
+);
+
+test(
+  "web attachment-only turn is accepted",
+  async () => {
+    const db = new FakeDB();
+
+    const env = {
+      DIO_DB: db,
+      DIO_PRESENCE_EDGE_TOKEN:
+        "pull-secret",
+    };
+
+    const created =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/session",
+          {
+            method: "POST",
+            body: {
+              surface: "dio_web",
+            },
+          },
+        ),
+        env,
+      );
+
+    const session =
+      (await created.json())
+        .session;
+
+    const response =
+      await worker.fetch(
+        webRequest(
+          "/api/vesper/web/message",
+          {
+            method: "POST",
+            token:
+              session.session_token,
+            body: {
+              conversation_id:
+                session.conversation_id,
+              message: "",
+              attachments: [
+                {
+                  file_name:
+                    "note.txt",
+                  mime_type:
+                    "text/plain",
+                  content_b64:
+                    Buffer.from(
+                      "attachment only",
+                    ).toString("base64"),
+                },
+              ],
+            },
+          },
+        ),
+        env,
+      );
+
+    assert.equal(
+      response.status,
+      202,
+    );
+
+    assert.equal(
+      db.webEvents.length,
+      1,
+    );
+  },
+);

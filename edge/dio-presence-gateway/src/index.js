@@ -404,10 +404,111 @@ async function queueWebMessage(
     );
   }
 
-  if (!text) {
+  const attachments =
+    Array.isArray(payload?.attachments)
+      ? payload.attachments
+      : [];
+
+  if (attachments.length > 1) {
+    throw new HttpError(
+      413,
+      "too_many_web_attachments",
+    );
+  }
+
+  let webAttachmentInput = null;
+
+  if (attachments.length === 1) {
+    const rawAttachment = attachments[0];
+
+    if (
+      !rawAttachment
+      || typeof rawAttachment !== "object"
+      || Array.isArray(rawAttachment)
+    ) {
+      throw new HttpError(
+        422,
+        "invalid_web_attachment",
+      );
+    }
+
+    const fileName = String(
+      rawAttachment.file_name || "",
+    )
+      .trim()
+      .slice(0, 180);
+
+    const mimeType = String(
+      rawAttachment.mime_type
+        || "application/octet-stream",
+    )
+      .split(";", 1)[0]
+      .trim()
+      .toLowerCase();
+
+    const contentB64 = String(
+      rawAttachment.content_b64 || "",
+    ).trim();
+
+    if (!fileName) {
+      throw new HttpError(
+        422,
+        "web_attachment_filename_required",
+      );
+    }
+
+    if (
+      !contentB64
+      || !/^[A-Za-z0-9+/]+={0,2}$/.test(
+        contentB64,
+      )
+    ) {
+      throw new HttpError(
+        422,
+        "invalid_web_attachment_base64",
+      );
+    }
+
+    const padding =
+      contentB64.endsWith("==")
+        ? 2
+        : contentB64.endsWith("=")
+          ? 1
+          : 0;
+
+    const estimatedBytes =
+      Math.floor(
+        contentB64.length * 3 / 4,
+      ) - padding;
+
+    const maxBytes = 2097152;
+
+    if (
+      estimatedBytes <= 0
+      || estimatedBytes > maxBytes
+    ) {
+      throw new HttpError(
+        413,
+        "web_attachment_too_large",
+      );
+    }
+
+    webAttachmentInput = {
+      file_name: fileName,
+      mime_type: mimeType,
+      content_b64: contentB64,
+      transport_size_bytes:
+        estimatedBytes,
+      custody:
+        "cloudflare_d1_transport_only",
+      authority_created: false,
+    };
+  }
+
+  if (!text && !webAttachmentInput) {
     throw new HttpError(
       422,
-      "message_required",
+      "message_or_attachment_required",
     );
   }
 
@@ -415,18 +516,6 @@ async function queueWebMessage(
     throw new HttpError(
       413,
       "message_too_large",
-    );
-  }
-
-  if (
-    Array.isArray(
-      payload?.attachments,
-    )
-    && payload.attachments.length > 0
-  ) {
-    throw new HttpError(
-      409,
-      "web_attachments_not_enabled",
     );
   }
 
@@ -458,6 +547,8 @@ async function queueWebMessage(
         session.surface,
       incarnation_hint:
         incarnationHint,
+      web_attachment_input:
+        webAttachmentInput,
     },
   };
 
@@ -510,7 +601,9 @@ async function queueWebMessage(
       custody:
         "cloudflare_d1_transport_only",
       authority: "none",
-      attachments_enabled: false,
+      attachments_enabled: true,
+      attachment_count:
+        webAttachmentInput ? 1 : 0,
     },
     202,
   );

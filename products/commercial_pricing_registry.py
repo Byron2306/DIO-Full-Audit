@@ -102,6 +102,103 @@ def _rule(
     }
 
 
+SCOPE_PRICING_RULES: dict[str, dict[str, Any]] = {
+    "Sophia Integrity": {
+        "schema": "dio.scope_pricing_rule.v1",
+        "pricing_state": "HYPOTHESIS",
+        "operator_review_required": True,
+        "primary_scope_unit": "manuscript_page",
+        "bands": [
+            {"min": 1, "max": 10, "amount_zar": 750},
+            {"min": 11, "max": 25, "amount_zar": 1200},
+            {"min": 26, "max": 50, "amount_zar": 2100},
+            {"min": 51, "max": 100, "amount_zar": 2800},
+            {"min": 101, "max": None, "amount_zar": 3500},
+        ],
+        "truth_boundary": (
+            "This is a governed hypothesis for bounded commercial testing. "
+            "It does not prove willingness to pay and does not issue a quote."
+        ),
+    },
+}
+
+
+def scope_pricing_recommendation(
+    product_name: str,
+    *,
+    scope_unit: str,
+    quantity: int,
+) -> dict[str, Any]:
+    rule = SCOPE_PRICING_RULES.get(str(product_name))
+
+    if rule is None:
+        return {
+            "schema": "dio.scope_pricing_recommendation.v1",
+            "state": "NO_SCOPE_PRICING_RULE",
+            "product_name": product_name,
+            "authority_created": False,
+            "external_effects": False,
+        }
+
+    expected_unit = str(rule["primary_scope_unit"])
+
+    if str(scope_unit) != expected_unit:
+        return {
+            "schema": "dio.scope_pricing_recommendation.v1",
+            "state": "SCOPE_UNIT_MISMATCH",
+            "product_name": product_name,
+            "expected_scope_unit": expected_unit,
+            "received_scope_unit": scope_unit,
+            "authority_created": False,
+            "external_effects": False,
+        }
+
+    quantity = int(quantity)
+
+    if quantity < 1:
+        raise ValueError("scope quantity must be >= 1")
+
+    selected = None
+
+    for band in rule["bands"]:
+        low = int(band["min"])
+        high = band["max"]
+
+        if quantity < low:
+            continue
+
+        if high is None or quantity <= int(high):
+            selected = dict(band)
+            break
+
+    if selected is None:
+        raise ValueError("no scope pricing band matched")
+
+    return {
+        "schema": "dio.scope_pricing_recommendation.v1",
+        "state": "PRICE_RECOMMENDED",
+        "product_name": product_name,
+        "primary_scope_unit": expected_unit,
+        "scope_quantity": quantity,
+        "scope_band": {
+            "min": selected["min"],
+            "max": selected["max"],
+        },
+        "recommended_amount_zar": int(
+            selected["amount_zar"]
+        ),
+        "pricing_state": rule["pricing_state"],
+        "operator_review_required": (
+            rule["operator_review_required"] is True
+        ),
+        "quote_issue_authority": False,
+        "invoice_issue_authority": False,
+        "authority_created": False,
+        "external_effects": False,
+        "truth_boundary": rule["truth_boundary"],
+    }
+
+
 PROFILE_RULES: dict[str, dict[str, Any]] = {
     "HOMS Assess": _rule("C0 C1 C2 C3 C4", "learner_script", "assessment rubric learner", "batch", 350, 1800, "license_plus_usage", 1800),
     "HOMS Exam": _rule("C0 C1 C2 C3 C4", "assessment_package", "grade subject source_item", "package", 900, 3500, "license_plus_usage", 3500),
@@ -243,6 +340,69 @@ def _product_row(*, name: str, canon_source: str, suite: str, family: str, sourc
         "authority_created": False,
         "external_effects": False,
     }
+
+
+def canonical_product_name(
+    root: Path,
+    product_ref: str | None,
+) -> str | None:
+    """
+    Resolve an exact commercial product reference to its canonical
+    incarnation name.
+
+    Accepted references are deterministic aliases already owned by
+    the 68-product commercial registry:
+    - canonical name
+    - canonical product_id
+    - product_id with underscores rendered as spaces
+
+    Broad family hints do not select a product.
+    This creates no authority.
+    """
+    ref = str(product_ref or "").strip().casefold()
+
+    if not ref:
+        return None
+
+    registry = build_commercial_pricing_registry(
+        Path(root)
+    )
+
+    matches = []
+
+    for row in registry.get("products") or []:
+        if not isinstance(row, dict):
+            continue
+
+        name = str(
+            row.get("name") or ""
+        ).strip()
+
+        product_id = str(
+            row.get("product_id") or ""
+        ).strip()
+
+        aliases = {
+            name.casefold(),
+            product_id.casefold(),
+            product_id.replace("_", " ").casefold(),
+        }
+
+        if ref in aliases:
+            matches.append(name)
+
+    unique = sorted(
+        {
+            name
+            for name in matches
+            if name
+        }
+    )
+
+    if len(unique) != 1:
+        return None
+
+    return unique[0]
 
 
 def build_commercial_pricing_registry(root: Path) -> dict[str, Any]:

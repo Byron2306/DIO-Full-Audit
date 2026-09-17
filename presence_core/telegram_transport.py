@@ -10,6 +10,8 @@ from typing import Any
 
 import httpx
 
+from .fulfilment_release import AUTHORITY_SCHEMA
+from .state import read_json, safe
 from .authority import authorize_external_reply
 from .voice import synthesize_voice
 
@@ -135,6 +137,297 @@ def _failed_receipt(receipt: dict[str, Any], reason: str) -> dict[str, Any]:
     return failed
 
 
+def _resolve_outbound_document(
+    result: dict[str, Any],
+    *,
+    root: Path,
+    state_root: Path | None = None,
+) -> tuple[dict[str, Any] | None, Path | None, str | None]:
+    artifact = result.get("outbound_artifact")
+
+    if artifact in (None, {}):
+        return None, None, None
+
+    if not isinstance(artifact, dict):
+        return None, None, "outbound_artifact_invalid"
+
+    if str(artifact.get("kind") or "").strip().lower() != "document":
+        return None, None, "outbound_artifact_kind_not_document"
+
+    if str(artifact.get("release_state") or "").strip().upper() != "APPROVED":
+        return None, None, "outbound_document_not_approved"
+
+    mime_type = str(
+        artifact.get("mime_type") or "application/pdf"
+    ).strip().lower()
+
+    if mime_type != "application/pdf":
+        return None, None, "outbound_document_type_not_allowed"
+
+    declared_sha = str(
+        artifact.get("sha256") or ""
+    ).strip().lower()
+
+    if len(declared_sha) != 64:
+        return None, None, "outbound_document_sha256_missing"
+
+    raw_path = str(artifact.get("path") or "").strip()
+
+    if not raw_path:
+        return None, None, "outbound_document_path_missing"
+
+    root = Path(root).resolve()
+
+    allowed_root = (
+        root
+        / "state"
+        / "presence"
+        / "customer_cases"
+        / "artifacts"
+    ).resolve()
+
+    candidate = Path(raw_path)
+
+    if not candidate.is_absolute():
+        candidate = root / candidate
+
+    candidate = candidate.resolve()
+
+    try:
+        candidate.relative_to(allowed_root)
+    except ValueError:
+        return None, None, "outbound_document_path_outside_artifact_root"
+
+    if not candidate.is_file():
+        return None, None, "outbound_document_missing"
+
+    data = candidate.read_bytes()
+
+    max_bytes = int(
+        os.getenv(
+            "DIO_PRESENCE_TELEGRAM_DOCUMENT_MAX_BYTES",
+            "8388608",
+        )
+    )
+
+    if not data:
+        return None, None, "outbound_document_empty"
+
+    if len(data) > max_bytes:
+        return None, None, "outbound_document_too_large"
+
+    actual_sha = _sha256_bytes(data)
+
+    if actual_sha != declared_sha:
+        return None, None, "outbound_document_sha256_mismatch"
+
+    purpose = str(
+        artifact.get("purpose") or ""
+    ).strip().lower()
+
+    if purpose == "product_fulfilment":
+        authority_id = str(
+            artifact.get("release_authority_id") or ""
+        ).strip()
+
+        if not authority_id:
+            return (
+                None,
+                None,
+                "fulfilment_release_authority_missing",
+            )
+
+        authority_root = (
+            Path(state_root).resolve()
+            if state_root is not None
+            else (
+                root
+                / "state"
+                / "presence"
+            ).resolve()
+        )
+
+        authority_path = (
+            authority_root
+            / "customer_cases"
+            / "release_authorities"
+            / f"{safe(authority_id)}.json"
+        )
+
+        if not authority_path.is_file():
+            return (
+                None,
+                None,
+                "fulfilment_release_authority_missing",
+            )
+
+        try:
+            authority = read_json(authority_path)
+        except Exception:
+            return (
+                None,
+                None,
+                "fulfilment_release_authority_invalid",
+            )
+
+        if authority.get("schema") != AUTHORITY_SCHEMA:
+            return (
+                None,
+                None,
+                "fulfilment_release_authority_invalid",
+            )
+
+        if str(
+            authority.get("authority_id") or ""
+        ) != authority_id:
+            return (
+                None,
+                None,
+                "fulfilment_release_authority_invalid",
+            )
+
+        if authority.get("consumed") is True:
+            return (
+                None,
+                None,
+                "fulfilment_release_authority_consumed",
+            )
+
+        if (
+            authority.get(
+                "fulfilment_release_authorized"
+            )
+            is not True
+            or authority.get(
+                "external_send_authorized"
+            )
+            is not True
+        ):
+            return (
+                None,
+                None,
+                "fulfilment_release_not_authorized",
+            )
+
+        authorized_artifact = dict(
+            authority.get("artifact") or {}
+        )
+
+        authorized_sha = str(
+            authorized_artifact.get("sha256") or ""
+        ).strip().lower()
+
+        if authorized_sha != actual_sha:
+            return (
+                None,
+                None,
+                "fulfilment_release_sha_mismatch",
+            )
+
+        authorized_path = Path(
+            str(
+                authorized_artifact.get("path")
+                or ""
+            )
+        ).resolve()
+
+        if authorized_path != candidate:
+            return (
+                None,
+                None,
+                "fulfilment_release_path_mismatch",
+            )
+
+    normalized = dict(artifact)
+    normalized["path"] = str(candidate)
+    normalized["mime_type"] = mime_type
+    normalized["sha256"] = actual_sha
+    normalized["bytes"] = len(data)
+
+    return normalized, candidate, None
+
+
+def _send_document(
+    *,
+    token: str,
+    chat_id: str,
+    text: str,
+    artifact: dict[str, Any],
+    path: Path,
+    receipt: dict[str, Any],
+    timeout: float,
+) -> tuple[bool, str | None, dict[str, Any]]:
+    file_name = str(
+        artifact.get("file_name")
+        or path.name
+    ).strip()
+
+    with path.open("rb") as document_handle:
+        response = httpx.post(
+            f"https://api.telegram.org/bot{token}/sendDocument",
+            data={
+                "chat_id": chat_id,
+                "caption": text[:1024],
+            },
+            files={
+                "document": (
+                    file_name,
+                    document_handle,
+                    "application/pdf",
+                )
+            },
+            timeout=timeout,
+        )
+
+    response.raise_for_status()
+    payload = response.json()
+
+    if not payload.get("ok"):
+        failed = _failed_receipt(
+            receipt,
+            "telegram_document_api_error",
+        )
+        failed["delivery_mode"] = "document"
+        return (
+            False,
+            str(
+                payload.get("description")
+                or "telegram_document_api_error"
+            ),
+            failed,
+        )
+
+    provider_result = payload.get("result") or {}
+    provider_document = (
+        provider_result.get("document") or {}
+    )
+
+    done = dict(receipt)
+    done["delivery_mode"] = "document"
+    done["external_action_type"] = (
+        "telegram_document_reply"
+    )
+    done["document"] = {
+        "purpose": artifact.get("purpose"),
+        "file_name": file_name,
+        "mime_type": "application/pdf",
+        "sha256": artifact["sha256"],
+        "bytes": artifact["bytes"],
+        "telegram_message_id": (
+            provider_result.get("message_id")
+        ),
+        "telegram_file_id": (
+            provider_document.get("file_id")
+        ),
+        "release_state": artifact.get(
+            "release_state"
+        ),
+        "authority_created": False,
+    }
+
+    return True, None, done
+
+
 def _send_text(*, token: str, chat_id: str, text: str, receipt: dict[str, Any], timeout: float) -> tuple[bool, str | None, dict[str, Any]]:
     response = httpx.post(
         f"https://api.telegram.org/bot{token}/sendMessage",
@@ -218,6 +511,33 @@ def send_telegram_reply(
         failed = _failed_receipt(receipt, "missing_token_chat_or_text")
         return False, "missing_token_chat_or_text", failed
 
+    artifact, document_path, document_error = (
+        _resolve_outbound_document(
+            result,
+            root=Path(root),
+            state_root=state_root,
+        )
+    )
+
+    if document_error:
+        failed = _failed_receipt(
+            receipt,
+            document_error,
+        )
+        failed["delivery_mode"] = "document"
+        return False, document_error, failed
+
+    if artifact is not None and document_path is not None:
+        return _send_document(
+            token=token,
+            chat_id=chat_id,
+            text=text,
+            artifact=artifact,
+            path=document_path,
+            receipt=receipt,
+            timeout=timeout,
+        )
+
     wants_voice = bool(
         telegram_voice_reply_switch_enabled(
             bot_surface
@@ -225,8 +545,15 @@ def send_telegram_reply(
         and reply.get("voice_eligible")
         and (reply.get("voice_plan") or {}).get("state") == "ready_for_internal_render"
     )
+
     if not wants_voice:
-        return _send_text(token=token, chat_id=chat_id, text=text, receipt=receipt, timeout=timeout)
+        return _send_text(
+            token=token,
+            chat_id=chat_id,
+            text=text,
+            receipt=receipt,
+            timeout=timeout,
+        )
 
     plan = dict(reply.get("voice_plan") or {})
     outbox_root = Path(state_root) if state_root is not None else Path(root) / "state" / "presence"

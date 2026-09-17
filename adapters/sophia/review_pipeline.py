@@ -268,14 +268,18 @@ def _allowed_citation_keys(reference_audit: dict[str, Any], sources: list[dict[s
     return keys
 
 
-def validate_gemini_commentary(
+def validate_reasoned_commentary(
     commentary: str,
     result: dict[str, Any],
     valid_anchors: set[str],
     allowed_citation_keys: set[str],
     allowed_dois: set[str],
+    expected_provider: str,
 ) -> dict[str, Any]:
-    provider_ok = str(result.get("reasoned_provider") or "").lower() == "gemini"
+    provider_ok = (
+        str(result.get("reasoned_provider") or "").lower()
+        == expected_provider.strip().lower()
+    )
     provider_status_ok = result.get("reasoned_provider_status") == "ok"
     lane_ok = result.get("source") == "reasoned_integrity_lane"
     mandos_ok = bool((result.get("mandos_judgment") or {}).get("passed"))
@@ -299,7 +303,7 @@ def validate_gemini_commentary(
     unknown_citations = sorted(mentioned_keys - allowed_citation_keys)
 
     checks = {
-        "provider_is_gemini": provider_ok,
+        "provider_matches_request": provider_ok,
         "provider_completed": provider_status_ok,
         "reasoned_lane_used": lane_ok,
         "mandos_passed": mandos_ok,
@@ -330,17 +334,33 @@ def reviewer_commentary(
     claim_maps: list[dict[str, Any]],
     sources: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    if not bool(request.get("gemini_review_approved", False)):
+    reasoned_review_approved = bool(
+        request.get(
+            "reasoned_review_approved",
+            request.get("gemini_review_approved", False),
+        )
+    )
+    provider = str(
+        request.get("reasoned_provider") or "gemini"
+    ).strip().lower()
+    model = str(
+        request.get("reasoned_model")
+        or request.get("gemini_model")
+        or ("gemini-flash-lite-latest" if provider == "gemini" else "")
+    ).strip()
+    remote_processing = provider not in {"ollama", "local"}
+
+    if not reasoned_review_approved:
         return {
             "status": "approval_required",
             "source": "not_sent",
             "encounter_id": None,
-            "provider": None,
-            "model": None,
+            "provider": provider or None,
+            "model": model or None,
             "remote_processing": False,
             "commentary": (
-                "Gemini reviewer processing was not authorized. Set gemini_review_approved to true "
-                "only after the manuscript owner approves remote processing."
+                "Reasoned reviewer processing was not authorized. "
+                "Explicit manuscript-owner approval is required before processing."
             ),
         }
     try:
@@ -391,15 +411,16 @@ def reviewer_commentary(
             "LOCAL AUDIT DOSSIER:",
             json.dumps(dossier, ensure_ascii=True),
         ])
-        model = str(request.get("gemini_model") or "gemini-flash-lite-latest").strip()
-        if not model.startswith("gemini-"):
-            raise ValueError("gemini_model must name a Gemini model")
+        if not provider:
+            raise ValueError("reasoned_provider must be non-empty")
+        if not model:
+            raise ValueError("reasoned_model must be non-empty")
         payload = {
                 "text": prompt,
                 "session_token": health.get("session_token") or "",
                 "dio_product_review_lane": True,
                 "reasoned_integrity_lane": True,
-                "reasoned_provider": "gemini",
+                "reasoned_provider": provider,
                 "reasoned_model": model,
                 "reasoned_max_predict": 1400,
                 "document_evidence_task": "dio_sophia_academic_review",
@@ -411,7 +432,12 @@ def reviewer_commentary(
                     "parser": parser,
                     "extracted_text": text[:180_000],
                     "spans": spans,
-                    "uncertainty_notes": ["Remote Gemini review explicitly approved by manuscript owner."],
+                    "uncertainty_notes": [
+                    (
+                        "Reasoned review explicitly approved by manuscript owner. "
+                        + ("Remote processing authorized." if remote_processing else "Local processing only.")
+                    )
+                ],
                 }],
                 "client_context": {
                     "ui_surface": "dio_sophia_review",
@@ -422,7 +448,8 @@ def reviewer_commentary(
                 "disable_world_events": True,
                 "suppress_academic_retrieval_fastpaths": True,
             }
-        result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=180.0)
+        review_timeout = float(request.get("reasoned_timeout_seconds") or 900.0)
+        result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=review_timeout)
         attempt_encounters = [result.get("encounter_id")]
         candidate = str(result.get("response") or "").strip()
         valid_anchors = {row["span_id"] for row in spans} | {
@@ -437,12 +464,13 @@ def reviewer_commentary(
             doi_match = re.search(r"10\.\d{4,9}/[-._;()/:A-Za-z0-9]+", str(source.get("url") or ""), flags=re.I)
             if doi_match:
                 allowed_dois.add(doi_match.group(0).rstrip(".,;)").lower())
-        validation = validate_gemini_commentary(
+        validation = validate_reasoned_commentary(
             candidate,
             result,
             valid_anchors,
             _allowed_citation_keys(reference_audit, sources),
             allowed_dois,
+            provider,
         )
         failed_checks = sorted(key for key, passed in validation["checks"].items() if not passed)
         if failed_checks == ["document_anchor_present"]:
@@ -453,15 +481,16 @@ def reviewer_commentary(
                 + ", ".join(f"[{anchor}]" for anchor in sorted(valid_anchors))
                 + ". Return the complete report with those anchors included."
             )
-            result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=180.0)
+            result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=review_timeout)
             attempt_encounters.append(result.get("encounter_id"))
             candidate = str(result.get("response") or "").strip()
-            validation = validate_gemini_commentary(
+            validation = validate_reasoned_commentary(
                 candidate,
                 result,
                 valid_anchors,
                 _allowed_citation_keys(reference_audit, sources),
                 allowed_dois,
+                provider,
             )
         if not validation["passed"]:
             return {
@@ -471,13 +500,13 @@ def reviewer_commentary(
                 "provider": result.get("reasoned_provider"),
                 "provider_status": result.get("reasoned_provider_status"),
                 "model": result.get("model"),
-                "remote_processing": True,
+                "remote_processing": remote_processing,
                 "characters_transmitted": min(len(text), 180_000),
                 "candidate_sha256": hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
                 "attempt_count": len(attempt_encounters),
                 "attempt_encounters": attempt_encounters,
                 "validation": validation,
-                "commentary": "Gemini returned commentary, but the grounded release checks rejected it. Human review remains required.",
+                "commentary": "The reasoned reviewer returned commentary, but the grounded release checks rejected it. Human review remains required.",
             }
         return {
             "status": "completed",
@@ -488,7 +517,7 @@ def reviewer_commentary(
             "provider": result.get("reasoned_provider"),
             "provider_status": result.get("reasoned_provider_status"),
             "model": result.get("model"),
-            "remote_processing": True,
+            "remote_processing": remote_processing,
             "characters_transmitted": min(len(text), 180_000),
             "manuscript_truncated": len(text) > 180_000,
             "repair_applied": bool(result.get("repair_applied")),
@@ -503,10 +532,10 @@ def reviewer_commentary(
             "status": "unavailable",
             "source": "fallback",
             "encounter_id": None,
-            "provider": "gemini",
-            "model": str(request.get("gemini_model") or "gemini-flash-lite-latest"),
-            "remote_processing": bool(request.get("gemini_review_approved", False)),
-            "commentary": f"Sophia Gemini reviewer endpoint was unavailable: {type(error).__name__}. Human review remains required.",
+            "provider": provider,
+            "model": model,
+            "remote_processing": remote_processing and reasoned_review_approved,
+            "commentary": f"Sophia reasoned reviewer endpoint was unavailable: {type(error).__name__}. Human review remains required.",
         }
 
 
@@ -705,7 +734,7 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
         "# Sophia Human Approval Gate\n\n"
         f"Job: `{job_id}`\n\n"
         "- [ ] Confirm the manuscript owner authorized this review.\n"
-        "- [ ] Confirm the manuscript owner authorized remote Gemini processing.\n"
+        "- [ ] Confirm the manuscript owner authorized the configured reasoned-review processing.\n"
         "- [ ] Verify every retained citation against the full source.\n"
         "- [ ] Resolve cited-but-missing and listed-but-uncited entries.\n"
         "- [ ] Review high-risk claims and their evidence standard.\n"
@@ -736,9 +765,16 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
             "reviewer_model": commentary.get("model"),
             "reviewer_grounding_passed": bool((commentary.get("validation") or {}).get("passed")),
         },
-        "remote_processing": {
-            "gemini_review_approved": bool(request.get("gemini_review_approved", False)),
-            "performed": bool(commentary.get("remote_processing", False)),
+        "reasoned_processing": {
+            "approved": bool(
+                request.get(
+                    "reasoned_review_approved",
+                    request.get("gemini_review_approved", False),
+                )
+            ),
+            "provider": commentary.get("provider"),
+            "model": commentary.get("model"),
+            "remote_processing": bool(commentary.get("remote_processing", False)),
             "characters_transmitted": commentary.get("characters_transmitted", 0),
         },
         "outputs": [{"name": path.name, "sha256": sha256_file(path)} for path in generated],

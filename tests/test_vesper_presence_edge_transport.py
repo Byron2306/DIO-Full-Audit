@@ -741,3 +741,533 @@ def test_web_reply_outbox_preserved_on_partial_ack(
         module.load_web_reply_outbox(34)
         is not None
     )
+
+
+def test_web_attachment_transport_becomes_canonical_attachment():
+    module = load_module()
+
+    content = b"hello from web attachment"
+
+    envelope = {
+        "channel": "webchat",
+        "external_user_id": "WEB-TEST",
+        "text": "Please route this file.",
+        "message_type": "text",
+        "metadata": {
+            "web_conversation_id":
+                "VWC-0123456789ABCDEF",
+            "web_attachment_input": {
+                "file_name": "evidence.txt",
+                "mime_type": "text/plain",
+                "content_b64":
+                    __import__("base64")
+                    .b64encode(content)
+                    .decode("ascii"),
+                "transport_size_bytes":
+                    len(content),
+                "custody":
+                    "cloudflare_d1_transport_only",
+                "authority_created": False,
+            },
+        },
+    }
+
+    result = module.prepare_web_semantic_envelope(
+        {"id": 71},
+        envelope,
+    )
+
+    attachment = result["attachment"]
+
+    assert attachment["provider"] == "web"
+    assert attachment["file_name"] == "evidence.txt"
+    assert attachment["mime_type"] == "text/plain"
+    assert attachment["file_size"] == len(content)
+    assert attachment["sha256"] == (
+        __import__("hashlib")
+        .sha256(content)
+        .hexdigest()
+    )
+
+
+def test_web_attachment_raw_transport_wrapper_removed_before_signing():
+    module = load_module()
+
+    content = b"bounded custody"
+
+    envelope = {
+        "channel": "webchat",
+        "external_user_id": "WEB-TEST",
+        "text": "Attached.",
+        "message_type": "text",
+        "metadata": {
+            "web_conversation_id":
+                "VWC-0123456789ABCDEF",
+            "web_attachment_input": {
+                "file_name": "note.txt",
+                "mime_type": "text/plain",
+                "content_b64":
+                    __import__("base64")
+                    .b64encode(content)
+                    .decode("ascii"),
+                "transport_size_bytes":
+                    len(content),
+            },
+        },
+    }
+
+    result = module.prepare_web_semantic_envelope(
+        {"id": 72},
+        envelope,
+    )
+
+    assert (
+        "web_attachment_input"
+        not in result["metadata"]
+    )
+    assert "attachment" in result
+
+
+def test_web_attachment_transport_size_mismatch_refused():
+    module = load_module()
+
+    content = b"size matters"
+
+    envelope = {
+        "channel": "webchat",
+        "external_user_id": "WEB-TEST",
+        "text": "Attached.",
+        "message_type": "text",
+        "metadata": {
+            "web_conversation_id":
+                "VWC-0123456789ABCDEF",
+            "web_attachment_input": {
+                "file_name": "note.txt",
+                "mime_type": "text/plain",
+                "content_b64":
+                    __import__("base64")
+                    .b64encode(content)
+                    .decode("ascii"),
+                "transport_size_bytes":
+                    len(content) + 1,
+            },
+        },
+    }
+
+    with pytest.raises(
+        module.PermanentPresenceError,
+        match="byte count",
+    ):
+        module.prepare_web_semantic_envelope(
+            {"id": 73},
+            envelope,
+        )
+
+
+def test_public_telegram_document_becomes_canonical_attachment(
+    monkeypatch,
+):
+    module = load_module()
+
+    event = telegram_event("")
+    event["bot_surface"] = "public"
+
+    update = json.loads(event["body_text"])
+    update["message"].pop("text", None)
+    update["message"]["document"] = {
+        "file_id": "DOC-123",
+        "file_name": "evidence.pdf",
+        "mime_type": "application/pdf",
+    }
+    event["body_text"] = json.dumps(
+        update,
+        separators=(",", ":"),
+    )
+
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_PUBLIC_BOT_TOKEN",
+        "public-token",
+    )
+
+    monkeypatch.setattr(
+        module,
+        "telegram_download_attachment",
+        lambda token, file_id, file_name, mime_type: {
+            "provider": "telegram",
+            "provider_file_id": file_id,
+            "file_name": file_name,
+            "mime_type": mime_type,
+            "file_size": 12,
+            "sha256": "a" * 64,
+            "content_b64": "JVBERi0xLjQK",
+        },
+    )
+
+    envelope = module.telegram_to_envelope(
+        event
+    )
+
+    assert envelope["channel"] == "telegram"
+    assert envelope["message_type"] == "document"
+
+    attachment = envelope["attachment"]
+
+    assert attachment["provider"] == "telegram"
+    assert attachment["provider_file_id"] == "DOC-123"
+    assert attachment["file_name"] == "evidence.pdf"
+    assert attachment["mime_type"] == "application/pdf"
+
+    assert (
+        envelope["metadata"]["telegram_bot_surface"]
+        == "public"
+    )
+
+    assert "role" not in envelope
+    assert "_trusted_edge_role" not in envelope
+
+
+def test_public_telegram_photo_becomes_canonical_attachment(
+    monkeypatch,
+):
+    module = load_module()
+
+    event = telegram_event("")
+    event["bot_surface"] = "public"
+
+    update = json.loads(event["body_text"])
+    update["message"].pop("text", None)
+    update["message"]["photo"] = [
+        {
+            "file_id": "PHOTO-SMALL",
+        },
+        {
+            "file_id": "PHOTO-LARGE",
+        },
+    ]
+    event["body_text"] = json.dumps(
+        update,
+        separators=(",", ":"),
+    )
+
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_PUBLIC_BOT_TOKEN",
+        "public-token",
+    )
+
+    captured = {}
+
+    def fake_download(
+        token,
+        file_id,
+        file_name,
+        mime_type,
+    ):
+        captured["token"] = token
+        captured["file_id"] = file_id
+
+        return {
+            "provider": "telegram",
+            "provider_file_id": file_id,
+            "file_name": file_name,
+            "mime_type": mime_type,
+            "file_size": 3,
+            "sha256": "b" * 64,
+            "content_b64": "/9j/",
+        }
+
+    monkeypatch.setattr(
+        module,
+        "telegram_download_attachment",
+        fake_download,
+    )
+
+    envelope = module.telegram_to_envelope(
+        event
+    )
+
+    assert envelope["message_type"] == "photo"
+    assert captured["token"] == "public-token"
+    assert captured["file_id"] == "PHOTO-LARGE"
+
+    attachment = envelope["attachment"]
+
+    assert attachment["provider"] == "telegram"
+    assert attachment["file_name"] == "telegram-image.jpg"
+    assert attachment["mime_type"] == "image/jpeg"
+
+    assert (
+        envelope["metadata"]["telegram_bot_surface"]
+        == "public"
+    )
+
+
+def test_public_telegram_attachment_signs_only_as_public_edge(
+    monkeypatch,
+):
+    module = load_module()
+
+    event = telegram_event("")
+    event["bot_surface"] = "public"
+
+    update = json.loads(event["body_text"])
+    update["message"].pop("text", None)
+    update["message"]["document"] = {
+        "file_id": "DOC-PUBLIC",
+        "file_name": "sample.txt",
+        "mime_type": "text/plain",
+    }
+    event["body_text"] = json.dumps(
+        update,
+        separators=(",", ":"),
+    )
+
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_PUBLIC_BOT_TOKEN",
+        "public-token",
+    )
+
+    monkeypatch.setenv(
+        "DIO_PRESENCE_PUBLIC_SHARED_SECRET",
+        "p" * 40,
+    )
+
+    monkeypatch.setattr(
+        module,
+        "telegram_download_attachment",
+        lambda *args, **kwargs: {
+            "provider": "telegram",
+            "provider_file_id": "DOC-PUBLIC",
+            "file_name": "sample.txt",
+            "mime_type": "text/plain",
+            "file_size": 4,
+            "sha256": "c" * 64,
+            "content_b64": "dGVzdA==",
+        },
+    )
+
+    signed = module.locally_sign_telegram_event(
+        event
+    )
+
+    assert signed["key_id"] == "public-edge"
+
+    envelope = json.loads(
+        signed["body_text"]
+    )
+
+    assert (
+        envelope["metadata"]["telegram_bot_surface"]
+        == "public"
+    )
+
+    assert "role" not in envelope
+    assert "_trusted_edge_role" not in envelope
+    assert "_trusted_edge_key_id" not in envelope
+
+
+def test_public_telegram_oversize_attachment_is_refused(
+    monkeypatch,
+):
+    module = load_module()
+
+    monkeypatch.setenv(
+        "DIO_PRESENCE_MAX_ATTACHMENT_BYTES",
+        "8",
+    )
+
+    class FakeHeaders(dict):
+        def get(self, key, default=None):
+            return super().get(key.lower(), default)
+
+    class FakeBinaryResponse:
+        def __init__(self, data: bytes):
+            self._data = data
+            self.headers = FakeHeaders(
+                {
+                    "content-length":
+                        str(len(data)),
+                }
+            )
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self, *args):
+            return self._data
+
+    calls = []
+
+    def fake_urlopen(request, timeout):
+        url = request.full_url
+        calls.append(url)
+
+        if "/getFile" in url:
+            return FakeResponse(
+                {
+                    "ok": True,
+                    "result": {
+                        "file_path":
+                            "documents/big.bin"
+                    },
+                }
+            )
+
+        return FakeBinaryResponse(
+            b"0123456789"
+        )
+
+    monkeypatch.setattr(
+        module,
+        "urlopen",
+        fake_urlopen,
+    )
+
+    with pytest.raises(
+        module.PermanentPresenceError,
+        match="exceeds the local Presence limit",
+    ):
+        module.telegram_download_attachment(
+            "public-token",
+            "BIG-DOC",
+            "big.bin",
+            "application/octet-stream",
+        )
+
+    assert any(
+        "/getFile" in url
+        for url in calls
+    )
+
+
+def test_voice_transcription_prefers_hf_and_skips_local(
+    monkeypatch,
+):
+    module = load_module()
+
+    attachment = {
+        "content_b64": "dGVzdA==",
+        "sha256": "",
+        "mime_type": "audio/webm",
+    }
+
+    expected = {
+        "text": "HF transcript",
+        "provider": "hf-inference",
+        "authority_created": False,
+    }
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_hf",
+        lambda value: expected,
+    )
+
+    def local_must_not_run(value):
+        raise AssertionError(
+            "local fallback ran despite HF success"
+        )
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_local_whisper",
+        local_must_not_run,
+    )
+
+    result = module.transcribe_voice(
+        attachment
+    )
+
+    assert result is expected
+    assert result["provider"] == "hf-inference"
+    assert result["authority_created"] is False
+
+
+def test_voice_transcription_falls_back_locally_on_hf_transient(
+    monkeypatch,
+):
+    module = load_module()
+
+    attachment = {
+        "content_b64": "dGVzdA==",
+        "sha256": "",
+        "mime_type": "audio/webm",
+    }
+
+    def hf_failure(value):
+        raise module.TransientPresenceError(
+            "HF HTTP 500"
+        )
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_hf",
+        hf_failure,
+    )
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_local_whisper",
+        lambda value: {
+            "text": "Local transcript",
+            "provider": "faster-whisper-local",
+            "authority_created": False,
+            "external_processing": False,
+            "fallback_used": True,
+        },
+    )
+
+    result = module.transcribe_voice(
+        attachment
+    )
+
+    assert result["text"] == "Local transcript"
+    assert result["provider"] == "faster-whisper-local"
+    assert result["fallback_used"] is True
+    assert result["authority_created"] is False
+    assert result["external_processing"] is False
+    assert "HF HTTP 500" in result[
+        "primary_provider_failure"
+    ]
+
+
+def test_voice_transcription_both_fail_remains_transient(
+    monkeypatch,
+):
+    module = load_module()
+
+    attachment = {
+        "content_b64": "dGVzdA==",
+        "sha256": "",
+        "mime_type": "audio/webm",
+    }
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_hf",
+        lambda value: (_ for _ in ()).throw(
+            module.TransientPresenceError(
+                "HF HTTP 500"
+            )
+        ),
+    )
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_local_whisper",
+        lambda value: (_ for _ in ()).throw(
+            module.TransientPresenceError(
+                "local unavailable"
+            )
+        ),
+    )
+
+    with pytest.raises(
+        module.TransientPresenceError,
+        match="Voice transcription unavailable",
+    ):
+        module.transcribe_voice(
+            attachment
+        )

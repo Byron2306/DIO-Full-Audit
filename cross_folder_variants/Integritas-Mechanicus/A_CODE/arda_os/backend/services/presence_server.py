@@ -320,6 +320,7 @@ _PRESENCE_ENV_FILES_LOADED = _load_presence_env_files()
 # CONFIGURATION
 # ================================================================
 
+PRESENCE_HOST = os.environ.get("PRESENCE_HOST", "127.0.0.1")
 PRESENCE_PORT = int(os.environ.get("PRESENCE_PORT", "7070"))
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 # Align dashboard defaults with the stronger model used across most ablation/eval harnesses.
@@ -8064,6 +8065,25 @@ def _is_document_substitution_task(
     return any(re.search(pattern, lowered, re.IGNORECASE | re.DOTALL) for pattern in substitution_patterns)
 
 
+def _is_dio_product_review_task(
+    *,
+    body: Dict[str, Any],
+    client_context: Dict[str, Any],
+    document_evidence: Optional[Dict[str, Any]],
+) -> bool:
+    """Return True only for the explicit governed DIO Sophia review lane."""
+    return (
+        bool(document_evidence)
+        and bool(body.get("dio_product_review_lane"))
+        and bool(body.get("reasoned_integrity_lane"))
+        and bool(str(body.get("reasoned_provider") or "").strip())
+        and str(body.get("document_evidence_task") or "").strip()
+        == "dio_sophia_academic_review"
+        and str(client_context.get("ui_surface") or "").strip()
+        == "dio_sophia_review"
+    )
+
+
 def _is_lawful_document_support_task(
     directive: str,
     document_evidence: Optional[Dict[str, Any]],
@@ -10404,21 +10424,15 @@ class PresenceHandler(SimpleHTTPRequestHandler):
             text,
             document_evidence,
         )
-        dio_gemini_review_task = (
-            bool(document_evidence)
-            and bool(body.get("dio_product_review_lane"))
-            and bool(body.get("reasoned_integrity_lane"))
-            and str(body.get("reasoned_provider") or "").strip().lower()
-            in {"gemini", "google", "google_gemini"}
-            and str(body.get("document_evidence_task") or "").strip()
-            == "dio_sophia_academic_review"
-            and str(client_context.get("ui_surface") or "").strip()
-            == "dio_sophia_review"
+        dio_product_review_task = _is_dio_product_review_task(
+            body=body,
+            client_context=client_context,
+            document_evidence=document_evidence,
         )
         academic_rigor_review_task = (
             bool(document_evidence)
             and not protected_pedagogy_trial
-            and not dio_gemini_review_task
+            and not dio_product_review_task
             and _is_document_review_followup(text)
         )
         bounded_document_task = _is_bounded_document_task(
@@ -12385,7 +12399,7 @@ class PresenceHandler(SimpleHTTPRequestHandler):
                     "disable_reentry_behavior": disable_reentry_behavior,
                     "document_evidence": bool(document_evidence_context),
                     "reasoned_integrity_lane": True,
-                    "dio_gemini_review_task": dio_gemini_review_task,
+                    "dio_product_review_task": dio_product_review_task,
                 },
                 "telemetry": telemetry_payload(),
             }, serializer=_json_serializer)
@@ -13815,7 +13829,7 @@ def main():
     log(f"  → Open http://localhost:{PRESENCE_PORT}")
     log("=" * 60)
 
-    server = ThreadingHTTPServer(("0.0.0.0", PRESENCE_PORT), PresenceHandler)
+    server = ThreadingHTTPServer((PRESENCE_HOST, PRESENCE_PORT), PresenceHandler)
 
     try:
         server.serve_forever()

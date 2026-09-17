@@ -324,6 +324,160 @@ def telegram_download_attachment(token: str, file_id: str, file_name: str, mime_
     }
 
 
+
+def transcribe_voice_with_local_whisper(
+    attachment: dict[str, Any],
+) -> dict[str, Any]:
+    """Local read-only ASR fallback. This creates no DIO authority."""
+    import tempfile
+
+    try:
+        from faster_whisper import WhisperModel
+    except Exception as exc:
+        raise TransientPresenceError(
+            f"Local faster-whisper is unavailable: {type(exc).__name__}"
+        ) from exc
+
+    try:
+        audio = base64.b64decode(
+            str(attachment.get("content_b64") or ""),
+            validate=True,
+        )
+    except Exception as exc:
+        raise PermanentPresenceError(
+            "Voice payload is not valid base64."
+        ) from exc
+
+    if not audio:
+        raise PermanentPresenceError(
+            "Voice payload is empty."
+        )
+
+    declared_sha = str(
+        attachment.get("sha256") or ""
+    ).lower()
+
+    audio_sha = hashlib.sha256(audio).hexdigest()
+
+    if declared_sha and declared_sha != audio_sha:
+        raise PermanentPresenceError(
+            "Voice SHA-256 mismatch before local transcription."
+        )
+
+    model_name = os.getenv(
+        "DIO_PRESENCE_LOCAL_ASR_MODEL",
+        "base.en",
+    ).strip() or "base.en"
+
+    mime_type = str(
+        attachment.get("mime_type") or "audio/ogg"
+    ).split(";", 1)[0].strip().lower()
+
+    suffix_map = {
+        "audio/ogg": ".ogg",
+        "audio/webm": ".webm",
+        "audio/wav": ".wav",
+        "audio/x-wav": ".wav",
+        "audio/mpeg": ".mp3",
+        "audio/mp4": ".m4a",
+    }
+
+    suffix = suffix_map.get(
+        mime_type,
+        ".audio",
+    )
+
+    try:
+        with tempfile.NamedTemporaryFile(
+            suffix=suffix,
+            delete=True,
+        ) as tmp:
+            tmp.write(audio)
+            tmp.flush()
+
+            model = WhisperModel(
+                model_name,
+                device="cpu",
+                compute_type="int8",
+                cpu_threads=2,
+                num_workers=1,
+            )
+
+            segments, info = model.transcribe(
+                tmp.name,
+                beam_size=1,
+                vad_filter=True,
+                language="en",
+            )
+
+            text = " ".join(
+                segment.text.strip()
+                for segment in segments
+                if segment.text.strip()
+            ).strip()
+
+    except PermanentPresenceError:
+        raise
+    except Exception as exc:
+        raise TransientPresenceError(
+            "Local faster-whisper transcription failed: "
+            f"{type(exc).__name__}: {str(exc)[:180]}"
+        ) from exc
+
+    if not text:
+        raise TransientPresenceError(
+            "Local faster-whisper returned no text."
+        )
+
+    truncated = len(text) > 4000
+
+    if truncated:
+        text = text[:4000]
+
+    return {
+        "schema":
+            "dio.vesper.voice_transcription.v1",
+        "text": text,
+        "provider":
+            "faster-whisper-local",
+        "model": model_name,
+        "audio_sha256": audio_sha,
+        "audio_bytes": len(audio),
+        "mime_type": mime_type,
+        "truncated": truncated,
+        "authority_created": False,
+        "external_processing": False,
+        "execution_authority_created": False,
+        "send_authority_created": False,
+        "fallback_used": True,
+    }
+
+
+def transcribe_voice(
+    attachment: dict[str, Any],
+) -> dict[str, Any]:
+    """HF primary, local Whisper fallback for transient ASR failure."""
+    try:
+        return transcribe_voice_with_hf(
+            attachment
+        )
+    except TransientPresenceError as hf_exc:
+        try:
+            result = transcribe_voice_with_local_whisper(
+                attachment
+            )
+            result["primary_provider_failure"] = (
+                str(hf_exc)[:240]
+            )
+            return result
+        except TransientPresenceError as local_exc:
+            raise TransientPresenceError(
+                "Voice transcription unavailable. "
+                f"HF: {str(hf_exc)[:180]} | "
+                f"local: {str(local_exc)[:180]}"
+            ) from local_exc
+
+
 def transcribe_voice_with_hf(attachment: dict[str, Any]) -> dict[str, Any]:
     """Transcribe a voice note as read-only semantic input. This creates no DIO authority."""
     token = os.getenv("HF_TOKEN", "").strip()
@@ -496,7 +650,7 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
         attachment = None
         transcription_mode = os.getenv("DIO_PRESENCE_VOICE_TRANSCRIPTION", "").strip().lower()
         if transcription_mode == "hf":
-            voice_transcription = transcribe_voice_with_hf(downloaded_voice)
+            voice_transcription = transcribe_voice(downloaded_voice)
             if not text:
                 text = str(voice_transcription.get("text") or "").strip()
         elif transcription_mode in {"", "0", "false", "off", "none"}:
@@ -650,6 +804,94 @@ def prepare_web_semantic_envelope(
     result = dict(envelope)
     metadata = dict(result.get("metadata") or {})
 
+    web_attachment_input = metadata.get(
+        "web_attachment_input"
+    )
+
+    if web_attachment_input is not None:
+        if not isinstance(web_attachment_input, dict):
+            raise PermanentPresenceError(
+                "Web attachment custody must be an object."
+            )
+
+        file_name = str(
+            web_attachment_input.get("file_name") or ""
+        ).strip()
+
+        mime_type = str(
+            web_attachment_input.get("mime_type")
+            or "application/octet-stream"
+        ).split(";", 1)[0].strip().lower()
+
+        content_b64 = str(
+            web_attachment_input.get("content_b64") or ""
+        ).strip()
+
+        if not file_name:
+            raise PermanentPresenceError(
+                "Web attachment is missing its file name."
+            )
+
+        try:
+            data = base64.b64decode(
+                content_b64,
+                validate=True,
+            )
+        except Exception as exc:
+            raise PermanentPresenceError(
+                "Web attachment payload is not valid base64."
+            ) from exc
+
+        max_bytes = 2097152
+
+        if not data:
+            raise PermanentPresenceError(
+                "Web attachment payload is empty."
+            )
+
+        if len(data) > max_bytes:
+            raise PermanentPresenceError(
+                "Web attachment exceeds the 2 MiB "
+                "web transport limit."
+            )
+
+        try:
+            declared_size = int(
+                web_attachment_input.get(
+                    "transport_size_bytes"
+                )
+            )
+        except (TypeError, ValueError) as exc:
+            raise PermanentPresenceError(
+                "Web attachment transport size is invalid."
+            ) from exc
+
+        if declared_size != len(data):
+            raise PermanentPresenceError(
+                "Web attachment byte count does not "
+                "match transport custody."
+            )
+
+        actual_sha = hashlib.sha256(data).hexdigest()
+
+        metadata.pop(
+            "web_attachment_input",
+            None,
+        )
+
+        result["attachment"] = {
+            "provider": "web",
+            "provider_file_id":
+                f"web_presence_event:{event.get('id')}",
+            "file_name": file_name,
+            "mime_type": mime_type,
+            "file_size": len(data),
+            "sha256": actual_sha,
+            "content_b64": content_b64,
+        }
+
+        result["metadata"] = metadata
+
     message_type = str(
         result.get("message_type") or "text"
     ).strip().lower()
@@ -691,7 +933,7 @@ def prepare_web_semantic_envelope(
         "mime_type": mime_type,
     }
 
-    transcription = transcribe_voice_with_hf(
+    transcription = transcribe_voice(
         attachment
     )
 

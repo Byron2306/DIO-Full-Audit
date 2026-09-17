@@ -49,7 +49,15 @@ def _result(*, voice_eligible: bool = True) -> dict:
 def test_authorized_voice_reply_renders_vera_then_sends_voice(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
     monkeypatch.setenv("DIO_PRESENCE_TELEGRAM_VOICE_REPLIES", "1")
+    monkeypatch.setenv(
+        "DIO_PRESENCE_OPERATOR_TELEGRAM_VOICE_REPLIES",
+        "1",
+    )
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "test-token")
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+        "test-token",
+    )
 
     calls: list[tuple] = []
 
@@ -114,7 +122,15 @@ def test_authorized_voice_reply_renders_vera_then_sends_voice(tmp_path: Path, mo
 def test_voice_render_failure_falls_back_to_text_before_send_attempt(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
     monkeypatch.setenv("DIO_PRESENCE_TELEGRAM_VOICE_REPLIES", "1")
+    monkeypatch.setenv(
+        "DIO_PRESENCE_OPERATOR_TELEGRAM_VOICE_REPLIES",
+        "1",
+    )
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "test-token")
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+        "test-token",
+    )
 
     def fail_render(**kwargs):
         raise RuntimeError("pocket unavailable")
@@ -150,7 +166,15 @@ def test_voice_render_failure_falls_back_to_text_before_send_attempt(tmp_path: P
 def test_voice_transport_failure_does_not_double_send_text(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
     monkeypatch.setenv("DIO_PRESENCE_TELEGRAM_VOICE_REPLIES", "1")
+    monkeypatch.setenv(
+        "DIO_PRESENCE_OPERATOR_TELEGRAM_VOICE_REPLIES",
+        "1",
+    )
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "test-token")
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+        "test-token",
+    )
 
     def fake_synthesize_voice(*, text, output_path, plan, timeout):
         Path(output_path).write_bytes(b"RIFF" + b"0" * 128)
@@ -180,7 +204,15 @@ def test_voice_transport_failure_does_not_double_send_text(tmp_path: Path, monke
 def test_text_reply_remains_default_when_voice_not_eligible(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
     monkeypatch.setenv("DIO_PRESENCE_TELEGRAM_VOICE_REPLIES", "1")
+    monkeypatch.setenv(
+        "DIO_PRESENCE_OPERATOR_TELEGRAM_VOICE_REPLIES",
+        "1",
+    )
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "test-token")
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+        "test-token",
+    )
 
     calls: list[str] = []
 
@@ -208,7 +240,15 @@ def test_text_reply_remains_default_when_voice_not_eligible(tmp_path: Path, monk
 def test_reply_gate_blocks_voice_render_and_transport(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.delenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", raising=False)
     monkeypatch.setenv("DIO_PRESENCE_TELEGRAM_VOICE_REPLIES", "1")
+    monkeypatch.setenv(
+        "DIO_PRESENCE_OPERATOR_TELEGRAM_VOICE_REPLIES",
+        "1",
+    )
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "test-token")
+    monkeypatch.setenv(
+        "DIO_TELEGRAM_OPERATOR_BOT_TOKEN",
+        "test-token",
+    )
 
     def forbidden(*args, **kwargs):
         raise AssertionError("render or transport must not run before authorization")
@@ -238,3 +278,203 @@ def test_outer_authority_receipt_preserves_voice_action_type() -> None:
     assert result["core_reply_sent"] is True
     assert result["authority"]["executed_external_action"] is True
     assert result["authority"]["external_action_type"] == "telegram_voice_reply"
+
+
+def test_approved_pdf_document_wins_over_voice(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv(
+        "DIO_PRESENCE_CORE_TELEGRAM_REPLIES",
+        "1",
+    )
+    monkeypatch.setenv(
+        "DIO_PRESENCE_TELEGRAM_VOICE_REPLIES",
+        "1",
+    )
+    monkeypatch.setenv(
+        "TELEGRAM_BOT_TOKEN",
+        "test-token",
+    )
+
+    artifact_dir = (
+        tmp_path
+        / "state"
+        / "presence"
+        / "customer_cases"
+        / "artifacts"
+        / "CASE-TEST"
+    )
+    artifact_dir.mkdir(parents=True)
+
+    pdf_path = artifact_dir / "quote.pdf"
+    pdf_path.write_bytes(
+        b"%PDF-1.4\nDIO TEST QUOTE\n%%EOF\n"
+    )
+
+    import hashlib
+
+    result = _result()
+
+    result["outbound_artifact"] = {
+        "kind": "document",
+        "purpose": "customer_quote",
+        "path": str(pdf_path),
+        "file_name": "dio-quote.pdf",
+        "mime_type": "application/pdf",
+        "sha256": hashlib.sha256(
+            pdf_path.read_bytes()
+        ).hexdigest(),
+        "release_state": "APPROVED",
+    }
+
+    calls: list[tuple] = []
+
+    class Response:
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> dict:
+            return {
+                "ok": True,
+                "result": {
+                    "message_id": 91,
+                    "document": {
+                        "file_id": "TG-FILE-91",
+                    },
+                },
+            }
+
+    def fake_post(
+        url,
+        *,
+        data=None,
+        files=None,
+        json=None,
+        timeout=None,
+    ):
+        calls.append(
+            (url, data, files, json, timeout)
+        )
+
+        assert url.endswith("/sendDocument")
+        assert data == {
+            "chat_id": "456",
+            "caption": "Vesper is ready.",
+        }
+        assert files and "document" in files
+
+        return Response()
+
+    def forbidden_voice(*args, **kwargs):
+        raise AssertionError(
+            "voice must not render when an "
+            "approved document is present"
+        )
+
+    monkeypatch.setattr(
+        "presence_core.telegram_transport."
+        "synthesize_voice",
+        forbidden_voice,
+    )
+    monkeypatch.setattr(
+        "presence_core.telegram_transport."
+        "httpx.post",
+        fake_post,
+    )
+
+    sent, error, receipt = send_telegram_reply(
+        _envelope(),
+        result,
+        root=tmp_path,
+    )
+
+    assert sent is True
+    assert error is None
+    assert len(calls) == 1
+    assert receipt["delivery_mode"] == "document"
+    assert (
+        receipt["external_action_type"]
+        == "telegram_document_reply"
+    )
+    assert (
+        receipt["document"]["telegram_message_id"]
+        == 91
+    )
+    assert (
+        receipt["document"]["telegram_file_id"]
+        == "TG-FILE-91"
+    )
+    assert (
+        receipt["document"]["release_state"]
+        == "APPROVED"
+    )
+
+
+def test_document_hash_mismatch_fails_closed_without_send(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv(
+        "DIO_PRESENCE_CORE_TELEGRAM_REPLIES",
+        "1",
+    )
+    monkeypatch.setenv(
+        "TELEGRAM_BOT_TOKEN",
+        "test-token",
+    )
+
+    artifact_dir = (
+        tmp_path
+        / "state"
+        / "presence"
+        / "customer_cases"
+        / "artifacts"
+        / "CASE-TEST"
+    )
+    artifact_dir.mkdir(parents=True)
+
+    pdf_path = artifact_dir / "quote.pdf"
+    pdf_path.write_bytes(
+        b"%PDF-1.4\nTAMPERED\n%%EOF\n"
+    )
+
+    result = _result(
+        voice_eligible=False
+    )
+
+    result["outbound_artifact"] = {
+        "kind": "document",
+        "purpose": "customer_quote",
+        "path": str(pdf_path),
+        "file_name": "dio-quote.pdf",
+        "mime_type": "application/pdf",
+        "sha256": "0" * 64,
+        "release_state": "APPROVED",
+    }
+
+    def forbidden_post(*args, **kwargs):
+        raise AssertionError(
+            "network send must not occur after "
+            "artifact verification failure"
+        )
+
+    monkeypatch.setattr(
+        "presence_core.telegram_transport."
+        "httpx.post",
+        forbidden_post,
+    )
+
+    sent, error, receipt = send_telegram_reply(
+        _envelope(),
+        result,
+        root=tmp_path,
+    )
+
+    assert sent is False
+    assert (
+        error
+        == "outbound_document_sha256_mismatch"
+    )
+    assert receipt["authorized"] is False
+    assert receipt["delivery_mode"] == "document"

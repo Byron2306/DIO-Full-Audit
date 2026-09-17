@@ -63,7 +63,11 @@ def process_once(
                 "provider_event_id": provider_event_id,
                 "amount_minor": payload.get("amount_minor"),
                 "currency": payload.get("currency"),
+                "lineage": payload.get("lineage")
+                if isinstance(payload.get("lineage"), dict)
+                else {},
                 "fulfilment_released": False,
+                "authority_created": False,
             })
             os.chmod(order_path, 0o600)
         severity = "critical" if outcome in {"amount_mismatch", "held", "unmatched"} else "info"

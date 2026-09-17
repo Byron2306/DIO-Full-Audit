@@ -73,6 +73,22 @@ def _stable_case_id(conversation_id: str) -> str:
     return f"CASE-{digest}"
 
 
+def _stable_successor_case_id(
+    conversation_id: str,
+    predecessor_case_id: str,
+    source_sha256: str,
+) -> str:
+    material = (
+        f"{conversation_id}|"
+        f"{predecessor_case_id}|"
+        f"{source_sha256.lower()}"
+    )
+    digest = hashlib.sha256(
+        material.encode("utf-8")
+    ).hexdigest()[:20].upper()
+    return f"CASE-{digest}"
+
+
 def _deep_merge(target: dict[str, Any], patch: dict[str, Any]) -> dict[str, Any]:
     result = deepcopy(target)
     for key, value in patch.items():
@@ -164,6 +180,295 @@ def find_case_for_conversation(state_root: Path, conversation_id: str) -> dict[s
     if not case_id:
         return None
     return load_case(state_root, str(case_id))
+
+
+
+def create_successor_case(
+    state_root: Path,
+    predecessor: dict[str, Any],
+    *,
+    conversation_id: str,
+    source_sha256: str,
+) -> dict[str, Any]:
+    if predecessor.get("schema") != CASE_SCHEMA:
+        raise ValueError(
+            "unsupported predecessor customer case schema"
+        )
+
+    conversation_id = str(
+        conversation_id
+    ).strip()
+
+    source_sha256 = str(
+        source_sha256
+    ).strip().lower()
+
+    if not conversation_id:
+        raise ValueError(
+            "conversation_id is required"
+        )
+
+    if len(source_sha256) != 64:
+        raise ValueError(
+            "source_sha256 must be a SHA-256 digest"
+        )
+
+    predecessor_case_id = str(
+        predecessor.get("case_id") or ""
+    ).strip()
+
+    if not predecessor_case_id:
+        raise ValueError(
+            "predecessor case_id is required"
+        )
+
+    successor_case_id = (
+        _stable_successor_case_id(
+            conversation_id,
+            predecessor_case_id,
+            source_sha256,
+        )
+    )
+
+    stored_predecessor = load_case(
+        state_root,
+        predecessor_case_id,
+    )
+
+    if stored_predecessor is None:
+        raise ValueError(
+            "predecessor customer case not found"
+        )
+
+    current_successor_id = str(
+        stored_predecessor.get(
+            "successor_case_id"
+        )
+        or ""
+    ).strip()
+
+    if (
+        current_successor_id
+        and current_successor_id
+        != successor_case_id
+    ):
+        raise ValueError(
+            "predecessor already points to a different successor"
+        )
+
+    if current_successor_id != successor_case_id:
+        stored_predecessor[
+            "successor_case_id"
+        ] = successor_case_id
+
+        write_json(
+            _case_path(
+                state_root,
+                predecessor_case_id,
+            ),
+            stored_predecessor,
+        )
+
+    existing = load_case(
+        state_root,
+        successor_case_id,
+    )
+
+    if existing is not None:
+        index = _load_index(state_root)
+        index.setdefault(
+            "conversations",
+            {},
+        )[conversation_id] = successor_case_id
+
+        history = index.setdefault(
+            "conversation_case_history",
+            {},
+        ).setdefault(
+            conversation_id,
+            [],
+        )
+
+        for case_id in (
+            predecessor_case_id,
+            successor_case_id,
+        ):
+            if case_id not in history:
+                history.append(case_id)
+
+        _write_index(
+            state_root,
+            index,
+        )
+
+        return existing
+
+    origins = list(
+        predecessor.get(
+            "channel_origins"
+        ) or []
+    )
+
+    channel = (
+        origins[-1]
+        if origins
+        else "conversation"
+    )
+
+    external_ids = list(
+        (
+            predecessor.get(
+                "customer_identity"
+            ) or {}
+        ).get(
+            "external_user_ids"
+        ) or []
+    )
+
+    external_user_id = (
+        str(external_ids[0])
+        if external_ids
+        else f"conversation:{conversation_id}"
+    )
+
+    successor = _new_case(
+        conversation_id=conversation_id,
+        channel=channel,
+        external_user_id=external_user_id,
+        product_id=predecessor.get(
+            "product_id"
+        ),
+        contact_email=predecessor.get(
+            "contact_email"
+        ),
+        customer_id=predecessor.get(
+            "customer_id"
+        ),
+    )
+
+    successor["case_id"] = (
+        successor_case_id
+    )
+
+    successor["predecessor_case_id"] = (
+        predecessor_case_id
+    )
+
+    successor[
+        "source_successor_sha256"
+    ] = source_sha256
+
+    successor["channel_origins"] = list(
+        dict.fromkeys(
+            predecessor.get(
+                "channel_origins"
+            ) or [channel]
+        )
+    )
+
+    successor["conversation_ids"] = list(
+        dict.fromkeys(
+            list(
+                predecessor.get(
+                    "conversation_ids"
+                ) or []
+            )
+            + [conversation_id]
+        )
+    )
+
+    successor["customer_identity"] = (
+        deepcopy(
+            predecessor.get(
+                "customer_identity"
+            )
+            or successor[
+                "customer_identity"
+            ]
+        )
+    )
+
+    if "product_history" in predecessor:
+        successor["product_history"] = deepcopy(
+            predecessor[
+                "product_history"
+            ]
+        )
+
+    if predecessor.get(
+        "requested_outcome"
+    ) is not None:
+        successor[
+            "requested_outcome"
+        ] = deepcopy(
+            predecessor[
+                "requested_outcome"
+            ]
+        )
+
+    # Critical invariant:
+    # no work-derived state is inherited.
+    successor["scope"] = {}
+    successor["attachments"] = []
+    successor["job_links"] = []
+    successor["needs_you_ids"] = []
+    successor["order_ids"] = []
+
+    successor["commercial"] = {
+        "pricing_mode": None,
+        "reference_offer": None,
+        "reference_band": None,
+        "quote_recommendation": None,
+        "quote_reasoning": [],
+        "quote_state": "not_prepared",
+        "invoice_id": None,
+        "invoice_state": "not_created",
+        "payment_state": "unverified",
+        "payment_evidence_ref": None,
+        "currency": None,
+        "amount": None,
+    }
+
+    successor["authority_created"] = False
+
+    write_json(
+        _case_path(
+            state_root,
+            successor_case_id,
+        ),
+        successor,
+    )
+
+    index = _load_index(state_root)
+
+    index.setdefault(
+        "conversations",
+        {},
+    )[conversation_id] = (
+        successor_case_id
+    )
+
+    history = index.setdefault(
+        "conversation_case_history",
+        {},
+    ).setdefault(
+        conversation_id,
+        [],
+    )
+
+    for case_id in (
+        predecessor_case_id,
+        successor_case_id,
+    ):
+        if case_id not in history:
+            history.append(case_id)
+
+    _write_index(
+        state_root,
+        index,
+    )
+
+    return successor
 
 
 def create_or_attach_case(

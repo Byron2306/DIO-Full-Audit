@@ -13,9 +13,114 @@ from presence_core.authority import (
 )
 from presence_core.engine import process_envelope
 from presence_core.identity import create_status_binding, revoke_binding
+from presence_core.fulfilment_release import record_successful_delivery
 from presence_core.signing import verify_body, SignatureError
 from presence_core.state import list_needs_you, operator_summary, read_json, safe
 from presence_core.telegram_transport import send_telegram_reply, telegram_voice_reply_switch_enabled
+
+
+def finalize_fulfilment_delivery(
+    state_root: Path,
+    *,
+    result: dict,
+    sent: bool,
+    reply_receipt: dict,
+):
+    if not sent:
+        return None
+
+    artifact = result.get("outbound_artifact") or {}
+
+    if (
+        str(artifact.get("purpose") or "").strip().lower()
+        != "product_fulfilment"
+    ):
+        return None
+
+    authority_id = str(
+        artifact.get("release_authority_id") or ""
+    ).strip()
+
+    if not authority_id:
+        return None
+
+    if (
+        str(reply_receipt.get("delivery_mode") or "").strip().lower()
+        != "document"
+    ):
+        return None
+
+    document = reply_receipt.get("document") or {}
+
+    delivered_sha = str(
+        document.get("sha256") or ""
+    ).strip().lower()
+
+    expected_sha = str(
+        artifact.get("sha256") or ""
+    ).strip().lower()
+
+    if not delivered_sha or delivered_sha != expected_sha:
+        raise ValueError(
+            "Telegram delivery receipt SHA-256 "
+            "does not match outbound fulfilment artifact"
+        )
+
+    return record_successful_delivery(
+        Path(state_root),
+        authority_id,
+        delivery_receipt={
+            "channel": "telegram",
+            "message_id": document.get(
+                "telegram_message_id"
+            ),
+            "file_id": document.get(
+                "telegram_file_id"
+            ),
+            "artifact_sha256": delivered_sha,
+        },
+    )
+
+
+
+def send_bind_and_finalize(
+    envelope: dict,
+    result: dict,
+    *,
+    state_root: Path,
+) -> tuple[bool, str | None, dict]:
+    sent, error, reply_receipt = (
+        send_telegram_reply_from_core(
+            envelope,
+            result,
+        )
+    )
+
+    bind_external_action_receipt(
+        result,
+        reply_receipt,
+        sent=sent,
+        error=error,
+    )
+
+    try:
+        finalize_fulfilment_delivery(
+            Path(state_root),
+            result=result,
+            sent=sent,
+            reply_receipt=reply_receipt,
+        )
+    except Exception as exc:
+        if sent:
+            result["fulfilment_completion_state"] = (
+                "post_send_reconciliation_failed"
+            )
+            result["fulfilment_completion_error"] = str(exc)[:500]
+        else:
+            raise
+
+    return sent, error, reply_receipt
+
 
 app=FastAPI(title='DIO Presence Bridge',version='2.0.0',docs_url=None,redoc_url=None)
 CFG=load_config(); REPLAY:dict[str,float]={}
@@ -80,12 +185,13 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
     try: result=process_envelope(envelope,ROOT,CFG)
     except Exception as exc: raise HTTPException(400,f'Presence request blocked: {exc}')
     try:
-        sent, error, reply_receipt = send_telegram_reply_from_core(envelope, result)
-        bind_external_action_receipt(
+        sent, error, reply_receipt = send_bind_and_finalize(
+            envelope,
             result,
-            reply_receipt,
-            sent=sent,
-            error=error,
+            state_root=ROOT / CFG.get(
+                "state_root",
+                "state/presence",
+            ),
         )
     except Exception as exc:
         bind_external_action_receipt(
