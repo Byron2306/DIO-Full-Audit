@@ -43,8 +43,8 @@ def _binding(
     }
 
 
-# This registry is intentionally conservative.  Source code or historical
-# output is not execution evidence.  VERIFIED_NATIVE is awarded only by
+# This registry is intentionally conservative. Source code or historical
+# output is not execution evidence. VERIFIED_NATIVE is awarded only by
 # validate_execution_evidence() for a fresh, hash-bound run.
 ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     "sophia_review": _binding(
@@ -95,9 +95,9 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     ),
     "obligation_assurance": _binding(
         "obligation_assurance", "D", "Obligation / Assurance Core",
-        "dio.organ.obligation_assurance", "products/obligation_core.py",
-        "unbound", NEEDS_BINDING,
-        note="Earlier product-factory proofs establish obligation semantics, but a current Journey-bound organ entrypoint must be identified and executed afresh.",
+        "dio.organ.obligation_assurance", "products/obligationfamily/runner.py",
+        "native", NEEDS_BINDING,
+        note="The deterministic obligation-family runner is repository-native and writes hash-bound multi-format proof packs while preserving NEEDS_YOU fulfilment and REFUSE release gates. It still requires a fresh Journey-bound execution receipt.",
     ),
 }
 
@@ -123,7 +123,7 @@ def inspect_family(
         row["verdict"] = NEEDS_BINDING
     else:
         row["host_available"] = True
-        # Presence is prerequisite only.  It is not proof of execution.
+        # Presence is prerequisite only. It is not proof of execution.
         row["verdict"] = NEEDS_BINDING if row["source_present"] else REFUSE
     return row
 
