@@ -55,10 +55,11 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     "sophia_review": _binding(
         "sophia_review", "B", "Sophia Academic Review Desk",
         "dio.organ.sophia_review",
-        "cross_folder_variants/Integritas-Mechanicus/A_CODE/scripts/sophia_writing_desk_phase1_smoke.py",
-        "host_bound", NEEDS_HOST,
-        host_capability="sophia_7070_reviewer",
-        note="Reviewer-oriented code exists, but the live 7070 reviewer route must be proven on its configured host before universal activation.",
+        "arda_os/backend/services/presence_server.py",
+        "external_repo", NEEDS_BINDING,
+        repository="Byron2306/Sophia-AI",
+        repository_commit="c1aa915560599f7d6cef0ff41e6a7b0787334376",
+        note="The canonical Sophia repository is pinned to the isolated DIO review-lane repair. A clean runner proved live 7070 execution through Ollama qwen2.5:0.5b; Phase 7 still requires DIO-sealed execution evidence.",
     ),
     "evidex_evidence": _binding(
         "evidex_evidence", "C", "Evidex Evidence Pack",
