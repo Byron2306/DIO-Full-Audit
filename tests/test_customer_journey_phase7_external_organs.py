@@ -27,7 +27,7 @@ PINNED = {
     ),
     "nichefoundry_campaign": (
         "Byron2306/NicheFoundry",
-        "25fef4bd5bfd1258758963b374ef192fc469c14f",
+        "7528d8cdee17c5b6fbe35236b71b8e2191bb108a",
     ),
 }
 
@@ -299,7 +299,7 @@ def test_real_nichefoundry_main_repo_renders_held_media_pack(tmp_path: Path) -> 
             {"artifact_id": "nichefoundry-render-qa", "kind": "application/json", "path": qa},
         ],
         evidence_refs=[
-            "external-repo:Byron2306/NicheFoundry@25fef4bd5bfd1258758963b374ef192fc469c14f",
+            "external-repo:Byron2306/NicheFoundry@7528d8cdee17c5b6fbe35236b71b8e2191bb108a",
             "entrypoint:scripts/backend_autopilot.js --render --provider espeak --profile proxy",
         ],
     )
