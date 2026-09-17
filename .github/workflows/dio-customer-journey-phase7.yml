@@ -97,7 +97,7 @@ jobs:
   nichefoundry-main-repo:
     runs-on: ubuntu-latest
     env:
-      NICHEFOUNDRY_SHA: 25fef4bd5bfd1258758963b374ef192fc469c14f
+      NICHEFOUNDRY_SHA: 7528d8cdee17c5b6fbe35236b71b8e2191bb108a
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
