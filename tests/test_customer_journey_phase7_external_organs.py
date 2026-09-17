@@ -234,3 +234,81 @@ def test_real_homs_main_repo_proves_assessment_and_learning_outputs() -> None:
         expected_profile_sha256="c" * 64,
     )
     assert learning_verdict["verdict"] == VERIFIED_NATIVE
+
+
+def test_real_nichefoundry_main_repo_renders_held_media_pack(tmp_path: Path) -> None:
+    root = _external_root("PHASE7_NICHEFOUNDRY_ROOT")
+    episodes = tmp_path / "episodes"
+    data = tmp_path / "data"
+    env = os.environ.copy()
+    env.update({
+        "FOUNDRY_EPISODES_DIR": str(episodes),
+        "FOUNDRY_DATA_DIR": str(data),
+        "HOST": "127.0.0.1",
+    })
+    result = _run(
+        [
+            "node",
+            "scripts/backend_autopilot.js",
+            "Rosetta Stone inscription and what it reveals about ancient Egyptian governance",
+            "history_under_glass",
+            "--render",
+            "--provider",
+            "espeak",
+            "--profile",
+            "proxy",
+            "--force",
+        ],
+        cwd=root,
+        env=env,
+    )
+    assert '"studio_id": "history_under_glass"' in result.stdout
+
+    episode_dirs = [path for path in episodes.iterdir() if path.is_dir()]
+    assert len(episode_dirs) == 1
+    episode = episode_dirs[0]
+
+    script = episode / "script_package.json"
+    visual = episode / "visual_plan.json"
+    audio_manifest = episode / "audio_manifest.json"
+    render_manifest = episode / "render_manifest.json"
+    captions = episode / "captions.srt"
+    thumbnail = episode / "thumbnail.png"
+    qa = episode / "render_qa_report.json"
+
+    for path in (script, visual, audio_manifest, render_manifest, captions, thumbnail, qa):
+        assert path.is_file(), path
+        assert path.stat().st_size > 0
+
+    qa_payload = __import__("json").loads(qa.read_text(encoding="utf-8"))
+    assert qa_payload.get("passed") is True
+
+    mp4s = [path for path in episode.rglob("*.mp4") if path.is_file() and path.stat().st_size > 0]
+    assert mp4s, "NicheFoundry proxy render did not produce an MP4"
+    final_video = max(mp4s, key=lambda path: path.stat().st_size)
+
+    evidence = seal_native_execution(
+        "nichefoundry_campaign",
+        fulfilment_request_sha256="d" * 64,
+        execution_profile_sha256="e" * 64,
+        artifacts=[
+            {"artifact_id": "nichefoundry-script", "kind": "application/json", "path": script},
+            {"artifact_id": "nichefoundry-video", "kind": "video/mp4", "path": final_video},
+            {"artifact_id": "nichefoundry-captions", "kind": "text/srt", "path": captions},
+            {"artifact_id": "nichefoundry-thumbnail", "kind": "image/png", "path": thumbnail},
+            {"artifact_id": "nichefoundry-render-qa", "kind": "application/json", "path": qa},
+        ],
+        evidence_refs=[
+            "external-repo:Byron2306/NicheFoundry@25fef4bd5bfd1258758963b374ef192fc469c14f",
+            "entrypoint:scripts/backend_autopilot.js --render --provider espeak --profile proxy",
+        ],
+    )
+    verdict = validate_execution_evidence(
+        "nichefoundry_campaign",
+        evidence,
+        expected_request_sha256="d" * 64,
+        expected_profile_sha256="e" * 64,
+    )
+    assert verdict["verdict"] == VERIFIED_NATIVE
+    assert all(item["release_state"] == "HELD" for item in evidence["artifacts"])
+    assert all(item["size_bytes"] > 0 for item in evidence["artifacts"])
