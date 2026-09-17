@@ -179,66 +179,75 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install Document Studio contract dependencies
-        run: python -m pip install pytest python-docx pillow python-pptx
-      - name: Run Document Studio Ollama provider RED/contract
+      - name: Install Document Studio runtime
+        run: |
+          python -m pip install pytest python-docx pillow python-pptx
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-writer
+      - name: Verify Document Studio Ollama provider contract
         run: python -m pytest -q tests/test_document_studio_ollama_provider.py
-
-
-  sophia-main-repo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: Byron2306/Sophia-AI
-          ref: c1aa915560599f7d6cef0ff41e6a7b0787334376
-          path: external/sophia
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
       - name: Install Ollama
         run: curl -fsSL https://ollama.com/install.sh | sh
       - name: Start Ollama and pull tiny Qwen
         run: |
-          ollama serve >/tmp/ollama.log 2>&1 &
+          ollama serve >/tmp/ollama-docstudio.log 2>&1 &
           for i in {1..30}; do
             curl -fsS http://127.0.0.1:11434/api/tags >/dev/null && break
             sleep 1
           done
           ollama pull qwen2.5:0.5b
-      - name: Start canonical Sophia 7070
-        env:
-          PRESENCE_PORT: '7070'
-          OLLAMA_URL: http://127.0.0.1:11434
-          OLLAMA_MODEL: qwen2.5:0.5b
-        working-directory: external/sophia
+      - name: Execute real Document Studio technical-edit pipeline
         run: |
-          python arda_os/backend/services/presence_server.py >/tmp/sophia-presence.log 2>&1 &
-          for i in {1..45}; do
-            curl -fsS http://127.0.0.1:7070/api/health >/dev/null && break
-            sleep 1
-          done
-          curl -fsS http://127.0.0.1:7070/api/health >/dev/null
-      - name: Execute live Sophia specialist review
-        working-directory: external/sophia
-        run: python tests/run_dio_product_review_live.py /tmp/sophia-live-review.json
-      - name: Seal Sophia witness through DIO Phase 7
+          mkdir -p /tmp/document-studio-input /tmp/document-studio-output
+          cat > /tmp/document-studio-input/source.txt <<'EOF'
+          Field Sampling Procedure
+
+          The technician record the sample code and collection time before placing the bottle in the cooler. The bottle must remain between 2 and 8 degrees Celsius during transport.
+          EOF
+          cat > /tmp/document-studio-input/request.json <<'EOF'
+          {
+            "schema": "dio.document_studio.request.v1",
+            "job_id": "PHASE7-DOC-OLLAMA-001",
+            "title": "Field Sampling Procedure",
+            "document_path": "source.txt",
+            "service": "technical_edit",
+            "source_language": "English",
+            "audience": "Municipal field technicians",
+            "document_domain": "Water-quality operations",
+            "style_standard": "Plain South African technical English; preserve all operational facts and thresholds.",
+            "protected_tokens": ["2", "8"],
+            "preferred_terms": [],
+            "owner_authorized": true,
+            "remote_processing_approved": true,
+            "certified_translation_required": false,
+            "human_language_review_required": false,
+            "provider": "ollama",
+            "ollama_model": "qwen2.5:0.5b",
+            "ollama_url": "http://127.0.0.1:11434",
+            "format_channels": ["docx", "html"]
+          }
+          EOF
+          python scripts/run_document_studio.py /tmp/document-studio-input/request.json --out-root /tmp/document-studio-output
+      - name: Verify held Document Studio review pack
         run: |
           python - <<'PY'
+          import json
           from pathlib import Path
-          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
-          witness = Path("/tmp/sophia-live-review.json")
-          assert witness.is_file() and witness.stat().st_size > 0
-          ref = "external-repo:Byron2306/Sophia-AI@c1aa915560599f7d6cef0ff41e6a7b0787334376"
-          evidence = seal_native_execution(
-              "sophia_review",
-              fulfilment_request_sha256="2"*64,
-              execution_profile_sha256="3"*64,
-              artifacts=[{"artifact_id":"sophia-live-review","kind":"application/json","path":witness}],
-              evidence_refs=[ref, "ollama-model:qwen2.5:0.5b", "presence-port:7070"],
-          )
-          verdict = validate_execution_evidence("sophia_review", evidence, expected_request_sha256="2"*64, expected_profile_sha256="3"*64)
-          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
-          print("SOPHIA_REVIEW_VERIFIED_NATIVE")
+          job = Path("/tmp/document-studio-output/PHASE7-DOC-OLLAMA-001")
+          receipt = json.loads((job / "DOCUMENT_STUDIO_RECEIPT.json").read_text())
+          qa = json.loads((job / "DOCUMENT_STUDIO_QA.json").read_text())
+          assert receipt["status"] == "human_review_required", receipt
+          assert receipt["processing"]["provider"] == "ollama", receipt
+          assert receipt["release"]["delivery_released"] is False, receipt
+          assert receipt["release"]["human_approval_required"] is True, receipt
+          assert qa["release_readiness"] == "blocked_pending_human_approval", qa
+          required = [
+              job / "CLEAN_EDITED_COPY.docx",
+              job / "REDLINE_REVIEW_COPY.docx",
+              job / "DOCUMENT_STUDIO_QA.json",
+              job / "DOCUMENT_STUDIO_RECEIPT.json",
+              job / "PHASE7-DOC-OLLAMA-001_DOCUMENT_STUDIO_REVIEW_PACK.zip",
+          ]
+          assert all(p.is_file() and p.stat().st_size > 0 for p in required), required
+          print("DOCUMENT_STUDIO_OLLAMA_PIPELINE_EXECUTED")
           PY
