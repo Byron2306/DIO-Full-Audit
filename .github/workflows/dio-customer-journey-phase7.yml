@@ -93,3 +93,35 @@ jobs:
           python -m pytest -q \
             tests/test_customer_journey_phase7_external_organs.py \
             -k real_homs
+
+  nichefoundry-main-repo:
+    runs-on: ubuntu-latest
+    env:
+      NICHEFOUNDRY_SHA: 25fef4bd5bfd1258758963b374ef192fc469c14f
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install NicheFoundry media runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y espeak ffmpeg
+          python -m pip install pytest
+      - name: Fetch pinned NicheFoundry organ
+        run: |
+          root="$RUNNER_TEMP/phase7-nichefoundry"
+          git init "$root"
+          git -C "$root" remote add origin https://github.com/Byron2306/NicheFoundry.git
+          git -C "$root" fetch --depth 1 origin "$NICHEFOUNDRY_SHA"
+          git -C "$root" checkout --detach FETCH_HEAD
+          test "$(git -C "$root" rev-parse HEAD)" = "$NICHEFOUNDRY_SHA"
+          echo "PHASE7_NICHEFOUNDRY_ROOT=$root" >> "$GITHUB_ENV"
+      - name: Execute and seal canonical NicheFoundry media fulfilment
+        run: |
+          python -m pytest -q \
+            tests/test_customer_journey_phase7_external_organs.py \
+            -k real_nichefoundry
