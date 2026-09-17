@@ -295,3 +295,58 @@ def test_execute_verified_family_binds_real_phase4_request_and_normalizes_adapte
     assert result["artifacts"][0]["sha256"] == hashlib.sha256(artifact.read_bytes()).hexdigest()
     assert result["artifacts"][0]["release_state"] == "HELD"
     assert result["authority_created"] is False
+
+
+def test_operator_review_quote_can_resume_vamp_to_canonical_quote_ready(tmp_path: Path) -> None:
+    from presence_core.intake_scope_quote import (
+        open_intake,
+        record_intake_inputs,
+        assess_scope,
+        prepare_quote,
+        approve_operator_review_quote,
+    )
+    from presence_core.customer_cases import load_case
+
+    case = create_journey_case(tmp_path, product_id="VAMP Performance")
+    open_intake(ROOT, tmp_path, case["case_id"])
+    record_intake_inputs(
+        ROOT,
+        tmp_path,
+        case["case_id"],
+        {
+            "requested_outcome": "Prepare one governed performance evidence snapshot",
+            "buyer_class": "C1",
+            "scope_quantity": 1,
+        },
+        evidence_ref="customer:phase7-vamp-intake",
+    )
+    scope = assess_scope(ROOT, tmp_path, case["case_id"])
+    assert scope["state"] == "SUFFICIENT"
+    pending = prepare_quote(ROOT, tmp_path, case["case_id"])
+    assert pending["decision"] == "NEEDS_YOU"
+    assert pending["pricing_reference"]["amount_zar"] == 500
+    assert load_case(tmp_path, case["case_id"])["stage"] == "NEEDS_YOU"
+
+    approved = approve_operator_review_quote(
+        ROOT,
+        tmp_path,
+        case["case_id"],
+        approved_by="operator:phase7",
+        approved_amount_zar=500,
+        evidence_ref="operator-quote:phase7-vamp",
+    )
+    quote = approved["quote"]
+    assert approved["decision"] == "ALLOW_PRESENTATION"
+    assert approved["reason"] == "operator_review_approved"
+    assert quote["schema"] == "dio.customer_quote.v2"
+    assert quote["amount"] == 500
+    assert quote["quote_authority_mode"] == "operator_review"
+    assert quote["operator_approval"]["approved_by"] == "operator:phase7"
+    assert quote["operator_approval"]["evidence_ref"] == "operator-quote:phase7-vamp"
+    assert quote["presentation_authority"] is True
+    assert quote["invoice_issue_authority"] is False
+    assert quote["payment_collection_authority"] is False
+    assert quote["fulfilment_authority_created"] is False
+    assert quote["release_authority_created"] is False
+    assert quote["authority_created"] is False
+    assert load_case(tmp_path, case["case_id"])["stage"] == "QUOTE_READY"
