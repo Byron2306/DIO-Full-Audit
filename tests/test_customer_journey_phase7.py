@@ -17,6 +17,7 @@ from presence_core.organ_adapter_gauntlet import (
     phase7_preflight,
     seal_native_execution,
     validate_execution_evidence,
+    execute_verified_family,
 )
 from tests.test_vamp_snapshot_adapter import create_fixture_database
 
@@ -215,3 +216,82 @@ def test_real_vamp_pipeline_can_be_sealed_as_current_phase7_execution(tmp_path: 
     )
     assert verdict["verdict"] == VERIFIED_NATIVE
     assert all(item["release_state"] == "HELD" for item in evidence["artifacts"])
+
+
+def test_execute_verified_family_binds_real_phase4_request_and_normalizes_adapter_result(tmp_path: Path) -> None:
+    from presence_core.fulfilment_contract import build_fulfilment_request, dispatch_fulfilment
+    from tests.test_customer_journey_phase4 import _eligible_case, _profile
+
+    case = _eligible_case(tmp_path, product_id="VAMP Performance")
+    profile = _profile("VAMP Performance", adapter_id="dio.organ.vamp_snapshot")
+    # Phase 7 owns adapter version 1. Re-project the fixture with the exact binding version
+    # rather than mutating a signed execution profile.
+    from presence_core.fulfilment_contract import project_execution_profile
+    compiled = {
+        "schema": "dio.compiled_product.v1",
+        "compiler_version": "1.1.0",
+        "product_id": "vamp-performance",
+        "name": "VAMP Performance",
+        "composition_fingerprint": "sha256:" + "1" * 64,
+        "compilation_fingerprint": "sha256:" + "2" * 64,
+        "capability_plan": [{
+            "capability_id": "vamp.snapshot",
+            "required": True,
+            "execution_required": True,
+            "resolution_state": "RESOLVED",
+            "provider": {
+                "provider_id": "vamp-snapshot",
+                "provider_kind": "local",
+                "ref": "adapters/vamp/snapshot_pipeline.py",
+                "execution_capable": True,
+                "product_scope": ["VAMP Performance"],
+            },
+            "reason": "Phase 7 verified family",
+        }],
+        "gates": {"execution": {"state": "NEEDS_YOU", "reason": "explicit Journey invocation"}},
+        "output_plan": {"schema": "dio.compiled_output_plan.v1", "outputs": [{"kind": "evidence_pack"}]},
+    }
+    profile = project_execution_profile(
+        compiled,
+        adapter_id="dio.organ.vamp_snapshot",
+        adapter_version=ORGAN_FAMILIES["vamp_snapshot"]["adapter_version"],
+    )
+    request = build_fulfilment_request(tmp_path, case["case_id"], profile)
+
+    artifact = tmp_path / "vamp-current.json"
+    artifact.write_text('{"current":"phase7"}\n', encoding="utf-8")
+
+    def runner(*, family, binding, request, execution_profile):
+        assert family == "vamp_snapshot"
+        assert binding["adapter_id"] == request["adapter_id"]
+        return seal_native_execution(
+            family,
+            fulfilment_request_sha256=request["fulfilment_request_sha256"],
+            execution_profile_sha256=execution_profile["execution_profile_sha256"],
+            artifacts=[{
+                "artifact_id": "vamp-current",
+                "kind": "application/json",
+                "path": artifact,
+            }],
+            evidence_refs=["phase7:request-bound:vamp"],
+        )
+
+    def adapter(adapter_request: dict, adapter_profile: dict) -> dict:
+        return execute_verified_family(
+            "vamp_snapshot",
+            request=adapter_request,
+            execution_profile=adapter_profile,
+            runner=runner,
+        )
+
+    result = dispatch_fulfilment(
+        tmp_path,
+        request,
+        {"dio.organ.vamp_snapshot": adapter},
+    )
+    assert result["status"] == "COMPLETED"
+    assert result["fulfilment_request_sha256"] == request["fulfilment_request_sha256"]
+    assert result["execution_profile_sha256"] == profile["execution_profile_sha256"]
+    assert result["artifacts"][0]["sha256"] == hashlib.sha256(artifact.read_bytes()).hexdigest()
+    assert result["artifacts"][0]["release_state"] == "HELD"
+    assert result["authority_created"] is False
