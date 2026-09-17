@@ -171,3 +171,15 @@ jobs:
           assert verdict["verdict"] == VERIFIED_NATIVE, verdict
           print(f"NICHEFOUNDRY_VERIFIED_NATIVE artifacts={len(evidence['artifacts'])}")
           PY
+
+  document-studio-provider-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Document Studio contract dependencies
+        run: python -m pip install pytest python-docx pillow python-pptx
+      - name: Run Document Studio Ollama provider RED/contract
+        run: python -m pytest -q tests/test_document_studio_ollama_provider.py
