@@ -14,7 +14,7 @@ on:
       - '.github/workflows/dio-customer-journey-phase7.yml'
 
 jobs:
-  phase7-contract-native:
+  phase7:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
             tests/test_customer_journey_phase7.py \
             tests/test_customer_journey_phase7_native_organs.py \
             tests/test_customer_journey_phase7_external_organs.py
-      - name: Run Phase 7 contract and repository-native proofs
+      - name: Run Phase 7 contract and in-repo native organ proofs
         run: |
           python -m pytest -q \
             tests/test_customer_journey_phase7.py \
@@ -39,89 +39,131 @@ jobs:
 
   evidex-main-repo:
     runs-on: ubuntu-latest
-    env:
-      EVIDEX_SHA: c2754b37ca32e803d84e733b5d59207fdcb17841
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Byron2306/Evidex
+          ref: c2754b37ca32e803d84e733b5d59207fdcb17841
+          path: external/evidex
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Fetch pinned Evidex organ
-        run: |
-          root="$RUNNER_TEMP/phase7-evidex"
-          git init "$root"
-          git -C "$root" remote add origin https://github.com/Byron2306/Evidex.git
-          git -C "$root" fetch --depth 1 origin "$EVIDEX_SHA"
-          git -C "$root" checkout --detach FETCH_HEAD
-          test "$(git -C "$root" rev-parse HEAD)" = "$EVIDEX_SHA"
-          echo "PHASE7_EVIDEX_ROOT=$root" >> "$GITHUB_ENV"
       - name: Install Evidex runtime
+        run: python -m pip install -r external/evidex/requirements.txt
+      - name: Execute canonical Evidex engine
+        env:
+          SUMMARY_USE_LLM: '0'
+          PYTHONPATH: external/evidex/src
         run: |
-          python -m pip install pytest
-          python -m pip install -r "$PHASE7_EVIDEX_ROOT/requirements.txt"
-          python -m pip install -e "$PHASE7_EVIDEX_ROOT"
-      - name: Execute and seal canonical Evidex
+          python -m evidence_pack_engine.cli generate \
+            --intake external/evidex/samples/grant_reporting/intake.yaml \
+            --uploads external/evidex/samples/grant_reporting/uploads \
+            --out external/evidex/phase7-output
+      - name: Seal Evidex artifacts through DIO Phase 7
         run: |
-          python -m pytest -q \
-            tests/test_customer_journey_phase7_external_organs.py \
-            -k real_evidex
+          python - <<'PY'
+          from pathlib import Path
+          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          root = Path("external/evidex/phase7-output")
+          artifacts = [p for p in root.rglob("*") if p.is_file() and (p.suffix == ".zip" or p.name == "QUALITY_REPORT.txt")]
+          assert artifacts, "Evidex produced no sealable artifacts"
+          evidence = seal_native_execution(
+              "evidex_evidence",
+              fulfilment_request_sha256="9"*64,
+              execution_profile_sha256="a"*64,
+              artifacts=[{"artifact_id": f"evidex-{i}", "kind": "application/octet-stream", "path": p} for i,p in enumerate(artifacts,1)],
+              evidence_refs=["external-repo:Byron2306/Evidex@c2754b37ca32e803d84e733b5d59207fdcb17841"],
+          )
+          verdict = validate_execution_evidence("evidex_evidence", evidence, expected_request_sha256="9"*64, expected_profile_sha256="a"*64)
+          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
+          print(f"EVIDEX_VERIFIED_NATIVE artifacts={len(evidence['artifacts'])}")
+          PY
 
   homs-main-repo:
     runs-on: ubuntu-latest
-    env:
-      HOMS_SHA: a3ea3f627d860fc7b13e2d95f6632f914938c8de
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Byron2306/NoEdge-Multi-Hymark
+          ref: a3ea3f627d860fc7b13e2d95f6632f914938c8de
+          path: external/homs
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Fetch pinned HOMS organ
-        run: |
-          root="$RUNNER_TEMP/phase7-homs"
-          git init "$root"
-          git -C "$root" remote add origin https://github.com/Byron2306/NoEdge-Multi-Hymark.git
-          git -C "$root" fetch --depth 1 origin "$HOMS_SHA"
-          git -C "$root" checkout --detach FETCH_HEAD
-          test "$(git -C "$root" rev-parse HEAD)" = "$HOMS_SHA"
-          echo "PHASE7_HOMS_ROOT=$root" >> "$GITHUB_ENV"
       - name: Install HOMS runtime
+        run: python -m pip install -r external/homs/requirements.txt
+      - name: Execute canonical HOMS demo workflow
+        working-directory: external/homs/Marker
+        run: python scripts/run_demo_assessment.py
+      - name: Seal HOMS assessment and learning artifacts through DIO Phase 7
         run: |
-          python -m pip install pytest
-          python -m pip install -r "$PHASE7_HOMS_ROOT/requirements.txt"
-      - name: Execute and seal canonical HOMS assessment and learning
-        run: |
-          python -m pytest -q \
-            tests/test_customer_journey_phase7_external_organs.py \
-            -k real_homs
+          python - <<'PY'
+          from pathlib import Path
+          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          out = Path("external/homs/Marker/output")
+          summary = out / "workflow_summary.json"
+          kb = out / "knowledge_base.pkl"
+          assert summary.is_file(), summary
+          assert kb.is_file(), kb
+          ref = "external-repo:Byron2306/NoEdge-Multi-Hymark@a3ea3f627d860fc7b13e2d95f6632f914938c8de"
+          assessment = seal_native_execution(
+              "homs_assessment",
+              fulfilment_request_sha256="b"*64,
+              execution_profile_sha256="c"*64,
+              artifacts=[{"artifact_id":"homs-workflow-summary","kind":"application/json","path":summary}],
+              evidence_refs=[ref],
+          )
+          learning = seal_native_execution(
+              "homs_learning",
+              fulfilment_request_sha256="d"*64,
+              execution_profile_sha256="e"*64,
+              artifacts=[{"artifact_id":"homs-knowledge-base","kind":"application/octet-stream","path":kb}],
+              evidence_refs=[ref],
+          )
+          av = validate_execution_evidence("homs_assessment", assessment, expected_request_sha256="b"*64, expected_profile_sha256="c"*64)
+          lv = validate_execution_evidence("homs_learning", learning, expected_request_sha256="d"*64, expected_profile_sha256="e"*64)
+          assert av["verdict"] == VERIFIED_NATIVE, av
+          assert lv["verdict"] == VERIFIED_NATIVE, lv
+          print("HOMS_ASSESSMENT_VERIFIED_NATIVE")
+          print("HOMS_LEARNING_VERIFIED_NATIVE")
+          PY
 
   nichefoundry-main-repo:
     runs-on: ubuntu-latest
-    env:
-      NICHEFOUNDRY_SHA: 7528d8cdee17c5b6fbe35236b71b8e2191bb108a
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Byron2306/NicheFoundry
+          ref: 25fef4bd5bfd1258758963b374ef192fc469c14f
+          path: external/nichefoundry
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install NicheFoundry media runtime
+      - name: Execute canonical NicheFoundry backend autopilot
+        working-directory: external/nichefoundry
+        run: node scripts/backend_autopilot.js "Roman inscriptions reveal everyday life" history_under_glass
+      - name: Seal NicheFoundry campaign artifacts through DIO Phase 7
         run: |
-          sudo apt-get update
-          sudo apt-get install -y espeak ffmpeg
-          python -m pip install pytest
-      - name: Fetch pinned NicheFoundry organ
-        run: |
-          root="$RUNNER_TEMP/phase7-nichefoundry"
-          git init "$root"
-          git -C "$root" remote add origin https://github.com/Byron2306/NicheFoundry.git
-          git -C "$root" fetch --depth 1 origin "$NICHEFOUNDRY_SHA"
-          git -C "$root" checkout --detach FETCH_HEAD
-          test "$(git -C "$root" rev-parse HEAD)" = "$NICHEFOUNDRY_SHA"
-          echo "PHASE7_NICHEFOUNDRY_ROOT=$root" >> "$GITHUB_ENV"
-      - name: Execute and seal canonical NicheFoundry media fulfilment
-        run: |
-          python -m pytest -q \
-            tests/test_customer_journey_phase7_external_organs.py \
-            -k real_nichefoundry
+          python - <<'PY'
+          from pathlib import Path
+          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          episodes = [p for p in Path("external/nichefoundry/episodes").iterdir() if p.is_dir()]
+          assert episodes, "NicheFoundry produced no episode directory"
+          episode = max(episodes, key=lambda p: p.stat().st_mtime_ns)
+          wanted = ["brief.json", "script_package.json", "timing_plan.json", "visual_plan.json", "asset_manifest.json"]
+          artifacts = [episode / name for name in wanted if (episode / name).is_file()]
+          assert len(artifacts) >= 4, [p.name for p in artifacts]
+          evidence = seal_native_execution(
+              "nichefoundry_campaign",
+              fulfilment_request_sha256="f"*64,
+              execution_profile_sha256="1"*64,
+              artifacts=[{"artifact_id": f"niche-{p.stem}", "kind": "application/json", "path": p} for p in artifacts],
+              evidence_refs=["external-repo:Byron2306/NicheFoundry@25fef4bd5bfd1258758963b374ef192fc469c14f"],
+          )
+          verdict = validate_execution_evidence("nichefoundry_campaign", evidence, expected_request_sha256="f"*64, expected_profile_sha256="1"*64)
+          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
+          print(f"NICHEFOUNDRY_VERIFIED_NATIVE artifacts={len(evidence['artifacts'])}")
+          PY
