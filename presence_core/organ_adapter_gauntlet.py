@@ -280,6 +280,10 @@ def validate_execution_evidence(
     refs = evidence.get("evidence_refs")
     if not isinstance(refs, list) or not refs:
         reasons.append("missing_execution_evidence_refs")
+    elif binding.get("execution_class") == "external_repo":
+        expected_ref = f"external-repo:{binding.get('repository')}@{binding.get('repository_commit')}"
+        if expected_ref not in refs:
+            reasons.append("external_repository_pin_mismatch")
 
     verdict = VERIFIED_NATIVE if not reasons else REFUSE
     return {
