@@ -195,7 +195,7 @@ jobs:
             curl -fsS http://127.0.0.1:11434/api/tags >/dev/null && break
             sleep 1
           done
-          ollama pull qwen2.5:0.5b
+          ollama pull qwen2.5:1.5b
       - name: Execute real Document Studio technical-edit pipeline
         run: |
           mkdir -p /tmp/document-studio-input /tmp/document-studio-output
@@ -222,7 +222,7 @@ jobs:
             "certified_translation_required": false,
             "human_language_review_required": false,
             "provider": "ollama",
-            "ollama_model": "qwen2.5:0.5b",
+            "ollama_model": "qwen2.5:1.5b",
             "ollama_url": "http://127.0.0.1:11434",
             "format_channels": ["docx", "html"]
           }
