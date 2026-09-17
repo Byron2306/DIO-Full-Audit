@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 
 VERIFIED_NATIVE = "VERIFIED_NATIVE"
@@ -151,6 +152,71 @@ def _is_sha256(value: Any) -> bool:
     return all(character in "0123456789abcdef" for character in value.lower())
 
 
+def seal_native_execution(
+    family_id: str,
+    *,
+    fulfilment_request_sha256: str,
+    execution_profile_sha256: str,
+    artifacts: Sequence[Mapping[str, Any]],
+    evidence_refs: Sequence[str],
+) -> dict[str, Any]:
+    if family_id not in ORGAN_FAMILIES:
+        raise ValueError(f"unknown Phase 7 organ family: {family_id}")
+    binding = ORGAN_FAMILIES[family_id]
+    if binding["execution_class"] != "native":
+        raise ValueError(f"Phase 7 family {family_id} is not repository-native")
+    if not _is_sha256(fulfilment_request_sha256):
+        raise ValueError("fulfilment_request_sha256 must be a SHA-256 digest")
+    if not _is_sha256(execution_profile_sha256):
+        raise ValueError("execution_profile_sha256 must be a SHA-256 digest")
+    if not artifacts:
+        raise ValueError("native execution must produce at least one artifact")
+    if not evidence_refs or not all(isinstance(ref, str) and ref.strip() for ref in evidence_refs):
+        raise ValueError("native execution must provide evidence references")
+
+    sealed_artifacts: list[dict[str, Any]] = []
+    for artifact in artifacts:
+        artifact_id = str(artifact.get("artifact_id") or "").strip()
+        kind = str(artifact.get("kind") or "").strip()
+        raw_path = artifact.get("path")
+        if not artifact_id or not kind or raw_path is None:
+            raise ValueError("artifact_id, kind and path are required")
+        path = Path(raw_path).expanduser().resolve()
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        payload = path.read_bytes()
+        sealed_artifacts.append(
+            {
+                "artifact_id": artifact_id,
+                "kind": kind,
+                "path": str(path),
+                "size_bytes": len(payload),
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "release_state": "HELD",
+                "authority_created": False,
+                "release_authority": False,
+                "external_send_authority": False,
+            }
+        )
+
+    return {
+        "schema": EVIDENCE_SCHEMA,
+        "family_id": family_id,
+        "adapter_id": binding["adapter_id"],
+        "adapter_version": binding["adapter_version"],
+        "fulfilment_request_sha256": fulfilment_request_sha256,
+        "execution_profile_sha256": execution_profile_sha256,
+        "fresh_execution": True,
+        "historical_specimen": False,
+        "status": "COMPLETED",
+        "artifacts": sealed_artifacts,
+        "evidence_refs": list(evidence_refs),
+        "authority_created": False,
+        "release_authority": False,
+        "external_send_authority": False,
+    }
+
+
 def validate_execution_evidence(
     family_id: str,
     evidence: Mapping[str, Any],
@@ -196,6 +262,8 @@ def validate_execution_evidence(
                 reasons.append("invalid_artifact_hash")
             if artifact.get("release_state") != "HELD":
                 reasons.append("artifact_not_held")
+            if any(bool(artifact.get(key)) for key in ("authority_created", "release_authority", "external_send_authority")):
+                reasons.append("artifact_authority_leak")
 
     refs = evidence.get("evidence_refs")
     if not isinstance(refs, list) or not refs:
