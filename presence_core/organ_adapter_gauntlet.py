@@ -102,7 +102,7 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
         "dio.organ.nichefoundry_campaign", "scripts/backend_autopilot.js",
         "external_repo", NEEDS_BINDING,
         repository="Byron2306/NicheFoundry",
-        repository_commit="7528d8cdee17c5b6fbe35236b71b8e2191bb108a",
+        repository_commit="25fef4bd5bfd1258758963b374ef192fc469c14f",
         note="The canonical NicheFoundry repository exposes backend_autopilot.js for real episode/campaign package generation and is pinned for Phase 7 proof.",
     ),
     "obligation_assurance": _binding(
