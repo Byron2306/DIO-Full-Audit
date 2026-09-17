@@ -13,6 +13,10 @@ from presence_core.organ_adapter_gauntlet import (
 
 
 PINNED = {
+    "sophia_review": (
+        "Byron2306/Sophia-AI",
+        "c1aa915560599f7d6cef0ff41e6a7b0787334376",
+    ),
     "evidex_evidence": (
         "Byron2306/Evidex",
         "c2754b37ca32e803d84e733b5d59207fdcb17841",
