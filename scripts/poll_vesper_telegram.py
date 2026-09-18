@@ -18,6 +18,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
+STATE_BASE = Path(os.getenv("DIO_STATE_ROOT", str(ROOT / "state"))).expanduser()
 sys.path.insert(0, str(ROOT))
 
 from presence_core.signing import new_nonce, sign_body
@@ -536,7 +537,7 @@ def main() -> int:
     parser.add_argument(
         "--state-root",
         type=Path,
-        default=ROOT / "state" / "presence",
+        default=STATE_BASE / "presence",
     )
     parser.add_argument(
         "--core-url",
