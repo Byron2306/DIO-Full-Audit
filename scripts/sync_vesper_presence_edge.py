@@ -462,69 +462,13 @@ def transcribe_voice(
     )
 
 
-def transcribe_voice_with_hf(attachment: dict[str, Any]) -> dict[str, Any]:
-    """Transcribe a voice note as read-only semantic input. This creates no DIO authority."""
-    token = os.getenv("HF_TOKEN", "").strip()
-    if not token:
-        raise TransientPresenceError("HF_TOKEN is required when DIO_PRESENCE_VOICE_TRANSCRIPTION=hf.")
-    model = os.getenv("DIO_PRESENCE_ASR_MODEL", "openai/whisper-large-v3-turbo").strip()
-    if not model or any(char.isspace() for char in model):
-        raise PermanentPresenceError("DIO_PRESENCE_ASR_MODEL is invalid.")
-    try:
-        audio = base64.b64decode(str(attachment.get("content_b64") or ""), validate=True)
-    except Exception as exc:
-        raise PermanentPresenceError("Telegram voice payload is not valid base64.") from exc
-    if not audio:
-        raise PermanentPresenceError("Telegram voice payload is empty.")
-    declared_sha = str(attachment.get("sha256") or "").lower()
-    audio_sha = hashlib.sha256(audio).hexdigest()
-    if declared_sha and declared_sha != audio_sha:
-        raise PermanentPresenceError("Telegram voice SHA-256 mismatch before transcription.")
-    endpoint = os.getenv(
-        "DIO_PRESENCE_ASR_URL",
-        f"https://router.huggingface.co/hf-inference/models/{model}",
-    ).strip()
-    if not endpoint.startswith("https://"):
-        raise PermanentPresenceError("DIO_PRESENCE_ASR_URL must use HTTPS.")
-    mime_type = str(attachment.get("mime_type") or "audio/ogg").split(";", 1)[0].strip().lower()
-    request = Request(
-        endpoint,
-        data=audio,
-        method="POST",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": mime_type,
-            "User-Agent": "DIO-Vesper-ASR/1.0",
-        },
+def transcribe_voice_with_hf(
+    attachment: dict[str, Any],
+) -> dict[str, Any]:
+    """Historical compatibility name. Phase 9 forbids remote HF ASR."""
+    raise PermanentPresenceError(
+        "Hugging Face voice transcription is disabled by DIO Phase 9 sovereign runtime."
     )
-    try:
-        with urlopen(request, timeout=60) as response:
-            payload = json.loads(response.read())
-    except HTTPError as exc:
-        detail = exc.read().decode("utf-8", "replace")[:300]
-        raise TransientPresenceError(f"Hugging Face voice transcription returned HTTP {exc.code}: {detail}") from exc
-    except (URLError, TimeoutError, json.JSONDecodeError) as exc:
-        raise TransientPresenceError(f"Hugging Face voice transcription is unavailable: {exc}") from exc
-    text = str((payload or {}).get("text") or "").strip()
-    if not text:
-        raise TransientPresenceError("Hugging Face voice transcription returned no text.")
-    truncated = len(text) > 4000
-    if truncated:
-        text = text[:4000]
-    return {
-        "schema": "dio.vesper.voice_transcription.v1",
-        "text": text,
-        "provider": "hf-inference",
-        "model": model,
-        "audio_sha256": audio_sha,
-        "audio_bytes": len(audio),
-        "mime_type": mime_type,
-        "truncated": truncated,
-        "authority_created": False,
-        "external_processing": True,
-        "execution_authority_created": False,
-        "send_authority_created": False,
-    }
 
 
 def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
