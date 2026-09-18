@@ -3,11 +3,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+STATE_BASE = Path(os.getenv("DIO_STATE_ROOT", str(ROOT / "state"))).expanduser()
 sys.path.insert(0, str(ROOT))
 
 from commerce.paypal_local import (  # noqa: E402
@@ -18,8 +20,8 @@ from commerce.paypal_local import (  # noqa: E402
 )
 
 
-DEFAULT_ORDER_DIR = ROOT / "state" / "commerce" / "orders"
-DEFAULT_RECEIPT_DIR = ROOT / "state" / "commerce" / "payment_events"
+DEFAULT_ORDER_DIR = STATE_BASE / "commerce" / "orders"
+DEFAULT_RECEIPT_DIR = STATE_BASE / "commerce" / "payment_events"
 
 
 def reconcile_pending(
