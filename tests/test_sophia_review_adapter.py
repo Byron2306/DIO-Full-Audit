@@ -4,7 +4,7 @@ from adapters.sophia.review_pipeline import (
     parse_reference_entries,
     reference_key,
     split_reference_section,
-    validate_gemini_commentary,
+    validate_reasoned_commentary,
 )
 
 
@@ -25,15 +25,15 @@ def test_in_text_citation_keys_are_deduplicated() -> None:
     assert [row["key"] for row in rows] == ["jones:2021", "smith:2020"]
 
 
-def test_gemini_commentary_validation_accepts_grounded_lane_output() -> None:
+def test_reasoned_commentary_validation_accepts_grounded_lane_output() -> None:
     result = {
         "source": "reasoned_integrity_lane",
-        "reasoned_provider": "gemini",
+        "reasoned_provider": "ollama",
         "reasoned_provider_status": "ok",
         "mandos_judgment": {"passed": True},
         "article_conformity": {"summary": {"all_passed": True}},
     }
-    validation = validate_gemini_commentary(
+    validation = validate_reasoned_commentary(
         "## Major revisions\nThe method is unspecified in [P2]; narrow the causal claim in [C1].",
         result,
         {"P1", "P2", "C1"},
@@ -43,15 +43,15 @@ def test_gemini_commentary_validation_accepts_grounded_lane_output() -> None:
     assert validation["passed"] is True
 
 
-def test_gemini_commentary_validation_rejects_invented_citation() -> None:
+def test_reasoned_commentary_validation_rejects_invented_citation() -> None:
     result = {
         "source": "reasoned_integrity_lane",
-        "reasoned_provider": "gemini",
+        "reasoned_provider": "ollama",
         "reasoned_provider_status": "ok",
         "mandos_judgment": {"passed": True},
         "article_conformity": {"summary": {"all_passed": True}},
     }
-    validation = validate_gemini_commentary(
+    validation = validate_reasoned_commentary(
         "[P1] should be compared with Invented (2026), doi:10.9999/not-real.",
         result,
         {"P1"},
