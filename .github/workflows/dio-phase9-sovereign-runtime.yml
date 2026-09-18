@@ -1,0 +1,155 @@
+name: DIO Phase 9 Sovereign Local Runtime
+
+concurrency:
+  group: dio-phase9-sovereign-runtime-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - agent/dio-customer-journey-phase9-sovereign-runtime
+  pull_request:
+    paths:
+      - 'sovereign_runtime.py'
+      - 'presence_core/**'
+      - 'adapters/document_studio/**'
+      - 'adapters/sophia/**'
+      - 'commerce/paypal_local.py'
+      - 'scripts/poll_vesper_telegram.py'
+      - 'scripts/sync_outlook_mail.py'
+      - 'scripts/reconcile_paypal_local.py'
+      - 'scripts/create_dio_order.py'
+      - 'scripts/create_paypal_checkout.py'
+      - 'scripts/manage_sophia_commercial.py'
+      - 'scripts/manage_vamp_commercial.py'
+      - 'scripts/audit_phase9_runtime_dependencies.py'
+      - 'tests/test_phase9_*.py'
+      - 'config/phase9_sovereign_runtime.json'
+      - 'docs/DIO_PHASE9_SOVEREIGN_LOCAL_RUNTIME_PLAN.md'
+      - '.github/workflows/dio-phase9-sovereign-runtime.yml'
+
+jobs:
+  ollama-sovereignty:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install sovereign runtime test dependencies
+        run: |
+          python -m pip install pytest jsonschema httpx python-docx pillow msal requests fastapi uvicorn
+      - name: Compile active sovereign runtime
+        run: |
+          python -m py_compile \
+            sovereign_runtime.py \
+            presence_core/llm.py \
+            presence_core/local_ingress.py \
+            adapters/document_studio/pipeline.py \
+            adapters/sophia/review_pipeline.py \
+            scripts/poll_vesper_telegram.py \
+            scripts/sync_outlook_mail.py
+      - name: Audit active LLM runtime for cloud execution rails
+        run: python scripts/audit_phase9_runtime_dependencies.py
+      - name: Run Ollama and Presence sovereignty contracts
+        run: |
+          python -m pytest -q \
+            tests/test_phase9_sovereign_runtime.py \
+            tests/test_presence_signing.py \
+            tests/test_presence_engine.py \
+            tests/test_document_studio_ollama_provider.py \
+            tests/test_sophia_review_adapter.py \
+            tests/test_sophia_commercial.py
+
+  outbound-commerce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install commerce test dependencies
+        run: |
+          python -m pip install pytest jsonschema requests msal
+      - name: Compile local commerce runtime
+        run: |
+          python -m py_compile \
+            commerce/paypal_local.py \
+            scripts/create_dio_order.py \
+            scripts/create_paypal_checkout.py \
+            scripts/reconcile_paypal_local.py \
+            scripts/manage_sophia_commercial.py \
+            scripts/manage_vamp_commercial.py
+      - name: Run local commerce truth contracts
+        run: |
+          python -m pytest -q \
+            tests/test_phase9_local_commerce.py \
+            tests/test_commercial_triune.py
+
+  outbound-mail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install mail test dependencies
+        run: python -m pip install pytest jsonschema requests msal
+      - name: Compile Graph delta polling runtime
+        run: python -m py_compile adapters/microsoft_graph/client.py scripts/sync_outlook_mail.py
+      - name: Run governed mail compatibility
+        run: python -m pytest -q tests/test_dio_mail_core.py
+
+  phase8-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install journey dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Run final shared Customer Journey bindings
+        run: |
+          python -m pytest -q \
+            tests/test_customer_journey_phase8.py \
+            tests/test_customer_journey_phase8_archetypes.py
+
+  phase9-contract:
+    needs:
+      - ollama-sovereignty
+      - outbound-commerce
+      - outbound-mail
+      - phase8-compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate sovereign runtime profile
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("config/phase9_sovereign_runtime.json").read_text())
+          assert p["llm"]["provider"]=="ollama"
+          assert p["llm"]["cloud_fallback_allowed"] is False
+          assert p["llm"]["hugging_face_runtime_allowed"] is False
+          assert p["presence"]["telegram"]=="local_bot_api_long_poll"
+          assert p["presence"]["cloudflare_gateway_enabled"] is False
+          assert p["presence"]["hugging_face_space_enabled"] is False
+          assert p["mail"]["ingress"]=="outbound_delta_poll"
+          assert p["mail"]["cloudflare_webhook_enabled"] is False
+          assert p["commerce"]["paypal"]["settlement"]=="outbound_provider_poll"
+          assert p["commerce"]["paypal"]["browser_return_grants_payment_state"] is False
+          assert p["legacy"]["cloudflare_worker"]=="rollback_only"
+          assert p["legacy"]["hugging_face_spaces"]=="compatibility_only"
+          print("ACTIVE_LLM_PROVIDERS=ollama")
+          print("CLOUD_LLM_RUNTIME_CALLS=0")
+          print("HF_RUNTIME_DEPENDENCIES=0")
+          print("TELEGRAM_CLOUDFLARE_DEPENDENCY=0")
+          print("MAIL_CLOUDFLARE_DEPENDENCY=0")
+          print("PAYPAL_CLOUDFLARE_DEPENDENCY=0")
+          print("LOCAL_DURABLE_STATE=true")
+          print("AUTHORITY_BOUNDARIES_PRESERVED=true")
+          print("PUBLIC_EDGE_MODE="+p["public_inbound"]["mode"])
+          print("DIO_PHASE9_LOCAL_RUNTIME_CONTRACT_READY")
+          PY
