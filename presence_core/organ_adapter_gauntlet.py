@@ -94,9 +94,8 @@ ORGAN_FAMILIES: dict[str, dict[str, Any]] = {
     "document_studio": _binding(
         "document_studio", "E", "DIO Document Studio",
         "dio.organ.document_studio", "adapters/document_studio/pipeline.py",
-        "host_bound", NEEDS_HOST,
-        host_capability="document_studio_provider_runtime",
-        note="The pipeline is substantive, but provider execution depends on configured Sophia/Gemini or NIM host/runtime services.",
+        "native", NEEDS_BINDING,
+        note="The repository-native Document Studio pipeline has a governed local Ollama bridge. Clean-run execution must still produce fresh held artifacts and pass deterministic fact-preservation validation before VERIFIED_NATIVE.",
     ),
     "nichefoundry_campaign": _binding(
         "nichefoundry_campaign", "G", "NicheFoundry Campaign Pack",
