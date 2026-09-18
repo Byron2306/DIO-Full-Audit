@@ -18,6 +18,7 @@ from presence_core.organ_adapter_gauntlet import (
     seal_native_execution,
     validate_execution_evidence,
 )
+from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
 from tests.test_vamp_snapshot_adapter import create_fixture_database
 
 
@@ -206,21 +207,17 @@ def test_real_vamp_pipeline_can_be_sealed_as_current_phase7_execution(tmp_path: 
     output = build_snapshot(request_path, tmp_path / "output", run_evidex=False)
     snapshot_path = output / "VAMP_SNAPSHOT.json"
     zip_path = output / "PHASE7-VAMP-001_VAMP_EVIDENCE_SNAPSHOT.zip"
-    evidence = seal_native_execution(
+    receipt = run_golden_journey_from_artifacts(
+        ROOT,
+        tmp_path / "journey-state",
         "vamp_snapshot",
-        fulfilment_request_sha256="1" * 64,
-        execution_profile_sha256="2" * 64,
         artifacts=[
             {"artifact_id": "vamp-snapshot-json", "kind": "application/json", "path": snapshot_path},
             {"artifact_id": "vamp-snapshot-pack", "kind": "application/zip", "path": zip_path},
         ],
         evidence_refs=["phase7-native:vamp_snapshot"],
     )
-    verdict = validate_execution_evidence(
-        "vamp_snapshot",
-        evidence,
-        expected_request_sha256="1" * 64,
-        expected_profile_sha256="2" * 64,
-    )
-    assert verdict["verdict"] == VERIFIED_NATIVE
-    assert all(item["release_state"] == "HELD" for item in evidence["artifacts"])
+    assert receipt["golden_journey_proved"] is True
+    assert receipt["final_stage"] == "CLOSED"
+    assert receipt["external_funds_moved"] is False
+    assert receipt["revenue_recognised"] is False
