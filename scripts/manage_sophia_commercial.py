@@ -209,6 +209,7 @@ def quote_job(job_root: Path, job_id: str, edge_config_path: Path, event_log: Pa
     })
     job["state"] = "payment_pending"
 
+    quote_path = path.parent / "QUOTE_MAIL_SPEC.json"
     body, body_html = branded_email(
         product="sophia",
         eyebrow="CHECKOUT READY",
