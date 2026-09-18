@@ -92,8 +92,9 @@ def create_job(
         "literature_queries": spec.get("literature_queries") or [spec["research_question"]],
         "citation_style": spec.get("citation_style") or "APA 7",
         "external_retrieval": True,
-        "gemini_review_approved": True,
-        "gemini_model": "gemini-flash-lite-latest",
+        "reasoned_review_approved": True,
+        "reasoned_provider": "ollama",
+        "reasoned_model": "qwen2.5:0.5b",
         "human_approval_required": True,
     }
     directory = path.parent
@@ -261,7 +262,7 @@ def run_job(
     if job["payment"]["state"] not in {"paid", "waived"}:
         raise ValueError("Payment must be verified or explicitly waived before Sophia processing.")
     if not all(bool(value) for value in job["consents"].values()):
-        raise ValueError("All manuscript and Gemini processing consents are required.")
+        raise ValueError("All manuscript and reasoned-processing consents are required.")
     request_path = Path(job["source"]["request_path"])
     review_request = load_json(request_path)
     output_dir = run_review(review_request, request_path, review_root, base_url, sophia_root)
