@@ -10,6 +10,7 @@ import os
 import re
 import secrets
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -370,6 +371,8 @@ def main() -> int:
     pull = subparsers.add_parser("pull")
     pull.add_argument("--ingress-dir", type=Path, default=DEFAULT_INGRESS_DIR)
     pull.add_argument("--delta-state", type=Path, default=DEFAULT_DELTA_STATE)
+    pull.add_argument("--watch", action="store_true")
+    pull.add_argument("--interval", type=float, default=15.0)
     draft = subparsers.add_parser("draft")
     draft.add_argument("mail_intent_id")
     draft.add_argument("--intent-dir", type=Path, default=DEFAULT_INTENT_DIR)
@@ -383,11 +386,35 @@ def main() -> int:
     graph = GraphClient(load_config(args.config.resolve()))
     graph.acquire_token(interactive=args.device_login)
     if args.command == "pull":
-        receipt = pull_messages(graph, args.ingress_dir.resolve(), args.delta_state.resolve(), args.event_log.resolve())
+        while True:
+            receipt = pull_messages(
+                graph,
+                args.ingress_dir.resolve(),
+                args.delta_state.resolve(),
+                args.event_log.resolve(),
+            )
+            receipt["transport_mode"] = "outbound_delta_poll"
+            receipt["cloudflare_used"] = False
+            print(json.dumps(receipt, indent=2), flush=True)
+            if not args.watch:
+                return 0
+            time.sleep(max(args.interval, 5.0))
     elif args.command == "draft":
-        receipt = create_outlook_draft(graph, args.intent_dir.resolve(), args.event_log.resolve(), args.mail_intent_id)
+        receipt = create_outlook_draft(
+            graph,
+            args.intent_dir.resolve(),
+            args.event_log.resolve(),
+            args.mail_intent_id,
+        )
     else:
-        receipt = send_outlook_draft(graph, args.intent_dir.resolve(), args.receipt_dir.resolve(), args.event_log.resolve(), args.mail_intent_id, args.approval_token)
+        receipt = send_outlook_draft(
+            graph,
+            args.intent_dir.resolve(),
+            args.receipt_dir.resolve(),
+            args.event_log.resolve(),
+            args.mail_intent_id,
+            args.approval_token,
+        )
     print(json.dumps(receipt, indent=2))
     return 0
 
