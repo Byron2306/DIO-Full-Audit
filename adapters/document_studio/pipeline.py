@@ -13,6 +13,7 @@ import tempfile
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
+from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
 from typing import Any
 
 from docx import Document
@@ -275,46 +276,20 @@ def invoke_provider(
     *,
     max_predict: int = 7000,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    provider_name = str(request.get("provider") or "gemini").strip().casefold().replace("-", "_")
-    env = dict(os.environ)
-    if provider_name in {"nim", "nvidia", "nvidia_nim"}:
-        python = Path(sys.executable)
-        bridge = NIM_BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("nim_model") or "deepseek-ai/deepseek-v4-flash-0731",
-            "max_predict": max_predict,
-            "temperature": 0.05,
-            "secret_file": request.get("provider_secret_file") or "/home/byron/EdgeK-BEAST/.beast/provider_secrets.env",
-        }
-    elif provider_name in {"ollama", "local_ollama"}:
-        python = Path(sys.executable)
-        bridge = OLLAMA_BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("ollama_model") or os.environ.get("OLLAMA_MODEL") or "qwen2.5:0.5b",
-            "base_url": request.get("ollama_url") or os.environ.get("OLLAMA_URL") or "http://127.0.0.1:11434",
-            "max_predict": max_predict,
-            "temperature": 0.05,
-        }
-    elif provider_name in {"gemini", "google", "google_gemini"}:
-        python = Path(os.environ.get("SOPHIA_PYTHON") or DEFAULT_SOPHIA_PYTHON)
-        sophia_root = Path(os.environ.get("SOPHIA_ROOT") or DEFAULT_SOPHIA_ROOT)
-        if not python.is_file() or not sophia_root.is_dir():
-            raise FileNotFoundError("Sophia's configured Python runtime is unavailable.")
-        bridge = BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("gemini_model") or "gemini-flash-lite-latest",
-            "max_predict": max_predict,
-            "temperature": 0.1,
-        }
-        env["PYTHONPATH"] = str(sophia_root)
-    else:
-        raise ValueError(f"Unsupported Document Studio provider: {provider_name}")
+    require_ollama_provider(
+        request.get("provider") or "ollama",
+        component="Document Studio",
+    )
+    python = Path(sys.executable)
+    bridge = OLLAMA_BRIDGE
+    payload = {
+        "system_prompt": system,
+        "prompt": prompt,
+        "model": ollama_model(request.get("ollama_model")),
+        "base_url": ollama_url(request.get("ollama_url")),
+        "max_predict": max_predict,
+        "temperature": 0.05,
+    }
     completed = subprocess.run(
         [str(python), str(bridge)],
         input=json.dumps(payload),
@@ -323,13 +298,18 @@ def invoke_provider(
         check=False,
         timeout=240,
         cwd=ROOT,
-        env=env,
+        env=dict(os.environ),
     )
     if completed.returncode != 0:
-        raise RuntimeError(f"Document Studio provider bridge failed: {completed.stderr[-1000:]}")
+        raise RuntimeError(
+            f"Document Studio Ollama bridge failed: {completed.stderr[-1000:]}"
+        )
     provider = json.loads(completed.stdout)
     if provider.get("status") != "ok" or not provider.get("response"):
-        raise RuntimeError(f"Document Studio provider unavailable: {provider.get('error') or provider.get('status')}")
+        raise RuntimeError(
+            "Document Studio Ollama unavailable: "
+            f"{provider.get('error') or provider.get('status')}"
+        )
     return parse_json_response(str(provider["response"])), provider
 
 
