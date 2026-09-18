@@ -27,6 +27,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 from adapters.format_core import build_paragraph_semantic_content, render_semantic_asset
 from adapters.sophia.review_pipeline import extract_document_text
 from adapters.lingua.lifecycle import build_lingua_qa, digest_text, update_semantic_object
+from presence_core.sovereign_runtime import canonical_llm_provider, require_local_ollama_url
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -200,7 +201,7 @@ def parse_json_response(value: str) -> dict[str, Any]:
     cleaned = re.sub(r"\s*```$", "", cleaned)
     start, end = cleaned.find("{"), cleaned.rfind("}")
     if start < 0 or end <= start:
-        raise ValueError("Gemini did not return a JSON object.")
+        raise ValueError("Provider did not return a JSON object.")
     return json.loads(cleaned[start : end + 1])
 
 
@@ -275,46 +276,28 @@ def invoke_provider(
     *,
     max_predict: int = 7000,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    provider_name = str(request.get("provider") or "gemini").strip().casefold().replace("-", "_")
-    env = dict(os.environ)
-    if provider_name in {"nim", "nvidia", "nvidia_nim"}:
-        python = Path(sys.executable)
-        bridge = NIM_BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("nim_model") or "deepseek-ai/deepseek-v4-flash-0731",
-            "max_predict": max_predict,
-            "temperature": 0.05,
-            "secret_file": request.get("provider_secret_file") or "/home/byron/EdgeK-BEAST/.beast/provider_secrets.env",
-        }
-    elif provider_name in {"ollama", "local_ollama"}:
-        python = Path(sys.executable)
-        bridge = OLLAMA_BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("ollama_model") or os.environ.get("OLLAMA_MODEL") or "qwen2.5:0.5b",
-            "base_url": request.get("ollama_url") or os.environ.get("OLLAMA_URL") or "http://127.0.0.1:11434",
-            "max_predict": max_predict,
-            "temperature": 0.05,
-        }
-    elif provider_name in {"gemini", "google", "google_gemini"}:
-        python = Path(os.environ.get("SOPHIA_PYTHON") or DEFAULT_SOPHIA_PYTHON)
-        sophia_root = Path(os.environ.get("SOPHIA_ROOT") or DEFAULT_SOPHIA_ROOT)
-        if not python.is_file() or not sophia_root.is_dir():
-            raise FileNotFoundError("Sophia's configured Python runtime is unavailable.")
-        bridge = BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("gemini_model") or "gemini-flash-lite-latest",
-            "max_predict": max_predict,
-            "temperature": 0.1,
-        }
-        env["PYTHONPATH"] = str(sophia_root)
-    else:
-        raise ValueError(f"Unsupported Document Studio provider: {provider_name}")
+    provider_name = canonical_llm_provider(
+        request.get("provider") or "ollama"
+    )
+    python = Path(sys.executable)
+    bridge = OLLAMA_BRIDGE
+    base_url = require_local_ollama_url(
+        request.get("ollama_url")
+        or os.environ.get("OLLAMA_URL")
+        or "http://127.0.0.1:11434"
+    )
+    payload = {
+        "system_prompt": system,
+        "prompt": prompt,
+        "model": (
+            request.get("ollama_model")
+            or os.environ.get("OLLAMA_MODEL")
+            or "qwen2.5:0.5b"
+        ),
+        "base_url": base_url,
+        "max_predict": max_predict,
+        "temperature": 0.05,
+    }
     completed = subprocess.run(
         [str(python), str(bridge)],
         input=json.dumps(payload),
@@ -323,15 +306,21 @@ def invoke_provider(
         check=False,
         timeout=240,
         cwd=ROOT,
-        env=env,
+        env=dict(os.environ),
     )
     if completed.returncode != 0:
-        raise RuntimeError(f"Document Studio provider bridge failed: {completed.stderr[-1000:]}")
+        raise RuntimeError(
+            f"Document Studio Ollama bridge failed: {completed.stderr[-1000:]}"
+        )
     provider = json.loads(completed.stdout)
     if provider.get("status") != "ok" or not provider.get("response"):
-        raise RuntimeError(f"Document Studio provider unavailable: {provider.get('error') or provider.get('status')}")
+        raise RuntimeError(
+            "Document Studio local provider unavailable: "
+            f"{provider.get('error') or provider.get('status')}"
+        )
+    provider["phase9_sovereign_runtime"] = True
+    provider["remote_processing"] = False
     return parse_json_response(str(provider["response"])), provider
-
 
 def call_provider(request: dict[str, Any], paragraphs: list[dict[str, str]]) -> tuple[dict[str, Any], dict[str, Any]]:
     system, prompt = build_provider_prompt(request, paragraphs)
