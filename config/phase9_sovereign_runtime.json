@@ -1,0 +1,56 @@
+{
+  "schema": "dio.phase9.sovereign_runtime.v1",
+  "mode": "small_launch_local_first",
+  "llm": {
+    "provider": "ollama",
+    "cloud_fallback_allowed": false,
+    "hugging_face_runtime_allowed": false,
+    "default_url": "http://127.0.0.1:11434",
+    "model_source": "local_ollama_store"
+  },
+  "presence": {
+    "core_url": "http://127.0.0.1:8787",
+    "telegram": "local_bot_api_long_poll",
+    "cloudflare_gateway_enabled": false,
+    "hugging_face_space_enabled": false
+  },
+  "mail": {
+    "provider": "microsoft_graph",
+    "ingress": "outbound_delta_poll",
+    "cloudflare_webhook_enabled": false
+  },
+  "commerce": {
+    "paypal": {
+      "checkout": "local_orders_api",
+      "settlement": "outbound_provider_poll",
+      "webhook_required_for_small_launch": false,
+      "browser_return_grants_payment_state": false,
+      "minimum_poll_interval_seconds": 15
+    },
+    "payfast": {
+      "enabled": false,
+      "reason": "Phase 9 small launch starts with outbound-verifiable PayPal only."
+    }
+  },
+  "public_inbound": {
+    "mode": "disabled_until_direct_or_self_owned_relay",
+    "static_site_may_remain_external": true,
+    "customer_entry_channels": [
+      "telegram",
+      "outlook_email"
+    ],
+    "direct_origin_preferred": true,
+    "cgnat_fallback": "self_owned_minimal_relay"
+  },
+  "legacy": {
+    "cloudflare_worker": "rollback_only",
+    "cloudflare_d1": "rollback_only",
+    "hugging_face_spaces": "compatibility_only"
+  },
+  "authority": {
+    "local_transport_does_not_create_authority": true,
+    "provider_polling_does_not_create_release_authority": true,
+    "payment_requires_provider_verified_capture": true,
+    "attachment_quarantine_preserved": true
+  }
+}
