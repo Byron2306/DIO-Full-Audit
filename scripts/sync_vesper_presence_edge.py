@@ -456,26 +456,13 @@ def transcribe_voice_with_local_whisper(
 def transcribe_voice(
     attachment: dict[str, Any],
 ) -> dict[str, Any]:
-    """HF primary, local Whisper fallback for transient ASR failure."""
-    try:
-        return transcribe_voice_with_hf(
-            attachment
-        )
-    except TransientPresenceError as hf_exc:
-        try:
-            result = transcribe_voice_with_local_whisper(
-                attachment
-            )
-            result["primary_provider_failure"] = (
-                str(hf_exc)[:240]
-            )
-            return result
-        except TransientPresenceError as local_exc:
-            raise TransientPresenceError(
-                "Voice transcription unavailable. "
-                f"HF: {str(hf_exc)[:180]} | "
-                f"local: {str(local_exc)[:180]}"
-            ) from local_exc
+    """Phase 9 canonical ASR: local faster-whisper only, with no cloud fallback."""
+    result = transcribe_voice_with_local_whisper(
+        attachment
+    )
+    result["phase9_sovereign_runtime"] = True
+    result["cloud_fallback_allowed"] = False
+    return result
 
 
 def transcribe_voice_with_hf(attachment: dict[str, Any]) -> dict[str, Any]:
