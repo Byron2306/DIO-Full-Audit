@@ -17,18 +17,19 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+STATE_BASE = Path(os.getenv("DIO_STATE_ROOT", str(ROOT / "state"))).expanduser()
 sys.path.insert(0, str(ROOT))
 
 from adapters.microsoft_graph.client import GraphClient, load_config  # noqa: E402
 from scripts.manage_mail_intent import DEFAULT_EVENT_LOG, DEFAULT_INTENT_DIR, emit_event, intent_path, read_json, write_json  # noqa: E402
 
 
-DEFAULT_INGRESS_DIR = ROOT / "state" / "mail_ingress"
-DEFAULT_DELTA_STATE = ROOT / "state" / "microsoft_graph" / "mail_delta.json"
+DEFAULT_INGRESS_DIR = STATE_BASE / "mail_ingress"
+DEFAULT_DELTA_STATE = STATE_BASE / "microsoft_graph" / "mail_delta.json"
 MAX_SIMPLE_ATTACHMENT_BYTES = 3 * 1024 * 1024
-DEFAULT_LEAD_DIR = ROOT / "state" / "leads"
-DEFAULT_RECEIPT_DIR = ROOT / "state" / "mail_receipts"
-DEFAULT_ATTACHMENT_DIR = ROOT / "state" / "mail_attachments"
+DEFAULT_LEAD_DIR = STATE_BASE / "leads"
+DEFAULT_RECEIPT_DIR = STATE_BASE / "mail_receipts"
+DEFAULT_ATTACHMENT_DIR = STATE_BASE / "mail_attachments"
 MAX_CAPTURED_ATTACHMENT_BYTES = 10 * 1024 * 1024
 
 
