@@ -1,0 +1,27 @@
+# Phase 9 CGNAT fallback, installed on a tiny DIO-controlled VPS.
+# The VPS should reach Debian only through WireGuard or an equivalent private tunnel.
+# No LLM, model, commerce database, or durable customer state belongs on this relay.
+
+api.example.com {
+    encode zstd gzip
+
+    @intake path /api/public/intake
+    handle @intake {
+        reverse_proxy 10.77.0.2:8790
+    }
+
+    @health path /health
+    handle @health {
+        reverse_proxy 10.77.0.2:8790
+    }
+
+    handle {
+        respond "Not found" 404
+    }
+
+    header {
+        -Server
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+    }
+}
