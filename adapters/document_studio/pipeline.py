@@ -31,12 +31,8 @@ from adapters.lingua.lifecycle import build_lingua_qa, digest_text, update_seman
 
 
 ROOT = Path(__file__).resolve().parents[2]
-BRIDGE = ROOT / "scripts" / "document_studio_gemini_bridge.py"
-NIM_BRIDGE = ROOT / "scripts" / "document_studio_nim_bridge.py"
 OLLAMA_BRIDGE = ROOT / "scripts" / "document_studio_ollama_bridge.py"
 BEAST_BRIDGE = ROOT / "scripts" / "lingua_beast_bridge.py"
-DEFAULT_SOPHIA_PYTHON = Path("/home/byron/Integritas-Mechanicus/.venv/bin/python")
-DEFAULT_SOPHIA_ROOT = Path("/home/byron/Integritas-Mechanicus/arda_os")
 SERVICES = {"technical_edit", "translation", "edit_and_translate"}
 LANGUAGE_REGISTRY_PATH = ROOT / "config" / "document_studio_languages.json"
 
