@@ -220,7 +220,7 @@ async def public_intake(request: Request) -> JSONResponse:
     if (
         not email
         or not name
-        or not re.fullmatch(r"[^\\s@]+@[^\\s@]+\\.[^\\s@]+", email)
+        or not re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", email)
     ):
         raise HTTPException(400, "invalid_contact")
 
