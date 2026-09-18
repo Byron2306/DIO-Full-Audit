@@ -18,12 +18,12 @@
     "literature discovery map",
     "technical citation and reference audit",
     "claim-to-source ledger",
-    "anchored Gemini reviewer commentary",
+    "anchored local Ollama reviewer commentary",
     "human approval receipt"
   ],
   "required_consents": [
     "manuscript_owner_authorized",
-    "gemini_remote_processing_approved",
+    "reasoned_processing_approved",
     "service_terms_accepted"
   ],
   "release_policy": {
