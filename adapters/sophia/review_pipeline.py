@@ -12,6 +12,8 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from presence_core.sovereign_runtime import canonical_llm_provider
 from xml.etree import ElementTree
 
 
@@ -340,15 +342,15 @@ def reviewer_commentary(
             request.get("gemini_review_approved", False),
         )
     )
-    provider = str(
-        request.get("reasoned_provider") or "gemini"
-    ).strip().lower()
+    provider = canonical_llm_provider(
+        request.get("reasoned_provider") or "ollama"
+    )
     model = str(
         request.get("reasoned_model")
-        or request.get("gemini_model")
-        or ("gemini-flash-lite-latest" if provider == "gemini" else "")
+        or request.get("ollama_model")
+        or "qwen2.5:0.5b"
     ).strip()
-    remote_processing = provider not in {"ollama", "local"}
+    remote_processing = False
 
     if not reasoned_review_approved:
         return {
