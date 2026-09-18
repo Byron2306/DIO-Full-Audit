@@ -12,6 +12,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from sovereign_runtime import SovereignRuntimeError, ollama_model, require_ollama_provider
 from xml.etree import ElementTree
 
 
@@ -340,15 +341,26 @@ def reviewer_commentary(
             request.get("gemini_review_approved", False),
         )
     )
-    provider = str(
-        request.get("reasoned_provider") or "gemini"
-    ).strip().lower()
-    model = str(
-        request.get("reasoned_model")
-        or request.get("gemini_model")
-        or ("gemini-flash-lite-latest" if provider == "gemini" else "")
-    ).strip()
-    remote_processing = provider not in {"ollama", "local"}
+    try:
+        provider = require_ollama_provider(
+            request.get("reasoned_provider") or "ollama",
+            component="Sophia reasoned review",
+        )
+        model = ollama_model(
+            request.get("reasoned_model")
+            or request.get("ollama_model")
+        )
+    except SovereignRuntimeError as exc:
+        return {
+            "status": "rejected",
+            "source": "sovereign_runtime",
+            "encounter_id": None,
+            "provider": str(request.get("reasoned_provider") or ""),
+            "model": None,
+            "remote_processing": False,
+            "commentary": str(exc),
+        }
+    remote_processing = False
 
     if not reasoned_review_approved:
         return {
