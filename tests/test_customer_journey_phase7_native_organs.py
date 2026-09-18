@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from presence_core.organ_adapter_gauntlet import VERIFIED_NATIVE, seal_native_execution, validate_execution_evidence
+from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
 from products.obligationfamily.runner import FAMILY_DEFINITIONS, run_family_proof
 
 
@@ -50,10 +50,10 @@ def test_real_obligation_family_runner_can_be_sealed_as_current_phase7_execution
         "PROOF_MANIFEST.json",
     }
 
-    evidence = seal_native_execution(
+    golden = run_golden_journey_from_artifacts(
+        ROOT,
+        tmp_path / "journey-state",
         "obligation_assurance",
-        fulfilment_request_sha256="3" * 64,
-        execution_profile_sha256="4" * 64,
         artifacts=[
             {
                 "artifact_id": f"obligation-{index}",
@@ -67,13 +67,7 @@ def test_real_obligation_family_runner_can_be_sealed_as_current_phase7_execution
             f"proof-fingerprint:{receipt['proof_fingerprint']}",
         ],
     )
-
-    verdict = validate_execution_evidence(
-        "obligation_assurance",
-        evidence,
-        expected_request_sha256="3" * 64,
-        expected_profile_sha256="4" * 64,
-    )
-    assert verdict["verdict"] == VERIFIED_NATIVE
-    assert all(item["release_state"] == "HELD" for item in evidence["artifacts"])
-    assert all(item["size_bytes"] > 0 for item in evidence["artifacts"])
+    assert golden["golden_journey_proved"] is True
+    assert golden["final_stage"] == "CLOSED"
+    assert golden["external_funds_moved"] is False
+    assert golden["revenue_recognised"] is False
