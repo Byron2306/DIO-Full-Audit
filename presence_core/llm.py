@@ -4,6 +4,7 @@ from typing import Any
 import httpx
 from adapters.lingua.interaction_regulator import llm_style_instruction
 from adapters.lingua.persona_lab import persona_style_instruction
+from .sovereign_runtime import canonical_llm_provider, require_local_ollama_url
 
 INTENTS=["general_info","product_info","pricing_info","intake_request","status_request","translation_info","formatting_info","unknown"]
 
@@ -528,6 +529,10 @@ def _draft_messages(
 def classify_with_ollama(text: str, products: list[str]) -> dict[str,Any]|None:
     url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
     if not url or not model: return None
+    try:
+        url=require_local_ollama_url(url)
+    except ValueError:
+        return None
     prompt=f"Classify this customer message. Return JSON only with intent, product, confidence. Allowed intents: {INTENTS}. Allowed products: {products} or null. Message: {text[:2500]}"
     payload={"model":model,"messages":[{"role":"system","content":"You are a bounded intent classifier. You do not execute tools, make commitments, quote prices, or alter state."},{"role":"user","content":prompt}],"format":"json","stream":False,"think":False,"options":{"temperature":0}}
     try:
@@ -549,32 +554,55 @@ def draft_with_ollama(
     recent_turns: list[dict[str,Any]]|None=None,
     governed_context: dict[str,Any]|None=None,
 ) -> str:
-    provider=os.getenv("DIO_PRESENCE_LLM_PROVIDER","ollama").strip().lower()
-    if provider in {"auto","huggingface","hf"}:
-        return draft_with_cortex(
-            decision,
-            facts,
-            fallback,
-            interaction,
-            persona_assignment,
-            conversation_state=conversation_state,
-            recent_turns=recent_turns,
-            governed_context=governed_context,
-        )
-    if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}: return fallback
-    url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
-    if not url or not model: return fallback
-    messages=_draft_messages(decision,facts,fallback,interaction,persona_assignment,conversation_state,recent_turns,governed_context)
     try:
-        r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":messages,"stream":False,"think":False,"options":{"temperature":0.2}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15")))
+        canonical_llm_provider(
+            os.getenv("DIO_PRESENCE_LLM_PROVIDER","ollama")
+        )
+    except ValueError:
+        return fallback
+    if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}:
+        return fallback
+    url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
+    if not url or not model:
+        return fallback
+    try:
+        url=require_local_ollama_url(url)
+    except ValueError:
+        return fallback
+    messages=_draft_messages(
+        decision,
+        facts,
+        fallback,
+        interaction,
+        persona_assignment,
+        conversation_state,
+        recent_turns,
+        governed_context,
+    )
+    try:
+        r=httpx.post(
+            url.rstrip("/")+"/api/chat",
+            json={
+                "model":model,
+                "messages":messages,
+                "stream":False,
+                "think":False,
+                "options":{"temperature":0.2},
+            },
+            timeout=float(os.getenv("OLLAMA_TIMEOUT","15")),
+        )
         r.raise_for_status()
         text=((r.json().get("message") or {}).get("content") or "").strip()[:4000]
-        if not text or not _draft_preserves_authority_boundary(text) or not draft_claims_authorized(text, facts) or not commercial_draft_claims_authorized(text, governed_context):
+        if (
+            not text
+            or not _draft_preserves_authority_boundary(text)
+            or not draft_claims_authorized(text, facts)
+            or not commercial_draft_claims_authorized(text, governed_context)
+        ):
             return fallback
         return text
     except Exception:
         return fallback
-
 
 def draft_with_cortex(
     decision: dict[str,Any],
@@ -587,56 +615,15 @@ def draft_with_cortex(
     recent_turns: list[dict[str,Any]]|None=None,
     governed_context: dict[str,Any]|None=None,
 ) -> str:
-    if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}:
-        return fallback
+    """Compatibility alias retained for callers; Phase 9 permits Ollama only."""
+    return draft_with_ollama(
+        decision,
+        facts,
+        fallback,
+        interaction,
+        persona_assignment,
+        conversation_state=conversation_state,
+        recent_turns=recent_turns,
+        governed_context=governed_context,
+    )
 
-    provider=os.getenv("DIO_PRESENCE_LLM_PROVIDER","ollama").strip().lower()
-    messages=_draft_messages(decision,facts,fallback,interaction,persona_assignment,conversation_state,recent_turns,governed_context)
-
-    if provider in {"ollama","auto"}:
-        url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
-        if url and model:
-            try:
-                r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":messages,"stream":False,"think":False,"options":{"temperature":0.2}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15")))
-                r.raise_for_status()
-                text=((r.json().get("message") or {}).get("content") or "").strip()[:4000]
-                if text:
-                    if not _draft_preserves_authority_boundary(text):
-                        return fallback
-                    return text
-            except Exception:
-                if provider == "ollama":
-                    return fallback
-        elif provider == "ollama":
-            return fallback
-
-    if provider not in {"auto","huggingface","hf"}:
-        return fallback
-
-    token=os.getenv("HF_TOKEN")
-    model=os.getenv("DIO_PRESENCE_HF_MODEL")
-    if not token or not model:
-        return fallback
-
-    try:
-        r=httpx.post(
-            "https://router.huggingface.co/v1/chat/completions",
-            headers={"Authorization":f"Bearer {token}","Content-Type":"application/json"},
-            json={
-                "model":model,
-                "messages":messages,
-                "stream":False,
-                "temperature":0.2,
-                "max_tokens":500,
-                "chat_template_kwargs":{"enable_thinking":False},
-            },
-            timeout=float(os.getenv("DIO_PRESENCE_HF_TIMEOUT","30")),
-        )
-        r.raise_for_status()
-        choices=r.json().get("choices") or []
-        text=((((choices[0] if choices else {}).get("message") or {}).get("content")) or "").strip()[:4000]
-        if not text or not _draft_preserves_authority_boundary(text) or not draft_claims_authorized(text, facts) or not commercial_draft_claims_authorized(text, governed_context):
-            return fallback
-        return text
-    except Exception:
-        return fallback
