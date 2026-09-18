@@ -6,6 +6,23 @@ USER_SYSTEMD="${HOME}/.config/systemd/user"
 DIO_CONFIG="${HOME}/.config/dio"
 ENV_FILE="${DIO_CONFIG}/sovereign.env"
 
+# Resolve the Python runtime from the deployment that actually exists.
+# Operators may override this with DIO_PHASE9_PYTHON.
+if [[ -n "${DIO_PHASE9_PYTHON:-}" ]]; then
+  PYTHON_BIN="${DIO_PHASE9_PYTHON}"
+elif [[ -x "$ROOT/.venv/bin/python" ]]; then
+  PYTHON_BIN="$ROOT/.venv/bin/python"
+elif [[ -x "/srv/dio/presence/.venv/bin/python" ]]; then
+  PYTHON_BIN="/srv/dio/presence/.venv/bin/python"
+else
+  PYTHON_BIN="$(command -v python3 || true)"
+fi
+
+if [[ -z "$PYTHON_BIN" || ! -x "$PYTHON_BIN" ]]; then
+  echo "No usable Python runtime found for Phase 9." >&2
+  exit 2
+fi
+
 ENABLE=0
 PUBLIC_EDGE=0
 DISABLE_LEGACY=0
@@ -52,7 +69,10 @@ for service in "$ROOT"/deploy/systemd/phase9/*.service; do
   # Phase 9 may be deployed from /srv/dio/repo, ~/DIO-Full-Audit, or another
   # checkout. Bind the installed unit to the checkout that actually ran this
   # installer rather than assuming a home-directory clone.
-  sed "s|%h/DIO-Full-Audit|$ROOT|g" "$service" > "$target"
+  sed \
+    -e "s|%h/DIO-Full-Audit/.venv/bin/python|$PYTHON_BIN|g" \
+    -e "s|%h/DIO-Full-Audit|$ROOT|g" \
+    "$service" > "$target"
 done
 
 if [[ ! -f "$ENV_FILE" ]]; then
@@ -63,6 +83,9 @@ if [[ ! -f "$ENV_FILE" ]]; then
 fi
 
 systemctl --user daemon-reload
+
+echo "Phase 9 checkout: $ROOT"
+echo "Phase 9 Python:   $PYTHON_BIN"
 
 if [[ "$ENABLE" -eq 1 ]]; then
   if grep -q 'REPLACE_' "$ENV_FILE"; then
