@@ -56,6 +56,15 @@ def test_every_phase7_family_can_close_canonical_golden_journey(
     assert receipt["revenue_recognised"] is False
     assert receipt["external_network_send"] is False
     assert receipt["golden_journey_proved"] is True
+    assert receipt["surface_ingress"]["surface"] == "web"
+    assert receipt["cross_channel_binding"]["surface"] == "telegram"
+    assert receipt["cross_channel_binding"]["same_case"] is True
+    assert receipt["source_custody"]["state"] == "quarantined"
+    assert receipt["source_custody"]["bound_into_execution_profile"] is True
+    assert len(receipt["source_custody"]["sha256"]) == 64
+    assert receipt["vesper_async_reentry"]["return_surface"] == "telegram"
+    assert len(receipt["vesper_async_reentry"]["review_ready_view_sha256"]) == 64
+    assert len(receipt["final_vesper_view_sha256"]) == 64
     assert receipt["final_stage"] == "CLOSED"
     assert len(receipt["execution_profile_sha256"]) == 64
     assert len(receipt["fulfilment_request_sha256"]) == 64
