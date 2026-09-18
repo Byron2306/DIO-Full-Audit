@@ -2,35 +2,85 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "DIO Sophia Commercial Review Request",
   "type": "object",
-  "required": ["customer", "title", "document_path", "research_question", "consents"],
+  "required": [
+    "customer",
+    "title",
+    "document_path",
+    "research_question",
+    "consents"
+  ],
   "properties": {
-    "job_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$"},
+    "job_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$"
+    },
     "customer": {
       "type": "object",
-      "required": ["name", "email"],
+      "required": [
+        "name",
+        "email"
+      ],
       "properties": {
-        "name": {"type": "string", "minLength": 2, "maxLength": 120},
-        "email": {"type": "string", "format": "email"},
-        "institution": {"type": "string", "maxLength": 160}
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "institution": {
+          "type": "string",
+          "maxLength": 160
+        }
       },
       "additionalProperties": false
     },
-    "title": {"type": "string", "minLength": 3, "maxLength": 300},
-    "document_path": {"type": "string", "minLength": 1},
-    "research_question": {"type": "string", "minLength": 8, "maxLength": 1500},
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 300
+    },
+    "document_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "research_question": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 1500
+    },
     "literature_queries": {
       "type": "array",
       "maxItems": 4,
-      "items": {"type": "string", "minLength": 3, "maxLength": 500}
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 500
+      }
     },
-    "citation_style": {"type": "string", "default": "APA 7"},
+    "citation_style": {
+      "type": "string",
+      "default": "APA 7"
+    },
     "consents": {
       "type": "object",
-      "required": ["manuscript_owner_authorized", "reasoned_processing_approved", "service_terms_accepted"],
+      "required": [
+        "manuscript_owner_authorized",
+        "local_reasoned_processing_approved",
+        "service_terms_accepted"
+      ],
       "properties": {
-        "manuscript_owner_authorized": {"const": true},
-        "reasoned_processing_approved": {"const": true},
-        "service_terms_accepted": {"const": true}
+        "manuscript_owner_authorized": {
+          "const": true
+        },
+        "local_reasoned_processing_approved": {
+          "const": true
+        },
+        "service_terms_accepted": {
+          "const": true
+        }
       },
       "additionalProperties": false
     }
