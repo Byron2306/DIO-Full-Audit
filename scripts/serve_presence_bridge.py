@@ -14,6 +14,7 @@ from presence_core.authority import (
 from presence_core.engine import process_envelope
 from presence_core.identity import create_status_binding, revoke_binding
 from presence_core.fulfilment_release import record_successful_delivery
+from presence_core.local_ingress import LocalIngressLedger
 from presence_core.signing import verify_body, SignatureError
 from presence_core.state import list_needs_you, operator_summary, read_json, safe
 from presence_core.telegram_transport import send_telegram_reply, telegram_voice_reply_switch_enabled
@@ -178,6 +179,26 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
     REPLAY[x_dio_presence_nonce]=time.time()
     try: envelope=json.loads(body)
     except json.JSONDecodeError: raise HTTPException(400,'Invalid JSON.')
+    event_key=str(((envelope.get('metadata') or {}).get('provider_event_key')) or '').strip()
+    ledger=LocalIngressLedger(ROOT/CFG.get('state_root','state/presence')/'local_ingress.sqlite')
+    if event_key:
+        try:
+            cached=ledger.cached_response(event_key,body)
+        except ValueError as exc:
+            raise HTTPException(409,str(exc))
+        if cached is not None:
+            return JSONResponse(
+                cached,
+                headers={
+                    'Cache-Control':'no-store',
+                    'X-Content-Type-Options':'nosniff',
+                    'X-DIO-Idempotent-Replay':'1',
+                },
+            )
+        try:
+            ledger.begin(event_key,body)
+        except ValueError as exc:
+            raise HTTPException(409,str(exc))
     envelope['_trusted_edge_role']=trusted_edge_role; envelope['_trusted_edge_key_id']=x_dio_presence_key_id
     for field in ('channel','external_user_id','text'):
         if field not in envelope: raise HTTPException(422,f'Missing {field}.')
@@ -208,6 +229,8 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
             sent=False,
             error=str(exc),
         )
+    if event_key:
+        ledger.complete(event_key,body,result)
     return JSONResponse(result,headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})
 
 @app.get('/api/presence/needs-you')
