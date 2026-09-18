@@ -39,6 +39,7 @@ def test_reasoned_commentary_validation_accepts_grounded_lane_output() -> None:
         {"P1", "P2", "C1"},
         {"smith:2020"},
         set(),
+        "ollama",
     )
     assert validation["passed"] is True
 
@@ -57,6 +58,7 @@ def test_reasoned_commentary_validation_rejects_invented_citation() -> None:
         {"P1"},
         set(),
         set(),
+        "ollama",
     )
     assert validation["passed"] is False
     assert validation["unknown_citations"] == ["invented:2026"]
