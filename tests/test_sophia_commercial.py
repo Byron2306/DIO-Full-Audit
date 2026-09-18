@@ -24,7 +24,7 @@ def request_spec(base: Path, consents: dict[str, bool] | None = None) -> Path:
         "citation_style": "APA 7",
         "consents": consents or {
             "manuscript_owner_authorized": True,
-            "reasoned_processing_approved": True,
+            "local_reasoned_processing_approved": True,
             "service_terms_accepted": True,
         },
     }
@@ -51,7 +51,7 @@ def test_controlled_job_waives_payment_but_keeps_human_approval(tmp_path: Path) 
 def test_intake_rejects_missing_consent_before_provider_call(tmp_path: Path) -> None:
     consents = {
         "manuscript_owner_authorized": True,
-        "reasoned_processing_approved": False,
+        "local_reasoned_processing_approved": False,
         "service_terms_accepted": True,
     }
     with pytest.raises(jsonschema.ValidationError):
