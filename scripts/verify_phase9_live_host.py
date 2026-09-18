@@ -110,7 +110,8 @@ def _latest_json(root: Path, predicate) -> dict[str, Any] | None:
 
 def verify(root: Path = ROOT, env_file: Path = DEFAULT_ENV) -> dict[str, Any]:
     env = _load_env(env_file)
-    evidence: dict[str, Any] = {}
+    state_base = Path(env.get("DIO_STATE_ROOT") or (root / "state")).expanduser().resolve()
+    evidence: dict[str, Any] = {"state_root": str(state_base)}
     violations: list[str] = []
 
     # Ollama must be live and the configured local model must actually exist.
@@ -162,7 +163,7 @@ def verify(root: Path = ROOT, env_file: Path = DEFAULT_ENV) -> dict[str, Any]:
     else:
         violations.append("telegram_operator_token_missing")
 
-    poll_state_path = root / "state" / "presence" / "provider_polling" / "telegram-operator-state.json"
+    poll_state_path = state_base / "presence" / "provider_polling" / "telegram-operator-state.json"
     poll_state = None
     if poll_state_path.is_file():
         try:
@@ -170,7 +171,7 @@ def verify(root: Path = ROOT, env_file: Path = DEFAULT_ENV) -> dict[str, Any]:
         except json.JSONDecodeError:
             pass
     custody = _latest_json(
-        root / "state" / "presence" / "provider_custody" / "telegram" / "operator",
+        state_base / "presence" / "provider_custody" / "telegram" / "operator",
         lambda row: row.get("schema") == "dio.phase9.telegram_poll_custody.v1"
         and row.get("cloudflare_used") is False,
     )
@@ -180,7 +181,7 @@ def verify(root: Path = ROOT, env_file: Path = DEFAULT_ENV) -> dict[str, Any]:
         violations.append("telegram_long_poll_round_trip_not_observed")
 
     # Graph delta polling requires a durable delta link and at least one captured message.
-    delta_path = root / "state" / "microsoft_graph" / "mail_delta.json"
+    delta_path = state_base / "microsoft_graph" / "mail_delta.json"
     delta = None
     if delta_path.is_file():
         try:
@@ -188,7 +189,7 @@ def verify(root: Path = ROOT, env_file: Path = DEFAULT_ENV) -> dict[str, Any]:
         except json.JSONDecodeError:
             pass
     mail = _latest_json(
-        root / "state" / "mail_ingress",
+        state_base / "mail_ingress",
         lambda row: row.get("provider") == "microsoft_graph"
         and row.get("schema") == "dio.mail_ingress.v1",
     )
@@ -199,7 +200,7 @@ def verify(root: Path = ROOT, env_file: Path = DEFAULT_ENV) -> dict[str, Any]:
 
     # PayPal provider polling must have created a provider-verified COMPLETED receipt.
     paypal = _latest_json(
-        root / "state" / "commerce" / "payment_events",
+        state_base / "commerce" / "payment_events",
         lambda row: row.get("schema") == "dio.local_paypal_payment_receipt.v1"
         and row.get("provider") == "paypal"
         and str(row.get("provider_capture_status") or "").upper() == "COMPLETED",
