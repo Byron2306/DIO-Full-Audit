@@ -447,7 +447,7 @@ def run_golden_journey(
         "fulfilment_request_sha256": request["fulfilment_request_sha256"],
         "fulfilment_result_sha256": result["fulfilment_result_sha256"],
         "vesper_async_reentry": {
-            "event_id": reentry["event"]["event_id"],
+            "event_id": reentry["event_id"],
             "return_surface": reentry["return_route"]["surface"],
             "review_ready_view_sha256": reentry["view"]["view_sha256"],
         },
