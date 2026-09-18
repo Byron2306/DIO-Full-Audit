@@ -42,7 +42,7 @@ jobs:
           python-version: '3.11'
       - name: Install sovereign runtime test dependencies
         run: |
-          python -m pip install pytest jsonschema httpx python-docx pillow msal requests fastapi uvicorn
+          python -m pip install pytest jsonschema httpx python-docx python-pptx pillow msal requests fastapi uvicorn
       - name: Compile active sovereign runtime
         run: |
           python -m py_compile \
