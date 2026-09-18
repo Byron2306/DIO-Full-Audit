@@ -1,0 +1,17 @@
+[Unit]
+Description=DIO Phase 9 Telegram operator long poller
+After=network-online.target dio-presence-local.service
+Wants=network-online.target
+Requires=dio-presence-local.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/DIO-Full-Audit
+EnvironmentFile=-%h/.config/dio/sovereign.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=%h/DIO-Full-Audit/.venv/bin/python %h/DIO-Full-Audit/scripts/poll_vesper_telegram.py --surface operator --timeout 25
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
