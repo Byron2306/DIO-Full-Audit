@@ -26,10 +26,10 @@
     "citation_style": {"type": "string", "default": "APA 7"},
     "consents": {
       "type": "object",
-      "required": ["manuscript_owner_authorized", "gemini_remote_processing_approved", "service_terms_accepted"],
+      "required": ["manuscript_owner_authorized", "reasoned_processing_approved", "service_terms_accepted"],
       "properties": {
         "manuscript_owner_authorized": {"const": true},
-        "gemini_remote_processing_approved": {"const": true},
+        "reasoned_processing_approved": {"const": true},
         "service_terms_accepted": {"const": true}
       },
       "additionalProperties": false
