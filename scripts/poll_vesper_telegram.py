@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from presence_core.signing import new_nonce, sign_body
+from scripts.sync_vesper_presence_edge import transcribe_voice
 
 
 STATE_SCHEMA = "dio.phase9.telegram_long_poll_state.v1"
@@ -207,11 +208,69 @@ def update_to_envelope(
 
     attachment, message_type = _attachment(token, message)
     text = str(message.get("text") or message.get("caption") or "").strip()
-    if not text and message_type in {"voice", "audio"}:
-        text = (
-            "Voice message received. Local speech transcription is not enabled "
-            "for this sovereign runtime yet."
+    voice_source = None
+    voice_transcription = None
+
+    if message_type in {"voice", "audio"}:
+        voice = message.get(message_type) or {}
+        file_id = str(voice.get("file_id") or "")
+        if not file_id:
+            raise TelegramPollError("Telegram voice/audio message is missing file_id")
+        data = _download_file(token, file_id)
+        mime_type = str(
+            voice.get("mime_type")
+            or ("audio/ogg" if message_type == "voice" else "application/octet-stream")
         )
+        voice_payload = {
+            "provider": "telegram",
+            "provider_file_id": file_id,
+            "file_name": (
+                f"telegram-{message_type}-{message.get('message_id')}.ogg"
+                if message_type == "voice"
+                else f"telegram-audio-{message.get('message_id')}"
+            ),
+            "mime_type": mime_type,
+            "file_size": len(data),
+            "sha256": _sha256(data),
+            "content_b64": base64.b64encode(data).decode("ascii"),
+        }
+        voice_source = {
+            key: voice_payload[key]
+            for key in (
+                "provider",
+                "provider_file_id",
+                "file_name",
+                "mime_type",
+                "file_size",
+                "sha256",
+            )
+        }
+        voice_source["custody"] = "local_telegram_provider_download"
+        voice_source["document_attachment"] = False
+
+        transcription_mode = os.getenv(
+            "DIO_PRESENCE_VOICE_TRANSCRIPTION",
+            "",
+        ).strip().lower()
+        if transcription_mode in {"local", "whisper", "faster_whisper"}:
+            voice_transcription = transcribe_voice(voice_payload)
+            if not text:
+                text = str(voice_transcription.get("text") or "").strip()
+        elif transcription_mode in {"", "0", "false", "off", "none"}:
+            if not text:
+                text = (
+                    "Voice message received and held as transport input. "
+                    "Local speech transcription is not enabled."
+                )
+        elif transcription_mode == "hf":
+            raise TelegramPollError(
+                "Hugging Face voice transcription is disabled by Phase 9."
+            )
+        else:
+            raise TelegramPollError(
+                f"Unsupported local voice transcription mode: {transcription_mode}"
+            )
+
     elif not text and attachment is not None:
         text = "Attachment received for governed DIO intake."
     elif not text:
@@ -232,8 +291,15 @@ def update_to_envelope(
         "telegram_start_payload": _start_payload(text),
         "provider_event_key": f"telegram:{surface}:{update_id}",
         "provider_poll_sha256": poll_sha256,
+        "custody": "local_telegram_long_poll_durable_custody",
         "sovereign_local_ingress": True,
+        "cloudflare_used": False,
+        "hf_used": False,
     }
+    if voice_source is not None:
+        metadata["voice_source"] = voice_source
+    if voice_transcription is not None:
+        metadata["voice_transcription"] = voice_transcription
 
     envelope: dict[str, Any] = {
         "channel": "telegram",
@@ -368,19 +434,48 @@ class TelegramLongPoller:
             "captured_at": _now(),
             "cloudflare_used": False,
             "hf_used": False,
+            "authority_created": False,
         }
         _atomic_json(directory / "CUSTODY.json", receipt)
         return digest
 
-    def drop_webhook(self) -> None:
-        payload, _ = _api_raw(
+    def ensure_polling_mode(self, *, remove_webhook: bool = False) -> dict[str, Any]:
+        info, _ = _api_raw(
             self.token,
-            "deleteWebhook",
-            {"drop_pending_updates": "false"},
+            "getWebhookInfo",
             timeout=20,
         )
-        if payload.get("result") is not True:
-            raise TelegramPollError("Telegram webhook was not removed")
+        webhook_url = str(
+            ((info.get("result") or {}).get("url")) or ""
+        ).strip()
+        if webhook_url and not remove_webhook:
+            raise TelegramPollError(
+                "Telegram webhook is still configured. "
+                "Use --drop-webhook for the explicit sovereign cutover."
+            )
+        removed = False
+        if webhook_url:
+            payload, _ = _api_raw(
+                self.token,
+                "deleteWebhook",
+                {"drop_pending_updates": "false"},
+                timeout=20,
+            )
+            if payload.get("result") is not True:
+                raise TelegramPollError("Telegram webhook was not removed")
+            removed = True
+        return {
+            "schema": "dio.phase9.telegram_polling_mode.v1",
+            "surface": self.surface,
+            "webhook_removed": removed,
+            "polling_ready": True,
+            "pending_updates_preserved": True,
+            "cloudflare_required": False,
+            "authority_created": False,
+        }
+
+    def drop_webhook(self) -> None:
+        self.ensure_polling_mode(remove_webhook=True)
 
     def poll_once(self, *, timeout_seconds: int = 25) -> dict[str, Any]:
         state = self.state()
@@ -466,8 +561,10 @@ def main() -> int:
         state_root=args.state_root,
         core_url=args.core_url,
     )
-    if args.drop_webhook:
-        poller.drop_webhook()
+    mode = poller.ensure_polling_mode(
+        remove_webhook=args.drop_webhook,
+    )
+    print(json.dumps(mode, sort_keys=True), flush=True)
 
     while True:
         try:
