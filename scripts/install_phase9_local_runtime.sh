@@ -48,7 +48,11 @@ mkdir -p "$USER_SYSTEMD" "$DIO_CONFIG"
 chmod 700 "$DIO_CONFIG"
 
 for service in "$ROOT"/deploy/systemd/phase9/*.service; do
-  cp "$service" "$USER_SYSTEMD/$(basename "$service")"
+  target="$USER_SYSTEMD/$(basename "$service")"
+  # Phase 9 may be deployed from /srv/dio/repo, ~/DIO-Full-Audit, or another
+  # checkout. Bind the installed unit to the checkout that actually ran this
+  # installer rather than assuming a home-directory clone.
+  sed "s|%h/DIO-Full-Audit|$ROOT|g" "$service" > "$target"
 done
 
 if [[ ! -f "$ENV_FILE" ]]; then
