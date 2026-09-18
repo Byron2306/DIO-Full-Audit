@@ -251,6 +251,35 @@ jobs:
           assert all(p.is_file() and p.stat().st_size > 0 for p in required), required
           print("DOCUMENT_STUDIO_OLLAMA_PIPELINE_EXECUTED")
           PY
+      - name: Seal Document Studio artifacts through DIO Phase 7
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          job = Path("/tmp/document-studio-output/PHASE7-DOC-OLLAMA-001")
+          wanted = [
+              ("docstudio-clean", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", job / "CLEAN_EDITED_COPY.docx"),
+              ("docstudio-redline", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", job / "REDLINE_REVIEW_COPY.docx"),
+              ("docstudio-qa", "application/json", job / "DOCUMENT_STUDIO_QA.json"),
+              ("docstudio-receipt", "application/json", job / "DOCUMENT_STUDIO_RECEIPT.json"),
+              ("docstudio-review-pack", "application/zip", job / "PHASE7-DOC-OLLAMA-001_DOCUMENT_STUDIO_REVIEW_PACK.zip"),
+          ]
+          evidence = seal_native_execution(
+              "document_studio",
+              fulfilment_request_sha256="4"*64,
+              execution_profile_sha256="5"*64,
+              artifacts=[{"artifact_id": aid, "kind": kind, "path": path} for aid, kind, path in wanted],
+              evidence_refs=["phase7-native:document_studio:ollama:qwen2.5:1.5b"],
+          )
+          verdict = validate_execution_evidence(
+              "document_studio",
+              evidence,
+              expected_request_sha256="4"*64,
+              expected_profile_sha256="5"*64,
+          )
+          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
+          print("DOCUMENT_STUDIO_VERIFIED_NATIVE")
+          PY
 
 
   sophia-main-repo:
