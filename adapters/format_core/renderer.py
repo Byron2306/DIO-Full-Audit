@@ -532,7 +532,10 @@ def _render_docx(
         kind = block["type"]
         if kind == "title" and style.get("cover") and not first_title_skipped:
             first_title_skipped = True
-            continue
+            block_title = re.sub(r"\\s+", " ", str(block.get("text") or "")).strip().casefold()
+            cover_title = re.sub(r"\\s+", " ", str(projected.get("title") or "")).strip().casefold()
+            if block_title == cover_title:
+                continue
         if kind == "page_break":
             document.add_page_break()
         elif kind == "title":
