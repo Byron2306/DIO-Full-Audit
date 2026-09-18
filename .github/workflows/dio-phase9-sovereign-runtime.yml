@@ -24,6 +24,7 @@ on:
       - 'scripts/manage_vamp_commercial.py'
       - 'scripts/audit_phase9_runtime_dependencies.py'
       - 'scripts/audit_phase9_edge_dependencies.py'
+      - 'scripts/audit_phase9_sovereign_runtime.py'
       - 'scripts/serve_public_edge_local.py'
       - 'commerce/public_intake_local.py'
       - 'sites/assets/dio-public-intake.js'
@@ -54,11 +55,14 @@ jobs:
             scripts/poll_vesper_telegram.py \
             scripts/sync_outlook_mail.py \
             scripts/serve_public_edge_local.py \
-            commerce/public_intake_local.py
+            commerce/public_intake_local.py \
+            scripts/audit_phase9_sovereign_runtime.py
       - name: Audit active LLM runtime for cloud execution rails
         run: python scripts/audit_phase9_runtime_dependencies.py
       - name: Audit active edge runtime for Cloudflare and HF rails
         run: python scripts/audit_phase9_edge_dependencies.py
+      - name: Run consolidated sovereign runtime audit
+        run: python scripts/audit_phase9_sovereign_runtime.py
       - name: Run Ollama and Presence sovereignty contracts
         run: |
           python -m pytest -q \
@@ -124,12 +128,77 @@ jobs:
             tests/test_customer_journey_phase8.py \
             tests/test_customer_journey_phase8_archetypes.py
 
+  external-organ-sovereignty:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout DIO sovereignty profile
+        uses: actions/checkout@v4
+        with:
+          path: dio
+      - name: Checkout HOMS sovereign branch
+        uses: actions/checkout@v4
+        with:
+          repository: Byron2306/NoEdge-Multi-Hymark
+          ref: agent/homs-phase9-ollama-sovereign
+          path: homs
+      - name: Checkout Evidex sovereign branch
+        uses: actions/checkout@v4
+        with:
+          repository: Byron2306/Evidex
+          ref: agent/evidex-phase9-ollama-sovereign
+          path: evidex
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify exact sovereign organ pins
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          p=json.loads(Path("dio/config/phase9_sovereign_runtime.json").read_text())
+          expected={
+              "homs": p["organ_pins"]["homs"]["commit"],
+              "evidex": p["organ_pins"]["evidex"]["commit"],
+          }
+          for name,path in (("homs","homs"),("evidex","evidex")):
+              actual=subprocess.check_output(["git","-C",path,"rev-parse","HEAD"], text=True).strip()
+              assert actual==expected[name], (name,actual,expected[name])
+          print("PHASE9_EXTERNAL_ORGAN_PINS_VERIFIED")
+          PY
+      - name: Verify HOMS Smart Assessor is local Ollama only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text=Path("homs/backend/server.py").read_text()
+          assert "http://127.0.0.1:11434/v1" in text
+          assert "HOMS_OLLAMA_MODEL" in text
+          assert 'model="gpt-4o"' not in text
+          assert 'os.getenv("OPENAI_API_KEY")' not in text
+          print("HOMS_OLLAMA_SOVEREIGN_VERIFIED")
+          PY
+      - name: Verify Evidex ignores cloud OpenAI environment
+        env:
+          OPENAI_API_KEY: SHOULD_NOT_BE_USED
+          OPENAI_BASE_URL: https://api.openai.com/v1
+          OPENAI_MODEL: gpt-cloud-should-not-be-used
+        run: |
+          PYTHONPATH=evidex/src python - <<'PY'
+          from evidence_pack_engine.llm import load_llm_config
+          cfg=load_llm_config()
+          assert cfg.base_url=="http://127.0.0.1:11434/v1", cfg
+          assert cfg.model=="qwen2.5:3b", cfg
+          assert cfg.api_key=="ollama-local", cfg
+          print("EVIDEX_OLLAMA_SOVEREIGN_VERIFIED")
+          PY
+
   phase9-contract:
     needs:
       - ollama-sovereignty
       - outbound-commerce
       - outbound-mail
       - phase8-compatibility
+      - external-organ-sovereignty
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -157,8 +226,11 @@ jobs:
           print("TELEGRAM_CLOUDFLARE_DEPENDENCY=0")
           print("MAIL_CLOUDFLARE_DEPENDENCY=0")
           print("PAYPAL_CLOUDFLARE_DEPENDENCY=0")
+          assert p["public_inbound"]["mode"]=="disabled_until_direct_or_self_owned_relay"
+          assert p["acceptance"]["public_inbound_required_for_small_launch"] is False
           print("LOCAL_DURABLE_STATE=true")
           print("AUTHORITY_BOUNDARIES_PRESERVED=true")
+          print("PUBLIC_INBOUND_REQUIRED_FOR_SMALL_LAUNCH=false")
           print("PUBLIC_EDGE_MODE="+p["public_inbound"]["mode"])
-          print("DIO_PHASE9_LOCAL_RUNTIME_CONTRACT_READY")
+          print("DIO_PHASE9_SOVEREIGN_LOCAL_RUNTIME_VERIFIED")
           PY
