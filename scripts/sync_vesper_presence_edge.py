@@ -456,26 +456,10 @@ def transcribe_voice_with_local_whisper(
 def transcribe_voice(
     attachment: dict[str, Any],
 ) -> dict[str, Any]:
-    """HF primary, local Whisper fallback for transient ASR failure."""
-    try:
-        return transcribe_voice_with_hf(
-            attachment
-        )
-    except TransientPresenceError as hf_exc:
-        try:
-            result = transcribe_voice_with_local_whisper(
-                attachment
-            )
-            result["primary_provider_failure"] = (
-                str(hf_exc)[:240]
-            )
-            return result
-        except TransientPresenceError as local_exc:
-            raise TransientPresenceError(
-                "Voice transcription unavailable. "
-                f"HF: {str(hf_exc)[:180]} | "
-                f"local: {str(local_exc)[:180]}"
-            ) from local_exc
+    """Sovereign local ASR. Remote HF transcription is disabled."""
+    return transcribe_voice_with_local_whisper(
+        attachment
+    )
 
 
 def transcribe_voice_with_hf(attachment: dict[str, Any]) -> dict[str, Any]:
@@ -649,13 +633,17 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
         }
         attachment = None
         transcription_mode = os.getenv("DIO_PRESENCE_VOICE_TRANSCRIPTION", "").strip().lower()
-        if transcription_mode == "hf":
+        if transcription_mode in {"local", "whisper", "faster_whisper"}:
             voice_transcription = transcribe_voice(downloaded_voice)
             if not text:
                 text = str(voice_transcription.get("text") or "").strip()
         elif transcription_mode in {"", "0", "false", "off", "none"}:
             if not text:
-                text = "I sent a voice note, but voice transcription is not enabled on this Vesper runtime."
+                text = "I sent a voice note, but local voice transcription is not enabled on this Vesper runtime."
+        elif transcription_mode == "hf":
+            raise PermanentPresenceError(
+                "Hugging Face voice transcription is disabled by DIO Phase 9 sovereign runtime."
+            )
         else:
             raise PermanentPresenceError(f"Unsupported DIO_PRESENCE_VOICE_TRANSCRIPTION mode: {transcription_mode}")
     elif not text:
@@ -672,7 +660,10 @@ def telegram_to_envelope(event: dict[str, Any]) -> dict[str, Any]:
         "telegram_chat_id": chat_id,
         "telegram_bot_surface": bot_surface,
         "telegram_start_payload": start_payload,
-        "custody": "cloudflare_d1_provider_authenticated_transport_only",
+        "custody": str(
+            event.get("custody")
+            or "cloudflare_d1_provider_authenticated_transport_only"
+        ),
     }
     if voice_source:
         metadata["voice_source"] = voice_source
