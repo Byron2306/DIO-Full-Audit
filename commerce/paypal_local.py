@@ -406,3 +406,126 @@ def verify_capture(
         local["amount_minor"]
     ):
         raise PayPalLocalError("PayPal capture amount mismatch")
+
+
+def reconcile_local_paypal_order(
+    store: LocalCommerceStore,
+    client: PayPalLocalClient,
+    order_id: str,
+    *,
+    capture_approved: bool = False,
+) -> dict[str, Any]:
+    """Reconcile one DIO order from PayPal provider truth by outbound polling.
+
+    Browser return URLs are never settlement evidence. A payment becomes paid
+    only after DIO independently reads a completed provider capture with exact
+    invoice/custom identity, amount and currency.
+    """
+
+    local = store.load(order_id)
+    provider_order_id = str(local.get("provider_order_id") or "").strip()
+    if not provider_order_id:
+        raise PayPalLocalError("DIO order has no provider_order_id to reconcile")
+
+    provider_order = client.get_order(provider_order_id)
+    verify_provider_order(local, provider_order)
+    provider_status = str(provider_order.get("status") or "").upper()
+
+    capture = completed_capture(provider_order)
+    capture_attempted = False
+
+    if (
+        capture is None
+        and provider_status == "APPROVED"
+        and capture_approved
+    ):
+        provider_order = client.capture_order(provider_order_id)
+        capture_attempted = True
+        verify_provider_order(local, provider_order)
+        provider_status = str(provider_order.get("status") or "").upper()
+        capture = completed_capture(provider_order)
+
+    local["provider_status"] = provider_status
+    local["cloudflare_used"] = False
+    local["webhook_required_for_reconciliation"] = False
+    local["browser_return_authority"] = False
+    local["authority_created"] = False
+    local["external_send_authority"] = False
+
+    receipt = None
+
+    if capture is not None:
+        capture_id = str(capture.get("id") or "")
+        if not capture_id:
+            raise PayPalLocalError("completed PayPal capture omitted capture id")
+        capture_detail = client.get_capture(capture_id)
+        capture_status = str(capture_detail.get("status") or "").upper()
+        local["provider_capture_id"] = capture_id
+        local["provider_capture_status"] = capture_status
+
+        if capture_status == "COMPLETED":
+            verify_capture(local, capture_detail)
+            already_paid = (
+                local.get("payment_state") == "paid"
+                and str(local.get("provider_capture_id") or "") == capture_id
+                and bool(local.get("payment_receipt_sha256"))
+            )
+            local["payment_state"] = "paid"
+            local["external_funds_moved"] = True
+            local["fulfilment_released"] = False
+            if not already_paid:
+                receipt = store.receipt(
+                    local,
+                    provider_order=provider_order,
+                    capture=capture_detail,
+                )
+                local["payment_receipt_sha256"] = receipt["receipt_sha256"]
+
+        elif capture_status in {"REFUNDED"}:
+            local["payment_state"] = "refunded"
+            local["external_funds_moved"] = False
+            local["fulfilment_released"] = False
+
+        elif capture_status in {"PARTIALLY_REFUNDED"}:
+            local["payment_state"] = "held"
+            local["external_funds_moved"] = True
+            local["fulfilment_released"] = False
+
+        else:
+            local["payment_state"] = "held"
+            local["external_funds_moved"] = False
+            local["fulfilment_released"] = False
+
+    elif provider_status == "APPROVED":
+        local["payment_state"] = "approved_awaiting_capture"
+        local["external_funds_moved"] = False
+    elif provider_status in {"CREATED", "PAYER_ACTION_REQUIRED", "SAVED"}:
+        local["payment_state"] = "awaiting_payment"
+        local["external_funds_moved"] = False
+    elif provider_status in {"VOIDED"}:
+        local["payment_state"] = "cancelled"
+        local["external_funds_moved"] = False
+    else:
+        local["payment_state"] = "held"
+        local["external_funds_moved"] = False
+
+    store.save(local)
+
+    return {
+        "schema": "dio.local_paypal_reconciliation.v1",
+        "order_id": local["order_id"],
+        "provider_order_id": provider_order_id,
+        "provider_status": provider_status,
+        "provider_capture_id": local.get("provider_capture_id"),
+        "provider_capture_status": local.get("provider_capture_status"),
+        "payment_state": local["payment_state"],
+        "capture_attempted": capture_attempted,
+        "capture_requires_explicit_flag": not capture_approved,
+        "payment_receipt_sha256": local.get("payment_receipt_sha256"),
+        "external_funds_moved": bool(local.get("external_funds_moved")),
+        "fulfilment_released": False,
+        "browser_return_authority": False,
+        "cloudflare_used": False,
+        "webhook_required": False,
+        "authority_created": False,
+    }
