@@ -154,16 +154,8 @@ def test_seal_native_execution_hashes_current_artifact_bytes(tmp_path: Path) -> 
     assert verdict["verdict"] == VERIFIED_NATIVE
 
 
-def test_seal_native_execution_refuses_non_native_family_and_missing_files(tmp_path: Path) -> None:
+def test_seal_native_execution_refuses_missing_files_and_accepts_document_studio_binding(tmp_path: Path) -> None:
     missing = tmp_path / "missing.json"
-    with pytest.raises(ValueError, match="not a permitted native execution binding"):
-        seal_native_execution(
-            "document_studio",
-            fulfilment_request_sha256="a" * 64,
-            execution_profile_sha256="b" * 64,
-            artifacts=[{"artifact_id": "evidence", "kind": "application/json", "path": missing}],
-            evidence_refs=["run:evidex"],
-        )
     with pytest.raises(FileNotFoundError):
         seal_native_execution(
             "vamp_snapshot",
@@ -172,6 +164,23 @@ def test_seal_native_execution_refuses_non_native_family_and_missing_files(tmp_p
             artifacts=[{"artifact_id": "snapshot", "kind": "application/json", "path": missing}],
             evidence_refs=["run:vamp"],
         )
+
+    artifact = tmp_path / "document-studio-receipt.json"
+    artifact.write_text('{"held":true}\n', encoding="utf-8")
+    evidence = seal_native_execution(
+        "document_studio",
+        fulfilment_request_sha256="c" * 64,
+        execution_profile_sha256="d" * 64,
+        artifacts=[{"artifact_id": "document-studio-receipt", "kind": "application/json", "path": artifact}],
+        evidence_refs=["phase7-native:document_studio:ollama"],
+    )
+    verdict = validate_execution_evidence(
+        "document_studio",
+        evidence,
+        expected_request_sha256="c" * 64,
+        expected_profile_sha256="d" * 64,
+    )
+    assert verdict["verdict"] == VERIFIED_NATIVE
 
 
 def test_real_vamp_pipeline_can_be_sealed_as_current_phase7_execution(tmp_path: Path) -> None:
