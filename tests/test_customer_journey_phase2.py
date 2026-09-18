@@ -7,6 +7,7 @@ import pytest
 from presence_core.customer_cases import load_case
 from presence_core.journey_core import create_journey_case
 from presence_core.intake_scope_quote import (
+    approve_operator_review_quote,
     build_intake_requirement,
     open_intake,
     record_intake_inputs,
