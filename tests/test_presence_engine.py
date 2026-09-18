@@ -83,35 +83,32 @@ def test_presence_core_feeds_prior_exchange_to_ollama_draft(tmp_path, monkeypatc
     assert 'Would that help with 80 papers?' in prompts[1]
 
 
-def test_presence_engine_uses_huggingface_cortex_provider(tmp_path, monkeypatch):
+def test_presence_refuses_huggingface_provider_and_does_not_call_cloud(tmp_path, monkeypatch):
     root = make_root(tmp_path)
     monkeypatch.setenv('DIO_PRESENCE_IDENTITY_SALT', 'i' * 40)
     monkeypatch.setenv('DIO_PRESENCE_LLM_DRAFTS', '1')
     monkeypatch.setenv('DIO_PRESENCE_LLM_PROVIDER', 'hf')
-    monkeypatch.setenv('HF_TOKEN', 'hf_test_token')
-    monkeypatch.setenv('DIO_PRESENCE_HF_MODEL', 'Qwen/Qwen3.5-9B:deepinfra')
+    monkeypatch.setenv('HF_TOKEN', 'must-not-be-used')
+    monkeypatch.setenv('DIO_PRESENCE_HF_MODEL', 'must-not-be-used')
     monkeypatch.delenv('OLLAMA_URL', raising=False)
     monkeypatch.delenv('OLLAMA_MODEL', raising=False)
     cfg = {'state_root':'state/presence','event_log':'telemetry/dio_events.jsonl','routes_path':'config/routes.json'}
     calls = []
 
-    class _HFResponse:
-        def raise_for_status(self):
-            return None
-        def json(self):
-            return {'choices': [{'message': {'content': 'For that HOMS workflow, I can explain the governed assessment path naturally.'}}]}
-
-    def fake_post(url, json, timeout, headers=None):
-        calls.append((url, json, headers))
-        return _HFResponse()
+    def fake_post(*args, **kwargs):
+        calls.append((args, kwargs))
+        raise AssertionError('cloud LLM HTTP must not be called')
 
     monkeypatch.setattr(llm.httpx, 'post', fake_post)
+    response = process_envelope(
+        {'channel':'telegram','external_user_id':'123','text':'Tell me about HOMS','message_type':'text'},
+        root,
+        cfg,
+    )
 
-    response = process_envelope({'channel':'telegram','external_user_id':'123','text':'Tell me about HOMS','message_type':'text'}, root, cfg)
-
-    assert response['reply']['text'].startswith('For that HOMS workflow')
-    assert calls and calls[0][0] == 'https://router.huggingface.co/v1/chat/completions'
-
+    assert calls == []
+    assert response['reply']['text']
+    assert response['authority']['executed_external_action'] is False
 
 def test_presence_feeds_governed_product_knowledge_into_cortex(tmp_path, monkeypatch):
     root = make_root(tmp_path)
