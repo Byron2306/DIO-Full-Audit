@@ -1,6 +1,6 @@
 # DIO Phase 9 — Sovereign Local Runtime / Cloud Cost Escape
 
-Status: **IN PROGRESS**
+Status: **STATIC RUNTIME VERIFIED / LIVE HOST CUTOVER PENDING**
 
 ## Objective
 
@@ -140,3 +140,4 @@ PUBLIC_EDGE_MODE=self_owned_relay
 ```
 
 rather than falsely claiming zero external infrastructure.
+\n\n## September 18 closure hardening\n\n`verify_phase9_cutover_readiness.py` is the canonical static cutover verifier. It binds the sovereign runtime audit, external-organ proof ledger, safe environment template, explicit Telegram cutover semantics, and Phase 9 systemd service definitions. It deliberately reports `live_host_cutover_verified=false` in CI because repository evidence cannot prove the state of the actual Debian host.\n
