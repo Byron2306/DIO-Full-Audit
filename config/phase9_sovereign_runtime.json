@@ -6,18 +6,35 @@
     "cloud_fallback_allowed": false,
     "hugging_face_runtime_allowed": false,
     "default_url": "http://127.0.0.1:11434",
-    "model_source": "local_ollama_store"
+    "model_source": "local_ollama_store",
+    "forbidden_runtime_providers": [
+      "huggingface",
+      "gemini",
+      "nvidia_nim",
+      "openai_cloud",
+      "anthropic"
+    ],
+    "component_models": {
+      "vesper": "OLLAMA_MODEL",
+      "document_studio": "OLLAMA_MODEL",
+      "sophia": "OLLAMA_MODEL",
+      "nichefoundry": "OLLAMA_MODEL",
+      "evidex": "EVIDEX_OLLAMA_MODEL",
+      "homs_smart_assessor": "HOMS_OLLAMA_MODEL"
+    }
   },
   "presence": {
     "core_url": "http://127.0.0.1:8787",
     "telegram": "local_bot_api_long_poll",
     "cloudflare_gateway_enabled": false,
-    "hugging_face_space_enabled": false
+    "hugging_face_space_enabled": false,
+    "telegram_script": "scripts/poll_vesper_telegram.py"
   },
   "mail": {
     "provider": "microsoft_graph",
     "ingress": "outbound_delta_poll",
-    "cloudflare_webhook_enabled": false
+    "cloudflare_webhook_enabled": false,
+    "delta_script": "scripts/sync_outlook_mail.py pull --watch"
   },
   "commerce": {
     "paypal": {
@@ -25,7 +42,8 @@
       "settlement": "outbound_provider_poll",
       "webhook_required_for_small_launch": false,
       "browser_return_grants_payment_state": false,
-      "minimum_poll_interval_seconds": 15
+      "minimum_poll_interval_seconds": 15,
+      "reconciliation_script": "scripts/reconcile_paypal_local.py"
     },
     "payfast": {
       "enabled": false,
@@ -52,5 +70,45 @@
     "provider_polling_does_not_create_release_authority": true,
     "payment_requires_provider_verified_capture": true,
     "attachment_quarantine_preserved": true
+  },
+  "organ_pins": {
+    "homs": {
+      "repository": "Byron2306/NoEdge-Multi-Hymark",
+      "ref": "agent/homs-phase9-ollama-sovereign",
+      "commit": "b66b575cfeece986ef7440e392245835ed447785",
+      "llm_runtime": "ollama_openai_compatible_local",
+      "cloud_llm_allowed": false
+    },
+    "evidex": {
+      "repository": "Byron2306/Evidex",
+      "ref": "agent/evidex-phase9-ollama-sovereign",
+      "commit": "676ba6e861a2eecf21b98c567e2333c601ed9b53",
+      "llm_runtime": "ollama_openai_compatible_local",
+      "cloud_llm_allowed": false
+    },
+    "sophia": {
+      "repository": "Byron2306/Sophia-AI",
+      "commit": "c1aa915560599f7d6cef0ff41e6a7b0787334376",
+      "llm_runtime": "native_ollama_7070",
+      "cloud_llm_allowed": false
+    },
+    "nichefoundry": {
+      "repository": "Byron2306/NicheFoundry",
+      "commit": "7528d8cdee17c5b6fbe35236b71b8e2191bb108a",
+      "llm_runtime": "native_ollama",
+      "cloud_llm_allowed": false
+    }
+  },
+  "acceptance": {
+    "active_llm_providers": [
+      "ollama"
+    ],
+    "cloud_llm_runtime_calls": 0,
+    "hf_runtime_dependencies": 0,
+    "telegram_cloudflare_dependency": 0,
+    "mail_cloudflare_dependency": 0,
+    "paypal_cloudflare_dependency": 0,
+    "public_inbound_required_for_small_launch": false,
+    "authority_boundaries_preserved": true
   }
 }
