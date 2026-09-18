@@ -13,6 +13,16 @@ from presence_core.fulfilment_contract import (
     project_execution_profile,
 )
 from presence_core.journey_core import create_journey_case
+from presence_core.intake_scope_quote import (
+    assess_scope,
+    open_intake,
+    prepare_quote,
+    record_intake_inputs,
+)
+from presence_core.settlement_truth import record_controlled_test_settlement
+
+
+DIO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _hash(value: dict) -> str:
@@ -263,21 +273,34 @@ def test_successful_dispatch_drives_strict_lifecycle_to_review_ready(tmp_path: P
     assert stored["authority_created"] is False
 
 
-def test_scope_identity_accepts_canonical_product_name_with_machine_product_id(tmp_path: Path) -> None:
-    case = _eligible_case(tmp_path, product_id="Document Studio Edit")
-    stored = load_case(tmp_path, case["case_id"])
-    scope = dict(stored["scope_receipt"])
-    scope["product_id"] = "document_studio_edit"
-    scope["product_name"] = "Document Studio Edit"
-    basis = dict(scope)
-    basis.pop("scope_receipt_sha256", None)
-    scope["scope_receipt_sha256"] = _hash(basis)
-    stored = update_case(
+def test_scope_identity_accepts_phase2_machine_id_with_canonical_product_name(tmp_path: Path) -> None:
+    case = create_journey_case(tmp_path, product_id="Document Studio Edit")
+    open_intake(DIO_ROOT, tmp_path, case["case_id"])
+    record_intake_inputs(
+        DIO_ROOT,
         tmp_path,
-        stored,
-        patch={"scope_receipt": scope},
-        evidence_ref=f"scope:{scope['scope_receipt_sha256']}",
+        case["case_id"],
+        {
+            "requested_outcome": "Edit one controlled technical document",
+            "buyer_class": "C0",
+            "scope_quantity": 1,
+        },
+        evidence_ref="customer:phase4-real-scope",
     )
+    scope = assess_scope(DIO_ROOT, tmp_path, case["case_id"])
+    quote = prepare_quote(DIO_ROOT, tmp_path, case["case_id"])
+    record_controlled_test_settlement(
+        tmp_path,
+        case["case_id"],
+        receipt_id="PHASE4-IDENTITY",
+        authorized_by="operator:test",
+        reason="Cross-phase identity regression",
+    )
+
+    assert scope["product_id"] == "document_studio_edit"
+    assert scope["product_name"] == "Document Studio Edit"
+    assert quote["decision"] == "ALLOW_PRESENTATION"
+
     profile = _profile("Document Studio Edit")
-    request = build_fulfilment_request(tmp_path, stored["case_id"], profile)
+    request = build_fulfilment_request(tmp_path, case["case_id"], profile)
     assert request["journey_product_id"] == "Document Studio Edit"
