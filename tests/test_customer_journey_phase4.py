@@ -261,3 +261,23 @@ def test_successful_dispatch_drives_strict_lifecycle_to_review_ready(tmp_path: P
     assert stored["fulfilment"]["release_authority"] is False
     assert stored["fulfilment"]["external_send_authority"] is False
     assert stored["authority_created"] is False
+
+
+def test_scope_identity_accepts_canonical_product_name_with_machine_product_id(tmp_path: Path) -> None:
+    case = _eligible_case(tmp_path, product_id="Document Studio Edit")
+    stored = load_case(tmp_path, case["case_id"])
+    scope = dict(stored["scope_receipt"])
+    scope["product_id"] = "document_studio_edit"
+    scope["product_name"] = "Document Studio Edit"
+    basis = dict(scope)
+    basis.pop("scope_receipt_sha256", None)
+    scope["scope_receipt_sha256"] = _hash(basis)
+    stored = update_case(
+        tmp_path,
+        stored,
+        patch={"scope_receipt": scope},
+        evidence_ref=f"scope:{scope['scope_receipt_sha256']}",
+    )
+    profile = _profile("Document Studio Edit")
+    request = build_fulfilment_request(tmp_path, stored["case_id"], profile)
+    assert request["journey_product_id"] == "Document Studio Edit"
