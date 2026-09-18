@@ -9,6 +9,10 @@ import pytest
 
 from adapters.document_studio.pipeline import invoke_provider
 from adapters.sophia.review_pipeline import reviewer_commentary
+from commerce.paypal_local import (
+    LocalCommerceStore,
+    reconcile_local_paypal_order,
+)
 from presence_core.local_ingress import LocalIngressLedger
 from scripts import poll_vesper_telegram as telegram_poll
 from scripts.poll_vesper_telegram import TelegramPollError, update_to_envelope
@@ -228,3 +232,135 @@ def test_telegram_poller_explicit_cutover_preserves_pending_updates(
     assert result["pending_updates_preserved"] is True
     assert result["cloudflare_required"] is False
     assert ("deleteWebhook", {"drop_pending_updates": "false"}) in calls
+
+
+class _FakePayPalClient:
+    def __init__(self, provider_order: dict, capture: dict | None = None):
+        self.provider_order = provider_order
+        self.capture = capture
+        self.capture_calls = 0
+
+    def get_order(self, provider_order_id: str) -> dict:
+        assert provider_order_id == self.provider_order["id"]
+        return self.provider_order
+
+    def capture_order(self, provider_order_id: str) -> dict:
+        self.capture_calls += 1
+        return self.provider_order
+
+    def get_capture(self, capture_id: str) -> dict:
+        assert self.capture is not None
+        assert capture_id == self.capture["id"]
+        return self.capture
+
+
+def _paypal_order(
+    *,
+    status: str,
+    capture: dict | None = None,
+) -> dict:
+    unit = {
+        "invoice_id": "ORDER-PHASE9-001",
+        "custom_id": "ORDER-PHASE9-001",
+        "amount": {
+            "currency_code": "USD",
+            "value": "10.00",
+        },
+    }
+    if capture is not None:
+        unit["payments"] = {"captures": [capture]}
+    return {
+        "id": "PAYPAL-ORDER-1",
+        "status": status,
+        "purchase_units": [unit],
+    }
+
+
+def test_paypal_approved_order_is_not_captured_without_explicit_authority(
+    tmp_path: Path,
+) -> None:
+    store = LocalCommerceStore(
+        tmp_path / "orders",
+        tmp_path / "receipts",
+    )
+    order = store.register(
+        order_id="ORDER-PHASE9-001",
+        product_code="EVIDEX",
+        amount_minor=1000,
+        currency="USD",
+    )
+    order["provider_order_id"] = "PAYPAL-ORDER-1"
+    order["payment_state"] = "awaiting_payment"
+    store.save(order)
+
+    client = _FakePayPalClient(
+        _paypal_order(status="APPROVED")
+    )
+    result = reconcile_local_paypal_order(
+        store,
+        client,
+        "ORDER-PHASE9-001",
+        capture_approved=False,
+    )
+
+    assert client.capture_calls == 0
+    assert result["payment_state"] == "approved_awaiting_capture"
+    assert result["external_funds_moved"] is False
+    assert result["browser_return_authority"] is False
+    assert result["cloudflare_used"] is False
+    assert result["webhook_required"] is False
+
+
+def test_paypal_completed_capture_becomes_verified_local_payment_truth(
+    tmp_path: Path,
+) -> None:
+    store = LocalCommerceStore(
+        tmp_path / "orders",
+        tmp_path / "receipts",
+    )
+    order = store.register(
+        order_id="ORDER-PHASE9-001",
+        product_code="EVIDEX",
+        amount_minor=1000,
+        currency="USD",
+    )
+    order["provider_order_id"] = "PAYPAL-ORDER-1"
+    order["payment_state"] = "awaiting_payment"
+    store.save(order)
+
+    capture_summary = {
+        "id": "CAPTURE-1",
+        "status": "COMPLETED",
+    }
+    capture_detail = {
+        "id": "CAPTURE-1",
+        "status": "COMPLETED",
+        "amount": {
+            "currency_code": "USD",
+            "value": "10.00",
+        },
+    }
+    client = _FakePayPalClient(
+        _paypal_order(
+            status="COMPLETED",
+            capture=capture_summary,
+        ),
+        capture_detail,
+    )
+
+    result = reconcile_local_paypal_order(
+        store,
+        client,
+        "ORDER-PHASE9-001",
+        capture_approved=False,
+    )
+
+    assert result["payment_state"] == "paid"
+    assert result["external_funds_moved"] is True
+    assert result["fulfilment_released"] is False
+    assert len(result["payment_receipt_sha256"]) == 64
+    assert (
+        tmp_path
+        / "receipts"
+        / f"{result['payment_receipt_sha256']}.json"
+    ).is_file()
