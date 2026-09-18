@@ -141,7 +141,8 @@ def _canonical_scope(case: dict[str, Any]) -> dict[str, Any]:
         receipt.get("schema") != "dio.scope_receipt.v1"
         or receipt.get("state") != "SUFFICIENT"
         or str(receipt.get("case_id") or "") != str(case.get("case_id") or "")
-        or str(receipt.get("product_id") or "") != str(case.get("product_id") or "")
+        or str(receipt.get("product_name") or receipt.get("product_id") or "")
+        != str(case.get("product_id") or "")
     ):
         raise ValueError("canonical sufficient scope truth is required")
     _plain_sha256(receipt.get("scope_receipt_sha256"), "scope_receipt_sha256")
