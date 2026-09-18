@@ -14,6 +14,8 @@ on:
       - 'tests/test_customer_journey_phase7.py'
       - 'tests/test_customer_journey_phase7_native_organs.py'
       - 'tests/test_customer_journey_phase7_external_organs.py'
+      - 'tests/test_customer_journey_phase7_golden.py'
+      - 'presence_core/phase7_golden_journey.py'
       - 'docs/DIO_CUSTOMER_JOURNEY_PHASE7.md'
       - '.github/workflows/dio-customer-journey-phase7.yml'
 
@@ -33,13 +35,15 @@ jobs:
             presence_core/organ_adapter_gauntlet.py \
             tests/test_customer_journey_phase7.py \
             tests/test_customer_journey_phase7_native_organs.py \
-            tests/test_customer_journey_phase7_external_organs.py
+            tests/test_customer_journey_phase7_external_organs.py \
+            tests/test_customer_journey_phase7_golden.py
       - name: Run Phase 7 contract and in-repo native organ proofs
         run: |
           python -m pytest -q \
             tests/test_customer_journey_phase7.py \
             tests/test_customer_journey_phase7_native_organs.py \
-            tests/test_customer_journey_phase7_external_organs.py
+            tests/test_customer_journey_phase7_external_organs.py \
+            tests/test_customer_journey_phase7_golden.py
 
   evidex-main-repo:
     runs-on: ubuntu-latest
