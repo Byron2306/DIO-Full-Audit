@@ -541,7 +541,8 @@ def update_case(
             raise ValueError(f"unknown customer case stage: {stage}")
         if current_stage not in _STAGE_INDEX:
             raise ValueError(f"unknown current customer case stage: {current_stage}")
-        if _STAGE_INDEX[stage] < _STAGE_INDEX[current_stage]:
+        non_monotonic_resume = (current_stage, stage) == ("NEEDS_YOU", "QUOTE_READY")
+        if _STAGE_INDEX[stage] < _STAGE_INDEX[current_stage] and not non_monotonic_resume:
             raise ValueError(f"backwards customer case stage transition: {current_stage} -> {stage}")
         if stage != current_stage:
             updated["stage"] = stage

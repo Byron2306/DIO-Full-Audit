@@ -608,3 +608,187 @@ def prepare_quote(
         evidence_ref=f"quote:{quote['quote_id']}",
     )
     return result
+
+
+def approve_operator_review_quote(
+    dio_root: Path,
+    state_root: Path,
+    case_id: str,
+    *,
+    approved_by: str,
+    approved_amount_zar: int,
+    evidence_ref: str,
+) -> dict[str, Any]:
+    """Resume a canonical operator-review quote without granting downstream authority."""
+
+    state_root = Path(state_root)
+    case = load_case(state_root, str(case_id))
+    if case is None:
+        raise ValueError(f"customer case not found: {case_id}")
+    if str(case.get("stage") or "") != "NEEDS_YOU":
+        raise ValueError("operator quote approval requires NEEDS_YOU stage")
+
+    approved_by = str(approved_by or "").strip()
+    evidence_ref = str(evidence_ref or "").strip()
+    if not approved_by:
+        raise ValueError("approved_by is required")
+    if not evidence_ref:
+        raise ValueError("operator quote approval evidence_ref is required")
+    if isinstance(approved_amount_zar, bool):
+        raise ValueError("approved_amount_zar must be a positive integer")
+    try:
+        amount = int(approved_amount_zar)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("approved_amount_zar must be a positive integer") from exc
+    if amount < 1:
+        raise ValueError("approved_amount_zar must be a positive integer")
+
+    commercial = deepcopy(case.get("commercial") or {})
+    pending = deepcopy(commercial.get("quote_result") or {})
+    if (
+        pending.get("schema") != QUOTE_RESULT_SCHEMA
+        or pending.get("decision") != "NEEDS_YOU"
+        or pending.get("quote") is not None
+    ):
+        raise ValueError("canonical operator-review quote request is required")
+
+    request = deepcopy(pending.get("quote_request") or {})
+    if request.get("schema") != QUOTE_REQUEST_SCHEMA:
+        raise ValueError("canonical quote request is required")
+    request_hash = str(request.get("quote_request_sha256") or "")
+    request_basis = deepcopy(request)
+    request_basis.pop("quote_request_id", None)
+    request_basis.pop("quote_request_sha256", None)
+    if not request_hash or _canonical_hash(request_basis) != request_hash:
+        raise ValueError("canonical quote request hash mismatch")
+    if str(request.get("case_id") or "") != str(case_id):
+        raise ValueError("quote request case lineage mismatch")
+
+    receipt = deepcopy(case.get("scope_receipt") or {})
+    if (
+        receipt.get("schema") != SCOPE_RECEIPT_SCHEMA
+        or receipt.get("state") != "SUFFICIENT"
+        or str(receipt.get("scope_receipt_sha256") or "")
+        != str(request.get("scope_receipt_sha256") or "")
+    ):
+        raise ValueError("canonical sufficient scope truth is required")
+
+    product = _product(Path(dio_root), str(case.get("product_id") or ""))
+    if str(request.get("product_id") or "") != str(product.get("product_id") or ""):
+        raise ValueError("quote request product lineage mismatch")
+
+    mode = str((product.get("quote_authority") or {}).get("mode") or "")
+    pending_reason = str(pending.get("reason") or "")
+    if mode != "operator_review" and pending_reason != "quote_amount_exceeds_autonomous_ceiling":
+        raise ValueError("quote request does not require operator approval")
+
+    pricing_reference = deepcopy(pending.get("pricing_reference") or {})
+    if not pricing_reference or pricing_reference.get("currency") != "ZAR":
+        raise ValueError("governed ZAR pricing reference is required")
+    governed_reference = int(pricing_reference.get("amount_zar") or 0)
+    if governed_reference < 1:
+        raise ValueError("governed pricing reference amount is required")
+
+    band = deepcopy(product.get("reference_band_zar") or {})
+    band_min = int(band.get("min") or 0)
+    band_max = int(band.get("max") or 0)
+    if band_min > 0 and band_max >= band_min:
+        if amount < band_min or amount > band_max:
+            raise ValueError("operator-approved quote amount is outside governed reference band")
+    elif amount != governed_reference:
+        raise ValueError("operator-approved quote amount must equal governed reference amount")
+
+    operator_approval = {
+        "approved_by": approved_by,
+        "evidence_ref": evidence_ref,
+        "approved_amount_zar": amount,
+        "governed_reference_amount_zar": governed_reference,
+        "reference_band_zar": band,
+    }
+    operator_approval["approval_sha256"] = _canonical_hash(operator_approval)
+
+    quote_basis = {
+        "case_id": str(case_id),
+        "product_id": product.get("product_id"),
+        "scope_receipt_sha256": receipt.get("scope_receipt_sha256"),
+        "quote_request_sha256": request_hash,
+        "amount": amount,
+        "currency": "ZAR",
+        "tier_id": pricing_reference.get("tier_id"),
+        "operator_approval_sha256": operator_approval["approval_sha256"],
+    }
+    quote_basis_sha = _canonical_hash(quote_basis)
+    quote = {
+        "schema": CANONICAL_QUOTE_SCHEMA,
+        "quote_id": f"QUOTE-{quote_basis_sha[:20].upper()}",
+        "case_id": str(case_id),
+        "product_id": product.get("product_id"),
+        "product_name": product.get("name"),
+        "scope_receipt_sha256": receipt.get("scope_receipt_sha256"),
+        "quote_request_sha256": request_hash,
+        "buyer_class": receipt.get("buyer_class"),
+        "scope_quantity": receipt.get("scope_quantity"),
+        "scope_unit": receipt.get("primary_scope_unit"),
+        "amount": amount,
+        "currency": "ZAR",
+        "pricing_truth": pricing_reference.get("pricing_truth") or "GOVERNED_REFERENCE_POINT",
+        "commercial_validation": pricing_reference.get("commercial_validation") or "UNPROVED",
+        "customers_will_pay": pricing_reference.get("customers_will_pay") or "UNPROVED",
+        "quote_authority_mode": "operator_review",
+        "operator_approval": operator_approval,
+        "presentation_authority": True,
+        "invoice_issue_authority": False,
+        "external_send_authority": False,
+        "payment_collection_authority": False,
+        "fulfilment_authority_created": False,
+        "release_authority_created": False,
+        "authority_created": False,
+        "external_effects": False,
+    }
+    quote["quote_truth_sha256"] = _canonical_hash(quote)
+
+    pricing_reference["customer_presentable"] = True
+    pricing_reference["operator_approved_amount_zar"] = amount
+    result = {
+        "schema": QUOTE_RESULT_SCHEMA,
+        "decision": "ALLOW_PRESENTATION",
+        "reason": "operator_review_approved",
+        "case_id": str(case_id),
+        "product_id": product.get("product_id"),
+        "quote_request": request,
+        "pricing_reference": pricing_reference,
+        "quote": quote,
+        "operator_approval": operator_approval,
+        "authority_created": False,
+        "external_effects": False,
+    }
+    result["quote_result_sha256"] = _canonical_hash(result)
+
+    resumed = transition_case(
+        state_root,
+        str(case_id),
+        "QUOTE_READY",
+        evidence_ref=f"operator-quote:{operator_approval['approval_sha256']}",
+    )
+    update_case(
+        state_root,
+        resumed,
+        patch={
+            "commercial": {
+                "quote_request": request,
+                "quote_result": result,
+                "quote_id": quote["quote_id"],
+                "quote_state": "ready_for_presentation",
+                "quote_recommendation": amount,
+                "recommended_amount_zar": governed_reference,
+                "governed_reference_band_zar": band,
+                "quote_issue_authority": True,
+                "operator_review_required": False,
+                "operator_quote_approval": operator_approval,
+                "currency": "ZAR",
+                "amount": amount,
+            }
+        },
+        evidence_ref=f"quote:{quote['quote_id']}",
+    )
+    return result

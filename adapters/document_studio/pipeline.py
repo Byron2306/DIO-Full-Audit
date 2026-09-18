@@ -32,6 +32,7 @@ from adapters.lingua.lifecycle import build_lingua_qa, digest_text, update_seman
 ROOT = Path(__file__).resolve().parents[2]
 BRIDGE = ROOT / "scripts" / "document_studio_gemini_bridge.py"
 NIM_BRIDGE = ROOT / "scripts" / "document_studio_nim_bridge.py"
+OLLAMA_BRIDGE = ROOT / "scripts" / "document_studio_ollama_bridge.py"
 BEAST_BRIDGE = ROOT / "scripts" / "lingua_beast_bridge.py"
 DEFAULT_SOPHIA_PYTHON = Path("/home/byron/Integritas-Mechanicus/.venv/bin/python")
 DEFAULT_SOPHIA_ROOT = Path("/home/byron/Integritas-Mechanicus/arda_os")
@@ -286,6 +287,17 @@ def invoke_provider(
             "max_predict": max_predict,
             "temperature": 0.05,
             "secret_file": request.get("provider_secret_file") or "/home/byron/EdgeK-BEAST/.beast/provider_secrets.env",
+        }
+    elif provider_name in {"ollama", "local_ollama"}:
+        python = Path(sys.executable)
+        bridge = OLLAMA_BRIDGE
+        payload = {
+            "system_prompt": system,
+            "prompt": prompt,
+            "model": request.get("ollama_model") or os.environ.get("OLLAMA_MODEL") or "qwen2.5:0.5b",
+            "base_url": request.get("ollama_url") or os.environ.get("OLLAMA_URL") or "http://127.0.0.1:11434",
+            "max_predict": max_predict,
+            "temperature": 0.05,
         }
     elif provider_name in {"gemini", "google", "google_gemini"}:
         python = Path(os.environ.get("SOPHIA_PYTHON") or DEFAULT_SOPHIA_PYTHON)

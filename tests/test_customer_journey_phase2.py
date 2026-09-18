@@ -7,6 +7,7 @@ import pytest
 from presence_core.customer_cases import load_case
 from presence_core.journey_core import create_journey_case
 from presence_core.intake_scope_quote import (
+    approve_operator_review_quote,
     build_intake_requirement,
     open_intake,
     record_intake_inputs,
@@ -169,3 +170,36 @@ def test_operator_review_profile_returns_needs_you_without_customer_quote(tmp_pa
     assert result["pricing_reference"]["customer_presentable"] is False
     assert result["authority_created"] is False
     assert (load_case(tmp_path, case["case_id"]) or {})["stage"] == "NEEDS_YOU"
+
+
+def test_operator_review_can_resume_to_canonical_quote_ready(tmp_path: Path) -> None:
+    case = create_journey_case(tmp_path, product_id="DIO AI Assurance")
+    open_intake(DIO_ROOT, tmp_path, case["case_id"])
+    record_intake_inputs(
+        DIO_ROOT,
+        tmp_path,
+        case["case_id"],
+        {
+            "requested_outcome": "Assess one AI system",
+            "buyer_class": "C4",
+            "scope_quantity": 1,
+        },
+        evidence_ref="customer:operator-resume",
+    )
+    assess_scope(DIO_ROOT, tmp_path, case["case_id"])
+    pending = prepare_quote(DIO_ROOT, tmp_path, case["case_id"])
+    assert pending["decision"] == "NEEDS_YOU"
+
+    approved = approve_operator_review_quote(
+        DIO_ROOT,
+        tmp_path,
+        case["case_id"],
+        approved_by="human:test-operator",
+        approved_amount_zar=int(pending["pricing_reference"]["amount_zar"]),
+        evidence_ref="operator:test-approval",
+    )
+
+    stored = load_case(tmp_path, case["case_id"])
+    assert approved["decision"] == "ALLOW_PRESENTATION"
+    assert approved["quote"]["quote_authority_mode"] == "operator_review"
+    assert stored["stage"] == "QUOTE_READY"

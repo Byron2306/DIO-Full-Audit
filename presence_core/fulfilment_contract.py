@@ -141,10 +141,15 @@ def _canonical_scope(case: dict[str, Any]) -> dict[str, Any]:
         receipt.get("schema") != "dio.scope_receipt.v1"
         or receipt.get("state") != "SUFFICIENT"
         or str(receipt.get("case_id") or "") != str(case.get("case_id") or "")
-        or str(receipt.get("product_id") or "") != str(case.get("product_id") or "")
+        or str(receipt.get("product_name") or receipt.get("product_id") or "")
+        != str(case.get("product_id") or "")
     ):
         raise ValueError("canonical sufficient scope truth is required")
-    _plain_sha256(receipt.get("scope_receipt_sha256"), "scope_receipt_sha256")
+    expected = _plain_sha256(receipt.get("scope_receipt_sha256"), "scope_receipt_sha256")
+    basis = deepcopy(receipt)
+    basis.pop("scope_receipt_sha256", None)
+    if _canonical_hash(basis) != expected:
+        raise ValueError("scope receipt hash mismatch")
     return receipt
 
 
@@ -161,7 +166,11 @@ def _canonical_quote(case: dict[str, Any], scope: dict[str, Any]) -> dict[str, A
     ):
         raise ValueError("canonical quote truth is required")
     _required(quote.get("quote_id"), "quote_id")
-    _plain_sha256(quote.get("quote_truth_sha256"), "quote_truth_sha256")
+    expected = _plain_sha256(quote.get("quote_truth_sha256"), "quote_truth_sha256")
+    basis = deepcopy(quote)
+    basis.pop("quote_truth_sha256", None)
+    if _canonical_hash(basis) != expected:
+        raise ValueError("canonical quote hash mismatch")
     return quote
 
 
@@ -177,10 +186,14 @@ def _canonical_settlement(case: dict[str, Any], quote: dict[str, Any]) -> dict[s
         or str(receipt.get("product_name") or "") != str(case.get("product_id") or "")
     ):
         raise ValueError("fulfilment-eligible settlement truth is required")
-    _plain_sha256(
+    expected = _plain_sha256(
         receipt.get("settlement_receipt_sha256"),
         "settlement_receipt_sha256",
     )
+    basis = deepcopy(receipt)
+    basis.pop("settlement_receipt_sha256", None)
+    if _canonical_hash(basis) != expected:
+        raise ValueError("settlement receipt hash mismatch")
     return receipt
 
 
