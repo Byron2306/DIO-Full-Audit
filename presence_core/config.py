@@ -12,6 +12,18 @@ def load_json(path: Path) -> dict[str, Any]:
 def load_config(path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     cfg = load_json(path)
     cfg["root"] = str(ROOT)
+
+    # Phase 9 decouples governed code from durable runtime state.  A live host
+    # may run code from /srv/dio/repo while preserving existing state under a
+    # separately managed root such as /srv/dio/presence/state.
+    state_base = os.getenv("DIO_STATE_ROOT", "").strip()
+    if state_base:
+        cfg["state_root"] = str(Path(state_base).expanduser().resolve() / "presence")
+
+    event_log = os.getenv("DIO_EVENT_LOG", "").strip()
+    if event_log:
+        cfg["event_log"] = str(Path(event_log).expanduser().resolve())
+
     return cfg
 
 def env_bool(name: str, default: bool=False) -> bool:
