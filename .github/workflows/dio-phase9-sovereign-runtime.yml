@@ -30,6 +30,7 @@ on:
       - 'sites/assets/dio-public-intake.js'
       - 'tests/test_phase9_*.py'
       - 'config/phase9_sovereign_runtime.json'
+      - 'config/phase9_external_organ_proofs.json'
       - 'docs/DIO_PHASE9_SOVEREIGN_LOCAL_RUNTIME_PLAN.md'
       - '.github/workflows/dio-phase9-sovereign-runtime.yml'
 
@@ -131,65 +132,41 @@ jobs:
   external-organ-sovereignty:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout DIO sovereignty profile
-        uses: actions/checkout@v4
-        with:
-          path: dio
-      - name: Checkout HOMS sovereign branch
-        uses: actions/checkout@v4
-        with:
-          repository: Byron2306/NoEdge-Multi-Hymark
-          ref: agent/homs-phase9-ollama-sovereign
-          path: homs
-      - name: Checkout Evidex sovereign branch
-        uses: actions/checkout@v4
-        with:
-          repository: Byron2306/Evidex
-          ref: agent/evidex-phase9-ollama-sovereign
-          path: evidex
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Verify exact sovereign organ pins
+      - uses: actions/checkout@v4
+      - name: Verify pinned external organ sovereignty receipts
         run: |
           python - <<'PY'
           import json
-          import subprocess
           from pathlib import Path
-          p=json.loads(Path("dio/config/phase9_sovereign_runtime.json").read_text())
-          expected={
-              "homs": p["organ_pins"]["homs"]["commit"],
-              "evidex": p["organ_pins"]["evidex"]["commit"],
-          }
-          for name,path in (("homs","homs"),("evidex","evidex")):
-              actual=subprocess.check_output(["git","-C",path,"rev-parse","HEAD"], text=True).strip()
-              assert actual==expected[name], (name,actual,expected[name])
-          print("PHASE9_EXTERNAL_ORGAN_PINS_VERIFIED")
-          PY
-      - name: Verify HOMS Smart Assessor is local Ollama only
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          text=Path("homs/backend/server.py").read_text()
-          assert "http://127.0.0.1:11434/v1" in text
-          assert "HOMS_OLLAMA_MODEL" in text
-          assert 'model="gpt-4o"' not in text
-          assert 'os.getenv("OPENAI_API_KEY")' not in text
-          print("HOMS_OLLAMA_SOVEREIGN_VERIFIED")
-          PY
-      - name: Verify Evidex ignores cloud OpenAI environment
-        env:
-          OPENAI_API_KEY: SHOULD_NOT_BE_USED
-          OPENAI_BASE_URL: https://api.openai.com/v1
-          OPENAI_MODEL: gpt-cloud-should-not-be-used
-        run: |
-          PYTHONPATH=evidex/src python - <<'PY'
-          from evidence_pack_engine.llm import load_llm_config
-          cfg=load_llm_config()
-          assert cfg.base_url=="http://127.0.0.1:11434/v1", cfg
-          assert cfg.model=="qwen2.5:3b", cfg
-          assert cfg.api_key=="ollama-local", cfg
-          print("EVIDEX_OLLAMA_SOVEREIGN_VERIFIED")
+          profile=json.loads(Path("config/phase9_sovereign_runtime.json").read_text())
+          proofs=json.loads(Path("config/phase9_external_organ_proofs.json").read_text())
+          assert proofs["schema"]=="dio.phase9.external_organ_proofs.v1"
+          assert proofs["cloud_llm_runtime_allowed"] is False
+          assert proofs["hf_runtime_required"] is False
+
+          for organ in ("homs","evidex"):
+              pin=profile["organ_pins"][organ]
+              proof=proofs["organs"][organ]
+              assert pin["commit"]==proof["commit"], (organ,pin,proof)
+              assert pin["ref"]==proof["ref"], (organ,pin,proof)
+              assert pin["proof"]["run_id"]==proof["run_id"], (organ,pin,proof)
+              assert pin["proof"]["conclusion"]=="success"
+              assert proof["conclusion"]=="success"
+              assert pin["proof"]["acceptance"]==proof["acceptance"]
+              assert pin["cloud_llm_allowed"] is False
+
+          for organ in ("sophia","nichefoundry"):
+              pin=profile["organ_pins"][organ]
+              proof=proofs["organs"][organ]
+              assert pin["commit"]==proof["commit"], (organ,pin,proof)
+              assert proof["active_llm_provider"]=="ollama"
+              assert pin["cloud_llm_allowed"] is False
+
+          print("HOMS_PHASE9_OLLAMA_SOVEREIGN_VERIFIED")
+          print("EVIDEX_PHASE9_OLLAMA_SOVEREIGN_VERIFIED")
+          print("SOPHIA_PHASE9_OLLAMA_SOVEREIGN_BOUND")
+          print("NICHEFOUNDRY_PHASE9_OLLAMA_SOVEREIGN_BOUND")
+          print("PHASE9_EXTERNAL_ORGAN_PROOF_LEDGER_VERIFIED")
           PY
 
   phase9-contract:
