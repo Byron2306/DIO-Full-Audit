@@ -96,6 +96,8 @@ def verify_static_cutover_readiness(root: Path = ROOT) -> dict[str, Any]:
         violations.append("sovereign_env_not_ollama")
     if "OLLAMA_URL=http://127.0.0.1:11434" not in env_text:
         violations.append("sovereign_env_ollama_not_localhost")
+    if "DIO_STATE_ROOT=" not in env_text:
+        violations.append("sovereign_env_missing_external_state_root_contract")
     for marker in FORBIDDEN_ENV_MARKERS:
         if marker in env_text:
             violations.append(f"sovereign_env_contains_cloud_secret:{marker[:-1]}")
