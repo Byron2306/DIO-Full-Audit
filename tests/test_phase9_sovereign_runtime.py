@@ -8,8 +8,10 @@ from unittest.mock import patch
 import pytest
 
 from adapters.document_studio.pipeline import invoke_provider
+from adapters.sophia.review_pipeline import reviewer_commentary
 from presence_core.local_ingress import LocalIngressLedger
-from scripts.poll_vesper_telegram import update_to_envelope
+from scripts import poll_vesper_telegram as telegram_poll
+from scripts.poll_vesper_telegram import TelegramPollError, update_to_envelope
 from sovereign_runtime import (
     SovereignRuntimeError,
     llm_policy,
@@ -144,3 +146,85 @@ def test_telegram_long_poll_document_preserves_exact_downloaded_bytes() -> None:
     assert base64.b64decode(attachment["content_b64"]) == payload
     assert attachment["file_size"] == len(payload)
     assert envelope["metadata"]["telegram_bot_surface"] == "public"
+
+
+def test_sophia_refuses_remote_reasoned_provider_before_network(tmp_path: Path) -> None:
+    manuscript = tmp_path / "paper.md"
+    manuscript.write_text("Controlled manuscript.", encoding="utf-8")
+    result = reviewer_commentary(
+        "http://127.0.0.1:7070",
+        {
+            "reasoned_review_approved": True,
+            "reasoned_provider": "gemini",
+        },
+        "Controlled paper",
+        manuscript,
+        "Controlled manuscript.",
+        "plain_text",
+        {
+            "status": "clean_first_pass",
+            "missing_from_reference_list": [],
+            "reference_list_entries_not_cited": [],
+            "actionable_issue_count": 0,
+            "reference_entries": [],
+            "in_text_citations": [],
+        },
+        [],
+        [],
+    )
+    assert result["status"] == "rejected"
+    assert result["source"] == "sovereign_runtime"
+    assert result["remote_processing"] is False
+    assert "only Ollama" in result["commentary"]
+
+
+def test_telegram_poller_refuses_hidden_webhook_without_explicit_cutover(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("DIO_TELEGRAM_OPERATOR_BOT_TOKEN", "token")
+    monkeypatch.setenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", "s" * 40)
+    poller = telegram_poll.TelegramLongPoller(
+        surface="operator",
+        state_root=tmp_path,
+        core_url="http://127.0.0.1:8787",
+    )
+    with patch(
+        "scripts.poll_vesper_telegram._api_raw",
+        return_value=(
+            {"ok": True, "result": {"url": "https://legacy.example/webhook"}},
+            b"{}",
+        ),
+    ):
+        with pytest.raises(TelegramPollError, match="--drop-webhook"):
+            poller.ensure_polling_mode(remove_webhook=False)
+
+
+def test_telegram_poller_explicit_cutover_preserves_pending_updates(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("DIO_TELEGRAM_OPERATOR_BOT_TOKEN", "token")
+    monkeypatch.setenv("DIO_PRESENCE_OPERATOR_SHARED_SECRET", "s" * 40)
+    poller = telegram_poll.TelegramLongPoller(
+        surface="operator",
+        state_root=tmp_path,
+        core_url="http://127.0.0.1:8787",
+    )
+    calls = []
+
+    def fake_api(token, method, params=None, timeout=45.0):
+        calls.append((method, dict(params or {})))
+        if method == "getWebhookInfo":
+            return {"ok": True, "result": {"url": "https://legacy.example/webhook"}}, b"{}"
+        if method == "deleteWebhook":
+            return {"ok": True, "result": True}, b"{}"
+        raise AssertionError(method)
+
+    with patch("scripts.poll_vesper_telegram._api_raw", side_effect=fake_api):
+        result = poller.ensure_polling_mode(remove_webhook=True)
+
+    assert result["webhook_removed"] is True
+    assert result["pending_updates_preserved"] is True
+    assert result["cloudflare_required"] is False
+    assert ("deleteWebhook", {"drop_pending_updates": "false"}) in calls
