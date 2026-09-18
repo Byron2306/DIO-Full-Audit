@@ -209,5 +209,5 @@ jobs:
           print("AUTHORITY_BOUNDARIES_PRESERVED=true")
           print("PUBLIC_INBOUND_REQUIRED_FOR_SMALL_LAUNCH=false")
           print("PUBLIC_EDGE_MODE="+p["public_inbound"]["mode"])
-          print("DIO_PHASE9_SOVEREIGN_LOCAL_RUNTIME_VERIFIED")
+          print("DIO_PHASE9_STATIC_RUNTIME_VERIFIED")\n          print("DIO_PHASE9_LIVE_HOST_CUTOVER=PENDING")
           PY
