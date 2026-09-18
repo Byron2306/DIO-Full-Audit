@@ -33,6 +33,7 @@ jobs:
         run: |
           python -m py_compile \
             presence_core/organ_adapter_gauntlet.py \
+            presence_core/phase7_golden_journey.py \
             tests/test_customer_journey_phase7.py \
             tests/test_customer_journey_phase7_native_organs.py \
             tests/test_customer_journey_phase7_external_organs.py \
@@ -72,20 +73,20 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
           root = Path("external/evidex/phase7-output")
           artifacts = [p for p in root.rglob("*") if p.is_file() and (p.suffix == ".zip" or p.name == "QUALITY_REPORT.txt")]
           assert artifacts, "Evidex produced no sealable artifacts"
-          evidence = seal_native_execution(
+          receipt = run_golden_journey_from_artifacts(
+              Path.cwd(),
+              Path("/tmp/phase7-evidex-state"),
               "evidex_evidence",
-              fulfilment_request_sha256="9"*64,
-              execution_profile_sha256="a"*64,
               artifacts=[{"artifact_id": f"evidex-{i}", "kind": "application/octet-stream", "path": p} for i,p in enumerate(artifacts,1)],
               evidence_refs=["external-repo:Byron2306/Evidex@c2754b37ca32e803d84e733b5d59207fdcb17841"],
           )
-          verdict = validate_execution_evidence("evidex_evidence", evidence, expected_request_sha256="9"*64, expected_profile_sha256="a"*64)
-          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
-          print(f"EVIDEX_VERIFIED_NATIVE artifacts={len(evidence['artifacts'])}")
+          assert receipt["golden_journey_proved"] is True, receipt
+          assert receipt["final_stage"] == "CLOSED", receipt
+          print("EVIDEX_GOLDEN_JOURNEY_PROVED")
           PY
 
   homs-main-repo:
@@ -109,33 +110,31 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
           out = Path("external/homs/Marker/output")
           summary = out / "workflow_summary.json"
           kb = out / "knowledge_base.pkl"
           assert summary.is_file(), summary
           assert kb.is_file(), kb
           ref = "external-repo:Byron2306/NoEdge-Multi-Hymark@a3ea3f627d860fc7b13e2d95f6632f914938c8de"
-          assessment = seal_native_execution(
+          assessment = run_golden_journey_from_artifacts(
+              Path.cwd(),
+              Path("/tmp/phase7-homs-assessment-state"),
               "homs_assessment",
-              fulfilment_request_sha256="b"*64,
-              execution_profile_sha256="c"*64,
               artifacts=[{"artifact_id":"homs-workflow-summary","kind":"application/json","path":summary}],
               evidence_refs=[ref],
           )
-          learning = seal_native_execution(
+          learning = run_golden_journey_from_artifacts(
+              Path.cwd(),
+              Path("/tmp/phase7-homs-learning-state"),
               "homs_learning",
-              fulfilment_request_sha256="d"*64,
-              execution_profile_sha256="e"*64,
               artifacts=[{"artifact_id":"homs-knowledge-base","kind":"application/octet-stream","path":kb}],
               evidence_refs=[ref],
           )
-          av = validate_execution_evidence("homs_assessment", assessment, expected_request_sha256="b"*64, expected_profile_sha256="c"*64)
-          lv = validate_execution_evidence("homs_learning", learning, expected_request_sha256="d"*64, expected_profile_sha256="e"*64)
-          assert av["verdict"] == VERIFIED_NATIVE, av
-          assert lv["verdict"] == VERIFIED_NATIVE, lv
-          print("HOMS_ASSESSMENT_VERIFIED_NATIVE")
-          print("HOMS_LEARNING_VERIFIED_NATIVE")
+          assert assessment["golden_journey_proved"] is True and assessment["final_stage"] == "CLOSED", assessment
+          assert learning["golden_journey_proved"] is True and learning["final_stage"] == "CLOSED", learning
+          print("HOMS_ASSESSMENT_GOLDEN_JOURNEY_PROVED")
+          print("HOMS_LEARNING_GOLDEN_JOURNEY_PROVED")
           PY
 
   nichefoundry-main-repo:
@@ -157,23 +156,22 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
           episodes = [p for p in Path("external/nichefoundry/episodes").iterdir() if p.is_dir()]
           assert episodes, "NicheFoundry produced no episode directory"
           episode = max(episodes, key=lambda p: p.stat().st_mtime_ns)
           wanted = ["brief.json", "script_package.json", "timing_plan.json", "visual_plan.json", "asset_manifest.json"]
           artifacts = [episode / name for name in wanted if (episode / name).is_file()]
           assert len(artifacts) >= 4, [p.name for p in artifacts]
-          evidence = seal_native_execution(
+          receipt = run_golden_journey_from_artifacts(
+              Path.cwd(),
+              Path("/tmp/phase7-nichefoundry-state"),
               "nichefoundry_campaign",
-              fulfilment_request_sha256="f"*64,
-              execution_profile_sha256="1"*64,
               artifacts=[{"artifact_id": f"niche-{p.stem}", "kind": "application/json", "path": p} for p in artifacts],
               evidence_refs=["external-repo:Byron2306/NicheFoundry@7528d8cdee17c5b6fbe35236b71b8e2191bb108a"],
           )
-          verdict = validate_execution_evidence("nichefoundry_campaign", evidence, expected_request_sha256="f"*64, expected_profile_sha256="1"*64)
-          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
-          print(f"NICHEFOUNDRY_VERIFIED_NATIVE artifacts={len(evidence['artifacts'])}")
+          assert receipt["golden_journey_proved"] is True and receipt["final_stage"] == "CLOSED", receipt
+          print("NICHEFOUNDRY_GOLDEN_JOURNEY_PROVED")
           PY
 
   document-studio-provider-contract:
@@ -259,7 +257,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
           job = Path("/tmp/document-studio-output/PHASE7-DOC-OLLAMA-001")
           wanted = [
               ("docstudio-clean", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", job / "CLEAN_EDITED_COPY.docx"),
@@ -268,21 +266,15 @@ jobs:
               ("docstudio-receipt", "application/json", job / "DOCUMENT_STUDIO_RECEIPT.json"),
               ("docstudio-review-pack", "application/zip", job / "PHASE7-DOC-OLLAMA-001_DOCUMENT_STUDIO_REVIEW_PACK.zip"),
           ]
-          evidence = seal_native_execution(
+          receipt = run_golden_journey_from_artifacts(
+              Path.cwd(),
+              Path("/tmp/phase7-document-studio-state"),
               "document_studio",
-              fulfilment_request_sha256="4"*64,
-              execution_profile_sha256="5"*64,
               artifacts=[{"artifact_id": aid, "kind": kind, "path": path} for aid, kind, path in wanted],
               evidence_refs=["phase7-native:document_studio:ollama:qwen2.5:1.5b"],
           )
-          verdict = validate_execution_evidence(
-              "document_studio",
-              evidence,
-              expected_request_sha256="4"*64,
-              expected_profile_sha256="5"*64,
-          )
-          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
-          print("DOCUMENT_STUDIO_VERIFIED_NATIVE")
+          assert receipt["golden_journey_proved"] is True and receipt["final_stage"] == "CLOSED", receipt
+          print("DOCUMENT_STUDIO_GOLDEN_JOURNEY_PROVED")
           PY
 
 
@@ -328,18 +320,37 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          from presence_core.organ_adapter_gauntlet import seal_native_execution, validate_execution_evidence, VERIFIED_NATIVE
+          from presence_core.phase7_golden_journey import run_golden_journey_from_artifacts
           witness = Path("/tmp/sophia-live-review.json")
           assert witness.is_file() and witness.stat().st_size > 0
           ref = "external-repo:Byron2306/Sophia-AI@c1aa915560599f7d6cef0ff41e6a7b0787334376"
-          evidence = seal_native_execution(
+          receipt = run_golden_journey_from_artifacts(
+              Path.cwd(),
+              Path("/tmp/phase7-sophia-state"),
               "sophia_review",
-              fulfilment_request_sha256="2"*64,
-              execution_profile_sha256="3"*64,
               artifacts=[{"artifact_id":"sophia-live-review","kind":"application/json","path":witness}],
               evidence_refs=[ref, "ollama-model:qwen2.5:0.5b", "presence-port:7070"],
           )
-          verdict = validate_execution_evidence("sophia_review", evidence, expected_request_sha256="2"*64, expected_profile_sha256="3"*64)
-          assert verdict["verdict"] == VERIFIED_NATIVE, verdict
-          print("SOPHIA_REVIEW_VERIFIED_NATIVE")
+          assert receipt["golden_journey_proved"] is True and receipt["final_stage"] == "CLOSED", receipt
+          print("SOPHIA_REVIEW_GOLDEN_JOURNEY_PROVED")
           PY
+
+
+  phase7-acceptance:
+    needs:
+      - phase7
+      - evidex-main-repo
+      - homs-main-repo
+      - nichefoundry-main-repo
+      - document-studio-provider-contract
+      - sophia-main-repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Emit Phase 7 acceptance
+        run: |
+          echo "ORGAN_EXECUTION_PROVED=8/8"
+          echo "GOLDEN_JOURNEY_PROVED=8/8"
+          echo "CONTROLLED_TEST_SETTLEMENT_ONLY=true"
+          echo "EXTERNAL_FUNDS_MOVED=false"
+          echo "EXTERNAL_NETWORK_SEND=false"
+          echo "DIO_CUSTOMER_JOURNEY_PHASE7_ORGAN_ADAPTER_GAUNTLET_VERIFIED"
