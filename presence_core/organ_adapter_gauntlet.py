@@ -381,6 +381,28 @@ def execute_verified_family(
                 **artifact,
                 "file_name": file_name,
                 "mime_type": mime_type,
+                "purpose": str(artifact.get("purpose") or "primary_customer_output"),
+                "customer_visibility": str(artifact.get("customer_visibility") or "VISIBLE"),
+                "provenance": deepcopy(
+                    artifact.get("provenance")
+                    or {
+                        "organ_family": family_id,
+                        "adapter_id": binding["adapter_id"],
+                        "adapter_version": binding["adapter_version"],
+                        "evidence_refs": list(evidence.get("evidence_refs") or []),
+                    }
+                ),
+                "release_conditions": list(
+                    artifact.get("release_conditions")
+                    or ["exact_manifest_human_approval", "one_use_release_authority"]
+                ),
+                "source_lineage": list(
+                    artifact.get("source_lineage")
+                    or [
+                        f"fulfilment-request:{request_hash}",
+                        f"execution-profile:{profile_hash}",
+                    ]
+                ),
                 "release_state": "HELD",
                 "release_authority": False,
                 "external_send_authority": False,
