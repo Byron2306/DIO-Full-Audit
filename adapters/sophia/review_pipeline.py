@@ -342,9 +342,23 @@ def reviewer_commentary(
             request.get("gemini_review_approved", False),
         )
     )
-    provider = canonical_llm_provider(
-        request.get("reasoned_provider") or "ollama"
-    )
+    requested_provider = request.get("reasoned_provider") or "ollama"
+    try:
+        provider = canonical_llm_provider(requested_provider)
+    except ValueError:
+        return {
+            "status": "provider_refused",
+            "source": "phase9_sovereign_runtime",
+            "encounter_id": None,
+            "provider": str(requested_provider),
+            "model": None,
+            "remote_processing": False,
+            "commentary": (
+                "Phase 9 permits local Ollama reasoned review only. "
+                "The requested remote/cloud provider was refused before transmission. "
+                "Human review remains required."
+            ),
+        }
     model = str(
         request.get("reasoned_model")
         or request.get("ollama_model")
