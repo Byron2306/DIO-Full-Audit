@@ -200,7 +200,7 @@ def test_telegram_poller_refuses_hidden_webhook_without_explicit_cutover(
             b"{}",
         ),
     ):
-        with pytest.raises(TelegramPollError, match="--drop-webhook"):
+        with pytest.raises(telegram_poll.TelegramPollError, match="--drop-webhook"):
             poller.ensure_polling_mode(remove_webhook=False)
 
 

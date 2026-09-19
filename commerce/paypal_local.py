@@ -439,8 +439,13 @@ def reconcile_local_paypal_order(
         and provider_status == "APPROVED"
         and capture_approved
     ):
-        provider_order = client.capture_order(provider_order_id)
+        # Capture is an external mutation. Its response is not assumed to
+        # contain the same complete purchase-unit identity projection as a
+        # subsequent GET order response. Once the mutation returns, re-read
+        # authoritative provider truth before deriving local settlement state.
+        client.capture_order(provider_order_id)
         capture_attempted = True
+        provider_order = client.get_order(provider_order_id)
         verify_provider_order(local, provider_order)
         provider_status = str(provider_order.get("status") or "").upper()
         capture = completed_capture(provider_order)

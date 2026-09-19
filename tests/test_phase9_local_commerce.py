@@ -259,3 +259,103 @@ def test_completed_capture_helper_does_not_accept_noncompleted_capture() -> None
         }]
     }
     assert completed_capture(provider) is None
+
+def test_capture_rereads_provider_truth_after_remote_mutation(tmp_path) -> None:
+    """A sparse capture response must not be treated as settlement truth.
+
+    PayPal may accept the external capture while returning a representation
+    that is unsuitable for DIO identity verification. DIO must re-read the
+    order from the provider before deriving local paid state.
+    """
+    store = LocalCommerceStore(
+        tmp_path / "orders",
+        tmp_path / "receipts",
+    )
+    store.register(
+        order_id="ORDER-REMOTE-SUCCESS",
+        product_code="TEST",
+        amount_minor=100,
+        currency="USD",
+    )
+    local = store.load("ORDER-REMOTE-SUCCESS")
+    local["provider_order_id"] = "PAYPAL-1"
+    local["payment_state"] = "approved_awaiting_capture"
+    store.save(local)
+
+    approved = {
+        "id": "PAYPAL-1",
+        "status": "APPROVED",
+        "purchase_units": [{
+            "invoice_id": "ORDER-REMOTE-SUCCESS",
+            "custom_id": "ORDER-REMOTE-SUCCESS",
+            "amount": {"currency_code": "USD", "value": "1.00"},
+        }],
+    }
+
+    completed = {
+        "id": "PAYPAL-1",
+        "status": "COMPLETED",
+        "purchase_units": [{
+            "invoice_id": "ORDER-REMOTE-SUCCESS",
+            "custom_id": "ORDER-REMOTE-SUCCESS",
+            "amount": {"currency_code": "USD", "value": "1.00"},
+            "payments": {
+                "captures": [{
+                    "id": "CAPTURE-1",
+                    "status": "COMPLETED",
+                    "amount": {"currency_code": "USD", "value": "1.00"},
+                }]
+            },
+        }],
+    }
+
+    capture_detail = {
+        "id": "CAPTURE-1",
+        "status": "COMPLETED",
+        "amount": {"currency_code": "USD", "value": "1.00"},
+    }
+
+    class RemoteSuccessClient:
+        def __init__(self):
+            self.get_calls = 0
+            self.capture_calls = 0
+
+        def get_order(self, provider_order_id):
+            self.get_calls += 1
+            return approved if self.get_calls == 1 else completed
+
+        def capture_order(self, provider_order_id):
+            self.capture_calls += 1
+            # Deliberately sparse. This models the live provider response
+            # that previously caused post-mutation identity verification
+            # to fail despite PayPal completing the capture.
+            return {
+                "id": "PAYPAL-1",
+                "status": "COMPLETED",
+                "purchase_units": [{}],
+            }
+
+        def get_capture(self, capture_id):
+            return capture_detail
+
+    client = RemoteSuccessClient()
+
+    result = reconcile_local_paypal_order(
+        store,
+        client,
+        "ORDER-REMOTE-SUCCESS",
+        capture_approved=True,
+    )
+
+    saved = store.load("ORDER-REMOTE-SUCCESS")
+
+    assert client.capture_calls == 1
+    assert client.get_calls == 2
+    assert result["capture_attempted"] is True
+    assert result["provider_status"] == "COMPLETED"
+    assert result["provider_capture_status"] == "COMPLETED"
+    assert result["payment_state"] == "paid"
+    assert saved["payment_state"] == "paid"
+    assert saved["provider_capture_id"] == "CAPTURE-1"
+    assert saved["fulfilment_released"] is False
+    assert saved["authority_created"] is False
