@@ -222,22 +222,21 @@ def test_web_voice_transcription_replaces_transport_audio_before_signing(
                 "dio.vesper.voice_transcription.v1",
             "text":
                 "What would HOMS Assess cost for 80 students?",
-            "provider": "hf-inference",
-            "model":
-                "openai/whisper-large-v3-turbo",
+            "provider": "faster-whisper-local",
+            "model": "base.en",
             "audio_sha256": "b" * 64,
             "audio_bytes": 19,
             "mime_type": "audio/webm",
             "truncated": False,
             "authority_created": False,
-            "external_processing": True,
+            "external_processing": False,
             "execution_authority_created": False,
             "send_authority_created": False,
         }
 
     monkeypatch.setattr(
         module,
-        "transcribe_voice_with_hf",
+        "transcribe_voice_with_local_whisper",
         fake_transcribe,
     )
 
@@ -1142,9 +1141,7 @@ def test_public_telegram_oversize_attachment_is_refused(
     )
 
 
-def test_voice_transcription_prefers_hf_and_skips_local(
-    monkeypatch,
-):
+def test_voice_transcription_uses_local_whisper_only(monkeypatch):
     module = load_module()
 
     attachment = {
@@ -1154,40 +1151,48 @@ def test_voice_transcription_prefers_hf_and_skips_local(
     }
 
     expected = {
-        "text": "HF transcript",
-        "provider": "hf-inference",
+        "text": "Local transcript",
+        "provider": "faster-whisper-local",
         "authority_created": False,
+        "external_processing": False,
+        "execution_authority_created": False,
+        "send_authority_created": False,
+        "fallback_used": True,
     }
 
-    monkeypatch.setattr(
-        module,
-        "transcribe_voice_with_hf",
-        lambda value: expected,
-    )
+    calls = []
 
-    def local_must_not_run(value):
-        raise AssertionError(
-            "local fallback ran despite HF success"
-        )
+    def local_transcribe(value):
+        calls.append(value)
+        return expected
 
     monkeypatch.setattr(
         module,
         "transcribe_voice_with_local_whisper",
-        local_must_not_run,
+        local_transcribe,
     )
 
-    result = module.transcribe_voice(
-        attachment
+    def hf_must_not_run(value):
+        raise AssertionError(
+            "Phase 9 sovereign ASR attempted Hugging Face"
+        )
+
+    monkeypatch.setattr(
+        module,
+        "transcribe_voice_with_hf",
+        hf_must_not_run,
     )
+
+    result = module.transcribe_voice(attachment)
 
     assert result is expected
-    assert result["provider"] == "hf-inference"
+    assert calls == [attachment]
+    assert result["provider"] == "faster-whisper-local"
+    assert result["external_processing"] is False
     assert result["authority_created"] is False
 
 
-def test_voice_transcription_falls_back_locally_on_hf_transient(
-    monkeypatch,
-):
+def test_voice_transcription_does_not_probe_hf_before_local(monkeypatch):
     module = load_module()
 
     attachment = {
@@ -1196,15 +1201,18 @@ def test_voice_transcription_falls_back_locally_on_hf_transient(
         "mime_type": "audio/webm",
     }
 
-    def hf_failure(value):
-        raise module.TransientPresenceError(
-            "HF HTTP 500"
+    hf_calls = []
+
+    def forbidden_hf(value):
+        hf_calls.append(value)
+        raise AssertionError(
+            "Hugging Face must not be called in Phase 9"
         )
 
     monkeypatch.setattr(
         module,
         "transcribe_voice_with_hf",
-        hf_failure,
+        forbidden_hf,
     )
 
     monkeypatch.setattr(
@@ -1215,27 +1223,22 @@ def test_voice_transcription_falls_back_locally_on_hf_transient(
             "provider": "faster-whisper-local",
             "authority_created": False,
             "external_processing": False,
+            "execution_authority_created": False,
+            "send_authority_created": False,
             "fallback_used": True,
         },
     )
 
-    result = module.transcribe_voice(
-        attachment
-    )
+    result = module.transcribe_voice(attachment)
 
     assert result["text"] == "Local transcript"
     assert result["provider"] == "faster-whisper-local"
-    assert result["fallback_used"] is True
-    assert result["authority_created"] is False
     assert result["external_processing"] is False
-    assert "HF HTTP 500" in result[
-        "primary_provider_failure"
-    ]
+    assert result["authority_created"] is False
+    assert hf_calls == []
 
 
-def test_voice_transcription_both_fail_remains_transient(
-    monkeypatch,
-):
+def test_voice_transcription_local_failure_remains_transient(monkeypatch):
     module = load_module()
 
     attachment = {
@@ -1244,14 +1247,18 @@ def test_voice_transcription_both_fail_remains_transient(
         "mime_type": "audio/webm",
     }
 
+    hf_calls = []
+
+    def forbidden_hf(value):
+        hf_calls.append(value)
+        raise AssertionError(
+            "Hugging Face must not be called in Phase 9"
+        )
+
     monkeypatch.setattr(
         module,
         "transcribe_voice_with_hf",
-        lambda value: (_ for _ in ()).throw(
-            module.TransientPresenceError(
-                "HF HTTP 500"
-            )
-        ),
+        forbidden_hf,
     )
 
     monkeypatch.setattr(
@@ -1266,8 +1273,8 @@ def test_voice_transcription_both_fail_remains_transient(
 
     with pytest.raises(
         module.TransientPresenceError,
-        match="Voice transcription unavailable",
+        match="local unavailable",
     ):
-        module.transcribe_voice(
-            attachment
-        )
+        module.transcribe_voice(attachment)
+
+    assert hf_calls == []

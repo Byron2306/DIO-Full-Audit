@@ -144,32 +144,80 @@ def test_ollama_draft_rejects_completed_external_action_claim(monkeypatch):
     assert result == fallback
 
 
-def test_cortex_can_fail_over_from_ollama_to_huggingface(monkeypatch):
+def test_cortex_uses_ollama_only_and_falls_back_locally(monkeypatch):
     monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
-    monkeypatch.setenv("DIO_PRESENCE_LLM_PROVIDER", "auto")
-    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
-    monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
-    monkeypatch.setenv("HF_TOKEN", "hf_test_token")
-    monkeypatch.setenv("DIO_PRESENCE_HF_MODEL", "Qwen/Qwen3.5-9B:preferred")
-    calls = []
-
-    def fake_post(url, json, timeout, headers=None):
-        calls.append((url, json, headers))
-        if url.startswith("http://ollama.test"):
-            raise RuntimeError("local model unavailable")
-        return _Response({"choices": [{"message": {"content": "Yes. We can keep this conversational while DIO preserves the verified facts."}}]})
-
-    monkeypatch.setattr(llm.httpx, "post", fake_post)
-
-    result = llm.draft_with_cortex(
-        {"intent": "general_info", "product": None, "confidence": 0.9},
-        "public_capabilities=bounded",
-        "I can explain DIO and help route your request.",
-        recent_turns=[{"role": "user", "text": "Can we just talk this through naturally?"}],
+    monkeypatch.setenv(
+        "DIO_PRESENCE_LLM_PROVIDER",
+        "ollama",
+    )
+    monkeypatch.setenv(
+        "OLLAMA_URL",
+        "http://ollama.test",
+    )
+    monkeypatch.setenv(
+        "OLLAMA_MODEL",
+        "qwen2.5:3b",
     )
 
-    assert result.startswith("Yes. We can keep this conversational")
-    assert calls[0][0] == "http://ollama.test/api/chat"
-    assert calls[1][0] == "https://router.huggingface.co/v1/chat/completions"
-    assert calls[1][1]["model"] == "Qwen/Qwen3.5-9B:preferred"
-    assert calls[1][2]["Authorization"] == "Bearer hf_test_token"
+    # Poison legacy cloud configuration deliberately.
+    # Its presence must never create a runtime failover path.
+    monkeypatch.setenv("HF_TOKEN", "must_not_be_used")
+    monkeypatch.setenv(
+        "DIO_PRESENCE_HF_MODEL",
+        "must_not_be_used",
+    )
+
+    calls = []
+
+    def fake_post(url, json, timeout, **kwargs):
+        calls.append(
+            {
+                "url": url,
+                "headers": kwargs.get("headers"),
+            }
+        )
+
+        if url == "http://ollama.test/api/chat":
+            raise RuntimeError(
+                "local model unavailable"
+            )
+
+        raise AssertionError(
+            f"Unexpected external LLM call: {url}"
+        )
+
+    monkeypatch.setattr(
+        llm.httpx,
+        "post",
+        fake_post,
+    )
+
+    fallback = (
+        "I can explain DIO and help route your request."
+    )
+
+    result = llm.draft_with_cortex(
+        {
+            "intent": "general_info",
+            "product": None,
+            "confidence": 0.9,
+        },
+        "public_capabilities=bounded",
+        fallback,
+        recent_turns=[
+            {
+                "role": "user",
+                "text":
+                    "Can we just talk this through naturally?",
+            }
+        ],
+    )
+
+    assert result == fallback
+
+    assert calls == [
+        {
+            "url": "http://ollama.test/api/chat",
+            "headers": None,
+        }
+    ]
