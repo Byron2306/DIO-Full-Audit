@@ -139,6 +139,85 @@ def bind_lead_conversation(lead_dir: Path, lead_id: str | None, conversation_id:
     write_json(path, lead)
 
 
+def establish_delta_baseline(
+    graph: GraphClient,
+    delta_state_path: Path,
+) -> dict[str, Any]:
+    """Create a fresh Graph cursor without creating mail ingress."""
+    resource = (
+        "/me/mailFolders/inbox/messages/delta"
+        "?$select=id&$top=50"
+    )
+    latest_delta = None
+    observed = 0
+    removed = 0
+    pages = 0
+
+    while resource:
+        page = graph.json("GET", resource)
+        pages += 1
+
+        for message in page.get("value", []):
+            observed += 1
+            if "@removed" in message:
+                removed += 1
+
+        latest_delta = page.get("@odata.deltaLink") or latest_delta
+        resource = page.get("@odata.nextLink")
+
+    if not latest_delta:
+        raise RuntimeError(
+            "GRAPH_BASELINE_REFUSED: no @odata.deltaLink"
+        )
+
+    previous = (
+        read_json(delta_state_path)
+        if delta_state_path.exists()
+        else None
+    )
+
+    archived = None
+    if previous:
+        history = delta_state_path.parent / "history"
+        history.mkdir(parents=True, exist_ok=True)
+
+        digest = hashlib.sha256(
+            json.dumps(previous, sort_keys=True).encode()
+        ).hexdigest()[:16]
+
+        archived = history / f"mail_delta-{digest}.json"
+
+        if not archived.exists():
+            write_json(archived, previous)
+
+    write_json(
+        delta_state_path,
+        {
+            "schema": "dio.graph_delta_state.v1",
+            "updated_at": timestamp(),
+            "delta_link": latest_delta,
+        },
+    )
+
+    return {
+        "schema": "dio.graph_delta_baseline_receipt.v1",
+        "created_at": timestamp(),
+        "pages_observed": pages,
+        "provider_objects_observed": observed,
+        "provider_removed_observed": removed,
+        "ingress_created": 0,
+        "attachments_captured": 0,
+        "mail_received_events_emitted": 0,
+        "previous_state_archived": bool(archived),
+        "previous_state_archive": (
+            str(archived) if archived else None
+        ),
+        "delta_state": str(delta_state_path),
+        "transport_mode": "outbound_delta_poll",
+        "cloudflare_used": False,
+    }
+
+
 def pull_messages(
     graph: GraphClient,
     ingress_dir: Path,
@@ -162,8 +241,48 @@ def pull_messages(
                 removed.append(message.get("id"))
                 continue
             message_id = message["id"]
+
+            # Microsoft Graph delta responses may contain sparse change objects,
+            # particularly for folder transitions. Hydrate by provider ID before
+            # constructing durable ingress when required semantic fields are absent.
+            required_fields = (
+                "subject",
+                "receivedDateTime",
+                "from",
+                "conversationId",
+                "internetMessageId",
+            )
+            if any(message.get(field) is None for field in required_fields):
+                message = graph.json(
+                    "GET",
+                    (
+                        f"/me/messages/{message_id}"
+                        "?$select=id,conversationId,internetMessageId,subject,"
+                        "from,toRecipients,receivedDateTime,isRead,"
+                        "hasAttachments,bodyPreview,body"
+                    ),
+                )
+
+                if message.get("id") != message_id:
+                    raise RuntimeError(
+                        "GRAPH_MESSAGE_HYDRATION_REFUSED: "
+                        "provider message identity changed during hydration"
+                    )
+
+                missing = [
+                    field
+                    for field in required_fields
+                    if message.get(field) is None
+                ]
+                if missing:
+                    raise RuntimeError(
+                        "GRAPH_MESSAGE_HYDRATION_REFUSED: "
+                        f"required fields unavailable for {message_id}: "
+                        + ",".join(missing)
+                    )
+
             record_id = ingress_id(message_id)
-            sender = message.get("from", {}).get("emailAddress", {})
+            sender = (message.get("from") or {}).get("emailAddress") or {}
             record = {
                 "schema": "dio.mail_ingress.v1",
                 "mail_ingress_id": record_id,
@@ -374,6 +493,11 @@ def main() -> int:
     pull.add_argument("--delta-state", type=Path, default=DEFAULT_DELTA_STATE)
     pull.add_argument("--watch", action="store_true")
     pull.add_argument("--interval", type=float, default=15.0)
+    pull.add_argument(
+        "--baseline-only",
+        action="store_true",
+        help="Establish delta cursor without creating mail ingress.",
+    )
     draft = subparsers.add_parser("draft")
     draft.add_argument("mail_intent_id")
     draft.add_argument("--intent-dir", type=Path, default=DEFAULT_INTENT_DIR)
@@ -387,6 +511,18 @@ def main() -> int:
     graph = GraphClient(load_config(args.config.resolve()))
     graph.acquire_token(interactive=args.device_login)
     if args.command == "pull":
+        if args.baseline_only:
+            if args.watch:
+                parser.error(
+                    "--baseline-only cannot be combined with --watch"
+                )
+            receipt = establish_delta_baseline(
+                graph,
+                args.delta_state.resolve(),
+            )
+            print(json.dumps(receipt, indent=2))
+            return 0
+
         while True:
             receipt = pull_messages(
                 graph,
