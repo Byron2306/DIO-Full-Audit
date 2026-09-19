@@ -78,3 +78,36 @@ def test_explicit_state_root_can_isolate_tests_from_host_environment(
         state_base(tmp_path, configured_root=isolated)
         == isolated.resolve()
     )
+
+
+def test_presence_config_can_bind_external_event_log(monkeypatch, tmp_path: Path):
+    event_log = tmp_path / "durable" / "telemetry" / "dio_events.jsonl"
+    monkeypatch.setenv("DIO_EVENT_LOG", str(event_log))
+
+    cfg = load_config()
+
+    assert Path(cfg["event_log"]) == event_log.resolve()
+
+
+def test_presence_config_event_log_defaults_to_repo_local(monkeypatch):
+    monkeypatch.delenv("DIO_EVENT_LOG", raising=False)
+
+    cfg = load_config()
+
+    assert cfg["event_log"] == "telemetry/dio_events.jsonl"
+
+
+def test_state_and_event_log_can_share_external_runtime_root(
+    monkeypatch,
+    tmp_path: Path,
+):
+    state = tmp_path / "durable"
+    event_log = state / "telemetry" / "dio_events.jsonl"
+
+    monkeypatch.setenv("DIO_STATE_ROOT", str(state))
+    monkeypatch.setenv("DIO_EVENT_LOG", str(event_log))
+
+    cfg = load_config()
+
+    assert Path(cfg["state_root"]) == state.resolve() / "presence"
+    assert Path(cfg["event_log"]) == event_log.resolve()

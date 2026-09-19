@@ -496,6 +496,7 @@ def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],
         }
     receipt=register_communication(
         dio_root=dio_root,
+        state_root=state_path('lingua', dio_root=dio_root),
         owner='vesper',
         artifact_type=artifact,
         channel=str(envelope.get('channel') or 'conversation'),
@@ -875,6 +876,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     persona=assign_persona(
         root=dio_root,
         conversation_id=correlation,
+        state_root=state_path('lingua', dio_root=dio_root),
         role=role,
         channel=str(envelope.get('channel') or 'conversation'),
         audience=str(metadata.get('audience') or ('operator' if role=='operator' else 'public')),

@@ -50,7 +50,7 @@ def _communication_object_id(*, owner: str, channel: str, correlation_id: str | 
     anchor = "|".join([str(owner or "vesper"), str(channel or "conversation"), str(correlation_id or ""), str(source_message_id or ""), subject, body])
     return f"{_safe_id(owner or 'VESPER').upper()}-COMM-{_digest(anchor)[:20].upper()}"
 
-def register_communication(*, dio_root: Path, owner: str, artifact_type: str, channel: str, body: str, subject: str = "", audience: str = "public", privacy_domain: str = "public_communication", correlation_id: str | None = None, source_message_id: str | None = None, source_language: str = "English", target_language: str | None = None, purpose: str = "response", authority_boundary: str = "No external authority is created by linguistic rendering.", product_context: str | None = None, interaction_context: dict[str,Any] | None = None, persona_context: dict[str,Any] | None = None, source_version: str = "1.0.0") -> dict[str, Any]:
+def register_communication(*, dio_root: Path, state_root: Path | None = None, owner: str, artifact_type: str, channel: str, body: str, subject: str = "", audience: str = "public", privacy_domain: str = "public_communication", correlation_id: str | None = None, source_message_id: str | None = None, source_language: str = "English", target_language: str | None = None, purpose: str = "response", authority_boundary: str = "No external authority is created by linguistic rendering.", product_context: str | None = None, interaction_context: dict[str,Any] | None = None, persona_context: dict[str,Any] | None = None, source_version: str = "1.0.0") -> dict[str, Any]:
     """Register shared communication meaning. This never sends, publishes, approves, spends or creates authority."""
     body = str(body or "").strip(); subject = str(subject or "").strip()
     if not body and not subject: raise ValueError("communication requires subject or body")
@@ -64,7 +64,7 @@ def register_communication(*, dio_root: Path, owner: str, artifact_type: str, ch
         origin["interaction_context"] = interaction_context
     if persona_context:
         origin["persona_context"] = persona_context
-    semantic, receipt = register_product_source(state_root=Path(dio_root) / "state" / "lingua", object_id=object_id, source_version=source_version, source_language=source_language, source_rows=rows, origin=origin, domain="DIO governed communication")
+    semantic, receipt = register_product_source(state_root=(Path(state_root) if state_root is not None else Path(dio_root) / "state" / "lingua"), object_id=object_id, source_version=source_version, source_language=source_language, source_rows=rows, origin=origin, domain="DIO governed communication")
     lane = (semantic.get("translations") or {}).get(target) if target != source_language else None
     selected_text, selected_subject, translation_state = body, subject, "source_language"
     if target != source_language:

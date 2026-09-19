@@ -75,6 +75,7 @@ def assign_persona(
     *,
     root: Path,
     conversation_id: str,
+    state_root: Path | None = None,
     role: str,
     channel: str,
     audience: str = "public",
@@ -133,7 +134,8 @@ def assign_persona(
         ),
     }
     if persist:
-        target = Path(root) / "state" / "lingua" / "persona_lab" / "assignments" / f"{conversation_id}.json"
+        lingua_root = Path(state_root) if state_root is not None else Path(root) / "state" / "lingua"
+        target = lingua_root / "persona_lab" / "assignments" / f"{conversation_id}.json"
         target.parent.mkdir(parents=True, exist_ok=True)
         if target.is_file():
             existing = json.loads(target.read_text(encoding="utf-8"))
@@ -163,6 +165,7 @@ def record_outcome(
     *,
     root: Path,
     assignment: dict[str, Any],
+    state_root: Path | None = None,
     metrics: dict[str, Any],
     source: str,
     evidence_ref: str | None = None,
@@ -202,16 +205,21 @@ def record_outcome(
         "automatic_promotion": False,
         "human_approval_required": True,
     }
-    target = Path(root) / "state" / "lingua" / "persona_lab" / "outcomes" / f"{event_id}.json"
+    lingua_root = Path(state_root) if state_root is not None else Path(root) / "state" / "lingua"
+    target = lingua_root / "persona_lab" / "outcomes" / f"{event_id}.json"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(receipt, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     receipt["receipt_path"] = str(target)
     return receipt
 
 
-def evaluate_persona_lab(root: Path) -> dict[str, Any]:
+def evaluate_persona_lab(
+    root: Path,
+    state_root: Path | None = None,
+) -> dict[str, Any]:
     lab = load_persona_lab(root)
-    outcomes_root = Path(root) / "state" / "lingua" / "persona_lab" / "outcomes"
+    lingua_root = Path(state_root) if state_root is not None else Path(root) / "state" / "lingua"
+    outcomes_root = lingua_root / "persona_lab" / "outcomes"
     by_cell: dict[str, dict[str, Any]] = {}
     for path in sorted(outcomes_root.glob("*.json")) if outcomes_root.exists() else []:
         row = json.loads(path.read_text(encoding="utf-8"))
