@@ -4,6 +4,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from .config import state_base
 
 def now() -> str: return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 def write_json(path: Path, payload: Any) -> None:
@@ -107,7 +108,7 @@ def _summarise_jobs(dio_root: Path) -> dict[str, Any]:
     delivery_ready: list[dict[str, Any]] = []
     total = 0
     for root_name in roots:
-        for path in _iter_json_files(dio_root / "state" / root_name, "*/JOB.json"):
+        for path in _iter_json_files(state_base(dio_root) / root_name, "*/JOB.json"):
             try:
                 job = read_json(path)
             except Exception:
@@ -142,7 +143,7 @@ def _summarise_mail(dio_root: Path) -> dict[str, Any]:
     pending: list[dict[str, Any]] = []
     by_state: Counter[str] = Counter()
     by_purpose: Counter[str] = Counter()
-    for path in _iter_json_files(dio_root / "state" / "mail_intents"):
+    for path in _iter_json_files(state_base(dio_root) / "mail_intents"):
         try:
             mail = read_json(path)
         except Exception:
@@ -174,7 +175,7 @@ def _summarise_mail(dio_root: Path) -> dict[str, Any]:
     }
 
 def _summarise_commerce(dio_root: Path) -> dict[str, Any]:
-    order_paths = _iter_json_files(dio_root / "state" / "commerce" / "orders") + _iter_json_files(dio_root / "state" / "commerce" / "live" / "orders")
+    order_paths = _iter_json_files(state_base(dio_root) / "commerce" / "orders") + _iter_json_files(state_base(dio_root) / "commerce" / "live" / "orders")
     seen: set[str] = set()
     orders: list[dict[str, Any]] = []
     by_state: Counter[str] = Counter()
@@ -230,7 +231,7 @@ def _market_scalar(cur: sqlite3.Cursor, sql: str) -> int:
         return 0
 
 def _summarise_market(dio_root: Path) -> dict[str, Any]:
-    db = dio_root / "state" / "market_command" / "market_command.sqlite"
+    db = state_base(dio_root) / "market_command" / "market_command.sqlite"
     if not db.exists():
         return {"available": False, "campaigns": 0, "active": 0, "awaiting_approval": 0, "content_awaiting_approval": 0, "metrics": {}}
     conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
@@ -305,8 +306,8 @@ def operator_summary(dio_root: Path, presence_root: Path) -> dict[str,Any]:
         "mail": mail,
         "commerce": commerce,
         "market": market,
-        "leads": {"total": _count_state_files(dio_root / "state" / "leads")},
-        "incidents": {"open_or_recorded": _count_state_files(dio_root / "state" / "incidents")},
+        "leads": {"total": _count_state_files(state_base(dio_root) / "leads")},
+        "incidents": {"open_or_recorded": _count_state_files(state_base(dio_root) / "incidents")},
         "needs_you": {"open": len(needs), "top": needs[:8]},
         "top_actions": top_actions[:12],
         "authority": {
@@ -318,9 +319,9 @@ def operator_summary(dio_root: Path, presence_root: Path) -> dict[str,Any]:
             "can_process_attachments": False,
         },
         "legacy_counts": {
-            "product_jobs": count_json_dirs(dio_root / "state" / "product_jobs"),
-            "sophia_jobs": count_json_dirs(dio_root / "state" / "sophia_jobs"),
-            "vamp_jobs": count_json_dirs(dio_root / "state" / "vamp_jobs"),
+            "product_jobs": count_json_dirs(state_base(dio_root) / "product_jobs"),
+            "sophia_jobs": count_json_dirs(state_base(dio_root) / "sophia_jobs"),
+            "vamp_jobs": count_json_dirs(state_base(dio_root) / "vamp_jobs"),
             "pending_mail": mail["pending"],
             "verified_paid_orders": commerce["paid"],
             "needs_you": len(needs),

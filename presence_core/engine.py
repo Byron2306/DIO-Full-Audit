@@ -2,6 +2,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from .config import state_path
 from typing import Any
 from adapters.lingua.communicator import register_communication, requested_language
 from adapters.lingua.conversation_crystals import resolve_conversation_crystal
@@ -522,7 +523,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     recent_turns=load_recent_conversation_turns(presence_root,correlation)
     metadata=envelope.get('metadata') or {}
     interaction=observe_interaction(
-        state_root=dio_root/'state'/'lingua',
+        state_root=state_path('lingua', dio_root=dio_root),
         conversation_id=correlation,
         text=text,
         channel=str(envelope.get('channel') or 'conversation'),

@@ -6,7 +6,7 @@ from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
 import uvicorn
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
-from presence_core.config import load_config
+from presence_core.config import load_config, state_path
 from presence_core.authority import (
     bind_external_action_receipt,
     telegram_reply_switch_enabled,
@@ -260,7 +260,7 @@ async def bind_identity(request:Request,authorization:str|None=Header(default=No
     if not conversation_id or not isinstance(order_ids,list) or not method: raise HTTPException(422,'conversation_id, order_ids[], and verification_method are required.')
     conv=ROOT/CFG.get('state_root','state/presence')/'conversations'/f'{conversation_id}.json'
     if not conv.exists(): raise HTTPException(404,'Conversation not found.')
-    missing=[oid for oid in order_ids if not (ROOT/'state'/'commerce'/'orders'/f'{safe(str(oid))}.json').exists()]
+    missing=[oid for oid in order_ids if not state_path('commerce', 'orders', f'{safe(str(oid))}.json', dio_root=ROOT).exists()]
     if missing: raise HTTPException(422,f'Order ids not found in local commerce state: {missing}')
     binding=create_status_binding(ROOT/CFG.get('state_root','state/presence'),conversation_id,[str(x) for x in order_ids],method,'operator_api')
     return JSONResponse(binding,headers={'Cache-Control':'no-store'})
