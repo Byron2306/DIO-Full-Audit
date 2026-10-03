@@ -29,6 +29,49 @@ class HttpResponse:
 Transport = Callable[[str, str, dict[str, str], dict[str, Any] | None, Any | None], HttpResponse]
 
 
+SENSITIVE_QUERY_KEYS = {
+    "access_token",
+    "api_key",
+    "key",
+    "token",
+    "refresh_token",
+    "client_secret",
+    "app_secret",
+    "authorization",
+}
+
+
+def redact_url_secrets(url: str) -> str:
+    """Return a log-safe URL with sensitive query values redacted."""
+    try:
+        parsed = urllib.parse.urlsplit(url)
+        pairs = urllib.parse.parse_qsl(
+            parsed.query,
+            keep_blank_values=True,
+        )
+        safe_pairs = [
+            (
+                key,
+                "<REDACTED>"
+                if key.casefold() in SENSITIVE_QUERY_KEYS
+                else value,
+            )
+            for key, value in pairs
+        ]
+        safe_query = urllib.parse.urlencode(safe_pairs, doseq=True)
+        return urllib.parse.urlunsplit(
+            (
+                parsed.scheme,
+                parsed.netloc,
+                parsed.path,
+                safe_query,
+                parsed.fragment,
+            )
+        )
+    except Exception:
+        return "<URL_REDACTED>"
+
+
 def stdlib_transport(method: str, url: str, headers: dict[str, str], params: dict[str, Any] | None = None, body: Any | None = None) -> HttpResponse:
     method = method.upper()
     if method not in {"GET", "POST"}:
@@ -54,9 +97,9 @@ def stdlib_transport(method: str, url: str, headers: dict[str, str], params: dic
             payload = json.loads(raw)
         except json.JSONDecodeError:
             payload = {"raw": raw}
-        raise AdapterError(f"HTTP {exc.code} from {url}: {payload}") from exc
+        raise AdapterError(f"HTTP {exc.code} from {redact_url_secrets(url)}: {payload}") from exc
     except urllib.error.URLError as exc:
-        raise AdapterError(f"Network error for {url}: {exc.reason}") from exc
+        raise AdapterError(f"Network error for {redact_url_secrets(url)}: {exc.reason}") from exc
 
 
 def env_required(*names: str) -> dict[str, str]:

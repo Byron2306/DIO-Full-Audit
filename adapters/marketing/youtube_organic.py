@@ -34,17 +34,44 @@ def _value(name: str) -> str:
 def readiness() -> dict[str, Any]:
     required = ["YOUTUBE_API_KEY", "YOUTUBE_CHANNEL_ID"]
     missing = [name for name in required if not _value(name)]
-    oauth = all(_value(name) for name in ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN"])
+    oauth_configured = all(
+        _value(name)
+        for name in [
+            "YOUTUBE_CLIENT_ID",
+            "YOUTUBE_CLIENT_SECRET",
+            "YOUTUBE_REFRESH_TOKEN",
+        ]
+    )
+
+    # Credential presence does not prove the OAuth refresh flow works.
+    # Upload transport must remain unverified until an explicit live
+    # authentication/upload check succeeds.
+    publish_transport_ready = False
+
     return {
         "channel_id": CHANNEL_ID,
         "state": "ready_read_only" if not missing else "credentials_required",
         "required": required,
         "missing": missing,
         "read_authority": "public_video_statistics",
-        "write_authority": "nichefoundry_operator_approval" if oauth else "manual_publish_only",
-        "publish_transport_ready": oauth,
+        "write_authority": (
+            "nichefoundry_operator_approval"
+            if oauth_configured
+            else "manual_publish_only"
+        ),
+        "publish_credentials_configured": oauth_configured,
+        "publish_transport_ready": publish_transport_ready,
+        "publish_auth_state": (
+            "verification_required"
+            if oauth_configured
+            else "credentials_required"
+        ),
         "expected_channel_id": _value("YOUTUBE_CHANNEL_ID"),
-        "detail": "NicheFoundry owns upload transport; Market Command reads video evidence and never bypasses release approval.",
+        "detail": (
+            "Market Command can read public video evidence independently of "
+            "upload OAuth. NicheFoundry upload transport requires explicit "
+            "authentication verification and operator approval."
+        ),
     }
 
 
