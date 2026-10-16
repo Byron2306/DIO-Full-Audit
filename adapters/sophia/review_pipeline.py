@@ -420,6 +420,9 @@ def reviewer_commentary(
             "Distinguish what the manuscript states from your inference and from what remains unknown.",
             "Prioritize argument clarity, method adequacy, evidence/claim fit, analytical coherence, limitations, and reference integrity.",
             "End with a short, ordered set of revisions that leaves all final wording and judgment with the author.",
+            "Constitutional authorship boundary: explicitly state that the human author decides which revisions to accept and retains final authorship and judgment. Do not write replacement submission-ready text.",
+            "Evidence boundary: explicitly identify the limits of the available evidence, distinguish unsupported claims from established findings, and state what remains uncertain or unknown.",
+            "Grounding requirement: include at least one exact supplied paragraph or claim anchor, such as [P1] or [C1], in the Major revisions section. Never invent an anchor.",
             "LOCAL AUDIT DOSSIER:",
             json.dumps(dossier, ensure_ascii=True),
         ])
@@ -463,6 +466,34 @@ def reviewer_commentary(
         review_timeout = float(request.get("reasoned_timeout_seconds") or 900.0)
         result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=review_timeout)
         attempt_encounters = [result.get("encounter_id")]
+        attempt_diagnostics = []
+
+        def record_attempt(response, commentary, validation_result):
+            conformity = response.get("article_conformity") or {}
+            mandos = response.get("mandos_judgment") or {}
+            articles = conformity.get("articles") or {}
+            attempt_diagnostics.append({
+                "attempt": len(attempt_diagnostics) + 1,
+                "encounter_id": response.get("encounter_id"),
+                "candidate_sha256": hashlib.sha256(
+                    commentary.encode("utf-8")
+                ).hexdigest(),
+                "provider": response.get("reasoned_provider"),
+                "provider_status": response.get("reasoned_provider_status"),
+                "source": response.get("source"),
+                "repair_applied": bool(response.get("repair_applied")),
+                "repair_steps": response.get("repair_steps") or [],
+                "mandos_passed": bool(mandos.get("passed")),
+                "mandos_failed_checks": mandos.get("failed_checks") or [],
+                "genesis_summary": conformity.get("summary") or {},
+                "genesis_failed_articles": {
+                    article_id: item
+                    for article_id, item in articles.items()
+                    if not item.get("passed")
+                },
+                "validation": validation_result,
+            })
+
         candidate = str(result.get("response") or "").strip()
         valid_anchors = {row["span_id"] for row in spans} | {
             f"C{index}" for index in range(1, len(claim_maps) + 1)
@@ -484,6 +515,7 @@ def reviewer_commentary(
             allowed_dois,
             provider,
         )
+        record_attempt(result, candidate, validation)
         failed_checks = sorted(key for key, passed in validation["checks"].items() if not passed)
         if failed_checks == ["document_anchor_present"]:
             payload["text"] = (
@@ -504,6 +536,7 @@ def reviewer_commentary(
                 allowed_dois,
                 provider,
             )
+            record_attempt(result, candidate, validation)
         if not validation["passed"]:
             return {
                 "status": "rejected",
@@ -517,6 +550,7 @@ def reviewer_commentary(
                 "candidate_sha256": hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
                 "attempt_count": len(attempt_encounters),
                 "attempt_encounters": attempt_encounters,
+                "attempt_diagnostics": attempt_diagnostics,
                 "validation": validation,
                 "commentary": "The reasoned reviewer returned commentary, but the grounded release checks rejected it. Human review remains required.",
             }
@@ -526,6 +560,7 @@ def reviewer_commentary(
             "encounter_id": result.get("encounter_id"),
             "attempt_count": len(attempt_encounters),
             "attempt_encounters": attempt_encounters,
+            "attempt_diagnostics": attempt_diagnostics,
             "provider": result.get("reasoned_provider"),
             "provider_status": result.get("reasoned_provider_status"),
             "model": result.get("model"),
@@ -649,6 +684,36 @@ def markdown_claim_ledger(claim_maps: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
+def bind_sophia_backend(sophia_root: Path) -> None:
+    """Bind authentic Sophia services without replacing DIO's backend."""
+    import backend
+
+    arda_root = (sophia_root / "arda_os").resolve()
+    backend_root = arda_root / "backend"
+    services = backend_root / "services"
+
+    required = (
+        "academic_retrieval",
+        "sophia_academic_claim_tools",
+        "sophia_source_support",
+    )
+
+    missing = [
+        name for name in required
+        if not (services / f"{name}.py").is_file()
+    ]
+    if missing:
+        raise FileNotFoundError(
+            f"REFUSE: missing Sophia services in {services}: {missing}"
+        )
+
+    if str(arda_root) not in sys.path:
+        sys.path.insert(0, str(arda_root))
+
+    if str(backend_root) not in backend.__path__:
+        backend.__path__.append(str(backend_root))
+
+
 def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base_url: str, sophia_root: Path) -> Path:
     job_id = str(request.get("job_id") or "").strip()
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{2,100}", job_id):
@@ -663,7 +728,7 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
     if len(text.split()) < 40:
         raise ValueError("Manuscript has too little readable text for an academic review.")
 
-    sys.path.insert(0, str((sophia_root / "arda_os").resolve()))
+    bind_sophia_backend(sophia_root)
     from backend.services.academic_retrieval import get_academic_retrieval
     from backend.services.sophia_academic_claim_tools import classify_claim_type
     from backend.services.sophia_source_support import citation_check, map_claim_to_sources

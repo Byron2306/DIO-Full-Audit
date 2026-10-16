@@ -96,6 +96,15 @@ def _fresh_projection_music(
         )
         if part
     )
+    path_entries = [
+        str(Path.home() / ".local" / "bin"),
+        str(Path.home() / "bin"),
+        os.environ.get("PATH", ""),
+    ]
+    source_env = {
+        **os.environ,
+        "PATH": os.pathsep.join(entry for entry in path_entries if entry),
+    }
     completed = subprocess.run(
         [
             "node",
@@ -114,29 +123,33 @@ def _fresh_projection_music(
             "openverse",
         ],
         cwd=FOUNDRY,
+        env=source_env,
         capture_output=True,
         text=True,
         timeout=180,
     )
     if completed.returncode != 0:
-        return None
+        detail = (completed.stderr or completed.stdout or "music source command failed").strip()[-2400:]
+        if "No commercially reusable music found." in detail:
+            return None
+        raise RuntimeError(f"NicheFoundry commercial music sourcing failed: {detail}")
 
     receipt_path = cache / "imports" / "music_choices" / "COMMERCIAL_MUSIC_RECEIPT.json"
     attribution = cache / "imports" / "MUSIC_ATTRIBUTION.md"
     if not receipt_path.is_file() or not attribution.is_file():
-        return None
+        raise RuntimeError("NicheFoundry music sourcing completed without its rights receipt and attribution.")
     try:
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"NicheFoundry music rights receipt is unreadable: {receipt_path}") from exc
     selected = receipt.get("selected") or {}
     promoted = str(selected.get("promoted_path") or "").strip()
     music = cache / promoted if promoted else None
     if not music or not music.is_file():
-        return None
+        raise RuntimeError("NicheFoundry music receipt does not reference an existing promoted track.")
     rights = selected.get("rights") or {}
-    if rights.get("passed") is not True and not selected.get("licence_name"):
-        return None
+    if rights.get("passed") is not True:
+        raise RuntimeError("NicheFoundry selected track did not pass the commercial-use rights gate.")
     return {
         **plan,
         "mode": "rights_recorded",

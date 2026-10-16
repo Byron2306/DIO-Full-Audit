@@ -427,6 +427,13 @@ print(json.dumps(payload, ensure_ascii=True))
             "error_type": "PreflightDecodeError",
             "error": completed.stderr.strip() or completed.stdout.strip(),
         }
+    if not payload:
+        payload = {
+            "schema": "dio.evidex.spine_preflight.v1",
+            "state": "REFUSE",
+            "error_type": "PreflightProcessError",
+            "error": completed.stderr.strip() or "Evidex spine preflight exited without a diagnostic.",
+        }
     payload["returncode"] = completed.returncode
     payload["pythonpath"] = env.get("PYTHONPATH", "")
     payload["dio_root"] = env.get("DIO_ROOT")

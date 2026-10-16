@@ -52,21 +52,23 @@ Every Phase 9 `Needs Me` record describes the permitted human action but cannot 
 
 ## GoldenEye surface
 
-The browser surface is `dashboard/goldeneye-portfolio.html`. It consumes only `GET /api/control-deck/portfolio`. The dedicated server rejects POST and non-localhost binding.
+The browser surface is `dashboard/goldeneye-portfolio.html`. It consumes the Phase 9 portfolio at `GET /api/control-deck/portfolio` and the separate commercial projection at `GET /api/commercial-truth`. The dedicated server rejects POST and non-localhost binding.
 
-Generate canonical state:
-
-```bash
-python scripts/run_control_deck_phase9.py --output state/control_deck
-```
-
-Serve it:
+Generate both read-only projections from one matching Phase 9 snapshot:
 
 ```bash
-python scripts/serve_goldeneye_portfolio.py --host 127.0.0.1 --port 8766
+python scripts/refresh_goldeneye_projections.py
 ```
 
-Open `http://127.0.0.1:8766/`.
+The persistent user service is `deploy/systemd/dio-goldeneye-portfolio.service`. Install and start it with:
+
+```bash
+systemctl --user link "$PWD/deploy/systemd/dio-goldeneye-portfolio.service"
+systemctl --user daemon-reload
+systemctl --user enable --now dio-goldeneye-portfolio.service
+```
+
+It serves only on `127.0.0.1:8766`; open `http://127.0.0.1:8766/`. Refresh both snapshots after changing their source registries; the running service reads the refreshed files on the next request.
 
 ## Acceptance
 

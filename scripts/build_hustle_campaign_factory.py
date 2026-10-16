@@ -327,7 +327,21 @@ def upgrade_family(
     scene_paths: list[str] = []
     for filename, message, footer in scene_rows:
         path = assets / filename
-        base.draw_poster(source, base.SIZES["vertical_1080x1920"], product, audience, path, message, footer)
+        base.draw_poster(
+    source,
+    base.SIZES["vertical_1080x1920"],
+    product,
+    audience,
+    path,
+    message=message,
+    footer=footer,
+    visual_grammar=base.build_projection_plan(
+        base.build_semantic_law(product, audience),
+        product,
+        audience,
+        channels,
+    )["surfaces"]["vertical_short"]["visual_grammar"],
+)
         scene_paths.append(str(path.resolve()))
 
     copy_outputs: dict[str, Any] = {}
@@ -377,7 +391,13 @@ def upgrade_family(
             "voice_style": "confident professional operator; urgent only where the buyer problem is genuinely urgent; never hype certainty",
             "on_screen_rule": "one idea per scene; price and bounded scope visible before the CTA",
         },
-        "music": {"path": str(base.MUSIC.resolve()), "attribution": str(base.MUSIC_ATTRIBUTION.resolve()), "voice_required": False},
+        "music": {
+            "path": "",
+            "attribution": "",
+            "voice_required": False,
+            "selection_state": "unselected",
+            "rights_verified": False,
+        },
         "outputs": {
             "vertical_reel": str((assets / "reel_1080x1920.mp4").resolve()),
             "long_form_explainer": {

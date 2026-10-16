@@ -178,7 +178,19 @@ def configure_provider(secret_file: Path, provider_name: str, model: str) -> dic
     for key, value in values.items():
         os.environ.setdefault(key, value)
 
-    if provider_name in {"nim", "nvidia", "nvidia_nim"}:
+    if provider_name in {"ollama", "local_ollama", "local"}:
+        from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
+
+        require_ollama_provider(provider_name, component="HOMS Exam Builder")
+        base_url = ollama_url().rstrip("/")
+        if not base_url.endswith("/v1"):
+            base_url += "/v1"
+        os.environ["OPENAI_API_KEY"] = "ollama"
+        os.environ["OPENAI_BASE_URL"] = base_url
+        os.environ["HOMS_AI_MODEL"] = model or ollama_model()
+        key_name = ""
+        selected = "ollama"
+    elif provider_name in {"nim", "nvidia", "nvidia_nim"}:
         key_name = "NVIDIA_API_KEY"
         api_key = values.get(key_name) or os.environ.get(key_name)
         if not api_key:
@@ -3820,7 +3832,7 @@ def main() -> int:
     parser.add_argument("--out", default=str(ROOT / "campaigns" / "phase3" / "homs" / "exam_builder" / "proof"))
     parser.add_argument("--secret-file", default=str(DEFAULT_SECRET_FILE))
     parser.add_argument("--backend", default=str(DEFAULT_HYMARK_BACKEND))
-    parser.add_argument("--provider", default="nim", choices=["nim", "nvidia", "nvidia_nim", "openai"])
+    parser.add_argument("--provider", default="ollama", choices=["ollama", "nim", "nvidia", "nvidia_nim", "openai"])
     parser.add_argument("--model", default="")
     parser.add_argument("--subject-profile", default="history", help="Subject profile name from config/homs_subject_profiles.")
     parser.add_argument("--subject-profile-path", default="", help="Optional explicit subject profile JSON path.")

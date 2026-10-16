@@ -8,6 +8,8 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from sovereign_runtime import ollama_model
+
 
 def _prompt_json(prompt: str, prefix: str) -> Any:
     for line in prompt.splitlines():
@@ -149,7 +151,7 @@ def normalise_provider_result(prompt: str, result: dict[str, Any]) -> dict[str, 
 def main() -> int:
     payload = json.loads(sys.stdin.read() or "{}")
     base_url = str(payload.get("base_url") or "http://127.0.0.1:11434").rstrip("/")
-    model = str(payload.get("model") or "qwen2.5:0.5b")
+    model = str(payload.get("model") or ollama_model())
     prompt = str(payload.get("prompt") or "")
     request_body = {
         "model": model,

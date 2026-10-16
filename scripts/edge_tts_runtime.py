@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import shutil
+import sys
 from pathlib import Path
 
 DEFAULT_NICHEFOUNDRY_ROOT = Path("/home/byron/Downloads/NicheFoundry_Phase11")
@@ -27,11 +28,14 @@ def resolve_edge_tts_for_service(
     """
     explicit = str(os.environ.get("EDGE_TTS_BIN") or "").strip()
     user_home = (home or Path.home()).expanduser()
+    project_root = Path(__file__).resolve().parents[1]
     candidates = [
         Path(explicit).expanduser() if explicit else None,
         nichefoundry_root / ".venv-voicebox" / "bin" / "edge-tts",
         nichefoundry_root / ".venv" / "bin" / "edge-tts",
         user_home / ".local" / "bin" / "edge-tts",
+        Path(sys.executable).expanduser().absolute().parent / "edge-tts",
+        project_root / ".venv" / "bin" / "edge-tts",
     ]
     for candidate in candidates:
         if candidate is None:

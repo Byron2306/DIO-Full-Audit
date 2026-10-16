@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+import scripts.edge_tts_runtime as edge_runtime
 from scripts.build_campaign_media_v3 import resolve_edge_tts_binary
 from scripts.edge_tts_runtime import configure_edge_tts_environment, resolve_edge_tts_for_service
 
@@ -37,6 +38,32 @@ def test_service_bootstrap_exports_binding_consumed_by_media_executor(monkeypatc
     assert exported == str(expected)
     assert os.environ["EDGE_TTS_BIN"] == str(expected)
     assert resolve_edge_tts_binary(tmp_path / "nichefoundry") == expected
+
+
+def test_active_python_venv_edge_tts_is_found_by_both_resolvers(monkeypatch, tmp_path: Path) -> None:
+    binary = tmp_path / ".venv" / "bin" / "edge-tts"
+    binary.parent.mkdir(parents=True)
+    binary.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    binary.chmod(0o755)
+    monkeypatch.setattr(edge_runtime.sys, "executable", str(binary.parent / "python"))
+    monkeypatch.delenv("EDGE_TTS_BIN", raising=False)
+    monkeypatch.setenv("PATH", "/usr/bin:/bin")
+
+    assert resolve_edge_tts_for_service(tmp_path / "nichefoundry") == binary.resolve()
+    assert resolve_edge_tts_binary(tmp_path / "nichefoundry") == binary.resolve()
+
+
+def test_project_venv_edge_tts_is_found_when_service_uses_another_python(monkeypatch, tmp_path: Path) -> None:
+    binary = tmp_path / ".venv" / "bin" / "edge-tts"
+    binary.parent.mkdir(parents=True)
+    binary.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    binary.chmod(0o755)
+    monkeypatch.setattr(edge_runtime, "__file__", str(tmp_path / "scripts" / "edge_tts_runtime.py"))
+    monkeypatch.setattr(edge_runtime.sys, "executable", "/usr/bin/python3")
+    monkeypatch.delenv("EDGE_TTS_BIN", raising=False)
+    monkeypatch.setenv("PATH", "/usr/bin:/bin")
+
+    assert resolve_edge_tts_for_service(tmp_path / "nichefoundry") == binary.resolve()
 
 
 def test_active_factory_hydrates_edge_before_importing_v3() -> None:

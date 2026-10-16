@@ -341,7 +341,7 @@ def run_dossierops(packet: dict[str, Any], output_dir: Path, *, operator_id: str
         "remote_processing_approved": True,
         "certified_translation_required": False,
         "human_language_review_required": False,
-        "provider": "gemini",
+        "provider": "ollama",
         "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
     write_json(request_path, request)

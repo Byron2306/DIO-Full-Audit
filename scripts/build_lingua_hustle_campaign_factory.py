@@ -96,14 +96,20 @@ def _apply_reel_learning(
     source = hustle.base.Image.open(ROOT / product["source_image"])
     first_scene = assets / "01_hook.jpg"
     hustle.base.draw_poster(
-        source,
-        hustle.base.SIZES["vertical_1080x1920"],
+    source,
+    hustle.base.SIZES["vertical_1080x1920"],
+    product,
+    audience,
+    first_scene,
+    message=preferred_hook,
+    footer="LINGUA-LEARNED HOOK / HELD DRAFT",
+    visual_grammar=hustle.base.build_projection_plan(
+        hustle.base.build_semantic_law(product, audience),
         product,
         audience,
-        first_scene,
-        preferred_hook,
-        "LINGUA-LEARNED HOOK / HELD DRAFT",
-    )
+        _matrix()["channels"],
+    )["surfaces"]["vertical_short"]["visual_grammar"],
+)
 
     request_path = directory / "NICHEFOUNDRY_PRODUCTION_REQUEST.json"
     request = json.loads(request_path.read_text(encoding="utf-8"))

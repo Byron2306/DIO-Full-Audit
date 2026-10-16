@@ -410,7 +410,9 @@ def _install_build_family_wrapper(factory_module: Any) -> None:
             surface: str((row.get("voice") or {}).get("receipt") or "")
             for surface, row in voice_variants.items()
         }
-        family.setdefault("piper", {})["state"] = family["voice"]["state"]
+        family.setdefault("piper", {})["state"] = (
+            family["voice"]["state"] if "piper_local" in family["voice"]["providers"] else "not_selected"
+        )
 
         family.setdefault("nichefoundry", {})["reel_state"] = media_state
         family["nichefoundry"]["long_form_state"] = media_state

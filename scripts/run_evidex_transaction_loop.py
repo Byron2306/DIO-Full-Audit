@@ -13,9 +13,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from sovereign_runtime import evidex_root
+
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDEX_ROOT = Path("/home/byron/Evidex")
+EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
 OUTLOOK_ROOT = Path("/home/byron/Desktop/KnowEdge_Outlook_Triage_DROP_IN_BUILD_WIX4_FIXED")
 OUTLOOK_CONFIG = OUTLOOK_ROOT / "config" / "knowedge_triage.yaml"

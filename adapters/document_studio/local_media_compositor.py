@@ -19,7 +19,24 @@ class LocalMediaCompositorError(RuntimeError):
 
 
 def _font(path: Path, size: int) -> ImageFont.FreeTypeFont:
-    return ImageFont.truetype(str(path), size)
+    if path.is_file():
+        return ImageFont.truetype(str(path), size)
+
+    fallback = Path(
+        "/usr/share/fonts/truetype/dejavu/"
+        + (
+            "DejaVuSans-Bold.ttf"
+            if "bold" in path.name.lower()
+            else "DejaVuSans.ttf"
+        )
+    )
+
+    if not fallback.is_file():
+        raise FileNotFoundError(
+            f"Neither configured font {path} nor fallback {fallback} exists"
+        )
+
+    return ImageFont.truetype(str(fallback), size)
 
 
 def _cover(image: Image.Image, size: tuple[int, int], *, scale: float = 1.0, anchor: tuple[float, float] = (0.5, 0.5)) -> Image.Image:

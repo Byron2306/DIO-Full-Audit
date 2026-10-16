@@ -21,6 +21,7 @@ from adapters.sophia.review_pipeline import run_review  # noqa: E402
 from scripts.dio_mail_branding import branded_email  # noqa: E402
 from scripts.manage_mail_intent import create_intent, emit_event, write_json  # noqa: E402
 from commerce.paypal_local import LocalCommerceStore, PayPalLocalClient, PayPalLocalError  # noqa: E402
+from sovereign_runtime import ollama_model  # noqa: E402
 
 
 DEFAULT_JOB_ROOT = ROOT / "state" / "sophia_jobs"
@@ -97,7 +98,7 @@ def create_job(
         "external_retrieval": True,
         "reasoned_review_approved": True,
         "reasoned_provider": "ollama",
-        "reasoned_model": "qwen2.5:0.5b",
+        "reasoned_model": ollama_model(),
         "human_approval_required": True,
     }
     directory = path.parent

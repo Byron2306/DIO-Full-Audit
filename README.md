@@ -225,6 +225,74 @@ Run the local portfolio view:
 python scripts/serve_goldeneye_portfolio.py
 ```
 
+### Operator dashboards and product artifacts
+
+Run the Business Production Workbench and Market workbench in separate
+terminals. If the default ports are already in use, choose free loopback ports
+and configure each dashboard's cross-link to match:
+
+```bash
+.venv/bin/python scripts/serve_business_workbench.py --host 127.0.0.1 --port 8767 --market-port 8771
+.venv/bin/python scripts/serve_market_command_ms10.py --host 127.0.0.1 --port 8771 --business-port 8767
+```
+
+Open `http://127.0.0.1:8767/` for Business and `http://127.0.0.1:8771/` for
+Market. Both bind to localhost; the Business artifact browser is read-only.
+Use the [Professional Evidence Portfolio Gauntlet](./docs/PROFESSIONAL_EVIDENCE_PORTFOLIO_GAUNTLET.md)
+to verify customer-shaped artifact production for selected products or the
+full 53-incarnation portfolio. A failed provider/runtime prerequisite remains
+a failure in its receipt; it is not converted into a successful artifact.
+Evidex and VAMP use the bundled Evidex runtime when present. Set
+`DIO_EVIDEX_ROOT` or `DIO_BEAST_ROOT` to override the corresponding runtime
+location.
+Narrated campaigns need `edge-tts`; the resolver checks the NicheFoundry voice
+runtime and active Python environment. Install it with
+`.venv/bin/python -m pip install edge-tts` or set `EDGE_TTS_BIN` to the executable.
+Campaign rendering also needs `ffmpeg` and `ffprobe`; the resolver checks
+`PATH`, `~/.local/bin`, and `~/bin`. Install them with your OS package manager
+or install a user-local build with `.venv/bin/python -m pip install
+ffmpeg-downloader` followed by `.venv/bin/ffdl install`.
+Profiles that require local Piper narration need the Piper runtime and an
+`.onnx` voice model plus its `.onnx.json` config. Install a local English voice
+with `.venv/bin/python -m pip install piper-tts` and
+`.venv/bin/python -m piper.download_voices --download-dir ~/.local/share/piper en_US-lessac-medium`.
+The resolver checks the active Python environment for Piper and
+`~/.local/share/piper` for voice models.
+
+Vesper's approved public voice uses Pocket TTS's built-in `vera` voice
+(`hf://kyutai/tts-voices/vctk/p229_023_enhanced.wav`). It runs locally on CPU;
+no GPU driver or kernel change is required. Keep Pocket TTS isolated from the
+product environment and install its CPU PyTorch build with:
+
+```bash
+python3 -m venv "$HOME/.local/share/dio-pocket-tts/venv"
+"$HOME/.local/share/dio-pocket-tts/venv/bin/python" -m pip install \
+  --extra-index-url https://download.pytorch.org/whl/cpu pocket-tts
+systemd-run --user --unit=dio-pocket-tts --property=Restart=on-failure --collect \
+  -- "$HOME/.local/share/dio-pocket-tts/venv/bin/pocket-tts" serve \
+  --host 127.0.0.1 --port 8000 --default-voice vera
+```
+
+The Vesper renderer sends `voice_url=vera` to `http://127.0.0.1:8000/tts`.
+Verify local rendering with:
+
+```bash
+curl --data-urlencode 'text=Vesper is ready.' \
+  --data-urlencode 'voice_url=vera' \
+  http://127.0.0.1:8000/tts --output /tmp/vera-smoke.wav
+```
+
+Academic-research campaign projections use this same approved Vera profile.
+Their narration is rendered through the local service, recorded in a
+`POCKET_TTS_NARRATION_RECEIPT.json`, and does not authorize publication or spend.
+
+The shared local LLM is Granite 3.2 2B through Ollama. Install it with
+`ollama pull granite3.2:2b`; the runtime reads `OLLAMA_MODEL` and `OLLAMA_URL`
+from the process environment or `~/.config/dio/sovereign.env`. Product-specific
+HOMS, Sophia, Vesper, and Document Studio routes use that same model setting.
+Bounded Evidex generation remains explicitly LLM-disabled where its
+deterministic contract requires it.
+
 ---
 
 ## Commercial Truth

@@ -425,7 +425,7 @@ def main() -> int:
     parser.add_argument("--terms", default="1,2,3,4", help="Comma-separated terms from 1,2,3,4.")
     parser.add_argument("--grade", type=int, default=12)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--provider", default="gemini", choices=["gemini", "google", "openrouter", "deepseek", "deepseek_v4", "nim", "nvidia", "nvidia_nim", "openai"])
+    parser.add_argument("--provider", default="ollama", choices=["ollama", "gemini", "google", "openrouter", "deepseek", "deepseek_v4", "nim", "nvidia", "nvidia_nim", "openai"])
     parser.add_argument("--model", default="")
     parser.add_argument("--secret-file", type=Path, default=DEFAULT_SECRET_FILE)
     parser.add_argument("--backend", type=Path, default=DEFAULT_HYMARK_BACKEND)

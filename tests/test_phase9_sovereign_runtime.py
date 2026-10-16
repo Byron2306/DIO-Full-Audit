@@ -18,7 +18,10 @@ from scripts import poll_vesper_telegram as telegram_poll
 from scripts.poll_vesper_telegram import TelegramPollError, update_to_envelope
 from sovereign_runtime import (
     SovereignRuntimeError,
+    evidex_root,
     llm_policy,
+    ollama_model,
+    ollama_url,
     require_ollama_provider,
 )
 
@@ -35,6 +38,27 @@ def test_sovereign_policy_allows_only_ollama() -> None:
     assert policy.provider == "ollama"
     assert policy.cloud_fallback_allowed is False
     assert policy.hf_runtime_allowed is False
+
+
+def test_sovereign_runtime_reads_global_model_and_url(tmp_path, monkeypatch) -> None:
+    env_file = tmp_path / "sovereign.env"
+    env_file.write_text(
+        "OLLAMA_MODEL=granite3.2:2b\nOLLAMA_URL=http://127.0.0.1:11434\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("DIO_SOVEREIGN_ENV_FILE", str(env_file))
+    monkeypatch.delenv("OLLAMA_MODEL", raising=False)
+    monkeypatch.delenv("OLLAMA_URL", raising=False)
+
+    assert ollama_model() == "granite3.2:2b"
+    assert ollama_url() == "http://127.0.0.1:11434"
+
+
+def test_sovereign_runtime_honors_configured_evidex_root(tmp_path, monkeypatch) -> None:
+    root = tmp_path / "evidex"
+    monkeypatch.setenv("DIO_EVIDEX_ROOT", str(root))
+
+    assert evidex_root() == root.resolve()
 
 
 def test_document_studio_defaults_to_ollama_and_refuses_cloud_provider() -> None:

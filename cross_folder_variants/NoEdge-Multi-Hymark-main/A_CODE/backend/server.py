@@ -63,6 +63,9 @@ AI_MODEL = os.getenv("HOMS_AI_MODEL") or os.getenv("OPENAI_MODEL") or "gpt-4o"
 client_kwargs = {"api_key": os.getenv("OPENAI_API_KEY") or "missing-api-key"}
 if os.getenv("OPENAI_BASE_URL"):
     client_kwargs["base_url"] = os.getenv("OPENAI_BASE_URL")
+if os.getenv("HOMS_AI_TIMEOUT_SECONDS"):
+    client_kwargs["timeout"] = float(os.environ["HOMS_AI_TIMEOUT_SECONDS"])
+    client_kwargs["max_retries"] = int(os.getenv("HOMS_AI_MAX_RETRIES", "0"))
 
 openai_client = OpenAI(**client_kwargs)
 
@@ -529,68 +532,31 @@ async def assess_with_ai(
     assignment_context = rubric.get("assignment_context", "")
     submission_requirements = rubric.get("submission_requirements", "")
 
-    system_prompt = """You are a RIGOROUS but FAIR academic assessor specializing in HISTORY EDUCATION and History pedagogy. Your task is to thoroughly evaluate student submissions against the provided rubric.
+    system_prompt = """You are a careful, fair rubric-based assessor. Treat the supplied rubric and assignment instructions as authoritative. Do not apply unrelated subject standards, target averages, or invent facts. Score every criterion within its stated range, explain each score with concise evidence from the submission, and flag ambiguity rather than guessing. Marks are recommendations for educator review, not final authority.
 
-SUBJECT-SPECIFIC FEEDBACK (HISTORY):
-Your feedback MUST address the following History-specific skills and concepts:
-- **Historical Thinking Skills**: Source analysis, causation, continuity/change, comparison, contextualization
-- **Historical Literacy**: Understanding of historical concepts, terminology, and methods
-- **Pedagogical Content Knowledge**: How well does the student translate historical understanding into effective teaching?
-- **Handling Sensitive Topics**: How does the student approach controversial historical events (colonialism, apartheid, genocide, etc.)?
-- **Historical Empathy**: Does the student help learners understand different perspectives from the past?
-- **Use of Primary/Secondary Sources**: Are historical sources used effectively in teaching?
-- **Chronological Understanding**: Is there clear temporal awareness and periodization?
-- **Historical Significance**: Does the student help identify why events/people matter?
-
-IMPORTANT GRADING GUIDELINES:
-- Aim for a CLASS AVERAGE around 65%, but with MEANINGFUL VARIATION between submissions.
-- Use the FULL RANGE of scores:
-  * 80-100%: Exceptional work - demonstrates sophisticated historical understanding, excellent pedagogical application
-  * 65-79%: Good/Proficient work - solid grasp of historical concepts, competent teaching strategies
-  * 50-64%: Satisfactory/Developing work - basic historical understanding, generic teaching approaches
-  * Below 50%: Inadequate work - poor historical understanding, inappropriate teaching strategies
-- DIFFERENTIATE between submissions based on depth of historical understanding and quality of pedagogical application.
-- Be specific about WHY you assigned the score - reference specific historical concepts or teaching strategies.
-
-For each criterion in the rubric:
-1. Assess both HISTORICAL UNDERSTANDING and PEDAGOGICAL APPLICATION
-2. Provide feedback that addresses History-specific skills
-3. Quote specific examples from the submission
-4. Explain what would improve the score in terms of historical content and teaching approach
-
-When assessing lesson plan critiques and improvements, look for:
-- Does the critique identify HISTORICALLY PROBLEMATIC content (e.g., oversimplification, bias, missing perspectives)?
-- Does the student understand the HISTORIOGRAPHY of the topic?
-- Are the suggested activities appropriate for developing HISTORICAL THINKING SKILLS?
-- Does the improved plan address SENSITIVE HISTORICAL CONTENT appropriately for diverse South African classrooms?
-- Is there progression from LOWER to HIGHER ORDER HISTORICAL THINKING (recall → analysis → evaluation)?
-- Are HISTORICAL SOURCES used effectively in the teaching design?
-- Does the assessment align with CAPS/curriculum requirements for History?
-
-You MUST respond with valid JSON in this exact format:
+Return only valid JSON with this shape:
 {
-    "total_score": <number - MUST equal the sum of all criterion scores>,
-    "criteria_scores": {
-        "<criterion_name>": {
-            "level": "<level_name>",
-            "score": <number - must be within the criterion's weight range>,
-            "feedback": "<detailed feedback addressing HISTORICAL content and PEDAGOGICAL application>",
-            "quotes": ["<relevant quote from submission>", ...]
-        }
-    },
-    "overall_feedback": "<summary addressing both historical understanding and teaching competence>",
-    "strengths": ["<strength related to History teaching>", "<strength related to historical understanding>"],
-    "areas_for_improvement": ["<improvement for historical content>", "<improvement for teaching approach>"],
-    "annotations": [
-        {
-            "quote": "<exact text from submission>",
-            "comment": "<feedback on historical accuracy or pedagogical approach>",
-            "type": "<praise|suggestion|correction|question>"
-        }
-    ]
+  "total_score": 0,
+  "criteria_scores": {
+    "<exact criterion name>": {
+      "level": "<rubric level or empty string>",
+      "score": 0,
+      "feedback": "<criterion-specific reason and next step>",
+      "quotes": ["<short exact quote>"]
+    }
+  },
+  "overall_feedback": "<concise summary>",
+  "strengths": ["<supported strength>"],
+  "areas_for_improvement": ["<specific improvement>"],
+  "annotations": [
+    {
+      "quote": "<short exact quote>",
+      "comment": "<specific feedback>",
+      "type": "praise|suggestion|correction|question"
+    }
+  ]
 }
-
-IMPORTANT: total_score MUST equal the sum of all individual criterion scores. Double-check your math."""
+Include every rubric criterion and at least three concise annotations. The total must equal the sum of criterion scores."""
 
     context_section = ""
     if assignment_context:
@@ -600,22 +566,14 @@ IMPORTANT: total_score MUST equal the sum of all individual criterion scores. Do
     if assignment_instructions:
         context_section += f"\n## ADDITIONAL INSTRUCTIONS\n{assignment_instructions}\n"
 
-    user_prompt = f"""Please assess the following student submission against the rubric provided.
+    user_prompt = f"""Assess the submission against the rubric and instructions below. Use the exact rubric criterion names and return only the required JSON.
 
 ## RUBRIC
 {rubric_description}
 {context_section}
 
 ## STUDENT SUBMISSION
-{submission_text[:15000]}  
-
-Provide a thorough assessment with specific feedback for each criterion. Include at least 3-5 annotations pointing to specific parts of the text. 
-
-GRADING APPROACH:
-- Be fair and balanced - recognize both strengths and weaknesses
-- If a submission demonstrates understanding and effort but has some gaps, score in the Proficient range (60-75%)
-- Only use Inadequate/Developing scores for work that is clearly below expectations
-- Use the full range of scores to differentiate between submissions"""
+{submission_text[:15000]}"""
 
     try:
         response = openai_client.chat.completions.create(
@@ -625,7 +583,7 @@ GRADING APPROACH:
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.3,
-            max_tokens=4000,
+            max_tokens=int(os.getenv("HOMS_AI_MAX_TOKENS", "4000")),
             response_format={"type": "json_object"},
         )
 

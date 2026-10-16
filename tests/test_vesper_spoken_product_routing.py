@@ -5,7 +5,7 @@ from presence_core.commercial_cognition import (
 )
 
 
-ROOT = Path("/srv/dio/presence")
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def resolved_name(text: str) -> str | None:

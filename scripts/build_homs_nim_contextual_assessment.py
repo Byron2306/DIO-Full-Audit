@@ -897,7 +897,7 @@ def main() -> int:
     parser.add_argument("--opportunity", default="First opportunity")
     parser.add_argument("--request", type=Path, default=None)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--provider", default="gemini", choices=["gemini", "google", "openrouter", "deepseek", "deepseek_v4", "nim", "nvidia", "nvidia_nim", "openai"])
+    parser.add_argument("--provider", default="ollama", choices=["ollama", "gemini", "google", "openrouter", "deepseek", "deepseek_v4", "nim", "nvidia", "nvidia_nim", "openai"])
     parser.add_argument("--model", default="")
     parser.add_argument("--secret-file", type=Path, default=DEFAULT_SECRET_FILE)
     parser.add_argument("--backend", type=Path, default=DEFAULT_HYMARK_BACKEND)

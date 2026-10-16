@@ -43,9 +43,11 @@ class MS10MarketCommandHandler(Handler):
 
     def _serve_market_page(self) -> None:
         page = (ROOT / "dashboard" / "market.html").read_text(encoding="utf-8")
+        business_url = f"http://127.0.0.1:{self.server.business_port}"
+        page = page.replace("http://127.0.0.1:8765", business_url)
         page = page.replace(
-            '<div class="links"><button id="refresh"',
-            '<div class="links"><a class="btn green" href="http://127.0.0.1:8765/dashboard/production.html">Production Studio</a><a class="btn gold" href="http://127.0.0.1:8765/dashboard/connections.html">Connections & Secrets</a><button id="refresh"',
+            '<div class="links"><button id="newCampaign"',
+            f'<div class="links"><a class="btn green" href="{business_url}/dashboard/production.html">Production Studio</a><a class="btn gold" href="{business_url}/dashboard/connections.html">Connections & Secrets</a><button id="newCampaign"',
             1,
         )
         body = page.encode("utf-8")
@@ -77,12 +79,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Serve DIO MARKET operator workbench")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8770)
+    parser.add_argument("--business-port", type=int, default=8765)
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO MARKET must bind to localhost")
     load_secret_env(overwrite=False)
     portfolio = load_portfolio(auto_import=True)
     server = ThreadingHTTPServer((args.host, args.port), MS10MarketCommandHandler)
+    server.business_port = args.business_port
     print(f"DIO MARKET: http://{args.host}:{args.port}")
     print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Campaign journey + Sensorium ACTIVE")
     try:

@@ -11,6 +11,12 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "dio_marketing_integration.json"
 CAMPAIGN_ROOT = ROOT / "campaigns" / "dio_market_loop" / "wave4" / "campaigns"
+BUNDLED_HIVENANCE_ROOT = (
+    ROOT
+    / "cross_folder_variants"
+    / "Hivenance_Phoenix_Phase7_1_Integration_Reconciliation"
+    / "A_CODE"
+)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -35,6 +41,17 @@ def load_market_module(hivenance_root: Path):
     return module
 
 
+def resolve_hivenance_root(configured_root: Path) -> Path:
+    if (configured_root / "agents" / "market_intelligence.py").is_file():
+        return configured_root
+    if (BUNDLED_HIVENANCE_ROOT / "agents" / "market_intelligence.py").is_file():
+        return BUNDLED_HIVENANCE_ROOT
+    raise FileNotFoundError(
+        "Hivenance market-intelligence agent module not found in configured "
+        f"runtime {configured_root} or bundled source {BUNDLED_HIVENANCE_ROOT}"
+    )
+
+
 def build_context(campaign_dir: Path) -> dict[str, Any]:
     hypothesis = read_json(campaign_dir / "HIVENANCE_HYPOTHESIS.json")
     return {
@@ -52,9 +69,15 @@ def main() -> int:
     parser.add_argument("--campaign-id")
     args = parser.parse_args()
     config = read_json(CONFIG)
-    hivenance_root = Path(config["hivenance_root"]).resolve()
+    configured_root = Path(config["hivenance_root"]).expanduser().resolve()
+    hivenance_root = resolve_hivenance_root(configured_root)
     agents = load_market_module(hivenance_root)
-    register_root = hivenance_root / "data" / "hypothesis_registry" / "marketing" / "agent_receipts"
+    bundled_source = hivenance_root == BUNDLED_HIVENANCE_ROOT.resolve()
+    register_root = (
+        ROOT / "state" / "market_sensorium" / "hivenance" / "agent_receipts"
+        if bundled_source
+        else hivenance_root / "data" / "hypothesis_registry" / "marketing" / "agent_receipts"
+    )
     register_root.mkdir(parents=True, exist_ok=True)
     results = []
     for campaign_dir in sorted(CAMPAIGN_ROOT.iterdir()):
@@ -80,7 +103,17 @@ def main() -> int:
         )
     if args.campaign_id and not results:
         raise ValueError(f"Campaign not found: {args.campaign_id}")
-    print(json.dumps({"schema": "dio.hivenance.market_agent_run.v1", "results": results}, indent=2))
+    print(
+        json.dumps(
+            {
+                "schema": "dio.hivenance.market_agent_run.v1",
+                "runtime_source": str(hivenance_root),
+                "bundled_runtime_used": bundled_source,
+                "results": results,
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

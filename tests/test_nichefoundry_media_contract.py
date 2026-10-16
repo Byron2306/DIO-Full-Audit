@@ -5,6 +5,7 @@ from pathlib import Path
 
 import scripts.run_nichefoundry_media_pipeline as legacy_bridge
 import scripts.run_nichefoundry_media_pipeline_v2 as media_v2
+from scripts import build_campaign_media
 from dio_secrets import _derive_local_media_env
 
 
@@ -45,6 +46,30 @@ def test_nichefoundry_model_name_finds_existing_legacy_voice(monkeypatch, tmp_pa
     loaded: dict[str, str] = {}
     _derive_local_media_env(loaded, overwrite=False)
     assert loaded["PIPER_MODEL"] == str(model.resolve())
+
+
+def test_piper_resolves_from_active_python_and_user_local_voice_store(monkeypatch, tmp_path: Path) -> None:
+    binary = tmp_path / ".venv" / "bin" / "piper"
+    binary.parent.mkdir(parents=True)
+    binary.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    binary.chmod(0o755)
+    model_dir = tmp_path / ".local" / "share" / "piper"
+    model_dir.mkdir(parents=True)
+    model = model_dir / "en_US-lessac-medium.onnx"
+    model.write_bytes(b"onnx-model")
+    Path(str(model) + ".json").write_text("{}", encoding="utf-8")
+
+    monkeypatch.setattr(build_campaign_media, "ROOT", tmp_path)
+    monkeypatch.setattr(build_campaign_media.sys, "executable", str(tmp_path / "system" / "bin" / "python"))
+    monkeypatch.setattr(build_campaign_media.Path, "home", lambda: tmp_path)
+    monkeypatch.setattr(build_campaign_media.shutil, "which", lambda _name: None)
+    monkeypatch.delenv("PIPER_BIN", raising=False)
+    monkeypatch.delenv("PIPER_MODEL", raising=False)
+    monkeypatch.delenv("PIPER_VOICE", raising=False)
+    monkeypatch.delenv("XDG_DATA_HOME", raising=False)
+
+    assert build_campaign_media.resolve_piper_binary(tmp_path / "nichefoundry") == binary.resolve()
+    assert build_campaign_media.resolve_piper_model(tmp_path / "nichefoundry") == model.resolve()
 
 
 def test_v2_media_bridge_requires_and_registers_both_mp4_outputs(monkeypatch, tmp_path: Path) -> None:

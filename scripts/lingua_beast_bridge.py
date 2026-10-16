@@ -3,13 +3,16 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BEAST_ROOT = Path("/home/byron/EdgeK-BEAST")
+BEAST_ROOT = Path(
+    os.environ.get("DIO_BEAST_ROOT") or "/home/byron/EdgeK-BEAST"
+).expanduser().resolve()
 STORAGE_ROOT = ROOT / "state" / "lingua" / "beast_credits"
 CHAIN_PATH = ROOT / "state" / "lingua" / "beast_crystal_chain.jsonl"
 BEAST_OPERATIONS_ROOT = ROOT / "state" / "lingua" / "beast_operations"

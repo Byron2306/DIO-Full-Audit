@@ -5,7 +5,9 @@ import presence_core.fulfilment_egress as egress
 
 def test_controlled_sophia_request_is_local_only(
     tmp_path: Path,
+    monkeypatch,
 ) -> None:
+    monkeypatch.setenv("OLLAMA_MODEL", "granite3.2:2b")
     assert hasattr(
         egress,
         "build_controlled_local_sophia_request",
@@ -61,7 +63,7 @@ def test_controlled_sophia_request_is_local_only(
     assert request["external_retrieval"] is False
     assert request["reasoned_review_approved"] is True
     assert request["reasoned_provider"] == "local"
-    assert request["reasoned_model"] == "qwen2.5:3b"
+    assert request["reasoned_model"] == "granite3.2:2b"
 
     assert request.get("gemini_review_approved") is not True
     assert request.get("gemini_model") in {None, ""}

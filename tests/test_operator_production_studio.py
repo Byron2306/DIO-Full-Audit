@@ -84,7 +84,11 @@ def test_business_deployment_uses_production_workbench_and_market_auto_imports()
     ):
         assert endpoint in business
     assert "PROFILE_COMPATIBILITY" in business
-    assert "Marketing profile {profile_id} is not evidence-compatible" in business
+    assert '"/api/business/production/state"' in business
+    assert '"/api/business/portfolio"' in business
+    assert 'parser.add_argument("--market-port"' in business
+    assert "self.server.market_port" in business
+    assert "Marketing profile {requested_profile} is not evidence-compatible" in business
     assert "load_portfolio(auto_import=True)" in market
     assert '"candidate_incarnations_imported": registry.get("candidate_incarnations_imported", 0)' in market
 
@@ -111,6 +115,13 @@ def test_production_studio_is_an_operator_workflow_not_a_claim_wall():
         "Publication and spend remain held",
     ):
         assert marker in page
+
+
+def test_global_product_model_configuration_uses_one_granite_model():
+    runtime = json.loads((ROOT / "config" / "phase9_sovereign_runtime.json").read_text(encoding="utf-8"))
+    example = (ROOT / "config" / "dio_sovereign.env.example").read_text(encoding="utf-8")
+    assert set(runtime["llm"]["component_models"].values()) == {"OLLAMA_MODEL"}
+    assert "OLLAMA_MODEL=granite3.2:2b" in example
 
 
 def test_custom_marketing_requires_operator_claim_and_real_proof_for_reel():

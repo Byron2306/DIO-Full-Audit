@@ -2,8 +2,6 @@
 from __future__ import annotations
 
 import json
-import os
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -15,31 +13,16 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts import build_campaign_media as legacy
+from scripts.edge_tts_runtime import resolve_edge_tts_for_service
 
 CampaignMediaError = legacy.CampaignMediaError
 DEFAULT_NICHEFOUNDRY_ROOT = legacy.DEFAULT_NICHEFOUNDRY_ROOT
 
 
-def _command_path(value: str | None) -> Path | None:
-    if not value:
-        return None
-    candidate = Path(value).expanduser()
-    if candidate.is_file() and os.access(candidate, os.X_OK):
-        return candidate.resolve()
-    found = shutil.which(value)
-    return Path(found).resolve() if found else None
-
-
 def resolve_edge_tts_binary(nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT) -> Path:
-    for raw in (
-        os.environ.get("EDGE_TTS_BIN"),
-        str(nichefoundry_root / ".venv-voicebox" / "bin" / "edge-tts"),
-        str(nichefoundry_root / ".venv" / "bin" / "edge-tts"),
-        "edge-tts",
-    ):
-        resolved = _command_path(raw)
-        if resolved:
-            return resolved
+    resolved = resolve_edge_tts_for_service(nichefoundry_root)
+    if resolved:
+        return resolved
     raise CampaignMediaError(
         "LINGUA selected Microsoft Edge TTS, but edge-tts is not available. Install it in the original NicheFoundry voice runtime or set EDGE_TTS_BIN."
     )
@@ -103,6 +86,83 @@ def synthesize_edge_story(
     return receipt
 
 
+def synthesize_pocket_story(
+    scenes: list[dict[str, Any]],
+    output_dir: Path,
+    voice_spec: dict[str, Any],
+) -> dict[str, Any]:
+    from presence_core.voice import build_voice_plan, synthesize_voice
+
+    if voice_spec.get("remote_tts_allowed") is not False:
+        raise CampaignMediaError("Pocket TTS projection must explicitly disable remote TTS.")
+    profile_id = str(voice_spec.get("profile") or "")
+    if not profile_id:
+        raise CampaignMediaError("Pocket TTS projection must select an approved voice profile.")
+    plan = build_voice_plan(
+        root=ROOT,
+        language=str(voice_spec.get("language") or "English"),
+        interaction=None,
+        requested_profile=profile_id,
+    )
+    if plan.get("state") != "ready_for_internal_render" or not plan.get("public_default_authorized"):
+        raise CampaignMediaError("Pocket TTS projection selected a voice profile that is not approved for public rendering.")
+    if plan.get("backend") != "pocket_tts":
+        raise CampaignMediaError("Pocket TTS projection selected a profile with a different backend.")
+    voice_name = str(plan.get("voice_url") or plan.get("model") or "").strip()
+    if not voice_name or str(voice_spec.get("voice") or "").strip() != voice_name:
+        raise CampaignMediaError("Pocket TTS projected voice does not match its approved profile.")
+
+    ffprobe = legacy.require_tool("ffprobe")
+    narration_dir = output_dir / "pocket_tts"
+    narration_dir.mkdir(parents=True, exist_ok=True)
+    rows: list[dict[str, Any]] = []
+    for index, scene in enumerate(scenes, 1):
+        text = str(scene.get("narration") or "").strip()
+        if not text:
+            raise CampaignMediaError(f"Story scene {index} has no narration for Pocket TTS.")
+        scene_id = str(scene.get("scene_id") or f"scene_{index:02d}")
+        audio_path = narration_dir / f"{index:02d}.wav"
+        voice_receipt = synthesize_voice(text=text, output_path=audio_path, plan=plan)
+        if not audio_path.is_file() or audio_path.stat().st_size < 44:
+            raise CampaignMediaError(f"Pocket TTS did not create valid audio for {scene_id}.")
+        with audio_path.open("rb") as audio_file:
+            if audio_file.read(4) != b"RIFF":
+                raise CampaignMediaError(f"Pocket TTS output for {scene_id} is not a WAV file.")
+        rows.append(
+            {
+                "scene_id": scene_id,
+                "text": text,
+                "audio_path": str(audio_path.resolve()),
+                "sha256": legacy.sha256_file(audio_path),
+                "size_bytes": audio_path.stat().st_size,
+                "duration_seconds": round(legacy.probe_duration(audio_path, ffprobe), 3),
+                "voice_receipt": voice_receipt,
+            }
+        )
+
+    receipt = {
+        "schema": "dio.pocket_tts.campaign_narration_receipt.v1",
+        "created_at": legacy.utc_now(),
+        "provider": "pocket_tts",
+        "profile_id": profile_id,
+        "voice": voice_name,
+        "local_only": True,
+        "remote_tts_used": False,
+        "scene_count": len(rows),
+        "scenes": rows,
+        "governance": {
+            "marketing_copy_only": True,
+            "publication": "held_for_operator_approval",
+            "external_action_executed": False,
+            "send_authorized": False,
+        },
+    }
+    path = output_dir / "POCKET_TTS_NARRATION_RECEIPT.json"
+    legacy.write_json(path, receipt)
+    receipt["receipt"] = str(path.resolve())
+    return receipt
+
+
 def synthesize_projected_story(
     scenes: list[dict[str, Any]],
     output_dir: Path,
@@ -126,6 +186,8 @@ def synthesize_projected_story(
             voice_name=str(voice_spec.get("voice") or ""),
             nichefoundry_root=nichefoundry_root,
         )
+    if provider == "pocket_tts":
+        return synthesize_pocket_story(scenes, output_dir, voice_spec)
     raise CampaignMediaError(f"Unsupported LINGUA voice projection provider: {provider or '<empty>'}")
 
 

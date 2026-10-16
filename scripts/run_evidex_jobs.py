@@ -10,9 +10,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from sovereign_runtime import evidex_root, ollama_model, ollama_url
+
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDEX_ROOT = Path("/home/byron/Evidex")
+EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
 
 
@@ -146,6 +148,8 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
     write_source_file(job, uploads_dir)
 
     env = os.environ.copy()
+    env["OLLAMA_MODEL"] = ollama_model()
+    env["OLLAMA_URL"] = ollama_url()
     env["LLM_DISABLED"] = "1"
     env["SUMMARY_USE_LLM"] = "0"
     env["NARRATIVE_USE_LLM"] = "0"

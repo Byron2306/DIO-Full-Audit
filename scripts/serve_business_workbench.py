@@ -34,6 +34,10 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
+        market_url = f"http://127.0.0.1:{self.server.market_port}"
+        page = page.replace("http://127.0.0.1:8770", market_url)
+        market_url = f"http://127.0.0.1:{self.server.market_port}"
+        page = page.replace("http://127.0.0.1:8770", market_url)
         page = page.replace(
             '<div class="topnav">',
             '<div class="topnav"><a class="btn green" href="/dashboard/production.html">Production Studio</a><a class="btn gold" href="/dashboard/connections.html">Connections & Secrets</a>',
@@ -54,6 +58,12 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
 
     def _serve_production_page(self) -> None:
         page = (ROOT / "dashboard" / "production.html").read_text(encoding="utf-8")
+        business_url = f"http://127.0.0.1:{self.server.server_port}"
+        market_url = f"http://127.0.0.1:{self.server.market_port}"
+        page = page.replace("http://127.0.0.1:8765", business_url)
+        page = page.replace("http://127.0.0.1:8770", market_url)
+        market_url = f"http://127.0.0.1:{self.server.market_port}"
+        page = page.replace("http://127.0.0.1:8770", market_url)
         injection = '<script src="/dashboard/production_semantic.js"></script>'
         if injection not in page:
             page = page.replace("</body>", injection + "</body>", 1)
@@ -237,12 +247,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Serve DIO BUSINESS with production studio")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--market-port", type=int, default=8770)
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO BUSINESS must bind to localhost")
     load_secret_env(overwrite=False)
     portfolio = import_portfolio(force=False)
     server = ThreadingHTTPServer((args.host, args.port), BusinessWorkbenchHandler)
+    server.market_port = args.market_port
+    server.market_port = args.market_port
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
     print(f"Portfolio: {portfolio.get('canonical_incarnation_count', 0)} canonical incarnations · Production Studio ACTIVE")
     print("Semantic marketing briefs: ACTIVE · manual audience/pain entry: NOT REQUIRED")

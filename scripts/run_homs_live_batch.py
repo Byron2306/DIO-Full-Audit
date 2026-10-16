@@ -88,7 +88,18 @@ def load_provider_env(path: Path, requested_provider: str) -> dict[str, Any]:
     selected_key_name = ""
     base_url = ""
 
-    if requested_provider in {"auto", "nim", "nvidia", "nvidia_nim"}:
+    if requested_provider in {"ollama", "local_ollama", "local"}:
+        from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
+
+        require_ollama_provider(requested_provider, component="HOMS live batch")
+        base_url = ollama_url().rstrip("/")
+        if not base_url.endswith("/v1"):
+            base_url += "/v1"
+        model = model or ollama_model()
+        os.environ["HOMS_PROVIDER_API_KEY"] = "ollama"
+        provider = "ollama"
+
+    if provider == "none" and requested_provider in {"auto", "nim", "nvidia", "nvidia_nim"}:
         nvidia_key = values.get("NVIDIA_API_KEY") or os.environ.get("NVIDIA_API_KEY") or ""
         if nvidia_key:
             os.environ["HOMS_PROVIDER_API_KEY"] = nvidia_key
@@ -388,7 +399,7 @@ def run_batch(
     for submission in sorted(uploads.glob("*.txt")):
         text = submission.read_text(encoding="utf-8")
         result: dict[str, Any]
-        if provider["selected_provider"] in {"openai", "nvidia_nim"} and not force_fallback:
+        if provider["selected_provider"] in {"openai", "nvidia_nim", "ollama"} and not force_fallback:
             try:
                 result = provider_assess(text, provider, rubric)
             except Exception as exc:
@@ -500,7 +511,7 @@ def main() -> int:
     parser.add_argument("--secret-file", default=str(DEFAULT_SECRET_FILE))
     parser.add_argument("--out", default=str(ROOT / "deliverables" / "homs_live_batch_test"))
     parser.add_argument("--input", default="", help="Optional HOMS job folder with rubric.json and uploads/*.txt.")
-    parser.add_argument("--provider", default="nim", choices=["auto", "nim", "nvidia", "nvidia_nim", "openai"])
+    parser.add_argument("--provider", default="ollama", choices=["ollama", "auto", "nim", "nvidia", "nvidia_nim", "openai"])
     parser.add_argument("--force-fallback", action="store_true", help="Skip provider call and use deterministic fallback.")
     args = parser.parse_args()
 

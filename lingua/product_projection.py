@@ -60,7 +60,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "measured",
         "visual_grammar": "editorial_research_documentary",
         "motion_grammar": "measured_pushes_and_source_closeups",
-        "voice": {"provider": "piper_local", "voice": "configured_local_model", "presentation": "calm_explainer", "remote_tts_allowed": False},
+        "voice": {"provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "presentation": "calm_explainer", "remote_tts_allowed": False},
         "music": {"family": "minimal_documentary", "keywords": ["documentary", "minimal", "ambient", "research"], "allow_silence": True, "volume": 0.06},
     },
     "assurance": {

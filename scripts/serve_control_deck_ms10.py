@@ -105,6 +105,8 @@ class MS10ControlDeckHandler(ControlDeckHandler):
 
     def _serve_business_page(self) -> None:
         page = (ROOT / "dashboard" / "business.html").read_text(encoding="utf-8")
+        market_url = f"http://127.0.0.1:{self.server.market_port}"
+        page = page.replace("http://127.0.0.1:8770", market_url)
         page = page.replace(
             '<div class="topnav">',
             '<div class="topnav"><a class="btn gold" href="/dashboard/connections.html">Connections & Secrets</a>',
@@ -324,11 +326,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Serve DIO BUSINESS operator workbench")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--market-port", type=int, default=8770)
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO BUSINESS must bind to localhost")
     load_secret_env(overwrite=False)
     server = ThreadingHTTPServer((args.host, args.port), MS10ControlDeckHandler)
+    server.market_port = args.market_port
     print(f"DIO BUSINESS: http://{args.host}:{args.port}")
     print("Human operator workbench: ACTIVE · artifact gateway ACTIVE · invoice desk ACTIVE · secret vault ACTIVE")
     try:

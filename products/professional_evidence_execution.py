@@ -194,7 +194,7 @@ def _run_homs_assess(packet: dict[str, Any], execution_dir: Path) -> dict[str, A
         execution_dir,
         Path(os.environ.get("HOMS_SECRET_FILE") or DEFAULT_SECRET_FILE),
         Path(os.environ.get("HOMS_HYMARK_BACKEND") or DEFAULT_HYMARK_BACKEND),
-        os.environ.get("HOMS_PROVIDER", "nim"),
+        os.environ.get("HOMS_PROVIDER", "ollama"),
         os.environ.get("HOMS_MODEL", ""),
     )
     if receipt.get("status") != "completed" or int(receipt.get("submissions") or 0) < 2:
@@ -284,7 +284,13 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
     }
     request_path = execution_dir.parent / "PROJECTION" / "SOPHIA_REVIEW_REQUEST.json"
     write_json(request_path, request)
-    sophia_root = Path(os.environ.get("SOPHIA_ROOT") or "/home/byron/Integritas-Mechanicus").resolve()
+    sophia_root = Path(
+        os.environ.get("SOPHIA_ROOT")
+        or (
+            Path(__file__).resolve().parents[1]
+            / "cross_folder_variants/Integritas-Mechanicus/A_CODE"
+        )
+    ).resolve()
     base_url = os.environ.get("SOPHIA_BASE_URL", "http://127.0.0.1:7070")
     output = run_review(request, request_path, execution_dir / "sophia_native", base_url, sophia_root)
     receipt_path = output / "SOPHIA_REVIEW_RECEIPT.json"
@@ -335,7 +341,7 @@ def _build_vamp_database(packet: dict[str, Any], target: Path) -> Path:
         path = evidence_dir / f"record_{index:02d}.txt"
         path.write_text(str(row.get("customer_supplied_record") or "") + "\n", encoding="utf-8")
         con.execute("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)", (task, "PROFESSIONAL", str(row.get("customer_supplied_record") or "")[:120], "2026-01-01", "2026-08-31", "review_period", 1, 1, "lag", "{}"))
-        con.execute("INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)", (evidence, sha256(path)[:40], "PROFESSIONAL-001", 2026, "2026-08", "PROFESSIONAL", "", "", str(path), json.dumps({"target_task_id": task, "customer_packet_fingerprint": packet["packet_fingerprint"]})))
+        con.execute("INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)", (evidence, __import__("hashlib").sha1(path.read_bytes()).hexdigest(), "PROFESSIONAL-001", 2026, "2026-08", "PROFESSIONAL", "", "", str(path), json.dumps({"target_task_id": task, "customer_packet_fingerprint": packet["packet_fingerprint"]})))
         con.execute("INSERT INTO evidence_task VALUES(?,?,?,?,?)", (evidence, task, "customer_packet_projection", 1.0, utc_now()))
     con.commit()
     con.close()

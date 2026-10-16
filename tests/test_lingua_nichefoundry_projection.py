@@ -100,6 +100,27 @@ def test_short_form_and_explainer_are_distinct_lawful_projections() -> None:
         assert "source_bound_proof" in story["semantic_guardrails"]["must_preserve"]
 
 
+def test_academic_research_projection_selects_approved_vera_pocket_tts() -> None:
+    product = _product()
+    audience = {
+        **_teacher(),
+        "id": "research_supervisors",
+        "name": "Research Supervisors",
+        "pain": "Research review requires tracing claims back to sources.",
+    }
+    law = build_semantic_law(product, audience)
+    projection = build_projection_plan(law, product, audience, _channels())
+
+    voice = projection["surfaces"]["vertical_short"]["voice"]
+    assert voice == {
+        "provider": "pocket_tts",
+        "profile": "vera_pocket_public",
+        "voice": "vera",
+        "presentation": "calm_explainer",
+        "remote_tts_allowed": False,
+    }
+
+
 def test_active_campaign_factory_routes_to_v3_through_visual_spine() -> None:
     active = (ROOT / "scripts" / "build_multichannel_campaign_factory.py").read_text(encoding="utf-8")
     v3 = (ROOT / "scripts" / "build_multichannel_campaign_factory_v3.py").read_text(encoding="utf-8")

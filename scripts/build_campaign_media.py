@@ -7,6 +7,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -56,12 +57,17 @@ def resolve_piper_binary(nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT) ->
     candidates = [
         os.environ.get("PIPER_BIN"),
         str(nichefoundry_root / ".venv-piper" / "bin" / "piper"),
-        "piper",
+        str(ROOT / ".venv" / "bin" / "piper"),
+        str(Path(sys.executable).expanduser().absolute().parent / "piper"),
+        str(Path.home() / ".local" / "bin" / "piper"),
     ]
     for raw in candidates:
         resolved = _command_path(raw)
         if resolved:
             return resolved
+    found = shutil.which("piper")
+    if found:
+        return Path(found).resolve()
     raise CampaignMediaError(
         "Local Piper is required for campaign narration. Set PIPER_BIN, install the NicheFoundry .venv-piper runtime, or place piper on PATH."
     )
@@ -81,6 +87,7 @@ def resolve_piper_model(nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT) -> 
     roots = [
         nichefoundry_root / "assets" / "piper",
         ROOT / "assets" / "piper",
+        Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share")).expanduser() / "piper",
     ]
     models = sorted({path.resolve() for root in roots if root.is_dir() for path in root.rglob("*.onnx")})
     if voice_hint:
@@ -99,6 +106,10 @@ def resolve_piper_model(nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT) -> 
 def require_tool(name: str) -> Path:
     found = shutil.which(name)
     if not found:
+        for directory in (Path.home() / ".local" / "bin", Path.home() / "bin"):
+            candidate = directory / name
+            if candidate.is_file() and os.access(candidate, os.X_OK):
+                return candidate.resolve()
         raise CampaignMediaError(f"{name} is required to render narrated campaign media.")
     return Path(found).resolve()
 

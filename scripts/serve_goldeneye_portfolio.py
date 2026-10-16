@@ -12,6 +12,26 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 
 
+
+GOLDENEYE_ALLOWED_ASSETS = {
+    "/dashboard/goldeneye-portfolio.html": (
+        ROOT / "dashboard/goldeneye-portfolio.html",
+        "text/html; charset=utf-8",
+    ),
+    "/dashboard/goldeneye-portfolio.css": (
+        ROOT / "dashboard/goldeneye-portfolio.css",
+        "text/css; charset=utf-8",
+    ),
+    "/dashboard/goldeneye-portfolio.js": (
+        ROOT / "dashboard/goldeneye-portfolio.js",
+        "application/javascript; charset=utf-8",
+    ),
+    "/dashboard/assets/dio-logo-cockpit.svg": (
+        ROOT / "dashboard/assets/dio-logo-cockpit.svg",
+        "image/svg+xml",
+    ),
+}
+
 class GoldenEyePortfolioHandler(SimpleHTTPRequestHandler):
     snapshot_path = ROOT / "state" / "control_deck" / "CONTROL_DECK_PORTFOLIO_SNAPSHOT.json"
     commercial_truth_path = ROOT / "state" / "commercial_truth" / "COMMERCIAL_TRUTH_SNAPSHOT.json"
@@ -29,11 +49,31 @@ class GoldenEyePortfolioHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _serve_allowed_asset(self, route):
+        file_path, content_type = GOLDENEYE_ALLOWED_ASSETS[route]
+
+        try:
+            data = file_path.read_bytes()
+        except OSError:
+            return self._json(
+                503,
+                {"error": "approved_asset_unavailable"},
+            )
+
+        self.send_response(200)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        self.wfile.write(data)
+
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            self.path = "/dashboard/goldeneye-portfolio.html"
-            return super().do_GET()
+            return self._serve_allowed_asset(
+                "/dashboard/goldeneye-portfolio.html"
+            )
         if path == "/api/control-deck/portfolio":
             if not self.snapshot_path.is_file():
                 return self._json(HTTPStatus.SERVICE_UNAVAILABLE, {
@@ -50,7 +90,13 @@ class GoldenEyePortfolioHandler(SimpleHTTPRequestHandler):
                     "authority_created": False,
                 })
             return self._json(HTTPStatus.OK, json.loads(self.commercial_truth_path.read_text(encoding="utf-8")))
-        return super().do_GET()
+        if path in GOLDENEYE_ALLOWED_ASSETS:
+            return self._serve_allowed_asset(path)
+
+        return self._json(
+            404,
+            {"error": "not_found", "authority_created": False},
+        )
 
     def do_POST(self) -> None:  # noqa: N802
         self._json(HTTPStatus.METHOD_NOT_ALLOWED, {

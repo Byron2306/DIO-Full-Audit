@@ -12,6 +12,7 @@ from docx import Document
 
 from .customer_cases import load_case, update_case
 from .state import create_needs_you, write_json
+from sovereign_runtime import ollama_model
 
 
 SCHEMA = "dio.presence.fulfilment_egress.v1"
@@ -189,7 +190,7 @@ def build_controlled_local_sophia_request(
         "external_retrieval": False,
         "reasoned_review_approved": True,
         "reasoned_provider": "local",
-        "reasoned_model": "qwen2.5:3b",
+        "reasoned_model": ollama_model(),
         "gemini_review_approved": False,
         "gemini_model": "",
         "human_approval_required": True,

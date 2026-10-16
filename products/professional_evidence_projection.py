@@ -342,7 +342,7 @@ def document_studio_projection(packet: dict[str, Any], target: Path, *, service:
         "remote_processing_approved": True,
         "certified_translation_required": False,
         "human_language_review_required": bool(is_translation),
-        "provider": "gemini",
+        "provider": "ollama",
         "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
     write_json(target, request)

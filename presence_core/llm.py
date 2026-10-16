@@ -4,7 +4,7 @@ from typing import Any
 import httpx
 from adapters.lingua.interaction_regulator import llm_style_instruction
 from adapters.lingua.persona_lab import persona_style_instruction
-from sovereign_runtime import require_ollama_provider
+from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
 
 INTENTS=["general_info","product_info","pricing_info","intake_request","status_request","translation_info","formatting_info","unknown"]
 
@@ -527,8 +527,7 @@ def _draft_messages(
     ]
 
 def classify_with_ollama(text: str, products: list[str]) -> dict[str,Any]|None:
-    url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
-    if not url or not model: return None
+    url=ollama_url(); model=ollama_model()
     prompt=f"Classify this customer message. Return JSON only with intent, product, confidence. Allowed intents: {INTENTS}. Allowed products: {products} or null. Message: {text[:2500]}"
     payload={"model":model,"messages":[{"role":"system","content":"You are a bounded intent classifier. You do not execute tools, make commitments, quote prices, or alter state."},{"role":"user","content":prompt}],"format":"json","stream":False,"think":False,"options":{"temperature":0}}
     try:
@@ -558,8 +557,7 @@ def draft_with_ollama(
     except Exception:
         return fallback
     if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}: return fallback
-    url=os.getenv("OLLAMA_URL"); model=os.getenv("OLLAMA_MODEL")
-    if not url or not model: return fallback
+    url=ollama_url(); model=ollama_model()
     messages=_draft_messages(decision,facts,fallback,interaction,persona_assignment,conversation_state,recent_turns,governed_context)
     try:
         r=httpx.post(url.rstrip("/")+"/api/chat",json={"model":model,"messages":messages,"stream":False,"think":False,"options":{"temperature":0.2}},timeout=float(os.getenv("OLLAMA_TIMEOUT","15")))
