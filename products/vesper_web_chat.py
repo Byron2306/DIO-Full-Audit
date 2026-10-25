@@ -4,21 +4,25 @@ import base64
 import hashlib
 import json
 import mimetypes
+import os
 import re
 import secrets
 import shutil
+from contextlib import contextmanager
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 from portfolio_runtime import ROOT, load_portfolio
 from products.attachment_intake import MAX_ATTACHMENTS, quarantine_attachments
+from presence_core.config import state_path
+from presence_core.local_ingress import LocalIngressLedger
 
 
 SESSION_SCHEMA = "dio.vesper.web_chat.session.v1"
 MESSAGE_RECEIPT_SCHEMA = "dio.vesper.web_chat.message_receipt.v1"
 PROFESSIONAL_BINDING_SCHEMA = "dio.vesper.web_chat.professional_binding.v1"
-DEFAULT_STATE_ROOT = ROOT / "state" / "vesper" / "web_chat"
+DEFAULT_STATE_ROOT = state_path("vesper", "web_chat", dio_root=ROOT)
 MAX_MESSAGE_CHARS = 12000
 ROUTE_STOPWORDS = {
     "the", "and", "for", "with", "from", "this", "that", "into", "your", "their", "our", "you", "please",
@@ -29,6 +33,10 @@ ROUTE_STOPWORDS = {
 
 class VesperWebChatError(RuntimeError):
     pass
+
+
+class VesperWebChatValidationError(VesperWebChatError):
+    """Input was refused before canonical processing began."""
 
 
 def utc_now() -> str:
@@ -55,7 +63,120 @@ def _sha(path: Path) -> str:
 
 def _write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    with temporary.open("w", encoding="utf-8") as stream:
+        stream.write(json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    temporary.replace(path)
+
+
+@contextmanager
+def _session_lock(state_root: Path, conversation_id: str):
+    """Serialize the complete session update across threads and local workers."""
+    path = _session_path(state_root, conversation_id)
+    if not path.is_file():
+        raise VesperWebChatError("Vesper web-chat conversation was not found")
+    from presence_core.state import file_lock
+    with file_lock(path.parent / "MESSAGE.lock"):
+        yield
+
+
+def _presence_root(state_root: Path) -> Path:
+    state_root = state_root.resolve()
+    if state_root.name == "web_chat" and state_root.parent.name == "vesper":
+        return state_root.parent.parent / "presence"
+    # Explicit professional-packet/test sessions remain isolated from live state.
+    return state_root / "presence"
+
+
+def _process_web_turn(session: dict[str, Any], payload: dict[str, Any], *,
+                      state_root: Path, quarantine_manifest: dict[str, Any] | None,
+                      quarantine_root: Path, message_id: str,
+                      trusted_voice_context: dict[str, Any] | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
+    from presence_core.config import load_config
+    from presence_core.engine import process_envelope
+    from presence_core.state import conversation_id as canonical_id
+    from presence_core.customer_cases import find_case_for_conversation
+
+    presence_root = _presence_root(state_root)
+    cfg = load_config(ROOT / "config" / "presence.json")
+    cfg["state_root"] = str(presence_root)
+    cfg["event_log"] = str(presence_root.parent / "telemetry" / "dio_events.jsonl")
+    cfg["lingua_state_root"] = str(presence_root.parent / "lingua")
+    expected_id = canonical_id("webchat", session["conversation_id"])
+    previous_id = session.get("canonical_conversation_id")
+    if previous_id and previous_id != expected_id:
+        raise VesperWebChatError("canonical identity changed; manual reconciliation required")
+
+    quarantined = []
+    for row in (quarantine_manifest or {}).get("attachments", []):
+        blob = Path(row["quarantine_path"]).resolve()
+        if quarantine_root.resolve() not in blob.parents or not blob.is_file():
+            raise VesperWebChatError("web attachment escaped its quarantine")
+        if _sha(blob) != row["sha256"] or blob.stat().st_size != row["bytes"]:
+            raise VesperWebChatError("web attachment custody changed")
+        aid = "ATT-WEB-" + hashlib.sha256((expected_id + "\0" + row["source_ref"]).encode()).hexdigest()[:20].upper()
+        record = {
+            "schema": "dio.presence_attachment.v2", "attachment_id": aid,
+            "conversation_id": expected_id, "state": "quarantined",
+            "quarantine_only": True, "safe_to_parse": False, "safe_to_execute": False,
+            "original_file_name": row["filename"], "extension": blob.suffix.lower(),
+            "mime_type": row["declared_mime_type"], "size_bytes": row["bytes"],
+            "sha256": row["sha256"], "blob_path": str(blob),
+            "source_ref": row["source_ref"], "web_attachment_id": row["attachment_id"],
+            "created_at": utc_now(),
+            "authority": {"automatic_processing": False, "operator_review_required": True},
+        }
+        _write_json(presence_root / "quarantine" / aid / "ATTACHMENT.json", record)
+        quarantined.append(record)
+
+    hint = str(payload.get("incarnation_hint") or session.get("incarnation_hint") or "").strip() or None
+    # A repeated initial site hint must not pin every subsequent customer turn.
+    if previous_id and hint == session.get("incarnation_hint") and payload.get("product_context_changed") is not True:
+        hint = None
+    if hint:
+        if hint not in set(canonical_incarnations()):
+            raise VesperWebChatError(f"unknown canonical incarnation hint: {hint}")
+        session["incarnation_hint"] = hint
+    envelope = {
+        "channel": "webchat", "external_user_id": session["conversation_id"],
+        "source_message_id": message_id, "message_type": "text",
+        "text": str(payload.get("message") or "").strip(),
+        "metadata": {"provider": "vesper_web", "incarnation_hint": hint,
+                     "email": str((session.get("contact") or {}).get("email") or ""),
+                     "contact_identity_verified": False,
+                     "attachment_count_held_in_quarantine": len(quarantined),
+                     "attachment_processing_authorized": False},
+    }
+    if trusted_voice_context is not None:
+        envelope['message_type'] = 'voice'
+        envelope['metadata']['voice_source'] = dict(trusted_voice_context)
+        envelope['metadata']['voice_transcription_is_untrusted_customer_input'] = True
+    result = process_envelope(envelope, ROOT, cfg, quarantined_attachments=quarantined)
+    authority = result.get("authority") or {}
+    if (result.get("role") != "public" or result.get("conversation_id") != expected_id
+            or authority.get("executed_external_action") is not False
+            or any(authority.get(key) is True for key in (
+                "send_authorized", "submission_authorized", "spend_authorized",
+                "financial_commitment_authorized", "fulfilment_released", "attachment_processed",
+                "delivery_authorized", "attachment_processing_authorized"))):
+        raise VesperWebChatError("canonical web response violated its authority boundary")
+    case = find_case_for_conversation(presence_root, expected_id)
+    commercial = result.get("commercial")
+    product = str(((commercial or {}).get("product") or {}).get("name") or "").strip() or None
+    if commercial is None and case:
+        product = str(case.get("product_id") or "").strip() or None
+    resolved = bool(product and product in set(canonical_incarnations())
+                    and (commercial is None or commercial.get("state") == "RESOLVED"))
+    route = {"state": "RESOLVED" if resolved else "NEEDS_YOU",
+             "incarnation": product if resolved else None,
+             "basis": "canonical_presence_journey",
+             "candidates": [{"incarnation": name, "score": None}
+                            for name in (commercial or {}).get("candidates", [])],
+             "authority_created": False}
+    result["web_case"] = {key: case.get(key) for key in ("case_id", "stage", "product_id")} if case else None
+    return result, route
 
 
 def _safe_conversation_id(value: str) -> str:
@@ -168,6 +289,9 @@ def _public_session(session: dict[str, Any]) -> dict[str, Any]:
         "identity": session["identity"],
         "channel": session["channel"],
         "surface": session["surface"],
+        "canonical_conversation_id": session.get("canonical_conversation_id"),
+        "canonical_case_id": session.get("canonical_case_id"),
+        "canonical_case_stage": session.get("canonical_case_stage"),
         "incarnation_hint": session.get("incarnation_hint"),
         "route": session.get("route") or {},
         "state": session["state"],
@@ -257,8 +381,67 @@ def post_message(
     payload: dict[str, Any],
     *,
     state_root: Path = DEFAULT_STATE_ROOT,
-    quarantine_output_root: Path = ROOT,
+    quarantine_output_root: Path | None = None,
     now: str | None = None,
+    trusted_voice_context: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    payload = dict(payload)
+    event = str(payload.get("message_id") or payload.get("client_message_id") or "").strip()
+    if event and not re.fullmatch(r"[A-Za-z0-9._:-]{1,128}", event):
+        raise VesperWebChatValidationError("invalid web message id")
+    text = str(payload.get("message") or "").strip()
+    attachments = payload.get("attachments") or []
+    if not isinstance(attachments, list):
+        raise VesperWebChatValidationError("attachments must be a list")
+    if not text and not attachments:
+        raise VesperWebChatValidationError("send a message or attach at least one source file")
+    if len(text) > MAX_MESSAGE_CHARS:
+        raise VesperWebChatValidationError(f"message exceeds {MAX_MESSAGE_CHARS} characters")
+    if len(attachments) > MAX_ATTACHMENTS:
+        raise VesperWebChatValidationError(f"a single chat message may contain at most {MAX_ATTACHMENTS} attachments")
+    hint = str(payload.get("incarnation_hint") or "").strip()
+    if hint and hint not in set(canonical_incarnations()):
+        raise VesperWebChatValidationError(f"unknown canonical incarnation hint: {hint}")
+    event = event or "WEB-" + secrets.token_hex(16).upper()
+    key = f"web:{_safe_conversation_id(conversation_id)}:{event}"
+    body = _canonical(payload)
+    if trusted_voice_context is not None:
+        body = _canonical({'payload': payload, 'voice_source': trusted_voice_context})
+    with _session_lock(state_root, conversation_id):
+        session = load_session(conversation_id, state_root=state_root)
+        if len(session.get("messages", [])) > 1 and not session.get("canonical_conversation_id"):
+            raise VesperWebChatError("legacy web session requires canonical history reconciliation")
+        ledger = LocalIngressLedger(_session_path(state_root, conversation_id).parent / "INGRESS.sqlite")
+        try:
+            cached = ledger.claim(key, body, reject_other_pending=True)
+        except ValueError as exc:
+            raise VesperWebChatError(str(exc)) from exc
+        if cached is not None:
+            if cached.get("rejected_no_canonical_effect"):
+                raise VesperWebChatValidationError(cached["error"])
+            return {**cached, "session": _public_session(session)}
+        try:
+            response = _post_message(conversation_id, payload, state_root=state_root,
+                                     quarantine_output_root=quarantine_output_root, now=now,
+                                     canonical_message_id=key, trusted_voice_context=trusted_voice_context)
+            ledger.complete(key, body, response)
+            return response
+        except VesperWebChatValidationError as exc:
+            ledger.complete(key, body, {"rejected_no_canonical_effect": True, "error": str(exc)})
+            raise
+        except Exception as exc:
+            raise VesperWebChatError("canonical web processing failed; event is in doubt and requires reconciliation") from exc
+
+
+def _post_message(
+    conversation_id: str,
+    payload: dict[str, Any],
+    *,
+    state_root: Path = DEFAULT_STATE_ROOT,
+    quarantine_output_root: Path | None = None,
+    now: str | None = None,
+    canonical_message_id: str,
+    trusted_voice_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     now = now or utc_now()
     session = load_session(conversation_id, state_root=state_root)
@@ -276,7 +459,13 @@ def post_message(
     quarantine_manifest = None
     if attachments:
         intake_id = f"{conversation_id}-M{message_number:04d}"
-        quarantine_manifest = quarantine_attachments(attachments, output_dir=quarantine_output_root, intake_id=intake_id)
+        try:
+            quarantine_manifest = quarantine_attachments(
+                attachments, output_dir=quarantine_output_root or ROOT, intake_id=intake_id,
+                state_root=_presence_root(state_root).parent if quarantine_output_root is None else None,
+            )
+        except Exception as exc:
+            raise VesperWebChatValidationError("attachment intake refused; correct the source files before retrying") from exc
         for row in quarantine_manifest["attachments"]:
             attachment_ids.append(str(row["attachment_id"]))
             session["attachments"].append(
@@ -302,30 +491,29 @@ def post_message(
             "attachment_ids": attachment_ids,
         }
     )
-    requested_hint = str(payload.get("incarnation_hint") or session.get("incarnation_hint") or "").strip() or None
-    route = resolve_incarnation(text, incarnation_hint=requested_hint)
+    quarantine_root = ((quarantine_output_root / "state") if quarantine_output_root is not None
+                       else _presence_root(state_root).parent) / "vesper" / "quarantine"
+    presence, route = _process_web_turn(session, payload, state_root=state_root,
+                                       quarantine_manifest=quarantine_manifest,
+                                       quarantine_root=quarantine_root,
+                                       message_id=canonical_message_id, trusted_voice_context=trusted_voice_context)
+    session["canonical_conversation_id"] = presence["conversation_id"]
+    case = presence.get("web_case") or {}
+    session["canonical_case_id"] = case.get("case_id")
+    session["canonical_case_stage"] = case.get("stage")
     session["route"] = route
-    if route["state"] == "RESOLVED":
-        session["state"] = "ready_for_handoff"
-        session["handoff"] = {
-            "state": "READY_FOR_PRODUCT_EXECUTION",
-            "incarnation": route["incarnation"],
-            "product_execution_started": False,
-            "source_attachment_ids": [row["attachment_id"] for row in session["attachments"]],
-            "external_effects": False,
-        }
-        answer = (
-            f"I have this routed to {route['incarnation']}. The conversation and source files are bound into a governed Vesper handoff. "
-            "DIO may now run the product-specific internal pipeline, but any consequential human decision, send, publication, payment, or external release remains held."
-        )
-    else:
-        session["state"] = "needs_route_clarification"
-        session["handoff"] = {"state": "NOT_READY", "product_execution_started": False}
-        if route.get("candidates"):
-            options = ", ".join(str(row["incarnation"]) for row in route["candidates"])
-            answer = f"I can see more than one plausible route: {options}. Tell me which outcome you want, or choose the product explicitly."
-        else:
-            answer = "I do not yet have enough routing signal. Tell me the concrete output you want DIO to prepare, and attach the source material if you have it."
+    session["state"] = "ready_for_handoff" if route["state"] == "RESOLVED" else "needs_route_clarification"
+    session["handoff"] = {
+        "state": "READY_FOR_PRODUCT_EXECUTION" if route["state"] == "RESOLVED" else "NOT_READY",
+        "incarnation": route["incarnation"], "product_execution_started": False,
+        "canonical_conversation_id": presence["conversation_id"],
+        "canonical_case_id": case.get("case_id"), "canonical_case_stage": case.get("stage"),
+        "source_attachment_ids": [row["attachment_id"] for row in session["attachments"]],
+        "external_effects": False,
+    }
+    answer = str((presence.get("reply") or {}).get("text") or "").strip()
+    if not answer:
+        raise VesperWebChatError("canonical Presence returned no reply")
 
     assistant_number = len(session["messages"]) + 1
     session["messages"].append(
@@ -339,6 +527,12 @@ def post_message(
         "conversation_id": conversation_id,
         "message_id": f"MSG-{message_number:04d}",
         "route": route,
+        "canonical_conversation_id": presence["conversation_id"],
+        "canonical_case_id": case.get("case_id"),
+        "canonical_case_stage": case.get("stage"),
+        "decision": presence.get("decision") or {},
+        "lingua_object_id": (presence.get("lingua") or {}).get("object_id"),
+        "source_message_id": canonical_message_id,
         "attachment_count": len(attachment_ids),
         "quarantine_manifest_schema": (quarantine_manifest or {}).get("schema"),
         "handoff_state": session["handoff"]["state"],

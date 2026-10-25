@@ -64,6 +64,35 @@ class LocalIngressLedger:
             return None
         return json.loads(row["response_json"])
 
+    def claim(self, event_key: str, body: bytes, *, reject_other_pending: bool = False) -> dict[str, Any] | None:
+        """Claim once; incomplete work requires reconciliation, never blind replay."""
+        key = str(event_key or "").strip()
+        if not key:
+            raise ValueError("local ingress requires an event key")
+        digest = _hash(body)
+        with self._connect() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            row = connection.execute(
+                "SELECT body_sha256,state,response_json FROM ingress_receipts WHERE event_key=?",
+                (key,),
+            ).fetchone()
+            if row is not None:
+                if row["body_sha256"] != digest:
+                    raise ValueError("local ingress event key was reused with different bytes")
+                if row["state"] != "completed" or not row["response_json"]:
+                    raise ValueError("local ingress is in doubt; manual reconciliation required")
+                return json.loads(row["response_json"])
+            if reject_other_pending and connection.execute(
+                "SELECT 1 FROM ingress_receipts WHERE state!='completed' LIMIT 1"
+            ).fetchone() is not None:
+                raise ValueError("local ingress is in doubt; reconcile the earlier submission first")
+            now = _now()
+            connection.execute(
+                "INSERT INTO ingress_receipts VALUES(?,?,?,?,?,?)",
+                (key, digest, "received", None, now, now),
+            )
+        return None
+
     def begin(self, event_key: str, body: bytes) -> None:
         key = str(event_key or "").strip()
         if not key:

@@ -109,11 +109,12 @@ def _zip_inventory(body: bytes) -> tuple[list[dict[str, Any]], str]:
         raise AttachmentIntakeError("ZIP container is invalid") from exc
 
 
-def quarantine_attachments(attachments: list[dict[str, Any]], *, output_dir: Path, intake_id: str) -> dict[str, Any]:
+def quarantine_attachments(attachments: list[dict[str, Any]], *, output_dir: Path, intake_id: str,
+                           state_root: Path | None = None) -> dict[str, Any]:
     if not attachments or len(attachments) > MAX_ATTACHMENTS:
         raise AttachmentIntakeError(f"between 1 and {MAX_ATTACHMENTS} attachments are required")
     output_dir = output_dir.resolve()
-    quarantine = output_dir / "state" / "vesper" / "quarantine" / intake_id
+    quarantine = (state_root.resolve() if state_root is not None else output_dir / "state") / "vesper" / "quarantine" / intake_id
     quarantine.mkdir(parents=True, exist_ok=True)
     receipts = []
     for index, item in enumerate(attachments, 1):
