@@ -23,6 +23,7 @@ from .customer_cases import (
     find_case_for_conversation,
     load_case,
     update_case,
+    serialized_case_write,
 )
 from .customer_quotes import (
     evaluate_bounded_quote_authority,
@@ -48,6 +49,8 @@ from .state import (
     update_conversation,
 )
 from .voice import build_voice_plan
+from .vesper_journey_runtime import build_vesper_journey_view
+from .product_binding_registry import compile_product_journey_binding
 
 
 
@@ -107,6 +110,7 @@ def _is_price_acceptance(text: str) -> bool:
     return any(term in value for term in acceptance_terms)
 
 
+@serialized_case_write
 def _bind_live_customer_case(
     *,
     presence_root: Path,
@@ -115,6 +119,7 @@ def _bind_live_customer_case(
     envelope: dict[str, Any],
     attachment_record: dict[str, Any] | None,
     commercial: dict[str, Any] | None,
+    quarantined_attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     """
     Bind live Presence custody/routing truth into the canonical customer-case spine.
@@ -139,7 +144,7 @@ def _bind_live_customer_case(
 
     # Do not create empty commercial cases for every casual public turn.
     # Attachment custody or a deterministic product resolution is sufficient.
-    if attachment_record is None and resolved_product is None:
+    if attachment_record is None and resolved_product is None and not quarantined_attachments:
         return None
 
     case = create_or_attach_case(
@@ -158,10 +163,11 @@ def _bind_live_customer_case(
         ),
     )
 
-    if attachment_record is not None:
-        incoming_sha = str(
-            attachment_record.get("sha256") or ""
-        ).strip().lower()
+    incoming_records = ([attachment_record] if attachment_record is not None else []) + list(quarantined_attachments or [])
+    if incoming_records:
+        scope_sha = str((case.get("scope") or {}).get("scope_scan_sha256") or "").strip().lower()
+        changed = [row for row in incoming_records if str(row.get("sha256") or "").lower() != scope_sha]
+        incoming_sha = str((changed[0] if changed else incoming_records[0]).get("sha256") or "").strip().lower()
 
         scope = case.get("scope") or {}
         scoped_sha = str(
@@ -228,6 +234,7 @@ def _bind_live_customer_case(
     attachments = list(case.get("attachments") or [])
 
     candidate_records = []
+    candidate_records.extend(quarantined_attachments or [])
     if attachment_record is not None:
         candidate_records.append(attachment_record)
 
@@ -461,7 +468,29 @@ def _reply(decision:dict[str,Any],role:str,summary=None,needs=None,intake=None,s
         return 'I’m Vesper, DIO’s Presence Core. I’m an AI system. I can explain HOMS, Evidex, Sophia, VAMP and Document Studio, capture a request, receive bounded document uploads, explain translation/formatting, and route sensitive work to a human authority gate. I don’t silently spend money, release work, or make professional judgments for you.','public_capabilities=bounded'
     return 'I’m not confident enough to route that safely yet. Tell me whether this is about HOMS, Evidex, Sophia, VAMP, translation/formatting, an uploaded file, or an existing DIO job and I’ll put it on the right rail.','classification=unresolved'
 
-def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None)->tuple[str,dict[str,Any]]:
+
+def _case_intake_reply(name: str, profile: dict[str, Any], case: dict[str, Any], *, buyer_context_refined=False) -> str:
+    """Describe existing intake requirements without accepting them or changing a case."""
+    missing = (case.get('intake') or {}).get('requirement', {}).get('missing_input_ids')
+    fields = [row for row in profile.get('required_inputs') or []
+              if (missing is None or row.get('field_id') in missing)
+              and not (buyer_context_refined and row.get('field_id') == 'buyer_class')]
+    labels = {'requested_outcome': 'the outcome you want',
+              'buyer_class': 'who the work is for',
+              'scope_quantity': 'roughly how many {unit}s are involved'}
+    parts = []
+    for row in fields:
+        field = str(row.get('field_id') or '')
+        label = labels.get(field, field.replace('_', ' '))
+        if field == 'scope_quantity':
+            label = label.format(unit=str(row.get('semantic_unit') or 'work item').replace('_', ' '))
+        parts.append(label)
+    if not parts:
+        return f'We have the initial details for {name}. I can explain the next step for your current case.'
+    prefix = f'For {name}, that clarifies who the work is for. I still need ' if buyer_context_refined else f'For {name}, tell me '
+    return prefix + ', '.join(parts[:-1]) + (', and ' if len(parts) > 1 else '') + parts[-1] + '.'
+
+def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],role:str,correlation:str,reply:str,interaction:dict[str,Any]|None=None,persona:dict[str,Any]|None=None,lingua_state_root:Path|None=None)->tuple[str,dict[str,Any]]:
     metadata=envelope.get('metadata') or {}
     explicit_language=metadata.get('language') or metadata.get('locale') or envelope.get('language')
     target=requested_language(str(envelope.get('text') or ''),str(explicit_language) if explicit_language else None)
@@ -496,7 +525,7 @@ def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],
         }
     receipt=register_communication(
         dio_root=dio_root,
-        state_root=state_path('lingua', dio_root=dio_root),
+        state_root=lingua_state_root or state_path('lingua', dio_root=dio_root),
         owner='vesper',
         artifact_type=artifact,
         channel=str(envelope.get('channel') or 'conversation'),
@@ -517,14 +546,15 @@ def _lingua_reply(*,dio_root:Path,envelope:dict[str,Any],decision:dict[str,Any],
         return str(receipt.get('selected_text') or reply),receipt
     return reply,receipt
 
-def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->dict[str,Any]:
+def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any], *, quarantined_attachments:list[dict[str,Any]]|None=None)->dict[str,Any]:
     presence_root=dio_root/str(cfg.get('state_root','state/presence')); event_log=dio_root/str(cfg.get('event_log','telemetry/dio_events.jsonl')); routes_path=dio_root/str(cfg.get('routes_path','config/routes.json'))
+    lingua_root=Path(cfg.get('lingua_state_root') or state_path('lingua', dio_root=dio_root))
     role=_role(envelope); conv=load_or_create_conversation(presence_root,envelope,role); text=str(envelope.get('text') or '').strip(); correlation=conv['conversation_id']
     conversation_state=load_conversation_state(presence_root,correlation)
     recent_turns=load_recent_conversation_turns(presence_root,correlation)
     metadata=envelope.get('metadata') or {}
     interaction=observe_interaction(
-        state_root=state_path('lingua', dio_root=dio_root),
+        state_root=lingua_root,
         conversation_id=correlation,
         text=text,
         channel=str(envelope.get('channel') or 'conversation'),
@@ -550,7 +580,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             emit_event(event_log,'presence.attachment_rejected','warning','presence_conversation',correlation,{'reason':str(exc)},correlation)
             return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':{'intent':'attachment_rejected','product':None,'confidence':1.0,'source':'policy','reason':str(exc)},'reply':{'text':f"I refused that upload safely: {exc}",'mode':'text','voice_eligible':False},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False},'attachment':None,'intake':None,'interaction':interaction,'persona':None,'lingua':{'state':'not_registered','reason':'attachment_rejected_before_response_registration'}}
     decision=route_message(text,role,routes_path).as_dict()
-    if attachment_record and decision['intent'] in {'unknown','general_info'}:
+    if (attachment_record or quarantined_attachments) and decision['intent'] in {'unknown','general_info'}:
         decision={'intent':'attachment_received','product':decision.get('product'),'confidence':1.0,'source':'attachment_policy','reason':'quarantined attachment requires human routing'}
     ok,reason=authorize(role,decision['intent'])
     if not ok: decision={'intent':'unknown','product':None,'confidence':1.0,'source':'policy','reason':reason}
@@ -559,6 +589,20 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         presence_root,
         correlation,
     )
+
+    buyer_scope_followup = bool(
+        role == 'public'
+        and current_customer_case
+        and current_customer_case.get('product_id')
+        and semantic_continuity.get('relation') == 'CONTINUATION'
+        and semantic_continuity.get('retain_active_referent') is True
+        and semantic_continuity.get('speech_act') == 'BUYER_SCOPE_REFINEMENT'
+        and decision['intent'] in {'general_info', 'product_info', 'unknown', 'intake_request', 'pricing_info'}
+        and attachment_record is None
+        and not quarantined_attachments
+    )
+    buyer_scope_pricing = bool(buyer_scope_followup
+                               and (semantic_continuity.get('evidence') or {}).get('price_signal'))
 
     active_case_product = None
     if current_customer_case is not None:
@@ -589,13 +633,20 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
                 or ""
             ).strip() or None
 
+    # Canonical site context is routing context, never attachment-processing
+    # authority. Advisory intent labels must not erase an exact product hint.
+    explicit_site_context = str(metadata.get('incarnation_hint') or envelope.get('incarnation_hint') or '').strip()
+    held_case_context = bool(quarantined_attachments and current_customer_case
+                             and current_customer_case.get('product_id'))
+    contextual_product_turn = bool(role == 'public' and text.strip()
+                                   and (explicit_site_context or held_case_context))
     commercial=None
     if should_ground_commercial(
         role=role,
         intent=decision['intent'],
         text=text,
         attachment_present=bool(attachment_record),
-    ):
+    ) or buyer_scope_followup or contextual_product_turn:
         try:
             # Explicit product context remains authoritative.
             # Lingua owns defeasible conversational continuity.
@@ -651,11 +702,22 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
                         )
                         break
 
-            if explicit_incarnation_hint:
+            commercial_probe=build_commercial_grounding(dio_root, text)
+            if commercial_probe.get('resolution_basis') == 'multiple_explicit_products':
+                commercial=commercial_probe
+            elif commercial_probe.get('resolution_basis') == 'single_explicit_product':
+                commercial=commercial_probe
+            elif explicit_incarnation_hint:
                 commercial=build_commercial_grounding(
                     dio_root,
                     text,
                     incarnation_hint=explicit_incarnation_hint,
+                    context_tier_hint=persisted_tier_hint,
+                )
+            elif buyer_scope_followup or held_case_context:
+                commercial=build_commercial_grounding(
+                    dio_root, text,
+                    incarnation_hint=str(current_customer_case['product_id']),
                     context_tier_hint=persisted_tier_hint,
                 )
             elif (
@@ -760,6 +822,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         envelope=envelope,
         attachment_record=attachment_record,
         commercial=commercial,
+        quarantined_attachments=quarantined_attachments,
     )
     if customer_case is not None:
         emit_event(
@@ -876,7 +939,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     persona=assign_persona(
         root=dio_root,
         conversation_id=correlation,
-        state_root=state_path('lingua', dio_root=dio_root),
+        state_root=lingua_root,
         role=role,
         channel=str(envelope.get('channel') or 'conversation'),
         audience=str(metadata.get('audience') or ('operator' if role=='operator' else 'public')),
@@ -897,10 +960,14 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         pricing=pricing_operator_query(dio_root,state_root=presence_root,text=text,product_hint=decision.get('product'))
     elif decision['intent'] in {'operator_summary','campaign_summary','revenue_summary','mail_summary','job_summary'}: summary=operator_summary(dio_root,presence_root)
     elif decision['intent']=='needs_you': needs=list_needs_you(presence_root,20)
-    elif decision['intent']=='intake_request' and decision.get('product'):
+    elif decision['intent']=='intake_request' and decision.get('product') and not buyer_scope_followup:
         intake=create_intake(presence_root,conv,str(decision['product']),text,envelope.get('source_message_id'),attachment_ids=[attachment_record['attachment_id']] if attachment_record else None)
         item=create_needs_you(presence_root,reason='public_intake_review',conversation_id=correlation,product=decision['product'],summary=f"Review {decision['product']} intake {intake['intake_id']}: {text[:300]}")
         emit_event(event_log,'presence.intake_received','action','presence_intake',intake['intake_id'],{'product':decision['product'],'needs_you_id':item['needs_you_id'],'automatic_fulfilment':False,'attachment_ids':intake.get('attachment_ids',[])},correlation)
+    elif decision['intent']=='attachment_received' and quarantined_attachments and not attachment_record:
+        held_ids=[row['attachment_id'] for row in quarantined_attachments]
+        item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary='Review quarantined web attachments: '+', '.join(held_ids))
+        emit_event(event_log,'presence.attachment_review_required','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id'],'attachment_ids':held_ids},correlation)
     elif decision['intent']=='attachment_received' and attachment_record:
         item=create_needs_you(presence_root,reason='public_attachment_review',conversation_id=correlation,product=decision.get('product'),summary=f"Review quarantined attachment {attachment_record['attachment_id']}: {attachment_record['original_file_name']}")
         emit_event(event_log,'presence.attachment_review_required','action','presence_attachment',attachment_record['attachment_id'],{'needs_you_id':item['needs_you_id']},correlation)
@@ -913,6 +980,27 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             item=create_needs_you(presence_root,reason='public_status_identity_required',conversation_id=correlation,product=decision.get('product'),summary=f'Public user requested status lookup: {text[:300]}')
             emit_event(event_log,'presence.status_escalated','action','presence_conversation',correlation,{'needs_you_id':item['needs_you_id']},correlation)
     fallback,facts=_reply(decision,role,summary,needs,intake,statuses,attachment_record,capital,pricing=pricing)
+    facts += '\nintake_created=' + str(intake is not None).lower()
+    opened = bool(customer_case and (customer_case.get('stage') == 'INTAKE_OPEN'
+                  or any(row.get('stage') == 'INTAKE_OPEN' for row in customer_case.get('stage_history') or [])))
+    facts += '\njourney_intake_open=' + str(opened).lower()
+
+    journey_view = None
+    intake_profile = None
+    journey_intake_reply_applied = False
+    if role == 'public' and customer_case is not None:
+        journey_view = build_vesper_journey_view(customer_case)
+        canonical_name = str(customer_case.get('product_id') or '')
+        if canonical_name:
+            intake_profile = compile_product_journey_binding(dio_root, canonical_name)['intake_profile']
+        if not buyer_scope_pricing and (decision['intent'] == 'intake_request' or buyer_scope_followup) and intake is None and intake_profile:
+            # A model advisory is not intake acceptance. A resolved canonical
+            # case must not fall through to the legacy "unknown product" reply.
+            fallback = _case_intake_reply(canonical_name, intake_profile, customer_case,
+                                          buyer_context_refined=semantic_continuity.get('speech_act') == 'BUYER_SCOPE_REFINEMENT')
+            journey_intake_reply_applied = True
+            facts += '\nCANONICAL_JOURNEY=' + json.dumps(journey_view, sort_keys=True)
+            facts += '\nINTAKE_REQUIREMENTS=' + json.dumps(intake_profile, sort_keys=True)
 
     grounded_facts=facts
     if commercial is not None:
@@ -921,14 +1009,14 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             + '\n'
             + commercial_facts(commercial)
         )
-        if decision['intent'] in {
+        if not journey_intake_reply_applied and (decision['intent'] in {
             'unknown',
             'product_info',
             'pricing_info',
-        }:
+        } or buyer_scope_followup or (decision['intent'] == 'intake_request' and intake is None and not intake_profile)):
             grounded_fallback=commercial_fallback(
                 commercial,
-                intent=decision['intent'],
+                intent='pricing_info' if buyer_scope_pricing else decision['intent'],
             )
             if grounded_fallback:
                 fallback=grounded_fallback
@@ -940,6 +1028,9 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
     )
 
     governed_context=dict(knowledge)
+    if journey_view is not None:
+        governed_context['journey_view'] = journey_view
+        governed_context['intake_profile'] = intake_profile
 
     semantic_world_state={
         'role':role,
@@ -1030,10 +1121,12 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             'dio.vesper.semantic_context.v1',
     }
 
+    semantic_utterance=text or ('[Attachment-only transport event; no customer utterance.]' if attachment_record or quarantined_attachments else '')
+    semantic_evidence['customer_utterance_present']=bool(text)
     current_semantic_context=(
         build_current_semantic_context(
             role=role,
-            text=text,
+            text=semantic_utterance,
             semantic_continuity=
                 semantic_continuity,
             conversation_state=
@@ -1265,7 +1358,7 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
             )
 
     try:
-        reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona)
+        reply,lingua=_lingua_reply(dio_root=dio_root,envelope=envelope,decision=decision,role=role,correlation=correlation,reply=reply,interaction=interaction,persona=persona,lingua_state_root=lingua_root)
     except Exception as exc:
         lingua={'schema':'dio.lingua.communication_receipt.v1','state':'registration_failed','error':str(exc)[:300],'external_action_executed':False,'send_authorized':False,'authority_created':False}
         emit_event(event_log,'presence.lingua_registration_failed','warning','presence_conversation',correlation,{'error':str(exc)[:180]},correlation)
@@ -1355,4 +1448,4 @@ def process_envelope(envelope:dict[str,Any],dio_root:Path,cfg:dict[str,Any])->di
         resolved_product,
     )
     emit_event(event_log,'presence.reply_prepared','info','presence_conversation',correlation,{'intent':decision['intent'],'product':decision.get('product'),'role':role,'llm_advisory':decision.get('source')=='ollama_advisory','lingua_object_id':lingua.get('object_id'),'lingua_translation_state':lingua.get('translation_state'),'interaction_observation_id':interaction.get('observation_id'),'delivery_mode':policy.get('mode'),'persona_assignment_id':persona.get('assignment_id'),'persona_cell_id':((persona.get('package') or {}).get('cell_id'))},correlation)
-    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'commercial':commercial,'commercial_action':commercial_action,'interaction':interaction,'persona':persona,'lingua':lingua}
+    return {'schema':'dio.presence_response.v2','conversation_id':correlation,'role':role,'decision':decision,'reply':{'text':reply,'mode':'text','voice_eligible':bool(envelope.get('message_type') in {'voice','audio'}),'voice_policy':policy.get('voice'),'voice_plan':voice_plan,'avatar_id':((persona.get('package') or {}).get('avatar_id'))},'authority':{'executed_external_action':False,'spend_authorized':False,'fulfilment_released':False,'attachment_processed':False,'send_authorized':False,'submission_authorized':False,'financial_commitment_authorized':False},'customer_case':({key:customer_case.get(key) for key in ('case_id','stage','product_id')} if customer_case else None),'attachment':attachment_record,'intake':intake,'status':statuses,'capital':capital,'pricing':pricing,'commercial':commercial,'commercial_action':commercial_action,'interaction':interaction,'persona':persona,'lingua':lingua}

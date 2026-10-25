@@ -16,6 +16,7 @@ from .customer_cases import (
     _write_index,
     load_case,
     update_case,
+    serialized_case_write,
 )
 from .state import write_json
 
@@ -93,6 +94,7 @@ def _new_journey_case_id() -> str:
     return f"CASE-{uuid.uuid4().hex[:20].upper()}"
 
 
+@serialized_case_write
 def create_journey_case(
     state_root: Path,
     *,
@@ -138,6 +140,7 @@ def create_journey_case(
     return case
 
 
+@serialized_case_write
 def bind_surface_to_case(
     state_root: Path,
     case_id: str,
@@ -234,6 +237,7 @@ def available_actions(case: dict[str, Any]) -> list[str]:
     return list(_AVAILABLE_ACTIONS[stage])
 
 
+@serialized_case_write
 def transition_case(
     state_root: Path,
     case_id: str,
@@ -282,6 +286,7 @@ def _return_route(case: dict[str, Any]) -> dict[str, Any] | None:
     }
 
 
+@serialized_case_write
 def record_journey_event(
     state_root: Path,
     case_id: str,

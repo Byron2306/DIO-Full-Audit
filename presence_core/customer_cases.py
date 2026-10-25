@@ -2,11 +2,21 @@ from __future__ import annotations
 
 import hashlib
 from copy import deepcopy
+from functools import wraps
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .state import read_json, safe, write_json
+from .state import read_json, safe, write_json, file_lock
+
+
+def serialized_case_write(function):
+    @wraps(function)
+    def locked(*args, **kwargs):
+        state_root = Path(args[0] if args else kwargs.get("state_root") or kwargs["presence_root"])
+        with file_lock(state_root / "customer_cases" / "CASE_WRITE.lock"):
+            return function(*args, **kwargs)
+    return locked
 
 
 CASE_SCHEMA = "dio.customer_case.v1"
@@ -183,6 +193,7 @@ def find_case_for_conversation(state_root: Path, conversation_id: str) -> dict[s
 
 
 
+@serialized_case_write
 def create_successor_case(
     state_root: Path,
     predecessor: dict[str, Any],
@@ -471,6 +482,7 @@ def create_successor_case(
     return successor
 
 
+@serialized_case_write
 def create_or_attach_case(
     state_root: Path,
     *,
@@ -522,6 +534,7 @@ def create_or_attach_case(
     return case
 
 
+@serialized_case_write
 def update_case(
     state_root: Path,
     case: dict[str, Any],
@@ -575,6 +588,7 @@ def list_cases(state_root: Path, limit: int = 100) -> list[dict[str, Any]]:
     return rows[: max(0, int(limit))]
 
 
+@serialized_case_write
 def bind_case_to_customer(
     state_root: Path,
     case_id: str,
@@ -598,6 +612,7 @@ def bind_case_to_customer(
     )
 
 
+@serialized_case_write
 def attach_order_to_case(
     state_root: Path,
     case_id: str,
