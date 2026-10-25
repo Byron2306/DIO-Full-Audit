@@ -1,5 +1,8 @@
 from __future__ import annotations
 import hashlib, json, os, re, secrets, sqlite3
+import tempfile
+import threading
+from contextlib import contextmanager
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -8,7 +11,54 @@ from .config import state_base
 
 def now() -> str: return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 def write_json(path: Path, payload: Any) -> None:
-    path.parent.mkdir(parents=True,exist_ok=True); tmp=path.with_suffix(path.suffix+".tmp"); tmp.write_text(json.dumps(payload,indent=2,ensure_ascii=True)+"\n",encoding="utf-8"); tmp.replace(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent,
+                                     prefix="."+path.name+".", suffix=".tmp", delete=False) as stream:
+        tmp = Path(stream.name)
+        json.dump(payload, stream, indent=2, ensure_ascii=True)
+        stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    try:
+        if path.exists():
+            os.chmod(tmp, path.stat().st_mode & 0o777)
+        tmp.replace(path)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+_held_locks = threading.local()
+
+
+@contextmanager
+def file_lock(path: Path):
+    """Reentrant per-thread lock, shared by processes using the same state path."""
+    path = path.resolve()
+    held = getattr(_held_locks, "paths", set())
+    if path in held:
+        yield
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a+b") as stream:
+        if os.name == "nt":
+            import msvcrt
+            if stream.tell() == 0:
+                stream.write(b"0"); stream.flush()
+            stream.seek(0)
+            msvcrt.locking(stream.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(stream.fileno(), fcntl.LOCK_EX)
+        _held_locks.paths = held | {path}
+        try:
+            yield
+        finally:
+            _held_locks.paths = held
+            if os.name == "nt":
+                stream.seek(0)
+                msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
 def read_json(path: Path) -> dict[str,Any]: return json.loads(path.read_text(encoding="utf-8"))
 def safe(v: str) -> str: return re.sub(r"[^A-Za-z0-9._-]+","_",v)[:120] or "unknown"
 
