@@ -143,6 +143,7 @@
 - RED: Task 2 produced four expected failures for the missing archive finisher and runner receipt integration.
 - GREEN: Task 2 and canonical binding produced `18 passed` in 0.46 seconds.
 - Regression RED→GREEN: the existing standalone entrypoint test exposed an eager `products` import; the lazy boundary fix produced `22 passed` across that contract and Tasks 1–2.
-- Focused release slice: `48 passed` in 6.28 seconds across Studio finishing, canonical binding, Evidex quality consumption, and integrated repair regressions.
+- Focused release slice after final-review fixes: `51 passed` in 7.17 seconds across Studio finishing, canonical binding, Evidex quality consumption, and integrated repair regressions.
 - Static checks: `git diff --check` and `compileall` exited 0.
+- Final review fixes: canonical `kpi_name`/`declared_target`/`declared_actual` fields now reach the customer review; malformed claim records fail before rendering; Format Core's receipt is included in the hashed artifact inventory; and the engine reports its exact pack root for unambiguous finishing.
 - Known repository limitation: bare top-level test collection stops at `tests/test_multichannel_campaign_factory.py` because `scripts.build_multichannel_campaign_factory` no longer exports `build_campaign_story`. This predates and is outside the Evidex finishing slice.
