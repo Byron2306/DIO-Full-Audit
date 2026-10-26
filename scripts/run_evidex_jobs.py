@@ -16,11 +16,15 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
-from products.evidex_studio_finish import finish_evidex_archive
-
-
 EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
+
+
+def finish_evidex_archive(*, archive_path: Path, intake: dict[str, Any], source_root: Path) -> dict[str, Any]:
+    """Load the DIO product finisher only after the standalone engine succeeds."""
+    from products.evidex_studio_finish import finish_evidex_archive as finish
+
+    return finish(archive_path=archive_path, intake=intake, source_root=source_root)
 
 
 def utc_now() -> str:
