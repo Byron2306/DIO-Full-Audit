@@ -20,11 +20,13 @@ EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
 
 
-def finish_evidex_archive(*, archive_path: Path, intake: dict[str, Any], source_root: Path) -> dict[str, Any]:
+def finish_evidex_archive(
+    *, archive_path: Path, intake: dict[str, Any], source_root: Path, pack_dir: Path | None = None
+) -> dict[str, Any]:
     """Load the DIO product finisher only after the standalone engine succeeds."""
     from products.evidex_studio_finish import finish_evidex_archive as finish
 
-    return finish(archive_path=archive_path, intake=intake, source_root=source_root)
+    return finish(archive_path=archive_path, intake=intake, source_root=source_root, pack_dir=pack_dir)
 
 
 def utc_now() -> str:
@@ -192,10 +194,15 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
             lines = [line.strip() for line in result.stdout.splitlines() if line.strip()]
             if not lines:
                 raise RuntimeError("Evidex engine did not report the generated archive path")
+            pack_marker = next(
+                (line.removeprefix("EVIDEX_PACK_ROOT=") for line in reversed(lines[:-1]) if line.startswith("EVIDEX_PACK_ROOT=")),
+                None,
+            )
             studio_finish = finish_evidex_archive(
                 archive_path=Path(lines[-1]),
                 intake=intake,
                 source_root=ROOT,
+                pack_dir=Path(pack_marker) if pack_marker else None,
             )
         except Exception as exc:
             effective_returncode = 1

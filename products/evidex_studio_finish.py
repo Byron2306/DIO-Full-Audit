@@ -24,14 +24,28 @@ def _read_held_review(pack_dir: Path) -> dict[str, Any]:
         review = json.loads(review_path.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError, OSError) as exc:
         raise EvidexStudioFinishError(f"invalid Evidex source review: {exc}") from exc
+    if not isinstance(review, dict):
+        raise EvidexStudioFinishError("Evidex source review must be a JSON object")
     claims = review.get("claims")
+
+    def valid_claim(claim: Any) -> bool:
+        if not isinstance(claim, dict):
+            return False
+        required = {"kpi_name", "declared_target", "declared_actual", "epistemic_state", "source_bindings"}
+        if not required.issubset(claim):
+            return False
+        if not str(claim["kpi_name"]).strip() or not str(claim["epistemic_state"]).strip():
+            return False
+        bindings = claim["source_bindings"]
+        return isinstance(bindings, list) and all(isinstance(binding, dict) for binding in bindings)
+
     if (
-        not isinstance(review, dict)
+        review.get("schema") != "dio.evidex.source_review.v1"
         or review.get("release_authorized") is not False
         or review.get("human_review_required") is not True
         or not isinstance(claims, list)
         or not claims
-        or any(not isinstance(claim, dict) for claim in claims)
+        or any(not valid_claim(claim) for claim in claims)
     ):
         raise EvidexStudioFinishError("Evidex source review is not a held, claim-bearing review record")
     return review
@@ -63,13 +77,17 @@ def build_evidex_semantic_content(
         },
     ]
     for index, claim in enumerate(review["claims"], 1):
-        claim_id = str(claim.get("claim_id") or f"CLAIM-{index:03}").strip()
+        kpi_name = str(claim["kpi_name"]).strip()
+        target = str(claim["declared_target"]).strip()
+        actual = str(claim["declared_actual"]).strip()
         state = str(claim.get("epistemic_state") or "UNVERIFIED").strip().upper()
-        text = str(claim.get("claim") or claim.get("text") or "Claim text missing").strip()
         rows.append(
             {
                 "paragraph_id": f"C{index}",
-                "text": f"Claim {claim_id} — {state} — {text}",
+                "text": (
+                    f"KPI {kpi_name} — {state} — "
+                    f"Declared target: {target} — Declared actual: {actual}"
+                ),
             }
         )
     return build_paragraph_semantic_content(
@@ -126,6 +144,17 @@ def finish_evidex_pack(
                 "bytes": output.stat().st_size,
             }
         )
+    format_receipt_path = render_dir / "FORMAT_CORE_RECEIPT.json"
+    if not format_receipt_path.is_file():
+        raise EvidexStudioFinishError("Format Core receipt is missing")
+    outputs.append(
+        {
+            "channel": "receipt",
+            "path": str(format_receipt_path.relative_to(finish_dir)),
+            "sha256": _sha256(format_receipt_path),
+            "bytes": format_receipt_path.stat().st_size,
+        }
+    )
     receipt = {
         "schema": "dio.evidex_studio_finish.v1",
         "pack": pack_dir.name,
@@ -184,12 +213,12 @@ def _regular_pack_files(pack_dir: Path) -> list[Path]:
 
 
 def finish_evidex_archive(
-    *, archive_path: Path, intake: dict[str, Any], source_root: Path
+    *, archive_path: Path, intake: dict[str, Any], source_root: Path, pack_dir: Path | None = None
 ) -> dict[str, Any]:
     archive_path = Path(archive_path).resolve()
     if not archive_path.is_file():
         raise EvidexStudioFinishError(f"Evidex archive does not exist: {archive_path}")
-    pack_dir = archive_path.with_suffix("")
+    pack_dir = Path(pack_dir).resolve() if pack_dir is not None else archive_path.with_suffix("")
     if not pack_dir.is_dir():
         raise EvidexStudioFinishError(f"Evidex pack directory does not exist beside archive: {pack_dir}")
     _regular_pack_files(pack_dir)

@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+import subprocess
+import sys
 from types import SimpleNamespace
 import zipfile
 
@@ -17,19 +20,22 @@ def _held_pack(tmp_path: Path) -> tuple[Path, dict]:
     (pack / "SOURCE_REVIEW.json").write_text(
         json.dumps(
             {
-                "schema": "evidex.source_review.v1",
+                "schema": "dio.evidex.source_review.v1",
                 "release_authorized": False,
                 "human_review_required": True,
                 "claims": [
                     {
-                        "claim_id": "KPI-001",
-                        "claim": "Participants trained: 12",
+                        "kpi_name": "Participants trained",
+                        "declared_target": 20,
+                        "declared_actual": 12,
                         "epistemic_state": "UNVERIFIED",
                         "source_bindings": [
                             {
-                                "path": "03_SOURCES/register.txt",
+                                "source_ref": "03_SOURCES/register.txt",
+                                "source_name": "register.txt",
                                 "sha256": "a" * 64,
                                 "excerpt": "Participants trained: 12; independent verification absent.",
+                                "excerpt_kind": "parser_text_excerpt_not_entailment",
                             }
                         ],
                     }
@@ -80,19 +86,27 @@ def test_finish_preserves_human_gate_and_unverified_claims(tmp_path: Path) -> No
     assert stored["authority_created"] is False
     assert "UNVERIFIED" in rendered
     assert "HUMAN REVIEW REQUIRED" in rendered
-    assert "Participants trained: 12" in rendered
+    assert "KPI Participants trained" in rendered
+    assert "Declared target: 20" in rendered
+    assert "Declared actual: 12" in rendered
+    assert "Claim text missing" not in rendered
+    receipt_output = next(row for row in stored["format_core"]["outputs"] if row["channel"] == "receipt")
+    assert receipt_output["path"] == "FORMAT_CORE/FORMAT_CORE_RECEIPT.json"
+    assert len(receipt_output["sha256"]) == 64
 
 
 @pytest.mark.parametrize(
     "payload",
     [
         None,
+        [],
         {},
         {"release_authorized": True, "human_review_required": False, "claims": []},
         {"release_authorized": False, "human_review_required": True, "claims": "invalid"},
+        {"release_authorized": False, "human_review_required": True, "claims": [{}]},
     ],
 )
-def test_finish_refuses_missing_or_malformed_source_review(tmp_path: Path, payload: dict | None) -> None:
+def test_finish_refuses_missing_or_malformed_source_review(tmp_path: Path, payload: object | None) -> None:
     from products.evidex_studio_finish import EvidexStudioFinishError, finish_evidex_pack
 
     pack, intake = _held_pack(tmp_path)
@@ -157,6 +171,76 @@ def test_archive_finish_rejects_symlink_without_replacing_archive(tmp_path: Path
         finish_evidex_archive(archive_path=archive, intake=intake, source_root=ROOT)
 
     assert archive.read_bytes() == original
+
+
+def test_real_engine_schema_reaches_finished_customer_review(tmp_path: Path) -> None:
+    from products.evidex_studio_finish import finish_evidex_archive
+
+    engine = ROOT / "cross_folder_variants/Evidex/A_CODE"
+    uploads = tmp_path / "uploads"
+    uploads.mkdir()
+    (uploads / "register.txt").write_text(
+        "Participants trained: 12; independent verification absent.", encoding="utf-8"
+    )
+    intake = {
+        "client": {"organization": "SYNTHETIC FIXTURE"},
+        "pack": {
+            "purpose": "Internal evidence review",
+            "project_name": "Engine Schema Integration",
+            "reporting_period": {"start": "2026-01-01", "end": "2026-08-31"},
+        },
+        "kpis": [
+            {
+                "name": "Participants trained",
+                "target": 20,
+                "actual": 12,
+                "measurement": "Attendance register",
+            }
+        ],
+    }
+    intake_path = tmp_path / "intake.json"
+    intake_path.write_text(json.dumps(intake), encoding="utf-8")
+    env = {key: value for key, value in os.environ.items() if not key.startswith(("OPENAI_", "OLLAMA_", "LLM_"))}
+    env.update(
+        PYTHONPATH=os.pathsep.join([str(engine / "src"), str(ROOT)]),
+        DIO_ROOT=str(ROOT),
+        LLM_DISABLED="1",
+        SUMMARY_USE_LLM="0",
+        NARRATIVE_USE_LLM="0",
+    )
+    generated = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "evidence_pack_engine.cli",
+            "generate",
+            "--intake",
+            str(intake_path),
+            "--uploads",
+            str(uploads),
+            "--out",
+            str(tmp_path / "output"),
+        ],
+        cwd=engine,
+        env=env,
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=30,
+    )
+    assert generated.returncode == 0, generated.stderr
+    lines = generated.stdout.strip().splitlines()
+    pack_dir = Path(next(line.removeprefix("EVIDEX_PACK_ROOT=") for line in lines if line.startswith("EVIDEX_PACK_ROOT=")))
+    archive = Path(lines[-1])
+
+    receipt = finish_evidex_archive(archive_path=archive, intake=intake, source_root=ROOT, pack_dir=pack_dir)
+
+    html_row = next(row for row in receipt["format_core"]["outputs"] if row["channel"] == "html")
+    rendered = (pack_dir / "05_STUDIO_FINISH" / html_row["path"]).read_text(encoding="utf-8")
+    assert "KPI Participants trained" in rendered
+    assert "Declared target: 20" in rendered
+    assert "Declared actual: 12" in rendered
+    assert "UNVERIFIED" in rendered
 
 
 def test_runner_records_successful_studio_finish(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
