@@ -14,7 +14,7 @@ class _Response:
 
 def test_ollama_draft_receives_bounded_conversation_context(monkeypatch):
     monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
-    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_URL", "http://127.0.0.1:11434")
     monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
     captured = {}
 

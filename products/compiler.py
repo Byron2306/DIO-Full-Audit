@@ -250,6 +250,16 @@ def load_capability_catalog(root: Path) -> tuple[dict[str, dict[str, Any]], str]
             require(resolved.is_relative_to(root.resolve()), f"provider ref escapes repository: {capability_id}/{provider_id}")
             if status == "available":
                 require(resolved.is_file(), f"available provider ref missing: {capability_id}/{provider_id}: {ref}")
+        # Gate002 V7 shadow: catalog status is never promotion evidence for
+        # proof-gated composites. No catalog fields, paths or flags can attest.
+        if status == "available" and (
+            capability_id == "funding_proposal_pack"
+            or any(str(provider.get("provider_kind") or "") == "metamorphic_composite" for provider in providers)
+        ):
+            raise CompilerError(
+                "Independent promotion evidence required: available proof-gated "
+                "composite provider refused at catalog load."
+            )
         if status == "available":
             require(providers, f"available capability has no providers: {capability_id}")
         result[capability_id] = row
@@ -285,6 +295,32 @@ def resolve_capability(
     applicable = [provider for provider in providers if _provider_applies(provider, product_id)]
     eligible = [provider for provider in applicable if (not execution_required or bool(provider.get("execution_capable")))]
     eligible.sort(key=lambda item: (-int(item.get("priority") or 0), str(item.get("provider_id") or "")))
+
+    # Gate002: proof-gated composite providers must NOT resolve from catalog
+    # labels. This conservative shadow candidate denies them until a separate,
+    # independently verified source/identity/authority attestation is wired in.
+    # Catalog fields (including claimed receipt paths) cannot self-attest.
+    proof_gated = (
+        capability_id == "funding_proposal_pack"
+        or any(str(p.get("provider_kind") or "") == "metamorphic_composite" for p in eligible)
+    )
+    if status == "available" and proof_gated:
+        eligible = [p for p in eligible if not (
+            capability_id == "funding_proposal_pack"
+            or str(p.get("provider_kind") or "") == "metamorphic_composite"
+        )]
+        if not eligible:
+            return {
+                "capability_id": capability_id,
+                "required": required,
+                "execution_required": execution_required,
+                "resolution_state": "UNAVAILABLE",
+                "provider": None,
+                "reason": (
+                    "Independent source-bound promotion attestation missing: "
+                    "catalog available status is not earned-provider proof."
+                ),
+            }
 
     if status == "available" and eligible:
         chosen = eligible[0]

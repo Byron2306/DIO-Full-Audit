@@ -27,6 +27,15 @@ object DioReadinessReducer {
             )
         }
 
+        if (snapshot.schema != LauncherStateParser.SCHEMA || !snapshot.readOnly || snapshot.authorityCreated) {
+            return DioAppState(
+                phase = ConnectionPhase.CONNECTED_HELD,
+                portfolio = null,
+                surfaces = clearedSurfaces(snapshot),
+                generatedAt = null,
+            )
+        }
+
         val allSurfacesReady = SurfaceId.entries.all { required ->
             snapshot.surfaces.singleOrNull { it.id == required }?.ready == true
         }

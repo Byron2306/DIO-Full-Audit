@@ -65,6 +65,31 @@ class DioReadinessReducerTest {
         assertFalse(state.surfaces.first { it.id.wireId == "market-command" }.ready)
     }
 
+    @Test
+    fun incompletePortfolioStillAllowsHealthyDashboardInspection() {
+        val snapshot = LauncherStateParser.parse(readyLauncherJson()).let {
+            it.copy(ready = false, portfolio = it.portfolio.copy(verified = false, extensionCount = 0, totalCount = 53, rowCount = 53, extensionState = "NOT_VERIFIED"))
+        }
+        val state = DioReadinessReducer.reduce(true, snapshot)
+        assertEquals(ConnectionPhase.CONNECTED_HELD, state.phase)
+        assertNull(state.portfolio)
+        assertTrue(state.canOpenSurface(za.co.dioworkflows.mobile.model.SurfaceId.GOLDENEYE))
+    }
+
+    @Test
+    fun invalidAuthorityClearsInspectionAsWellAsProof() {
+        val snapshot = LauncherStateParser.parse(readyLauncherJson()).copy(authorityCreated = true)
+        val state = DioReadinessReducer.reduce(true, snapshot)
+        assertTrue(state.surfaces.all { !it.ready })
+    }
+
+    @Test
+    fun disconnectClosesPreviouslyAvailableInspection() {
+        val snapshot = LauncherStateParser.parse(readyLauncherJson())
+        val state = DioReadinessReducer.reduce(false, snapshot)
+        assertFalse(state.canOpenSurface(za.co.dioworkflows.mobile.model.SurfaceId.GOLDENEYE))
+    }
+
     private fun readyLauncherJson(): String =
         """
         {

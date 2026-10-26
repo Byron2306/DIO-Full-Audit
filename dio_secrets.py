@@ -173,6 +173,15 @@ def load_secret_env(*, overwrite: bool = False) -> dict[str, str]:
             if overwrite or not os.environ.get(key):
                 os.environ[key] = value
                 loaded[key] = value
+    from sovereign_runtime import ollama_model, ollama_url
+
+    for key, value in (
+        ("OLLAMA_MODEL", ollama_model()),
+        ("OLLAMA_URL", ollama_url()),
+    ):
+        if overwrite or not os.environ.get(key):
+            os.environ[key] = value
+            loaded[key] = value
     _derive_local_media_env(loaded, overwrite=overwrite)
     return loaded
 

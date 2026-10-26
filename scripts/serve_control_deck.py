@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from http import HTTPStatus
@@ -77,7 +78,7 @@ from scripts.run_nichefoundry_media_pipeline import run_media_pipeline
 
 
 POLICY_PATH = ROOT / "state" / "control_policy.json"
-EVENT_LOG = ROOT / "telemetry" / "dio_events.jsonl"
+EVENT_LOG = Path(os.environ.get("DIO_EVENT_LOG") or ROOT / "telemetry" / "dio_events.jsonl")
 ALLOWED_POLICY = {
     "outbound_mail": {"off", "on"},
     "automation": {"paused", "running"},

@@ -51,7 +51,9 @@ def test_agent_authority_projection_preserves_prompt_injection_and_refused_actio
     packet, _ = _packet(tmp_path, "Agent Authority")
     projection = ai_trust_projection(packet, source_type="ai_agent", intended_use="mail_assistance", inject_actions=True)
     assert projection["customer_packet_fingerprint"] == packet["packet_fingerprint"]
-    assert any(row["effect"] == "external_send" for row in projection["requested_actions"])
+    # Narrative source text must not fabricate an executable Outlook request.
+    assert projection["requested_actions"] == []
+    assert "ignore previous instructions" in projection["attachments"][0]["text"].lower()
     assert not any(row["effect"] == "external_send" for row in projection["allowed_capabilities"])
     assert "ignore previous instructions" in projection["attachments"][0]["text"].lower()
 

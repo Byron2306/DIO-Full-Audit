@@ -42,33 +42,15 @@ def _write(path: Path, value: bytes) -> str:
     return _sha(value)
 
 
+from products.obligationfamily.quality_presentation import render_html, render_docx, render_pdf
+
+
 def _docx(title: str, pack: dict[str, Any]) -> bytes:
-    body = [title, json.dumps(pack, sort_keys=True, ensure_ascii=False)]
-    xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main'><w:body>" + "".join(f"<w:p><w:r><w:t xml:space='preserve'>{xml_escape(row)}</w:t></w:r></w:p>" for row in body) + "<w:sectPr/></w:body></w:document>"
-    types = "<?xml version='1.0' encoding='UTF-8'?><Types xmlns='http://schemas.openxmlformats.org/package/2006/content-types'><Default Extension='rels' ContentType='application/vnd.openxmlformats-package.relationships+xml'/><Default Extension='xml' ContentType='application/xml'/><Override PartName='/word/document.xml' ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'/></Types>"
-    rels = "<?xml version='1.0' encoding='UTF-8'?><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/></Relationships>"
-    buffer = BytesIO()
-    with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        for name, content in (("[Content_Types].xml", types), ("_rels/.rels", rels), ("word/document.xml", xml)):
-            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
-            info.compress_type = zipfile.ZIP_DEFLATED
-            archive.writestr(info, content.encode("utf-8"))
-    return buffer.getvalue()
+    return render_docx(title, pack)
 
 
 def _pdf(title: str, pack: dict[str, Any]) -> bytes:
-    text = (title + " | " + json.dumps(pack, sort_keys=True, ensure_ascii=True)).replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
-    chunks = [text[i:i + 88] for i in range(0, min(len(text), 6000), 88)]
-    stream = ("BT /F1 8 Tf 36 806 Td 10 TL " + " ".join(("T* " if i else "") + f"({row}) Tj" for i, row in enumerate(chunks)) + " ET").encode("latin-1", "replace")
-    objects = [b"<< /Type /Catalog /Pages 2 0 R >>", b"<< /Type /Pages /Kids [4 0 R] /Count 1 >>", b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>", b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>", b"<< /Length " + str(len(stream)).encode() + b" >>\nstream\n" + stream + b"\nendstream"]
-    out = bytearray(b"%PDF-1.4\n")
-    offsets = [0]
-    for i, obj in enumerate(objects, 1):
-        offsets.append(len(out)); out.extend(f"{i} 0 obj\n".encode() + obj + b"\nendobj\n")
-    xref = len(out); out.extend(b"xref\n0 6\n0000000000 65535 f \n")
-    for offset in offsets[1:]: out.extend(f"{offset:010d} 00000 n \n".encode())
-    out.extend(f"trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n".encode())
-    return bytes(out)
+    return render_pdf(title, pack)
 
 
 def _map_evidence(case: dict[str, Any], source: dict[str, Any], inputs: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -109,7 +91,7 @@ def run_family_proof(product_id: str, source: dict[str, Any], evidence_inputs: l
     pack = {"product_id": product_id, "case_id": case["case_id"], "requirement_or_obligation_ledger": [{**row, "evaluation": evaluations.get(row["obligation_id"])} for row in bundle.get("obligations") or []], "evidence_map": bundle.get("evidence_bindings") or [], "missing_evidence_register": sufficiency.get("gaps") or [], "contested_state_register": [row for row in bundle.get("evaluations") or [] if row.get("status") in {"CONTESTED", "NEEDS_REVIEW"}], "deadline_register": bundle.get("deadlines") or [], "human_review_register": {"fulfilment": "NEEDS_YOU", "disclosure": "NEEDS_YOU", "external_release": "REFUSE"}, "provenance_manifest": {"source": bundle.get("source"), "bundle_fingerprint": bundle["fingerprint"], "projection": projection, "authority_created": False, "external_effects": False}}
     missing_sections = sorted(set(required_sections).difference(pack))
     if missing_sections: raise RuntimeError(f"evidence pack missing required sections: {missing_sections}")
-    rendered = {"JSON": ("EVIDENCE_PACK.json", json.dumps(pack, indent=2, sort_keys=True, ensure_ascii=False).encode() + b"\n"), "HTML": ("EVIDENCE_PACK.html", ("<!doctype html><meta charset=utf-8><h1>" + html.escape(definition["title"]) + "</h1><pre>" + html.escape(json.dumps(pack, indent=2, sort_keys=True, ensure_ascii=False)) + "</pre>").encode()), "DOCX": ("EVIDENCE_PACK.docx", _docx(definition["title"], pack)), "PDF": ("EVIDENCE_PACK.pdf", _pdf(definition["title"], pack))}
+    rendered = {"JSON": ("EVIDENCE_PACK.json", json.dumps(pack, indent=2, sort_keys=True, ensure_ascii=False).encode() + b"\n"), "HTML": ("EVIDENCE_PACK.html", render_html(definition["title"], pack)), "DOCX": ("EVIDENCE_PACK.docx", _docx(definition["title"], pack)), "PDF": ("EVIDENCE_PACK.pdf", _pdf(definition["title"], pack))}
     artifacts = [{"artifact_type": kind, "filename": name, "sha256": _write(output_dir / name, body)} for kind, (name, body) in rendered.items()]
     proof = {"schema": "dio.obligation_family.proof_manifest.v1", "provider_id": PROVIDER_ID, "product_id": product_id, "artifact_type": "proof_room_manifest", "case_id": case["case_id"], "obligation_bundle_fingerprint": bundle["fingerprint"], "required_sections": required_sections, "artifacts": artifacts, "human_gate": {"state": "NEEDS_YOU"}, "authority_created": False, "execution_performed": False, "external_release": False}
     proof["proof_fingerprint"] = "sha256:" + _sha(_canonical(proof)); _write(output_dir / "PROOF_MANIFEST.json", json.dumps(proof, indent=2, sort_keys=True).encode() + b"\n")

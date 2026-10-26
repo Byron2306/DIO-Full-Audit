@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import os
 import re
 import subprocess
@@ -10,10 +11,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from sovereign_runtime import evidex_root, ollama_model, ollama_url
-
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+
+
 EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
 
@@ -147,7 +151,7 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
     intake_path.write_text(json.dumps(intake, indent=2), encoding="utf-8")
     write_source_file(job, uploads_dir)
 
-    env = os.environ.copy()
+    env = evidex_environment()
     env["OLLAMA_MODEL"] = ollama_model()
     env["OLLAMA_URL"] = ollama_url()
     env["LLM_DISABLED"] = "1"

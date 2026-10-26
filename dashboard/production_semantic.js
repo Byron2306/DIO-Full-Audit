@@ -222,8 +222,10 @@
     }
   }
 
+  let marketingInFlight = false;
   async function submitSemanticMarketing(event) {
     event.preventDefault();
+    if (marketingInFlight) return;
     const incarnation = byId('incarnation')?.value || '';
     if (!incarnation) return;
     const explicitProof = byId('semanticProofAsset')?.value || '';
@@ -241,6 +243,15 @@
       ? 'Full media will be required: LINGUA semantic law + audience-conditioned vertical story + independent landscape explainer + Document Studio local art direction/composition + BEAST visual memory + selected narrator + rights-recorded music or intentional silence + real motion + both MP4 outputs. Gamma is optional and cannot block the render.'
       : 'You have explicitly disabled video rendering; LINGUA story/copy/projection assets will still be produced.';
     if (!confirm(`Create DIO-generated marketing assets for ${incarnation}?\n\n${mediaMode}\n\nAudience, pain, outcome and CTA come from the semantic brief. Creative skin comes from LINGUA Projection + Document Studio art direction. Publication and spend remain held.`)) return;
+    marketingInFlight = true;
+    const submitButton = document.querySelector('#marketingForm button[type="submit"]');
+    const originalButtonText = submitButton?.textContent;
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'GENERATING...';
+    }
+    let receivedResult = false;
+    byId('marketingResult').textContent = `Generating marketing pack for ${incarnation}...\n${payload.render_reel ? 'Rendering narrated video can take several minutes.' : 'Preparing marketing assets.'}\nKeep this page open. The result or error will appear here.`;
     try {
       const response = await fetch('/api/business/production/marketing', {
         method: 'POST',
@@ -261,14 +272,26 @@
       const mediaError = media.errors.length ? `\nMedia error: ${media.errors.join(' | ')}` : '';
       const mediaWarning = media.warnings.length ? `\nNon-blocking visual-candidate warning: ${media.warnings.join(' | ')}` : '';
       byId('marketingResult').innerHTML = `RUN ${esc2(result.run_id || '')}\nProduct: ${esc2(result.incarnation || incarnation)}\nSemantic mode: ${esc2(brief.generation_mode || '')}\nTruth class: ${esc2(brief.truth_class || '')}\nAudience: ${esc2(brief.brief?.audience_name || '')}\nFull media requested: ${media.requested}\n\n${esc2(projectionText)}\n\n${esc2(statusText)}${esc2(mediaError)}${esc2(mediaWarning)}\n\n<a class="btn small green" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(output)}">OPEN MARKETING OUTPUTS</a>${result.semantic_brief_path ? ` <a class="btn small blue" target="_blank" href="/api/business/artifact?path=${encodeURIComponent(result.semantic_brief_path)}">OPEN SEMANTIC BRIEF</a>` : ''}`;
+      receivedResult = true;
       if (media.requested && !media.ready) {
         const detail = media.errors.join(' | ') || `Voice=${media.states.voice}, reel=${media.states.reel}, explainer=${media.states.explainer}${media.gammaRequired ? `, Gamma=${media.states.gamma}` : ''}`;
         throw new Error(`Marketing projection was created, but required narrated media did not complete: ${detail}`);
       }
       if (typeof toast === 'function') toast(`${incarnation}: LINGUA + Document Studio art-directed marketing pack + narrated media created`);
     } catch (error) {
+      if (receivedResult) {
+        byId('marketingResult').insertAdjacentHTML('afterbegin', `<b style="color:var(--red)">Generation incomplete: ${esc2(error.message)}</b><br><br>`);
+      } else {
+        byId('marketingResult').textContent = `Marketing request failed for ${incarnation}:\n${error.message}`;
+      }
       if (typeof toast === 'function') toast(error.message, true);
       else alert(error.message);
+    } finally {
+      marketingInFlight = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
     }
   }
 

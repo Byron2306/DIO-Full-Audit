@@ -12,6 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 FOUNDRY = Path(os.environ.get("NICHEFOUNDRY_ROOT", "/home/byron/Downloads/NicheFoundry_Phase11"))
 
 
+class MusicSourceUnavailable(RuntimeError):
+    """The external music source could not be reached; this is not a rights verdict."""
+
+
 def _tokens(value: Any) -> set[str]:
     return {token for token in re.findall(r"[a-z0-9]+", str(value or "").casefold()) if len(token) > 2}
 
@@ -32,7 +36,7 @@ def _catalog() -> list[dict[str, Any]]:
             continue
         selected = receipt.get("selected") or {}
         rights = selected.get("rights") or {}
-        if rights.get("passed") is not True and not selected.get("licence_name"):
+        if rights.get("passed") is not True:
             continue
         episode = receipt_path.parents[2]
         promoted = str(selected.get("promoted_path") or "").strip()
@@ -70,6 +74,80 @@ def _catalog() -> list[dict[str, Any]]:
     return rows
 
 
+def _projection_music_query(plan: dict[str, Any], product: dict[str, Any], audience: dict[str, Any]) -> str:
+    return " ".join(
+        part
+        for part in (
+            str(plan.get("family") or ""),
+            " ".join(str(item) for item in plan.get("keywords") or []),
+            str(product.get("name") or ""),
+            str(audience.get("name") or ""),
+            str(audience.get("outcome") or ""),
+        )
+        if part
+    )
+
+
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _cached_projection_music(
+    *, plan: dict[str, Any], product: dict[str, Any], audience: dict[str, Any], family_id: str,
+) -> dict[str, Any] | None:
+    """Reuse a byte-verified, cleared track for this exact family and sourcing context."""
+    cache_root = (ROOT / "state" / "marketing_music_cache").resolve()
+    family_root = (cache_root / _slug(family_id)).resolve()
+    if family_root.parent != cache_root or not family_root.is_dir():
+        return None
+    query = _projection_music_query(plan, product, audience)
+    for receipt_path in sorted(family_root.glob("*/imports/music_choices/COMMERCIAL_MUSIC_RECEIPT.json")):
+        try:
+            if not receipt_path.resolve().is_relative_to(family_root):
+                continue
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            if not isinstance(receipt, dict) or receipt.get("schema") != "nichefoundry.commercial_music_selection.v1" or receipt.get("topic") != query:
+                continue
+            selected = receipt.get("selected")
+            if not isinstance(selected, dict) or not isinstance(selected.get("rights"), dict) or selected["rights"].get("passed") is not True:
+                continue
+            promoted = str(selected.get("promoted_path") or "").strip()
+            if not promoted or Path(promoted).is_absolute():
+                continue
+            episode = receipt_path.parents[2].resolve()
+            music = (episode / promoted).resolve()
+            attribution = (episode / "imports" / "MUSIC_ATTRIBUTION.md").resolve()
+            if not music.is_relative_to(episode) or not attribution.is_relative_to(episode):
+                continue
+            if not music.is_file() or not attribution.is_file() or music.stat().st_size == 0 or attribution.stat().st_size == 0:
+                continue
+            music_sha = _file_sha256(music)
+            if music_sha != selected.get("sha256"):
+                continue
+            return {
+                **plan,
+                "mode": "rights_recorded",
+                "path": str(music),
+                "attribution": str(attribution),
+                "rights_receipt": str(receipt_path.resolve()),
+                "title": selected.get("title"),
+                "artist": selected.get("artist"),
+                "licence": selected.get("licence_name"),
+                "selection_basis": "exact_audience_projection_cache_match",
+                "search_query": query,
+                "music_sha256": music_sha,
+                "rights_receipt_sha256": _file_sha256(receipt_path),
+                "attribution_sha256": _file_sha256(attribution),
+            }
+        except (OSError, json.JSONDecodeError):
+            continue
+    return None
+
+
 def _fresh_projection_music(
     *,
     plan: dict[str, Any],
@@ -85,17 +163,7 @@ def _fresh_projection_music(
 
     cache = ROOT / "state" / "marketing_music_cache" / _slug(family_id) / _slug(str(surface_plan.get("arc_family") or "media"))
     cache.mkdir(parents=True, exist_ok=True)
-    query = " ".join(
-        part
-        for part in (
-            str(plan.get("family") or ""),
-            " ".join(str(item) for item in plan.get("keywords") or []),
-            str(product.get("name") or ""),
-            str(audience.get("name") or ""),
-            str(audience.get("outcome") or ""),
-        )
-        if part
-    )
+    query = _projection_music_query(plan, product, audience)
     path_entries = [
         str(Path.home() / ".local" / "bin"),
         str(Path.home() / "bin"),
@@ -105,33 +173,38 @@ def _fresh_projection_music(
         **os.environ,
         "PATH": os.pathsep.join(entry for entry in path_entries if entry),
     }
-    completed = subprocess.run(
-        [
-            "node",
-            str(source_script),
-            "--episode",
-            str(cache),
-            "--studio",
-            "practical_open_source",
-            "--topic",
-            query,
-            "--limit",
-            "5",
-            "--select",
-            "1",
-            "--provider",
-            "openverse",
-        ],
-        cwd=FOUNDRY,
-        env=source_env,
-        capture_output=True,
-        text=True,
-        timeout=180,
-    )
+    try:
+        completed = subprocess.run(
+            [
+                "node",
+                str(source_script),
+                "--episode",
+                str(cache),
+                "--studio",
+                "practical_open_source",
+                "--topic",
+                query,
+                "--limit",
+                "5",
+                "--select",
+                "1",
+                "--provider",
+                "openverse",
+            ],
+            cwd=FOUNDRY,
+            env=source_env,
+            capture_output=True,
+            text=True,
+            timeout=180,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise MusicSourceUnavailable("NicheFoundry music source unavailable: sourcing request timed out.") from exc
     if completed.returncode != 0:
         detail = (completed.stderr or completed.stdout or "music source command failed").strip()[-2400:]
         if "No commercially reusable music found." in detail:
             return None
+        if "TypeError: fetch failed" in detail:
+            raise MusicSourceUnavailable("NicheFoundry music source unavailable: network fetch failed.")
         raise RuntimeError(f"NicheFoundry commercial music sourcing failed: {detail}")
 
     receipt_path = cache / "imports" / "music_choices" / "COMMERCIAL_MUSIC_RECEIPT.json"
@@ -186,6 +259,10 @@ def select_projection_music(surface_plan: dict[str, Any], product: dict[str, Any
                 "selection_basis": "operator_environment_override",
             }
 
+    cached = _cached_projection_music(plan=plan, product=product, audience=audience, family_id=family_id)
+    if cached:
+        return cached
+
     wanted = _tokens(
         " ".join(
             [
@@ -219,22 +296,36 @@ def select_projection_music(surface_plan: dict[str, Any], product: dict[str, Any
                 "match_score": score,
             }
 
-    sourced = _fresh_projection_music(
-        plan=plan,
-        product=product,
-        audience=audience,
-        family_id=family_id,
-        surface_plan=surface_plan,
-    )
+    source_error = None
+    try:
+        sourced = _fresh_projection_music(
+            plan=plan,
+            product=product,
+            audience=audience,
+            family_id=family_id,
+            surface_plan=surface_plan,
+        )
+    except MusicSourceUnavailable as exc:
+        if plan.get("allow_silence") is not True:
+            raise
+        sourced = None
+        source_error = str(exc)
     if sourced:
         return sourced
 
     if plan.get("allow_silence") is True:
-        return {
+        result = {
             **plan,
             "mode": "none",
             "path": "",
             "attribution": "",
             "selection_basis": "intentional_silence_no_semantically_matched_cleared_track",
         }
+        if source_error:
+            result.update(
+                selection_basis="intentional_silence_music_source_unavailable",
+                music_source_state="unavailable",
+                music_source_error=source_error,
+            )
+        return result
     raise RuntimeError("LINGUA projection requires an appropriate rights-recorded music asset, and none could be selected or sourced.")

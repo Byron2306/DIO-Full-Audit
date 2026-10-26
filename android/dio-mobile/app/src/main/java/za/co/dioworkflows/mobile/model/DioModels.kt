@@ -69,4 +69,11 @@ data class DioAppState(
     val portfolio: PortfolioTruth?,
     val surfaces: List<SurfaceSnapshot>,
     val generatedAt: String?,
-)
+) {
+    /** Availability permits inspection; it does not certify portfolio execution. */
+    fun canOpenSurface(id: SurfaceId): Boolean =
+        phase in setOf(ConnectionPhase.CONNECTED_HELD, ConnectionPhase.READY) &&
+            surfaces.singleOrNull { it.id == id }?.let {
+                it.ready && it.url == id.canonicalUrl
+            } == true
+}

@@ -1263,7 +1263,7 @@ def sync_event_batch(
     return processed, rejected, deferred, rejection_messages
 
 
-def sync_once(config: dict[str, Any]) -> dict[str, Any]:
+def sync_once(config: dict[str, Any], *, web_only: bool = False) -> dict[str, Any]:
     token_path = Path(config["edge_token_path"]).expanduser()
     if not token_path.exists():
         raise PresenceEdgeError(f"Missing Presence edge token at {token_path}.")
@@ -1274,26 +1274,33 @@ def sync_once(config: dict[str, Any]) -> dict[str, Any]:
     base_url = str(config["base_url"]).rstrip("/")
     core_url = str(config["core_url"])
 
-    signed_path = str(config.get("event_api_path", "/api/presence/events"))
-    signed_ack_path = str(config.get("ack_api_path", "/api/presence/events/ack"))
-    signed_batch = edge_request(base_url + signed_path + "?limit=100", token)
-    signed_events = signed_batch.get("events") or []
-    sp, sr, sd, sm = sync_event_batch(events=signed_events, core_url=core_url)
-    signed_processed_ack = acknowledge(base_url, token, signed_ack_path, sp, "processed")
-    signed_rejected_ack = acknowledge(base_url, token, signed_ack_path, sr, "failed", "; ".join(sm) if sm else "presence_core_rejected")
+    signed_events = []
+    telegram_events = []
+    sp, sr, sd, sm = [], [], [], []
+    tp, tr, td, tm = [], [], [], []
+    signed_processed_ack = signed_rejected_ack = {}
+    telegram_processed_ack = telegram_rejected_ack = {}
+    if not web_only:
+        signed_path = str(config.get("event_api_path", "/api/presence/events"))
+        signed_ack_path = str(config.get("ack_api_path", "/api/presence/events/ack"))
+        signed_batch = edge_request(base_url + signed_path + "?limit=100", token)
+        signed_events = signed_batch.get("events") or []
+        sp, sr, sd, sm = sync_event_batch(events=signed_events, core_url=core_url)
+        signed_processed_ack = acknowledge(base_url, token, signed_ack_path, sp, "processed")
+        signed_rejected_ack = acknowledge(base_url, token, signed_ack_path, sr, "failed", "; ".join(sm) if sm else "presence_core_rejected")
 
-    telegram_path = str(config.get("telegram_event_api_path", "/api/presence/telegram-events"))
-    telegram_ack_path = str(config.get("telegram_ack_api_path", "/api/presence/telegram-events/ack"))
-    telegram_batch = edge_request(base_url + telegram_path + "?limit=100", token)
-    telegram_events = telegram_batch.get("events") or []
-    tp, tr, td, tm = sync_event_batch(
-        events=telegram_events,
-        core_url=core_url,
-        transform=locally_sign_telegram_event,
-        replay_is_success=True,
-    )
-    telegram_processed_ack = acknowledge(base_url, token, telegram_ack_path, tp, "processed")
-    telegram_rejected_ack = acknowledge(base_url, token, telegram_ack_path, tr, "failed", "; ".join(tm) if tm else "telegram_presence_rejected")
+        telegram_path = str(config.get("telegram_event_api_path", "/api/presence/telegram-events"))
+        telegram_ack_path = str(config.get("telegram_ack_api_path", "/api/presence/telegram-events/ack"))
+        telegram_batch = edge_request(base_url + telegram_path + "?limit=100", token)
+        telegram_events = telegram_batch.get("events") or []
+        tp, tr, td, tm = sync_event_batch(
+            events=telegram_events,
+            core_url=core_url,
+            transform=locally_sign_telegram_event,
+            replay_is_success=True,
+        )
+        telegram_processed_ack = acknowledge(base_url, token, telegram_ack_path, tp, "processed")
+        telegram_rejected_ack = acknowledge(base_url, token, telegram_ack_path, tr, "failed", "; ".join(tm) if tm else "telegram_presence_rejected")
 
     web_path = str(
         config.get(
@@ -1391,12 +1398,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Pull Cloudflare-custodied Vesper traffic into local DIO Presence Core.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--watch", action="store_true")
+    parser.add_argument("--web-only", action="store_true", help="Reconcile web custody only; leave Telegram and signed-envelope queues untouched.")
     parser.add_argument("--interval", type=float, default=None)
     args = parser.parse_args()
     config = read_config(args.config.resolve())
     interval = args.interval if args.interval is not None else float(config.get("poll_interval_seconds", 1.0))
     while True:
-        print(json.dumps(sync_once(config), indent=2), flush=True)
+        print(json.dumps(sync_once(config, web_only=args.web_only), indent=2), flush=True)
         if not args.watch:
             return 0
         time.sleep(max(interval, 1.0))

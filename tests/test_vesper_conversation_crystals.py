@@ -18,6 +18,9 @@ from app.kernel.compute.semantic_generalizer import (
     SemanticCrystalRegistry,
     SemanticEpisode,
     SemanticGeneralizer,
+    SemanticReuseKey,
+    normalize_utterance,
+    semantic_intent_fingerprint,
 )
 
 from adapters.lingua.conversation_crystals import resolve_conversation_crystal
@@ -26,6 +29,27 @@ from adapters.lingua.conversation_crystals import resolve_conversation_crystal
 def _digest(value: str) -> str:
     return sha256_digest(value)
 
+def _request_context(text: str) -> dict:
+    key = SemanticReuseKey(
+        semantic_fingerprint_digest=_digest(
+            semantic_intent_fingerprint(text)
+        ),
+        normalized_utterance_digest=_digest(
+            normalize_utterance(text)
+        ),
+        schema_digest=_digest("vesper-schema"),
+        discourse_digest=_digest("public-discourse"),
+        world_digest=_digest("public-world"),
+        capability_digest=_digest("conversation"),
+        evidence_digest=_digest("public-evidence"),
+        policy_digest=_digest("no-authority"),
+        temporal_scope_digest=_digest("current"),
+    )
+    return {
+        "semantic_domain": "vesper_public",
+        "reuse_key": key,
+        "semantic_match_digest": key.semantic_match_digest,
+    }
 
 @pytest.fixture
 def vesper_crystal_registry(tmp_path):
@@ -94,6 +118,8 @@ def test_verified_active_crystal_reuses_without_provider(tmp_path, vesper_crysta
     result = resolve_conversation_crystal(
         root=tmp_path,
         text="please tell me about dio",
+        role="public",
+        semantic_context=_request_context("please tell me about dio"),
         registry_path=vesper_crystal_registry,
     )
     assert result is not None
@@ -112,13 +138,15 @@ def test_revoked_crystal_is_not_reused(tmp_path, vesper_crystal_registry):
     result = resolve_conversation_crystal(
         root=tmp_path,
         text="tell me about dio",
+        role="public",
+        semantic_context=_request_context("tell me about dio"),
         registry_path=vesper_crystal_registry,
     )
     assert result is None
 
 
 def test_missing_registry_returns_none(tmp_path):
-    result = resolve_conversation_crystal(root=tmp_path, text="tell me about dio")
+    result = resolve_conversation_crystal(root=tmp_path, text="tell me about dio", role="public", semantic_context=_request_context("tell me about dio"))
     assert result is None
 
 

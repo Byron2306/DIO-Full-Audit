@@ -132,10 +132,12 @@ def _prepare_vesper_front_door(incarnation: str, output_root: Path, *, now: str)
 
 
 def _vesper_artifacts(case_root: Path) -> list[dict[str, Any]]:
+    from products.proof_custody import freeze_ingress_custody
+    live_ledger_paths = freeze_ingress_custody(case_root)
     copied_chat = case_root / "VESPER_WEB_CHAT"
     artifacts = []
     for path in sorted(copied_chat.rglob("*")):
-        if not path.is_file():
+        if not path.is_file() or str(path.relative_to(case_root)) in live_ledger_paths:
             continue
         artifacts.append(
             {

@@ -87,7 +87,7 @@ def test_handoff_offer_creates_pending_proposal_not_action():
 
 def test_ollama_draft_receives_bounded_conversation_context(monkeypatch):
     monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
-    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_URL", "http://127.0.0.1:11434")
     monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
     captured = {}
 
@@ -126,7 +126,7 @@ def test_ollama_draft_receives_bounded_conversation_context(monkeypatch):
 
 def test_ollama_draft_rejects_completed_external_action_claim(monkeypatch):
     monkeypatch.setenv("DIO_PRESENCE_LLM_DRAFTS", "1")
-    monkeypatch.setenv("OLLAMA_URL", "http://ollama.test")
+    monkeypatch.setenv("OLLAMA_URL", "http://127.0.0.1:11434")
     monkeypatch.setenv("OLLAMA_MODEL", "qwen3.5:4b")
     fallback = "Pricing is scope-specific. I can prepare this for a human-approved quote."
 
@@ -152,7 +152,7 @@ def test_cortex_uses_ollama_only_and_falls_back_locally(monkeypatch):
     )
     monkeypatch.setenv(
         "OLLAMA_URL",
-        "http://ollama.test",
+        "http://127.0.0.1:11434",
     )
     monkeypatch.setenv(
         "OLLAMA_MODEL",
@@ -177,7 +177,7 @@ def test_cortex_uses_ollama_only_and_falls_back_locally(monkeypatch):
             }
         )
 
-        if url == "http://ollama.test/api/chat":
+        if url == "http://127.0.0.1:11434/api/chat":
             raise RuntimeError(
                 "local model unavailable"
             )
@@ -217,7 +217,7 @@ def test_cortex_uses_ollama_only_and_falls_back_locally(monkeypatch):
 
     assert calls == [
         {
-            "url": "http://ollama.test/api/chat",
+            "url": "http://127.0.0.1:11434/api/chat",
             "headers": None,
         }
     ]

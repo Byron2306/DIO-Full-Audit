@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ipaddress
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -67,15 +68,57 @@ def require_ollama_provider(
     return OLLAMA_PROVIDER
 
 
+LOCAL_OLLAMA_HOST_ALIASES = frozenset({
+    "localhost",
+    "ollama",
+    "seraph-ollama",
+    "host.docker.internal",
+})
+
+
 def ollama_url(value: str | None = None) -> str:
+    """Resolve an Ollama endpoint while refusing arbitrary remote hosts.
+
+    The hostname aliases are limited to local loopback and the explicit local
+    Docker/host aliases used by DIO's sovereign deployment. This is a policy
+    boundary, not a claim that DNS or the network namespace is independently
+    attested.
+    """
     url = str(
         value
         or _sovereign_setting("OLLAMA_URL")
         or "http://127.0.0.1:11434"
     ).strip().rstrip("/")
-    parsed = urlparse(url)
-    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
-        raise SovereignRuntimeError("OLLAMA_URL must be a valid HTTP(S) endpoint.")
+    try:
+        parsed = urlparse(url)
+        hostname = (parsed.hostname or "").casefold().rstrip(".")
+        port = parsed.port
+    except ValueError as exc:
+        raise SovereignRuntimeError("OLLAMA_URL has invalid authority or port syntax.") from exc
+
+    if (
+        parsed.scheme != "http"
+        or not hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.path not in {"", "/"}
+        or parsed.query
+        or parsed.fragment
+        or port is None
+        or not (1 <= port <= 65535)
+    ):
+        raise SovereignRuntimeError(
+            "OLLAMA_URL must be a plain local HTTP endpoint with an explicit valid port."
+        )
+
+    try:
+        is_local = ipaddress.ip_address(hostname).is_loopback
+    except ValueError:
+        is_local = hostname in LOCAL_OLLAMA_HOST_ALIASES
+    if not is_local:
+        raise SovereignRuntimeError(
+            "OLLAMA_URL remote hosts are disabled; use loopback or an approved local-container alias."
+        )
     return url
 
 
@@ -91,15 +134,28 @@ def ollama_model(value: str | None = None) -> str:
 
 
 def evidex_root() -> Path:
+    """Resolve only the DIO-owned Evidex source, independently of its venv."""
+    root = Path(__file__).resolve().parent
+    bundled = root / "cross_folder_variants" / "Evidex" / "A_CODE"
+    resolved = bundled.resolve()
+    if not resolved.is_relative_to(root):
+        raise SovereignRuntimeError("Canonical Evidex source escapes DIO root.")
     configured = _sovereign_setting("DIO_EVIDEX_ROOT")
-    if configured:
-        return Path(configured).expanduser().resolve()
+    if configured and Path(configured).expanduser().resolve() != resolved:
+        raise SovereignRuntimeError("Evidex source must be the canonical embedded DIO engine.")
+    return resolved
 
-    bundled = Path(__file__).resolve().parent / "cross_folder_variants" / "Evidex" / "A_CODE"
-    if (bundled / ".venv" / "bin" / "python").is_file():
-        return bundled
 
-    return Path("/home/byron/Evidex").expanduser().resolve()
+def evidex_environment(base: dict[str, str] | None = None) -> dict[str, str]:
+    """Bind engine and shared DIO imports without alternate checkout roots."""
+    root = Path(__file__).resolve().parent
+    env = dict(os.environ if base is None else base)
+    env["PYTHONPATH"] = os.pathsep.join(str(p) for p in (
+        evidex_root() / "src", root, root / "products"
+    ))
+    for key in ("DIO_ROOT", "DIO_REPO_ROOT", "DIO_FULL_AUDIT_ROOT"):
+        env[key] = str(root)
+    return env
 
 
 @dataclass(frozen=True)

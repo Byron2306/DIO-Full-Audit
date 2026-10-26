@@ -473,7 +473,13 @@ def run_offer_lab(packet: dict[str, Any], output_dir: Path, *, now: str) -> dict
     one_page = output_dir / "BOUNDED_OFFER.md"
     one_page.write_text(
         "# Controlled Evidence Readiness Pilot\n\n**For testing, not validated demand.**\n\n"
-        + offer["scope"] + "\n\n## Outputs\n\n" + "\n".join(f"- {item}" for item in offer["outputs"])
+        + offer["scope"]
+        + "\n\n## Buyer hypothesis\n\n" + offer["target_buyer_hypothesis"]
+        + "\n\n## Required inputs\n\n" + "\n".join(f"- {item}" for item in offer["required_inputs"])
+        + "\n\n## Price test options (ZAR; not validated)\n\n" + ", ".join(str(item) for item in offer["price_test_options_zar"])
+        + "\n\n## Customer constraints\n\n" + "\n".join(f"- {item}" for item in offer["customer_constraints"])
+        + "\n\n## Allowed bounded claims\n\n" + "\n".join(f"- {item}" for item in offer["allowed_claims"])
+        + "\n\n## Outputs\n\n" + "\n".join(f"- {item}" for item in offer["outputs"])
         + "\n\n## Claim boundary\n\n" + "\n".join(f"- DO NOT CLAIM: {item}" for item in offer["prohibited_claims"]) + "\n",
         encoding="utf-8",
     )

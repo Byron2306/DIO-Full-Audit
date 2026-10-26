@@ -246,8 +246,8 @@ class BusinessWorkbenchHandler(MS10ControlDeckHandler):
 def main() -> int:
     parser = argparse.ArgumentParser(description="Serve DIO BUSINESS with production studio")
     parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--market-port", type=int, default=8770)
+    parser.add_argument("--port", type=int, default=8767)
+    parser.add_argument("--market-port", type=int, default=8771)
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("DIO BUSINESS must bind to localhost")

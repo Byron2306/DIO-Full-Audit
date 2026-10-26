@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import json
+import pytest
 
 from scripts import sync_vesper_presence_edge as sync
 
@@ -40,69 +41,48 @@ def _event() -> dict:
     }
 
 
-def test_hf_voice_transcription_is_read_only_semantic_input(monkeypatch) -> None:
+def test_hf_voice_transcription_is_refused_by_sovereign_runtime(monkeypatch) -> None:
     monkeypatch.setenv("HF_TOKEN", "hf-test-token")
     monkeypatch.setenv("DIO_PRESENCE_ASR_MODEL", "openai/whisper-large-v3-turbo")
     calls = []
 
-    class Response:
-        def __enter__(self):
-            return self
-        def __exit__(self, exc_type, exc, tb):
-            return False
-        def read(self):
-            return json.dumps({"text": "I've got eighty papers to mark."}).encode("utf-8")
+    def forbidden_urlopen(*args, **kwargs):
+        calls.append((args, kwargs))
+        raise AssertionError("Hugging Face network access must not occur.")
 
-    def fake_urlopen(request, timeout):
-        calls.append((request, timeout))
-        return Response()
+    monkeypatch.setattr(sync, "urlopen", forbidden_urlopen)
 
-    monkeypatch.setattr(sync, "urlopen", fake_urlopen)
+    with pytest.raises(
+        sync.PermanentPresenceError,
+        match="disabled by DIO Phase 9 sovereign runtime",
+    ):
+        sync.transcribe_voice_with_hf(_voice_attachment())
 
-    receipt = sync.transcribe_voice_with_hf(_voice_attachment())
-
-    request, timeout = calls[0]
-    assert request.full_url == "https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo"
-    assert request.get_header("Authorization") == "Bearer hf-test-token"
-    assert request.get_header("Content-type") == "audio/ogg"
-    assert request.data.startswith(b"OggS")
-    assert timeout == 60
-    assert receipt["text"] == "I've got eighty papers to mark."
-    assert receipt["provider"] == "hf-inference"
-    assert receipt["model"] == "openai/whisper-large-v3-turbo"
-    assert receipt["audio_sha256"] == _voice_attachment()["sha256"]
-    assert receipt["authority_created"] is False
-    assert receipt["external_processing"] is True
+    assert calls == [], "Refused transcription must not make an external request."
 
 
-def test_telegram_voice_becomes_transcript_not_document_attachment(monkeypatch) -> None:
+def test_telegram_voice_hf_mode_is_refused_without_external_transcription(monkeypatch) -> None:
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram-test-token")
     monkeypatch.setenv("DIO_PRESENCE_VOICE_TRANSCRIPTION", "hf")
-    monkeypatch.setattr(sync, "telegram_download_attachment", lambda *args, **kwargs: _voice_attachment())
     monkeypatch.setattr(
-        sync,
-        "transcribe_voice_with_hf",
-        lambda attachment: {
-            "schema": "dio.vesper.voice_transcription.v1",
-            "text": "I've got 80 student papers to mark. What would you suggest?",
-            "provider": "hf-inference",
-            "model": "openai/whisper-large-v3-turbo",
-            "audio_sha256": attachment["sha256"],
-            "authority_created": False,
-            "external_processing": True,
-        },
+        sync, "telegram_download_attachment",
+        lambda *args, **kwargs: _voice_attachment(),
     )
+    hf_calls = []
 
-    envelope = sync.telegram_to_envelope(_event())
+    def forbidden_hf_call(attachment):
+        hf_calls.append(attachment)
+        raise AssertionError("Telegram voice must not be sent to Hugging Face.")
 
-    assert envelope["message_type"] == "voice"
-    assert envelope["text"] == "I've got 80 student papers to mark. What would you suggest?"
-    assert envelope["attachment"] is None
-    assert envelope["metadata"]["telegram_chat_id"] == "456"
-    assert envelope["metadata"]["voice_source"]["provider_file_id"] == "voice-file-1"
-    assert envelope["metadata"]["voice_source"]["sha256"] == _voice_attachment()["sha256"]
-    assert envelope["metadata"]["voice_transcription"]["provider"] == "hf-inference"
-    assert envelope["metadata"]["voice_transcription"]["authority_created"] is False
+    monkeypatch.setattr(sync, "transcribe_voice_with_hf", forbidden_hf_call)
+
+    with pytest.raises(
+        sync.PermanentPresenceError,
+        match="disabled by DIO Phase 9 sovereign runtime",
+    ):
+        sync.telegram_to_envelope(_event())
+
+    assert hf_calls == [], "The refused HF mode must not call the external provider."
 
 
 def test_voice_without_transcription_does_not_enter_document_quarantine(monkeypatch) -> None:

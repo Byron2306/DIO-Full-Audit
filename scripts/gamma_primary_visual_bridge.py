@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from functools import wraps
 from pathlib import Path
 from typing import Any
 
@@ -120,6 +121,7 @@ def install_gamma_primary_visual_bridge(factory_module: Any) -> None:
         _write_json(receipt_path, receipt)
         return receipt
 
+    @wraps(original_build_family)
     def build_family(
         product: dict[str, Any],
         audience: dict[str, Any],

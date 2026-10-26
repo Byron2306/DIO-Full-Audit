@@ -40,6 +40,31 @@ def test_sovereign_policy_allows_only_ollama() -> None:
     assert policy.hf_runtime_allowed is False
 
 
+@pytest.mark.parametrize("url", [
+    "http://127.0.0.1:11434",
+    "http://localhost:11434",
+    "http://[::1]:11434",
+    "http://ollama:11434",
+    "http://seraph-ollama:11434",
+    "http://host.docker.internal:11434",
+])
+def test_sovereign_runtime_allows_only_explicit_local_ollama_endpoints(url: str) -> None:
+    assert ollama_url(url) == url
+
+
+@pytest.mark.parametrize("url", [
+    "http://example.com:11434",
+    "https://example.com:11434",
+    "http://203.0.113.8:11434",
+    "http://127.0.0.1:11434/path",
+    "http://user:secret@127.0.0.1:11434",
+    "http://localhost:bad",
+])
+def test_sovereign_runtime_refuses_remote_or_ambiguous_ollama_endpoints(url: str) -> None:
+    with pytest.raises(SovereignRuntimeError):
+        ollama_url(url)
+
+
 def test_sovereign_runtime_reads_global_model_and_url(tmp_path, monkeypatch) -> None:
     env_file = tmp_path / "sovereign.env"
     env_file.write_text(
@@ -54,11 +79,12 @@ def test_sovereign_runtime_reads_global_model_and_url(tmp_path, monkeypatch) -> 
     assert ollama_url() == "http://127.0.0.1:11434"
 
 
-def test_sovereign_runtime_honors_configured_evidex_root(tmp_path, monkeypatch) -> None:
+def test_sovereign_runtime_refuses_noncanonical_evidex_root(tmp_path, monkeypatch) -> None:
     root = tmp_path / "evidex"
     monkeypatch.setenv("DIO_EVIDEX_ROOT", str(root))
 
-    assert evidex_root() == root.resolve()
+    with pytest.raises(SovereignRuntimeError, match="canonical embedded DIO engine"):
+        evidex_root()
 
 
 def test_document_studio_defaults_to_ollama_and_refuses_cloud_provider() -> None:
@@ -204,6 +230,26 @@ def test_sophia_refuses_remote_reasoned_provider_before_network(tmp_path: Path) 
     assert result["source"] == "sovereign_runtime"
     assert result["remote_processing"] is False
     assert "only Ollama" in result["commentary"]
+
+
+def test_sophia_refuses_remote_review_endpoint_before_network(tmp_path: Path, monkeypatch) -> None:
+    manuscript = tmp_path / "paper.md"
+    manuscript.write_text("Controlled manuscript.", encoding="utf-8")
+    def unexpected_network(*args, **kwargs):
+        raise AssertionError("remote endpoint must be refused before network access")
+    monkeypatch.setattr("adapters.sophia.review_pipeline.fetch_json", unexpected_network)
+    result = reviewer_commentary(
+        "https://reviewer.example:7070",
+        {"reasoned_review_approved": True, "reasoned_provider": "ollama"},
+        "Controlled paper", manuscript, "Controlled manuscript.", "plain_text",
+        {"status":"clean_first_pass", "missing_from_reference_list": [],
+         "reference_list_entries_not_cited": [], "actionable_issue_count": 0,
+         "reference_entries": [], "in_text_citations": []}, [], [],
+    )
+    assert result["status"] == "rejected"
+    assert result["remote_processing"] is False
+    assert result["endpoint_policy"] == "LOCAL_LOOPBACK_ONLY"
+    assert "remote endpoints are disabled" in result["commentary"]
 
 
 def test_telegram_poller_refuses_hidden_webhook_without_explicit_cutover(

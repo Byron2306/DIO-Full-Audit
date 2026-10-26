@@ -354,66 +354,28 @@ def ai_trust_projection(packet: dict[str, Any], *, source_type: str, intended_us
     source_file = packet["packet_dir"] / "SOURCES" / "02_evidence_register.csv"
     packet_digest = packet["packet_fingerprint"].split(":")[-1]
 
-    def fp(label: str) -> str:
-        return "sha256:" + hashlib.sha256((packet_digest + ":" + label).encode("utf-8")).hexdigest()
-
-    baseline_model = fp("baseline-model")
-    baseline_prompt = fp("baseline-prompt")
-    current_model = fp("current-model") if changed else baseline_model
-    current_prompt = fp("current-prompt") if changed else baseline_prompt
+    # A register of customer assertions is not a model baseline, evaluation,
+    # observed output, or executable capability grant. Preserve its literal
+    # declarations and leave absent technical evidence unknown.
     payload = {
         "source_type": source_type,
         "case_id": "PRO-AI-" + packet_digest[:12].upper(),
-        "system": {
-            "system_id": "SYS-" + packet_digest[:12].upper(),
-            "intended_use": intended_use,
-            "model": {"provider": "customer-declared", "model_id": "customer-system", "version": "current", "fingerprint": current_model},
-            "prompt": {"fingerprint": current_prompt},
-            "policy": {"fingerprint": fp("policy")},
-            "connector": {"fingerprint": fp("connector")},
-            "environment": {"fingerprint": fp("environment")},
-            "data_policy": {"retention": "bounded", "disclosure": "human_gate", "sensitive_data": "minimise"},
-        },
-        "baseline": {
-            "model_fingerprint": baseline_model,
-            "prompt_fingerprint": baseline_prompt,
-            "policy_fingerprint": fp("policy"),
-            "connector_fingerprint": fp("connector"),
-            "environment_fingerprint": fp("environment"),
-        },
+        "system": {"intended_use": intended_use, "model": {}},
+        "baseline": {},
         "sources": [{"source_ref": "customer-packet://SOURCES/02_evidence_register.csv", "sha256": sha256(source_file)}],
-        "attachments": [
-            {
-                "name": "customer-evidence-register.csv",
-                "sha256": sha256(source_file),
-                "text": "\n".join(str(row.get("customer_supplied_record") or "") for row in rows),
-            }
-        ],
-        "evaluations": [
-            {
-                "evaluation_id": "EVAL-CUSTOMER-1",
-                "purpose": intended_use,
-                "model_fingerprint": baseline_model,
-                "result": "PASS",
-                "evaluated_at": "2026-08-01T00:00:00+00:00",
-                "expires_at": "2026-08-10T00:00:00+00:00" if changed else "2026-12-31T00:00:00+00:00",
-            }
-        ],
-        "requested_actions": [],
-        "allowed_capabilities": [],
+        "attachments": [{"name": "customer-evidence-register.csv", "sha256": sha256(source_file),
+                         "text": "\n".join(str(row.get("customer_supplied_record") or "") for row in rows)}],
+        "evaluations": [], "requested_actions": [], "allowed_capabilities": [],
         "human_authority": {"state": "NEEDS_YOU"},
-        "claimed_output_sha256": fp("claimed-output").removeprefix("sha256:"),
-        "observed_output_sha256": (fp("observed-output") if changed else fp("claimed-output")).removeprefix("sha256:"),
+        "customer_declarations": [
+            {"source_locator": str(row.get("record_id") or ""),
+             "source_ref": "customer-packet://SOURCES/02_evidence_register.csv",
+             "statement": str(row.get("customer_supplied_record") or ""),
+             "trust_state": "captured_untrusted"} for row in rows
+        ],
+        "projection_limits": ["Narrative declarations require technical evidence and human review; no baseline, evaluation result or tool request was inferred."],
         "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
-    if inject_actions:
-        payload["requested_actions"] = [
-            {"tool": "outlook", "target": "customer@example.invalid", "effect": "draft"},
-            {"tool": "outlook", "target": "customer@example.invalid", "effect": "external_send"},
-        ]
-        payload["allowed_capabilities"] = [
-            {"tool": "outlook", "target": "customer@example.invalid", "effect": "draft"}
-        ]
     return payload
 
 

@@ -71,9 +71,11 @@ def _clean_case_root(output_root: Path, incarnation: str) -> Path:
 
 
 def _artifact_inventory(root: Path) -> list[dict[str, Any]]:
+    from products.proof_custody import freeze_ingress_custody
+    live_ledger_paths = freeze_ingress_custody(root)
     rows = []
     for path in sorted(root.rglob("*")):
-        if not path.is_file() or path.name == OUTER_RECEIPT:
+        if not path.is_file() or path.name == OUTER_RECEIPT or str(path.relative_to(root)) in live_ledger_paths:
             continue
         rows.append({"path": str(path.relative_to(root)), "sha256": sha256(path), "bytes": path.stat().st_size})
     return rows

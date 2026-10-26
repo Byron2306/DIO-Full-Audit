@@ -80,7 +80,7 @@ def build_trust_envelope(product_id: str, payload: dict[str, Any], *, now: str) 
         key = (row.get("tool"), row.get("target"), row.get("effect"))
         state = "REFUSE" if injections or key not in allowed_keys or row.get("effect") == "external_send" else "ALLOW_DRAFT_ONLY"
         action_rows.append({**row, "decision": state})
-    tool_state = "REFUSE" if any(row["decision"] == "REFUSE" for row in action_rows) else (
+    tool_state = "REFUSE" if injections or any(row["decision"] == "REFUSE" for row in action_rows) else (
         "SUPPORTED" if action_rows else "UNKNOWN"
     )
     tool_safety = _dimension("tool_safety", tool_state,
@@ -96,9 +96,9 @@ def build_trust_envelope(product_id: str, payload: dict[str, Any], *, now: str) 
 
     observed = payload.get("observed_output_sha256")
     claimed = payload.get("claimed_output_sha256")
-    integrity_state = "SUPPORTED" if observed and claimed and observed == claimed else "CONTESTED"
+    integrity_state = "UNKNOWN" if not observed or not claimed else ("SUPPORTED" if observed == claimed else "CONTESTED")
     integrity = _dimension("integrity", integrity_state, ["claimed and observed output digests compared"],
-                           [] if integrity_state == "SUPPORTED" else ["output digest mismatch or absence"])
+                           [] if integrity_state == "SUPPORTED" else ["output digest absent; integrity not assessed" if integrity_state == "UNKNOWN" else "output digest mismatch"])
 
     drift_fields = ("model_fingerprint", "prompt_fingerprint", "policy_fingerprint",
                     "connector_fingerprint", "environment_fingerprint")
@@ -111,9 +111,12 @@ def build_trust_envelope(product_id: str, payload: dict[str, Any], *, now: str) 
     }
     drift_events = [{"field": field, "baseline": baseline.get(field), "current": current.get(field)}
                     for field in drift_fields if baseline.get(field) and baseline.get(field) != current.get(field)]
-    drift = _dimension("drift", "CONTESTED" if drift_events else "SUPPORTED",
-                       ["baseline fingerprints compared with current fingerprints"],
-                       [f"{row['field']} changed" for row in drift_events])
+    comparable = [field for field in drift_fields if baseline.get(field) and current.get(field)]
+    drift_state = "CONTESTED" if drift_events else ("SUPPORTED" if len(comparable) == len(drift_fields) else "UNKNOWN")
+    drift = _dimension("drift", drift_state,
+                       ["Supplied baseline and current fingerprints compared; absent values are not evidence of no change"],
+                       [f"{row['field']} changed" for row in drift_events] +
+                       (["complete baseline and current fingerprints not supplied"] if len(comparable) != len(drift_fields) else []))
 
     release = _dimension("release", "REFUSE", ["compilation and internal review never authorize external release"],
                          ["explicit authorised release receipt required"])
@@ -132,6 +135,7 @@ def build_trust_envelope(product_id: str, payload: dict[str, Any], *, now: str) 
         "source_provenance": sources,
         "attachment_inventory": [{key: row.get(key) for key in ("name", "sha256")} for row in attachments],
         "evaluation_registry": evaluations,
+        "customer_declarations": list(payload.get("customer_declarations") or []),
         "current_fingerprints": current,
         "baseline_fingerprints": baseline,
         "drift_events": drift_events,

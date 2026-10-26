@@ -10,15 +10,15 @@ INTENTS=["general_info","product_info","pricing_info","intake_request","status_r
 
 
 _ACTOR_PREFIX = (
-    r"\b(?:i|we)\s+"
-    r"(?:(?:have|['’]ve|will(?:\s+now)?|am|are|['’]m|['’]re)\s+)?"
+    r"\b(?:i|we)"
+    r"(?:['’](?:ve|m|re)|\s+(?:have|will(?:\s+now)?|am|are))?\s+"
 )
 
 _PROCESS_ACTION = (
     r"(?:process(?:ed|ing)?|"
     r"analy[sz](?:e|ed|ing)|"
     r"pars(?:e|ed|ing)|"
-    r"open(?:ed|ing)?)"
+    r"open(?:ed|ing)?(?!\s+(?:(?:your|the|an?|this|that)\s+)?intake\b(?!\s+(?:form|file|document|attachment)\b)))"
 )
 
 _PROCESS_CLAIM_RE = re.compile(
@@ -32,6 +32,15 @@ _PROCESS_CLAIM_RE = re.compile(
 )
 
 _ACTION_CLAIM_RULES = (
+    (
+        re.compile(r"(?:" + _ACTOR_PREFIX + r"(?:captur(?:e|ed|ing)|accept(?:ed|ing)?|creat(?:e|ed|ing)|receiv(?:e|ed|ing)|record(?:ed|ing)?|register(?:ed|ing)?)\b[^.!?\n]{0,80}\bintake\b"
+                   r"|\bintake(?:\s+(?:record|request|case))?\s+(?:(?:has|have)\s+been\s+|(?:is|was)(?:\s+now)?\s+)?(?:captured|accepted|created|received|recorded|registered)\b)", re.IGNORECASE),
+        re.compile(r"\bintake_created\s*=\s*true\b", re.IGNORECASE),
+    ),
+    (
+        re.compile(_ACTOR_PREFIX + r"(?:open(?:ed|ing)?|begun|start(?:ed|ing)?)\b[^.!?\n]{0,80}\bintake\b", re.IGNORECASE),
+        re.compile(r"\bjourney_intake_open\s*=\s*true\b", re.IGNORECASE),
+    ),
     (
         _PROCESS_CLAIM_RE,
         re.compile(
@@ -485,6 +494,10 @@ def _draft_messages(
         "payment fact, or proof of willingness to pay. "
         "Never imply an action occurred unless the facts explicitly "
         "say it occurred. "
+        "If journey_view is supplied, use its actual product and case stage. "
+        "An intent-classifier proposal is advisory and is not an accepted intake. "
+        "Use intake_profile to explain missing customer details; never invent requirements "
+        "or claim those details, source files, approvals or buyer classifications were received. "
         "Never intensify pressure because a user sounds upset, urgent, "
         "confused, skeptical, or price-sensitive. "
         "Use the governed descriptive context and recent conversation "
@@ -550,10 +563,7 @@ def draft_with_ollama(
     governed_context: dict[str,Any]|None=None,
 ) -> str:
     try:
-        require_ollama_provider(
-            os.getenv("DIO_PRESENCE_LLM_PROVIDER", "ollama"),
-            component="Vesper Presence",
-        )
+        require_ollama_provider(os.getenv("DIO_PRESENCE_LLM_PROVIDER", "ollama"), component="Vesper")
     except Exception:
         return fallback
     if os.getenv("DIO_PRESENCE_LLM_DRAFTS","0") not in {"1","true","yes"}: return fallback

@@ -8,7 +8,7 @@ from portfolio_runtime import load_portfolio
 from products.commercial_pricing_registry import (
     build_commercial_pricing_registry,
 )
-from products.vesper_web_chat import resolve_incarnation
+from products.vesper_web_chat import resolve_incarnation, ROUTE_STOPWORDS
 from semantic_marketing import semantic_marketing_brief
 
 
@@ -210,7 +210,7 @@ def _tokens(value: Any) -> set[str]:
     result: set[str] = set()
 
     for raw in re.findall(r"[a-z0-9]+", str(value or "").casefold()):
-        if len(raw) < 3:
+        if len(raw) < 3 or raw in ROUTE_STOPWORDS or raw in {"what", "which", "how", "does", "would", "could"}:
             continue
 
         result.add(raw)
@@ -514,11 +514,26 @@ def resolve_commercial_cognition(
     # supplies an explicit canonical product/site context. For ordinary
     # customer language, the richer commercial resolver must decide,
     # because it includes pricing semantics and job morphology.
-    if incarnation_hint:
-        route = resolve_incarnation(
-            message,
-            incarnation_hint=incarnation_hint,
-        )
+    mentions = []
+    for incarnation in load_portfolio()["incarnations"]:
+        name = str(incarnation.get("Incarnation") or "").strip()
+        for spelling in {name, _spoken_canonical_name(name)}:
+            if spelling:
+                for match in re.finditer(r"(?<!\w)" + re.escape(spelling) + r"(?!\w)", message, re.IGNORECASE):
+                    mentions.append((match.start(), match.end(), name))
+    explicit_names = sorted({name for start, end, name in mentions
+                             if not any(a <= start and end <= b and b-a > end-start
+                                        for a, b, other in mentions)})
+    if len(explicit_names) > 1:
+        route = {"state": "NEEDS_YOU", "incarnation": None,
+                 "basis": "multiple_explicit_products",
+                 "candidates": [{"incarnation": name, "score": None} for name in explicit_names],
+                 "authority_created": False}
+    elif len(explicit_names) == 1:
+        route = resolve_incarnation(message, incarnation_hint=explicit_names[0])
+        route["basis"] = "single_explicit_product"
+    elif incarnation_hint:
+        route = resolve_incarnation(message, incarnation_hint=incarnation_hint)
     else:
         route = _fallback_route(message, root)
 

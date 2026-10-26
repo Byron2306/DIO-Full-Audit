@@ -8065,6 +8065,21 @@ def _is_document_substitution_task(
     return any(re.search(pattern, lowered, re.IGNORECASE | re.DOTALL) for pattern in substitution_patterns)
 
 
+def _canonical_product_review_boundary():
+    """Load only this producer's adjacent, pinned canonical product boundary."""
+    import types
+    path = Path(__file__).resolve().with_name("canonical_product_review.py")
+    if path.is_symlink() or path.resolve() != path:
+        raise ValueError("canonical_product_boundary_source_escape")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != "d5cae3899a3116b40a45b3f4ac794d7bbdcd46afd732360d22f6c78c15452405":
+        raise ValueError("canonical_product_boundary_source_digest_mismatch")
+    module = types.ModuleType("_dio_canonical_product_review")
+    module.__file__ = str(path)
+    exec(compile(raw, str(path), "exec"), module.__dict__)
+    return module
+
+
 def _is_dio_product_review_task(
     *,
     body: Dict[str, Any],
@@ -10517,6 +10532,18 @@ class PresenceHandler(SimpleHTTPRequestHandler):
         log_layer("principal_verification", "PASS", "token_verified")
         record_phase("principal_verification")
 
+        product_review_boundary = None
+        if dio_product_review_task:
+            try:
+                if protected_pedagogy_trial:
+                    raise ValueError("conflicting_product_and_pedagogy_trial_lanes")
+                product_review_boundary = _canonical_product_review_boundary()
+                product_review_boundary.validate_request(body, text)
+            except (ValueError, OSError) as exc:
+                self._json_response({"reason": str(exc) if isinstance(exc, ValueError) else "canonical_product_boundary_unavailable",
+                    "reasoned_provider_status": "error", "source": "canonical_product_review_refusal"}, 422)
+                return
+
         if protected_pedagogy_trial and not is_calibration:
             provider = str(body.get("reasoned_provider") or os.environ.get("SOPHIA_REASONED_PROVIDER") or "gemini")
             model = str(body.get("reasoned_model") or os.environ.get("SOPHIA_REASONED_MODEL") or "gemini-flash-lite-latest")
@@ -11894,7 +11921,7 @@ class PresenceHandler(SimpleHTTPRequestHandler):
             return
 
         # Build dynamic system prompt
-        dynamic_context_fragment = mandos.to_system_prompt(ctx)
+        dynamic_context_fragment = mandos.to_system_prompt(ctx) if mandos else ""
         _challenge_type = (schema_route or {}).get("challenge_type", "")
         ainur_testimony = choir.get("collective_testimony") or "Council vigil."
         base_prompt = _get_cached_system_prompt()
@@ -12350,7 +12377,7 @@ class PresenceHandler(SimpleHTTPRequestHandler):
             _update_session_source_pool(request_token, assessment_record, document_evidence)
             auto_integrity = _auto_integrity_check(text, request_token)
             record_phase("reasoned_integrity_lane_return")
-            self._json_response({
+            reasoned_payload = {
                 "response": final_response_text,
                 "response_source": "hybrid_model_with_constitutional_judgment",
                 "response_source_detail": "reasoned_integrity_lane",
@@ -12402,7 +12429,15 @@ class PresenceHandler(SimpleHTTPRequestHandler):
                     "dio_product_review_task": dio_product_review_task,
                 },
                 "telemetry": telemetry_payload(),
-            }, serializer=_json_serializer)
+            }
+            if product_review_boundary is not None:
+                try:
+                    reasoned_payload = product_review_boundary.attach_evidence(body, text, reasoned_payload)
+                except (ValueError, OSError):
+                    self._json_response({"reason": "canonical_product_response_evidence_unavailable",
+                        "reasoned_provider_status": "error", "source": "canonical_product_review_refusal"}, 503)
+                    return
+            self._json_response(reasoned_payload, serializer=_json_serializer)
             return
 
         if _is_pedagogical_lens_request(text) and not FEATURE_PASSTHROUGH_MODE:

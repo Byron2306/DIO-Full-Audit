@@ -1,9 +1,8 @@
-const SHELL_CACHE = "dio-mobile-shell-v1";
+const SHELL_CACHE = "dio-mobile-shell-v2";
 const SHELL_ASSETS = [
   "/",
   "/manifest.webmanifest",
-  "/dio-mobile-icon-192.png",
-  "/dio-mobile-icon-512.png"
+  "/dio-mobile-icon.svg"
 ];
 
 self.addEventListener("install", event => {

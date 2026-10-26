@@ -1,0 +1,30 @@
+{
+  "schema": "dio.media.house_style.v1",
+  "profile_id": "dio_gilded_house_v1",
+  "scope": "dio_owned_promotional_media_only",
+  "source_pack_id": "HOMS_CORPO_CULT_V1",
+  "source_manifest": "media/product_asset_packs/homs_corpo_cult_v1/pack.json",
+  "visual_identity": {
+    "name_public": "DIO Gilded Institutional",
+    "internal_nickname_not_for_publication": "CORPO CULT",
+    "background": "near-black architectural depth, obsidian and graphite",
+    "material": "black glass, reflective stone, restrained bronze",
+    "verified_state_accent": "warm luminous gold only for verified or operator-authorized status",
+    "type": "cream typographic accents with large negative space",
+    "prohibitions": ["fake product UI", "invented evidence", "glowing brain", "humanoid robot", "decorative HUD", "public-facing cult terminology"]
+  },
+  "voice": {
+    "default_profile_id": "vera_pocket_public",
+    "backend": "pocket_tts",
+    "voice_url": "vera",
+    "endpoint": "http://127.0.0.1:8000/tts",
+    "allow_silent_fallback": false,
+    "language": "English"
+  },
+  "authority": {
+    "generated_as_proof": "REFUSE",
+    "external_send": "REFUSE",
+    "publication": "NEEDS_YOU",
+    "visual_release": "NEEDS_YOU"
+  }
+}

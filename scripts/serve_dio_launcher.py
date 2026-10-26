@@ -28,13 +28,9 @@ PWA_ASSETS = {
         ROOT / "dashboard" / "dio-mobile-sw.js",
         "application/javascript; charset=utf-8",
     ),
-    "/dio-mobile-icon-192.png": (
-        ROOT / "dashboard" / "dio-mobile-icon-192.png",
-        "image/png",
-    ),
-    "/dio-mobile-icon-512.png": (
-        ROOT / "dashboard" / "dio-mobile-icon-512.png",
-        "image/png",
+    "/dio-mobile-icon.svg": (
+        ROOT / "dashboard" / "assets" / "dio-logo-cockpit.svg",
+        "image/svg+xml",
     ),
 }
 
@@ -138,6 +134,9 @@ class LauncherHandler(BaseHTTPRequestHandler):
             return
         if route in PWA_ASSETS:
             path, content_type = PWA_ASSETS[route]
+            if not path.is_file():
+                self._send_json({"error": "asset_unavailable"}, HTTPStatus.SERVICE_UNAVAILABLE)
+                return
             self._send_bytes(path.read_bytes(), content_type)
             return
         if route == "/heartbeat":

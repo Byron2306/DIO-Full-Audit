@@ -15,7 +15,7 @@ from typing import Any
 import jsonschema
 
 from adapters.evidence_kernel import EvidenceConfidence, InstitutionalProfile, load_profile
-from sovereign_runtime import evidex_root, ollama_model, ollama_url
+from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -401,7 +401,7 @@ def _write_evidex_inputs(snapshot: dict[str, Any], job_dir: Path) -> tuple[Path,
 def _run_evidex(intake_path: Path, uploads_dir: Path, out_dir: Path) -> dict[str, Any]:
     if not EVIDEX_PYTHON.is_file():
         raise FileNotFoundError(f"Evidex Python not found: {EVIDEX_PYTHON}")
-    env = os.environ.copy()
+    env = evidex_environment()
     env.update({
         "OLLAMA_MODEL": ollama_model(),
         "OLLAMA_URL": ollama_url(),

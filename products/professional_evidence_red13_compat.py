@@ -106,41 +106,14 @@ def _assignment_boundary_present_v2(value: str) -> bool:
 
 
 def _existing_python_roots() -> list[Path]:
-    candidates = [
-        ROOT,
-        ROOT / "products",
-        Path("/home/byron/DIO"),
-        Path("/home/byron/DIO-Core"),
-        Path("/home/byron/DIO-Full-Audit"),
-        Path("/home/byron/EdgeK-BEAST"),
-        Path("/home/byron/Integritas-Mechanicus"),
-        Path("/home/byron/Integritas-Mechanicus/arda_os"),
-    ]
-    rows: list[Path] = []
-    seen: set[str] = set()
-    for candidate in candidates:
-        resolved = candidate.expanduser().resolve()
-        key = str(resolved)
-        if key in seen or not resolved.is_dir():
-            continue
-        seen.add(key)
-        rows.append(resolved)
-    return rows
+    from sovereign_runtime import evidex_environment
+    return [Path(value) for value in evidex_environment({})["PYTHONPATH"].split(os.pathsep)]
 
 
 def _spine_environment(base: dict[str, str] | None = None) -> tuple[dict[str, str], list[str]]:
-    env = dict(base or os.environ)
-    roots = [str(path) for path in _existing_python_roots()]
-    existing = [part for part in str(env.get("PYTHONPATH") or "").split(os.pathsep) if part]
-    merged: list[str] = []
-    for value in [*roots, *existing]:
-        if value not in merged:
-            merged.append(value)
-    env["PYTHONPATH"] = os.pathsep.join(merged)
-    env["DIO_ROOT"] = str(ROOT)
-    env["DIO_REPO_ROOT"] = str(ROOT)
-    env["DIO_FULL_AUDIT_ROOT"] = str(ROOT)
-    return env, roots
+    from sovereign_runtime import evidex_environment
+    env = evidex_environment(base)
+    return env, env["PYTHONPATH"].split(os.pathsep)
 
 
 def _vamp_request(packet: dict[str, Any], *, incarnation: str, db: Path) -> dict[str, Any]:

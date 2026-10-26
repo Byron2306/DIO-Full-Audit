@@ -1,11 +1,16 @@
 [Unit]
 Description=DIO MARKET operator workbench
 After=network-online.target
+ConditionPathIsMountPoint=/data
 
 [Service]
 Type=simple
 WorkingDirectory=/home/byron/DIO-Full-Audit
-ExecStart=/home/byron/Downloads/KnowEdge_AutoRelease_Suite/.venv/bin/python3 /home/byron/DIO-Full-Audit/scripts/serve_market_command_ms10.py --host 127.0.0.1 --port 8770
+EnvironmentFile=-/home/byron/.config/dio/sovereign.env
+Environment=DIO_STATE_ROOT=/home/byron/.local/share/dio
+Environment=DIO_EVENT_LOG=/home/byron/.local/share/dio/telemetry/dio_events.jsonl
+ExecStartPre=/home/byron/DIO-Full-Audit/.venv/bin/python /home/byron/DIO-Full-Audit/scripts/verify_integrated_runtime.py
+ExecStart=/home/byron/DIO-Full-Audit/.venv/bin/python /home/byron/DIO-Full-Audit/scripts/serve_market_command_ms10.py --host 127.0.0.1 --port 8771 --business-port 8767
 Restart=on-failure
 RestartSec=3
 Environment=PYTHONUNBUFFERED=1

@@ -17,7 +17,7 @@ _SURFACES = [
         "description": "Sensorium and control-state truth plane.",
         "url": "http://127.0.0.1:8766/",
         "health_url": "http://127.0.0.1:8766/api/control-deck/portfolio",
-        "service": "dio-goldeneye.service",
+        "service": "dio-goldeneye-portfolio.service",
     },
     {
         "id": "control-deck",
@@ -56,13 +56,17 @@ def surface_catalog() -> list[dict[str, str]]:
 
 def portfolio_truth(portfolio: dict[str, Any]) -> dict[str, Any]:
     """Project portfolio readiness without inventing or promoting evidence."""
-    base = int(portfolio.get("base_canonical_incarnation_count") or 0)
-    extensions = int(portfolio.get("canon_extension_count") or 0)
-    total = int(portfolio.get("canonical_incarnation_count") or 0)
+    def count(key: str) -> int:
+        value = portfolio.get(key)
+        return value if type(value) is int and value >= 0 else 0
+
+    base = count("base_canonical_incarnation_count")
+    extensions = count("canon_extension_count")
+    total = count("canonical_incarnation_count")
     extension_state = str(portfolio.get("extension_summary_state") or "MISSING")
     rows = portfolio.get("incarnations")
     row_count = len(rows) if isinstance(rows, list) else 0
-    verified = (
+    identity_counts_complete = (
         base == 53
         and extensions == 15
         and total == 68
@@ -70,7 +74,9 @@ def portfolio_truth(portfolio: dict[str, Any]) -> dict[str, Any]:
         and extension_state == "VERIFIED"
     )
     return {
-        "verified": verified,
+        "verified": False,
+        "identity_counts_complete": identity_counts_complete,
+        "proof_basis": "execution_proofs_not_evaluated_by_launcher",
         "base": base,
         "extensions": extensions,
         "total": total,
@@ -78,7 +84,7 @@ def portfolio_truth(portfolio: dict[str, Any]) -> dict[str, Any]:
         "extension_state": extension_state,
         "summary": f"{base} + {extensions} = {total}",
         "expected_summary": "53 + 15 = 68",
-        "evidence": "VERIFIED" if verified else extension_state,
+        "evidence": "NOT_VERIFIED",
     }
 
 
@@ -108,7 +114,20 @@ def launcher_state() -> dict[str, Any]:
             health_cache[health_url] = probe_url(health_url)
         health = health_cache[health_url]
         row: dict[str, Any] = dict(surface)
-        row["ready"] = health.get("ready") is True
+        payload = health.get("payload")
+        expected_service = {
+            "control-deck": "dio-business",
+            "production-studio": "dio-business",
+            "market-command": "dio-market-command",
+        }.get(surface["id"])
+        if surface["id"] == "goldeneye":
+            valid = (isinstance(payload, dict)
+                     and payload.get("schema") == "dio.control_deck.portfolio_snapshot.v1"
+                     and payload.get("ok") is not False)
+        else:
+            valid = (isinstance(payload, dict) and payload.get("ok") is True
+                     and payload.get("service") == expected_service)
+        row["ready"] = health.get("ready") is True and valid
         if "status" in health:
             row["status"] = health["status"]
         payload = health.get("payload")
@@ -141,6 +160,7 @@ def launcher_state() -> dict[str, Any]:
         "surfaces": surfaces,
         "portfolio": portfolio,
         "surfaces_ready": all_surfaces_ready,
+        "inspection_available": any(row["ready"] for row in surfaces),
         "ready": all_surfaces_ready and portfolio["verified"] is True,
         "authority_created": False,
         "read_only": True,
@@ -165,6 +185,8 @@ def canonical_catalog_state() -> dict[str, Any]:
 
     payload = result.get("payload") or {}
     products = payload.get("products", [])
+    if not isinstance(products, list):
+        products = []
 
     ids = [
         row.get("product_id")
@@ -175,6 +197,7 @@ def canonical_catalog_state() -> dict[str, Any]:
     valid = (
         payload.get("schema") == "dio.canonical_portfolio_operator_view.v1"
         and payload.get("canonical_identity_count") == 68
+        and len(products) == 68
         and len(ids) == 68
         and all(isinstance(i, str) and i for i in ids)
         and len(set(ids)) == 68
@@ -183,6 +206,8 @@ def canonical_catalog_state() -> dict[str, Any]:
     )
 
     runtime = payload.get("runtime") or {}
+    if not isinstance(runtime, dict):
+        runtime = {}
 
     return {
         "available": bool(valid),

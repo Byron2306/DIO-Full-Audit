@@ -15,16 +15,17 @@ class DioSshAlgorithmPolicyTest {
     }
 
     @Test
-    fun androidTransportAvoidsCurveAndUsesGroup14Sha256KeyExchange() {
+    fun androidTransportOffersPlatformJceEcdhAcceptedByNativeDebian() {
         assertEquals(
-            listOf("diffie-hellman-group14-sha256"),
+            listOf("ecdh-sha2-nistp256"),
             DioSshAlgorithmPolicy.keyExchangeNames(),
         )
     }
 
     @Test
     fun androidTransportUsesPlatformJceInsteadOfForcingBouncyCastle() {
-        DioSshAlgorithmPolicy.config()
+        val config = DioSshAlgorithmPolicy.config()
+        assertEquals(DioSshAlgorithmPolicy.keyExchangeNames(), config.keyExchangeFactories.map { it.name })
         assertNull(SecurityUtils.getSecurityProvider())
     }
 }

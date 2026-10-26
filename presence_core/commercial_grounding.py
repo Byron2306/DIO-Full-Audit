@@ -56,6 +56,7 @@ def build_commercial_grounding(
         "schema": "dio.vesper.commercial_grounding.v1",
         "source_schema": result.get("schema"),
         "state": result.get("state"),
+        "resolution_basis": route.get("basis"),
         "clarification_required": (
             result.get("state") == "NEEDS_CLARIFICATION"
         ),

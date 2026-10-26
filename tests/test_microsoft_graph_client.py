@@ -10,6 +10,9 @@ def test_graph_request_uses_acquired_bearer_token(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
+    # Constructing a real MSAL application fetches remote authority metadata.
+    # This unit test exercises request headers, not Microsoft discovery or login.
+    monkeypatch.setattr("adapters.microsoft_graph.client.msal.PublicClientApplication", lambda *a, **kw: SimpleNamespace())
     graph = GraphClient(
         {
             "client_id": "test-client-id",

@@ -122,8 +122,7 @@ fun DioHomeScreen(
         )
 
         SurfaceId.entries.forEach { id ->
-            val snapshot = state.surfaces.firstOrNull { it.id == id }
-            val ready = state.phase == ConnectionPhase.READY && snapshot?.ready == true
+            val ready = state.canOpenSurface(id)
             Card(modifier = Modifier.fillMaxWidth()) {
                 Row(
                     modifier = Modifier

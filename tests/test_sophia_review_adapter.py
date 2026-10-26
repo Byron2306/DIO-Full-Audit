@@ -1,5 +1,6 @@
 from adapters.sophia.review_pipeline import (
     _allowed_citation_keys,
+    _allowed_dois,
     extract_in_text_citations,
     parse_reference_entries,
     reference_key,
@@ -74,3 +75,14 @@ def test_allowed_citation_keys_include_reference_coauthors() -> None:
         }],
     }
     assert _allowed_citation_keys(audit, []) >= {"carless:2018", "boud:2018"}
+
+
+def test_allowed_dois_extracts_normal_doi_urls_from_supplied_sources() -> None:
+    allowed = _allowed_dois(
+        {"reference_entries": [{"doi": "10.1111/EXISTING"}]},
+        [
+            {"url": "https://doi.org/10.1234/example-doi"},
+            {"url": "https://publisher.example/article/10.5678/another.doi."},
+        ],
+    )
+    assert allowed == {"10.1111/existing", "10.1234/example-doi", "10.5678/another.doi"}

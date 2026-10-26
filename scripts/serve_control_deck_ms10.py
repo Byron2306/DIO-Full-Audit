@@ -32,6 +32,8 @@ ALLOWED_ARTIFACT_ROOTS = tuple(
     root.resolve()
     for root in (
         ROOT,
+        # This output tree can resolve outside ROOT through the shared-state link.
+        ROOT / "state" / "operator_production" / "marketing",
         Path("/home/byron/Downloads/KnowEdge_AutoRelease_Suite"),
         Path("/home/byron/Downloads/NicheFoundry_Phase11"),
         Path("/home/byron/KnowEdge_Microsoft_Mirror"),

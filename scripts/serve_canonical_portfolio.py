@@ -48,7 +48,11 @@ def portfolio_state():
     if SNAPSHOT.is_file():
         try:
             snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+            if not isinstance(snapshot, dict):
+                raise ValueError("Runtime snapshot must be an object")
             rows = snapshot.get("incarnations", [])
+            if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+                raise ValueError("Runtime incarnations must be a list of objects")
             runtime = {
                 "snapshot_available": True,
                 "incarnation_count": len(rows),
@@ -66,10 +70,9 @@ def portfolio_state():
         "canon_extension_count": 15,
         "identity_registry_complete": True,
         "runtime": runtime,
-        "product_grade_verified": (
-            runtime["incarnation_count"] == 68
-            and runtime["extension_summary_state"] == "VERIFIED"
-        ),
+        # This endpoint observes identities and counts, not bound execution proofs.
+        "product_grade_verified": False,
+        "product_grade_basis": "execution_proofs_not_evaluated_by_identity_service",
         "external_release_authorized": False,
         "authority_created": False,
         "external_effects": False,

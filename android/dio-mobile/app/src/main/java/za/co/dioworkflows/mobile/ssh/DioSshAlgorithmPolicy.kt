@@ -1,7 +1,7 @@
 package za.co.dioworkflows.mobile.ssh
 
 import com.hierynomus.sshj.key.KeyAlgorithms
-import com.hierynomus.sshj.transport.kex.DHGroups
+import net.schmizz.sshj.transport.kex.ECDHNistP
 import net.schmizz.sshj.DefaultConfig
 import net.schmizz.sshj.common.SecurityUtils
 
@@ -10,7 +10,7 @@ object DioSshAlgorithmPolicy {
         listOf("rsa-sha2-512", "rsa-sha2-256")
 
     fun keyExchangeNames(): List<String> =
-        listOf("diffie-hellman-group14-sha256")
+        listOf("ecdh-sha2-nistp256")
 
     fun config(): DefaultConfig {
         SecurityUtils.setRegisterBouncyCastle(false)
@@ -23,7 +23,7 @@ object DioSshAlgorithmPolicy {
             )
             setKeyExchangeFactories(
                 listOf(
-                    DHGroups.Group14SHA256(),
+                    ECDHNistP.Factory256(),
                 ),
             )
         }

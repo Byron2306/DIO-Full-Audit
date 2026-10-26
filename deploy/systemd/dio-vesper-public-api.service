@@ -1,0 +1,21 @@
+[Unit]
+Description=DIO Vesper Restricted Public Web API
+After=network-online.target
+Wants=network-online.target
+ConditionPathIsMountPoint=/data
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/DIO-Full-Audit
+EnvironmentFile=-/home/byron/.config/dio/sovereign.env
+Environment=DIO_STATE_ROOT=/home/byron/.local/share/dio
+Environment=DIO_EVENT_LOG=/home/byron/.local/share/dio/telemetry/dio_events.jsonl
+Environment=PYTHONNOUSERSITE=1
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/home/byron/DIO-Full-Audit/.venv/bin/python /home/byron/DIO-Full-Audit/scripts/verify_integrated_runtime.py
+ExecStart=/home/byron/DIO-Full-Audit/.venv/bin/python /home/byron/DIO-Full-Audit/scripts/serve_vesper_public_api.py --host 127.0.0.1 --port 8772
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

@@ -6,6 +6,7 @@ import asyncio
 import csv
 import importlib.util
 import json
+import sys
 import os
 import re
 import shutil
@@ -17,6 +18,9 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 DEFAULT_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
 DEFAULT_HYMARK_BACKEND = ROOT / "cross_folder_variants" / "NoEdge-Multi-Hymark-main" / "A_CODE" / "backend" / "server.py"
 

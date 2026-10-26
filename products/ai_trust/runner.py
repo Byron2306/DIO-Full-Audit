@@ -56,13 +56,15 @@ def _html(envelope: dict[str, Any], title: str) -> bytes:
     drift = "".join(f"<li>{html.escape(row['field'])}: baseline and current fingerprints differ</li>" for row in view["drift"]) or "<li>No declared drift detected</li>"
     injections = "".join(f"<li>{html.escape(row)}</li>" for row in view["injections"]) or "<li>No configured injection marker detected</li>"
     actions = "".join(f"<li>{html.escape(str(row.get('tool')))} → {html.escape(str(row.get('target')))}: <b>{row['decision']}</b></li>" for row in view["actions"]) or "<li>No requested tool actions</li>"
+    declarations = "".join(f"<li>[{html.escape(str(row.get('source_locator') or 'Unlocated'))}] {html.escape(str(row.get('statement') or ''))}</li>" for row in envelope.get('customer_declarations') or [])
+    declarations_section = ("<h2>Customer declarations (unverified)</h2><ul>" + declarations + "</ul><p>These statements require source and technical verification; they are not observed test results or capability grants.</p>") if declarations else ""
     page = f"""<!doctype html><html><head><meta charset="utf-8"><title>{html.escape(title)}</title>
 <style>body{{font-family:Arial,sans-serif;color:#172033;max-width:1100px;margin:36px auto;padding:0 20px}}h1,h2{{color:#12233f}}.gate{{background:#fff4df;border-left:5px solid #d97706;padding:12px}}table{{border-collapse:collapse;width:100%}}th{{background:#12233f;color:white}}th,td{{padding:9px;border:1px solid #d8e0eb;vertical-align:top}}tr:nth-child(even){{background:#f5f8fc}}code{{font-size:.84em}}</style></head><body>
 <p>DIO AI &amp; DIGITAL TRUST</p><h1>{html.escape(title)}</h1>
 <p>System: <b>{html.escape(view['system_id'])}</b> · Model: <b>{html.escape(str(view['model'].get('model_id') or 'Unspecified'))}</b></p>
 <div class="gate"><b>HUMAN DECISION REQUIRED · EXTERNAL RELEASE REFUSED</b></div>
 <h2>Executive state summary</h2><p>{html.escape(json.dumps(view['summary'], sort_keys=True))}</p>
-<h2>Trust dimensions</h2><table><tr><th>Dimension</th><th>State</th><th>Basis</th><th>Gaps</th></tr>{rows}</table>
+{declarations_section}<h2>Trust dimensions</h2><table><tr><th>Dimension</th><th>State</th><th>Basis</th><th>Gaps</th></tr>{rows}</table>
 <h2>Drift</h2><ul>{drift}</ul><h2>Untrusted-content signals</h2><ul>{injections}</ul>
 <h2>Tool decisions</h2><ul>{actions}</ul><h2>Proof identity</h2><code>{envelope['envelope_fingerprint']}</code>
 <p>This internal dossier creates no certification, legal conclusion, model approval, authority or external release.</p></body></html>"""
@@ -77,6 +79,8 @@ def _docx(envelope: dict[str, Any], title: str) -> bytes:
         "HUMAN DECISION REQUIRED - EXTERNAL RELEASE REFUSED",
         "Trust dimensions",
     ]
+    if envelope.get('customer_declarations'):
+        paragraphs.extend(["Customer declarations (unverified)"] + [f"[{row.get('source_locator') or 'Unlocated'}] {row.get('statement') or ''}" for row in envelope['customer_declarations']])
     paragraphs.extend(f"{row['dimension'].upper()}: {row['state']} | Gaps: {'; '.join(row['gaps']) or 'None'}" for row in view["dimensions"])
     paragraphs.extend(["Drift register"] + ([f"{row['field']}: baseline differs from current" for row in view["drift"]] or ["No declared drift detected"]))
     paragraphs.extend(["Untrusted-content signals"] + (view["injections"] or ["No configured injection marker detected"]))
@@ -120,7 +124,12 @@ def _pdf(envelope: dict[str, Any], title: str) -> bytes:
         data.append([row["dimension"], row["state"], "; ".join(row["basis"]), "; ".join(row["gaps"]) or "None"])
     table = Table([[Paragraph(html.escape(str(v)), small) for v in row] for row in data], colWidths=[28*mm, 25*mm, 66*mm, 56*mm], repeatRows=1)
     table.setStyle(TableStyle([("BACKGROUND",(0,0),(-1,0),colors.HexColor("#12233f")),("TEXTCOLOR",(0,0),(-1,0),colors.white),("GRID",(0,0),(-1,-1),.35,colors.HexColor("#d8e0eb")),("VALIGN",(0,0),(-1,-1),"TOP"),("ROWBACKGROUNDS",(0,1),(-1,-1),[colors.white,colors.HexColor("#f5f8fc")])]))
-    story.extend([table, Spacer(1, 4*mm), Paragraph("Drift and untrusted content", h2)])
+    story.extend([table, Spacer(1, 4*mm)])
+    if envelope.get('customer_declarations'):
+        story.append(Paragraph("Customer declarations (unverified)", h2))
+        for row in envelope['customer_declarations']:
+            story.append(Paragraph(html.escape(f"[{row.get('source_locator') or 'Unlocated'}] {row.get('statement') or ''}"), body))
+    story.append(Paragraph("Drift and untrusted content", h2))
     for row in envelope["drift_events"]:
         story.append(Paragraph(f"DRIFT: {html.escape(row['field'])} changed.", body))
     for marker in envelope["prompt_injection_signals"]:
@@ -163,6 +172,7 @@ def run_ai_trust(product_id: str, payload: dict[str, Any], *, output_dir: Path, 
         "human_review": {"state": "NEEDS_YOU", "external_release": "REFUSE"},
         "provenance_manifest": {
             "sources": envelope["source_provenance"],
+            "customer_declarations": envelope.get("customer_declarations") or [],
             "attachments": envelope["attachment_inventory"],
             "envelope_fingerprint": envelope["envelope_fingerprint"],
             "authority_created": False,

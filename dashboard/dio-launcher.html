@@ -8,8 +8,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="icon" sizes="192x192" href="/dio-mobile-icon-192.png">
-<link rel="apple-touch-icon" href="/dio-mobile-icon-192.png">
+<link rel="icon" sizes="192x192" href="/dio-mobile-icon.svg">
+<link rel="apple-touch-icon" href="/dio-mobile-icon.svg">
 <title>DIO · Local Command Surface</title>
 <style>
 :root{color-scheme:dark;--bg:#080b0d;--panel:#111619;--panel2:#171d20;--ink:#edf3f2;--muted:#8f9b9b;--line:#273033;--gold:#d7b56d;--mint:#67d9b3;--red:#ef7b78;--glow:rgba(103,217,179,.16)}
@@ -48,10 +48,10 @@
 
   <div class="section-head"><h3>Launch surfaces</h3><span id="surface-summary">Reading three supervised services</span></div>
   <section class="cards">
-    <article class="card" data-surface="goldeneye"><div class="card-top"><div class="kicker">Observe</div><div class="status">Offline</div></div><h4>GoldenEye</h4><p>Sensorium and control-state truth plane.</p><div class="card-foot"><span class="service">dio-goldeneye.service</span><a class="open" href="http://127.0.0.1:8766/">Open</a></div></article>
-    <article class="card" data-surface="control-deck"><div class="card-top"><div class="kicker">Operate</div><div class="status">Offline</div></div><h4>Control Deck</h4><p>Business workbench, portfolio truth and operator controls.</p><div class="card-foot"><span class="service">dio-control-deck.service</span><a class="open" href="http://127.0.0.1:8765/">Open</a></div></article>
-    <article class="card" data-surface="market-command"><div class="card-top"><div class="kicker">Sense</div><div class="status">Offline</div></div><h4>Market Command</h4><p>Campaign, market and channel command surface.</p><div class="card-foot"><span class="service">dio-market-command.service</span><a class="open" href="http://127.0.0.1:8770/">Open</a></div></article>
-    <article class="card" data-surface="production-studio"><div class="card-top"><div class="kicker">Create</div><div class="status">Offline</div></div><h4>Production Studio</h4><p>Governed evidence, media and product production studio.</p><div class="card-foot"><span class="service">dio-control-deck.service</span><a class="open" href="http://127.0.0.1:8765/dashboard/production.html">Open</a></div></article>
+    <article class="card" data-surface="goldeneye"><div class="card-top"><div class="kicker">Observe</div><div class="status">Offline</div></div><h4>GoldenEye</h4><p>Sensorium and control-state truth plane.</p><div class="card-foot"><span class="service">dio-goldeneye-portfolio.service</span><a class="open" href="http://127.0.0.1:8766/">Open</a></div></article>
+    <article class="card" data-surface="control-deck"><div class="card-top"><div class="kicker">Operate</div><div class="status">Offline</div></div><h4>Control Deck</h4><p>Business workbench, portfolio truth and operator controls.</p><div class="card-foot"><span class="service">dio-control-deck.service</span><a class="open" href="http://127.0.0.1:8767/">Open</a></div></article>
+    <article class="card" data-surface="market-command"><div class="card-top"><div class="kicker">Sense</div><div class="status">Offline</div></div><h4>Market Command</h4><p>Campaign, market and channel command surface.</p><div class="card-foot"><span class="service">dio-market-command.service</span><a class="open" href="http://127.0.0.1:8771/dashboard/market.html">Open</a></div></article>
+    <article class="card" data-surface="production-studio"><div class="card-top"><div class="kicker">Create</div><div class="status">Offline</div></div><h4>Production Studio</h4><p>Governed evidence, media and product production studio.</p><div class="card-foot"><span class="service">dio-control-deck.service</span><a class="open" href="http://127.0.0.1:8767/dashboard/production.html">Open</a></div></article>
   </section>
 
   <footer class="boundary"><div><strong>Authority boundary:</strong> this launcher can read health and open surfaces. It cannot start, restart, approve, publish, send, pay, release or promote anything from the browser.</div><div class="stamp" id="stamp">state: awaiting localhost</div></footer>

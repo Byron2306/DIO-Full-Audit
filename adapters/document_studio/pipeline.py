@@ -937,7 +937,8 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
     receipt["processing"]["semantic_object_id"] = str(request.get("semantic_object_id") or f"LINGUA-{job_id}") if translations else None
     write_json(job_dir / "DOCUMENT_STUDIO_RECEIPT.json", receipt)
     archive = job_dir / f"{job_id}_DOCUMENT_STUDIO_REVIEW_PACK.zip"
-    generated = sorted(path for path in job_dir.rglob("*") if path.is_file() and path != archive)
+    # The final receipt cannot contain its own byte hash; include it in the ZIP below.
+    generated = sorted(path for path in job_dir.rglob("*") if path.is_file() and path not in {archive, job_dir / "DOCUMENT_STUDIO_RECEIPT.json"})
     receipt["outputs"] = [{"path": str(path.relative_to(job_dir)), "sha256": sha256(path)} for path in generated]
     write_json(job_dir / "DOCUMENT_STUDIO_RECEIPT.json", receipt)
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as bundle:

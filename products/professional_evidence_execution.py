@@ -268,6 +268,17 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
     manuscript = packet["packet_dir"] / "SOURCES" / "manuscript.md"
     if not manuscript.is_file():
         raise FileNotFoundError("Sophia professional packet is missing manuscript.md")
+    intake = packet["intake"]
+    if intake.get("customer_authorised_processing") is not True:
+        raise ValueError("Sophia requires case-specific manuscript processing authorization")
+    external_retrieval = intake.get("external_retrieval", False)
+    if not isinstance(external_retrieval, bool):
+        raise ValueError("Sophia external_retrieval must be an explicit boolean")
+    provider = intake.get("reasoned_provider", "ollama")
+    model = intake.get("reasoned_model") or os.environ.get("OLLAMA_MODEL", "granite3.2:2b")
+    if provider != "ollama" or not isinstance(model, str) or not model.strip():
+        raise ValueError("Sophia requires a named local Ollama model")
+    model = model.strip()
     request = {
         "schema": "dio.sophia_review_request.v1",
         "job_id": "PRO-" + slug(incarnation).upper(),
@@ -276,9 +287,10 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
         "research_question": packet["intake"]["request"],
         "literature_queries": [packet["intake"]["request"]],
         "citation_style": "APA 7",
-        "external_retrieval": True,
-        "gemini_review_approved": True,
-        "gemini_model": "gemini-flash-lite-latest",
+        "external_retrieval": external_retrieval,
+        "reasoned_review_approved": True,
+        "reasoned_provider": provider,
+        "reasoned_model": model,
         "human_approval_required": True,
         "customer_packet_fingerprint": packet["packet_fingerprint"],
     }
@@ -299,6 +311,10 @@ def _run_sophia(packet: dict[str, Any], execution_dir: Path, *, incarnation: str
         raise RuntimeError("Sophia did not persist its native review receipt/commentary")
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     commentary = json.loads(commentary_path.read_text(encoding="utf-8"))
+    if commentary.get("model") != model or commentary.get("provider") != provider:
+        raise RuntimeError("Sophia returned a different model/provider than the approved request")
+    if commentary.get("remote_processing") is not False:
+        raise RuntimeError("Sophia did not confirm local-only reasoned processing")
     if receipt.get("status") != "needs_human_review" or commentary.get("status") != "completed":
         raise RuntimeError("Sophia native review did not reach grounded human-review state")
     if not bool((commentary.get("validation") or {}).get("passed")):

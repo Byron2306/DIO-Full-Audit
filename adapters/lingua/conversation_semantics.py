@@ -37,6 +37,9 @@ DEICTIC_PATTERNS = (
 )
 
 BUYER_SCOPE_PATTERNS = (
+    # Customer describes whom the existing work is for. This is dialogue
+    # context only; it does not assign a verified commercial buyer class.
+    r"\bfor (?:a|an|our|my|the) (?:nonprofit|non-profit|ngo|charity|business|company|organisation|organization)\b",
     # Individual / professional
     r"\bjust me\b",
     r"\bonly me\b",

@@ -75,9 +75,9 @@ private fun DioOperatorApp() {
         }
     }
 
-    LaunchedEffect(appState.phase, currentSurface) {
-        if (currentSurface != null && appState.phase != ConnectionPhase.READY) {
-            currentSurface = null
+    LaunchedEffect(appState, currentSurface) {
+        currentSurface?.let { id ->
+            if (!appState.canOpenSurface(id)) currentSurface = null
         }
     }
 
@@ -144,7 +144,7 @@ private fun DioOperatorApp() {
         else -> {
             DioHomeScreen(
                 state = appState,
-                onOpenSurface = { id -> currentSurface = id },
+                onOpenSurface = { id -> if (appState.canOpenSurface(id)) currentSurface = id },
                 onDisconnect = { stopConnection(context) },
                 onReconnect = { startConnection(context) },
                 onSettings = { showSetup = true },

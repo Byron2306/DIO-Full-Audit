@@ -54,10 +54,8 @@ def _toolchain()->dict[str,Any]:
     ffmpeg=shutil.which("ffmpeg");ffprobe=shutil.which("ffprobe")
     if not ffmpeg or not ffprobe:
         raise MediaIncarnationError("FFmpeg and ffprobe are required for Phase 16.1")
-    filters=_run([ffmpeg,"-hide_banner","-filters"]).stdout+_run([ffmpeg,"-hide_banner","-filters"]).stderr
-    if " flite " not in filters:
-        raise MediaIncarnationError("FFmpeg must include the offline flite narration filter")
-    return {"ffmpeg":ffmpeg,"ffprobe":ffprobe,"narration_backend":"ffmpeg_flite","network_used":False}
+    return {"ffmpeg":ffmpeg,"ffprobe":ffprobe,"narration_backend":"pocket_tts_vera","network_used":False}
+
 
 
 def _fonts()->tuple[str,str]:
@@ -95,25 +93,40 @@ def _gradient(size:tuple[int,int])->Image.Image:
 
 
 def _render_card(path:Path,size:tuple[int,int],*,eyebrow:str,headline:str,body:str,cta:str,index:str|None=None)->None:
-    regular,bold=_fonts();w,h=size;image=_gradient(size);draw=ImageDraw.Draw(image)
-    margin=int(w*.075);accent=int(max(7,w*.008))
-    draw.rounded_rectangle((margin,int(h*.09),margin+accent,int(h*.91)),radius=accent//2,fill=PALETTE["cyan"])
-    eye=_font(bold,max(18,int(w*.019)));head=_font(bold,max(38,int(w*.052)));copy=_font(regular,max(20,int(w*.022)));button=_font(bold,max(20,int(w*.021)))
-    draw.text((margin+accent+int(w*.025),int(h*.10)),eyebrow.upper(),font=eye,fill=PALETTE["cyan"])
+    """DIO-owned promotional card only. Educational semantic graphics are unaffected."""
+    # This renderer is currently used for IncidentReadinessProof. Do not borrow
+    # HOMS Command Hall artwork for a different product identity. Until a
+    # product-specific, rights-verified asset pack is bound, use the original
+    # DIO house-style gradient generated locally by this module.
+    image=_gradient(size).convert("RGBA")
+    w,h=size
+    veil=Image.new("RGBA",size,(3,5,9,150))
+    image=Image.alpha_composite(image,veil)
+    draw=ImageDraw.Draw(image)
+    regular,bold=_fonts()
+    margin=int(w*.08);gold="#D7BA79";cream="#F2E6D1"
+    draw.rectangle((margin,int(h*.10),margin+max(4,w//150),int(h*.88)),fill=gold)
+    font_small=_font(bold,max(16,int(w*.020)))
+    font_head=_font(bold,max(30,int(w*.047)))
+    font_body=_font(regular,max(17,int(w*.019)))
+    x=margin+int(w*.038)
+    draw.text((x,int(h*.12)),eyebrow.upper(),font=font_small,fill=gold)
     if index:
-        bounds=draw.textbbox((0,0),index,font=eye)
-        draw.text((w-margin-(bounds[2]-bounds[0]),int(h*.10)),index,font=eye,fill=PALETTE["amber"])
-    y=int(h*.22)
-    for row in _wrap(draw,headline,head,int(w*.76)):
-        draw.text((margin+accent+int(w*.025),y),row,font=head,fill=PALETTE["white"]);y+=int(head.size*1.13)
-    y+=int(h*.04)
-    for row in _wrap(draw,body,copy,int(w*.72)):
-        draw.text((margin+accent+int(w*.025),y),row,font=copy,fill="#bfd1d1");y+=int(copy.size*1.45)
-    box=(margin+accent+int(w*.025),int(h*.80),margin+accent+int(w*.025)+int(w*.36),int(h*.89))
-    draw.rounded_rectangle(box,radius=max(8,int(w*.009)),fill=PALETTE["amber"])
-    label=draw.textbbox((0,0),cta,font=button);tx=box[0]+(box[2]-box[0]-(label[2]-label[0]))/2;ty=box[1]+(box[3]-box[1]-(label[3]-label[1]))/2-2
-    draw.text((tx,ty),cta,font=button,fill="#15100a")
-    path.parent.mkdir(parents=True,exist_ok=True);image.save(path,optimize=False,compress_level=9)
+        bbox=draw.textbbox((0,0),index,font=font_small)
+        draw.text((w-margin-(bbox[2]-bbox[0]),int(h*.12)),index,font=font_small,fill=gold)
+    y=int(h*.25)
+    for line in _wrap(draw,headline,font_head,int(w*.75))[:4]:
+        draw.text((x,y),line,font=font_head,fill=cream)
+        y+=int(font_head.size*1.13)
+    y+=int(h*.025)
+    for line in _wrap(draw,body,font_body,int(w*.73))[:5]:
+        draw.text((x,y),line,font=font_body,fill=cream)
+        y+=int(font_body.size*1.28)
+    # A CTA is an invitation, never a verified-status gold badge.
+    draw.text((x,int(h*.86)),cta.upper(),font=font_small,fill=cream)
+    path.parent.mkdir(parents=True,exist_ok=True)
+    image.convert("RGB").save(path,optimize=False,compress_level=9)
+
 
 
 def _native_nichefoundry(now:str)->dict[str,Any]:
@@ -172,10 +185,41 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
     narration_text=" ".join(row["narration"] for row in script)
     narration_txt=youtube/"NARRATION.txt";narration_txt.write_text(narration_text+"\n",encoding="utf-8")
     narration=youtube/"NARRATION.wav"
-    _run([tools["ffmpeg"],"-y","-hide_banner","-loglevel","error","-f","lavfi","-i",f"flite=textfile={narration_txt}:voice=slt","-ar","48000","-ac","1","-bitexact",str(narration)])
-    with wave.open(str(narration),"rb") as wav:duration=wav.getnframes()/wav.getframerate()
-    weights=[max(1,len(row["narration"].split())) for row in script];total=sum(weights)
-    durations=[duration*w/total for w in weights]
+    from presence_core.voice import build_voice_plan,synthesize_voice
+    voice_policy=json.loads((ROOT/"config/media/dio_gilded_house_style.json").read_text())["voice"]
+    plan=build_voice_plan(root=ROOT,language="English",interaction=None,requested_profile=voice_policy["default_profile_id"])
+    if (plan.get("state")!="ready_for_internal_render" or not plan.get("public_default_authorized")
+        or plan.get("backend")!="pocket_tts" or plan.get("voice_url")!="vera"):
+        raise MediaIncarnationError("approved VERA voice plan is unavailable")
+    clip_dir=youtube/"narration_clips";clip_dir.mkdir(exist_ok=True)
+    clips=[];durations=[];clip_receipts=[]
+    for row in script:
+        clip=clip_dir/f"SCENE_{row['id']:02}.wav"
+        receipt=synthesize_voice(text=row["narration"],output_path=clip,plan=plan,timeout=120.0)
+        if receipt.get("backend")!="pocket_tts" or receipt.get("voice_url")!="vera" or _sha(clip)!=receipt.get("audio_sha256"):
+            raise MediaIncarnationError("VERA voice receipt integrity mismatch")
+        with wave.open(str(clip),"rb") as wf:
+            duration_clip=wf.getnframes()/wf.getframerate()
+            if duration_clip<=0:
+                raise MediaIncarnationError("VERA produced empty narration")
+            params=wf.getparams()
+        clips.append(clip);durations.append(duration_clip)
+        clip_receipts.append({"scene":row["id"],"duration_seconds":round(duration_clip,3),"voice_receipt":receipt})
+    # Lossless WAV concatenation. Require identical Pocket TTS stream formats.
+    with wave.open(str(narration),"wb") as final:
+        final.setparams(params)
+        for clip in clips:
+            with wave.open(str(clip),"rb") as wf:
+                if (wf.getnchannels(),wf.getsampwidth(),wf.getframerate(),wf.getcomptype())!=(params.nchannels,params.sampwidth,params.framerate,params.comptype):
+                    raise MediaIncarnationError("VERA scene WAV format mismatch")
+                final.writeframes(wf.readframes(wf.getnframes()))
+    with wave.open(str(narration),"rb") as wf:
+        duration=wf.getnframes()/wf.getframerate()
+    _write_json(youtube/"VERA_NARRATION_RECEIPT.json",{
+      "schema":"dio.media_incarnation.vera_narration.v1","provider":"pocket_tts","voice":"vera",
+      "profile_id":plan["profile_id"],"scene_receipts":clip_receipts,
+      "combined_wav_sha256":_sha(narration),"duration_seconds":round(duration,3),
+      "remote_tts_used":False,"release":"NEEDS_YOU"})
     cursor=0.0;srt=[];timing=[]
     for index,(row,seconds) in enumerate(zip(script,durations),1):
         start=cursor;cursor+=seconds
@@ -198,7 +242,7 @@ def _render_media(output_dir:Path,script:list[dict[str,Any]],tools:dict[str,Any]
       "-map_metadata","-1","-movflags","+faststart","-fflags","+bitexact","-flags:v","+bitexact","-flags:a","+bitexact",str(video)])
     probe=_probe(video,tools["ffprobe"])
     return {"duration_seconds":round(duration,3),"probe":probe,"video":str(video.relative_to(output_dir)),
-      "ad_count":2,"carousel_count":5,"scene_count":len(script),"narration_backend":tools["narration_backend"]}
+      "ad_count":2,"carousel_count":5,"scene_count":len(script),"narration_backend":tools["narration_backend"],"voice":"vera","visual_profile":"dio_gilded_house_v1","alignment_method":"per_scene_audio_duration_not_word_alignment"}
 
 
 def _sophia_review(script:list[dict[str,Any]])->dict[str,Any]:
@@ -246,7 +290,7 @@ def build_media_incarnation(*,output_dir:Path,root:Path=ROOT,now:str=NOW)->dict[
       "nichefoundry_native_engine_invoked":False,"ad_asset_rendering":"PASS","carousel_rendering":"PASS",
       "thumbnail_rendering":"PASS","youtube_script_completeness":"PASS","narration_rendering":"PASS","caption_alignment":"PASS",
       "video_rendering":"PASS","sophia_media_review":"PASS","evidex_asset_provenance":"PASS","deterministic_media_toolchain":"PASS",
-      "video_duration_seconds":media["duration_seconds"],"network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE",
+      "video_duration_seconds":media["duration_seconds"],"voice_profile":"vera_pocket_public","visual_profile":"dio_gilded_house_v1","network_used":False,"external_publication":"REFUSE","media_spend":"REFUSE",
       "external_send":"REFUSE","human_gate":"NEEDS_YOU","proof_fingerprint":proof["proof_fingerprint"]}
     receipt["media_fingerprint"]=_fingerprint(receipt);_write_json(output_dir/"MEDIA_INCARNATION_RECEIPT.json",receipt)
     verify_media_proof(output_dir,proof)
