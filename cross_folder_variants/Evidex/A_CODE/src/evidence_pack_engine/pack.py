@@ -207,26 +207,9 @@ def build_evidence_rows(intake: Intake, docs: list[IngestedDoc], llm: LlmClient)
 
 
 def _write_docx(path: Path, markdown_like_text: str) -> None:
-    from docx import Document
+    from .docx_render import write_markdown_docx
 
-    doc = Document()
-    for line in markdown_like_text.splitlines():
-        line = line.rstrip()
-        if not line:
-            doc.add_paragraph("")
-            continue
-        if line.startswith("# "):
-            doc.add_heading(line[2:], level=1)
-        elif line.startswith("## "):
-            doc.add_heading(line[3:], level=2)
-        elif line.startswith("### "):
-            doc.add_heading(line[4:], level=3)
-        elif line.startswith("- "):
-            doc.add_paragraph(line[2:], style="List Bullet")
-        else:
-            doc.add_paragraph(line)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(str(path))
+    write_markdown_docx(path, markdown_like_text)
 
 
 def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name: str | None = None) -> tuple[Path, Path, list[str]]:
@@ -340,7 +323,31 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
         ]
     )
     df.to_csv(pack_root / "01_EVIDENCE_TABLE" / "evidence_table.csv", index=False)
-    df.to_excel(pack_root / "01_EVIDENCE_TABLE" / "evidence_table.xlsx", index=False)
+    workbook_path = pack_root / "01_EVIDENCE_TABLE" / "evidence_table.xlsx"
+    df.to_excel(workbook_path, index=False)
+    from openpyxl import load_workbook
+    from openpyxl.styles import Alignment, Font, PatternFill
+
+    workbook = load_workbook(workbook_path)
+    sheet = workbook.active
+    widths = {"A": 28, "B": 16, "C": 16, "D": 18, "E": 28, "F": 72, "G": 36}
+    for column, width in widths.items():
+        sheet.column_dimensions[column].width = width
+    for cell in sheet[1]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = PatternFill("solid", fgColor="315F91")
+        cell.alignment = Alignment(wrap_text=True, vertical="center")
+    for row in sheet.iter_rows(min_row=2):
+        for cell in row:
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+    sheet.freeze_panes = "A2"
+    sheet.auto_filter.ref = sheet.dimensions
+    sheet.sheet_view.showGridLines = False
+    sheet.page_setup.orientation = "landscape"
+    sheet.page_setup.fitToWidth = 1
+    sheet.page_setup.fitToHeight = 0
+    sheet.sheet_properties.pageSetUpPr.fitToPage = True
+    workbook.save(workbook_path)
 
     # narrative
     narrative_use_llm = str(os.getenv("NARRATIVE_USE_LLM", "0")).strip().lower() in {"1", "true", "yes", "y", "on"}

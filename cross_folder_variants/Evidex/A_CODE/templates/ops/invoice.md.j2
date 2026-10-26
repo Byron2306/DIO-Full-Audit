@@ -1,4 +1,7 @@
-# {{ vendor.name }} Invoice
+# {% if not vendor.payment_configured %}DRAFT — PAYMENT DETAILS REQUIRED — {% endif %}{{ vendor.name }} Invoice
+
+{% if not vendor.payment_configured %}**Status:** DRAFT — DO NOT SEND until payment instructions have been configured and reviewed.
+{% endif %}
 
 **From:** {{ vendor.name }}  
 **To:** {{ client.organization }}  

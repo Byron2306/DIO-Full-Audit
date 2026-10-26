@@ -12,6 +12,9 @@ import tempfile
 import unittest
 import zipfile
 
+from docx import Document
+from openpyxl import load_workbook
+
 HERE=Path(__file__).resolve().parents[1]
 ROOT_REL=Path('cross_folder_variants/Evidex/A_CODE')
 SOURCE=HERE/'verification-source'
@@ -31,6 +34,9 @@ class QualityConsumptionTests(unittest.TestCase):
   templates=self.engine/'templates/grant_report';templates.mkdir(parents=True,exist_ok=True)
   (templates/'executive_summary.md.j2').write_text('# Synthetic executive\n')
   (templates/'narrative.md.j2').write_text('# Synthetic narrative\n')
+  ops_templates=self.engine/'templates/ops';ops_templates.mkdir(parents=True,exist_ok=True)
+  for name in ('invoice.md.j2','delivery_email.txt.j2'):
+   shutil.copy2(SOURCE/ROOT_REL/'templates/ops'/name,ops_templates/name)
  def run_code(self,body):
   # Only replace unavailable local Jinja rendering at its external boundary.
   prelude="""import sys,os,json,hashlib,types,importlib.util
@@ -83,5 +89,55 @@ root=Path(os.environ['DIO_ROOT']);uploads=root/'uploads';intake=load_intake(root
   (self.root/'scripts/dio_epistemic_spine.py').write_text("def epistemic_tokens():return ('SUPPORTED',)\ndef claim_epistemic_state(**kwargs):return 'SUPPORTED'\n")
   value=self.run_code("try:\n build_evidence_rows(intake,ingest_uploads(uploads),llm);held=False\nexcept (RuntimeError,ValueError):held=True\nprint(json.dumps({'held':held}))")
   self.assertTrue(value['held'])
+
+ def _generated_pack(self, body_prefix=""):
+  (self.uploads/'register.txt').write_text('Participants trained: 12; independent verification absent.')
+  value=self.run_code(body_prefix+"\narchive,pack,flags=write_pack(intake_path=root/'intake.json',uploads_dir=uploads,out_dir=root/'out',job_name='SYNTHETIC')\nprint(json.dumps({'archive':str(archive),'pack':str(pack)}))")
+  return Path(value['pack'])
+
+ def test_customer_docx_renders_emphasis_without_markdown_markers(self):
+  pack=self._generated_pack()
+  for rel in ('00_EXEC_SUMMARY/executive_summary.docx','02_NARRATIVE/narrative_justification.docx','INVOICE.docx'):
+   doc=Document(pack/rel)
+   text='\n'.join(p.text for p in doc.paragraphs)
+   self.assertNotIn('**',text,rel)
+  invoice=Document(pack/'INVOICE.docx')
+  self.assertTrue(any(run.bold for p in invoice.paragraphs for run in p.runs))
+
+ def test_evidence_workbook_has_readable_column_layout(self):
+  pack=self._generated_pack()
+  sheet=load_workbook(pack/'01_EVIDENCE_TABLE/evidence_table.xlsx').active
+  self.assertEqual(sheet.freeze_panes,'A2')
+  self.assertEqual(sheet.auto_filter.ref,sheet.dimensions)
+  self.assertGreaterEqual(sheet.column_dimensions['A'].width,24)
+  self.assertGreaterEqual(sheet.column_dimensions['F'].width,60)
+  self.assertGreaterEqual(sheet.column_dimensions['G'].width,24)
+  self.assertTrue(sheet['F2'].alignment.wrap_text)
+
+ def test_missing_payment_configuration_marks_commercial_artifacts_draft(self):
+  pack=self._generated_pack("\nfor key in ('PAYMENT_LINK','PAYPAL_LINK','PAYMENT_INSTRUCTIONS','PAYMENT_SHORT','PAYPAL_SHORT'):\n os.environ.pop(key,None)")
+  invoice_doc=Document(pack/'INVOICE.docx')
+  invoice='\n'.join(p.text for p in invoice_doc.paragraphs)
+  email=(pack/'DELIVERY_EMAIL.txt').read_text()
+  self.assertIn('DRAFT',invoice)
+  self.assertIn('PAYMENT DETAILS REQUIRED',invoice)
+  self.assertNotIn('(add payment link)',invoice)
+  self.assertIn('DRAFT',email)
+  self.assertIn('DO NOT SEND',email)
+  self.assertFalse(any(not paragraph.text.strip() for paragraph in invoice_doc.paragraphs))
+
+ def test_payment_instructions_without_url_are_configured(self):
+  prefix="""
+for key in ('PAYMENT_LINK','PAYPAL_LINK','PAYMENT_SHORT','PAYPAL_SHORT'):
+ os.environ.pop(key,None)
+os.environ['PAYMENT_INSTRUCTIONS']='Bank transfer after operator review.'
+"""
+  pack=self._generated_pack(prefix)
+  invoice='\n'.join(p.text for p in Document(pack/'INVOICE.docx').paragraphs)
+  email=(pack/'DELIVERY_EMAIL.txt').read_text()
+  self.assertNotIn('DRAFT',invoice)
+  self.assertIn('Bank transfer after operator review.',invoice)
+  self.assertNotIn('Payment details are not configured',email)
+  self.assertIn('See invoice payment instructions',email)
 
 if __name__=='__main__':unittest.main()

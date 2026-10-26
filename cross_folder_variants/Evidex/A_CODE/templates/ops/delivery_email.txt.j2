@@ -1,4 +1,7 @@
-Subject: EVIDEX — Evidence Pack Delivered — {{ client.organization }} / {{ pack.project_name }}
+Subject: {% if not vendor.payment_configured %}DRAFT — DO NOT SEND — {% endif %}EVIDEX — Evidence Pack Delivered — {{ client.organization }} / {{ pack.project_name }}
+
+{% if not vendor.payment_configured %}DRAFT — DO NOT SEND. Payment details must be configured and reviewed first.
+{% endif %}
 
 Hi {{ client.contact_name or "there" }},
 
