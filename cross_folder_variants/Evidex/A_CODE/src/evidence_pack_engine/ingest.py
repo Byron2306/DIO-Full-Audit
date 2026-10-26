@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -9,6 +10,15 @@ from pathlib import Path
 class IngestedDoc:
     path: Path
     text: str
+    source_sha256: str | None = None
+
+
+def source_digest(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def _read_text_file(path: Path) -> str:
@@ -71,6 +81,7 @@ def ingest_uploads(upload_dir: Path) -> list[IngestedDoc]:
     for path in sorted(upload_dir.rglob("*")):
         if path.is_dir():
             continue
+        before = source_digest(path)
         suffix = path.suffix.lower()
         if suffix in {".txt", ".md"}:
             text = _read_text_file(path)
@@ -84,6 +95,8 @@ def ingest_uploads(upload_dir: Path) -> list[IngestedDoc]:
             text = _read_xlsx(path)
         else:
             text = ""
-        docs.append(IngestedDoc(path=path, text=text))
+        if source_digest(path) != before:
+            raise ValueError(f"Source changed during ingestion: {path.name}")
+        docs.append(IngestedDoc(path=path, text=text, source_sha256=before))
 
     return docs

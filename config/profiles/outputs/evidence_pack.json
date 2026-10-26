@@ -1,0 +1,29 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "output.evidence_pack",
+  "profile_class": "output",
+  "name": "Evidence Pack Output",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_PHASE1_REFERENCE_PROFILE_SOURCES.md",
+        "source_section": "5. Evidence Pack Output",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:0d79622d31aa4fe268b854dede8a4a79c845dd00275f0445c1e49bd05a13b54f",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This output profile packages observed evidence, mappings, gaps and human decisions. It must not convert unresolved or inferred state into authoritative conclusions.",
+  "spec": {
+    "artifact_types": ["JSON", "DOCX", "PDF", "HTML", "proof_room_manifest"],
+    "required_sections": ["requirement_or_obligation_ledger", "evidence_map", "missing_evidence_register", "contested_state_register", "deadline_register", "human_review_register", "provenance_manifest"],
+    "disclosure_rules": ["distinguish observed evidence from inferred mappings", "distinguish human decisions from system findings", "preserve unresolved gaps", "release receipt included only when separately authorised"],
+    "qa_requirements": ["source references preserved", "content hashes preserved where available", "no unsupported authority claims", "no silent omission of missing or contested evidence"]
+  },
+  "tags": ["phase1", "output", "evidence", "room", "contractproof"]
+}

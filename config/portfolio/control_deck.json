@@ -1,0 +1,45 @@
+{
+  "schema": "dio.control_deck.config.v1",
+  "control_deck_version": "1.0.0",
+  "surface_name": "GOLDENEYE",
+  "canonical_entrypoint": "products/control_deck.py",
+  "snapshot_schema": "dio.control_deck.portfolio_snapshot.v1",
+  "goldeneye": {
+    "source_branch": "dio-c7-goldeneye-control-deck",
+    "source_head": "b500c0a57e3ecb19f5cab187c2cafeb6e73f9081",
+    "reused_contracts": [
+      "operator_first_needs_me",
+      "memory_is_not_permission",
+      "truthful_absence",
+      "advanced_organs_are_secondary",
+      "localhost_control_plane"
+    ],
+    "history_merge_policy": "selective_port_only"
+  },
+  "authoritative_sources": [
+    "config/portfolio/suites.json",
+    "config/portfolio/maturity_vocabulary.json",
+    "config/portfolio/meta_capabilities.json",
+    "config/products/manifests",
+    "products/compiler.py",
+    "products/meta_runtime.py"
+  ],
+  "laws": {
+    "projection_only": true,
+    "creates_authority": false,
+    "creates_executor": false,
+    "changes_maturity": false,
+    "infers_commercial_success": false,
+    "external_effects": false,
+    "memory_is_permission": false,
+    "unknown_state_is_visible": true
+  },
+  "operator_surfaces": [
+    "needs_me",
+    "portfolio_truth",
+    "suite_map",
+    "product_state",
+    "meta_runtime",
+    "source_integrity"
+  ]
+}

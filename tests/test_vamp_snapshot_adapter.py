@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import sqlite3
 from pathlib import Path
@@ -49,15 +50,25 @@ def create_fixture_database(path: Path, evidence_dir: Path) -> None:
         "E3": evidence_dir / "HISE312_internal_moderation_duplicate.txt",
         "E4": evidence_dir / "Unmapped_note.txt",
     }
-    for path_item in files.values():
-        path_item.write_text("Controlled evidence fixture.", encoding="utf-8")
+    for evidence_id, path_item in files.items():
+        content = (
+            "Controlled duplicate source."
+            if evidence_id in {"E1", "E3"}
+            else f"Controlled evidence fixture {evidence_id}."
+        )
+        path_item.write_text(content, encoding="utf-8")
+
+    digests = {
+        evidence_id: hashlib.sha1(path_item.read_bytes()).hexdigest()
+        for evidence_id, path_item in files.items()
+    }
     meta1 = {"target_task_id": "T1", "brain": {"primary_kpa_code": "KPA1"}, "outlook": {"source": "outlook_playwright", "search_reason": "matched task with terms: hise312, moderation"}}
     meta2 = {"target_task_id": "T2", "brain": {"primary_kpa_code": "KPA4"}, "outlook": {"source": "outlook_playwright", "search_reason": "matched task with terms: and, school"}}
     evidence_rows = [
-        ("E1", "hash-1", "TEST", 2026, "2026-01", "KPA1", "", "", str(files["E1"]), json.dumps(meta1)),
-        ("E2", "hash-2", "TEST", 2026, "2026-01", "KPA4", "", "", str(files["E2"]), json.dumps(meta2)),
-        ("E3", "hash-1", "TEST", 2026, "2026-01", "KPA1", "", "", str(files["E3"]), json.dumps(meta1)),
-        ("E4", "hash-4", "TEST", 2026, "2026-01", "KPA3", "", "", str(files["E4"]), "{}"),
+        ("E1", digests["E1"], "TEST", 2026, "2026-01", "KPA1", "", "", str(files["E1"]), json.dumps(meta1)),
+        ("E2", digests["E2"], "TEST", 2026, "2026-01", "KPA4", "", "", str(files["E2"]), json.dumps(meta2)),
+        ("E3", digests["E3"], "TEST", 2026, "2026-01", "KPA1", "", "", str(files["E3"]), json.dumps(meta1)),
+        ("E4", digests["E4"], "TEST", 2026, "2026-01", "KPA3", "", "", str(files["E4"]), "{}"),
     ]
     connection.executemany("INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?,?,?)", evidence_rows)
     connection.executemany(

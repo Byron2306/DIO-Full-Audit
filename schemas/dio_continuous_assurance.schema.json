@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio_continuous_assurance.schema.json",
+  "title": "DIO Continuous Assurance Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "depends_on",
+    "watch_layers",
+    "material_severities",
+    "critical_categories",
+    "responses",
+    "loki",
+    "authority",
+    "notification"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema": {"const": "dio.continuous_assurance.config.v1"},
+    "depends_on": {"const": "dio.evidence_authority_twin.v1"},
+    "watch_layers": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "world_state",
+          "evidence_state",
+          "claim_state",
+          "requirement_state",
+          "authority_state",
+          "capability_state",
+          "action_state",
+          "receipt_state"
+        ]
+      }
+    },
+    "material_severities": {
+      "type": "array",
+      "items": {"enum": ["medium", "high", "critical"]},
+      "uniqueItems": true
+    },
+    "critical_categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "responses": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence", "authority", "capability", "claim", "requirement", "world", "action", "receipt"],
+      "properties": {
+        "evidence": {"enum": ["needs_evidence", "review", "needs_you"]},
+        "authority": {"enum": ["needs_you", "review"]},
+        "capability": {"enum": ["needs_you", "review"]},
+        "claim": {"enum": ["review", "needs_evidence"]},
+        "requirement": {"enum": ["needs_evidence", "review"]},
+        "world": {"enum": ["review", "needs_evidence"]},
+        "action": {"enum": ["needs_you", "review"]},
+        "receipt": {"enum": ["needs_you", "review"]}
+      }
+    },
+    "loki": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rerun_on_material_drift",
+        "mirror_remains_synthetic",
+        "mirror_may_not_become_evidence",
+        "mirror_may_not_mint_authority",
+        "mirror_may_not_execute"
+      ],
+      "properties": {
+        "rerun_on_material_drift": {"const": true},
+        "mirror_remains_synthetic": {"const": true},
+        "mirror_may_not_become_evidence": {"const": true},
+        "mirror_may_not_mint_authority": {"const": true},
+        "mirror_may_not_execute": {"const": true}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "continuous_assurance_has_authority",
+        "continuous_assurance_can_execute",
+        "kernel_authority",
+        "execution_identity_authority"
+      ],
+      "properties": {
+        "continuous_assurance_has_authority": {"const": false},
+        "continuous_assurance_can_execute": {"const": false},
+        "kernel_authority": {"const": "Valinor"},
+        "execution_identity_authority": {"const": "ARDA"}
+      }
+    },
+    "notification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["emit_operator_attention_receipt", "automatic_external_notification"],
+      "properties": {
+        "emit_operator_attention_receipt": {"const": true},
+        "automatic_external_notification": {"const": false}
+      }
+    }
+  }
+}

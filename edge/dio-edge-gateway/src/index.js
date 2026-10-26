@@ -785,6 +785,9 @@ async function handlePayPal(request, env) {
     amount_minor: details.amountMinor,
     currency: details.currency || null,
     outcome,
+    lineage: order?.metadata?.lineage && typeof order.metadata.lineage === "object"
+      ? order.metadata.lineage
+      : null,
     create_time: event.create_time || null,
   };
   const stored = await storePaymentEvent(

@@ -1,0 +1,115 @@
+{
+  "schema": "dio.organ_capability_federation.v1",
+  "registry_version": "1.0.0",
+  "engines": [
+    {
+      "engine_id": "evidex",
+      "name": "Evidex",
+      "source_ref": "scripts/run_evidex_jobs.py",
+      "capabilities": [
+        "evidence.campaign.proof",
+        "evidence.intake.structure"
+      ],
+      "phase16_role": "Bind evidence promises and campaign claims to inspectable proof."
+    },
+    {
+      "engine_id": "homs",
+      "name": "HOMS",
+      "source_ref": "scripts/run_homs_jobs.py",
+      "capabilities": [
+        "onboarding.assessment.compose",
+        "customer.education.structure"
+      ],
+      "phase16_role": "Create buyer education and readiness self-assessment drafts."
+    },
+    {
+      "engine_id": "sophia",
+      "name": "Sophia",
+      "source_ref": "scripts/run_sophia_review.py",
+      "capabilities": [
+        "marketing.claim.review",
+        "source.claim.trace"
+      ],
+      "phase16_role": "Challenge marketing claims and preserve evidence/claim boundaries."
+    },
+    {
+      "engine_id": "document_studio",
+      "name": "Document Studio",
+      "source_ref": "adapters/document_studio/pipeline.py",
+      "capabilities": [
+        "document.sales_assets",
+        "document.preview.render"
+      ],
+      "phase16_role": "Project the offer into professional brochure and preview formats."
+    },
+    {
+      "engine_id": "nichefoundry",
+      "name": "NicheFoundry",
+      "source_ref": "scripts/run_nichefoundry_jobs.py",
+      "capabilities": [
+        "market.position",
+        "media.creative.compose"
+      ],
+      "phase16_role": "Generate audience hypothesis, offer angle and governed creative queue."
+    },
+    {
+      "engine_id": "market_command",
+      "name": "Market Command",
+      "source_ref": "market_command/agency.py",
+      "capabilities": [
+        "campaign.plan",
+        "media.procurement.prepare"
+      ],
+      "phase16_role": "Create measured campaign and media plans without authorising spend."
+    },
+    {
+      "engine_id": "vesper",
+      "name": "Vesper",
+      "source_ref": "products/phase11_1.py",
+      "capabilities": [
+        "fulfilment.attachment.prepare",
+        "fulfilment.proof.bind"
+      ],
+      "phase16_role": "Define attachment intake and proof-delivery journey."
+    },
+    {
+      "engine_id": "outlook_mail_core",
+      "name": "Outlook Mail Core",
+      "source_ref": "scripts/manage_mail_intent.py",
+      "capabilities": [
+        "outlook.mail.draft.prepare"
+      ],
+      "phase16_role": "Prepare customer and campaign mail drafts without sending."
+    },
+    {
+      "engine_id": "presence_core",
+      "name": "Presence Core",
+      "source_ref": "presence_core/engine.py",
+      "capabilities": [
+        "presence.release.prepare",
+        "storefront.route.bind"
+      ],
+      "phase16_role": "Prepare deployable presence package with human publication gate."
+    },
+    {
+      "engine_id": "commercial_truth",
+      "name": "Commercial Truth",
+      "source_ref": "products/commercial_truth.py",
+      "capabilities": [
+        "commercial.measurement.contract",
+        "commercial.claim.boundary"
+      ],
+      "phase16_role": "Define measurement without inventing demand, revenue or validation."
+    }
+  ],
+  "laws": {
+    "engine_presence_is_not_execution": true,
+    "capability_binding_must_be_explicit": true,
+    "generated_copy_must_respect_forbidden_claims": true,
+    "media_is_draft_only": true,
+    "spend_is_refuse": true,
+    "external_send_is_refuse": true,
+    "publication_is_refuse": true,
+    "payment_is_not_enabled": true
+  }
+}

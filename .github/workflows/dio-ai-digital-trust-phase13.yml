@@ -1,0 +1,50 @@
+name: DIO Phase 13 AI and Digital Trust
+
+on:
+  push:
+    paths:
+      - "config/products/ai_digital_trust.json"
+      - "config/products/manifests/aitrustproof.json"
+      - "config/products/manifests/agentauthority.json"
+      - "config/products/manifests/modelchangeproof.json"
+      - "config/products/golden/aitrustproof/**"
+      - "config/products/golden/agentauthority/**"
+      - "config/products/golden/modelchangeproof/**"
+      - "config/profiles/**"
+      - "config/portfolio/capability_catalog.json"
+      - "products/ai_trust/**"
+      - "products/ai_trust_gauntlet.py"
+      - "scripts/run_ai_digital_trust_phase13.py"
+      - "tests/test_ai_digital_trust_phase13.py"
+      - ".github/workflows/dio-ai-digital-trust-phase13.yml"
+  pull_request:
+    paths:
+      - "config/products/ai_digital_trust.json"
+      - "config/products/manifests/aitrustproof.json"
+      - "config/products/manifests/agentauthority.json"
+      - "config/products/manifests/modelchangeproof.json"
+      - "config/products/golden/aitrustproof/**"
+      - "config/products/golden/agentauthority/**"
+      - "config/products/golden/modelchangeproof/**"
+      - "config/profiles/**"
+      - "config/portfolio/capability_catalog.json"
+      - "products/ai_trust/**"
+      - "products/ai_trust_gauntlet.py"
+      - "scripts/run_ai_digital_trust_phase13.py"
+      - "tests/test_ai_digital_trust_phase13.py"
+      - ".github/workflows/dio-ai-digital-trust-phase13.yml"
+
+jobs:
+  phase13:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install pytest jsonschema reportlab
+      - run: python -m compileall products dio evidence scripts
+      - run: python scripts/validate_profiles.py
+      - run: python -m pytest -q tests/test_profile_expansion_phase12.py tests/test_ai_digital_trust_phase13.py
+      - run: python scripts/run_ai_digital_trust_phase13.py --output /tmp/dio-phase13-ai-trust

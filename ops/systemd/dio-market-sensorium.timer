@@ -1,0 +1,12 @@
+[Unit]
+Description=Run DIO Market Sensorium every six hours
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=6h
+RandomizedDelaySec=10min
+Persistent=true
+Unit=dio-market-sensorium.service
+
+[Install]
+WantedBy=timers.target

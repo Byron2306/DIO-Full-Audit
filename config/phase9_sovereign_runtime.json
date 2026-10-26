@@ -1,0 +1,126 @@
+{
+  "schema": "dio.phase9.sovereign_runtime.v1",
+  "mode": "small_launch_local_first",
+  "llm": {
+    "provider": "ollama",
+    "cloud_fallback_allowed": false,
+    "hugging_face_runtime_allowed": false,
+    "default_url": "http://127.0.0.1:11434",
+    "model_source": "local_ollama_store",
+    "forbidden_runtime_providers": [
+      "huggingface",
+      "gemini",
+      "nvidia_nim",
+      "openai_cloud",
+      "anthropic"
+    ],
+    "component_models": {
+      "vesper": "OLLAMA_MODEL",
+      "document_studio": "OLLAMA_MODEL",
+      "sophia": "OLLAMA_MODEL",
+      "nichefoundry": "OLLAMA_MODEL",
+      "evidex": "OLLAMA_MODEL",
+      "homs_smart_assessor": "OLLAMA_MODEL"
+    }
+  },
+  "presence": {
+    "core_url": "http://127.0.0.1:8787",
+    "telegram": "local_bot_api_long_poll",
+    "cloudflare_gateway_enabled": false,
+    "hugging_face_space_enabled": false,
+    "telegram_script": "scripts/poll_vesper_telegram.py"
+  },
+  "mail": {
+    "provider": "microsoft_graph",
+    "ingress": "outbound_delta_poll",
+    "cloudflare_webhook_enabled": false,
+    "delta_script": "scripts/sync_outlook_mail.py pull --watch"
+  },
+  "commerce": {
+    "paypal": {
+      "checkout": "local_orders_api",
+      "settlement": "outbound_provider_poll",
+      "webhook_required_for_small_launch": false,
+      "browser_return_grants_payment_state": false,
+      "minimum_poll_interval_seconds": 15,
+      "reconciliation_script": "scripts/reconcile_paypal_local.py"
+    },
+    "payfast": {
+      "enabled": false,
+      "reason": "Phase 9 small launch starts with outbound-verifiable PayPal only."
+    }
+  },
+  "public_inbound": {
+    "mode": "disabled_until_direct_or_self_owned_relay",
+    "static_site_may_remain_external": true,
+    "customer_entry_channels": [
+      "telegram",
+      "outlook_email"
+    ],
+    "direct_origin_preferred": true,
+    "cgnat_fallback": "self_owned_minimal_relay"
+  },
+  "legacy": {
+    "cloudflare_worker": "rollback_only",
+    "cloudflare_d1": "rollback_only",
+    "hugging_face_spaces": "compatibility_only"
+  },
+  "authority": {
+    "local_transport_does_not_create_authority": true,
+    "provider_polling_does_not_create_release_authority": true,
+    "payment_requires_provider_verified_capture": true,
+    "attachment_quarantine_preserved": true
+  },
+  "organ_pins": {
+    "homs": {
+      "repository": "Byron2306/NoEdge-Multi-Hymark",
+      "ref": "agent/homs-phase9-ollama-sovereign",
+      "commit": "42f1178f8eaf2d7206d939da7d2fdd6cfce73a72",
+      "llm_runtime": "ollama_openai_compatible_local",
+      "cloud_llm_allowed": false,
+      "proof": {
+        "workflow": "HOMS Phase 9 Ollama Sovereignty",
+        "run_id": "35317710694",
+        "conclusion": "success",
+        "acceptance": "HOMS_PHASE9_OLLAMA_SOVEREIGN_VERIFIED"
+      }
+    },
+    "evidex": {
+      "repository": "Byron2306/Evidex",
+      "ref": "agent/evidex-phase9-ollama-sovereign",
+      "commit": "0a2dc689fb71735233c5c913816b0de8f84c7f5c",
+      "llm_runtime": "ollama_openai_compatible_local",
+      "cloud_llm_allowed": false,
+      "proof": {
+        "workflow": "Evidex Phase 9 Ollama Sovereignty",
+        "run_id": "35317711558",
+        "conclusion": "success",
+        "acceptance": "EVIDEX_PHASE9_OLLAMA_SOVEREIGN_VERIFIED"
+      }
+    },
+    "sophia": {
+      "repository": "Byron2306/Sophia-AI",
+      "commit": "c1aa915560599f7d6cef0ff41e6a7b0787334376",
+      "llm_runtime": "native_ollama_7070",
+      "cloud_llm_allowed": false
+    },
+    "nichefoundry": {
+      "repository": "Byron2306/NicheFoundry",
+      "commit": "7528d8cdee17c5b6fbe35236b71b8e2191bb108a",
+      "llm_runtime": "native_ollama",
+      "cloud_llm_allowed": false
+    }
+  },
+  "acceptance": {
+    "active_llm_providers": [
+      "ollama"
+    ],
+    "cloud_llm_runtime_calls": 0,
+    "hf_runtime_dependencies": 0,
+    "telegram_cloudflare_dependency": 0,
+    "mail_cloudflare_dependency": 0,
+    "paypal_cloudflare_dependency": 0,
+    "public_inbound_required_for_small_launch": false,
+    "authority_boundaries_preserved": true
+  }
+}

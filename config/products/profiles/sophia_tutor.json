@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "sophia_tutor",
+  "product_id": "dio_sophia_tutor",
+  "category": "learning_support_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "Sophia Tutor is currently bounded to preparing and reviewing supplied learning objectives, study materials, learner questions, source-support records and declared gaps for authorised human learning support. It does not assign final grades, make assessment decisions, certify learning outcomes, determine academic integrity, decide learner progression, or release institutional results.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "SOPHIATUTOR",
+  "review_pack_title": "DIO Sophia Tutor Controlled Evidence Review Pack",
+  "human_gate_reason": "Final grades, assessment decisions, learning-outcome certification, academic-integrity findings, learner progression and institutional release remain with authorised educators and institutions.",
+  "forbidden_outcomes": [
+    "final_grade",
+    "assessment_decision",
+    "learning_outcome_certification",
+    "academic_integrity_finding",
+    "learner_progression_decision",
+    "institutional_result_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "dio.m2.market_episode_config.v1",
+  "required_parent_acceptance": "DIO_M2_CHANNEL_AUTHORITY_SEPARATED",
+  "phase2_projection_config": "config/m2_phase2_commercial_projection.json",
+  "phase3_authority_config": "config/m2_phase3_authority_separation.json",
+  "episode": {
+    "name": "Funding Proposal Studio controlled market episode",
+    "objective": "Compile a governed commercial intention and observation contract without release, spend, payment, delivery or fabricated market response.",
+    "mode": "experiment",
+    "measurement_window_seconds": 86400,
+    "market_command_budget_cap_minor": 0,
+    "market_command_default_experiment_window_days": 1,
+    "release_state": "HELD_FOR_AUTHORITY",
+    "observation_source": "market_command_and_sensorium",
+    "silence_rule": "NO_RESPONSE may only be recorded after the exact measurement window closes.",
+    "content_policy": "M2-2 projection digest is authoritative for claim eligibility; HELD_UNPROVED and REFUSE claims may not be materialised as buyer promises."
+  }
+}

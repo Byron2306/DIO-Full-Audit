@@ -1,0 +1,60 @@
+{
+  "schema": "dio.marketing.sales_playbook.v1",
+  "doctrine": {
+    "name": "Proof-backed commercial persuasion",
+    "purpose": "Make DIO creative commercially sharp without fabricating proof, urgency, authority, scarcity or outcomes.",
+    "laws": [
+      "Lead with a concrete buyer pain or desired outcome, not architecture.",
+      "Name the bounded offer and price when a public launch price is configured.",
+      "Make the cost of inaction tangible without inventing financial losses.",
+      "Answer at least one real buyer objection in conversion-stage creative.",
+      "Use specific proof that exists; never upgrade controlled proof into customer validation, certification or guaranteed ROI.",
+      "Use urgency only when it comes from the buyer's real deadline or bounded launch offer; never fabricate scarcity.",
+      "Keep professional, academic, legal, regulatory, employment, safety, risk and release authority human-held.",
+      "Automatic publication and spend remain disabled unless separately authorised."
+    ]
+  },
+  "funnel_by_channel": {
+    "LINKEDIN_ORGANIC": "authority",
+    "FACEBOOK_PAGE": "problem_aware",
+    "META_ADS": "conversion",
+    "INSTAGRAM_ORGANIC": "attention",
+    "TIKTOK_ORGANIC": "attention",
+    "TIKTOK_ADS": "conversion",
+    "REDDIT_ORGANIC": "trust",
+    "REDDIT_ADS": "consideration",
+    "GOOGLE_ADS": "conversion",
+    "YOUTUBE_ORGANIC": "education"
+  },
+  "tone_by_channel": {
+    "LINKEDIN_ORGANIC": "executive_confidence",
+    "FACEBOOK_PAGE": "practical_relief",
+    "META_ADS": "direct_response",
+    "INSTAGRAM_ORGANIC": "visual_transformation",
+    "TIKTOK_ORGANIC": "fast_operator",
+    "TIKTOK_ADS": "direct_response",
+    "REDDIT_ORGANIC": "credible_peer",
+    "REDDIT_ADS": "transparent_proof",
+    "GOOGLE_ADS": "high_intent",
+    "YOUTUBE_ORGANIC": "smart_explainer"
+  },
+  "objections": {
+    "black_box": {"question": "Is this just generic AI in a new wrapper?", "answer": "The bounded route produces inspectable artifacts and proof receipts rather than asking you to trust an opaque answer."},
+    "authority": {"question": "Will software make the professional decision?", "answer": "No. DIO prepares and binds the work; the authorised human keeps the consequential decision."},
+    "implementation": {"question": "Will this become another transformation project?", "answer": "Start with one bounded case at a fixed launch scope before expanding anything."},
+    "proof": {"question": "How do I know the workflow actually runs?", "answer": "DIO's controlled routes are proof-backed and leave hash-bound processing evidence where applicable."},
+    "data_scope": {"question": "Do I have to hand over everything?", "answer": "No. The pilot is designed around the minimum authorised material needed for one bounded case."}
+  },
+  "commercial_quality": {
+    "minimum_score": 80,
+    "weights": {
+      "buyer_specificity": 15,
+      "pain_or_outcome_hook": 15,
+      "offer_clarity": 20,
+      "proof_specificity": 20,
+      "objection_handling": 10,
+      "cta_specificity": 10,
+      "truth_boundary": 10
+    }
+  }
+}

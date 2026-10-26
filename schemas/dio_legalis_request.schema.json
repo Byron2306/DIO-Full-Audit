@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_legalis_request.schema.json",
+  "title": "DIO Legalis Evaluation Request",
+  "type": "object",
+  "required": ["capability_id"],
+  "properties": {
+    "capability_id": {"type": "string", "minLength": 1},
+    "entity_id": {"type": "string"},
+    "now": {"type": "string", "format": "date-time"},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "operator_checks": {"type": "object"},
+    "valinor": {"type": "object", "properties": {"entity_id": {"type": "string"}, "operation": {"enum": ["socket", "ipc", "write", "secret", "syscall", "flow"]}, "target": {"type": ["string", "null"]}}, "additionalProperties": false}
+  },
+  "additionalProperties": false
+}

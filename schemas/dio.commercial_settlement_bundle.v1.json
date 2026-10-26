@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.commercial_settlement_bundle.v1",
+  "title": "DIO Commercial Settlement Bundle v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "scenario_id",
+    "lineage_truth_digest",
+    "world_settlement",
+    "commercial_settlement",
+    "beast_market_crystal",
+    "evidence_scope",
+    "real_market_evidence",
+    "authority_created",
+    "external_effects",
+    "bundle_digest"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial_settlement_bundle.v1"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "lineage_truth_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "world_settlement": {"type": "object"},
+    "commercial_settlement": {"type": "object"},
+    "beast_market_crystal": {"type": "object"},
+    "evidence_scope": {"const": "controlled_fixture"},
+    "real_market_evidence": {"const": false},
+    "authority_created": {"const": false},
+    "external_effects": {"const": false},
+    "bundle_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

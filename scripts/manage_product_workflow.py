@@ -17,6 +17,7 @@ from scripts.manage_mail_intent import create_intent, emit_event, write_json  # 
 from scripts.dio_mail_branding import branded_email  # noqa: E402
 from scripts.run_evidex_jobs import run_evidex  # noqa: E402
 from scripts.run_homs_jobs import write_job as write_homs_job  # noqa: E402
+from scripts.run_homs_hymark_batch import run_batch as run_homs_hymark_batch  # noqa: E402
 
 
 DEFAULT_RUNS_ROOT = ROOT / "runs"
@@ -80,14 +81,45 @@ def _recipient(job: dict[str, Any], mode: str) -> tuple[str, bool]:
 
 
 def _existing_processing(product: str, deliverable_dir: Path) -> tuple[str, str | None]:
-    receipt_name = "EVIDEX_RUN_RECEIPT.json" if product == "evidex" else "HOMS_RUN_RECEIPT.json"
-    receipt_path = deliverable_dir / receipt_name
-    if not receipt_path.is_file():
+    receipt_paths = [deliverable_dir / "EVIDEX_RUN_RECEIPT.json"] if product == "evidex" else [
+        deliverable_dir / "HOMS_HYMARK_BATCH_RECEIPT.json",
+        deliverable_dir / "HOMS_RUN_RECEIPT.json",
+    ]
+    receipt_path = next((path for path in receipt_paths if path.is_file()), None)
+    if not receipt_path:
         return "not_started", None
     receipt = load_json(receipt_path)
     if product == "evidex":
         return ("review_ready" if receipt.get("returncode") == 0 else "failed"), str(receipt_path)
-    return ("request_ready" if receipt.get("status") == "prepared_request_only" else "failed"), str(receipt_path)
+    if receipt_path.name == "HOMS_HYMARK_BATCH_RECEIPT.json":
+        return ("review_ready" if receipt.get("status") == "completed" else "failed"), str(receipt_path)
+    return ("awaiting_source_files" if receipt.get("status") == "prepared_request_only" else "failed"), str(receipt_path)
+
+
+def _resolve_homs_input_dir(source: dict[str, Any], workflow: dict[str, Any]) -> Path | None:
+    candidates: list[str] = []
+    for container in (
+        source,
+        source.get("source") or {},
+        source.get("request") or {},
+        source.get("homs") or {},
+        source.get("hymark") or {},
+        source.get("intake") or {},
+    ):
+        if not isinstance(container, dict):
+            continue
+        for key in ("hymark_input_dir", "input_dir", "job_folder", "batch_dir", "source_dir", "upload_dir"):
+            value = container.get(key)
+            if isinstance(value, str) and value.strip():
+                candidates.append(value)
+    source_path = Path(workflow["source_job_path"])
+    for raw in candidates:
+        candidate = Path(raw).expanduser()
+        if not candidate.is_absolute():
+            candidate = (source_path.parent / candidate).resolve()
+        if (candidate / "uploads").is_dir() and (candidate / "rubric.json").is_file():
+            return candidate
+    return None
 
 
 def bootstrap_job(
@@ -132,8 +164,8 @@ def bootstrap_job(
             "receipt_path": receipt_path,
         },
         "output_review": {
-            "required": product == "evidex",
-            "state": "pending" if product == "evidex" and processing_state == "review_ready" else "not_required" if product == "homs" else "not_started",
+            "required": product in {"evidex", "homs"},
+            "state": "pending" if processing_state == "review_ready" else "not_started",
             "reviewer": None,
             "reviewed_at": None,
         },
@@ -209,10 +241,20 @@ def process_job(state_root: Path, job_id: str, event_log: Path) -> dict[str, Any
         receipt_path = out_root / "evidex" / job_id / "EVIDEX_RUN_RECEIPT.json"
         workflow["output_review"]["state"] = "pending" if state == "review_ready" else "blocked"
     else:
-        output_dir = write_homs_job(source, out_root)
-        receipt_path = output_dir / "HOMS_RUN_RECEIPT.json"
-        state = "request_ready"
-    output_dir = out_root / workflow["product"] / job_id
+        input_dir = _resolve_homs_input_dir(source, workflow)
+        if input_dir:
+            receipt = run_homs_hymark_batch(input_dir, out_root / "homs")
+            output_dir = Path(receipt["outputs"]["job_dir"])
+            receipt_path = output_dir / "HOMS_HYMARK_BATCH_RECEIPT.json"
+            state = "review_ready" if receipt.get("status") == "completed" and receipt.get("submissions", 0) > 0 else "failed"
+            workflow["output_review"]["state"] = "pending" if state == "review_ready" else "blocked"
+        else:
+            output_dir = write_homs_job(source, out_root)
+            receipt_path = output_dir / "HOMS_RUN_RECEIPT.json"
+            state = "awaiting_source_files"
+            workflow["output_review"]["state"] = "not_started"
+    if workflow["product"] == "evidex":
+        output_dir = out_root / workflow["product"] / job_id
     workflow["processing"].update({"state": state, "output_dir": str(output_dir), "receipt_path": str(receipt_path)})
     workflow["state"] = "blocked" if state == "failed" else "active"
     save_workflow(path, workflow)
@@ -222,18 +264,18 @@ def process_job(state_root: Path, job_id: str, event_log: Path) -> dict[str, Any
 
 def approve_output(state_root: Path, job_id: str, reviewer: str, event_log: Path) -> dict[str, Any]:
     path, workflow = load_workflow(state_root, job_id)
-    if workflow["product"] != "evidex" or workflow["processing"]["state"] != "review_ready":
-        raise ValueError("Only a review-ready Evidex output can be approved here.")
+    if workflow["product"] not in {"evidex", "homs"} or workflow["processing"]["state"] != "review_ready":
+        raise ValueError("Only a review-ready HOMS or Evidex output can be approved here.")
     if workflow["output_review"]["state"] != "pending":
-        raise ValueError("Evidex output review is not pending.")
+        raise ValueError("Product output review is not pending.")
     workflow["output_review"].update({"state": "approved", "reviewer": reviewer, "reviewed_at": timestamp()})
     receipt_path = path.parent / "OUTPUT_APPROVAL.json"
     write_json(receipt_path, {
-        "schema": "dio.product_output_approval.v1", "job_id": job_id, "product": "evidex",
+        "schema": "dio.product_output_approval.v1", "job_id": job_id, "product": workflow["product"],
         "state": "approved", "reviewer": reviewer, "reviewed_at": timestamp(),
     })
     save_workflow(path, workflow)
-    emit_event(event_log, "evidex.output_approved", "info", "product_job", job_id, {"reviewer": reviewer}, job_id)
+    emit_event(event_log, f"{workflow['product']}.output_approved", "info", "product_job", job_id, {"reviewer": reviewer}, job_id)
     return workflow
 
 
@@ -242,6 +284,19 @@ def _evidex_archive(workflow: dict[str, Any]) -> Path:
     archive = Path(str(receipt.get("stdout") or "").strip().splitlines()[-1])
     if not archive.is_file() or archive.suffix != ".zip":
         raise FileNotFoundError("The reviewed Evidex delivery ZIP could not be found.")
+    return archive
+
+
+def _homs_archive(workflow: dict[str, Any]) -> Path:
+    receipt_path = Path(workflow["processing"]["receipt_path"])
+    receipt = load_json(receipt_path)
+    outputs = receipt.get("outputs") or {}
+    archive = Path(str(outputs.get("review_zip") or ""))
+    if not archive.is_file() or archive.suffix != ".zip":
+        fallback = Path(workflow["processing"]["output_dir"]) / "HOMS_HYMARK_REVIEW_PACK.zip"
+        if fallback.is_file():
+            return fallback
+        raise FileNotFoundError("The reviewed HOMS delivery ZIP could not be found.")
     return archive
 
 
@@ -254,26 +309,47 @@ def prepare_notification(state_root: Path, job_id: str, event_log: Path, mail_ro
         raise ValueError("A notification has already been prepared for this workflow.")
     product = workflow["product"]
     if product == "homs":
-        if workflow["processing"]["state"] != "request_ready":
-            raise ValueError("The HOMS intake request must be ready before notifying the client.")
-        purpose = "intake"
-        subject = f"HOMS source upload request - assessment workflow opened ({job_id})"
-        body, body_html = branded_email(
-            product="homs",
-            eyebrow="ASSESSMENT WORKFLOW OPENED",
-            headline="Your HOMS assessment job is ready for source files.",
-            greeting="Hello,",
-            intro="We have opened a governed HOMS workflow for your assessment or marking request.",
-            body=[
-                "Please send the electronic submission batch, rubric or memo, task instructions, and gradebook or mark list where mark collation is required.",
-                "HOMS prepares assessment support for educator review. Final classroom use remains with the authorised teacher, lecturer or moderator.",
-                "The public HOMS page is included below if you need to share the service overview with a colleague.",
-            ],
-            reference=job_id,
-            cta_label="View HOMS Assessment Desk",
-            cta_url="https://byron2306.github.io/DIO-Workflows/sites/homs/",
-        )
-        attachments: list[str] = []
+        if workflow["processing"]["state"] in {"awaiting_source_files", "request_ready"}:
+            purpose = "intake"
+            subject = f"HOMS source upload request - assessment workflow opened ({job_id})"
+            body, body_html = branded_email(
+                product="homs",
+                eyebrow="SOURCE FILES REQUIRED",
+                headline="Your HOMS assessment job is open and waiting for the batch.",
+                greeting="Hello,",
+                intro="We have opened a governed HOMS workflow for your assessment or marking request.",
+                body=[
+                    "Please send the electronic submission batch, rubric or memo, task instructions, and gradebook or mark list where mark collation is required.",
+                    "Once the complete intake folder contains uploads and a rubric, HOMS runs the HyMark assessor and prepares a review pack for educator approval.",
+                    "Final classroom use remains with the authorised teacher, lecturer or moderator.",
+                ],
+                reference=job_id,
+                cta_label="View HOMS Assessment Desk",
+                cta_url="https://byron2306.github.io/DIO-Workflows/sites/homs/",
+            )
+            attachments = []
+        else:
+            if workflow["output_review"]["state"] != "approved":
+                raise ValueError("Human output approval is required before HOMS delivery preparation.")
+            purpose = "delivery"
+            subject = f"Your reviewed HOMS assessment support pack is ready ({job_id})"
+            body, body_html = branded_email(
+                product="homs",
+                eyebrow="ASSESSMENT PACK READY",
+                headline="Your HOMS assessment support pack is ready.",
+                greeting="Hello,",
+                intro="The attached HyMark review pack has passed the DIO human review gate.",
+                body=[
+                    "Inside the pack: draft feedback, marks CSV, optional marked gradebook, lecturer review summary and the full review archive.",
+                    "Use it to check scoring consistency, feedback quality and rubric alignment before any classroom or institutional use.",
+                    "Reply with moderation notes, mark adjustments or the next batch scope.",
+                ],
+                reference=job_id,
+                cta_label="View HOMS Assessment Desk",
+                cta_url="https://byron2306.github.io/DIO-Workflows/sites/homs/",
+                caution="HOMS prepares marking support. The educator remains the final assessor.",
+            )
+            attachments = [str(_homs_archive(workflow))]
     else:
         if workflow["output_review"]["state"] != "approved":
             raise ValueError("Human output approval is required before Evidex delivery preparation.")
@@ -314,7 +390,7 @@ def next_action(workflow: dict[str, Any], mail_root: Path = DEFAULT_MAIL_ROOT) -
         return "approve-intake"
     if workflow["processing"]["state"] == "not_started":
         return "process"
-    if workflow["product"] == "evidex" and workflow["output_review"]["state"] == "pending":
+    if workflow["product"] in {"evidex", "homs"} and workflow["output_review"]["state"] == "pending":
         return "approve-output"
     if workflow["notification"]["state"] == "held":
         return "prepare-notification"

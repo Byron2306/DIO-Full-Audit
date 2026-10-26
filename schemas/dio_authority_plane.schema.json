@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_authority_plane.schema.json",
+  "title": "DIO Authority Plane Configuration",
+  "type": "object",
+  "required": ["schema", "kernel_authority", "execution_identity_authority", "granting_actor_types", "machine_authority_policy", "lease_policy", "execution_policy", "laws"],
+  "properties": {
+    "schema": {"const": "dio.authority_plane.config.v1"},
+    "kernel_authority": {"const": "Valinor"},
+    "execution_identity_authority": {"const": "ARDA"},
+    "granting_actor_types": {
+      "type": "array",
+      "items": {"enum": ["human", "organisation"]},
+      "minItems": 2,
+      "uniqueItems": true
+    },
+    "machine_authority_policy": {"type": "string", "minLength": 20},
+    "lease_policy": {
+      "type": "object",
+      "required": ["default_maximum_uses", "require_action_digest_binding", "require_authority_receipt_binding", "require_expiry", "require_revocation_epoch"],
+      "properties": {
+        "default_maximum_uses": {"type": "integer", "minimum": 1},
+        "require_action_digest_binding": {"const": true},
+        "require_authority_receipt_binding": {"const": true},
+        "require_expiry": {"const": true},
+        "require_revocation_epoch": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "execution_policy": {
+      "type": "object",
+      "required": ["require_valinor_allow", "require_arda_execution_identity", "forbid_generic_executor", "external_identity_modes", "require_executor_receipt"],
+      "properties": {
+        "require_valinor_allow": {"const": true},
+        "require_arda_execution_identity": {"const": true},
+        "forbid_generic_executor": {"const": true},
+        "external_identity_modes": {
+          "type": "array",
+          "items": {"enum": ["observed", "enforced"]},
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "require_executor_receipt": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "laws": {
+      "type": "object",
+      "required": ["evidence_is_not_authority", "framework_ready_is_not_authority", "legalis_allow_is_not_legal_clearance", "legalis_allow_is_not_execution_authority", "valinor_authorization_is_not_external_execution", "arda_identity_is_not_kernel_authority", "capability_lease_is_not_self_authorizing", "execution_requires_durable_receipt"],
+      "properties": {
+        "evidence_is_not_authority": {"const": true},
+        "framework_ready_is_not_authority": {"const": true},
+        "legalis_allow_is_not_legal_clearance": {"const": true},
+        "legalis_allow_is_not_execution_authority": {"const": true},
+        "valinor_authorization_is_not_external_execution": {"const": true},
+        "arda_identity_is_not_kernel_authority": {"const": true},
+        "capability_lease_is_not_self_authorizing": {"const": true},
+        "execution_requires_durable_receipt": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

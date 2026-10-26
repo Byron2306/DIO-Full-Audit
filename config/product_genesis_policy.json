@@ -1,0 +1,100 @@
+{
+  "schema": "dio.product_genesis_policy.v2",
+  "status": "active_control_policy",
+  "principle": "DIO may discover, score, draft, scaffold and stage product candidates from evidence. Qualification never creates customer consent or processing authority. Structural packaging never creates execution proof. Spend, outreach, public release, protected source processing and final delivery remain behind their explicit authority gates.",
+  "allowed_automatic_actions": [
+    "market_signal_ingestion",
+    "opportunity_clustering",
+    "candidate_offer_drafting",
+    "product_page_scaffold_drafting_held",
+    "campaign_copy_drafting_held",
+    "creative_brief_generation",
+    "local_synthetic_demo_fixture_generation",
+    "lead_to_held_route_staging_for_qualified_leads",
+    "missing_input_or_authority_mail_intent_preparation",
+    "economics_projection",
+    "repeatability_scoring"
+  ],
+  "operator_gated_actions": [
+    "typed_route_approval",
+    "protected_client_source_processing",
+    "remote_model_processing_of_client_source_files",
+    "public_site_publish",
+    "public_campaign_release",
+    "direct_prospect_outreach",
+    "ad_spend_activation",
+    "payment_request_issue",
+    "output_delivery_send",
+    "product_promotion_to_commercial_catalog",
+    "product_kill_or_reposition_decision"
+  ],
+  "authority_invariants": [
+    "lead qualification is not document ownership authority",
+    "lead qualification is not remote processing consent",
+    "lead qualification is not provider or service terms acceptance",
+    "generic output approval is not domain-specific professional authority",
+    "generic Document Studio approval is not target-language authority",
+    "human approval cannot substitute for a missing execution receipt",
+    "public proof must be intentionally tracked and public-safe; ignored runtime state is not a public proof contract"
+  ],
+  "product_genesis_loop": [
+    "observe_market_need",
+    "form_candidate_product_hypothesis",
+    "bind_target_audience_and_pain",
+    "draft_offer_and_authority_contract",
+    "generate_structural_demonstration",
+    "register_typed_route_candidate",
+    "operator_approves_controlled_execution",
+    "verify_source_and_processing_authority",
+    "run_concrete_processor_route",
+    "retain_execution_receipt_and_reviewed_output",
+    "prepare_public_safe_proof",
+    "operator_approves_public_intake_and_campaign_release",
+    "capture_leads",
+    "stage_qualified_leads_without_inventing_authority",
+    "verify_payment_or_controlled_terms",
+    "run_engine",
+    "human_review",
+    "governed_delivery",
+    "measure_revenue_time_revisions_and_conversion",
+    "promote_revise_hold_or_kill"
+  ],
+  "evidence_thresholds": {
+    "candidate": {
+      "minimum_market_signals": 3,
+      "requires_operator_approval": false
+    },
+    "structural_proof": {
+      "minimum_offer_contract": true,
+      "minimum_typed_profile": true,
+      "minimum_synthetic_demo_artifact": true,
+      "requires_operator_approval": false,
+      "public_launch_ready": false
+    },
+    "execution_proof": {
+      "typed_route_approved": true,
+      "required_source_authority_present": true,
+      "successful_execution_receipt": true,
+      "reviewed_output_artifact": true,
+      "requires_operator_approval": true,
+      "public_launch_ready": false
+    },
+    "pilot_ready": {
+      "execution_proof_required": true,
+      "public_safe_proof_required": true,
+      "public_intake_contract_required": true,
+      "requires_operator_approval": true
+    },
+    "commercial": {
+      "minimum_paid_orders": 1,
+      "complete_delivery_receipt": true,
+      "requires_operator_approval": true
+    },
+    "repeatable": {
+      "minimum_paid_orders": 3,
+      "minimum_campaign_periods": 2,
+      "positive_contribution_required": true,
+      "requires_operator_approval": true
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "impactproof",
+  "product_id": "dio_impactproof",
+  "category": "impact_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "ImpactProof is currently bounded to organising and reviewing supplied impact evidence. It does not establish causal attribution, certify impact, determine programme effectiveness or authorize funding or release.",
+  "default_requirement_kind": "request",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "IMPACTPROOF",
+  "review_pack_title": "DIO ImpactProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Impact interpretation, causal attribution, programme-effectiveness conclusions, funding decisions and external claims remain with authorised humans.",
+  "forbidden_outcomes": [
+    "impact_certification",
+    "causal_attribution_conclusion",
+    "programme_effectiveness_determination",
+    "funding_decision",
+    "final_impact_claim"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

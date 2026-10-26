@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import ipaddress
 import json
 import mimetypes
 import re
@@ -12,6 +13,8 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
+from sovereign_runtime import SovereignRuntimeError, ollama_model, require_ollama_provider
 from xml.etree import ElementTree
 
 
@@ -223,8 +226,20 @@ def post_json(url: str, payload: dict[str, Any], timeout: float = 45.0) -> dict[
         headers={"Content-Type": "application/json", "Accept": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.loads(response.read().decode("utf-8", errors="replace"))
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return json.loads(response.read().decode("utf-8", errors="replace"))
+    except urllib.error.HTTPError as error:
+        raw = error.read(16384).decode("utf-8", errors="replace")
+        try:
+            body = json.loads(raw)
+        except json.JSONDecodeError:
+            body = {}
+        reason = body.get("reason") or body.get("error") or "unspecified_http_refusal"
+        raise ValueError(
+            f"SERAPH_HTTP_REFUSE status={error.code} "
+            f"reason={str(reason)[:500]}"
+        ) from error
 
 
 def fetch_json(url: str, timeout: float = 10.0) -> dict[str, Any]:
@@ -238,6 +253,53 @@ def _review_paragraphs(text: str, limit: int = 120) -> list[dict[str, str]]:
         {"span_id": f"P{index}", "label": f"P{index}", "quote": item[:1800]}
         for index, item in enumerate(paragraphs[:limit], 1)
     ]
+
+
+DOI_PATTERN = r"10\.\d{4,9}/[-._;()/:A-Za-z0-9]+"
+
+
+def _allowed_dois(reference_audit: dict[str, Any], sources: list[dict[str, Any]]) -> set[str]:
+    """Collect only DOI identifiers already present in supplied review inputs."""
+    allowed = {
+        str(row.get("doi") or "").strip().lower()
+        for row in (reference_audit.get("reference_entries") or [])
+        if row.get("doi")
+    }
+    for source in sources:
+        match = re.search(DOI_PATTERN, str(source.get("url") or ""), flags=re.I)
+        if match:
+            allowed.add(match.group(0).rstrip(".,;)").lower())
+    allowed.discard("")
+    return allowed
+
+
+def _require_local_review_endpoint(base_url: str) -> str:
+    """Require the Sophia review API to be reached over loopback only."""
+    try:
+        parsed = urlsplit(str(base_url).strip())
+        hostname = (parsed.hostname or "").casefold().rstrip(".")
+        port = parsed.port
+    except ValueError as exc:
+        raise ValueError("REFUSE: invalid Sophia review endpoint authority") from exc
+    try:
+        loopback = ipaddress.ip_address(hostname).is_loopback
+    except ValueError:
+        loopback = hostname == "localhost"
+    if (
+        parsed.scheme != "http"
+        or not hostname
+        or not loopback
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.path not in {"", "/"}
+        or parsed.query
+        or parsed.fragment
+        or (port is not None and not (1 <= port <= 65535))
+    ):
+        raise ValueError(
+            "REFUSE: Sophia review endpoint must be a loopback HTTP URL; remote endpoints are disabled"
+        )
+    return str(base_url).strip().rstrip("/")
 
 
 def _allowed_citation_keys(reference_audit: dict[str, Any], sources: list[dict[str, Any]]) -> set[str]:
@@ -268,14 +330,18 @@ def _allowed_citation_keys(reference_audit: dict[str, Any], sources: list[dict[s
     return keys
 
 
-def validate_gemini_commentary(
+def validate_reasoned_commentary(
     commentary: str,
     result: dict[str, Any],
     valid_anchors: set[str],
     allowed_citation_keys: set[str],
     allowed_dois: set[str],
+    expected_provider: str,
 ) -> dict[str, Any]:
-    provider_ok = str(result.get("reasoned_provider") or "").lower() == "gemini"
+    provider_ok = (
+        str(result.get("reasoned_provider") or "").lower()
+        == expected_provider.strip().lower()
+    )
     provider_status_ok = result.get("reasoned_provider_status") == "ok"
     lane_ok = result.get("source") == "reasoned_integrity_lane"
     mandos_ok = bool((result.get("mandos_judgment") or {}).get("passed"))
@@ -299,7 +365,7 @@ def validate_gemini_commentary(
     unknown_citations = sorted(mentioned_keys - allowed_citation_keys)
 
     checks = {
-        "provider_is_gemini": provider_ok,
+        "provider_matches_request": provider_ok,
         "provider_completed": provider_status_ok,
         "reasoned_lane_used": lane_ok,
         "mandos_passed": mandos_ok,
@@ -319,6 +385,110 @@ def validate_gemini_commentary(
     }
 
 
+
+
+
+
+def bind_zpd_review_guidance(
+    request: dict[str, Any],
+    document_path: Path,
+    prompt: str,
+) -> tuple[str, dict[str, Any] | None]:
+    """Bind optional ZPD guidance without granting scoring authority."""
+    guidance_path = request.get("zpd_guidance_path")
+    if not guidance_path:
+        return prompt, None
+
+    import hashlib
+
+    path = Path(str(guidance_path)).expanduser().resolve()
+    if not path.is_file():
+        raise ValueError("REFUSE: ZPD guidance missing")
+
+    guidance = json.loads(path.read_text())
+    if guidance.get("schema") != "dio.homs_zpd_guidance.v1":
+        raise ValueError("REFUSE: ZPD guidance schema mismatch")
+
+    if guidance.get("rubric_scoring_authority") != "HOMS_ONLY":
+        raise ValueError("REFUSE: ZPD scoring authority mismatch")
+
+    if guidance.get("sophia_adapter_consumed") is not False:
+        raise ValueError("REFUSE: ZPD guidance provenance ambiguous")
+
+    # The original manifest was hashed before its new sidecar path
+    # was added. Exclude only this transport field.
+    original_manifest = {
+        k: v for k, v in request.items()
+        if k not in {"zpd_guidance_path", "_zpd_binding_receipt"}
+    }
+    manifest_bytes = json.dumps(
+        original_manifest,
+        sort_keys=True,
+        ensure_ascii=False,
+    ).encode()
+
+    manifest_digest = hashlib.sha256(manifest_bytes).hexdigest()
+    document_digest = hashlib.sha256(
+        document_path.read_bytes()
+    ).hexdigest()
+
+    if guidance.get("manifest_sha256") != manifest_digest:
+        raise ValueError("REFUSE: ZPD manifest digest mismatch")
+
+    if guidance.get("document_sha256") != document_digest:
+        raise ValueError("REFUSE: ZPD document digest mismatch")
+
+    if guidance.get("job_id") != request.get("job_id"):
+        raise ValueError("REFUSE: ZPD job identity mismatch")
+
+    if guidance.get("research_question") != request.get("research_question"):
+        raise ValueError("REFUSE: ZPD research question mismatch")
+
+    zpd = guidance.get("zpd")
+    if not isinstance(zpd, dict) or zpd.get("status") != "HEURISTIC_NOT_LEARNING_PROOF":
+        raise ValueError("REFUSE: ZPD estimate not successful")
+
+    if zpd.get("input_mutation_contained") is not True:
+        raise ValueError("REFUSE: ZPD input isolation not established")
+
+    instruction = guidance.get("developmental_instruction")
+    if (
+        not isinstance(instruction, str)
+        or not instruction.strip()
+        or len(instruction) > 3000
+    ):
+        raise ValueError("REFUSE: invalid ZPD developmental instruction")
+
+    # The guidance is lower-priority presentation data.
+    # It cannot modify academic evidence, grading, or governance.
+    addition = (
+        "\nZPD DEVELOPMENTAL PRESENTATION GUIDANCE "
+        "(advisory; subordinate to all evidence and review rules):\n"
+        + instruction.strip()
+        + "\nThis guidance affects feedback delivery only. "
+        "Do not modify grades, rubric standards, document evidence, "
+        "human authorship, citations, or constitutional requirements.\n"
+    )
+
+    bound_prompt = prompt + "\n" + addition
+    binding = {
+        "schema": "dio.sophia_zpd_binding.v1",
+        "status": "BOUND_TO_REVIEW_PROMPT",
+        "job_id": request.get("job_id"),
+        "manifest_sha256": manifest_digest,
+        "document_sha256": document_digest,
+        "guidance_sha256": hashlib.sha256(
+            path.read_bytes()
+        ).hexdigest(),
+        "outbound_prompt_sha256": hashlib.sha256(
+            bound_prompt.encode()
+        ).hexdigest(),
+        "rubric_scoring_authority": "HOMS_ONLY",
+        "governance_validated": False,
+    }
+    return bound_prompt, binding
+
+
 def reviewer_commentary(
     base_url: str,
     request: dict[str, Any],
@@ -330,17 +500,57 @@ def reviewer_commentary(
     claim_maps: list[dict[str, Any]],
     sources: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    if not bool(request.get("gemini_review_approved", False)):
+    reasoned_review_approved = bool(
+        request.get(
+            "reasoned_review_approved",
+            request.get("gemini_review_approved", False),
+        )
+    )
+    try:
+        provider = require_ollama_provider(
+            request.get("reasoned_provider") or "ollama",
+            component="Sophia reasoned review",
+        )
+        model = ollama_model(
+            request.get("reasoned_model")
+            or request.get("ollama_model")
+        )
+    except SovereignRuntimeError as exc:
+        return {
+            "status": "rejected",
+            "source": "sovereign_runtime",
+            "encounter_id": None,
+            "provider": str(request.get("reasoned_provider") or ""),
+            "model": None,
+            "remote_processing": False,
+            "commentary": str(exc),
+        }
+    try:
+        base_url = _require_local_review_endpoint(base_url)
+    except ValueError as exc:
+        return {
+            "status": "rejected",
+            "source": "sovereign_runtime",
+            "encounter_id": None,
+            "provider": provider or None,
+            "model": model or None,
+            "remote_processing": False,
+            "endpoint_policy": "LOCAL_LOOPBACK_ONLY",
+            "commentary": str(exc),
+        }
+    remote_processing = False
+
+    if not reasoned_review_approved:
         return {
             "status": "approval_required",
             "source": "not_sent",
             "encounter_id": None,
-            "provider": None,
-            "model": None,
+            "provider": provider or None,
+            "model": model or None,
             "remote_processing": False,
             "commentary": (
-                "Gemini reviewer processing was not authorized. Set gemini_review_approved to true "
-                "only after the manuscript owner approves remote processing."
+                "Reasoned reviewer processing was not authorized. "
+                "Explicit manuscript-owner approval is required before processing."
             ),
         }
     try:
@@ -378,30 +588,73 @@ def reviewer_commentary(
             },
             "claim_ledger": claim_dossier,
         }
+        verified_review_anchors = sorted(
+            {row["span_id"] for row in spans}
+            | {f"C{index}" for index in range(1, len(claim_dossier) + 1)}
+        )
+        if not verified_review_anchors:
+            raise ValueError("REFUSE: no manuscript-bound review anchors")
+
+        anchor_instruction = (
+            "AUTHORIZED REVIEW ANCHORS ONLY: "
+            + ", ".join(f"[{anchor}]" for anchor in verified_review_anchors)
+            + ". Never cite any other paragraph or claim identifier."
+        )
+
+        # Closed-world DOI registry: supplied evidence is not external verification.
+        allowed_dois = _allowed_dois(reference_audit, sources)
+        citation_instruction = (
+            "AUTHORIZED DOI IDENTIFIERS ONLY: "
+            + (
+                ", ".join(sorted(allowed_dois))
+                if allowed_dois
+                else "NONE"
+            )
+            + ". A listed DOI is supplied evidence, not independently verified. "
+            + "Never invent, complete, infer, or introduce another DOI."
+        )
+
         prompt = "\n".join([
             "Sophia DIO product review. Evaluate only the attached manuscript and the local audit dossier below.",
+            citation_instruction,
+            anchor_instruction,
             "Give diagnostic reviewer commentary; do not rewrite manuscript prose or produce submission-ready replacement text.",
             "Use these exact headings: Overall assessment; Major revisions; Minor revisions; Evidence limits; Author-owned next steps.",
-            "Anchor every major revision to one or more supplied paragraph IDs such as [P3] or claim IDs such as [C2].",
+            "Anchor every major revision to one or more identifiers from AUTHORIZED REVIEW ANCHORS ONLY.",
             "Apply a closed-world evidence rule: use only authors, publications, citation labels, DOIs, URLs, data, methods, and findings already visible in the dossier/manuscript.",
             "Do not recommend named literature beyond that closed evidence set.",
             "Distinguish what the manuscript states from your inference and from what remains unknown.",
             "Prioritize argument clarity, method adequacy, evidence/claim fit, analytical coherence, limitations, and reference integrity.",
             "End with a short, ordered set of revisions that leaves all final wording and judgment with the author.",
+            "Constitutional authorship boundary: explicitly state that the human author decides which revisions to accept and retains final authorship and judgment. Do not write replacement submission-ready text.",
+            "Evidence boundary: explicitly identify the limits of the available evidence, distinguish unsupported claims from established findings, and state what remains uncertain or unknown.",
+            "Grounding requirement: use at least one authorized anchor in Major revisions. Never invent an anchor.",
             "LOCAL AUDIT DOSSIER:",
             json.dumps(dossier, ensure_ascii=True),
         ])
-        model = str(request.get("gemini_model") or "gemini-flash-lite-latest").strip()
-        if not model.startswith("gemini-"):
-            raise ValueError("gemini_model must name a Gemini model")
+
+        prompt, zpd_binding = bind_zpd_review_guidance(
+            request, document_path, prompt
+        )
+        if zpd_binding is not None:
+            request["_zpd_binding_receipt"] = zpd_binding
+
+        if not provider:
+            raise ValueError("reasoned_provider must be non-empty")
+        if not model:
+            raise ValueError("reasoned_model must be non-empty")
         payload = {
                 "text": prompt,
                 "session_token": health.get("session_token") or "",
                 "dio_product_review_lane": True,
                 "reasoned_integrity_lane": True,
-                "reasoned_provider": "gemini",
+                "reasoned_provider": provider,
                 "reasoned_model": model,
                 "reasoned_max_predict": 1400,
+                "verified_review_anchors": verified_review_anchors,
+                "verified_review_manuscript_sha256": hashlib.sha256(
+                    document_path.read_bytes()
+                ).hexdigest(),
                 "document_evidence_task": "dio_sophia_academic_review",
                 "document_uploads": [{
                     "source_name": title,
@@ -411,7 +664,12 @@ def reviewer_commentary(
                     "parser": parser,
                     "extracted_text": text[:180_000],
                     "spans": spans,
-                    "uncertainty_notes": ["Remote Gemini review explicitly approved by manuscript owner."],
+                    "uncertainty_notes": [
+                    (
+                        "Reasoned review explicitly approved by manuscript owner. "
+                        + ("Remote processing authorized." if remote_processing else "Local processing only.")
+                    )
+                ],
                 }],
                 "client_context": {
                     "ui_surface": "dio_sophia_review",
@@ -422,28 +680,54 @@ def reviewer_commentary(
                 "disable_world_events": True,
                 "suppress_academic_retrieval_fastpaths": True,
             }
-        result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=180.0)
+        review_timeout = float(request.get("reasoned_timeout_seconds") or 900.0)
+        from adapters.sophia.sophia_r3_boundary import capture as _r3_capture, guarded_verify as _r3_verify
+        _r3_required = "homs_context" in request or bool(request.get("zpd_guidance_path"))
+        _r3_pin = _r3_capture(request, document_path, payload["text"], model) if _r3_required else None
+        result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=review_timeout)
         attempt_encounters = [result.get("encounter_id")]
+        attempt_diagnostics = []
+
+        def record_attempt(response, commentary, validation_result):
+            conformity = response.get("article_conformity") or {}
+            mandos = response.get("mandos_judgment") or {}
+            articles = conformity.get("articles") or {}
+            attempt_diagnostics.append({
+                "attempt": len(attempt_diagnostics) + 1,
+                "encounter_id": response.get("encounter_id"),
+                "candidate_sha256": hashlib.sha256(
+                    commentary.encode("utf-8")
+                ).hexdigest(),
+                "provider": response.get("reasoned_provider"),
+                "provider_status": response.get("reasoned_provider_status"),
+                "source": response.get("source"),
+                "repair_applied": bool(response.get("repair_applied")),
+                "repair_steps": response.get("repair_steps") or [],
+                "mandos_passed": bool(mandos.get("passed")),
+                "mandos_failed_checks": mandos.get("failed_checks") or [],
+                "genesis_summary": conformity.get("summary") or {},
+                "genesis_failed_articles": {
+                    article_id: item
+                    for article_id, item in articles.items()
+                    if not item.get("passed")
+                },
+                "validation": validation_result,
+            })
+
         candidate = str(result.get("response") or "").strip()
         valid_anchors = {row["span_id"] for row in spans} | {
             f"C{index}" for index in range(1, len(claim_maps) + 1)
         }
-        allowed_dois = {
-            str(row.get("doi") or "").lower()
-            for row in (reference_audit.get("reference_entries") or [])
-            if row.get("doi")
-        }
-        for source in sources:
-            doi_match = re.search(r"10\.\d{4,9}/[-._;()/:A-Za-z0-9]+", str(source.get("url") or ""), flags=re.I)
-            if doi_match:
-                allowed_dois.add(doi_match.group(0).rstrip(".,;)").lower())
-        validation = validate_gemini_commentary(
+
+        validation = validate_reasoned_commentary(
             candidate,
             result,
             valid_anchors,
             _allowed_citation_keys(reference_audit, sources),
             allowed_dois,
+            provider,
         )
+        record_attempt(result, candidate, validation)
         failed_checks = sorted(key for key, passed in validation["checks"].items() if not passed)
         if failed_checks == ["document_anchor_present"]:
             payload["text"] = (
@@ -453,16 +737,46 @@ def reviewer_commentary(
                 + ", ".join(f"[{anchor}]" for anchor in sorted(valid_anchors))
                 + ". Return the complete report with those anchors included."
             )
-            result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=180.0)
+            _r3_pin = _r3_capture(request, document_path, payload["text"], model) if _r3_required else None
+            result = post_json(f"{base_url.rstrip('/')}/api/speak", payload, timeout=review_timeout)
             attempt_encounters.append(result.get("encounter_id"))
             candidate = str(result.get("response") or "").strip()
-            validation = validate_gemini_commentary(
+            validation = validate_reasoned_commentary(
                 candidate,
                 result,
                 valid_anchors,
                 _allowed_citation_keys(reference_audit, sources),
                 allowed_dois,
+                provider,
             )
+            record_attempt(result, candidate, validation)
+        # Preserve the actual final inference attempt, including rejected output.
+        # This is quarantined evidence, never approved academic commentary.
+        _r2_evidence = result.get("response_evidence")
+        request["_r4_quarantined_inference"] = {
+            "schema": "dio.sophia.quarantined-inference.v1",
+            "authority": "UNAPPROVED_DIAGNOSTIC_EVIDENCE",
+            "encounter_id": result.get("encounter_id"),
+            "response_source": result.get("source"),
+            "model": result.get("model"),
+            "reasoned_provider": result.get("reasoned_provider"),
+            "reasoned_provider_status": result.get("reasoned_provider_status"),
+            "outbound_prompt_sha256": (_r3_pin or {}).get("outbound_prompt_sha256"),
+            "processed_prompt_sha256": ((_r3_pin or {}).get("expected_sha256") or {}).get("prompt"),
+            "response_sha256": hashlib.sha256(
+                str(result.get("response") or "").encode("utf-8")
+            ).hexdigest(),
+            "response": str(result.get("response") or ""),
+            "validated_candidate_sha256": hashlib.sha256(
+                candidate.encode("utf-8")
+            ).hexdigest(),
+            "response_evidence": _r2_evidence,
+        }
+        if _r3_required:
+            request["_r3_custody_receipt"] = _r3_verify(_r3_pin, request, result)
+        if _r3_required and not request["_r3_custody_receipt"].get("passed", False):
+            validation["passed"] = False
+            validation.setdefault("checks", {})["r3_custody"] = False
         if not validation["passed"]:
             return {
                 "status": "rejected",
@@ -471,13 +785,14 @@ def reviewer_commentary(
                 "provider": result.get("reasoned_provider"),
                 "provider_status": result.get("reasoned_provider_status"),
                 "model": result.get("model"),
-                "remote_processing": True,
+                "remote_processing": remote_processing,
                 "characters_transmitted": min(len(text), 180_000),
                 "candidate_sha256": hashlib.sha256(candidate.encode("utf-8")).hexdigest(),
                 "attempt_count": len(attempt_encounters),
                 "attempt_encounters": attempt_encounters,
+                "attempt_diagnostics": attempt_diagnostics,
                 "validation": validation,
-                "commentary": "Gemini returned commentary, but the grounded release checks rejected it. Human review remains required.",
+                "commentary": "The reasoned reviewer returned commentary, but the grounded release checks rejected it. Human review remains required.",
             }
         return {
             "status": "completed",
@@ -485,10 +800,11 @@ def reviewer_commentary(
             "encounter_id": result.get("encounter_id"),
             "attempt_count": len(attempt_encounters),
             "attempt_encounters": attempt_encounters,
+            "attempt_diagnostics": attempt_diagnostics,
             "provider": result.get("reasoned_provider"),
             "provider_status": result.get("reasoned_provider_status"),
             "model": result.get("model"),
-            "remote_processing": True,
+            "remote_processing": remote_processing,
             "characters_transmitted": min(len(text), 180_000),
             "manuscript_truncated": len(text) > 180_000,
             "repair_applied": bool(result.get("repair_applied")),
@@ -503,10 +819,13 @@ def reviewer_commentary(
             "status": "unavailable",
             "source": "fallback",
             "encounter_id": None,
-            "provider": "gemini",
-            "model": str(request.get("gemini_model") or "gemini-flash-lite-latest"),
-            "remote_processing": bool(request.get("gemini_review_approved", False)),
-            "commentary": f"Sophia Gemini reviewer endpoint was unavailable: {type(error).__name__}. Human review remains required.",
+            "provider": provider,
+            "model": model,
+            "remote_processing": remote_processing and reasoned_review_approved,
+            "commentary": f"Sophia reasoned reviewer endpoint was unavailable: {type(error).__name__}. Human review remains required.",
+            "failure_stage": "reviewer_request",
+            "failure_type": type(error).__name__,
+            "failure_reason": str(error)[:700],
         }
 
 
@@ -608,6 +927,57 @@ def markdown_claim_ledger(claim_maps: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
+def bind_sophia_backend(sophia_root: Path) -> None:
+    """Bind authentic Sophia services without replacing DIO's backend."""
+    import importlib
+
+    from adapters.sophia.canonical_sources import ORGAN_ROOT
+    if Path(sophia_root).resolve() != ORGAN_ROOT:
+        raise FileNotFoundError("REFUSE: Sophia source root outside canonical DIO")
+    arda_root = (ORGAN_ROOT / "arda_os").resolve()
+    backend_root = arda_root / "backend"
+    services = backend_root / "services"
+
+    if not backend_root.is_dir():
+        raise FileNotFoundError(
+            f"REFUSE: Sophia backend directory missing: {backend_root}"
+        )
+
+    if str(arda_root) not in sys.path:
+        sys.path.insert(0, str(arda_root))
+
+    backend = importlib.import_module("backend")
+
+    required = (
+        "academic_retrieval",
+        "sophia_academic_claim_tools",
+        "sophia_source_support",
+    )
+
+    missing = [
+        name for name in required
+        if not (services / f"{name}.py").is_file()
+    ]
+    if missing:
+        raise FileNotFoundError(
+            f"REFUSE: missing Sophia services in {services}: {missing}"
+        )
+
+    if str(arda_root) not in sys.path:
+        sys.path.insert(0, str(arda_root))
+
+    if str(backend_root) not in backend.__path__:
+        backend.__path__.append(str(backend_root))
+
+    # ``backend.services`` may already be imported from an unrelated package.
+    # Extend that loaded package explicitly so canonical Sophia modules remain
+    # discoverable without replacing the existing package object.
+    services_package = importlib.import_module("backend.services")
+    services_path = str(services.resolve())
+    if services_path not in services_package.__path__:
+        services_package.__path__.append(services_path)
+
+
 def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base_url: str, sophia_root: Path) -> Path:
     job_id = str(request.get("job_id") or "").strip()
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{2,100}", job_id):
@@ -622,7 +992,7 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
     if len(text.split()) < 40:
         raise ValueError("Manuscript has too little readable text for an academic review.")
 
-    sys.path.insert(0, str((sophia_root / "arda_os").resolve()))
+    bind_sophia_backend(sophia_root)
     from backend.services.academic_retrieval import get_academic_retrieval
     from backend.services.sophia_academic_claim_tools import classify_claim_type
     from backend.services.sophia_source_support import citation_check, map_claim_to_sources
@@ -669,6 +1039,7 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
     job_dir = (out_root / job_id).resolve()
     job_dir.mkdir(parents=True, exist_ok=True)
     generated_names = {
+        "R4_QUARANTINED_INFERENCE.json",
         "LITERATURE_MAP.json", "LITERATURE_MAP.md", "REFERENCE_AUDIT.json", "REFERENCE_AUDIT.md",
         "CLAIM_SOURCE_LEDGER.json", "CLAIM_SOURCE_LEDGER.md", "REVIEWER_COMMENTARY.json",
         "REVIEWER_COMMENTARY.md", "HUMAN_APPROVAL.md", "SOPHIA_REVIEW_RECEIPT.json",
@@ -686,6 +1057,20 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
         "deduplicated_sources": sources,
     }
     claim_payload = {"schema": "dio.sophia_claim_source_ledger.v1", "claims": claim_maps}
+
+    if request.get("_zpd_binding_receipt") is not None:
+        write_json(
+            job_dir / "ZPD_BINDING_RECEIPT.json",
+            request["_zpd_binding_receipt"],
+        )
+
+    if request.get("_r4_quarantined_inference") is not None:
+        quarantine_path = job_dir / "R4_QUARANTINED_INFERENCE.json"
+        write_json(quarantine_path, request["_r4_quarantined_inference"])
+        quarantine_path.chmod(0o600)
+
+    if request.get("_r3_custody_receipt") is not None:
+        write_json(job_dir / "R3_CUSTODY_RECEIPT.json", request["_r3_custody_receipt"])
     write_json(job_dir / "LITERATURE_MAP.json", literature_payload)
     write_text(job_dir / "LITERATURE_MAP.md", markdown_literature_map(queries, sources))
     write_json(job_dir / "REFERENCE_AUDIT.json", reference_audit)
@@ -705,7 +1090,7 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
         "# Sophia Human Approval Gate\n\n"
         f"Job: `{job_id}`\n\n"
         "- [ ] Confirm the manuscript owner authorized this review.\n"
-        "- [ ] Confirm the manuscript owner authorized remote Gemini processing.\n"
+        "- [ ] Confirm the manuscript owner authorized the configured reasoned-review processing.\n"
         "- [ ] Verify every retained citation against the full source.\n"
         "- [ ] Resolve cited-but-missing and listed-but-uncited entries.\n"
         "- [ ] Review high-risk claims and their evidence standard.\n"
@@ -736,9 +1121,16 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
             "reviewer_model": commentary.get("model"),
             "reviewer_grounding_passed": bool((commentary.get("validation") or {}).get("passed")),
         },
-        "remote_processing": {
-            "gemini_review_approved": bool(request.get("gemini_review_approved", False)),
-            "performed": bool(commentary.get("remote_processing", False)),
+        "reasoned_processing": {
+            "approved": bool(
+                request.get(
+                    "reasoned_review_approved",
+                    request.get("gemini_review_approved", False),
+                )
+            ),
+            "provider": commentary.get("provider"),
+            "model": commentary.get("model"),
+            "remote_processing": bool(commentary.get("remote_processing", False)),
             "characters_transmitted": commentary.get("characters_transmitted", 0),
         },
         "outputs": [{"name": path.name, "sha256": sha256_file(path)} for path in generated],
@@ -748,6 +1140,11 @@ def run_review(request: dict[str, Any], request_path: Path, out_root: Path, base
     archive_path = job_dir / f"{job_id}_SOPHIA_REVIEW_PACK.zip"
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(job_dir.iterdir()):
-            if path.is_file() and path != archive_path:
+            if (
+                path.is_file()
+                and path != archive_path
+                and path.name in generated_names
+                and path.name != "R4_QUARANTINED_INFERENCE.json"
+            ):
                 archive.write(path, arcname=path.name)
     return job_dir

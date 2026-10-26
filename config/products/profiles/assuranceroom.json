@@ -1,0 +1,31 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "assuranceroom",
+  "product_id": "dio_assuranceroom",
+  "category": "assurance_evidence_room",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "AssuranceRoom is currently bounded to organising and reviewing evidence against declared assurance requirements. It does not issue assurance opinions or conclusions, certify evidence completeness or control effectiveness, accept risk, or authorize release.",
+  "default_requirement_kind": "control",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "ASSURANCEROOM",
+  "review_pack_title": "DIO AssuranceRoom Controlled Evidence Review Pack",
+  "human_gate_reason": "Assurance opinions and conclusions, evidence sufficiency, control-effectiveness conclusions, risk acceptance and any external release remain with authorised humans.",
+  "forbidden_outcomes": [
+    "assurance_opinion",
+    "assurance_conclusion",
+    "evidence_completeness_certification",
+    "control_effectiveness_certification",
+    "risk_acceptance",
+    "final_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

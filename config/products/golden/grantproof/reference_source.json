@@ -1,0 +1,44 @@
+{
+  "source_id": "grantproof-golden-reference-001",
+  "source_type": "grant",
+  "source_ref": "fixture://grantproof/golden-reference-001",
+  "sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+  "effective_at": "2026-07-01T00:00:00+00:00",
+  "expires_at": null,
+  "clauses": [
+    {
+      "clause_id": "G-1",
+      "text": "The recipient shall provide the milestone report.",
+      "obligation": true,
+      "obligation_kind": "reporting",
+      "responsible_party": "recipient",
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "evidence_requirements": [
+        "milestone_report"
+      ]
+    },
+    {
+      "clause_id": "G-2",
+      "text": "The recipient shall retain the expense schedule.",
+      "obligation": true,
+      "obligation_kind": "retention",
+      "responsible_party": "recipient",
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "evidence_requirements": [
+        "expense_schedule"
+      ]
+    },
+    {
+      "clause_id": "G-3",
+      "text": "The recipient shall maintain the retention record.",
+      "obligation": true,
+      "obligation_kind": "maintenance",
+      "responsible_party": "recipient",
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "evidence_requirements": [
+        "retention_record"
+      ]
+    }
+  ]
+}
+

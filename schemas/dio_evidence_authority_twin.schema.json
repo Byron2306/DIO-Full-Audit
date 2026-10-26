@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_evidence_authority_twin.schema.json",
+  "title": "DIO Evidence and Authority Twin configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "layers", "loki", "laws"],
+  "properties": {
+    "schema": {"const": "dio.evidence_authority_twin.config.v1"},
+    "layers": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "world_state",
+          "evidence_state",
+          "claim_state",
+          "requirement_state",
+          "authority_state",
+          "capability_state",
+          "action_state",
+          "receipt_state"
+        ]
+      }
+    },
+    "loki": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_repository",
+        "source_commit",
+        "triune_loki_path",
+        "mirror_maze_path",
+        "deception_router_path",
+        "reuse_mode"
+      ],
+      "properties": {
+        "source_repository": {"const": "Byron2306/Metatron"},
+        "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "triune_loki_path": {"const": "backend/triune/loki_ai.py"},
+        "mirror_maze_path": {"const": "backend/services/mystique_maze.py"},
+        "deception_router_path": {"const": "backend/routers/deception.py"},
+        "reuse_mode": {"const": "internal_semantic_harvest"}
+      }
+    },
+    "laws": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "historical_never_silently_current",
+        "synthetic_never_canonical",
+        "twin_has_no_authority",
+        "loki_mirror_has_no_authority",
+        "loki_mirror_never_becomes_evidence",
+        "loki_mirror_never_executes",
+        "valinor_remains_sole_kernel_authority",
+        "arda_remains_execution_identity_only"
+      ],
+      "properties": {
+        "historical_never_silently_current": {"const": true},
+        "synthetic_never_canonical": {"const": true},
+        "twin_has_no_authority": {"const": true},
+        "loki_mirror_has_no_authority": {"const": true},
+        "loki_mirror_never_becomes_evidence": {"const": true},
+        "loki_mirror_never_executes": {"const": true},
+        "valinor_remains_sole_kernel_authority": {"const": true},
+        "arda_remains_execution_identity_only": {"const": true}
+      }
+    }
+  }
+}

@@ -15,12 +15,13 @@ from typing import Any
 import jsonschema
 
 from adapters.evidence_kernel import EvidenceConfidence, InstitutionalProfile, load_profile
+from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
 
 
 ROOT = Path(__file__).resolve().parents[2]
 REQUEST_SCHEMA = ROOT / "schemas" / "vamp_snapshot_request.schema.json"
 EVIDENCE_SCHEMA = ROOT / "schemas" / "evidence_record_v2.schema.json"
-EVIDEX_ROOT = Path("/home/byron/Evidex")
+EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
 REQUIRED_TABLES = {"evidence", "evidence_task", "tasks", "task_no_evidence"}
 
@@ -88,6 +89,32 @@ def _source_kind(meta: dict[str, Any], mapped_by: str) -> str:
     return "registered_file"
 
 
+def _verify_source_integrity(file_path: Path, registered_sha1: str) -> tuple[bool, str]:
+    """Verify registered SHA-1 against actual source bytes.
+
+    SHA-1 is a legacy compatibility identifier, not a modern
+    collision-resistant security attestation.
+    """
+    if not re.fullmatch(r"[0-9a-fA-F]{40}", registered_sha1):
+        return False, "Source integrity REFUSE: missing or malformed SHA-1."
+
+    if not file_path.is_file():
+        return False, "Source integrity REFUSE: registered file missing."
+
+    digest = hashlib.sha1()
+    try:
+        with file_path.open("rb") as stream:
+            for block in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(block)
+    except OSError:
+        return False, "Source integrity REFUSE: source unreadable."
+
+    if not __import__('hmac').compare_digest(digest.hexdigest(), registered_sha1.lower()):
+        return False, "Source integrity REFUSE: SHA-1 mismatch."
+
+    return True, "Source integrity verified against registered SHA-1."
+
+
 def calibrate_mapping(
     *,
     profile: InstitutionalProfile,
@@ -115,8 +142,9 @@ def calibrate_mapping(
 
     file_path = Path(str(evidence["file_path"] or ""))
     sha1 = str(evidence["sha1"] or "")
-    provenance = 1.0 if sha1 and file_path.is_file() else 0.8 if sha1 else 0.45
-    reasons.append("Registered source path and hash are present." if provenance == 1.0 else "Source provenance is incomplete.")
+    integrity_ok, integrity_reason = _verify_source_integrity(file_path, sha1)
+    provenance = 1.0 if integrity_ok else 0.0
+    reasons.append(integrity_reason)
 
     outlook = meta.get("outlook") if isinstance(meta.get("outlook"), dict) else {}
     search_reason = str(outlook.get("search_reason") or "")
@@ -174,6 +202,10 @@ def calibrate_mapping(
         provenance=round(provenance, 3),
         sufficiency=round(sufficiency, 3),
     )
+    if not integrity_ok:
+        return confidence, "candidate", reasons + [
+            "Integrity failure blocks accepted evidence coverage."
+        ]
     if duplicate_of:
         return confidence, "duplicate_suppressed", reasons + [f"Duplicate hash already represented by {duplicate_of}."]
     thresholds = profile.thresholds
@@ -223,6 +255,79 @@ This is evidence-coverage support, not an employee rating or employment decision
 
 {chr(10).join(f"- [{'x' if gate['passed'] else ' '}] {gate['name']}: {gate['detail']}" for gate in snapshot['quality_gates'])}
 """
+
+
+def _build_vamp_evidex_handoff(snapshot: dict[str, Any]) -> dict[str, Any]:
+    """Preserve VAMP decisions without promoting derived summaries to evidence."""
+    objectives = {
+        item["objective_id"]: item
+        for item in snapshot["objectives"]
+    }
+    links = []
+
+    for record in snapshot["evidence"]:
+        for mapping in record["mappings"]:
+            objective_id = mapping["objective_id"]
+            if objective_id not in objectives:
+                raise ValueError(
+                    f"REFUSE: mapping references missing objective {objective_id}"
+                )
+
+            links.append({
+                "objective_id": objective_id,
+                "evidence_id": record["evidence_id"],
+                "source_sha1": record["sha1"],
+                "source": record["source"],
+                "duplicate_of": record["duplicate_of"],
+                "period": record["period"],
+                "decision": mapping["decision"],
+                "confidence": mapping["confidence"],
+                "mapped_by": mapping["mapped_by"],
+                "reasons": mapping["reasons"],
+                "authority_scope": "vamp_calibration_only",
+                "source_bytes_reverified": False,
+                "customer_claim_independently_verified": False,
+            })
+
+    links.sort(key=lambda x: (
+        x["objective_id"], x["evidence_id"], x["decision"]
+    ))
+
+    for objective_id, objective in objectives.items():
+        accepted = {
+            link["evidence_id"]
+            for link in links
+            if link["objective_id"] == objective_id
+            and link["decision"] == "accepted"
+            and link["duplicate_of"] is None
+        }
+        if len(accepted) != objective["accepted_evidence"]:
+            raise ValueError(
+                f"REFUSE: accepted mapping count mismatch for {objective_id}"
+            )
+
+    return {
+        "schema": "dio.vamp_evidex_handoff.v1",
+        "job_id": snapshot["job_id"],
+        "snapshot_schema": snapshot["schema"],
+        "review": snapshot["review"],
+        "objectives": [
+            {
+                "objective_id": item["objective_id"],
+                "minimum_required": item["minimum_required"],
+                "accepted_evidence": item["accepted_evidence"],
+                "candidate_evidence": item["candidate_evidence"],
+                "coverage_status": item["coverage_status"],
+            }
+            for item in snapshot["objectives"]
+        ],
+        "source_mappings": links,
+        "derived_ledger_summaries_are_primary_evidence": False,
+        "source_bytes_reverified": False,
+        "customer_claim_independently_verified": False,
+        "human_review_required": True,
+        "delivery_authorized": False,
+    }
 
 
 def _write_evidex_inputs(snapshot: dict[str, Any], job_dir: Path) -> tuple[Path, Path]:
@@ -296,8 +401,14 @@ def _write_evidex_inputs(snapshot: dict[str, Any], job_dir: Path) -> tuple[Path,
 def _run_evidex(intake_path: Path, uploads_dir: Path, out_dir: Path) -> dict[str, Any]:
     if not EVIDEX_PYTHON.is_file():
         raise FileNotFoundError(f"Evidex Python not found: {EVIDEX_PYTHON}")
-    env = os.environ.copy()
-    env.update({"LLM_DISABLED": "1", "SUMMARY_USE_LLM": "0", "NARRATIVE_USE_LLM": "0"})
+    env = evidex_environment()
+    env.update({
+        "OLLAMA_MODEL": ollama_model(),
+        "OLLAMA_URL": ollama_url(),
+        "LLM_DISABLED": "1",
+        "SUMMARY_USE_LLM": "0",
+        "NARRATIVE_USE_LLM": "0",
+    })
     command = [
         str(EVIDEX_PYTHON), "-m", "evidence_pack_engine.cli", "generate",
         "--intake", str(intake_path), "--uploads", str(uploads_dir), "--out", str(out_dir),
@@ -323,10 +434,17 @@ def build_snapshot(request_path: Path, output_root: Path, *, run_evidex: bool = 
     db_path = Path(request["source"]["database_path"])
     connection = open_readonly_database(db_path)
     placeholders = ",".join("?" for _ in months)
+    # Include objectives active during any requested review month.
+    # A task beginning in January and ending in August belongs in
+    # the August review, even though its start month is January.
+    overlap = " OR ".join(
+        "(substr(window_start,1,7) <= ? AND substr(window_end,1,7) >= ?)"
+        for _ in months
+    )
     tasks = _query_rows(
         connection,
-        f"SELECT * FROM tasks WHERE substr(window_start,1,7) IN ({placeholders}) ORDER BY window_start,kpa_code,title",
-        tuple(months),
+        f"SELECT * FROM tasks WHERE ({overlap}) ORDER BY window_start,kpa_code,title",
+        tuple(value for month in months for value in (month, month)),
     )
     task_map = {str(row["task_id"]): row for row in tasks}
     evidence = _query_rows(
@@ -497,6 +615,14 @@ def build_snapshot(request_path: Path, output_root: Path, *, run_evidex: bool = 
     (job_dir / "VAMP_SNAPSHOT.md").write_text(_markdown_summary(snapshot), encoding="utf-8")
     write_json(job_dir / "EVIDENCE_LEDGER.json", normalized)
     write_json(job_dir / "OBJECTIVE_COVERAGE.json", objectives)
+    handoff = _build_vamp_evidex_handoff(snapshot)
+    handoff["snapshot_sha256"] = hashlib.sha256(
+        (job_dir / "VAMP_SNAPSHOT.json").read_bytes()
+    ).hexdigest()
+    write_json(
+        job_dir / "VAMP_EVIDEX_HANDOFF.json",
+        handoff,
+    )
 
     intake_path, uploads_dir = _write_evidex_inputs(snapshot, job_dir)
     evidex_receipt: dict[str, Any] = {"status": "not_run"}

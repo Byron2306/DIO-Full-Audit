@@ -1,0 +1,36 @@
+{
+  "schema": "dio.product_class_equivalence_decision.v1",
+  "decision_id": "changeproof-modelchangeproof-scope-equivalence-2026-08-18",
+  "atlas_product_class": "changeproof",
+  "candidate_product_id": "dio_modelchangeproof",
+  "candidate_manifest": "config/products/manifests/modelchangeproof.json",
+  "source_reconciliation_state": "equivalence_review_required",
+  "decision": "scope_equivalent",
+  "approved_by": "human.Byron2306",
+  "approved_at": "2026-08-18T00:05:00+02:00",
+  "operator_statement": "Approve ChangeProof as equivalent to DIO ModelChangeProof strictly for bounded AI/model-system change assurance: baseline/current identity, model, prompt, policy, connector and environment changes, plus reevaluation. This does not extend ChangeProof to generic enterprise change management and grants no automatic authority, risk acceptance, promotion, public launch or external release.",
+  "approved_scope": {
+    "kind": "bounded_ai_model_system_change_assurance",
+    "includes": [
+      "baseline_identity",
+      "current_identity",
+      "model_change",
+      "prompt_change",
+      "policy_change",
+      "connector_change",
+      "environment_change",
+      "reevaluation"
+    ],
+    "excludes": [
+      "generic_enterprise_change_management",
+      "residual_risk_acceptance",
+      "automatic_promotion",
+      "public_launch_authority",
+      "external_release_authority"
+    ]
+  },
+  "auto_promotable": false,
+  "authority_created": false,
+  "public_launch_authorized": false,
+  "external_release_authorized": false
+}

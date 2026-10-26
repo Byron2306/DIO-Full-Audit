@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import secrets
 import sys
@@ -19,13 +20,16 @@ sys.path.insert(0, str(ROOT))
 from adapters.sophia.review_pipeline import run_review  # noqa: E402
 from scripts.dio_mail_branding import branded_email  # noqa: E402
 from scripts.manage_mail_intent import create_intent, emit_event, write_json  # noqa: E402
-from scripts.sync_dio_edge_events import EdgeError, edge_request, read_config  # noqa: E402
+from commerce.paypal_local import LocalCommerceStore, PayPalLocalClient, PayPalLocalError  # noqa: E402
+from sovereign_runtime import ollama_model  # noqa: E402
 
 
 DEFAULT_JOB_ROOT = ROOT / "state" / "sophia_jobs"
 DEFAULT_EVENT_LOG = ROOT / "telemetry" / "dio_events.jsonl"
 DEFAULT_SERVICE_CONFIG = ROOT / "config" / "sophia_service.json"
-DEFAULT_EDGE_CONFIG = ROOT / "config" / "dio_edge.live.json"
+DEFAULT_EDGE_CONFIG = ROOT / "config" / "dio_edge.live.json"  # compatibility CLI argument only
+DEFAULT_ORDER_DIR = ROOT / "state" / "commerce" / "orders"
+DEFAULT_PAYMENT_RECEIPT_DIR = ROOT / "state" / "commerce" / "payment_events"
 DEFAULT_SOPHIA_ROOT = Path("/home/byron/Integritas-Mechanicus")
 DEFAULT_REVIEW_ROOT = ROOT / "deliverables" / "sophia_academic_reviews"
 
@@ -92,8 +96,9 @@ def create_job(
         "literature_queries": spec.get("literature_queries") or [spec["research_question"]],
         "citation_style": spec.get("citation_style") or "APA 7",
         "external_retrieval": True,
-        "gemini_review_approved": True,
-        "gemini_model": "gemini-flash-lite-latest",
+        "reasoned_review_approved": True,
+        "reasoned_provider": "ollama",
+        "reasoned_model": ollama_model(),
         "human_approval_required": True,
     }
     directory = path.parent
@@ -142,48 +147,66 @@ def create_job(
 
 
 def quote_job(job_root: Path, job_id: str, edge_config_path: Path, event_log: Path) -> dict[str, Any]:
+    del edge_config_path
     path, job = load_job(job_root, job_id)
     if job["controlled"]:
         raise ValueError("Controlled Sophia jobs do not create payment orders.")
     if job["payment"]["state"] not in {"pending_quote", "order_registered", "checkout_failed"}:
         raise ValueError(f"Cannot quote from payment state {job['payment']['state']}.")
-    config = read_config(edge_config_path)
-    token = Path(config["edge_token_path"]).expanduser().read_text(encoding="utf-8").strip()
-    base_url = str(config["base_url"]).rstrip("/")
+
+    return_url = os.getenv("DIO_PAYPAL_RETURN_URL", "").strip()
+    cancel_url = os.getenv("DIO_PAYPAL_CANCEL_URL", "").strip()
+    if not return_url.startswith("https://") or not cancel_url.startswith("https://"):
+        raise PayPalLocalError(
+            "DIO_PAYPAL_RETURN_URL and DIO_PAYPAL_CANCEL_URL must be configured HTTPS informational pages."
+        )
+
+    store = LocalCommerceStore(DEFAULT_ORDER_DIR, DEFAULT_PAYMENT_RECEIPT_DIR)
     order_id = job["payment"].get("order_id") or f"ORDER-{job_id}"
-    if not job["payment"].get("order_id"):
-        edge_request(
-            base_url + "/api/dio/orders",
-            token,
-            method="POST",
-            payload={
-                "order_id": order_id,
-                "product_code": job["product_code"],
-                "amount_minor": job["payment"]["amount_minor"],
-                "currency": job["payment"]["currency"],
-                "metadata": {"job_id": job_id},
-            },
+    try:
+        order = store.load(order_id)
+    except FileNotFoundError:
+        order = store.register(
+            order_id=order_id,
+            product_code=job["product_code"],
+            amount_minor=int(job["payment"]["amount_minor"]),
+            currency=str(job["payment"]["currency"]),
+            lineage={"job_id": job_id},
         )
         job["payment"].update({"state": "order_registered", "order_id": order_id})
         job["state"] = "payment_order_registered"
         save_job(path, job)
 
-    try:
-        checkout = edge_request(
-            base_url + f"/api/dio/orders/{order_id}/checkout/paypal",
-            token,
-            method="POST",
+    if order.get("provider_order_id") and order.get("approval_url"):
+        checkout = {
+            "approval_url": order["approval_url"],
+            "provider_order_id": order["provider_order_id"],
+        }
+    else:
+        client = PayPalLocalClient.from_env()
+        checkout = client.create_order(
+            order_id=order_id,
+            amount_minor=int(order["amount_minor"]),
+            currency=str(order["currency"]),
+            return_url=return_url,
+            cancel_url=cancel_url,
         )
-    except EdgeError:
-        job["payment"]["state"] = "checkout_failed"
-        job["state"] = "payment_checkout_failed"
-        save_job(path, job)
-        raise
+        order.update({
+            "payment_state": "awaiting_payment",
+            "provider_order_id": checkout["provider_order_id"],
+            "provider_status": checkout.get("provider_status"),
+            "approval_url": checkout["approval_url"],
+            "provider_environment": client.environment,
+            "cloudflare_used": False,
+        })
+        store.save(order)
+
     job["payment"].update({
         "state": "awaiting_payment",
         "order_id": order_id,
         "checkout_url": checkout["approval_url"],
         "provider_order_id": checkout.get("provider_order_id"),
+        "transport_mode": "local_paypal_api",
     })
     job["state"] = "payment_pending"
 
@@ -229,23 +252,35 @@ def quote_job(job_root: Path, job_id: str, edge_config_path: Path, event_log: Pa
     )
     return job
 
-
 def reconcile_payment(job_root: Path, job_id: str, edge_config_path: Path, event_log: Path) -> dict[str, Any]:
+    del edge_config_path
     path, job = load_job(job_root, job_id)
     order_id = job["payment"].get("order_id")
     if not order_id:
         raise ValueError("Sophia job has no commerce order.")
-    config = read_config(edge_config_path)
-    token = Path(config["edge_token_path"]).expanduser().read_text(encoding="utf-8").strip()
-    order = edge_request(str(config["base_url"]).rstrip("/") + f"/api/dio/orders/{order_id}", token)
-    state = str(order.get("state") or "unknown")
+    store = LocalCommerceStore(DEFAULT_ORDER_DIR, DEFAULT_PAYMENT_RECEIPT_DIR)
+    order = store.load(order_id)
+    state = str(order.get("payment_state") or "unknown")
     job["payment"]["state"] = state
+    job["payment"]["provider_order_id"] = order.get("provider_order_id")
+    job["payment"]["provider_capture_id"] = order.get("provider_capture_id")
+    job["payment"]["payment_receipt_sha256"] = order.get("payment_receipt_sha256")
     if state == "paid":
         job["state"] = "paid_ready_for_processing"
-    elif state in {"held", "refunded"}:
+    elif state in {"held", "refunded", "reversed"}:
         job["state"] = "payment_hold"
+    else:
+        job["state"] = "payment_pending"
     save_job(path, job)
-    emit_event(event_log, "sophia.payment_reconciled", "info" if state == "paid" else "action", "sophia_job", job_id, {"order_id": order_id, "state": state}, job_id)
+    emit_event(
+        event_log,
+        "sophia.payment_reconciled",
+        "info" if state == "paid" else "action",
+        "sophia_job",
+        job_id,
+        {"order_id": order_id, "state": state, "cloudflare_used": False},
+        job_id,
+    )
     return job
 
 
@@ -261,7 +296,7 @@ def run_job(
     if job["payment"]["state"] not in {"paid", "waived"}:
         raise ValueError("Payment must be verified or explicitly waived before Sophia processing.")
     if not all(bool(value) for value in job["consents"].values()):
-        raise ValueError("All manuscript and Gemini processing consents are required.")
+        raise ValueError("All manuscript and reasoned-processing consents are required.")
     request_path = Path(job["source"]["request_path"])
     review_request = load_json(request_path)
     output_dir = run_review(review_request, request_path, review_root, base_url, sophia_root)

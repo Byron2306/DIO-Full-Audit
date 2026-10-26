@@ -1,0 +1,29 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "domain.project_delivery",
+  "profile_class": "domain",
+  "name": "Project Delivery Domain",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_PHASE1_REFERENCE_PROFILE_SOURCES.md",
+        "source_section": "1. Project Delivery Domain",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:0d79622d31aa4fe268b854dede8a4a79c845dd00275f0445c1e49bd05a13b54f",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This profile supplies project-delivery vocabulary and object semantics only. It does not determine legal effect, contractual interpretation, fulfilment, acceptance, breach or waiver.",
+  "spec": {
+    "object_types": ["agreement", "party", "obligation", "deliverable", "milestone", "dependency", "acceptance_criterion", "evidence_item", "exception", "change", "deadline", "responsible_role"],
+    "vocabulary": ["obligation", "deliverable", "milestone", "dependency", "acceptance criterion", "evidence", "exception", "change", "deadline", "responsible role"],
+    "human_boundaries": ["authorised humans determine contractual meaning", "authorised humans determine acceptance and fulfilment", "authorised humans resolve contested obligations"],
+    "forbidden_claims": ["legal interpretation", "contract breach determination", "waiver determination", "enforceability determination"]
+  },
+  "tags": ["phase1", "obligation", "contractproof", "internal-reference"]
+}

@@ -3,6 +3,7 @@ import secrets
 from pathlib import Path
 from typing import Any
 from .state import now, read_json, write_json, safe
+from .config import state_path
 
 class IdentityBindingError(ValueError): pass
 
@@ -38,7 +39,7 @@ def revoke_binding(root:Path,conversation_id:str)->dict[str,Any]:
 def bound_order_status(dio_root:Path,binding:dict[str,Any])->list[dict[str,Any]]:
     out=[]
     for oid in binding.get('order_ids',[]):
-        p=dio_root/'state'/'commerce'/'orders'/f'{safe(str(oid))}.json'
+        p=state_path('commerce', 'orders', f'{safe(str(oid))}.json', dio_root=dio_root)
         if not p.exists():
             out.append({'order_id':oid,'state':'not_found_in_local_commerce_state'}); continue
         raw=read_json(p)

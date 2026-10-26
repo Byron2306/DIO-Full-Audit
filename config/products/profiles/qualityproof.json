@@ -1,0 +1,31 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "qualityproof",
+  "product_id": "dio_qualityproof",
+  "category": "quality_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "QualityProof is currently bounded to preparing and reviewing supplied quality criteria, claims and supporting evidence because no canonical atlas scope record is tracked on this branch.",
+  "default_requirement_kind": "request",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "QUALITYPROOF",
+  "review_pack_title": "DIO QualityProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Quality conclusions, scoring, acceptance or rejection, certification or attestation, external submission and final release remain with authorised humans.",
+  "forbidden_outcomes": [
+    "quality_decision",
+    "quality_score",
+    "quality_acceptance_or_rejection",
+    "quality_certification_or_attestation",
+    "external_submission",
+    "final_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "incidentproof",
+  "product_id": "dio_incidentproof",
+  "category": "incident_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "IncidentProof is currently bounded to organising and reviewing supplied incident chronology, evidence, claims, control records and declared gaps for authorised human review. It does not determine root cause or liability, impose discipline, decide breach notification, submit regulator reports, execute incident response, or issue a final incident conclusion.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "INCIDENTPROOF",
+  "review_pack_title": "DIO IncidentProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Root cause, liability, disciplinary action, breach notification, regulator reporting, incident-response execution and final release remain with authorised incident, legal, security and governance owners.",
+  "forbidden_outcomes": [
+    "root_cause_determination",
+    "liability_determination",
+    "disciplinary_action",
+    "breach_notification_decision",
+    "regulator_submission",
+    "incident_response_execution"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

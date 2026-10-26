@@ -1,0 +1,16 @@
+[Unit]
+Description=DIO Phase 9 Outlook delta poller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/DIO-Full-Audit
+EnvironmentFile=-%h/.config/dio/sovereign.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=%h/DIO-Full-Audit/.venv/bin/python %h/DIO-Full-Audit/scripts/sync_outlook_mail.py pull --watch --interval 30
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

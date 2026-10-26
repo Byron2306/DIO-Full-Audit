@@ -1,0 +1,38 @@
+{
+  "schema": "dio.document_studio_service.v1",
+  "product_code": "DOCUMENT_STUDIO_LINGUA",
+  "public_name": "DIO Document Studio",
+  "status": "controlled_commercial_pilot_ready",
+  "price": {
+    "amount_minor": 5900,
+    "currency": "USD",
+    "display": "$59 launch pilot"
+  },
+  "limits": {
+    "maximum_words": 5000,
+    "maximum_documents": 1,
+    "included_revision_rounds": 1,
+    "target_turnaround_working_days": 3
+  },
+  "deliverables": [
+    "technical clean copy",
+    "visible redline review copy",
+    "bilingual review copy when translation is requested",
+    "terminology glossary",
+    "Document Studio QA receipt",
+    "Lingua semantic object and BEAST learning receipts"
+  ],
+  "required_consents": [
+    "document_owner_authorized",
+    "remote_processing_approved",
+    "human_review_required",
+    "certified_translation_not_requested"
+  ],
+  "release_policy": {
+    "payment_before_processing": true,
+    "human_review_before_delivery": true,
+    "proficient_language_review_before_reuse": true,
+    "automatic_email": false,
+    "certified_translation": false
+  }
+}

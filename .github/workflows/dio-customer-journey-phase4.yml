@@ -1,0 +1,41 @@
+name: DIO Customer Journey Phase 4
+
+on:
+  push:
+    branches:
+      - agent/dio-customer-journey-phase4
+    paths:
+      - 'presence_core/fulfilment_contract.py'
+      - 'presence_core/journey_core.py'
+      - 'presence_core/settlement_truth.py'
+      - 'tests/test_customer_journey_phase4.py'
+      - 'docs/DIO_CUSTOMER_JOURNEY_PHASE4.md'
+      - 'docs/superpowers/plans/2026-09-17-customer-journey-phase4-universal-fulfilment.md'
+      - '.github/workflows/dio-customer-journey-phase4.yml'
+  pull_request:
+    paths:
+      - 'presence_core/fulfilment_contract.py'
+      - 'tests/test_customer_journey_phase4.py'
+      - 'docs/DIO_CUSTOMER_JOURNEY_PHASE4.md'
+
+jobs:
+  universal-fulfilment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Compile Phase 4 contracts
+        run: |
+          python -m py_compile \
+            presence_core/journey_core.py \
+            presence_core/settlement_truth.py \
+            tests/test_customer_journey_phase4.py
+          if [ -f presence_core/fulfilment_contract.py ]; then
+            python -m py_compile presence_core/fulfilment_contract.py
+          fi
+      - name: Run Phase 4 contract tests
+        run: python -m pytest -q tests/test_customer_journey_phase4.py

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_composition_profiles.schema.json",
+  "title": "DIO Cross-Organ Composition Profiles",
+  "type": "object",
+  "required": ["schema", "registry_id", "laws", "profiles"],
+  "properties": {
+    "schema": {"const": "dio.composition_profiles.v1"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "laws": {
+      "type": "object",
+      "required": [
+        "composition_has_no_authority",
+        "same_case_required",
+        "dependency_receipts_hash_bound",
+        "required_stages_cannot_be_skipped",
+        "machine_evidence_is_not_human_authority",
+        "valinor_remains_sole_kernel_authority",
+        "arda_remains_execution_identity_only",
+        "external_execution_requires_wave5_bundle"
+      ],
+      "properties": {
+        "composition_has_no_authority": {"const": true},
+        "same_case_required": {"const": true},
+        "dependency_receipts_hash_bound": {"const": true},
+        "required_stages_cannot_be_skipped": {"const": true},
+        "machine_evidence_is_not_human_authority": {"const": true},
+        "valinor_remains_sole_kernel_authority": {"const": true},
+        "arda_remains_execution_identity_only": {"const": true},
+        "external_execution_requires_wave5_bundle": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["profile_id", "description", "final_state", "stages"],
+        "properties": {
+          "profile_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+          "description": {"type": "string", "minLength": 1},
+          "final_state": {"type": "string", "minLength": 1},
+          "stages": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["stage_id", "stage_kind", "system_id", "role", "required", "depends_on", "accepted_contracts"],
+              "properties": {
+                "stage_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+                "stage_kind": {
+                  "enum": ["organ", "framework", "human_authority", "capability_lease", "kernel_authority", "execution_identity", "vertical_execution", "egress"]
+                },
+                "system_id": {"type": "string", "minLength": 1},
+                "role": {"type": "string", "minLength": 1},
+                "required": {"type": "boolean"},
+                "depends_on": {
+                  "type": "array",
+                  "items": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+                  "uniqueItems": true
+                },
+                "accepted_contracts": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "minLength": 1},
+                  "uniqueItems": true
+                },
+                "accepted_assertion_types": {
+                  "type": "array",
+                  "items": {"enum": ["evidence", "observation", "challenge", "requirement", "authority", "capability_request", "decision", "receipt"]},
+                  "uniqueItems": true
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

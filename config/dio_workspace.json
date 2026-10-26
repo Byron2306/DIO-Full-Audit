@@ -1,0 +1,38 @@
+{
+  "schema": "dio.unified_workspace.v1",
+  "workspace_root": "/home/byron/DIO",
+  "policy": {
+    "canonical_human_entrypoint": true,
+    "preserve_existing_git_histories": true,
+    "preserve_dirty_worktrees": true,
+    "default_mount_mode": "symlink",
+    "never_move_source_without_explicit_request": true,
+    "phase0_resolves_workspace_before_legacy_hints": true,
+    "new_meta_layers_live_in_core": true
+  },
+  "layout": {
+    "core": "core",
+    "organs": "organs",
+    "surfaces": "surfaces",
+    "state": "state",
+    "receipts": "receipts",
+    "launcher": "dio",
+    "manifest": "WORKSPACE.json"
+  },
+  "mounts": [
+    {"alias":"core","source_id":"dio_full_audit","kind":"core","required_for_phase0":true,"candidate_paths":["/home/byron/Downloads/KnowEdge_AutoRelease_Suite","/home/byron/DIO-Full-Audit"]},
+    {"alias":"sophia","source_id":"sophia_integritas","kind":"organ","required_for_phase0":true,"candidate_paths":["/home/byron/Integritas-Mechanicus"]},
+    {"alias":"beast","source_id":"beast","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/EdgeK-BEAST","/home/byron/Downloads/EdgeK-BEAST"]},
+    {"alias":"metatron","source_id":"metatron","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/Downloads/Metatron-triune-outbound-gate","/home/byron/Metatron","/home/byron/Downloads/Metatron"]},
+    {"alias":"arda","source_id":"arda","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/Metatron-Arda","/home/byron/Downloads/Metatron-Arda"]},
+    {"alias":"seraph","source_id":"seraph","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/Downloads/Metatron-triune-outbound-gate","/home/byron/Metatron","/home/byron/Downloads/Metatron"]},
+    {"alias":"phoenix","source_id":"hivenance","kind":"organ","required_for_phase0":true,"candidate_paths":["/home/byron/Downloads/Hivenance_Phoenix_Phase7_1_Integration_Reconciliation","/home/byron/Hivenance"]},
+    {"alias":"evidex","source_id":"evidex","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/Evidex","/home/byron/Downloads/Evidex"]},
+    {"alias":"vamp","source_id":"vamp","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/Vamp-Offline","/home/byron/Downloads/Vamp-Offline"]},
+    {"alias":"homs","source_id":"homs","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/HOMS-assessor","/home/byron/Downloads/HOMS-assessor","/home/byron/Downloads/NoEdge-Multi-Hymark-main"]},
+    {"alias":"outlook-triage","source_id":"outlook_triage","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/Smart-Outlook-Triage","/home/byron/Downloads/Smart-Outlook-Triage","/home/byron/Downloads/outlook triage"]},
+    {"alias":"legalis","source_id":"dio_legalis","kind":"organ","required_for_phase0":true,"candidate_paths":["/home/byron/DIO-Core/adapters/legalis","/home/byron/DIO-Full-Audit/adapters/legalis","/home/byron/Downloads/KnowEdge_AutoRelease_Suite/adapters/legalis","/home/byron/DIO-Legalis","/home/byron/Legalis","/home/byron/Downloads/DIO-Legalis"],"discover_names":["legalis"],"marker_policy":"implementation_only","marker_terms":["NEEDS_YOU","requirement_registry","legal_identity"]},
+    {"alias":"nichefoundry","source_id":"nichefoundry_media","kind":"organ","required_for_phase0":false,"candidate_paths":["/home/byron/NicheFoundry","/home/byron/Downloads/NicheFoundry","/home/byron/Downloads/NicheFoundry_Phase11"]},
+    {"alias":"workflows-site","source_id":"dio_workflows_site","kind":"surface","required_for_phase0":false,"candidate_paths":["/home/byron/DIO-Workflows"]}
+  ]
+}

@@ -1,0 +1,840 @@
+{
+  "schema": "dio.canonical_wiring.campaign.v1",
+  "date": "2026-10-19",
+  "scope": "Canonical source convergence and product response custody; partial organism integration",
+  "canonical_root": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit",
+  "all_organs_coalesced": false,
+  "production_quality_pass": false,
+  "historical_acceptance_changed": false,
+  "connections": [
+    {
+      "id": "JOIN-016",
+      "organs": "Canonical source / Sophia / ZPD / Mandos / Vesper",
+      "state": "NATIVE SOURCE INSTALLED",
+      "proof": "Slice 1: 15 files installed; 29 tests passed in 1.76s.",
+      "next": "Keep deployment source identity distinct from source installation; no live Sophia cutover.",
+      "source": "dio-canonical-merge1-43chmkjt / INSTALL_RECEIPT.json (user supplied)"
+    },
+    {
+      "id": "JOIN-017/018",
+      "organs": "Vesper / Presence Core / web reconciler",
+      "state": "BLOCKED — LOCAL SIGNING KEY ABSENT",
+      "proof": "Canonical Core running; public key absent from runtime, systemd inline and checked env files.",
+      "next": "Use tested private-key setup only after transport authentication passes.",
+      "source": "dio.vesper.signing_configuration_check.v1 native report; 12 local setup tests"
+    },
+    {
+      "id": "JOIN-019/020",
+      "organs": "Worker custody / Vesper / restored configuration",
+      "state": "BLOCKED — NO CHECKED LOCAL TRANSPORT COPY",
+      "proof": "Configured token missing/empty; scoped live/restored token and env checks found no usable copy.",
+      "next": "Provision one matching local/Worker transport token; it is shared by the Worker pull lanes.",
+      "source": "dio.vesper.transport_token_recovery.v1 native report"
+    },
+    {
+      "id": "JOIN-021/022",
+      "organs": "Worker / deployment identity / Vesper",
+      "state": "NATIVE DEPLOYMENT ACCESS VERIFIED",
+      "proof": "Node 22.23.3, Wrangler 4.120.0; correct account access; remote transport secret name exists. Latest supplied deployment: 1347bba2-b9de-42c5-be07-7a934e661758 (16 Sep).",
+      "next": "Capture current deployment immediately before credential update. No DNS, D1 migration or local-code redeploy is needed.",
+      "source": "Native whoami, secret names and deployment history supplied 19 Oct"
+    },
+    {
+      "id": "JOIN-023",
+      "organs": "Sophia producer / R2 / R3 custody / HOMS",
+      "state": "SOURCE IMPLEMENTED — NATIVE INSTALL PENDING",
+      "proof": "Slice 2 producer emits exact prompt/response/model-bound diagnostic evidence; 49 focused local tests pass, including the real handler with fixture provider.",
+      "next": "Install guarded source slice; then separately prove live source identity and real local model response. No automatic live cutover.",
+      "source": "canonical-merge2-work / verification/focused.xml; fixture tests are not inference-quality proof"
+    },
+    {
+      "id": "JOIN-024",
+      "organs": "Sophia / Mandos / canonical startup",
+      "state": "FALLBACK SOURCE REPAIRED — NATIVE INSTALL PENDING",
+      "proof": "Actual handler test exposed dereference of missing Mandos after fallback context creation. One-line null-safe prompt fallback added.",
+      "next": "Unavailable Mandos remains unavailable; R2/R3 consistency cannot authorize release.",
+      "source": "test_actual_producer_handler_emits_response_bound_evidence"
+    },
+    {
+      "id": "LIVE-01",
+      "organs": "Seraph / Sophia / host Ollama",
+      "state": "LIVE SOURCE CONVERGENCE STILL OPEN",
+      "proof": "Supplied host evidence: Seraph Presence on 7070, host Ollama 11434 and relay 11436. Live producer remains Metatron-owned; canonical producer is not yet deployed.",
+      "next": "Preserve Seraph monitoring; prove build/source identity and local generation before a controlled producer cutover.",
+      "source": "Native organism capture and retained HOMS/Sophia/Seraph ledger"
+    },
+    {
+      "id": "QUALITY-01",
+      "organs": "HOMS / Sophia / Evidex / ZPD",
+      "state": "QUALITY AND EDUCATOR RELEASE HELD",
+      "proof": "Historical HOMS 0/30 remains. Rubric scoring, grounded feedback utility, ZPD learning benefit and educator acceptance are not established.",
+      "next": "Compare source-anchored critiques against blind educator judgments; keep negative examples and failed grades.",
+      "source": "Living Organ Graduation Ledger and retained HOMS quality evidence"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "vesper",
+      "label": "Vesper / Presence",
+      "col": 0,
+      "desc": "Phase 6 reference native closure ledgers include Vesper bounded routing and presence artifacts; no outbound release permission. 19 Oct: canonical local services answer; staging web queue accepted a diagnostic, but no browser reply verified. Both local signing and transport prerequisites are held; production API previously showed tunnel error 1033.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/NATIVE_CAPABILITY_CLOSURE_LEDGER.json",
+      "kind": "Sense",
+      "campaign_state": "19 Oct: canonical local services answer; staging web queue accepted a diagnostic, but no browser reply verified. Both local signing and transport prerequisites are held; production API previously showed tunnel error 1033."
+    },
+    {
+      "id": "atlas",
+      "label": "ATLAS",
+      "col": 0,
+      "desc": "R3.3 runtime PASS: four ATLAS capability signatures bound to exact Metamorphic unit/executor digests and controlled_artifact_only authority. Corroboration does not create execution authority or canonical compiler admission.",
+      "status": "verified",
+      "src": "R3_ATLAS_BINDING.log; atlas/registry.py:305-345",
+      "kind": "Sense"
+    },
+    {
+      "id": "sensorium",
+      "label": "Market Sensorium",
+      "col": 0,
+      "desc": "Evidence-bound market observations, competitor and opportunity signals.",
+      "status": "documented",
+      "src": "docs/DIO_MARKET_SENSORIUM_HIVENANCE_HYPOTHESIS_ENGINE.md",
+      "kind": "Sense"
+    },
+    {
+      "id": "hivenance",
+      "label": "Hivenance",
+      "col": 0,
+      "desc": "Competing hypotheses, regime classification, council synthesis and outcome learning. Not market proof by itself.",
+      "status": "documented",
+      "src": "docs/DIO_MARKET_SENSORIUM_HIVENANCE_HYPOTHESIS_ENGINE.md",
+      "kind": "Sense"
+    },
+    {
+      "id": "sophia",
+      "label": "Sophia",
+      "col": 1,
+      "desc": "Phase 6 reference Studio native closure ledgers record Sophia review in the bounded Funding Proposal journey; not standalone HOMS readiness. 19 Oct: canonical adapter/custody source slice installed. Producer response-evidence wiring is implemented and locally tested in slice 2; native install and live cutover pending. Mandos/Genesis remain NOT_EVALUATED.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/NATIVE_CAPABILITY_CLOSURE_LEDGER.json",
+      "kind": "Understand",
+      "campaign_state": "19 Oct: canonical adapter/custody source slice installed. Producer response-evidence wiring is implemented and locally tested in slice 2; native install and live cutover pending. Mandos/Genesis remain NOT_EVALUATED."
+    },
+    {
+      "id": "lingua",
+      "label": "LINGUA",
+      "col": 1,
+      "desc": "Phase 6 reference Studio closure ledgers record native Lingua contributions; Phase 9 semantic law remains bound.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/NATIVE_CAPABILITY_CLOSURE_LEDGER.json",
+      "kind": "Understand"
+    },
+    {
+      "id": "evidex",
+      "label": "Evidex",
+      "col": 1,
+      "desc": "Phase 6 reference Studio native closure ledgers record Evidex evidence artifacts; no claim of independently validated historical source custody. 19 Oct: candidate source-custody inputs to HOMS/Sophia quality checks remain an explicit proposed experiment, not an implemented cross-organ semantic bridge.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/NATIVE_CAPABILITY_CLOSURE_LEDGER.json",
+      "kind": "Understand",
+      "campaign_state": "19 Oct: candidate source-custody inputs to HOMS/Sophia quality checks remain an explicit proposed experiment, not an implemented cross-organ semantic bridge."
+    },
+    {
+      "id": "meta",
+      "label": "META Runtime",
+      "col": 1,
+      "desc": "Four shared primitives: Evidence, Assurance, Authority and Room. No new executor or authority.",
+      "status": "implemented",
+      "src": "docs/DIO_META_PRODUCT_LAYER.md",
+      "kind": "Understand"
+    },
+    {
+      "id": "vamp",
+      "label": "VAMP",
+      "col": 1,
+      "desc": "Institutional performance and evidence mapping, performance snapshots. 19 Oct: competency evidence can be a future source for bounded review, but no VAMP→Sophia integration is proved by this campaign.",
+      "status": "documented",
+      "src": "docs/DIO_CUSTOMER_JOURNEY_PHASE0_ORGAN_CENSUS.md",
+      "kind": "Understand",
+      "campaign_state": "19 Oct: competency evidence can be a future source for bounded review, but no VAMP→Sophia integration is proved by this campaign."
+    },
+    {
+      "id": "metareg",
+      "label": "Metamorphic Registry",
+      "col": 2,
+      "desc": "Phase 9 M1 demonstrated composite product/capability same-identity re-entry (3 → 4 reference units). This does not admit it to canonical compiler.",
+      "status": "verified",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: composite_provider_reentry, same_composite_identity_across_roles",
+      "kind": "Compose"
+    },
+    {
+      "id": "resolver",
+      "label": "Metamorphic Resolver",
+      "col": 2,
+      "desc": "Phase 5 reference DAG: 3 units, 2 edges, current world lease, human gate NEEDS_YOU; native execution follows in Phase 6.",
+      "status": "verified",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: phase5_acceptance and phase8_boundary receipts",
+      "kind": "Compose"
+    },
+    {
+      "id": "beast",
+      "label": "BEAST",
+      "col": 2,
+      "desc": "M1 settlement-gated evidence-only BEAST crystal and retained chain/learning events. No automatic authority or commercial maturity.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/beast_crystal/{crystal_chain.jsonl,capability_learning.jsonl}",
+      "kind": "Compose"
+    },
+    {
+      "id": "capcat",
+      "label": "Capability Catalogue",
+      "col": 2,
+      "desc": "Separate canonical provider catalogue with explicit per-product scope. R3.1 exact identity search found 0 Funding Proposal composite entries. Not proof that dynamic adaptation is impossible.",
+      "status": "verified",
+      "src": "R3_ADMISSION_TRACE.json: catalogue_matches=[]; config/portfolio/capability_catalog.json",
+      "kind": "Compose"
+    },
+    {
+      "id": "compiler",
+      "label": "Product Compiler",
+      "col": 2,
+      "desc": "R6.4B Funding Proposal Studio provider admitted under metamorphic_proof_carrying_v1 with live evidence checking at resolution; post-promotion 7 historical compiler and 10 promoted gate tests passed. No execution or external release authority.",
+      "status": "verified",
+      "src": "R6.4B focused acceptance 10/10; R6.4C regression 7/7 compiler + 149/149 M1 Studio + 10/10 gate",
+      "kind": "Compose"
+    },
+    {
+      "id": "fusion",
+      "label": "Fusion / Composition",
+      "col": 3,
+      "desc": "Governed composition ledger implements dependency proof and authority chain: human/organisational authority → capability lease → Valinor kernel authorization + ARDA execution identity → bounded vertical execution. Source verified; full Fusion pathway has not been run during this audit.",
+      "status": "implemented",
+      "src": "R3_CROSSWALK.json: composition/orchestrator.py lines 273–360; config/dio_composition_profiles.json",
+      "kind": "Govern"
+    },
+    {
+      "id": "legalis",
+      "label": "Legalis",
+      "col": 3,
+      "desc": "Legal prerequisites, external-authority dependencies and compliance readiness; not legal clearance.",
+      "status": "documented",
+      "src": "docs/DIO_CUSTOMER_JOURNEY_PHASE0_ORGAN_CENSUS.md",
+      "kind": "Govern"
+    },
+    {
+      "id": "seraph",
+      "label": "Seraph",
+      "col": 3,
+      "desc": "Phase 9 reference boundary exercised Seraph egress refusal. Does not prove live Seraph deployment or every runtime egress path. 19 Oct: live Presence producer remains in Metatron on 7070; host Ollama relay is established in supplied evidence. Canonical source installation is not deployment identity proof.",
+      "status": "implemented",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: SERAPH_EGRESS_BOUND",
+      "kind": "Govern",
+      "campaign_state": "19 Oct: live Presence producer remains in Metatron on 7070; host Ollama relay is established in supplied evidence. Canonical source installation is not deployment identity proof."
+    },
+    {
+      "id": "harmonics",
+      "label": "Harmonic Governance",
+      "col": 3,
+      "desc": "Phase 9 reference included post-execution Harmonics state, explicitly not authority.",
+      "status": "implemented",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: HARMONIC_STATE_BOUND",
+      "kind": "Govern"
+    },
+    {
+      "id": "valinor",
+      "label": "Valinor",
+      "col": 3,
+      "desc": "Sovereign kernel authority boundary; composition does not grant it.",
+      "status": "documented",
+      "src": "docs/FUSION_WAVE6_CROSS_ORGAN_COMPOSITION.md",
+      "kind": "Govern"
+    },
+    {
+      "id": "arda",
+      "label": "ARDA",
+      "col": 3,
+      "desc": "Phase 9 reference bound an ARDA execution-evidence digest; this does not independently prove live hardware-rooted attestation.",
+      "status": "implemented",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: ARDA_EXECUTION_EVIDENCE_BOUND",
+      "kind": "Govern"
+    },
+    {
+      "id": "homs",
+      "label": "HOMS / HyMark",
+      "col": 4,
+      "desc": "Assessment products and document artifacts. Grade 11 History customer journey presently REFUSE pending source and assessment fidelity. 19 Oct: retain historical 0/30 results. Source-bound review diagnostics are being wired; no production quality or educator release pass.",
+      "status": "verified",
+      "src": "R4–R7 user-provided acceptance outcomes",
+      "kind": "Deliver",
+      "campaign_state": "19 Oct: retain historical 0/30 results. Source-bound review diagnostics are being wired; no production quality or educator release pass."
+    },
+    {
+      "id": "document",
+      "label": "Document / Format Studio",
+      "col": 4,
+      "desc": "Phase 6 native Studio closures included Document Studio and Format Core output paths. Planning import eagerly loads PIL/pptx/httpx dependencies.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/NATIVE_CAPABILITY_CLOSURE_LEDGER.json",
+      "kind": "Deliver"
+    },
+    {
+      "id": "niche",
+      "label": "NicheFoundry",
+      "col": 4,
+      "desc": "Reference Studio closure ledgers include native NicheFoundry artifacts; does not prove live market uptake or external publication.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/NATIVE_CAPABILITY_CLOSURE_LEDGER.json",
+      "kind": "Deliver"
+    },
+    {
+      "id": "products",
+      "label": "Product Incarnations",
+      "col": 4,
+      "desc": "Product-specific compiled execution. 53 base + 15 extensions in documented portfolio; proof/maturity remains scoped.",
+      "status": "documented",
+      "src": "docs/DIO_CUSTOMER_JOURNEY_PHASE0_ORGAN_CENSUS.md",
+      "kind": "Deliver"
+    },
+    {
+      "id": "market",
+      "label": "Market Command",
+      "col": 4,
+      "desc": "Campaign orchestration, consent/approval boundaries, attention telemetry and experiment surfaces.",
+      "status": "documented",
+      "src": "docs/MARKET_COMMAND_INTEGRATION_STATUS.md",
+      "kind": "Deliver"
+    },
+    {
+      "id": "golden",
+      "label": "GoldenEye",
+      "col": 5,
+      "desc": "Portfolio observation and control deck; not a shadow authority source.",
+      "status": "documented",
+      "src": "README.md",
+      "kind": "Learn"
+    },
+    {
+      "id": "truth",
+      "label": "Commercial Truth",
+      "col": 5,
+      "desc": "Reference Studio closures include Commercial Truth evaluations, reporting no externally established paid customer proof. M2 commercial metabolism unverified.",
+      "status": "verified",
+      "src": "r2-phase9/retained-work/phase8_boundary/execution/nodes/*/native_base/native/commercial_truth/COMMERCIAL_TRUTH_EVALUATION.json",
+      "kind": "Learn"
+    },
+    {
+      "id": "world",
+      "label": "World Settlement",
+      "col": 5,
+      "desc": "M1 reference world settlement passed: expected effects matched, authority preserved, no unexpected external effects.",
+      "status": "verified",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: world_settlement",
+      "kind": "Learn"
+    },
+    {
+      "id": "crystal",
+      "label": "Crystals / Learning",
+      "col": 5,
+      "desc": "23/23 Phase 9 M1 gates include crystal chain valid, settlement-bound crystallisation and in-memory composite re-entry; M2 remains unverified.",
+      "status": "verified",
+      "src": "r2-phase9/PHASE9_RECEIPT.json: acceptance_gates, beast_crystal, composite_provider_reentry",
+      "kind": "Learn"
+    },
+    {
+      "id": "m1",
+      "label": "M1 · 23/23 PASS",
+      "col": 5,
+      "desc": "Phase 9 M1 reference verified: 23 of 23 gates, world SETTLED, BEAST crystal chain valid, composite provider re-entry. Programme remains incomplete and M2 unverified.",
+      "status": "verified",
+      "src": "r2-phase9/PHASE9_RECEIPT.json",
+      "kind": "Learn"
+    },
+    {
+      "id": "m2",
+      "label": "M2 · REFERENCE VERIFIED",
+      "col": 5,
+      "desc": "M2 final 10/10 phases, 16/16 gates, 8/8 adversity, reference only. R5.12 pre-R5.13 M2 replay PASS; post-R5.13 replay pending; real market and payment unproved.",
+      "status": "verified",
+      "src": "R4_PHASE8_9.zip/M2_PHASE9_RECEIPT.json; M2_PHASE8_RECEIPT.json; R4_PHASE0_7 retained receipt bundles",
+      "kind": "Learn"
+    },
+    {
+      "id": "funding",
+      "label": "Funding Proposal Composite",
+      "col": 2,
+      "desc": "R5.14 live receipt-audited: 3 native nodes, 3 customer artifacts, 2 verified interleaved content handoffs. Original native closures still consume their own manifests; full native closure dataflow NOT proved. R6.4B canonical evidence-gated provider registered. Native original closures remain manifest-driven; R5 interleaved customer renderers consume content, not native closures.",
+      "status": "verified",
+      "src": "r2-phase9/PHASE9_RECEIPT.json; R3_ADMISSION_TRACE.json: identities, atlas/registry.py, commercial_metabolism/projection.py",
+      "kind": "Compose"
+    },
+    {
+      "id": "authority",
+      "label": "Canonical Authority Plane",
+      "col": 3,
+      "desc": "Canonical authority/lease contract: no machine-created authority; human or organizational grant, bounded lease, Valinor kernel authority and ARDA identity. R3 confirms source-level contract and Fusion dependencies, not a full live attested run.",
+      "status": "implemented",
+      "src": "R3_CROSSWALK.json: authority/canonical.py; composition/orchestrator.py",
+      "kind": "Govern"
+    },
+    {
+      "id": "canonical",
+      "label": "DIO Canonical Source",
+      "col": 2,
+      "kind": "Source owner",
+      "status": "implemented",
+      "desc": "DIO-Full-Audit owns the first installed convergence slice. Slice 2 is prepared and locally tested. No sibling-source fallback in new boundaries; whole-organism migration and live Seraph cutover remain open.",
+      "src": "JOIN-016; JOIN-023; canonical install receipt and guarded payload"
+    },
+    {
+      "id": "worker",
+      "label": "Vesper Worker Custody",
+      "col": 0,
+      "kind": "Transport",
+      "status": "implemented",
+      "desc": "Known staging Worker accepts web custody. Correct account/deployment access and remote transport-secret existence are verified. No usable checked local token copy; pending matching credential provisioning. Worker holds no Core signing key.",
+      "src": "JOIN-019–022; native access and token-recovery reports"
+    },
+    {
+      "id": "localmodel",
+      "label": "Local Ollama",
+      "col": 2,
+      "kind": "Generation",
+      "status": "implemented",
+      "desc": "Host local Ollama and Seraph relay are present in supplied evidence. Canonical product-review boundary requires explicit Ollama/model selection. Fixture routing tests are not real model-quality proof.",
+      "src": "Native Ollama tags/health, Seraph relay evidence; slice-2 provider contract"
+    },
+    {
+      "id": "custody",
+      "label": "R2 / R3 Review Custody",
+      "col": 3,
+      "kind": "Evidence boundary",
+      "status": "implemented",
+      "desc": "Prompt, response, model and supplied artifacts are checked for consistency. Slice-1 consumer is installed; slice-2 producer is prepared. Diagnostic/integrity PASS does not authorize constitutional or customer release.",
+      "src": "canonical_sources.py; response_evidence.py; sophia_custody.py; slice-2 handler tests"
+    }
+  ],
+  "edges": [
+    {
+      "a": "vesper",
+      "b": "fusion",
+      "t": "documented",
+      "label": "governed ingress"
+    },
+    {
+      "a": "atlas",
+      "b": "metareg",
+      "t": "implemented",
+      "label": "ATLAS composite reference exists; independent registry binding, not automatic promotion"
+    },
+    {
+      "a": "sensorium",
+      "b": "hivenance",
+      "t": "documented",
+      "label": "market observations"
+    },
+    {
+      "a": "hivenance",
+      "b": "market",
+      "t": "documented",
+      "label": "Hypothesis→commercial plan intended; M2 not verified"
+    },
+    {
+      "a": "hivenance",
+      "b": "atlas",
+      "t": "documented",
+      "label": "context-bound learning"
+    },
+    {
+      "a": "sophia",
+      "b": "fusion",
+      "t": "documented",
+      "label": "epistemic lineage"
+    },
+    {
+      "a": "evidex",
+      "b": "fusion",
+      "t": "documented",
+      "label": "provenance"
+    },
+    {
+      "a": "lingua",
+      "b": "resolver",
+      "t": "documented",
+      "label": "semantic law"
+    },
+    {
+      "a": "meta",
+      "b": "compiler",
+      "t": "verified",
+      "label": "four primitives validated"
+    },
+    {
+      "a": "metareg",
+      "b": "resolver",
+      "t": "verified",
+      "label": "Phase 5 M1 unit resolution from registry"
+    },
+    {
+      "a": "resolver",
+      "b": "beast",
+      "t": "verified",
+      "label": "Phase 6 reference native 3-node closure + Sensorium (not content dataflow)"
+    },
+    {
+      "a": "capcat",
+      "b": "compiler",
+      "t": "verified",
+      "label": "scope-gated resolution"
+    },
+    {
+      "a": "metareg",
+      "b": "compiler",
+      "t": "unknown",
+      "label": "Metamorphic composite admission to canonical Product Compiler unverified"
+    },
+    {
+      "a": "resolver",
+      "b": "fusion",
+      "t": "unknown",
+      "label": "Metamorphic ↔ canonical Fusion same-case receipts unverified"
+    },
+    {
+      "a": "beast",
+      "b": "world",
+      "t": "verified",
+      "label": "Phase 9 settlement-bound execution evidence"
+    },
+    {
+      "a": "world",
+      "b": "crystal",
+      "t": "verified",
+      "label": "Phase 9 SETTLED before BEAST crystallisation"
+    },
+    {
+      "a": "crystal",
+      "b": "metareg",
+      "t": "verified",
+      "label": "Phase 9 M1 composite re-entry, same product/capability identity"
+    },
+    {
+      "a": "crystal",
+      "b": "compiler",
+      "t": "unknown",
+      "label": "Crystallised evidence does not imply eligible provider scope"
+    },
+    {
+      "a": "compiler",
+      "b": "products",
+      "t": "verified",
+      "label": "manifest composition"
+    },
+    {
+      "a": "fusion",
+      "b": "products",
+      "t": "documented",
+      "label": "organ composition"
+    },
+    {
+      "a": "seraph",
+      "b": "fusion",
+      "t": "documented",
+      "label": "Fusion integration documented; Phase 9 reference Seraph REFUSE proven separately"
+    },
+    {
+      "a": "legalis",
+      "b": "fusion",
+      "t": "inferred",
+      "label": "jurisdiction/product prerequisites"
+    },
+    {
+      "a": "harmonics",
+      "b": "fusion",
+      "t": "documented",
+      "label": "challenge"
+    },
+    {
+      "a": "valinor",
+      "b": "arda",
+      "t": "documented",
+      "label": "kernel boundary vs identity"
+    },
+    {
+      "a": "arda",
+      "b": "fusion",
+      "t": "documented",
+      "label": "Fusion integration documented; Phase 9 reference ARDA evidence binding proven separately"
+    },
+    {
+      "a": "meta",
+      "b": "fusion",
+      "t": "inferred",
+      "label": "evidence assurance runtime"
+    },
+    {
+      "a": "sophia",
+      "b": "homs",
+      "t": "documented",
+      "label": "subject intelligence"
+    },
+    {
+      "a": "evidex",
+      "b": "homs",
+      "t": "inferred",
+      "label": "source custody"
+    },
+    {
+      "a": "lingua",
+      "b": "document",
+      "t": "documented",
+      "label": "semantic projection"
+    },
+    {
+      "a": "vamp",
+      "b": "homs",
+      "t": "inferred",
+      "label": "competency mapping, not evidenced"
+    },
+    {
+      "a": "homs",
+      "b": "products",
+      "t": "documented",
+      "label": "education incarnation"
+    },
+    {
+      "a": "document",
+      "b": "products",
+      "t": "documented",
+      "label": "deliverable formatting"
+    },
+    {
+      "a": "niche",
+      "b": "market",
+      "t": "documented",
+      "label": "proof-led creative"
+    },
+    {
+      "a": "market",
+      "b": "truth",
+      "t": "documented",
+      "label": "Commercial attribution loop remains unverified in M2"
+    },
+    {
+      "a": "products",
+      "b": "truth",
+      "t": "documented",
+      "label": "customer outcome"
+    },
+    {
+      "a": "truth",
+      "b": "hivenance",
+      "t": "documented",
+      "label": "feedback, not permission"
+    },
+    {
+      "a": "truth",
+      "b": "golden",
+      "t": "documented",
+      "label": "read-only projection"
+    },
+    {
+      "a": "compiler",
+      "b": "golden",
+      "t": "documented",
+      "label": "portfolio projection"
+    },
+    {
+      "a": "products",
+      "b": "world",
+      "t": "inferred",
+      "label": "execution outcomes"
+    },
+    {
+      "a": "resolver",
+      "b": "document",
+      "t": "unknown",
+      "label": "Three native studio closures PASS, but cross-node semantic content dataflow NOT PROVED"
+    },
+    {
+      "a": "legalis",
+      "b": "compiler",
+      "t": "unknown",
+      "label": "Legalis product-specific authority propagation not exercised by M1"
+    },
+    {
+      "a": "crystal",
+      "b": "m1",
+      "t": "verified",
+      "label": "M1 23/23 gates; crystal and re-entry"
+    },
+    {
+      "a": "market",
+      "b": "m2",
+      "t": "verified",
+      "label": "M2 Phase 4 reused Market Command episode compiler in held draft mode; no live publication or spend"
+    },
+    {
+      "a": "m1",
+      "b": "m2",
+      "t": "verified",
+      "label": "R4 phases 0–9 reference gauntlet passed; M2 re-verifies M1 and anchors commercial truth to exact composite identity"
+    },
+    {
+      "a": "metareg",
+      "b": "funding",
+      "t": "verified",
+      "label": "M1 Phase 9 same-identity product/capability registration and re-entry verified"
+    },
+    {
+      "a": "atlas",
+      "b": "funding",
+      "t": "verified",
+      "label": "R3.3 runtime PASS: ATLAS binds four exact execution signatures to Metamorphic identity/digests; no authority created"
+    },
+    {
+      "a": "funding",
+      "b": "m2",
+      "t": "verified",
+      "label": "Reference commercial lifecycle verified through M2 Phase 9; controlled fixtures, no live customer proof"
+    },
+    {
+      "a": "funding",
+      "b": "capcat",
+      "t": "unknown",
+      "label": "Exact Funding Proposal composite identifiers absent from canonical capability catalogue"
+    },
+    {
+      "a": "funding",
+      "b": "fusion",
+      "t": "unknown",
+      "label": "No verified translation from composite identity/receipts to Fusion vertical execution bundle"
+    },
+    {
+      "a": "authority",
+      "b": "fusion",
+      "t": "implemented",
+      "label": "Canonical authority receipt, lease, Valinor and ARDA validators imported in Fusion"
+    },
+    {
+      "a": "compiler",
+      "b": "fusion",
+      "t": "unknown",
+      "label": "R6 provider resolution is verified; composite execution through Fusion/ARDA/Valinor remains unverified"
+    },
+    {
+      "a": "funding",
+      "b": "crystal",
+      "t": "verified",
+      "label": "Settlement-gated evidence-only BEAST crystal retained in M1 reference run"
+    },
+    {
+      "a": "m2",
+      "b": "truth",
+      "t": "unknown",
+      "label": "M2 controlled truth checks PASS; independent real-world customer, payment, conversion, repeatability remain NOT PROVED"
+    },
+    {
+      "a": "funding",
+      "b": "document",
+      "t": "verified",
+      "label": "R5.14 interleaved customer-renderer content and artifact custody; NOT original closure-to-closure"
+    },
+    {
+      "a": "funding",
+      "b": "resolver",
+      "t": "verified",
+      "label": "R5.14 live 3-node opt-in native episode, bound R5 attachment"
+    },
+    {
+      "a": "evidex",
+      "b": "funding",
+      "t": "unknown",
+      "label": "Independent source-truth to every substantive claim unverified"
+    },
+    {
+      "a": "canonical",
+      "b": "sophia",
+      "t": "implemented",
+      "label": "adapter source installed; producer source prepared; live cutover pending"
+    },
+    {
+      "a": "canonical",
+      "b": "vesper",
+      "t": "implemented",
+      "label": "canonical local launchers; live web reconciliation blocked by credentials"
+    },
+    {
+      "a": "worker",
+      "b": "vesper",
+      "t": "unknown",
+      "label": "custody accepted; signed local processing and browser reply not verified"
+    },
+    {
+      "a": "localmodel",
+      "b": "seraph",
+      "t": "implemented",
+      "label": "host relay recorded; canonical deployment identity not proved"
+    },
+    {
+      "a": "localmodel",
+      "b": "sophia",
+      "t": "implemented",
+      "label": "explicit local provider contract; fixture-tested producer route"
+    },
+    {
+      "a": "sophia",
+      "b": "custody",
+      "t": "implemented",
+      "label": "R2 producer source prepared; exact response-bound receipt to R3"
+    },
+    {
+      "a": "custody",
+      "b": "homs",
+      "t": "unknown",
+      "label": "artifact integrity does not supply rubric or educator approval"
+    },
+    {
+      "a": "evidex",
+      "b": "sophia",
+      "t": "documented",
+      "label": "NEXT EXPERIMENT: source mutation must change grounded critique"
+    },
+    {
+      "a": "vamp",
+      "b": "sophia",
+      "t": "documented",
+      "label": "PROPOSED: trace competency claims to admitted source evidence"
+    }
+  ],
+  "proposed_experiments": [
+    {
+      "rank": "NEXT-01",
+      "title": "Evidex → HOMS grounded critique",
+      "from": "evidex",
+      "to": "homs",
+      "mechanism": "PROPOSED / NOT WIRED",
+      "idea": "Feed admitted source spans and uncertainty into HOMS review through the canonical Sophia adapter.",
+      "rationale": "Custody checks can bind a critique to the sources without pretending that source validity proves academic merit.",
+      "value": "Mutation test: alter or remove a source span; affected critiques must change or refuse, while unrelated critiques remain stable."
+    },
+    {
+      "rank": "NEXT-02",
+      "title": "VAMP → Sophia competency evidence review",
+      "from": "vamp",
+      "to": "sophia",
+      "mechanism": "PROPOSED / NOT WIRED",
+      "idea": "Use admitted competency artifacts as source-bound review inputs, retaining metadata-only records as context only.",
+      "rationale": "Reuse the canonical evidence boundary while preserving human assessment and original classification history.",
+      "value": "Test whether suggestions cite the right artifact and abstain when evidence is insufficient; no inferred achievement credit."
+    },
+    {
+      "rank": "NEXT-03",
+      "title": "ZPD revision shaping with outcome evidence",
+      "from": "sophia",
+      "to": "homs",
+      "mechanism": "EXISTING GUIDANCE BINDING / BENEFIT UNPROVED",
+      "idea": "Compare revision prompts with and without artifact-bound ZPD guidance using the same source/rubric inputs.",
+      "rationale": "The installed binder makes input identity testable; learning or quality improvement still requires independent evidence.",
+      "value": "Blind educator comparisons, revision usefulness and controlled error rates; preserve failed and neutral results."
+    }
+  ]
+}

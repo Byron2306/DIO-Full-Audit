@@ -1,0 +1,62 @@
+{
+  "schema": "dio.regulatory_reference_case.v1",
+  "source_type": "privacy_regulatory_context",
+  "context": {
+    "jurisdiction": "ZA",
+    "regulator": "Information Regulator",
+    "organisation_role": "regulated_entity",
+    "regulated_activity": "personal information processing",
+    "framework_version": "controlled-fixture-v1"
+  },
+  "required_applicability_facts": [
+    "territorial_nexus",
+    "regulated_activity",
+    "organisation_type"
+  ],
+  "applicability_facts": {
+    "territorial_nexus": true,
+    "regulated_activity": true,
+    "organisation_type": "private_entity"
+  },
+  "applicability_conflicts": [],
+  "sources": [
+    {
+      "source_id": "ZA-PRIV-REG-2026",
+      "title": "Controlled privacy regulation fixture",
+      "source_class": "regulation",
+      "version": "2026.1",
+      "effective_from": "2026-01-01T00:00:00+00:00",
+      "effective_to": null,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "source_id": "ZA-PRIV-GUIDE-2026",
+      "title": "Controlled regulator guidance fixture",
+      "source_class": "regulator_guidance",
+      "version": "2026.1",
+      "effective_from": "2026-02-01T00:00:00+00:00",
+      "effective_to": null,
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "obligations": [
+    {
+      "obligation_id": "PRIV-01",
+      "source_id": "ZA-PRIV-REG-2026",
+      "requirement": "Maintain evidence of declared processing controls",
+      "deadline": "2026-10-01T00:00:00+00:00"
+    }
+  ],
+  "licence_required": false,
+  "licences": [],
+  "requested_actions": [
+    {
+      "effect": "draft",
+      "target": "internal_review"
+    }
+  ],
+  "unresolved_interpretations": [
+    "professional interpretation and final applicability decision required"
+  ],
+  "ai_trust_binding": {}
+}

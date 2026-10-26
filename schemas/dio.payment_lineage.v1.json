@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.payment_lineage.v1",
+  "title": "DIO Payment Lineage v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","payment_lineage_id","context_digest","order_id","provider","amount_minor","currency","payment_state","customer_lineage_id","provider_event_refs","live_order_refs","verified_at","payment_lineage_digest"],
+  "properties": {
+    "schema": {"const": "dio.payment_lineage.v1"},
+    "payment_lineage_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "order_id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "amount_minor": {"type": "integer", "minimum": 0},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "payment_state": {"enum": ["UNKNOWN","PENDING","VERIFIED","FAILED","REFUNDED","DISPUTED"]},
+    "customer_lineage_id": {"type": ["string","null"], "minLength": 1},
+    "provider_event_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "live_order_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "verified_at": {"type": ["string","null"], "format": "date-time"},
+    "payment_lineage_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

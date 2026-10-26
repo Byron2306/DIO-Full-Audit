@@ -1,0 +1,29 @@
+# Phase 9 direct-origin mode.
+# Requirements:
+# 1. Replace api.example.com with a hostname whose A/AAAA record reaches this host.
+# 2. Forward TCP 80 and 443 to this Debian machine.
+# 3. Keep DIO service processes bound to loopback; Caddy is the public TLS boundary.
+
+api.example.com {
+    encode zstd gzip
+
+    @intake path /api/public/intake
+    handle @intake {
+        reverse_proxy 127.0.0.1:8790
+    }
+
+    @health path /health
+    handle @health {
+        reverse_proxy 127.0.0.1:8790
+    }
+
+    handle {
+        respond "Not found" 404
+    }
+
+    header {
+        -Server
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+    }
+}

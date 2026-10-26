@@ -1,0 +1,31 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "auditproof",
+  "product_id": "dio_auditproof",
+  "category": "audit_evidence_preparation",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "AuditProof is currently bounded to audit-evidence preparation and review support because no canonical atlas scope record is tracked on this branch.",
+  "default_requirement_kind": "control",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "AUDITPROOF",
+  "review_pack_title": "DIO AuditProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Audit findings, audit opinions, assurance conclusions, auditor independence, control-effectiveness conclusions, management attestations and any external release remain with authorised humans.",
+  "forbidden_outcomes": [
+    "audit_opinion",
+    "assurance_conclusion",
+    "control_effectiveness_certification",
+    "auditor_independence_attestation",
+    "management_attestation",
+    "final_audit_finding"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

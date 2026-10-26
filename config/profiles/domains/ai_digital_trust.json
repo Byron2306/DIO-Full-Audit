@@ -1,0 +1,60 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "domain.ai_digital_trust",
+  "profile_class": "domain",
+  "name": "AI and Digital Trust Domain",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_AI_DIGITAL_TRUST_PHASE13.md",
+        "source_section": "AI and Digital Trust Domain",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:b690573fbfb310b237a3bfdf75b71fd1700c2c8eefac891e6357855b83c47142",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal AI and Digital Trust profile structures evidence and review only. It creates no safety certification, legal conclusion, compliance determination, model approval, permission, external effect or release authority.",
+  "spec": {
+    "object_types": [
+      "ai_system",
+      "ai_agent",
+      "model_change",
+      "trust_envelope",
+      "evaluation_record",
+      "digital_artifact"
+    ],
+    "vocabulary": [
+      "identity",
+      "provenance",
+      "evaluation",
+      "freshness",
+      "authority",
+      "tool_safety",
+      "data_boundary",
+      "integrity",
+      "drift",
+      "release"
+    ],
+    "human_boundaries": [
+      "human decides consequential authority",
+      "human confirms evaluation fitness",
+      "human controls external release"
+    ],
+    "forbidden_claims": [
+      "safe_ai",
+      "certified_ai",
+      "compliant_ai",
+      "approved_model"
+    ]
+  },
+  "tags": [
+    "phase13",
+    "ai-digital-trust",
+    "domain"
+  ]
+}

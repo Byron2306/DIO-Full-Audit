@@ -1,0 +1,54 @@
+name: DIO Phase 14 Regulated Markets
+
+on:
+  push:
+    paths:
+      - "config/products/regulated_markets.json"
+      - "config/products/manifests/privacyproof.json"
+      - "config/products/manifests/educationaccreditationproof.json"
+      - "config/products/manifests/publicprocurementproof.json"
+      - "config/products/manifests/airegreadiness.json"
+      - "config/products/golden/privacyproof/**"
+      - "config/products/golden/educationaccreditationproof/**"
+      - "config/products/golden/publicprocurementproof/**"
+      - "config/products/golden/airegreadiness/**"
+      - "config/profiles/**"
+      - "config/portfolio/capability_catalog.json"
+      - "products/regulatory/**"
+      - "products/regulated_markets_gauntlet.py"
+      - "scripts/run_regulated_markets_phase14.py"
+      - "tests/test_regulated_markets_phase14.py"
+      - ".github/workflows/dio-regulated-markets-phase14.yml"
+  pull_request:
+    paths:
+      - "config/products/regulated_markets.json"
+      - "config/products/manifests/privacyproof.json"
+      - "config/products/manifests/educationaccreditationproof.json"
+      - "config/products/manifests/publicprocurementproof.json"
+      - "config/products/manifests/airegreadiness.json"
+      - "config/products/golden/privacyproof/**"
+      - "config/products/golden/educationaccreditationproof/**"
+      - "config/products/golden/publicprocurementproof/**"
+      - "config/products/golden/airegreadiness/**"
+      - "config/profiles/**"
+      - "config/portfolio/capability_catalog.json"
+      - "products/regulatory/**"
+      - "products/regulated_markets_gauntlet.py"
+      - "scripts/run_regulated_markets_phase14.py"
+      - "tests/test_regulated_markets_phase14.py"
+      - ".github/workflows/dio-regulated-markets-phase14.yml"
+
+jobs:
+  phase14:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install pytest jsonschema reportlab
+      - run: python -m compileall products dio evidence scripts
+      - run: python scripts/validate_profiles.py
+      - run: python -m pytest -q tests/test_profile_expansion_phase12.py tests/test_ai_digital_trust_phase13.py tests/test_regulated_markets_phase14.py
+      - run: python scripts/run_regulated_markets_phase14.py --output /tmp/dio-phase14-regulated-markets

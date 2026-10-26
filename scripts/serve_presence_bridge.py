@@ -4,14 +4,124 @@ import argparse, json, os, sys, time
 from pathlib import Path
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
-import requests
 import uvicorn
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
-from presence_core.config import load_config
+from presence_core.config import load_config, state_path
+from presence_core.authority import (
+    bind_external_action_receipt,
+    telegram_reply_switch_enabled,
+)
 from presence_core.engine import process_envelope
 from presence_core.identity import create_status_binding, revoke_binding
+from presence_core.fulfilment_release import record_successful_delivery
+from presence_core.local_ingress import LocalIngressLedger
 from presence_core.signing import verify_body, SignatureError
 from presence_core.state import list_needs_you, operator_summary, read_json, safe
+from presence_core.telegram_transport import send_telegram_reply, telegram_voice_reply_switch_enabled
+
+
+def finalize_fulfilment_delivery(
+    state_root: Path,
+    *,
+    result: dict,
+    sent: bool,
+    reply_receipt: dict,
+):
+    if not sent:
+        return None
+
+    artifact = result.get("outbound_artifact") or {}
+
+    if (
+        str(artifact.get("purpose") or "").strip().lower()
+        != "product_fulfilment"
+    ):
+        return None
+
+    authority_id = str(
+        artifact.get("release_authority_id") or ""
+    ).strip()
+
+    if not authority_id:
+        return None
+
+    if (
+        str(reply_receipt.get("delivery_mode") or "").strip().lower()
+        != "document"
+    ):
+        return None
+
+    document = reply_receipt.get("document") or {}
+
+    delivered_sha = str(
+        document.get("sha256") or ""
+    ).strip().lower()
+
+    expected_sha = str(
+        artifact.get("sha256") or ""
+    ).strip().lower()
+
+    if not delivered_sha or delivered_sha != expected_sha:
+        raise ValueError(
+            "Telegram delivery receipt SHA-256 "
+            "does not match outbound fulfilment artifact"
+        )
+
+    return record_successful_delivery(
+        Path(state_root),
+        authority_id,
+        delivery_receipt={
+            "channel": "telegram",
+            "message_id": document.get(
+                "telegram_message_id"
+            ),
+            "file_id": document.get(
+                "telegram_file_id"
+            ),
+            "artifact_sha256": delivered_sha,
+        },
+    )
+
+
+
+def send_bind_and_finalize(
+    envelope: dict,
+    result: dict,
+    *,
+    state_root: Path,
+) -> tuple[bool, str | None, dict]:
+    sent, error, reply_receipt = (
+        send_telegram_reply_from_core(
+            envelope,
+            result,
+        )
+    )
+
+    bind_external_action_receipt(
+        result,
+        reply_receipt,
+        sent=sent,
+        error=error,
+    )
+
+    try:
+        finalize_fulfilment_delivery(
+            Path(state_root),
+            result=result,
+            sent=sent,
+            reply_receipt=reply_receipt,
+        )
+    except Exception as exc:
+        if sent:
+            result["fulfilment_completion_state"] = (
+                "post_send_reconciliation_failed"
+            )
+            result["fulfilment_completion_error"] = str(exc)[:500]
+        else:
+            raise
+
+    return sent, error, reply_receipt
+
 
 app=FastAPI(title='DIO Presence Bridge',version='2.0.0',docs_url=None,redoc_url=None)
 CFG=load_config(); REPLAY:dict[str,float]={}
@@ -26,33 +136,34 @@ def prune():
         if v<cutoff: REPLAY.pop(k,None)
 
 def core_telegram_replies_enabled() -> bool:
-    raw = os.getenv("DIO_PRESENCE_CORE_TELEGRAM_REPLIES", "1")
-    return raw.strip().lower() not in {"0", "false", "no", "off"}
+    return telegram_reply_switch_enabled()
 
-def send_telegram_reply_from_core(envelope: dict, result: dict) -> tuple[bool, str | None]:
-    if not core_telegram_replies_enabled():
-        return False, "core_telegram_replies_disabled"
-    if envelope.get("channel") != "telegram":
-        return False, "not_telegram"
-    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
-    chat_id = ((envelope.get("metadata") or {}).get("telegram_chat_id"))
-    text = (((result.get("reply") or {}).get("text")) or "").strip()
-    if not token or not chat_id or not text:
-        return False, "missing_token_chat_or_text"
-    response = requests.post(
-        f"https://api.telegram.org/bot{token}/sendMessage",
-        json={"chat_id": chat_id, "text": text[:4096]},
-        timeout=12,
+def send_telegram_reply_from_core(
+    envelope: dict,
+    result: dict,
+) -> tuple[bool, str | None, dict]:
+    return send_telegram_reply(
+        envelope,
+        result,
+        root=ROOT,
+        state_root=ROOT/CFG.get('state_root','state/presence'),
     )
-    response.raise_for_status()
-    payload = response.json()
-    if not payload.get("ok"):
-        return False, str(payload.get("description") or "telegram_api_error")
-    return True, None
 
 @app.get('/api/presence/health')
 def health():
-    return {'ok':True,'service':'dio-presence-bridge','version':'2.0.0','automatic_external_actions':False,'attachment_mode':'quarantine_only','public_status':'verified_binding_only'}
+    return {
+        'ok': True,
+        'service': 'dio-presence-bridge',
+        'version': '2.0.0',
+        'presence_identity': 'Vesper',
+        'automatic_external_actions': False,
+        'telegram_reply_switch_enabled': core_telegram_replies_enabled(),
+        'telegram_voice_reply_switch_enabled': telegram_voice_reply_switch_enabled(),
+        'telegram_reply_authority': 'explicit_environment_gate',
+        'telegram_voice_renderer': 'vera_pocket_public',
+        'attachment_mode': 'quarantine_only',
+        'public_status': 'verified_binding_only',
+    }
 
 @app.post('/api/presence/ingress')
 async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''),x_dio_presence_timestamp:str=Header(default=''),x_dio_presence_nonce:str=Header(default=''),x_dio_presence_key_id:str=Header(default='')):
@@ -68,6 +179,26 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
     REPLAY[x_dio_presence_nonce]=time.time()
     try: envelope=json.loads(body)
     except json.JSONDecodeError: raise HTTPException(400,'Invalid JSON.')
+    event_key=str(((envelope.get('metadata') or {}).get('provider_event_key')) or '').strip()
+    ledger=LocalIngressLedger(ROOT/CFG.get('state_root','state/presence')/'local_ingress.sqlite')
+    if event_key:
+        try:
+            cached=ledger.cached_response(event_key,body)
+        except ValueError as exc:
+            raise HTTPException(409,str(exc))
+        if cached is not None:
+            return JSONResponse(
+                cached,
+                headers={
+                    'Cache-Control':'no-store',
+                    'X-Content-Type-Options':'nosniff',
+                    'X-DIO-Idempotent-Replay':'1',
+                },
+            )
+        try:
+            ledger.begin(event_key,body)
+        except ValueError as exc:
+            raise HTTPException(409,str(exc))
     envelope['_trusted_edge_role']=trusted_edge_role; envelope['_trusted_edge_key_id']=x_dio_presence_key_id
     for field in ('channel','external_user_id','text'):
         if field not in envelope: raise HTTPException(422,f'Missing {field}.')
@@ -75,13 +206,31 @@ async def ingress(request:Request,x_dio_presence_signature:str=Header(default=''
     try: result=process_envelope(envelope,ROOT,CFG)
     except Exception as exc: raise HTTPException(400,f'Presence request blocked: {exc}')
     try:
-        sent, error = send_telegram_reply_from_core(envelope, result)
-        result["core_reply_sent"] = sent
-        if error:
-            result["core_reply_send_error"] = error
+        sent, error, reply_receipt = send_bind_and_finalize(
+            envelope,
+            result,
+            state_root=ROOT / CFG.get(
+                "state_root",
+                "state/presence",
+            ),
+        )
     except Exception as exc:
-        result["core_reply_sent"] = False
-        result["core_reply_send_error"] = str(exc)[:300]
+        bind_external_action_receipt(
+            result,
+            {
+                "schema": "dio.vesper.external_reply_authority.v1",
+                "identity": {"name": "Vesper", "role": "DIO Presence Core"},
+                "authorized": False,
+                "channel": envelope.get("channel"),
+                "intent": ((result.get("decision") or {}).get("intent")),
+                "reasons": ["external_reply_exception"],
+                "external_action_type": "telegram_reply",
+            },
+            sent=False,
+            error=str(exc),
+        )
+    if event_key:
+        ledger.complete(event_key,body,result)
     return JSONResponse(result,headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})
 
 @app.get('/api/presence/needs-you')
@@ -111,7 +260,7 @@ async def bind_identity(request:Request,authorization:str|None=Header(default=No
     if not conversation_id or not isinstance(order_ids,list) or not method: raise HTTPException(422,'conversation_id, order_ids[], and verification_method are required.')
     conv=ROOT/CFG.get('state_root','state/presence')/'conversations'/f'{conversation_id}.json'
     if not conv.exists(): raise HTTPException(404,'Conversation not found.')
-    missing=[oid for oid in order_ids if not (ROOT/'state'/'commerce'/'orders'/f'{safe(str(oid))}.json').exists()]
+    missing=[oid for oid in order_ids if not state_path('commerce', 'orders', f'{safe(str(oid))}.json', dio_root=ROOT).exists()]
     if missing: raise HTTPException(422,f'Order ids not found in local commerce state: {missing}')
     binding=create_status_binding(ROOT/CFG.get('state_root','state/presence'),conversation_id,[str(x) for x in order_ids],method,'operator_api')
     return JSONResponse(binding,headers={'Cache-Control':'no-store'})

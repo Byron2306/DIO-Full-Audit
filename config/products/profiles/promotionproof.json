@@ -1,0 +1,33 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "promotionproof",
+  "product_id": "dio_promotionproof",
+  "category": "promotion_evidence_readiness",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_reconciliation_route_and_vamp_snapshot_only",
+  "source_contract": "vamp_snapshot_evidence_coverage",
+  "scope_limit": "PromotionProof is currently bounded to preparing and reviewing explicitly selected VAMP evidence-coverage objectives for human promotion-readiness review. It does not determine eligibility, rate an employee, recommend or approve promotion, determine remuneration, or create an employment action.",
+  "default_requirement_kind": "evidence_input",
+  "required_meta_products": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_room"
+  ],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "PROMOTIONPROOF",
+  "review_pack_title": "DIO PromotionProof Controlled Evidence Readiness Pack",
+  "human_gate_reason": "Promotion eligibility, recommendation, performance rating, remuneration, employment action, approval and final release remain with authorised humans under the applicable institutional process.",
+  "forbidden_outcomes": [
+    "promotion_eligibility_determination",
+    "promotion_recommendation",
+    "promotion_decision",
+    "performance_rating",
+    "remuneration_decision",
+    "employment_action",
+    "final_promotion_claim"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

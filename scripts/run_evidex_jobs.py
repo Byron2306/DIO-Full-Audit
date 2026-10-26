@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import os
 import re
 import subprocess
@@ -10,10 +11,22 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parents[1]
-EVIDEX_ROOT = Path("/home/byron/Evidex")
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+EVIDEX_ROOT = evidex_root()
 EVIDEX_PYTHON = EVIDEX_ROOT / ".venv" / "bin" / "python"
+
+
+def finish_evidex_archive(
+    *, archive_path: Path, intake: dict[str, Any], source_root: Path, pack_dir: Path | None = None
+) -> dict[str, Any]:
+    """Load the DIO product finisher only after the standalone engine succeeds."""
+    from products.evidex_studio_finish import finish_evidex_archive as finish
+
+    return finish(archive_path=archive_path, intake=intake, source_root=source_root, pack_dir=pack_dir)
 
 
 def utc_now() -> str:
@@ -145,7 +158,9 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
     intake_path.write_text(json.dumps(intake, indent=2), encoding="utf-8")
     write_source_file(job, uploads_dir)
 
-    env = os.environ.copy()
+    env = evidex_environment()
+    env["OLLAMA_MODEL"] = ollama_model()
+    env["OLLAMA_URL"] = ollama_url()
     env["LLM_DISABLED"] = "1"
     env["SUMMARY_USE_LLM"] = "0"
     env["NARRATIVE_USE_LLM"] = "0"
@@ -171,16 +186,44 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
         check=False,
     )
 
+    engine_returncode = result.returncode
+    effective_returncode = engine_returncode
+    studio_finish: dict[str, Any] = {"status": "not_run_engine_failed"}
+    if engine_returncode == 0:
+        try:
+            lines = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+            if not lines:
+                raise RuntimeError("Evidex engine did not report the generated archive path")
+            pack_marker = next(
+                (line.removeprefix("EVIDEX_PACK_ROOT=") for line in reversed(lines[:-1]) if line.startswith("EVIDEX_PACK_ROOT=")),
+                None,
+            )
+            studio_finish = finish_evidex_archive(
+                archive_path=Path(lines[-1]),
+                intake=intake,
+                source_root=ROOT,
+                pack_dir=Path(pack_marker) if pack_marker else None,
+            )
+        except Exception as exc:
+            effective_returncode = 1
+            studio_finish = {
+                "status": "failed",
+                "error": str(exc),
+                "error_type": type(exc).__name__,
+            }
+
     receipt = {
         "job_id": job["job_id"],
         "created_at": utc_now(),
         "command": cmd,
-        "returncode": result.returncode,
+        "returncode": effective_returncode,
+        "engine_returncode": engine_returncode,
         "stdout": result.stdout.strip(),
         "stderr": result.stderr.strip(),
         "intake_path": str(intake_path),
         "uploads_dir": str(uploads_dir),
         "output_dir": str(output_dir),
+        "studio_finish": studio_finish,
     }
     (job_dir / "EVIDEX_RUN_RECEIPT.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
     return receipt

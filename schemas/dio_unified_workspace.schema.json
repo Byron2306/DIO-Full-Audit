@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_unified_workspace.schema.json",
+  "title": "DIO Unified Workspace Configuration",
+  "type": "object",
+  "required": ["schema", "workspace_root", "policy", "layout", "mounts"],
+  "properties": {
+    "schema": {"const": "dio.unified_workspace.v1"},
+    "workspace_root": {"type": "string", "minLength": 1},
+    "policy": {"type": "object"},
+    "layout": {
+      "type": "object",
+      "required": ["core", "organs", "surfaces", "state", "receipts", "launcher", "manifest"],
+      "properties": {
+        "core": {"type": "string", "minLength": 1},
+        "organs": {"type": "string", "minLength": 1},
+        "surfaces": {"type": "string", "minLength": 1},
+        "state": {"type": "string", "minLength": 1},
+        "receipts": {"type": "string", "minLength": 1},
+        "launcher": {"type": "string", "minLength": 1},
+        "manifest": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "mounts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["alias", "source_id", "kind", "required_for_phase0", "candidate_paths"],
+        "properties": {
+          "alias": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+          "source_id": {"type": "string", "minLength": 1},
+          "kind": {"enum": ["core", "organ", "surface"]},
+          "required_for_phase0": {"type": "boolean"},
+          "candidate_paths": {"type": "array", "items": {"type": "string"}},
+          "discover_names": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "marker_policy": {"enum": ["all_text", "implementation_only"]},
+          "marker_terms": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

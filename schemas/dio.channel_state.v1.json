@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.channel_state.v1",
+  "title": "DIO Channel State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","channel_state_id","channel_id","context_digest","access_state","read_capability_present","draft_capability_present","publish_capability_present","spend_capability_present","required_authority_refs","evidence_refs","authority_created","channel_state_digest"],
+  "properties": {
+    "schema": {"const": "dio.channel_state.v1"},
+    "channel_state_id": {"type": "string", "minLength": 1},
+    "channel_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "access_state": {"enum": ["READ_ONLY","DRAFT_ONLY","RELEASE_ELIGIBLE","RELEASED","BLOCKED"]},
+    "read_capability_present": {"type": "boolean"},
+    "draft_capability_present": {"type": "boolean"},
+    "publish_capability_present": {"type": "boolean"},
+    "spend_capability_present": {"type": "boolean"},
+    "required_authority_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "authority_created": {"const": false},
+    "channel_state_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

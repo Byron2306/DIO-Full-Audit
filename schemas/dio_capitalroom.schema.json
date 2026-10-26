@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.capitalroom.config.v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "mode",
+    "proof_sections",
+    "required_foundation",
+    "product_ids",
+    "truth_boundary",
+    "authority",
+    "publication"
+  ],
+  "properties": {
+    "schema": {"const": "dio.capitalroom.config.v1"},
+    "mode": {"const": "internal_only"},
+    "proof_sections": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "architecture_proof",
+          "operational_proof",
+          "refusal_proof",
+          "product_proof"
+        ]
+      }
+    },
+    "required_foundation": {
+      "type": "object",
+      "required": ["phase0_state", "incarnation_state", "fusion_waves"],
+      "properties": {
+        "phase0_state": {"const": "READY"},
+        "incarnation_state": {"const": "READY_FOR_FUSION"},
+        "fusion_waves": {"const": 8}
+      },
+      "additionalProperties": false
+    },
+    "product_ids": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "dio_assurance",
+          "dio_agent_authority",
+          "dio_vendorproof",
+          "dio_accreditation",
+          "dio_tenderproof",
+          "dio_grantproof",
+          "dio_research_integrity",
+          "dio_regops",
+          "dio_capitalroom"
+        ]
+      }
+    },
+    "truth_boundary": {
+      "type": "object",
+      "required": [
+        "revenue_proven",
+        "product_market_fit_proven",
+        "external_customer_validation_proven",
+        "production_deployment_proven",
+        "registered_product_means_product_proven",
+        "ci_means_production_deployment",
+        "bound_entrypoint_means_executed"
+      ],
+      "properties": {
+        "revenue_proven": {"const": false},
+        "product_market_fit_proven": {"const": false},
+        "external_customer_validation_proven": {"const": false},
+        "production_deployment_proven": {"const": false},
+        "registered_product_means_product_proven": {"const": false},
+        "ci_means_production_deployment": {"const": false},
+        "bound_entrypoint_means_executed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "capitalroom_has_authority",
+        "capitalroom_can_execute",
+        "external_release_authorized",
+        "kernel_authority",
+        "execution_identity_authority"
+      ],
+      "properties": {
+        "capitalroom_has_authority": {"const": false},
+        "capitalroom_can_execute": {"const": false},
+        "external_release_authorized": {"const": false},
+        "kernel_authority": {"const": "Valinor"},
+        "execution_identity_authority": {"const": "ARDA"}
+      },
+      "additionalProperties": false
+    },
+    "publication": {
+      "type": "object",
+      "required": [
+        "external_release",
+        "redact_local_paths",
+        "source_hashes_required",
+        "manifest_hashes_required"
+      ],
+      "properties": {
+        "external_release": {"const": "locked"},
+        "redact_local_paths": {"const": true},
+        "source_hashes_required": {"const": true},
+        "manifest_hashes_required": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

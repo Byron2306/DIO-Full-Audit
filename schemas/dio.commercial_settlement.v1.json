@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.commercial_settlement.v1",
+  "title": "DIO Commercial Settlement v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","settlement_id","context_digest","settled_at","settlement_state","outcome","market_observation_digests","customer_independence","verified_payment","customer_acceptance","willingness_to_pay","repeatability","validated_engagement_count","distinct_independent_customer_count","world_settlement_digest","customer_lineage_digest","payment_lineage_digest","unexpected_effects","authority_preserved","authority_created","market_crystal_eligible","settlement_digest"],
+  "properties": {
+    "schema": {"const": "dio.commercial_settlement.v1"},
+    "settlement_id": {"type": "string", "minLength": 1},
+    "context_digest": {"$ref": "#/$defs/digest"},
+    "settled_at": {"type": "string", "format": "date-time"},
+    "settlement_state": {"enum": ["SETTLED","PARTIAL","FRACTURED","REFUSED"]},
+    "outcome": {"enum": ["GAIN","LOSS","NO_RESPONSE","MIXED","UNKNOWN"]},
+    "market_observation_digests": {"type": "array", "items": {"$ref": "#/$defs/digest"}},
+    "customer_independence": {"enum": ["UNKNOWN","OPERATOR_SELF","RELATED","INDEPENDENT_EXTERNAL"]},
+    "verified_payment": {"$ref": "#/$defs/claim"},
+    "customer_acceptance": {"$ref": "#/$defs/claim"},
+    "willingness_to_pay": {"$ref": "#/$defs/claim"},
+    "repeatability": {"$ref": "#/$defs/claim"},
+    "validated_engagement_count": {"type": "integer", "minimum": 0},
+    "distinct_independent_customer_count": {"type": "integer", "minimum": 0},
+    "world_settlement_digest": {"anyOf": [{"$ref": "#/$defs/digest"},{"type": "null"}]},
+    "customer_lineage_digest": {"anyOf": [{"$ref": "#/$defs/digest"},{"type": "null"}]},
+    "payment_lineage_digest": {"anyOf": [{"$ref": "#/$defs/digest"},{"type": "null"}]},
+    "unexpected_effects": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "authority_preserved": {"type": "boolean"},
+    "authority_created": {"const": false},
+    "market_crystal_eligible": {"type": "boolean"},
+    "settlement_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "claim": {"enum": ["UNPROVED","PROVED","NOT_APPLICABLE"]}
+  }
+}

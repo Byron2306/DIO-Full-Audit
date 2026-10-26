@@ -1,0 +1,30 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.contract_generic",
+  "profile_class": "framework",
+  "name": "Generic Contract Obligation Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_PHASE1_REFERENCE_PROFILE_SOURCES.md",
+        "source_section": "2. Generic Contract Obligation Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:0d79622d31aa4fe268b854dede8a4a79c845dd00275f0445c1e49bd05a13b54f",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This is an internal generic obligation framework for proving reusable ContractProof semantics. It is not legal advice, a legal ruleset, a jurisdictional authority or a conclusion about enforceability or breach.",
+  "spec": {
+    "requirement_types": ["deliverable", "reporting", "payment_related", "notice", "acceptance", "dependency", "confidentiality_related", "milestone"],
+    "state_vocabulary": ["unverified", "satisfied", "partial", "missing", "contested", "expired", "not_yet_due", "needs_review"],
+    "deadline_semantics": ["absolute", "recurring", "relative_to_event", "none_explicit"],
+    "human_boundaries": ["human confirms obligation interpretation", "human confirms evidence acceptance", "human resolves contested or ambiguous clauses", "human controls external representations"],
+    "forbidden_claims": ["legally_compliant", "legally_valid", "enforceable", "breached", "waived", "legally_satisfied"]
+  },
+  "tags": ["phase1", "WP05", "obligation", "contractproof", "internal-reference"]
+}

@@ -1,10 +1,11 @@
 from adapters.sophia.review_pipeline import (
     _allowed_citation_keys,
+    _allowed_dois,
     extract_in_text_citations,
     parse_reference_entries,
     reference_key,
     split_reference_section,
-    validate_gemini_commentary,
+    validate_reasoned_commentary,
 )
 
 
@@ -25,38 +26,40 @@ def test_in_text_citation_keys_are_deduplicated() -> None:
     assert [row["key"] for row in rows] == ["jones:2021", "smith:2020"]
 
 
-def test_gemini_commentary_validation_accepts_grounded_lane_output() -> None:
+def test_reasoned_commentary_validation_accepts_grounded_lane_output() -> None:
     result = {
         "source": "reasoned_integrity_lane",
-        "reasoned_provider": "gemini",
+        "reasoned_provider": "ollama",
         "reasoned_provider_status": "ok",
         "mandos_judgment": {"passed": True},
         "article_conformity": {"summary": {"all_passed": True}},
     }
-    validation = validate_gemini_commentary(
+    validation = validate_reasoned_commentary(
         "## Major revisions\nThe method is unspecified in [P2]; narrow the causal claim in [C1].",
         result,
         {"P1", "P2", "C1"},
         {"smith:2020"},
         set(),
+        "ollama",
     )
     assert validation["passed"] is True
 
 
-def test_gemini_commentary_validation_rejects_invented_citation() -> None:
+def test_reasoned_commentary_validation_rejects_invented_citation() -> None:
     result = {
         "source": "reasoned_integrity_lane",
-        "reasoned_provider": "gemini",
+        "reasoned_provider": "ollama",
         "reasoned_provider_status": "ok",
         "mandos_judgment": {"passed": True},
         "article_conformity": {"summary": {"all_passed": True}},
     }
-    validation = validate_gemini_commentary(
+    validation = validate_reasoned_commentary(
         "[P1] should be compared with Invented (2026), doi:10.9999/not-real.",
         result,
         {"P1"},
         set(),
         set(),
+        "ollama",
     )
     assert validation["passed"] is False
     assert validation["unknown_citations"] == ["invented:2026"]
@@ -72,3 +75,14 @@ def test_allowed_citation_keys_include_reference_coauthors() -> None:
         }],
     }
     assert _allowed_citation_keys(audit, []) >= {"carless:2018", "boud:2018"}
+
+
+def test_allowed_dois_extracts_normal_doi_urls_from_supplied_sources() -> None:
+    allowed = _allowed_dois(
+        {"reference_entries": [{"doi": "10.1111/EXISTING"}]},
+        [
+            {"url": "https://doi.org/10.1234/example-doi"},
+            {"url": "https://publisher.example/article/10.5678/another.doi."},
+        ],
+    )
+    assert allowed == {"10.1111/existing", "10.1234/example-doi", "10.5678/another.doi"}

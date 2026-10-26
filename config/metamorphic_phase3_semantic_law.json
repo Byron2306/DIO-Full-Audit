@@ -1,0 +1,72 @@
+{
+  "schema": "dio.metamorphic_phase3_semantic_law_config.v1",
+  "lingua_anchors": [
+    "adapters/lingua/communicator.py",
+    "adapters/lingua/lifecycle.py",
+    "scripts/lingua_beast_bridge.py",
+    "docs/DIO_LINGUA_SHARED_ORGAN_AND_BEAST.md"
+  ],
+  "professional_proof_path": "docs/proofs/professional_task_gauntlet/2026-08-18/PROFESSIONAL_TASK_GAUNTLET_RECEIPT.json",
+  "required_professional_acceptance_token": "DIO_PROFESSIONAL_TASK_GAUNTLET_VERIFIED",
+  "authority_prohibitions": [
+    {
+      "id": "authority.external_publication",
+      "manifest_key": "external_publication",
+      "required_state": "REFUSE",
+      "rule": "LINGUA may describe or prepare a publication artifact but may not claim or create publication authority."
+    },
+    {
+      "id": "authority.external_send",
+      "manifest_key": "external_send",
+      "required_state": "REFUSE",
+      "rule": "LINGUA may describe or prepare a communication artifact but may not claim or create send authority."
+    },
+    {
+      "id": "authority.media_spend",
+      "manifest_key": "media_spend",
+      "required_state": "REFUSE",
+      "rule": "LINGUA may describe market or media work but may not claim or create spend authority."
+    },
+    {
+      "id": "authority.payment",
+      "manifest_key": "payment",
+      "required_state": "REFUSE",
+      "rule": "LINGUA may describe payment-related context but may not claim or create payment authority."
+    }
+  ],
+  "professional_claim_boundaries": [
+    {
+      "id": "proof.verified_payment",
+      "proof_field": "verified_payment",
+      "blocked_state": "UNPROVED",
+      "rule": "Do not claim verified payment from the Professional Task Gauntlet."
+    },
+    {
+      "id": "proof.customers_will_pay",
+      "proof_field": "customers_will_pay",
+      "blocked_state": "UNPROVED",
+      "rule": "Do not claim willingness to pay from professional-quality evidence."
+    },
+    {
+      "id": "proof.customer_acceptance",
+      "proof_field": "customer_acceptance",
+      "blocked_state": "UNPROVED",
+      "rule": "Do not claim customer acceptance from professional-quality evidence."
+    },
+    {
+      "id": "proof.commercial_validation",
+      "proof_field": "commercial_validation",
+      "blocked_state": "UNPROVED",
+      "rule": "Do not claim commercial validation from professional-quality evidence."
+    }
+  ],
+  "learning_contract": {
+    "semantic_observations_may_be_recorded": true,
+    "learning_outputs_are_candidates_only": true,
+    "direct_learning_to_execution": false,
+    "crystallization_authority": "BEAST",
+    "human_approval_required_for_promoted_meaning": true,
+    "market_feedback_learning_deferred": true
+  },
+  "site_studio_reference_excluded": true
+}

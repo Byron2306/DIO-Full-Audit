@@ -1,0 +1,54 @@
+{
+  "schema": "dio.autorelease_job.v1",
+  "job_id": "evidex-0b2374458c4515af",
+  "created_at": "2026-10-16T14:58:07+00:00",
+  "status": "needs_review",
+  "client_id": "DIO Workflows",
+  "source": {
+    "kind": "public_lead",
+    "lead_id": "EVIDEX-20260808-36BC59BF0F",
+    "conversation_id": "AQQkADAwATNiZmYAZS1iNmMxLTA1YzItMDACLTAwCgAQAIKADJ9rZ6RKqlBEOwqeOtc=",
+    "lead_path": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/state/leads/EVIDEX-20260808-36BC59BF0F.json",
+    "source_materials": {}
+  },
+  "route": {
+    "product": "evidex",
+    "confidence": 0.9,
+    "reason": "Qualified public lead promoted through an explicit direct-product route contract."
+  },
+  "risk": "moderate",
+  "inputs": [
+    {
+      "kind": "public_intake",
+      "sender": "DIO Controlled Verification <dio_workflows@outlook.com>",
+      "subject": "controlled_bridge_verification",
+      "scope": "Verify public website intake to local lead and governed acknowledgement draft. No client data.",
+      "source_material_state": "present",
+      "source_materials": {}
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "cede1743051edaa3",
+      "source_type": "public_intake",
+      "source_path": "/data/byron/dio-wsl-restored-20261015/home/byron/DIO-Full-Audit/state/leads/EVIDEX-20260808-36BC59BF0F.json",
+      "title": "controlled_bridge_verification",
+      "date_observed": "2026-10-16T14:58:07+00:00",
+      "text_extract": "Verify public website intake to local lead and governed acknowledgement draft. No client data.",
+      "hash": "ca26669e10af155f",
+      "claims": [],
+      "mapped_to": [],
+      "confidence": 0.8,
+      "review_status": "candidate"
+    }
+  ],
+  "outputs": [],
+  "approval": {
+    "required": true,
+    "state": "pending"
+  },
+  "billing": {
+    "invoice_id": null,
+    "payment_status": "pending"
+  }
+}

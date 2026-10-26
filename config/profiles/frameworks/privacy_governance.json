@@ -1,0 +1,62 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.privacy_governance",
+  "profile_class": "framework",
+  "name": "Privacy Governance Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "Privacy Governance Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "requirement_types": [
+      "territorial_nexus",
+      "controller_processor_role",
+      "lawful_basis_evidence",
+      "data_subject_process",
+      "retention",
+      "incident_readiness"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "deadline_semantics": [
+      "effective_date",
+      "review_due",
+      "notification_due",
+      "retention_expiry"
+    ],
+    "human_boundaries": [
+      "human resolves legal interpretation",
+      "human confirms applicability",
+      "human authorises regulator contact"
+    ],
+    "forbidden_claims": [
+      "privacy_compliant",
+      "lawful_processing_certified",
+      "legal_opinion"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "framework"
+  ]
+}

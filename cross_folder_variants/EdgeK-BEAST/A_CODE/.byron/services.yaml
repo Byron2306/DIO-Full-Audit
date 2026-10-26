@@ -1,0 +1,15 @@
+proxy:
+  port: 8080
+services:
+  gateway.test:
+    port: 8101
+    hostname: "gateway.test"
+    upstream: "127.0.0.1:8101"
+  mcp.test:
+    port: 8765
+    hostname: "mcp.test"
+    upstream: "127.0.0.1:8765"
+  litellm.test:
+    port: 4000
+    hostname: "litellm.test"
+    upstream: "127.0.0.1:4000"

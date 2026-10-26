@@ -1,0 +1,51 @@
+{
+  "schema": "dio.phase9.external_organ_proofs.v1",
+  "verified_at": "2026-09-18",
+  "organs": {
+    "homs": {
+      "repository": "Byron2306/NoEdge-Multi-Hymark",
+      "ref": "agent/homs-phase9-ollama-sovereign",
+      "commit": "42f1178f8eaf2d7206d939da7d2fdd6cfce73a72",
+      "workflow": "HOMS Phase 9 Ollama Sovereignty",
+      "run_id": "35317710694",
+      "conclusion": "success",
+      "assertions": [
+        "backend/server.py compiles",
+        "Ollama OpenAI-compatible endpoint is local by default",
+        "hard-coded gpt-4o runtime calls absent",
+        "OPENAI_API_KEY runtime lookup absent"
+      ],
+      "acceptance": "HOMS_PHASE9_OLLAMA_SOVEREIGN_VERIFIED"
+    },
+    "evidex": {
+      "repository": "Byron2306/Evidex",
+      "ref": "agent/evidex-phase9-ollama-sovereign",
+      "commit": "0a2dc689fb71735233c5c913816b0de8f84c7f5c",
+      "workflow": "Evidex Phase 9 Ollama Sovereignty",
+      "run_id": "35317711558",
+      "conclusion": "success",
+      "assertions": [
+        "src/evidence_pack_engine/llm.py compiles",
+        "poison OPENAI_API_KEY ignored",
+        "poison OPENAI_BASE_URL ignored",
+        "poison OPENAI_MODEL ignored",
+        "resolved endpoint is local Ollama"
+      ],
+      "acceptance": "EVIDEX_PHASE9_OLLAMA_SOVEREIGN_VERIFIED"
+    },
+    "sophia": {
+      "repository": "Byron2306/Sophia-AI",
+      "commit": "c1aa915560599f7d6cef0ff41e6a7b0787334376",
+      "proof_basis": "Phase 7 live 7070/Ollama specialist review plus Phase 9 DIO provider refusal tests",
+      "active_llm_provider": "ollama"
+    },
+    "nichefoundry": {
+      "repository": "Byron2306/NicheFoundry",
+      "commit": "7528d8cdee17c5b6fbe35236b71b8e2191bb108a",
+      "proof_basis": "Phase 7 canonical backend execution; active generator/story runtime uses local Ollama",
+      "active_llm_provider": "ollama"
+    }
+  },
+  "cloud_llm_runtime_allowed": false,
+  "hf_runtime_required": false
+}

@@ -4,7 +4,7 @@ import json
 import os
 import shutil
 import zipfile
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import time
 from pathlib import Path
 
@@ -12,7 +12,8 @@ import yaml
 
 from .config import Intake, KPI
 from .errors import TransientJobError, is_transient_file_error, with_retries
-from .ingest import IngestedDoc, ingest_uploads
+from .ingest import IngestedDoc, ingest_uploads, source_digest
+from .epistemic_authority import _load_spine
 from .kpi_extract import extract_kpis_from_uploads
 from .llm import LlmClient, load_llm_config
 from .render import render_template
@@ -26,6 +27,8 @@ class EvidenceRow:
     measurement: str
     evidence_summary: str
     sources: list[str]
+    epistemic_state: str = "UNVERIFIED"
+    source_bindings: list[dict[str, str]] = field(default_factory=list)
 
 
 def _quality_urgency_checklist(purpose: str) -> list[str]:
@@ -165,82 +168,48 @@ def _score_match(kpi: KPI, doc: IngestedDoc) -> float:
 def build_evidence_rows(intake: Intake, docs: list[IngestedDoc], llm: LlmClient) -> tuple[list[EvidenceRow], list[str]]:
     rows: list[EvidenceRow] = []
     flags: list[str] = []
-
+    spine = _load_spine()
+    # Lexical matching supplies candidate documents, never reviewed support counts.
+    state = spine.claim_epistemic_state(support_count=0)
+    if state != "UNVERIFIED":
+        raise RuntimeError("Shared claim-state contract promoted unreviewed evidence")
     summary_use_llm = str(os.getenv("SUMMARY_USE_LLM", "1")).strip().lower() in {"1", "true", "yes", "y", "on"}
-
     for kpi in intake.kpis:
-        scored = sorted((( _score_match(kpi, d), d) for d in docs), key=lambda x: x[0], reverse=True)
-        top = [d for s, d in scored if s > 0][:3]
-        source_names = [d.path.name for d in top] if top else []
-
-        if summary_use_llm and llm.enabled and docs:
-            summary_model = os.getenv("LLM_MODEL_SUMMARY") or os.getenv("OPENAI_MODEL_SUMMARY") or os.getenv("OLLAMA_MODEL_SUMMARY")
-            system = "You generate concise audit-ready evidence summaries."
-            user = (
-                "KPI: " + kpi.name + "\n"
-                "Target: " + str(kpi.target) + "\n"
-                "Actual: " + str(kpi.actual) + "\n"
-                "Measurement: " + kpi.measurement + "\n\n"
-                "Summarize the best available evidence for this KPI in 2-4 sentences. "
-                "Be conservative; do not invent facts. If evidence is missing, say so explicitly."\
-                "\n\n"
-                "Available sources (filename + excerpt):\n" + "\n\n".join(
-                    f"- {d.path.name}:\n{(d.text or '')[:1200]}" for d in top
-                )
+        scored = sorted(((_score_match(kpi, d), d) for d in docs), key=lambda x: x[0], reverse=True)
+        top = [d for score, d in scored if score > 0][:3]
+        bindings = []
+        for doc in top:
+            if not doc.source_sha256 or source_digest(doc.path) != doc.source_sha256:
+                raise ValueError(f"Source changed since ingestion: {doc.path.name}")
+            bindings.append({"source_ref": str(doc.path), "source_name": doc.path.name,
+                "sha256": doc.source_sha256, "excerpt": (doc.text or "")[:650],
+                "excerpt_kind": "parser_text_excerpt_not_entailment"})
+        summary = f"{state}: lexical candidates require human evidence review. Declared actual is not independently verified."
+        if bindings:
+            summary += "\n" + "\n".join(
+                f"Candidate {b['source_name']} [SHA-256 {b['sha256']}]. Source extract: {b['excerpt']}" for b in bindings
             )
-            summary = llm.complete(system=system, user=user, model=summary_model)
-            if not summary:
-                if top:
-                    summary = f"Evidence found in {', '.join(source_names)} supporting measurement: {kpi.measurement}."
-                else:
-                    summary = "No matching evidence found in uploaded sources; confirm missing documents or adjust KPI wording."
-                    flags.append(f"Missing/weak evidence for KPI: {kpi.name}")
         else:
-            if top:
-                summary = f"Evidence found in {', '.join(source_names)} supporting measurement: {kpi.measurement}."
-            else:
-                summary = "No matching evidence found in uploaded sources; confirm missing documents or adjust KPI wording."
-                flags.append(f"Missing/weak evidence for KPI: {kpi.name}")
-
-        rows.append(
-            EvidenceRow(
-                kpi_name=kpi.name,
-                target=str(kpi.target),
-                actual=str(kpi.actual),
-                measurement=kpi.measurement,
-                evidence_summary=summary.strip(),
-                sources=source_names,
-            )
-        )
-
-    # add known gaps as flags
-    for gap in intake.constraints.known_gaps:
-        flags.append(f"Known gap: {gap}")
-
+            summary += " No matching source extract is available."
+            flags.append(f"Missing/weak evidence for KPI: {kpi.name}")
+        flags.append(f"Human evidence review required for KPI: {kpi.name}; state {state}")
+        if summary_use_llm and llm.enabled and top:
+            draft = llm.complete(system="Produce an unverified draft for human evidence review. Never certify source support.",
+                user="KPI: " + kpi.name + "\nSource extracts:\n" + "\n".join(b["excerpt"] for b in bindings),
+                model=os.getenv("LLM_MODEL_SUMMARY") or os.getenv("OPENAI_MODEL_SUMMARY") or os.getenv("OLLAMA_MODEL_SUMMARY"))
+            if draft:
+                summary += "\nUnverified model draft (not evidence adjudication): " + draft
+        rows.append(EvidenceRow(kpi_name=kpi.name, target=str(kpi.target), actual=str(kpi.actual),
+            measurement=kpi.measurement, evidence_summary=summary, sources=[d.path.name for d in top],
+            epistemic_state=state, source_bindings=bindings))
+    flags.extend(f"Known gap: {gap}" for gap in intake.constraints.known_gaps)
     return rows, flags
 
 
 def _write_docx(path: Path, markdown_like_text: str) -> None:
-    from docx import Document
+    from .docx_render import write_markdown_docx
 
-    doc = Document()
-    for line in markdown_like_text.splitlines():
-        line = line.rstrip()
-        if not line:
-            doc.add_paragraph("")
-            continue
-        if line.startswith("# "):
-            doc.add_heading(line[2:], level=1)
-        elif line.startswith("## "):
-            doc.add_heading(line[3:], level=2)
-        elif line.startswith("### "):
-            doc.add_heading(line[4:], level=3)
-        elif line.startswith("- "):
-            doc.add_paragraph(line[2:], style="List Bullet")
-        else:
-            doc.add_paragraph(line)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(str(path))
+    write_markdown_docx(path, markdown_like_text)
 
 
 def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name: str | None = None) -> tuple[Path, Path, list[str]]:
@@ -307,6 +276,21 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
     if intake.pack.include_appendix:
         (pack_root / "04_APPENDIX").mkdir(parents=True, exist_ok=True)
 
+    review_notice = (
+        "# HUMAN REVIEW REQUIRED\n\n"
+        "KPI targets and actuals are customer declarations. Lexical candidates are not verified support.\n"
+        + "\n".join(f"- {r.kpi_name}: {r.epistemic_state}" for r in evidence_rows) + "\n"
+    )
+    source_review = {
+        "schema": "dio.evidex.source_review.v1", "human_review_required": True,
+        "release_authorized": False, "claim_support_adjudicated": False,
+        "claim_state_provider": "canonical_DIO_epistemic_spine",
+        "claims": [{"kpi_name": r.kpi_name, "declared_target": r.target,
+            "declared_actual": r.actual, "epistemic_state": r.epistemic_state,
+            "source_bindings": r.source_bindings} for r in evidence_rows],
+    }
+    (pack_root / "SOURCE_REVIEW.json").write_text(json.dumps(source_review, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
     # executive summary
     exec_md = render_template(
         templates_dir=templates_dir,
@@ -319,7 +303,7 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
             "source_count": len([d for d in docs if d.path.exists()]),
         },
     )
-    _write_docx(pack_root / "00_EXEC_SUMMARY" / "executive_summary.docx", exec_md)
+    _write_docx(pack_root / "00_EXEC_SUMMARY" / "executive_summary.docx", review_notice + "\n" + exec_md)
 
     # evidence table
     import pandas as pd
@@ -328,8 +312,9 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
         [
             {
                 "KPI": r.kpi_name,
-                "Target": r.target,
-                "Actual": r.actual,
+                "Declared target": r.target,
+                "Declared actual": r.actual,
+                "Epistemic state": r.epistemic_state,
                 "Measurement": r.measurement,
                 "Evidence summary": r.evidence_summary,
                 "Sources": "; ".join(r.sources),
@@ -338,7 +323,31 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
         ]
     )
     df.to_csv(pack_root / "01_EVIDENCE_TABLE" / "evidence_table.csv", index=False)
-    df.to_excel(pack_root / "01_EVIDENCE_TABLE" / "evidence_table.xlsx", index=False)
+    workbook_path = pack_root / "01_EVIDENCE_TABLE" / "evidence_table.xlsx"
+    df.to_excel(workbook_path, index=False)
+    from openpyxl import load_workbook
+    from openpyxl.styles import Alignment, Font, PatternFill
+
+    workbook = load_workbook(workbook_path)
+    sheet = workbook.active
+    widths = {"A": 28, "B": 16, "C": 16, "D": 18, "E": 28, "F": 72, "G": 36}
+    for column, width in widths.items():
+        sheet.column_dimensions[column].width = width
+    for cell in sheet[1]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = PatternFill("solid", fgColor="315F91")
+        cell.alignment = Alignment(wrap_text=True, vertical="center")
+    for row in sheet.iter_rows(min_row=2):
+        for cell in row:
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+    sheet.freeze_panes = "A2"
+    sheet.auto_filter.ref = sheet.dimensions
+    sheet.sheet_view.showGridLines = False
+    sheet.page_setup.orientation = "landscape"
+    sheet.page_setup.fitToWidth = 1
+    sheet.page_setup.fitToHeight = 0
+    sheet.sheet_properties.pageSetUpPr.fitToPage = True
+    workbook.save(workbook_path)
 
     # narrative
     narrative_use_llm = str(os.getenv("NARRATIVE_USE_LLM", "0")).strip().lower() in {"1", "true", "yes", "y", "on"}
@@ -377,7 +386,7 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
                 "flags": flags,
             },
         )
-    _write_docx(pack_root / "02_NARRATIVE" / "narrative_justification.docx", narrative_text)
+    _write_docx(pack_root / "02_NARRATIVE" / "narrative_justification.docx", review_notice + "\n" + narrative_text + "\n# Candidate source extracts\n\n" + "\n\n".join(r.evidence_summary for r in evidence_rows))
 
     # sources copy
     for d in docs:
@@ -400,6 +409,15 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
                 raise TransientJobError(f"File appears locked during copy: {d.path} -> {dest}. {e}")
             raise
 
+    # Bind copied bytes back to the parser snapshot before sealing any archive.
+    for doc in docs:
+        try:
+            relative = doc.path.relative_to(uploads_dir)
+        except ValueError:
+            relative = Path(doc.path.name)
+        if not doc.source_sha256 or source_digest(pack_root / "03_SOURCES" / relative) != doc.source_sha256:
+            raise ValueError(f"Copied source does not match ingested bytes: {doc.path.name}")
+
     # appendix (optional)
     if intake.pack.include_appendix:
         appendix_path = pack_root / "04_APPENDIX" / "appendix_source_summaries.docx"
@@ -420,7 +438,7 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
     delivery = (
         "Evidence Pack Delivery\n"
         "====================\n\n"
-        "This folder is structured to be audit-ready:\n"
+        "Internal evidence-review candidate. HUMAN REVIEW REQUIRED:\n"
         "- 00_EXEC_SUMMARY: executive overview\n"
         "- 01_EVIDENCE_TABLE: KPI → evidence → sources\n"
         "- 02_NARRATIVE: narrative justification\n"
@@ -430,7 +448,7 @@ def write_pack(*, intake_path: Path, uploads_dir: Path, out_dir: Path, job_name:
     (pack_root / "README_DELIVERY.txt").write_text(delivery, encoding="utf-8")
 
     # quality report (deterministic; no LLM required)
-    quality_text = _build_quality_report(intake=intake, evidence_rows=evidence_rows, docs=docs, flags=flags)
+    quality_text = review_notice + "\n" + _build_quality_report(intake=intake, evidence_rows=evidence_rows, docs=docs, flags=flags)
     (pack_root / "QUALITY_REPORT.txt").write_text(quality_text, encoding="utf-8")
 
     # invoice + delivery email (include in ZIP by generating before zipping)

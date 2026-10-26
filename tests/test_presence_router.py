@@ -13,3 +13,36 @@ def test_multilingual_product_request_stays_intake(tmp_path):
     p=tmp_path/'routes.json'; p.write_text('{"routes":[{"product":"homs","keywords":["homs","assessment"]}]}')
     d=route_message('I need HOMS to create a Grade 8 lesson plan in Afrikaans','public',p)
     assert d.intent=='intake_request' and d.product=='homs'
+
+
+def test_operator_summary_explicit_phrase(tmp_path):
+    p = tmp_path / "routes.json"
+    p.write_text('{"routes":[]}')
+    d = route_message(
+        "Give me the operator summary",
+        "operator",
+        p,
+    )
+    assert d.intent == "operator_summary"
+
+
+def test_public_cannot_trigger_explicit_operator_summary(tmp_path):
+    p = tmp_path / "routes.json"
+    p.write_text('{"routes":[]}')
+    d = route_message(
+        "Give me the operator summary",
+        "public",
+        p,
+    )
+    assert d.intent != "operator_summary"
+
+
+def test_tell_me_about_dio_is_general_info(tmp_path):
+    p = tmp_path / "routes.json"
+    p.write_text('{"routes":[]}')
+    d = route_message(
+        "Tell me about DIO",
+        "public",
+        p,
+    )
+    assert d.intent == "general_info"

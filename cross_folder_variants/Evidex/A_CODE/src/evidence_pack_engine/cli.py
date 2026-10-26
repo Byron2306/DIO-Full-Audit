@@ -14,13 +14,14 @@ def _cmd_generate(args: argparse.Namespace) -> int:
     out = Path(args.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
 
-    zip_path, _pack_root, _flags = write_pack(
+    zip_path, pack_root, _flags = write_pack(
         intake_path=intake,
         uploads_dir=uploads,
         out_dir=out,
         job_name=intake.stem,
     )
 
+    print(f"EVIDEX_PACK_ROOT={pack_root}")
     print(str(zip_path))
     return 0
 

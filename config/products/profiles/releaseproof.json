@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "releaseproof",
+  "product_id": "dio_releaseproof",
+  "category": "release_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "ReleaseProof is currently bounded to reviewing supplied release requirements, test evidence, approvals, change records, rollback evidence and declared gaps for authorised human release review. It does not approve deployment, authorise a release, execute a production change or rollback, certify safety or compliance, or grant external release authority.",
+  "default_requirement_kind": "control",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "RELEASEPROOF",
+  "review_pack_title": "DIO ReleaseProof Controlled Evidence Review Pack",
+  "human_gate_reason": "Deployment approval, release authority, production changes, rollback execution, safety or compliance certification and final release remain with authorised release and control owners.",
+  "forbidden_outcomes": [
+    "deployment_approval",
+    "release_authorization",
+    "production_change_execution",
+    "rollback_execution",
+    "safety_or_compliance_certification",
+    "external_release_authority"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

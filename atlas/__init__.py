@@ -1,0 +1,140 @@
+"""DIO ATLAS — source-bound universal domain/task map and analogical pivot layer.
+
+ATLAS knowledge is not capability truth. Execution-corroborated coverage must
+bind back to exact Metamorphic Registry identities. Similarity and negative
+commercial learning may create held pivot hypotheses only.
+"""
+
+from .constitution import (
+    ATLAS_CONSTITUTION_BLOCKED,
+    ATLAS_CONSTITUTION_TOKEN,
+    AtlasConstitutionError,
+    DEFAULT_ATLAS_CONSTITUTION,
+    REQUIRED_LAWS,
+    REQUIRED_MECHANICAL_VERDICTS,
+    REQUIRED_RELATION_STATES,
+    validate_atlas_constitution,
+)
+from .registry import (
+    ATLAS_BLOCKED_TOKEN,
+    ATLAS_CONFIG_ROOT,
+    ATLAS_FOUNDATION_TOKEN,
+    AtlasCapabilitySignature,
+    AtlasRegistry,
+    AtlasRegistryError,
+    CANONICAL_WORK_PATTERNS,
+    CANDIDATE_WORK_PATTERNS,
+    EXPECTED_M1_CAPABILITIES,
+    atlas_foundation_receipt,
+)
+from .pivot import (
+    ATLAS_PIVOT_BLOCKED_TOKEN,
+    ATLAS_PIVOT_TOKEN,
+    AnalogicalResolution,
+    AtlasPivotError,
+    PivotCandidate,
+    atlas_pivot_foundation_receipt,
+    compile_negative_learning_pivot,
+    evaluate_pivot_gauntlet,
+    pivot_candidates,
+    resolve_task,
+)
+from .meta_crosswalk import (
+    EXPECTED_PROFILE_CLASS_COUNTS,
+    META_CROSSWALK_TOKEN,
+    PROFILE_FILE,
+    validate_meta_profile_crosswalk,
+)
+from .incarnations import (
+    CANDIDATE_REGISTRY_BLOCKED,
+    CANDIDATE_REGISTRY_TOKEN,
+    CSV_FIELDS,
+    JOB_MORPHOLOGY_FILE,
+    LEGACY_PORTFOLIO_COUNT,
+    NEGATIVE_PIVOT_REGISTRY_BLOCKED,
+    NEGATIVE_PIVOT_REGISTRY_TOKEN,
+    AtlasIncarnationError,
+    CandidateIncarnation,
+    JobMorphologyTemplate,
+    RankedIncarnationPivot,
+    candidate_registry_receipt as _legacy_candidate_registry_receipt,
+    compile_candidate_incarnations,
+    eligible_domain_nodes,
+    load_job_morphologies,
+    materialize_candidate_registry_csv,
+    negative_learning_candidate_registry_receipt as _legacy_negative_learning_candidate_registry_receipt,
+    rank_candidate_incarnations_from_negative_learning,
+)
+from .surface import (
+    ATLAS_SURFACE_BLOCKED,
+    ATLAS_SURFACE_PIVOT_BLOCKED,
+    ATLAS_SURFACE_PIVOT_TOKEN,
+    ATLAS_SURFACE_TOKEN,
+    candidate_surface_receipt,
+    negative_learning_surface_pivot_receipt,
+)
+
+# Public compatibility aliases now point at the truth-safe vast-surface receipts.
+# The original implementation functions remain importable from atlas.incarnations
+# for migration/debugging but are not the canonical package surface.
+candidate_registry_receipt = candidate_surface_receipt
+negative_learning_candidate_registry_receipt = negative_learning_surface_pivot_receipt
+
+__all__ = [
+    "ATLAS_BLOCKED_TOKEN",
+    "ATLAS_CONFIG_ROOT",
+    "ATLAS_CONSTITUTION_BLOCKED",
+    "ATLAS_CONSTITUTION_TOKEN",
+    "ATLAS_FOUNDATION_TOKEN",
+    "ATLAS_PIVOT_BLOCKED_TOKEN",
+    "ATLAS_PIVOT_TOKEN",
+    "ATLAS_SURFACE_BLOCKED",
+    "ATLAS_SURFACE_PIVOT_BLOCKED",
+    "ATLAS_SURFACE_PIVOT_TOKEN",
+    "ATLAS_SURFACE_TOKEN",
+    "AnalogicalResolution",
+    "AtlasCapabilitySignature",
+    "AtlasConstitutionError",
+    "AtlasIncarnationError",
+    "AtlasPivotError",
+    "AtlasRegistry",
+    "AtlasRegistryError",
+    "CANDIDATE_REGISTRY_BLOCKED",
+    "CANDIDATE_REGISTRY_TOKEN",
+    "CANONICAL_WORK_PATTERNS",
+    "CANDIDATE_WORK_PATTERNS",
+    "CSV_FIELDS",
+    "CandidateIncarnation",
+    "DEFAULT_ATLAS_CONSTITUTION",
+    "EXPECTED_M1_CAPABILITIES",
+    "EXPECTED_PROFILE_CLASS_COUNTS",
+    "JOB_MORPHOLOGY_FILE",
+    "JobMorphologyTemplate",
+    "LEGACY_PORTFOLIO_COUNT",
+    "META_CROSSWALK_TOKEN",
+    "NEGATIVE_PIVOT_REGISTRY_BLOCKED",
+    "NEGATIVE_PIVOT_REGISTRY_TOKEN",
+    "PROFILE_FILE",
+    "PivotCandidate",
+    "REQUIRED_LAWS",
+    "REQUIRED_MECHANICAL_VERDICTS",
+    "REQUIRED_RELATION_STATES",
+    "RankedIncarnationPivot",
+    "atlas_foundation_receipt",
+    "atlas_pivot_foundation_receipt",
+    "candidate_registry_receipt",
+    "candidate_surface_receipt",
+    "compile_candidate_incarnations",
+    "compile_negative_learning_pivot",
+    "eligible_domain_nodes",
+    "evaluate_pivot_gauntlet",
+    "load_job_morphologies",
+    "materialize_candidate_registry_csv",
+    "negative_learning_candidate_registry_receipt",
+    "negative_learning_surface_pivot_receipt",
+    "pivot_candidates",
+    "rank_candidate_incarnations_from_negative_learning",
+    "resolve_task",
+    "validate_atlas_constitution",
+    "validate_meta_profile_crosswalk",
+]

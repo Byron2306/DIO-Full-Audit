@@ -30,7 +30,7 @@ def classify_claim_type(text: str) -> Dict[str, Any]:
     lowered = (text or "").lower()
     rules = [
         ("definitional", r"\b(define[sd]?|definition|means|refers to|is understood as|conceptuali[sz]ed as)\b"),
-        ("table_quantitative", r"\b(table|row|column|mean|score|percent|%|n\s*=|increase[sd]? by|decrease[sd]? by|\d+(?:\.\d+)?)\b"),
+        ("table_quantitative", r"\b(table|row|column|mean|score|percent|%|n\s*=|increase[sd]? by|decrease[sd]? by)\b"),
         ("causal", r"\b(causes?|because of|leads to|results in|drives|produces|improves|reduces|effect of|impact of)\b"),
         ("methodological", r"\b(method|procedure|instrument|coding|analysis|rubric|criteria|corpus|design-based|mixed methods?)\b"),
         ("empirical", r"\b(study|data|dataset|sample|participants|survey|interview|experiment|protocol|results?|findings?|evidence shows)\b"),

@@ -1,0 +1,55 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "authority.regulatory_owner",
+  "profile_class": "authority",
+  "name": "Regulatory Owner Authority",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "Regulatory Owner Authority",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "human_roles": [
+      "regulatory_owner",
+      "legal_reviewer",
+      "evidence_reviewer",
+      "filing_authority",
+      "release_authority"
+    ],
+    "decision_boundaries": [
+      "determine applicability",
+      "adopt professional interpretation",
+      "assert licence status",
+      "approve submission",
+      "authorise external release"
+    ],
+    "capability_constraints": [
+      "identity does not create authority",
+      "draft is not filing",
+      "evidence is not legal conclusion",
+      "silence is not approval"
+    ],
+    "forbidden_claims": [
+      "automatic_filing",
+      "authority_by_inference",
+      "machine_legal_opinion",
+      "implicit_regulator_consent"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "authority"
+  ]
+}

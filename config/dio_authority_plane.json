@@ -1,0 +1,31 @@
+{
+  "schema": "dio.authority_plane.config.v1",
+  "kernel_authority": "Valinor",
+  "execution_identity_authority": "ARDA",
+  "granting_actor_types": ["human", "organisation"],
+  "machine_authority_policy": "machines_may_supply_evidence_requirements_challenges_and_recommendations_but_not_consequential_human_authority",
+  "lease_policy": {
+    "default_maximum_uses": 1,
+    "require_action_digest_binding": true,
+    "require_authority_receipt_binding": true,
+    "require_expiry": true,
+    "require_revocation_epoch": true
+  },
+  "execution_policy": {
+    "require_valinor_allow": true,
+    "require_arda_execution_identity": true,
+    "forbid_generic_executor": true,
+    "external_identity_modes": ["observed", "enforced"],
+    "require_executor_receipt": true
+  },
+  "laws": {
+    "evidence_is_not_authority": true,
+    "framework_ready_is_not_authority": true,
+    "legalis_allow_is_not_legal_clearance": true,
+    "legalis_allow_is_not_execution_authority": true,
+    "valinor_authorization_is_not_external_execution": true,
+    "arda_identity_is_not_kernel_authority": true,
+    "capability_lease_is_not_self_authorizing": true,
+    "execution_requires_durable_receipt": true
+  }
+}

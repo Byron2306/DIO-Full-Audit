@@ -1,0 +1,79 @@
+{
+  "schema": "dio.regulatory_reference_case.v1",
+  "source_type": "public_procurement_context",
+  "context": {
+    "jurisdiction": "ZA",
+    "regulator": "Controlled Procurement Authority",
+    "organisation_role": "regulated_entity",
+    "regulated_activity": "public bid preparation",
+    "framework_version": "controlled-fixture-v1"
+  },
+  "required_applicability_facts": [
+    "territorial_nexus",
+    "regulated_activity",
+    "organisation_type"
+  ],
+  "applicability_facts": {
+    "territorial_nexus": true,
+    "regulated_activity": true,
+    "organisation_type": "private_entity"
+  },
+  "applicability_conflicts": [
+    "cross-border authority facts conflict"
+  ],
+  "sources": [
+    {
+      "source_id": "PROC-REG-2026",
+      "title": "Controlled procurement regulation fixture",
+      "source_class": "regulation",
+      "version": "2026.1",
+      "effective_from": "2026-01-01T00:00:00+00:00",
+      "effective_to": null,
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "conflicts_with": "PROC-GUIDE-X"
+    },
+    {
+      "source_id": "PROC-FORM-2026",
+      "title": "Controlled mandatory form fixture",
+      "source_class": "official_form",
+      "version": "2026.2",
+      "effective_from": "2026-06-01T00:00:00+00:00",
+      "effective_to": null,
+      "sha256": "tampered",
+      "tampered": true
+    },
+    {
+      "source_id": "PROC-FUTURE-2027",
+      "title": "Controlled future amendment fixture",
+      "source_class": "legislation",
+      "version": "2027.0",
+      "effective_from": "2027-01-01T00:00:00+00:00",
+      "effective_to": null,
+      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    }
+  ],
+  "obligations": [
+    {
+      "obligation_id": "PROC-01",
+      "source_id": "PROC-REG-2026",
+      "requirement": "Prepare mandatory declarations",
+      "deadline": "2026-09-01T00:00:00+00:00"
+    }
+  ],
+  "licence_required": false,
+  "licences": [],
+  "requested_actions": [
+    {
+      "effect": "draft",
+      "target": "bid_pack"
+    },
+    {
+      "effect": "submit",
+      "target": "procurement_portal"
+    }
+  ],
+  "unresolved_interpretations": [
+    "professional interpretation and final applicability decision required"
+  ],
+  "ai_trust_binding": {}
+}

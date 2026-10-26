@@ -1,0 +1,99 @@
+{
+  "schema": "dio.format_core.visual_material_acquisition_pack.v1",
+  "pack_id": "RESEARCH_CONSULTANCY_ALPHA_EXTERNAL",
+  "provider_policy": {
+    "provider": "Pexels",
+    "license_name": "Pexels License",
+    "license_url": "https://www.pexels.com/license/",
+    "commercial_use": true,
+    "standalone_redistribution": "REFUSE",
+    "bulk_library_replication": "REFUSE",
+    "runtime_remote_fetch": "REFUSE"
+  },
+  "materials": [
+    {
+      "download_url": "https://images.pexels.com/photos/9870135/pexels-photo-9870135.jpeg?cs=srgb&dl=pexels-ron-lach-9870135.jpg&fm=jpg",
+      "filename": "pexels-ron-lach-9870135-human-review.jpg",
+      "material_id": "PEXELS-RON-LACH-9870135-HUMAN-REVIEW",
+      "kind": "curated_photo",
+      "semantic_visual_kinds": ["human_review_scene"],
+      "surface_suitability": ["website"],
+      "subjects": ["human review", "documents", "professional judgement"],
+      "activities": ["reviewing documents"],
+      "mood": ["credible", "human", "professional", "editorial"],
+      "composition": {
+        "orientation": "landscape",
+        "subject_bias": "right",
+        "negative_space": "left",
+        "crop_safe": true
+      },
+      "provenance": {
+        "source_name": "Pexels / Ron Lach",
+        "source_id": "9870135",
+        "source_url": "https://images.pexels.com/photos/9870135/pexels-photo-9870135.jpeg",
+        "credit": "Photo by Ron Lach on Pexels"
+      },
+      "license": {
+        "name": "Pexels License",
+        "url": "https://www.pexels.com/license/",
+        "attribution_required": false
+      }
+    },
+    {
+      "download_url": "https://images.pexels.com/photos/9869392/pexels-photo-9869392.jpeg?cs=srgb&dl=pexels-ron-lach-9869392.jpg&fm=jpg",
+      "filename": "pexels-ron-lach-9869392-workflow.jpg",
+      "material_id": "PEXELS-RON-LACH-9869392-WORKFLOW",
+      "kind": "curated_photo",
+      "semantic_visual_kinds": ["method_map"],
+      "surface_suitability": ["website"],
+      "subjects": ["professional workflow", "documents", "review"],
+      "activities": ["reviewing documents", "preparing a handoff"],
+      "mood": ["tactile", "credible", "professional", "editorial"],
+      "composition": {
+        "orientation": "portrait",
+        "subject_bias": "right",
+        "negative_space": "left",
+        "crop_safe": true
+      },
+      "provenance": {
+        "source_name": "Pexels / Ron Lach",
+        "source_id": "9869392",
+        "source_url": "https://images.pexels.com/photos/9869392/pexels-photo-9869392.jpeg",
+        "credit": "Photo by Ron Lach on Pexels"
+      },
+      "license": {
+        "name": "Pexels License",
+        "url": "https://www.pexels.com/license/",
+        "attribution_required": false
+      }
+    },
+    {
+      "download_url": "https://images.pexels.com/photos/20137647/pexels-photo-20137647.jpeg?cs=srgb&dl=pexels-heather-green-1125370-20137647.jpg&fm=jpg",
+      "filename": "pexels-heather-green-20137647-paper-texture.jpg",
+      "material_id": "PEXELS-HEATHER-GREEN-20137647-PAPER-TEXTURE",
+      "kind": "texture",
+      "semantic_visual_kinds": ["research_workbench"],
+      "surface_suitability": ["website"],
+      "subjects": ["paper", "document", "texture"],
+      "activities": [],
+      "mood": ["subtle", "editorial", "tactile", "neutral"],
+      "composition": {
+        "orientation": "portrait",
+        "subject_bias": "balanced",
+        "negative_space": "balanced",
+        "crop_safe": true
+      },
+      "provenance": {
+        "source_name": "Pexels / Heather Green",
+        "source_id": "20137647",
+        "source_url": "https://www.pexels.com/photo/close-up-of-white-surface-20137647/",
+        "credit": "Photo by Heather Green on Pexels"
+      },
+      "license": {
+        "name": "Pexels License",
+        "url": "https://www.pexels.com/license/",
+        "attribution_required": false
+      }
+    }
+  ]
+}

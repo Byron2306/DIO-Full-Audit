@@ -66,7 +66,18 @@ def configure_provider(secret_file: Path, provider_name: str, model: str) -> dic
     values = parse_env_file(secret_file)
     for key, value in values.items():
         os.environ.setdefault(key, value)
-    if provider_name in {"nim", "nvidia", "nvidia_nim"}:
+    if provider_name in {"ollama", "local_ollama", "local"}:
+        from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
+
+        require_ollama_provider(provider_name, component="HOMS assessment demos")
+        base_url = ollama_url().rstrip("/")
+        if not base_url.endswith("/v1"):
+            base_url += "/v1"
+        os.environ["OPENAI_API_KEY"] = "ollama"
+        os.environ["OPENAI_BASE_URL"] = base_url
+        selected_model = model or ollama_model()
+        selected_provider = "ollama"
+    elif provider_name in {"nim", "nvidia", "nvidia_nim"}:
         api_key = values.get("NVIDIA_API_KEY") or os.environ.get("NVIDIA_API_KEY")
         if not api_key:
             raise RuntimeError("NVIDIA_API_KEY was not found.")
@@ -576,7 +587,7 @@ def main() -> int:
     parser.add_argument("--ontology", default=str(DEFAULT_CAPS_ONTOLOGY))
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument("--secret-file", default=str(DEFAULT_SECRET_FILE))
-    parser.add_argument("--provider", default="nim", choices=["nim", "nvidia", "nvidia_nim", "openai"])
+    parser.add_argument("--provider", default="ollama", choices=["ollama", "nim", "nvidia", "nvidia_nim", "openai"])
     parser.add_argument("--model", default="")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--design-law", default=str(DEFAULT_DESIGN_LAW))

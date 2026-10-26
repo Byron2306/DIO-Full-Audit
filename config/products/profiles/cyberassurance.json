@@ -1,0 +1,27 @@
+{
+  "schema": "dio.evidence_review.profile.v1",
+  "profile_id": "cyberassurance",
+  "product_id": "dio_cyberassurance",
+  "category": "cybersecurity_assurance_evidence_review",
+  "identity_state": "genuine_profile_extension_unpromoted",
+  "canonical_portfolio_registration": false,
+  "scope_basis": "atlas_product_class_name_and_reconciliation_route_only",
+  "scope_limit": "CyberAssurance is currently bounded to reviewing supplied cybersecurity requirements, controls, testing records, incident evidence, exceptions and declared gaps for authorised human assurance review. It does not certify security, attest control effectiveness, accept cyber risk, execute remediation, make incident-response decisions, or authorise external release.",
+  "default_requirement_kind": "control",
+  "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+  "release_guard_meta_product": "meta_authority",
+  "artifact_prefix": "CYBERASSURANCE",
+  "review_pack_title": "DIO CyberAssurance Controlled Evidence Review Pack",
+  "human_gate_reason": "Security certification, control-effectiveness attestations, risk acceptance, remediation, incident-response action and final release remain with authorised security and governance owners.",
+  "forbidden_outcomes": [
+    "security_certification",
+    "control_effectiveness_attestation",
+    "cyber_risk_acceptance",
+    "remediation_execution",
+    "incident_response_decision",
+    "external_cyber_assurance_release"
+  ],
+  "authority_created": false,
+  "external_effects": false,
+  "external_release": false
+}

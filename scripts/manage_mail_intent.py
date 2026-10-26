@@ -12,6 +12,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+from adapters.lingua.communicator import plain_text_from_html, register_communication
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INTENT_DIR = ROOT / "state" / "mail_intents"
@@ -100,9 +102,75 @@ def intent_path(intent_dir: Path, intent_id: str) -> Path:
     return intent_dir / f"{intent_id}.json"
 
 
+def _dio_root_for_intent_dir(intent_dir: Path) -> Path:
+    resolved = intent_dir.resolve()
+    if resolved.parent.name == "state":
+        return resolved.parent.parent
+    return ROOT
+
+
+def _mail_source_text(source: dict[str, Any]) -> str:
+    body = str(source.get("body") or "").strip()
+    if body:
+        return body
+    body_html = str(source.get("body_html") or "").strip()
+    if body_html:
+        return plain_text_from_html(body_html)
+    body_path = source.get("body_path")
+    if body_path:
+        path = Path(str(body_path)).expanduser()
+        if path.is_file():
+            return path.read_text(encoding="utf-8").strip()
+    return ""
+
+
+def _register_mail_lingua(source: dict[str, Any], intent_id: str, intent_dir: Path) -> dict[str, Any]:
+    body = _mail_source_text(source)
+    receipt = register_communication(
+        dio_root=_dio_root_for_intent_dir(intent_dir),
+        owner="vesper",
+        artifact_type="email_draft",
+        channel="outlook",
+        subject=str(source.get("subject") or ""),
+        body=body,
+        audience=str(source.get("audience") or "recipient"),
+        privacy_domain=str(source.get("privacy_domain") or "direct_correspondence"),
+        correlation_id=intent_id,
+        source_message_id=str(source.get("source_message_id") or "") or None,
+        source_language=str(source.get("source_language") or "English"),
+        target_language=str(source.get("target_language") or "") or None,
+        purpose=str(source.get("purpose") or "other"),
+        authority_boundary="LINGUA may preserve and render this mail meaning but cannot create recipient consent, send authority, payment state, delivery authority, professional conclusions, or external release.",
+        product_context=str(source.get("product") or source.get("product_line_id") or "") or None,
+    )
+    return {
+        "schema": receipt["schema"],
+        "object_id": receipt["object_id"],
+        "source_document_hash": receipt["source_document_hash"],
+        "object_path": receipt["object_path"],
+        "source_language": receipt["source_language"],
+        "target_language": receipt["target_language"],
+        "translation_state": receipt["translation_state"],
+        "semantic_lineage_created": True,
+        "send_authorized": False,
+        "authority_created": False,
+    }
+
+
 def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_log: Path) -> dict[str, Any]:
     created = now()
     intent_id = source.get("mail_intent_id") or f"MAIL-{secrets.token_hex(8).upper()}"
+    try:
+        lingua = _register_mail_lingua(source, intent_id, intent_dir)
+    except Exception as exc:
+        lingua = {
+            "schema": "dio.lingua.communication_receipt.v1",
+            "state": "registration_failed",
+            "error": str(exc)[:300],
+            "semantic_lineage_created": False,
+            "send_authorized": False,
+            "authority_created": False,
+        }
     intent = {
         "schema": "dio.mail_intent.v1",
         "mail_intent_id": intent_id,
@@ -121,13 +189,27 @@ def create_intent_from_payload(source: dict[str, Any], intent_dir: Path, event_l
         "body_path": source.get("body_path"),
         "attachments": source.get("attachments", []),
         "risk": source.get("risk", "routine"),
+        "lingua": lingua,
         "approval": {"required": True, "state": "pending", "approved_at": None, "expires_at": None, "token_sha256": None},
         "send_state": "draft",
         "created_at": timestamp(created),
         "updated_at": timestamp(created),
     }
     write_json(intent_path(intent_dir, intent_id), intent, exclusive=True)
-    emit_event(event_log, "mail.draft_ready", "action", "mail_intent", intent_id, {"purpose": intent["purpose"], "risk": intent["risk"]}, intent.get("job_id"))
+    emit_event(
+        event_log,
+        "mail.draft_ready",
+        "action",
+        "mail_intent",
+        intent_id,
+        {
+            "purpose": intent["purpose"],
+            "risk": intent["risk"],
+            "lingua_object_id": lingua.get("object_id"),
+            "lingua_state": lingua.get("translation_state") or lingua.get("state"),
+        },
+        intent.get("job_id"),
+    )
     return intent
 
 

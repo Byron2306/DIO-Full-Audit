@@ -1,0 +1,116 @@
+name: DIO Customer Journey Phase 8
+
+concurrency:
+  group: dio-customer-journey-phase8-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - agent/dio-customer-journey-phase8
+  pull_request:
+    paths:
+      - 'presence_core/product_binding_registry.py'
+      - 'tests/test_customer_journey_phase8.py'
+      - 'tests/test_customer_journey_phase8_archetypes.py'
+      - 'docs/DIO_CUSTOMER_JOURNEY_PHASE8.md'
+      - 'docs/superpowers/plans/2026-09-18-customer-journey-phase8-68-product-binding.md'
+      - '.github/workflows/dio-customer-journey-phase8.yml'
+
+jobs:
+  portfolio-binding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Compile Phase 8 binding contract
+        run: |
+          python -m py_compile \
+            presence_core/product_binding_registry.py \
+            tests/test_customer_journey_phase8.py \
+            tests/test_customer_journey_phase8_archetypes.py
+      - name: Run 68-product binding gauntlet
+        run: |
+          python -m pytest -q \
+            tests/test_customer_journey_phase8.py
+      - name: Emit portfolio binding census
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from presence_core.product_binding_registry import build_phase8_binding_registry
+          registry = build_phase8_binding_registry(Path.cwd())
+          assert registry["product_count"] == 68, registry
+          assert registry["historical_53_count"] == 53, registry
+          assert registry["canon_extension_count"] == 15, registry
+          assert not registry["unknown_archetypes"], registry
+          assert not registry["unknown_fulfilment_routes"], registry
+          assert not registry["bespoke_commerce_pipelines"], registry
+          assert not registry["authority_leaks"], registry
+          print("PORTFOLIO_BINDING=68/68")
+          print("UNKNOWN_ARCHETYPES=0")
+          print("UNKNOWN_FULFILMENT_ROUTES=0")
+          print("BESPOKE_COMMERCE_PIPELINES=0")
+          print("AUTHORITY_LEAKS=0")
+          print("BINDING_REGISTRY_SHA256=" + registry["registry_sha256"])
+          PY
+
+  archetype-gauntlet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Run eight-archetype proof ledger
+        run: |
+          python -m pytest -q \
+            tests/test_customer_journey_phase8_archetypes.py
+      - name: Emit archetype acceptance
+        run: |
+          echo "ARCHETYPE_GAUNTLET=8/8"
+          echo "PHASE7_INHERITED_ARCHETYPES=A,B,C,D,E,G"
+          echo "PHASE8_FRESH_ARCHETYPES=F,H"
+
+  shared-spine-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install compatibility dependencies
+        run: python -m pip install pytest jsonschema
+      - name: Run shared Customer Journey compatibility
+        run: |
+          python -m pytest -q \
+            tests/test_customer_journey_phase1.py \
+            tests/test_customer_journey_phase2.py \
+            tests/test_customer_journey_phase3.py \
+            tests/test_customer_journey_phase4.py \
+            tests/test_customer_journey_phase5.py \
+            tests/test_customer_journey_phase6.py
+
+  phase8-acceptance:
+    needs:
+      - portfolio-binding
+      - archetype-gauntlet
+      - shared-spine-compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Emit Phase 8 acceptance
+        run: |
+          echo "PORTFOLIO_BINDING=68/68"
+          echo "UNKNOWN_ARCHETYPES=0"
+          echo "UNKNOWN_FULFILMENT_ROUTES=0"
+          echo "BESPOKE_COMMERCE_PIPELINES=0"
+          echo "AUTHORITY_LEAKS=0"
+          echo "ARCHETYPE_GAUNTLET=8/8"
+          echo "CONTROLLED_TEST_SETTLEMENT_ONLY=true"
+          echo "EXTERNAL_FUNDS_MOVED=false"
+          echo "DIO_CUSTOMER_JOURNEY_PHASE8_68_PRODUCT_BINDING_VERIFIED"

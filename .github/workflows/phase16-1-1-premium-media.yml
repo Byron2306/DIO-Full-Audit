@@ -1,0 +1,56 @@
+name: Phase 16.1.1 premium media truth gate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  structural-truth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile Phase 16.1.1 modules
+        run: |
+          python -m py_compile \
+            products/premium_media_federation.py \
+            products/premium_media_gauntlet.py \
+            scripts/run_premium_media_phase16_1_1.py \
+            tests/test_premium_media_phase16_1_1.py
+      - name: Assert false native claims are absent
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path("products/media_incarnation.py").read_text(encoding="utf-8")
+          assert '"native_nichefoundry_execution":"PASS"' not in source
+          assert '"live_adapter_invoked":True' not in source[source.find("def _sophia_media_review"):]
+          print("DIO_ENGINE_EXECUTION_TRUTH_READY")
+          PY
+
+  native-premium-runtime:
+    if: ${{ vars.DIO_PREMIUM_MEDIA_CI == 'enabled' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Byron2306/NicheFoundry
+          path: vendor/NicheFoundry
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install native runtime dependencies
+        working-directory: vendor/NicheFoundry
+        run: npm ci
+      - name: Run native premium media gate
+        env:
+          DIO_NICHEFOUNDRY_ROOT: ${{ github.workspace }}/vendor/NicheFoundry
+        run: |
+          python scripts/run_premium_media_phase16_1_1.py \
+            --provider auto \
+            --output /tmp/dio-phase16-1-1-premium-media

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DIO World Settlement v1",
+  "type": "object",
+  "required": [
+    "schema", "settlement_id", "episode_id", "pre_world_digest", "post_world_digest",
+    "expected_effects", "observed_effects", "sensorium_receipts", "vns_receipts",
+    "arda_receipts", "seraph_receipts", "harmonic_before", "harmonic_after",
+    "authority_preserved", "unexpected_effects", "settlement_state", "settlement_digest"
+  ],
+  "properties": {
+    "schema": {"const": "dio.world_settlement.v1"},
+    "settlement_id": {"type": "string", "minLength": 1},
+    "episode_id": {"type": "string", "minLength": 1},
+    "pre_world_digest": {"$ref": "#/$defs/digest"},
+    "post_world_digest": {"$ref": "#/$defs/digest"},
+    "expected_effects": {"$ref": "#/$defs/stringArray"},
+    "observed_effects": {"$ref": "#/$defs/stringArray"},
+    "sensorium_receipts": {"$ref": "#/$defs/stringArray"},
+    "vns_receipts": {"$ref": "#/$defs/stringArray"},
+    "arda_receipts": {"$ref": "#/$defs/stringArray"},
+    "seraph_receipts": {"$ref": "#/$defs/stringArray"},
+    "harmonic_before": {"type": "object"},
+    "harmonic_after": {"type": "object"},
+    "authority_preserved": {"type": "boolean"},
+    "unexpected_effects": {"$ref": "#/$defs/stringArray"},
+    "settlement_state": {
+      "type": "string",
+      "enum": ["SETTLED", "PARTIAL", "FRACTURED", "REFUSED"]
+    },
+    "settlement_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "layerWitnessState": {
+      "type": "string",
+      "enum": ["EXERCISED", "CORROBORATED", "ARMED", "NOT_APPLICABLE", "MISSING", "FAILED"]
+    }
+  },
+  "additionalProperties": false
+}

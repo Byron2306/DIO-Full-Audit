@@ -1,0 +1,171 @@
+{
+  "schema": "dio.meta_products.registry.v1",
+  "registry_id": "dio-meta-product-layer-v1",
+  "depends_on": {
+    "fusion_state": "FUSION_WAVE9_READY"
+  },
+  "laws": {
+    "meta_product_creates_authority": false,
+    "meta_product_executes": false,
+    "meta_product_changes_vertical_maturity": false,
+    "meta_product_implies_market_validation": false,
+    "new_executors_created": false,
+    "vertical_risk_boundary_preserved": true,
+    "kernel_authority": "Valinor",
+    "execution_identity_authority": "ARDA"
+  },
+  "meta_products": [
+    {
+      "id": "meta_evidence",
+      "name": "DIO META Evidence",
+      "role": "evidence_requirement_and_claim_operating_system",
+      "capabilities": [
+        "requirement_normalization",
+        "evidence_normalization",
+        "claim_evidence_linkage",
+        "provenance_and_custody",
+        "contradiction_and_freshness",
+        "governed_case_projection"
+      ],
+      "component_refs": [
+        "frameworks/engine.py",
+        "evidence/intelligence.py",
+        "products/governed_case.py",
+        "composition/case_bridge.py"
+      ],
+      "authority": false,
+      "execution": false,
+      "external_release": false
+    },
+    {
+      "id": "meta_assurance",
+      "name": "DIO META Assurance",
+      "role": "continuous_assurance_and_adversarial_twin",
+      "capabilities": [
+        "canonical_evidence_authority_twin",
+        "loki_synthetic_divergence",
+        "material_drift_detection",
+        "continuous_reassessment",
+        "operator_attention",
+        "execution_block_recommendation"
+      ],
+      "component_refs": [
+        "twin/canonical.py",
+        "twin/loki_mirror.py",
+        "assurance/continuous.py",
+        "assurance/watcher.py"
+      ],
+      "authority": false,
+      "execution": false,
+      "external_release": false
+    },
+    {
+      "id": "meta_authority",
+      "name": "DIO META Authority",
+      "role": "governed_action_and_capability_control_plane",
+      "capabilities": [
+        "human_authority_receipt",
+        "capability_lease",
+        "valinor_kernel_authorization",
+        "arda_execution_identity",
+        "bounded_executor_binding",
+        "execution_receipt"
+      ],
+      "component_refs": [
+        "authority/canonical.py",
+        "executors/vertical.py",
+        "composition/orchestrator.py"
+      ],
+      "authority": false,
+      "execution": false,
+      "external_release": false
+    },
+    {
+      "id": "meta_room",
+      "name": "DIO META Room",
+      "role": "portable_tamper_evident_proof_packaging",
+      "capabilities": [
+        "proof_compilation",
+        "architecture_proof",
+        "operational_proof",
+        "refusal_proof",
+        "product_proof",
+        "manifest_integrity",
+        "portable_redaction"
+      ],
+      "component_refs": [
+        "capitalroom/proof_room.py",
+        "twin/canonical.py",
+        "assurance/continuous.py"
+      ],
+      "authority": false,
+      "execution": false,
+      "external_release": false
+    }
+  ],
+  "vertical_compositions": [
+    {
+      "product_id": "dio_assurance",
+      "primary_meta_product": "meta_assurance",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_agent_authority",
+      "primary_meta_product": "meta_authority",
+      "required_meta_products": ["meta_authority", "meta_assurance", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_vendorproof",
+      "primary_meta_product": "meta_evidence",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_accreditation",
+      "primary_meta_product": "meta_evidence",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_tenderproof",
+      "primary_meta_product": "meta_evidence",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_grantproof",
+      "primary_meta_product": "meta_evidence",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_research_integrity",
+      "primary_meta_product": "meta_evidence",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_regops",
+      "primary_meta_product": "meta_assurance",
+      "required_meta_products": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"],
+      "release_guard_meta_product": "meta_authority",
+      "surface_mode": "customer_facing"
+    },
+    {
+      "product_id": "dio_capitalroom",
+      "primary_meta_product": "meta_room",
+      "required_meta_products": ["meta_assurance", "meta_room"],
+      "release_guard_meta_product": null,
+      "surface_mode": "internal"
+    }
+  ]
+}

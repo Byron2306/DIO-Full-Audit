@@ -1,0 +1,104 @@
+{
+  "schema": "dio.market_sensorium.source_policy.v1",
+  "mode": "read_only",
+  "authority_created": false,
+  "default_external_effects": "REFUSE",
+  "sources": [
+    {
+      "id": "youtube_public",
+      "kind": "public_video_metadata",
+      "access_state": "OFFICIAL_API_OR_EXISTING_CONNECTOR",
+      "read_state": "CONNECTED_VIA_NICHEFOUNDRY",
+      "write_state": "REFUSE_WITHOUT_OPERATOR_AUTHORITY",
+      "use": ["topic_velocity", "public_attention", "vocabulary", "content_gap", "competitor_presence"]
+    },
+    {
+      "id": "google_news_rss",
+      "kind": "news_rss",
+      "access_state": "PUBLIC_RSS",
+      "read_state": "CONNECTED_VIA_NICHEFOUNDRY",
+      "write_state": "NOT_APPLICABLE",
+      "use": ["trigger_events", "organisation_context", "problem_emergence", "vocabulary"]
+    },
+    {
+      "id": "meta_ad_library",
+      "kind": "public_ad_intelligence",
+      "access_state": "API_PERMISSION_REQUIRED",
+      "read_state": "CONFIG_REQUIRED",
+      "write_state": "REFUSE",
+      "use": ["advertised_offer_prevalence", "creative_angles", "advertiser_persistence", "offer_language"]
+    },
+    {
+      "id": "facebook_public_pages",
+      "kind": "public_social_page",
+      "access_state": "API_PERMISSION_REQUIRED",
+      "read_state": "CONFIG_REQUIRED",
+      "write_state": "OPERATOR_GATED",
+      "use": ["public_activity", "community_context", "problem_vocabulary"]
+    },
+    {
+      "id": "facebook_groups",
+      "kind": "community",
+      "access_state": "MEMBERSHIP_REQUIRED",
+      "read_state": "NEEDS_YOU_BEFORE_MEMBER_CONTENT",
+      "write_state": "REFUSE_WITHOUT_EXPLICIT_OPERATOR_ACTION",
+      "use": ["community_discovery", "problem_vocabulary", "buyer_role_density"]
+    },
+    {
+      "id": "discord",
+      "kind": "community",
+      "access_state": "INVITE_REQUIRED",
+      "read_state": "OPERATOR_JOIN_OR_ADMIN_BOT_INSTALL_REQUIRED",
+      "write_state": "REFUSE_WITHOUT_EXPLICIT_OPERATOR_ACTION",
+      "use": ["community_discovery", "problem_vocabulary", "buyer_role_density"]
+    },
+    {
+      "id": "reddit",
+      "kind": "community",
+      "access_state": "TERMS_REVIEW_REQUIRED",
+      "read_state": "CONDITIONAL",
+      "write_state": "REFUSE",
+      "use": ["problem_vocabulary", "community_discovery", "offer_language"]
+    },
+    {
+      "id": "classifieds_general",
+      "kind": "classified_ads",
+      "access_state": "SOURCE_SPECIFIC",
+      "read_state": "ONLY_WHEN_TERMS_AND_ACCESS_ALLOW",
+      "write_state": "REFUSE",
+      "use": ["observed_asking_prices", "pitch_angles", "audience_language", "offer_persistence"]
+    },
+    {
+      "id": "locanto_za",
+      "kind": "classified_ads",
+      "access_state": "ACCESS_UNVERIFIED",
+      "read_state": "MANUAL_OR_PERMITTED_SEARCH_ONLY_UNTIL_REVIEWED",
+      "write_state": "REFUSE",
+      "use": ["observed_asking_prices", "pitch_angles", "local_service_categories"]
+    },
+    {
+      "id": "news24",
+      "kind": "news_publisher",
+      "access_state": "TERMS_RESTRICTED",
+      "read_state": "NO_DIRECT_CRAWL_USE_PERMITTED_SEARCH_RSS_OR_OPERATOR_LINK",
+      "write_state": "NOT_APPLICABLE",
+      "use": ["trigger_events"]
+    },
+    {
+      "id": "government_tenders",
+      "kind": "procurement",
+      "access_state": "PUBLIC_SEARCH_OR_OFFICIAL_FEED",
+      "read_state": "ADAPTER_REQUIRED",
+      "write_state": "REFUSE",
+      "use": ["procurement_signal", "buyer_problem", "deadline", "scope", "pricing_context"]
+    },
+    {
+      "id": "public_job_ads",
+      "kind": "jobs",
+      "access_state": "PUBLIC_SEARCH_OR_OFFICIAL_FEED",
+      "read_state": "ADAPTER_REQUIRED",
+      "write_state": "REFUSE",
+      "use": ["problem_presence", "buyer_role", "workflow_burden", "vocabulary"]
+    }
+  ]
+}

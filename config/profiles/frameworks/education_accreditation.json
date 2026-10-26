@@ -1,0 +1,62 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.education_accreditation",
+  "profile_class": "framework",
+  "name": "Education Accreditation Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "Education Accreditation Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "requirement_types": [
+      "institutional_role",
+      "programme_scope",
+      "standard_evidence",
+      "review_cycle",
+      "registration_status",
+      "submission_form"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "deadline_semantics": [
+      "review_due",
+      "registration_expiry",
+      "transition_period",
+      "submission_deadline"
+    ],
+    "human_boundaries": [
+      "human confirms accreditation scope",
+      "human owns regulator interpretation",
+      "human files submissions"
+    ],
+    "forbidden_claims": [
+      "accredited",
+      "certified_programme",
+      "regulator_approved"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "framework"
+  ]
+}

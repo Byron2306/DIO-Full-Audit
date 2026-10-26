@@ -28,7 +28,7 @@ from scripts.sync_outlook_mail import GraphClient, create_outlook_draft, load_co
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "market_command.json"
 DB = ROOT / "state" / "market_command" / "market_command.sqlite"
-EVENTS = ROOT / "telemetry" / "dio_events.jsonl"
+EVENTS = Path(os.environ.get("DIO_EVENT_LOG") or ROOT / "telemetry" / "dio_events.jsonl")
 CONTROL_POLICY = ROOT / "state" / "control_policy.json"
 GRAPH_CONFIG = ROOT / "config" / "microsoft_graph.local.json"
 

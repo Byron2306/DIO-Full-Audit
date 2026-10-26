@@ -1,0 +1,11 @@
+{
+  "schema": "dio.phase11_1.config.v1",
+  "identity": "Vesper, DIO Presence Core",
+  "channels": ["web", "outlook"],
+  "attachment_policy": "quarantine_only",
+  "public_status": "verified_binding_only",
+  "automatic_external_actions": false,
+  "outlook_delivery": "draft_only",
+  "human_release_required": true,
+  "external_release_authorized": false
+}

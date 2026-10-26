@@ -1,0 +1,44 @@
+{
+  "source_id": "permitproof-golden-reference-001",
+  "source_type": "permit",
+  "source_ref": "fixture://permitproof/golden-reference-001",
+  "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "effective_at": "2026-07-01T00:00:00+00:00",
+  "expires_at": null,
+  "clauses": [
+    {
+      "clause_id": "P-1",
+      "text": "The operator shall provide the monitoring report.",
+      "obligation": true,
+      "obligation_kind": "reporting",
+      "responsible_party": "operator",
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "evidence_requirements": [
+        "monitoring_report"
+      ]
+    },
+    {
+      "clause_id": "P-2",
+      "text": "The operator shall retain the incident notice.",
+      "obligation": true,
+      "obligation_kind": "retention",
+      "responsible_party": "operator",
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "evidence_requirements": [
+        "incident_notice"
+      ]
+    },
+    {
+      "clause_id": "P-3",
+      "text": "The operator shall maintain the renewal certificate.",
+      "obligation": true,
+      "obligation_kind": "maintenance",
+      "responsible_party": "operator",
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "evidence_requirements": [
+        "renewal_certificate"
+      ]
+    }
+  ]
+}
+

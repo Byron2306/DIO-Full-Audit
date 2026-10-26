@@ -1,0 +1,272 @@
+{
+  "schema": "dio.product_class_reconciliation.v2",
+  "status": "active_evidence_contract",
+  "principle": "Atlas identity, execution proof and launch authority are independent. Reuse a canonical incarnation when identity is exact; keep semantic cousins review-only until equivalence is proven; record rejected aliases as composition reuse when a broader canonical product and bounded reusable component are established; require a new typed execution proof for genuine profile extensions.",
+  "source_route_contract": "config/product_class_routes.json",
+  "source_manifest_root": "config/products/manifests",
+  "summary": {
+    "atlas_profile_extensions_reviewed": 38,
+    "exact_canonical_incarnations": 6,
+    "equivalence_candidates": 1,
+    "genuine_profile_extensions": 28,
+    "auto_promotable_from_reconciliation": 0,
+    "public_launch_authorized_from_reconciliation": 0,
+    "resolved_composition_bindings": 3
+  },
+  "exact_canonical_incarnations": {
+    "grantproof": {
+      "canonical_product_id": "dio_grantproof",
+      "canonical_manifest": "config/products/manifests/grantproof.json",
+      "canonical_executor": "product.executor.grantproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "tenderproof": {
+      "canonical_product_id": "dio_tenderproof",
+      "canonical_manifest": "config/products/manifests/tenderproof.json",
+      "canonical_executor": "product.executor.tenderproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "permitproof": {
+      "canonical_product_id": "dio_permitproof",
+      "canonical_manifest": "config/products/manifests/permitproof.json",
+      "canonical_executor": "product.executor.permitproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "policyproof": {
+      "canonical_product_id": "dio_policyproof",
+      "canonical_manifest": "config/products/manifests/policyproof.json",
+      "canonical_executor": "product.executor.policyproof",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "contractproof": {
+      "canonical_product_id": "dio_contractproof",
+      "canonical_manifest": "config/products/manifests/contractproof.json",
+      "canonical_executor": "product.executor.contractproof",
+      "inbound_owner": "vesper",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "Vesper-bound intake plus fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    },
+    "agent_authority": {
+      "canonical_product_id": "dio_agentauthority",
+      "canonical_manifest": "config/products/manifests/agentauthority.json",
+      "canonical_executor": "product.executor.agentauthority",
+      "maturity_ceiling": "internal_proof",
+      "next_gate": "fresh controlled execution receipt plus public-safe proof plus operator launch approval"
+    }
+  },
+  "equivalence_candidates": {
+    "changeproof": {
+      "candidate_product_id": "dio_modelchangeproof",
+      "candidate_manifest": "config/products/manifests/modelchangeproof.json",
+      "question": "Does atlas ChangeProof mean only model, prompt, policy, connector and environment change assurance, or a broader enterprise change product?",
+      "state": "equivalence_review_required"
+    }
+  },
+  "resolved_composition_bindings": {
+    "homs_accreditation": {
+      "canonical_product_id": "dio_accreditation",
+      "reusable_component_product_id": "dio_educationaccreditationproof",
+      "reusable_component_manifest": "config/products/manifests/educationaccreditationproof.json",
+      "relationship": "composition_reuse",
+      "state": "identity_equivalence_rejected",
+      "reason": "HOMS Accreditation is the education-facing incarnation of the broader DIO Accreditation composition. EducationAccreditationProof is a bounded regulated-market execution organ, not an identity alias.",
+      "next_gate": "bind accreditation criterion identifiers through HOMS/VAMP/Evidex into a controlled programme evidence matrix and proof room, then run one human-reviewed programme pilot"
+    },
+    "dio_regops": {
+      "canonical_product_id": "dio_regops",
+      "reusable_component_product_id": "dio_airegreadiness",
+      "reusable_component_manifest": "config/products/manifests/airegreadiness.json",
+      "relationship": "composition_reuse",
+      "state": "identity_equivalence_rejected",
+      "reason": "DIO RegOps spans operational prerequisites, evidence, deadlines and readiness gates. AIRegReadiness is the bounded AI regulatory-readiness incarnation and therefore only one reusable RegOps component/profile.",
+      "next_gate": "prove a bounded RegOps readiness case over an explicit non-AI or mixed regulatory profile while preserving no-advice and human release gates"
+    },
+    "dio_ai_assurance": {
+      "canonical_product_id": "dio_assurance",
+      "reusable_component_product_id": "dio_aitrustproof",
+      "reusable_component_manifest": "config/products/manifests/aitrustproof.json",
+      "relationship": "composition_reuse",
+      "state": "identity_equivalence_rejected",
+      "reason": "DIO Assurance is the broader AI-governance assurance composition spanning inventory, controls, evidence, decisions, exceptions and review. AITrustProof is a bounded AI system trust and evaluation dossier, not an identity alias.",
+      "next_gate": "bind one bounded AI workflow into the broader DIO Assurance control-evidence and review workflow while preserving human assurance and release authority"
+    }
+  },
+  "genuine_profile_extensions": {
+    "auditproof": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_auditproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/auditproof.json",
+      "controlled_processor": "products/auditproof/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed audit-evidence pilot over authorised audit criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "dossierops": {
+      "suggested_engine": "document_studio",
+      "profile_product_id": "dio_dossierops",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/dossierops.json",
+      "controlled_processor": "products/dossierops/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_assembly_not_execution_proof",
+      "document_studio_binding": "validated_review_artifact_input_not_invocation",
+      "document_studio_execution_performed": false,
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed dossier pilot over authorised source records and review artifacts before any identity promotion or controlled-pilot launch consideration"
+    },
+    "promotionproof": {
+      "suggested_engine": "vamp"
+    },
+    "vendorproof": {
+      "suggested_engine": "evidex",
+      "canonical_product_id": "dio_vendorproof",
+      "typed_profile": "config/products/profiles/vendorproof.json",
+      "controlled_processor": "products/vendorproof/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed vendor pilot over an authorised vendor questionnaire and evidence bundle before any controlled-pilot launch consideration"
+    },
+    "assuranceroom": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_assuranceroom",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/assuranceroom.json",
+      "controlled_processor": "products/assuranceroom/runner.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed assurance-room pilot over authorised assurance requirements and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "cpdproof": {
+      "suggested_engine": "vamp"
+    },
+    "homs_moderate": {
+      "suggested_engine": "homs"
+    },
+    "impactproof": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_impactproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/impactproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed ImpactProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "projectproof": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_projectproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/projectproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed ProjectProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "sophia_integrity": {
+      "suggested_engine": "sophia"
+    },
+    "sophia_research": {
+      "suggested_engine": "sophia"
+    },
+    "controldrift": {
+      "suggested_engine": null
+    },
+    "ai_incidentroom": {
+      "suggested_engine": null
+    },
+    "certificationproof": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_certificationproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/certificationproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed CertificationProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "criticalai_assurance": {
+      "suggested_engine": null
+    },
+    "cyberassurance": {
+      "suggested_engine": null
+    },
+    "dora_vendor_assurance": {
+      "suggested_engine": null
+    },
+    "diligenceroom": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_diligenceroom",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/diligenceroom.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed DiligenceRoom pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "donorproof": {
+      "suggested_engine": "evidex",
+      "profile_product_id": "dio_donorproof",
+      "canonical_portfolio_registration": false,
+      "typed_profile": "config/products/profiles/donorproof.json",
+      "controlled_processor": "products/unpromoted_evidence_profile.py",
+      "processing_state": "controlled_internal_processing_validated",
+      "processing_receipt_kind": "controlled_processing_not_execution_proof",
+      "product_execution_proved": false,
+      "external_release_authorized": false,
+      "next_gate": "run one human-reviewed DonorProof pilot over authorised criteria and supporting evidence before any identity promotion or controlled-pilot launch consideration"
+    },
+    "homs_curriculum": {
+      "suggested_engine": "homs"
+    },
+    "incidentproof": {
+      "suggested_engine": null
+    },
+    "modelproof": {
+      "suggested_engine": null
+    },
+    "programmeproof": {
+      "suggested_engine": "evidex"
+    },
+    "qualityproof": {
+      "suggested_engine": "evidex"
+    },
+    "releaseproof": {
+      "suggested_engine": null
+    },
+    "sophia_supervisor": {
+      "suggested_engine": "sophia"
+    },
+    "sophia_tutor": {
+      "suggested_engine": "sophia"
+    },
+    "suppliercyberproof": {
+      "suggested_engine": null
+    }
+  },
+  "promotion_law": {
+    "exact_canonical_incarnation": "Identity reconciliation may reuse the canonical manifest and executor, but it does not by itself grant customer processing, public launch or external release authority.",
+    "equivalence_candidate": "No alias or executor binding until an operator-approved scope equivalence decision is recorded.",
+    "resolved_composition_binding": "Rejecting identity equivalence may record a broader canonical product and bounded reusable component, but composition reuse grants no maturity, customer processing, public launch or external release authority.",
+    "genuine_profile_extension": "Requires a typed product profile, controlled fixture, actual execution receipt, reviewed output and public-safe proof before controlled-pilot launch consideration."
+  }
+}

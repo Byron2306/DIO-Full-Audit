@@ -1,0 +1,121 @@
+{
+  "schema": "dio.m2.commercial_projection_config.v1",
+  "required_parent_acceptance": "DIO_M2_COMMERCIAL_CONTRACTS_READY",
+  "required_m1_acceptance": "DIO_METAMORPHIC_SPINE_M1_VERIFIED",
+  "reference_product": "funding_proposal_studio",
+  "reference_context": {
+    "context_id": "M2-P2-FUNDING-PROPOSAL-REFERENCE",
+    "buyer_segment_id": "controlled_reference_funding_applicant",
+    "jurisdiction": "ZA",
+    "channel_id": "CONTROLLED_REFERENCE",
+    "offer_id": "funding_proposal_studio_reference_offer",
+    "currency": "ZAR",
+    "price_minor": 0,
+    "period_seconds": 86400,
+    "source_refs": [
+      "m1:phase9:verified_parent",
+      "m2:phase0:commercial_constitution",
+      "m2:phase1:commercial_contracts"
+    ]
+  },
+  "claim_extraction_mode": "source_bound_structured_claim_catalog_with_deterministic_phrase_guards",
+  "autonomous_natural_language_claim_inference_claimed": false,
+  "claims": [
+    {
+      "id": "capability.controlled_pack",
+      "statement": "Prepare a controlled funding proposal pack from messy source material while preserving evidence and authority boundaries.",
+      "rule": "unit_buyer_promise",
+      "guard_phrases": ["controlled funding proposal pack"]
+    },
+    {
+      "id": "proof.governed_composition",
+      "statement": "Funding Proposal Studio is a governed metamorphic composition of finance readiness, proposal narrative and submission correspondence capabilities.",
+      "rule": "m1_composite_verified",
+      "guard_phrases": ["governed metamorphic composition"]
+    },
+    {
+      "id": "proof.settled_crystal",
+      "statement": "The reference Funding Proposal Studio composition completed world settlement and BEAST crystallisation before registry re-entry.",
+      "rule": "m1_settled_crystal",
+      "guard_phrases": ["world settlement and beast crystallisation"]
+    },
+    {
+      "id": "proof.same_identity",
+      "statement": "Funding Proposal Studio preserves one governed identity across product and capability roles.",
+      "rule": "m1_same_identity",
+      "guard_phrases": ["one governed identity"]
+    },
+    {
+      "id": "proof.controlled_artifact_reference",
+      "statement": "The verified reference run remained controlled-artifact-only and created no external effects.",
+      "rule": "m1_no_external_effects",
+      "guard_phrases": ["controlled-artifact-only"]
+    },
+    {
+      "id": "proof.substantive_content_dataflow",
+      "statement": "Finance Readiness substantive output is proven to become Article substantive input and then Correspondence substantive input.",
+      "rule": "m1_content_dataflow",
+      "guard_phrases": ["substantive output is proven to become", "end-to-end substantive dataflow"]
+    },
+    {
+      "id": "market.demand",
+      "statement": "The market has demonstrated demand for Funding Proposal Studio.",
+      "rule": "m2_market_demand",
+      "guard_phrases": ["market has demonstrated demand", "proven market demand"]
+    },
+    {
+      "id": "market.customer_acceptance",
+      "statement": "Independent customers have accepted Funding Proposal Studio deliverables.",
+      "rule": "m2_customer_acceptance",
+      "guard_phrases": ["independent customers have accepted", "customers have accepted"]
+    },
+    {
+      "id": "market.willingness_to_pay",
+      "statement": "Willingness to pay for Funding Proposal Studio is proven.",
+      "rule": "m2_wtp",
+      "guard_phrases": ["willingness to pay is proven", "proven willingness to pay"]
+    },
+    {
+      "id": "market.commercial_validation",
+      "statement": "Funding Proposal Studio is commercially validated.",
+      "rule": "m2_commercial_validation",
+      "guard_phrases": ["commercially validated", "commercial validation proved"]
+    },
+    {
+      "id": "market.repeatability",
+      "statement": "Funding Proposal Studio has repeatable commercial demand.",
+      "rule": "m2_repeatability",
+      "guard_phrases": ["repeatable commercial demand", "repeatable demand is proven"]
+    },
+    {
+      "id": "market.roi",
+      "statement": "Funding Proposal Studio has proven ROI.",
+      "rule": "m2_roi",
+      "guard_phrases": ["proven roi", "roi is proven"]
+    },
+    {
+      "id": "prohibition.guaranteed_outcome",
+      "statement": "Funding Proposal Studio guarantees funding approval.",
+      "rule": "constitutional_guaranteed_outcome",
+      "guard_phrases": ["guarantees funding approval", "guaranteed funding approval", "guaranteed funding"]
+    },
+    {
+      "id": "prohibition.automatic_submission",
+      "statement": "Funding Proposal Studio automatically submits or sends the proposal on the buyer's behalf.",
+      "rule": "constitutional_external_submission",
+      "guard_phrases": ["automatically submits", "send the proposal on your behalf", "submits on your behalf"]
+    },
+    {
+      "id": "prohibition.external_authority",
+      "statement": "Funding Proposal Studio may publish, spend, pay, deploy or deliver externally without a separate authority decision.",
+      "rule": "constitutional_external_authority",
+      "guard_phrases": ["without a separate authority decision", "automatic publication authority", "automatic spend authority"]
+    },
+    {
+      "id": "prohibition.success_mints_authority",
+      "statement": "Commercial success or conversion can widen Funding Proposal Studio's execution authority.",
+      "rule": "constitutional_success_authority",
+      "guard_phrases": ["commercial success widens authority", "conversion widens authority"]
+    }
+  ]
+}

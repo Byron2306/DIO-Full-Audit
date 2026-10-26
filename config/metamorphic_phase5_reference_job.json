@@ -1,0 +1,68 @@
+{
+  "schema": "dio.metamorphic_phase5_reference_job.v1",
+  "required_phase4_acceptance": "DIO_METAMORPHIC_WORLD_LEASE_READY",
+  "reference_composite_name": "Funding Proposal Studio",
+  "intent_extraction_mode": "source_bound_lingua_intent_fixture",
+  "autonomous_natural_language_inference_claimed": false,
+  "buyer_job": {
+    "job_id": "funding-proposal-reference",
+    "buyer": "South African small-business owner preparing a funding application",
+    "source_text": "Use my business information, financial notes, funding opportunity, founder material and supporting documents to prepare a funding proposal pack, show readiness gaps, develop the evidence-bound proposal narrative, and prepare the professional submission correspondence. Do not invent approval, affordability, legal conclusions, customer acceptance, willingness to pay, or authority to send anything externally."
+  },
+  "lingua_intent": {
+    "intent_id": "lingua-intent-funding-proposal-reference",
+    "required_outcomes": [
+      {
+        "outcome_id": "readiness",
+        "capability": "finance_readiness",
+        "meaning": "Assess finance-application evidence readiness, assumptions and missing evidence without making a lending decision.",
+        "depends_on": []
+      },
+      {
+        "outcome_id": "proposal_narrative",
+        "capability": "article_publication",
+        "meaning": "Turn source-bound evidence and readiness findings into a structured professional proposal narrative with traceable claims.",
+        "depends_on": ["readiness"]
+      },
+      {
+        "outcome_id": "submission_correspondence",
+        "capability": "professional_correspondence",
+        "meaning": "Prepare professional submission correspondence without sending it or creating settlement, approval or other external authority.",
+        "depends_on": ["proposal_narrative"]
+      }
+    ]
+  },
+  "selection_policy": {
+    "semantic_support_required": true,
+    "unique_eligible_provider_required": true,
+    "active_negative_capability_excludes_unit": true,
+    "stale_eligibility_excludes_unit": true,
+    "historical_success_grants_authority": false
+  },
+  "authority_policy": {
+    "authority_order_narrow_to_wide": [
+      "none",
+      "observation_only",
+      "controlled_artifact_only",
+      "external_effects"
+    ],
+    "parent_authority_ceiling": "controlled_artifact_only",
+    "world_authority_ceiling": "controlled_artifact_only",
+    "human_policy_authority_ceiling": "controlled_artifact_only",
+    "human_gate": "NEEDS_YOU",
+    "external_publication": "REFUSE",
+    "external_send": "REFUSE",
+    "media_spend": "REFUSE",
+    "payment": "REFUSE"
+  },
+  "phase_boundaries": {
+    "native_execution_performed": false,
+    "sensorium_episode_started": false,
+    "beast_crystallization_executed": false,
+    "harmonics_executed": false,
+    "seraph_egress_executed": false,
+    "arda_execution_performed": false,
+    "world_settlement_performed": false,
+    "market_feedback_learning_executed": false
+  }
+}

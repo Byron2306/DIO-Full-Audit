@@ -18,7 +18,7 @@ def main() -> int:
     parser.add_argument("request", type=Path, help="Sophia review request JSON.")
     parser.add_argument("--out", type=Path, default=ROOT / "deliverables" / "sophia_academic_reviews")
     parser.add_argument("--base-url", default="http://127.0.0.1:7070")
-    parser.add_argument("--sophia-root", type=Path, default=Path("/home/byron/Integritas-Mechanicus"))
+    parser.add_argument("--sophia-root", type=Path, default=ROOT / "cross_folder_variants/Integritas-Mechanicus/A_CODE")
     args = parser.parse_args()
     request_path = args.request.expanduser().resolve()
     request = json.loads(request_path.read_text(encoding="utf-8"))

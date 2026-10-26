@@ -1,0 +1,53 @@
+name: DIO Phase 8 META Runtime Consolidation
+
+on:
+  push:
+    branches:
+      - agent/dio-phase8-meta-runtime
+  pull_request:
+    paths:
+      - "config/portfolio/meta_capabilities.json"
+      - "config/dio_meta_products.json"
+      - "config/products/manifests/**"
+      - "config/products/reference_incarnations.json"
+      - "products/meta.py"
+      - "products/meta_runtime.py"
+      - "products/meta_runtime_gauntlet.py"
+      - "products/reference_gauntlet.py"
+      - "schemas/dio_meta_runtime_receipt.schema.json"
+      - "scripts/run_meta_runtime_phase8.py"
+      - "tests/test_meta_products.py"
+      - "tests/test_meta_runtime_phase8.py"
+      - ".github/workflows/dio-meta-runtime-phase8.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  phase8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema
+      - name: Compile META runtime Python
+        run: python -m py_compile products/meta.py products/meta_runtime.py products/meta_runtime_gauntlet.py products/reference_gauntlet.py scripts/run_meta_runtime_phase8.py tests/test_meta_runtime_phase8.py
+      - name: Run Phase 0-7 regression gates
+        run: |
+          python scripts/validate_product_constitution.py
+          python scripts/validate_product_compiler.py
+          python scripts/validate_work_pattern_runtime.py
+          python scripts/validate_obligation_engine.py
+          python scripts/validate_contractproof_phase5.py
+          python scripts/validate_obligation_family_phase6.py
+          python scripts/run_reference_incarnation_gauntlet.py --output /tmp/dio-phase7-regression
+      - name: Run legacy META compatibility tests
+        run: python -m pytest -q tests/test_meta_products.py
+      - name: Run Phase 8 tests
+        run: python -m pytest -q tests/test_meta_runtime_phase8.py
+      - name: Emit Phase 8 acceptance receipt
+        run: python scripts/run_meta_runtime_phase8.py --output state/meta_runtime_phase8

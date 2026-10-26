@@ -1,0 +1,20 @@
+{
+  "schema":"dio.repo_boundaries.v1","boundary_id":"dio-product-factory-boundaries-v1","constitution_version":"1.0.0",
+  "laws":{"manifest_contains_no_executor_implementation":true,"profile_contains_no_executor_implementation":true,"suite_contains_no_runtime_implementation":true,"vertical_may_add_adapter_not_parallel_core_engine":true,"shared_engine_changes_require_core_capability_justification":true},
+  "owners":[
+    {"path":"schemas/","owns":["machine contracts"],"must_not_own":["runtime implementations","market claims"]},
+    {"path":"config/portfolio/","owns":["constitutional registries","canonical vocabulary","portfolio packaging"],"must_not_own":["executor code","vertical business logic"]},
+    {"path":"config/profiles/","owns":["declarative profile instances"],"must_not_own":["runtime engines","authority issuance","executors"]},
+    {"path":"config/products/manifests/","owns":["canonical product compositions","incarnation identity","maturity declaration"],"must_not_own":["executor code","organ wiring plans","compiled runtime plans"]},
+    {"path":"products/","owns":["shared product/runtime model code","Governed Case","portfolio loading"],"must_not_own":["duplicate domain engines created per incarnation"]},
+    {"path":"frameworks/","owns":["framework runtime"],"must_not_own":["product packaging"]},
+    {"path":"evidence/","owns":["evidence runtime"],"must_not_own":["product packaging"]},
+    {"path":"authority/","owns":["authority contracts and lifecycle"],"must_not_own":["market packaging"]},
+    {"path":"executors/","owns":["bounded executors"],"must_not_own":["authority creation","product maturity"]},
+    {"path":"twin/","owns":["canonical evidence/authority twin"],"must_not_own":["product packaging"]},
+    {"path":"assurance/","owns":["continuous assurance runtime"],"must_not_own":["product packaging"]},
+    {"path":"capitalroom/","owns":["proof room runtime"],"must_not_own":["product maturity","commercial validation"]},
+    {"path":"composition/","owns":["cross-organ orchestration/runtime composition"],"must_not_own":["product identity source of truth"]}
+  ],
+  "migration":{"legacy_meta_vertical_compositions":"config/dio_meta_products.json#vertical_compositions","canonical_target":"config/products/manifests/","rule":"Legacy compositions remain compatibility evidence until Phase 2 migration. They are not the canonical source for new product composition."}
+}

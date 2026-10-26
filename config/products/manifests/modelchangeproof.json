@@ -1,0 +1,158 @@
+{
+  "schema": "dio.product_manifest.v1",
+  "manifest_version": "1.0.0",
+  "product_id": "dio_modelchangeproof",
+  "name": "DIO ModelChangeProof",
+  "incarnation": {
+    "id": "modelchangeproof",
+    "surface": "internal",
+    "buyer_context": [
+      "model operations",
+      "change assurance"
+    ]
+  },
+  "suite_ids": [
+    "ai_digital_trust",
+    "evidence_assurance"
+  ],
+  "work_patterns": [
+    "WP01",
+    "WP05",
+    "WP11"
+  ],
+  "meta_capabilities": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_authority",
+    "meta_room"
+  ],
+  "profiles": {
+    "domain": [
+      {
+        "profile_id": "domain.ai_digital_trust",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:93379d9d59c8dfacf500fcd884fb7c16d591ab56249f15932c49e59009b3a094"
+      }
+    ],
+    "framework": [
+      {
+        "profile_id": "framework.model_change_assurance",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:c4121df6e5dbad8d52be5c53db4cb8c27bbbfe080f694ebace6e676ec0ac649f"
+      }
+    ],
+    "authority": [
+      {
+        "profile_id": "authority.ai_governance_owner",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:30956f16a89e8ac03e9001d0aab46defeeb6b29e0cb35688aadd3e2b37cba55c"
+      }
+    ],
+    "connector_pack": [
+      {
+        "profile_id": "connector.files_readonly",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:573fde172e9f4575813c4641cb069e327766402a1308c030cf4df42268b4de84"
+      }
+    ],
+    "output": [
+      {
+        "profile_id": "output.ai_trust_dossier",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:96188ef5f8044bf9e4c85518816f997075d54119ed60582e5080799ac77abc3c"
+      }
+    ],
+    "commercial": [
+      {
+        "profile_id": "commercial.internal_proof",
+        "binding": "BOUND",
+        "version": "1.0.0",
+        "content_hash": "sha256:5e335d7867cb45d3474b6777e86315c0a242874909ce1810d19fa7ea5787fdbd"
+      }
+    ]
+  },
+  "capability_requirements": [
+    {
+      "capability_id": "case.materialize",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "evidence.provenance",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "evidence.link",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "proof.room.compile",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "proof.integrity.verify",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "proof.disclosure.prepare",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "ai.trust.envelope",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "ai.trust.evaluate",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "ai.trust.drift",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "ai.trust.injection",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "ai.trust.provenance",
+      "required": true,
+      "execution_required": false
+    },
+    {
+      "capability_id": "product.executor.modelchangeproof",
+      "required": true,
+      "execution_required": true
+    }
+  ],
+  "executor_policy": {
+    "resolution": "compiler",
+    "missing_required_executor": "REFUSE"
+  },
+  "maturity": {
+    "state": "internal_proof",
+    "operational_flags": {
+      "routable": true,
+      "governable": true,
+      "executable": true,
+      "campaign_enabled": false,
+      "externally_validated": false,
+      "continuous_assurance_ready": false,
+      "revenue_proven": false
+    }
+  },
+  "notes": "Phase 13 internal AI and Digital Trust reference incarnation. Trust observations remain independent; human authority is NEEDS_YOU and external release is REFUSE."
+}

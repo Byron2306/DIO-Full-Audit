@@ -1,0 +1,202 @@
+{
+  "schema": "dio.product_factory_spec.v1",
+  "factory_version": "1.0.0",
+  "product_id": "dio_incidentreadinessproof",
+  "slug": "incidentreadinessproof",
+  "name": "DIO IncidentReadinessProof",
+  "source_type": "incident_readiness_case",
+  "surface": "internal",
+  "buyer_context": [
+    "enterprise resilience",
+    "incident governance"
+  ],
+  "suite_ids": [
+    "enterprise_operations",
+    "evidence_assurance"
+  ],
+  "work_patterns": [
+    "WP01",
+    "WP05",
+    "WP11"
+  ],
+  "meta_capabilities": [
+    "meta_evidence",
+    "meta_assurance",
+    "meta_authority",
+    "meta_room"
+  ],
+  "profiles": {
+    "domain": {
+      "name": "Incident Readiness Domain",
+      "object_types": [
+        "incident_scenario",
+        "response_plan",
+        "control_evidence",
+        "authority_record",
+        "exercise_result"
+      ],
+      "vocabulary": [
+        "SUPPORTED",
+        "PARTIAL",
+        "UNKNOWN",
+        "CONTESTED",
+        "STALE",
+        "REFUSE",
+        "NEEDS_YOU"
+      ],
+      "human_boundaries": [
+        "human declares incident severity",
+        "human authorises consequential response",
+        "human controls external notification"
+      ],
+      "forbidden_claims": [
+        "incident_proof",
+        "guaranteed_recovery",
+        "certified_resilience"
+      ]
+    },
+    "framework": {
+      "name": "Incident Readiness Framework",
+      "requirement_types": [
+        "scenario_coverage",
+        "role_assignment",
+        "contact_currency",
+        "exercise_evidence",
+        "recovery_dependency",
+        "notification_boundary"
+      ],
+      "state_vocabulary": [
+        "SUPPORTED",
+        "PARTIAL",
+        "UNKNOWN",
+        "CONTESTED",
+        "STALE",
+        "REFUSE",
+        "NEEDS_YOU"
+      ],
+      "deadline_semantics": [
+        "exercise_due",
+        "plan_review_due",
+        "notification_due",
+        "none_explicit"
+      ],
+      "human_boundaries": [
+        "human judges readiness",
+        "human confirms current-world facts",
+        "human authorises external action"
+      ],
+      "forbidden_claims": [
+        "fully_ready",
+        "compliant_response",
+        "guaranteed_continuity"
+      ]
+    },
+    "authority": {
+      "name": "Incident Response Owner Authority",
+      "human_roles": [
+        "incident_owner",
+        "evidence_reviewer",
+        "response_authority",
+        "release_authority"
+      ],
+      "decision_boundaries": [
+        "declare live incident",
+        "approve response action",
+        "authorise external notification",
+        "authorise release"
+      ],
+      "capability_constraints": [
+        "simulation is not live response",
+        "draft is not notification",
+        "identity is not authority",
+        "evidence is not permission"
+      ],
+      "forbidden_claims": [
+        "automatic_incident_declaration",
+        "authority_by_inference",
+        "autonomous_notification"
+      ]
+    },
+    "output": {
+      "name": "Incident Readiness Dossier Output",
+      "artifact_types": [
+        "JSON",
+        "HTML",
+        "DOCX",
+        "PDF",
+        "proof_room_manifest"
+      ],
+      "required_sections": [
+        "case_identity",
+        "readiness_dimensions",
+        "evidence_register",
+        "gap_register",
+        "action_boundary",
+        "human_review",
+        "provenance_manifest"
+      ],
+      "disclosure_rules": [
+        "gaps remain visible",
+        "simulation is not live response",
+        "external release requires human authority"
+      ],
+      "qa_requirements": [
+        "artifact hashes verified",
+        "all required sections present",
+        "human gate explicit",
+        "human-readable output required"
+      ]
+    }
+  },
+  "capability_requirements": [
+    "case.materialize",
+    "evidence.provenance",
+    "evidence.link",
+    "proof.room.compile",
+    "proof.integrity.verify",
+    "proof.disclosure.prepare"
+  ],
+  "evidence_contract": {
+    "required_types": [
+      "response_plan",
+      "role_matrix",
+      "exercise_record",
+      "contact_register"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "human_decisions": [
+      "readiness acceptance",
+      "live incident declaration",
+      "external notification",
+      "external release"
+    ],
+    "forbidden_claims": [
+      "certified readiness",
+      "guaranteed recovery",
+      "automatic authority"
+    ]
+  },
+  "output_contract": {
+    "artifact_basename": "INCIDENT_READINESS_DOSSIER",
+    "required_sections": [
+      "case_identity",
+      "readiness_dimensions",
+      "evidence_register",
+      "gap_register",
+      "action_boundary",
+      "human_review",
+      "provenance_manifest"
+    ]
+  },
+  "maturity": "internal_proof",
+  "external_release": "REFUSE",
+  "reference_case": "config/factory/golden/incidentreadinessproof/reference_case.json"
+}

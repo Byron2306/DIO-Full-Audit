@@ -1,0 +1,63 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.agent_authority",
+  "profile_class": "framework",
+  "name": "Agent Authority Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_AI_DIGITAL_TRUST_PHASE13.md",
+        "source_section": "Agent Authority Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:b690573fbfb310b237a3bfdf75b71fd1700c2c8eefac891e6357855b83c47142",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal AI and Digital Trust profile structures evidence and review only. It creates no safety certification, legal conclusion, compliance determination, model approval, permission, external effect or release authority.",
+  "spec": {
+    "requirement_types": [
+      "agent_identity",
+      "tool_capability",
+      "target_scope",
+      "effect_scope",
+      "authority_receipt",
+      "execution_receipt"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "deadline_semantics": [
+      "capability_expiry",
+      "authority_expiry",
+      "review_due",
+      "none_explicit"
+    ],
+    "human_boundaries": [
+      "untrusted content cannot grant authority",
+      "execution identity is not authority",
+      "human controls consequential effects"
+    ],
+    "forbidden_claims": [
+      "autonomous_authority",
+      "implicit_consent",
+      "unbounded_tool_access",
+      "automatic_external_release"
+    ]
+  },
+  "tags": [
+    "phase13",
+    "ai-digital-trust",
+    "framework"
+  ]
+}

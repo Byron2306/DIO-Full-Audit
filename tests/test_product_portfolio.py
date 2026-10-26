@@ -1,0 +1,153 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from products.governed_case import CASE_SCHEMA, validate_case
+from products.registry import bootstrap_generic_job, load_portfolio, product_profiles
+from scripts.build_portfolio_campaigns import marketable_products
+from scripts.reconcile_product_portfolio import reconcile_once
+from scripts.route_intake import load_routes, normalize_record, route_record
+
+
+EXPECTED_PRODUCTS = {
+    "dio_assurance",
+    "dio_agent_authority",
+    "dio_vendorproof",
+    "dio_accreditation",
+    "dio_tenderproof",
+    "dio_grantproof",
+    "dio_research_integrity",
+    "dio_regops",
+    "dio_capitalroom",
+}
+
+
+def test_portfolio_registers_all_wave1_products() -> None:
+    portfolio = load_portfolio()
+    assert portfolio["schema"] == "dio.product_portfolio.v1"
+    assert set(product_profiles()) == EXPECTED_PRODUCTS
+
+
+def test_every_product_preserves_human_authority_and_truth_boundary() -> None:
+    for profile in product_profiles().values():
+        assert profile["required_authorities"]
+        assert profile["activation_gates"]
+        assert profile["risk_boundary"]
+        assert profile["status"]
+        assert profile["evidence_inputs"]
+        assert profile["expected_outputs"]
+        assert "proof_asset" in profile
+
+
+def test_capitalroom_is_internal_and_not_public_campaignable() -> None:
+    capitalroom = product_profiles()["dio_capitalroom"]
+    assert capitalroom["runtime_mode"] == "internal_only"
+    assert capitalroom["customer_facing"] is False
+    assert capitalroom["campaign_enabled"] is False
+    assert {item["id"] for item in marketable_products()} == EXPECTED_PRODUCTS - {"dio_capitalroom"}
+
+
+def _route(text: str) -> str:
+    record = normalize_record({"subject": text, "body": text, "sender": "operator@example.org"})
+    return str(route_record(record, load_routes())["product"])
+
+
+def test_specific_new_routes_beat_broad_legacy_keywords() -> None:
+    assert _route("AI governance inventory and ISO 42001 assurance review") == "dio_assurance"
+    assert _route("Please review this grant agreement and donor obligations") == "dio_grantproof"
+    assert _route("We need regulatory readiness for a compliance obligation") == "dio_regops"
+    assert _route("Vendor due diligence questionnaire for third-party risk") == "dio_vendorproof"
+    assert _route("Tender compliance mandatory requirements review") == "dio_tenderproof"
+    assert _route("Investor diligence request for a capital raise") == "dio_capitalroom"
+
+
+def _write_routed_job(runs_root: Path, product: str, job_id: str) -> Path:
+    path = runs_root / "mailbox-auto-test" / product / f"{job_id}.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "job_id": job_id,
+        "created_at": "2026-08-11T00:00:00+00:00",
+        "route": {"product": product, "confidence": 0.95, "reason": "test"},
+        "source": {
+            "kind": "outlook_triage",
+            "message_id": "MSG-001",
+            "thread_ref": "THREAD-001",
+            "lead_id": "LEAD-001",
+            "conversation_id": "CONV-001"
+        },
+        "approval": {"required": True, "state": "pending"},
+        "evidence": [
+            {
+                "evidence_id": "EVID-001",
+                "source_type": "email",
+                "source_path": "/private/source/message.json",
+                "date_observed": "2026-08-11T00:00:00+00:00"
+            }
+        ],
+    }
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return path
+
+
+def test_generic_bootstrap_is_idempotent_non_executing_and_case_v2_backed(tmp_path: Path) -> None:
+    runs_root = tmp_path / "runs"
+    state_root = tmp_path / "state" / "product_jobs"
+    source = _write_routed_job(runs_root, "dio_assurance", "dio_assurance-test-job")
+
+    first = bootstrap_generic_job(source, state_root, runs_root)
+    second = bootstrap_generic_job(source, state_root, runs_root)
+
+    assert first == second
+    assert first["schema"] == "dio.generic_product_workflow.v2"
+    assert first["product"] == "dio_assurance"
+    assert first["case_schema"] == CASE_SCHEMA
+    assert first["capability"]["classification"] == "registered"
+    assert first["capability"]["case_reasoning"] == "enabled"
+    assert first["capability"]["execution"] == "not_implemented"
+    assert first["capability"]["external_release"] == "held"
+    assert first["processing"]["state"] == "not_started"
+    assert first["processing"]["profile_state"] == "registered"
+    assert first["delivery"]["state"] == "held"
+    assert first["output_review"]["required"] is True
+
+    job_path = state_root / "dio_assurance-test-job" / "JOB.json"
+    case_path = state_root / "dio_assurance-test-job" / "CASE.json"
+    assert job_path.is_file()
+    assert case_path.is_file()
+    governed_case = json.loads(case_path.read_text(encoding="utf-8"))
+    validate_case(governed_case)
+    assert governed_case["schema"] == CASE_SCHEMA
+    assert governed_case["case_id"] == first["case_id"]
+    assert governed_case["status"] == "intake_pending"
+    assert governed_case["requirements"]
+    assert governed_case["requirements"][0]["state"] == "evidence_needed"
+    assert governed_case["evidence"][0]["evidence_id"] == "EVID-001"
+    assert governed_case["evidence"][0]["trust_state"] == "captured_untrusted"
+    gates = {gate["gate_id"]: gate for gate in governed_case["gates"]}
+    assert gates["intake_authority"]["state"] == "needs_you"
+    assert gates["generic_executor"]["state"] == "refuse"
+    assert gates["external_release"]["state"] == "needs_you"
+
+
+def test_reconciler_promotes_mailbox_jobs_into_canonical_product_state(tmp_path: Path) -> None:
+    runs_root = tmp_path / "runs"
+    state_root = tmp_path / "state" / "product_jobs"
+    _write_routed_job(runs_root, "dio_vendorproof", "dio_vendorproof-test-job")
+
+    first = reconcile_once(runs_root, state_root)
+    second = reconcile_once(runs_root, state_root)
+
+    assert first["seen"] == 1
+    assert first["created"] == 1
+    assert first["failed"] == []
+    assert second["seen"] == 1
+    assert second["created"] == 0
+    assert second["unchanged"] == 1
+    workflow = json.loads((state_root / "dio_vendorproof-test-job" / "JOB.json").read_text(encoding="utf-8"))
+    assert workflow["schema"] == "dio.generic_product_workflow.v2"
+    assert workflow["product"] == "dio_vendorproof"
+    assert workflow["capability"]["execution"] == "not_implemented"
+    case_path = state_root / "dio_vendorproof-test-job" / "CASE.json"
+    assert case_path.is_file()
+    validate_case(json.loads(case_path.read_text(encoding="utf-8")))

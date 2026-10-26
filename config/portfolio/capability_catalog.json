@@ -1,0 +1,1248 @@
+{
+  "schema": "dio.capability_catalog.v1",
+  "catalog_version": "1.10.0",
+  "constitution_version": "1.0.0",
+  "laws": {
+    "products_request_capabilities_not_organs": true,
+    "compiler_resolves_providers": true,
+    "planned_capability_is_not_earned_capability": true,
+    "missing_required_execution_capability": "REFUSE",
+    "provider_selection_is_deterministic": true,
+    "provider_reference_must_exist_when_available": true,
+    "provider_applicability_must_be_explicit": true,
+    "regulatory_source_authority_must_be_explicit": true,
+    "regulatory_source_version_and_effective_interval_must_be_retained": true,
+    "applicability_uncertainty": "NEEDS_YOU",
+    "draft_is_not_filing": true,
+    "regulatory_filing_requires_external_human_authority": true,
+    "self_expansion_requires_closed_declarative_spec": true,
+    "self_expansion_must_use_canonical_compiler": true,
+    "generated_profiles_must_be_source_and_hash_bound": true,
+    "generated_provider_scope_must_be_exact": true,
+    "generation_must_not_promote_maturity": true,
+    "generation_must_not_create_external_authority": true,
+    "marketfront_generation_is_not_publication": true,
+    "engine_binding_is_not_engine_execution": true,
+    "generated_media_is_draft_only": true,
+    "generated_storefront_payment_defaults_to_refuse": true,
+    "commercial_measurement_does_not_create_market_truth": true,
+    "native_engine_execution_must_be_receipted": true,
+    "rendered_media_is_not_publication": true,
+    "media_production_must_not_create_spend_authority": true
+  },
+  "capabilities": [
+    {
+      "capability_id": "case.materialize",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "governed_case_v2",
+          "provider_kind": "shared_runtime",
+          "ref": "products/governed_case.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "evidence.provenance",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "evidence_intelligence",
+          "provider_kind": "shared_runtime",
+          "ref": "evidence/intelligence.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "evidence.link",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "evidence_intelligence",
+          "provider_kind": "shared_runtime",
+          "ref": "evidence/intelligence.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "evidence.sufficiency",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "evidence_sufficiency_v1",
+          "provider_kind": "shared_adapter",
+          "ref": "evidence/sufficiency.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "evidence.gaps",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "evidence_sufficiency_v1",
+          "provider_kind": "shared_adapter",
+          "ref": "evidence/sufficiency.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "proof.room.compile",
+      "kind": "proof_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "capitalroom_proof_room",
+          "provider_kind": "shared_runtime",
+          "ref": "capitalroom/proof_room.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_assurance",
+            "dio_agent_authority",
+            "dio_vendorproof",
+            "dio_accreditation",
+            "dio_tenderproof",
+            "dio_grantproof",
+            "dio_research_integrity",
+            "dio_regops",
+            "dio_capitalroom"
+          ]
+        },
+        {
+          "provider_id": "contractproof_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/contractproof/proof.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_contractproof"
+          ]
+        },
+        {
+          "provider_id": "obligation_family_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_grantproof",
+            "dio_permitproof",
+            "dio_policyproof",
+            "dio_tenderproof"
+          ]
+        },
+        {
+          "provider_id": "ai_trust_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        },
+        {
+          "provider_id": "regulated_markets_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/regulatory/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "proof.integrity.verify",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "contractproof_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/contractproof/proof.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_contractproof"
+          ]
+        },
+        {
+          "provider_id": "obligation_family_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_grantproof",
+            "dio_permitproof",
+            "dio_policyproof",
+            "dio_tenderproof"
+          ]
+        },
+        {
+          "provider_id": "ai_trust_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        },
+        {
+          "provider_id": "regulated_markets_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/regulatory/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "proof.disclosure.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "contractproof_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/contractproof/proof.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_contractproof"
+          ]
+        },
+        {
+          "provider_id": "obligation_family_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_grantproof",
+            "dio_permitproof",
+            "dio_policyproof",
+            "dio_tenderproof"
+          ]
+        },
+        {
+          "provider_id": "ai_trust_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        },
+        {
+          "provider_id": "regulated_markets_proof_pack_v1",
+          "provider_kind": "vertical_adapter",
+          "ref": "products/regulatory/runner.py",
+          "priority": 20,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "obligation.extract",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "dio/obligations/engine.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "obligation.normalize",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "dio/obligations/engine.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "obligation.deadlines",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "dio/obligations/engine.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "obligation.evaluate",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "dio/obligations/engine.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "intake.normalize",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "intake.classify",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "intake.missing_information",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "document.project",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "document.qa",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "document.release.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "planned",
+      "providers": []
+    },
+    {
+      "capability_id": "product.executor.contractproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "contractproof_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/contractproof/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_contractproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.tenderproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_family_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_tenderproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.grantproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_family_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_grantproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.permitproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_family_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_permitproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.policyproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "obligation_family_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/obligationfamily/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_policyproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.envelope",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.evaluate",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.drift",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.injection",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "ai.trust.provenance",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/ai_trust/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_agentauthority",
+            "dio_aitrustproof",
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.aitrustproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_aitrustproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.agentauthority",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_agentauthority"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.modelchangeproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "ai_trust_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/ai_trust/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_modelchangeproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.context.envelope",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.source.authority",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.applicability",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.temporal",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "regulatory.integrity",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_core_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/regulatory/core.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_privacyproof",
+            "dio_educationaccreditationproof",
+            "dio_publicprocurementproof",
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.privacyproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_privacyproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.educationaccreditationproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_educationaccreditationproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.publicprocurementproof",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_publicprocurementproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.executor.airegreadiness",
+      "kind": "vertical_executor",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "regulated_markets_internal_runner_v1",
+          "provider_kind": "vertical_executor",
+          "ref": "products/regulatory/runner.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_airegreadiness"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.spec.validate",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.product.materialize",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.validation.generate",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "factory.registration.project",
+      "kind": "planning_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "self_expanding_product_factory_v1",
+          "provider_kind": "shared_runtime",
+          "ref": "products/factory/compiler.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "*"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "corpus.discover",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "incarnation_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/incarnation_studio.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "product.marketfront.compile",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "incarnation_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/incarnation_studio.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "storefront.intake.local",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "incarnation_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/incarnation_studio.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "market.position",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "nichefoundry_adapter_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_nichefoundry_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.creative.compose",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "nichefoundry_adapter_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_nichefoundry_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "campaign.plan",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "market_command_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "market_command/agency.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "document.sales_assets",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "document_studio_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "adapters/document_studio/pipeline.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "marketing.claim.review",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "sophia_review_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_sophia_review.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "customer.education.compose",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "homs_jobs_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_homs_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "evidence.campaign.proof",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "evidex_jobs_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_evidex_jobs.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "fulfilment.attachment.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "vesper_phase11_1_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/phase11_1.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "outlook.mail.draft.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_mail_core_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/manage_mail_intent.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "presence.release.prepare",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "presence_core_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "presence_core/engine.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "commercial.measurement.contract",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "commercial_truth_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/commercial_truth.py",
+          "priority": 10,
+          "execution_capable": false,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "nichefoundry.campaign.native",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "nichefoundry_native_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "scripts/run_nichefoundry_jobs.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.ad.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.carousel.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.thumbnail.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.narration.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.caption.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.video.render",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    },
+    {
+      "capability_id": "media.proof.verify",
+      "kind": "work_pattern_runtime",
+      "status": "available",
+      "providers": [
+        {
+          "provider_id": "dio_media_incarnation_v1",
+          "provider_kind": "organ_adapter",
+          "ref": "products/media_incarnation.py",
+          "priority": 10,
+          "execution_capable": true,
+          "product_scope": [
+            "dio_incidentreadinessproof"
+          ]
+        }
+      ]
+    }
+  ]
+}

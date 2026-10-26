@@ -1,0 +1,25 @@
+{
+  "schema":"dio.maturity_vocabulary.v1","vocabulary_id":"dio-canonical-product-maturity-v1","constitution_version":"1.0.0",
+  "laws":{"architecture_never_implies_maturity":true,"maturity_never_creates_authority":true,"maturity_never_creates_execution":true,"no_automatic_legacy_status_mapping":true,"promotion_requires_evidence":true},
+  "states":[
+    {"id":"discovered","rank":0,"label":"DISCOVERED","meaning":"Useful market/work pattern identified."},
+    {"id":"registered","rank":1,"label":"REGISTERED","meaning":"Product manifest exists in the canonical registry."},
+    {"id":"composed","rank":2,"label":"COMPOSED","meaning":"Work patterns, META, profiles and outputs are defined."},
+    {"id":"internal_proof","rank":3,"label":"INTERNAL PROOF","meaning":"Controlled synthetic/internal case passes."},
+    {"id":"pilot_ready","rank":4,"label":"PILOT READY","meaning":"Bounded external offer and fulfilment route exist."},
+    {"id":"customer_validated","rank":5,"label":"CUSTOMER VALIDATED","meaning":"External buyer/user confirms value."},
+    {"id":"repeatable","rank":6,"label":"REPEATABLE","meaning":"The same workflow succeeds more than once."},
+    {"id":"economically_proven","rank":7,"label":"ECONOMICALLY PROVEN","meaning":"Revenue, labour and costs support continuation."},
+    {"id":"scale_ready","rank":8,"label":"SCALE READY","meaning":"Operational, legal, assurance and support gates are satisfied."}
+  ],
+  "operational_flags":[
+    {"id":"routable","meaning":"The product can be selected/routed by the portfolio layer."},
+    {"id":"governable","meaning":"The product is representable under DIO governed case and authority rules."},
+    {"id":"executable","meaning":"All required runtime capabilities have valid bounded executors."},
+    {"id":"campaign_enabled","meaning":"Commercial outreach is explicitly permitted."},
+    {"id":"externally_validated","meaning":"Required external/domain validation evidence exists."},
+    {"id":"continuous_assurance_ready","meaning":"The product can participate in continuous assurance without inventing authority."},
+    {"id":"revenue_proven","meaning":"Revenue evidence exists; this does not by itself imply economic or scale readiness."}
+  ],
+  "legacy_status_policy":"Existing portfolio status labels remain evidence inputs only. They must not be silently promoted or mechanically equated to canonical maturity states."
+}

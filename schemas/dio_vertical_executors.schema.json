@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_vertical_executors.schema.json",
+  "title": "DIO Vertical Executor Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "registry_id", "laws", "executors"],
+  "properties": {
+    "schema": {"const": "dio.vertical_executors.registry.v1"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "laws": {
+      "type": "object",
+      "additionalProperties": {"type": "boolean"},
+      "required": [
+        "generic_executor",
+        "automatic_external_actions",
+        "receipt_required",
+        "wave4_authority_chain_required",
+        "bound_means_real_entrypoint",
+        "unproven_external_capabilities_are_locked"
+      ]
+    },
+    "executors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["executor_id", "system_ids", "capabilities"],
+        "properties": {
+          "executor_id": {"type": "string", "minLength": 1},
+          "system_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "capabilities": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "capability",
+                "binding_state",
+                "entrypoint_kind",
+                "entrypoint_ref",
+                "mode",
+                "external_side_effect",
+                "valinor_operation",
+                "receipt_prefix",
+                "consequence_class"
+              ],
+              "properties": {
+                "capability": {"type": "string", "minLength": 1},
+                "binding_state": {"enum": ["bound", "locked"]},
+                "entrypoint_kind": {"enum": ["core_callable", "core_cli", "workspace_mount", "none"]},
+                "entrypoint_ref": {"type": ["string", "null"]},
+                "mode": {"enum": ["local_only", "explicit_environment_gate", "hard_locked"]},
+                "external_side_effect": {"type": "boolean"},
+                "valinor_operation": {"enum": ["socket", "ipc", "write", "secret", "syscall", "flow"]},
+                "receipt_prefix": {"type": "string", "minLength": 1},
+                "receipt_contract": {"type": "string", "minLength": 1},
+                "compatibility_guard": {"type": "string", "minLength": 1},
+                "consequence_class": {"enum": ["reversible_internal", "external", "irreversible"]},
+                "lock_reason": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

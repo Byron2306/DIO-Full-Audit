@@ -1,0 +1,66 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.tender_submission",
+  "profile_class": "framework",
+  "name": "Tender Submission Obligation Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_OBLIGATION_FAMILY_PHASE6.md",
+        "source_section": "Tender Submission Obligation Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:0b5bb40260c32059e50722a05ede06a438676735738b8492e703fd4c7bf9117c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal tender submission obligation framework configures vocabulary and review semantics only. It creates no legal, procurement, funder or regulatory conclusion or authority.",
+  "spec": {
+    "requirement_types": [
+      "eligibility",
+      "mandatory_returnable",
+      "submission_deadline",
+      "validity_period",
+      "clarification",
+      "award_condition"
+    ],
+    "state_vocabulary": [
+      "unverified",
+      "satisfied",
+      "partial",
+      "missing",
+      "contested",
+      "expired",
+      "not_yet_due",
+      "needs_review"
+    ],
+    "deadline_semantics": [
+      "submission_cutoff",
+      "relative_to_issue",
+      "validity_expiry",
+      "none_explicit"
+    ],
+    "human_boundaries": [
+      "human confirms eligibility interpretation",
+      "human confirms returnable completeness",
+      "human controls submission and award representations"
+    ],
+    "forbidden_claims": [
+      "eligible",
+      "responsive_bid",
+      "award_winner",
+      "legally_compliant"
+    ]
+  },
+  "tags": [
+    "phase6",
+    "WP05",
+    "obligation-family",
+    "tender_submission"
+  ]
+}
+

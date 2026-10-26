@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.meta_products.registry.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "registry_id", "depends_on", "laws", "meta_products", "vertical_compositions"],
+  "properties": {
+    "schema": {"const": "dio.meta_products.registry.v1"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "depends_on": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fusion_state"],
+      "properties": {"fusion_state": {"const": "FUSION_WAVE9_READY"}}
+    },
+    "laws": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta_product_creates_authority", "meta_product_executes",
+        "meta_product_changes_vertical_maturity", "meta_product_implies_market_validation",
+        "new_executors_created", "vertical_risk_boundary_preserved",
+        "kernel_authority", "execution_identity_authority"
+      ],
+      "properties": {
+        "meta_product_creates_authority": {"const": false},
+        "meta_product_executes": {"const": false},
+        "meta_product_changes_vertical_maturity": {"const": false},
+        "meta_product_implies_market_validation": {"const": false},
+        "new_executors_created": {"const": false},
+        "vertical_risk_boundary_preserved": {"const": true},
+        "kernel_authority": {"const": "Valinor"},
+        "execution_identity_authority": {"const": "ARDA"}
+      }
+    },
+    "meta_products": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "name", "role", "capabilities", "component_refs", "authority", "execution", "external_release"],
+        "properties": {
+          "id": {"enum": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"]},
+          "name": {"type": "string", "minLength": 1},
+          "role": {"type": "string", "minLength": 1},
+          "capabilities": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "component_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "authority": {"const": false},
+          "execution": {"const": false},
+          "external_release": {"const": false}
+        }
+      }
+    },
+    "vertical_compositions": {
+      "type": "array", "minItems": 9, "maxItems": 9,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["product_id", "primary_meta_product", "required_meta_products", "release_guard_meta_product", "surface_mode"],
+        "properties": {
+          "product_id": {
+            "enum": [
+              "dio_assurance", "dio_agent_authority", "dio_vendorproof", "dio_accreditation",
+              "dio_tenderproof", "dio_grantproof", "dio_research_integrity", "dio_regops", "dio_capitalroom"
+            ]
+          },
+          "primary_meta_product": {"enum": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"]},
+          "required_meta_products": {
+            "type": "array", "minItems": 2, "maxItems": 4, "uniqueItems": true,
+            "items": {"enum": ["meta_evidence", "meta_assurance", "meta_authority", "meta_room"]}
+          },
+          "release_guard_meta_product": {"type": ["string", "null"], "enum": ["meta_authority", null]},
+          "surface_mode": {"enum": ["customer_facing", "internal"]}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "framework.ai_regulatory_readiness",
+  "profile_class": "framework",
+  "name": "AI Regulatory Readiness Framework",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "AI Regulatory Readiness Framework",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "requirement_types": [
+      "system_classification",
+      "provider_deployer_role",
+      "territorial_nexus",
+      "risk_controls",
+      "technical_documentation",
+      "ai_trust_binding"
+    ],
+    "state_vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "deadline_semantics": [
+      "rule_effective_date",
+      "transition_period",
+      "evaluation_expiry",
+      "review_due"
+    ],
+    "human_boundaries": [
+      "human determines regulatory classification",
+      "human accepts residual risk",
+      "human controls regulator submission"
+    ],
+    "forbidden_claims": [
+      "ai_act_compliant",
+      "approved_ai_system",
+      "certified_safe"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "framework"
+  ]
+}

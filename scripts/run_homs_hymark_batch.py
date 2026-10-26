@@ -6,6 +6,7 @@ import asyncio
 import csv
 import importlib.util
 import json
+import sys
 import os
 import re
 import shutil
@@ -17,8 +18,11 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 DEFAULT_SECRET_FILE = Path("/home/byron/EdgeK-BEAST/.beast/provider_secrets.env")
-DEFAULT_HYMARK_BACKEND = Path("/home/byron/Downloads/NoEdge-Multi-Hymark-main/backend/server.py")
+DEFAULT_HYMARK_BACKEND = ROOT / "cross_folder_variants" / "NoEdge-Multi-Hymark-main" / "A_CODE" / "backend" / "server.py"
 
 
 def utc_now() -> str:
@@ -43,7 +47,23 @@ def configure_provider(secret_file: Path, provider_name: str, model: str) -> dic
     for key, value in values.items():
         os.environ.setdefault(key, value)
 
-    if provider_name in {"nim", "nvidia", "nvidia_nim"}:
+    provider_name = provider_name.strip().casefold().replace("-", "_")
+    if provider_name in {"ollama", "local_ollama", "local"}:
+        from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
+
+        require_ollama_provider(provider_name, component="HOMS HyMark")
+        base_url = ollama_url().rstrip("/")
+        if not base_url.endswith("/v1"):
+            base_url += "/v1"
+        os.environ["OPENAI_API_KEY"] = "ollama"
+        os.environ["OPENAI_BASE_URL"] = base_url
+        os.environ["HOMS_AI_MODEL"] = model or ollama_model()
+        os.environ.setdefault("HOMS_AI_TIMEOUT_SECONDS", "360")
+        os.environ.setdefault("HOMS_AI_MAX_RETRIES", "0")
+        os.environ.setdefault("HOMS_AI_MAX_TOKENS", "512")
+        selected = "ollama"
+        key_name = ""
+    elif provider_name in {"nim", "nvidia", "nvidia_nim"}:
         key_name = "NVIDIA_API_KEY"
         api_key = values.get(key_name) or os.environ.get(key_name)
         if not api_key:
@@ -172,6 +192,16 @@ def normalize_assessment(raw: dict[str, Any], rubric: dict[str, Any]) -> dict[st
     return raw
 
 
+def assessment_response_is_complete(raw: dict[str, Any], rubric: dict[str, Any]) -> bool:
+    if raw.get("error") or not isinstance(raw.get("criteria_scores"), dict):
+        return False
+    if not rubric.get("criteria") or not raw["criteria_scores"]:
+        return False
+
+    normalized = normalize_assessment(dict(raw), rubric)
+    return all(item["feedback"] for item in normalized["criteria_scores"].values())
+
+
 def zip_dir(source: Path, target: Path) -> None:
     with zipfile.ZipFile(target, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for path in source.rglob("*"):
@@ -212,7 +242,14 @@ def write_marked_gradebook(job_dir: Path, results: list[dict[str, Any]]) -> Path
     return marked
 
 
-def run_batch(input_dir: Path, out_root: Path, secret_file: Path, backend_path: Path, provider_name: str, model: str) -> dict[str, Any]:
+def run_batch(
+    input_dir: Path,
+    out_root: Path,
+    secret_file: Path = DEFAULT_SECRET_FILE,
+    backend_path: Path = DEFAULT_HYMARK_BACKEND,
+    provider_name: str = "ollama",
+    model: str = "",
+) -> dict[str, Any]:
     started = time.perf_counter()
     provider = configure_provider(secret_file, provider_name, model)
     hymark = load_hymark_backend(backend_path)
@@ -245,11 +282,16 @@ def run_batch(input_dir: Path, out_root: Path, secret_file: Path, backend_path: 
             text = submission.read_text(encoding="utf-8", errors="ignore")
         else:
             text = hymark.extract_document_content(submission)
+        provider_failed = False
         try:
             raw = asyncio.run(hymark.assess_with_ai(text, rubric, instructions))
         except Exception as exc:
+            provider_failed = True
             provider_errors.append(f"{submission.name}: {type(exc).__name__}: provider failure redacted")
             raw = {"total_score": 0, "criteria_scores": {}, "overall_feedback": "Assessment failed.", "annotations": []}
+
+        if not provider_failed and not assessment_response_is_complete(raw, rubric):
+            provider_errors.append(f"{submission.name}: incomplete provider assessment; details redacted")
 
         result = normalize_assessment(raw, rubric)
         result["student_id"] = submission.stem
@@ -333,7 +375,7 @@ def main() -> int:
     parser.add_argument("--out", default="/home/byron/KnowEdge_Microsoft_Mirror/HOMS/done")
     parser.add_argument("--secret-file", default=str(DEFAULT_SECRET_FILE))
     parser.add_argument("--backend", default=str(DEFAULT_HYMARK_BACKEND))
-    parser.add_argument("--provider", default="nim", choices=["nim", "nvidia", "nvidia_nim", "openai"])
+    parser.add_argument("--provider", default="ollama", choices=["ollama", "nim", "nvidia", "nvidia_nim", "openai"])
     parser.add_argument("--model", default="")
     args = parser.parse_args()
 

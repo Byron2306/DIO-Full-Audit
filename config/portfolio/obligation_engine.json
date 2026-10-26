@@ -1,0 +1,51 @@
+{
+  "schema": "dio.obligation_engine.config.v1",
+  "engine_version": "0.1.0",
+  "constitution_version": "1.0.0",
+  "provider_id": "obligation_core_v1",
+  "provider_ref": "dio/obligations/engine.py",
+  "laws": {
+    "source_binding_required": true,
+    "structured_obligations_are_candidates_not_authority": true,
+    "deontic_candidates_require_human_review": true,
+    "evidence_binding_is_explicit": true,
+    "semantic_auto_match_is_forbidden_v0_1": true,
+    "legal_opinion_is_forbidden": true,
+    "compliance_verdict_is_forbidden": true,
+    "authority_creation_is_forbidden": true,
+    "executor_creation_is_forbidden": true,
+    "external_effects_are_forbidden": true,
+    "human_fulfilment_boundary_required": true
+  },
+  "capabilities": [
+    "obligation.extract",
+    "obligation.normalize",
+    "obligation.deadlines",
+    "obligation.evaluate"
+  ],
+  "canonical_states": [
+    "SATISFIED",
+    "PARTIAL",
+    "MISSING",
+    "CONTESTED",
+    "EXPIRED",
+    "NOT_YET_DUE",
+    "NEEDS_REVIEW"
+  ],
+  "reserved_authority_or_legal_verdicts": [
+    "COMPLIANT",
+    "LEGAL",
+    "VALID",
+    "APPROVED"
+  ],
+  "projection": {
+    "target": "dio.governed_case.v2",
+    "creates_requirements": true,
+    "creates_deadlines": true,
+    "links_supporting_evidence": true,
+    "raises_material_contradiction_challenges": true,
+    "mutates_gates": false,
+    "mutates_actions": false,
+    "mutates_decisions": false
+  }
+}

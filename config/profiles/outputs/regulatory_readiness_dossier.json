@@ -1,0 +1,61 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "output.regulatory_readiness_dossier",
+  "profile_class": "output",
+  "name": "Regulatory Readiness Dossier Output",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "Regulatory Readiness Dossier Output",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "artifact_types": [
+      "JSON",
+      "HTML",
+      "DOCX",
+      "PDF",
+      "proof_room_manifest"
+    ],
+    "required_sections": [
+      "context_identity",
+      "source_registry",
+      "applicability_assessment",
+      "temporal_register",
+      "obligation_register",
+      "licence_and_submission_register",
+      "evidence_register",
+      "interpretation_gaps",
+      "ai_trust_binding",
+      "human_review",
+      "provenance_manifest"
+    ],
+    "disclosure_rules": [
+      "external release requires authorised human receipt",
+      "source authority and effective dates remain visible",
+      "unresolved interpretations remain visible",
+      "internal proof is not compliance"
+    ],
+    "qa_requirements": [
+      "artifact hashes verified",
+      "source versions and digests retained",
+      "draft and filing states separated",
+      "human-readable output required"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "output"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "dio.fusion_bindings.v1",
+  "primitives": ["evidence","observation","challenge","requirement","authority","capability_request","decision","receipt"],
+  "bindings": {
+    "dio_core": ["evidence","challenge","requirement","authority","capability_request","decision","receipt"],
+    "vesper_presence": ["observation","capability_request","receipt"],
+    "sophia_integritas": ["evidence","observation","decision","receipt"],
+    "valinor": ["authority","decision","receipt"],
+    "beast": ["evidence","observation","receipt"],
+    "metatron": ["challenge","observation","receipt"],
+    "arda": ["authority","capability_request","receipt"],
+    "seraph": ["challenge","evidence","receipt"],
+    "phoenix": ["evidence","challenge","decision","receipt"],
+    "evidex": ["evidence","observation","receipt"],
+    "vamp": ["evidence","observation","decision","receipt"],
+    "homs": ["evidence","observation","decision","capability_request","receipt"],
+    "outlook_triage": ["observation","evidence","capability_request","receipt"],
+    "microsoft_graph": ["observation","evidence","capability_request","receipt"],
+    "nichefoundry": ["evidence","capability_request","receipt"],
+    "document_studio": ["evidence","capability_request","receipt"],
+    "lingua": ["evidence","receipt"],
+    "format_core": ["evidence","receipt"],
+    "legalis": ["requirement","authority","decision","receipt"],
+    "market_command": ["observation","evidence","capability_request","receipt"],
+    "commerce_autorelease": ["observation","evidence","authority","capability_request","receipt"],
+    "dio_product_platform": ["requirement","decision","receipt"],
+    "dio_workflows_site": ["evidence","capability_request","receipt"]
+  },
+  "laws": {
+    "all_mandatory_systems_bound": true,
+    "no_organ_mints_kernel_authority": true,
+    "no_machine_organ_mints_external_release": true,
+    "specialist_histories_preserved": true
+  }
+}

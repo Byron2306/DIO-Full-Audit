@@ -1,0 +1,77 @@
+name: DIO Fusion Wave 6 Cross-Organ Composition Gauntlet
+
+on:
+  push:
+    branches:
+      - agent/dio-product-platform-expansion
+  pull_request:
+    paths:
+      - "composition/**"
+      - "config/dio_composition_profiles.json"
+      - "schemas/dio_composition_profiles.schema.json"
+      - "scripts/check_fusion_wave6.py"
+      - "scripts/run_fusion_wave6.py"
+      - "tests/test_cross_organ_composition.py"
+      - ".github/workflows/dio-fusion6.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fusion6:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check pytest jsonschema python-docx httpx fastapi requests
+      - name: Compile composition plane
+        run: |
+          python -m py_compile \
+            composition/orchestrator.py \
+            composition/case_bridge.py \
+            scripts/check_fusion_wave6.py \
+            scripts/run_fusion_wave6.py
+      - name: Validate composition profile schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+          schema = json.loads(Path("schemas/dio_composition_profiles.schema.json").read_text(encoding="utf-8"))
+          payload = json.loads(Path("config/dio_composition_profiles.json").read_text(encoding="utf-8"))
+          Draft202012Validator.check_schema(schema)
+          Draft202012Validator(schema).validate(payload)
+          print("PASS cross-organ composition profile schema")
+          PY
+      - name: Re-run Phase 0 and 1 suite
+        run: |
+          python -m pytest -q \
+            tests/test_product_portfolio.py \
+            tests/test_governed_case_v2.py \
+            tests/test_case_migration.py \
+            tests/test_system_snapshot.py \
+            tests/test_unified_workspace.py \
+            tests/test_document_conversion.py \
+            tests/test_legalis.py
+      - name: Re-run Incarnation suite
+        run: |
+          python -m pytest -q \
+            tests/test_presence_authority.py \
+            tests/test_presence_vesper.py \
+            tests/test_seraph_challenge.py \
+            tests/test_fusion_registry.py
+      - name: Re-run Fusion Waves 1 to 5
+        run: |
+          python -m pytest -q tests/test_fusion_wave1.py
+          python -m pytest -q tests/test_framework_engine.py
+          python -m pytest -q tests/test_evidence_intelligence.py
+          python -m pytest -q tests/test_authority_execution_plane.py
+          python -m pytest -q tests/test_vertical_executors.py
+      - name: Run Fusion Wave 6 Cross-Organ Composition tests
+        run: python -m pytest -q tests/test_cross_organ_composition.py

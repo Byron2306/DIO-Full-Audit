@@ -1,0 +1,40 @@
+name: DIO Phase 16 Product Incarnation Studio
+
+on:
+  push:
+    paths:
+      - "config/incarnation_studio/**"
+      - "config/portfolio/capability_catalog.json"
+      - "products/incarnation_studio.py"
+      - "products/incarnation_studio_gauntlet.py"
+      - "scripts/run_product_incarnation_studio_phase16.py"
+      - "tests/test_product_incarnation_studio_phase16.py"
+      - "docs/DIO_PRODUCT_INCARNATION_STUDIO_PHASE16.md"
+      - "README.md"
+      - ".github/workflows/dio-product-incarnation-studio-phase16.yml"
+  pull_request:
+    paths:
+      - "config/incarnation_studio/**"
+      - "config/portfolio/capability_catalog.json"
+      - "products/incarnation_studio.py"
+      - "products/incarnation_studio_gauntlet.py"
+      - "scripts/run_product_incarnation_studio_phase16.py"
+      - "tests/test_product_incarnation_studio_phase16.py"
+      - "docs/DIO_PRODUCT_INCARNATION_STUDIO_PHASE16.md"
+      - "README.md"
+      - ".github/workflows/dio-product-incarnation-studio-phase16.yml"
+
+jobs:
+  phase16:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install pytest jsonschema reportlab
+      - run: python -m compileall products dio evidence scripts
+      - run: python scripts/validate_profiles.py
+      - run: python -m pytest -q tests/test_self_expanding_product_factory_phase15.py tests/test_product_incarnation_studio_phase16.py
+      - run: python scripts/run_product_incarnation_studio_phase16.py --output /tmp/dio-phase16-product-incarnation-studio

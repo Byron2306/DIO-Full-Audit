@@ -1,0 +1,16 @@
+[Unit]
+Description=DIO Phase 9 local public intake edge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/DIO-Full-Audit
+EnvironmentFile=-%h/.config/dio/sovereign.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=%h/DIO-Full-Audit/.venv/bin/python %h/DIO-Full-Audit/scripts/serve_public_edge_local.py --host 127.0.0.1 --port 8790
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,19 @@
+[Unit]
+Description=DIO Vesper Web Chat Presence Core
+After=network.target
+ConditionPathIsMountPoint=/data
+
+[Service]
+Type=simple
+WorkingDirectory=/home/byron/DIO-Full-Audit
+Environment=PYTHONNOUSERSITE=1
+EnvironmentFile=-/home/byron/.config/dio/sovereign.env
+Environment=DIO_STATE_ROOT=/home/byron/.local/share/dio
+Environment=DIO_EVENT_LOG=/home/byron/.local/share/dio/telemetry/dio_events.jsonl
+ExecStartPre=/home/byron/DIO-Full-Audit/.venv/bin/python /home/byron/DIO-Full-Audit/scripts/verify_integrated_runtime.py
+ExecStart=/home/byron/DIO-Full-Audit/.venv/bin/python /home/byron/DIO-Full-Audit/scripts/serve_vesper_web_chat.py --host 127.0.0.1 --port 8770 --site-root /home/byron/dio-r4e-website
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

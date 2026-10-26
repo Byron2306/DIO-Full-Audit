@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dio.commercial_authority_preflight.v1",
+  "title": "DIO Commercial Authority Preflight v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "context_digest",
+    "projection_digest",
+    "offer_state_digest",
+    "channel_state_digest",
+    "seraph_anchor_digest",
+    "decisions",
+    "claim_language_safe",
+    "seraph_operational_gate_executed",
+    "authority_created",
+    "external_effects"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial_authority_preflight.v1"},
+    "context_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "projection_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "offer_state_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "channel_state_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "seraph_anchor_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "decisions": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["effect", "owner", "decision", "authority_created"],
+        "properties": {
+          "effect": {"enum": ["PUBLISH", "SEND", "SPEND", "PURCHASE", "DEPLOY", "DELIVER"]},
+          "owner": {"const": "Seraph"},
+          "decision": {"enum": ["REFUSE", "NEEDS_YOU", "ALLOW"]},
+          "authority_created": {"const": false}
+        },
+        "additionalProperties": true
+      }
+    },
+    "claim_language_safe": {"type": "boolean"},
+    "seraph_operational_gate_executed": {"const": false},
+    "authority_created": {"const": false},
+    "external_effects": {"const": false}
+  },
+  "additionalProperties": true
+}

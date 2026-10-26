@@ -1,0 +1,203 @@
+{
+  "schema": "dio.commercial_incarnation_registry.v1",
+  "registry_id": "dio-design-legal-commercial-gap-2026-08-18",
+  "created_at": "2026-08-18",
+  "purpose": "Package existing DIO organs and proved product-class capabilities into buyer-legible Design Studio and Legal Operations offers without inventing new engines or changing the canonical atlas product-class count.",
+  "truth_boundary": "These are commercial incarnations/compositions over existing DIO organs. Registration here does not create a new executor, customer validation, legal authority, public release authority, guaranteed outcome, certification, filing authority, or payment authority. Each incarnation must earn controlled composition execution proof before it may be described as execution-proved.",
+  "laws": {
+    "canonical_atlas_count_unchanged": true,
+    "commercial_incarnation_is_not_new_engine": true,
+    "composition_has_no_authority": true,
+    "missing_component_execution_must_refuse": true,
+    "human_review_required_before_external_release": true,
+    "legal_interpretation_requires_authorised_human": true,
+    "no_automatic_filing": true,
+    "no_automatic_publication": true,
+    "no_automatic_ad_spend": true,
+    "no_guaranteed_compliance_or_legal_outcome": true,
+    "pricing_is_launch_hypothesis_not_validated_willingness_to_pay": true
+  },
+  "families": {
+    "design_studio": {
+      "label": "DIO Design Studio",
+      "commercial_job": "Create polished, governed public-facing assets from a bounded customer brief while preserving meaning, provenance and human release authority.",
+      "root_public_intake": "document_studio"
+    },
+    "legal_operations": {
+      "label": "DIO Legal Operations",
+      "commercial_job": "Turn legal/compliance prerequisites, obligations, evidence and draft materials into review-ready operational packs without pretending DIO is a lawyer or regulator.",
+      "root_public_intake": "evidex"
+    }
+  },
+  "incarnations": [
+    {
+      "id": "dio_site_studio",
+      "name": "DIO Site Studio",
+      "family": "design_studio",
+      "status": "composition_defined_execution_proof_required",
+      "customer_facing": true,
+      "campaign_state": "held_until_local_composition_smoke",
+      "launch_price_zar": 6900,
+      "pricing_basis": "one bounded small-business or professional-service website pilot",
+      "primary_buyers": ["South African SMEs", "consultancies", "professional services", "NGOs and NPOs", "education and research projects"],
+      "buyer_problem": "The customer needs a credible website, coherent copy, visual direction and lead capture but does not want to coordinate separate copy, design, development and intake tools.",
+      "promise": "A research-informed, responsive website package with governed copy, visual direction, structured lead intake and review-ready deployment assets.",
+      "inputs": ["business or project brief", "existing brand assets if any", "services and target audiences", "approved factual claims", "contact and intake requirements"],
+      "outputs": ["positioning and sitemap", "website copy", "responsive static site package", "visual asset brief or generated approved assets", "SEO metadata structure", "governed intake integration plan", "deployment manifest", "human release checklist"],
+      "composition": [
+        {"component": "nichefoundry", "kind": "organ", "role": "market research, positioning, visual and creative production"},
+        {"component": "lingua", "kind": "organ", "role": "semantic copy custody, language/register control and approved localisation"},
+        {"component": "document_studio", "kind": "product_organ", "role": "structured content and deterministic render/format discipline"},
+        {"component": "vesper_presence", "kind": "organ", "role": "governed public intake and customer interaction"},
+        {"component": "evidex", "kind": "organ", "role": "claim/source provenance and proof pack"}
+      ],
+      "public_intake_root": "document_studio",
+      "authority_boundary": "DIO may prepare and package the site. Domain ownership, public deployment, factual claims, legal notices, external publication and paid services remain explicitly authorised actions.",
+      "activation_proof": ["controlled site composition run", "responsive render QA", "claim/provenance check", "intake attribution check", "human-held deployment receipt"],
+      "forbidden_claims": ["guaranteed SEO ranking", "guaranteed sales", "automatic legal compliance", "automatic public deployment"]
+    },
+    {
+      "id": "dio_launch_studio",
+      "name": "DIO Launch Studio",
+      "family": "design_studio",
+      "status": "composition_defined_execution_proof_required",
+      "customer_facing": true,
+      "campaign_state": "held_until_local_composition_smoke",
+      "launch_price_zar": 12900,
+      "pricing_basis": "one bounded launch campaign with one primary offer and approved channel set",
+      "primary_buyers": ["new SMEs", "new professional practices", "consultants", "product and service launches", "NGOs launching programmes"],
+      "buyer_problem": "A new offer needs a coherent website, brand direction, launch creative and lead route rather than disconnected assets from different vendors.",
+      "promise": "One governed launch spine covering positioning, site, creative family, short-form media, channel copy and structured lead intake.",
+      "inputs": ["offer brief", "target audiences", "approved claims and pricing", "brand assets or brand brief", "allowed channels", "release and spend limits"],
+      "outputs": ["launch positioning", "site or landing page package", "ad and social creative family", "reel/short-form scripts and held media assets", "email/social launch copy", "structured intake attribution", "campaign proof pack", "operator launch checklist"],
+      "composition": [
+        {"component": "dio_site_studio", "kind": "commercial_incarnation", "role": "site and landing surface"},
+        {"component": "nichefoundry", "kind": "organ", "role": "campaign research, creative and media production"},
+        {"component": "lingua", "kind": "organ", "role": "semantic campaign custody and learned held-draft patterns"},
+        {"component": "market_command", "kind": "operational_capability", "role": "campaign evidence and channel outcome observation"},
+        {"component": "vesper_presence", "kind": "organ", "role": "public response and lead intake"},
+        {"component": "dio_mail", "kind": "operational_capability", "role": "governed draft email surfaces"}
+      ],
+      "public_intake_root": "document_studio",
+      "authority_boundary": "DIO may research, draft, render, package and learn from observed outcomes. Publication, external messaging, media spend, commitments and pricing changes remain separately authorised.",
+      "activation_proof": ["controlled launch composition run", "site plus creative lineage check", "channel package QA", "LINGUA semantic registration", "zero automatic publication/spend proof"],
+      "forbidden_claims": ["guaranteed leads", "guaranteed conversion", "automatic spend", "fabricated scarcity", "fabricated testimonials"]
+    },
+    {
+      "id": "dio_report_pitch_studio",
+      "name": "DIO Report & Pitch Studio",
+      "family": "design_studio",
+      "status": "composition_defined_execution_proof_required",
+      "customer_facing": true,
+      "campaign_state": "held_until_local_composition_smoke",
+      "launch_price_zar": 3900,
+      "pricing_basis": "one bounded report, proposal or presentation transformation pilot",
+      "primary_buyers": ["academics", "consultants", "SMEs", "NGOs and NPOs", "programme managers", "executives"],
+      "buyer_problem": "The customer has useful content or evidence but the final report, proposal or deck is visually weak, inconsistent or difficult to review.",
+      "promise": "Turn governed source content into polished, audience-ready reports, proposals and pitch decks without silently rewriting the underlying meaning.",
+      "inputs": ["source document or content set", "audience", "approved factual claims", "brand or style profile", "desired output formats"],
+      "outputs": ["content structure and hierarchy", "designed report or deck", "visual/figure recommendations", "formatted references and tables", "PDF/DOCX/PPTX package as supported", "source-to-output provenance receipt"],
+      "composition": [
+        {"component": "document_studio", "kind": "product_organ", "role": "formatting, conversion and deterministic document rendering"},
+        {"component": "nichefoundry", "kind": "organ", "role": "visual narrative, audience and presentation direction"},
+        {"component": "lingua", "kind": "organ", "role": "semantic custody and approved localisation"},
+        {"component": "evidex", "kind": "organ", "role": "source and claim provenance"}
+      ],
+      "public_intake_root": "document_studio",
+      "authority_boundary": "DIO may restructure presentation and render approved source meaning. It does not invent evidence, create endorsements, approve investor representations or replace professional sign-off.",
+      "activation_proof": ["controlled source-to-designed-output run", "layout QA", "semantic-diff check", "source provenance check", "human review receipt"],
+      "forbidden_claims": ["investor approval", "funding guarantee", "fabricated evidence", "silent substantive rewriting"]
+    },
+    {
+      "id": "dio_popia_readiness",
+      "name": "DIO POPIA Readiness",
+      "family": "legal_operations",
+      "status": "composition_defined_external_authority_review_required",
+      "customer_facing": true,
+      "campaign_state": "held_until_authority_profile_and_local_smoke",
+      "launch_price_zar": 7900,
+      "pricing_basis": "one bounded organisational readiness review, not legal advice or certification",
+      "primary_buyers": ["South African SMEs", "schools and education providers", "NGOs and NPOs", "professional practices", "small technology teams"],
+      "buyer_problem": "The organisation has personal-information handling, website forms, vendors and policy obligations but lacks one evidence-bound view of what exists, what is missing and what needs authorised review.",
+      "promise": "A review-ready POPIA operational evidence pack containing data/process inventory inputs, prerequisite checks, policy/document drafts, evidence gaps and a human decision queue.",
+      "inputs": ["business and role information", "personal-information processing descriptions", "existing privacy/security policies", "website/forms", "supplier or processor information", "available compliance evidence"],
+      "outputs": ["readiness evidence inventory", "processing/activity map draft", "requirement-to-evidence matrix", "gap and action register", "review-ready privacy/document drafts", "website notice/change checklist", "human/legal review pack"],
+      "composition": [
+        {"component": "legalis", "kind": "organ", "role": "legal/platform prerequisite and evidence readiness gates"},
+        {"component": "dio_policyproof", "kind": "proved_product_class", "role": "policy requirement/evidence review pattern"},
+        {"component": "evidex", "kind": "organ", "role": "evidence mapping and provenance"},
+        {"component": "document_studio", "kind": "product_organ", "role": "review-ready document assembly"},
+        {"component": "lingua", "kind": "organ", "role": "semantic terminology and localisation custody"}
+      ],
+      "public_intake_root": "evidex",
+      "authority_boundary": "DIO POPIA Readiness is an operational readiness and document-preparation service. It does not provide legal advice, certify POPIA compliance, make regulator determinations or act as an attorney, information officer, regulator or authorised signatory.",
+      "activation_proof": ["current POPIA authority/source profile", "controlled requirement-to-evidence run", "document draft lineage", "explicit legal-review gate", "no certification/filing proof"],
+      "forbidden_claims": ["POPIA certified", "legally compliant guarantee", "legal advice", "regulator approval", "automatic filing"]
+    },
+    {
+      "id": "dio_corporate_readiness",
+      "name": "DIO Corporate Readiness",
+      "family": "legal_operations",
+      "status": "composition_defined_external_authority_review_required",
+      "customer_facing": true,
+      "campaign_state": "held_until_authority_profile_and_local_smoke",
+      "launch_price_zar": 4900,
+      "pricing_basis": "one bounded South African company-record and filing-readiness pilot, excluding government fees and professional advice",
+      "primary_buyers": ["South African owner-managed companies", "SMEs", "consultancies", "small professional practices"],
+      "buyer_problem": "Company records, beneficial-ownership evidence, annual-return prerequisites and change deadlines are easy to discover too late or keep in disconnected folders.",
+      "promise": "A governed corporate-readiness file that maps company evidence, filing prerequisites, ownership/change evidence, missing items, deadlines and authorised handoff steps.",
+      "inputs": ["company registration information", "director/member/shareholder information as authorised", "beneficial-ownership evidence", "previous filing records", "known company changes", "supporting documents"],
+      "outputs": ["company evidence inventory", "filing prerequisite checklist", "beneficial-ownership readiness pack", "change/deadline register", "missing-evidence queue", "review-ready handoff pack", "operator reminder schedule specification"],
+      "composition": [
+        {"component": "legalis", "kind": "organ", "role": "current prerequisite, identity and evidence readiness gates"},
+        {"component": "obligation_engine", "kind": "work_pattern", "role": "deadline and obligation tracking"},
+        {"component": "evidex", "kind": "organ", "role": "company evidence provenance"},
+        {"component": "document_studio", "kind": "product_organ", "role": "review and handoff pack assembly"},
+        {"component": "vesper_presence", "kind": "organ", "role": "bounded reminders, intake and human escalation"}
+      ],
+      "public_intake_root": "evidex",
+      "authority_boundary": "DIO Corporate Readiness prepares records, checklists, evidence and deadline support. It does not determine beneficial ownership as a legal conclusion, submit filings autonomously, act as a company secretary/legal practitioner, or guarantee CIPC acceptance or continued registration.",
+      "activation_proof": ["current CIPC authority/source profile", "controlled company-readiness fixture", "deadline calculation provenance", "filing-handoff REFUSE gate", "human-review receipt"],
+      "forbidden_claims": ["CIPC approved", "guaranteed filing acceptance", "legal ownership determination", "automatic submission", "company-secretarial authority"]
+    },
+    {
+      "id": "dio_contract_desk",
+      "name": "DIO Contract Desk",
+      "family": "legal_operations",
+      "status": "composition_defined_core_route_proved_composition_proof_required",
+      "customer_facing": true,
+      "campaign_state": "held_until_local_composition_smoke",
+      "launch_price_zar": 7900,
+      "pricing_basis": "one bounded agreement plus obligation/register setup pilot",
+      "primary_buyers": ["SMEs", "consultancies", "NGOs and NPOs", "project teams", "grant and procurement teams"],
+      "buyer_problem": "Important dates, deliverables, evidence requirements and responsibilities are buried inside agreements and then tracked manually in email, calendars and spreadsheets.",
+      "promise": "A review-ready contract operations pack with extracted obligations, dates, evidence requirements, unresolved interpretation questions and an ongoing obligation register.",
+      "inputs": ["authorised contract/agreement", "known amendments", "supporting schedules", "responsibility/owner information", "existing evidence or delivery records"],
+      "outputs": ["contract evidence receipt", "obligation register", "deadline and deliverable map", "evidence requirement map", "ambiguity/legal-review questions", "review-ready contract operations pack", "human decision and release queue"],
+      "composition": [
+        {"component": "dio_contractproof", "kind": "proved_product_class", "role": "controlled contract obligation/evidence route"},
+        {"component": "obligation_engine", "kind": "work_pattern", "role": "obligation and deadline lifecycle"},
+        {"component": "legalis", "kind": "organ", "role": "legal/platform prerequisite evidence gates where applicable"},
+        {"component": "evidex", "kind": "organ", "role": "source, clause and evidence provenance"},
+        {"component": "document_studio", "kind": "product_organ", "role": "review pack and register rendering"},
+        {"component": "vesper_presence", "kind": "organ", "role": "bounded intake, reminders and human escalation"}
+      ],
+      "public_intake_root": "evidex",
+      "authority_boundary": "DIO Contract Desk extracts, tracks and packages contractual information for review. It does not provide legal interpretation, decide enforceability, negotiate, accept risk, vary a contract, bind a party, or send consequential notices without authorised human action.",
+      "activation_proof": ["reuse existing ContractProof execution receipt", "controlled cross-organ contract-desk composition run", "deadline/register integrity check", "legal-question escalation proof", "external-notice REFUSE gate"],
+      "forbidden_claims": ["legal advice", "contract enforceability determination", "automatic acceptance or negotiation", "automatic consequential notice", "risk acceptance"]
+    }
+  ],
+  "portfolio_summary": {
+    "commercial_incarnations": 6,
+    "design_studio_incarnations": 3,
+    "legal_operations_incarnations": 3,
+    "canonical_atlas_product_classes_added": 0,
+    "new_engines_added": 0,
+    "public_release_authority_added": 0,
+    "legal_authority_added": 0,
+    "customer_validated_offers": 0,
+    "execution_proved_compositions": 0,
+    "next_gate": "Run local composition smoke/proof for each incarnation, then expose bounded storefront/intake routes without changing the canonical 53-class truth."
+  }
+}

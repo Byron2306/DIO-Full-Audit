@@ -13,6 +13,7 @@ import tempfile
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
+from sovereign_runtime import ollama_model, ollama_url, require_ollama_provider
 from typing import Any
 
 from docx import Document
@@ -30,11 +31,8 @@ from adapters.lingua.lifecycle import build_lingua_qa, digest_text, update_seman
 
 
 ROOT = Path(__file__).resolve().parents[2]
-BRIDGE = ROOT / "scripts" / "document_studio_gemini_bridge.py"
-NIM_BRIDGE = ROOT / "scripts" / "document_studio_nim_bridge.py"
+OLLAMA_BRIDGE = ROOT / "scripts" / "document_studio_ollama_bridge.py"
 BEAST_BRIDGE = ROOT / "scripts" / "lingua_beast_bridge.py"
-DEFAULT_SOPHIA_PYTHON = Path("/home/byron/Integritas-Mechanicus/.venv/bin/python")
-DEFAULT_SOPHIA_ROOT = Path("/home/byron/Integritas-Mechanicus/arda_os")
 SERVICES = {"technical_edit", "translation", "edit_and_translate"}
 LANGUAGE_REGISTRY_PATH = ROOT / "config" / "document_studio_languages.json"
 
@@ -274,35 +272,20 @@ def invoke_provider(
     *,
     max_predict: int = 7000,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    provider_name = str(request.get("provider") or "gemini").strip().casefold().replace("-", "_")
-    env = dict(os.environ)
-    if provider_name in {"nim", "nvidia", "nvidia_nim"}:
-        python = Path(sys.executable)
-        bridge = NIM_BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("nim_model") or "deepseek-ai/deepseek-v4-flash-0731",
-            "max_predict": max_predict,
-            "temperature": 0.05,
-            "secret_file": request.get("provider_secret_file") or "/home/byron/EdgeK-BEAST/.beast/provider_secrets.env",
-        }
-    elif provider_name in {"gemini", "google", "google_gemini"}:
-        python = Path(os.environ.get("SOPHIA_PYTHON") or DEFAULT_SOPHIA_PYTHON)
-        sophia_root = Path(os.environ.get("SOPHIA_ROOT") or DEFAULT_SOPHIA_ROOT)
-        if not python.is_file() or not sophia_root.is_dir():
-            raise FileNotFoundError("Sophia's configured Python runtime is unavailable.")
-        bridge = BRIDGE
-        payload = {
-            "system_prompt": system,
-            "prompt": prompt,
-            "model": request.get("gemini_model") or "gemini-flash-lite-latest",
-            "max_predict": max_predict,
-            "temperature": 0.1,
-        }
-        env["PYTHONPATH"] = str(sophia_root)
-    else:
-        raise ValueError(f"Unsupported Document Studio provider: {provider_name}")
+    require_ollama_provider(
+        request.get("provider") or "ollama",
+        component="Document Studio",
+    )
+    python = Path(sys.executable)
+    bridge = OLLAMA_BRIDGE
+    payload = {
+        "system_prompt": system,
+        "prompt": prompt,
+        "model": ollama_model(request.get("ollama_model")),
+        "base_url": ollama_url(request.get("ollama_url")),
+        "max_predict": max_predict,
+        "temperature": 0.05,
+    }
     completed = subprocess.run(
         [str(python), str(bridge)],
         input=json.dumps(payload),
@@ -311,13 +294,18 @@ def invoke_provider(
         check=False,
         timeout=240,
         cwd=ROOT,
-        env=env,
+        env=dict(os.environ),
     )
     if completed.returncode != 0:
-        raise RuntimeError(f"Document Studio provider bridge failed: {completed.stderr[-1000:]}")
+        raise RuntimeError(
+            f"Document Studio Ollama bridge failed: {completed.stderr[-1000:]}"
+        )
     provider = json.loads(completed.stdout)
     if provider.get("status") != "ok" or not provider.get("response"):
-        raise RuntimeError(f"Document Studio provider unavailable: {provider.get('error') or provider.get('status')}")
+        raise RuntimeError(
+            "Document Studio Ollama unavailable: "
+            f"{provider.get('error') or provider.get('status')}"
+        )
     return parse_json_response(str(provider["response"])), provider
 
 
@@ -949,7 +937,8 @@ def run_document_studio(request: dict[str, Any], request_path: Path, out_root: P
     receipt["processing"]["semantic_object_id"] = str(request.get("semantic_object_id") or f"LINGUA-{job_id}") if translations else None
     write_json(job_dir / "DOCUMENT_STUDIO_RECEIPT.json", receipt)
     archive = job_dir / f"{job_id}_DOCUMENT_STUDIO_REVIEW_PACK.zip"
-    generated = sorted(path for path in job_dir.rglob("*") if path.is_file() and path != archive)
+    # The final receipt cannot contain its own byte hash; include it in the ZIP below.
+    generated = sorted(path for path in job_dir.rglob("*") if path.is_file() and path not in {archive, job_dir / "DOCUMENT_STUDIO_RECEIPT.json"})
     receipt["outputs"] = [{"path": str(path.relative_to(job_dir)), "sha256": sha256(path)} for path in generated]
     write_json(job_dir / "DOCUMENT_STUDIO_RECEIPT.json", receipt)
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as bundle:

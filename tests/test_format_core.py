@@ -93,6 +93,38 @@ class FormatCoreTests(unittest.TestCase):
             receipt = render_semantic_asset(content, Path(temp), language="Afrikaans", channels=["html"], release_mode=True)
             self.assertTrue(receipt["qa"]["passed"])
 
+    def test_docx_preserves_revised_first_title_when_cover_title_differs(self) -> None:
+        rows = [
+            {"paragraph_id": "P1", "text": "Revised Field Sampling Protocol"},
+            {"paragraph_id": "P2", "text": "Keep the bottle between 2 and 8 degrees Celsius."},
+        ]
+        content = build_paragraph_semantic_content(
+            object_id="FORMAT-TITLE-001",
+            version="1.0",
+            title="Field Sampling Procedure",
+            source_language="English",
+            source_rows=rows,
+            context={
+                "product": "document_studio",
+                "artifact_type": "technical_document",
+                "audience": "technicians",
+            },
+        )
+        with tempfile.TemporaryDirectory() as temp:
+            receipt = render_semantic_asset(
+                content,
+                Path(temp),
+                style_profile="dio_professional",
+                delivery_profile="editable_review",
+                channels=["docx", "html"],
+            )
+            self.assertTrue(receipt["qa"]["passed"])
+            self.assertEqual(
+                0,
+                receipt["qa"]["semantic_completeness"]["docx"]["missing_count"],
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

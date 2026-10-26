@@ -1,0 +1,28 @@
+{
+  "schema": "dio.ai_digital_trust_registry.v1",
+  "registry_version": "1.0.0",
+  "fixed_evaluation_time": "2026-08-16T12:00:00+00:00",
+  "incarnations": [
+    {
+      "product_id": "dio_aitrustproof",
+      "slug": "aitrustproof",
+      "source_type": "ai_system",
+      "manifest": "config/products/manifests/aitrustproof.json",
+      "fixture": "config/products/golden/aitrustproof/reference_case.json"
+    },
+    {
+      "product_id": "dio_agentauthority",
+      "slug": "agentauthority",
+      "source_type": "ai_agent",
+      "manifest": "config/products/manifests/agentauthority.json",
+      "fixture": "config/products/golden/agentauthority/reference_case.json"
+    },
+    {
+      "product_id": "dio_modelchangeproof",
+      "slug": "modelchangeproof",
+      "source_type": "ai_model_change",
+      "manifest": "config/products/manifests/modelchangeproof.json",
+      "fixture": "config/products/golden/modelchangeproof/reference_case.json"
+    }
+  ]
+}

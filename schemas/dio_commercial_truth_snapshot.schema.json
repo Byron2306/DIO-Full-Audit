@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_commercial_truth_snapshot.schema.json",
+  "title": "DIO Commercial Truth Snapshot",
+  "type": "object",
+  "required": [
+    "schema", "commercial_truth_version", "observed_at", "control_deck_snapshot_fingerprint",
+    "summary", "unattributed_value_minor_by_currency", "attributed_revenue_minor_by_currency",
+    "observations", "products", "truth_boundaries", "snapshot_fingerprint"
+  ],
+  "properties": {
+    "schema": {"const": "dio.commercial_truth.snapshot.v1"},
+    "commercial_truth_version": {"const": "1.0.0"},
+    "observed_at": {"type": "string", "minLength": 1},
+    "control_deck_snapshot_fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "summary": {
+      "type": "object",
+      "required": ["observation_count", "live_verified_payment_count", "attributed_paid_case_count", "controlled_observation_count", "customer_validated_product_count", "repeatable_product_count", "economically_proven_product_count"],
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "unattributed_value_minor_by_currency": {"$ref": "#/$defs/currencyMap"},
+    "attributed_revenue_minor_by_currency": {"$ref": "#/$defs/currencyMap"},
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["observation_id", "category", "source_class", "environment", "product_id", "case_id", "customer_ref", "amount_minor", "currency", "verified", "controlled", "attribution_complete", "qualifying", "truth_state", "source_ref"],
+        "properties": {
+          "observation_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+          "category": {"type": "string", "minLength": 1},
+          "source_class": {"type": ["string", "null"]},
+          "environment": {"type": "string"},
+          "product_id": {"type": ["string", "null"]},
+          "case_id": {"type": ["string", "null"]},
+          "customer_ref": {"type": ["string", "null"]},
+          "amount_minor": {"type": ["integer", "null"]},
+          "currency": {"type": ["string", "null"]},
+          "verified": {"type": "boolean"},
+          "controlled": {"type": "boolean"},
+          "attribution_complete": {"type": "boolean"},
+          "qualifying": {"type": "boolean"},
+          "truth_state": {"type": "string"},
+          "source_ref": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["product_id", "claims", "evidence_counts", "same_currency_net_minor", "human_commercial_review", "maturity_changed", "authority_created", "external_release_authorized"],
+        "properties": {
+          "product_id": {"type": "string"},
+          "claims": {"type": "object", "additionalProperties": {"enum": ["UNKNOWN", "OBSERVED", "SUPPORTED", "CONTESTED", "REFUSED"]}},
+          "evidence_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+          "same_currency_net_minor": {"$ref": "#/$defs/currencyMapSigned"},
+          "human_commercial_review": {"type": "boolean"},
+          "maturity_changed": {"const": false},
+          "authority_created": {"const": false},
+          "external_release_authorized": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "truth_boundaries": {
+      "type": "object",
+      "required": ["absence_interpreted_as_zero", "payment_promoted_to_revenue", "unattributed_payment_assigned_to_product", "cross_currency_total_created", "controlled_test_promoted_to_market_validation", "maturity_changed", "authority_created", "external_release_authorized"],
+      "additionalProperties": {"const": false}
+    },
+    "snapshot_fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "currencyMap": {"type": "object", "patternProperties": {"^[A-Z]{3}$": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "currencyMapSigned": {"type": "object", "patternProperties": {"^[A-Z]{3}$": {"type": "integer"}}, "additionalProperties": false}
+  },
+  "additionalProperties": false
+}

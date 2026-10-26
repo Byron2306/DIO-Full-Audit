@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dio.local/schemas/dio_seraph_challenge.schema.json",
+  "title": "DIO Seraph Challenge Receipt",
+  "type": "object",
+  "required": [
+    "schema", "challenge_id", "created_at", "case_id", "target_type", "target_id",
+    "coverage_state", "verdict", "findings", "challenge_basis_sha256", "source_identity",
+    "execution_authorized", "kernel_authority", "external_action_executed",
+    "response_action_executed", "boundary_statement", "receipt_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "dio.seraph.challenge_receipt.v1"},
+    "challenge_id": {"type": "string", "pattern": "^SERAPH-[A-F0-9]{16}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "case_id": {"type": "string", "minLength": 1},
+    "target_type": {"enum": ["case", "requirement", "claim", "evidence", "gate", "action"]},
+    "target_id": {"type": "string", "minLength": 1},
+    "coverage_state": {"enum": ["complete", "partial", "unknown"]},
+    "verdict": {"enum": ["CLEAR", "CONTESTED", "HOSTILE", "INSUFFICIENT_EVIDENCE"]},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "kind", "severity", "hostile_signal", "detail", "evidence_ids", "mitre_refs"],
+        "properties": {
+          "finding_id": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "severity": {"enum": ["advisory", "material", "blocking"]},
+          "hostile_signal": {"type": "boolean"},
+          "detail": {"type": "string", "minLength": 1},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}},
+          "mitre_refs": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "challenge_basis_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_identity": {"const": "Seraph Challenge Organ"},
+    "execution_authorized": {"const": false},
+    "kernel_authority": {"const": "Valinor"},
+    "external_action_executed": {"const": false},
+    "response_action_requested": {},
+    "response_action_executed": {"const": false},
+    "boundary_statement": {"type": "string", "minLength": 1},
+    "receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

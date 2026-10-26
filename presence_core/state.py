@@ -1,13 +1,64 @@
 from __future__ import annotations
 import hashlib, json, os, re, secrets, sqlite3
+import tempfile
+import threading
+from contextlib import contextmanager
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from .config import state_base
 
 def now() -> str: return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 def write_json(path: Path, payload: Any) -> None:
-    path.parent.mkdir(parents=True,exist_ok=True); tmp=path.with_suffix(path.suffix+".tmp"); tmp.write_text(json.dumps(payload,indent=2,ensure_ascii=True)+"\n",encoding="utf-8"); tmp.replace(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent,
+                                     prefix="."+path.name+".", suffix=".tmp", delete=False) as stream:
+        tmp = Path(stream.name)
+        json.dump(payload, stream, indent=2, ensure_ascii=True)
+        stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    try:
+        if path.exists():
+            os.chmod(tmp, path.stat().st_mode & 0o777)
+        tmp.replace(path)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+_held_locks = threading.local()
+
+
+@contextmanager
+def file_lock(path: Path):
+    """Reentrant per-thread lock, shared by processes using the same state path."""
+    path = path.resolve()
+    held = getattr(_held_locks, "paths", set())
+    if path in held:
+        yield
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a+b") as stream:
+        if os.name == "nt":
+            import msvcrt
+            if stream.tell() == 0:
+                stream.write(b"0"); stream.flush()
+            stream.seek(0)
+            msvcrt.locking(stream.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(stream.fileno(), fcntl.LOCK_EX)
+        _held_locks.paths = held | {path}
+        try:
+            yield
+        finally:
+            _held_locks.paths = held
+            if os.name == "nt":
+                stream.seek(0)
+                msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
 def read_json(path: Path) -> dict[str,Any]: return json.loads(path.read_text(encoding="utf-8"))
 def safe(v: str) -> str: return re.sub(r"[^A-Za-z0-9._-]+","_",v)[:120] or "unknown"
 
@@ -17,11 +68,24 @@ def identity_hash(channel: str, external_user_id: str) -> str:
 def conversation_id(channel: str, external_user_id: str) -> str: return "CONV-"+identity_hash(channel,external_user_id)[:20].upper()
 
 def conversation_path(root: Path, conv_id: str) -> Path: return root/"conversations"/f"{safe(conv_id)}.json"
+
+def conversation_identity_scope(envelope: dict[str,Any]) -> str:
+    channel=str(envelope["channel"])
+    if channel!="telegram":
+        return channel
+    surface=str((envelope.get("metadata") or {}).get("telegram_bot_surface") or "operator").strip().lower()
+    if surface=="operator":
+        return "telegram"
+    if surface=="public":
+        return "telegram:public"
+    raise ValueError(f"unsupported telegram_bot_surface: {surface!r}")
+
 def load_or_create_conversation(root: Path, envelope: dict[str,Any], role: str) -> dict[str,Any]:
-    channel=str(envelope["channel"]); uid=str(envelope["external_user_id"]); cid=conversation_id(channel,uid); path=conversation_path(root,cid)
+    channel=str(envelope["channel"]); uid=str(envelope["external_user_id"]); identity_scope=conversation_identity_scope(envelope); cid=conversation_id(identity_scope,uid); path=conversation_path(root,cid)
     if path.exists(): conv=read_json(path)
     else:
-        conv={"schema":"dio.presence_conversation.v1","conversation_id":cid,"channel":channel,"external_user_ref_hash":identity_hash(channel,uid),"role":role,"display_name":envelope.get("display_name"),"created_at":now(),"updated_at":now(),"message_count":0,"last_intent":None,"last_product":None,"attribution":{"campaign_hint":None}}
+        conv={"schema":"dio.presence_conversation.v1","conversation_id":cid,"channel":channel,"external_user_ref_hash":identity_hash(identity_scope,uid),"role":role,"display_name":envelope.get("display_name"),"created_at":now(),"updated_at":now(),"message_count":0,"last_intent":None,"last_product":None,"attribution":{"campaign_hint":None}}
+    conv["role"]=role
     hint=((envelope.get("metadata") or {}).get("telegram_start_payload"))
     if hint and not (conv.get("attribution") or {}).get("campaign_hint"): conv.setdefault("attribution",{})["campaign_hint"]=hint
     conv["updated_at"]=now(); conv["message_count"]=int(conv.get("message_count",0))+1; write_json(path,conv); return conv
@@ -94,7 +158,7 @@ def _summarise_jobs(dio_root: Path) -> dict[str, Any]:
     delivery_ready: list[dict[str, Any]] = []
     total = 0
     for root_name in roots:
-        for path in _iter_json_files(dio_root / "state" / root_name, "*/JOB.json"):
+        for path in _iter_json_files(state_base(dio_root) / root_name, "*/JOB.json"):
             try:
                 job = read_json(path)
             except Exception:
@@ -129,7 +193,7 @@ def _summarise_mail(dio_root: Path) -> dict[str, Any]:
     pending: list[dict[str, Any]] = []
     by_state: Counter[str] = Counter()
     by_purpose: Counter[str] = Counter()
-    for path in _iter_json_files(dio_root / "state" / "mail_intents"):
+    for path in _iter_json_files(state_base(dio_root) / "mail_intents"):
         try:
             mail = read_json(path)
         except Exception:
@@ -161,7 +225,7 @@ def _summarise_mail(dio_root: Path) -> dict[str, Any]:
     }
 
 def _summarise_commerce(dio_root: Path) -> dict[str, Any]:
-    order_paths = _iter_json_files(dio_root / "state" / "commerce" / "orders") + _iter_json_files(dio_root / "state" / "commerce" / "live" / "orders")
+    order_paths = _iter_json_files(state_base(dio_root) / "commerce" / "orders") + _iter_json_files(state_base(dio_root) / "commerce" / "live" / "orders")
     seen: set[str] = set()
     orders: list[dict[str, Any]] = []
     by_state: Counter[str] = Counter()
@@ -217,7 +281,7 @@ def _market_scalar(cur: sqlite3.Cursor, sql: str) -> int:
         return 0
 
 def _summarise_market(dio_root: Path) -> dict[str, Any]:
-    db = dio_root / "state" / "market_command" / "market_command.sqlite"
+    db = state_base(dio_root) / "market_command" / "market_command.sqlite"
     if not db.exists():
         return {"available": False, "campaigns": 0, "active": 0, "awaiting_approval": 0, "content_awaiting_approval": 0, "metrics": {}}
     conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
@@ -292,8 +356,8 @@ def operator_summary(dio_root: Path, presence_root: Path) -> dict[str,Any]:
         "mail": mail,
         "commerce": commerce,
         "market": market,
-        "leads": {"total": _count_state_files(dio_root / "state" / "leads")},
-        "incidents": {"open_or_recorded": _count_state_files(dio_root / "state" / "incidents")},
+        "leads": {"total": _count_state_files(state_base(dio_root) / "leads")},
+        "incidents": {"open_or_recorded": _count_state_files(state_base(dio_root) / "incidents")},
         "needs_you": {"open": len(needs), "top": needs[:8]},
         "top_actions": top_actions[:12],
         "authority": {
@@ -305,11 +369,88 @@ def operator_summary(dio_root: Path, presence_root: Path) -> dict[str,Any]:
             "can_process_attachments": False,
         },
         "legacy_counts": {
-            "product_jobs": count_json_dirs(dio_root / "state" / "product_jobs"),
-            "sophia_jobs": count_json_dirs(dio_root / "state" / "sophia_jobs"),
-            "vamp_jobs": count_json_dirs(dio_root / "state" / "vamp_jobs"),
+            "product_jobs": count_json_dirs(state_base(dio_root) / "product_jobs"),
+            "sophia_jobs": count_json_dirs(state_base(dio_root) / "sophia_jobs"),
+            "vamp_jobs": count_json_dirs(state_base(dio_root) / "vamp_jobs"),
             "pending_mail": mail["pending"],
             "verified_paid_orders": commerce["paid"],
             "needs_you": len(needs),
         },
     }
+
+
+def conversation_state_path(root: Path, conv_id: str) -> Path:
+    return root / "conversation_state" / f"{safe(conv_id)}.json"
+
+
+def conversation_turns_path(root: Path, conv_id: str) -> Path:
+    return root / "conversation_turns" / f"{safe(conv_id)}.json"
+
+
+def load_conversation_state(root: Path, conversation_id: str) -> dict[str, Any]:
+    path = conversation_state_path(root, conversation_id)
+    if path.is_file():
+        return read_json(path)
+    return {
+        "schema": "dio.vesper.conversation_state.v1",
+        "conversation_id": conversation_id,
+        "turn_count": 0,
+        "current_need": None,
+        "current_topic": None,
+        "candidate_products": [],
+        "selected_product": None,
+        "last_user_act": None,
+        "last_vesper_act": None,
+        "open_question": None,
+        "known_constraints": [],
+        "action_proposal": None,
+        "last_route_intent": None,
+        "updated_at": now(),
+    }
+
+
+def save_conversation_state(root: Path, state: dict[str, Any]) -> dict[str, Any]:
+    if state.get("schema") != "dio.vesper.conversation_state.v1":
+        raise ValueError("unsupported Vesper conversation state schema")
+    conversation_id = str(state.get("conversation_id") or "").strip()
+    if not conversation_id:
+        raise ValueError("conversation_id is required")
+    forbidden = {"authority", "authorized", "spend_authorized", "fulfilment_released"}
+    if forbidden.intersection(state):
+        raise ValueError("conversation state cannot contain authority fields")
+    state["updated_at"] = now()
+    write_json(conversation_state_path(root, conversation_id), state)
+    return state
+
+
+def append_conversation_turn(
+    root: Path,
+    conversation_id: str,
+    *,
+    role: str,
+    text: str,
+    act: str | None = None,
+    product: str | None = None,
+    max_turns: int = 6,
+) -> list[dict[str, Any]]:
+    path = conversation_turns_path(root, conversation_id)
+    rows = read_json(path).get("turns", []) if path.is_file() else []
+    rows.append({
+        "role": role,
+        "text": str(text)[:4000],
+        "act": act,
+        "product": product,
+        "observed_at": now(),
+    })
+    rows = rows[-max(1, int(max_turns)):]
+    write_json(path, {
+        "schema": "dio.vesper.recent_turns.v1",
+        "conversation_id": conversation_id,
+        "turns": rows,
+    })
+    return rows
+
+
+def load_recent_conversation_turns(root: Path, conversation_id: str) -> list[dict[str, Any]]:
+    path = conversation_turns_path(root, conversation_id)
+    return list((read_json(path).get("turns") or [])) if path.is_file() else []

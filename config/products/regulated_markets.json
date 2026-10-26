@@ -1,0 +1,87 @@
+{
+  "schema": "dio.regulated_markets_registry.v1",
+  "registry_version": "1.0.0",
+  "profile_registry": "config/profiles/index.json",
+  "capability_registry": "config/portfolio/capability_catalog.json",
+  "fixed_evaluation_time": "2026-08-16T12:00:00+00:00",
+  "source_authority_lattice": [
+    {
+      "source_class": "legislation",
+      "rank": 100
+    },
+    {
+      "source_class": "regulation",
+      "rank": 90
+    },
+    {
+      "source_class": "official_form",
+      "rank": 80
+    },
+    {
+      "source_class": "regulator_guidance",
+      "rank": 70
+    },
+    {
+      "source_class": "standard",
+      "rank": 60
+    },
+    {
+      "source_class": "contract",
+      "rank": 50
+    },
+    {
+      "source_class": "customer_policy",
+      "rank": 40
+    },
+    {
+      "source_class": "internal_interpretation",
+      "rank": 20
+    },
+    {
+      "source_class": "historical_superseded",
+      "rank": 0
+    }
+  ],
+  "incarnations": [
+    {
+      "product_id": "dio_privacyproof",
+      "slug": "privacyproof",
+      "name": "DIO PrivacyProof",
+      "source_type": "privacy_regulatory_context",
+      "framework": "privacy_governance",
+      "framework_id": "framework.privacy_governance",
+      "manifest": "config/products/manifests/privacyproof.json",
+      "fixture": "config/products/golden/privacyproof/reference_case.json"
+    },
+    {
+      "product_id": "dio_educationaccreditationproof",
+      "slug": "educationaccreditationproof",
+      "name": "DIO EducationAccreditationProof",
+      "source_type": "education_accreditation_context",
+      "framework": "education_accreditation",
+      "framework_id": "framework.education_accreditation",
+      "manifest": "config/products/manifests/educationaccreditationproof.json",
+      "fixture": "config/products/golden/educationaccreditationproof/reference_case.json"
+    },
+    {
+      "product_id": "dio_publicprocurementproof",
+      "slug": "publicprocurementproof",
+      "name": "DIO PublicProcurementProof",
+      "source_type": "public_procurement_context",
+      "framework": "public_procurement_regulation",
+      "framework_id": "framework.public_procurement_regulation",
+      "manifest": "config/products/manifests/publicprocurementproof.json",
+      "fixture": "config/products/golden/publicprocurementproof/reference_case.json"
+    },
+    {
+      "product_id": "dio_airegreadiness",
+      "slug": "airegreadiness",
+      "name": "DIO AIRegReadiness",
+      "source_type": "ai_regulatory_context",
+      "framework": "ai_regulatory_readiness",
+      "framework_id": "framework.ai_regulatory_readiness",
+      "manifest": "config/products/manifests/airegreadiness.json",
+      "fixture": "config/products/golden/airegreadiness/reference_case.json"
+    }
+  ]
+}

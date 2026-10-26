@@ -78,6 +78,7 @@ class GraphClient:
             "Prefer": 'IdType="ImmutableId"',
             **(headers or {}),
         }
+        request_headers["Authorization"] = f"Bearer {token}"
         url = resource if resource.startswith("https://") else f"{self.base_url}/{resource.lstrip('/')}"
         response = requests.request(method, url, headers=request_headers, timeout=60, **kwargs)
         if response.status_code >= 400:

@@ -1,0 +1,60 @@
+{
+  "schema": "dio.generated_product_reference_case.v1",
+  "source_type": "incident_readiness_case",
+  "case": {
+    "case_id": "IRP-REFERENCE-001",
+    "organisation": "Controlled Reference Organisation",
+    "scenario": "Loss of primary collaboration service",
+    "evaluation_time": "2026-08-16T12:00:00+00:00"
+  },
+  "evidence": [
+    {
+      "evidence_id": "EV-PLAN",
+      "evidence_type": "response_plan",
+      "title": "Controlled response plan",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "observed_at": "2026-08-10T00:00:00+00:00",
+      "state": "CURRENT"
+    },
+    {
+      "evidence_id": "EV-ROLES",
+      "evidence_type": "role_matrix",
+      "title": "Controlled role matrix",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "observed_at": "2026-08-11T00:00:00+00:00",
+      "state": "CURRENT"
+    },
+    {
+      "evidence_id": "EV-EXERCISE",
+      "evidence_type": "exercise_record",
+      "title": "Controlled exercise record",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "observed_at": "2025-01-01T00:00:00+00:00",
+      "state": "STALE"
+    },
+    {
+      "evidence_id": "EV-CONTACT",
+      "evidence_type": "contact_register",
+      "title": "Controlled contact register",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "observed_at": "2026-08-12T00:00:00+00:00",
+      "state": "CURRENT"
+    }
+  ],
+  "requested_actions": [
+    {
+      "effect": "draft",
+      "target": "incident_brief"
+    },
+    {
+      "effect": "external_notify",
+      "target": "affected_parties"
+    }
+  ],
+  "human_authority": {
+    "state": "NEEDS_YOU",
+    "operator_id": "human.phase15_reference"
+  },
+  "claimed_input_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "observed_input_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}

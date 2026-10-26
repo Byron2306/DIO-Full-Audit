@@ -1,0 +1,12 @@
+{
+  "schema":"dio.profile_classes.registry.v1","registry_id":"dio-canonical-profile-classes-v1","constitution_version":"1.0.0","phase_1_contract":"Concrete profiles become independently validated and source/version/hash bound in Phase 1.",
+  "laws":{"classes_are_closed_in_v1":true,"profiles_create_authority":false,"profiles_create_executors":false,"profiles_are_declarative":true},
+  "profile_classes":[
+    {"id":"domain","path":"config/profiles/domains/","purpose":"Sector vocabulary, object types, semantics and domain-specific risk context."},
+    {"id":"framework","path":"config/profiles/frameworks/","purpose":"Rules, standards, contracts or frameworks that define requirements and success conditions."},
+    {"id":"authority","path":"config/profiles/authorities/","purpose":"Human decision roles, approval boundaries and capability-authority prerequisites."},
+    {"id":"connector","path":"config/profiles/connectors/","purpose":"Systems DIO may observe or use, with read/write capabilities separated."},
+    {"id":"output","path":"config/profiles/outputs/","purpose":"Customer deliverables, disclosure rules, formats and QA requirements."},
+    {"id":"commercial","path":"config/profiles/commercial/","purpose":"Offer, payment, review, fulfilment and delivery policy kept separate from product truth."}
+  ]
+}

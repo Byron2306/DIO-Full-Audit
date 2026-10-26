@@ -1,0 +1,59 @@
+{
+  "schema": "dio.profile.v1",
+  "profile_version": "1.0.0",
+  "profile_id": "domain.regulated_markets",
+  "profile_class": "domain",
+  "name": "Regulated Markets Domain",
+  "status": "source_bound",
+  "binding": {
+    "state": "BOUND",
+    "source_bindings": [
+      {
+        "source_ref": "docs/DIO_REGULATED_MARKETS_PHASE14.md",
+        "source_section": "Regulated Markets Domain",
+        "source_version": "1.0.0",
+        "content_hash": "sha256:c13741277b2a806b6f26d4747028fb12c21b17ed52a7727e585ade206e25ac6c",
+        "source_kind": "internal_design",
+        "authority_level": "internal_reference"
+      }
+    ]
+  },
+  "risk_boundary": "This internal regulated-markets profile structures supplied sources, facts, evidence and human review only. It creates no legal advice, compliance determination, certification, accreditation, licence, regulator acceptance, filing authority, external effect or release authority.",
+  "spec": {
+    "object_types": [
+      "regulatory_context",
+      "jurisdiction",
+      "authority_source",
+      "applicability_fact",
+      "licence_record",
+      "submission_candidate",
+      "retention_duty",
+      "regulatory_evidence"
+    ],
+    "vocabulary": [
+      "SUPPORTED",
+      "PARTIAL",
+      "UNKNOWN",
+      "CONTESTED",
+      "STALE",
+      "REFUSE",
+      "NEEDS_YOU"
+    ],
+    "human_boundaries": [
+      "human determines consequential interpretation",
+      "human confirms applicability",
+      "human controls filing and release"
+    ],
+    "forbidden_claims": [
+      "legally_compliant",
+      "regulator_approved",
+      "licensed_by_compilation",
+      "certified"
+    ]
+  },
+  "tags": [
+    "phase14",
+    "regulated-markets",
+    "domain"
+  ]
+}

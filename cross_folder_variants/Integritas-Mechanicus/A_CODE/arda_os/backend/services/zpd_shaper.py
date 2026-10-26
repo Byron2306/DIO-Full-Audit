@@ -159,8 +159,9 @@ class ZPDShaper:
         return max(-1.0, min(1.0, sum(deltas)))
 
     def estimate_zpd(self, resonance_profile=None, calibration=None, encounter_history=None, current_topic="") -> ZPDEstimate:
-        resonance = (resonance_profile or {}).get("payload", resonance_profile or {})
-        cal = (calibration or {}).get("payload", calibration or {})
+        import copy
+        resonance = copy.deepcopy((resonance_profile or {}).get("payload", resonance_profile or {}))
+        cal = copy.deepcopy((calibration or {}).get("payload", calibration or {}))
         topic = current_topic.lower()
         
         # GAUNTLET ALIGNMENT HEURISTICS (Topic-based Boosting)

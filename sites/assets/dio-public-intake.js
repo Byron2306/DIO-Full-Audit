@@ -1,7 +1,12 @@
 (function () {
   "use strict";
 
-  const endpoint = "https://dio-edge-gateway-live.dio-workflows.workers.dev/api/public/intake";
+  const script = document.currentScript;
+  const endpoint = (
+    window.DIO_PUBLIC_INTAKE_ENDPOINT
+    || (script && script.dataset && script.dataset.endpoint)
+    || ""
+  ).trim();
 
   function attribution(source) {
     const params = new URLSearchParams(window.location.search);
@@ -16,6 +21,9 @@
   }
 
   async function submit(envelope) {
+    if (!endpoint) {
+      throw new Error("public_intake_api_not_configured");
+    }
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 12_000);
     try {

@@ -14,6 +14,7 @@ class VendorInfo:
     name: str
     payment_instructions: str
     payment_short: str
+    payment_configured: bool
 
 
 @dataclass(frozen=True)
@@ -35,11 +36,12 @@ def load_vendor_from_env() -> VendorInfo:
     name = os.getenv("VENDOR_NAME", "EVIDEX")
     payment_link = os.getenv("PAYMENT_LINK", "").strip()
     paypal_link = os.getenv("PAYPAL_LINK", "").strip()
+    payment_instructions = os.getenv("PAYMENT_INSTRUCTIONS", "").strip()
 
     # If only PayPal is set, use it as the primary link.
-    primary_link = payment_link or paypal_link or "(add payment link)"
+    payment_configured = bool(payment_link or paypal_link or payment_instructions)
+    primary_link = payment_link or paypal_link or "Payment details are not configured."
 
-    payment_instructions = os.getenv("PAYMENT_INSTRUCTIONS", "").strip()
     if not payment_instructions:
         lines: list[str] = []
         lines.append(f"Pay via: {primary_link}")
@@ -47,11 +49,20 @@ def load_vendor_from_env() -> VendorInfo:
             lines.append(f"Or pay via PayPal: {paypal_link}")
         payment_instructions = "\n".join(lines)
 
-    payment_short = os.getenv("PAYMENT_SHORT", "").strip() or primary_link
+    short_fallback = primary_link if (payment_link or paypal_link) else "See invoice payment instructions"
+    payment_short = os.getenv("PAYMENT_SHORT", "").strip() or short_fallback
     paypal_short = os.getenv("PAYPAL_SHORT", "").strip() or paypal_link
     if paypal_short and paypal_short != payment_short and "PayPal" not in payment_short:
         payment_short = f"{payment_short} | PayPal: {paypal_short}"
-    return VendorInfo(name=name, payment_instructions=payment_instructions, payment_short=payment_short)
+    if not payment_configured:
+        payment_instructions = "Payment details are not configured. This invoice is a draft and must not be sent."
+        payment_short = "PAYMENT DETAILS REQUIRED — DO NOT SEND"
+    return VendorInfo(
+        name=name,
+        payment_instructions=payment_instructions,
+        payment_short=payment_short,
+        payment_configured=payment_configured,
+    )
 
 
 def _env_float(name: str, default: float) -> float:
@@ -169,26 +180,10 @@ def write_delivery_artifacts(
         },
     )
 
-    # simple docx writer (same markdown-ish convention as pack docs)
-    from docx import Document
-
-    doc = Document()
-    for line in invoice_md.splitlines():
-        line = line.rstrip()
-        if not line:
-            doc.add_paragraph("")
-            continue
-        if line.startswith("# "):
-            doc.add_heading(line[2:], level=1)
-        elif line.startswith("## "):
-            doc.add_heading(line[3:], level=2)
-        elif line.startswith("- "):
-            doc.add_paragraph(line[2:], style="List Bullet")
-        else:
-            doc.add_paragraph(line)
-
     invoice_path = out_dir / "INVOICE.docx"
-    doc.save(str(invoice_path))
+    from .docx_render import write_markdown_docx
+
+    write_markdown_docx(invoice_path, invoice_md)
 
     email_txt = render_template(
         templates_dir=templates_dir,
