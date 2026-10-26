@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import tempfile
 from typing import Any
+import zipfile
 
 from adapters.format_core.renderer import build_paragraph_semantic_content, render_semantic_asset
 
@@ -163,3 +165,64 @@ def finish_evidex_pack(
     temporary.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     temporary.replace(receipt_path)
     return receipt
+
+
+def _regular_pack_files(pack_dir: Path) -> list[Path]:
+    files: list[Path] = []
+    for path in sorted(pack_dir.rglob("*")):
+        if path.is_symlink():
+            raise EvidexStudioFinishError(f"Evidex pack contains a symlink: {path}")
+        if path.is_dir():
+            continue
+        if not path.is_file():
+            raise EvidexStudioFinishError(f"Evidex pack contains a non-regular entry: {path}")
+        relative = path.relative_to(pack_dir)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise EvidexStudioFinishError(f"Evidex pack contains an unsafe path: {path}")
+        files.append(path)
+    return files
+
+
+def finish_evidex_archive(
+    *, archive_path: Path, intake: dict[str, Any], source_root: Path
+) -> dict[str, Any]:
+    archive_path = Path(archive_path).resolve()
+    if not archive_path.is_file():
+        raise EvidexStudioFinishError(f"Evidex archive does not exist: {archive_path}")
+    pack_dir = archive_path.with_suffix("")
+    if not pack_dir.is_dir():
+        raise EvidexStudioFinishError(f"Evidex pack directory does not exist beside archive: {pack_dir}")
+    _regular_pack_files(pack_dir)
+    finish_receipt = finish_evidex_pack(pack_dir=pack_dir, intake=intake, source_root=source_root)
+    files = _regular_pack_files(pack_dir)
+    handle = tempfile.NamedTemporaryFile(
+        prefix=f".{archive_path.stem}-studio-finish-",
+        suffix=".zip",
+        dir=archive_path.parent,
+        delete=False,
+    )
+    temporary = Path(handle.name)
+    handle.close()
+    try:
+        with zipfile.ZipFile(temporary, "w", zipfile.ZIP_DEFLATED) as bundle:
+            for path in files:
+                bundle.write(path, path.relative_to(pack_dir).as_posix())
+        temporary.replace(archive_path)
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
+    return {
+        "status": "finished_review_candidate",
+        "archive_path": str(archive_path),
+        "archive_sha256": _sha256(archive_path),
+        "archive_bytes": archive_path.stat().st_size,
+        "receipt_path": str(pack_dir / "05_STUDIO_FINISH/EVIDEX_STUDIO_FINISH_RECEIPT.json"),
+        "review_boundary": finish_receipt["review_boundary"],
+        "format_core": finish_receipt["format_core"],
+        "production_studio": finish_receipt["production_studio"],
+        "nichefoundry": finish_receipt["nichefoundry"],
+        "external_delivery": finish_receipt["external_delivery"],
+        "publication": finish_receipt["publication"],
+        "spend": finish_receipt["spend"],
+        "authority_created": finish_receipt["authority_created"],
+    }

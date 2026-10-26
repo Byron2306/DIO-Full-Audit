@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from sovereign_runtime import evidex_environment, evidex_root, ollama_model, ollama_url
+from products.evidex_studio_finish import finish_evidex_archive
 
 
 EVIDEX_ROOT = evidex_root()
@@ -179,16 +180,39 @@ def run_evidex(job: dict[str, Any], out_root: Path) -> dict[str, Any]:
         check=False,
     )
 
+    engine_returncode = result.returncode
+    effective_returncode = engine_returncode
+    studio_finish: dict[str, Any] = {"status": "not_run_engine_failed"}
+    if engine_returncode == 0:
+        try:
+            lines = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+            if not lines:
+                raise RuntimeError("Evidex engine did not report the generated archive path")
+            studio_finish = finish_evidex_archive(
+                archive_path=Path(lines[-1]),
+                intake=intake,
+                source_root=ROOT,
+            )
+        except Exception as exc:
+            effective_returncode = 1
+            studio_finish = {
+                "status": "failed",
+                "error": str(exc),
+                "error_type": type(exc).__name__,
+            }
+
     receipt = {
         "job_id": job["job_id"],
         "created_at": utc_now(),
         "command": cmd,
-        "returncode": result.returncode,
+        "returncode": effective_returncode,
+        "engine_returncode": engine_returncode,
         "stdout": result.stdout.strip(),
         "stderr": result.stderr.strip(),
         "intake_path": str(intake_path),
         "uploads_dir": str(uploads_dir),
         "output_dir": str(output_dir),
+        "studio_finish": studio_finish,
     }
     (job_dir / "EVIDEX_RUN_RECEIPT.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
     return receipt

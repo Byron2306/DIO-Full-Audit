@@ -63,6 +63,7 @@ class CanonicalBindingTests(unittest.TestCase):
   python=self.engine/'.venv/bin/python';python.parent.mkdir(parents=True);python.symlink_to(sys.executable)
   with patch.dict(sys.modules,{'sovereign_runtime':self.runtime}),patch.dict(os.environ,{'PYTHONPATH':'/foreign/DIO'}):
    runner=load(dest,'tested_runner')
+   runner.finish_evidex_archive=lambda **kwargs:{'status':'fixture-finish'}
    receipt=runner.run_evidex({'job_id':'SYNTHETIC','created_at':'2026-10-20','route':{'product':'evidex','reason':'test','confidence':1},'inputs':[],'evidence':[]},self.root/'out')
   self.assertEqual(receipt['returncode'],0,receipt['stderr'])
   observed=json.loads(receipt['stdout']);self.assertEqual(observed['engine'],str(package/'cli.py'));self.assertEqual(observed['spine'],str(self.root/'scripts/dio_epistemic_spine.py'))
