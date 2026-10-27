@@ -17,6 +17,35 @@ from products.canon_extension_native_profiles import NATIVE_CANON_EXTENSION_PROF
 from products.professional_evidence_corpus import CASES
 
 
+_STUDIO_NATIVE_CLOSURES = {
+    "Article Publication Studio": [
+        "sophia_source_review",
+        "evidex_proof",
+        "document_studio_publication_pack",
+        "nichefoundry_positioning",
+    ],
+    "Finance Readiness Studio": [
+        "sophia_assumption_boundary",
+        "vamp_milestone_map",
+        "evidex_readiness_gap_map",
+        "document_studio_finance_pack",
+        "nichefoundry_positioning",
+    ],
+    "Professional Correspondence Studio": [
+        "vesper_release_preparation",
+        "evidex_intake_structure",
+        "document_studio_correspondence_pack",
+    ],
+    "Site Studio": [
+        "market_command_positioning",
+        "nichefoundry_positioning",
+        "evidex_proof",
+        "document_studio_sales_assets",
+        "vesper_release_preparation",
+    ],
+}
+
+
 def _canonical(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
 
@@ -39,6 +68,11 @@ def build_proof_production_matrix(root: Path = ROOT) -> dict[str, Any]:
             controlled_evidence_path = "vesper_customer_case_x3"
             recommended_customer_route = binding["fulfilment_profile"]["route_id"]
             specialist_capabilities: list[str] = []
+        elif product_name in _STUDIO_NATIVE_CLOSURES:
+            customer_case_coverage = "STUDIO_NATIVE_CLOSURE_AVAILABLE"
+            controlled_evidence_path = "studio_native_closure"
+            recommended_customer_route = "studio_native_closure"
+            specialist_capabilities = list(_STUDIO_NATIVE_CLOSURES[product_name])
         elif native_extension:
             customer_case_coverage = "NATIVE_SPECIALIST_CASE_AVAILABLE"
             controlled_evidence_path = "native_extension_product_grade"
