@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install test dependencies
-        run: python -m pip install pytest jsonschema python-docx
+        run: python -m pip install pytest jsonschema python-docx pillow
       - name: Compile Phase 8 binding contract
         run: |
           python -m py_compile \
@@ -66,7 +66,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install test dependencies
-        run: python -m pip install pytest jsonschema python-docx
+        run: python -m pip install pytest jsonschema python-docx pillow
       - name: Run eight-archetype proof ledger
         run: |
           python -m pytest -q \
@@ -85,7 +85,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install compatibility dependencies
-        run: python -m pip install pytest jsonschema python-docx
+        run: python -m pip install pytest jsonschema python-docx pillow
       - name: Run shared Customer Journey compatibility
         run: |
           python -m pytest -q \
