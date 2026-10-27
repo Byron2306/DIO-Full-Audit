@@ -1,0 +1,65 @@
+name: DIO Customer Product Quality Gate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'integrated/**'
+    paths:
+      - '.github/workflows/dio-customer-quality-gate.yml'
+      - 'adapters/lingua/**'
+      - 'adapters/document_studio/**'
+      - 'presence_core/**'
+      - 'products/customer_*.py'
+      - 'products/funding_finder_pipeline.py'
+      - 'products/report_pitch_pipeline.py'
+      - 'products/professional_evidence_*.py'
+      - 'products/vesper_web_chat.py'
+      - 'tests/test_lingua_document_translation.py'
+      - 'tests/test_customer_product_router.py'
+      - 'tests/test_funding_finder_pipeline.py'
+      - 'tests/test_report_pitch_pipeline.py'
+      - 'tests/test_shared_production_finish.py'
+  pull_request:
+    paths:
+      - '.github/workflows/dio-customer-quality-gate.yml'
+      - 'adapters/lingua/**'
+      - 'adapters/document_studio/**'
+      - 'presence_core/**'
+      - 'products/customer_*.py'
+      - 'products/funding_finder_pipeline.py'
+      - 'products/report_pitch_pipeline.py'
+      - 'products/professional_evidence_*.py'
+      - 'products/vesper_web_chat.py'
+      - 'tests/test_lingua_document_translation.py'
+      - 'tests/test_customer_product_router.py'
+      - 'tests/test_funding_finder_pipeline.py'
+      - 'tests/test_report_pitch_pipeline.py'
+      - 'tests/test_shared_production_finish.py'
+
+permissions:
+  contents: read
+
+jobs:
+  customer-quality:
+    name: Source-grounded customer execution and custody
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONNOUSERSITE: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install bounded test dependencies
+        run: python -m pip install pytest python-docx python-pptx jsonschema httpx
+      - name: Verify customer routes, source truth, Lingua and artifact custody
+        run: |
+          python -m pytest -q \
+            tests/test_lingua_document_translation.py \
+            tests/test_customer_product_router.py \
+            tests/test_funding_finder_pipeline.py \
+            tests/test_report_pitch_pipeline.py \
+            tests/test_shared_production_finish.py
