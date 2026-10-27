@@ -9,6 +9,15 @@ from lingua.semantic_law import PROJECTION_INVARIANTS
 
 PROJECTION_SCHEMA = "dio.lingua.product_projection.v1"
 
+# Product media shares Vesper's reviewed voice identity.  Keep this single
+# projection rather than falling back to cloud voices or legacy Piper models.
+CANONICAL_CAMPAIGN_VOICE = {
+    "provider": "pocket_tts",
+    "profile": "vera_pocket_public",
+    "voice": "vera",
+    "remote_tts_allowed": False,
+}
+
 ARCHETYPE_RULES: list[tuple[str, tuple[str, ...]]] = [
     ("learner_support", ("parent", "learner", "school learner")),
     ("education_practitioner", ("teacher", "lecturer", "tutor", "education publisher", "school", "assessment coordinator")),
@@ -40,7 +49,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "fast_but_breathable",
         "visual_grammar": "bright_learning_editorial",
         "motion_grammar": "quick_punch_ins_and_clean_cuts",
-        "voice": {"provider": "edge_tts", "voice": "en-ZA-LeahNeural", "presentation": "warm_peer", "remote_tts_allowed": True},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "warm_peer"},
         "music": {"family": "bright_warm_learning", "keywords": ["warm", "bright", "learning", "optimistic"], "allow_silence": True, "volume": 0.09},
     },
     "education_practitioner": {
@@ -50,7 +59,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "brisk",
         "visual_grammar": "energetic_education_editorial",
         "motion_grammar": "fast_cuts_punch_ins_and_screen_moments",
-        "voice": {"provider": "edge_tts", "voice": "en-ZA-LeahNeural", "presentation": "trusted_colleague", "remote_tts_allowed": True},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "trusted_colleague"},
         "music": {"family": "warm_upbeat", "keywords": ["warm", "sunset", "upbeat", "education"], "allow_silence": True, "volume": 0.10},
     },
     "academic_research": {
@@ -60,7 +69,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "measured",
         "visual_grammar": "editorial_research_documentary",
         "motion_grammar": "measured_pushes_and_source_closeups",
-        "voice": {"provider": "pocket_tts", "profile": "vera_pocket_public", "voice": "vera", "presentation": "calm_explainer", "remote_tts_allowed": False},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "calm_explainer"},
         "music": {"family": "minimal_documentary", "keywords": ["documentary", "minimal", "ambient", "research"], "allow_silence": True, "volume": 0.06},
     },
     "assurance": {
@@ -70,7 +79,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "deliberate",
         "visual_grammar": "assurance_signal_noir",
         "motion_grammar": "slow_pushes_evidence_highlights_and_hard_cuts",
-        "voice": {"provider": "edge_tts", "voice": "en-ZA-LukeNeural", "presentation": "restrained_authority", "remote_tts_allowed": True},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "restrained_authority"},
         "music": {"family": "restrained_investigative", "keywords": ["investigative", "technology", "restrained", "corporate"], "allow_silence": True, "volume": 0.055},
     },
     "executive_operations": {
@@ -80,7 +89,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "crisp",
         "visual_grammar": "executive_operating_brief",
         "motion_grammar": "clean_diagram_moves_and_selective_punch_ins",
-        "voice": {"provider": "edge_tts", "voice": "en-ZA-LukeNeural", "presentation": "executive_briefing", "remote_tts_allowed": True},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "executive_briefing"},
         "music": {"family": "modern_low_key", "keywords": ["modern", "technology", "low key", "business"], "allow_silence": True, "volume": 0.05},
     },
     "public_programme": {
@@ -90,7 +99,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "steady",
         "visual_grammar": "public_interest_documentary",
         "motion_grammar": "human_context_then_evidence_closeups",
-        "voice": {"provider": "edge_tts", "voice": "en-ZA-LeahNeural", "presentation": "warm_public_service", "remote_tts_allowed": True},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "warm_public_service"},
         "music": {"family": "warm_documentary", "keywords": ["warm", "documentary", "hopeful", "community"], "allow_silence": True, "volume": 0.07},
     },
     "professional_services": {
@@ -100,7 +109,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "brisk",
         "visual_grammar": "modern_client_workflow",
         "motion_grammar": "before_after_cuts_and_workflow_reveals",
-        "voice": {"provider": "edge_tts", "voice": "en-ZA-LeahNeural", "presentation": "confident_peer", "remote_tts_allowed": True},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "confident_peer"},
         "music": {"family": "clean_modern", "keywords": ["clean", "modern", "creative", "business"], "allow_silence": True, "volume": 0.075},
     },
     "general_professional": {
@@ -110,7 +119,7 @@ VERTICAL_PROFILES: dict[str, dict[str, Any]] = {
         "pacing": "medium",
         "visual_grammar": "clean_professional_editorial",
         "motion_grammar": "simple_pushes_and_proof_closeups",
-        "voice": {"provider": "piper_local", "voice": "configured_local_model", "presentation": "neutral_explainer", "remote_tts_allowed": False},
+        "voice": {**CANONICAL_CAMPAIGN_VOICE, "presentation": "neutral_explainer"},
         "music": {"family": "minimal_neutral", "keywords": ["minimal", "ambient", "technology"], "allow_silence": True, "volume": 0.05},
     },
 }

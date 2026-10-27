@@ -2,11 +2,14 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -17,6 +20,40 @@ from scripts.edge_tts_runtime import resolve_edge_tts_for_service
 
 CampaignMediaError = legacy.CampaignMediaError
 DEFAULT_NICHEFOUNDRY_ROOT = legacy.DEFAULT_NICHEFOUNDRY_ROOT
+
+
+def _gilded_asset_pack() -> dict[str, Any]:
+    """Verify the declared canonical visual pack before a production render."""
+    profile_path = ROOT / "config" / "media" / "dio_gilded_house_style.json"
+    profile = legacy.read_json(profile_path)
+    manifest_path = ROOT / str(profile.get("source_manifest") or "")
+    if not manifest_path.is_file():
+        raise CampaignMediaError(
+            "The configured DIO Gilded asset-pack manifest is unavailable: "
+            f"{manifest_path}. Restore the canonical pack before rendering production media."
+        )
+    manifest = legacy.read_json(manifest_path)
+    if manifest.get("pack_id") != profile.get("source_pack_id"):
+        raise CampaignMediaError("The DIO Gilded asset-pack manifest does not match the configured pack id.")
+    if manifest.get("generated_as_proof") != "REFUSE" or manifest.get("remote_runtime_fetch") != "REFUSE":
+        raise CampaignMediaError("The DIO Gilded asset pack has invalid proof or retrieval authority.")
+    base = manifest_path.parent.resolve()
+    for asset in manifest.get("assets") or []:
+        path = (base / str(asset.get("path") or "")).resolve()
+        if not path.is_relative_to(base) or not path.is_file():
+            raise CampaignMediaError(f"The DIO Gilded asset pack is missing declared asset {asset.get('asset_id')!r}.")
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if f"sha256:{digest}" != asset.get("sha256"):
+            raise CampaignMediaError(f"The DIO Gilded asset hash does not match for {asset.get('asset_id')!r}.")
+        with Image.open(path) as image:
+            if image.size != (asset.get("width"), asset.get("height")):
+                raise CampaignMediaError(f"The DIO Gilded asset dimensions do not match for {asset.get('asset_id')!r}.")
+    return {
+        "profile_id": profile.get("profile_id"),
+        "pack_id": manifest.get("pack_id"),
+        "manifest": str(manifest_path.resolve()),
+        "asset_count": len(manifest.get("assets") or []),
+    }
 
 
 def resolve_edge_tts_binary(nichefoundry_root: Path = DEFAULT_NICHEFOUNDRY_ROOT) -> Path:
@@ -174,9 +211,10 @@ def synthesize_projected_story(
         raise CampaignMediaError("LINGUA projection requires narrated voice.")
     provider = str(voice_spec.get("provider") or "").strip()
     if provider == "piper_local":
-        receipt = legacy.synthesize_piper_story(scenes, output_dir, nichefoundry_root=nichefoundry_root)
-        receipt["receipt"] = str((output_dir / "PIPER_NARRATION_RECEIPT.json").resolve())
-        return receipt
+        raise CampaignMediaError(
+            "Piper narration is retired for production campaigns. Select the approved "
+            "Pocket TTS Vera projection instead."
+        )
     if provider == "edge_tts":
         if voice_spec.get("remote_tts_allowed") is not True:
             raise CampaignMediaError("Edge TTS projection is blocked because remote_tts_allowed is not true.")
@@ -268,23 +306,19 @@ def render_campaign_media_v3(
     if release.get("state") != "held" or release.get("spend") != "disabled":
         raise CampaignMediaError("LINGUA-projected media must keep publication held and spend disabled.")
 
+    gilded_pack = _gilded_asset_pack()
     variant_receipts: dict[str, Any] = {}
     for surface, variant in variants.items():
         story = variant.get("story") or {}
         scenes = list(story.get("scenes") or [])
-        gamma_spec = variant.get("gamma") or {}
-        gamma_path = Path(str(gamma_spec.get("receipt") or "")).expanduser().resolve()
-        if not gamma_path.is_file():
-            raise CampaignMediaError(f"Gamma receipt is missing for {surface}: {gamma_path}")
-        gamma = legacy.read_json(gamma_path)
-        if gamma.get("state") != "ready" or gamma.get("request_hash") != gamma_spec.get("request_hash"):
-            raise CampaignMediaError(f"Gamma receipt does not match the projected {surface} request.")
-        cards = list(gamma.get("cards") or [])
-        if not scenes or len(cards) != len(scenes):
-            raise CampaignMediaError(f"Gamma card count must match projected story scene count for {surface}.")
-        images = [Path(row["path"]).expanduser().resolve() for row in cards]
+        # The factory renders bounded, local Format Core scene cards before this
+        # stage.  They are the canonical visual input: no hosted Gamma generation
+        # or opaque retrieval is required to create a reviewable campaign proof.
+        images = [Path(str(value)).expanduser().resolve() for value in (variant.get("scene_images_fallback") or [])]
+        if not scenes or len(images) != len(scenes):
+            raise CampaignMediaError(f"Local visual card count must match projected story scene count for {surface}.")
         if any(not path.is_file() for path in images):
-            raise CampaignMediaError(f"One or more Gamma cards are missing for {surface}.")
+            raise CampaignMediaError(f"One or more local visual cards are missing for {surface}.")
 
         variant_dir = request_path.parent / "media" / surface
         voice_receipt = synthesize_projected_story(scenes, variant_dir, dict(variant.get("voice") or {}), nichefoundry_root=nichefoundry_root)
@@ -318,7 +352,13 @@ def render_campaign_media_v3(
         variant_receipts[surface] = {
             "surface": surface,
             "story_hash": story.get("story_hash"),
-            "gamma": {"generation_id": gamma.get("generation_id"), "card_count": len(cards), "receipt": str(gamma_path)},
+            "visuals": {
+                "provider": "format_core_local_compositor",
+                "card_count": len(images),
+                "paths": [str(path) for path in images],
+                "external_generation_used": False,
+                "gilded_asset_pack": gilded_pack,
+            },
             "voice": {
                 "provider": voice_receipt["provider"],
                 "voice": voice_receipt.get("voice") or voice_receipt.get("model"),
@@ -352,6 +392,9 @@ def render_campaign_media_v3(
             "market_validation_claimed": False,
             "authority_created": False,
             "semantic_law_preserved": True,
+            "gamma_required": False,
+            "visual_provider": "format_core_local_compositor",
+            "gilded_asset_pack": gilded_pack,
         },
     }
     legacy.write_json(output_dir / "CAMPAIGN_MEDIA_RECEIPT.json", receipt)

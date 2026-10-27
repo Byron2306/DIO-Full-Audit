@@ -7,17 +7,21 @@ import json
 import os
 import re
 import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from lingua.product_projection import build_projection_plan, creative_distance, project_story
 from lingua.semantic_law import build_semantic_law, validate_projection
 from scripts.build_campaign_media_v3 import CampaignMediaError, render_campaign_media_v3
 
-ROOT = Path(__file__).resolve().parents[1]
 FOUNDRY = Path(os.environ.get("NICHEFOUNDRY_ROOT", "/home/byron/Downloads/NicheFoundry_Phase11"))
 MATRIX = ROOT / "config" / "marketing_audience_matrix.json"
 DEFAULT_OUTPUT = ROOT / "state" / "marketing_factory"
@@ -340,8 +344,7 @@ def build_family(product: dict[str, Any], audience: dict[str, Any], channels: di
 
     stories: dict[str, Any] = {}
     variants: dict[str, Any] = {}
-    gamma_states = {"vertical_short": "request_ready", "landscape_explainer": "request_ready"}
-    gamma_errors = {"vertical_short": "", "landscape_explainer": ""}
+    visual_states = {"vertical_short": "ready", "landscape_explainer": "ready"}
     output_specs = {
         "vertical_short": {"path": assets / "reel_1080x1920.mp4", "width": 1080, "height": 1920},
         "landscape_explainer": {"path": assets / "explainer_1920x1080.mp4", "width": 1920, "height": 1080},
@@ -362,15 +365,11 @@ def build_family(product: dict[str, Any], audience: dict[str, Any], channels: di
             draw_poster(source, size, product, audience, image_path, message=scene["screen_text"], footer=scene["role"].replace("_", " ").title(), visual_grammar=plan["visual_grammar"])
             fallback_images.append(str(image_path.resolve()))
             asset_paths[f"{surface}_scene_{index:02d}"] = relative(image_path)
-        gamma_request = build_gamma_story_request(story, directory)
-        gamma_request_path = directory / "gamma" / surface / "GAMMA_STORY_REQUEST.json"
-        write_json(gamma_request_path, gamma_request)
-        gamma_receipt_path = directory / "gamma" / surface / "GAMMA_STORY_RECEIPT.json"
         variants[surface] = {
             "surface": surface,
             "story": {"path": str(story_path.resolve()), "story_hash": story["story_hash"], "scenes": story["scenes"]},
             "scene_images_fallback": fallback_images,
-            "gamma": {"required": True, "request": str(gamma_request_path.resolve()), "request_hash": gamma_request["request_hash"], "receipt": str(gamma_receipt_path.resolve())},
+            "visuals": {"provider": "format_core_local_compositor", "required": True, "review_required": True},
             "voice": {"required": True, **plan["voice"]},
             "music": _select_music(plan, product, audience, family_id),
             "output": {"path": str(output_specs[surface]["path"].resolve()), "width": output_specs[surface]["width"], "height": output_specs[surface]["height"]},
@@ -397,17 +396,12 @@ def build_family(product: dict[str, Any], audience: dict[str, Any], channels: di
     media_error = ""
     media_receipt: dict[str, Any] = {}
     if render_reels and not projection_errors:
-        for surface in variants:
-            gamma_states[surface], gamma_errors[surface] = _run_gamma(Path(variants[surface]["gamma"]["request"]))
-        if all(state == "ready" for state in gamma_states.values()):
-            try:
-                media_receipt = render_campaign_media_v3(request_path, nichefoundry_root=FOUNDRY)
-                media_state = str(media_receipt.get("state") or "ready")
-            except (CampaignMediaError, OSError, subprocess.SubprocessError, ValueError) as exc:
-                media_state = "failed"
-                media_error = str(exc)[-1600:]
-        else:
-            media_state = "blocked_by_gamma"
+        try:
+            media_receipt = render_campaign_media_v3(request_path, nichefoundry_root=FOUNDRY)
+            media_state = str(media_receipt.get("state") or "ready")
+        except (CampaignMediaError, OSError, subprocess.SubprocessError, ValueError) as exc:
+            media_state = "failed"
+            media_error = str(exc)[-1600:]
     elif render_reels:
         media_state = "blocked_by_lingua_projection"
         media_error = " | ".join(projection_errors)
@@ -416,12 +410,11 @@ def build_family(product: dict[str, Any], audience: dict[str, Any], channels: di
         asset_paths["reel_1080x1920"] = relative(output_specs["vertical_short"]["path"])
         asset_paths["explainer_1920x1080"] = relative(output_specs["landscape_explainer"]["path"])
 
-    gamma_state = "ready" if all(state == "ready" for state in gamma_states.values()) else ("request_ready" if not render_reels else "failed")
     voice_state = "ready" if media_state == "ready" else ("not_started" if not render_reels else "failed")
     voice_variants = media_receipt.get("variants") or {}
     voice_providers = sorted({str((row.get("voice") or {}).get("provider") or "") for row in voice_variants.values() if (row.get("voice") or {}).get("provider")})
-    external_errors = [error for error in [*gamma_errors.values(), media_error] if error]
-    failed_media = media_state in {"failed", "blocked_by_gamma", "blocked_by_lingua_projection"}
+    external_errors = [error for error in [media_error] if error]
+    failed_media = media_state in {"failed", "blocked_by_lingua_projection"}
 
     family = {
         "schema": "dio.marketing.creative_family.v3",
@@ -444,9 +437,8 @@ def build_family(product: dict[str, Any], audience: dict[str, Any], channels: di
         },
         "assets": asset_paths,
         "copy": copy_outputs,
-        "gamma": {"required_for_media": True, "state": gamma_state, "variants": {surface: {"state": gamma_states[surface], "request": relative(Path(variants[surface]["gamma"]["request"])), "receipt": relative(Path(variants[surface]["gamma"]["receipt"])) if Path(variants[surface]["gamma"]["receipt"]).is_file() else "", "error": gamma_errors[surface]} for surface in variants}, "error": " | ".join(error for error in gamma_errors.values() if error)},
+        "visual_pipeline": {"required_for_media": True, "provider": "format_core_local_compositor", "state": "ready", "gamma_required_for_media": False, "variants": {surface: {"state": visual_states[surface], "scene_count": len((variants[surface]["story"] or {}).get("scenes") or [])} for surface in variants}},
         "voice": {"required_for_media": True, "state": voice_state, "providers": voice_providers or sorted({variants[s]["voice"]["provider"] for s in variants}), "projection_selected": True, "receipts": {surface: str((row.get("voice") or {}).get("receipt") or "") for surface, row in voice_variants.items()}},
-        "piper": {"required_for_media": False, "provider": "projection_selected", "remote_fallback": False, "state": voice_state, "receipt": ""},
         "nichefoundry": {"request": relative(request_path), "reel_state": media_state, "reel_error": media_error, "long_form_state": media_state, "media_receipt": relative(directory / "media" / "CAMPAIGN_MEDIA_RECEIPT.json") if (directory / "media" / "CAMPAIGN_MEDIA_RECEIPT.json").is_file() else ""},
         "validation": {"state": "passed" if not validation_errors and not external_errors and not failed_media else "failed", "errors": validation_errors + external_errors},
         "governance": {"state": "draft_ready", "publication": "held", "spend": "disabled", "promotion": "operator_required", "market_validation_claimed": False, "authority_created": False},
@@ -483,9 +475,8 @@ def build(output_root: Path = DEFAULT_OUTPUT, render_reels: bool = True, limit: 
             "audiences": len(families),
             "channel_packages": sum(len(f["copy"]) for f in families),
             "stories_ready": sum(f["story"]["state"] == "ready" for f in families),
-            "gamma_stories_ready": sum(f["gamma"]["state"] == "ready" for f in families),
+            "local_visual_sets_ready": sum(f["visual_pipeline"]["state"] == "ready" for f in families),
             "voice_narrations_ready": sum(f["voice"]["state"] == "ready" for f in families),
-            "piper_narrations_ready": sum(f["piper"]["state"] == "ready" for f in families),
             "reels_ready": sum(f["nichefoundry"]["reel_state"] == "ready" for f in families),
             "long_form_ready": sum(f["nichefoundry"]["long_form_state"] == "ready" for f in families),
             "validation_failures": sum(f["validation"]["state"] != "passed" for f in families),

@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from dio_secrets import load_secret_env
-from scripts.build_campaign_media import CampaignMediaError, render_campaign_media
+from scripts.build_campaign_media_v3 import CampaignMediaError, render_campaign_media_v3
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,14 +53,6 @@ def _request_path(family: dict[str, Any]) -> Path:
     return path
 
 
-def _gamma_receipt(request: dict[str, Any], request_path: Path) -> Path:
-    value = str((request.get("gamma") or {}).get("receipt") or "").strip()
-    path = Path(value).expanduser() if value else request_path.parent / "gamma" / "GAMMA_STORY_RECEIPT.json"
-    if not path.is_file():
-        raise FileNotFoundError(f"Gamma story receipt is required before narrated media: {path}")
-    return path
-
-
 def _verify_output(path_value: str, label: str) -> Path:
     path = Path(str(path_value or "")).expanduser()
     if not str(path_value or "").strip() or not path.is_file() or path.stat().st_size < 10000:
@@ -73,14 +65,15 @@ def run_family(family: dict[str, Any], *, foundry_root: Path, render_media: bool
     family_id = str(family.get("family_id") or "")
     request_path = _request_path(family)
     request = read_json(request_path)
-    gamma_receipt = _gamma_receipt(request, request_path)
     receipt: dict[str, Any] = {
-        "schema": "dio.nichefoundry.media_pipeline_receipt.v2",
+        "schema": "dio.nichefoundry.media_pipeline_receipt.v3",
         "family_id": family_id,
         "ran_at": utc_now(),
-        "renderer": "scripts.build_campaign_media.render_campaign_media",
-        "voice_provider": "piper_local",
-        "music_required": True,
+        "renderer": "scripts.build_campaign_media_v3.render_campaign_media_v3",
+        "voice_provider": "pocket_tts",
+        "voice_profile": "vera_pocket_public",
+        "music_resolution": "rights_recorded_catalog_or_silence",
+        "visual_provider": "format_core_local_compositor",
         "render_media_requested": render_media,
         "state": "render_ready" if not render_media else "failed",
         "outputs": {},
@@ -88,19 +81,22 @@ def run_family(family: dict[str, Any], *, foundry_root: Path, render_media: bool
     }
     if render_media:
         try:
-            media = render_campaign_media(request_path, gamma_receipt, nichefoundry_root=foundry_root)
+            media = render_campaign_media_v3(request_path, nichefoundry_root=foundry_root)
             outputs = media.get("outputs") or {}
             vertical = _verify_output(str((outputs.get("vertical_reel") or {}).get("path") or ""), "Vertical reel")
             landscape = _verify_output(str((outputs.get("long_form_explainer") or {}).get("path") or ""), "Landscape explainer")
-            piper_receipt = request_path.parent / "media" / "PIPER_NARRATION_RECEIPT.json"
             media_receipt = request_path.parent / "media" / "CAMPAIGN_MEDIA_RECEIPT.json"
-            if not piper_receipt.is_file() or not media_receipt.is_file():
-                raise RuntimeError("Narrated media returned without Piper and campaign-media receipts.")
+            voice_receipts = [
+                Path(str((variant.get("voice") or {}).get("receipt") or ""))
+                for variant in (media.get("variants") or {}).values()
+            ]
+            if not media_receipt.is_file() or not voice_receipts or any(not path.is_file() for path in voice_receipts):
+                raise RuntimeError("Narrated media returned without Pocket TTS and campaign-media receipts.")
             receipt["state"] = "ready"
             receipt["outputs"] = {
                 "vertical_reel": relative(vertical),
                 "long_form_explainer": relative(landscape),
-                "piper_receipt": relative(piper_receipt),
+                "voice_receipts": [relative(path) for path in voice_receipts],
                 "campaign_media_receipt": relative(media_receipt),
             }
         except (CampaignMediaError, OSError, RuntimeError, ValueError) as exc:
@@ -111,12 +107,13 @@ def run_family(family: dict[str, Any], *, foundry_root: Path, render_media: bool
     receipt["receipt"] = relative(receipt_path)
     write_json(receipt_path, receipt)
 
-    family.setdefault("piper", {}).update({
+    family.setdefault("voice", {}).update({
         "required_for_media": True,
-        "provider": "piper_local",
+        "provider": "pocket_tts",
+        "profile": "vera_pocket_public",
         "remote_fallback": False,
         "state": "ready" if receipt["state"] == "ready" else receipt["state"],
-        "receipt": receipt["outputs"].get("piper_receipt", ""),
+        "receipts": receipt["outputs"].get("voice_receipts", []),
     })
     niche = family.setdefault("nichefoundry", {})
     niche.update({
@@ -160,7 +157,7 @@ def run_media_pipeline(
     registry.setdefault("summary", {}).update({
         "media_pipeline_last_run_at": utc_now(),
         "media_pipeline_last_selected_counts": counts,
-        "piper_narrations_ready": sum((family.get("piper") or {}).get("state") == "ready" for family in families),
+        "pocket_tts_narrations_ready": sum((family.get("voice") or {}).get("state") == "ready" for family in families),
         "native_reels_ready": sum((family.get("nichefoundry") or {}).get("reel_state") == "ready" for family in families),
         "long_form_explainers_ready": sum((family.get("nichefoundry") or {}).get("long_form_state") == "ready" for family in families),
     })
@@ -171,9 +168,11 @@ def run_media_pipeline(
         "selected_count": len(selected),
         "counts": counts,
         "receipts": [row["receipt"] for row in receipts],
-        "renderer": "scripts.build_campaign_media.render_campaign_media",
-        "voice_provider": "piper_local",
-        "music_required": True,
+        "renderer": "scripts.build_campaign_media_v3.render_campaign_media_v3",
+        "voice_provider": "pocket_tts",
+        "voice_profile": "vera_pocket_public",
+        "music_resolution": "rights_recorded_catalog_or_silence",
+        "visual_provider": "format_core_local_compositor",
         "vertical_reel_required": True,
         "landscape_explainer_required": True,
         "publication": "held",

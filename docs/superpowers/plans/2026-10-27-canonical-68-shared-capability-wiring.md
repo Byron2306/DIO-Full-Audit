@@ -73,3 +73,11 @@
 - [ ] Refuse partial Format Core/Production Studio configurations.
 - [ ] Run Phase 4 through Phase 8 tests and confirm the real files survive deliverable-manifest validation.
 
+### Production-media correction (2026-10-27)
+
+- [x] Retire Piper from NicheFoundry production narration and standardise all LINGUA campaign projections on the approved Pocket TTS Vera profile.
+- [x] Remove Gamma as a required campaign renderer; use local, semantic scene composition and retain the human visual-release gate.
+- [x] Keep music selection limited to recorded-rights catalog assets or intentional silence when no suitable cleared track exists.
+- [x] Bind production rendering to the declared DIO Gilded asset-pack manifest and fail closed when the canonical pack is absent from the checkout.
+- [ ] Restore the declared `HOMS_CORPO_CULT_V1` manifest and asset files into an approved workspace location, verify each file hash and dimensions, then run a held campaign render.
+

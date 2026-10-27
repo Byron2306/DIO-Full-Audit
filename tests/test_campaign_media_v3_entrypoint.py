@@ -76,3 +76,28 @@ def test_pocket_tts_campaign_narration_uses_approved_vera_and_writes_receipt(
     assert receipt["scenes"][0]["duration_seconds"] == 1.25
     assert saved["governance"]["publication"] == "held_for_operator_approval"
     assert saved["governance"]["send_authorized"] is False
+
+
+def test_piper_is_rejected_for_production_campaign_narration(tmp_path: Path) -> None:
+    import pytest
+
+    with pytest.raises(media.CampaignMediaError, match="Piper narration is retired"):
+        media.synthesize_projected_story(
+            [{"scene_id": "scene_a", "narration": "A reviewable story."}],
+            tmp_path,
+            {"required": True, "provider": "piper_local"},
+            nichefoundry_root=tmp_path,
+        )
+
+
+def test_gilded_asset_pack_fails_closed_when_the_declared_manifest_is_missing(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(media, "ROOT", tmp_path)
+    (tmp_path / "config" / "media").mkdir(parents=True)
+    (tmp_path / "config" / "media" / "dio_gilded_house_style.json").write_text(
+        json.dumps({"source_manifest": "media/pack.json", "source_pack_id": "DIO_GILDED"}),
+        encoding="utf-8",
+    )
+    import pytest
+
+    with pytest.raises(media.CampaignMediaError, match="asset-pack manifest is unavailable"):
+        media._gilded_asset_pack()
