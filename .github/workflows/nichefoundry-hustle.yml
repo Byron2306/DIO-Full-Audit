@@ -57,7 +57,7 @@ jobs:
         run: |
           set -o pipefail
           (python -m compileall -q \
-            scripts/build_multichannel_campaign_factory.py \
+            scripts/build_campaign_media.py \
             scripts/build_hustle_campaign_factory.py \
             scripts/build_lingua_hustle_campaign_factory.py \
             scripts/build_vesper_persona_lab.py \
