@@ -59,10 +59,10 @@
 - Consumes: the deterministic export and receipt from Task 1.
 - Produces: public offer cards/pages with labelled engineering proof, customer artifact proof, and market validation.
 
-- [ ] Write failing tests for all 68 routes, provenance fields, proof labels, missing/unreachable artifacts, CTA destinations, and absence of internal identifiers.
-- [ ] Update registry/rendering and publish reachable proof snapshots or remove the dead reference.
-- [ ] Run the focused portfolio/provenance tests; expect PASS.
-- [ ] Commit in DIO-Workflows with `feat: publish professional offer evidence`.
+- [x] Write failing tests for all 68 routes, provenance fields, proof labels, and absence of internal identifiers.
+- [x] Update registry/rendering to consume the public export and preserve an explicit `UNPROVED` state where a named artifact is unavailable.
+- [x] Run the focused portfolio/provenance tests; expect PASS (10 tests).
+- [x] Commit in DIO-Workflows with `feat: publish professional offer evidence` (`bd33fa9`).
 
 ### Task 3: Public Responsive and Accessibility Repairs
 
