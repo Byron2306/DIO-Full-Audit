@@ -122,7 +122,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install journey dependencies
-        run: python -m pip install pytest jsonschema python-docx
+        run: python -m pip install pytest jsonschema python-docx pillow
       - name: Run final shared Customer Journey bindings
         run: |
           python -m pytest -q \
