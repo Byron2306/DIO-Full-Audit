@@ -28,6 +28,16 @@ def build_proof_production_matrix(root: Path = ROOT) -> dict[str, Any]:
         plan = binding["capability_plan"]
         required = [row["capability_id"] for row in plan if row.get("execution_required")]
         product_name = binding["product_name"]
+        customer_case_coverage = (
+            "CANONICAL_CASE_AVAILABLE"
+            if product_name in CASES
+            else "CASE_EXTENSION_REQUIRED"
+        )
+        blockers = ["fresh_held_customer_artifact_required"]
+        if customer_case_coverage == "CASE_EXTENSION_REQUIRED":
+            blockers.append("customer_case_extension_required")
+        if binding["product_compiler_manifest"]["state"] != "CANONICAL_MANIFEST_PRESENT":
+            blockers.append("canonical_product_manifest_mapping_required")
         rows.append({
             "product_id": binding["product_id"],
             "product_name": product_name,
@@ -36,6 +46,11 @@ def build_proof_production_matrix(root: Path = ROOT) -> dict[str, Any]:
             "required_capabilities": required,
             "available_on_approved_request": [row["capability_id"] for row in plan if not row.get("execution_required")],
             "controlled_evidence_path": "vesper_customer_case_x3" if product_name in CASES else "product_grade_extension",
+            "customer_case_coverage": customer_case_coverage,
+            "recommended_customer_route": binding["fulfilment_profile"]["route_id"],
+            "route_composition": binding["fulfilment_profile"]["organ_composition"],
+            "sellable_quality_state": "HELD_EVIDENCE_REQUIRED",
+            "sellable_quality_blockers": blockers,
             "named_artifact_proof": contract["proof"]["product_artifact_proof"],
             "proof_production_state": "NEEDS_HELD_ARTIFACT_RUN",
             "next_required_receipts": ["format_core_review_artifact", "production_studio_review_manifest", "held_customer_artifact_receipt"],

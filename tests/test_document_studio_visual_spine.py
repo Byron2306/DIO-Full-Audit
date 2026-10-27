@@ -5,7 +5,11 @@ import json
 from pathlib import Path
 
 from adapters.document_studio.art_direction import build_art_direction
-from scripts.nichefoundry_visual_spine import build_art_directed_gamma_request
+from scripts.nichefoundry_visual_spine import (
+    _local_compositor_art_direction,
+    _optional_gamma_projection,
+    build_art_directed_gamma_request,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -113,6 +117,37 @@ def test_visual_request_contains_sparse_copy_and_local_composition(tmp_path: Pat
     assert len({row["layout_family"] for row in local_receipt["frames"]}) >= 6
     digests = {hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
     assert len(digests) >= 6
+
+
+def test_optional_gamma_projection_does_not_require_removed_gamma_request() -> None:
+    projection = _optional_gamma_projection(
+        {"vertical_short": {"scene_images_fallback": ["/tmp/frame.jpg"]}},
+        {"vertical_short": "optional_skipped"},
+        {"vertical_short": ""},
+    )
+
+    assert projection == {
+        "vertical_short": {
+            "state": "optional_skipped",
+            "request": "",
+            "receipt": "",
+            "error": "",
+        }
+    }
+
+
+def test_local_compositor_art_direction_binds_story_and_frames(tmp_path: Path) -> None:
+    frame = tmp_path / "frame.jpg"
+    frame.write_bytes(b"frame-content")
+    binding = _local_compositor_art_direction(
+        {"story_hash": "sha256:story"},
+        {"provider": "format_core_local_compositor", "required": True},
+        [frame],
+    )
+
+    assert binding["provider"] == "format_core_local_compositor"
+    assert binding["art_direction_hash"].startswith("sha256:")
+    assert binding["frame_count"] == 1
 
 
 def test_active_factory_installs_local_primary_visual_spine_and_real_motion() -> None:
