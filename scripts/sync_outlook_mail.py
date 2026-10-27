@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT))
 
 from adapters.microsoft_graph.client import GraphClient, load_config  # noqa: E402
 from adapters.microsoft_graph.mail_capture import capture_message_version  # noqa: E402
+from presence_core.mail_attachment_clearance import ClamAvCommandScanner, inspect_mail_attachments  # noqa: E402
 from scripts.manage_mail_intent import DEFAULT_EVENT_LOG, DEFAULT_INTENT_DIR, emit_event, intent_path, read_json, write_json  # noqa: E402
 
 
@@ -304,6 +305,17 @@ def pull_messages(
             }
             if record["has_attachments"]:
                 record["attachments"] = capture_message_attachments(graph, message_id, record_id)
+                # Capture is not clearance: inspect with ClamAV when available and
+                # retain every unavailable, malformed, or suspect attachment held.
+                inspection = inspect_mail_attachments(
+                    record["attachments"], scanner=ClamAvCommandScanner()
+                )
+                record["attachments"] = inspection["attachments"]
+                record["attachment_inspection"] = {
+                    "schema": inspection["schema"],
+                    "inspected_at": inspection["inspected_at"],
+                    "automatic_clearance": False,
+                }
             else:
                 record["attachments"] = []
             capture = capture_message_version(ingress_dir.parent, message, record["attachments"])

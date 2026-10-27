@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import hashlib
+import shutil
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Protocol, Sequence
@@ -16,6 +18,35 @@ class ClamAvScanner(Protocol):
     signature_version: str | None
 
     def scan(self, path: Path) -> Mapping[str, Any]: ...
+
+
+class ClamAvCommandScanner:
+    """Use the local ClamAV command when it is installed; otherwise hold safely."""
+
+    def __init__(self, executable: str = "clamscan") -> None:
+        self.executable = executable
+        self.engine_version: str | None = None
+        self.signature_version: str | None = None
+
+    def scan(self, path: Path) -> Mapping[str, Any]:
+        binary = shutil.which(self.executable)
+        if not binary:
+            return {"state": "unavailable", "reason": "clamav_not_installed"}
+        try:
+            result = subprocess.run(
+                [binary, "--no-summary", "--", str(path)],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        except (OSError, subprocess.SubprocessError) as exc:
+            return {"state": "unavailable", "reason": type(exc).__name__}
+        if result.returncode == 0:
+            return {"state": "clean"}
+        if result.returncode == 1:
+            return {"state": "malware"}
+        return {"state": "unavailable", "reason": f"clamav_exit_{result.returncode}"}
 
 
 def _now() -> str:

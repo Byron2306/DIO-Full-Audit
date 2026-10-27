@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from presence_core.mail_attachment_clearance import AttachmentClearanceError, clear_mail_attachments, inspect_mail_attachments, promote_mail_attachments
+from presence_core.mail_attachment_clearance import AttachmentClearanceError, ClamAvCommandScanner, clear_mail_attachments, inspect_mail_attachments, promote_mail_attachments
 
 
 class CleanScanner:
@@ -54,3 +54,10 @@ def test_mutated_attachment_cannot_be_promoted(tmp_path: Path) -> None:
     Path(str(capture["path"])).write_bytes(b"%PDF-mutated")
     with pytest.raises(AttachmentClearanceError, match="changed"):
         promote_mail_attachments(clearance)
+
+
+def test_command_scanner_fails_closed_when_clamav_is_not_installed(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.setattr("presence_core.mail_attachment_clearance.shutil.which", lambda _: None)
+    scanner = ClamAvCommandScanner()
+    inspection = inspect_mail_attachments([_capture(tmp_path)], scanner=scanner)
+    assert inspection["attachments"][0]["inspection_state"] == "held_scanner_unavailable"
