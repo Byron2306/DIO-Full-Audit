@@ -1,0 +1,52 @@
+{
+  "authority_created": false,
+  "case_id": "CASE-DB499C5E630734D9",
+  "compilation_fingerprint": "sha256:f4a7f2247a6e4a4af3e7651995a0b973535c0443ec48e405d710e95dca579d5e",
+  "composition_fingerprint": "sha256:e36a73c23d8695617034760cdf6991ac51aa40d68cc5b327487d6e6ba9fa51c6",
+  "evidence_sufficiency_state": "GAPS_PRESENT",
+  "executed_at": "2026-08-12T12:00:00+00:00",
+  "executor_id": "contractproof_internal_runner_v1",
+  "external_effects": false,
+  "external_release": false,
+  "external_release_gate": "REFUSE",
+  "human_disclosure_gate": "NEEDS_YOU",
+  "human_fulfilment_gate": "NEEDS_YOU",
+  "internal_processing": "COMPLETE",
+  "job_id": "phase7-contractproof",
+  "legal_opinion_created": false,
+  "maturity_evidence": {
+    "basis": "A controlled internal ContractProof case completed all required work-pattern operations and produced a hash-verified multi-format evidence pack.",
+    "candidate_state": "internal_proof"
+  },
+  "obligation_bundle_fingerprint": "sha256:ea18e2b4b2fcb83f60eab9b59843dc2c4044b9f2533da822c4fd4578aebf0a99",
+  "obligation_status_counts": {
+    "EXPIRED": 1,
+    "MISSING": 1,
+    "NEEDS_REVIEW": 1,
+    "NOT_YET_DUE": 1,
+    "PARTIAL": 1,
+    "SATISFIED": 1
+  },
+  "operator_id": "human.phase7_gauntlet",
+  "product_id": "dio_contractproof",
+  "proof_fingerprint": "sha256:3a1b17654497dd708669aeab9404e8df158c94976cd3255e7682b90466e5bd24",
+  "proof_integrity_verified": true,
+  "required_artifact_types": [
+    "DOCX",
+    "HTML",
+    "JSON",
+    "PDF",
+    "proof_room_manifest"
+  ],
+  "required_sections": [
+    "contested_state_register",
+    "deadline_register",
+    "evidence_map",
+    "human_review_register",
+    "missing_evidence_register",
+    "provenance_manifest",
+    "requirement_or_obligation_ledger"
+  ],
+  "schema": "dio.contractproof.execution_receipt.v1",
+  "waiver_created": false
+}

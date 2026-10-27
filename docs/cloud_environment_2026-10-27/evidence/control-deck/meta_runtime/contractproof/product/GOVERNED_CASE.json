@@ -1,0 +1,295 @@
+{
+  "actions": [],
+  "actors": [],
+  "case_id": "CASE-DB499C5E630734D9",
+  "challenges": [],
+  "claims": [],
+  "created_at": "2026-08-12T12:00:00+00:00",
+  "deadlines": [
+    {
+      "deadline_id": "DEADLINE-851F316F22C7233B",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "expiry",
+      "state": "open",
+      "subject_id": "EVID-88B32426274D7640",
+      "subject_type": "evidence"
+    },
+    {
+      "deadline_id": "DEADLINE-871B727A3DA3120C",
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "kind": "response",
+      "state": "open",
+      "subject_id": "REQ-6A0BBAA0DE1E31A5",
+      "subject_type": "requirement"
+    },
+    {
+      "deadline_id": "DEADLINE-04ADA36624A9A271",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "response",
+      "state": "open",
+      "subject_id": "REQ-412E160BDEA2C62D",
+      "subject_type": "requirement"
+    },
+    {
+      "deadline_id": "DEADLINE-F7943BA6AD63E0DC",
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "kind": "response",
+      "state": "open",
+      "subject_id": "REQ-D5006513580A5278",
+      "subject_type": "requirement"
+    },
+    {
+      "deadline_id": "DEADLINE-399455C471E615C7",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "expiry",
+      "state": "open",
+      "subject_id": "REQ-A3D481AA305DA50F",
+      "subject_type": "requirement"
+    },
+    {
+      "deadline_id": "DEADLINE-8CF43C0B88574276",
+      "due_at": "2026-09-15T12:00:00+00:00",
+      "kind": "response",
+      "state": "open",
+      "subject_id": "REQ-4770E7C4F9942E1D",
+      "subject_type": "requirement"
+    }
+  ],
+  "decisions": [],
+  "event_refs": [
+    "obligation://sha256:ea18e2b4b2fcb83f60eab9b59843dc2c4044b9f2533da822c4fd4578aebf0a99"
+  ],
+  "evidence": [
+    {
+      "authority_grade": "source_backed",
+      "contradicts_claim_ids": [],
+      "effective_at": null,
+      "evidence_id": "EVID-B00106D16B0C5ACA",
+      "expires_at": null,
+      "freshness_state": "current",
+      "kind": "delivery_receipt",
+      "observed_at": "2026-08-10T09:00:00+00:00",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_ref": "fixture://contractproof/evidence/monthly-report-delivery",
+      "supports_claim_ids": [],
+      "supports_requirement_ids": [
+        "REQ-6A0BBAA0DE1E31A5"
+      ],
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "authority_grade": "source_backed",
+      "contradicts_claim_ids": [],
+      "effective_at": null,
+      "evidence_id": "EVID-3AA44B4EA89F75A6",
+      "expires_at": null,
+      "freshness_state": "current",
+      "kind": "signed_form",
+      "observed_at": "2026-08-11T09:00:00+00:00",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "source_ref": "fixture://contractproof/evidence/onboarding-signed-form",
+      "supports_claim_ids": [],
+      "supports_requirement_ids": [
+        "REQ-D5006513580A5278"
+      ],
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "authority_grade": "source_backed",
+      "contradicts_claim_ids": [],
+      "effective_at": null,
+      "evidence_id": "EVID-88B32426274D7640",
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "freshness_state": "expired",
+      "kind": "certificate",
+      "observed_at": "2026-07-15T09:00:00+00:00",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "source_ref": "fixture://contractproof/evidence/expired-certificate",
+      "supports_claim_ids": [],
+      "supports_requirement_ids": [
+        "REQ-A3D481AA305DA50F"
+      ],
+      "trust_state": "trusted_for_review"
+    }
+  ],
+  "exceptions": [],
+  "gates": [
+    {
+      "decided_at": "2026-08-12T12:00:00+00:00",
+      "decision_id": null,
+      "gate_id": "intake_authority",
+      "reason": "Explicit intake review is required before product-specific processing.",
+      "required_authority": "contract_owner",
+      "required_evidence_ids": [],
+      "state": "allow"
+    },
+    {
+      "decided_at": "2026-08-12T12:00:00+00:00",
+      "decision_id": null,
+      "gate_id": "generic_executor",
+      "reason": "The shared product platform has no generic product executor. A product-specific runner and validation receipt are required.",
+      "required_authority": null,
+      "required_evidence_ids": [],
+      "state": "refuse"
+    },
+    {
+      "decided_at": null,
+      "decision_id": null,
+      "gate_id": "external_release",
+      "reason": "External release requires completed processing, review evidence, and explicit authorised human release.",
+      "required_authority": "evidence_reviewer",
+      "required_evidence_ids": [],
+      "state": "needs_you"
+    }
+  ],
+  "lineage": {
+    "campaign_id": null,
+    "conversation_id": null,
+    "job_id": "phase7-contractproof",
+    "lead_id": null,
+    "parent_case_id": null,
+    "revision_of_case_id": null,
+    "transaction_id": null
+  },
+  "outputs": [
+    {
+      "artifact_ref": null,
+      "kind": "DOCX",
+      "output_id": "OUT-F13F5001F01CCE53",
+      "sha256": null,
+      "state": "planned"
+    },
+    {
+      "artifact_ref": null,
+      "kind": "HTML",
+      "output_id": "OUT-E519BB895FDAB64F",
+      "sha256": null,
+      "state": "planned"
+    },
+    {
+      "artifact_ref": null,
+      "kind": "JSON",
+      "output_id": "OUT-D52FE7B548ED10E9",
+      "sha256": null,
+      "state": "planned"
+    },
+    {
+      "artifact_ref": null,
+      "kind": "PDF",
+      "output_id": "OUT-7136DCB2719C1738",
+      "sha256": null,
+      "state": "planned"
+    },
+    {
+      "artifact_ref": null,
+      "kind": "proof_room_manifest",
+      "output_id": "OUT-FAE24ECD759BD32A",
+      "sha256": null,
+      "state": "planned"
+    }
+  ],
+  "product": "dio_contractproof",
+  "requirements": [
+    {
+      "claim_ids": [],
+      "dependency_ids": [],
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "evidence_ids": [
+        "EVID-B00106D16B0C5ACA"
+      ],
+      "expires_at": null,
+      "kind": "obligation",
+      "mandatory": true,
+      "owner_actor_id": null,
+      "requirement_id": "REQ-6A0BBAA0DE1E31A5",
+      "source_ref": "fixture://contractproof/golden-reference-001#4.2",
+      "state": "supported",
+      "statement": "Supplier shall provide the monthly service report."
+    },
+    {
+      "claim_ids": [],
+      "dependency_ids": [],
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "evidence_ids": [],
+      "expires_at": null,
+      "kind": "obligation",
+      "mandatory": true,
+      "owner_actor_id": null,
+      "requirement_id": "REQ-412E160BDEA2C62D",
+      "source_ref": "fixture://contractproof/golden-reference-001#5.1",
+      "state": "evidence_needed",
+      "statement": "Customer shall pay the accepted invoice."
+    },
+    {
+      "claim_ids": [],
+      "dependency_ids": [],
+      "due_at": "2026-09-01T12:00:00+00:00",
+      "evidence_ids": [
+        "EVID-3AA44B4EA89F75A6"
+      ],
+      "expires_at": null,
+      "kind": "obligation",
+      "mandatory": true,
+      "owner_actor_id": null,
+      "requirement_id": "REQ-D5006513580A5278",
+      "source_ref": "fixture://contractproof/golden-reference-001#6.3",
+      "state": "supported",
+      "statement": "Supplier shall provide the onboarding dossier."
+    },
+    {
+      "claim_ids": [],
+      "dependency_ids": [],
+      "due_at": null,
+      "evidence_ids": [
+        "EVID-88B32426274D7640"
+      ],
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "kind": "obligation",
+      "mandatory": true,
+      "owner_actor_id": null,
+      "requirement_id": "REQ-A3D481AA305DA50F",
+      "source_ref": "fixture://contractproof/golden-reference-001#7.4",
+      "state": "evidence_needed",
+      "statement": "Supplier shall maintain the specified certificate."
+    },
+    {
+      "claim_ids": [],
+      "dependency_ids": [],
+      "due_at": "2026-09-15T12:00:00+00:00",
+      "evidence_ids": [],
+      "expires_at": null,
+      "kind": "obligation",
+      "mandatory": true,
+      "owner_actor_id": null,
+      "requirement_id": "REQ-4770E7C4F9942E1D",
+      "source_ref": "fixture://contractproof/golden-reference-001#8.1",
+      "state": "evidence_needed",
+      "statement": "Supplier shall send the transition notice."
+    },
+    {
+      "claim_ids": [],
+      "dependency_ids": [],
+      "due_at": null,
+      "evidence_ids": [],
+      "expires_at": null,
+      "kind": "obligation",
+      "mandatory": true,
+      "owner_actor_id": null,
+      "requirement_id": "REQ-A33A5831528E248F",
+      "source_ref": "fixture://contractproof/golden-reference-001#9.2",
+      "state": "evidence_needed",
+      "statement": "Supplier must notify the owner of a material service interruption."
+    }
+  ],
+  "schema": "dio.governed_case.v2",
+  "scope": {
+    "framework_ids": [
+      "framework.contract_generic"
+    ],
+    "jurisdiction_ids": [],
+    "subject_ref": "fixture://contractproof/golden-reference-001",
+    "world_state_ref": null
+  },
+  "status": "evidence_collection",
+  "updated_at": "2026-10-27T14:35:12+00:00"
+}

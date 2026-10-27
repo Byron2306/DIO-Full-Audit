@@ -1,0 +1,397 @@
+{
+  "attributed_revenue_minor_by_currency": {},
+  "commercial_truth_version": "1.0.0",
+  "control_deck_snapshot_fingerprint": "sha256:d158c62ff984c6d1c82e5f456e413924db65a7069553ba6f3b8fd67d916ad621",
+  "observations": [
+    {
+      "amount_minor": null,
+      "attribution_complete": false,
+      "case_id": null,
+      "category": "lead_qualified",
+      "controlled": true,
+      "currency": null,
+      "customer_ref": "ref:1e30c5a8b7ad9225",
+      "environment": "controlled",
+      "observation_id": "sha256:21c16707fdf097425f1b7381c138758e113a2c9a58fe728b8c78f4b514b2b223",
+      "product_id": null,
+      "qualifying": false,
+      "source_class": "commercial_transaction",
+      "source_ref": "state/transactions/TXN-0B5E995B52C900E0/TRANSACTION.json",
+      "truth_state": "CONTROLLED_TRANSACTION",
+      "verified": true
+    },
+    {
+      "amount_minor": 100,
+      "attribution_complete": false,
+      "case_id": null,
+      "category": "payment_verified",
+      "controlled": true,
+      "currency": "USD",
+      "customer_ref": null,
+      "environment": "sandbox",
+      "observation_id": "sha256:938c12228a1b4e56e882b21ebf241d77bdf46a21b7ddd286c6a935b672181ab8",
+      "product_id": null,
+      "qualifying": false,
+      "source_class": "provider_event",
+      "source_ref": "state/commerce/orders/DIO-PAYPAL-SANDBOX-USD-001.json",
+      "truth_state": "CONTROLLED_OR_UNVERIFIED_PAYMENT",
+      "verified": true
+    },
+    {
+      "amount_minor": 100,
+      "attribution_complete": false,
+      "case_id": null,
+      "category": "payment_verified",
+      "controlled": false,
+      "currency": "USD",
+      "customer_ref": null,
+      "environment": "live",
+      "observation_id": "sha256:dea2b3dbd3ebdf39fd9fb1fc111d2c468eecb977c876f5a9fd00f6e44db8b238",
+      "product_id": null,
+      "qualifying": false,
+      "source_class": "provider_event",
+      "source_ref": "state/commerce/live/orders/DIO-PAYPAL-LIVE-USD-001.json",
+      "truth_state": "VERIFIED_UNATTRIBUTED_PAYMENT",
+      "verified": true
+    }
+  ],
+  "observed_at": "2026-08-12T12:00:00+00:00",
+  "products": [
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_agentauthority",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_airegreadiness",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_aitrustproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_contractproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_educationaccreditationproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_grantproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_modelchangeproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_permitproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_policyproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_privacyproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_publicprocurementproof",
+      "same_currency_net_minor": {}
+    },
+    {
+      "authority_created": false,
+      "claims": {
+        "customer_validation": "UNKNOWN",
+        "delivery_acceptance": "UNKNOWN",
+        "economic_proof": "UNKNOWN",
+        "fulfilment": "UNKNOWN",
+        "paid_customer": "UNKNOWN",
+        "qualified_demand": "UNKNOWN",
+        "repeatability": "UNKNOWN"
+      },
+      "evidence_counts": {
+        "economic_cases": 0,
+        "fulfilled_cases": 0,
+        "independent_validated_customers": 0,
+        "observed": 0,
+        "paid_cases": 0,
+        "qualifying": 0,
+        "validated_cases": 0
+      },
+      "external_release_authorized": false,
+      "human_commercial_review": false,
+      "maturity_changed": false,
+      "product_id": "dio_tenderproof",
+      "same_currency_net_minor": {}
+    }
+  ],
+  "schema": "dio.commercial_truth.snapshot.v1",
+  "snapshot_fingerprint": "sha256:bd014ca0f4518646e2a50ce8f2c85dd10ce3829d09a72be858f2c40981058524",
+  "summary": {
+    "attributed_paid_case_count": 0,
+    "controlled_observation_count": 2,
+    "customer_validated_product_count": 0,
+    "economically_proven_product_count": 0,
+    "live_verified_payment_count": 1,
+    "observation_count": 3,
+    "repeatable_product_count": 0
+  },
+  "truth_boundaries": {
+    "absence_interpreted_as_zero": false,
+    "authority_created": false,
+    "controlled_test_promoted_to_market_validation": false,
+    "cross_currency_total_created": false,
+    "external_release_authorized": false,
+    "maturity_changed": false,
+    "payment_promoted_to_revenue": false,
+    "unattributed_payment_assigned_to_product": false
+  },
+  "unattributed_value_minor_by_currency": {
+    "USD": 100
+  }
+}

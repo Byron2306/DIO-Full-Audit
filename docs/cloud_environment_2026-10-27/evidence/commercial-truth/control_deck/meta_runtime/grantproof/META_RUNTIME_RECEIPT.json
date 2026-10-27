@@ -1,0 +1,134 @@
+{
+  "authority_created": false,
+  "evaluated_at": "2026-08-12T12:00:00+00:00",
+  "executor_created": false,
+  "external_effects": false,
+  "external_release_authorized": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "input_immutable": true,
+  "plan_fingerprint": "sha256:d1f3f427e012c8ef83b6cfde9508af575140c60a89fd3ad1569a1cd9c95d01bd",
+  "product_id": "dio_grantproof",
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_fingerprint": "sha256:fb3d8cfc4a83857421536f3c4305c1cedd34af59f26fe37045a8f9be7c0cb3f7",
+  "runtime_version": "1.0.0",
+  "schema": "dio.meta_runtime.receipt.v1",
+  "step_receipts": [
+    {
+      "authority_created": false,
+      "dependency_receipts": [],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_evidence",
+      "input_fingerprints": {
+        "case": "sha256:4a93b28f00dd94661458d7711e526ef173c369daaf1406cf9a906d838c0c8889",
+        "obligation_bundle": "sha256:66d89c13f3bc3103406057817952e7fc86cc635a6635c7efd3e0116bf499826f",
+        "sufficiency": "sha256:294b8847ca8d9567f66d281c9aaa65793cc41092db09f5a173153eff8de5b31a"
+      },
+      "meta_id": "meta_evidence",
+      "outputs": {
+        "case_id": "CASE-CF07143A5E5FEC19",
+        "evidence_records": 2,
+        "fulfilment_adjudicated": false,
+        "gap_state": "GAPS_PRESENT",
+        "obligation_records": 3
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_assurance",
+      "input_fingerprints": {
+        "execution_receipt": "sha256:13dc97fb2a780c1fa7d4ec9dcd4d20240c9caa01fa36ffeda478de4ce6c71252",
+        "meta_evidence_receipt": "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6",
+        "proof_manifest": "sha256:92702d22f408c097c3959565d53155d7ce82f10b16026f4ed879dcee71a9eb7e"
+      },
+      "meta_id": "meta_assurance",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "e38d39c61da95f65c1b3f3bee41d10da7295d43bec3c543030a0b2cfb8db689d",
+          "HTML": "bf6e89964b520a57517d6cf738440a49d6e08ef64ee7cb2373a9e0380ba8f1d1",
+          "JSON": "c60f3650daf822fb188bf903ae369a457251608ce494566e7369df858f5707c0",
+          "PDF": "26fc6ca3e1f2bd5537371f04c6b987167ef8240bd8b49c0d049acce1b49340de"
+        },
+        "attention_state": "CLEAR",
+        "boundary_failures": [],
+        "execution_block_recommended": false,
+        "integrity_verified": true
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:e0517026f8d8c5803724ecee65e9e8607a9ff03c9b34d2c582ad59e19f69754f"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6",
+        "sha256:e0517026f8d8c5803724ecee65e9e8607a9ff03c9b34d2c582ad59e19f69754f"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_authority",
+      "input_fingerprints": {
+        "compiled_gates": "sha256:b19ba0dc2ec235522b591dfc448bacfb0407adc3746a59997b7a11990b54c614",
+        "execution_receipt": "sha256:13dc97fb2a780c1fa7d4ec9dcd4d20240c9caa01fa36ffeda478de4ce6c71252",
+        "meta_assurance_receipt": "sha256:e0517026f8d8c5803724ecee65e9e8607a9ff03c9b34d2c582ad59e19f69754f"
+      },
+      "meta_id": "meta_authority",
+      "outputs": {
+        "authority_observation": "NEEDS_YOU",
+        "authorization_created": false,
+        "capability_lease_created": false,
+        "execution_gate": "NEEDS_YOU",
+        "human_gate": "NEEDS_YOU",
+        "release_gate": "REFUSE"
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:7f2fe25da9e40d1d4f2c52257399cbd47c6657390e7d237d523999670dae7e11"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:8995dc67c1d020fb47c8b8036e6b945f0898b7df4239f30062a2508be9eedbe6",
+        "sha256:e0517026f8d8c5803724ecee65e9e8607a9ff03c9b34d2c582ad59e19f69754f",
+        "sha256:7f2fe25da9e40d1d4f2c52257399cbd47c6657390e7d237d523999670dae7e11"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_room",
+      "input_fingerprints": {
+        "artifact_set": "sha256:9112744f98daa1a1889e33f7c2299bacaaf65cd2122e2b1c24678f067f03e948",
+        "prior_meta_receipts": "sha256:25847bfbf5f30b05e90d5b63b9ccff02a537dee77a61fb1ff3e80b9fd1a4c488",
+        "proof_manifest": "sha256:92702d22f408c097c3959565d53155d7ce82f10b16026f4ed879dcee71a9eb7e"
+      },
+      "meta_id": "meta_room",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "e38d39c61da95f65c1b3f3bee41d10da7295d43bec3c543030a0b2cfb8db689d",
+          "HTML": "bf6e89964b520a57517d6cf738440a49d6e08ef64ee7cb2373a9e0380ba8f1d1",
+          "JSON": "c60f3650daf822fb188bf903ae369a457251608ce494566e7369df858f5707c0",
+          "PDF": "26fc6ca3e1f2bd5537371f04c6b987167ef8240bd8b49c0d049acce1b49340de"
+        },
+        "disclosure_candidate_only": true,
+        "external_release": false,
+        "integrity_verified": true,
+        "proof_fingerprint": "sha256:92702d22f408c097c3959565d53155d7ce82f10b16026f4ed879dcee71a9eb7e"
+      },
+      "product_id": "dio_grantproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:728b9e30c84ee927aba5ed507730ce11fc610b5943521478587fe2e06083cbd1"
+    }
+  ]
+}

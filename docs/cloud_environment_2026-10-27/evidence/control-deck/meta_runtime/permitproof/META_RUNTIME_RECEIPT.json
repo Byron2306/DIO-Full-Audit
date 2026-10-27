@@ -1,0 +1,134 @@
+{
+  "authority_created": false,
+  "evaluated_at": "2026-08-12T12:00:00+00:00",
+  "executor_created": false,
+  "external_effects": false,
+  "external_release_authorized": false,
+  "external_release_gate": "REFUSE",
+  "human_gate": "NEEDS_YOU",
+  "input_immutable": true,
+  "plan_fingerprint": "sha256:67638ff9dcf738a26669b172279d18e501d0d9e44e999e2b3f8173c7ee3f8d30",
+  "product_id": "dio_permitproof",
+  "runtime_entrypoint": "products/meta_runtime.py",
+  "runtime_fingerprint": "sha256:df21aabfd74b3aa2236425b5b54fbd273c034617007e519dbf2f364da405f179",
+  "runtime_version": "1.0.0",
+  "schema": "dio.meta_runtime.receipt.v1",
+  "step_receipts": [
+    {
+      "authority_created": false,
+      "dependency_receipts": [],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_evidence",
+      "input_fingerprints": {
+        "case": "sha256:8a7eb75371547f8ce703e85473af8e1358b2a2416fb80ee3d005fe459f5ffa5d",
+        "obligation_bundle": "sha256:eeec3d83ada503a33dc91d7ed7f050289ff40e5d928cadd0def6b888c19e7536",
+        "sufficiency": "sha256:44628983b73be417d14feba40375cc862dd6cc1e195c036d97a57b0f1813dafc"
+      },
+      "meta_id": "meta_evidence",
+      "outputs": {
+        "case_id": "CASE-FDC19190D41FFD09",
+        "evidence_records": 2,
+        "fulfilment_adjudicated": false,
+        "gap_state": "GAPS_PRESENT",
+        "obligation_records": 3
+      },
+      "product_id": "dio_permitproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:275b31bcb73515acc2d4f9d82144406592500b31b5b925828d0cc90a04486c28"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:275b31bcb73515acc2d4f9d82144406592500b31b5b925828d0cc90a04486c28"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_assurance",
+      "input_fingerprints": {
+        "execution_receipt": "sha256:46c8929df8ccdf18309a06924b78b9c065818972b6e293469873e8102af52d02",
+        "meta_evidence_receipt": "sha256:275b31bcb73515acc2d4f9d82144406592500b31b5b925828d0cc90a04486c28",
+        "proof_manifest": "sha256:cd13470380e82cda69985453bf7a739683d28a9c33b249615ee1568804941db9"
+      },
+      "meta_id": "meta_assurance",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "c84a51ee11153050cccbe578051b02668c864e0d30daae96294cb8a3a302020b",
+          "HTML": "ad2c14fdefde4eca5ca0941414dd7bbaab568430c0f08a85a1555a59eeb61af4",
+          "JSON": "bc0fa93632ad6e1078f178a0d26e68caf0fab86ea3c3b4a0eac7be3af9fe7fed",
+          "PDF": "8de9d60ae49911c5bc1fdd58fe6185fc73d7dc0531f63e5ec39b8cccae800b18"
+        },
+        "attention_state": "CLEAR",
+        "boundary_failures": [],
+        "execution_block_recommended": false,
+        "integrity_verified": true
+      },
+      "product_id": "dio_permitproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:56c1037b213f3d40798023f0894b958da42d742cb52ed5ac4e83e304be7c73dc"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:275b31bcb73515acc2d4f9d82144406592500b31b5b925828d0cc90a04486c28",
+        "sha256:56c1037b213f3d40798023f0894b958da42d742cb52ed5ac4e83e304be7c73dc"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_authority",
+      "input_fingerprints": {
+        "compiled_gates": "sha256:b19ba0dc2ec235522b591dfc448bacfb0407adc3746a59997b7a11990b54c614",
+        "execution_receipt": "sha256:46c8929df8ccdf18309a06924b78b9c065818972b6e293469873e8102af52d02",
+        "meta_assurance_receipt": "sha256:56c1037b213f3d40798023f0894b958da42d742cb52ed5ac4e83e304be7c73dc"
+      },
+      "meta_id": "meta_authority",
+      "outputs": {
+        "authority_observation": "NEEDS_YOU",
+        "authorization_created": false,
+        "capability_lease_created": false,
+        "execution_gate": "NEEDS_YOU",
+        "human_gate": "NEEDS_YOU",
+        "release_gate": "REFUSE"
+      },
+      "product_id": "dio_permitproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:dafe5639723837da2aa1bd1123d28c978b7ee3f5fd1eabf61d6804deef8b3f21"
+    },
+    {
+      "authority_created": false,
+      "dependency_receipts": [
+        "sha256:275b31bcb73515acc2d4f9d82144406592500b31b5b925828d0cc90a04486c28",
+        "sha256:56c1037b213f3d40798023f0894b958da42d742cb52ed5ac4e83e304be7c73dc",
+        "sha256:dafe5639723837da2aa1bd1123d28c978b7ee3f5fd1eabf61d6804deef8b3f21"
+      ],
+      "executor_created": false,
+      "external_effects": false,
+      "external_release_authorized": false,
+      "handler_id": "observe_room",
+      "input_fingerprints": {
+        "artifact_set": "sha256:9c52ee8d47af92e64b71aff2a433eb3b27127ad20a3b5c37c301594a1f95026c",
+        "prior_meta_receipts": "sha256:598e99cf4a593770f44297d5ae3ab51725cb6e36644b2ddbcff1b5506e930d75",
+        "proof_manifest": "sha256:cd13470380e82cda69985453bf7a739683d28a9c33b249615ee1568804941db9"
+      },
+      "meta_id": "meta_room",
+      "outputs": {
+        "artifact_hashes": {
+          "DOCX": "c84a51ee11153050cccbe578051b02668c864e0d30daae96294cb8a3a302020b",
+          "HTML": "ad2c14fdefde4eca5ca0941414dd7bbaab568430c0f08a85a1555a59eeb61af4",
+          "JSON": "bc0fa93632ad6e1078f178a0d26e68caf0fab86ea3c3b4a0eac7be3af9fe7fed",
+          "PDF": "8de9d60ae49911c5bc1fdd58fe6185fc73d7dc0531f63e5ec39b8cccae800b18"
+        },
+        "disclosure_candidate_only": true,
+        "external_release": false,
+        "integrity_verified": true,
+        "proof_fingerprint": "sha256:cd13470380e82cda69985453bf7a739683d28a9c33b249615ee1568804941db9"
+      },
+      "product_id": "dio_permitproof",
+      "schema": "dio.meta_runtime.step_receipt.v1",
+      "step_fingerprint": "sha256:e60ac07b84479323701745533d3da953cfd7c7e44ceab778f2a9e4d92f1245de"
+    }
+  ]
+}

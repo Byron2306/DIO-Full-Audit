@@ -1,0 +1,211 @@
+{
+  "case_id": "CASE-538BB088E3285D07",
+  "contested_state_register": [],
+  "deadline_register": [
+    {
+      "deadline_id": "ODEAD-CB07559C1C8591E7",
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-152187116581E325",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-2D138660DB9555D8",
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "kind": "response",
+      "obligation_id": "OBL-BF398FD85ABB3B86",
+      "state": "overdue"
+    },
+    {
+      "deadline_id": "ODEAD-7DE9031A365705B3",
+      "due_at": "2026-08-01T12:00:00+00:00",
+      "kind": "expiry",
+      "obligation_id": "OBL-AF40917F912962E7",
+      "state": "expired"
+    }
+  ],
+  "evidence_map": [
+    {
+      "binding_id": "OBIND-996BE7F5E1DE8D43",
+      "evidence_id": "EVID-235A75E59147D8DB",
+      "evidence_kind": "submission_receipt",
+      "freshness_state": "current",
+      "obligation_id": "OBL-152187116581E325",
+      "relation": "supports",
+      "source_ref": "fixture://tenderproof/evidence/primary",
+      "trust_state": "trusted_for_review"
+    },
+    {
+      "binding_id": "OBIND-548549E4A0527C97",
+      "evidence_id": "EVID-C648D5FB34C275BD",
+      "evidence_kind": "clarification_response",
+      "freshness_state": "expired",
+      "obligation_id": "OBL-AF40917F912962E7",
+      "relation": "supports",
+      "source_ref": "fixture://tenderproof/evidence/expired",
+      "trust_state": "trusted_for_review"
+    }
+  ],
+  "human_review_register": {
+    "disclosure": "NEEDS_YOU",
+    "external_release": "REFUSE",
+    "fulfilment": "NEEDS_YOU"
+  },
+  "missing_evidence_register": [],
+  "product_id": "dio_tenderproof",
+  "provenance_manifest": {
+    "authority_created": false,
+    "bundle_fingerprint": "sha256:43a6b163beefa8da10f084398e65108f50e666a0087df31439962aeed039a70f",
+    "external_effects": false,
+    "projection": {
+      "authority_created": false,
+      "bundle_fingerprint": "sha256:43a6b163beefa8da10f084398e65108f50e666a0087df31439962aeed039a70f",
+      "case_id": "CASE-538BB088E3285D07",
+      "execution_performed": false,
+      "external_release": false,
+      "requirement_map": {
+        "OBL-152187116581E325": "REQ-D0A6B5E80E10FA55",
+        "OBL-AF40917F912962E7": "REQ-751DBC0A458D15B2",
+        "OBL-BF398FD85ABB3B86": "REQ-0E6DC08C28D4DE1C"
+      },
+      "schema": "dio.obligation_projection_receipt.v1"
+    },
+    "source": {
+      "effective_at": "2026-07-01T00:00:00+00:00",
+      "expires_at": null,
+      "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "source_id": "tenderproof-golden-reference-001",
+      "source_ref": "fixture://tenderproof/golden-reference-001",
+      "source_type": "tender"
+    }
+  },
+  "requirement_or_obligation_ledger": [
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-10T12:00:00+00:00",
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [],
+        "obligation_id": "OBL-152187116581E325",
+        "status": "SATISFIED",
+        "status_basis": [
+          "all explicit evidence requirements have trusted, non-stale supporting evidence"
+        ],
+        "usable_evidence_ids": [
+          "EVID-235A75E59147D8DB"
+        ]
+      },
+      "evidence_binding_ids": [
+        "OBIND-996BE7F5E1DE8D43"
+      ],
+      "evidence_requirements": [
+        "submission_receipt"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "reporting",
+      "obligation_id": "OBL-152187116581E325",
+      "raw_text": "The bidder shall provide the submission receipt.",
+      "responsible_party": "bidder",
+      "review_required": false,
+      "source": {
+        "locator": "T-1",
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "source_id": "tenderproof-golden-reference-001",
+        "source_ref": "fixture://tenderproof/golden-reference-001"
+      },
+      "statement": "The bidder shall provide the submission receipt.",
+      "status": "SATISFIED",
+      "status_basis": [
+        "all explicit evidence requirements have trusted, non-stale supporting evidence"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": "2026-08-11T12:00:00+00:00",
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [
+          "tax_certificate"
+        ],
+        "obligation_id": "OBL-BF398FD85ABB3B86",
+        "status": "MISSING",
+        "status_basis": [
+          "required trusted evidence is missing: ['tax_certificate']"
+        ],
+        "usable_evidence_ids": []
+      },
+      "evidence_binding_ids": [],
+      "evidence_requirements": [
+        "tax_certificate"
+      ],
+      "expires_at": null,
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "retention",
+      "obligation_id": "OBL-BF398FD85ABB3B86",
+      "raw_text": "The bidder shall retain the tax certificate.",
+      "responsible_party": "bidder",
+      "review_required": false,
+      "source": {
+        "locator": "T-2",
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "source_id": "tenderproof-golden-reference-001",
+        "source_ref": "fixture://tenderproof/golden-reference-001"
+      },
+      "statement": "The bidder shall retain the tax certificate.",
+      "status": "MISSING",
+      "status_basis": [
+        "required trusted evidence is missing: ['tax_certificate']"
+      ]
+    },
+    {
+      "authority_requirement": null,
+      "dependency_refs": [],
+      "due_at": null,
+      "evaluation": {
+        "contradicting_evidence_ids": [],
+        "evaluated_at": "2026-08-12T12:00:00+00:00",
+        "human_gate": "NEEDS_YOU",
+        "missing_evidence_requirements": [
+          "clarification_response"
+        ],
+        "obligation_id": "OBL-AF40917F912962E7",
+        "status": "EXPIRED",
+        "status_basis": [
+          "explicit obligation expiry timestamp has been reached or passed"
+        ],
+        "usable_evidence_ids": []
+      },
+      "evidence_binding_ids": [
+        "OBIND-548549E4A0527C97"
+      ],
+      "evidence_requirements": [
+        "clarification_response"
+      ],
+      "expires_at": "2026-08-01T12:00:00+00:00",
+      "extraction_basis": "explicit_structured_obligation",
+      "kind": "maintenance",
+      "obligation_id": "OBL-AF40917F912962E7",
+      "raw_text": "The bidder shall maintain the clarification response.",
+      "responsible_party": "bidder",
+      "review_required": false,
+      "source": {
+        "locator": "T-3",
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "source_id": "tenderproof-golden-reference-001",
+        "source_ref": "fixture://tenderproof/golden-reference-001"
+      },
+      "statement": "The bidder shall maintain the clarification response.",
+      "status": "EXPIRED",
+      "status_basis": [
+        "explicit obligation expiry timestamp has been reached or passed"
+      ]
+    }
+  ]
+}
